@@ -189,7 +189,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "detector", "curveDescripter", "offset", "interval", "duration", "position", "name", "RATE", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "detector", "curveDescripter", "offset", "interval", "duration", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "name", "RATE", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -232,6 +232,56 @@
                       "type": "character",
                       "attributes": {},
                       "value": ["57"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["TL"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["2"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": [""]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["0"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["0"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": [""]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["none"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["20160224155309"]
                     },
                     {
                       "type": "integer",
@@ -311,7 +361,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -344,6 +394,56 @@
                       "type": "character",
                       "attributes": {},
                       "value": ["0"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["TL"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["2"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": [""]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["0"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["0"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": [""]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["none"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["20160224155309"]
                     },
                     {
                       "type": "integer",
@@ -418,7 +518,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -446,6 +546,56 @@
                       "type": "character",
                       "attributes": {},
                       "value": ["t [s]; T [°C]"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["TL"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["2"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": [""]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["0"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["0"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": [""]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["none"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["20160224155309"]
                     },
                     {
                       "type": "integer",
@@ -520,7 +670,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "detector", "curveDescripter", "offset", "interval", "duration", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "detector", "curveDescripter", "offset", "interval", "duration", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -563,6 +713,56 @@
                       "type": "character",
                       "attributes": {},
                       "value": ["100"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["OSL"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["3"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": [""]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["beta"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["0.0"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Natural"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["none"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["20160224155600"]
                     },
                     {
                       "type": "integer",
@@ -637,7 +837,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -670,6 +870,56 @@
                       "type": "character",
                       "attributes": {},
                       "value": ["0"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["OSL"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["3"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": [""]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["beta"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["0.0"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Natural"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["none"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["20160224155600"]
                     },
                     {
                       "type": "integer",
@@ -744,7 +994,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -772,6 +1022,56 @@
                       "type": "character",
                       "attributes": {},
                       "value": ["t [s]; T [°C]"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["OSL"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["3"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": [""]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["beta"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["0.0"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Natural"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["none"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["20160224155600"]
                     },
                     {
                       "type": "integer",
@@ -846,7 +1146,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -879,6 +1179,56 @@
                       "type": "character",
                       "attributes": {},
                       "value": ["30"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["OSL"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["3"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": [""]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["beta"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["0.0"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Natural"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["none"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["20160224155600"]
                     },
                     {
                       "type": "integer",
@@ -953,7 +1303,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -986,6 +1336,56 @@
                       "type": "character",
                       "attributes": {},
                       "value": ["30"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["OSL"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["3"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": [""]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["beta"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["0.0"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Natural"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["none"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["20160224155600"]
                     },
                     {
                       "type": "integer",
@@ -1060,7 +1460,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "name", "recordType", "sequenceStepNumber", "comment", "endDate", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -1093,6 +1493,31 @@
                       "type": "character",
                       "attributes": {},
                       "value": ["0"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["irradiation"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["4"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": [""]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["20160224155745"]
                     },
                     {
                       "type": "integer",
@@ -1181,7 +1606,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "detector", "curveDescripter", "offset", "interval", "duration", "position", "name", "RATE", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "detector", "curveDescripter", "offset", "interval", "duration", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "name", "RATE", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -1224,6 +1649,56 @@
                       "type": "character",
                       "attributes": {},
                       "value": ["37"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["TL"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["5"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": [""]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["0"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["0"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": [""]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["none"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["20160224155911"]
                     },
                     {
                       "type": "integer",
@@ -1303,7 +1778,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -1336,6 +1811,56 @@
                       "type": "character",
                       "attributes": {},
                       "value": ["0"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["TL"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["5"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": [""]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["0"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["0"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": [""]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["none"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["20160224155911"]
                     },
                     {
                       "type": "integer",
@@ -1410,7 +1935,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -1438,6 +1963,56 @@
                       "type": "character",
                       "attributes": {},
                       "value": ["t [s]; T [°C]"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["TL"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["5"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": [""]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["0"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["0"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": [""]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["unknown"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["none"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["20160224155911"]
                     },
                     {
                       "type": "integer",
