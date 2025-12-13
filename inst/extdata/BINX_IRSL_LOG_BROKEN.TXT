@@ -1,0 +1,14 @@
+
+=======================================
+
+System ID      : 000
+Seq. Ed. build : 29.11.2011 10:45:50
+Controller SW  : 2.20
+Started at     : 10.02.2012 13:43:16
+Est. run time  :  1 days  9 hrs  2 mins
+Baud rate      : 115000
+Dark Count    = 47 cts/s.
+Calib. LED    = 95 cts/s.
+
+Error trapping is active
+
