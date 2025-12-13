@@ -17,7 +17,8 @@
   function is intended for use in cases where you have a corrupted
   BIN/BINX file but a complete log file is still available. Supported
   log formats are TL, OSL, and OSL curves. All other formats are
-  ignored. Thanks to Michael Kenzler for bringing this to our attention.
+  ignored. Thanks to Michael Kenzler for bringing this to our attention
+  (@RLumSK with \#1241).
 
 ## Removed functions and deprecations
 
