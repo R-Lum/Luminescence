@@ -19,7 +19,7 @@
 #'
 #' @param frame.range [vector], [integer] (*optional*):
 #' range of frames to read. For example, `frame.range = c(1, 10)` selects only
-#' the first 10 frames. If not specifie, all available frames (up to a maximum
+#' the first 10 frames. If not specified, all available frames (up to a maximum
 #' of 100 if `output.object = "RLum.Data.Image"`) are read.
 #'
 #' @param txtProgressBar [logical] (*with default*):

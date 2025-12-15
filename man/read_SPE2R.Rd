@@ -28,7 +28,7 @@ set the output object type. Allowed types are \code{"RLum.Data.Spectrum"},
 
 \item{frame.range}{\link{vector}, \link{integer} (\emph{optional}):
 range of frames to read. For example, \code{frame.range = c(1, 10)} selects only
-the first 10 frames. If not specifie, all available frames (up to a maximum
+the first 10 frames. If not specified, all available frames (up to a maximum
 of 100 if \code{output.object = "RLum.Data.Image"}) are read.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
