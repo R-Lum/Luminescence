@@ -72,9 +72,11 @@ read_BINXLOG2R <- function(
 
 # Self-call ---------------------------------------------------------------
   if(inherits(file, "list")) {
-    out <- lapply(file, read_BINXLOG2R, verbose = verbose[1])
+    out <- lapply(file, read_BINXLOG2R, verbose = verbose)
     return(unlist(out, recursive = FALSE))
   }
+
+  .validate_length(file, 1)
 
 # Function core -----------------------------------------------------------
   ## check whether the file is real
@@ -82,10 +84,10 @@ read_BINXLOG2R <- function(
     .throw_error("File does not exist!")
 
   ## open file connection and ensure that it properly closed
-  con <- file(file[1], "rb")
-  on.exit(close(con))
+  con <- file(file, "rb")
+  on.exit(close(con), add = TRUE)
 
-  if (verbose[1]) {
+  if (verbose) {
     cat("\n[read_BINXLOG2R()] Importing ...")
     cat("\n path: ", dirname(file))
     cat("\n file: ", .shorten_filename(basename(file[1])))
@@ -113,10 +115,13 @@ read_BINXLOG2R <- function(
     sub(".*: *([0-9]+).*", "\\1", lines[3:8][grepl("System ID", lines[3:8])]))
 
   ## remove all unwanted lines
-  clean_lines <- suppressWarnings(lines[-grep("Wait", lines, perl = FALSE, fixed = TRUE)])
+  clean_lines <- suppressWarnings(
+    grep("Wait", lines, fixed = TRUE, value = TRUE, invert = TRUE))
 
   ## get all current operation lines
-  co <- suppressWarnings(clean_lines[grep(pattern = "Current operation", x = clean_lines, fixed = TRUE, useBytes = TRUE)])
+  co <- suppressWarnings
+  grep("Current operation",
+       clean_lines, fixed = TRUE, value = TRUE, useBytes = TRUE)
 
       ## extract the DATE, TIME, RUN, SET, SAMPLE (POSITION)
       ## we extract the rest laster in the super loop

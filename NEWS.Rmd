@@ -12,7 +12,7 @@ header-includes:
 
 ## New functions
 
-* `read_BINLOG2R()`: This new function enables you to salvage log files created 
+* `read_BINXLOG2R()`: This new function enables you to salvage log files created 
 by a Risø reader into R as `RLum.Analysis-class`. The function also allows the 
 export of these files into a BIN/BINX format. While the function has been tested 
 on a few examples, it is important to note that log files are never a well-defined 
