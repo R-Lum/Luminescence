@@ -121,7 +121,7 @@ sTeve <- function(n_frames = 10, t_animation = 2, n.tree = 7, type = NULL) {
   ## select showtime item based on month or user-defined type
   .validate_positive_scalar(type, int = TRUE, null.ok = TRUE)
   if (is.null(type)) {
-    type <- as.integer(cut(1:12, c(0, 3, 11, Inf))) # nocov
+    type <- as.integer(cut(month, c(0, 3, 11, Inf)))
   }
 
   if(type == 1) {
