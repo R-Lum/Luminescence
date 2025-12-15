@@ -40,3 +40,4 @@ fit_functionGOK_cpp <- function(a, b, c, d, x) {
 src_get_XSYG_curve_values <- function(s) {
     .Call(`_Luminescence_src_get_XSYG_curve_values`, s)
 }
+
