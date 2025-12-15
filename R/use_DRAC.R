@@ -272,7 +272,7 @@ use_DRAC <- function(
   ## check for correct response
   if (inherits(DRAC.response, "try-error")) {
     .throw_error("Transmission failed with error: ",
-                 attr(DRAC.response, "condition")$message)
+                 gsub(".*\n", "", attr(DRAC.response, "condition")$message))
   } else if (DRAC.response$status_code != 200) {
     .throw_error("Transmission failed with HTTP status code: ",
                  DRAC.response$status_code)

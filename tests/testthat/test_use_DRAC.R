@@ -120,7 +120,7 @@ test_that("check functionality", {
   expect_error(expect_warning(
       use_DRAC(t, url = "iamnotvali8793270942hd.valid"),
       "URL is missing '\\?show=calculator', please check validity!"),
-      "Transmission failed with error: Couldn't resolve host name")
+      "Transmission failed with error: Could not resolve host: iamnotvali8793270942hd.valid")
 
   ## mock error status code
   local_mocked_bindings(POST = function(...) list(status_code = 313),
