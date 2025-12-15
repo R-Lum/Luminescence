@@ -17,6 +17,8 @@ test_that("input validation", {
                "'spatial_autocorrelation' should be a single logical value")
   expect_error(calc_MoransI(obj, compute_pseudo_p = "error"),
                "'compute_pseudo_p' should be a single logical value")
+  expect_error(calc_MoransI(obj, tested_moransI = "error"),
+               "'tested_moransI' should be of class 'numeric' or NULL and have")
   expect_error(calc_MoransI(obj, n_permutations = "error"),
                "'n_permutations' should be a single positive integer value")
   expect_error(calc_MoransI(obj, ignore_borders = "error"),

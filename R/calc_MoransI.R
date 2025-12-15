@@ -110,7 +110,7 @@ calc_MoransI <- function(object,
   .validate_logical_scalar(spatial_autocorrelation)
   .validate_logical_scalar(compute_pseudo_p)
   .validate_class(df_neighbours, "data.frame", null.ok = TRUE)
-  .validate_scalar(tested_moransI, null.ok = TRUE)
+  .validate_class(tested_moransI, "numeric", null.ok = TRUE, length = 1)
   .validate_positive_scalar(n_permutations, int = TRUE)
   .validate_logical_scalar(ignore_borders, null.ok = TRUE)
   .validate_logical_scalar(return_intermediate_values)
