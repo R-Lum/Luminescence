@@ -116,12 +116,11 @@ read_BINXLOG2R <- function(
 
   ## remove all unwanted lines
   clean_lines <- suppressWarnings(
-    grep("Wait", lines, fixed = TRUE, value = TRUE, invert = TRUE))
+    lines[!grepl("Wait", lines, fixed = TRUE)])
 
   ## get all current operation lines
-  co <- suppressWarnings
-  grep("Current operation",
-       clean_lines, fixed = TRUE, value = TRUE, useBytes = TRUE)
+  co <- suppressWarnings(grep("Current operation",
+       clean_lines, fixed = TRUE, value = TRUE, useBytes = TRUE))
 
       ## extract the DATE, TIME, RUN, SET, SAMPLE (POSITION)
       ## we extract the rest laster in the super loop
