@@ -3,7 +3,7 @@
 #' @description The function provides the analysis of cross-talk measurements
 #' on a FI lexsyg SMART reader using Al2O3:C chips.
 #'
-#' @param object [RLum.Analysis-class] or [list] (**required**):
+#' @param object [Luminescence::RLum.Analysis-class] or [list] (**required**):
 #' measurement input
 #'
 #' @param signal_integral [numeric] (*optional*):
@@ -19,7 +19,7 @@
 #' input curve selection, which is passed to [get_RLum]. To deactivate the
 #' automatic selection set the argument to `NULL`.
 #'
-#' @param irradiation_time_correction [numeric] or [RLum.Results-class] (*optional*):
+#' @param irradiation_time_correction [numeric] or [Luminescence::RLum.Results-class] (*optional*):
 #' information on the used irradiation time correction obtained by another
 #' experiment.
 #'
@@ -65,7 +65,7 @@
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [analyse_Al2O3C_ITC]
+#' @seealso [Luminescence::analyse_Al2O3C_ITC]
 #'
 #' @references
 #'

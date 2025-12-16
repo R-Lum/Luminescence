@@ -1,16 +1,16 @@
 #'@title Trim Channels of RLum.Data-class Objects
 #'
-#'@description Trim off the number of channels of [RLum.Data-class] objects of similar record type
+#'@description Trim off the number of channels of [Luminescence::RLum.Data-class] objects of similar record type
 #' on the time domain. This function is useful in cases where objects have different lengths (short/longer
 #'measurement time) but should be analysed jointly by other functions.
 #'
 #'@details
 #'The function has two modes of operation:
 #'
-#' 1. Single [RLum.Data-class] objects or a [list] of such objects:
+#' 1. Single [Luminescence::RLum.Data-class] objects or a [list] of such objects:
 #' the function is applied separately over each object.
 #'
-#' 2. Multiple curves via [RLum.Analysis-class] or a [list] of such objects:
+#' 2. Multiple curves via [Luminescence::RLum.Analysis-class] or a [list] of such objects:
 #' in this mode, the function first determines the minimum number of channels
 #' for each category of records and then jointly processes them. For instance,
 #' if the object contains one TL curve with 100 channels and two OSL curves
@@ -19,7 +19,7 @@
 #' parameters are applied, the function will shorten all OSL curves to 99
 #' channels, but leave the TL curve untouched.
 #'
-#'@param object [RLum.Data-class] [RLum.Analysis-class] (**required**): input object,
+#'@param object [Luminescence::RLum.Data-class] [Luminescence::RLum.Analysis-class] (**required**): input object,
 #'can be a [list] of objects. Please note that in the latter case the function works
 #'only isolated on each element of the [list].
 #'
@@ -39,7 +39,7 @@
 #'
 #'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#'@seealso [RLum.Data-class], [RLum.Analysis-class]
+#'@seealso [Luminescence::RLum.Data-class], [Luminescence::RLum.Analysis-class]
 #'
 #'@keywords manip
 #'

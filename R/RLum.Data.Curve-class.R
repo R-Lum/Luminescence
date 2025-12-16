@@ -31,8 +31,8 @@
 #' The class should only contain data for a single curve. For additional
 #' elements the slot `info` can be used (e.g. providing additional heating
 #' ramp curve). Objects from the class `RLum.Data.Curve` are produced by other
-#' functions (partly within [RLum.Analysis-class] objects),
-#' namely: [Risoe.BINfileData2RLum.Analysis], [read_XSYG2R]
+#' functions (partly within [Luminescence::RLum.Analysis-class] objects),
+#' namely: [Luminescence::Risoe.BINfileData2RLum.Analysis], [Luminescence::read_XSYG2R]
 #'
 #' @section Create objects from this Class:
 #' Objects can be created by calls of the form
@@ -42,7 +42,8 @@
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum-class], [RLum.Data-class], [plot_RLum], [merge_RLum]
+#' @seealso [Luminescence::RLum-class], [Luminescence::RLum.Data-class],
+#' [Luminescence::plot_RLum], [Luminescence::merge_RLum]
 #'
 #' @keywords classes
 #'

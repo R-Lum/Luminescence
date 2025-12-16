@@ -6,7 +6,7 @@
 #' **How does the import function work?**
 #'
 #' The function uses the `'XML'` package to parse the file structure. Each
-#' sequence is subsequently translated into an [RLum.Analysis-class] object.
+#' sequence is subsequently translated into an [Luminescence::RLum.Analysis-class] object.
 #'
 #' **General structure XSYG format**
 #'
@@ -69,7 +69,7 @@
 #'
 #' If the argument `auto_linearity_correction = TRUE`, the function offers a,
 #' theoretically, automated linearity correction of the PMT signal using
-#' the internal function [correct_PMTLinearity]. The critical parameter
+#' the internal function [Luminescence::correct_PMTLinearity]. The critical parameter
 #' is the count-pair resolution, which is provided to the function
 #' automatically depending on the detector. Currently, the following
 #' settings are used:
@@ -114,8 +114,8 @@
 #' all records.
 #'
 #' @param fastForward [logical] (*with default*):
-#' if `TRUE` for a more efficient data processing only a list of [RLum.Analysis-class]
-#' objects is returned.
+#' if `TRUE` for a more efficient data processing only a list of
+#' [Luminescence::RLum.Analysis-class] objects is returned.
 #'
 #' @param import [logical] (*with default*):
 #' if set to `FALSE`, only the XSYG file structure is shown.
@@ -146,7 +146,7 @@
 #'
 #' A list is provided, the list elements
 #' contain: \item{Sequence.Header}{[data.frame] with information on the
-#' sequence.} \item{Sequence.Object}{[RLum.Analysis-class]
+#' sequence.} \item{Sequence.Object}{[Luminescence::RLum.Analysis-class]
 #' containing the curves.}
 #'
 #' @note
@@ -163,8 +163,8 @@
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso `'XML'`, [RLum.Analysis-class], [RLum.Data.Curve-class],
-#' [approx], [correct_PMTLinearity]
+#' @seealso `'XML'`, [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data.Curve-class],
+#' [approx], [Luminescence::correct_PMTLinearity]
 #'
 #' @references
 #' Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the

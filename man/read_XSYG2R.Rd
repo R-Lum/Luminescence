@@ -35,8 +35,8 @@ number of records to be imported; by default the function attempts to import
 all records.}
 
 \item{fastForward}{\link{logical} (\emph{with default}):
-if \code{TRUE} for a more efficient data processing only a list of \linkS4class{RLum.Analysis}
-objects is returned.}
+if \code{TRUE} for a more efficient data processing only a list of
+\linkS4class{RLum.Analysis} objects is returned.}
 
 \item{import}{\link{logical} (\emph{with default}):
 if set to \code{FALSE}, only the XSYG file structure is shown.}

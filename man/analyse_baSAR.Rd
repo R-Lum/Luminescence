@@ -61,7 +61,8 @@ as \code{list}, for the case that more than one BIN-file is provided, e.g.,
 
 \item{signal.integral}{\link{vector} (\strong{required}):
 vector with the limits for the signal integral used for the calculation,
-e.g., \code{signal.integral = c(1:5)}. Ignored if \code{object} is an \linkS4class{RLum.Results} object.
+e.g., \code{signal.integral = c(1:5)}. Ignored if \code{object} is an
+\linkS4class{RLum.Results} object.
 The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
 \item{signal.integral.Tx}{\link{vector} (\emph{optional}):
@@ -112,7 +113,8 @@ number of iterations for the Markov chain Monte Carlo (MCMC) simulations}
 
 \item{fit.method}{\link{character} (\emph{with default}):
 equation used for the fitting of the dose-response curve using the function
-\link{plot_GrowthCurve} and then for the Bayesian modelling. Here supported methods: \code{EXP}, \code{EXP+LIN} and \code{LIN}}
+\link{plot_GrowthCurve} and then for the Bayesian modelling. Here supported methods:
+\code{EXP}, \code{EXP+LIN} and \code{LIN}}
 
 \item{fit.force_through_origin}{\link{logical} (\emph{with default}):
 force fitting through origin}
@@ -130,7 +132,8 @@ round output to the number of given digits}
 
 \item{distribution_plot}{\link{character} (\emph{with default}): sets the final distribution plot that
 shows equivalent doses obtained using the frequentist approach and sets in the central dose
-as comparison obtained using baSAR. Allowed input is \code{'abanico'} or \code{'kde'}. If set to \code{NULL} nothing is plotted.}
+as comparison obtained using baSAR. Allowed input is \code{'abanico'} or \code{'kde'}.
+If set to \code{NULL} nothing is plotted.}
 
 \item{plot}{\link{logical} (\emph{with default}):
 enable/disable the plot output.}
@@ -434,7 +437,8 @@ regenerative-dose protocol. Radiation Measurements 32, 57-73. doi:10.1016/S1350-
 Plummer, M., 2017. JAGS Version 4.3.0 user manual. \verb{https://sourceforge.net/projects/mcmc-jags/files/Manuals/4.x/jags_user_manual.pdf/download}
 }
 \seealso{
-\link{read_BIN2R}, \link{calc_OSLLxTxRatio}, \link{plot_GrowthCurve},
+\link{read_BIN2R}, \link{calc_OSLLxTxRatio},
+\link{plot_GrowthCurve},
 \link[data.table:fread]{data.table::fread}, \link{verify_SingleGrainData},
 \link[rjags:jags.model]{rjags::jags.model}, \link[rjags:coda.samples]{rjags::coda.samples}, \link{boxplot.default}
 }

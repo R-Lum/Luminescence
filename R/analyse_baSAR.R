@@ -44,9 +44,9 @@
 #'
 #' It does not matter how the information of the BIN/BINX file are provided.
 #' The function supports **(a)** either a path to a file or directory or a
-#' `list` of file names or paths or  **(b)** a [Risoe.BINfileData-class] object
+#' `list` of file names or paths or  **(b)** a [Luminescence::Risoe.BINfileData-class] object
 #' or a list of these objects. The latter one can be produced by using function
-#' [read_BIN2R], but this function is called automatically if only a file name
+#' [Luminescence::read_BIN2R], but this function is called automatically if only a file name
 #' and/or a path is provided. In both cases it will become the data that can be
 #' used for the analysis.
 #'
@@ -55,9 +55,9 @@
 #' If no CSV file (or data frame with the same format) is provided, the
 #' function runs an automatic process that consists of the following steps:
 #'
-#'  1. Select all valid aliquots using the function [verify_SingleGrainData]
-#'  2. Calculate `Lx/Tx` values using the function [calc_OSLLxTxRatio]
-#'  3. Calculate De values using the function [plot_GrowthCurve]
+#'  1. Select all valid aliquots using the function [Luminescence::verify_SingleGrainData]
+#'  2. Calculate `Lx/Tx` values using the function [Luminescence::calc_OSLLxTxRatio]
+#'  3. Calculate De values using the function [Luminescence::plot_GrowthCurve]
 #'
 #' These proceeded data are subsequently used in for the Bayesian analysis
 #'
@@ -66,16 +66,16 @@
 #' If a CSV file is provided (or a `data.frame` containing similar information)
 #' the pre-processing phase consists of the following steps:
 #'
-#'  1. Calculate `Lx/Tx` values using the function [calc_OSLLxTxRatio]
-#'  2. Calculate De values using the function [plot_GrowthCurve]
+#'  1. Calculate `Lx/Tx` values using the function [Luminescence::calc_OSLLxTxRatio]
+#'  2. Calculate De values using the function [Luminescence::plot_GrowthCurve]
 #'
 #' The CSV file should contain the BIN-file names and the aliquots selected
 #' for the further analysis. This allows a manual selection of input data, as
-#' the automatic selection by [verify_SingleGrainData] might not be sufficient.
+#' the automatic selection by [Luminescence::verify_SingleGrainData] might not be sufficient.
 #'
 #' **(2) - `object` `RLum.Results object`**
 #'
-#' If an [RLum.Results-class] object is provided as input and(!) this object was
+#' If an [Luminescence::RLum.Results-class] object is provided as input and(!) this object was
 #' previously created by the function `analyse_baSAR()` itself, the pre-processing part
 #' is skipped and the function starts directly with the Bayesian analysis. This option is very powerful
 #' as it allows to change parameters for the Bayesian analysis without the need to repeat
@@ -148,7 +148,7 @@
 #'
 #' \tabular{llll}{
 #' **Supported argument** \tab **Corresponding function** \tab **Default** \tab **Short description **\cr
-#' `threshold` \tab [verify_SingleGrainData] \tab `30` \tab change rejection threshold for curve selection \cr
+#' `threshold` \tab [Luminescence::verify_SingleGrainData] \tab `30` \tab change rejection threshold for curve selection \cr
 #' `skip` \tab [data.table::fread] \tab `0` \tab number of rows to be skipped during import\cr
 #' `n.records` \tab [read_BIN2R] \tab `NULL` \tab limit records during BIN-file import\cr
 #' `duplicated.rm` \tab [read_BIN2R] \tab `TRUE` \tab remove duplicated records in the BIN-file\cr
@@ -164,12 +164,12 @@
 #' }
 #'
 #'
-#' @param object [Risoe.BINfileData-class], [RLum.Results-class], [list] of [RLum.Analysis-class],
+#' @param object [Luminescence::Risoe.BINfileData-class], [Luminescence::RLum.Results-class], [list] of [Luminescence::RLum.Analysis-class],
 #' [character] or [list] (**required**):
 #' input object used for the Bayesian analysis. If a `character` is provided the function
 #' assumes a file connection and tries to import a BIN/BINX-file using the provided path. If a `list` is
 #' provided the list can only contain either `Risoe.BINfileData` objects or `character`s
-#' providing a file connection. Mixing of both types is not allowed. If an [RLum.Results-class]
+#' providing a file connection. Mixing of both types is not allowed. If an [Luminescence::RLum.Results-class]
 #' is provided the function directly starts with the Bayesian Analysis (see details)
 #'
 #' @param CSV_file [character] or [data.frame] (*optional*):
@@ -192,13 +192,14 @@
 #'
 #' @param signal.integral [vector] (**required**):
 #' vector with the limits for the signal integral used for the calculation,
-#' e.g., `signal.integral = c(1:5)`. Ignored if `object` is an [RLum.Results-class] object.
+#' e.g., `signal.integral = c(1:5)`. Ignored if `object` is an
+#' [Luminescence::RLum.Results-class] object.
 #' The parameter can be provided as `list`, see `source_doserate`.
 #'
 #' @param signal.integral.Tx [vector] (*optional*):
 #' vector with the limits for the signal integral for the Tx curve. I
 #' f nothing is provided the value from `signal.integral` is used and it is ignored
-#' if `object` is an [RLum.Results-class] object.
+#' if `object` is an [Luminescence::RLum.Results-class] object.
 #' The parameter can be provided as `list`, see `source_doserate`.
 #'
 #' @param background.integral [vector] (**required**):
@@ -209,7 +210,7 @@
 #' @param background.integral.Tx [vector] (*optional*):
 #' vector with the limits for the background integral for the Tx curve.
 #' If nothing is provided the value from `background.integral` is used.
-#' Ignored if `object` is an [RLum.Results-class] object.
+#' Ignored if `object` is an [Luminescence::RLum.Results-class] object.
 #' The parameter can be provided as `list`, see `source_doserate`.
 #'
 #' @param irradiation_times [numeric] (*optional*): if set this vector replaces all irradiation
@@ -220,12 +221,12 @@
 #' @param sigmab [numeric] (*with default*):
 #' option to set a manual value for the overdispersion (for `LnTx` and `TnTx`),
 #' used for the `Lx`/`Tx` error calculation. The value should be provided as
-#' absolute squared count values, cf. [calc_OSLLxTxRatio].
+#' absolute squared count values, cf. [Luminescence::calc_OSLLxTxRatio].
 #' The parameter can be provided as `list`, see `source_doserate`.
 #'
 #' @param sig0 [numeric] (*with default*):
 #' allow adding an extra component of error to the final Lx/Tx error value
-#' (e.g., instrumental error, see details is [calc_OSLLxTxRatio]).
+#' (e.g., instrumental error, see details is [Luminescence::calc_OSLLxTxRatio]).
 #' The parameter can be provided as `list`, see `source_doserate`.
 #'
 #' @param distribution [character] (*with default*):
@@ -243,7 +244,8 @@
 #'
 #' @param fit.method [character] (*with default*):
 #' equation used for the fitting of the dose-response curve using the function
-#' [plot_GrowthCurve] and then for the Bayesian modelling. Here supported methods: `EXP`, `EXP+LIN` and `LIN`
+#' [plot_GrowthCurve] and then for the Bayesian modelling. Here supported methods:
+#' `EXP`, `EXP+LIN` and `LIN`
 #'
 #' @param fit.force_through_origin [logical] (*with default*):
 #' force fitting through origin
@@ -261,7 +263,8 @@
 #'
 #' @param distribution_plot [character] (*with default*): sets the final distribution plot that
 #' shows equivalent doses obtained using the frequentist approach and sets in the central dose
-#' as comparison obtained using baSAR. Allowed input is `'abanico'` or `'kde'`. If set to `NULL` nothing is plotted.
+#' as comparison obtained using baSAR. Allowed input is `'abanico'` or `'kde'`.
+#' If set to `NULL` nothing is plotted.
 #'
 #' @param plot [logical] (*with default*):
 #' enable/disable the plot output.
@@ -275,8 +278,8 @@
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
 #'
-#' @param ... parameters that can be passed to the function [calc_OSLLxTxRatio]
-#' (almost full support), [data.table::fread] (`skip`), [read_BIN2R] (`n.records`,
+#' @param ... parameters that can be passed to the function [Luminescence::calc_OSLLxTxRatio]
+#' (almost full support), [data.table::fread] (`skip`), [Luminescence::read_BIN2R] (`n.records`,
 #' `position`, `duplicated.rm`), see details.
 #'
 #'
@@ -330,8 +333,9 @@
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 #' The underlying Bayesian model based on a contribution by Combès et al., 2015.
 #'
-#' @seealso [read_BIN2R], [calc_OSLLxTxRatio], [plot_GrowthCurve],
-#' [data.table::fread], [verify_SingleGrainData],
+#' @seealso [Luminescence::read_BIN2R], [Luminescence::calc_OSLLxTxRatio],
+#' [Luminescence::plot_GrowthCurve],
+#' [data.table::fread], [Luminescence::verify_SingleGrainData],
 #' [rjags::jags.model], [rjags::coda.samples], [boxplot.default]
 #'
 #' @references

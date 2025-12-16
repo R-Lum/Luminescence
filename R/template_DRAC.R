@@ -1,7 +1,7 @@
 #' @title Create a DRAC input data template (v1.2)
 #'
 #' @description This function returns a DRAC input template (v1.2) to be used in conjunction
-#' with the [use_DRAC] function
+#' with the [Luminescence::use_DRAC] function
 #'
 #' @param nrow [integer] (*with default*):
 #' specifies the number of rows of the template (i.e., the number of data
@@ -10,7 +10,7 @@
 #' @param preset [character] (*optional*):
 #' By default, all values of the template are set to `NA`, which means that
 #' the user needs to fill in **all** data first before submitting to DRAC
-#' using `use_DRAC()`. To reduce the number of values that need to be
+#' using [Luminescence::use_DRAC]. To reduce the number of values that need to be
 #' provided, `preset` can be used to create a template with at least
 #' a minimum of reasonable preset values.
 #'
@@ -27,7 +27,7 @@
 #' with values directly taken from the official DRAC input `.csv` file.
 #'
 #' @param file_input [character] file connection to a DRAC `.csv` file, the file
-#' will be imported and translated to the template that can be used by [use_DRAC].
+#' will be imported and translated to the template that can be used by [Luminescence::use_DRAC].
 #' Please note that there is not check on validity of the `.csv` file.
 #'
 #' @param notification [logical] (*with default*):

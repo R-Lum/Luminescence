@@ -81,7 +81,8 @@ o <- remove_SignalBackground(
 
 }
 \seealso{
-\link{get_RLum}, \link{merge_RLum}, \linkS4class{RLum.Analysis},\linkS4class{RLum.Data.Curve}
+\link{get_RLum}, \link{merge_RLum}, \linkS4class{RLum.Analysis},
+\linkS4class{RLum.Data.Curve}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

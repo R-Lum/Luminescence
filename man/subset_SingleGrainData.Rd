@@ -38,7 +38,8 @@ subset_SingleGrainData(object = CWOSL.SAR.Data, selection = selection)
 
 }
 \seealso{
-\linkS4class{Risoe.BINfileData}, \link{read_BIN2R}, \link{verify_SingleGrainData}
+\linkS4class{Risoe.BINfileData}, \link{read_BIN2R},
+\link{verify_SingleGrainData}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

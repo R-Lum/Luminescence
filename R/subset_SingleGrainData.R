@@ -4,13 +4,13 @@
 #'usually sense to subset single grain datasets using a table of
 #'position and grain pairs
 #'
-#'@param object [Risoe.BINfileData-class] (**required**): input object with the
+#'@param object [Luminescence::Risoe.BINfileData-class] (**required**): input object with the
 #'data to subset
 #'
 #'@param selection [data.frame] (**required**): selection table with two columns
 #'for position (1st column) and grain (2nd column) (columns names do not matter)
 #'
-#'@return A subset [Risoe.BINfileData-class] object
+#'@return A subset [Luminescence::Risoe.BINfileData-class] object
 #'
 #'@section Function version: 0.1.0
 #'
@@ -18,7 +18,8 @@
 #'
 #'@keywords manip datagen
 #'
-#'@seealso [Risoe.BINfileData-class], [read_BIN2R], [verify_SingleGrainData]
+#'@seealso [Luminescence::Risoe.BINfileData-class], [Luminescence::read_BIN2R],
+#'[Luminescence::verify_SingleGrainData]
 #'
 #'@examples
 #'

@@ -1,6 +1,6 @@
 #' Class `"RLum.Results"`
 #'
-#' Object class contains results data from functions (e.g., [analyse_SAR.CWOSL]).
+#' Object class contains results data from functions (e.g., [Luminescence::analyse_SAR.CWOSL]).
 #'
 #' @name RLum.Results-class
 #'
@@ -12,7 +12,7 @@
 #' @note
 #' The class is intended to store results from functions to be used by
 #' other functions. The data in the object should always be accessed by the
-#' method `get_RLum`.
+#' method [Luminescence::get_RLum].
 #'
 #' @section Objects from the Class:
 #' Objects can be created by calls of the form `new("RLum.Results", ...)`.
@@ -22,7 +22,7 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum-class], [plot_RLum], [merge_RLum]
+#' @seealso [Luminescence::RLum-class], [Luminescence::plot_RLum], [Luminescence::merge_RLum]
 #'
 #' @keywords classes methods
 #'

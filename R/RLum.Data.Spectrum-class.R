@@ -23,7 +23,7 @@
 #' @note
 #' The class should only contain data for a single spectra data set. For
 #' additional elements the slot `info` can be used. Objects from this class are automatically
-#' created by, e.g., [read_XSYG2R]
+#' created by, e.g., [Luminescence::read_XSYG2R]
 #'
 #' @section Objects from the Class:
 #' Objects can be created by calls of the form `set_RLum("RLum.Data.Spectrum", ...)`.
@@ -33,7 +33,7 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum-class], [RLum.Data-class], [plot_RLum]
+#' @seealso [Luminescence::RLum-class], [Luminescence::RLum.Data-class], [Luminescence::plot_RLum]
 #'
 #' @keywords classes
 #'

@@ -44,7 +44,8 @@ set_RLum(class = "RLum.Data.Image")
 
 }
 \seealso{
-\linkS4class{RLum}, \linkS4class{RLum.Data}, \link{plot_RLum}, \link{read_SPE2R}, \link{read_TIFF2R}
+\linkS4class{RLum}, \linkS4class{RLum.Data}, \link{plot_RLum},
+\link{read_SPE2R}, \link{read_TIFF2R}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

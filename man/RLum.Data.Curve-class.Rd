@@ -56,7 +56,8 @@ set_RLum(class = "RLum.Data.Curve")
 
 }
 \seealso{
-\linkS4class{RLum}, \linkS4class{RLum.Data}, \link{plot_RLum}, \link{merge_RLum}
+\linkS4class{RLum}, \linkS4class{RLum.Data},
+\link{plot_RLum}, \link{merge_RLum}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

@@ -14,7 +14,7 @@ sets you want to submit).}
 \item{preset}{\link{character} (\emph{optional}):
 By default, all values of the template are set to \code{NA}, which means that
 the user needs to fill in \strong{all} data first before submitting to DRAC
-using \code{use_DRAC()}. To reduce the number of values that need to be
+using \link{use_DRAC}. To reduce the number of values that need to be
 provided, \code{preset} can be used to create a template with at least
 a minimum of reasonable preset values.
 

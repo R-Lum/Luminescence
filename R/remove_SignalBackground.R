@@ -1,6 +1,6 @@
 #'@title Remove Signal Background from `RLum.Data.Curve` Objects
 #'
-#'@description Convenient (background) of luminescence curves using [merge_RLum]
+#'@description Convenient (background) of luminescence curves using [Luminescence::merge_RLum]
 #'
 #'@details
 #'
@@ -11,33 +11,34 @@
 #'from the first curve. Following the removal, the background curve is discarded from
 #'the dataset. Alternatively, custom background curves can be provided,
 #'which are then utilised for the subtraction. In essence, the function
-#'utilises the [merge_RLum] function but simplifies the selection of pairs and curves.
+#'utilises the [Luminescence::merge_RLum] function but simplifies the selection of pairs and curves.
 #'
-#'@param object [RLum.Analysis-class] (**required**): A non-empty [RLum.Analysis-class] object
+#'@param object [Luminescence::RLum.Analysis-class] (**required**): A non-empty [Luminescence::RLum.Analysis-class] object
 #'with, e.g., OSL/IRSL/TL curves or a [list] of such object. If a list is provided
 #'non-conform list elements are silently removed from the [list]
 #'
-#'@param object_bg [RLum.Data.Curve-class], a [list] of such objects, a [matrix] or [numeric] (*optional*):
+#'@param object_bg [Luminescence::RLum.Data.Curve-class], a [list] of such objects, a [matrix] or [numeric] (*optional*):
 #'Sets the background as a curve that is subtracted from the record types set with `recordType`.
-#'If you provide a [matrix] or [numeric] internally, everything is coerced to a [RLum.Data.Curve-class] object.
-#'If you desire full freedom, you can construct a [list] of [RLum.Data.Curve-class] objects.
+#'If you provide a [matrix] or [numeric] internally, everything is coerced to a [Luminescence::RLum.Data.Curve-class] object.
+#'If you desire full freedom, you can construct a [list] of [Luminescence::RLum.Data.Curve-class] objects.
 #'
 #'@param recordType [character] (*optional*): provide the `recordType` subject to the
-#'background subtraction. Subsequent curve selection uses [get_RLum].
+#'background subtraction. Subsequent curve selection uses [Luminescence::get_RLum].
 #'If set to `NULL` the record type of highest occurrence will be used. Example: `recordType = "TL (UVVIS)"`
 #'
 #'@param clean_up [logical] (*with default*): enable/disable background curve removal
 #'after background subtraction. If `object_bg` is set, nothing is removed from
 #'the input object as the background is already stored separately.
 #'
-#'@returns Returns an [RLum.Analysis-class] object or a [list] of such objects.
+#'@returns Returns an [Luminescence::RLum.Analysis-class] object or a [list] of such objects.
 #'
 #'@section Function version: 0.1.0
 #'
 #'@author
 #'Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#'@seealso [get_RLum], [merge_RLum], [RLum.Analysis-class],[RLum.Data.Curve-class]
+#'@seealso [Luminescence::get_RLum], [Luminescence::merge_RLum], [Luminescence::RLum.Analysis-class],
+#'[Luminescence::RLum.Data.Curve-class]
 #'
 #'@keywords datagen
 #'

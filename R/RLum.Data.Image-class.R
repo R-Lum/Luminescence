@@ -33,7 +33,8 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum-class], [RLum.Data-class], [plot_RLum], [read_SPE2R], [read_TIFF2R]
+#' @seealso [Luminescence::RLum-class], [Luminescence::RLum.Data-class], [Luminescence::plot_RLum],
+#' [Luminescence::read_SPE2R], [Luminescence::read_TIFF2R]
 #'
 #' @keywords classes
 #'
@@ -256,7 +257,7 @@ setMethod(
 
 ## get_RLum() ---------------------------------------------------------------
 #' @describeIn get_RLum
-#' Accessor method for [RLum.Data.Image-class] objects.
+#' Accessor method for [Luminescence::RLum.Data.Image-class] objects.
 #' The argument `info.object` is optional to directly access the info elements.
 #' If no info element name is provided, the raw image data (`array`) will be
 #' returned.
