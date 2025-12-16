@@ -11,9 +11,9 @@
 #' machine evaluation of 25 Aliquots with n.MCM = 1000 takes 0.01 s, with
 #' n = 100000, ca. 1.65 s. It might be useful to work with logarithms of these
 #' values. See Dietze et al. (2016, Quaternary Geochronology) and the function
-#' [plot_AbanicoPlot] for details.
+#' [Luminescence::plot_AbanicoPlot] for details.
 #'
-#' @param data [data.frame] or [RLum.Results-class] object (**required**):
+#' @param data [data.frame] or [Luminescence::RLum.Results-class] object (**required**):
 #' for [data.frame] two columns: De (`data[, 1]`) and De error (`data[, 2]`).
 #'
 #' @param weight.calc [character] (*with default*):

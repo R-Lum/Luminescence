@@ -20,8 +20,9 @@ Returns an S4 \linkS4class{RLum.Analysis} object containing
 \linkS4class{RLum.Data.Curve} objects for each curve.
 }
 \description{
-Import files produced by the IR-RF 'ImageJ' macro (\code{SR-RF.ijm}; Mittelstraß and Kreutzer, 2021) into R and create a list of \linkS4class{RLum.Analysis}
-objects
+Import files produced by the IR-RF 'ImageJ' macro (\code{SR-RF.ijm};
+Mittelstraß and Kreutzer, 2021) into R and create a list of
+\linkS4class{RLum.Analysis} objects
 }
 \details{
 The results of spatially resolved IR-RF data are summarised in
@@ -45,9 +46,10 @@ Mittelstraß, D., Kreutzer, S., 2021. Spatially resolved infrared radiofluoresce
 single-grain K-feldspar dating using CCD imaging. Geochronology 3, 299–319. \doi{10.5194/gchron-3-299-2021}
 }
 \seealso{
-\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}, \link{analyse_IRSAR.RF}
+\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve},
+\link{analyse_IRSAR.RF}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University (United Kingdom)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 }
 \keyword{IO}

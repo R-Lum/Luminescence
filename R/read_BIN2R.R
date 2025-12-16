@@ -44,8 +44,9 @@
 #' Can be provided as `list` if `file` is a `list`.
 #'
 #' @param fastForward [logical] (*with default*):
-#' if `TRUE` for a more efficient data processing only a list of `RLum.Analysis`
-#' objects is returned instead of a [Risoe.BINfileData-class] object.
+#' if `TRUE` for a more efficient data processing only a list of
+#' [Luminescence::RLum.Analysis-class]
+#' objects is returned instead of a [Luminescence::Risoe.BINfileData-class] object.
 #' Can be provided as `list` if `file` is a `list`.
 #'
 #' @param show.record.number [logical] (*with default*):
@@ -77,19 +78,20 @@
 #' enable/disable output to the terminal.
 #'
 #' @param ... further arguments that will be passed to the function
-#' [Risoe.BINfileData2RLum.Analysis]. Please note that any matching argument
+#' [Luminescence::Risoe.BINfileData2RLum.Analysis]. Please note that any matching argument
 #' automatically sets `fastForward = TRUE`
 #'
 #' @return
-#' Returns an S4 [Risoe.BINfileData-class] object containing two
+#' Returns an S4 [Luminescence::Risoe.BINfileData-class] object containing two
 #' slots:
 #'
 #' \item{METADATA}{A [data.frame] containing all variables stored in the BIN-file.}
 #' \item{DATA}{A [list] containing a numeric [vector] of the measured data.
 #' The ID corresponds to the record ID in METADATA.}
 #'
-#' If `fastForward = TRUE` a list of [RLum.Analysis-class] object is returned. The
-#' internal coercing is done using the function [Risoe.BINfileData2RLum.Analysis]
+#' If `fastForward = TRUE` a list of [Luminescence::RLum.Analysis-class] object is returned. The
+#' internal coercing is done using the function
+#' [Luminescence::Risoe.BINfileData2RLum.Analysis]
 #'
 #' @note
 #' The function works for BIN/BINX-format versions 03, 04, 05, 06, 07 and 08. The
@@ -104,8 +106,8 @@
 #' based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
 #'
 #'
-#' @seealso [write_R2BIN], [Risoe.BINfileData-class],
-#' [base::readBin], [merge_Risoe.BINfileData], [RLum.Analysis-class]
+#' @seealso [Luminescence::write_R2BIN], [Luminescence::Risoe.BINfileData-class],
+#' [base::readBin], [Luminescence::merge_Risoe.BINfileData], [Luminescence::RLum.Analysis-class]
 #' [utils::txtProgressBar], [list.files]
 #'
 #'

@@ -36,7 +36,7 @@ Smoothing is encouraged if you see random signal drops within the decay curves r
 to hardware errors.}
 
 \item{merge}{\link{logical} (\emph{with default}):
-\code{TRUE} to merge all \code{RLum.Analysis} objects. Only applicable if multiple
+\code{TRUE} to merge all \linkS4class{RLum.Analysis} objects. Only applicable if multiple
 files are imported.}
 
 \item{pattern}{\link{character} (\emph{with default}):
@@ -80,7 +80,8 @@ plot(psl, combine = TRUE)
 
 }
 \seealso{
-\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Data.Curve}
+\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve},
+\linkS4class{RLum.Data.Curve}
 }
 \author{
 Christoph Burow, University of Cologne (Germany),

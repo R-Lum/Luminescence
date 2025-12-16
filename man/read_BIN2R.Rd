@@ -55,7 +55,8 @@ produced BIN/BINX-file. This option compares only predecessor and successor.
 Can be provided as \code{list} if \code{file} is a \code{list}.}
 
 \item{fastForward}{\link{logical} (\emph{with default}):
-if \code{TRUE} for a more efficient data processing only a list of \code{RLum.Analysis}
+if \code{TRUE} for a more efficient data processing only a list of
+\linkS4class{RLum.Analysis}
 objects is returned instead of a \linkS4class{Risoe.BINfileData} object.
 Can be provided as \code{list} if \code{file} is a \code{list}.}
 
@@ -100,7 +101,8 @@ slots:
 The ID corresponds to the record ID in METADATA.}
 
 If \code{fastForward = TRUE} a list of \linkS4class{RLum.Analysis} object is returned. The
-internal coercing is done using the function \link{Risoe.BINfileData2RLum.Analysis}
+internal coercing is done using the function
+\link{Risoe.BINfileData2RLum.Analysis}
 }
 \description{
 Import a \verb{*.bin} or a \verb{*.binx} file produced by a Risø DA15 and DA20 TL/OSL

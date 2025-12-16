@@ -1,7 +1,7 @@
 #'@title Import Luminescence Data from Helios Luminescence Reader
 #'
 #'@description Straightforward import of files with the ending `.osl` produced
-#'by the zero rad Helios luminescence reader and conversion to [RLum.Analysis-class] objects.
+#'by the zero rad Helios luminescence reader and conversion to [Luminescence::RLum.Analysis-class] objects.
 #'
 #'@param file [character] (**required**): path to file to be imported. Can be a [list]
 #'for further processing
@@ -13,13 +13,13 @@
 #'
 #'@note Thanks to Krzysztof Maternicki for providing example data.
 #'
-#'@return [RLum.Analysis-class] object
+#'@return [Luminescence::RLum.Analysis-class] object
 #'
 #'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'@section Function version: 0.1.0
 #'
-#'@seealso [RLum.Data.Curve-class], [RLum.Analysis-class]
+#'@seealso [Luminescence::RLum.Data.Curve-class], [Luminescence::RLum.Analysis-class]
 #'
 #'@keywords IO
 #'

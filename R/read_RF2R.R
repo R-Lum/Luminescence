@@ -1,12 +1,13 @@
 #' @title Import RF-files to R
 #'
-#' @description Import files produced by the IR-RF 'ImageJ' macro (`SR-RF.ijm`; Mittelstraß and Kreutzer, 2021) into R and create a list of [RLum.Analysis-class]
-#' objects
+#' @description Import files produced by the IR-RF 'ImageJ' macro (`SR-RF.ijm`;
+#' Mittelstraß and Kreutzer, 2021) into R and create a list of
+#' [Luminescence::RLum.Analysis-class] objects
 #'
 #' @details The results of spatially resolved IR-RF data are summarised in
 #' so-called RF-files (Mittelstraß and Kreutzer, 2021).
 #' This functions provides an easy import to process the data seamlessly with the R package 'Luminescence'.
-#' The output of the function can be passed to function [analyse_IRSAR.RF].
+#' The output of the function can be passed to function [Luminescence::analyse_IRSAR.RF].
 #'
 #' @param file [character] (**required**): path and file name of the RF file. Alternatively a list of file
 #' names can be provided.
@@ -16,12 +17,13 @@
 #'
 #' @param ... not used, only for compatible reasons
 #'
-#' @return Returns an S4 [RLum.Analysis-class] object containing
-#' [RLum.Data.Curve-class] objects for each curve.
+#' @return Returns an S4 [Luminescence::RLum.Analysis-class] object containing
+#' [Luminescence::RLum.Data.Curve-class] objects for each curve.
 #'
-#' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class], [analyse_IRSAR.RF]
+#' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data.Curve-class],
+#' [Luminescence::analyse_IRSAR.RF]
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University (United Kingdom)
+#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @section Function version: 0.1.1
 #'

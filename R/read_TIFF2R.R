@@ -15,13 +15,13 @@
 #'
 #'@param ... not in use, for compatibility reasons only
 #'
-#'@return [RLum.Data.Image-class] object
+#'@return [Luminescence::RLum.Data.Image-class] object
 #'
 #'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'@section Function version: 0.2.0
 #'
-#'@seealso [tiff::readTIFF], [RLum.Data.Image-class]
+#'@seealso [tiff::readTIFF], [Luminescence::RLum.Data.Image-class]
 #'
 #'@keywords IO
 #'

@@ -2,7 +2,7 @@
 #'
 #' @description
 #' The function imports Princeton Instruments (TM) SPE-files into R and
-#' provides [RLum.Data.Image-class] objects as output. The import
+#' provides [Luminescence::RLum.Data.Image-class] objects as output. The import
 #' functionality is based on the file format description provided by
 #' Princeton Instruments and a MatLab script written by Carl Hall (see
 #' references).
@@ -14,8 +14,8 @@
 #' Additionally, it can be a URL starting with `http://` or `https://`.
 #'
 #' @param output.object [character] (*with default*):
-#' set the output object type. Allowed types are `"RLum.Data.Spectrum"`,
-#' `"RLum.Data.Image"` or `"matrix"`.
+#' set the output object type. Allowed types are [Luminescence::RLum.Data.Spectrum-class],
+#' [Luminescence::RLum.Data.Image-class] or `"matrix"`.
 #'
 #' @param frame.range [vector], [integer] (*optional*):
 #' range of frames to read. For example, `frame.range = c(1, 10)` selects only
@@ -38,12 +38,12 @@
 #'
 #' `RLum.Data.Spectrum`
 #'
-#' An object of type [RLum.Data.Spectrum-class] is returned.  Row
+#' An object of type [Luminescence::RLum.Data.Spectrum-class] is returned.  Row
 #' sums are used to integrate all counts over one channel.
 #'
 #' `RLum.Data.Image`
 #'
-#' An object of type [RLum.Data.Image-class] is returned.  Due to
+#' An object of type [Luminescence::RLum.Data.Image-class] is returned.  Due to
 #' performance reasons the import is aborted for files containing more than 100
 #' frames. This limitation can be overwritten manually by using the argument
 #' `frame.range`.
@@ -51,9 +51,10 @@
 #' `matrix`
 #'
 #' Returns a matrix of the form: Rows = Channels, columns = Frames. For the
-#' transformation the function [get_RLum] is used,
+#' transformation the function [Luminescence::get_RLum] is used,
 #' meaning that the same results can be obtained by using the function
-#' [get_RLum] on an `RLum.Data.Spectrum` or `RLum.Data.Image` object.
+#' [Luminescence::get_RLum] on an [Luminescence::RLum.Data.Spectrum-class] or
+#' [Luminescence::RLum.Data.Image-class] object.
 #'
 #' @note
 #' **The function does not test whether the input data are spectra or pictures for spatial resolved analysis!**
@@ -67,7 +68,7 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [readBin], [RLum.Data.Spectrum-class]
+#' @seealso [readBin], [Luminescence::RLum.Data.Spectrum-class]
 #'
 #' @references
 #' Princeton Instruments, 2014. Princeton Instruments SPE 3.0 File

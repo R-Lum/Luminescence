@@ -23,8 +23,8 @@ Additionally, it can be a URL starting with \verb{http://} or \verb{https://}.
 }}
 
 \item{output.object}{\link{character} (\emph{with default}):
-set the output object type. Allowed types are \code{"RLum.Data.Spectrum"},
-\code{"RLum.Data.Image"} or \code{"matrix"}.}
+set the output object type. Allowed types are \linkS4class{RLum.Data.Spectrum},
+\linkS4class{RLum.Data.Image} or \code{"matrix"}.}
 
 \item{frame.range}{\link{vector}, \link{integer} (\emph{optional}):
 range of frames to read. For example, \code{frame.range = c(1, 10)} selects only
@@ -62,7 +62,8 @@ frames. This limitation can be overwritten manually by using the argument
 Returns a matrix of the form: Rows = Channels, columns = Frames. For the
 transformation the function \link{get_RLum} is used,
 meaning that the same results can be obtained by using the function
-\link{get_RLum} on an \code{RLum.Data.Spectrum} or \code{RLum.Data.Image} object.
+\link{get_RLum} on an \linkS4class{RLum.Data.Spectrum} or
+\linkS4class{RLum.Data.Image} object.
 }
 \description{
 The function imports Princeton Instruments (TM) SPE-files into R and

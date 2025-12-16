@@ -27,7 +27,7 @@
 #' to hardware errors.
 #'
 #' @param merge [logical] (*with default*):
-#' `TRUE` to merge all `RLum.Analysis` objects. Only applicable if multiple
+#' `TRUE` to merge all [Luminescence::RLum.Analysis-class] objects. Only applicable if multiple
 #' files are imported.
 #'
 #' @param pattern [character] (*with default*):
@@ -40,10 +40,11 @@
 #' @param ... currently not used.
 #'
 #' @return
-#' Returns an S4 [RLum.Analysis-class] object containing
-#' [RLum.Data.Curve-class] objects for each curve.
+#' Returns an S4 [Luminescence::RLum.Analysis-class] object containing
+#' [Luminescence::RLum.Data.Curve-class] objects for each curve.
 #'
-#' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class], [RLum.Data.Curve-class]
+#' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data.Curve-class],
+#' [Luminescence::RLum.Data.Curve-class]
 #'
 #' @author Christoph Burow, University of Cologne (Germany),
 #'  Sebastian Kreutzer, Institut of Geography, Heidelberg University (Germany)

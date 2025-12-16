@@ -1,6 +1,6 @@
-#' Import measurement data produced by a Daybreak TL/OSL reader into R
+#' @title Import measurement data produced by a Daybreak TL/OSL reader into R
 #'
-#' Import a TXT-file (ASCII file) or a DAT-file (binary file) produced by a
+#' @description Import a TXT-file (ASCII file) or a DAT-file (binary file) produced by a
 #' Daybreak reader into R. The import of the DAT-files is limited to the file
 #' format described for the software TLAPLLIC v.3.2 used for a Daybreak, model 1100.
 #'
@@ -12,7 +12,7 @@
 #'
 #' @param raw [logical] (*with default*):
 #' if the input is a DAT-file (binary) a [data.table::data.table] instead of
-#' the [RLum.Analysis-class] object can be returned for debugging purposes.
+#' the [Luminescence::RLum.Analysis-class] object can be returned for debugging purposes.
 #'
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
@@ -23,7 +23,7 @@
 #' @param ... not in use, for compatibility reasons only
 #'
 #' @return
-#' A list of [RLum.Analysis-class] objects (each per position) is provided.
+#' A list of [Luminescence::RLum.Analysis-class] objects (each per position) is provided.
 #'
 #' @note
 #' **`[BETA VERSION]`**
@@ -38,7 +38,7 @@
 #'
 #' The ASCII-file import is based on a suggestion by Willian Amidon and Andrew Louis Gorin
 #'
-#' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class], [data.table::data.table]
+#' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data.Curve-class], [data.table::data.table]
 #'
 #' @keywords IO
 #'
