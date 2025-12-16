@@ -54,7 +54,6 @@
 #'  write_R2BIN(t, file = tempfile(), version = "04")
 #'}
 #'
-#'
 #'@keywords IO
 #'@md
 #'@export
@@ -233,15 +232,14 @@ read_BINXLOG2R <- function(
           NPOINTS = 0,
           AN_TEMP = AN_TEMP,
           LOW = 0)
-
       }
 
       ## determine how many data blocks we have
       n_data <- suppressWarnings(
         grep(pattern = "Data downloaded", x = data_blocks[[j]], fixed = TRUE, useBytes = TRUE))
 
-        ## loop over data blocks
-        data <- unlist(lapply(n_data, \(x){
+      ## loop over data blocks
+      data <- unlist(lapply(n_data, \(x) {
           ## get data blocks boundaries
           header <- data_blocks[[j]][x]
           n_points <- suppressWarnings(as.numeric(sub(".*\\s", "", header)))
@@ -256,12 +254,12 @@ read_BINXLOG2R <- function(
 
           ## parse numbers
           scan(text = values, what = numeric(), quiet = TRUE)
+      }))
 
-        }))
-
-        ## create data using internal xy constructor
-        DATA <- if(!is.na(recordType[["LTYPE"]])) {
-         src_create_RLumDataCurve_matrix(
+      ## create data using internal xy constructor
+      DATA <- matrix(NA, ncol = 2)
+      if (!is.na(recordType[["LTYPE"]])) {
+        DATA <- src_create_RLumDataCurve_matrix(
           DATA = data,
           VERSION = 3, ## we hard code this to V3 to prevent error messages
           NPOINTS = length(data), # this helps to prevent errors if NPOINTS is wrong
@@ -270,11 +268,7 @@ read_BINXLOG2R <- function(
           LTYPE = recordType[["LTYPE"]],
           AN_TEMP = recordType[["AN_TEMP"]],
           TOLDELAY = 0L, TOLON = 0L, TOLOFF = 0L)
-
-        } else {
-          matrix(NA, ncol = 2)
-
-        }
+      }
 
       ## create curve object
       set_RLum(
@@ -292,7 +286,6 @@ read_BINXLOG2R <- function(
           SYSTEMID = SYSTEMID,
           COMMENT = substr(COMMENT[j], 1, 70))
         )
-
     })
 
     ## remove recordType NA
