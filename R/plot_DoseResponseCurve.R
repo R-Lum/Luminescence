@@ -3,10 +3,10 @@
 #' @description
 #'
 #' A dose-response curve is produced for luminescence measurements using a
-#' regenerative or additive protocol as implemented in [fit_DoseResponseCurve].
+#' regenerative or additive protocol as implemented in [Luminescence::fit_DoseResponseCurve].
 #'
-#' @param object [RLum.Results-class] (**required**):
-#' An object produced by [fit_DoseResponseCurve].
+#' @param object [Luminescence::RLum.Results-class] (**required**):
+#' An object produced by [Luminescence::fit_DoseResponseCurve].
 #'
 #' @param plot_extended [logical] (*with default*):
 #' If `TRUE`, 3 plots on one plot area are provided:
@@ -24,10 +24,11 @@
 #' enable/disable output to the terminal.
 #'
 #' @param ... Further graphical parameters to be passed (supported:
-#' `main`, `mtext`, `xlim`, `ylim`, `xlab`, `ylab`, `log` (not valid for objects
-#' fitted with `mode = "extrapolation"`), `legend` (`TRUE/FALSE`), `leged.pos`,
-#' `reg_points_pch`, `density_polygon` (`TRUE/FALSE`), `density_polygon_col`,
-#' `density_rug` (`TRUE`/`FALSE`), `box` (`TRUE`/`FALSE`).
+#' `main`, `mtext`, `xlim`, `ylim`, `xlab`, `ylab`, `log`
+#' (not valid for objects fitted with `mode = "extrapolation"`), `legend` (`TRUE/FALSE`),
+#' `legend.pos`, `reg_points_pch`, `density_polygon` (`TRUE/FALSE`),
+#' `density_polygon_col`, `density_rug` (`TRUE`/`FALSE`),
+#' `box` (`TRUE`/`FALSE`).
 #'
 #' @return
 #' A plot (or a series of plots) is produced.
@@ -50,7 +51,7 @@
 #' Pagonis, V., Kitis, G., Chen, R., 2020. A new analytical equation for the dose response of dosimetric materials,
 #' based on the Lambert W function. Journal of Luminescence 225, 117333. \doi{10.1016/j.jlumin.2020.117333}
 #'
-#' @seealso [fit_DoseResponseCurve]
+#' @seealso [Luminescecne::fit_DoseResponseCurve]
 #'
 #' @examples
 #'
@@ -190,7 +191,6 @@ plot_DoseResponseCurve <- function(
   ## Main plots -------------------------------------------------------------
 
   ## open plot area
-
   if (plot_extended && !plot_singlePanels) {
     par.default <- .par_defaults()
     graphics::layout(matrix(c(1, 1, 1, 1, 2, 3), 3, 2, byrow = TRUE), respect = TRUE)

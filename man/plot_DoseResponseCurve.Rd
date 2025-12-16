@@ -34,10 +34,11 @@ single plot windows. Ignored if \code{plot_extended = FALSE}.}
 enable/disable output to the terminal.}
 
 \item{...}{Further graphical parameters to be passed (supported:
-\code{main}, \code{mtext}, \code{xlim}, \code{ylim}, \code{xlab}, \code{ylab}, \code{log} (not valid for objects
-fitted with \code{mode = "extrapolation"}), \code{legend} (\code{TRUE/FALSE}), \code{leged.pos},
-\code{reg_points_pch}, \code{density_polygon} (\code{TRUE/FALSE}), \code{density_polygon_col},
-\code{density_rug} (\code{TRUE}/\code{FALSE}), \code{box} (\code{TRUE}/\code{FALSE}).}
+\code{main}, \code{mtext}, \code{xlim}, \code{ylim}, \code{xlab}, \code{ylab}, \code{log}
+(not valid for objects fitted with \code{mode = "extrapolation"}), \code{legend} (\code{TRUE/FALSE}),
+\code{legend.pos}, \code{reg_points_pch}, \code{density_polygon} (\code{TRUE/FALSE}),
+\code{density_polygon_col}, \code{density_rug} (\code{TRUE}/\code{FALSE}),
+\code{box} (\code{TRUE}/\code{FALSE}).}
 }
 \value{
 A plot (or a series of plots) is produced.
@@ -91,7 +92,7 @@ Pagonis, V., Kitis, G., Chen, R., 2020. A new analytical equation for the dose r
 based on the Lambert W function. Journal of Luminescence 225, 117333. \doi{10.1016/j.jlumin.2020.117333}
 }
 \seealso{
-\link{fit_DoseResponseCurve}
+\link[Luminescecne:fit_DoseResponseCurve]{Luminescecne::fit_DoseResponseCurve}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
