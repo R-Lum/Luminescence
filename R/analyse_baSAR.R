@@ -57,7 +57,7 @@
 #'
 #'  1. Select all valid aliquots using the function [Luminescence::verify_SingleGrainData]
 #'  2. Calculate `Lx/Tx` values using the function [Luminescence::calc_OSLLxTxRatio]
-#'  3. Calculate De values using the function [Luminescence::plot_GrowthCurve]
+#'  3. Calculate De values using the function [Luminescence::fit_DoseResponseCurve]
 #'
 #' These proceeded data are subsequently used in for the Bayesian analysis
 #'
@@ -67,7 +67,7 @@
 #' the pre-processing phase consists of the following steps:
 #'
 #'  1. Calculate `Lx/Tx` values using the function [Luminescence::calc_OSLLxTxRatio]
-#'  2. Calculate De values using the function [Luminescence::plot_GrowthCurve]
+#'  2. Calculate De values using the function [Luminescence::fit_DoseResponseCurve]
 #'
 #' The CSV file should contain the BIN-file names and the aliquots selected
 #' for the further analysis. This allows a manual selection of input data, as
@@ -150,17 +150,17 @@
 #' **Supported argument** \tab **Corresponding function** \tab **Default** \tab **Short description **\cr
 #' `threshold` \tab [Luminescence::verify_SingleGrainData] \tab `30` \tab change rejection threshold for curve selection \cr
 #' `skip` \tab [data.table::fread] \tab `0` \tab number of rows to be skipped during import\cr
-#' `n.records` \tab [read_BIN2R] \tab `NULL` \tab limit records during BIN-file import\cr
-#' `duplicated.rm` \tab [read_BIN2R] \tab `TRUE` \tab remove duplicated records in the BIN-file\cr
-#' `pattern` \tab [read_BIN2R] \tab `TRUE` \tab select BIN-file by name pattern\cr
-#' `position` \tab [read_BIN2R] \tab `NULL` \tab limit import to a specific position\cr
-#' `background.count.distribution` \tab [calc_OSLLxTxRatio] \tab `"non-poisson"` \tab set assumed count distribution\cr
-#' `fit.weights` \tab [plot_GrowthCurve] \tab `TRUE` \tab enable/disable fit weights\cr
-#' `fit.bounds` \tab [plot_GrowthCurve] \tab `TRUE` \tab enable/disable fit bounds\cr
-#' `n.MC` \tab [plot_GrowthCurve] \tab `100` \tab number of MC runs for error calculation\cr
-#' `output.plot` \tab [plot_GrowthCurve] \tab `TRUE` \tab enable/disable dose response curve plot\cr
-#' `output.plotExtended` \tab [plot_GrowthCurve] \tab `TRUE` \tab enable/disable extended dose response curve plot\cr
-#' `recordType` \tab [get_RLum] \tab `c(OSL (UVVIS), irradiation (NA)` \tab helps for the curve selection\cr
+#' `n.records` \tab [Luminescence::read_BIN2R] \tab `NULL` \tab limit records during BIN-file import\cr
+#' `duplicated.rm` \tab [Luminescence::read_BIN2R] \tab `TRUE` \tab remove duplicated records in the BIN-file\cr
+#' `pattern` \tab [Luminescence::read_BIN2R] \tab `TRUE` \tab select BIN-file by name pattern\cr
+#' `position` \tab [Luminescence::read_BIN2R] \tab `NULL` \tab limit import to a specific position\cr
+#' `background.count.distribution` \tab [Luminescence::calc_OSLLxTxRatio] \tab `"non-poisson"` \tab set assumed count distribution\cr
+#' `fit.weights` \tab [Luminescence::fit_DoseResponseCurve] \tab `TRUE` \tab enable/disable fit weights\cr
+#' `fit.bounds` \tab [Luminescence::fit_DoseResponseCurve] \tab `TRUE` \tab enable/disable fit bounds\cr
+#' `n.MC` \tab [Luminescence::fit_DoseResponseCurve] \tab `100` \tab number of MC runs for error calculation\cr
+#' `output.plot` \tab [Luminescence::fit_DoseResponseCurve] \tab `TRUE` \tab enable/disable dose response curve plot\cr
+#' `output.plotExtended` \tab [Luminescence::fit_DoseResponseCurve] \tab `TRUE` \tab enable/disable extended dose response curve plot\cr
+#' `recordType` \tab [Luminescence::get_RLum] \tab `c(OSL (UVVIS), irradiation (NA)` \tab helps for the curve selection\cr
 #' }
 #'
 #'
@@ -181,7 +181,7 @@
 #' @param aliquot_range [numeric] (*optional*):
 #' allows to limit the range of the aliquots used for the analysis.
 #' This argument has only an effect if the argument `CSV_file` is used or
-#' `object` is a previous output (i.e. is [RLum.Results-class]). In this case,
+#' `object` is a previous output (i.e. is [Luminescence::RLum.Results-class]). In this case,
 #' the new selection will add the aliquots to the removed aliquots table.
 #'
 #' @param source_doserate [numeric] (**required**):
@@ -204,7 +204,7 @@
 #'
 #' @param background.integral [vector] (**required**):
 #' vector with the bounds for the background integral.
-#' Ignored if `object` is an [RLum.Results-class] object.
+#' Ignored if `object` is an [Luminescence::RLum.Results-class] object.
 #' The parameter can be provided as `list`, see `source_doserate`.
 #'
 #' @param background.integral.Tx [vector] (*optional*):
@@ -244,7 +244,7 @@
 #'
 #' @param fit.method [character] (*with default*):
 #' equation used for the fitting of the dose-response curve using the function
-#' [plot_GrowthCurve] and then for the Bayesian modelling. Here supported methods:
+#' [Luminescence::plot_GrowthCurve] and then for the Bayesian modelling. Here supported methods:
 #' `EXP`, `EXP+LIN` and `LIN`
 #'
 #' @param fit.force_through_origin [logical] (*with default*):
@@ -334,7 +334,7 @@
 #' The underlying Bayesian model based on a contribution by Combès et al., 2015.
 #'
 #' @seealso [Luminescence::read_BIN2R], [Luminescence::calc_OSLLxTxRatio],
-#' [Luminescence::plot_GrowthCurve],
+#' [Luminescence::plot_DoseResponseCurve],
 #' [data.table::fread], [Luminescence::verify_SingleGrainData],
 #' [rjags::jags.model], [rjags::coda.samples], [boxplot.default]
 #'

@@ -184,7 +184,7 @@ extracts. Radiation Measurements 43, 1474-1486.
 }
 \seealso{
 \link{analyse_SAR.CWOSL}, \link{calc_OSLLxTxRatio},
-\link{plot_GrowthCurve},
+\link{plot_DoseResponseCurve}, \link{fit_DoseResponseCurve}
 \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results},
 \link{get_RLum}
 }

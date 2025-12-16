@@ -22,7 +22,7 @@ Risoe.BINfileData2RLum.Analysis(
 object to convert.}
 
 \item{pos}{\link{numeric} (\emph{optional}): position number of the \code{Risoe.BINfileData}
-object for which the curves are stored in the \code{RLum.Analysis} object.
+object for which the curves are stored in the \linkS4class{RLum.Analysis} object.
 If \code{length(pos) > 1}, a list of \code{RLum.Analysis} objects is returned.
 If nothing is provided every position will be converted.
 If the position is not valid \code{NULL} is returned.}
@@ -91,7 +91,8 @@ Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
 
 }
 \seealso{
-\linkS4class{Risoe.BINfileData}, \linkS4class{RLum.Analysis}, \link{read_BIN2R}
+\linkS4class{Risoe.BINfileData}, \linkS4class{RLum.Analysis},
+\link{read_BIN2R}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

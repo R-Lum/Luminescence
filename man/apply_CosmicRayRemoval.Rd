@@ -16,9 +16,11 @@ apply_CosmicRayRemoval(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Spectrum} or \linkS4class{RLum.Analysis} (\strong{required}):
+\item{object}{\linkS4class{RLum.Data.Spectrum} or
+\linkS4class{RLum.Analysis} (\strong{required}):
 input object to be treated, which can be also provided as \link{list}. If an
-\linkS4class{RLum.Analysis} object is provided, only its \linkS4class{RLum.Data.Spectrum}
+\linkS4class{RLum.Analysis} object is provided, only its
+\linkS4class{RLum.Data.Spectrum}
 objects are treated. Please note: this mixing of objects does not work for
 a list of \code{RLum.Data} objects.}
 
@@ -55,8 +57,8 @@ including the used threshold. Note: A separate plot is returned for each frame!
 Currently only for \code{method = "Pych"} a graphical output is provided.}
 
 \item{...}{further arguments and graphical parameters that will be passed
-to the \link[stats:smooth]{stats::smooth}, \link[stats:smooth.spline]{stats::smooth.spline} or \link{smooth_RLum}. See details for more
-information.}
+to the \link[stats:smooth]{stats::smooth}, \link[stats:smooth.spline]{stats::smooth.spline} or \link{smooth_RLum}.
+See details for more information.}
 }
 \value{
 Returns same object as input.
@@ -126,8 +128,8 @@ Single Images. The Astronomical Society of the Pacific 116 (816), 148-153.
 \doi{10.1086/381786}
 }
 \seealso{
-\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \link[stats:smooth]{stats::smooth},
-\link[stats:smooth.spline]{stats::smooth.spline}, \link{smooth_RLum}
+\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis},
+\link[stats:smooth]{stats::smooth}, \link[stats:smooth.spline]{stats::smooth.spline}, \link{smooth_RLum}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

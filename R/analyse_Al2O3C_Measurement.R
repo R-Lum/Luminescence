@@ -36,7 +36,7 @@
 #' the information from the first curves with all others. If the ratio differs more from
 #' unity than the defined by the threshold, a warning is returned.
 #'
-#' @param object [RLum.Analysis-class] (**required**):  measurement input
+#' @param object [Luminescence::RLum.Analysis-class] (**required**):  measurement input
 #'
 #' @param signal_integral [numeric] (*optional*): signal integral, used for the signal
 #' and the background. Example: `c(1:10)` for the first 10 channels.
@@ -48,9 +48,9 @@
 #' made by Kreutzer et al., 2018
 #'
 #' @param recordType [character] (*with default*): input curve selection, which is passed to
-#' function [get_RLum]. To deactivate the automatic selection set the argument to `NULL`
+#' function [Luminescence::get_RLum]. To deactivate the automatic selection set the argument to `NULL`
 #'
-#' @param irradiation_time_correction [numeric] or [RLum.Results-class] (*optional*):
+#' @param irradiation_time_correction [numeric] or [Luminescence::RLum.Results-class] (*optional*):
 #' information on the used irradiation time correction obtained by another experiments.
 #' If a `numeric` is provided it has to be of length two: mean, standard error
 #'
@@ -58,7 +58,7 @@
 #' enables/disable experimental dose estimation based on the TL curves.
 #' It is computed as the ratio of the peak sums of each curves +/- 5 channels.
 #'
-#' @param cross_talk_correction [numeric] or [RLum.Results-class] (*optional*):
+#' @param cross_talk_correction [numeric] or [Luminescence::RLum.Results-class] (*optional*):
 #' information on the used irradiation time correction obtained by another experiments.
 #' If a `numeric` vector is provided it has to be of length three:
 #' mean, 2.5 % quantile, 97.5 % quantile.
@@ -118,7 +118,7 @@
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [analyse_Al2O3C_ITC]
+#' @seealso [Luminescence::analyse_Al2O3C_ITC]
 #'
 #' @references
 #'

@@ -16,7 +16,7 @@
 #' made by Kreutzer et al., 2018.
 #'
 #' @param recordType [character] (*with default*):
-#' input curve selection, which is passed to [get_RLum]. To deactivate the
+#' input curve selection, which is passed to [Luminescence::get_RLum]. To deactivate the
 #' automatic selection set the argument to `NULL`.
 #'
 #' @param irradiation_time_correction [numeric] or [Luminescence::RLum.Results-class] (*optional*):

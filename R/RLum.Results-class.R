@@ -70,14 +70,14 @@ setClass(
 #'
 #' for `[RLum.Results-class]`
 #'
-#' **[RLum.Results-class]**
+#' **[Luminescence::RLum.Results-class]**
 #'
 #' \tabular{ll}{
 #'  **from** \tab **to**\cr
 #'   `list` \tab `list`\cr
 #' }
 #'
-#' Given that the [list] consists of [RLum.Results-class] objects.
+#' Given that the [list] consists of [Luminescence::RLum.Results-class] objects.
 #'
 #' @name as
 setAs("list", "RLum.Results",
@@ -119,7 +119,7 @@ setMethod("show",
 
 ## set_RLum() ---------------------------------------------------------------
 #' @describeIn set_RLum
-#' Construction method for [RLum.Results-class] objects.
+#' Construction method for [Luminescence::RLum.Results-class] objects.
 #'
 #' @export
 setMethod("set_RLum",
@@ -147,7 +147,7 @@ setMethod("set_RLum",
 
 ## get_RLum() ---------------------------------------------------------------
 #' @describeIn get_RLum
-#' Accessor method for [RLum.Results-class] object.
+#' Accessor method for [Luminescence::RLum.Results-class] object.
 #' The argument `data.object` allows to access directly objects stored
 #' within the slot data. The default return object depends on the object
 #' originator (e.g., `fit_LMCurve`). If nothing is specified always the first
@@ -160,7 +160,7 @@ setMethod("set_RLum",
 #'
 #' 1. Data object from the specified slot
 #' 2. [list] of data objects from the slots if 'data.object' is vector or
-#' 3. an [RLum.Results-class] for `drop = FALSE`.
+#' 3. an [Luminescence::RLum.Results-class] for `drop = FALSE`.
 #'
 #' @param data.object [character] or [numeric]:
 #' name or index of the data slot to be returned.
@@ -257,7 +257,7 @@ setMethod("names_RLum",
 
 ## view() -------------------------------------------------------------------
 #' @describeIn view
-#' View method for [RLum.Results-class] objects.
+#' View method for [Luminescence::RLum.Results-class] objects.
 #'
 #' @param element [integer] (*with default*):
 #' index of the element to display.

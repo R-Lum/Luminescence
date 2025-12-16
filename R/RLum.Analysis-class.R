@@ -80,14 +80,14 @@ setClass("RLum.Analysis",
 #'
 #' for `[RLum.Analysis-class]`
 #'
-#' **[RLum.Analysis-class]**
+#' **[Luminescence::RLum.Analysis-class]**
 #'
 #' \tabular{ll}{
 #'  **from** \tab **to**\cr
 #'   `list` \tab `list`\cr
 #' }
 #'
-#' Given that the [list] consists of [RLum.Analysis-class] objects.
+#' Given that the [list] consists of [Luminescence::RLum.Analysis-class] objects.
 #'
 #' @name as
 setAs("list", "RLum.Analysis",
@@ -203,7 +203,7 @@ setMethod("show",
 #' sets protocol type for analysis object. Value may be used by subsequent analysis functions.
 #'
 #' @param records [list] (*optional*):
-#' list of [RLum.Analysis-class] objects
+#' list of [Luminescence::RLum.Analysis-class] objects
 #'
 #' @param info [list] (*optional*):
 #' a list containing additional info data for the object.
@@ -288,8 +288,8 @@ setMethod(
 #' object (`FALSE` by default).
 #'
 #' @param drop [logical] (*with default*):
-#' coerce to the next possible layer (which are [RLum.Data-class] objects if
-#' `object` is an [RLum.Analysis-class] object). If `drop = FALSE`, an object
+#' coerce to the next possible layer (which are [Luminescence::RLum.Data-class] objects if
+#' `object` is an [Luminescence::RLum.Analysis-class] object). If `drop = FALSE`, an object
 #' of the same type as the input is returned.
 #'
 #' @param recursive [logical] (*with default*):
@@ -698,7 +698,7 @@ setMethod("add_metadata<-",
 
 ## rename_metadata() --------------------------------------------------------
 #' @describeIn metadata
-#' Renames a metadata entry of [RLum.Analysis-class] objects.
+#' Renames a metadata entry of [Luminescence::RLum.Analysis-class] objects.
 #'
 #' @export
 setMethod("rename_metadata<-",

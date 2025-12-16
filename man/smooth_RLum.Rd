@@ -29,24 +29,24 @@ S4 object of class \code{RLum}}
 
 \item{...}{further arguments passed to the specific class method}
 
-\item{k}{\code{\link{smooth_RLum}}; \link{integer} (\emph{with default}):
+\item{k}{\link{smooth_RLum}; \link{integer} (\emph{with default}):
 window for the rolling mean or median. If \code{NULL}, this set automatically
 (ignored if \code{method = "Carter_etal_2018"}).}
 
-\item{fill}{\code{\link{smooth_RLum}}; \link{numeric} (\emph{with default}):
+\item{fill}{\link{smooth_RLum}; \link{numeric} (\emph{with default}):
 value used to pad the result so to have the same length as the input.}
 
-\item{align}{\code{\link{smooth_RLum}}; \link{character} (\emph{with default}):
+\item{align}{\link{smooth_RLum}; \link{character} (\emph{with default}):
 one of \code{"right"}, \code{"center"} or \code{"left"}, specifying whether the index
 of the result should be right-aligned (default), centred, or left-aligned
 compared to the rolling window of observations (ignored if
 \code{method = "Carter_etal_2018"}).}
 
-\item{method}{\code{\link{smooth_RLum}}; \link{character} (\emph{with default}):
+\item{method}{\link{smooth_RLum}; \link{character} (\emph{with default}):
 smoothing method to be applied: one of \code{"mean"}, \code{"median"} or
 \code{"Carter_etal_2018"}.}
 
-\item{p_acceptance}{\code{\link{smooth_RLum}}; \link{numeric} (\emph{with default}):
+\item{p_acceptance}{\link{smooth_RLum}; \link{numeric} (\emph{with default}):
 probability threshold of accepting a value to be a sample from a Poisson
 distribution (only used for \code{method = "Carter_etal_2018"}). Values that
 have a Poisson probability below the threshold are replaced by the average

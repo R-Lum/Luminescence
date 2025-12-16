@@ -25,7 +25,7 @@
 #' If the input is a list of [Luminescence::RLum.Analysis-class] objects, every argument
 #' can be provided as list to allow
 #' for different sets of parameters for every single input element.
-#' For further information see [analyse_SAR.CWOSL].
+#' For further information see [Luminescence::analyse_SAR.CWOSL].
 #'
 #' @param object [Luminescence::RLum.Analysis-class] or [list] of
 #' [Luminescence::RLum.Analysis-class] objects (**required**):
@@ -99,7 +99,7 @@
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [Luminescence::analyse_SAR.CWOSL], [Luminescence::calc_OSLLxTxRatio],
-#' [Luminescence::plot_GrowthCurve],
+#' [Luminescence::plot_DoseResponseCurve], [Luminescence::fit_DoseResponseCurve]
 #' [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Results-class],
 #' [Luminescence::get_RLum]
 #'

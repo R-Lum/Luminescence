@@ -62,5 +62,5 @@ of dose obtained using OSL. Ancient TL 21, 75-77.
 }
 \author{
 Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
-IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
+Institute of Geography, Heidelberg University (Germany)
 }

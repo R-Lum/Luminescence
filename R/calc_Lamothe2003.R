@@ -41,7 +41,7 @@
 #' @param object [Luminescence::RLum.Results-class] [data.frame] (**required**):
 #' Input data for applying the fading correction, can be (1) a [data.frame]
 #' with three columns (`dose`, `LxTx`, `LxTx error`; see details), or (2) an
-#' [Luminescence::RLum.Results-class] object created by [analyse_SAR.CWOSL] or
+#' [Luminescence::RLum.Results-class] object created by [Luminescence::analyse_SAR.CWOSL] or
 #' [Luminescence::analyse_pIRIRSequence].
 #'
 #' @param dose_rate.envir [numeric] vector of length 2 (**required**):
@@ -54,7 +54,7 @@
 #' @param g_value [numeric] vector of length 2 (**required**): g_value in
 #' %/decade *recalculated at the moment* the equivalent dose was calculated,
 #' i.e. `tc` is either similar for the *g*-value measurement **and** the
-#' De measurement or needs be to recalculated (cf. [calc_FadingCorr]).
+#' De measurement or needs be to recalculated (cf. [Luminescence::calc_FadingCorr]).
 #' Inserting a normalised g-value, e.g., normalised to 2-days , will
 #' lead to wrong results.
 #'

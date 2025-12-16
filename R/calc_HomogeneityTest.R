@@ -4,7 +4,7 @@
 #' A simple homogeneity test for De estimates.
 #' For details see Galbraith (2003).
 #'
-#' @param data [RLum.Results-class] or [data.frame] (**required**):
+#' @param data [Luminescence::RLum.Results-class] or [data.frame] (**required**):
 #' for [data.frame]: two columns with De `(data[,1])` and De error `(values[,2])`
 #'
 #' @param log [logical] (*with default*):
@@ -14,7 +14,7 @@
 #'
 #' @return
 #' Returns a terminal output. In addition an
-#' [RLum.Results-class]-object is returned containing the
+#' [Luminescence::RLum.Results-class]-object is returned containing the
 #' following elements:
 #'
 #' \item{summary}{[data.frame] summary of all relevant model results.}
@@ -22,12 +22,12 @@
 #' \item{args}{[list] used arguments}
 #' \item{call}{[call] the function call}
 #'
-#' The output should be accessed using the function [get_RLum].
+#' The output should be accessed using the function [Luminescence::get_RLum].
 #'
 #' @section Function version: 0.3.0
 #'
 #' @author Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
-#' IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
+#' Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [stats::pchisq]
 #'

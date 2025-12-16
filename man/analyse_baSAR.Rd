@@ -252,7 +252,7 @@ function runs an automatic process that consists of the following steps:
 \enumerate{
 \item Select all valid aliquots using the function \link{verify_SingleGrainData}
 \item Calculate \code{Lx/Tx} values using the function \link{calc_OSLLxTxRatio}
-\item Calculate De values using the function \link{plot_GrowthCurve}
+\item Calculate De values using the function \link{fit_DoseResponseCurve}
 }
 
 These proceeded data are subsequently used in for the Bayesian analysis
@@ -263,7 +263,7 @@ If a CSV file is provided (or a \code{data.frame} containing similar information
 the pre-processing phase consists of the following steps:
 \enumerate{
 \item Calculate \code{Lx/Tx} values using the function \link{calc_OSLLxTxRatio}
-\item Calculate De values using the function \link{plot_GrowthCurve}
+\item Calculate De values using the function \link{fit_DoseResponseCurve}
 }
 
 The CSV file should contain the BIN-file names and the aliquots selected
@@ -349,11 +349,11 @@ functions.
 \code{pattern} \tab \link{read_BIN2R} \tab \code{TRUE} \tab select BIN-file by name pattern\cr
 \code{position} \tab \link{read_BIN2R} \tab \code{NULL} \tab limit import to a specific position\cr
 \code{background.count.distribution} \tab \link{calc_OSLLxTxRatio} \tab \code{"non-poisson"} \tab set assumed count distribution\cr
-\code{fit.weights} \tab \link{plot_GrowthCurve} \tab \code{TRUE} \tab enable/disable fit weights\cr
-\code{fit.bounds} \tab \link{plot_GrowthCurve} \tab \code{TRUE} \tab enable/disable fit bounds\cr
-\code{n.MC} \tab \link{plot_GrowthCurve} \tab \code{100} \tab number of MC runs for error calculation\cr
-\code{output.plot} \tab \link{plot_GrowthCurve} \tab \code{TRUE} \tab enable/disable dose response curve plot\cr
-\code{output.plotExtended} \tab \link{plot_GrowthCurve} \tab \code{TRUE} \tab enable/disable extended dose response curve plot\cr
+\code{fit.weights} \tab \link{fit_DoseResponseCurve} \tab \code{TRUE} \tab enable/disable fit weights\cr
+\code{fit.bounds} \tab \link{fit_DoseResponseCurve} \tab \code{TRUE} \tab enable/disable fit bounds\cr
+\code{n.MC} \tab \link{fit_DoseResponseCurve} \tab \code{100} \tab number of MC runs for error calculation\cr
+\code{output.plot} \tab \link{fit_DoseResponseCurve} \tab \code{TRUE} \tab enable/disable dose response curve plot\cr
+\code{output.plotExtended} \tab \link{fit_DoseResponseCurve} \tab \code{TRUE} \tab enable/disable extended dose response curve plot\cr
 \code{recordType} \tab \link{get_RLum} \tab \verb{c(OSL (UVVIS), irradiation (NA)} \tab helps for the curve selection\cr
 }
 }
@@ -438,7 +438,7 @@ Plummer, M., 2017. JAGS Version 4.3.0 user manual. \verb{https://sourceforge.net
 }
 \seealso{
 \link{read_BIN2R}, \link{calc_OSLLxTxRatio},
-\link{plot_GrowthCurve},
+\link{plot_DoseResponseCurve},
 \link[data.table:fread]{data.table::fread}, \link{verify_SingleGrainData},
 \link[rjags:jags.model]{rjags::jags.model}, \link[rjags:coda.samples]{rjags::coda.samples}, \link{boxplot.default}
 }

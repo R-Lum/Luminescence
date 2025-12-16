@@ -1,16 +1,16 @@
 #' @title Analyse SAR CW-OSL Measurements
 #'
 #' @description
-#' The function performs a SAR CW-OSL analysis on an [RLum.Analysis-class]
+#' The function performs a SAR CW-OSL analysis on an [Luminescence::RLum.Analysis-class]
 #' object, including growth curve fitting.
 #'
 #' @details
 #' The function performs an analysis for a standard SAR protocol measurements
 #' introduced by Murray and Wintle (2000) with CW-OSL curves. For the
-#' calculation of the `Lx/Tx` value the function [calc_OSLLxTxRatio] is
+#' calculation of the `Lx/Tx` value the function [Luminescence::calc_OSLLxTxRatio] is
 #' used. To **change the way the Lx/Tx error is calculated** use arguments
 #' `background.count.distribution` and `sigmab`, which will be passed to
-#' [calc_OSLLxTxRatio].
+#' [Luminescence::calc_OSLLxTxRatio].
 #'
 #' **What is part of a SAR sequence?**
 #'
@@ -28,14 +28,14 @@
 #' **Argument `object` is of type `list`**
 #'
 #' If the argument `object` is of type [list] containing **only**
-#' [RLum.Analysis-class] objects, the function re-calls itself on each element
+#' [Luminescence::RLum.Analysis-class] objects, the function re-calls itself on each element
 #' in the list. This is useful if to analyse an entire measurement without
 #' writing separate for-loops. To gain in full control of the parameters (e.g., `dose.points`) for
-#' every aliquot (corresponding to one [RLum.Analysis-class] object in the list), in
+#' every aliquot (corresponding to one [Luminescence::RLum.Analysis-class] object in the list), in
 #' this case the arguments can be provided as [list]. This `list` should
 #' be of similar length as the `list` provided with the argument `object`,
 #' otherwise the function will create an own list of the requested length.
-#' Function output will be just one single [RLum.Results-class] object.
+#' Function output will be just one single [Luminescence::RLum.Results-class] object.
 #'
 #' Please be careful when using this option. While it may allow for a fast and
 #' efficient data analysis, the function may break with an unclear error
@@ -69,7 +69,7 @@
 #' `[testdose.error]`: set the allowed error for the test dose, which by
 #' default should not exceed 10%. The test dose error is calculated as
 #' `Tx_net.error/Tx_net`. The calculation of the \eqn{T_{n}} error is detailed
-#' in [calc_OSLLxTxRatio].
+#' in [Luminescence::calc_OSLLxTxRatio].
 #'
 #' `[palaeodose.error]`: set the allowed error for the De value, which per
 #' default should not exceed 10%.
@@ -87,9 +87,9 @@
 #' to use this information to assign these values to the curves. However, the
 #' function does **not** overwrite values preset in `IRR_TIME`.
 #'
-#' @param object [RLum.Analysis-class] (**required**):
+#' @param object [Luminescence::RLum.Analysis-class] (**required**):
 #' input object containing data for analysis, alternatively a [list] of
-#' [RLum.Analysis-class] objects can be provided. The object should **only**
+#' [Luminescence::RLum.Analysis-class] objects can be provided. The object should **only**
 #' contain curves considered part of the SAR protocol (see Details).
 #'
 #' @param signal.integral.min [integer] (**required**):
@@ -155,8 +155,8 @@
 #'
 #' @param trim_channels [logical] (*with default*):
 #' trim channels per record category to the lowest number of channels in the
-#' category by using [trim_RLum.Data]. Applies only to `OSL` and `IRSL` curves.
-#' For a more granular control use [trim_RLum.Data] before calling this
+#' category by using [Luminescence::trim_RLum.Data]. Applies only to `OSL` and `IRSL` curves.
+#' For a more granular control use [Luminescence::trim_RLum.Data] before calling this
 #' function.
 #'
 #' @param mtext.outer [character] (*optional*):
@@ -182,13 +182,14 @@
 #' without the need for a curve fitting.
 #'
 #' @param ... further arguments that will be passed to the functions
-#' [fit_DoseResponseCurve], [plot_DoseResponseCurve] or [calc_OSLLxTxRatio]
+#' [Luminescence::fit_DoseResponseCurve], [Luminescence::plot_DoseResponseCurve]
+#' or [Luminescence::calc_OSLLxTxRatio]
 #' (supported: `background.count.distribution`, `sigmab`, `sig0`).
 #' **Please note** that if you consider to use the early light subtraction
 #' method you should provide your own `sigmab` value!
 #
 #' @return
-#' A plot (*optional*) and an [RLum.Results-class] object is
+#' A plot (*optional*) and an [Luminescence::RLum.Results-class] object is
 #' returned containing the following elements:
 #'
 #' \item{data}{[data.frame] containing De-values, De-error and further parameters}
@@ -198,7 +199,7 @@
 #' `NA` is produced if no R0 dose point exists.}
 #' \item{Formula}{[formula] formula that have been used for the growth curve fitting}
 #'
-#' The output should be accessed using the function [get_RLum].
+#' The output should be accessed using the function [Luminescence::get_RLum].
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
@@ -206,8 +207,9 @@
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [calc_OSLLxTxRatio], [fit_DoseResponseCurve],
-#' [plot_DoseResponseCurve], [RLum.Analysis-class], [RLum.Results-class]
+#' @seealso [Luminescence::calc_OSLLxTxRatio], [Luminescence::fit_DoseResponseCurve],
+#' [Luminescence::plot_DoseResponseCurve], [Luminescence::RLum.Analysis-class],
+#' [Luminescence::RLum.Results-class]
 #'
 #' @references
 #' Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation

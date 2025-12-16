@@ -37,7 +37,7 @@
 #' Using fit parameters \eqn{A} and \eqn{D_0}, the function then computes a natural dose
 #' response curve using the environmental dose rate, \eqn{\dot{D}} (Gy/s) and equations
 #' `[1]` and `[2]`. Computed \eqn{\frac{L_x}{T_x}} values are then fitted using the
-#' [fit_DoseResponseCurve] function and the laboratory measured LnTn can then
+#' [Luminescence::fit_DoseResponseCurve] function and the laboratory measured LnTn can then
 #' be interpolated onto this curve to determine the fading corrected
 #' \eqn{D_e} value, from which the fading corrected age is calculated.
 #'

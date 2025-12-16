@@ -2,8 +2,8 @@
 #'
 #' @description
 #' The function provides several methods for cosmic-ray removal and spectrum
-#' smoothing for [RLum.Data.Spectrum-class] objects, and those embedded in
-#' [list] or [RLum.Analysis-class] objects.
+#' smoothing for [Luminescence::RLum.Data.Spectrum-class] objects, and those embedded in
+#' [list] or [Luminescence::RLum.Analysis-class] objects.
 #'
 #' @details
 #'
@@ -26,10 +26,10 @@
 #' `"smooth"` \tab `kind` \tab  [character] \tab see [stats::smooth] \cr
 #'   \tab `twiceit` \tab  [logical] \tab see [stats::smooth] \cr
 #' `"smooth.spline"` \tab `spar` \tab  [numeric] \tab see [stats::smooth.spline] \cr
-#' `"smooth_RLum"` \tab `k` \tab [numeric] \tab see [smooth_RLum]\cr
-#'  \tab `fill` \tab [numeric] \tab see [smooth_RLum]\cr
-#'  \tab `align` \tab [character] \tab see [smooth_RLum]\cr
-#'  \tab `method_smooth_RLum` \tab [character] \tab see [smooth_RLum]\cr
+#' `"smooth_RLum"` \tab `k` \tab [numeric] \tab see [Luminescence::smooth_RLum]\cr
+#'  \tab `fill` \tab [numeric] \tab see [Luminescence::smooth_RLum]\cr
+#'  \tab `align` \tab [character] \tab see [Luminescence::smooth_RLum]\cr
+#'  \tab `method_smooth_RLum` \tab [character] \tab see [Luminescence::smooth_RLum]\cr
 #'}
 #'
 #' **Best practice**
@@ -46,16 +46,18 @@
 #' Different methods can be combined by applying the method repeatedly to the
 #' dataset (see example).
 #'
-#' @param object [RLum.Data.Spectrum-class] or [RLum.Analysis-class] (**required**):
+#' @param object [Luminescence::RLum.Data.Spectrum-class] or
+#' [Luminescence::RLum.Analysis-class] (**required**):
 #' input object to be treated, which can be also provided as [list]. If an
-#' [RLum.Analysis-class] object is provided, only its [RLum.Data.Spectrum-class]
+#' [Luminescence::RLum.Analysis-class] object is provided, only its
+#' [Luminescence::RLum.Data.Spectrum-class]
 #' objects are treated. Please note: this mixing of objects does not work for
 #' a list of `RLum.Data` objects.
 #'
 #' @param method [character] (*with default*):
 #' Defines method that is applied for cosmic ray removal. Allowed methods are
 #' `smooth`, the default, ([stats::smooth]), `smooth.spline` ([stats::smooth.spline]),
-#' `smooth_RLum` ([smooth_RLum]) and `Pych`. See details for further information.
+#' `smooth_RLum` ([Luminescence::smooth_RLum]) and `Pych`. See details for further information.
 #'
 #' @param method.Pych.smoothing [integer] (*with default*):
 #' Smoothing parameter for cosmic ray removal according to Pych (2003).
@@ -84,8 +86,8 @@
 #' Currently only for `method = "Pych"` a graphical output is provided.
 #'
 #' @param ... further arguments and graphical parameters that will be passed
-#' to the [stats::smooth], [stats::smooth.spline] or [smooth_RLum]. See details for more
-#' information.
+#' to the [stats::smooth], [stats::smooth.spline] or [Luminescence::smooth_RLum].
+#' See details for more information.
 #'
 #' @return Returns same object as input.
 #'
@@ -93,8 +95,8 @@
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum.Data.Spectrum-class], [RLum.Analysis-class], [stats::smooth],
-#' [stats::smooth.spline], [smooth_RLum]
+#' @seealso [Luminescence::RLum.Data.Spectrum-class], [Luminescence::RLum.Analysis-class],
+#' [stats::smooth], [stats::smooth.spline], [Luminescence::smooth_RLum]
 #'
 #' @references
 #' Pych, W., 2004. A Fast Algorithm for Cosmic-Ray Removal from

@@ -1,19 +1,19 @@
 #' @title Convert Risoe.BINfileData object to an RLum.Analysis object
 #'
 #' @description
-#' Converts values from one specific position of a [Risoe.BINfileData-class]
-#' object to an [RLum.Analysis-class] object.
+#' Converts values from one specific position of a [Luminescence::Risoe.BINfileData-class]
+#' object to an [Luminescence::RLum.Analysis-class] object.
 #'
-#' The [RLum.Analysis-class] object requires a set of curves for
-#' specific further protocol analyses. However, the [Risoe.BINfileData-class]
+#' The [Luminescence::RLum.Analysis-class] object requires a set of curves for
+#' specific further protocol analyses. However, the [Luminescence::Risoe.BINfileData-class]
 #' usually contains a set of curves for different aliquots and different
 #' protocol types that may be mixed up. Therefore, a conversion is needed.
 #'
-#' @param object [Risoe.BINfileData-class] (**required**):
+#' @param object [Luminescence::Risoe.BINfileData-class] (**required**):
 #' object to convert.
 #'
 #' @param pos [numeric] (*optional*): position number of the `Risoe.BINfileData`
-#' object for which the curves are stored in the `RLum.Analysis` object.
+#' object for which the curves are stored in the [Luminescence::RLum.Analysis-class] object.
 #' If `length(pos) > 1`, a list of `RLum.Analysis` objects is returned.
 #' If nothing is provided every position will be converted.
 #' If the position is not valid `NULL` is returned.
@@ -35,11 +35,11 @@
 #' @param ltype [vector], [character] (*optional*):
 #' curve type to limit the converted data. Commonly allowed values are:
 #' `IRSL`, `OSL`, `TL`, `RIR`, `RBR` and `USER`
-#' (see also [Risoe.BINfileData-class]).
+#' (see also [Luminescence::Risoe.BINfileData-class]).
 #'
 #' @param dtype [vector], [character] (*optional*):
 #' data type to limit the converted data. Commonly allowed values are
-#' listed in [Risoe.BINfileData-class].
+#' listed in [Luminescence::Risoe.BINfileData-class].
 #'
 #' @param protocol [character] (*optional*):
 #' sets protocol type for analysis object. Value may be used by subsequent
@@ -52,10 +52,10 @@
 #' @param txtProgressBar [logical] (*with default*):
 #' enable/disable the progress bar.
 #'
-#' @return Returns an [RLum.Analysis-class] object.
+#' @return Returns an [Luminescence::RLum.Analysis-class] object.
 #'
 #' @note
-#' The `protocol` argument of the [RLum.Analysis-class]
+#' The `protocol` argument of the [Luminescence::RLum.Analysis-class]
 #' object is set to 'unknown' if not stated otherwise.
 #'
 #' @section Function version: 0.4.3
@@ -63,7 +63,8 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [Risoe.BINfileData-class], [RLum.Analysis-class], [read_BIN2R]
+#' @seealso [Luminescence::Risoe.BINfileData-class], [Luminescence::RLum.Analysis-class],
+#' [Luminescence::read_BIN2R]
 #'
 #' @keywords manip
 #'

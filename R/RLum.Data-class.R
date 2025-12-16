@@ -57,7 +57,7 @@ setMethod("add_metadata<-",
 
 ## rename_metadata() --------------------------------------------------------
 #' @describeIn metadata
-#' Rename a metadata entry of [RLum.Data-class] objects.
+#' Rename a metadata entry of [Luminescence::RLum.Data-class] objects.
 #'
 #' @export
 setMethod("rename_metadata<-",

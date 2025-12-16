@@ -12,7 +12,7 @@
 #' @details If an element in `object` is `NA`, it is internally set to 0, so it will not
 #' be added.
 #'
-#' @param object [RLum.Results-class] or [numeric] (**required**): containing
+#' @param object [Luminescence::RLum.Results-class] or [numeric] (**required**): containing
 #' a numerical vector of length 100, representing one or more measurement
 #' discs ("positions") in a reader.
 #' Each element in the vector represents one grain hole location on a disc.

@@ -54,7 +54,7 @@ sufficiently correct for spectral efficiency of the entire optical system
 \linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}
 }
 \author{
-Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France)\cr
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 Johannes Friedrich, University of Bayreuth (Germany)
 }
 \keyword{manip}

@@ -24,9 +24,9 @@
 #' `fit.method` \tab `fit_DoseResponseCurve` \tab as in [Luminescence::fit_DoseResponseCurve]; sets the function applied for fitting\cr
 #' }
 #'
-#' @param object [RLum.Analysis-class] or [list] (**required**):
+#' @param object [Luminescence::RLum.Analysis-class] or [list] (**required**):
 #' results obtained from the measurement.
-#' Alternatively a list of [RLum.Analysis-class] objects can be provided to allow an automatic analysis
+#' Alternatively a list of [Luminescence::RLum.Analysis-class] objects can be provided to allow an automatic analysis
 #'
 #' @param signal_integral [numeric] (*optional*):
 #' signal integral, used for the signal and the background.
@@ -38,7 +38,7 @@
 #' made by Kreutzer et al., 2018. Argument can be provided as [list].
 #'
 #' @param recordType [character] (*with default*): input curve selection, which is passed to
-#' function [get_RLum]. To deactivate the automatic selection set the argument to `NULL`
+#' function [Luminescence::get_RLum]. To deactivate the automatic selection set the argument to `NULL`
 #'
 #' @param method_control [list] (*optional*):
 #' optional parameters to control the calculation.

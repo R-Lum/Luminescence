@@ -50,10 +50,10 @@
 #' Channels that do not contain OSL data, i.e. at the start or end of measurement.
 #'
 #' @param fitCW.sigma [logical] (*optional*):
-#' fit CW-OSL curve using [fit_CWCurve] to calculate `sigmaF` and `sigmaM` (**experimental**).
+#' fit CW-OSL curve using [Luminescence::fit_CWCurve] to calculate `sigmaF` and `sigmaM` (**experimental**).
 #'
 #' @param fitCW.curve [logical] (*optional*):
-#' fit CW-OSL curve using [fit_CWCurve] and derive the counts of L2 and L3
+#' fit CW-OSL curve using [Luminescence::fit_CWCurve] and derive the counts of L2 and L3
 #' from the fitted OSL curve (**experimental**).
 #'
 #' @param plot [logical] (*with default*):
@@ -68,7 +68,7 @@
 #'
 #' \item{summary}{[data.frame] summary of all relevant results}
 #' \item{data}{the original input data}
-#' \item{fit}{[RLum.Results-class] object if either `fitCW.sigma` or `fitCW.curve` is `TRUE`}
+#' \item{fit}{[Luminescence::RLum.Results-class] object if either `fitCW.sigma` or `fitCW.curve` is `TRUE`}
 #' \item{args}{[list] of used arguments}
 #' \item{call}{[call] the function call}
 #'

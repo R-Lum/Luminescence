@@ -6,7 +6,7 @@
 #' and the IRSL/OSL ratio.
 #'
 #' @details
-#' This function only works with [RLum.Analysis-class] objects produced by [read_PSL2R].
+#' This function only works with [Luminescence::RLum.Analysis-class] objects produced by [Luminescence::read_PSL2R].
 #' It further assumes (or rather requires) an equal amount of OSL and IRSL curves that
 #' are pairwise combined for calculating the IRSL/OSL ratio.
 #' For calculating the depletion ratios, the cumulative signal of the last *n*
@@ -39,8 +39,8 @@
 #' If in your profile the x-coordinates were not measured, *x* should be set
 #' to 0. Note that, in such case, a surface plot cannot be produced.
 #'
-#' @param object [RLum.Analysis-class] (**required**):
-#' object produced by [read_PSL2R]. The input can be a [list] of such objects,
+#' @param object [Luminescence::RLum.Analysis-class] (**required**):
+#' object produced by [Luminescence::read_PSL2R]. The input can be a [list] of such objects,
 #' in which case each input is treated as a separate sample and the results
 #' are merged.
 #'
@@ -84,14 +84,14 @@
 #' `labcex` (scaling of the contour labels), `zlim`.
 #'
 #' @return
-#' Returns an S4 [RLum.Results-class] object with the following elements:
+#' Returns an S4 [Luminescence::RLum.Results-class] object with the following elements:
 #'
 #' `$data`\cr
 #' `.. $summary`: [data.frame] with the results\cr
-#' `.. $data`: [list] with the [RLum.Analysis-class] objects\cr
+#' `.. $data`: [list] with the [Luminescence::RLum.Analysis-class] objects\cr
 #' `.. $args`: [list] the input arguments
 #'
-#' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class], [read_PSL2R]
+#' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data.Curve-class], [Luminescence::read_PSL2R]
 #'
 #' @author Christoph Burow, University of Cologne (Germany) \cr
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr

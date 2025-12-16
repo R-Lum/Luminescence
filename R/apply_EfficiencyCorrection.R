@@ -1,9 +1,10 @@
-#' Function to apply spectral efficiency correction to RLum.Data.Spectrum S4
+#' @title Function to apply spectral efficiency correction to RLum.Data.Spectrum S4
 #' class objects
 #'
-#' The function allows spectral efficiency corrections for RLum.Data.Spectrum
+#' @description The function allows spectral efficiency corrections for RLum.Data.Spectrum
 #' S4 class objects
 #'
+#' @details
 #' The efficiency correction is based on a spectral response dataset provided
 #' by the user. Usually the data set for the quantum efficiency is of lower
 #' resolution and values are interpolated for the required spectral resolution using
@@ -12,7 +13,7 @@
 #' If the energy calibration differs for both data set `NA` values are produces that
 #' will be removed from the matrix.
 #'
-#' @param object [RLum.Data.Spectrum-class] or [RLum.Analysis-class] (**required**):
+#' @param object [Luminescence::RLum.Data.Spectrum-class] or [Luminescence::RLum.Analysis-class] (**required**):
 #' S4 object of class `RLum.Data.Spectrum`,  `RLum.Analysis`or a [list] of such objects. Other objects in
 #' the list are skipped.
 #'
@@ -31,10 +32,10 @@
 #' @section Function version: 0.2.0
 #'
 #' @author
-#' Sebastian Kreutzer, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France)\cr
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Johannes Friedrich, University of Bayreuth (Germany)
 #'
-#' @seealso [RLum.Data.Spectrum-class], [RLum.Analysis-class]
+#' @seealso [Luminescence::RLum.Data.Spectrum-class], [Luminescence::RLum.Analysis-class]
 #'
 #' @keywords manip
 #'

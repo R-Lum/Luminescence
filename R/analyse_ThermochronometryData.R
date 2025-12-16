@@ -18,7 +18,7 @@
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
 #'
-#' @param ... further parameters passed to [fit_IsothermalHolding]
+#' @param ... further parameters passed to [Luminescence::fit_IsothermalHolding]
 #'
 #' @section Function version: 0.1.0
 #'
@@ -29,7 +29,7 @@
 #' @keywords datagen
 #'
 #' @return
-#' An [RLum.Results-class] object is returned:
+#' An [Luminescence::RLum.Results-class] object is returned:
 #'
 #' Slot: **@data**
 #'
@@ -54,8 +54,8 @@
 #' P.G., Visnjevic, V., Wen, X., 2025.
 #' OSLThermo and ESRThermo: Libraries of code for trapped-charge thermochronometry.
 #'
-#' @seealso [analyse_FadingMeasurement], [fit_IsothermalHolding],
-#' [fit_DoseResponseCurve]
+#' @seealso [Luminescence::analyse_FadingMeasurement], [Luminescence::fit_IsothermalHolding],
+#' [Luminescence::fit_DoseResponseCurve]
 #'
 #' @examples
 #' # example code ##TODO

@@ -87,7 +87,7 @@
 #'
 #' @return
 #' Returns a plot (*optional*) and terminal output. In addition an
-#' [RLum.Results-class] object is returned containing the
+#' [Luminescence::RLum.Results-class] object is returned containing the
 #' following elements:
 #'
 #' \item{.$summary}{[data.frame] summary of all relevant model results.}

@@ -1,7 +1,7 @@
 #' Class `"RLum.Data.Image"`
 #'
 #' Class for representing luminescence image data (TL/OSL/RF). Such data are
-#' for example produced by function [read_SPE2R].
+#' for example produced by function [Luminescence::read_SPE2R].
 #'
 #' @name RLum.Data.Image-class
 #'
@@ -70,7 +70,7 @@ setClass(
 #'
 #' for `[RLum.Data.Image-class]`
 #'
-#' **[RLum.Data.Image-class]**
+#' **[Luminescence::RLum.Data.Image-class]**
 #'
 #' \tabular{ll}{
 #'  **from** \tab **to**\cr
@@ -189,7 +189,7 @@ setMethod("show",
 
 ## set_RLum() ---------------------------------------------------------------
 #' @describeIn set_RLum
-#' Construction method for [RLum.Data.Image-class] objects.
+#' Construction method for [Luminescence::RLum.Data.Image-class] objects.
 #'
 #' @export
 setMethod(

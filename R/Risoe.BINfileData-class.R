@@ -1,7 +1,7 @@
 #' Class `"Risoe.BINfileData"`
 #'
 #' S4 class object for luminescence data in R. The object is produced as output
-#' of the function [read_BIN2R].
+#' of the function [Luminescence::read_BIN2R].
 #'
 #' @name Risoe.BINfileData-class
 #'
@@ -108,7 +108,7 @@
 #'
 #' Note that the `Risoe.BINfileData` object combines all values from
 #' different versions from the BIN/BINX-file, reserved bits are skipped, however,
-#' the function [write_R2BIN] reset arbitrary reserved bits. Invalid
+#' the function [Luminescence::write_R2BIN] reset arbitrary reserved bits. Invalid
 #' values for a specific version are set to `NA`. Furthermore, the
 #' internal R data types do not necessarily match the required data types for
 #' the BIN-file data import! Data types are converted during data import.\cr
@@ -205,8 +205,9 @@
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
 #'
-#' @seealso [plot_Risoe.BINfileData], [read_BIN2R], [write_R2BIN],
-#' [merge_Risoe.BINfileData], [Risoe.BINfileData2RLum.Analysis]
+#' @seealso [Luminescence::plot_Risoe.BINfileData], [Luminescence::read_BIN2R],
+#' [Luminescence::write_R2BIN], [Luminescence::merge_Risoe.BINfileData],
+#' [Luminescence::Risoe.BINfileData2RLum.Analysis]
 #'
 #' @references
 #' Risø DTU, 2013. The Sequence Editor User Manual - Feb 2013 and Risø DTU, 2016.
@@ -392,8 +393,8 @@ setMethod(f = "show",
 
 ## set method for object class ----------------------------------------------
 #' @describeIn Risoe.BINfileData
-#' A [Risoe.BINfileData-class] object is normally produced as output of the
-#' function [read_BIN2R]. This construction method is intended for internal
+#' A [Luminescence::Risoe.BINfileData-class] object is normally produced as output of the
+#' function [Luminescence::read_BIN2R]. This construction method is intended for internal
 #' usage only.
 #'
 #' @param METADATA Object of class "data.frame" containing the meta information
@@ -428,7 +429,7 @@ setMethod(f = "set_Risoe.BINfileData",
 
 ## add_metadata() -----------------------------------------------------------
 #' @describeIn metadata
-#' Adds metadata to [Risoe.BINfileData-class] objects.
+#' Adds metadata to [Luminescence::Risoe.BINfileData-class] objects.
 #'
 #' @export
 setMethod("add_metadata<-",
@@ -455,7 +456,7 @@ setMethod("add_metadata<-",
 
 ## rename_metadata() --------------------------------------------------------
 #' @describeIn metadata
-#' Renames a metadata entry of [Risoe.BINfileData-class] objects.
+#' Renames a metadata entry of [Luminescence::Risoe.BINfileData-class] objects.
 #'
 #' @export
 setMethod("rename_metadata<-",
@@ -485,7 +486,7 @@ setMethod("rename_metadata<-",
 
 ## replace_metadata() -------------------------------------------------------
 #' @describeIn metadata
-#' Replaces or removes metadata of [Risoe.BINfileData-class] objects.
+#' Replaces or removes metadata of [Luminescence::Risoe.BINfileData-class] objects.
 #'
 #' @export
 setMethod("replace_metadata<-",
@@ -550,7 +551,7 @@ setMethod("replace_metadata<-",
 
 ## sort_RLum() --------------------------------------------------------------
 #' @describeIn sort_RLum
-#' Sort method for [Risoe.BINfileData-class] objects.
+#' Sort method for [Luminescence::Risoe.BINfileData-class] objects.
 #'
 #' @export
 setMethod(
@@ -588,7 +589,7 @@ setMethod(
 
 ## view() -------------------------------------------------------------------
 #' @describeIn view
-#' View method for [Risoe.BINfileData-class] objects.
+#' View method for [Luminescence::Risoe.BINfileData-class] objects.
 #'
 #'@export
 setMethod("view",

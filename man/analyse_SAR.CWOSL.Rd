@@ -119,7 +119,8 @@ This allows to get hands on the \code{Lx/Tx} table for large datasets
 without the need for a curve fitting.}
 
 \item{...}{further arguments that will be passed to the functions
-\link{fit_DoseResponseCurve}, \link{plot_DoseResponseCurve} or \link{calc_OSLLxTxRatio}
+\link{fit_DoseResponseCurve}, \link{plot_DoseResponseCurve}
+or \link{calc_OSLLxTxRatio}
 (supported: \code{background.count.distribution}, \code{sigmab}, \code{sig0}).
 \strong{Please note} that if you consider to use the early light subtraction
 method you should provide your own \code{sigmab} value!}
@@ -298,7 +299,8 @@ doi:10.1016/j.radmeas.2008.06.002
 }
 \seealso{
 \link{calc_OSLLxTxRatio}, \link{fit_DoseResponseCurve},
-\link{plot_DoseResponseCurve}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}
+\link{plot_DoseResponseCurve}, \linkS4class{RLum.Analysis},
+\linkS4class{RLum.Results}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

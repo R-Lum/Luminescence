@@ -35,7 +35,7 @@
 #' **NOTE**: For the logged model (`log = TRUE`) this value must be
 #' a fraction, e.g. 0.2 (= 20 %). If the un-logged model is used (`log = FALSE`),
 #' sigmab must be provided in the same absolute units of the De values (seconds or Gray).
-#' See details ([calc_MinDose].
+#' See details ([Luminescence::calc_MinDose].
 #'
 #' @param log [logical] (*with default*):
 #' fit the (un-)logged three parameter minimum dose model to De data

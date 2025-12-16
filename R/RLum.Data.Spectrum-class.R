@@ -79,7 +79,7 @@ setClass(
 #'
 #' for `[RLum.Data.Spectrum-class]`
 #'
-#' **[RLum.Data.Spectrum-class]**
+#' **[Luminescence::RLum.Data.Spectrum-class]**
 #'
 #' \tabular{ll}{
 #'   **from** \tab **to**\cr
@@ -170,7 +170,7 @@ setMethod("show",
 
 ## set_RLum() ---------------------------------------------------------------
 #' @describeIn set_RLum
-#' Construction method for [RLum.Data.Spectrum-class] objects.
+#' Construction method for [Luminescence::RLum.Data.Spectrum-class] objects.
 #'
 #' @export
 setMethod(
@@ -227,7 +227,7 @@ setMethod(
 
 ## get_RLum() ---------------------------------------------------------------
 #' @describeIn get_RLum
-#' Accessor method for [RLum.Data.Spectrum-class] objects.
+#' Accessor method for [Luminescence::RLum.Data.Spectrum-class] objects.
 #' The argument `info.object` is optional to directly access the info elements.
 #' If no info element name is provided, the raw curve data (matrix) will be
 #' returned.

@@ -249,8 +249,9 @@ The Sequence Editor User Manual - February 2016
 \url{https://www.fysik.dtu.dk}
 }
 \seealso{
-\link{plot_Risoe.BINfileData}, \link{read_BIN2R}, \link{write_R2BIN},
-\link{merge_Risoe.BINfileData}, \link{Risoe.BINfileData2RLum.Analysis}
+\link{plot_Risoe.BINfileData}, \link{read_BIN2R},
+\link{write_R2BIN}, \link{merge_Risoe.BINfileData},
+\link{Risoe.BINfileData2RLum.Analysis}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr

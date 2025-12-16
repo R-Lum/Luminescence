@@ -1,11 +1,11 @@
 #' @title Analyse SAR TL measurements
 #'
 #' @description The function performs a SAR TL analysis on a
-#' [RLum.Analysis-class] object including growth curve fitting.
+#' [Luminescence::RLum.Analysis-class] object including growth curve fitting.
 #'
 #' @details This function performs a SAR TL analysis on a set of curves. The SAR
 #' procedure in general is given by Murray and Wintle (2000). For the
-#' calculation of the `Lx/Tx` value the function [calc_TLLxTxRatio] is
+#' calculation of the `Lx/Tx` value the function [Luminescence::calc_TLLxTxRatio] is
 #' used.
 #'
 #' **Provided rejection criteria**
@@ -17,7 +17,7 @@
 #' value (the `Lx/Tx` ratio of the natural signal).  For methodological
 #' background see Aitken and Smith (1988)
 #'
-#' @param object [RLum.Analysis-class] or a [list] of such objects (**required**) :
+#' @param object [Luminescence::RLum.Analysis-class] or a [list] of such objects (**required**) :
 #' input object containing data for analysis
 #'
 #' @param object.background currently not used
@@ -54,17 +54,17 @@
 #' are to be logarithmic. See
 #' [plot.default]).
 #'
-#' @param ... further arguments that will be passed to the function [fit_DoseResponseCurve]
+#' @param ... further arguments that will be passed to the function [Luminescence::fit_DoseResponseCurve]
 #'
 #' @return
-#' A plot (*optional*) and an [RLum.Results-class] object is
+#' A plot (*optional*) and an [Luminescence::RLum.Results-class] object is
 #' returned containing the following elements:
 #'
 #' \item{De.values}{[data.frame] containing De-values and further parameters}
 #' \item{LnLxTnTx.values}{[data.frame] of all calculated `Lx/Tx` values including signal, background counts and the dose points.}
 #' \item{rejection.criteria}{[data.frame] with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.}
 #'
-#' The output should be accessed using the function [get_RLum].
+#' The output should be accessed using the function [Luminescence::get_RLum].
 #'
 #' @note
 #' **THIS IS A BETA VERSION**
@@ -76,8 +76,8 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [calc_TLLxTxRatio], [fit_DoseResponseCurve], [RLum.Analysis-class],
-#' [RLum.Results-class], [get_RLum]
+#' @seealso [Luminescence::calc_TLLxTxRatio], [Luminescence::fit_DoseResponseCurve], [Luminescence::RLum.Analysis-class],
+#' [Luminescence::RLum.Results-class], [Luminescence::get_RLum]
 #'
 #' @references
 #' Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation

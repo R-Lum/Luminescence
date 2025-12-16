@@ -100,7 +100,7 @@
 #'
 #' @return
 #' Returns a terminal output. In addition an
-#' [RLum.Results-class] object is returned containing the
+#' [Luminescence::RLum.Results-class] object is returned containing the
 #' following element:
 #'
 #' \item{.$summary}{[data.frame] summary of all relevant calculation results.}
@@ -108,7 +108,7 @@
 #' \item{.$call}{[call] the function call}
 #' \item{.$MC}{[list] results of the Monte Carlo simulation}
 #'
-#' The output should be accessed using the function [get_RLum].
+#' The output should be accessed using the function [Luminescence::get_RLum].
 #'
 #' @section Function version: 0.33
 #'
