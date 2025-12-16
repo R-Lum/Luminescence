@@ -33,7 +33,7 @@ is returned instead.}
 \item{compact}{\link{logical} (\emph{with default}): if \code{TRUE} (default) the output
 will be simpler but less comprehensive, that is not all elements in the
 objects will be fully broken down. This is in particular useful for writing
-\code{RLum.Results} objects to CSV files, as such objects can be rather complex
+\linkS4class{RLum.Results} objects to CSV files, as such objects can be rather complex
 and not all information are needed in a CSV file or can be meaningfully
 translated to CSV format.}
 

@@ -6,7 +6,7 @@
 #' @param file [character] (**required**):
 #' name of a CSV file (formatted according to the DRAC v1.2 CSV template) to
 #' be sent to the DRAC website for calculation. It can also be a DRAC template
-#' object obtained from [template_DRAC()], which supports also import from
+#' object obtained from [Luminescence::template_DRAC()], which supports also import from
 #' CSV-files.
 #'
 #' @param name [character] (*with default*):
@@ -30,7 +30,7 @@
 #' - `password` [character]: password for secured site, only works jointly with `user`
 #' - `verbose` [logical]: show or hide console output
 #'
-#' @return Returns an [RLum.Results-class] object containing the following elements:
+#' @return Returns an [Luminescence::RLum.Results-class] object containing the following elements:
 #'
 #' \item{DRAC}{[list]: a named list containing the following elements in slot `@@data`:
 #'
@@ -49,9 +49,9 @@
 #' \item{call}{[call] the function call}
 #' \item{args}{[list] used arguments}
 #'
-#' The output should be accessed using the function [get_RLum].
+#' The output should be accessed using the function [Luminescence::get_RLum].
 #'
-#' @seealso [template_DRAC], [.as.latex.table]
+#' @seealso [Luminescence::template_DRAC], [Luminescence::.as.latex.table]
 #'
 #' @section Function version: 0.17
 #'
@@ -62,7 +62,7 @@
 #'
 #' @references
 #' Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculator for trapped charge dating.
-#' Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
+#' Quaternary Geochronology 28, 54-61. \doi{10.1016/j.quageo.2015.03.012}
 #'
 #' @examples
 #'

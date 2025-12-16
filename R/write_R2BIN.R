@@ -1,6 +1,6 @@
 #' @title Export Risoe.BINfileData into Risø BIN/BINX-file
 #'
-#' @description Exports a `Risoe.BINfileData` object in a `*.bin` or `*.binx` file that can be
+#' @description Exports a [Luminescence::Risoe.BINfileData-class] object in a `*.bin` or `*.binx` file that can be
 #' opened by the Analyst software or other Risø software.
 #'
 #' @details
@@ -11,7 +11,7 @@
 #' `LTYPE`, `DTYPE` and `LIGHTSOURCE` are not of type
 #' [character], no transformation into numeric values is done.
 #'
-#' @param object [Risoe.BINfileData-class] (**required**):
+#' @param object [Luminescence::Risoe.BINfileData-class] (**required**):
 #' input object to be stored in a bin file.
 #'
 #' @param file [character] (**required**):
@@ -22,7 +22,7 @@
 #'
 #' @param version [character] (*optional*):
 #' version number for the output file. If no value is provided, the highest
-#' version number from the [Risoe.BINfileData-class] is taken automatically.
+#' version number from the [Luminescence::Risoe.BINfileData-class] is taken automatically.
 #'
 #' **Note:**
 #' This argument can be used to convert BIN-file versions.
@@ -65,9 +65,9 @@
 #'
 #' @note
 #' ROI definitions (introduced in BIN-file version 8) are not supported!
-#' There are furthermore ignored by the function [read_BIN2R].
+#' There are furthermore ignored by the function [Luminescence::read_BIN2R].
 #'
-#' @seealso [read_BIN2R], [Risoe.BINfileData-class], [writeBin]
+#' @seealso [Luminescence::read_BIN2R], [Luminescence::Risoe.BINfileData-class], [writeBin]
 #'
 #' @references
 #' DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.

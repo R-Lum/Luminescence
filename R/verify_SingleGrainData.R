@@ -27,8 +27,8 @@
 #' ratio was chosen as both terms can become 0 which would result in 0 or `Inf`,
 #' if the ratio is calculated.
 #'
-#' @param object [Risoe.BINfileData-class] or [RLum.Analysis-class] (**required**):
-#' input object. The function also accepts a list with objects of allowed type.
+#' @param object [Luminescence::Risoe.BINfileData-class] or [Luminescence::RLum.Analysis-class]
+#'  (**required**):  input object. The function also accepts a list with objects of allowed type.
 #'
 #' @param threshold [numeric] (*with default*):
 #' numeric threshold value for the allowed difference between the `mean` and
@@ -40,7 +40,7 @@
 #' @param cleanup [logical] (*with default*):
 #' if set to `TRUE`, curves/aliquots identified as zero light level curves/aliquots are
 #' automatically removed. Output is an object as same type as the input, i.e.
-#' either [Risoe.BINfileData-class] or [RLum.Analysis-class]
+#' either [Luminescence::Risoe.BINfileData-class] or [Luminescence::RLum.Analysis-class]
 #'
 #' @param cleanup_level [character] (*with default*):
 #' selects the level for the clean-up of the input data sets.
@@ -85,17 +85,17 @@
 #' **Output variation**
 #'
 #' For `cleanup = TRUE` the same object as the input is returned, but cleaned up
-#' (invalid curves were removed). This means: Either a [Risoe.BINfileData-class]
-#' or an [RLum.Analysis-class] object is returned in such cases.
-#' A [Risoe.BINfileData-class] object can be exported to a BINX-file by
-#' using the function [write_R2BIN].
+#' (invalid curves were removed). This means: Either a [Luminescence::Risoe.BINfileData-class]
+#' or an [Luminescence::RLum.Analysis-class] object is returned in such cases.
+#' A [Luminescence::Risoe.BINfileData-class] object can be exported to a BINX-file by
+#' using the function [Luminescence::write_R2BIN].
 #'
 #' @note
-#' This function can work with [Risoe.BINfileData-class] objects or
-#' [RLum.Analysis-class] objects (or a list of it). However, the function is
-#' highly optimised for [Risoe.BINfileData-class] objects as it make sense to
+#' This function can work with [Luminescence::Risoe.BINfileData-class] objects or
+#' [Luminescence::RLum.Analysis-class] objects (or a list of it). However, the function is
+#' highly optimised for [Luminescence::Risoe.BINfileData-class] objects as it make sense to
 #' remove identify invalid grains before the conversion to an
-#' [RLum.Analysis-class] object.
+#' [Luminescence::RLum.Analysis-class] object.
 #'
 #' The function checking for invalid curves works rather robust and it is likely
 #' that Reg0 curves within a SAR cycle are removed as well. Therefore it is
@@ -109,8 +109,8 @@
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
 #'
-#' @seealso [Risoe.BINfileData-class], [RLum.Analysis-class], [write_R2BIN],
-#' [read_BIN2R]
+#' @seealso [Luminescence::Risoe.BINfileData-class], [Luminescence::RLum.Analysis-class],
+#' [Luminescence::write_R2BIN], [Luminescence::read_BIN2R]
 #'
 #' @keywords manip datagen
 #'

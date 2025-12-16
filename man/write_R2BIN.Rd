@@ -48,7 +48,7 @@ enable/disable the progress bar. Ignored if \code{verbose = FALSE}.}
 Write a binary file and returns the name and path of the file as \link{character}.
 }
 \description{
-Exports a \code{Risoe.BINfileData} object in a \verb{*.bin} or \verb{*.binx} file that can be
+Exports a \linkS4class{Risoe.BINfileData} object in a \verb{*.bin} or \verb{*.binx} file that can be
 opened by the Analyst software or other Risø software.
 }
 \details{

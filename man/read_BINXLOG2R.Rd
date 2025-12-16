@@ -57,7 +57,6 @@ object <- convert_RLum2Risoe.BINfileData(object)
  write_R2BIN(t, file = tempfile(), version = "04")
 }
 
-
 }
 \seealso{
 \link{read_BIN2R}, \link{write_R2BIN}, \linkS4class{Risoe.BINfileData},

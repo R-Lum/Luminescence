@@ -17,8 +17,8 @@ verify_SingleGrainData(
 )
 }
 \arguments{
-\item{object}{\linkS4class{Risoe.BINfileData} or \linkS4class{RLum.Analysis} (\strong{required}):
-input object. The function also accepts a list with objects of allowed type.}
+\item{object}{\linkS4class{Risoe.BINfileData} or \linkS4class{RLum.Analysis}
+(\strong{required}):  input object. The function also accepts a list with objects of allowed type.}
 
 \item{threshold}{\link{numeric} (\emph{with default}):
 numeric threshold value for the allowed difference between the \code{mean} and
@@ -153,8 +153,8 @@ write_R2BIN(object, paste0(dirname(file),"/", basename(file), "_CLEANED.BIN"))
 
 }
 \seealso{
-\linkS4class{Risoe.BINfileData}, \linkS4class{RLum.Analysis}, \link{write_R2BIN},
-\link{read_BIN2R}
+\linkS4class{Risoe.BINfileData}, \linkS4class{RLum.Analysis},
+\link{write_R2BIN}, \link{read_BIN2R}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

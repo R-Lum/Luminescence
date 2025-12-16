@@ -39,7 +39,8 @@ write_R2TIFF(ExampleData.RLum.Data.Image, file = tempfile(fileext = ".tiff"))
 
 }
 \seealso{
-\link[tiff:writeTIFF]{tiff::writeTIFF}, \linkS4class{RLum.Data.Image}, \linkS4class{RLum.Data.Spectrum}
+\link[tiff:writeTIFF]{tiff::writeTIFF}, \linkS4class{RLum.Data.Image},
+\linkS4class{RLum.Data.Spectrum}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

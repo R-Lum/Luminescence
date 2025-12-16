@@ -96,7 +96,7 @@ readline <- NULL
 #'
 #' @author R Luminescence Team, 2012-2046
 #'
-#' @seealso [plot_KDE]
+#' @seealso [Luminescence::plot_KDE]
 #'
 #' @keywords manip
 #' @examples

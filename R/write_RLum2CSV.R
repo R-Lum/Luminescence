@@ -1,7 +1,7 @@
 #' @title Export RLum-objects to CSV
 #'
-#' @description This function exports [RLum-class]-objects to CSV-files using the R function
-#' [utils::write.table]. All [RLum-class]-objects are supported, but the
+#' @description This function exports [Luminescence::RLum-class]-objects to CSV-files using the R function
+#' [utils::write.table]. All [Luminescence::RLum-class]-objects are supported, but the
 #' export is lossy, i.e. the pure numerical values are exported only. Information
 #' that cannot be coerced to a [data.frame] or a [matrix] are discarded as well as
 #' metadata.
@@ -15,7 +15,7 @@
 #' If the input is a [list] of objects all explicit function arguments can be provided
 #' as [list].
 #'
-#' @param object [RLum-class] or a [list] of `RLum` objects (**required**):
+#' @param object [Luminescence::RLum-class] or a [list] of `RLum` objects (**required**):
 #' objects to be written. Can be a [data.frame] if needed internally.
 #'
 #' @param path [character] (*optional*):
@@ -34,7 +34,7 @@
 #' @param compact [logical] (*with default*): if `TRUE` (default) the output
 #' will be simpler but less comprehensive, that is not all elements in the
 #' objects will be fully broken down. This is in particular useful for writing
-#' `RLum.Results` objects to CSV files, as such objects can be rather complex
+#' [Luminescence::RLum.Results-class] objects to CSV files, as such objects can be rather complex
 #' and not all information are needed in a CSV file or can be meaningfully
 #' translated to CSV format.
 #'
@@ -50,7 +50,7 @@
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University (United Kingdom)
 #'
-#' @seealso [RLum.Analysis-class], [RLum.Data-class], [RLum.Results-class],
+#' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data-class], [Luminescence::RLum.Results-class],
 #' [utils::write.table]
 #'
 #' @keywords IO
