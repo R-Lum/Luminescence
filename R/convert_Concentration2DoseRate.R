@@ -49,9 +49,9 @@
 #'
 #' @param conversion [character] (*with default*):
 #' dose rate conversion factors to use, by default those by Guérin et al. (2011).
-#' For accepted values see [BaseDataSet.ConversionFactors].
+#' For accepted values see [Luminescence::BaseDataSet.ConversionFactors].
 #'
-#'@return The function returns an [RLum.Results-class] object for which the first
+#'@return The function returns an [Luminescence::RLum.Results-class] object for which the first
 #'element is [matrix] with the converted values. If no input is provided, the
 #'function returns a template [data.frame] that can be used as input.
 #'

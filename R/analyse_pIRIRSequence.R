@@ -2,13 +2,13 @@
 #'
 #' @description
 #' The function performs an analysis of post-IR IRSL sequences including curve
-#' fitting on [RLum.Analysis-class] objects.
+#' fitting on [Luminescence::RLum.Analysis-class] objects.
 #'
 #' @details To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement
 #' analyses, this function has been written as extended wrapper for function
-#' [analyse_SAR.CWOSL], thus facilitating an entire sequence analysis in
+#' [Luminescence::analyse_SAR.CWOSL], thus facilitating an entire sequence analysis in
 #' one run. With this, its functionality is strictly limited by the
-#' functionality provided by  [analyse_SAR.CWOSL].
+#' functionality provided by  [Luminescence::analyse_SAR.CWOSL].
 #'
 #' **Defining the sequence structure**
 #'
@@ -22,12 +22,13 @@
 #'
 #' **If the input is a `list`**
 #'
-#' If the input is a list of [RLum.Analysis-class] objects, every argument
+#' If the input is a list of [Luminescence::RLum.Analysis-class] objects, every argument
 #' can be provided as list to allow
 #' for different sets of parameters for every single input element.
 #' For further information see [analyse_SAR.CWOSL].
 #'
-#' @param object [RLum.Analysis-class] or [list] of [RLum.Analysis-class] objects (**required**):
+#' @param object [Luminescence::RLum.Analysis-class] or [list] of
+#' [Luminescence::RLum.Analysis-class] objects (**required**):
 #' input object containing data for analysis.
 #' If a [list] is provided the functions tries to iterate over each element
 #' in the list.
@@ -67,13 +68,13 @@
 #' Ignored if `plot = FALSE`.
 #'
 #' @param ... further arguments that will be passed to
-#' [analyse_SAR.CWOSL] and [plot_DoseResponseCurve]. Furthermore, the
+#' [Luminescence::analyse_SAR.CWOSL] and [Luminescence::plot_DoseResponseCurve]. Furthermore, the
 #' arguments `main` (headers), `log` (IRSL curves), `cex` (control
 #' the size) and `mtext.outer` (additional text on the plot area) can be passed to influence the plotting. If the input
 #' is a list, `main` can be passed as [vector] or [list].
 #'
 #' @return
-#' Plots (*optional*) and an [RLum.Results-class] object is
+#' Plots (*optional*) and an [Luminescence::RLum.Results-class] object is
 #' returned containing the following elements:
 #'
 #' \tabular{lll}{
@@ -85,7 +86,7 @@
 #' `..$call` : \tab [call] \tab the original function call
 #' }
 #'
-#' The output should be accessed using the function [get_RLum].
+#' The output should be accessed using the function [Luminescence::get_RLum].
 #'
 #' @note
 #' Best graphical output can be achieved by using the function `pdf`
@@ -97,8 +98,10 @@
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [analyse_SAR.CWOSL], [calc_OSLLxTxRatio], [plot_GrowthCurve],
-#' [RLum.Analysis-class], [RLum.Results-class] [get_RLum]
+#' @seealso [Luminescence::analyse_SAR.CWOSL], [Luminescence::calc_OSLLxTxRatio],
+#' [Luminescence::plot_GrowthCurve],
+#' [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Results-class],
+#' [Luminescence::get_RLum]
 #'
 #' @references
 #' Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz

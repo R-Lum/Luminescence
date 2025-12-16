@@ -24,11 +24,11 @@
 #' @param verbose [logical] (*with default*): enable/disable output to the
 #' terminal.
 #'
-#'@return An [RLum.Results-class] object to be used in [combine_De_Dr]
+#'@return An [Luminescence::RLum.Results-class] object to be used in [Luminescence::combine_De_Dr]
 #'
 #'@section Function version: 0.1.0
 #'
-#'@note The function is intended to be called by [combine_De_Dr], however, for
+#'@note The function is intended to be called by [Luminescence::combine_De_Dr], however, for
 #' reasons of transparency
 #'
 #'@author Anne Philippe, Université de Nantes (France),
@@ -204,7 +204,7 @@
 #' @param verbose [logical] (*with default*): enable/disable output to the
 #' terminal.
 #'
-#'@return An [RLum.Results-class] object
+#'@return An [Luminescence::RLum.Results-class] object
 #'
 #'@section Function version: 0.1.0
 #'
@@ -421,7 +421,7 @@
 #'@param ... a few further arguments to fine-tune the plot output such as
 #'`cdf_ADr_quantiles` (`TRUE`/`FALSE`), `legend.pos`, `legend` (`TRUE`/`FALSE`)
 #'
-#'@return The function returns a plot if `plot = TRUE` and an [RLum.Results-class]
+#'@return The function returns a plot if `plot = TRUE` and an [Luminescence::RLum.Results-class]
 #'object with the following slots:
 #'
 #' `@data`\cr
@@ -463,7 +463,7 @@
 #'Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France),
 #'Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#'@seealso [plot_OSLAgeSummary], [rjags::rjags], [mclust::mclust-package]
+#'@seealso [Luminescence::plot_OSLAgeSummary], [rjags::rjags], [mclust::mclust-package]
 #'
 #'@section Function version: 0.1.0
 #'

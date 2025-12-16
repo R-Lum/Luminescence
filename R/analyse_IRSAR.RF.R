@@ -181,9 +181,9 @@
 #' if all three parameters are set.
 #'
 #'
-#' @param object [RLum.Analysis-class] or a [list] of [RLum.Analysis-class]-objects (**required**):
+#' @param object [Luminescence::RLum.Analysis-class] or a [list] of [Luminescence::RLum.Analysis-class]-objects (**required**):
 #' input object containing data for protocol analysis. The function expects to
-#' find at least two curves in the [RLum.Analysis-class] object: (1) `RF_nat`, (2) `RF_reg`.
+#' find at least two curves in the [Luminescence::RLum.Analysis-class] object: (1) `RF_nat`, (2) `RF_reg`.
 #' If a `list` is provided as input all other parameters can be provided as
 #' `list` as well to gain full control.
 #'
@@ -322,7 +322,7 @@
 #'
 #' The original function call ([methods::language-class]-object)
 #'
-#' The output (`data`) should be accessed using the function [get_RLum].
+#' The output (`data`) should be accessed using the function [Luminescence::get_RLum].
 #'
 #' ------------------------\cr
 #' `[ PLOT OUTPUT ]`\cr
@@ -339,8 +339,8 @@
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum.Analysis-class], [RLum.Results-class], [get_RLum],
-#' [nls], [minpack.lm::nlsLM], [parallel::mclapply], [ExampleData.RF70Curves]
+#' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Results-class], [Luminescence::get_RLum],
+#' [nls], [minpack.lm::nlsLM], [parallel::mclapply], [Luminescence::ExampleData.RF70Curves]
 #'
 #'
 #' @references

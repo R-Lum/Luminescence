@@ -180,7 +180,8 @@ Duller, G.A.T., 2015. The Analyst software package for luminescence data: overvi
 recent improvements. Ancient TL 33, 35-42. \doi{10.26034/la.atl.2015.489}
 }
 \seealso{
-\linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}, \linkS4class{Risoe.BINfileData},
+\linkS4class{RLum.Analysis}, \linkS4class{RLum.Results},
+\linkS4class{Risoe.BINfileData},
 \link{read_XSYG2R}, \link{read_BIN2R}, \link{write_R2BIN}
 }
 \author{

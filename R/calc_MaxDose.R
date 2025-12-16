@@ -1,7 +1,7 @@
 #' Apply the maximum age model to a given De distribution
 #'
 #' Function to fit the maximum age model to De data. This is a wrapper function
-#' that calls [calc_MinDose] and applies a similar approach as described in
+#' that calls [Luminescence::calc_MinDose] and applies a similar approach as described in
 #' Olley et al. (2006).
 #'
 #' **Data transformation**
@@ -24,9 +24,9 @@
 #'
 #' **Further documentation**
 #'
-#' Please see [calc_MinDose].
+#' Please see [Luminescence::calc_MinDose].
 #'
-#' @param data [RLum.Results-class] or [data.frame] (**required**):
+#' @param data [Luminescence::RLum.Results-class] or [data.frame] (**required**):
 #' for [data.frame]: two columns with De `(data[ ,1])` and De error `(data[ ,2])`.
 #'
 #' @param sigmab [numeric] (**required**):
@@ -56,7 +56,7 @@
 #' @param ... further arguments for bootstrapping (`bs.M, bs.N, bs.h, sigmab.sd`).
 #' See details for their usage.
 #'
-#' @return Please see [calc_MinDose].
+#' @return Please see [Luminescence::calc_MinDose].
 #'
 #' @section Function version: 0.3.2
 #'
@@ -64,8 +64,8 @@
 #' Christoph Burow, University of Cologne (Germany) \cr
 #' Based on a rewritten S script of Rex Galbraith, 2010
 #'
-#' @seealso [calc_CentralDose], [calc_CommonDose], [calc_FiniteMixture],
-#' [calc_FuchsLang2001], [calc_MinDose]
+#' @seealso [Luminescence::calc_CentralDose], [Luminescence::calc_CommonDose], [Luminescence::calc_FiniteMixture],
+#' [Luminescence::calc_FuchsLang2001], [Luminescence::calc_MinDose]
 #'
 #' @references
 #' Arnold, L.J., Roberts, R.G., Galbraith, R.F. & DeLong, S.B.,

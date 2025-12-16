@@ -12,7 +12,7 @@
 #' specific fraction of saturation of a feldspar and also to calculate fading
 #' corrected age using this model. \eqn{\rho}' (`rhop`), the density of recombination
 #' centres, is a crucial parameter of this model and must be determined
-#' separately from a fading measurement. The function [analyse_FadingMeasurement]
+#' separately from a fading measurement. The function [Luminescence::analyse_FadingMeasurement]
 #' can be used to calculate the sample specific \eqn{\rho}' value.
 #'
 #' **Kars et al. (2008) -- Single saturating exponential**
@@ -57,7 +57,8 @@
 #'
 #' **Level of saturation**
 #'
-#' The [calc_Huntley2006] function also calculates the level of saturation (\eqn{\frac{n}{N}})
+#' The [Luminescence::calc_Huntley2006] function also calculates the level of
+#' saturation (\eqn{\frac{n}{N}})
 #' and the field saturation (i.e. athermal steady state, (n/N)_SS) value for
 #' the sample under investigation using the sample specific \eqn{\rho}',
 #' unfaded \eqn{D_0} and \eqn{\dot{D}} values, following the approach of Kars et al. (2008).
@@ -167,7 +168,7 @@
 #' e.g. `c(0, 0, 0, 0)`. The values of the vectors are, respectively, for
 #' parameters `a`, `D0`, `c` and `d` in that order (parameter `d` is ignored
 #' when `fit.method = "EXP"`). More details can be found in
-#' [fit_DoseResponseCurve].
+#' [Luminescence::fit_DoseResponseCurve].
 #'
 #' @param cores [integer] (*with default*):
 #' The number of cores to use. This will be capped to the number of available
@@ -192,11 +193,11 @@
 #' iterations for the results to converge. Decreasing the number of iterations
 #' will often result in unstable estimates.
 #'
-#' All other arguments are passed to [plot] and [fit_DoseResponseCurve] (in
+#' All other arguments are passed to [plot] and [Luminescence::fit_DoseResponseCurve] (in
 #' particular `mode` for the De calculation mode, `fit.force_through_origin`,
 #' and `fit.bounds`).
 #'
-#' @return An [RLum.Results-class] object is returned:
+#' @return An [Luminescence::RLum.Results-class] object is returned:
 #'
 #' Slot: **@data**\cr
 #'

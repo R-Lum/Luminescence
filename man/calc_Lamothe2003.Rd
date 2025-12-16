@@ -57,11 +57,12 @@ terminal.}
 
 \item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.}
 
-\item{...}{further arguments passed to function \link{plot_GrowthCurve}.}
+\item{...}{further arguments passed to function \link{fit_DoseResponseCurve} and
+\link{plot_DoseResponseCurve}.}
 }
 \value{
 The function returns an \linkS4class{RLum.Results} object and the graphical
-output produced by \link{plot_GrowthCurve}.
+output produced by \link{plot_DoseResponseCurve}.
 
 -----------------------------------\cr
 \verb{[ NUMERICAL OUTPUT ]}\cr
@@ -85,7 +86,7 @@ The original function call
 This function applies the fading correction for the prediction of long-term
 fading as suggested by Lamothe et al., 2003. The function basically adjusts
 the $L_n/T_n$ values and fits a new dose-response curve using function
-\link{plot_GrowthCurve}.
+\link{fit_DoseResponseCurve}.
 }
 \details{
 \strong{Format of \code{object} if \code{data.frame}}
@@ -166,7 +167,8 @@ Towards a prediction of long-term anomalous fading of feldspar IRSL. Radiation M
 493-498.
 }
 \seealso{
-\link{plot_GrowthCurve}, \link{calc_FadingCorr}, \link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence}
+\link{fit_DoseResponseCurve}, \link{plot_DoseResponseCurve},
+\link{calc_FadingCorr}, \link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany), Norbert Mercier,

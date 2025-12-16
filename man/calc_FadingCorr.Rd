@@ -211,7 +211,8 @@ in K-feldspars and the measurement and correction for it in optical dating.
 Canadian Journal of Earth Sciences, 38, 1093-1106.
 }
 \seealso{
-\linkS4class{RLum.Results}, \link{analyse_FadingMeasurement}, \link{get_RLum}, \link{uniroot}
+\linkS4class{RLum.Results}, \link{analyse_FadingMeasurement},
+\link{get_RLum}, \link{uniroot}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

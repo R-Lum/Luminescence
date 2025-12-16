@@ -17,12 +17,12 @@ Returns an S4 \linkS4class{Risoe.BINfileData} object that can be used to write a
 BIN file using \link{write_R2BIN}.
 }
 \description{
-Converts an \code{RLum.Analysis} object produced by the function \code{read_PSL2R()} to
-a \code{Risoe.BINfileData} object \strong{(BETA)}.
+Converts an \linkS4class{RLum.Analysis} object produced by the function \link{read_PSL2R} to
+a \linkS4class{Risoe.BINfileData} object \strong{(BETA)}.
 
 This function converts an \linkS4class{RLum.Analysis} object that was produced
 by the \link{read_PSL2R} function to a \linkS4class{Risoe.BINfileData}.
-The \code{Risoe.BINfileData} can be used to write a Risoe BIN file via
+The \linkS4class{Risoe.BINfileData} can be used to write a Risø BIN file via
 \link{write_R2BIN}.
 }
 \section{Function version}{

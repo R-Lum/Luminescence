@@ -214,7 +214,8 @@ Guralnik et al., 2015).
 
 \strong{Level of saturation}
 
-The \link{calc_Huntley2006} function also calculates the level of saturation (\eqn{\frac{n}{N}})
+The \link{calc_Huntley2006} function also calculates the level of
+saturation (\eqn{\frac{n}{N}})
 and the field saturation (i.e. athermal steady state, (n/N)_SS) value for
 the sample under investigation using the sample specific \eqn{\rho}',
 unfaded \eqn{D_0} and \eqn{\dot{D}} values, following the approach of Kars et al. (2008).

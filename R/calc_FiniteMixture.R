@@ -38,7 +38,7 @@
 #' per cent) calculated by the FMM. The last plot shows the achieved BIC scores
 #' and maximum log-likelihood estimates for each value of *k*.
 #'
-#' @param data [RLum.Results-class] or [data.frame] (**required**):
+#' @param data [Luminescence::RLum.Results-class] or [data.frame] (**required**):
 #' for [data.frame]: two columns with De `(data[,1])` and De error `(values[,2])`
 #'
 #' @param sigmab [numeric] (**required**):
@@ -105,7 +105,7 @@
 #' `mle` and `grain.probability` are lists containing matrices of the
 #' results for each iteration of the model.
 #'
-#' The output should be accessed using the function [get_RLum].
+#' The output should be accessed using the function [Luminescence::get_RLum].
 #'
 #' @section Function version: 0.4.4
 #'
@@ -114,8 +114,8 @@
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany) \cr
 #' Based on a rewritten S script of Rex Galbraith, 2006.
 #'
-#' @seealso [calc_CentralDose], [calc_CommonDose],
-#' [calc_FuchsLang2001], [calc_MinDose]
+#' @seealso [Luminescence::calc_CentralDose], [Luminescence::calc_CommonDose],
+#' [Luminescence::calc_FuchsLang2001], [Luminescence::calc_MinDose]
 #'
 #' @references
 #' Galbraith, R.F. & Green, P.F., 1990. Estimating the component

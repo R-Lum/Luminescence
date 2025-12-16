@@ -16,7 +16,7 @@
 #' corresponds to `-1 / (n - 1)`, with `n` being the number of non-missing
 #' observations.
 #'
-#' @param object [RLum.Results-class] or [numeric] (**required**) containing
+#' @param object [Luminescence::RLum.Results-class] or [numeric] (**required**) containing
 #' the values of the grains of one. Should have length 100; can contain `NA`
 #' values.
 #'
@@ -258,7 +258,7 @@ calc_MoransI <- function(object,
 #' arguments, it will return the neighbouring positions data frame for one
 #' disc (POS) with on every grain location an observation.
 #'
-#' @param object [RLum.Results-class] or [numeric] (**required**): numerical
+#' @param object [Luminescence::RLum.Results-class] or [numeric] (**required**): numerical
 #' vector containing the values of one or more discs, or an `RLum.Results`
 #' object containing such values. Can contain `NA` values.
 #'

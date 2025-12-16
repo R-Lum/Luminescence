@@ -94,15 +94,15 @@
 #' vector of length 2 containing the uncorrected age and the error in ka
 #' (see example).
 #'
-#' @param g_value [vector] or [RLum.Results-class] (**required**):
+#' @param g_value [vector] or [Luminescence::RLum.Results-class] (**required**):
 #' either a vector of length 2 containing the g-value and error obtained from
-#' separate fading measurements (see example), or an [RLum.Results-class]
-#' object produced by [analyse_FadingMeasurement]. If the latter, the `tc`
+#' separate fading measurements (see example), or an [Luminescence::RLum.Results-class]
+#' object produced by [Luminescence::analyse_FadingMeasurement]. If the latter, the `tc`
 #' argument is set automatically.
 #'
 #' @param tc [numeric] (**required**):
 #' time in seconds between irradiation and the prompt measurement (cf. Huntley & Lamothe 2001).
-#' The argument is ignored when `g_value` is an [RLum.Results-class] object.
+#' The argument is ignored when `g_value` is an [Luminescence::RLum.Results-class] object.
 #'
 #' @param tc.g_value [numeric] (*with default*):
 #' time in seconds between irradiation and the prompt measurement used in the
@@ -131,7 +131,7 @@
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
 #'
-#' @return Returns an S4 object of type [RLum.Results-class].\cr
+#' @return Returns an S4 object of type [Luminescence::RLum.Results-class].\cr
 #'
 #' Slot: **`@data`**\cr
 #' \tabular{lll}{
@@ -155,7 +155,8 @@
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum.Results-class], [analyse_FadingMeasurement], [get_RLum], [uniroot]
+#' @seealso [Luminescence::RLum.Results-class], [Luminescence::analyse_FadingMeasurement],
+#' [Luminescence::get_RLum], [uniroot]
 #'
 #' @references
 #' Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading

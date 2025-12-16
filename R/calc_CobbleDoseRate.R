@@ -51,7 +51,7 @@
 #'for each individual layer. For the table layout see details.
 #'
 #' @param conversion [character] (*with default*): dose rate conversion factors
-#' to use, see [BaseDataSet.ConversionFactors] for the accepted values.
+#' to use, see [Luminescence::BaseDataSet.ConversionFactors] for the accepted values.
 #'
 #'@references
 #'Riedesel, S., Autzen, M., 2020. Beta and gamma dose rate attenuation in rocks and sediment.
@@ -62,7 +62,7 @@
 #'@author Svenja Riedesel, Aberystwyth University (United Kingdom) \cr
 #'Martin Autzen, DTU NUTECH Center for Nuclear Technologies (Denmark)
 #'
-#'@return The function returns an [RLum.Results-class] object for which the first element
+#'@return The function returns an [Luminescence::RLum.Results-class] object for which the first element
 #'is a [matrix] (`DataIndividual`) that gives the dose rate results for each slice
 #'for each decay chain individually, for both, the cobble dose rate and the sediment
 #'dose rate. The second element is also a [matrix] (`DataComponent`) that gives
@@ -71,7 +71,7 @@
 #'
 #'@keywords datagen
 #'
-#'@seealso [convert_Concentration2DoseRate]
+#'@seealso [Luminescence::convert_Concentration2DoseRate]
 #'
 #'@examples
 #'## load example data

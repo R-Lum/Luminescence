@@ -69,8 +69,8 @@
 #' light - Towards a new tool for single grain OSL dating of poorly bleached mortars.
 #' Radiation Measurements 107, 48–57. \doi{10.1016/j.radmeas.2017.10.003}
 #'
-#' @seealso [RLum.Results-class], [calc_MinDose], [calc_FuchsLang2001], [calc_IEU],
-#' [calc_FiniteMixture]
+#' @seealso [Luminescence::RLum.Results-class], [Luminescence::calc_MinDose], [Luminescence::calc_FuchsLang2001],
+#' [Luminescence::calc_IEU], [Luminescence::calc_FiniteMixture]
 #'
 #' @keywords datagen
 #'

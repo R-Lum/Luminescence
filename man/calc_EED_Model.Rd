@@ -115,8 +115,8 @@ light - Towards a new tool for single grain OSL dating of poorly bleached mortar
 Radiation Measurements 107, 48–57. \doi{10.1016/j.radmeas.2017.10.003}
 }
 \seealso{
-\linkS4class{RLum.Results}, \link{calc_MinDose}, \link{calc_FuchsLang2001}, \link{calc_IEU},
-\link{calc_FiniteMixture}
+\linkS4class{RLum.Results}, \link{calc_MinDose}, \link{calc_FuchsLang2001},
+\link{calc_IEU}, \link{calc_FiniteMixture}
 }
 \author{
 Pierre Guibert, IRAMAT-CRP2A, UMR 5060, Université Bordeaux Montaigne (France),

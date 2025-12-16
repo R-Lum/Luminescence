@@ -81,8 +81,8 @@ small aliquots of quartz for reconstructing soil erosion in Greece.
 Quaternary Science Reviews 22, 1161-1167.
 }
 \seealso{
-\link{plot}, \link{calc_MinDose}, \link{calc_FiniteMixture}, \link{calc_CentralDose},
-\link{calc_CommonDose}, \linkS4class{RLum.Results}
+\link{plot}, \link{calc_MinDose}, \link{calc_FiniteMixture},
+\link{calc_CentralDose}, \link{calc_CommonDose}, \linkS4class{RLum.Results}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr

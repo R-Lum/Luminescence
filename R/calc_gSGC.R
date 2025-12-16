@@ -37,7 +37,7 @@
 #'
 #' @param ... parameters will be passed to the plot output
 #'
-#' @return Returns an S4 object of type [RLum.Results-class].
+#' @return Returns an S4 object of type [Luminescence::RLum.Results-class].
 #'
 #' **`@data`**\cr
 #' `$ De.value` ([data.frame]) \cr
@@ -55,7 +55,7 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum.Results-class], [get_RLum], [uniroot]
+#' @seealso [Luminescence::RLum.Results-class], [Luminescence::get_RLum], [uniroot]
 #'
 #' @references
 #' Li, B., Roberts, R.G., Jacobs, Z., Li, S.-H., 2015. Potential of establishing

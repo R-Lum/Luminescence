@@ -9,7 +9,7 @@
 #' `x2` % respectively using eq. 3 to determine channels L2 and L3 (start
 #' and end). The fast ratio is then calculated from: \eqn{(L1-L3)/(L2-L3)}.
 #'
-#' @param object [RLum.Analysis-class], [RLum.Data.Curve-class] or [data.frame] (**required**):
+#' @param object [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data.Curve-class] or [data.frame] (**required**):
 #' x, y data of measured values (time and counts).
 #'
 #' @param stimulation.power [numeric] (*with default*):
@@ -60,10 +60,10 @@
 #' enable/disable the plot output.
 #'
 #' @param ... available options: `verbose` ([logical]).
-#' Further arguments passed to [fit_CWCurve].
+#' Further arguments passed to [Luminescence::fit_CWCurve].
 #'
 #' @return
-#' Returns a plot (*optional*) and an S4 object of type [RLum.Results-class].
+#' Returns a plot (*optional*) and an S4 object of type [Luminescence::RLum.Results-class].
 #' The slot `data` contains a [list] with the following elements:
 #'
 #' \item{summary}{[data.frame] summary of all relevant results}
@@ -94,8 +94,8 @@
 #' due to unstable signal components. Quaternary Geochronology 4, 353-362.
 #'
 #'
-#' @seealso [fit_CWCurve], [get_RLum], [RLum.Analysis-class],
-#' [RLum.Results-class], [RLum.Data.Curve-class]
+#' @seealso [Luminescence::fit_CWCurve], [Luminescence::get_RLum], [Luminescence::RLum.Analysis-class],
+#' [Luminescence::RLum.Results-class], [Luminescence::RLum.Data.Curve-class]
 #'
 #' @examples
 #' # load example CW-OSL curve

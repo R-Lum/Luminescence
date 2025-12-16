@@ -18,7 +18,8 @@ analyse_pIRIRSequence(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} or \link{list} of \linkS4class{RLum.Analysis} objects (\strong{required}):
+\item{object}{\linkS4class{RLum.Analysis} or \link{list} of
+\linkS4class{RLum.Analysis} objects (\strong{required}):
 input object containing data for analysis.
 If a \link{list} is provided the functions tries to iterate over each element
 in the list.}
@@ -182,8 +183,10 @@ extracts. Radiation Measurements 43, 1474-1486.
 \doi{10.1016/j.radmeas.2008.06.002}
 }
 \seealso{
-\link{analyse_SAR.CWOSL}, \link{calc_OSLLxTxRatio}, \link{plot_GrowthCurve},
-\linkS4class{RLum.Analysis}, \linkS4class{RLum.Results} \link{get_RLum}
+\link{analyse_SAR.CWOSL}, \link{calc_OSLLxTxRatio},
+\link{plot_GrowthCurve},
+\linkS4class{RLum.Analysis}, \linkS4class{RLum.Results},
+\link{get_RLum}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

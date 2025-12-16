@@ -1,15 +1,15 @@
-#' Export Risoe BIN-file(s) to CSV-files
+#' @title Export Risoe BIN-file(s) to CSV-files
 #'
-#' This function is a wrapper function around the functions [read_BIN2R] and
-#' [write_RLum2CSV] and it imports a Risoe BIN-file and directly exports its
+#' @description This function is a wrapper function around the functions [Luminescence::read_BIN2R] and
+#' [Luminescence::write_RLum2CSV] and it imports a Risoe BIN-file and directly exports its
 #' content to CSV-files. If nothing is set for the argument `path`
-#' ([write_RLum2CSV]) the input folder will become the output folder.
+#' ([Luminescence::write_RLum2CSV]) the input folder will become the output folder.
 #'
 #' @param file [character] (**required**):
 #' name of the BIN-file to be converted to CSV-files
 #'
 #' @param ... further arguments that will be passed to the function
-#' [read_BIN2R] and [write_RLum2CSV]
+#' [Luminescence::read_BIN2R] and [Luminescence::write_RLum2CSV]
 #'
 #' @return
 #' The function returns either a CSV-file (or many of them) or for the
@@ -19,8 +19,8 @@
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum.Analysis-class], [RLum.Data-class], [RLum.Results-class],
-#' [utils::write.table], [write_RLum2CSV], [read_BIN2R]
+#' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data-class], [Luminescence::RLum.Results-class],
+#' [utils::write.table], [Luminescence::write_RLum2CSV], [Luminescence::read_BIN2R]
 #'
 #' @keywords IO
 #'

@@ -12,7 +12,7 @@
 #'by a dose recovery experiment. Then the dispersion in doses (`sigma_d`)
 #'will be that over and above `sigma_m` (and individual uncertainties `sigma_wi`).
 #'
-#' @param data [RLum.Results-class] or [data.frame] (**required**):
+#' @param data [Luminescence::RLum.Results-class] or [data.frame] (**required**):
 #' for [data.frame]: two columns with `De` `(data[,1])` and `De error` `(values[,2])`
 #'
 #' @param sigma_m [numeric] (**required**):

@@ -74,7 +74,7 @@ days) t <- time since source calibration (in days) log(2) / T.1/2 equals the
 decay constant lambda
 
 Information on the date of measurements may be taken from the data's
-original .BIN file (using e.g., \code{BINfile <- readBIN2R()} and the slot
+original .BIN file (using e.g., \code{BINfile <- Luminescence::read_BIN2R()} and the slot
 \code{BINfile@METADATA$DATE})
 
 \strong{Allowed source types and related values}

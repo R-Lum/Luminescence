@@ -14,7 +14,7 @@
 #' where \eqn{N} (in s\eqn{^{-1}}) is the true count rate, \eqn{M} (in s\eqn{^{-1}}) the measured count rate,
 #' and \eqn{t} (in s) the pulse pair resolution.
 #'
-#' @param object [RLum.Analysis-class] [RLum.Data.Curve-class] (**required**):
+#' @param object [Luminescence::RLum.Analysis-class] [Luminescence::RLum.Data.Curve-class] (**required**):
 #' object with records to correct; can be a [list] of such objects
 #'
 #' @param PMT_pulse_pair_resolution [numeric] (*with default*): pulse-pair resolution

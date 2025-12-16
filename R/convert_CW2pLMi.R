@@ -1,10 +1,11 @@
-#' Transform a CW-OSL curve into a pLM-OSL curve via interpolation under linear
+#' @title Transform a CW-OSL curve into a pLM-OSL curve via interpolation under linear
 #' modulation conditions
 #'
-#' Transforms a conventionally measured continuous-wave (CW) OSL-curve into a
+#' @description Transforms a conventionally measured continuous-wave (CW) OSL-curve into a
 #' pseudo linearly modulated (pLM) curve under linear modulation conditions
 #' using the interpolation procedure described by Bos & Wallinga (2012).
 #'
+#' @details
 #' The complete procedure of the transformation is given in Bos & Wallinga
 #' (2012). The input `data.frame` consists of two columns: time (t) and
 #' count values (CW(t))
@@ -52,8 +53,8 @@
 #' pLM curves it is recommended to use the automatic estimation routine for
 #' `P`, i.e. provide no own value for `P`.
 #'
-#' @param values [RLum.Data.Curve-class] or [data.frame] (**required**):
-#' [RLum.Data.Curve-class] or `data.frame` with measured curve data of type
+#' @param values [Luminescence::RLum.Data.Curve-class] or [data.frame] (**required**):
+#' [Luminescence::RLum.Data.Curve-class] or `data.frame` with measured curve data of type
 #' stimulation time (t) (`values[,1]`) and measured counts (cts) (`values[,2]`)
 #'
 #' @param P [vector] (*optional*):
@@ -86,8 +87,8 @@
 #' Based on comments and suggestions from:\cr
 #' Adrie J.J. Bos, Delft University of Technology, The Netherlands
 #'
-#' @seealso [convert_CW2pLM], [convert_CW2pHMi], [convert_CW2pPMi],
-#' [fit_LMCurve], [RLum.Data.Curve-class]
+#' @seealso [Luminescence::convert_CW2pLM], [Luminescence::convert_CW2pHMi], [Luminescence::convert_CW2pPMi],
+#' [Luminescence::fit_LMCurve], [Luminescence::RLum.Data.Curve-class]
 #'
 #' @references
 #' Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL

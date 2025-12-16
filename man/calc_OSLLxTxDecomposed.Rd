@@ -70,7 +70,8 @@ talk presented at DLED 2019, Bingen, Germany
 \url{http://luminescence.de/OSLdecomp_talk.pdf}\cr
 }
 \seealso{
-\linkS4class{RLum.Data.Curve}, \link{fit_DoseResponseCurve}, \link{analyse_SAR.CWOSL}
+\linkS4class{RLum.Data.Curve}, \link{fit_DoseResponseCurve},
+\link{analyse_SAR.CWOSL}
 }
 \author{
 Dirk Mittelstrass

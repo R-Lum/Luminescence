@@ -2,7 +2,7 @@
 #'
 #' @description
 #' The function provides a convenient and fast way to convert emission spectra
-#' wavelength to energy scales. The function works on [RLum.Data.Spectrum-class],
+#' wavelength to energy scales. The function works on [Luminescence::RLum.Data.Spectrum-class],
 #' [data.frame] and [matrix] and a [list] of such objects. The function was
 #' written to smooth the workflow while analysing emission spectra data. This
 #' is in particular useful if you want to further treat your data and apply,
@@ -25,7 +25,7 @@
 #'
 #' \deqn{E = hc/\lambda}
 #'
-#' @param object [RLum.Data.Spectrum-class], [data.frame], [matrix] (**required**):
+#' @param object [Luminescence::RLum.Data.Spectrum-class], [data.frame], [matrix] (**required**):
 #' input object to be converted. If the input is not an `RLum.Data.Spectrum`
 #' object, the first column is always treated as the wavelength
 #' column. The function supports a list of allowed input objects.
@@ -48,7 +48,7 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum.Data.Spectrum-class], [plot_RLum]
+#' @seealso [Luminescence::RLum.Data.Spectrum-class], [Luminescence::plot_RLum]
 #'
 #' @keywords IO
 #'

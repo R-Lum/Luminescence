@@ -16,7 +16,7 @@
 #' using the Analyst or any other self-written script.
 #'
 #' Beside some simple data transformation steps, the function relies on
-#' [read_XSYG2R], [read_BIN2R], [write_R2BIN] for data import and export.
+#' [Luminescence::read_XSYG2R], [Luminescence::read_BIN2R], [Luminescence::write_R2BIN] for data import and export.
 #'
 #' **Calculation details**
 #'
@@ -29,12 +29,12 @@
 #'
 #' - Irradiation steps have always `IRR_TIME = 0`
 #'
-#' @param object [character], [RLum.Analysis-class] or [list] (**required**):
-#' path and file name of the XSYG file or an [RLum.Analysis-class]
-#' produced by the function [read_XSYG2R];
-#' alternatively, a `list` of [RLum.Analysis-class] can be provided.
+#' @param object [character], [Luminescence::RLum.Analysis-class] or [list] (**required**):
+#' path and file name of the XSYG file or an [Luminescence::RLum.Analysis-class]
+#' produced by the function [Luminescence::read_XSYG2R];
+#' alternatively, a `list` of [Luminescence::RLum.Analysis-class] can be provided.
 #'
-#' **Note**: If an [RLum.Analysis-class] is used, any input for
+#' **Note**: If an [Luminescence::RLum.Analysis-class] is used, any input for
 #' the arguments `file.BINX` and `recordType` will be ignored!
 #'
 #' @param file.BINX [character] (*optional*):
@@ -46,46 +46,46 @@
 #' same measurement!
 #'
 #' @param recordType [character] (*with default*):
-#' select relevant curves types from the XSYG file or [RLum.Analysis-class]
+#' select relevant curves types from the XSYG file or [Luminescence::RLum.Analysis-class]
 #' object. As the XSYG-file format comprises much more information than usually
 #' needed for routine data analysis and allowed in the BINX-file format, only
 #' the relevant curves are selected by using the function
-#' [get_RLum]. The argument `recordType` works as
+#' [Luminescence::get_RLum]. The argument `recordType` works as
 #' described for this function.
 #'
 #' **Note:** A wrong selection will causes a function error. Please change this
 #' argument only if you have reasons to do so.
 #'
 #' @param return_same_as_input [logical] (*with default*):
-#' if set to `TRUE`, an updated [RLum.Analysis-class] object (or a [list] of
+#' if set to `TRUE`, an updated [Luminescence::RLum.Analysis-class] object (or a [list] of
 #' it) is returned, with each record having gained two new info element fields:
-#' `IRR_TIME` and `TIMESCINCEIRR`. This makes the [RLum.Analysis-class] object
+#' `IRR_TIME` and `TIMESCINCEIRR`. This makes the [Luminescence::RLum.Analysis-class] object
 #' compatible with external functions that search explicitly for `IRR_TIME`
 #' and `TIMESCINCEIRR`.
 #'
 #' @param compatibility.mode [logical] (*with default*):
 #' whether all position values should be reset to a maximum value of 48 (see
-#' [write_R2BIN]). Only used if `file.BINX` is specified.
+#' [Luminescence::write_R2BIN]). Only used if `file.BINX` is specified.
 #'
 #' @param txtProgressBar [logical] (*with default*):
 #' enable/disable the progress bar during import and export.
 #'
 #' @note The function can be also used to extract irradiation times from
-#' [RLum.Analysis-class] objects imported via [read_BIN2R] with option
+#' [Luminescence::RLum.Analysis-class] objects imported via [Luminescence::read_BIN2R] with option
 #' `fastForward = TRUE`, or in combination with
-#' [Risoe.BINfileData2RLum.Analysis].
+#' [Luminescence::Risoe.BINfileData2RLum.Analysis].
 #' Unfortunately the timestamp might not be very precise (or even invalid),
 #' but it allows to essentially treat different formats in a similar manner.
 #'
 #' @return
-#' An [RLum.Results-class] object is returned with the
+#' An [Luminescence::RLum.Results-class] object is returned with the
 #' following structure:
 #'
 #' ```
 #' .. $irr.times (data.frame)
 #' ```
 #'
-#' If `return_same_as_input = TRUE` an [RLum.Analysis-class] or a [list] of it, but
+#' If `return_same_as_input = TRUE` an [Luminescence::RLum.Analysis-class] or a [list] of it, but
 #' we updated info elements including irradiation times.
 #'
 #' If a BINX-file path and name is set, the output will be additionally
@@ -94,8 +94,8 @@
 #' not work if the input object is a file path to an XSYG-file, instead of a
 #' link to only one file. In this case the argument input for `file.BINX` is ignored.
 #'
-#' In the self call mode (input is a `list` of [RLum.Analysis-class] objects
-#' a list of [RLum.Results-class] is returned.
+#' In the self call mode (input is a `list` of [Luminescence::RLum.Analysis-class] objects
+#' a list of [Luminescence::RLum.Results-class] is returned.
 #'
 #' @note
 #' The produced output object contains still the irradiation steps to
@@ -121,7 +121,7 @@
 #'
 #' Three curves, but they are all belonging to one TL measurement step, but with regard to
 #' the time stamps this could produce negative values as the important function
-#' ([read_XSYG2R]) do not change the order of entries for one step
+#' ([Luminescence::read_XSYG2R]) do not change the order of entries for one step
 #' towards a correct time order.
 #'
 #' **`TIMESINCELAST.STEP` is odd if TL curves are involved?**
@@ -138,8 +138,9 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum.Analysis-class], [RLum.Results-class], [Risoe.BINfileData-class],
-#' [read_XSYG2R], [read_BIN2R], [write_R2BIN]
+#' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Results-class],
+#' [Luminescence::Risoe.BINfileData-class],
+#' [Luminescence::read_XSYG2R], [Luminescence::read_BIN2R], [Luminescence::write_R2BIN]
 #'
 #' @references
 #' Duller, G.A.T., 2015. The Analyst software package for luminescence data: overview and

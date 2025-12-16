@@ -3,16 +3,16 @@
 #' @description Conversion of single-grain data to multiple-grain data by adding signals
 #' from grains belonging to one disc (unique pairs of position, set and run).
 #'
-#' @param object [Risoe.BINfileData-class] [character] (**required**): [Risoe.BINfileData-class]
+#' @param object [Luminescence::Risoe.BINfileData-class] [character] (**required**): [Luminescence::Risoe.BINfileData-class]
 #' object or BIN/BINX-file name
 #'
 #' @param write_file [logical] (*with default*): if the input was a path to a file, the
 #' output can be written to a file if `TRUE`. The multiple grain file will be written into the
 #' same folder and with extension `-SG` to the file name.
 #'
-#' @param ... further arguments passed down to [read_BIN2R] if input is file path
+#' @param ... further arguments passed down to [Luminescence::read_BIN2R] if input is file path
 #'
-#' @return [Risoe.BINfileData-class] object and if `write_file = TRUE` and the input
+#' @return [Luminescence::Risoe.BINfileData-class] object and if `write_file = TRUE` and the input
 #' was a file path, a file is written to origin folder.
 #'
 #' @section Function version: 0.1.0
@@ -21,7 +21,7 @@
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Norbert Mercier, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France)
 #'
-#' @seealso [Risoe.BINfileData-class], [read_BIN2R], [write_R2BIN]
+#' @seealso [Luminescence::Risoe.BINfileData-class], [Luminescence::read_BIN2R], [Luminescence::write_R2BIN]
 #'
 #' @keywords IO
 #'

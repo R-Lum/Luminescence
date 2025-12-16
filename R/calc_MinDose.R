@@ -92,7 +92,7 @@
 #' calculations and plots please see the vignettes of the `bbmle` package
 #' (also available here: [https://CRAN.R-project.org/package=bbmle]().
 #'
-#' @param data [RLum.Results-class] or [data.frame] (**required**):
+#' @param data [Luminescence::RLum.Results-class] or [data.frame] (**required**):
 #' for [data.frame]: two columns for De and De error.
 #'
 #' @param sigmab [numeric] (**required**):
@@ -144,7 +144,7 @@
 #' - `cores`: number of cores to be used when `multicore=TRUE`
 #'
 #' @return Returns a plot (*optional*) and terminal output. In addition an
-#' [RLum.Results-class] object is returned containing the
+#' [Luminescence::RLum.Results-class] object is returned containing the
 #' following elements:
 #'
 #' \item{$summary}{[data.frame] summary of all relevant model results.}
@@ -157,7 +157,7 @@
 #' \item{$profile}{[stats::profile] the log likelihood profiles}
 #' \item{$bootstrap}{[list] bootstrap results}
 #'
-#' The output should be accessed using the function [get_RLum].
+#' The output should be accessed using the function [Luminescence::get_RLum].
 #'
 #' @note
 #' The default starting values for *gamma*, *mu*, *sigma*
@@ -177,8 +177,8 @@
 #' The bootstrap approach is based on a rewritten MATLAB script of Alastair Cunningham. \cr
 #' Alastair Cunningham is thanked for his help in implementing and cross-checking the code.
 #'
-#' @seealso [calc_CentralDose], [calc_CommonDose], [calc_FiniteMixture],
-#' [calc_FuchsLang2001], [calc_MaxDose]
+#' @seealso [Luminescence::calc_CentralDose], [Luminescence::calc_CommonDose], [Luminescence::calc_FiniteMixture],
+#' [Luminescence::calc_FuchsLang2001], [Luminescence::calc_MaxDose]
 #'
 #' @references
 #' Arnold, L.J., Roberts, R.G., Galbraith, R.F. & DeLong, S.B.,

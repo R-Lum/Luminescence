@@ -1,5 +1,6 @@
-#' Obtain the equivalent dose using the approach by Woda and Fuchs 2008
+#' @title Obtain the equivalent dose using the approach by Woda and Fuchs 2008
 #'
+#' @description
 #' The function generates a histogram-like reorganisation of the data, to
 #' assess counts per bin. The log-transformed counts per bin are used to
 #' calculate the second derivative of the data (i.e., the curvature of the
@@ -9,7 +10,7 @@
 #' model is estimated based on all input equivalent doses smaller that of the
 #' modelled central value.
 #'
-#' @param data [data.frame] [vector], or [RLum.Results-class] object (**required**):
+#' @param data [data.frame] [vector], or [Luminescence::RLum.Results-class] object (**required**):
 #' for [data.frame]: either two columns: De (`values[,1]`) and De error
 #' (`values[,2]`), or one: De (`values[,1]`). If a numeric vector or a
 #' single-column data frame is provided, De error is set to `NA`.
@@ -31,7 +32,7 @@
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany),\cr
 #' Michael Dietze, GFZ Potsdam (Germany)
 #'
-#' @seealso [calc_FuchsLang2001], [calc_CentralDose]
+#' @seealso [Luminescence::calc_FuchsLang2001], [Luminescence::calc_CentralDose]
 #'
 #' @references
 #' Woda, C., Fuchs, M., 2008. On the applicability of the leading edge method to

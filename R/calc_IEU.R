@@ -1,12 +1,13 @@
-#' Apply the internal-external-uncertainty (IEU) model after Thomsen et al.
+#' @title Apply the internal-external-uncertainty (IEU) model after Thomsen et al.
 #' (2007) to a given De distribution
 #'
-#' Function to calculate the IEU De for a De data set.
+#' @description Function to calculate the IEU De for a De data set.
 #'
+#' @details
 #' This function uses the equations of Thomsen et al. (2007). The parameters a
 #' and b are estimated from dose-recovery experiments.
 #'
-#' @param data [RLum.Results-class] or [data.frame] (**required**):
+#' @param data [Luminescence::RLum.Results-class] or [data.frame] (**required**):
 #' for [data.frame]: two columns with De `(data[,1])` and
 #' De error `(values[,2])`
 #'
@@ -39,7 +40,7 @@
 #' \item{.$call}{[call] the function call}
 #' \item{.$tables}{[list] a list of data frames containing all calculation tables}
 #'
-#' The output should be accessed using the function [get_RLum].
+#' The output should be accessed using the function [Luminescence::get_RLum].
 #'
 #' @section Function version: 0.1.1
 #'
@@ -48,8 +49,8 @@
 #' Based on an excel spreadsheet and accompanying macro written by Kristina Thomsen. \cr
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [plot], [calc_CommonDose], [calc_CentralDose], [calc_FiniteMixture],
-#' [calc_FuchsLang2001], [calc_MinDose]
+#' @seealso [plot], [Luminescence::calc_CommonDose], [Luminescence::calc_CentralDose],
+#' [Luminescence::calc_FiniteMixture], [Luminescence::calc_FuchsLang2001], [Luminescence::calc_MinDose]
 #'
 #' @references
 #' Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.

@@ -4,7 +4,7 @@
 #' mass abundance and vice versa for the radioelements U, Th, and K to
 #' harmonise the measurement unit with the required data input unit of
 #' potential analytical tools for, e.g. dose rate calculation or related
-#' functions such as [use_DRAC].
+#' functions such as [Luminescence::use_DRAC].
 #'
 #' @details The conversion from nuclide activity of a sample to nuclide concentration
 #' is performed using conversion factors that are based on the mass-related
@@ -80,7 +80,7 @@
 #' In other words, 1 µg/g of U means that this is the composition of 0.992 parts of U-238,
 #' 0.000054 parts of U-234, and 0.00072 parts of U-235.
 #'
-#' @return Returns an [RLum.Results-class] object with a [data.frame] containing
+#' @return Returns an [Luminescence::RLum.Results-class] object with a [data.frame] containing
 #' input and newly calculated values. Please not that in the column header µg/g
 #' is written as `mug/g` due to the R requirement to maintain packages portable using
 #' ASCII characters only.

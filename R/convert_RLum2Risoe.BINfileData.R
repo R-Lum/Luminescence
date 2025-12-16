@@ -1,13 +1,13 @@
 #'@title Converts RLum.Analysis and RLum.Data.Curve objects to RLum2Risoe.BINfileData objects
 #'
-#' @description The functions converts [RLum.Analysis-class] and
-#' [RLum.Data.Curve-class] objects (or a [list] of such objects) to
-#' [Risoe.BINfileData-class] objects. The function intends to provide a
+#' @description The functions converts [Luminescence::RLum.Analysis-class] and
+#' [Luminescence::RLum.Data.Curve-class] objects (or a [list] of such objects) to
+#' [Luminescence::Risoe.BINfileData-class] objects. The function intends to provide a
 #' minimum of compatibility between both formats. The created
-#' [RLum.Analysis-class] object can be later exported to a BIN-file using
-#' function [write_R2BIN].
+#' [Luminescence::RLum.Analysis-class] object can be later exported to a BIN-file using
+#' function [Luminescence::write_R2BIN].
 #'
-#'@param object [RLum.Analysis-class] or [RLum.Data.Curve-class] (**required**): input object to
+#'@param object [Luminescence::RLum.Analysis-class] or [Luminescence::RLum.Data.Curve-class] (**required**): input object to
 #'be converted
 #'
 #'@param keep.position.number [logical] (*with default*): keeps the original
@@ -17,10 +17,10 @@
 #'
 #'@author  Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#'@seealso [RLum.Analysis-class], [RLum.Data.Curve-class], [write_R2BIN]
+#'@seealso [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data.Curve-class], [Luminescence::write_R2BIN]
 #'
 #'@note The conversion can be never perfect. The `RLum` objects may contain information which are
-#'not part of the [Risoe.BINfileData-class] definition.
+#'not part of the [Luminescence::Risoe.BINfileData-class] definition.
 #'
 #'@keywords IO
 #'
@@ -30,7 +30,7 @@
 #'data(ExampleData.RLum.Analysis, envir = environment())
 #'convert_RLum2Risoe.BINfileData(IRSAR.RF.Data)
 #'
-#'@return The function returns a [Risoe.BINfileData-class] object.
+#'@return The function returns a [Luminescence::Risoe.BINfileData-class] object.
 #'
 #'@export
 convert_RLum2Risoe.BINfileData <- function(

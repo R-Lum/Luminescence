@@ -40,8 +40,8 @@
 #' input values, structure: data (`values[,1]`) and data error (`values [,2]`)
 #' are required.
 #'
-#' @param dose.rate [RLum.Results-class], [data.frame] or [numeric] (**required**):
-#' `RLum.Results` needs to be originated from the function [calc_SourceDoseRate],
+#' @param dose.rate [Luminescence::RLum.Results-class], [data.frame] or [numeric] (**required**):
+#' `RLum.Results` needs to be originated from the function [Luminescence::calc_SourceDoseRate],
 #' for `vector` dose rate in Gy/s and dose rate error in Gy/s.
 #'
 #' @param error.propagation [character] (*with default*):
@@ -63,7 +63,7 @@
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
 #' Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany)
 #'
-#' @seealso [calc_SourceDoseRate]
+#' @seealso [Luminescence::calc_SourceDoseRate]
 #'
 #' @references
 #' Aitken, M.J., 1985. Thermoluminescence dating. Academic Press.

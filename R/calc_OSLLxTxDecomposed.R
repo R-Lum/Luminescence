@@ -26,7 +26,7 @@
 #' @param digits [integer] (*with default*): round numbers to the specified digits.
 #' If digits is set to `NULL` nothing is rounded.
 #'
-#' @return Returns an S4 object of type [RLum.Results-class].
+#' @return Returns an S4 object of type [Luminescence::RLum.Results-class].
 #'
 #' Slot `data` contains a [list] with the following structure:
 #'
@@ -48,7 +48,8 @@
 #'
 #' @author Dirk Mittelstrass
 #'
-#' @seealso [RLum.Data.Curve-class], [fit_DoseResponseCurve], [analyse_SAR.CWOSL]
+#' @seealso [Luminescence::RLum.Data.Curve-class], [Luminescence::fit_DoseResponseCurve],
+#' [Luminescence::analyse_SAR.CWOSL]
 #'
 #' @references Mittelstrass D., Schmidt C., Beyer J., Straessner A., 2019.
 #' Automated identification and separation of quartz CW-OSL signal components with R.

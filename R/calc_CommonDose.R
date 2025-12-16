@@ -1,8 +1,11 @@
-#' Apply the (un-)logged common age model after Galbraith et al. (1999) to a
+#' @title Apply the (un-)logged common age model after Galbraith et al. (1999) to a
 #' given De distribution
+#'
+#' @description
 #'
 #' Function to calculate the common dose of a De distribution.
 #'
+#' @details
 #' **(Un-)logged model**
 #'
 #' When `log = TRUE` this function
@@ -17,7 +20,7 @@
 #' calculated using the un-logged estimates of De and their absolute standard
 #' error (Galbraith & Roberts 2012, p. 14).
 #'
-#' @param data [RLum.Results-class] or [data.frame] (**required**):
+#' @param data [Luminescence::RLum.Results-class] or [data.frame] (**required**):
 #' for [data.frame]: two columns with De `(data[,1])` and De error `(data[,2])`
 #'
 #' @param sigmab [numeric] (*with default*):
@@ -35,7 +38,7 @@
 #'
 #' @return
 #' Returns a terminal output. In addition an
-#' [RLum.Results-class] object is returned containing the
+#' [Luminescence::RLum.Results-class] object is returned containing the
 #' following element:
 #'
 #' \item{$summary}{[data.frame] summary of all relevant model results.}
@@ -43,15 +46,15 @@
 #' \item{$args}{[list] used arguments}
 #' \item{$call}{[call] the function call}
 #'
-#' The output should be accessed using the function [get_RLum].
+#' The output should be accessed using the function [Luminescence::get_RLum].
 #'
 #' @section Function version: 0.1.1
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany)
 #'
-#' @seealso [calc_CentralDose], [calc_FiniteMixture],
-#' [calc_FuchsLang2001], [calc_MinDose]
+#' @seealso [Luminescence::calc_CentralDose], [Luminescence::calc_FiniteMixture],
+#' [Luminescence::calc_FuchsLang2001], [Luminescence::calc_MinDose]
 #'
 #' @references
 #' Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for

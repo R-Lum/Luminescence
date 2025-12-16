@@ -1,25 +1,25 @@
 #' @title Convert portable OSL data to a Risoe.BINfileData object
 #'
 #' @description
-#' Converts an `RLum.Analysis` object produced by the function `read_PSL2R()` to
-#' a `Risoe.BINfileData` object **(BETA)**.
+#' Converts an [Luminescence::RLum.Analysis-class] object produced by the function [Luminescence::read_PSL2R] to
+#' a [Luminescence::Risoe.BINfileData-class] object **(BETA)**.
 #'
-#' This function converts an [RLum.Analysis-class] object that was produced
-#' by the [read_PSL2R] function to a [Risoe.BINfileData-class].
-#' The `Risoe.BINfileData` can be used to write a Risoe BIN file via
-#' [write_R2BIN].
+#' This function converts an [Luminescence::RLum.Analysis-class] object that was produced
+#' by the [Luminescence::read_PSL2R] function to a [Luminescence::Risoe.BINfileData-class].
+#' The [Luminescence::Risoe.BINfileData-class] can be used to write a Risø BIN file via
+#' [Luminescence::write_R2BIN].
 #'
-#' @param object [RLum.Analysis-class] (**required**):
-#' `RLum.Analysis` object produced by [read_PSL2R]
+#' @param object [Luminescence::RLum.Analysis-class] (**required**):
+#' `RLum.Analysis` object produced by [Luminescence::read_PSL2R]
 #'
 #' @param ... currently not used.
 #'
 #' @return
-#' Returns an S4 [Risoe.BINfileData-class] object that can be used to write a
-#' BIN file using [write_R2BIN].
+#' Returns an S4 [Luminescence::Risoe.BINfileData-class] object that can be used to write a
+#' BIN file using [Luminescence::write_R2BIN].
 #'
-#' @seealso [RLum.Analysis-class], [RLum.Data.Curve-class],
-#' [Risoe.BINfileData-class]
+#' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data.Curve-class],
+#' [Luminescence::Risoe.BINfileData-class]
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany)

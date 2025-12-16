@@ -27,7 +27,7 @@
 #' @param plot [logical] (*optional*): enable/disable the plot output. Only
 #' the first image frame is shown.
 #'
-#'@return [RLum.Results-class] object with the following elements:
+#'@return [Luminescence::RLum.Results-class] object with the following elements:
 #'`..$roi_signals`: a named [list] with all ROI values and their coordinates
 #'`..$roi_summary`: a [matrix] where rows are frames from the image, and columns are different ROI
 #'The element has two attributes: `summary` (the method used to summarise pixels) and `area` (the pixel area)

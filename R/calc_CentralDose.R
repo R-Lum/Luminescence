@@ -1,4 +1,4 @@
-#' Apply the central age model (CAM) after Galbraith et al. (1999) to a given
+#' @title Apply the central age model (CAM) after Galbraith et al. (1999) to a given
 #' De distribution
 #'
 #' @description
@@ -16,7 +16,7 @@
 #' be found in the appendix of Galbraith & Laslett (1993, 468-470) and
 #' Galbraith & Roberts (2012, 15)
 #'
-#' @param data [RLum.Results-class] or [data.frame] (**required**):
+#' @param data [Luminescence::RLum.Results-class] or [data.frame] (**required**):
 #' for [data.frame]: two columns with De `(data[,1])` and De error `(data[,2])`.
 #' Records containing missing values will be removed.
 #'
@@ -37,7 +37,7 @@
 #' @param ... further arguments (`trace`, `verbose`).
 #'
 #' @return Returns a plot (*optional*) and terminal output. In addition an
-#' [RLum.Results-class] object is returned containing the following elements:
+#' [Luminescence::RLum.Results-class] object is returned containing the following elements:
 #'
 #' \item{.$summary}{[data.frame] summary of all relevant model results.}
 #' \item{.$data}{[data.frame] original input data}
@@ -45,7 +45,7 @@
 #' \item{.$call}{[call] the function call}
 #' \item{.$profile}{[data.frame] the log likelihood profile for sigma}
 #'
-#' The output should be accessed using the function [get_RLum].
+#' The output should be accessed using the function [Luminescence::get_RLum].
 #'
 #' @section Function version: 1.5
 #'
@@ -53,8 +53,8 @@
 #' Christoph Burow, University of Cologne (Germany) \cr
 #' Based on a rewritten S script of Rex Galbraith, 2010
 #'
-#' @seealso [plot], [calc_CommonDose], [calc_FiniteMixture],
-#' [calc_FuchsLang2001], [calc_MinDose]
+#' @seealso [plot], [Luminescence::calc_CommonDose], [Luminescence::calc_FiniteMixture],
+#' [Luminescence::calc_FuchsLang2001], [Luminescence::calc_MinDose]
 #'
 #' @references
 #' Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for

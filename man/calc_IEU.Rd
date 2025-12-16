@@ -72,8 +72,8 @@ Thomsen, K.J., Murray, A.S., Boetter-Jensen, L. & Kinahan, J.,
 using single grains of quartz. Radiation Measurements 42, 370-379.
 }
 \seealso{
-\link{plot}, \link{calc_CommonDose}, \link{calc_CentralDose}, \link{calc_FiniteMixture},
-\link{calc_FuchsLang2001}, \link{calc_MinDose}
+\link{plot}, \link{calc_CommonDose}, \link{calc_CentralDose},
+\link{calc_FiniteMixture}, \link{calc_FuchsLang2001}, \link{calc_MinDose}
 }
 \author{
 Rachel Smedley, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr

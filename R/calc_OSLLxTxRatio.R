@@ -52,10 +52,10 @@
 #' Please check whether this is valid for your data set and  if necessary
 #' consider to provide an own `sigmab` value using the corresponding argument `sigmab`.
 #'
-#' @param Lx.data [RLum.Data.Curve-class] or [data.frame] (**required**):
+#' @param Lx.data [Luminescence::RLum.Data.Curve-class] or [data.frame] (**required**):
 #' requires a CW-OSL shine down curve (x = time, y = counts)
 #'
-#' @param Tx.data [RLum.Data.Curve-class] or [data.frame] (*optional*):
+#' @param Tx.data [Luminescence::RLum.Data.Curve-class] or [data.frame] (*optional*):
 #' requires a CW-OSL shine down curve (x = time, y = counts). If no
 #' input is given the `Tx.data` will be treated as `NA` and no `Lx/Tx` ratio
 #' is calculated.
@@ -100,7 +100,7 @@
 #' round numbers to the specified digits. If set to `NULL` no rounding occurs.
 #'
 #' @return
-#' Returns an S4 object of type [RLum.Results-class].
+#' Returns an S4 object of type [Luminescence::RLum.Results-class].
 #'
 #' Slot `data` contains a [list] with the following structure:
 #'
@@ -130,7 +130,7 @@
 #'
 #' @note
 #' The results of this function have been cross-checked with the Analyst
-#' (version 3.24b). Access to the results object via [get_RLum].
+#' (version 3.24b). Access to the results object via [Luminescence::get_RLum].
 #'
 #' **Caution:** If you are using early light subtraction (EBG), please either provide your
 #' own `sigmab` value or use `background.count.distribution = "poisson"`.
@@ -140,7 +140,8 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum.Data.Curve-class], [fit_DoseResponseCurve], [analyse_SAR.CWOSL]
+#' @seealso [Luminescence::RLum.Data.Curve-class], [Luminescence::fit_DoseResponseCurve],
+#' [Luminescence::analyse_SAR.CWOSL]
 #'
 #' @references Duller, G., 2018. Analyst v4.57 - User Manual.
 #' `https://users.aber.ac.uk/ggd`\cr

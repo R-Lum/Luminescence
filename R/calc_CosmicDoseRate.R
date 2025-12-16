@@ -117,14 +117,14 @@
 #'
 #' @return
 #' Returns a terminal output. In addition an
-#' [RLum.Results-class] object is returned containing the
+#' [Luminescence::RLum.Results-class] object is returned containing the
 #' following element:
 #'
 #' \item{summary}{[data.frame] summary of all relevant calculation results.}
 #' \item{args}{[list] used arguments}
 #' \item{call}{[call] the function call}
 #'
-#' The output should be accessed using the function [get_RLum].
+#' The output should be accessed using the function [Luminescence::get_RLum].
 #'
 #' @note
 #' Despite its universal use, the equation to calculate the cosmic dose
@@ -164,7 +164,7 @@
 #' @author
 #' Christoph Burow, University of Cologne (Germany)
 #'
-#' @seealso [BaseDataSet.CosmicDoseRate]
+#' @seealso [Luminescence::BaseDataSet.CosmicDoseRate]
 #'
 #' @references
 #' Allkofer, O.C., Carstensen, K., Dau, W.D., Jokisch, H., 1975.

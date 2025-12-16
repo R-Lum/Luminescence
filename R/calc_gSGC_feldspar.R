@@ -22,7 +22,7 @@
 #'
 #'@param plot [logical] (*with default*): enable/disable the plot output.
 #'
-#'@return Returns an S4 object of type [RLum.Results-class].
+#'@return Returns an S4 object of type [Luminescence::RLum.Results-class].
 #'
 #' **`@data`**\cr
 #' `$ df` ([data.frame]) \cr
@@ -40,7 +40,7 @@
 #' @author Harrison Gray, USGS (United States),
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum.Results-class], [get_RLum], [uniroot], [calc_gSGC]
+#' @seealso [Luminescence::RLum.Results-class], [Luminescence::get_RLum], [uniroot], [Luminescence::calc_gSGC]
 #'
 #' @references Li, B., Roberts, R.G., Jacobs, Z., Li, S.-H., Guo, Y.-J., 2015.
 #' Construction of a “global standardised growth curve” (gSGC) for infrared

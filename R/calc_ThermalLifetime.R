@@ -1,7 +1,10 @@
-#' Calculates the Thermal Lifetime using the Arrhenius equation
+#' @title Calculates the Thermal Lifetime using the Arrhenius equation
 #'
+#' @description
 #' The function calculates the thermal lifetime of charges for given E (in eV), s (in 1/s) and
 #' T (in deg. C.) parameters. The function can be used in two operational modes:
+#'
+#' @details
 #'
 #' **Mode 1 `(profiling = FALSE)`**
 #'
@@ -70,7 +73,7 @@
 #' Standard plot parameters are supported ([plot.default])
 #'
 #' @return
-#' A [RLum.Results-class] object is returned a along with a plot (for
+#' A [Luminescence::RLum.Results-class] object is returned a along with a plot (for
 #' `profiling = TRUE`). The output object contain the following slots:
 #'
 #' **`@data`**
@@ -97,7 +100,7 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [graphics::matplot], [stats::rnorm][stats::Normal], [get_RLum]
+#' @seealso [graphics::matplot], [stats::rnorm][stats::Normal], [Luminescence::get_RLum]
 #'
 #' @references
 #'
