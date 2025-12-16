@@ -23,13 +23,18 @@ Thanks to Michael Kenzler for bringing this to our attention (@RLumSK with #1241
 
 ## Removed functions and deprecations
 
+* Functions `github_branches()`, `github_commits()`, `github_issues()`,
+`is.RLum()`, `is.RLum.Analysis()`, `is.RLum.Data()`, `is.RLum.Data.Curve()`,
+`is.RLum.Data.Image()`, `is.RLum.Data.Spectrum()` and `is.RLum.Results()`
+(deprecated since 1.1.2) have been removed (#1242).
 
 ## Bugfixes and changes
 
 ### `read_XSYG2R()`
 
-* Attributes from the record level are now all included in the `@info` slot, as 
-long as they do not duplicate the attributes from the curve level. 
-Hence, those attributes are now available for filtering (#1239).
+* Attributes from the record level are now all included in the `@info` slot,
+as long as they do not duplicate the attributes from the curve level. Hence,
+those attributes are now available for filtering (#1239; thanks to
+@DirkMittelstrass for reporting).
 
 ## Other changes
