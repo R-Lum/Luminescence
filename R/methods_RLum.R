@@ -388,62 +388,6 @@ as.matrix.RLum.Data.Image <- function(x, ...) as(x, "matrix")
 # for RLum.Results ... makes no sense and may yield in unpredictable behaviour
 
 
-# is() --------------------------------------------------------------------
-
-#For this function no S4 method was written, as this would come at the cost of performance and
-#is totally unnecessary
-
-#' @rdname methods_RLum
-#' @export
-# nocov start
-is.RLum <- function(x, ...) {
-  .Deprecated(msg = "This function is deprecated, it will be removed in a future release")
-  is(x, "RLum")
-}
-
-#' @rdname methods_RLum
-#' @export
-is.RLum.Data <- function(x, ...) {
-  .Deprecated(msg = "This function is deprecated, it will be removed in a future release")
-  is(x, "RLum.Data")
-}
-
-#' @rdname methods_RLum
-#' @export
-is.RLum.Data.Curve <- function(x, ...) {
-  .Deprecated(msg = "This function is deprecated, it will be removed in a future release")
-  is(x, "RLum.Data.Curve")
-}
-
-#' @rdname methods_RLum
-#' @export
-is.RLum.Data.Spectrum <- function(x, ...) {
-  .Deprecated(msg = "This function is deprecated, it will be removed in a future release")
-  is(x, "RLum.Data.Spectrum")
-}
-
-#' @rdname methods_RLum
-#' @export
-is.RLum.Data.Image <- function(x, ...) {
-  .Deprecated(msg = "This function is deprecated, it will be removed in a future release")
-  is(x, "RLum.Data.Image")
-}
-
-#' @rdname methods_RLum
-#' @export
-is.RLum.Analysis <- function(x, ...) {
-  .Deprecated(msg = "This function is deprecated, it will be removed in a future release")
-  is(x, "RLum.Analysis")
-}
-
-#' @rdname methods_RLum
-#' @export
-is.RLum.Results <- function(x, ...) {
-  .Deprecated(msg = "This function is deprecated, it will be removed in a future release")
-  is(x, "RLum.Results")
-}
-# nocov end
-
 # merge() -----------------------------------------------------------------
 
 #' @rdname methods_RLum
