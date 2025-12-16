@@ -61,18 +61,22 @@ To install the latest development builds directly from GitHub, run
 ``` r
 if(!require("devtools"))
   install.packages("devtools")
-devtools::install_github("R-Lum/Luminescence@<wanted branch>")
+devtools::install_github("R-Lum/Luminescence")
 ```
 
 ## Contribute
 
-The R luminescence project is based on and evolves from ideas,
-contributions and constructive criticism of its users. Help us to
-maintain and develop the package, to find bugs and create new functions
-as well as a user-friendly design. Try
-<https://github.com/R-Lum/Luminescence/issues> or write us an
-[e-mail](mailto:developers@r-luminescence.org) if anything crosses your
-mind or if you want your new self-written function to be to implemented.
+The R-Luminescence project is based on and evolves from ideas,
+contributions and constructive criticism of its users. Help us maintain
+and improve the package by reporting bugs, requesting features,
+suggesting design improvements or contributing new functions.
+
+Open an [issue](https://github.com/R-Lum/Luminescence/issues) or write
+us an [e-mail](mailto:developers@r-luminescence.org) if anything crosses
+your mind or if you want your new self-written function to be to
+included in the package. See also our [workflow for
+contributions](CONTRIBUTING.md).
+
 You are kindly invited to bring forward the package with us!
 
 ## Note
