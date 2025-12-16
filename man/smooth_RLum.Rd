@@ -63,7 +63,8 @@ function \code{.smoothing()}.
 }
 \section{Functions}{
 \itemize{
-\item \code{smooth_RLum(list)}: Returns a list of \linkS4class{RLum} objects that had been passed to \link{smooth_RLum}
+\item \code{smooth_RLum(list)}: Returns a list of \linkS4class{RLum} objects that had been passed to
+\link{smooth_RLum}
 
 \item \code{smooth_RLum(RLum.Analysis)}: Smoothing of \code{RLum.Data} records contained in the input object.
 

@@ -207,8 +207,8 @@ kernel density estimate, histogram and/or dot plot of the dose values.
 }
 \details{
 The Abanico Plot is a combination of the classic Radial Plot
-(\code{plot_RadialPlot}) and a kernel density estimate plot (e.g
-\code{plot_KDE}). It allows straightforward visualisation of data precision,
+\link{plot_RadialPlot} and a kernel density estimate plot (e.g
+\link{plot_KDE}. It allows straightforward visualisation of data precision,
 error scatter around a user-defined central value and the combined
 distribution of the values, on the actual scale of the measured data (e.g.
 seconds, equivalent dose, years). The principle of the plot is shown in
@@ -260,11 +260,11 @@ one or more of the following keywords:
 }
 
 \strong{Note} that the input data for the statistic summary is sent to the function
-\code{calc_Statistics()} depending on the log-option for the z-scale. If
+\link{calc_Statistics} depending on the log-option for the z-scale. If
 \code{"log.z = TRUE"}, the summary is based on the logarithms of the input
 data. If \code{"log.z = FALSE"} the linearly scaled data is used.
 
-\strong{Note} as well, that \code{"calc_Statistics()"} calculates these statistic
+\strong{Note} as well, that \link{calc_Statistics} calculates these statistic
 measures in three different ways: \code{unweighted}, \code{weighted} and
 \code{MCM-based} (i.e., based on Monte Carlo Methods). By default, the
 MCM-based version is used. If you wish to use another method, indicate this
@@ -274,8 +274,8 @@ The optional parameter \code{layout} allows more sophisticated ways to modify
 the entire plot. Each element of the plot can be addressed and its properties
 can be defined. This includes font type, size and decoration, colours and
 sizes of all plot items. To infer the definition of a specific layout style
-cf. \code{get_Layout()} or type e.g., for the layout type \code{"journal"}
-\code{get_Layout("journal")}. A layout type can be modified by the user by
+cf. \link{get_Layout} or type e.g., for the layout type \code{"journal"}
+\link{get_Layout}. A layout type can be modified by the user by
 assigning new values to the list object.
 
 It is possible for the z-scale to specify where ticks are to be drawn
@@ -477,7 +477,8 @@ The abanico plot: visualising chronometric data with individual standard errors.
 Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003
 }
 \seealso{
-\link{plot_RadialPlot}, \link{plot_KDE}, \link{plot_Histogram}, \link{plot_ViolinPlot}
+\link{plot_RadialPlot}, \link{plot_KDE},
+\link{plot_Histogram}, \link{plot_ViolinPlot}
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany)\cr

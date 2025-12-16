@@ -8,7 +8,7 @@
 #' This function only applies on RLum.Analysis objects and was written for performance not
 #' usability, means the functions runs without any checks and is for internal usage only.
 #'
-#' @param [RLum.Analysis-class] (**required**):
+#' @param [Luminescence::RLum.Analysis-class] (**required**):
 #' input object where the function should be applied on
 #'
 #' @return
@@ -240,8 +240,9 @@
 
 #' Curve normalisation
 #'
-#' Details on the normalisation methods are specified in [plot_RLum.Analysis]
-#' and [plot_RLum.Data.Curve].
+#' Details on the normalisation methods are specified in
+#' [Luminescence::plot_RLum.Analysis]
+#' and [Luminescence::plot_RLum.Data.Curve].
 #'
 #' The function assumes that `NA` or other invalid values have already been
 #' removed by the caller function, and that the `norm` option has already
@@ -601,14 +602,14 @@ fancy_scientific <- function(l) {
 #'
 #' @description
 #' Removes all non-RLum objects from a list supposed to consist only of
-#' [RLum-class] objects.
+#' [Luminescence::RLum-class] objects.
 #' As an internal function, the function is rather unforgiving, no further
 #' checks are applied.
 #'
 #' @param x [list] (**required**): list
 #'
 #' @param class [character] (*with default*):
-#' class of elements to keep, by default [RLum-class].
+#' class of elements to keep, by default [Luminescence::RLum-class].
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -1164,7 +1165,8 @@ SW <- function(expr) {
 #'        the function raises a warning and proceeds.
 #' @param length [integer] (*with default*): if not `NULL`, validate that
 #'        the length matches the one provided. This can be used only when
-#'        `classes` contains only base vector types, not [RLum-class] objects
+#'        `classes` contains only base vector types, not
+#'        [Luminescence::RLum-class] objects
 #'        or container types.
 #' @inheritParams .validate_args
 #'
@@ -1312,7 +1314,8 @@ SW <- function(expr) {
 
 #' @title Validate the originator of an RLum object
 #'
-#' @param object [RLum-class] (**required**): object whose originator should be
+#' @param object [Luminescence::RLum-class] (**required**): object whose
+#' originator should be
 #'        checked.
 #' @inheritParams .validate_args
 #'

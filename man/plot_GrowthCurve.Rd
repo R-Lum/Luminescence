@@ -82,7 +82,7 @@ number of MC runs for error calculation.}
 \code{xlim}, \code{ylim}, \code{main}, \code{xlab}, \code{ylab}).}
 }
 \value{
-Along with a plot (if wanted) the \code{RLum.Results} object produced by
+Along with a plot (if wanted) the \linkS4class{RLum.Results} object produced by
 \link{fit_DoseResponseCurve} is returned.
 }
 \description{

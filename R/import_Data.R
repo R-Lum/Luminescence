@@ -10,7 +10,7 @@
 #'@param ... arguments to be further passed down to supported functions (please check the functions
 #'to determine the correct arguments)
 #'
-#'@param fastForward [logical] (*with default*): option to create [RLum-class] objects
+#'@param fastForward [logical] (*with default*): option to create [Luminescence::RLum-class] objects
 #'during import or a [list] of such objects
 #'
 #' @param verbose [logical] (*with default*): enable/disable output to the
@@ -20,9 +20,9 @@
 #'
 #'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#'@returns Always returns a [list]; empty or filled with [RLum.Analysis-class] objects
+#'@returns Always returns a [list]; empty or filled with [Luminescence::RLum.Analysis-class] objects
 #'
-#' @seealso `r toString(paste0("[", grep("^read_", getNamespaceExports("Luminescence"), value = TRUE), "]"))`
+#'@seealso `r toString(paste0("[Luminescence::", grep("^read_", getNamespaceExports("Luminescence"), value = TRUE), "]"))`
 #'
 #'@keywords datagen
 #'

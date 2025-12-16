@@ -98,7 +98,8 @@ of Dolni Vestonice, Czech Republic: A new OSL-based chronology of the Last
 Climatic Cycle. Boreas, 42, 664--677.
 }
 \seealso{
-\link{read_XSYG2R}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Spectrum},
+\link{read_XSYG2R}, \linkS4class{RLum.Analysis},
+\linkS4class{RLum.Data.Spectrum},
 \link{plot_RLum}, \link{plot_RLum.Analysis}, \link{plot_RLum.Data.Spectrum}
 }
 \keyword{datasets}

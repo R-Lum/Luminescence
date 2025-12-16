@@ -208,7 +208,8 @@
 #' @param ... Further arguments to be passed (currently ignored).
 #'
 #' @return
-#' An `RLum.Results` object is returned containing the slot `data` with the
+#' An [Luminescence::RLum.Results-class] object is returned
+#' containing the slot `data` with the
 #' following elements:
 #'
 #' **Overview elements**
@@ -223,7 +224,8 @@
 #' `..$call` : \tab `call` \tab The original function call\cr
 #' }
 #'
-#' If `object` is a list, then the function returns a list of `RLum.Results`
+#' If `object` is a list, then the function returns a list of
+#' [Luminescence::RLum.Results-class]
 #' objects as defined above.
 #'
 #' **Details - `DATA.OBJECT$De`**
@@ -269,7 +271,8 @@
 #' Pagonis, V., Kitis, G., Chen, R., 2020. A new analytical equation for the dose response of dosimetric materials,
 #' based on the Lambert W function. Journal of Luminescence 225, 117333. \doi{10.1016/j.jlumin.2020.117333}
 #'
-#' @seealso [plot_GrowthCurve], [nls], [RLum.Results-class], [get_RLum],
+#' @seealso [Luminescence::plot_GrowthCurve], [nls],
+#' [Luminescence::RLum.Results-class], [Luminescence::get_RLum],
 #' [minpack.lm::nlsLM], [lm], [uniroot], [lamW::lambertW0]
 #'
 #' @examples

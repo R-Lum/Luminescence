@@ -134,7 +134,6 @@ plot_Histogram(ExampleData.DeValues,
                xlim = c(100, 250),
                ylim = c(0, 0.1, 5, 20))
 
-
 }
 \seealso{
 \link{hist}, \link{plot}

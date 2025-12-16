@@ -1,16 +1,16 @@
 #' @title Merge function for RLum.Results S4-class objects
 #'
-#' @description Function merges objects of class [RLum.Results-class]. The slots in the objects
+#' @description Function merges objects of class [Luminescence::RLum.Results-class]. The slots in the objects
 #' are combined depending on the object type, e.g., for [data.frame] and [matrix]
 #' rows are appended.
 #'
 #' @details Elements are appended where possible and attributes are preserved if
 #' not of similar name as the default attributes of, e.g., a [data.frame]
 #'
-#' @note The `originator` is taken from the first element and not reset to `merge_RLum`
+#' @note The `originator` is taken from the first element and not reset to [Luminescence::merge_RLum]
 #'
 #' @param objects [list] (**required**):
-#' a list of [RLum.Results-class] objects
+#' a list of [Luminescence::RLum.Results-class] objects
 #'
 #' @section Function version: 0.2.1
 #'

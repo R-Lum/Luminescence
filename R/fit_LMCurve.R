@@ -86,10 +86,10 @@
 #'
 #' *For more details on the nonlinear regression in R, see Ritz & Streibig (2008).*
 #'
-#' @param values [RLum.Data.Curve-class] or [data.frame] (**required**):
+#' @param values [Luminescence::RLum.Data.Curve-class] or [data.frame] (**required**):
 #' x,y data of measured values (time and counts).
 #'
-#' @param values.bg [RLum.Data.Curve-class] or [data.frame] (*optional*):
+#' @param values.bg [Luminescence::RLum.Data.Curve-class] or [data.frame] (*optional*):
 #' x,y data of measured values (time and counts) for background subtraction.
 #'
 #' @param n.components [integer] (*with default*):
@@ -102,7 +102,7 @@
 #'
 #' @param input.dataType [character] (*with default*):
 #' alter the plot output depending on the input data: `"LM"` or `"pLM"` (pseudo-LM).
-#' See: [convert_CW2pLM]
+#' See: [Luminescence::convert_CW2pLM]
 #'
 #' @param sample_code [character] (*optional*):
 #' sample code used for the plot and the optional output table (mtext).
@@ -199,7 +199,7 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [fit_CWCurve], [plot], [nls], [minpack.lm::nlsLM], [get_RLum]
+#' @seealso [Luminescence::fit_CWCurve], [plot], [nls], [minpack.lm::nlsLM], [Luminescence::get_RLum]
 #'
 #' @references
 #' Bulur, E., 1996. An Alternative Technique For Optically

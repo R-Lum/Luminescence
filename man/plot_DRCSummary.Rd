@@ -37,7 +37,8 @@ one curve object. Large numbers slow down the plotting process and are
 usually not needed.}
 
 \item{...}{Further arguments and graphical parameters to be passed.
-In particular: \code{main}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{lty}, \code{lwd}, \code{pch}, \code{col.pch}, \code{col.lty}, \code{mtext}}
+In particular: \code{main}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{lty}, \code{lwd}, \code{pch},
+\code{col.pch}, \code{col.lty}, \code{mtext}}
 }
 \value{
 An \linkS4class{RLum.Results} object is returned:

@@ -45,8 +45,10 @@ temp.merged <- merge_RLum.Analysis(list(curve, IRSAR.RF.Data, IRSAR.RF.Data))
 
 }
 \seealso{
-\link{merge_RLum}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve},
-\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Data.Image}, \linkS4class{RLum}
+\link{merge_RLum}, \linkS4class{RLum.Analysis},
+\linkS4class{RLum.Data.Curve},
+\linkS4class{RLum.Data.Spectrum},
+\linkS4class{RLum.Data.Image}, \linkS4class{RLum}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

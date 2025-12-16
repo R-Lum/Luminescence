@@ -17,7 +17,8 @@ sort_RLum(object, ...)
 \S4method{sort_RLum}{Risoe.BINfileData}(object, info_element, decreasing = FALSE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum} or \linkS4class{Risoe.BINfileData} (\strong{required}):
+\item{object}{\linkS4class{RLum} or
+\linkS4class{Risoe.BINfileData} (\strong{required}):
 S4 object of class \code{RLum.Analysis} or \code{Risoe.BINfileData}.}
 
 \item{...}{further arguments passed to the specific class method}

@@ -102,7 +102,7 @@ one or more of the following keywords:
 \code{"log.z = TRUE"}, the summary is based on the logarithms of the input
 data. If \code{"log.z = FALSE"} the linearly-scaled data is used.
 
-\strong{Note} as well, that \code{"calc_Statistics()"} calculates these statistic
+\strong{Note} as well, that \link{calc_Statistics} calculates these statistic
 measures in three different ways: \code{unweighted}, \code{weighted} and
 \code{MCM-based} (i.e., based on Monte Carlo Methods). By default, the
 MCM-based version is used. This can be controlled via the \code{summary.method}

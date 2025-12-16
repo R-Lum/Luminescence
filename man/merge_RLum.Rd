@@ -58,7 +58,8 @@ temp.merged <- get_RLum(merge_RLum(objects = list(temp1, temp2)))
 }
 \seealso{
 \linkS4class{RLum.Data.Curve},
-\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}
+\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis},
+\linkS4class{RLum.Results}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

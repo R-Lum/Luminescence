@@ -11,7 +11,7 @@
 #'
 #' @param df_neighbours [data.frame] (*with default*) Data frame indicating
 #' which borders to consider, and their respective weights (see the description
-#' provided for [calc_MoransI]). If `NULL` (default), this is constructed
+#' provided for [Luminescence::calc_MoransI]). If `NULL` (default), this is constructed
 #' automatically by the internal function `.get_Neighbours`.
 #'
 #' @param str_y_def [character] (*with default*) Calculation of y position. Defaults to `"mean_neighbours"`

@@ -10,12 +10,12 @@
 #' path to a CSV file; alternatively a [vector] of paths.
 #'
 #' @param output_type [character] (*with default*):
-#' return type for the function, either `"RLum.Results"` (default) or `"list"`
+#' return type for the function, either [Luminescence::RLum.Results-class] (default) or `"list"`
 #' (for a plain R list).
 #'
 #' @returns
 #' Depending on the setting of `output_type` it will be either a plain R [list]
-#' or an [RLum.Results-class] object with the following structure data elements:
+#' or an [Luminescence::RLum.Results-class] object with the following structure data elements:
 #'
 #' `$data:`
 #' `.. $ITL`: data frame with columns `SAMPLE`, `TEMP`, `TIME`, `LxTx`, `LxTx_ERROR`

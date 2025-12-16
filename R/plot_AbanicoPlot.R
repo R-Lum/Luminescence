@@ -6,8 +6,8 @@
 #'
 #' @details
 #' The Abanico Plot is a combination of the classic Radial Plot
-#' (`plot_RadialPlot`) and a kernel density estimate plot (e.g
-#' `plot_KDE`). It allows straightforward visualisation of data precision,
+#' [Luminescence::plot_RadialPlot] and a kernel density estimate plot (e.g
+#' [Luminescence::plot_KDE]. It allows straightforward visualisation of data precision,
 #' error scatter around a user-defined central value and the combined
 #' distribution of the values, on the actual scale of the measured data (e.g.
 #' seconds, equivalent dose, years). The principle of the plot is shown in
@@ -59,11 +59,11 @@
 #' - `"skewness"` (skewness)
 #'
 #' **Note** that the input data for the statistic summary is sent to the function
-#' `calc_Statistics()` depending on the log-option for the z-scale. If
+#' [Luminescence::calc_Statistics] depending on the log-option for the z-scale. If
 #' `"log.z = TRUE"`, the summary is based on the logarithms of the input
 #' data. If `"log.z = FALSE"` the linearly scaled data is used.
 #'
-#' **Note** as well, that `"calc_Statistics()"` calculates these statistic
+#' **Note** as well, that [Luminescence::calc_Statistics] calculates these statistic
 #' measures in three different ways: `unweighted`, `weighted` and
 #' `MCM-based` (i.e., based on Monte Carlo Methods). By default, the
 #' MCM-based version is used. If you wish to use another method, indicate this
@@ -73,8 +73,8 @@
 #' the entire plot. Each element of the plot can be addressed and its properties
 #' can be defined. This includes font type, size and decoration, colours and
 #' sizes of all plot items. To infer the definition of a specific layout style
-#' cf. `get_Layout()` or type e.g., for the layout type `"journal"`
-#' `get_Layout("journal")`. A layout type can be modified by the user by
+#' cf. [Luminescence::get_Layout] or type e.g., for the layout type `"journal"`
+#' [Luminescence::get_Layout]. A layout type can be modified by the user by
 #' assigning new values to the list object.
 #'
 #' It is possible for the z-scale to specify where ticks are to be drawn
@@ -82,7 +82,7 @@
 #'  documentation of `axis`. Specifying tick positions manually overrides a
 #' `zlim`-definition.
 #'
-#' @param data [data.frame] or [RLum.Results-class] object (**required**):
+#' @param data [data.frame] or [Luminescence::RLum.Results-class] object (**required**):
 #' for `data.frame` two columns: De (`data[,1]`) and De error (`data[,2]`).
 #'  To plot several data sets in one plot the data sets must be provided as
 #'  `list`, e.g. `list(data.1, data.2)`.
@@ -139,7 +139,7 @@
 #' - `"weighted"` and
 #' - `"MCM"`.
 #'
-#' See [calc_Statistics] for details.
+#' See [Luminescence::calc_Statistics] for details.
 #'
 #' @param legend [character] vector (*optional*):
 #' legend content to be added to the plot.
@@ -194,7 +194,7 @@
 #' polygon may be omitted for clarity. To disable it use `FALSE` or
 #' `polygon = FALSE`. Default is `"grey80"`.
 #'
-#' @param line [numeric] or [RLum.Results-class]:
+#' @param line [numeric] or [Luminescence::RLum.Results-class]:
 #' numeric values of the additional lines to be added.
 #'
 #' @param line.col [character] or [numeric]:
@@ -240,7 +240,8 @@
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Inspired by a plot introduced by Galbraith & Green (1990)
 #'
-#' @seealso [plot_RadialPlot], [plot_KDE], [plot_Histogram], [plot_ViolinPlot]
+#' @seealso [Luminescence::plot_RadialPlot], [Luminescence::plot_KDE],
+#' [Luminescence::plot_Histogram], [Luminescence::plot_ViolinPlot]
 #'
 #' @references
 #' Galbraith, R. & Green, P., 1990. Estimating the component ages

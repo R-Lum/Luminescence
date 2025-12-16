@@ -1,33 +1,35 @@
 #' @title Merge function for RLum.Analysis S4 class objects
 #'
 #' @description
-#' This function simply allows to merge [RLum.Analysis-class]
-#' objects. Moreover, other [RLum.Data-class] objects can be added
-#' to an existing [RLum.Analysis-class] object. Supported objects
-#' to be added are: [RLum.Data.Curve-class],
-#' [RLum.Data.Spectrum-class] and
-#' [RLum.Data.Image-class].
+#' This function simply allows to merge [Luminescence::RLum.Analysis-class]
+#' objects. Moreover, other [Luminescence::RLum.Data-class] objects can be added
+#' to an existing [Luminescence::RLum.Analysis-class] object. Supported objects
+#' to be added are: [Luminescence::RLum.Data.Curve-class],
+#' [Luminescence::RLum.Data.Spectrum-class] and
+#' [Luminescence::RLum.Data.Image-class].
 #'
-#' @param objects [list] of [RLum.Analysis-class] (**required**):
+#' @param objects [list] of [Luminescence::RLum.Analysis-class] (**required**):
 #' list of S4 objects of class `RLum.Analysis`. Furthermore other objects of
-#' class [RLum-class] can be added, see details.
+#' class [Luminescence::RLum-class] can be added, see details.
 #'
 #' @return
-#' Returns an [RLum.Analysis-class] object ordered according to the order
+#' Returns an [Luminescence::RLum.Analysis-class] object ordered according to the order
 #' provided with the input list.
 #'
 #' @note
 #' The information for the slot 'protocol' is taken from the first
-#' [RLum.Analysis-class] object in the input list. Therefore at
-#' least one object of type [RLum.Analysis-class] has to be provided.
+#' [Luminescence::RLum.Analysis-class] object in the input list. Therefore at
+#' least one object of type [Luminescence::RLum.Analysis-class] has to be provided.
 #'
 #' @section Function version: 0.2.1
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [merge_RLum], [RLum.Analysis-class], [RLum.Data.Curve-class],
-#' [RLum.Data.Spectrum-class], [RLum.Data.Image-class], [RLum-class]
+#' @seealso [Luminescence::merge_RLum], [Luminescence::RLum.Analysis-class],
+#' [Luminescence::RLum.Data.Curve-class],
+#' [Luminescence::RLum.Data.Spectrum-class],
+#' [Luminescence::RLum.Data.Image-class], [Luminescence::RLum-class]
 #'
 #' @keywords utilities internal
 #'

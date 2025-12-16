@@ -31,17 +31,17 @@
 #' - `"skewness"` (skewness)
 #'
 #' **Note** that the input data for the statistic summary is sent to function
-#' [calc_Statistics] depending on the log-option for the z-scale. If
+#' [Luminescence::calc_Statistics] depending on the log-option for the z-scale. If
 #' `"log.z = TRUE"`, the summary is based on the logarithms of the input
 #' data. If `"log.z = FALSE"` the linearly-scaled data is used.
 #'
-#' **Note** as well, that `"calc_Statistics()"` calculates these statistic
+#' **Note** as well, that [Luminescence::calc_Statistics] calculates these statistic
 #' measures in three different ways: `unweighted`, `weighted` and
 #' `MCM-based` (i.e., based on Monte Carlo Methods). By default, the
 #' MCM-based version is used. This can be controlled via the `summary.method`
 #' argument.
 #'
-#' @param data [data.frame], [vector] or [RLum.Results-class] object (**required**):
+#' @param data [data.frame], [vector] or [Luminescence::RLum.Results-class] object (**required**):
 #' for `data.frame`: either two columns: De (`values[,1]`) and De error
 #' (`values[,2]`), or one: De (`values[,1]`). If a numeric vector or a
 #' single-column data frame is provided, De error is assumed to be 10^-9
@@ -80,7 +80,7 @@
 #' @param summary.method [character] (*with default*):
 #' keyword indicating the method used to calculate the statistic summary.
 #' One out of `"MCM"` (default), `"weighted"` or `"unweighted"`.
-#' See [calc_Statistics] for details.
+#' See [Luminescence::calc_Statistics] for details.
 #'
 #' @param bw [character], [numeric] (*with default*):
 #' bin-width, chose a numeric value for manual setting.

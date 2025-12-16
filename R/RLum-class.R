@@ -5,12 +5,12 @@
 #'
 #' **RLum-class**\cr
 #' |\cr
-#' |----[RLum.Data-class]\cr
-#' |----|-- [RLum.Data.Curve-class]\cr
-#' |----|-- [RLum.Data.Spectrum-class]\cr
-#' |----|-- [RLum.Data.Image-class]\cr
-#' |----[RLum.Analysis-class]\cr
-#' |----[RLum.Results-class]
+#' |----[Luminescence::RLum.Data-class]\cr
+#' |----|-- [Luminescence::RLum.Data.Curve-class]\cr
+#' |----|-- [Luminescence::RLum.Data.Spectrum-class]\cr
+#' |----|-- [Luminescence::RLum.Data.Image-class]\cr
+#' |----[Luminescence::RLum.Analysis-class]\cr
+#' |----[Luminescence::RLum.Results-class]
 #'
 #' @name RLum-class
 #'
@@ -18,14 +18,14 @@
 #'
 #' @slot originator
 #' Object of class [character] containing the name of the producing
-#' function for the object. Set automatically by using the function [set_RLum].
+#' function for the object. Set automatically by using the function [Luminescence::set_RLum].
 #'
 #' @slot info
 #' Object of class [list] for additional information on the object itself
 #'
 #' @slot .uid
 #' Object of class [character] for a unique object identifier. This id is
-#' usually calculated using the internal function `create_UID()` if the function [set_RLum]
+#' usually calculated using the internal function `create_UID` if the function [Luminescence::set_RLum]
 #' is called.
 #'
 #' @slot .pid
@@ -41,8 +41,9 @@
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum.Data-class], [RLum.Data.Curve-class], [RLum.Data.Spectrum-class], [RLum.Data.Image-class],
-#' [RLum.Analysis-class], [RLum.Results-class], [methods_RLum]
+#' @seealso [Luminescence::RLum.Data-class], [Luminescence::RLum.Data.Curve-class],
+#' [Luminescence::RLum.Data.Spectrum-class], [Luminescence::RLum.Data.Image-class],
+#' [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Results-class], [Luminescence::methods_RLum]
 #'
 #' @keywords classes
 #'
@@ -70,7 +71,7 @@ setClass("RLum",
 
 ## replicate_RLum() ---------------------------------------------------------
 #' @describeIn replicate_RLum
-#' Replication method for [RLum-class] objects.
+#' Replication method for [Luminescence::RLum-class] objects.
 #'
 #' @export
 setMethod(

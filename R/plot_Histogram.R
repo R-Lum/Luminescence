@@ -26,7 +26,7 @@
 #' - `"kurtosis"` (kurtosis) and
 #' - `"skewness"` (skewness).
 #'
-#' @param data [data.frame] or [RLum.Results-class] object (**required**):
+#' @param data [data.frame] or [Luminescence::RLum.Results-class] object (**required**):
 #' for `data.frame`: two columns: De (`data[,1]`) and De error (`data[,2]`).
 #' If the error column is missing or only contains `NA` values, then the error
 #' at each measurement is assumed to be 10^-9.
@@ -115,7 +115,7 @@
 #'                xlim = c(100, 250),
 #'                ylim = c(0, 0.1, 5, 20))
 #'
-#'
+#' @md
 #' @export
 plot_Histogram <- function(
   data,

@@ -2,39 +2,40 @@
 #'
 #' @description
 #' The function provides a generalised access point for merging specific
-#' [RLum-class] objects. Depending on the input object, the
+#' [Luminescence::RLum-class] objects. Depending on the input object, the
 #' corresponding merge function will be selected.  Allowed arguments can be
 #' found in the documentation of each merge function.
 #' Empty list elements (`NULL`) are automatically removed from the input list.
 #'
 #' \tabular{lll}{
 #' **object** \tab \tab **corresponding merge function** \cr
-#' [RLum.Data.Curve-class] \tab -> \tab [merge_RLum.Data.Curve] \cr
-#' [RLum.Data.Spectrum-class] \tab -> \tab [merge_RLum.Data.Spectrum] \cr
-#' [RLum.Analysis-class] \tab -> \tab [merge_RLum.Analysis] \cr
-#' [RLum.Results-class] \tab -> \tab [merge_RLum.Results]
+#' [Luminescence::RLum.Data.Curve-class] \tab -> \tab [Luminescence::merge_RLum.Data.Curve] \cr
+#' [Luminescence::RLum.Data.Spectrum-class] \tab -> \tab [Luminescence::merge_RLum.Data.Spectrum] \cr
+#' [Luminescence::RLum.Analysis-class] \tab -> \tab [Luminescence::merge_RLum.Analysis] \cr
+#' [Luminescence::RLum.Results-class] \tab -> \tab [Luminescence::merge_RLum.Results]
 #' }
 #'
-#' @param objects [list] of [RLum-class] (**required**):
+#' @param objects [list] of [Luminescence::RLum-class] (**required**):
 #' list of S4 object of class `RLum`.
 #'
 #' @param ... further arguments that one might want to pass to the specific merge function
 #'
 #' @return
-#' Returns an [RLum.Analysis-class] object of class if any of the inputs is
+#' Returns an [Luminescence::RLum.Analysis-class] object of class if any of the inputs is
 #' of that class. Otherwise, it returns an object of the same type as the
 #' input.
 #'
 #' @note
-#' So far merging of [RLum.Data.Image-class] objects is not supported.
+#' So far merging of [Luminescence::RLum.Data.Image-class] objects is not supported.
 #'
 #' @section Function version: 0.1.3
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum.Data.Curve-class],
-#' [RLum.Data.Spectrum-class], [RLum.Analysis-class], [RLum.Results-class]
+#' @seealso [Luminescence::RLum.Data.Curve-class],
+#' [Luminescence::RLum.Data.Spectrum-class], [Luminescence::RLum.Analysis-class],
+#' [Luminescence::RLum.Results-class]
 #'
 #' @keywords utilities
 #'

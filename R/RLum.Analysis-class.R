@@ -2,7 +2,7 @@
 #'
 #' Object class to represent analysis data for protocol analysis, i.e. all curves,
 #' spectra etc. from one measurements. Objects from this class are produced,
-#' by e.g. [read_XSYG2R], [read_Daybreak2R]
+#' by e.g. [Luminescence::read_XSYG2R], [Luminescence::read_Daybreak2R]
 #'
 #' @name RLum.Analysis-class
 #'
@@ -12,11 +12,11 @@
 #' Object of class [character] describing the applied measurement protocol
 #'
 #' @slot records
-#' Object of class [list] containing objects of class [RLum.Data-class]
+#' Object of class [list] containing objects of class [Luminescence::RLum.Data-class]
 #'
 #' @note
-#' The method [structure_RLum] is currently just available for objects
-#' containing [RLum.Data.Curve-class].
+#' The method [Luminescence::structure_RLum] is currently just available for objects
+#' containing [Luminescence::RLum.Data.Curve-class].
 #'
 #' @section Objects from the Class:
 #' Objects can be created by calls of the form `set_RLum("RLum.Analysis", ...)`.
@@ -26,8 +26,8 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [Risoe.BINfileData2RLum.Analysis],
-#' [Risoe.BINfileData-class], [RLum-class]
+#' @seealso [Luminescence::Risoe.BINfileData2RLum.Analysis],
+#' [Luminescence::Risoe.BINfileData-class], [Luminescence::RLum-class]
 #'
 #' @keywords classes methods
 #'
@@ -197,7 +197,7 @@ setMethod("show",
 
 ## set_RLum() ---------------------------------------------------------------
 #' @describeIn set_RLum
-#' Construction method for [RLum.Analysis-class] objects.
+#' Construction method for [Luminescence::RLum.Analysis-class] objects.
 #'
 #' @param protocol [character] (*optional*):
 #' sets protocol type for analysis object. Value may be used by subsequent analysis functions.
@@ -261,9 +261,10 @@ setMethod(
 #'
 #' Returns:
 #'
-#' 1. [list] of [RLum.Data-class] objects or
-#' 2. Single [RLum.Data-class] object, if only one object is contained and `recursive = FALSE` or
-#' 3. [RLum.Analysis-class] objects for `drop = FALSE`
+#' 1. [list] of [Luminescence::RLum.Data-class] objects or
+#' 2. Single [Luminescence::RLum.Data-class] object, if only one object
+#' is contained and `recursive = FALSE` or
+#' 3. [Luminescence::RLum.Analysis-class] objects for `drop = FALSE`
 #'
 #' @param record.id [numeric] or [logical] (*optional*):
 #' IDs of specific records. If of type `logical` the entire id range is assumed
@@ -508,9 +509,9 @@ setMethod("get_RLum",
 
 ## remove_RLum() ------------------------------------------------------------
 #' @describeIn remove_RLum
-#' Method to remove records from an [RLum.Analysis-class] object.
+#' Method to remove records from an [Luminescence::RLum.Analysis-class] object.
 #'
-#' @param ... parameters to be passed to [get_RLum]. The arguments `get.index` and
+#' @param ... parameters to be passed to [Luminescence::get_RLum]. The arguments `get.index` and
 #' `drop` are preset and have no effect when provided
 #'
 #' @export
@@ -552,7 +553,7 @@ setMethod("remove_RLum",
 
 ## structure_RLum() ---------------------------------------------------------
 #' @describeIn structure_RLum
-#' Returns the structure of an [RLum.Analysis-class] object.
+#' Returns the structure of an [Luminescence::RLum.Analysis-class] object.
 #'
 #' @param fullExtent [logical] (*with default*):
 #' extends the returned `data.frame` to its full extent, i.e. all info elements
@@ -661,7 +662,7 @@ setMethod("length_RLum",
 
 ## names_RLum() -------------------------------------------------------------
 #' @describeIn names_RLum
-#' Returns the names of the [RLum.Data-class] objects stored in the object.
+#' Returns the names of the [Luminescence::RLum.Data-class] objects stored in the object.
 #'
 #' @export
 setMethod("names_RLum",
@@ -673,7 +674,7 @@ setMethod("names_RLum",
 
 ## add_metadata() -----------------------------------------------------------
 #' @describeIn metadata
-#' Adds metadata to [RLum.Analysis-class] objects.
+#' Adds metadata to [Luminescence::RLum.Analysis-class] objects.
 #'
 #' @param info_element [character] (**required**):
 #' name of the metadata entry to manipulate.
@@ -718,7 +719,7 @@ setMethod("rename_metadata<-",
 
 ## replace_metadata() -------------------------------------------------------
 #' @describeIn metadata
-#' Replaces or removes metadata of [RLum.Analysis-class] objects.
+#' Replaces or removes metadata of [Luminescence::RLum.Analysis-class] objects.
 #'
 #' @param subset [expression] (*optional*):
 #' logical expression to limit the substitution only to the selected subset
@@ -902,7 +903,7 @@ setMethod(
 
 ## melt_RLum() --------------------------------------------------------------
 #' @describeIn melt_RLum
-#' Melts [RLum.Analysis-class] objects into a flat data.frame with columns
+#' Melts [Luminescence::RLum.Analysis-class] objects into a flat data.frame with columns
 #' `X`, `Y`, `TYPE`, `UID`, to be used in combination with other packages
 #' such as `ggplot2`.
 #'
@@ -917,7 +918,7 @@ setMethod(
 
 ## view() -------------------------------------------------------------------
 #' @describeIn view
-#' View method for [RLum.Analysis-class] objects.
+#' View method for [Luminescence::RLum.Analysis-class] objects.
 #'
 #' @export
 setMethod("view",

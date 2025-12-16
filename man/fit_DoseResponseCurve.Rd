@@ -98,7 +98,8 @@ enable/disable output to the terminal.}
 \item{...}{Further arguments to be passed (currently ignored).}
 }
 \value{
-An \code{RLum.Results} object is returned containing the slot \code{data} with the
+An \linkS4class{RLum.Results} object is returned
+containing the slot \code{data} with the
 following elements:
 
 \strong{Overview elements}
@@ -113,7 +114,8 @@ In case of a resulting  linear fit when using \code{LIN}, \code{QDR} or \verb{EX
 \code{..$call} : \tab \code{call} \tab The original function call\cr
 }
 
-If \code{object} is a list, then the function returns a list of \code{RLum.Results}
+If \code{object} is a list, then the function returns a list of
+\linkS4class{RLum.Results}
 objects as defined above.
 
 \strong{Details - \code{DATA.OBJECT$De}}
@@ -354,7 +356,8 @@ Pagonis, V., Kitis, G., Chen, R., 2020. A new analytical equation for the dose r
 based on the Lambert W function. Journal of Luminescence 225, 117333. \doi{10.1016/j.jlumin.2020.117333}
 }
 \seealso{
-\link{plot_GrowthCurve}, \link{nls}, \linkS4class{RLum.Results}, \link{get_RLum},
+\link{plot_GrowthCurve}, \link{nls},
+\linkS4class{RLum.Results}, \link{get_RLum},
 \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}, \link{lm}, \link{uniroot}, \link[lamW:lamW]{lamW::lambertW0}
 }
 \author{

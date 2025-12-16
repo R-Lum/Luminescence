@@ -4,15 +4,15 @@
 #' While analysing OSL SAR or pIRIR-data the view on the data is usually
 #' limited to one dose-response curve (DRC) at the time for one aliquot. This
 #' function overcomes this limitation by plotting all DRCs from an
-#' [RLum.Results-class] object created by [analyse_SAR.CWOSL] in one single
+#' [Luminescence::RLum.Results-class] object created by [Luminescence::analyse_SAR.CWOSL] in one single
 #' plot.
 #'
 #' If you want plot your DRC on an energy scale (dose in Gy), you can either
 #' use option `source_dose_rate` or perform your SAR analysis with the dose
 #' points in Gy (better axis scaling).
 #'
-#' @param object [RLum.Results-class] (**required**): input object created by
-#' [analyse_SAR.CWOSL]. The input object can be provided as [list].
+#' @param object [Luminescence::RLum.Results-class] (**required**): input object created by
+#' [Luminescence::analyse_SAR.CWOSL]. The input object can be provided as [list].
 #'
 #' @param source_dose_rate [numeric] (*optional*): allows to modify the axis
 #' and show values in Gy, instead seconds. Only a single numerical value is
@@ -33,18 +33,19 @@
 #' usually not needed.
 #'
 #'@param ... Further arguments and graphical parameters to be passed.
-#'In particular: `main`, `xlab`, `ylab`, `xlim`, `ylim`, `lty`, `lwd`, `pch`, `col.pch`, `col.lty`, `mtext`
+#'In particular: `main`, `xlab`, `ylab`, `xlim`, `ylim`, `lty`, `lwd`, `pch`,
+#'`col.pch`, `col.lty`, `mtext`
 #'
 #'@section Function version: 0.2.4
 #'
-#'@return An [RLum.Results-class] object is returned:
+#'@return An [Luminescence::RLum.Results-class] object is returned:
 #'
 #' Slot: **@data**\cr
 #'
 #' \tabular{lll}{
 #' **OBJECT** \tab **TYPE** \tab **COMMENT**\cr
 #' `results` \tab [data.frame] \tab with dose and LxTx values \cr
-#' `data` \tab [RLum.Results-class] \tab original input data \cr
+#' `data` \tab [Luminescence::RLum.Results-class] \tab original input data \cr
 #' }
 #'
 #' Slot: **@info**\cr
@@ -55,12 +56,12 @@
 #' `args` \tab `list` \tab arguments of the original function call \cr
 #' }
 #'
-#'*Note: If the input object is a [list] a list of [RLum.Results-class] objects is returned.*
+#'*Note: If the input object is a [list] a list of [Luminescence::RLum.Results-class] objects is returned.*
 #'
 #'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
 #' Christoph Burow, University of Cologne (Germany)
 #'
-#'@seealso [RLum.Results-class], [analyse_SAR.CWOSL]
+#'@seealso [Luminescence::RLum.Results-class], [Luminescence::analyse_SAR.CWOSL]
 #'
 #'@examples
 #'
@@ -83,6 +84,7 @@
 #'##plot only DRC
 #'plot_DRCSummary(results)
 #'
+#'@md
 #'@export
 plot_DRCSummary <- function(
   object,

@@ -35,10 +35,10 @@
 #' in standard books on R can be used without knowing the specifics of the R
 #' package `'Luminescence'`. For examples see the example section.
 #'
-#' @param x [RLum-class] or [Risoe.BINfileData-class] (**required**):
+#' @param x [Luminescence::RLum-class] or [Luminescence::Risoe.BINfileData-class] (**required**):
 #' input object
 #'
-#' @param object [RLum-class] (**required**):
+#' @param object [Luminescence::RLum-class] (**required**):
 #' input object
 #'
 #' @param y [integer] (*optional*):
@@ -48,21 +48,22 @@
 #' the column index of the matrix, data.frame
 #'
 #' @param i [character] (*optional*):
-#' name of the wanted record type or data object or row in the `RLum.Data.Curve` object
+#' name of the wanted record type or data object or row in the
+#' [Luminescence::RLum.Data.Curve-class] object
 #'
 #' @param j [integer] (*optional*):
-#' column of the data matrix in the `RLum.Data.Curve` object
+#' column of the data matrix in the [Luminescence::RLum.Data.Curve-class] object
 #'
 #' @param value [numeric] (**required**):
-#' numeric value which replace the value in the `RLum.Data.Curve` object
+#' numeric value which replace the value in the [Luminescence::RLum.Data.Curve-class] object
 #'
 #' @param drop [logical] (*with default*):
 #' keep object structure or drop it
 #'
 #' @param subset `[subset]` [expression] (**required**):
 #' logical expression indicating elements or rows to keep, this function works
-#' in [Risoe.BINfileData-class] objects like [subset.data.frame], but takes care
-#' of the object structure. Works also on [RLum.Analysis-class] objects.
+#' in [Luminescence::Risoe.BINfileData-class] objects like [subset.data.frame], but takes care
+#' of the object structure. Works also on [Luminescence::RLum.Analysis-class] objects.
 #'
 #' @param row.names [logical] (*with default*):
 #' enable/disable row names (`as.data.frame`).

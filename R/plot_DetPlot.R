@@ -23,7 +23,7 @@
 #' `sequence.structure`, `dose.points`, `mtext.outer`, `fit.method`,
 #' `fit.force_through_origin`, `plot`, `plot_singlePanels`
 #'
-#' @param object [RLum.Analysis-class] (**required**): input object containing data for analysis
+#' @param object [Luminescence::RLum.Analysis-class] (**required**): input object containing data for analysis
 #' Can be provided as a [list] of such objects.
 #'
 #' @param signal.integral.min [integer] (**required**):
@@ -49,11 +49,11 @@
 #'
 #' @param analyse_function [character] (*with default*):
 #' name of the analyse function to be called. Supported functions are:
-#' [analyse_SAR.CWOSL], [analyse_pIRIRSequence]
+#' [Luminescence::analyse_SAR.CWOSL], [Luminescence::analyse_pIRIRSequence]
 #'
 #' @param analyse_function.control [list] (*optional*):
 #' selected arguments to be passed to the supported analyse functions
-#' ([analyse_SAR.CWOSL], [analyse_pIRIRSequence]). The arguments must be provided
+#' ([Luminescence::analyse_SAR.CWOSL], [Luminescence::analyse_pIRIRSequence]). The arguments must be provided
 #' as named [list], e.g., `list(dose.points = c(0,10,20,30,0,10)` will set the
 #' regeneration dose points.
 #'
@@ -66,14 +66,14 @@
 #' enable/disable shine down curve in the plot output.
 #'
 #' @param respect_RC.Status [logical] (*with default*):
-#' remove De values with 'FAILED' RC.Status from the plot (cf. [analyse_SAR.CWOSL]
-#' and [analyse_pIRIRSequence]).
+#' remove De values with 'FAILED' RC.Status from the plot (cf. [Luminescence::analyse_SAR.CWOSL]
+#' and [Luminescence::analyse_pIRIRSequence]).
 #'
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
 #'
 #' @param multicore [logical] (*with default*) : enable/disable multi core
-#' calculation if `object` is a [list] of [RLum.Analysis-class] objects. Can be an
+#' calculation if `object` is a [list] of [Luminescence::RLum.Analysis-class] objects. Can be an
 #' [integer] specifying the number of cores
 #'
 #' @param plot [logical] (*with default*): enable/disable the plot output.
@@ -81,12 +81,12 @@
 #' differently.
 #'
 #' @param ... further arguments and graphical parameters passed to
-#' [plot.default], [analyse_SAR.CWOSL] and [analyse_pIRIRSequence] (see details for further information).
+#' [plot.default], [Luminescence::analyse_SAR.CWOSL] and [Luminescence::analyse_pIRIRSequence] (see details for further information).
 #' Plot control parameters are: `ylim`, `xlim`, `ylab`, `xlab`, `main`, `pch`, `mtext`, `cex`, `legend`,
 #' `legend.text`, `legend.pos`
 #'
 #' @return
-#' A plot and an [RLum.Results-class] object with the produced \eqn{D_e} values
+#' A plot and an [Luminescence::RLum.Results-class] object with the produced \eqn{D_e} values
 #'
 #' `@data`:
 #'
@@ -106,7 +106,7 @@
 #'
 #' @note
 #' The entire analysis is based on the used analysis functions, namely
-#' [analyse_SAR.CWOSL] and [analyse_pIRIRSequence]. However, the integrity
+#' [Luminescence::analyse_SAR.CWOSL] and [Luminescence::analyse_pIRIRSequence]. However, the integrity
 #' checks of this function are not that thoughtful as in these functions itself.
 #' It means, that every sequence should be checked carefully before running long
 #' calculations using several hundreds of channels.
@@ -120,7 +120,7 @@
 #' using De as a function of illumination time. Radiation Measurements 37, 511-518.
 #' doi:10.1016/S1350-4487(03)00063-5
 #'
-#' @seealso [plot], [analyse_SAR.CWOSL], [analyse_pIRIRSequence]
+#' @seealso [plot], [Luminescence::analyse_SAR.CWOSL], [Luminescence::analyse_pIRIRSequence]
 #'
 #' @examples
 #'

@@ -1,4 +1,4 @@
-#' @title Nonlinear Least Squares Fit for CW-OSL curves -beta version-
+#' @title Non-linear Least Squares Fit for CW-OSL curves -beta version-
 #'
 #' @description
 #' The function determines the weighted least-squares estimates of the
@@ -45,7 +45,7 @@
 #'
 #' *For details on the nonlinear regression in R, see Ritz & Streibig (2008).*
 #'
-#' @param values [RLum.Data.Curve-class] or [data.frame] (**required**):
+#' @param values [Luminescence::RLum.Data.Curve-class] or [data.frame] (**required**):
 #' x, y data of measured values (time and counts). See examples.
 #'
 #' @param n.components.max [vector] (*optional*):
@@ -105,7 +105,7 @@
 #'
 #' **RLum.Results object**
 #'
-#' Beside the plot and table output options, an [RLum.Results-class] object is
+#' Beside the plot and table output options, an [Luminescence::RLum.Results-class] object is
 #' returned.
 #'
 #' `fit`:
@@ -145,8 +145,8 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [fit_LMCurve], [plot],[nls], [RLum.Data.Curve-class],
-#' [RLum.Results-class], [get_RLum], [minpack.lm::nlsLM]
+#' @seealso [Luminescence::fit_LMCurve], [plot],[nls], [Luminescence::RLum.Data.Curve-class],
+#' [Luminescence::RLum.Results-class], [Luminescence::get_RLum], [minpack.lm::nlsLM]
 #'
 #' @references
 #' Boetter-Jensen, L., McKeever, S.W.S., Wintle, A.G., 2003.

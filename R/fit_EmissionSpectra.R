@@ -2,7 +2,7 @@
 #'
 #' @description
 #' This function performs a luminescence spectra deconvolution on
-#' [RLum.Data.Spectrum-class] and [matrix] objects on an **energy scale**.
+#' [Luminescence::RLum.Data.Spectrum-class] and [matrix] objects on an **energy scale**.
 #' The function is optimised for emission spectra typically obtained in the
 #' context of TL, OSL and RF  measurements detected between 200 and 1000 nm.
 #' The function is not designed to deconvolve TL curves (counts against
@@ -61,7 +61,7 @@
 #' `trace` \tab [logical] \tab `FALSE` \tab enable/disable the tracing of the minimisation routine
 #'}
 #'
-#'@param object [RLum.Data.Spectrum-class], [matrix] (**required**): input
+#'@param object [Luminescence::RLum.Data.Spectrum-class], [matrix] (**required**): input
 #'object. Please note that an energy spectrum is expected
 #'
 #' @param frame [integer] (*optional*): number of the frame to be analysed. If
@@ -143,8 +143,8 @@
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
-#'@seealso [RLum.Data.Spectrum-class], [RLum.Results-class], [plot_RLum],
-#'[convert_Wavelength2Energy], [minpack.lm::nls.lm]
+#'@seealso [Luminescence::RLum.Data.Spectrum-class], [Luminescence::RLum.Results-class], [Luminescence::plot_RLum],
+#'[Luminescence::convert_Wavelength2Energy], [minpack.lm::nls.lm]
 #'
 #'@keywords datagen
 #'

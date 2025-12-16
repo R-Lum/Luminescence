@@ -7,9 +7,9 @@
 #' @param data [character] or [data.frame] (**required**): file path or data
 #' frame with 5 columns named "SAMPLE", "TEMP", "TIME", "LxTx", "LxTx_ERROR".
 #'
-#' @param rhop [numeric] or [RLum.Results-class] (*with default*):
-#' a vector of rho prime values (one for each sample) or an [RLum.Results-class]
-#' object produced by [analyse_FadingMeasurement].
+#' @param rhop [numeric] or [Luminescence::RLum.Results-class] (*with default*):
+#' a vector of rho prime values (one for each sample) or an [Luminescence::RLum.Results-class]
+#' object produced by [Luminescence::analyse_FadingMeasurement].
 #'
 #' @param ITL_model [character] (*with default*): model to be fitted, either
 #' `"GOK"` or `"BTS"`.
@@ -42,7 +42,7 @@
 #' @keywords datagen
 #'
 #' @return
-#' The function returns an [RLum.Results-class] object and an *optional* plot.
+#' The function returns an [Luminescence::RLum.Results-class] object and an *optional* plot.
 #' The object returned contains the following elements:
 #'
 #' \item{fit}{[list] with the fitted models}
@@ -51,7 +51,7 @@
 #'
 #' It may return `NULL` if no model could be fitted.
 #'
-#' @seealso [analyse_ThermochronometryData], [analyse_FadingMeasurement]
+#' @seealso [Luminescence::analyse_ThermochronometryData], [Luminescence::analyse_FadingMeasurement]
 #'
 #' @references
 #' Li, B., Li, S.H., The effect of band-tail states on the

@@ -13,7 +13,7 @@
 #' this sample.\cr
 #' In the plot the normalised De is shown on the y-axis, i.e. obtained De/Given Dose.
 #'
-#' @param values [RLum.Results-class] or [data.frame] (**required**):
+#' @param values [Luminescence::RLum.Results-class] or [data.frame] (**required**):
 #' input values containing at least De and De error. To plot
 #' more than one data set in one figure, a `list` of the individual data
 #' sets must be provided (e.g. `list(dataset.1, dataset.2)`).
@@ -55,7 +55,7 @@
 #' - `"se.rel"` (relative standard error) and
 #' - `"se.abs"` (absolute standard error)
 #'
-#' and all other measures returned by the function [calc_Statistics].
+#' and all other measures returned by the function [Luminescence::calc_Statistics].
 #'
 #' @param summary.pos [numeric] or [character] (*with default*):
 #' optional position coordinates or keyword (e.g. `"topright"`)

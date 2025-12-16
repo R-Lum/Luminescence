@@ -24,7 +24,7 @@ plot_RLum.Data.Spectrum(
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Data.Spectrum} or \link{matrix} (\strong{required}):
-S4 object of class \code{RLum.Data.Spectrum} or a \code{matrix} containing count
+S4 object of class \linkS4class{RLum.Data.Spectrum} or a \code{matrix} containing count
 values of the spectrum.\cr
 Please note that in case of a matrix row names and col names are set
 automatically if not provided.}

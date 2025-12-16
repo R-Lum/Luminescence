@@ -117,7 +117,8 @@ function will be selected.
 }
 \section{Functions}{
 \itemize{
-\item \code{get_RLum(list)}: Returns a list of \linkS4class{RLum} objects that had been passed to \link{get_RLum}
+\item \code{get_RLum(list)}: Returns a list of \linkS4class{RLum} objects that had been passed to
+\link{get_RLum}
 
 \item \code{get_RLum(`NULL`)}: Returns \code{NULL}.
 
@@ -133,7 +134,8 @@ Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 Returns:
 \enumerate{
 \item \link{list} of \linkS4class{RLum.Data} objects or
-\item Single \linkS4class{RLum.Data} object, if only one object is contained and \code{recursive = FALSE} or
+\item Single \linkS4class{RLum.Data} object, if only one object
+is contained and \code{recursive = FALSE} or
 \item \linkS4class{RLum.Analysis} objects for \code{drop = FALSE}
 }
 
@@ -189,7 +191,8 @@ temp.get <- get_RLum(object = temp1)
 }
 \seealso{
 \linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Data.Image},
-\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}
+\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis},
+\linkS4class{RLum.Results}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

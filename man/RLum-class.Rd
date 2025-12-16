@@ -27,7 +27,7 @@ function for the object. Set automatically by using the function \link{set_RLum}
 \item{\code{info}}{Object of class \link{list} for additional information on the object itself}
 
 \item{\code{.uid}}{Object of class \link{character} for a unique object identifier. This id is
-usually calculated using the internal function \code{create_UID()} if the function \link{set_RLum}
+usually calculated using the internal function \code{create_UID} if the function \link{set_RLum}
 is called.}
 
 \item{\code{.pid}}{Object of class \link{character} for a parent id. This allows nesting RLum-objects
@@ -52,7 +52,8 @@ showClass("RLum")
 
 }
 \seealso{
-\linkS4class{RLum.Data}, \linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Data.Image},
+\linkS4class{RLum.Data}, \linkS4class{RLum.Data.Curve},
+\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Data.Image},
 \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}, \link{methods_RLum}
 }
 \author{

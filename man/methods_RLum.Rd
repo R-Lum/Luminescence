@@ -240,13 +240,14 @@ the column index of the matrix, data.frame}
 keep object structure or drop it}
 
 \item{i}{\link{character} (\emph{optional}):
-name of the wanted record type or data object or row in the \code{RLum.Data.Curve} object}
+name of the wanted record type or data object or row in the
+\linkS4class{RLum.Data.Curve} object}
 
 \item{j}{\link{integer} (\emph{optional}):
-column of the data matrix in the \code{RLum.Data.Curve} object}
+column of the data matrix in the \linkS4class{RLum.Data.Curve} object}
 
 \item{value}{\link{numeric} (\strong{required}):
-numeric value which replace the value in the \code{RLum.Data.Curve} object}
+numeric value which replace the value in the \linkS4class{RLum.Data.Curve} object}
 }
 \description{
 Methods for S3-generics implemented for the package 'Luminescence'.

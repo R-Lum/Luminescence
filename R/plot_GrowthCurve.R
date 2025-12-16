@@ -3,8 +3,8 @@
 #' @description
 #'
 #' A dose-response curve is produced for luminescence measurements using a
-#' regenerative or additive protocol as implemented in [fit_DoseResponseCurve]
-#' and [plot_DoseResponseCurve]
+#' regenerative or additive protocol as implemented in [Luminescence::fit_DoseResponseCurve]
+#' and [Luminescence::plot_DoseResponseCurve]
 #'
 #' @param sample [data.frame] (**required**):
 #' data frame with columns for `Dose`, `LxTx`, `LxTx.Error` and `TnTx`.
@@ -35,7 +35,7 @@
 #' - `OTOR`,
 #' - `OTORX`
 #'
-#' See details in [fit_DoseResponseCurve].
+#' See details in [Luminescence::fit_DoseResponseCurve].
 #'
 #' @param output.plot [logical] (*with default*):
 #' enable/disable the plot output.
@@ -58,15 +58,15 @@
 #' @param n.MC [integer] (*with default*):
 #' number of MC runs for error calculation.
 #'
-#' @param ... Further arguments to [fit_DoseResponseCurve] (`fit_weights`,
+#' @param ... Further arguments to [Luminescence::fit_DoseResponseCurve] (`fit_weights`,
 #' `fit_bounds`, `fit.force_through_origin`, `fit.includingRepeatedRegPoints`,
 #' `fit.NumberRegPoints`, `fit.NumberRegPointsReal`, `n.MC`,
 #' `txtProgressBar`) and graphical parameters to be passed (supported:
 #' `xlim`, `ylim`, `main`, `xlab`, `ylab`).
 #'
 #' @return
-#' Along with a plot (if wanted) the `RLum.Results` object produced by
-#' [fit_DoseResponseCurve] is returned.
+#' Along with a plot (if wanted) the [Luminescence::RLum.Results-class] object produced by
+#' [Luminescence::fit_DoseResponseCurve] is returned.
 #'
 #' @section Function version: 1.2.2
 #'
@@ -86,7 +86,7 @@
 #' Pagonis, V., Kitis, G., Chen, R., 2020. A new analytical equation for the dose response of dosimetric materials,
 #' based on the Lambert W function. Journal of Luminescence 225, 117333. \doi{10.1016/j.jlumin.2020.117333}
 #'
-#' @seealso [fit_DoseResponseCurve], [plot_DoseResponseCurve]
+#' @seealso [Luminescence::fit_DoseResponseCurve], [Luminescence::plot_DoseResponseCurve]
 #'
 #' @examples
 #'

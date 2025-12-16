@@ -1,6 +1,6 @@
 #' @title Merge function for RLum.Data.Curve S4 class objects
 #'
-#' @description This function allows to merge [RLum.Data.Curve-class] objects in different
+#' @description This function allows to merge [Luminescence::RLum.Data.Curve-class] objects in different
 #' ways without modifying the original objects. Merging is always applied on
 #' the 2nd column of the object's data matrix.
 #'
@@ -58,7 +58,7 @@
 #'
 #' Values of the first object are divided by row sums of the last objects.
 #'
-#' @param object [list] of [RLum.Data.Curve-class] (**required**):
+#' @param object [list] of [Luminescence::RLum.Data.Curve-class] (**required**):
 #' list of objects to be merged.
 #'
 #' @param merge.method [character] (**required**):
@@ -73,7 +73,7 @@
 #' `2` keeps only the info elements from the 2 object etc.
 #' If set to `NULL`, all elements are combined.
 #'
-#' @return Returns an [RLum.Data.Curve-class] object.
+#' @return Returns an [Luminescence::RLum.Data.Curve-class] object.
 #'
 #' @note
 #' The information from the slot `recordType` is taken from the first
@@ -90,7 +90,7 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [merge_RLum], [RLum.Data.Curve-class]
+#' @seealso [Luminescence::merge_RLum], [Luminescence::RLum.Data.Curve-class]
 #'
 #' @keywords utilities internal
 #'

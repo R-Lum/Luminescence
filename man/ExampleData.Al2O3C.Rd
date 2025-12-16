@@ -6,7 +6,8 @@
 \alias{data_ITC}
 \title{Example Al2O3:C Measurement Data}
 \format{
-Two datasets comprising \linkS4class{RLum.Analysis} data imported using the function \link{read_XSYG2R}
+Two datasets comprising \linkS4class{RLum.Analysis} data imported using the function
+\link{read_XSYG2R}
 
 \describe{
 \code{data_ITC}: Measurement data to determine the irradiation time correction, the data can
@@ -41,7 +42,8 @@ Environmental Dose Rate Determination Using a Passive Dosimeter: Techniques and 
 Geochronometria 45, 56–67.
 }
 \seealso{
-\link{analyse_Al2O3C_ITC}, \link{analyse_Al2O3C_CrossTalk}, \link{analyse_Al2O3C_Measurement}
+\link{analyse_Al2O3C_ITC}, \link{analyse_Al2O3C_CrossTalk},
+\link{analyse_Al2O3C_Measurement}
 }
 \keyword{datasets}
 \keyword{internal}

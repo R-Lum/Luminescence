@@ -146,7 +146,8 @@ plot_RLum(object)
 }
 \seealso{
 \linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Data.Image},
-\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}
+\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis},
+\linkS4class{RLum.Results}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

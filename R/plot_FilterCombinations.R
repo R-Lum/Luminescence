@@ -96,7 +96,7 @@
 #' Supported are `main`, `xlab`, `ylab`, `xlim`, `ylim`, `type`, `lty`, `lwd`.
 #' For non common plotting parameters, see the details section.
 #'
-#' @return Returns an S4 object of type [RLum.Results-class].
+#' @return Returns an S4 object of type [Luminescence::RLum.Results-class].
 #'
 #' **@data**
 #'
@@ -118,7 +118,7 @@
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum.Results-class], [approx]
+#' @seealso [Luminescence::RLum.Results-class], [approx]
 #'
 #' @keywords datagen aplot
 #'

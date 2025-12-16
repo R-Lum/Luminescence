@@ -20,7 +20,7 @@ Elements are appended where possible and attributes are preserved if
 not of similar name as the default attributes of, e.g., a \link{data.frame}
 }
 \note{
-The \code{originator} is taken from the first element and not reset to \code{merge_RLum}
+The \code{originator} is taken from the first element and not reset to \link{merge_RLum}
 }
 \section{Function version}{
  0.2.1

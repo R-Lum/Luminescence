@@ -65,7 +65,7 @@
 #' the `plot` function.
 #'
 #' Supported arguments: `main`, `mtext`, `log`, `lwd`, `lty` `type`, `pch`, `col`,
-#' `norm` (see [plot_RLum.Data.Curve]), `xlim`,`ylim`, `xlab`, `ylab`, ...
+#' `norm` (see [Luminescence::plot_RLum.Data.Curve]), `xlim`,`ylim`, `xlab`, `ylab`, ...
 #'
 #' and for `combine = TRUE` also: `sub_title`, `legend`, `legend.text`, `legend.pos`
 #' (typical plus 'outside'), `legend.col`, `smooth`.

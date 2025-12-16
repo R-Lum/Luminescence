@@ -267,12 +267,12 @@ NULL
 
 #' Example data for calc_CobbleDoseRate()
 #'
-#' An example data set for the function [calc_CobbleDoseRate] containing layer
+#' An example data set for the function [Luminescence::calc_CobbleDoseRate] containing layer
 #' specific information for the cobble to be used in the function.
 #'
 #' @format
 #'
-#' A [`data.frame`]. Please see [calc_CobbleDoseRate] for detailed information
+#' A [`data.frame`]. Please see [Luminescence::calc_CobbleDoseRate] for detailed information
 #' on the structure of the [data.frame].
 #'
 #' @section Version: 0.1.0
@@ -410,30 +410,30 @@ NULL
 #' These examples are fully documented:
 #'
 #' \itemize{
-#' \item [ExampleData.CobbleData]
-#' \item [ExampleData.DeValues]
-#' \item [ExampleData.Fading]
-#' \item [ExampleData.portableOSL]
-#' \item [ExampleData.RLum.Data.Image]
-#' \item [ExampleData.ScaleGammaDose]
-#' \item [ExampleData.SurfaceExposure]
-#' \item [ExampleData.TR_OSL]
+#' \item [Luminescence::ExampleData.CobbleData]
+#' \item [Luminescence::ExampleData.DeValues]
+#' \item [Luminescence::ExampleData.Fading]
+#' \item [Luminescence::ExampleData.portableOSL]
+#' \item [Luminescence::ExampleData.RLum.Data.Image]
+#' \item [Luminescence::ExampleData.ScaleGammaDose]
+#' \item [Luminescence::ExampleData.SurfaceExposure]
+#' \item [Luminescence::ExampleData.TR_OSL]
 #' }
 #'
 #' The following ones are also available, but are visible only via the
 #' internal documentation, as they correspond to unpublished or synthetic data:
 #'
 #' \itemize{
-#' \item [ExampleData.Al2O3C]
-#' \item [ExampleData.BINfileData]
-#' \item [ExampleData.CW_OSL_Curve]
-#' \item [ExampleData.FittingLM]
-#' \item [ExampleData.LxTxData]
-#' \item [ExampleData.LxTxOSLData]
-#' \item [ExampleData.MortarData]
-#' \item [ExampleData.RF70Curves]
-#' \item [ExampleData.RLum.Analysis]
-#' \item [ExampleData.XSYG]
+#' \item [Luminescence::ExampleData.Al2O3C]
+#' \item [Luminescence::ExampleData.BINfileData]
+#' \item [Luminescence::ExampleData.CW_OSL_Curve]
+#' \item [Luminescence::ExampleData.FittingLM]
+#' \item [Luminescence::ExampleData.LxTxData]
+#' \item [Luminescence::ExampleData.LxTxOSLData]
+#' \item [Luminescence::ExampleData.MortarData]
+#' \item [Luminescence::ExampleData.RF70Curves]
+#' \item [Luminescence::ExampleData.RLum.Analysis]
+#' \item [Luminescence::ExampleData.XSYG]
 #' }
 #'
 #' @keywords datasets
@@ -447,7 +447,7 @@ NULL
 #'
 #' @description Example data from a SAR OSL and TL measurement for package Luminescence
 #' directly extracted from a Risoe BIN-file and provided in an object of type
-#' [Risoe.BINfileData-class]
+#' [Luminescence::Risoe.BINfileData-class]
 #'
 #' @format
 #'
@@ -560,8 +560,8 @@ NULL
 
 #' Example portable OSL curve data for the package Luminescence
 #'
-#' A `list` of [RLum.Analysis-class] objects, each containing
-#' the same number of [RLum.Data.Curve-class] objects representing
+#' A `list` of [Luminescence::RLum.Analysis-class] objects, each containing
+#' the same number of [Luminescence::RLum.Data.Curve-class] objects representing
 #' individual OSL, IRSL and dark count measurements of a sample.
 #'
 #' @name ExampleData.portableOSL
@@ -703,9 +703,9 @@ NULL
 #' @aliases MortarData
 NULL
 
-#' Example data as [RLum.Analysis-class] objects
+#' Example data as [Luminescence::RLum.Analysis-class] objects
 #'
-#' Collection of different [RLum.Analysis-class] objects for
+#' Collection of different [Luminescence::RLum.Analysis-class] objects for
 #' protocol analysis.
 #'
 #' @format
@@ -750,14 +750,14 @@ NULL
 #' @aliases IRSAR.RF.Data
 NULL
 
-#' RF70 Example data as [RLum.Analysis-class] objects
+#' RF70 Example data as [Luminescence::RLum.Analysis-class] objects
 #'
 #' Collection two curves from Kreutzer et al. (2018) measured using the RF70 protocol
-#' (Frouin et al., 2017) as [RLum.Analysis-class] objects.
+#' (Frouin et al., 2017) as [Luminescence::RLum.Analysis-class] objects.
 #'
 #' @format
 #'
-#' `BDX16648`: [RLum.Analysis-class] with two IR-RF curves as [RLum.Data.Curve-class] objects
+#' `BDX16648`: [Luminescence::RLum.Analysis-class] with two IR-RF curves as [Luminescence::RLum.Data.Curve-class] objects
 #'
 #' @section Version: 0.1.0
 #'
@@ -795,13 +795,13 @@ NULL
 #' @aliases RF70Curves
 NULL
 
-#' Example data as [RLum.Data.Image-class] objects
+#' Example data as [Luminescence::RLum.Data.Image-class] objects
 #'
 #' Measurement of Princton Instruments camera imported with the function
-#' [read_SPE2R] to R to produce an
-#' [RLum.Data.Image-class] object.
+#' [Luminescence::read_SPE2R] to R to produce an
+#' [Luminescence::RLum.Data.Image-class] object.
 #'
-#' @format Object of class [RLum.Data.Image-class]
+#' @format Object of class [Luminescence::RLum.Data.Image-class]
 #'
 #' @section Version: 0.1
 #'
@@ -839,7 +839,7 @@ NULL
 #'
 #' Example data from a SAR OSL measurement and a TL spectrum for package
 #' Luminescence imported from a Freiberg Instruments XSYG file using the
-#' function [read_XSYG2R].
+#' function [Luminescence::read_XSYG2R].
 #'
 #' @format
 #'
@@ -847,12 +847,12 @@ NULL
 #'
 #' The data contain two elements: (a) `$Sequence.Header` is a
 #' [data.frame] with metadata from the measurement,(b)
-#' `Sequence.Object` contains an [RLum.Analysis-class] object
+#' `Sequence.Object` contains an [Luminescence::RLum.Analysis-class] object
 #' for further analysis.
 #'
 #' `TL.Spectrum`: TL spectrum data
 #'
-#' [RLum.Data.Spectrum-class] object for further analysis. The
+#' [Luminescence::RLum.Data.Spectrum-class] object for further analysis. The
 #' spectrum was cleaned from cosmic-rays using the function
 #'
 #' `apply_CosmicRayRemoval`. Note that no quantum efficiency calibration
@@ -860,8 +860,9 @@ NULL
 #'
 #' @section Version: 0.1
 #'
-#' @seealso [read_XSYG2R], [RLum.Analysis-class], [RLum.Data.Spectrum-class],
-#' [plot_RLum], [plot_RLum.Analysis], [plot_RLum.Data.Spectrum]
+#' @seealso [Luminescence::read_XSYG2R], [Luminescence::RLum.Analysis-class],
+#' [Luminescence::RLum.Data.Spectrum-class],
+#' [Luminescence::plot_RLum], [Luminescence::plot_RLum.Analysis], [Luminescence::plot_RLum.Data.Spectrum]
 #'
 #' @references
 #' Unpublished data measured to serve as example data for that
@@ -1098,7 +1099,7 @@ NULL
 #' Example OSL surface exposure dating data
 #'
 #' A set of synthetic OSL surface exposure dating data to demonstrate the
-#' [fit_SurfaceExposure] functionality. See examples to reproduce the data
+#' [Luminescence::fit_SurfaceExposure] functionality. See examples to reproduce the data
 #' interactively.
 #'
 #' @details
@@ -1251,22 +1252,24 @@ NULL
 #' The example data used in particular to allow test of the functions
 #' developed in framework of the work by Kreutzer et al., 2018.
 #'
-#' @format Two datasets comprising [RLum.Analysis-class] data imported using the function [read_XSYG2R]
+#' @format Two datasets comprising [Luminescence::RLum.Analysis-class] data imported using the function
+#' [Luminescence::read_XSYG2R]
 #'
 #' \describe{
 #' `data_ITC`: Measurement data to determine the irradiation time correction, the data can
-#' be analysed with the function [analyse_Al2O3C_ITC]
+#' be analysed with the function [Luminescence::analyse_Al2O3C_ITC]
 #'
 #' `data_CrossTalk`: Measurement data obtained while estimating the irradiation cross-talk of the
 #' reader used for the experiments. The data can be analysed either with the function
-#' [analyse_Al2O3C_CrossTalk] or [analyse_Al2O3C_Measurement]
+#' [Luminescence::analyse_Al2O3C_CrossTalk] or [Luminescence::analyse_Al2O3C_Measurement]
 #' }
 #'
 #' @note From both datasets unneeded curves have been removed and
 #' the number of aliquots have been reduced to a required minimum to keep the file size small, but
 #' still being able to run the corresponding functions.
 #'
-#' @seealso [analyse_Al2O3C_ITC], [analyse_Al2O3C_CrossTalk], [analyse_Al2O3C_Measurement]
+#' @seealso [Luminescence::analyse_Al2O3C_ITC], [Luminescence::analyse_Al2O3C_CrossTalk],
+#' [Luminescence::analyse_Al2O3C_Measurement]
 #'
 #' @references Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018.
 #' Environmental Dose Rate Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
@@ -1289,13 +1292,13 @@ NULL
 #' Single TR-OSL curve obtained by Schmidt et al. (2019) for quartz sample BT729
 #' (origin: Trebgast Valley, Germany, quartz, 90-200 µm, unpublished data).
 #'
-#' @format One [RLum.Data.Curve-class] dataset imported using the function [read_XSYG2R]
+#' @format One [Luminescence::RLum.Data.Curve-class] dataset imported using the function [Luminescence::read_XSYG2R]
 #'
 #' \describe{
-#' `ExampleData.TR_OSL`: A single [RLum.Data.Curve-class] object with the TR-OSL data
+#' `ExampleData.TR_OSL`: A single [Luminescence::RLum.Data.Curve-class] object with the TR-OSL data
 #' }
 #'
-#' @seealso [fit_OSLLifeTimes]
+#' @seealso [Luminescence::fit_OSLLifeTimes]
 #'
 #' @references Schmidt, C., Simmank, O., Kreutzer, S., 2019.
 #' Time-Resolved Optically Stimulated Luminescence of Quartz in the Nanosecond Time Domain.

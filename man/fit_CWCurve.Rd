@@ -2,7 +2,7 @@
 % Please edit documentation in R/fit_CWCurve.R
 \name{fit_CWCurve}
 \alias{fit_CWCurve}
-\title{Nonlinear Least Squares Fit for CW-OSL curves -beta version-}
+\title{Non-linear Least Squares Fit for CW-OSL curves -beta version-}
 \usage{
 fit_CWCurve(
   values,

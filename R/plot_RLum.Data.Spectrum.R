@@ -85,8 +85,8 @@
 #' `n_breaks` (`"image"`), `legend` (`TRUE`/`FALSE`),
 #' `legend.pos` (`"image"`), `legend.horiz` (`TRUE`/`FALSE` | `"image"`)
 #'
-#' @param object [RLum.Data.Spectrum-class] or [matrix] (**required**):
-#' S4 object of class `RLum.Data.Spectrum` or a `matrix` containing count
+#' @param object [Luminescence::RLum.Data.Spectrum-class] or [matrix] (**required**):
+#' S4 object of class [Luminescence::RLum.Data.Spectrum-class] or a `matrix` containing count
 #' values of the spectrum.\cr
 #' Please note that in case of a matrix row names and col names are set
 #' automatically if not provided.

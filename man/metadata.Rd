@@ -41,7 +41,8 @@ replace_metadata(object, ...) <- value
 \S4method{replace_metadata}{Risoe.BINfileData}(object, info_element, subset = NULL) <- value
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis}, \linkS4class{Risoe.BINfileData} (\strong{required}):
+\item{object}{\linkS4class{RLum.Analysis},
+\linkS4class{Risoe.BINfileData} (\strong{required}):
 object of class \code{RLum.Analysis} or \code{Risoe.BINfileData} to manipulate.}
 
 \item{...}{further arguments passed to the specific class method}
@@ -118,7 +119,8 @@ CWOSL.SAR.Data
 
 }
 \seealso{
-\linkS4class{RLum.Data}, \linkS4class{RLum.Analysis}, \linkS4class{Risoe.BINfileData}
+\linkS4class{RLum.Data}, \linkS4class{RLum.Analysis},
+\linkS4class{Risoe.BINfileData}
 }
 \author{
 Marco Colombo, Institute of Geography, Heidelberg University (Germany)

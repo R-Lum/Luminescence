@@ -28,7 +28,7 @@
 #' @param df_neighbours [data.frame] (*with default*): only relevant if
 #' `show_neighbours` is `TRUE`. Data frame indicating which borders to
 #' consider, and their respective weights (see the description provided for
-#' [calc_MoransI]). If `NULL` (default), this is constructed automatically by
+#' [Luminescence::calc_MoransI]). If `NULL` (default), this is constructed automatically by
 #' the internal function `.get_Neighbours`.
 #'
 #' @param ignore_borders [logical] (*with default*): whether only grain
