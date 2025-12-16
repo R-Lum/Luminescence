@@ -5,7 +5,7 @@
 #' and also a least square line (which slopes indicates, but not exactly represents, Moran's I) and
 #' an 1:1 line (which indicates a Moran's I of around 1).
 #'
-#' @param object [RLum.Results-class] or [numeric] (**required**): containing a numerical vector of length 100,
+#' @param object [Luminescence::RLum.Results-class] or [numeric] (**required**): containing a numerical vector of length 100,
 #' representing one or more measurement discs ("positions") in a reader.
 #' Each element in the vector represents one grain hole location on a disc.
 #'
@@ -31,7 +31,7 @@
 #' (indicates numbers of neighbours) and the normal base plot `pch` options.
 #'
 #' @details Note that this function plots on the y-axis the mean of the neighbours, while the function
-#' [calc_MoransI] by default will for its global calculation weight every border the same. So, grain locations
+#' [Luminescence::calc_MoransI] by default will for its global calculation weight every border the same. So, grain locations
 #' with 1, 2 or 3 neighbours will appear higher on the y-axis than their influence on Moran's I justify -- apart
 #' from scaling, this explains a part of the differences of Moran's scatter plots between different packages.
 #' Also note that island' grain locations (=those not bordering other grains) are left out of these plots but

@@ -11,7 +11,7 @@
 #' All provided output corresponds to the \eqn{tc} value obtained by this
 #' analysis. Additionally, the g-value normalised to 2-days is provided in the
 #' output object. The output of this function can be passed to the function
-#' [calc_FadingCorr].
+#' [Luminescence::calc_FadingCorr].
 #'
 #' **Fitting and error estimation**
 #'
@@ -56,7 +56,7 @@
 #' inter-aliquot variations in the \eqn{\frac{L_x}{T_x}} values.
 #' If deemed necessary to normalise the \eqn{\frac{L_x}{T_x}} values  of each
 #' aliquot by its individual prompt measurement please do so **before** running
-#' [analyse_FadingMeasurement] and provide the already normalised values for
+#' [Luminescence::analyse_FadingMeasurement] and provide the already normalised values for
 #' `object` instead.
 #'
 #' **Shine-down curve plots**
@@ -64,9 +64,9 @@
 #' a maximum of five pause steps are plotted to avoid graphically overloaded plots.
 #' However, *all* pause times are taken into consideration for the analysis.
 #'
-#' @param object [RLum.Analysis-class], [data.frame] or [list] (**required**):
+#' @param object [Luminescence::RLum.Analysis-class], [data.frame] or [list] (**required**):
 #' input object with the measurement data. Alternatively, a [list] containing
-#' [RLum.Analysis-class] objects or a [data.frame] with three columns
+#' [Luminescence::RLum.Analysis-class] objects or a [data.frame] with three columns
 #' (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
 #' Can also be a wide table, i.e. a [data.frame] with a number of columns
 #' divisible by 3 and where each triplet has the before mentioned column
@@ -126,7 +126,7 @@
 #' numerical output of the functions for own plots.
 #'
 #' @return
-#' An [RLum.Results-class] object is returned:
+#' An [Luminescence::RLum.Results-class] object is returned:
 #'
 #' Slot: **@data**
 #'
@@ -169,8 +169,9 @@
 #' fading correction for feldspar  IRSL dating-tests on samples in field saturation.
 #' Radiation Measurements 43, 786-790. \doi{10.1016/j.radmeas.2008.01.021}
 #'
-#' @seealso [calc_OSLLxTxRatio], [read_BIN2R], [read_XSYG2R],
-#' [extract_IrradiationTimes], [calc_FadingCorr]
+#' @seealso [Luminescence::calc_OSLLxTxRatio], [Luminescence::read_BIN2R],
+#' [Luminescence::read_XSYG2R],
+#' [Luminescence::extract_IrradiationTimes], [Luminescence::calc_FadingCorr]
 #'
 #' @examples
 #'

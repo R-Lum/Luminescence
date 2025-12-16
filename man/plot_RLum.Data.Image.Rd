@@ -14,7 +14,7 @@ plot_RLum.Data.Image(
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Data.Image} (\strong{required}): S4
-object of class \code{RLum.Data.Image}}
+object of class \linkS4class{RLum.Data.Image}}
 
 \item{frames}{\link{numeric} (\emph{optional}): sets the frames to be set, by default all
 frames are plotted. Can be sequence of numbers, as long as the frame number is valid.}
@@ -76,7 +76,8 @@ plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
 
 }
 \seealso{
-\linkS4class{RLum.Data.Image}, \link{plot}, \link{plot_RLum}, \link[graphics:image]{graphics::image}, \link[graphics:contour]{graphics::contour}
+\linkS4class{RLum.Data.Image}, \link{plot}, \link{plot_RLum},
+\link[graphics:image]{graphics::image}, \link[graphics:contour]{graphics::contour}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

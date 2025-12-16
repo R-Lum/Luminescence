@@ -6,7 +6,7 @@
 #' The function produces a multiple plot output.  A file output is recommended
 #' (e.g., [pdf]).
 #'
-#' @param object [RLum.Results-class] (**required**):
+#' @param object [Luminescence::RLum.Results-class] (**required**):
 #' S4 object of class `RLum.Results`
 #'
 #' @param single [logical] (*with default*):
@@ -28,7 +28,7 @@
 #' Christoph Burow, University of Cologne (Germany) \cr
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [plot], [plot_RLum]
+#' @seealso [plot], [Luminescence::plot_RLum]
 #'
 #' @keywords aplot
 #'

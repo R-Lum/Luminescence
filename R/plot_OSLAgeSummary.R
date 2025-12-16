@@ -4,10 +4,10 @@
 #' The function produces a graphical summary of the statistical inference of
 #' an OSL age.
 #'
-#' @details The function is called automatically by [combine_De_Dr].
+#' @details The function is called automatically by [Luminescence::combine_De_Dr].
 #'
-#' @param object [RLum.Results-class], [numeric] (**required**):
-#' an object produced by [combine_De_Dr]. Alternatively, a [numeric] vector of
+#' @param object [Luminescence::RLum.Results-class], [numeric] (**required**):
+#' an object produced by [Luminescence::combine_De_Dr]. Alternatively, a [numeric] vector of
 #' a parameter from an MCMC process.
 #'
 #' @param level [numeric] (*with default*):
@@ -23,7 +23,7 @@
 #' `xlab`, `ylab`, `main`, `lwd`, `lty`, `col`, `rug`, `polygon_col`,
 #' `polygon_density`.
 #'
-#'@return A posterior distribution plot and an [RLum.Results-class]
+#'@return A posterior distribution plot and an [Luminescence::RLum.Results-class]
 #' object with the credible interval.
 #'
 #'@author Anne Philippe, Université de Nantes (France),
@@ -33,7 +33,7 @@
 #'
 #'@section Function version: 0.1.0
 #'
-#'@seealso [combine_De_Dr], [plot.default], [rjags::rjags]
+#'@seealso [Luminescence::combine_De_Dr], [plot.default], [rjags::rjags]
 #'
 #'@keywords hplot dplot
 #'

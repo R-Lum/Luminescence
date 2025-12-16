@@ -1,7 +1,7 @@
 #' @title  Plot function for an `RLum.Data.Image` S4 class object
 #'
 #' @description The function provides very basic plot functionality for image data of an
-#' [RLum.Data.Image-class] object. For more sophisticated plotting it is recommended
+#' [Luminescence::RLum.Data.Image-class] object. For more sophisticated plotting it is recommended
 #' to use other very powerful packages for image processing.
 #'
 #'
@@ -20,8 +20,8 @@
 #'
 #' This uses the function [graphics::contour]
 #'
-#' @param object [RLum.Data.Image-class] (**required**): S4
-#' object of class `RLum.Data.Image`
+#' @param object [Luminescence::RLum.Data.Image-class] (**required**): S4
+#' object of class [Luminescence::RLum.Data.Image-class]
 #'
 #' @param par.local [logical] (*with default*): use local graphical
 #' parameters for plotting, e.g. the plot is shown in one column and one row.
@@ -52,7 +52,8 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum.Data.Image-class], [plot], [plot_RLum], [graphics::image], [graphics::contour]
+#' @seealso [Luminescence::RLum.Data.Image-class], [plot], [Luminescence::plot_RLum],
+#' [graphics::image], [graphics::contour]
 #'
 #' @keywords aplot
 #'

@@ -21,7 +21,7 @@
 #' `'n'`, `'mean'`, `'median'`, `'sd.abs'`, `'sd.rel'`, `'se.abs'`, `'se.rel'`.
 #' `'skewness'`, `'kurtosis'`
 #'
-#' @param data [numeric] or [RLum.Results-class] (**required**):
+#' @param data [numeric] or [Luminescence::RLum.Results-class] (**required**):
 #' input data for plotting. Alternatively a [data.frame] or a [matrix] can
 #' be provided, but only the first column will be considered by the
 #' function
@@ -69,7 +69,7 @@
 #'
 #' Wickham. H (2009). ggplot2: elegant graphics for data analysis. Springer New York.
 #'
-#' @seealso [stats::density], [plot], [boxplot], [rug], [calc_Statistics]
+#' @seealso [stats::density], [plot], [boxplot], [rug], [Luminescence::calc_Statistics]
 #'
 #' @examples
 #'

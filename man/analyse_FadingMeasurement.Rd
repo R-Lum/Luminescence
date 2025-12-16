@@ -207,7 +207,8 @@ fading correction for feldspar  IRSL dating-tests on samples in field saturation
 Radiation Measurements 43, 786-790. \doi{10.1016/j.radmeas.2008.01.021}
 }
 \seealso{
-\link{calc_OSLLxTxRatio}, \link{read_BIN2R}, \link{read_XSYG2R},
+\link{calc_OSLLxTxRatio}, \link{read_BIN2R},
+\link{read_XSYG2R},
 \link{extract_IrradiationTimes}, \link{calc_FadingCorr}
 }
 \author{

@@ -8,7 +8,7 @@
 #' to be displayed. As this function is wrapped around the base plot function, one can also choose to add elements
 #' manually.
 #'
-#' @param object [RLum.Results-class] or [numeric] (**required**): the values
+#' @param object [Luminescence::RLum.Results-class] or [numeric] (**required**): the values
 #' to show, should have length 100.
 #'
 #' @param show_coordinates [logical] (*with default*): Show coordinates (1..10)
@@ -60,15 +60,16 @@
 #' plot_SingleGrainDisc(1:100)
 #'
 #' @export
-plot_SingleGrainDisc <- function(object,
-                                 show_coordinates = FALSE,
-                                 show_location_ids = FALSE,
-                                 show_neighbours = FALSE,
-                                 show_positioning_holes = TRUE,
-                                 df_neighbours = NULL,
-                                 ignore_borders = FALSE,
-                                 str_transform = "sqrt", # Options: "lin", "log" and "sqrt"
-                                 ...
+plot_SingleGrainDisc <- function(
+    object,
+    show_coordinates = FALSE,
+    show_location_ids = FALSE,
+    show_neighbours = FALSE,
+    show_positioning_holes = TRUE,
+    df_neighbours = NULL,
+    ignore_borders = FALSE,
+    str_transform = "sqrt", # Options: "lin", "log" and "sqrt"
+    ...
 ) {
   .set_function_name("plot_SingleGrainDisc")
   on.exit(.unset_function_name(), add = TRUE)

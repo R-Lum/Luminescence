@@ -60,10 +60,11 @@ plot_RLum(temp)
 
 }
 \seealso{
-\link{plot_RLum.Data.Curve}, \linkS4class{RLum.Data.Curve}, \link{plot_RLum.Data.Spectrum},
-\linkS4class{RLum.Data.Spectrum}, \link{plot_RLum.Data.Image}, \linkS4class{RLum.Data.Image},
-\link{plot_RLum.Analysis}, \linkS4class{RLum.Analysis}, \link{plot_RLum.Results},
-\linkS4class{RLum.Results}
+\link{plot_RLum.Data.Curve}, \linkS4class{RLum.Data.Curve},
+\link{plot_RLum.Data.Spectrum},\linkS4class{RLum.Data.Spectrum},
+\link{plot_RLum.Data.Image}, \linkS4class{RLum.Data.Image},
+\link{plot_RLum.Analysis}, \linkS4class{RLum.Analysis},
+\link{plot_RLum.Results}, \linkS4class{RLum.Results}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

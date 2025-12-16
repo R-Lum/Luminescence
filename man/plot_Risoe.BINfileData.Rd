@@ -119,8 +119,9 @@ data(ExampleData.BINfileData, envir = environment())
 Duller, G., 2007. Analyst. pp. 1-45.
 }
 \seealso{
-\linkS4class{Risoe.BINfileData}, \link{read_BIN2R}, \link{convert_CW2pLM},
-\link{convert_CW2pLMi}, \link{convert_CW2pPMi}, \link{convert_CW2pHMi}
+\linkS4class{Risoe.BINfileData}, \link{read_BIN2R},
+\link{convert_CW2pLM}, \link{convert_CW2pLMi},
+\link{convert_CW2pPMi}, \link{convert_CW2pHMi}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr

@@ -269,7 +269,8 @@ plot_RLum.Data.Spectrum(
 
 }
 \seealso{
-\linkS4class{RLum.Data.Spectrum}, \link{convert_Wavelength2Energy}, \link{plot_RLum},
+\linkS4class{RLum.Data.Spectrum},
+\link{convert_Wavelength2Energy}, \link{plot_RLum},
 \link[graphics:persp]{graphics::persp}, \link[plotly:plot_ly]{plotly::plot_ly}, \link[graphics:contour]{graphics::contour}, \link[graphics:image]{graphics::image}
 }
 \author{

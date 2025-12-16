@@ -38,7 +38,7 @@
 #' - `"kurtosis"` (kurtosis) and
 #' - `"skewness"` (skewness).
 #'
-#' @param data [data.frame] or [RLum.Results-class] object (**required**):
+#' @param data [data.frame] or [Luminescence::RLum.Results-class] object (**required**):
 #' for `data.frame`: either two columns: De (`data[,1]`) and De error
 #' (`data[,2]`), or one: De (`values[,1]`). If a single-column data frame
 #' is provided, De error is assumed to be 10^-9 for all measurements.
@@ -129,7 +129,7 @@
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
 #' Based on a rewritten S script of Rex Galbraith, 2010
 #'
-#' @seealso [plot], [plot_KDE], [plot_Histogram], [plot_AbanicoPlot]
+#' @seealso [plot], [Luminescence::plot_KDE], [Luminescence::plot_Histogram], [Luminescence::plot_AbanicoPlot]
 #'
 #' @references
 #' Galbraith, R.F., 1988. Graphical Display of Estimates Having

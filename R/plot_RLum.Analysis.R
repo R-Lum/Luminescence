@@ -2,7 +2,7 @@
 #'
 #' @description
 #' The function provides a standardised plot output for curve data of an
-#' [RLum.Analysis-class] object.
+#' [Luminescence::RLum.Analysis-class] object.
 #'
 #' The function produces a multiple plot output. A file output is recommended
 #' (e.g., [pdf]).
@@ -20,12 +20,12 @@
 #' is measured with the PMT or not! However, for a fast look it might be
 #' helpful.
 #'
-#' @param object [RLum.Analysis-class] (**required**):
-#' S4 object of class `RLum.Analysis`
+#' @param object [Luminescence::RLum.Analysis-class] (**required**):
+#' S4 object of class [Luminescence::RLum.Analysis-class]
 #'
 #' @param subset named [list] (*optional*):
 #' subsets elements for plotting. The arguments in the named [list] will be
-#' directly passed to the function [get_RLum]
+#' directly passed to the function [Luminescence::get_RLum]
 #' (e.g., `subset = list(curveType = "measured")`)
 #'
 #' @param nrows [integer] (*optional*):
@@ -44,7 +44,7 @@
 #' the first and a vertical line at 100 to the 2nd plot.
 #'
 #' @param combine [logical] (*with default*):
-#' allows to combine all [RLum.Data.Curve-class] objects in one single plot.
+#' allows to combine all [Luminescence::RLum.Data.Curve-class] objects in one single plot.
 #'
 #' @param records_max [integer] (*optional*):
 #' limits number of records shown when `combine = TRUE` is used. The first and
@@ -85,7 +85,7 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [plot], [plot_RLum], [plot_RLum.Data.Curve]
+#' @seealso [plot], [Luminescence::plot_RLum], [Luminescence::plot_RLum.Data.Curve]
 #'
 #' @keywords aplot
 #'

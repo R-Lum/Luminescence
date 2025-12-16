@@ -3,23 +3,23 @@
 #' @description Function calls object specific plot functions for RLum S4 class objects.
 #'
 #' @details The function provides a generalised access point for plotting specific
-#' [RLum-class] objects.\cr
+#' [Luminescence::RLum-class] objects.\cr
 #' Depending on the input object, the
 #' corresponding plot function will be selected.  Allowed arguments can be
 #' found in the documentations of each plot function.
 #'
 #' \tabular{lll}{
 #' **object** \tab \tab **corresponding plot function** \cr
-#' [RLum.Data.Curve-class] \tab : \tab [plot_RLum.Data.Curve] \cr
-#' [RLum.Data.Spectrum-class] \tab : \tab [plot_RLum.Data.Spectrum]\cr
-#' [RLum.Data.Image-class] \tab : \tab [plot_RLum.Data.Image]\cr
-#' [RLum.Analysis-class] \tab : \tab [plot_RLum.Analysis]\cr
-#' [RLum.Results-class] \tab : \tab [plot_RLum.Results]
+#' [Luminescence::RLum.Data.Curve-class] \tab : \tab [Luminescence::plot_RLum.Data.Curve] \cr
+#' [Luminescence::RLum.Data.Spectrum-class] \tab : \tab [Luminescence::plot_RLum.Data.Spectrum]\cr
+#' [Luminescence::RLum.Data.Image-class] \tab : \tab [Luminescence::plot_RLum.Data.Image]\cr
+#' [Luminescence::RLum.Analysis-class] \tab : \tab [Luminescence::plot_RLum.Analysis]\cr
+#' [Luminescence::RLum.Results-class] \tab : \tab [Luminescence::plot_RLum.Results]
 #' }
 #'
-#' @param object [RLum-class] (**required**):
+#' @param object [Luminescence::RLum-class] (**required**):
 #' S4 object of class `RLum`. Optional a [list] containing objects of
-#' class [RLum-class] can be provided. In this case the function tries to plot
+#' class [Luminescence::RLum-class] can be provided. In this case the function tries to plot
 #' every object in this list according to its `RLum` class. Non-RLum objects are
 #' removed.
 #'
@@ -38,10 +38,11 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [plot_RLum.Data.Curve], [RLum.Data.Curve-class], [plot_RLum.Data.Spectrum],
-#' [RLum.Data.Spectrum-class], [plot_RLum.Data.Image], [RLum.Data.Image-class],
-#' [plot_RLum.Analysis], [RLum.Analysis-class], [plot_RLum.Results],
-#' [RLum.Results-class]
+#' @seealso [Luminescence::plot_RLum.Data.Curve], [Luminescence::RLum.Data.Curve-class],
+#' [Luminescence::plot_RLum.Data.Spectrum],[Luminescence::RLum.Data.Spectrum-class],
+#' [Luminescence::plot_RLum.Data.Image], [Luminescence::RLum.Data.Image-class],
+#' [Luminescence::plot_RLum.Analysis], [Luminescence::RLum.Analysis-class],
+#' [Luminescence::plot_RLum.Results], [Luminescence::RLum.Results-class]
 #'
 #' @keywords dplot
 #'

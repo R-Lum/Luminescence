@@ -2,12 +2,12 @@
 #'
 #' @description
 #' The function provides a standardised plot output for spectrum data of an
-#' [RLum.Data.Spectrum-class] class object. The purpose of this function is to
+#' [Luminescence::RLum.Data.Spectrum-class] class object. The purpose of this function is to
 #' provide easy and straightforward spectra plotting, not a fully customised
 #' access to all plot parameters. If this is wanted, standard R plot
 #' functionality should be used instead.
 #'
-#' **Matrix structure** \cr (cf. [RLum.Data.Spectrum-class])
+#' **Matrix structure** \cr (cf. [Luminescence::RLum.Data.Spectrum-class])
 #'
 #' - `rows` (x-values): wavelengths/channels (`xlim`, `xlab`)
 #' - `columns` (y-values): time/temperature (`ylim`, `ylab`)
@@ -106,7 +106,7 @@
 #' you provide already binned spectra, the colour assignment is likely to be
 #' wrong, since the colour gradients are calculated using the bin number.
 #'
-#' @param bg.spectrum [RLum.Data.Spectrum-class] or [matrix] (*optional*):
+#' @param bg.spectrum [Luminescence::RLum.Data.Spectrum-class] or [matrix] (*optional*):
 #' spectrum used for the background subtraction. The background spectrum should
 #' be measured using the same setting as the signal spectrum. The argument
 #' `bg.channels` controls how the subtraction is performed: if `bg.channels`
@@ -147,7 +147,7 @@
 #' especially in case of TL-spectra.
 #'
 #' @param xaxis.energy [logical] (*with default*): enable/disable using energy
-#' instead of wavelength on the x-axis. Function [convert_Wavelength2Energy]
+#' instead of wavelength on the x-axis. Function [Luminescence::convert_Wavelength2Energy]
 #' is used to perform the conversion.
 #'
 #' **Note:** Besides being used in setting the axis, with this option the
@@ -178,7 +178,8 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [RLum.Data.Spectrum-class], [convert_Wavelength2Energy], [plot_RLum],
+#' @seealso [Luminescence::RLum.Data.Spectrum-class],
+#' [Luminescence::convert_Wavelength2Energy], [Luminescence::plot_RLum],
 #' [graphics::persp], [plotly::plot_ly], [graphics::contour], [graphics::image]
 #'
 #' @keywords aplot

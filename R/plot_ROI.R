@@ -1,12 +1,12 @@
 #' @title Create Regions of Interest (ROI) Graphic
 #'
 #' @description The function creates ROI graphic with data extracted from the
-#' data imported via [read_RF2R]. This function might be of use to work with
+#' data imported via [Luminescence::read_RF2R]. This function might be of use to work with
 #' reduced data from spatially resolved measurements.
 #' The plot dimensions mimic the original image dimensions.
 #'
-#' @param object [RLum.Analysis-class], [RLum.Results-class] or a [list] of such objects (**required**):
-#' input data created either by [read_RF2R] or [extract_ROI].
+#' @param object [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Results-class] or a [list] of such objects (**required**):
+#' input data created either by [Luminescence::read_RF2R] or [Luminescence::extract_ROI].
 #'
 #'@param exclude_ROI [numeric] (*with default*): option to remove particular ROIs from the
 #'analysis. Those ROIs are plotted but not coloured and not taken into account
@@ -21,7 +21,7 @@
 #'@param dim.CCD [numeric] (*optional*): metric x and y for the recorded (chip)
 #'surface in µm. For instance `c(8192,8192)`, if set additional x and y-axes are shown
 #'
-#' @param bg_image [RLum.Data.Image-class] (*optional*): background image object
+#' @param bg_image [Luminescence::RLum.Data.Image-class] (*optional*): background image object
 #' (please note that dimensions are not checked).
 #'
 #' @param plot [logical] (*with default*): enable/disable the plot output.
@@ -31,7 +31,7 @@
 #'`col.ROI`, `col.pixel`, `text.labels`, `text.offset`, `grid` (`TRUE/FALSE`), `legend` (`TRUE/FALSE`),
 #'`legend.text`, `legend.pos`
 #'
-#'@return An ROI plot and an [RLum.Results-class] object with a matrix containing
+#'@return An ROI plot and an [Luminescence::RLum.Results-class] object with a matrix containing
 #'the extracted ROI data and a object produced by [stats::dist] containing
 #'the euclidean distance between the ROIs.
 #'
@@ -39,7 +39,7 @@
 #'
 #'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [read_RF2R], [extract_ROI]
+#' @seealso [Luminescence::read_RF2R], [Luminescence::extract_ROI]
 #'
 #'@keywords datagen plot
 #'

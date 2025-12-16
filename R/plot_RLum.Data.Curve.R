@@ -1,7 +1,7 @@
 #' @title Plot function for an RLum.Data.Curve S4 class object
 #'
 #' @description The function provides a standardised plot output for curve data of an
-#' `RLum.Data.Curve` S4-class object.
+#' [Luminescence::RLum.Data.Curve-class] S4-class object.
 #'
 #' @details Only single curve data can be plotted with this function. Arguments
 #' according to [plot].
@@ -26,8 +26,8 @@
 #' The background of the curve is defined as the last 20% of the count values
 #' of a curve.
 #'
-#' @param object [RLum.Data.Curve-class] (**required**):
-#' S4 object of class `RLum.Data.Curve`
+#' @param object [Luminescence::RLum.Data.Curve-class] (**required**):
+#' S4 object of class [Luminescence::RLum.Data.Curve-class]
 #'
 #' @param par.local [logical] (*with default*):
 #' use local graphical parameters for plotting, e.g. the plot is shown in one
@@ -58,7 +58,7 @@
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso [plot], [plot_RLum]
+#' @seealso [plot], [Luminescence::plot_RLum]
 #'
 #' @keywords aplot
 #'

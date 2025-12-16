@@ -8,13 +8,13 @@
 #' `data` is a `list`, each element of the list must contain a two
 #' column `data.frame` or `matrix` containing the `XY` data of the curves
 #' (time and counts). Alternatively, the elements can be objects of class
-#' [RLum.Data.Curve-class].
+#' [Luminescence::RLum.Data.Curve-class].
 #'
 #' Input values can also be provided as a `data.frame` or `matrix` where
 #' the first column contains the time values and each following column contains
 #' the counts of each curve.
 #'
-#' @param data [list], [data.frame], [matrix] or [RLum.Analysis-class] (**required**):
+#' @param data [list], [data.frame], [matrix] or [Luminescence::RLum.Analysis-class] (**required**):
 #' X,Y data of measured values (time and counts). See details on individual data structure.
 #'
 #' @param log [character] (*optional*):
@@ -42,7 +42,7 @@
 #'
 #' @seealso [plot]
 #'
-#' @return Returns a plot and [RLum.Analysis-class] object.
+#' @return Returns a plot and [Luminescence::RLum.Analysis-class] object.
 #'
 #' @references
 #' Steffen, D., Preusser, F., Schlunegger, F., 2009. OSL quartz underestimation due to

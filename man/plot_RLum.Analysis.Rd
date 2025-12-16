@@ -19,7 +19,7 @@ plot_RLum.Analysis(
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
-S4 object of class \code{RLum.Analysis}}
+S4 object of class \linkS4class{RLum.Analysis}}
 
 \item{subset}{named \link{list} (\emph{optional}):
 subsets elements for plotting. The arguments in the named \link{list} will be

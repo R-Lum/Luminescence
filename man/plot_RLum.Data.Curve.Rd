@@ -16,7 +16,7 @@ plot_RLum.Data.Curve(
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Data.Curve} (\strong{required}):
-S4 object of class \code{RLum.Data.Curve}}
+S4 object of class \linkS4class{RLum.Data.Curve}}
 
 \item{par.local}{\link{logical} (\emph{with default}):
 use local graphical parameters for plotting, e.g. the plot is shown in one
@@ -43,7 +43,7 @@ Returns a plot.
 }
 \description{
 The function provides a standardised plot output for curve data of an
-\code{RLum.Data.Curve} S4-class object.
+\linkS4class{RLum.Data.Curve} S4-class object.
 }
 \details{
 Only single curve data can be plotted with this function. Arguments
