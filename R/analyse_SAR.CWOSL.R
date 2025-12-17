@@ -203,7 +203,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.11.1
+#' @section Function version: 0.11.2
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -646,7 +646,8 @@ if(is.list(object)){
     ##check whether the first OSL/IRSL curve (i.e., the Natural) has 0 dose. If not
     ##not, it is probably a Dose Recovery Test with the given dose that is treated as the
     ##unknown dose. We overwrite this value and warn the user.
-    if (LnLxTnTx$Dose[1] != 0) {
+    if (LnLxTnTx$Dose[1] != 0 &
+         (is.null(list(...)$mode) || (!is.null(list(...)$mode) && list(...)$mode != "alternate"))) {
       .throw_warning("The natural signal has a dose of ", LnLxTnTx$Dose[1],
                      " s, which is indicative of a dose recovery test. ",
                      "The natural dose was set to 0.")
@@ -655,7 +656,6 @@ if(is.list(object)){
 
   ## Label dose points ------------------------------------------------------
   dose <- LnLxTnTx$Dose
-
     ## preset names
     dose_names <- paste0("R", seq_along(dose) - 1)
 

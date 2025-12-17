@@ -569,6 +569,21 @@ test_that("advance tests run", {
       verbose = FALSE),
       "The natural signal has a dose of 2 s, which is indicative of")
 
+    ## there should be no warning if we are in the alternate mode
+    ## however we have to reset the R1 (this is OK!)
+    expect_silent(analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = c(900),
+      background.integral.max = c(975),
+      dose.points = seq_len(7),
+      mode = "alternate",
+      rejection.criteria = list(
+        recuperation_reference = "R1"),
+      plot = FALSE,
+      verbose = FALSE))
+
   ## OTORX
   expect_s4_class(suppressWarnings(analyse_SAR.CWOSL(
       object = object[[1]],
