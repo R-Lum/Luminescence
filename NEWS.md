@@ -50,7 +50,7 @@
   `fit_DoseResponseCurve()` because it modified the first dose point and
   this required additional handling afterwards. Please keep in mind that
   you have to redefine the recuperation reference in such a case: this
-  is wanted and not a bug.
+  is wanted and not a bug (#9ff29bfd).
 
 ### `read_XSYG2R()`
 
