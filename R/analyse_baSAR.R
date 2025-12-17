@@ -158,8 +158,8 @@
 #' `fit.weights` \tab [Luminescence::fit_DoseResponseCurve] \tab `TRUE` \tab enable/disable fit weights\cr
 #' `fit.bounds` \tab [Luminescence::fit_DoseResponseCurve] \tab `TRUE` \tab enable/disable fit bounds\cr
 #' `n.MC` \tab [Luminescence::fit_DoseResponseCurve] \tab `100` \tab number of MC runs for error calculation\cr
-#' `output.plot` \tab [Luminescence::fit_DoseResponseCurve] \tab `TRUE` \tab enable/disable dose response curve plot\cr
-#' `output.plotExtended` \tab [Luminescence::fit_DoseResponseCurve] \tab `TRUE` \tab enable/disable extended dose response curve plot\cr
+#' `plot_drc` \tab [Luminescence::plot_DoseResponseCurve] \tab `TRUE` \tab enable/disable dose response curve plot\cr
+#' `plot_extended` \tab [Luminescence::plot_DoseResponseCurve] \tab `TRUE` \tab enable/disable extended dose response curve plot\cr
 #' `recordType` \tab [Luminescence::get_RLum] \tab `c(OSL (UVVIS), irradiation (NA)` \tab helps for the curve selection\cr
 #' }
 #'
@@ -243,9 +243,9 @@
 #' number of iterations for the Markov chain Monte Carlo (MCMC) simulations
 #'
 #' @param fit.method [character] (*with default*):
-#' equation used for the fitting of the dose-response curve using the function
-#' [Luminescence::plot_GrowthCurve] and then for the Bayesian modelling. Here supported methods:
-#' `EXP`, `EXP+LIN` and `LIN`
+#' equation used both for the fitting of the dose-response curve using function
+#' [Luminescence::fit_DoseResponseCurve] and then for the Bayesian modelling.
+#' Supported methods: `EXP`, `EXP+LIN` and `LIN`.
 #'
 #' @param fit.force_through_origin [logical] (*with default*):
 #' force fitting through origin
@@ -323,10 +323,9 @@
 #'  and the central dose with the HPDs marked within. This figure is only provided for a comparison,
 #'  no further statistical conclusion should be drawn from it.
 #'
-#'
 #' **Please note: If distribution was set to `log_normal` the central dose is given as geometric mean!**
 #'
-#' @section Function version: 0.1.37
+#' @section Function version: 0.1.38
 #'
 #' @author
 #' Norbert Mercier, Archéosciences Bordeaux, CNRS-Université Bordeaux Montaigne (France) \cr
@@ -334,7 +333,7 @@
 #' The underlying Bayesian model based on a contribution by Combès et al., 2015.
 #'
 #' @seealso [Luminescence::read_BIN2R], [Luminescence::calc_OSLLxTxRatio],
-#' [Luminescence::plot_DoseResponseCurve],
+#' [Luminescence::fit_DoseResponseCurve], [Luminescence::plot_DoseResponseCurve],
 #' [data.table::fread], [Luminescence::verify_SingleGrainData],
 #' [rjags::jags.model], [rjags::coda.samples], [boxplot.default]
 #'
@@ -780,12 +779,14 @@ analyse_baSAR <- function(
     position = NULL,
     pattern = NULL,
 
-    ## plot_GrowthCurve()
+    ## fit_DoseResponseCurve()
     fit.weights = TRUE,
     fit.bounds = TRUE,
     n.MC = 100,
-    output.plot = plot,
-    output.plotExtended = plot,
+
+    ## plot_DoseResponseCurve()
+    plot_drc = plot,
+    plot_extended = plot,
 
     ## get_RLum
     recordType = c("OSL (UVVIS)", "irradiation (NA)")
@@ -794,6 +795,17 @@ analyse_baSAR <- function(
   #modify this list on purpose
   additional_arguments <- modifyList(x = additional_arguments,
                                      val = list(...))
+
+  ## deprecated arguments
+  if ("output.plot" %in% ...names()) {
+    additional_arguments$plot_drc <- list(...)$output.plot
+    .throw_warning("'output.plot' is deprecated, use 'plot_drc' instead")
+  }
+  if ("output.plotExtended" %in% ...names()) {
+    additional_arguments$plot_extended <- list(...)$output.plotExtended
+    .throw_warning("'output.plotExtended' is deprecated, use 'plot_extended' ",
+                   "instead")
+  }
 
   ##set function arguments
   function_arguments <- NULL
@@ -1495,7 +1507,7 @@ analyse_baSAR <- function(
       ## reset `sel.disc.grain` because the data it pointed to has changed
       sel.disc.grain <- Disc_Grain.list[[k]][[dd]][[gg]]
 
-      # Fitting Growth curve and Plot
+      ## fit dose response curve and plot
       sample_dose <- unlist(sel.disc.grain[[2]])
       sample_LxTx <- unlist(sel.disc.grain[[3]])
       sample_sLxTx <- unlist(sel.disc.grain[[4]])
@@ -1504,10 +1516,10 @@ analyse_baSAR <- function(
       ##create needed data.frame (this way to make sure that rows are doubled if something is missing)
       selected_sample <- as.data.frame(cbind(sample_dose, sample_LxTx, sample_sLxTx, TnTx))
 
-      ## call plot_GrowthCurve() to get De and De value
+      ## get De and De value
       fitcurve <-
-        suppressWarnings(plot_GrowthCurve(
-          sample = selected_sample,
+        suppressWarnings(fit_DoseResponseCurve(
+          selected_sample,
           na.rm = TRUE,
           fit.method = fit.method,
           fit.force_through_origin = fit.force_through_origin,
@@ -1515,12 +1527,17 @@ analyse_baSAR <- function(
           fit.includingRepeatedRegPoints = fit.includingRepeatedRegPoints,
           fit.bounds = additional_arguments$fit.bounds,
           n.MC = additional_arguments$n.MC,
-          output.plot = additional_arguments$output.plot,
-          output.plotExtended = additional_arguments$output.plotExtended,
-          txtProgressBar = FALSE,
           verbose = verbose,
-          main = paste0("ALQ: ", count," | POS: ", Disc[[k]][i], " | GRAIN: ", Grain[[k]][i])
+          txtProgressBar = FALSE
         ))
+      if (additional_arguments$plot_drc) {
+        plot_DoseResponseCurve(
+            fitcurve,
+            plot_extended = additional_arguments$plot_extended,
+            verbose = verbose,
+            main = paste0("ALQ: ", count, " | POS: ", Disc[[k]][i],
+                          " | GRAIN: ", Grain[[k]][i]))
+      }
 
         ##get data.frame with De values
         Disc_Grain.list[[k]][[dd]][[gg]][[6]][1:4] <- NA

@@ -30,6 +30,16 @@
 
 ## Bugfixes and changes
 
+### `analyse_baSAR()`
+
+- The function has been updated to use `fit_DoseResponseCurve()` and
+  `plot_DoseResponseCurve()` instead of `plot_GrowthCurve()`. This
+  should not have any visible difference other than the renaming of two
+  arguments: `output.plot` has been renamed to `plot_drc`, while
+  `output.plotExtended` has been renamed to `plot_extended`. The old
+  names are still functional but will produce a deprecation warning if
+  used (#1244).
+
 ### `analyse_SAR.CWOSL()`
 
 - No automated resetting of the dose value anymore, if

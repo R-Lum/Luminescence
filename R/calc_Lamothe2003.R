@@ -78,8 +78,7 @@
 #' @param verbose [logical] (*with default*): enable/disable output to the
 #' terminal.
 #'
-#' @param ... further arguments passed to function [Luminescence::fit_DoseResponseCurve] and
-#' [Luminescence::plot_DoseResponseCurve].
+#' @param ... further arguments passed to [Luminescence::plot_DoseResponseCurve].
 #'
 #' @return
 #' The function returns an [Luminescence::RLum.Results-class] object and the graphical
@@ -115,10 +114,11 @@
 #' Towards a prediction of long-term anomalous fading of feldspar IRSL. Radiation Measurements 37,
 #' 493-498.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
-#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany), Norbert Mercier,
-#' IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
+#' @author
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+#' Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
 #' @keywords datagen
 #'
@@ -275,27 +275,29 @@ calc_Lamothe2003 <- function(
 
 
   # Fitting ---------------------------------------------------------------------------------
-  ##set arguments
-  argument_list <- modifyList(list(
-    sample = data,
-    verbose = FALSE,
-    main = "Corrected Dose Response Curve",
-    xlab = "Dose [Gy]",
-    txtProgressBar = verbose,
-    output.plotExtended = FALSE,
-    output.plot = plot
-  ), val = list(...))
 
-  ##run plot function
-  par.default <- .par_defaults()
-  on.exit(par(par.default), add = TRUE)
-  fit_results <- do.call(what = plot_GrowthCurve, args = argument_list)
+  fit_results <- fit_DoseResponseCurve(data, verbose = FALSE)
 
   # Age calculation -----------------------------------------------------------------------------
   res <- get_RLum(fit_results)
   Age <- res[["De"]] / dose_rate.envir[1]
   s_Age <- sqrt((100 * res[["De.Error"]] / res[["De"]])^2 +
                 (100 * dose_rate.envir[2] / dose_rate.envir[1])^2) * Age / 100
+
+  if (plot) {
+    par.default <- .par_defaults()
+    on.exit(par(par.default), add = TRUE)
+
+    argument_list <- modifyList(list(
+        object = fit_results,
+        verbose = FALSE,
+        main = "Corrected Dose Response Curve",
+        xlab = "Dose [Gy]",
+        plot_extended = FALSE),
+        val = list(...))
+
+    do.call(plot_DoseResponseCurve, args = argument_list)
+  }
 
   # Terminal output -----------------------------------------------------------------------------
   if(verbose){

@@ -356,7 +356,7 @@ Pagonis, V., Kitis, G., Chen, R., 2020. A new analytical equation for the dose r
 based on the Lambert W function. Journal of Luminescence 225, 117333. \doi{10.1016/j.jlumin.2020.117333}
 }
 \seealso{
-\link{plot_GrowthCurve}, \link{nls},
+\link{plot_DoseResponseCurve}, \link{nls},
 \linkS4class{RLum.Results}, \link{get_RLum},
 \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}, \link{lm}, \link{uniroot}, \link[lamW:lamW]{lamW::lambertW0}
 }
