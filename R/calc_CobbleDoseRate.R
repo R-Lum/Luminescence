@@ -160,11 +160,14 @@ calc_CobbleDoseRate <- function(input,conversion = "Guerinetal2011"){
   tGamma <- t
 
   #Beta and gamma functions for the cobbles own dose rate
+  beta.cobble.fun <- function(a, b) {
+    function(x) (1 - a * exp(b * x * Scaling)) + (1 - a * exp(b * t * Scaling)) - 1
+  }
   KBetaCobble <- function(x) (1 - 0.5 * exp(-3.77 * DiameterSeq))+(1-0.5*exp(-3.77*t))-1
-  ThBetaCobble_short <- function(x) (1 - 0.5 * exp(-5.36 * x * Scaling))+(1-0.5*exp(-5.36*t*Scaling))-1
-  ThBetaCobble_long <- function(x) (1 - 0.33 * exp(-2.36 * x * Scaling))+(1-0.33*exp(-2.36*t*Scaling))-1
-  UBetaCobble_short <- function(x) (1 - 0.5 * exp(-4.15 * x * Scaling))+(1-0.5*exp(-4.15*t*Scaling))-1
-  UBetaCobble_long <- function(x) (1 - 0.33 * exp(-2.36 * x * Scaling))+(1-0.33*exp(-2.36*t*Scaling))-1
+  ThBetaCobble_short <- beta.cobble.fun(0.5, -5.36)
+  ThBetaCobble_long <- beta.cobble.fun(0.33, -2.36)
+  UBetaCobble_short <- beta.cobble.fun(0.5, -4.15)
+  UBetaCobble_long <- beta.cobble.fun(0.33, -2.36)
 
   GammaCobble <- function(x) {
     (GammaCentre - GammaEdge * exp(-CobbleGammaAtt * x * Scaling)) +
@@ -173,11 +176,14 @@ calc_CobbleDoseRate <- function(input,conversion = "Guerinetal2011"){
   }
 
   #Beta and gamma functions for the sediment dose rates into the cobble
-  KBetaSed <- function(x) 2 - (1 - 0.5 * exp(-3.77 * x * Scaling)) - (1 - 0.5 * exp(-3.77 * t * Scaling))
-  ThBetaSed_short <- function(x) 2 - (1 - 0.5 * exp(-5.36 * x * Scaling)) - (1 - 0.5 * exp(-5.36 * t * Scaling))
-  ThBetaSed_long <- function(x) 2 - (1 - 0.33 * exp(-2.36 * x * Scaling)) - (1 - 0.33 * exp(-2.36 * t * Scaling))
-  UBetaSed_short <- function(x) 2 - (1 - 0.5 * exp(-4.15 * x * Scaling)) - (1 - 0.5 * exp(-4.15 * t * Scaling))
-  UBetaSed_long <- function(x) 2 - (1 - 0.33 * exp(-2.36 * x * Scaling)) - (1 - 0.33 * exp(-2.36 * t * Scaling))
+  beta.sed.fun <- function(a, b) {
+    function(x) 2 - (1 - a * exp(b * x * Scaling)) - (1 - a * exp(b * t * Scaling))
+  }
+  KBetaSed <- beta.sed.fun(0.5, -3.77)
+  ThBetaSed_short <- beta.sed.fun(0.5, -5.36)
+  ThBetaSed_long <- beta.sed.fun(0.33, -2.36)
+  UBetaSed_short <- beta.sed.fun(0.5, -4.15)
+  UBetaSed_long <- beta.sed.fun(0.33, -2.36)
 
   GammaSed <- function(x) 2 - (1 - 0.5 * exp(-0.02 * x * Scaling)) - (1 - 0.5 * exp(-0.02 * tGamma *
                                                                                       Scaling))
@@ -200,17 +206,11 @@ calc_CobbleDoseRate <- function(input,conversion = "Guerinetal2011"){
   Max <- length(DiameterSeq)
 
   ## Create the full matrix based on the short and long beta attenuations
-  Temp[0:16, 3] <- TempThCob[0:16]
-  Temp[n:Max, 3] <- TempThCob[n:Max]
-
-  Temp[0:16, 7] <- TempThSed[0:16]
-  Temp[n:Max, 7] <- TempThSed[n:Max]
-
-  Temp[0:16, 4] <- TempUCob[0:16]
-  Temp[n:Max, 4] <- TempUCob[n:Max]
-
-  Temp[0:16, 8] <- TempUSed[0:16]
-  Temp[n:Max, 8] <- TempUSed[n:Max]
+  idx <- c(0:16, n:Max)
+  Temp[idx, 3] <- TempThCob[idx]
+  Temp[idx, 7] <- TempThSed[idx]
+  Temp[idx, 4] <- TempUCob[idx]
+  Temp[idx, 8] <- TempUSed[idx]
 
   colnames(Temp) <- c(
     "Distance",
