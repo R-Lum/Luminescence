@@ -554,7 +554,7 @@ if(plot){
   LnLxTnTx.table$LxTx[is.infinite(LnLxTnTx.table$LxTx)] <- NA
   LnLxTnTx.table$LxTx.Error[is.infinite(LnLxTnTx.table$LxTx.Error)] <- NA
 
-  ##plot growth curves
+  ## plot dose response curves
   min.LxTx <- min(LnLxTnTx.table$LxTx, na.rm = TRUE)
   max.LxTx <- max(LnLxTnTx.table$LxTx, na.rm = TRUE)
   max.LxTx.Error <- max(LnLxTnTx.table$LxTx.Error, na.rm = TRUE)

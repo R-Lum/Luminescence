@@ -271,7 +271,7 @@
 #' Pagonis, V., Kitis, G., Chen, R., 2020. A new analytical equation for the dose response of dosimetric materials,
 #' based on the Lambert W function. Journal of Luminescence 225, 117333. \doi{10.1016/j.jlumin.2020.117333}
 #'
-#' @seealso [Luminescence::plot_GrowthCurve], [nls],
+#' @seealso [Luminescence::plot_DoseResponseCurve], [nls],
 #' [Luminescence::RLum.Results-class], [Luminescence::get_RLum],
 #' [minpack.lm::nlsLM], [lm], [uniroot], [lamW::lambertW0]
 #'

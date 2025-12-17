@@ -291,7 +291,7 @@ test_that("Full check of analyse_baSAR function", {
       "Your lower_centralD and/or upper_centralD values seem not to fit",
       fixed = TRUE))
 
-  expect_warning(
+  expect_warning(expect_warning(
     analyse_baSAR(
       object = results,
       plot = TRUE,
@@ -305,7 +305,10 @@ test_that("Full check of analyse_baSAR function", {
       distribution_plot = "abanico",
       method_control = list(n.chains = 2, thin = 25),
       plot.single = TRUE,
+      output.plot = FALSE,
+      output.plotExtended = FALSE,
       n.MCMC = 100),
+    "'output.plotExtended' is deprecated, use 'plot_extended' instead"),
     "'plot.single' is deprecated, use 'plot_singlePanels' instead")
 
   expect_message(

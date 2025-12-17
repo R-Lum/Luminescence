@@ -112,9 +112,9 @@ ignored and set to \code{'user_defined'}}
 number of iterations for the Markov chain Monte Carlo (MCMC) simulations}
 
 \item{fit.method}{\link{character} (\emph{with default}):
-equation used for the fitting of the dose-response curve using the function
-\link{plot_GrowthCurve} and then for the Bayesian modelling. Here supported methods:
-\code{EXP}, \code{EXP+LIN} and \code{LIN}}
+equation used both for the fitting of the dose-response curve using function
+\link{fit_DoseResponseCurve} and then for the Bayesian modelling.
+Supported methods: \code{EXP}, \code{EXP+LIN} and \code{LIN}.}
 
 \item{fit.force_through_origin}{\link{logical} (\emph{with default}):
 force fitting through origin}
@@ -352,8 +352,8 @@ functions.
 \code{fit.weights} \tab \link{fit_DoseResponseCurve} \tab \code{TRUE} \tab enable/disable fit weights\cr
 \code{fit.bounds} \tab \link{fit_DoseResponseCurve} \tab \code{TRUE} \tab enable/disable fit bounds\cr
 \code{n.MC} \tab \link{fit_DoseResponseCurve} \tab \code{100} \tab number of MC runs for error calculation\cr
-\code{output.plot} \tab \link{fit_DoseResponseCurve} \tab \code{TRUE} \tab enable/disable dose response curve plot\cr
-\code{output.plotExtended} \tab \link{fit_DoseResponseCurve} \tab \code{TRUE} \tab enable/disable extended dose response curve plot\cr
+\code{plot_drc} \tab \link{plot_DoseResponseCurve} \tab \code{TRUE} \tab enable/disable dose response curve plot\cr
+\code{plot_extended} \tab \link{plot_DoseResponseCurve} \tab \code{TRUE} \tab enable/disable extended dose response curve plot\cr
 \code{recordType} \tab \link{get_RLum} \tab \verb{c(OSL (UVVIS), irradiation (NA)} \tab helps for the curve selection\cr
 }
 }
@@ -369,7 +369,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \strong{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.37
+ 0.1.38
 }
 
 \examples{
@@ -438,7 +438,7 @@ Plummer, M., 2017. JAGS Version 4.3.0 user manual. \verb{https://sourceforge.net
 }
 \seealso{
 \link{read_BIN2R}, \link{calc_OSLLxTxRatio},
-\link{plot_DoseResponseCurve},
+\link{fit_DoseResponseCurve}, \link{plot_DoseResponseCurve},
 \link[data.table:fread]{data.table::fread}, \link{verify_SingleGrainData},
 \link[rjags:jags.model]{rjags::jags.model}, \link[rjags:coda.samples]{rjags::coda.samples}, \link{boxplot.default}
 }

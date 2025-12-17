@@ -57,8 +57,7 @@ terminal.}
 
 \item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.}
 
-\item{...}{further arguments passed to function \link{fit_DoseResponseCurve} and
-\link{plot_DoseResponseCurve}.}
+\item{...}{further arguments passed to \link{plot_DoseResponseCurve}.}
 }
 \value{
 The function returns an \linkS4class{RLum.Results} object and the graphical
@@ -119,7 +118,7 @@ identical. In such cases, the fading correction cannot be correct until the
 will internally recalculate values to an identical \code{tc} value.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.1
 }
 
 \examples{
@@ -171,7 +170,7 @@ Towards a prediction of long-term anomalous fading of feldspar IRSL. Radiation M
 \link{calc_FadingCorr}, \link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany), Norbert Mercier,
-IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
+Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 }
 \keyword{datagen}
