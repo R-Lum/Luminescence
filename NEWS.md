@@ -78,3 +78,9 @@
   thanks to @DirkMittelstrass for reporting).
 
 ## Other changes
+
+- The internal function `.normalise_curve()` received support to
+  normalise against by the minimum value (`"min"`), the first values
+  (`"first"`) or an arbitrary number (e.g, `2.2`) to be set by the user.
+  This new settings are automatically available to
+  `plot_RLum.Data.Curve(..., norm = <setting>)`.

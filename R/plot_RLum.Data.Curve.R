@@ -14,8 +14,16 @@
 #' `norm = TRUE` or `norm = "max"`: Curve values are normalised to the highest
 #' count value in the curve
 #'
+#' `norm = "min"`: Curve values are normalised to the smallest count value
+#' in the curve
+#'
+#' `norm = 2.2`: Curve values are normalised to 2.2, while this can be any
+#' real number
+#'
 #' `norm = "last"`: Curve values are normalised to the last count value
 #' (this can be useful in particular for radiofluorescence curves)
+#'
+#' `norm = "first"`: Curve values are normalised to the very first count value
 #'
 #' `norm = "huot"`: Curve values are normalised as suggested by Sébastien Huot
 #'  via GitHub:

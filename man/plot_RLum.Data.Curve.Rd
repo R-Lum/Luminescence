@@ -57,8 +57,16 @@ options are supported:
 \code{norm = TRUE} or \code{norm = "max"}: Curve values are normalised to the highest
 count value in the curve
 
+\code{norm = "min"}: Curve values are normalised to the smallest count value
+in the curve
+
+\code{norm = 2.2}: Curve values are normalised to 2.2, while this can be any
+real number
+
 \code{norm = "last"}: Curve values are normalised to the last count value
 (this can be useful in particular for radiofluorescence curves)
+
+\code{norm = "first"}: Curve values are normalised to the very first count value
 
 \code{norm = "huot"}: Curve values are normalised as suggested by Sébastien Huot
 via GitHub:
