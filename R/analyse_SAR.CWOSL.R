@@ -1182,7 +1182,7 @@ if(is.list(object)){
             POS = POSITION, GRAIN = GRAIN, UID = UID),
           stringsAsFactors = FALSE),
         LnLxTnTx.table = cbind(LnLxTnTx, UID = UID, stringsAsFactors = FALSE),
-        rejection.criteria = cbind(RejectionCriteria, UID, stringsAsFactors = FALSE),
+        rejection.criteria = cbind(UID, RejectionCriteria),
         Formula = temp.GC.fit.Formula
       ),
       info = list(call = sys.call())
@@ -1323,7 +1323,7 @@ if(is.list(object)){
   ## find how many characters can be fitted in the available space
   usr <- par("usr")
   avail.width <- par("pin")[1] / (usr[2] - usr[1])
-  longest.label <- x[[1]][which.max(nchar(x[[1]]))]
+  longest.label <- x$Criteria[which.max(nchar(x$Criteria))]
   label.length <- nchar(longest.label)
   repeat {
     if (graphics::strwidth(.shorten_filename(longest.label, label.length),
@@ -1336,7 +1336,7 @@ if(is.list(object)){
   text(
     x = 0.88,
     y = y_coord[seq(1,length(y_coord),2)],
-    labels = .shorten_filename(x[[1]], label.length),
+    labels = .shorten_filename(x$Criteria, label.length),
     cex = 0.9,
     xpd = NA,
     adj = c(1, 0.5))
