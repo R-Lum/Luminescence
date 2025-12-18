@@ -57,6 +57,13 @@
   you have to redefine the recuperation reference in such a case: this
   is wanted and not a bug (#9ff29bfd).
 
+- The order of columns in the `rejection.criteria` data frame that is
+  output by the function has been changed so that the `UID` column
+  appears now first. This is meant to facilitate seeing visually to what
+  aliquot each criteria belongs to. While the `UID` values are
+  random-looking alphanumeric values, they can identify univocally an
+  aliquot also after merge operations (#1172).
+
 ### `plot_RLum.Analysis()`
 
 - The ability to combine multiple plots on a single page regressed in
