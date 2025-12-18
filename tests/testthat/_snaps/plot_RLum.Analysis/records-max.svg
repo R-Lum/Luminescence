@@ -133,11 +133,4 @@
 <text x='651.82' y='85.38' style='font-size: 9.60px; font-family: sans;' textLength='33.62px' lengthAdjust='spacingAndGlyphs'>Curve 2</text>
 <text x='651.82' y='96.90' style='font-size: 9.60px; font-family: sans;' textLength='33.62px' lengthAdjust='spacingAndGlyphs'>Curve 3</text>
 </g>
-<defs>
-  <clipPath id='cpNTkuMDR8Njg5Ljc2fDU5LjA0fDUwMi41Ng=='>
-    <rect x='59.04' y='59.04' width='630.72' height='443.52' />
-  </clipPath>
-</defs>
-<g clip-path='url(#cpNTkuMDR8Njg5Ljc2fDU5LjA0fDUwMi41Ng==)'>
-</g>
 </svg>
