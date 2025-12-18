@@ -763,6 +763,20 @@ setMethod(
   }
 )
 
+## normalise_RLum() ------------------------------------------------------------
+#' @describeIn normalise_RLum
+#' Normalisation of `RLum.Data` records contained in the input object.
+#'
+#' @export
+setMethod(
+  f = "normalise_RLum",
+  signature = "RLum.Analysis",
+  function(object, ...) {
+    object@records <- lapply(object@records, normalise_RLum, ...)
+    return(object)
+  }
+)
+
 ## sort_RLum() --------------------------------------------------------------
 #' @describeIn sort_RLum
 #' Sorting of `RLum.Data` objects contained in this `RLum.Analysis` object.
