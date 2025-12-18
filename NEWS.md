@@ -19,7 +19,7 @@
   come in handy in same cases. Normalised values are only count values.
   Currently implemented is normalisation via keywords, such as `’min’`,
   `’max’`, `’first’`, `’last’`, `’hout’`. Additionally, the function
-  supports the normalisation to any real number.
+  supports the normalisation to any real number (PR \#1250 by @RLumSK).
 
 - `read_BINXLOG2R()`: This new function enables you to salvage log files
   created by a Risø reader into R as `RLum.Analysis-class`. The function

@@ -19,7 +19,7 @@ function called `.normalise_curves()` to do the job. With `normalise_RLum()` we
 expose this functionality to `RLum-class` objects and enable a convenient 
 normalisation of values that might come in handy in same cases. Normalised values are only count values. 
 Currently implemented is normalisation via keywords, such as `’min’`, `’max’`, `’first’`, `’last’`, `’hout’`. 
-Additionally, the function supports the normalisation to any real number. 
+Additionally, the function supports the normalisation to any real number (PR #1250 by @RLumSK).
 
 * `read_BINXLOG2R()`: This new function enables you to salvage log files created 
 by a Risø reader into R as `RLum.Analysis-class`. The function also allows the 
