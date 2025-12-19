@@ -30,20 +30,22 @@ merge_RLum.Results <- function(
 
   .validate_class(objects, "list")
 
-  ## check if objects in the list are of type RLum.Results
-  temp.originator <- sapply(objects, function(x) {
-    .validate_class(x, "RLum.Results", name = "All elements of 'object'")
-    x@originator
-  })
   if (length(objects) == 0) {
     .throw_message("'objects' contains no data, NULL returned")
     return(NULL)
   }
 
-            ##check if originator is different
-            if(length(unique(temp.originator))>1){
-              .throw_error("Objects cannot be merged, different 'RLum.Results' originators found")
-            }
+  ## check if objects in the list are of type RLum.Results
+  temp.originator <- sapply(objects, function(x) {
+    .validate_class(x, "RLum.Results", name = "All elements of 'object'")
+    x@originator
+  })
+
+  ## check if there are multiple originators
+  if (length(unique(temp.originator)) > 1) {
+    .throw_error("Objects cannot be merged, different originators found: ",
+                 .collapse(temp.originator))
+  }
 
             ##-------------------------------------------------------------
             ##merge objects depending on the data structure

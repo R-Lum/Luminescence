@@ -16,7 +16,7 @@ test_that("input validation", {
   res2 <- res
   res2@originator <- "unknown"
   expect_error(merge_RLum.Results(list(res, res2)),
-               "Objects cannot be merged, different 'RLum.Results' originators found")
+               "Objects cannot be merged, different originators found: 'calc_CentralDose', 'unknown'")
 
   res2 <- res
   res2@data[[1]][, 2] <- NULL
