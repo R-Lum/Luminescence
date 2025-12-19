@@ -13,6 +13,9 @@ temp_analysis <- set_RLum("RLum.Analysis", records = list(temp, temp))
 ## spectra object
 spectra <- set_RLum("RLum.Data.Spectrum", data = matrix(1:10, ncol = 2))
 
+## array
+image <- set_RLum("RLum.Data.Image", data = array(1:12, dim = c(2,3,2)))
+
 test_that("check class and length of output", {
   testthat::skip_on_cran()
 
@@ -25,8 +28,19 @@ test_that("check class and length of output", {
   expect_s4_class(temp, class = "RLum.Data.Curve")
   expect_snapshot_RLum(normalise_RLum(temp))
 
+  ## spectrum
   expect_s4_class(spectra, class = "RLum.Data.Spectrum")
   expect_snapshot_RLum(normalise_RLum(spectra))
+
+  ## test also an array, which indeed works differently
+  expect_s4_class(image, class = "RLum.Data.Image")
+  t <- expect_snapshot_RLum(normalise_RLum(image, global = TRUE))
+  expect_snapshot_RLum(normalise_RLum(image, global = FALSE))
+  expect_s4_class(normalise_RLum(image, global = TRUE), "RLum.Data.Image")
+  expect_s4_class(normalise_RLum(image, norm = "first", global = TRUE), "RLum.Data.Image")
+  expect_s4_class(normalise_RLum(image, norm = "last", global = TRUE), "RLum.Data.Image")
+  expect_s4_class(normalise_RLum(image, norm = "first", global = FALSE), "RLum.Data.Image")
+  expect_s4_class(normalise_RLum(image, norm = "last", global = FALSE), "RLum.Data.Image")
 
   ## tests as for the parameters are already covered in the for the
   ## internal function .normalise_curve() and should not be repeated

@@ -118,6 +118,112 @@
       }
     }
 
+---
+
+    {
+      "type": "S4",
+      "attributes": {
+        "recordType": {
+          "type": "character",
+          "attributes": {},
+          "value": ["Image"]
+        },
+        "curveType": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        "data": {
+          "type": "integer",
+          "attributes": {
+            "dim": {
+              "type": "integer",
+              "attributes": {},
+              "value": [2, 3, 2]
+            }
+          },
+          "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        },
+        "info": {
+          "type": "list",
+          "attributes": {},
+          "value": []
+        },
+        "originator": {
+          "type": "character",
+          "attributes": {},
+          "value": ["eval"]
+        },
+        ".uid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        ".pid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        }
+      },
+      "value": {
+        "class": "RLum.Data.Image",
+        "package": "Luminescence"
+      }
+    }
+
+---
+
+    {
+      "type": "S4",
+      "attributes": {
+        "recordType": {
+          "type": "character",
+          "attributes": {},
+          "value": ["Image"]
+        },
+        "curveType": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        "data": {
+          "type": "double",
+          "attributes": {
+            "dim": {
+              "type": "integer",
+              "attributes": {},
+              "value": [2, 3, 2]
+            }
+          },
+          "value": [0.16666667, 0.33333333, 0.5, 0.66666667, 0.83333333, 1, 0.58333333, 0.66666667, 0.75, 0.83333333, 0.91666667, 1]
+        },
+        "info": {
+          "type": "list",
+          "attributes": {},
+          "value": []
+        },
+        "originator": {
+          "type": "character",
+          "attributes": {},
+          "value": ["eval"]
+        },
+        ".uid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        ".pid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        }
+      },
+      "value": {
+        "class": "RLum.Data.Image",
+        "package": "Luminescence"
+      }
+    }
+
 # snapshot tests
 
     {
