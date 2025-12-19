@@ -248,8 +248,8 @@
 #' removed by the caller function, and that the `norm` option has already
 #' been validated.
 #'
-#' @param data [numeric] (**required**):
-#' the curve data to be normalised
+#' @param data [numeric] (**required**): the curve data to be normalised
+#' (can be a matrix)
 #'
 #' @param norm [logical] [character] (**required**):
 #' if logical, whether curve normalisation should occur; alternatively, one

@@ -65,6 +65,59 @@
       }
     }
 
+---
+
+    {
+      "type": "S4",
+      "attributes": {
+        "recordType": {
+          "type": "character",
+          "attributes": {},
+          "value": ["Spectrum"]
+        },
+        "curveType": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        "data": {
+          "type": "double",
+          "attributes": {
+            "dim": {
+              "type": "integer",
+              "attributes": {},
+              "value": [5, 2]
+            }
+          },
+          "value": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+        },
+        "info": {
+          "type": "list",
+          "attributes": {},
+          "value": []
+        },
+        "originator": {
+          "type": "character",
+          "attributes": {},
+          "value": ["eval"]
+        },
+        ".uid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        ".pid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        }
+      },
+      "value": {
+        "class": "RLum.Data.Spectrum",
+        "package": "Luminescence"
+      }
+    }
+
 # snapshot tests
 
     {

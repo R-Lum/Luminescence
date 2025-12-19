@@ -1,4 +1,5 @@
 data(ExampleData.CW_OSL_Curve, envir = environment())
+## curve
 temp <-
   set_RLum(
       class = "RLum.Data.Curve",
@@ -8,6 +9,9 @@ temp <-
 
 ##create RLum.Analysis object
 temp_analysis <- set_RLum("RLum.Analysis", records = list(temp, temp))
+
+## spectra object
+spectra <- set_RLum("RLum.Data.Spectrum", data = matrix(1:10, ncol = 2))
 
 test_that("check class and length of output", {
   testthat::skip_on_cran()
@@ -20,6 +24,9 @@ test_that("check class and length of output", {
   ##standard tests
   expect_s4_class(temp, class = "RLum.Data.Curve")
   expect_snapshot_RLum(normalise_RLum(temp))
+
+  expect_s4_class(spectra, class = "RLum.Data.Spectrum")
+  expect_snapshot_RLum(normalise_RLum(spectra))
 
   ## tests as for the parameters are already covered in the for the
   ## internal function .normalise_curve() and should not be repeated
