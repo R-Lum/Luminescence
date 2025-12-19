@@ -95,6 +95,11 @@ test_that("input validation", {
   expect_error(calc_OSLLxTxRatio(Lx.data[1:10, ], Tx.data),
                "Different number of channels for Lx (10) and Tx (100)",
                fixed = TRUE)
+  expect_error(calc_OSLLxTxRatio(Lx.data[1:10, ], signal.integral = list(1, 2)),
+               "'signal.integral' should be of class 'integer' or 'numeric'")
+  expect_error(calc_OSLLxTxRatio(Lx.data[1:10, ], signal.integral = 1:2,
+                                 background.integral = matrix(1:4, ncol =2)),
+               "'background.integral' should be of class 'integer' or 'numeric'")
 
   expect_error(calc_OSLLxTxRatio(
     Lx.data,

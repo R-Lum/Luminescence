@@ -67,6 +67,11 @@ This is meant to facilitate seeing visually to what aliquot each criteria
 belongs to. While the `UID` values are random-looking alphanumeric values,
 they can identify univocally an aliquot also after merge operations (#1172).
 
+### `calc_OSLLxTxRatio()`
+
+* The `signal.integral` or `background.integral` arguments are now better
+validated (#1252).
+
 ### `plot_RLum.Analysis()`
 
 * The ability to combine multiple plots on a single page regressed in v1.1.2,

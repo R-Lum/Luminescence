@@ -260,6 +260,9 @@ calc_OSLLxTxRatio <- function(
   }
 
   # Continue checks ---------------------------------------------------------
+  .validate_class(signal.integral, c("integer", "numeric"))
+  .validate_class(background.integral, c("integer", "numeric"))
+
   ##(e) - check if signal integral is valid
   if (min(signal.integral) < 1 || max(signal.integral) > len.Lx) {
     .throw_error("'signal.integral' is not valid, max: ", len.Lx)
