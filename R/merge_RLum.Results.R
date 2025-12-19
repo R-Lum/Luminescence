@@ -112,18 +112,13 @@ merge_RLum.Results <- function(
 
             }##end loop
 
-            #return by setting a new RLum.Results (for the .uid)
-            #the originator is not reset
-            objects_merged <- set_RLum(
-              class = "RLum.Results",
-              originator = objects[[1]]@originator,
-              data = objects[[1]]@data,
-              info = unlist(lapply(objects, function(x) {
-                x@info
-              }), recursive = FALSE),
-              .pid = unlist(lapply(objects, function(x) {
-                x@.uid
-              })))
-
-            return(objects_merged)
+  ## return by setting a new RLum.Results (for the .uid)
+  ## the originator is not reset
+  set_RLum(
+      class = "RLum.Results",
+      originator = objects[[1]]@originator,
+      data = objects[[1]]@data,
+      info = unlist(lapply(objects, function(x) x@info), recursive = FALSE),
+      .pid = unlist(lapply(objects, function(x) x@.uid))
+  )
 }
