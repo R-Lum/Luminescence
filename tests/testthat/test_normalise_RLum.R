@@ -20,8 +20,8 @@ test_that("check class and length of output", {
   testthat::skip_on_cran()
 
   ## break function
-  expect_error(normalise_RLum(temp, norm = "error"), "norm' should be one of 'min', 'max', 'first', 'last' or 'huot'")
-  expect_error(normalise_RLum(temp, norm = c(1,1)), "'norm' should have length 1")
+  expect_error(normalise_RLum(temp, norm = "error"), "'norm' should be one of 'min', 'max', 'first', 'last' or 'huot'")
+  expect_error(normalise_RLum(temp, norm = c(1,1)), "'norm' should be of class 'logical', 'character' or 'numeric' and have length 1")
 
 
   ##standard tests

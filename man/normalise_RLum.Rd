@@ -9,7 +9,7 @@
 \alias{normalise_RLum,RLum.Data.Curve-method}
 \alias{normalise_RLum,RLum.Data.Image-method}
 \alias{normalise_RLum,RLum.Data.Spectrum-method}
-\title{Normalise of RLum.Data-class objects}
+\title{Normalisation of RLum-class objects}
 \usage{
 normalise_RLum(object, norm = TRUE, ...)
 
@@ -35,7 +35,7 @@ real number (e.g., 2.2)}
 \item{...}{further arguments passed to the specific class method}
 
 \item{global}{\link{logical} (*with default): this defines whether the normalisation
-is apply globally (same to all) or locally, means, each frame has is
+is applied globally (same to all) or locally, in which case each frame has its
 own normalisation. If \code{global = TRUE} the arguments for \code{norm  = 'first'} and
 \code{norm = 'last'} work as expected and consider either the first or the last
 frame for the normalisation.

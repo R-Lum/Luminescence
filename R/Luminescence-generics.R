@@ -672,7 +672,7 @@ setMethod("smooth_RLum", signature = "list",
     })
 
 ## normalise_RLum() ------------------------------------------------------------
-#' @title Normalise of RLum.Data-class objects
+#' @title Normalisation of RLum-class objects
 #'
 #' @description
 #' The function provides a generalised access point for specific
@@ -756,7 +756,7 @@ setGeneric("normalise_RLum", function(object, norm = TRUE, ...) {
   on.exit(.unset_function_name(), add = TRUE)
 
   ## validation
-  .validate_length(norm, 1)
+  .validate_class(norm, c("logical", "character", "numeric"), length = 1)
 
   if(inherits(norm, "character"))
     .validate_args(norm, c("min", "max", "first", "last", "huot"))

@@ -297,7 +297,7 @@ setMethod(
 #' @describeIn normalise_RLum
 #'
 #' @param global [logical] (*with default): this defines whether the normalisation
-#' is apply globally (same to all) or locally, means, each frame has is
+#' is applied globally (same to all) or locally, in which case each frame has its
 #' own normalisation. If `global = TRUE` the arguments for `norm  = 'first'` and
 #' `norm = 'last'` work as expected and consider either the first or the last
 #' frame for the normalisation.
@@ -312,25 +312,26 @@ setMethod(
   function(object, norm = TRUE, global = TRUE) {
     ## for frames we use the last frame
     if(global) {
-     if(norm %in% c("first", "last"))
-       if(norm == "last")
+       if(norm == "last") {
          object@data[] <- object@data / array(
            object@data[,,dim(object@data)[3]], dim = dim(object@data))
-       else if(norm == "first")
+
+       } else if (norm == "first") {
          object@data[] <- object@data / array(
            object@data[,,1], dim = dim(object@data))
-       else
+
+       } else {
          object@data[] <- .normalise_curve(object@data[], norm = norm)
+
+       }
+
     } else {
       object@data[] <- apply(
         object@data,
         MARGIN = 3,
         FUN = .normalise_curve,
-        norm = norm
-      )
+        norm = norm)
+    } ## end global
 
-    }
-
-    object
-  }
-)
+    return(object)
+  })
