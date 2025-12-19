@@ -292,3 +292,46 @@ setMethod(
   "names_RLum",
   "RLum.Data.Image",
   function(object) names(object@info))
+
+## normalise_RLum() --------------------------------------------------------------
+#' @describeIn normalise_RLum
+#'
+#' @param global [logical] (*with default): this defines whether the normalisation
+#' is applied globally (same to all) or locally, in which case each frame has its
+#' own normalisation. If `global = TRUE` the arguments for `norm  = 'first'` and
+#' `norm = 'last'` work as expected and consider either the first or the last
+#' frame for the normalisation.
+#'
+#'  Normalise [Luminescence::RLum.Data.Image-class] objects to value set via
+#' the argument `norm`
+#'
+#' @export
+setMethod(
+  f = "normalise_RLum",
+  signature = "RLum.Data.Image",
+  function(object, norm = TRUE, global = TRUE) {
+    ## for frames we use the last frame
+    if(global) {
+       if(norm == "last") {
+         object@data[] <- object@data / array(
+           object@data[,,dim(object@data)[3]], dim = dim(object@data))
+
+       } else if (norm == "first") {
+         object@data[] <- object@data / array(
+           object@data[,,1], dim = dim(object@data))
+
+       } else {
+         object@data[] <- .normalise_curve(object@data[], norm = norm)
+
+       }
+
+    } else {
+      object@data[] <- apply(
+        object@data,
+        MARGIN = 3,
+        FUN = .normalise_curve,
+        norm = norm)
+    } ## end global
+
+    return(object)
+  })

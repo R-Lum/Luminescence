@@ -248,25 +248,35 @@
 #' removed by the caller function, and that the `norm` option has already
 #' been validated.
 #'
-#' @param data [numeric] (**required**):
-#' the curve data to be normalised
+#' @param data [numeric] (**required**): the curve data to be normalised
+#' (can be a matrix)
 #'
 #' @param norm [logical] [character] (**required**):
 #' if logical, whether curve normalisation should occur; alternatively, one
-#' of `"max"` (used with `TRUE`), `"last"` and `"huot"`.
+#' of `"max"` (used with `TRUE`), `"min"`, `"first"`, `"last"`,  `"huot"` or an arbitrary
+#' real number (e.g., 2.2)
 #'
 #' @noRd
 .normalise_curve <- function(data, norm) {
-
   if (norm == "max" || isTRUE(norm)) {
-    data <- data / max(data)
+    data <- data / max(data, na.rm = TRUE)
   }
   else if (norm == "last") {
     data <- data / data[length(data)]
   }
+  else if (norm == "first") {
+    data <- data / data[1]
+  }
+  else if (norm == "min") {
+    data <- data / min(data, na.rm = TRUE)
+  }
   else if (norm == "huot") {
-    bg <- median(data[floor(length(data) * 0.8):length(data)])
-    data <- (data - bg) / max(data - bg)
+    bg <- median(data[floor(length(data) * 0.8):length(data)], na.rm = TRUE)
+    data <- (data - bg) / max(data - bg, na.rm = TRUE)
+  }
+  else if (inherits(norm, "numeric")) {
+    data <- data / norm
+
   }
 
   ## check for Inf and NA

@@ -405,7 +405,20 @@ setMethod(
                  data = object)
     }
  )
-
+## normalise_RLum() --------------------------------------------------------------
+#' @describeIn normalise_RLum
+#' Normalise [Luminescence::RLum.Data.Curve-class] objects to value set via
+#' the argument `norm`
+#'
+#' @export
+setMethod(
+  f = "normalise_RLum",
+  signature = "RLum.Data.Curve",
+  function(object, norm = TRUE) {
+    object@data[,2] <- .normalise_curve(object@data[,2], norm = norm)
+    object
+  }
+)
 ## melt_RLum() --------------------------------------------------------------
 #' @describeIn melt_RLum
 #' Melts [Luminescence::RLum.Data.Curve-class] objects into a flat data.frame with columns

@@ -263,8 +263,6 @@ setMethod("names_RLum",
           function(object){
             names(object@info)
           })
-
-
 ## bin_RLum() ---------------------------------------------------------------
 #' @describeIn bin_RLum.Data
 #' Allows binning of RLum.Data.Spectrum data. Count values and values on the
@@ -319,3 +317,18 @@ setMethod(f = "bin_RLum.Data",
             ##return object
             return(object)
           })
+
+## normalise_RLum() --------------------------------------------------------------
+#' @describeIn normalise_RLum
+#' Normalise [Luminescence::RLum.Data.Spectrum-class] objects to value set via
+#' the argument `norm`
+#'
+#' @export
+setMethod(
+  f = "normalise_RLum",
+  signature = "RLum.Data.Spectrum",
+  function(object, norm = TRUE) {
+    object@data[] <- .normalise_curve(object@data[], norm = norm)
+    object
+  }
+)

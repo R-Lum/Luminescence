@@ -84,14 +84,46 @@ test_that("Test internals", {
                4)
 
   ## .normalise_curve() -----------------------------------------------------
+  ## vector
   data <- runif(100)
   expect_equal(data, .normalise_curve(data, FALSE))
   expect_equal(.normalise_curve(data, TRUE), .normalise_curve(data, "max"))
   expect_silent(.normalise_curve(data, "last"))
+  expect_silent(.normalise_curve(data, "first"))
+  expect_silent(.normalise_curve(data, "min"))
+  expect_silent(.normalise_curve(data, 2.2))
   expect_silent(.normalise_curve(data, "huot"))
+
+  ## check for matrix
+  m <- matrix(runif(10), ncol = 2)
+  expect_equal(m, .normalise_curve(m, FALSE))
+  expect_equal(.normalise_curve(m, TRUE), .normalise_curve(m, "max"))
+  expect_true(is.matrix(.normalise_curve(m, "last")))
+  expect_silent(.normalise_curve(m, "first"))
+  expect_silent(.normalise_curve(m, "min"))
+  expect_silent(.normalise_curve(m, 2.2))
+  expect_silent(.normalise_curve(m, "huot"))
+
 
   data[100] <- 0
   expect_warning(.normalise_curve(data, "last"),
+                 "Curve normalisation produced Inf/NaN values, values replaced")
+  expect_warning(.normalise_curve(data, "min"),
+                 "Curve normalisation produced Inf/NaN values, values replaced")
+
+  data[99] <- NA_real_
+  ## this will produce warnings, but still normalise, because
+  ## we use na.rm internally for max(), min() etc.
+  expect_equal(
+    suppressWarnings(.normalise_curve(data, TRUE)),
+    suppressWarnings(.normalise_curve(data, "max")))
+  expect_warning(.normalise_curve(data, "last"),
+                 "Curve normalisation produced Inf/NaN values, values replaced")
+  expect_warning(.normalise_curve(data, "huot"),
+                 "Curve normalisation produced Inf/NaN values, values replaced")
+  expect_warning(.normalise_curve(data, "min"),
+                 "Curve normalisation produced Inf/NaN values, values replaced")
+  expect_warning(.normalise_curve(data, 2),
                  "Curve normalisation produced Inf/NaN values, values replaced")
 
   # fancy_scientific ()--------------------------------------------------------------------------

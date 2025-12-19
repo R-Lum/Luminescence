@@ -42,7 +42,7 @@ temp <- import_Data(file)
 
 }
 \seealso{
-\link{read_HeliosOSL2R}, \link{read_BINXLOG2R}, \link{read_PSL2R}, \link{read_XSYG2R}, \link{read_BIN2R}, \link{read_Daybreak2R}, \link{read_SPE2R}, \link{read_TIFF2R}, \link{read_RF2R}
+\link{read_HeliosOSL2R}, \link{read_BIN2R}, \link{read_BINXLOG2R}, \link{read_Daybreak2R}, \link{read_RF2R}, \link{read_SPE2R}, \link{read_PSL2R}, \link{read_XSYG2R}, \link{read_TIFF2R}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

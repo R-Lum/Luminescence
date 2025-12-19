@@ -671,6 +671,117 @@ setMethod("smooth_RLum", signature = "list",
       })
     })
 
+## normalise_RLum() ------------------------------------------------------------
+#' @title Normalisation of RLum-class objects
+#'
+#' @description
+#' The function provides a generalised access point for specific
+#' [Luminescence::RLum-class] objects. Depending on the input object, the corresponding
+#' function will be selected. The normalisation is performed in the internal
+#' function `.normalise_curve()`.
+#'
+#' @param object [Luminescence::RLum-class] (**required**):
+#' S4 object of class `RLum`
+#'
+#' @param norm [logical] [character] (**required**):
+#' if logical, whether curve normalisation should occur; alternatively, one
+#' of `"max"` (used with `TRUE`), `"min"`, `"last"`,  `"huot"` or an arbitary
+#' real number (e.g., 2.2)
+#'
+#' @param ... further arguments passed to the specific class method
+#'
+#' @details
+#' The argument `norm` normalises all count values. To date the following
+#' options are supported:
+#'
+#' `norm = TRUE` or `norm = "max"`: Curve values are normalised to the highest
+#' count value in the curve
+#'
+#' `norm = "min"`: Curve values are normalised to the smallest count value
+#' in the curve
+#'
+#' `norm = 2.2`: Curve values are normalised to 2.2, while this can be any
+#' real number
+#'
+#' `norm = "first"`: Curve values are normalised to the first count value.
+#'
+#' `norm = "last"`: Curve values are normalised to the last count value
+#' (this can be useful in particular for radiofluorescence curves)
+#'
+#' `norm = "huot"`: Curve values are normalised as suggested by Sébastien Huot
+#'  via GitHub:
+#' \deqn{
+#' y = (observed - median(background)) / (max(observed) - median(background))
+#' }
+#'
+#' The background of the curve is defined as the last 20% of the count values
+#' of a curve.
+#'
+#' @return
+#' An object of the same type as the input object provided.
+#'
+#' @section Function version: 0.1.0
+#'
+#' @author
+#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#'
+#' @note
+#' Currently only `RLum` objects of class `RLum.Data.Curve` and `RLum.Analysis`
+#' (with curve data) are supported.
+#'
+#' @seealso [Luminescence::RLum.Data.Curve-class], [Luminescence::RLum.Analysis-class]
+#'
+#' @examples
+#'
+#' ## load example data
+#' data(ExampleData.CW_OSL_Curve, envir = environment())
+#'
+#' ## create RLum.Data.Curve object from this example
+#' curve <-
+#'   set_RLum(
+#'       class = "RLum.Data.Curve",
+#'       recordType = "OSL",
+#'       data = as.matrix(ExampleData.CW_OSL_Curve)
+#'   )
+#'
+#' ## plot data without and with smoothing
+#' plot_RLum(curve)
+#' plot_RLum(normalise_RLum(curve))
+#'
+#' @keywords utilities
+#'
+#' @export
+setGeneric("normalise_RLum", function(object, norm = TRUE, ...) {
+  .set_function_name("normalise_RLum")
+  on.exit(.unset_function_name(), add = TRUE)
+
+  ## validation
+  .validate_class(norm, c("logical", "character", "numeric"), length = 1)
+
+  if(inherits(norm, "character"))
+    .validate_args(norm, c("min", "max", "first", "last", "huot"))
+
+  ## set generic
+  standardGeneric("normalise_RLum")
+})
+
+#' @describeIn normalise_RLum
+#' Returns a list of [Luminescence::RLum.Data-class] objects that had been passed to
+#' [Luminescence::normalise_RLum]
+#'
+#' @export
+setMethod("normalise_RLum", signature = "list",
+          function(object, norm = TRUE, ...) {
+            ## apply method in the objects and return the same
+            lapply(object, function(x) {
+              if (inherits(x, "RLum.Data")) {
+                return(normalise_RLum(x,...))
+              } else {
+                return(x)
+              }
+            })
+          })
+
 
 ## sort_RLum() --------------------------------------------------------------
 #' @title Sort data for RLum-class and Risoe.BINfileData-class objects
