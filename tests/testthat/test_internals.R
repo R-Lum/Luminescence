@@ -108,6 +108,8 @@ test_that("Test internals", {
   data[100] <- 0
   expect_warning(.normalise_curve(data, "last"),
                  "Curve normalisation produced Inf/NaN values, values replaced")
+  expect_warning(.normalise_curve(data, "min"),
+                 "Curve normalisation produced Inf/NaN values, values replaced")
 
   data[99] <- NA_real_
   ## this will produce warnings, but still normalise, because
