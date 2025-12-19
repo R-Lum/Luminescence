@@ -22,7 +22,7 @@
 #'
 #'@returns Always returns a [list]; empty or filled with [Luminescence::RLum.Analysis-class] objects
 #'
-#'@seealso `r toString(paste0("[Luminescence::", grep("^read_", getNamespaceExports("Luminescence"), value = TRUE), "]"))`
+#' @seealso `r toString(paste0("[Luminescence::", sort(grep("^read_", getNamespaceExports("Luminescence"), value = TRUE)), "]"))`
 #'
 #'@keywords datagen
 #'
