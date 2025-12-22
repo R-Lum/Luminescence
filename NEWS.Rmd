@@ -50,6 +50,12 @@ produce a deprecation warning if used (#1244).
 * The plots were affected by a bug in `plot_RLum.Analysis()`, so that the
 output was unnecessarily split over two pages (#1247).
 
+### `analyse_IRSAR.RF()`
+
+* The `slide$squared_residuals` field of the `@data` slot in the `RLum.Results`
+object returned by the function is no longer a 1-column matrix, but a plain
+numeric vector (#1254).
+
 ### `analyse_SAR.CWOSL()`
 
 * No automated resetting of the dose value anymore, if `mode = "alternate"`.
@@ -92,3 +98,6 @@ against by the minimum value (`"min"`), the first values (`"first"`) or
 an arbitrary number (e.g, `2.2`) to be set by the user. 
 This new settings are automatically available 
 to `plot_RLum.Data.Curve(..., norm = <setting>)`.
+
+* The package no longer depends on `RcppArmadillo`. This has no visible
+impact to the user other than a small reduction in the package size (#1254).

@@ -1,8 +1,9 @@
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Title:   src_analyse_IRSARRF_SRS()
 // Author:  Sebastian Kreutzer, Geography & Earth Science,Aberystwyth University (United Kingdom)
+//          Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 // Contact: sebastian.kreutzer@aber.ac.uk
-// Version: 0.4.0 [2020-08-17]
+// Version: 0.5.0 [2025-12-22]
 // Purpose:
 //
 //    Function calculates the squared residuals for the R function analyse_IRSAR.RF()
@@ -11,13 +12,13 @@
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 #include <sstream>
-#include <RcppArmadillo.h>
+#include <vector>
+#include <Rcpp.h>
 
-// [[Rcpp::depends(RcppArmadillo)]]
 using namespace Rcpp;
 
 // print a 2-element vector horizontally
-std::string fmt_vec(const arma::vec& vec) {
+static std::string fmt_vec(const double *vec) {
   std::stringstream ss;
   ss << " [" << std::setw(11) << vec[0]
      << ", " << std::setw(11) << vec[1] << "]";
@@ -25,9 +26,9 @@ std::string fmt_vec(const arma::vec& vec) {
 }
 
 // [[Rcpp::export("src_analyse_IRSARRF_SRS")]]
-RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
-                                    arma::vec values_natural_limited,
-                                    arma::vec vslide_range,
+RcppExport SEXP analyse_IRSARRF_SRS(std::vector<double> values_regenerated_limited,
+                                    std::vector<double> values_natural_limited,
+                                    std::vector<double> vslide_range,
                                     int n_MC,
                                     bool trace = false
 ){
@@ -44,10 +45,10 @@ RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
   //variables for the algorithm
   int v_length = vslide_range.size();
   int v_index = 0;
-  arma::vec results(res_size);
-  arma::vec::fixed<two_size> v_leftright; // the virtual vector
-  arma::vec::fixed<two_size> t_leftright; // the test points
-  arma::vec::fixed<two_size> c_leftright; // the calculation
+  std::vector<double> results(res_size);
+  double v_leftright[two_size]; // the virtual vector
+  double t_leftright[two_size]; // the test points
+  double c_leftright[two_size]; // the calculation
 
   // initialise values: at the beginning, the virtual vector includes all
   // points in vslide_range
@@ -80,21 +81,26 @@ RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
 
     for (size_t t = 0; t < two_size; ++t) {
       // HORIZONTAL SLIDING CORE --------------------------------------------
-      auto curr_vslide_range = vslide_range[t_leftright[t]];
+      const auto curr_vslide_range = vslide_range[t_leftright[t]];
+      const auto *nat = &values_natural_limited[0];
+      auto val_min = std::numeric_limits<double>::max();
 
       // slide the curves against each other and compute the sum of squared residuals
       for (unsigned int i = 0u; i < res_size; ++i) {
-        const double *reg = values_regenerated_limited.memptr() + i;
-        const double *nat = values_natural_limited.memptr();
+        const double *reg = &values_regenerated_limited[i];
         double sum = 0.0;
         for (unsigned int j = 0u; j < nat_size; ++j) {
           double residual = reg[j] - (nat[j] + curr_vslide_range);
           sum += residual * residual;
         }
         results[i] = sum;
+
+        // find minimum value
+        if (sum < val_min)
+          val_min = sum;
       }
 
-      c_leftright[t] = min(results);
+      c_leftright[t] = val_min;
     }
 
     // compare results and update variables
@@ -147,7 +153,7 @@ RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
   // to find the bootstrap minima, we draw one index at a time and compare the
   // value at that index to the current smallest value; this corresponds to
   // extracting a sample with replacement
-  arma::vec results_vector_min_MC(n_MC);
+  std::vector<double> results_vector_min_MC(n_MC);
   for (int i = 0; i < n_MC; ++i) {
     double min = std::numeric_limits<double>::max();
     for (size_t j = 0; j < res_size; ++j) {
@@ -160,6 +166,10 @@ RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
     results_vector_min_MC[i] = min;
   }
 
+  // find the index of the minimum element (1-based)
+  int index_min = std::min_element(std::begin(results),
+                                   std::end(results)) - std::begin(results) + 1;
+
   //build list with four elements
   //sliding_vector: the original results_vector (this can be used to reproduced the results in R)
   //sliding_vector_min_index: the index of the minimum, it is later also calculated in R, however, sometimes we may need it directly
@@ -169,7 +179,7 @@ RcppExport SEXP analyse_IRSARRF_SRS(arma::vec values_regenerated_limited,
   //algorithm might got trapped in the local minimum
   List results_list;
   results_list["sliding_vector"] = results;
-  results_list["sliding_vector_min_index"] = (int)results.index_min() + 1;
+  results_list["sliding_vector_min_index"] = index_min;
   results_list["sliding_vector_min_MC"] = results_vector_min_MC;
   results_list["vslide_index"] = v_index + 1;
   results_list["vslide_minimum"] = c_leftright[0]; //left and right should be similar
