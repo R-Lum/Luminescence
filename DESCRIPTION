@@ -41,8 +41,8 @@ BugReports: https://github.com/R-Lum/Luminescence/issues
 Depends:
     R (>= 4.4),
     utils
-LinkingTo: Rcpp (>= 1.0.12),
-    RcppArmadillo (>= 0.12.8.4.0)
+LinkingTo:
+    Rcpp (>= 1.1.0)
 Imports:
     bbmle (>= 1.0.25.1),
     data.table (>= 1.15.4),
