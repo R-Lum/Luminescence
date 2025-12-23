@@ -76,6 +76,24 @@ test_that("plot_DetPlot", {
     verbose = TRUE,
     plot = FALSE),
     "RLum.Results")
+
+  ## serial
+  expect_s4_class(plot_DetPlot(
+    object = list(x = object, y = object),
+    method = "shift",
+    signal.integral.min = 1,
+    signal.integral.max = 3,
+    background.integral.min = 900,
+    background.integral.max = 1000,
+    analyse_function.control = list(
+      fit.method = "LIN",
+      trim_channels = TRUE
+    ),
+    multicore = FALSE,
+    n.channels = 2,
+    verbose = TRUE,
+    plot = FALSE),
+    "RLum.Results")
   })
 
   ## try with NA values
