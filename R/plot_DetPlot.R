@@ -219,6 +219,9 @@ plot_DetPlot <- function(
   .validate_positive_scalar(background.integral.min, int = TRUE)
   .validate_positive_scalar(background.integral.min, int = TRUE)
 
+  ## method
+  method <- .validate_args(method, c("shift", "expansion"))
+
   ## analyse_function
   analyse_function <- .validate_args(analyse_function,
                                      c("analyse_SAR.CWOSL", "analyse_pIRIRSequence"))

@@ -18,6 +18,12 @@ test_that("input validation", {
                             signal.integral.max = 2,
                             background.integral.min = 900,
                             background.integral.max = 1000,
+                            method = "error"),
+               "'method' should be one of 'shift' or 'expansion'")
+  expect_error(plot_DetPlot(object, signal.integral.min = 1,
+                            signal.integral.max = 2,
+                            background.integral.min = 900,
+                            background.integral.max = 1000,
                             analyse_function = "error",
                             verbose = FALSE),
                "'analyse_function' should be one of 'analyse_SAR.CWOSL'")
