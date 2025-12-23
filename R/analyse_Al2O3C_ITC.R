@@ -117,6 +117,8 @@ analyse_Al2O3C_ITC <- function(
   .set_function_name("analyse_Al2O3C_ITC")
   on.exit(.unset_function_name(), add = TRUE)
 
+  .validate_not_empty(object) # here for issue 1256
+
   # SELF CALL -----------------------------------------------------------------------------------
   if (inherits(object, "list")) {
     ##check whether the list contains only RLum.Analysis objects
@@ -154,7 +156,6 @@ analyse_Al2O3C_ITC <- function(
 
   ## Integrity checks -------------------------------------------------------
   .validate_class(object, "RLum.Analysis", extra = "a 'list' of such objects")
-  .validate_not_empty(object)
   .validate_class(dose_points, c("numeric", "list"))
   if (is.list(dose_points)) {
     lapply(dose_points, .validate_class, "numeric",

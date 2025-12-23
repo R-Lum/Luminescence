@@ -36,6 +36,11 @@ Thanks to Michael Kenzler for bringing this to our attention (@RLumSK with #1241
 
 ## Bugfixes and changes
 
+### `analyse_Al2O3C_ITC()`
+
+* The function used to output a suppressed error message instead of validating
+the input ahead of that (#1256).
+
 ### `analyse_baSAR()`
 
 * The function has been updated to use `fit_DoseResponseCurve()` and
