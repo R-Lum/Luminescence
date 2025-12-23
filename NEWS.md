@@ -93,6 +93,12 @@
 - The `signal.integral` or `background.integral` arguments are now
   better validated (#1252).
 
+### `plot_DetPlot()`
+
+- When operating on a list with the default setting of
+  `multicore = TRUE`, the function limits the size of the parallel
+  cluster to the number of list elements to process (#1258).
+
 ### `plot_RLum.Analysis()`
 
 - The ability to combine multiple plots on a single page regressed in

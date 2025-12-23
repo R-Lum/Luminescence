@@ -72,7 +72,6 @@ test_that("plot_DetPlot", {
       fit.method = "LIN",
       trim_channels = TRUE
     ),
-    multicore = FALSE,
     n.channels = 2,
     verbose = TRUE,
     plot = FALSE),
