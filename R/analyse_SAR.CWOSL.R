@@ -153,6 +153,9 @@
 #' If length = 1, the values will be recycled. It has only an effect for
 #' `fit.method = 'OTORX'`.
 #'
+#' @param dose_rate_source [numeric] (*optional*): a numerical value for the source dose rate,
+#' typically Gy/s. If set, the x-axis default for the dose-response curve changes to `Dose [Gy]`.
+#'
 #' @param trim_channels [logical] (*with default*):
 #' trim channels per record category to the lowest number of channels in the
 #' category by using [Luminescence::trim_RLum.Data]. Applies only to `OSL` and `IRSL` curves.
@@ -203,7 +206,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.11.2
+#' @section Function version: 0.12.0
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -289,6 +292,7 @@ analyse_SAR.CWOSL<- function(
   rejection.criteria = list(),
   dose.points = NULL,
   dose.points.test = NULL,
+  dose_rate_source = NULL,
   trim_channels = FALSE,
   mtext.outer = "",
   plot = TRUE,
@@ -323,6 +327,7 @@ if(is.list(object)){
       OSL.component = parm$OSL.component[[x]],
       dose.points = parm$dose.points[[x]],
       dose.points.test = parm$dose.points.test[[x]],
+      dose_rate_source = parm$dose_rate_source[[x]],
       trim_channels = parm$trim_channels[[x]],
       mtext.outer = parm$mtext.outer[[x]],
       plot = parm$plot[[x]],
@@ -352,6 +357,7 @@ if(is.list(object)){
   .validate_logical_scalar(plot)
   .validate_logical_scalar(plot_onePage)
   .validate_logical_scalar(onlyLxTxTable)
+  .validate_scalar(dose_rate_source, null.ok = TRUE)
 
   ## trim OSL or IRSL channels
   if (trim_channels) {
@@ -637,6 +643,13 @@ if(is.list(object)){
 
   ## set test dose points
   LnLxTnTx$Test_Dose <- rep_len(dose.points.test %||% -1, nrow(LnLxTnTx))
+
+  ## use source dose rate
+  if(!is.null(dose_rate_source)) {
+    LnLxTnTx$Dose <- LnLxTnTx$Dose * dose_rate_source
+    LnLxTnTx$Test_Dose <- LnLxTnTx$Dose * dose_rate_source
+
+  }
 
   ##check whether we have dose points at all
   if (is.null(dose.points) && anyNA(LnLxTnTx$Dose)) {
@@ -1017,7 +1030,7 @@ if(is.list(object)){
           ylim = c(0,10))
 
         ## add legend text
-        text(x, y, paste0(LnLxTnTx$Name, "\n(", LnLxTnTx$Dose, ")"),
+        text(x, y, paste0(LnLxTnTx$Name, "\n(", round(LnLxTnTx$Dose, 2), ")"),
              offset = 1, pos = 1, xpd = NA)
 
         ##add line
@@ -1029,7 +1042,6 @@ if(is.list(object)){
     }##end plot
 
   ## (6) Plot Dose-Response Curve --------------------------------------------
-
   ## overall plot option selection for plot.single.sel
   plot <- plot && 6 %in% plot.single.sel
 
@@ -1087,6 +1099,7 @@ if(is.list(object)){
             do.call(plot_DoseResponseCurve, args = modifyList(
               list(
                 object = temp.GC,
+                xlab = if(is.null(dose_rate_source)) "Dose [s]" else "Dose [Gy]",
                 plot_singlePanels = plot_onePage || length(plot_singlePanels) > 1,
                 cex = ifelse(plot_onePage, 0.6, 1)
               ),

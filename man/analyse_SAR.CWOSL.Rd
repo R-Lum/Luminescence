@@ -14,6 +14,7 @@ analyse_SAR.CWOSL(
   rejection.criteria = list(),
   dose.points = NULL,
   dose.points.test = NULL,
+  dose_rate_source = NULL,
   trim_channels = FALSE,
   mtext.outer = "",
   plot = TRUE,
@@ -89,6 +90,9 @@ overwrites dose point values extracted from other data. Can be a \link{list} of
 a numeric vector containing the test dose in the same units as \code{dose.points}.
 If length = 1, the values will be recycled. It has only an effect for
 \code{fit.method = 'OTORX'}.}
+
+\item{dose_rate_source}{\link{numeric} (\emph{optional}): a numerical value for the source dose rate,
+typically Gy/s. If set, the x-axis default for the dose-response curve changes to \code{Dose [Gy]}.}
 
 \item{trim_channels}{\link{logical} (\emph{with default}):
 trim channels per record category to the lowest number of channels in the
@@ -228,7 +232,7 @@ function does \strong{not} overwrite values preset in \code{IRR_TIME}.
 }
 }
 \section{Function version}{
- 0.11.2
+ 0.12.0
 }
 
 \examples{

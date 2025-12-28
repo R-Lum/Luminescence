@@ -78,6 +78,14 @@ This is meant to facilitate seeing visually to what aliquot each criteria
 belongs to. While the `UID` values are random-looking alphanumeric values,
 they can identify univocally an aliquot also after merge operations (#1172).
 
+* Add new argument, `dose_rate_source`, that allows users to specify a value for 
+the source dose rate and display values in Gy, rather than seconds. Previously, 
+this was possible by using a factor with the `dose.points` argument. However, 
+setting it manually was particularly inconvenient if the dose points were 
+already extracted automatically, as it required users to manually insert dose 
+values regardless of the automated extraction. This argument is also available 
+in other functions that wrap around `analyse_SAR.CWOSL()`.
+
 ### `calc_OSLLxTxRatio()`
 
 * The `signal.integral` or `background.integral` arguments are now better

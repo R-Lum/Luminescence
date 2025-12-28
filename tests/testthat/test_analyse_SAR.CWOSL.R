@@ -43,6 +43,21 @@ test_that("snapshot tests", {
     ), tolerance = snapshot.tolerance
   )
 
+  ## source dose rate
+  expect_snapshot_RLum(
+    analyse_SAR.CWOSL(
+      object = object[1:2],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      fit.method = "LIN",
+      dose_rate_source = 0.2,
+      plot = FALSE,
+      verbose = FALSE
+    ), tolerance = snapshot.tolerance
+  )
+
   ## check rejection criteria and recuperation point selection
   expect_snapshot_RLum(
     t <- analyse_SAR.CWOSL(
@@ -640,6 +655,16 @@ test_that("graphical snapshot tests", {
                                   background.integral.max = 1000,
                                   plot_onePage = TRUE))
 
+  vdiffr::expect_doppelganger("source_dose_rate",
+                                analyse_SAR.CWOSL(
+                                  object = object[[1]],
+                                  signal.integral.min = 1,
+                                  signal.integral.max = 2,
+                                  dose_rate_source = 0.22,
+                                  background.integral.min = 900,
+                                  background.integral.max = 1000,
+                                  plot_onePage = TRUE))
+
   vdiffr::expect_doppelganger("list-cex",
                               analyse_SAR.CWOSL(
                                   object = list(object[[1]]),
@@ -658,7 +683,7 @@ test_that("graphical snapshot tests", {
                                   background.integral.max = 1000,
                                   fit.method = "LIN",
                                   log = "x",
-                                  plot_onePage = TRUE))
+                                  plot_onePage = TRUE), )
 
   vdiffr::expect_doppelganger("NO_TL log xy",
                               analyse_SAR.CWOSL(
