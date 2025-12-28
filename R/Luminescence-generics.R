@@ -685,7 +685,7 @@ setMethod("smooth_RLum", signature = "list",
 #'
 #' @param norm [logical] [character] (**required**):
 #' if logical, whether curve normalisation should occur; alternatively, one
-#' of `"max"` (used with `TRUE`), `"min"`, `"last"`,  `"huot"` or an arbitary
+#' of `"max"` (used with `TRUE`), `"min"`, `"last"`,  `"huot"` or an arbitrary
 #' real number (e.g., 2.2)
 #'
 #' @param ... further arguments passed to the specific class method
