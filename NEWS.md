@@ -95,7 +95,7 @@
   inconvenient if the dose points were already extracted automatically,
   as it required users to manually insert dose values regardless of the
   automated extraction. This argument is also available in other
-  functions that wrap around `analyse_SAR.CWOSL()`.
+  functions that wrap around `analyse_SAR.CWOSL()` (#4fc985d).
 
 ### `calc_OSLLxTxRatio()`
 
