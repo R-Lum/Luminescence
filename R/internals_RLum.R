@@ -170,7 +170,7 @@
     data.table::frollmean(x, n = k, fill = fill, align = align)
   },
   median = {
-    data.table::frollapply(x, n = k, FUN = "median",
+    data.table::frollapply(x, N = k, FUN = "median",
                            fill = fill, align = align)
   },
   Carter_etal_2018 = {
