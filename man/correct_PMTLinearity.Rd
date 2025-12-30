@@ -34,6 +34,10 @@ and \eqn{t} (in s) the pulse pair resolution.
 This function is an adaptation of core from the R package
 'OSLdecomposition'.
 }
+\section{Function version}{
+ 0.1.1
+}
+
 \examples{
 o <- set_RLum("RLum.Data.Curve")
 correct_PMTLinearity(o, PMT_pulse_pair_resolution = 10)

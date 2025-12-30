@@ -91,6 +91,12 @@ in other functions that wrap around `analyse_SAR.CWOSL()` (#4fc985d).
 * The `signal.integral` or `background.integral` arguments are now better
 validated (#1252).
 
+### `correct_PMTLinerarity()` 
+* The function introduced with the last release, unintentionally came with a major flaw: 
+It did nothing on a single `RLum.Data.Curve()` object; fixed. 
+* If the channel resolution was not changing, the function produced `NaN` values even 
+in cases where dead time was not corrected; fixed. 
+
 ### `plot_DetPlot()`
 
 * When operating on a list with the default setting of `multicore = TRUE`, the

@@ -18,6 +18,18 @@ test_that("Test internals", {
       object = correct_PMTLinearity(o, PMT_pulse_pair_resolution = 10),
       class = "RLum.Data.Curve")
 
+  ## try special case with zero channel resolution that would create NA values
+  data <- structure(c(24.24, 24.24, 24.25, 24.23, 24.24, 24.23, 24.24,
+                      24.29, 24.29, 24.29, 24.31, 99, 101.9, 104.8, 107.7, 110.6, 113.5,
+                      116.4, 119.3, 122.2, 125.1, 128), dim = c(11L, 2L), dimnames = list(
+                        NULL, c("temperature.values", "count.values")))
+
+  object <- set_RLum("RLum.Data.Curve", data = data)
+  t <- expect_s4_class(
+    correct_PMTLinearity(object, PMT_pulse_pair_resolution = 18),
+    "RLum.Data.Curve")
+  expect_type(t@data[,2], "double")
+
   ## nothing done
   expect_equal(correct_PMTLinearity(o),
                o)

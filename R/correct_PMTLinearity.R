@@ -20,6 +20,8 @@
 #' @param PMT_pulse_pair_resolution [numeric] (*with default*): pulse-pair resolution
 #' in ns. Values can be found on the PMT datasheets. If `NULL` nothing is done.
 #'
+#' @section Function version: 0.1.1
+#'
 #' @returns
 #' Returns the same type of object type as `object`.
 #'
@@ -76,7 +78,7 @@ correct_PMTLinearity <- function(
   if (inherits(object, "RLum.Analysis"))
     records <- object@records
   else
-    records <- object
+    records <- list(object)
 
   ## convert to seconds
   res <- PMT_pulse_pair_resolution[1] * 1e-9
@@ -102,6 +104,10 @@ correct_PMTLinearity <- function(
     else
       w <- 1
 
+    ## fall back for channel resolution that is "0"
+    if(w == 0)
+      return(x)
+
     ## get cps
     cps <- rec[, 2, drop = FALSE] / w
 
@@ -121,7 +127,10 @@ correct_PMTLinearity <- function(
   ## extract records
   if (inherits(object, "RLum.Analysis"))
     object@records <- records
+  else
+    object <- records[[1]]
 
   ## return
   return(object)
 }
+
