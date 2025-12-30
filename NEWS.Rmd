@@ -93,9 +93,9 @@ validated (#1252).
 
 ### `correct_PMTLinerarity()` 
 * The function introduced with the last release, unintentionally came with a major flaw: 
-It did nothing on a single `RLum.Data.Curve()` object; fixed. 
+It did nothing on a single `RLum.Data.Curve()` object; fixed (#1d978cf). 
 * If the channel resolution was not changing, the function produced `NaN` values even 
-in cases where dead time was not corrected; fixed. 
+in cases where dead time was not corrected; fixed (#1d978cf).
 
 ### `plot_DetPlot()`
 
