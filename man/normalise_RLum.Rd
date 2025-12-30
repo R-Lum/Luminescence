@@ -29,7 +29,7 @@ S4 object of class \code{RLum}}
 
 \item{norm}{\link{logical} \link{character} (\strong{required}):
 if logical, whether curve normalisation should occur; alternatively, one
-of \code{"max"} (used with \code{TRUE}), \code{"min"}, \code{"last"},  \code{"huot"} or an arbitary
+of \code{"max"} (used with \code{TRUE}), \code{"min"}, \code{"last"},  \code{"huot"} or an arbitrary
 real number (e.g., 2.2)}
 
 \item{...}{further arguments passed to the specific class method}
