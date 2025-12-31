@@ -48,11 +48,43 @@ test_that("check class and length of output", {
 
   ##test on a list
   ##RLum list
-  expect_type(normalise_RLum(list(temp, temp)), "list")
+  ## standard normalisation
+  t <- expect_type(normalise_RLum(list(temp, temp)), "list")
+  expect_equal(as.numeric(t[[1]]@data[1,2]), 1)
+
+  ## normalise to "last"
+  t <- expect_type(normalise_RLum(list(temp, temp), norm = "last"), "list")
+  expect_equal(as.numeric(t[[1]]@data[1,2]), 317.5, tolerance = 0.01)
 
   ##test on an RLum.Analysis-object and a list of such objects
-  expect_s4_class(normalise_RLum(temp_analysis), "RLum.Analysis")
-  expect_type(normalise_RLum(list(temp_analysis, temp_analysis)), "list")
+  t <- expect_s4_class(normalise_RLum(temp_analysis), "RLum.Analysis")
+  expect_equal(as.numeric(t@records[[2]]@data[1,2]), 1)
+
+  ## check the modification for an argument
+  t <- expect_s4_class(normalise_RLum(temp_analysis, norm = "last"), "RLum.Analysis")
+  expect_equal(as.numeric(t@records[[2]]@data[1,2]), 317.5, tolerance = 0.01)
+
+  ## check the list of such objects
+  t <- expect_type(normalise_RLum(list(temp_analysis, temp_analysis)), "list")
+  expect_equal(as.numeric(t[[1]]@records[[2]]@data[1,2]), 1)
+
+  ## check Image objects within
+  t <- expect_s4_class(normalise_RLum(set_RLum("RLum.Analysis", records = list(image))), "RLum.Analysis")
+  expect_equal(t@records[[1]]@data[2,3,2], 1)
+  t <- expect_s4_class(normalise_RLum(set_RLum("RLum.Analysis", records = list(image)), global = FALSE), "RLum.Analysis")
+  expect_equal(t@records[[1]]@data[2,3,1], t@records[[1]]@data[2,3,2])
+  t <- expect_type(
+    normalise_RLum(
+      list(
+        set_RLum("RLum.Analysis", records = list(image)),
+        set_RLum("RLum.Analysis", records = list(image))), global = FALSE), "list")
+  expect_equal(t[[1]]@records[[1]]@data[2,3,2], t[[1]]@records[[1]]@data[2,3,1])
+  t <- expect_type(
+    normalise_RLum(
+      list(
+        set_RLum("RLum.Analysis", records = list(image)),
+        set_RLum("RLum.Analysis", records = list(image))), global = TRUE), "list")
+  expect_equal(t[[1]]@records[[1]]@data[2,3,1], 0.5, tolerance = 0.001)
 
 })
 

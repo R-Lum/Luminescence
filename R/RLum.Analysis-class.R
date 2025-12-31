@@ -21,7 +21,7 @@
 #' @section Objects from the Class:
 #' Objects can be created by calls of the form `set_RLum("RLum.Analysis", ...)`.
 #'
-#' @section Class version: 0.4.18
+#' @section Class version: 0.4.19
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -771,8 +771,10 @@ setMethod(
 setMethod(
   f = "normalise_RLum",
   signature = "RLum.Analysis",
-  function(object, ...) {
-    object@records <- lapply(object@records, normalise_RLum, ...)
+  function(object, norm, ...) {
+    object@records <- lapply(
+      X = object@records,
+      FUN = normalise_RLum, norm = norm, ...)
     return(object)
   }
 )

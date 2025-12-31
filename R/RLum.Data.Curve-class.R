@@ -38,7 +38,7 @@
 #' Objects can be created by calls of the form
 #' `set_RLum(class = "RLum.Data.Curve", ...)`.
 #'
-#' @section Class version: 0.5.1
+#' @section Class version: 0.5.2
 #'
 #' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
@@ -414,7 +414,7 @@ setMethod(
 setMethod(
   f = "normalise_RLum",
   signature = "RLum.Data.Curve",
-  function(object, norm = TRUE) {
+  function(object, norm) {
     object@data[,2] <- .normalise_curve(object@data[,2], norm = norm)
     object
   }

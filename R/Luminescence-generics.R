@@ -720,7 +720,7 @@ setMethod("smooth_RLum", signature = "list",
 #' @return
 #' An object of the same type as the input object provided.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
@@ -768,11 +768,11 @@ setGeneric("normalise_RLum", function(object, norm = TRUE, ...) {
 #'
 #' @export
 setMethod("normalise_RLum", signature = "list",
-          function(object, norm = TRUE, ...) {
+          function(object, norm, ...) {
             ## apply method in the objects and return the same
             lapply(object, function(x) {
-              if (inherits(x, "RLum.Data")) {
-                return(normalise_RLum(x,...))
+              if (inherits(x, "RLum.Data") || inherits(x, "RLum.Analysis")) {
+                return(normalise_RLum(x, norm = norm, ...))
               } else {
                 return(x)
               }

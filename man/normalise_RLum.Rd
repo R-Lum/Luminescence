@@ -17,7 +17,7 @@ normalise_RLum(object, norm = TRUE, ...)
 
 \S4method{normalise_RLum}{RLum.Analysis}(object, norm = TRUE, ...)
 
-\S4method{normalise_RLum}{RLum.Data.Curve}(object, norm = TRUE)
+\S4method{normalise_RLum}{RLum.Data.Curve}(object, norm)
 
 \S4method{normalise_RLum}{RLum.Data.Image}(object, norm = TRUE, global = TRUE)
 
@@ -96,7 +96,7 @@ the argument \code{norm}
 
 }}
 \section{Function version}{
- 0.1.0
+ 0.1.1
 }
 
 \examples{
