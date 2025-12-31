@@ -95,10 +95,6 @@ the argument \code{norm}
 the argument \code{norm}
 
 }}
-\note{
-Currently only \code{RLum} objects of class \code{RLum.Data.Curve} and \code{RLum.Analysis}
-(with curve data) are supported.
-}
 \section{Function version}{
  0.1.0
 }
@@ -122,7 +118,8 @@ plot_RLum(normalise_RLum(curve))
 
 }
 \seealso{
-\linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Analysis}
+\linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Analysis},
+\linkS4class{RLum.Data.Spectrum},  \linkS4class{RLum.Data.Image}
 }
 \author{
 Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)

@@ -725,11 +725,8 @@ setMethod("smooth_RLum", signature = "list",
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @note
-#' Currently only `RLum` objects of class `RLum.Data.Curve` and `RLum.Analysis`
-#' (with curve data) are supported.
-#'
-#' @seealso [Luminescence::RLum.Data.Curve-class], [Luminescence::RLum.Analysis-class]
+#' @seealso [Luminescence::RLum.Data.Curve-class], [Luminescence::RLum.Analysis-class],
+#' [Luminescence::RLum.Data.Spectrum-class],  [Luminescence::RLum.Data.Image-class]
 #'
 #' @examples
 #'
@@ -781,7 +778,6 @@ setMethod("normalise_RLum", signature = "list",
               }
             })
           })
-
 
 ## sort_RLum() --------------------------------------------------------------
 #' @title Sort data for RLum-class and Risoe.BINfileData-class objects
