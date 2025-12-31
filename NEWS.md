@@ -114,7 +114,7 @@
 ### `normalise_RLum()`
 
 - The argument `norm` was not respected if applied to an `RLum.Analysis`
-  object, or a `list` of it; fixed.
+  object, or a `list` of it; fixed (#ccb1484).
 
 ### `plot_DetPlot()`
 

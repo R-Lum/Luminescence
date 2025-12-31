@@ -99,7 +99,7 @@ in cases where dead time was not corrected; fixed (#1d978cf).
 
 ### `normalise_RLum()`
 * The argument `norm` was not respected if applied to an `RLum.Analysis` object, or a `list`
-of it; fixed.
+of it; fixed (#ccb1484).
 
 ### `plot_DetPlot()`
 
