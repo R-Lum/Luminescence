@@ -128,6 +128,11 @@
   v1.1.2, causing plots intended to appear side-by-side to be rendered
   on separate pages (#1247).
 
+### `read_BIN2R()`
+
+- The function could crash if called with `do.call()` and some
+  particularly odd inputs (#1260).
+
 ### `read_XSYG2R()`
 
 - Attributes from the record level are now all included in the `@info`
