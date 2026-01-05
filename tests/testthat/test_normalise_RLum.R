@@ -52,6 +52,11 @@ test_that("check class and length of output", {
   t <- expect_type(normalise_RLum(list(temp, temp)), "list")
   expect_equal(as.numeric(t[[1]]@data[1,2]), 1)
 
+  ## list with non-RLum object
+  t <- expect_type(normalise_RLum(list(temp, iris)), "list")
+  expect_equal(as.numeric(t[[1]]@data[1,2]), 1)
+  expect_equal(t[[2]], iris)
+
   ## normalise to "last"
   t <- expect_type(normalise_RLum(list(temp, temp), norm = "last"), "list")
   expect_equal(as.numeric(t[[1]]@data[1,2]), 317.5, tolerance = 0.01)
