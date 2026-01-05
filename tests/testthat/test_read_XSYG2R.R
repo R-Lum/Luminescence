@@ -132,3 +132,13 @@ test_that("test import of XSYG files", {
     )[[1]],
     class = "RLum.Analysis")
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 1260
+  SW({
+  expect_null(do.call(read_XSYG2R, list("a test")),
+              "File does not exist, NULL returned")
+  })
+})

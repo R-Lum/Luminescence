@@ -140,6 +140,9 @@
   level. Hence, those attributes are now available for filtering (#1239;
   thanks to @DirkMittelstrass for reporting).
 
+- The function could crash if called with `do.call()` and some
+  particularly odd inputs (#1260).
+
 ### `report_RLum()`
 
 - The function could crash if called with `do.call()` and some
