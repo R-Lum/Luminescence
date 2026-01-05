@@ -51,3 +51,11 @@ test_that("test functionality", {
   fake.css <- system.file("CITATION", package = "Luminescence")
   expect_null(report_RLum(df, css.file = fake.css))
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 1260
+  expect_silent(do.call(report_RLum, list(NaN)))
+  expect_silent(do.call(report_RLum, list(iris[0, ])))
+})
