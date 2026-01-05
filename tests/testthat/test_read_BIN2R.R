@@ -254,3 +254,11 @@ test_that("test hand-crafted files", {
                  "Empty object returned")
   })
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 1260
+  expect_error(do.call(read_BIN2R, list("a test")),
+               "File 'a test' does not exist")
+})
