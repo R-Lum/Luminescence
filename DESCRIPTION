@@ -1,7 +1,7 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 1.1.2.9000-32
+Version: 1.1.2.9000-33
 Date: 2026-01-09
 Authors@R: c(
     person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "maintainer_luminescence@r-luminescence.org", comment = c(ORCID = "0000-0002-0734-2199")),

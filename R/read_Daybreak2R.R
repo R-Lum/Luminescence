@@ -30,13 +30,14 @@
 #' This function still needs to be tested properly. In particular
 #' the function has underwent only very rough tests using a few files.
 #'
-#' @section Function version: 0.3.3
+#' @section Function version: 0.3.4
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 #' Antoine Zink, C2RMF, Palais du Louvre, Paris (France)
 #'
-#' The ASCII-file import is based on a suggestion by Willian Amidon and Andrew Louis Gorin
+#' The ASCII-file import is based on a suggestion by Willian Amidonl, Andrew Louis Gorin, and
+#' further input from Andrzej Bluszcz.
 #'
 #' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data.Curve-class], [data.table::data.table]
 #'
@@ -369,17 +370,18 @@ read_Daybreak2R <- function(
       info <- c(info, position = as.integer(info$Disk))
 
       if(length(header.length)>0){
-        ##get measurement data
-        temp.data <- unlist(
-          strsplit(record[-(1:header.length)], split = ";", fixed = TRUE))
+        ##get measurement data ... this construction makes no assumption on 
+        ##the number of columns 
+        temp.data <- data.table::tstrsplit(
+          record[-(1:header.length)], ";", fixed = TRUE, 
+          type.convert = TRUE)
 
-        ## reshape as [idx, x, y, valid], then take only [x, y]
-        temp.data <- matrix(temp.data, ncol = 4, byrow = TRUE)[, 2:3]
-        data <- matrix(as.numeric(temp.data), ncol = 2)
+        ## construct data matrix
+        data <- matrix(unlist(temp.data[2:3]), ncol = 2)
 
       } else if ("IrradTime" %in% names(info)) {
-          point.x <- 1:as.numeric(info$IrradTime)
-          point.y <- rep(1, length(point.x))
+          point.x <- c(1,as.numeric(info$IrradTime))
+          point.y <- rep(1, 2)
           data <- matrix(c(point.x,point.y), ncol = 2)
       }
 

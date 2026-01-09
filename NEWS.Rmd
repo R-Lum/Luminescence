@@ -124,6 +124,9 @@ odd inputs (#1260).
 * The function struggled with variable header lengths; fixed (#1262, thanks for reporting to @andrzejbluszcz
 )
 
+* The function will no any longer crash if the data point entries have more than 
+four columns (thanks to @andrzejbluszcz for reporting).
+
 ### `read_XSYG2R()`
 
 * Attributes from the record level are now all included in the `@info` slot,
