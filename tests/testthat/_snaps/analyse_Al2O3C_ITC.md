@@ -192,11 +192,6 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["VALUE", "VALUE_ERROR"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -206,29 +201,29 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["VALUE", "VALUE_ERROR"]
                 }
               },
               "value": [
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [2.5872919]
+                  "value": [2.58729244]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.03567595]
+                  "value": [0.03568024]
                 }
               ]
             },
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["DOSE", "net_SIGNAL", "net_SIGNAL.ERROR", "net_SIGNAL_NORM", "net_SIGNAL_NORM.ERROR"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -238,6 +233,11 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["DOSE", "net_SIGNAL", "net_SIGNAL.ERROR", "net_SIGNAL_NORM", "net_SIGNAL_NORM.ERROR"]
                 }
               },
               "value": [
@@ -271,11 +271,6 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["DOSE", "net_SIGNAL", "net_SIGNAL.ERROR", "net_SIGNAL_NORM", "net_SIGNAL_NORM.ERROR"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -285,6 +280,11 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["DOSE", "net_SIGNAL", "net_SIGNAL.ERROR", "net_SIGNAL_NORM", "net_SIGNAL_NORM.ERROR"]
                 }
               },
               "value": [
