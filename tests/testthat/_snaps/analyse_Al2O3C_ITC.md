@@ -212,12 +212,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [2.58729244]
+                  "value": [2.5872919]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.03568024]
+                  "value": [0.03567595]
                 }
               ]
             },
