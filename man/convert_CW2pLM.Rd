@@ -78,6 +78,6 @@ Luminescence (OSL) Experiment. Radiation Measurements, 26, 701-709.
 \link{fit_LMCurve}, \link{lm}, \linkS4class{RLum.Data.Curve}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{manip}

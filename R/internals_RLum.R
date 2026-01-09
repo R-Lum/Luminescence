@@ -16,7 +16,7 @@
 #'
 #' @section Function version: 0.1.0
 #'
-#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @examples
 #'
@@ -56,7 +56,7 @@
 #'
 #' @section Function version: 0.2.0
 #'
-#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @examples
 #'
@@ -137,8 +137,8 @@
 #' @section Function version: 0.3
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
-#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+#' Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @examples
 #'
@@ -387,7 +387,7 @@ fancy_scientific <- function(l) {
 #'@return
 #'Returns fancy log axis
 #'
-#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#'@author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #'@examples
 #'
@@ -534,7 +534,7 @@ fancy_scientific <- function(l) {
 #'
 #'@param suffix [character] (*with default*): suffix to add to the string
 #'
-#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#'@author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #'@section Version: 0.1.0
 #'
@@ -588,7 +588,7 @@ fancy_scientific <- function(l) {
 #'
 #' @param x [list] (**required**): list with lists
 #'
-#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @examples
 #' a <- list(b = list(c = list("test")))
@@ -621,7 +621,7 @@ fancy_scientific <- function(l) {
 #' @param class [character] (*with default*):
 #' class of elements to keep, by default [Luminescence::RLum-class].
 #'
-#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @examples
 #' x <- c(list(set_RLum("RLum.Analysis"), set_RLum("RLum.Analysis")), 2)
@@ -642,7 +642,7 @@ fancy_scientific <- function(l) {
 #'
 #' @param x [list] (**required**): list
 #'
-#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @examples
 #' l <- list("a", NULL)
@@ -770,7 +770,7 @@ fancy_scientific <- function(l) {
 #'
 #' @param len [numeric] (**required**): length of the parameter expansion
 #'
-#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @return [list] with expanded parameters
 #'
@@ -858,7 +858,7 @@ fancy_scientific <- function(l) {
 #'
 #' @param ... further arguments passed to [stats::density]
 #'
-#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @references
 #' Hyndman, R.J., 1996. Computing and Graphing Highest Density Regions.
@@ -925,7 +925,7 @@ fancy_scientific <- function(l) {
 #'
 #'@returns Returns either nothing (no URL) or the file path of the downloaded file
 #'
-#'@author Sebastian Kreutzer, Insitut of Geography, Heidelberg University, Germany
+#'@author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #'@examples
 #'

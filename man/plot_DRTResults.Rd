@@ -203,7 +203,7 @@ single-aliquot regeneration dating protocols. Radiation Measurements, 41,
 \link{plot}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 Michael Dietze, GFZ Potsdam (Germany)
 }
 \keyword{dplot}

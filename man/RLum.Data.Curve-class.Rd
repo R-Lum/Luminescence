@@ -60,6 +60,6 @@ set_RLum(class = "RLum.Data.Curve")
 \link{plot_RLum}, \link{merge_RLum}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{classes}

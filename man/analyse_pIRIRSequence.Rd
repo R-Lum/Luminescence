@@ -189,7 +189,7 @@ extracts. Radiation Measurements 43, 1474-1486.
 \link{get_RLum}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{datagen}
 \keyword{plot}

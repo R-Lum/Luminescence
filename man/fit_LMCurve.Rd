@@ -272,7 +272,7 @@ K. Hornik, & G. Parmigiani, eds., Springer, p. 150.
 \link{fit_CWCurve}, \link{plot}, \link{nls}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}, \link{get_RLum}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{dplot}
 \keyword{models}

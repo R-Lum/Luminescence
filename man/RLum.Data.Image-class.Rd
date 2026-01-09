@@ -48,6 +48,6 @@ set_RLum(class = "RLum.Data.Image")
 \link{read_SPE2R}, \link{read_TIFF2R}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{classes}

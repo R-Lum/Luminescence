@@ -140,9 +140,9 @@ DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
 \link[utils:txtProgressBar]{utils::txtProgressBar}, \link{list.files}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 Margret C. Fuchs, HZDR Freiberg, (Germany) \cr
-Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
+Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
 }
 \keyword{IO}

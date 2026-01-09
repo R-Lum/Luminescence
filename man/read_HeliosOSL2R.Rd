@@ -38,6 +38,6 @@ read_HeliosOSL2R(file)
 \linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Analysis}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{IO}

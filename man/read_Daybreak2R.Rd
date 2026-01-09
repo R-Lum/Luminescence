@@ -54,7 +54,7 @@ temp <- read_Daybreak2R(file)
 \linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}, \link[data.table:data.table]{data.table::data.table}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 Antoine Zink, C2RMF, Palais du Louvre, Paris (France)
 
 The ASCII-file import is based on a suggestion by Willian Amidon and Andrew Louis Gorin

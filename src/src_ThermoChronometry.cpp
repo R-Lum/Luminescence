@@ -1,6 +1,7 @@
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Title:   src_TheromChronometry()
-// Author:  Sebastian Kreutzer, Institut of Geography, Heidelberg University (Germany)
+// Author:  F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute 
+// for Applied Geophysics (Hannover, Germany)
 // Contact: sebastian.kreutzer@uni-heidelberg.de
 // Version: 0.1.0 [2025-06-04]
 // Usage:   use with IsothermalHolding.R

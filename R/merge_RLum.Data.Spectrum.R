@@ -95,8 +95,8 @@
 #' @section Function version: 0.1.2
 #'
 #' @author
-#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [Luminescence::merge_RLum], [Luminescence::RLum.Data.Spectrum-class]
 #'

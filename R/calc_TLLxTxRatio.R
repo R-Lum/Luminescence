@@ -57,7 +57,7 @@
 #' @section Function version: 0.3.4
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 #' Christoph Schmidt, University of Bayreuth (Germany)
 #'
 #' @seealso [Luminescence::RLum.Results-class], [Luminescence::analyse_SAR.TL]

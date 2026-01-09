@@ -82,7 +82,7 @@
 #' @section Function version: 0.3.2
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' Based on comments and suggestions from:\cr
 #' Adrie J.J. Bos, Delft University of Technology, The Netherlands

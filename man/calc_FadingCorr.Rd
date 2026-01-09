@@ -215,6 +215,6 @@ Canadian Journal of Earth Sciences, 38, 1093-1106.
 \link{get_RLum}, \link{uniroot}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{datagen}

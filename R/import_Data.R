@@ -18,7 +18,7 @@
 #'
 #'@section Function version: 0.1.5
 #'
-#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#'@author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #'@returns Always returns a [list]; empty or filled with [Luminescence::RLum.Analysis-class] objects
 #'

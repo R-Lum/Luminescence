@@ -140,8 +140,8 @@ get_RLum(results)
 }
 \author{
 Christoph Burow, University of Cologne (Germany) \cr
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
-Marco Colombo, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
+Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{datagen}
 \keyword{plot}

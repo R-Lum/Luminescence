@@ -100,7 +100,7 @@ get_RLum(output)
 \linkS4class{RLum.Results}, \link{analyse_SAR.TL}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 Christoph Schmidt, University of Bayreuth (Germany)
 }
 \keyword{datagen}

@@ -47,7 +47,7 @@
 #' @author
 #' Rachel Smedley, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
 #' Based on an excel spreadsheet and accompanying macro written by Kristina Thomsen. \cr
-#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
+#' Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [plot], [Luminescence::calc_CommonDose], [Luminescence::calc_CentralDose],
 #' [Luminescence::calc_FiniteMixture], [Luminescence::calc_FuchsLang2001], [Luminescence::calc_MinDose]

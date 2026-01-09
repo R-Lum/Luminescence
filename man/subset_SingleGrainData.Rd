@@ -42,7 +42,7 @@ subset_SingleGrainData(object = CWOSL.SAR.Data, selection = selection)
 \link{verify_SingleGrainData}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{datagen}
 \keyword{manip}

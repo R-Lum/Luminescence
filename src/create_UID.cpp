@@ -1,6 +1,7 @@
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Title:   create_UID()
-// Author:  Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+// Author:  F2.1 Geophysical Parametrisation/Regionalisation, LIAG - 
+// Institute for Applied Geophysics (Hannover, Germany)
 // Contact: sebastian.kreutzer@uni-heidelberg.de
 // Version: 0.1.1 [2025-03-14]
 // Purpose: The purpose of this function is to create a unique ID for RLum

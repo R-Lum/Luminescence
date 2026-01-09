@@ -296,6 +296,6 @@ recommendations. Quaternary Geochronology, 11, 1-27.
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany)\cr
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 Based on a rewritten S script of Rex Galbraith, 2010
 }

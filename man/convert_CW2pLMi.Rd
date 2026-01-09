@@ -152,7 +152,7 @@ LM-OSL curves. Radiation Measurements, 32, 141-145.
 \link{fit_LMCurve}, \linkS4class{RLum.Data.Curve}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 
 Based on comments and suggestions from:\cr
 Adrie J.J. Bos, Delft University of Technology, The Netherlands

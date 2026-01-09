@@ -56,6 +56,6 @@ plot_RLum(TL.Spectrum)
 \linkS4class{RLum}, \linkS4class{RLum.Data}, \link{plot_RLum}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{classes}

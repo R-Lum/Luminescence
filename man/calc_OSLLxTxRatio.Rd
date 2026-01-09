@@ -188,6 +188,6 @@ background-corrected OSL count. Ancient TL, 31 (2), 1-3. \doi{10.26034/la.atl.20
 \link{analyse_SAR.CWOSL}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{datagen}

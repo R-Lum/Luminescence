@@ -111,6 +111,6 @@ implications for luminescence dating. Radiation Measurements 120, 267-273.
 \linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Analysis}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{utilities}

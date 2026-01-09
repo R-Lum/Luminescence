@@ -123,6 +123,6 @@ CWOSL.SAR.Data
 \linkS4class{Risoe.BINfileData}
 }
 \author{
-Marco Colombo, Institute of Geography, Heidelberg University (Germany)
+Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{utilities}

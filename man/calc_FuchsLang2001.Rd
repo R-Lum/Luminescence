@@ -85,7 +85,7 @@ Quaternary Science Reviews 22, 1161-1167.
 \link{calc_CentralDose}, \link{calc_CommonDose}, \linkS4class{RLum.Results}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 Christoph Burow, University of Cologne (Germany)
 }
 \keyword{dplot}

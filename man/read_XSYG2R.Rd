@@ -221,7 +221,7 @@ XML: \url{https://en.wikipedia.org/wiki/XML}
 \link{approx}, \link{correct_PMTLinearity}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
-Marco Colombo, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{IO}

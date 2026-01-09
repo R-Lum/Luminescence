@@ -81,6 +81,6 @@ sort_RLum(sar, solt = "recordType", info_element = c("startDate"))
 \linkS4class{RLum.Analysis}, \linkS4class{Risoe.BINfileData}
 }
 \author{
-Marco Colombo, Institute of Geography, Heidelberg University (Germany)
+Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{utilities}

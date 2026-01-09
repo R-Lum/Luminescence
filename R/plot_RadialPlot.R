@@ -126,7 +126,7 @@
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 #' Based on a rewritten S script of Rex Galbraith, 2010
 #'
 #' @seealso [plot], [Luminescence::plot_KDE], [Luminescence::plot_Histogram], [Luminescence::plot_AbanicoPlot]

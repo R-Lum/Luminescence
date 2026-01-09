@@ -101,6 +101,6 @@ Geochronometria 45, 56-67. doi: 10.1515/geochr-2015-0086
 \link{analyse_Al2O3C_ITC}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{datagen}

@@ -57,6 +57,6 @@ obtain equivalent doses in OSL dating and dosimetry. Radiation Measurements 43, 
 \link{calc_FuchsLang2001}, \link{calc_CentralDose}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany),\cr
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany),\cr
 Michael Dietze, GFZ Potsdam (Germany)
 }

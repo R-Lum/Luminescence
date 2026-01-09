@@ -148,7 +148,7 @@
 #'
 #' @section Function version: 0.1.25
 #'
-#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+#' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 #' Christoph Burow, University of Cologne (Germany)
 #'
 #' @keywords datagen

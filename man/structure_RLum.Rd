@@ -59,6 +59,6 @@ structure_RLum(OSL.SARMeasurement$Sequence.Object)
 \linkS4class{RLum.Results}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{utilities}

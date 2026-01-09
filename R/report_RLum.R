@@ -104,7 +104,7 @@
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany),
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 #'
 #' @note
 #' This function requires the R packages 'rmarkdown', 'pander' and 'rstudioapi'.

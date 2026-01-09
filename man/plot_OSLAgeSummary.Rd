@@ -53,7 +53,7 @@ plot_OSLAgeSummary(object)
 Anne Philippe, Université de Nantes (France),
 Jean-Michel Galharret, Université de Nantes (France),
 Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France),
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{dplot}
 \keyword{hplot}

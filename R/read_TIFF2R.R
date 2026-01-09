@@ -17,7 +17,7 @@
 #'
 #'@return [Luminescence::RLum.Data.Image-class] object
 #'
-#'@author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#'@author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #'@section Function version: 0.2.0
 #'

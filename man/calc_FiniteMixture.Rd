@@ -203,6 +203,6 @@ reproducible distribution?. Ancient TL 26, 3-10.
 }
 \author{
 Christoph Burow, University of Cologne (Germany) \cr
-Marco Colombo, Institute of Geography, Heidelberg University (Germany) \cr
+Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 Based on a rewritten S script of Rex Galbraith, 2006.
 }

@@ -212,7 +212,7 @@ Radiation Measurements 43, 786-790. \doi{10.1016/j.radmeas.2008.01.021}
 \link{extract_IrradiationTimes}, \link{calc_FadingCorr}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 Christoph Burow, University of Cologne (Germany)
 }
 \keyword{datagen}

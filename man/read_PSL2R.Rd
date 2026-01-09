@@ -85,6 +85,6 @@ plot(psl, combine = TRUE)
 }
 \author{
 Christoph Burow, University of Cologne (Germany),
-Sebastian Kreutzer, Institut of Geography, Heidelberg University (Germany)
+F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{IO}

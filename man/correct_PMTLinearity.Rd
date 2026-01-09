@@ -50,7 +50,7 @@ Mittelstraß, D., Kreutzer, S., Schmidt, C., 2022. OSLdecomposition: Signal
 component analysis for optically stimulated luminescence. \doi{10.32614/CRAN.package.OSLdecomposition}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
-Dirk Mittelstrass, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+Dirk Mittelstrass, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{manip}

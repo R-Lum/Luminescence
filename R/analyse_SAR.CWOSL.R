@@ -208,7 +208,7 @@
 #'
 #' @section Function version: 0.12.0
 #'
-#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [Luminescence::calc_OSLLxTxRatio], [Luminescence::fit_DoseResponseCurve],
 #' [Luminescence::plot_DoseResponseCurve], [Luminescence::RLum.Analysis-class],

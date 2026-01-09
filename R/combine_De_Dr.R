@@ -34,7 +34,7 @@
 #'@author Anne Philippe, Université de Nantes (France),
 #' Jean-Michel Galharret, Université de Nantes (France),
 #' Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France),
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #'@examples
 #' n <- 1000
@@ -211,7 +211,7 @@
 #'@author Anne Philippe, Université de Nantes (France),
 #'Jean-Michel Galharret, Université de Nantes (France),
 #'Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France),
-#'Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#'Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #'@noRd
 .calc_BayesianCentralAgeModel <- function(
@@ -461,7 +461,7 @@
 #'@author Anne Philippe, Université de Nantes (France),
 #'Jean-Michel Galharret, Université de Nantes (France),
 #'Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France),
-#'Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#'Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #'@seealso [Luminescence::plot_OSLAgeSummary], [rjags::rjags], [mclust::mclust-package]
 #'

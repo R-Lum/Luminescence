@@ -74,7 +74,7 @@ plot_ROI(t, bg_image = m)
 \link{read_RF2R}, \link{extract_ROI}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{datagen}
 \keyword{plot}

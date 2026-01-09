@@ -136,6 +136,6 @@ abline = list(v = c(110))
 \link{plot}, \link{plot_RLum}, \link{plot_RLum.Data.Curve}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{aplot}

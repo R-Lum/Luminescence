@@ -130,7 +130,7 @@ Quaternary Geochronology 28, 54-61. \doi{10.1016/j.quageo.2015.03.012}
 \link{template_DRAC}, \link{.as.latex.table}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 Michael Dietze, GFZ Potsdam (Germany)\cr
 Christoph Burow, University of Cologne (Germany)
 }

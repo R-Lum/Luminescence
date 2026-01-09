@@ -201,5 +201,5 @@ report_RLum(object = x, file = "~/arbitray_list")
 }
 \author{
 Christoph Burow, University of Cologne (Germany),
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 }

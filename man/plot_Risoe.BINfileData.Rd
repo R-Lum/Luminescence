@@ -124,8 +124,8 @@ Duller, G., 2007. Analyst. pp. 1-45.
 \link{convert_CW2pPMi}, \link{convert_CW2pHMi}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 Michael Dietze, GFZ Potsdam (Germany)\cr
-Marco Colombo, Institute of Geography, Heidelberg University (Germany)
+Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{dplot}

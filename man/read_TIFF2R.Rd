@@ -43,6 +43,6 @@ image <- read_TIFF2R(file)
 \link[tiff:readTIFF]{tiff::readTIFF}, \linkS4class{RLum.Data.Image}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{IO}

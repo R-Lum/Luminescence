@@ -62,5 +62,5 @@ of dose obtained using OSL. Ancient TL 21, 75-77.
 }
 \author{
 Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
-Institute of Geography, Heidelberg University (Germany)
+F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }

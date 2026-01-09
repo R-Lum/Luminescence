@@ -197,7 +197,7 @@
 #' @section Function version: 0.3.7
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [Luminescence::fit_CWCurve], [plot], [nls], [minpack.lm::nlsLM], [Luminescence::get_RLum]
 #'

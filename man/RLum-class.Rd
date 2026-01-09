@@ -57,6 +57,6 @@ showClass("RLum")
 \linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}, \link{methods_RLum}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{classes}

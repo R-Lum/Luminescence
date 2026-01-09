@@ -100,9 +100,9 @@
 #' @section Function version: 0.18
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 #' Margret C. Fuchs, HZDR Freiberg, (Germany) \cr
-#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
+#' Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 #' based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
 #'
 #'

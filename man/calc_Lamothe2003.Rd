@@ -170,7 +170,7 @@ Towards a prediction of long-term anomalous fading of feldspar IRSL. Radiation M
 \link{calc_FadingCorr}, \link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 }
 \keyword{datagen}

@@ -329,7 +329,7 @@
 #'
 #' @author
 #' Norbert Mercier, Archéosciences Bordeaux, CNRS-Université Bordeaux Montaigne (France) \cr
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 #' The underlying Bayesian model based on a contribution by Combès et al., 2015.
 #'
 #' @seealso [Luminescence::read_BIN2R], [Luminescence::calc_OSLLxTxRatio],

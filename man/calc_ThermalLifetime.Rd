@@ -157,6 +157,6 @@ Furetta, C., 2010. Handbook of Thermoluminescence, Second Edition. World Scienti
 \link[graphics:matplot]{graphics::matplot}, \link[stats:Normal]{stats::rnorm}, \link{get_RLum}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{datagen}

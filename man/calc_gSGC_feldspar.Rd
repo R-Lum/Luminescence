@@ -83,6 +83,6 @@ stimulated luminescence dating of K-feldspar 27, 119–130. \doi{10.1016/j.quage
 }
 \author{
 Harrison Gray, USGS (United States),
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{datagen}

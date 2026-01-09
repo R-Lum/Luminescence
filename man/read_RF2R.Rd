@@ -50,6 +50,6 @@ single-grain K-feldspar dating using CCD imaging. Geochronology 3, 299–319. \d
 \link{analyse_IRSAR.RF}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{IO}

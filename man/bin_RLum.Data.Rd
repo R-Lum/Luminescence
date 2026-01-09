@@ -80,6 +80,6 @@ plot_RLum(bin_RLum.Data(curve, bin_size = 4))
 \linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Data.Spectrum}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{utilities}

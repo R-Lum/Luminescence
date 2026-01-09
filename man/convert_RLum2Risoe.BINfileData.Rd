@@ -43,6 +43,6 @@ convert_RLum2Risoe.BINfileData(IRSAR.RF.Data)
 \linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}, \link{write_R2BIN}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{IO}

@@ -101,6 +101,6 @@ plot_DRCSummary(results)
 \linkS4class{RLum.Results}, \link{analyse_SAR.CWOSL}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 Christoph Burow, University of Cologne (Germany)
 }

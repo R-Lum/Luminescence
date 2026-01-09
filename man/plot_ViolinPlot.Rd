@@ -98,5 +98,5 @@ Wickham. H (2009). ggplot2: elegant graphics for data analysis. Springer New Yor
 \link[stats:density]{stats::density}, \link{plot}, \link{boxplot}, \link{rug}, \link{calc_Statistics}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }

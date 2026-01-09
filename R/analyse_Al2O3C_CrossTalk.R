@@ -63,7 +63,7 @@
 #'
 #' @section Function version: 0.1.3
 #'
-#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [Luminescence::analyse_Al2O3C_ITC]
 #'

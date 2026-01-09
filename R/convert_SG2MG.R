@@ -18,7 +18,7 @@
 #' @section Function version: 0.1.0
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 #' Norbert Mercier, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France)
 #'
 #' @seealso [Luminescence::Risoe.BINfileData-class], [Luminescence::read_BIN2R], [Luminescence::write_R2BIN]

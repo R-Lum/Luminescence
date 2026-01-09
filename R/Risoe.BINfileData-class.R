@@ -202,7 +202,7 @@
 #'
 #' @section Function version: 0.4.1
 #'
-#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+#' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 #' based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
 #'
 #' @seealso [Luminescence::plot_Risoe.BINfileData], [Luminescence::read_BIN2R],

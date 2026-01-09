@@ -26,7 +26,7 @@
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [plot], [Luminescence::plot_RLum]
 #'

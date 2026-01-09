@@ -63,6 +63,6 @@ object <- convert_RLum2Risoe.BINfileData(object)
 \link[base:readLines]{base::readLines}, \linkS4class{RLum.Analysis}, \link{list.files}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{IO}

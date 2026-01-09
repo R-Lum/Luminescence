@@ -80,6 +80,6 @@ plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
 \link[graphics:image]{graphics::image}, \link[graphics:contour]{graphics::contour}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{aplot}

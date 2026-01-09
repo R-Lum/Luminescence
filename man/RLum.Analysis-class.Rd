@@ -64,7 +64,7 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 \linkS4class{Risoe.BINfileData}, \linkS4class{RLum}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{classes}
 \keyword{methods}

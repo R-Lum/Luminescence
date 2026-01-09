@@ -104,5 +104,5 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
 \link{as.data.frame}, \link{list}
 }
 \author{
-Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }

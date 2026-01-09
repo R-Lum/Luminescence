@@ -46,7 +46,7 @@
 #' @section Function version: 0.1.1
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [Luminescence::RLum.Data.Spectrum-class], [Luminescence::plot_RLum]
 #'

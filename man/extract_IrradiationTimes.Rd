@@ -185,7 +185,7 @@ recent improvements. Ancient TL 33, 35-42. \doi{10.26034/la.atl.2015.489}
 \link{read_XSYG2R}, \link{read_BIN2R}, \link{write_R2BIN}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{IO}
 \keyword{manip}

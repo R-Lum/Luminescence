@@ -39,7 +39,7 @@
 #'@section Function version: 0.1.0
 #'
 #'@author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #'@examples
 #'## read log file (RLum.Analysis)

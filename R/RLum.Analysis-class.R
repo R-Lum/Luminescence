@@ -24,7 +24,7 @@
 #' @section Class version: 0.4.19
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [Luminescence::Risoe.BINfileData2RLum.Analysis],
 #' [Luminescence::Risoe.BINfileData-class], [Luminescence::RLum-class]

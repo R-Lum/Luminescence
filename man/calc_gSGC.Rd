@@ -89,6 +89,6 @@ Quaternary Geochronology 27, 94-104. doi:10.1016/j.quageo.2015.02.011
 \linkS4class{RLum.Results}, \link{get_RLum}, \link{uniroot}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{datagen}

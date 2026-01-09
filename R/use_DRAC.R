@@ -56,7 +56,7 @@
 #' @section Function version: 0.17
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
 #' Christoph Burow, University of Cologne (Germany)
 #'

@@ -153,7 +153,7 @@
 #'
 #' @section Function version: 0.4.4
 #'
-#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [Luminescence::RLum.Results-class], [Luminescence::analyse_FadingMeasurement],
 #' [Luminescence::get_RLum], [uniroot]

@@ -132,6 +132,6 @@ Single Images. The Astronomical Society of the Pacific 116 (816), 148-153.
 \link[stats:smooth]{stats::smooth}, \link[stats:smooth.spline]{stats::smooth.spline}, \link{smooth_RLum}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{manip}

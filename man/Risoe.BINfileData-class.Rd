@@ -254,7 +254,7 @@ The Sequence Editor User Manual - February 2016
 \link{Risoe.BINfileData2RLum.Analysis}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
 }
 \keyword{classes}

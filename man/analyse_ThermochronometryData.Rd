@@ -73,7 +73,7 @@ OSLThermo and ESRThermo: Libraries of code for trapped-charge thermochronometry.
 \link{fit_DoseResponseCurve}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany),
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany),
 Svenja Riedesel, DTU Risø (Denmark)
 }
 \keyword{datagen}

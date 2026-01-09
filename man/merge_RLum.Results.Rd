@@ -27,6 +27,6 @@ The \code{originator} is taken from the first element and not reset to \link{mer
 }
 
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{internal}

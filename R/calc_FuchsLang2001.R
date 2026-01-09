@@ -53,7 +53,7 @@
 #' @section Function version: 0.4.1
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 #' Christoph Burow, University of Cologne (Germany)
 #'
 #' @seealso [plot], [Luminescence::calc_MinDose], [Luminescence::calc_FiniteMixture],

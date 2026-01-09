@@ -165,7 +165,7 @@ plot_FilterCombinations(filters = list(filter1, filter2), interactive = TRUE)
 \linkS4class{RLum.Results}, \link{approx}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{aplot}
 \keyword{datagen}

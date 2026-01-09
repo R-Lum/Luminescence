@@ -17,7 +17,7 @@
 #' @section Function version: 0.2.0
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @note Currently only `RLum.Data` objects of class [Luminescence::RLum.Data.Curve-class]
 #' and [Luminescence::RLum.Data.Spectrum-class] are supported.
@@ -70,7 +70,7 @@ setGeneric("bin_RLum.Data", function(object, ...) {
 #' @section Function version: 0.3.3
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [Luminescence::RLum.Data.Curve-class], [Luminescence::RLum.Data.Image-class],
 #' [Luminescence::RLum.Data.Spectrum-class], [Luminescence::RLum.Analysis-class],
@@ -182,7 +182,7 @@ setMethod("get_RLum", signature = "NULL",
 #' @section Function version: 0.1.0
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [Luminescence::RLum.Analysis-class]
 #'
@@ -238,7 +238,7 @@ setMethod("remove_RLum", signature = "list",
 #' @section Function version: 0.1.0
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso
 #' [Luminescence::RLum.Data.Curve-class],
@@ -268,7 +268,7 @@ setGeneric("length_RLum", function(object) {
 #' @section Function version: 0.1.0
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [Luminescence::RLum.Data.Curve-class], [Luminescence::RLum.Analysis-class]
 #'
@@ -334,7 +334,7 @@ setMethod("melt_RLum", signature = "list",
 #' in `info_element` will be removed.
 #'
 #' @author
-#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
+#' Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [Luminescence::RLum.Data-class], [Luminescence::RLum.Analysis-class],
 #' [Luminescence::Risoe.BINfileData-class]
@@ -407,7 +407,7 @@ setGeneric("replace_metadata<-", function(object, ..., value) {
 #' @section Function version: 0.1.0
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [Luminescence::RLum.Data.Curve-class], [Luminescence::RLum.Data.Image-class],
 #' [Luminescence::RLum.Data.Spectrum-class], [Luminescence::RLum.Analysis-class],
@@ -457,7 +457,7 @@ setMethod("names_RLum", signature = "list",
 #' @section Function version: 0.1.0
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [Luminescence::RLum-class]
 #'
@@ -491,7 +491,7 @@ setGeneric("replicate_RLum", function(object, times = 1) {
 #' @section Function version: 0.1
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [Luminescence::Risoe.BINfileData-class]
 #'
@@ -535,7 +535,7 @@ setGeneric("set_Risoe.BINfileData", function(METADATA = data.frame(),
 #' @section Function version: 0.3.0
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [Luminescence::RLum.Data.Curve-class], [Luminescence::RLum.Data.Image-class],
 #' [Luminescence::RLum.Data.Spectrum-class], [Luminescence::RLum.Analysis-class],
@@ -622,7 +622,7 @@ NULL
 #' @section Function version: 0.1.0
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @note
 #' Currently only `RLum` objects of class `RLum.Data.Curve` and `RLum.Analysis`
@@ -723,7 +723,7 @@ setMethod("smooth_RLum", signature = "list",
 #' @section Function version: 0.1.1
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [Luminescence::RLum.Data.Curve-class], [Luminescence::RLum.Analysis-class],
 #' [Luminescence::RLum.Data.Spectrum-class],  [Luminescence::RLum.Data.Image-class]
@@ -799,7 +799,7 @@ setMethod("normalise_RLum", signature = "list",
 #' @section Function version: 0.1.0
 #'
 #' @author
-#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
+#' Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::Risoe.BINfileData-class]
 #'
@@ -855,7 +855,7 @@ setMethod("sort_RLum", signature = "list",
 #' @section Function version: 0.2.0
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [Luminescence::RLum.Data.Curve-class], [Luminescence::RLum.Data.Image-class],
 #' [Luminescence::RLum.Data.Spectrum-class], [Luminescence::RLum.Analysis-class],
@@ -911,7 +911,7 @@ setMethod("structure_RLum", signature = "list",
 #' `NULL` and opens the data viewer.
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @keywords utilities
 #'

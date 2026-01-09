@@ -117,7 +117,7 @@
 #' @section Function version: 0.1.1
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 #' Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
 #'
 #' @keywords datagen

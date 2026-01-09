@@ -93,7 +93,7 @@ Duller, G.A.T., 2007. Analyst (Version 3.24) (manual). Aberystwyth University, A
 \linkS4class{Risoe.BINfileData}, \link{read_BIN2R}, \link{write_R2BIN}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{IO}
 \keyword{manip}

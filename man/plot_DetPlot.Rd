@@ -170,5 +170,5 @@ doi:10.1016/S1350-4487(03)00063-5
 \link{plot}, \link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Ruprecht-Karl University of Heidelberg (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }

@@ -122,6 +122,6 @@ plot_RLum(normalise_RLum(curve))
 \linkS4class{RLum.Data.Spectrum},  \linkS4class{RLum.Data.Image}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{utilities}

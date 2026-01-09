@@ -59,6 +59,6 @@ convert_PSL2CSV(file)
 \link[utils:write.table]{utils::write.table}, \link{write_RLum2CSV}, \link{read_PSL2R}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{IO}

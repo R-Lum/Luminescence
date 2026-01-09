@@ -42,7 +42,7 @@
 #' @section Function version: 0.5.0
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 #' Christoph Burow, Universtiy of Cologne (Germany)
 #'
 #' @seealso [Luminescence::Risoe.BINfileData2RLum.Analysis], [Luminescence::set_RLum],

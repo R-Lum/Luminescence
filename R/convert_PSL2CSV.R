@@ -27,7 +27,7 @@
 #'
 #' @section Function version: 0.1.2
 #'
-#' @author Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data-class], [Luminescence::RLum.Results-class],
 #' [utils::write.table], [Luminescence::write_RLum2CSV], [Luminescence::read_PSL2R]

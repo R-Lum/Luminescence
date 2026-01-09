@@ -131,6 +131,6 @@ luminescence signals. Journal of Luminescence 142, 202–211. \doi{10.1016/j.jlu
 \linkS4class{RLum.Data.Spectrum}, \link{plot_RLum}
 }
 \author{
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{IO}

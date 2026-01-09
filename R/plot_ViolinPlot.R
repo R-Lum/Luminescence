@@ -58,7 +58,7 @@
 #' @section Function version: 0.1.4
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @references
 #' Daniel Adler (2025). vioplot: violin plot.

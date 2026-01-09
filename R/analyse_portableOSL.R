@@ -94,8 +94,8 @@
 #' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data.Curve-class], [Luminescence::read_PSL2R]
 #'
 #' @author Christoph Burow, University of Cologne (Germany) \cr
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) \cr
-#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
+#' Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @section Function version: 0.1.3
 #'

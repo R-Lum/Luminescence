@@ -61,7 +61,7 @@
 #' @section Function version: 0.5.4
 #'
 #' @author
-#' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @note
 #' ROI definitions (introduced in BIN-file version 8) are not supported!

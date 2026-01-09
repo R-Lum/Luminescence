@@ -1,6 +1,7 @@
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Title:   Collection of fit functions and models in C++
-// Author:  Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+// Author:  F2.1 Geophysical Parametrisation/Regionalisation, 
+// LIAG - Institute for Applied Geophysics (Hannover, Germany)
 // Contact: sebastian.kreutzer@uni-heidelberg.de
 // Version: 0.1.0 [2025-04-19]
 // The purpose of this function is the reduce the overhead when used in

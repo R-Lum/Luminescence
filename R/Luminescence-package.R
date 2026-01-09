@@ -68,7 +68,7 @@
 #' * since 08/2024: The future and sustainable development of 'Luminescence'
 #' towards better reproducibility and usability is supported through the DFG
 #' programme "REPLAY: REProducible Luminescence Data AnalYses" No 528704761,
-#' led by Dr Sebastian Kreutzer (PI at Heidelberg University, DE) and Dr Thomas
+#' led by Dr Sebastian Kreutzer (PI at LIAG - Institute for Applied Geophysics, Hannover, DE) and Dr Thomas
 #' Kolb (PI at Justus-Liebig-University Giessen, DE).
 #'
 #' * All other authors gratefully received additional funding from various public funding bodies.
