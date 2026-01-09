@@ -10,7 +10,7 @@ read_Daybreak2R(file, raw = FALSE, verbose = TRUE, txtProgressBar = TRUE, ...)
 \item{file}{\link{character} or \link{list} (\strong{required}):
 path and file name of the file to be imported. Alternatively a list of file
 names can be provided or just the path a folder containing measurement data.
-Please note that the specific, common, file extension (txt) is likely
+Please note that the specific, common, file extension (\code{.txt}) is likely
 leading to function failures during import when just a path is provided.}
 
 \item{raw}{\link{logical} (\emph{with default}):
@@ -39,7 +39,7 @@ This function still needs to be tested properly. In particular
 the function has underwent only very rough tests using a few files.
 }
 \section{Function version}{
- 0.3.2
+ 0.3.3
 }
 
 \examples{

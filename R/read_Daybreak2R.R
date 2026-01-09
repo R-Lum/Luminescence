@@ -7,7 +7,7 @@
 #' @param file [character] or [list] (**required**):
 #' path and file name of the file to be imported. Alternatively a list of file
 #' names can be provided or just the path a folder containing measurement data.
-#' Please note that the specific, common, file extension (txt) is likely
+#' Please note that the specific, common, file extension (`.txt`) is likely
 #' leading to function failures during import when just a path is provided.
 #'
 #' @param raw [logical] (*with default*):
@@ -30,7 +30,7 @@
 #' This function still needs to be tested properly. In particular
 #' the function has underwent only very rough tests using a few files.
 #'
-#' @section Function version: 0.3.2
+#' @section Function version: 0.3.3
 #'
 #' @author
 #' Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)\cr
@@ -110,7 +110,6 @@ read_Daybreak2R <- function(
 
 
   ## Integrity checks -------------------------------------------------------
-
   ##check if file exists
   if(!file.exists(file)){
     .throw_error("File does not exist")
@@ -118,21 +117,18 @@ read_Daybreak2R <- function(
 
   ##check for file extension ... distinguish between TXT and DAT
   if (endsWith(file, ".DAT")) {
-
     ## Read DAT-file --------------------------------------------------------
     on.exit(close(con), add = TRUE)
-
       ##screen file to get information on the number of stored records
       con <-file(file, "rb")
       file.data <- file.info(file)
-      max.pt<-readBin(con,what="int",6,size=2,endian="little")[6]
-      file.size<-file.data$size
-      n.length<-file.size/(190+8*(max.pt+1)) ##190 is is size of the header for each data set
+      max.pt <- readBin(con,what="int",6,size=2,endian="little")[6]
+      file.size <- file.data$size
+      n.length <- file.size/(190+8*(max.pt+1)) ##190 is is size of the header for each data set
       close(con)
 
       ##import data
       con <- file(file, "rb")
-
       ##pre-define data.table
       results.DATA <-
         data.table::data.table(
@@ -176,14 +172,12 @@ read_Daybreak2R <- function(
       }
 
       ##PROGRESS BAR
-      if (txtProgressBar) {
+      if (txtProgressBar)
         pb <- txtProgressBar(min=0,max=n.length, char = "=", style=3)
-      }
 
       ##LOOP over file
       i <- 1
       while (i<n.length){
-
         #integer
         ligne1<-readBin(con,what="int",6,size=2,endian="little")
         i_NPT<-ligne1[1]
@@ -236,7 +230,7 @@ read_Daybreak2R <- function(
         i_RUNREMARK <- readBin(con, "raw", n = 40)
         i_RUNREMARK <- rawToChar(i_RUNREMARK[2:40])
 
-        i_DATA<-readBin(con,what="double",i_MAXPT+1,size=8,endian="little")
+        i_DATA <- readBin(con,what="double",i_MAXPT+1,size=8,endian="little")
 
         results.DATA[i,':='(ID=i,MAXPT=i_MAXPT,SPACING=i_SPACING,NDISK=i_NDISK,NRUN=i_NRUN,D1=i_D1,NPT=i_NPT,
                             NATL=i_NATL,TLRUN=i_TLRUN,BEFORE_IRRAD=i_BEFORE_IRRAD,
@@ -260,12 +254,12 @@ read_Daybreak2R <- function(
         }
       }
 
-    if (txtProgressBar) close(pb)
+    if (txtProgressBar)
+      close(pb)
 
     ## Output a data.table
-    if (raw) {
+    if (raw)
       return(results.DATA)
-    }
 
     ## Output an RLum.Analysis object
     ## remove NULL entries, otherwise we have to deal with them later
@@ -307,7 +301,6 @@ read_Daybreak2R <- function(
   }else{
 
     ## Read ASCII file ------------------------------------------------------
-
     if(verbose){
       cat("\n[read_Daybreak] file extension not of type '.DAT' try to import ASCII-file ... \n")
     }
@@ -320,9 +313,8 @@ read_Daybreak2R <- function(
 
     ## check whether the file contains non-ASCII characters: the [^ -~]
     ## regexp matches all ASCII characters from space to tilde
-    if (any(grepl("[^ -~]", file2read[1]))) {
+    if (any(grepl("[^ -~]", file2read[1])))
       .throw_error("The provided file is not ASCII and cannot be imported")
-    }
 
     ##(1)
     ##get all rows with the term "[NewRecord]" - that's what we are interested in and it defines
@@ -351,9 +343,8 @@ read_Daybreak2R <- function(
     }
 
     ##PROGRESS BAR
-    if(txtProgressBar & verbose){
-      pb <- txtProgressBar(min=0,max=length(data.list), char = "=", style=3)
-    }
+    if(txtProgressBar & verbose)
+      pb <- txtProgressBar(min = 0,max=length(data.list), char = "=", style = 3)
 
     ##(2)
     ##Loop over the list to create RLum.Data.Curve objects
@@ -365,8 +356,7 @@ read_Daybreak2R <- function(
       header.length <- grep("Points", x = record, fixed = TRUE)
 
       last.idx <- if (length(header.length) > 0) header.length else record.length
-      temp.meta_data <- unlist(strsplit(record[2:last.idx],
-                                        split = "=", fixed = TRUE))
+      temp.meta_data <- unlist(strsplit(record[2:last.idx], split = "=", fixed = TRUE))
 
       ##get list names for the info element list
       info.names <- temp.meta_data[seq(1,length(temp.meta_data), by = 2)]
@@ -380,8 +370,8 @@ read_Daybreak2R <- function(
 
       if(length(header.length)>0){
         ##get measurement data
-        temp.data <- unlist(strsplit(record[-(1:11)],
-                                     split = ";", fixed = TRUE))
+        temp.data <- unlist(
+          strsplit(record[-(1:header.length)], split = ";", fixed = TRUE))
 
         ## reshape as [idx, x, y, valid], then take only [x, y]
         temp.data <- matrix(temp.data, ncol = 4, byrow = TRUE)[, 2:3]
@@ -394,9 +384,8 @@ read_Daybreak2R <- function(
       }
 
       ##update progress bar
-      if (txtProgressBar) {
+      if (txtProgressBar)
         setTxtProgressBar(pb, x)
-      }
 
       ##return RLum object
       return(
@@ -412,24 +401,18 @@ read_Daybreak2R <- function(
     })
 
     ##close ProgressBar
-    if (txtProgressBar) close(pb)
+    if (txtProgressBar)
+      close(pb)
 
     ##(3)
     ##Now we have to find out how many aliquots we do have
-    positions.id <- sapply(RLum.Data.Curve.list,
-                           get_RLum, info.object = "position")
+    positions.id <- vapply(RLum.Data.Curve.list, get_RLum, info.object = "position", integer(1))
 
     ##(4)
-    ##now combine everyting in an RLum.Analysis object in accordance to the position number
+    ##now combine everything in an RLum.Analysis object in accordance to the position number
     RLum.Analysis.list <- lapply(unique(positions.id), function(x){
-
       ##get list ids for position number
-      n <- which(positions.id == x)
-
-      ##make list
-      temp.list <- lapply(n, function(x){
-        RLum.Data.Curve.list[[x]]
-      })
+      temp.list <- RLum.Data.Curve.list[which(positions.id == x)]
 
       ##put in RLum.Analysis object
       object <- set_RLum(
