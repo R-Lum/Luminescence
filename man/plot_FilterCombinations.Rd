@@ -33,7 +33,7 @@ enable/disable the plot output.}
 
 \item{...}{further arguments that can be passed to control the plot output.
 Supported are \code{main}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{type}, \code{lty}, \code{lwd}.
-For non common plotting parameters, see the details section.}
+For non-common plotting parameters, see the details section.}
 }
 \value{
 Returns an S4 object of type \linkS4class{RLum.Results}.
@@ -130,7 +130,7 @@ e.g., the legend can be fully customised by disabling the standard legend
 and using the function \link[graphics:legend]{graphics::legend} instead.
 }
 \section{Function version}{
- 0.3.2
+ 0.3.3
 }
 
 \examples{

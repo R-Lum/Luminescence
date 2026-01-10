@@ -113,6 +113,14 @@ elements to process (#1258).
 causing plots intended to appear side-by-side to be rendered on separate pages
 (#1247).
 
+### `plot_FilterCombinations()`
+
+* The interactive mode did not accept all plotting options from the non-interactive
+mode (the default); fixed. 
+
+* If the functions was used on a shiny server, the plot showed only after the app 
+was closed; fixed. 
+
 ### `read_BIN2R()`
 
 * The function could crash if called with `do.call()` and some particularly
