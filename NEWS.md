@@ -131,10 +131,10 @@
 ### `plot_FilterCombinations()`
 
 - The interactive mode did not accept all plotting options from the
-  non-interactive mode (the default); fixed.
+  non-interactive mode (the default); fixed (#c27a656).
 
 - If the functions was used on a shiny server, the plot showed only
-  after the app was closed; fixed.
+  after the app was closed; fixed (#c27a656).
 
 ### `read_BIN2R()`
 
