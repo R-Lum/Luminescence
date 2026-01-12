@@ -1,0 +1,147 @@
+{
+  "Leibniz Institute for Applied Geophysics": {
+    "ror": "https://ror.org/01k6m6c18",
+    "affiliation_label": "F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Hannover, Germany)",
+    "lat": 52.3860,
+    "lon": 9.7160,
+    "people": [
+      "Kreutzer, Sebastian",
+      "Mittelstrass, Dirk"
+    ]
+  },
+  "University of Cologne": {
+    "ror": "https://ror.org/00rcxh774",
+    "affiliation_label": "University of Cologne (Germany)",
+    "lat": 50.9271,
+    "lon": 6.9282,
+    "people": [
+      "Burow, Christoph",
+      "Riedesel, Svenja",
+      "Autzen, Martin"
+    ]
+  },
+  "RWTH Aachen University": {
+    "ror": "https://ror.org/04xfq0f34",
+    "affiliation_label": "RWTH Aachen University (Germany)",
+    "lat": 50.7785,
+    "lon": 6.0606,
+    "people": [
+      "Dietze, Michael"
+    ]
+  },
+  "Helmholtz-Zentrum Dresden-Rossendorf (Freiberg site)": {
+    "ror": "https://ror.org/02twcfy30",
+    "affiliation_label": "HZDR Freiberg (Germany)",
+    "lat": 50.9146,
+    "lon": 13.3430,
+    "people": [
+      "Fuchs, Margret C."
+    ]
+  },
+  "University of Lausanne": {
+    "ror": "https://ror.org/019wvm592",
+    "affiliation_label": "Université de Lausanne (Switzerland)",
+    "lat": 46.5218,
+    "lon": 6.5840,
+    "people": [
+      "Schmidt, Christoph",
+      "King, Georgina E."
+    ]
+  },
+  "University of Bayreuth": {
+    "ror": "https://ror.org/0234wmv40",
+    "affiliation_label": "University of Bayreuth (Germany)",
+    "lat": 49.9481,
+    "lon": 11.5783,
+    "people": [
+      "Fischer, Manfred",
+      "Friedrich, Johannes"
+    ]
+  },
+  "Centre National de la Recherche Scientifique": {
+    "ror": "https://ror.org/02feahw73",
+    "affiliation_label": "CNRS (France)",
+    "lat": 48.8462,
+    "lon": 2.3554,
+    "people": [
+      "Mercier, Norbert",
+      "Guérin, Guillaume",
+      "Guibert, Pierre"
+    ]
+  },
+  "University of Liverpool": {
+    "ror": "https://ror.org/047m9yq35",
+    "affiliation_label": "University of Liverpool (United Kingdom)",
+    "lat": 53.4066,
+    "lon": -2.9665,
+    "people": [
+      "Smedley, Rachel K."
+    ]
+  },
+  "Université de Nantes": {
+    "ror": "https://ror.org/03gnrpa50",
+    "affiliation_label": "Université de Nantes (France)",
+    "lat": 47.2440,
+    "lon": -1.5516,
+    "people": [
+      "Christophe, Claire",
+      "Philippe, Anne",
+      "Galharret, Jean-Michel"
+    ]
+  },
+  "Centre de recherche et de restauration des musées de France": {
+    "ror": "https://ror.org/03kz1m068",
+    "affiliation_label": "Centre de Recherche et de Restauration des Musées de France: Paris, Île-de-France (France)",
+    "lat": 48.8566,
+    "lon": 2.3522,
+    "people": [
+      "Zink, Antoine"
+    ]
+  },
+  "University of Oxford": {
+    "ror": "https://ror.org/052gg0110",
+    "affiliation_label": "University of Oxford (United Kingdom)",
+    "lat": 51.7548,
+    "lon": -1.2544,
+    "people": [
+      "Durcan, Julie"
+    ]
+  },
+  "United States Geological Survey (Denver)": {
+    "ror": "https://ror.org/04psfya12",
+    "affiliation_label": "USGS (United States)",
+    "lat": 39.7392,
+    "lon": -104.9903,
+    "people": [
+      "Gray, Harrison J."
+    ]
+  },
+  "Heidelberg University": {
+    "ror": "https://ror.org/03mtd9a03",
+    "affiliation_label": "Institute of Geography, Heidelberg University (Germany)",
+    "lat": 49.4170,
+    "lon": 8.6724,
+    "people": [
+      "Colombo, Marco"
+    ]
+  },
+  "Wageningen University & Research": {
+    "ror": "https://ror.org/04p6khd45",
+    "affiliation_label": "Wageningen University & Research (The Netherlands)",
+    "lat": 51.9876,
+    "lon": 5.6630,
+    "people": [
+      "Steinbuch, Luc",
+      "de Boer, Anna-Maartje"
+    ]
+  },
+  "Silesian University of Technology": {
+    "ror": "https://ror.org/02y2w4t05",
+    "affiliation_label": "Silesian University of Technology (Poland)",
+    "lat": 50.2910,
+    "lon": 18.6766,
+    "people": [
+      "Bluszcz, Andrzej"
+    ]
+  }
+}
