@@ -39,7 +39,7 @@ This function still needs to be tested properly. In particular
 the function has underwent only very rough tests using a few files.
 }
 \section{Function version}{
- 0.3.4
+ 0.3.5
 }
 
 \examples{
