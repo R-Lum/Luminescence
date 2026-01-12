@@ -11,6 +11,8 @@ test_that("Test functionality", {
   expect_type(read_Daybreak2R(txt.file), "list")
   expect_type(read_Daybreak2R(txt.file, txtProgressBar = FALSE),
               "list")
+  expect_type(read_Daybreak2R(test_path("_data/daybreak-tests/morethan4cols.txt")),
+              "list")
   })
   expect_silent(read_Daybreak2R(txt.file, verbose = FALSE))
 
@@ -21,6 +23,11 @@ test_that("Test functionality", {
                   "data.table")
   })
   expect_silent(read_Daybreak2R(dat.file, verbose = FALSE))
+
+  ## lowercase extension
+  expect_s3_class(read_Daybreak2R(test_path("_data/daybreak-tests/lowercase.dat"),
+                                  raw = TRUE, verbose = FALSE),
+                  "data.table")
 
   ## list
   SW({
@@ -59,4 +66,22 @@ test_that("input validation", {
              file.nonascii)
   expect_error(read_Daybreak2R(file = file.nonascii, verbose = FALSE),
     "The provided file is not ASCII and cannot be imported")
+})
+
+test_that("command records", {
+  testthat::skip_on_cran()
+
+  res <- read_Daybreak2R(test_path("_data/daybreak-tests/command-1.txt"),
+                         verbose = FALSE)
+  expect_type(res, "list")
+  expect_length(res, 1)
+  expect_length(res[[1]], 2)
+  expect_output(print(res[[1]]@records[[2]]))
+
+  res <- read_Daybreak2R(test_path("_data/daybreak-tests/command-2.txt"),
+                         verbose = FALSE)
+  expect_type(res, "list")
+  expect_length(res, 1)
+  expect_length(res[[1]], 11)
+  expect_true(all(!is.na(res[[1]]@records[[11]]@data)))
 })

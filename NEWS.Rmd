@@ -129,11 +129,15 @@ odd inputs (#1260).
 
 ### `read_Daybreak2R()`
 
-* The function struggled with variable header lengths; fixed (#1262, thanks for reporting to @andrzejbluszcz
-)
+* The function struggled with variable header lengths (#1262; thanks to
+@andrzejbluszcz for reporting).
 
-* The function will no any longer crash if the data point entries have more than 
+* The function will no longer crash if the data point entries have more than
 four columns (thanks to @andrzejbluszcz for reporting).
+
+* The function now accepts both `.DAT` and `.dat` extension, and supports
+DataType=Command records (#1263; thanks to @andrzejbluszcz for contributing
+code and datasets).
 
 ### `read_XSYG2R()`
 

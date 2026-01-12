@@ -30,7 +30,7 @@
 #' This function still needs to be tested properly. In particular
 #' the function has underwent only very rough tests using a few files.
 #'
-#' @section Function version: 0.3.4
+#' @section Function version: 0.3.5
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -117,7 +117,7 @@ read_Daybreak2R <- function(
   }
 
   ##check for file extension ... distinguish between TXT and DAT
-  if (endsWith(file, ".DAT")) {
+  if (endsWith(toupper(file), ".DAT")) {
     ## Read DAT-file --------------------------------------------------------
     on.exit(close(con), add = TRUE)
       ##screen file to get information on the number of stored records
@@ -370,10 +370,10 @@ read_Daybreak2R <- function(
       info <- c(info, position = as.integer(info$Disk))
 
       if(length(header.length)>0){
-        ##get measurement data ... this construction makes no assumption on 
-        ##the number of columns 
+        ## get measurement data ... this construction makes no assumption on
+        ## the number of columns
         temp.data <- data.table::tstrsplit(
-          record[-(1:header.length)], ";", fixed = TRUE, 
+          record[header.length + 1:as.numeric(info[["Points"]])], ";", fixed = TRUE,
           type.convert = TRUE)
 
         ## construct data matrix
@@ -383,6 +383,14 @@ read_Daybreak2R <- function(
           point.x <- c(1,as.numeric(info$IrradTime))
           point.y <- rep(1, 2)
           data <- matrix(c(point.x,point.y), ncol = 2)
+      } else if (info[["DataType"]] == "Command") {
+        ## Note from Andrzej Bluszcz:
+        # the full [NewRecord] DataType=Command was used 2009 through 2023
+        # later it became replaced by a single line Commands=abc belonging formally to the previous record
+        # it was probably not an official Daybreak release, but my modification used locally in our lab
+        # nevertheless it is wiser to use record[(header.length + 1):(header.length + as.numeric(info[["Points"]]))]
+        # to extract data points
+        data <- matrix(0, ncol = 2)
       }
 
       ##update progress bar
