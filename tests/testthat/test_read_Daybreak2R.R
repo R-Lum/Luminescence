@@ -24,6 +24,11 @@ test_that("Test functionality", {
   })
   expect_silent(read_Daybreak2R(dat.file, verbose = FALSE))
 
+  ## lowercase extension
+  expect_s3_class(read_Daybreak2R(test_path("_data/daybreak-tests/lowercase.dat"),
+                                  raw = TRUE, verbose = FALSE),
+                  "data.table")
+
   ## list
   SW({
   expect_type(read_Daybreak2R(list(dat.file)), "list")

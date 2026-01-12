@@ -117,7 +117,7 @@ read_Daybreak2R <- function(
   }
 
   ##check for file extension ... distinguish between TXT and DAT
-  if (endsWith(file, ".DAT")) {
+  if (endsWith(toupper(file), ".DAT")) {
     ## Read DAT-file --------------------------------------------------------
     on.exit(close(con), add = TRUE)
       ##screen file to get information on the number of stored records
