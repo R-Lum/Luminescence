@@ -1,0 +1,67 @@
+ScriptFile=calib_2201_17_10_2023.txt
+ScriptName=Single aliquot regenerative dose method
+BinaryData=C:\TL_data_2201\calib_2201_17_10_2023.dat
+Sample=calib_2201_17_10_2023
+Info=calib_2201_17_10_2023
+ReaderID=TLINFO.DTA
+ReaderType=2200
+SingleAliquot=true
+[NewRecord]
+Operation=1
+SampleType=Disk
+Disk=0
+DataType=PREHEAT TL
+MaxTemp=240
+HoldTime=10
+RampRate=4
+Started=2023-10-19 08:00:30
+Stopped=2023-10-19 08:02:33
+Points=48
+  0;    5.000;   21.000;  valid ; Terr 9.922; HV -1269
+  1;   10.000;   19.000;  valid ; Terr 9.922; HV -1269
+  2;   15.000;   22.000;  valid ; Terr 9.922; HV -1269
+  3;   20.000;   19.000;  valid ; Terr 9.922; HV -1269
+  4;   25.000;   26.000;  valid ; Terr 7.578; HV -1269
+  5;   30.000;    8.000;  valid ; Terr 4.609; HV -1269
+  6;   35.000;   14.000;  valid ; Terr 1.641; HV -1269
+  7;   40.000;   19.000;  valid ; Terr 0.000; HV -1269
+  8;   45.000;   16.000;  valid ; Terr -0.234; HV -1269
+  9;   50.000;   26.000;  valid ; Terr -0.313; HV -1269
+ 10;   55.000;   13.000;  valid ; Terr -0.313; HV -1269
+ 11;   60.000;   17.000;  valid ; Terr -0.313; HV -1269
+ 12;   65.000;   17.000;  valid ; Terr -0.391; HV -1269
+ 13;   70.000;   13.000;  valid ; Terr -0.391; HV -1269
+ 14;   75.000;   30.000;  valid ; Terr -0.469; HV -1269
+ 15;   80.000;   16.000;  valid ; Terr -0.391; HV -1269
+ 16;   85.000;   16.000;  valid ; Terr -0.469; HV -1269
+ 17;   90.000;   28.000;  valid ; Terr -0.547; HV -1269
+ 18;   95.000;   42.000;  valid ; Terr -0.547; HV -1269
+ 19;  100.000;   38.000;  valid ; Terr -0.703; HV -1269
+ 20;  105.000;   42.000;  valid ; Terr -0.625; HV -1269
+ 21;  110.000;   62.000;  valid ; Terr -0.625; HV -1269
+ 22;  115.000;   94.000;  valid ; Terr -0.547; HV -1269
+ 23;  120.000;  107.000;  valid ; Terr -0.781; HV -1269
+ 24;  125.000;  116.000;  valid ; Terr -0.625; HV -1269
+ 25;  130.000;  170.000;  valid ; Terr -0.625; HV -1269
+ 26;  135.000;  234.000;  valid ; Terr -0.703; HV -1269
+ 27;  140.000;  350.000;  valid ; Terr -0.781; HV -1269
+ 28;  145.000;  520.000;  valid ; Terr -0.703; HV -1269
+ 29;  150.000;  826.000;  valid ; Terr -0.781; HV -1269
+ 30;  155.000; 1226.000;  valid ; Terr -0.781; HV -1269
+ 31;  160.000; 1773.000;  valid ; Terr -0.781; HV -1269
+ 32;  165.000; 2597.000;  valid ; Terr -0.781; HV -1269
+ 33;  170.000; 3501.000;  valid ; Terr -0.859; HV -1269
+ 34;  175.000; 4706.000;  valid ; Terr -0.859; HV -1269
+ 35;  180.000; 6017.000;  valid ; Terr -0.859; HV -1269
+ 36;  185.000; 7146.000;  valid ; Terr -0.859; HV -1269
+ 37;  190.000; 7984.000;  valid ; Terr -0.859; HV -1269
+ 38;  195.000; 8731.000;  valid ; Terr -0.859; HV -1269
+ 39;  200.000; 9533.000;  valid ; Terr -1.094; HV -1269
+ 40;  205.000; 10574.000;  valid ; Terr -1.016; HV -1269
+ 41;  210.000; 11884.000;  valid ; Terr -1.016; HV -1269
+ 42;  215.000; 12745.000;  valid ; Terr -1.016; HV -1269
+ 43;  220.000; 13771.000;  valid ; Terr -1.172; HV -1269
+ 44;  225.000; 14300.000;  valid ; Terr -1.016; HV -1269
+ 45;  230.000; 14425.000;  valid ; Terr -1.172; HV -1269
+ 46;  235.000; 14250.000;  valid ; Terr -1.250; HV -1269
+ 47;  240.000; 13754.000;  valid ; Terr -1.094; HV -1269

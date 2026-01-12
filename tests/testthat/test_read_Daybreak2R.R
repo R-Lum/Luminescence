@@ -11,6 +11,8 @@ test_that("Test functionality", {
   expect_type(read_Daybreak2R(txt.file), "list")
   expect_type(read_Daybreak2R(txt.file, txtProgressBar = FALSE),
               "list")
+  expect_type(read_Daybreak2R(test_path("_data/daybreak-tests/morethan4cols.txt")),
+              "list")
   })
   expect_silent(read_Daybreak2R(txt.file, verbose = FALSE))
 
