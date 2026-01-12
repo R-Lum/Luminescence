@@ -77,4 +77,11 @@ test_that("command records", {
   expect_length(res, 1)
   expect_length(res[[1]], 2)
   expect_output(print(res[[1]]@records[[2]]))
+
+  res <- read_Daybreak2R(test_path("_data/daybreak-tests/command-2.txt"),
+                         verbose = FALSE)
+  expect_type(res, "list")
+  expect_length(res, 1)
+  expect_length(res[[1]], 11)
+  expect_true(all(!is.na(res[[1]]@records[[11]]@data)))
 })

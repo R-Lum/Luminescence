@@ -30,7 +30,7 @@
 #' This function still needs to be tested properly. In particular
 #' the function has underwent only very rough tests using a few files.
 #'
-#' @section Function version: 0.3.4
+#' @section Function version: 0.3.5
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -370,10 +370,10 @@ read_Daybreak2R <- function(
       info <- c(info, position = as.integer(info$Disk))
 
       if(length(header.length)>0){
-        ##get measurement data ... this construction makes no assumption on 
-        ##the number of columns 
+        ## get measurement data ... this construction makes no assumption on
+        ## the number of columns
         temp.data <- data.table::tstrsplit(
-          record[-(1:header.length)], ";", fixed = TRUE, 
+          record[header.length + 1:as.numeric(info[["Points"]])], ";", fixed = TRUE,
           type.convert = TRUE)
 
         ## construct data matrix

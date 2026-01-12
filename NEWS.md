@@ -150,8 +150,8 @@
   than four columns (thanks to @andrzejbluszcz for reporting).
 
 - The function now accepts both `.DAT` and `.dat` extension, and
-  supports DataType=Command records (thanks to @andrzejbluszcz for code
-  contributions).
+  supports DataType=Command records (#1263; thanks to @andrzejbluszcz
+  for contributing code and datasets).
 
 ### `read_XSYG2R()`
 
