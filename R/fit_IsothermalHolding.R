@@ -166,7 +166,7 @@ fit_IsothermalHolding <- function(
     T_K <- isoT + .const$C2K
     ## call C++ calculation part; which is a lot faster than
     ## repeated calls to stats::integrate
-    ## an even faster implementation would use pure C++ for everyting,
+    ## an even faster implementation would use pure C++ for everything,
     ## however, then we would use minpack.lm::nls.lm() instead ... perhaps
     ## in the future
     f_BTS_cpp_part(
