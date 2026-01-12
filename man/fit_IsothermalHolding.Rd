@@ -81,6 +81,6 @@ doi: 10.1016/j.jlumin.2012.08.043
 \author{
 Svenja Riedesel, DTU Risø (Denmark)\cr
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
-Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 }
 \keyword{datagen}

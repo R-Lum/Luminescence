@@ -78,5 +78,5 @@ using single grains of quartz. Radiation Measurements 42, 370-379.
 \author{
 Rachel Smedley, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
 Based on an excel spreadsheet and accompanying macro written by Kristina Thomsen. \cr
-Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 }

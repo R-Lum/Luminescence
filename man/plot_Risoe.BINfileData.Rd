@@ -126,6 +126,6 @@ Duller, G., 2007. Analyst. pp. 1-45.
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 Michael Dietze, GFZ Potsdam (Germany)\cr
-Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 }
 \keyword{dplot}

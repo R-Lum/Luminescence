@@ -141,7 +141,7 @@
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
-#' Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #'@seealso [Luminescence::RLum.Data.Spectrum-class], [Luminescence::RLum.Results-class], [Luminescence::plot_RLum],
 #'[Luminescence::convert_Wavelength2Energy], [minpack.lm::nls.lm]

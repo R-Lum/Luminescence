@@ -164,5 +164,5 @@ European Journal of Operational Research 210, 474-481.
 }
 \author{
 Christoph Burow, University of Cologne (Germany) \cr
-Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 }

@@ -128,7 +128,7 @@ plot_RLum(merged)
 \link{merge_RLum}, \linkS4class{RLum.Data.Spectrum}
 }
 \author{
-Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{internal}

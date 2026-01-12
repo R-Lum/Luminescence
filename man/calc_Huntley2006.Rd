@@ -321,6 +321,6 @@ for the fading in million year old basaltic rocks. Geochronometria 38(3), 223-23
 Georgina E. King, University of Lausanne (Switzerland) \cr
 Christoph Burow, University of Cologne (Germany) \cr
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
-Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 }
 \keyword{datagen}

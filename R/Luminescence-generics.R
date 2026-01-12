@@ -334,7 +334,7 @@ setMethod("melt_RLum", signature = "list",
 #' in `info_element` will be removed.
 #'
 #' @author
-#' Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [Luminescence::RLum.Data-class], [Luminescence::RLum.Analysis-class],
 #' [Luminescence::Risoe.BINfileData-class]
@@ -799,7 +799,7 @@ setMethod("normalise_RLum", signature = "list",
 #' @section Function version: 0.1.0
 #'
 #' @author
-#' Marco Colombo, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::Risoe.BINfileData-class]
 #'
