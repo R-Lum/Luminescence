@@ -138,6 +138,7 @@ Authors:
   \item Marco Colombo (\href{https://orcid.org/0000-0001-6672-0623}{ORCID})
   \item Luc Steinbuch (\href{https://orcid.org/0000-0001-6484-0920}{ORCID})
   \item Anna-Maartje de Boer (\href{https://orcid.org/0000-0002-7359-6939}{ORCID})
+  \item Andrzej Bluszcz (\href{https://orcid.org/0000-0002-8027-6941}{ORCID})
 }
 
 Other contributors:
