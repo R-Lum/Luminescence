@@ -88,10 +88,8 @@ read_Daybreak2R <- function(
         cat("[read_Daybreak2R()] Directory detected, trying to extract '*.txt' files ...\n")
       }
 
-      file <-
-        as.list(paste0(file,dir(
-          file, recursive = FALSE, pattern = ".txt"
-        )))
+      file <- as.list(dir(file, pattern = ".txt", full.names = TRUE,
+                          recursive = FALSE))
     }
   }
 
@@ -113,7 +111,7 @@ read_Daybreak2R <- function(
   ## Integrity checks -------------------------------------------------------
   ##check if file exists
   if(!file.exists(file)){
-    .throw_error("File does not exist")
+    .throw_error("File '", file, "' does not exist")
   }
 
   ##check for file extension ... distinguish between TXT and DAT
@@ -319,6 +317,9 @@ read_Daybreak2R <- function(
     ##get all rows with the term "[NewRecord]" - that's what we are interested in and it defines
     ##the number of elements we need
     records.row_number <- grep(pattern = "\\[NewRecord\\]", x = file2read)
+    if (length(records.row_number) == 0) {
+      .throw_error("File '", file, "' doesn't appear to be in Daybreak format")
+    }
 
     ##(1)
     ##make a list ... this is not essentially needed but it makes things easier

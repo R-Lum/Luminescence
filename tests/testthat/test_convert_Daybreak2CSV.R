@@ -9,7 +9,7 @@ test_that("input validation", {
                "[read_Daybreak2R()] 'file' should have length 1",
                fixed = TRUE)
   expect_error(convert_Daybreak2CSV(""),
-               "File does not exist")
+               "File '' does not exist")
 })
 
 test_that("check class and length of output", {

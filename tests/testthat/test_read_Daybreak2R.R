@@ -45,13 +45,15 @@ test_that("input validation", {
                "'file' should be of class 'character' or 'list'")
   expect_error(read_Daybreak2R(character(0)),
                "'file' should have length 1")
+  expect_error(read_Daybreak2R("not-existing"),
+               "File 'not-existing' does not exist")
 
   ## directory
   expect_error(
     expect_output(read_Daybreak2R(
       file = system.file("extdata", package = "Luminescence")),
       "Directory detected, trying to extract"),
-    "File does not exist")
+    "File '.*.txt' doesn't appear to be in Daybreak format")
 
   ## test presence of non-ascii characters
   expect_error(read_Daybreak2R(
