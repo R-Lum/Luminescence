@@ -383,6 +383,14 @@ read_Daybreak2R <- function(
           point.x <- c(1,as.numeric(info$IrradTime))
           point.y <- rep(1, 2)
           data <- matrix(c(point.x,point.y), ncol = 2)
+      } else if (info[["DataType"]] == "Command") {
+        ## Note from Andrzej Bluszcz:
+        # the full [NewRecord] DataType=Command was used 2009 through 2023
+        # later it became replaced by a single line Commands=abc belonging formally to the previous record
+        # it was probably not an official Daybreak release, but my modification used locally in our lab
+        # nevertheless it is wiser to use record[(header.length + 1):(header.length + as.numeric(info[["Points"]]))]
+        # to extract data points
+        data <- matrix(0, ncol = 2)
       }
 
       ##update progress bar

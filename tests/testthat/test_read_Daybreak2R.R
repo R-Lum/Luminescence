@@ -67,3 +67,14 @@ test_that("input validation", {
   expect_error(read_Daybreak2R(file = file.nonascii, verbose = FALSE),
     "The provided file is not ASCII and cannot be imported")
 })
+
+test_that("command records", {
+  testthat::skip_on_cran()
+
+  res <- read_Daybreak2R(test_path("_data/daybreak-tests/command-1.txt"),
+                         verbose = FALSE)
+  expect_type(res, "list")
+  expect_length(res, 1)
+  expect_length(res[[1]], 2)
+  expect_output(print(res[[1]]@records[[2]]))
+})

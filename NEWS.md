@@ -149,7 +149,9 @@
 - The function will no longer crash if the data point entries have more
   than four columns (thanks to @andrzejbluszcz for reporting).
 
-- The function now accepts both `.DAT` and `.dat` extension.
+- The function now accepts both `.DAT` and `.dat` extension, and
+  supports DataType=Command records (thanks to @andrzejbluszcz for code
+  contributions).
 
 ### `read_XSYG2R()`
 
