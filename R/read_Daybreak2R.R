@@ -297,8 +297,6 @@ read_Daybreak2R <- function(
       .set_pid(temp)
     })
 
-    return(output)
-
   }else{
 
     ## Read ASCII file ------------------------------------------------------
@@ -325,11 +323,9 @@ read_Daybreak2R <- function(
     ##(1)
     ##make a list ... this is not essentially needed but it makes things easier
     data.list <- lapply(1:length(records.row_number), function(x) {
-      if (!is.na(records.row_number[x + 1])) {
-        return(file2read[records.row_number[x]:(records.row_number[x + 1] - 1)])
-      }else{
-        return(file2read[records.row_number[x]:length(file2read)])
-      }
+      last <- records.row_number[x + 1]
+      last <- if (!is.na(last)) last - 1 else length(file2read)
+      file2read[records.row_number[x]:last]
     })
 
       ##clear memory
@@ -398,15 +394,13 @@ read_Daybreak2R <- function(
         setTxtProgressBar(pb, x)
 
       ##return RLum object
-      return(
-        set_RLum(
+      set_RLum(
           class = "RLum.Data.Curve",
           originator = "read_Daybreak2R",
           recordType = sub(" ", replacement = "_", x = info$DataType),
           curveType = "measured",
           data = data,
           info = info
-        )
       )
     })
 
@@ -420,7 +414,7 @@ read_Daybreak2R <- function(
 
     ##(4)
     ##now combine everything in an RLum.Analysis object in accordance to the position number
-    RLum.Analysis.list <- lapply(unique(positions.id), function(x){
+    output <- lapply(unique(positions.id), function(x) {
       ##get list ids for position number
       temp.list <- RLum.Data.Curve.list[which(positions.id == x)]
 
@@ -435,13 +429,13 @@ read_Daybreak2R <- function(
       ##set parent id of records
       .set_pid(object)
     })
-
-    ##TERMINAL FEEDBACK
-    if(verbose){
-      cat("\n ", length(unlist(get_RLum(RLum.Analysis.list))),
-          "records have been read successfully!\n")
-    }
-
-    return(RLum.Analysis.list)
   }
+
+  ## terminal feedback
+  if (verbose) {
+    cat("\n ", length(unlist(get_RLum(output))),
+        "records have been read successfully\n")
+  }
+
+  output
 }
