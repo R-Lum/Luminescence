@@ -153,6 +153,9 @@
   supports DataType=Command records (#1263; thanks to @andrzejbluszcz
   for contributing code and datasets).
 
+- Trying to import multiple files by specifying a directory name failed
+  because the generated path missed a directory separator (#1264).
+
 ### `read_XSYG2R()`
 
 - Attributes from the record level are now all included in the `@info`
