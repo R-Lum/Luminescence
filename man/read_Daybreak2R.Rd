@@ -31,7 +31,9 @@ A list of \linkS4class{RLum.Analysis} objects (each per position) is provided.
 \description{
 Import a TXT-file (ASCII file) or a DAT-file (binary file) produced by a
 Daybreak reader into R. The import of the DAT-files is limited to the file
-format described for the software TLAPLLIC v.3.2 used for a Daybreak, model 1100.
+format described for the software TLAPLLIC v.3.2 used for Daybreak models
+1100 and 1150, and for FLConsole (any release) for Daybreak models 11xx and
+2200.
 }
 \note{
 \strong{\verb{[BETA VERSION]}}

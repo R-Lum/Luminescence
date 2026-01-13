@@ -1,8 +1,11 @@
 #' @title Import measurement data produced by a Daybreak TL/OSL reader into R
 #'
-#' @description Import a TXT-file (ASCII file) or a DAT-file (binary file) produced by a
+#' @description
+#' Import a TXT-file (ASCII file) or a DAT-file (binary file) produced by a
 #' Daybreak reader into R. The import of the DAT-files is limited to the file
-#' format described for the software TLAPLLIC v.3.2 used for a Daybreak, model 1100.
+#' format described for the software TLAPLLIC v.3.2 used for Daybreak models
+#' 1100 and 1150, and for FLConsole (any release) for Daybreak models 11xx and
+#' 2200.
 #'
 #' @param file [character] or [list] (**required**):
 #' path and file name of the file to be imported. Alternatively a list of file
@@ -239,7 +242,7 @@ read_Daybreak2R <- function(
         }
 
         #string[7]
-        i_BRUNIT <- i_ARUNIT <- i_BFILTER <- ""
+        i_GRUNIT <- i_BRUNIT <- i_ARUNIT <- ""
         temp <- readBin(con, "raw", 24, 1)
         l <- as.numeric(temp[1])
         if (l > 0) i_GRUNIT <- rawToChar(temp[2:(1+l)])
@@ -249,7 +252,7 @@ read_Daybreak2R <- function(
         if (l > 0) i_ARUNIT <- rawToChar(temp[18:(17+l)])
 
         #string[7]
-        i_GSOURCE <- i_BSOURCE <- i_ASOURCE <- ""
+        i_BFILTER <- i_GSOURCE <- i_BSOURCE <- i_ASOURCE <- ""
         temp <- readBin(con, "raw", 32, 1)
         l <- as.numeric(temp[1])
         if (l > 0) i_BFILTER <- rawToChar(temp[2:(1+l)])
@@ -263,7 +266,8 @@ read_Daybreak2R <- function(
         #date record
         raw_IRRAD_DATE <- readBin(con, what = "raw", 2, size = 1, endian = "little") # 27-Nov-2006
         bitDATE<-as.integer(rawToBits(raw_IRRAD_DATE))
-        DATE.AAAA<-sum(bitDATE[seq(12,16)]*c(1,2,4,8,16))+1980
+        DATE.AAAA <- sum(bitDATE[10:16] * c(1, 2, 4, 8, 16, 32, 64)) + 1900
+        if (DATE.AAAA < 1950) DATE.AAAA <- DATE.AAAA + 128
         DATE.MM<-sum(bitDATE[seq(1,4)]*c(1,2,4,8))
         DATE.JJ<-sum(bitDATE[seq(5,9)]*c(1,2,4,8,16))
         i_IRRAD_DATE<-paste0(DATE.AAAA,"-",MM=DATE.MM,"-",JJ=DATE.JJ)
@@ -271,7 +275,7 @@ read_Daybreak2R <- function(
         #string[41]
         i_RUNREMARK <- readBin(con, "raw", n = 42)
         l <- as.numeric(i_RUNREMARK[1])
-        if (l > 0) i_RUNREMARK <- rawToChar(i_RUNREMARK[2:(1+l)])
+        i_RUNREMARK <- if (l > 0) rawToChar(i_RUNREMARK[2:(1 + l)]) else ""
 
         i_DATA <- readBin(con,what="double",i_MAXPT+1,size=8,endian="little")
 
@@ -340,10 +344,16 @@ read_Daybreak2R <- function(
                 }
               }
             }
+            dev <- as.integer(DT[["DEVN"]][j])
             set_RLum(
               class = "RLum.Data.Curve",
               originator = "read_Daybreak2R",
-              recordType = NA_character_,
+              recordType = ifelse(dev == 0, "TL",
+                           ifelse((dev >= 10) && (dev < 20), "bleaching",
+                           ifelse((dev >= 20) && (dev < 30), "OSL",
+                           ifelse((dev >= 30) && (dev < 40), "isoTL",
+                           ifelse((dev == 200), "missing_point", NA_character_))))),
+              curveType = "measured",
               data = matrix(
                 data = c(
                     xx, DT[["DATA"]][j][[1]][2:(DT[["NPT"]][j] + 1)]),
@@ -356,6 +366,7 @@ read_Daybreak2R <- function(
           temp <- set_RLum(
             class = "RLum.Analysis",
             originator = "read_Daybreak2R",
+            protocol = "Custom",
             records =  records
             )
 
@@ -449,10 +460,10 @@ read_Daybreak2R <- function(
           data <- matrix(c(point.x,point.y), ncol = 2)
       } else if (info[["DataType"]] == "Command") {
         ## Note from Andrzej Bluszcz:
-        # the full [NewRecord] DataType=Command was used 2009 through 2023
-        # later it became replaced by a single line Commands=abc belonging formally to the previous record
-        # it was probably not an official Daybreak release, but my modification used locally in our lab
-        # nevertheless it is wiser to use record[(header.length + 1):(header.length + as.numeric(info[["Points"]]))]
+        # The regular [NewRecord] DataType=Command was used 2009 through 2023 and
+        # later it was replaced by a single line Commands=abc belonging formally to the previous record.
+        # It was probably not an official Daybreak release, but my modification used locally in our lab.
+        # Nevertheless, it is wiser to use record[header.length + 1:as.numeric(info[["Points"]])]
         # to extract data points
         data <- matrix(0, ncol = 2)
       }
