@@ -93,8 +93,8 @@ test_that("graphical snapshot tests", {
   SW({
   vdiffr::expect_doppelganger("defaults",
                               plot_DRTResults(df))
-  vdiffr::expect_doppelganger("cex",
-                              plot_DRTResults(df, cex = 2))
+  vdiffr::expect_doppelganger("cex col",
+                              plot_DRTResults(df, cex = 2, col = 1:5))
   vdiffr::expect_doppelganger("summary sub",
                               plot_DRTResults(df, summary.pos = "sub",
                                               summary = c("n", "se.rel", "median",
@@ -102,6 +102,10 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("summary left",
                               plot_DRTResults(df, summary.pos = "left",
                                               summary = c("mean", "sd.abs")))
+  vdiffr::expect_doppelganger("list bottomright",
+                              plot_DRTResults(df.list,
+                                              summary.pos = "bottomright",
+                                              summary = c("n", "mean", "sd.abs")))
   })
 })
 
