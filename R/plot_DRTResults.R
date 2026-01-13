@@ -204,9 +204,7 @@ plot_DRTResults <- function(
   .validate_not_empty(values)
   .validate_class(given.dose, "numeric", null.ok = TRUE)
   .validate_logical_scalar(boxplot)
-
-  ##avoid crash for wrongly set boxlot argument
-  if (is.null(preheat) && boxplot) {
+  if (boxplot && is.null(preheat)) {
     boxplot <- FALSE
     .throw_warning("'boxplot' requires a value in 'preheat', reset to FALSE")
   }
@@ -332,22 +330,18 @@ plot_DRTResults <- function(
 
   ## optionally group data by preheat temperature
   if (!is.null(preheat)) {
-    modes <- as.numeric(names(table(preheat)))
-    values.preheat <- values.boxplot <- list()
-    for(i in 1:length(modes)) {
+    values.preheat <- list()
+    modes <- unique(preheat)
+    for(mode in modes) {
       for(j in 1:length(values)) {
         values.preheat[[length(values.preheat) + 1]] <-
-          cbind(values[[j]][preheat == modes[i],],
-                preheat[preheat == modes[i]])
-        values.boxplot[[length(values.boxplot) + 1]] <-
-          values[[j]][preheat == modes[i],1]
+          cbind(values[[j]][preheat == mode, ], mode)
       }
-      j <- 1
     }
     modes.plot <- rep(modes, each = length(values))
     xlim <- c(min(modes.plot) * 0.9, max(modes.plot) * 1.1)
   } else {
-    modes <- 1
+    modes.plot <- 1 + 0:nrow(values[[1]])
   }
 
   if (boxplot)
@@ -356,9 +350,9 @@ plot_DRTResults <- function(
   ## assign colour indices
   col <- extraArgs$col %||% (
     if (is.null(preheat)) {
-      rep(seq(from = 1, to = length(values)), each = length(modes))
+      seq(from = 1, to = length(values))
     } else {
-      rep(seq(from = 1, to = length(values)), length(modes))
+      rep(seq(from = 1, to = length(values)), length(unique(preheat)))
     }
   )
 
@@ -409,57 +403,27 @@ plot_DRTResults <- function(
 
   ## optionally plot values and error bars
   if (!boxplot) {
-    ## plot data and error
-    if (is.null(preheat)) {
-      ## create empty plot
-      plot(NA,NA,
-           xlim = xlim,
-           ylim = ylim,
-           xlab = xlab,
-           ylab = ylab,
-           xaxt = "n",
-           las = las,
-           main = "")
+    if (!missing(preheat))
+      xlim <- range(modes.plot) * c(0.9, 1.1)
 
-      ##add x-axis ... this avoids digits in the axis labelling
-      axis(side = 1, at = 1:(nrow(values[[1]])+1), labels = 1:(nrow(values[[1]])+1), las = las)
+    ## create empty plot
+    plot(NA, NA,
+         xlim = xlim,
+         ylim = ylim,
+         xlab = xlab,
+         ylab = ylab,
+         las = las,
+         main = "",
+         xaxt = "n")
+    axis(1, at = modes.plot, labels = modes.plot, las = las)
 
-      ## add title
-      title(main = main,
-            line = shift.lines + 0.5)
+    .plot_elements(main, shift.lines, given.dose, error.range)
 
-      ## add additional lines
-      if (!is.null(given.dose)) {
-        abline(h = 1)
-
-        if (error.range > 0) {
-          ## error range lines
-          abline(h = 1 * (1 + error.range / 100), lty = 2)
-          abline(h = 1 * (1 - error.range / 100), lty = 2)
-
-          ## error range labels
-          text(
-            par()$usr[2],
-            (1 + error.range / 100) + 0.02,
-            paste0("+", error.range , "%"),
-            pos = 2,
-            cex = 0.8
-          )
-          text(
-            par()$usr[2],
-            (1 - error.range / 100) - 0.02,
-            paste0("-", error.range , "%"),
-            pos = 2,
-            cex = 0.8
-          )
-        }
-      }
-
-      ## allow assigning a separate colour to each point, but only if there
-      ## is one input dataset
-      oneinput <- length(values) == 1
-      multicol <- oneinput && nrow(values[[1]]) == length(col)
-
+    ## allow assigning a separate colour to each point, but only if there
+    ## is one input dataset
+    oneinput <- length(values) == 1
+    multicol <- oneinput && nrow(values[[1]]) == length(col)
+    if (missing(preheat)) {
       ## add data and error bars
       for(i in 1:length(values)) {
         points(x = 1:nrow(values[[i]]),
@@ -480,77 +444,11 @@ plot_DRTResults <- function(
         )
 
         ## add summary content
-        if(summary.pos[1] != "sub") {
-          vadj <- 0
-          if (summary.pos_is_bottom) {
-            ## adjust the vertical coordinate by the height of the longest label
-            vadj <- graphics::strheight(tail(label.text, 1), cex = 0.8)
-          }
-          text(x = summary.pos[1],
-               y = summary.pos[2] + vadj,
-               adj = summary.adj,
-               labels = label.text[[i]],
-               cex = 0.8,
-               col = if (multicol) "black" else col[i])
-        } else if(mtext == "") {
-            mtext(side = 3,
-                  line = shift.lines - i,
-                  text = label.text[[i]],
-                  col = if (multicol) "black" else col[i],
-                  cex = cex * 0.8)
-        }
+        .add_summary(summary.pos, summary.pos_is_bottom, summary.adj,
+                     label.text, mtext, i, cex, values, col)
       }
     } else {
-
       ## option for provided preheat data
-      ## create empty plot
-      plot(NA,NA,
-           xlim = xlim,
-           ylim = ylim,
-           xlab = xlab,
-           ylab = ylab,
-           las = las,
-           main = "",
-           axes = FALSE,
-           frame.plot = TRUE)
-
-      ## add axes
-      axis(1,
-           at = modes.plot,
-           labels = modes.plot)
-      axis(2)
-
-      ## add title
-      title(main = main,
-            line = shift.lines + 0.5)
-
-      ## add additional lines
-      if (!is.null(given.dose)) {
-        abline(h = 1)
-
-        if (error.range > 0) {
-          ## error range lines
-          abline(h = 1 * (1 + error.range / 100), lty = 2)
-          abline(h = 1 * (1 - error.range / 100), lty = 2)
-
-          ## error range labels
-          text(
-            par()$usr[2],
-            (1 + error.range / 100) + 0.02,
-            paste0("+", error.range , "%"),
-            pos = 2,
-            cex = 0.8
-          )
-          text(
-            par()$usr[2],
-            (1 - error.range / 100) - 0.02,
-            paste0("-", error.range , "%"),
-            pos = 2,
-            cex = 0.8
-          )
-        }
-      }
-
       ## plot values
       for(i in 1:length(values.preheat)) {
         points(x = values.preheat[[i]][,3],
@@ -575,6 +473,8 @@ plot_DRTResults <- function(
 
   ## optionally, plot boxplot
   if(boxplot) {
+    values.boxplot <- lapply(values.preheat, function(x) x[, 1])
+
     ## create empty plot
     graphics::boxplot(values.boxplot,
             names = modes.plot,
@@ -625,49 +525,13 @@ plot_DRTResults <- function(
       }
     }
 
-    ## add title
-    title(main = main,
-          line = shift.lines + 0.5)
-
-    ## add additional lines
-    if(!is.null(given.dose)){
-      abline(h = 1)
-
-      if(error.range > 0){
-        ## error range lines
-        abline(h = 1 * (1 + error.range / 100), lty = 2)
-        abline(h = 1 * (1 - error.range / 100), lty = 2)
-
-        ## error range labels
-        text(par()$usr[2], (1 + error.range / 100) + 0.02,
-             paste0("+", error.range ,"%"), pos = 2, cex = 0.8)
-        text(par()$usr[2], (1 - error.range / 100) - 0.02,
-             paste0("-", error.range ,"%"), pos = 2, cex = 0.8)
-      }
-    }
+    .plot_elements(main, shift.lines, given.dose, error.range)
 
     ## plot data and error
     for(i in 1:length(values)) {
       ## add summary content
-      if(summary.pos[1] != "sub") {
-        vadj <- 0
-        if (summary.pos_is_bottom) {
-          ## adjust the vertical coordinate by the height of the longest label
-          vadj <- graphics::strheight(tail(label.text, 1), cex = 0.8)
-        }
-        text(x = summary.pos[1],
-             y = summary.pos[2] + vadj,
-             adj = summary.adj,
-             labels = label.text[[i]],
-             cex = 0.8,
-             col = if(nrow(values[[i]]) == length(col)){ "black" } else { col[i] })
-      } else if (mtext == "") {
-          mtext(side = 3,
-                line = shift.lines - i,
-                text = label.text[[i]],
-                col = if(nrow(values[[i]]) == length(col)){ "black" } else { col[i] },
-                cex = cex * 0.8)
-      }
+      .add_summary(summary.pos, summary.pos_is_bottom, summary.adj,
+                   label.text, mtext, i, cex, values, col)
     }
   }
 
@@ -694,4 +558,50 @@ plot_DRTResults <- function(
 
   ##FUN by R Luminescence Team
   if (fun) sTeve() # nocov
+}
+
+.plot_elements <- function(main, shift.lines, given.dose, error.range) {
+  ## add title
+  title(main = main, line = shift.lines + 0.5)
+
+  ## add additional lines
+  if (!is.null(given.dose)) {
+    abline(h = 1)
+
+    if (error.range > 0) {
+      error.value <- error.range
+      error.range <- c(1 - error.value / 100, 1 + error.value / 100)
+
+      ## error range lines and labels
+      abline(h = error.range, lty = 2)
+      text(par()$usr[2], error.range + c(-0.02, 0.02),
+           paste0(c("-", "+"), error.value , "%"), pos = 2, cex = 0.8)
+    }
+  }
+}
+
+.add_summary <- function(summary.pos, summary.pos_is_bottom, summary.adj,
+                         label.text, mtext, i, cex, values, col) {
+  col <- if (nrow(values[[i]]) == length(col)) "black" else col[i]
+  if (summary.pos[1] != "sub") {
+    vadj <- 0
+    if (summary.pos_is_bottom) {
+      ## adjust the vertical coordinate by the height of the longest label
+      vadj <- graphics::strheight(tail(label.text, 1), cex = 0.8)
+    }
+    text(x = summary.pos[1],
+         y = summary.pos[2] + vadj,
+         adj = summary.adj,
+         labels = label.text[[i]],
+         cex = 0.8,
+         col = col)
+  } else {
+    if (mtext == "") {
+      mtext(side = 3,
+            line = - i + 1,
+            text = label.text[[i]],
+            cex = cex * 0.8,
+            col = col)
+    }
+  }
 }
