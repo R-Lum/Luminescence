@@ -39,7 +39,7 @@ This function still needs to be tested properly. In particular
 the function has underwent only very rough tests using a few files.
 }
 \section{Function version}{
- 0.3.5
+ 0.4.0
 }
 
 \examples{
@@ -55,9 +55,10 @@ temp <- read_Daybreak2R(file)
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+Andrzej Bluszcz, Silesian University of Technology, Gliwice (Poland)\cr
 Antoine Zink, C2RMF, Palais du Louvre, Paris (France)
 
-The ASCII-file import is based on a suggestion by Willian Amidonl, Andrew Louis Gorin, and
-further input from Andrzej Bluszcz.
+The ASCII-file import is based on a suggestion by Willian Amidonl and
+Andrew Louis Gorin.
 }
 \keyword{IO}

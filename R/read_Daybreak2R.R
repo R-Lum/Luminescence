@@ -30,14 +30,15 @@
 #' This function still needs to be tested properly. In particular
 #' the function has underwent only very rough tests using a few files.
 #'
-#' @section Function version: 0.3.5
+#' @section Function version: 0.4.0
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+#' Andrzej Bluszcz, Silesian University of Technology, Gliwice (Poland)\cr
 #' Antoine Zink, C2RMF, Palais du Louvre, Paris (France)
 #'
-#' The ASCII-file import is based on a suggestion by Willian Amidonl, Andrew Louis Gorin, and
-#' further input from Andrzej Bluszcz.
+#' The ASCII-file import is based on a suggestion by Willian Amidonl and
+#' Andrew Louis Gorin.
 #'
 #' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data.Curve-class], [data.table::data.table]
 #'
@@ -137,12 +138,25 @@ read_Daybreak2R <- function(
           NDISK = integer(length = n.length),
           NRUN = integer(length = n.length),
           D1 = integer(length = n.length),
+          DEVN = integer(length = n.length), # DEVN <- D1 %/% 100 codes a stimulation device
+                       # TL dev is 0; Bleach dev is 10+; OSL/MOSL dev is 20+; 30+ is isoTL; Irrad dev is 100+; missing pnt is 200
           NPT = integer(length = n.length),
           NATL = logical(length = n.length),
           TLRUN = logical(length = n.length),
           BEFORE_IRRAD = logical(length = n.length),
+          NORMALIZATION = logical(length = n.length),
+          SINGLE_ALIQUOT = logical(length = n.length),
+          SEKOND = logical(length = n.length),
           SHIFT = double(length = n.length),
+                       # tb <- as.integer(writeBin(SHIFT, con = raw()))
+                       # NTB[0:3] <- tb[0:3] number of channels with each time base 10, 100, 1000, 10000 ms
+                       # TEMPERATURE <- tb[4]*256 + tb[7]
+                       # OSLBG <- (tb[5]*256 + tb[6])/10.0
+          NTB = integer(length = n.length),
+          TEMPERATURE = integer(length = n.length),
+          OSLBG = double(length = n.length),
           RAMPRATE = double(length = n.length),
+          LPOWER = double(length = n.length), # LPOWER <- RAMPRATE  % of max light power
           GRATE = double(length = n.length),
           BRATE = double(length = n.length),
           ARATE = double(length = n.length),
@@ -176,7 +190,7 @@ read_Daybreak2R <- function(
 
       ##LOOP over file
       i <- 1
-      while (i<n.length){
+      while (i <= n.length) {
         #integer
         ligne1<-readBin(con,what="int",6,size=2,endian="little")
         i_NPT<-ligne1[1]
@@ -185,12 +199,16 @@ read_Daybreak2R <- function(
         i_NDISK<-ligne1[4]
         i_D1<-ligne1[5]
         i_MAXPT<-ligne1[6]
+        i_DEVN <- i_D1 %/% 100
 
         #boolean
-        ligne2<-readBin(con,what="logical",3,size=2,endian="little")
+        ligne2 <- readBin(con, what = "logical", 6, size = 1, endian = "little")
         i_BEFORE_IRRAD<-ligne2[1]
-        i_TLRUN<-ligne2[2]
-        i_NATL<-ligne2[3]
+        i_NORMALIZATION <- ligne2[2]
+        i_TLRUN <- ligne2[3]
+        i_SINGLE_ALIQUOT <- ligne2[4]
+        i_NATL <- ligne2[5]
+        i_SEKOND <- ligne2[6]
 
         #double (real)
         ligne3<-readBin(con,what="double",9,size=8,endian="little")
@@ -203,37 +221,73 @@ read_Daybreak2R <- function(
         i_BETADOSE<-ligne3[7]#0
         i_ALPHADOSE<-ligne3[8]#0
         i_SHIFT<-ligne3[9] #0
+        if (i_DEVN == 0) {
+          ## nocov start
+          i_LPOWER <- NA
+          i_TEMPERATURE <- NA
+          i_OSLBG <- NA
+          i_NTB <- NA
+          ## nocov end
+        } else {
+          i_LPOWER <- i_RAMPRATE
+          tb <- writeBin(i_SHIFT, con = raw())
+          i_NTB <- readBin(tb, what = "integer", 1, size = 4)
+          # i_RAMPRATE <- NA
+          # i_SHIFT <- NA
+          i_TEMPERATURE <- as.integer(tb[5]) * 256 + as.integer(tb[8])
+          i_OSLBG <- (as.integer(tb[6]) * 256 + as.integer(tb[7])) / 10.0
+        }
 
         #string[7]
+        i_BRUNIT <- i_ARUNIT <- i_BFILTER <- ""
         temp <- readBin(con, "raw", 24, 1)
-        i_GRUNIT <- rawToChar(temp[3:8])
-        i_BRUNIT <- rawToChar(temp[10:16])
-        i_ARUNIT <- rawToChar(temp[18:24])
+        l <- as.numeric(temp[1])
+        if (l > 0) i_GRUNIT <- rawToChar(temp[2:(1+l)])
+        l <- as.numeric(temp[9])
+        if (l > 0) i_BRUNIT <- rawToChar(temp[10:(9+l)])
+        l <- as.numeric(temp[17])
+        if (l > 0) i_ARUNIT <- rawToChar(temp[18:(17+l)])
 
-        #string[6]
+        #string[7]
+        i_GSOURCE <- i_BSOURCE <- i_ASOURCE <- ""
         temp <- readBin(con, "raw", 32, 1)
-        i_BFILTER <- rawToChar(temp[2:8])
-        i_GSOURCE <- rawToChar(temp[10:16])
-        i_BSOURCE <- rawToChar(temp[18:24])
-        i_ASOURCE <- rawToChar(temp[26:32])
+        l <- as.numeric(temp[1])
+        if (l > 0) i_BFILTER <- rawToChar(temp[2:(1+l)])
+        l <- as.numeric(temp[9])
+        if (l > 0) i_GSOURCE <- rawToChar(temp[10:(9+l)])
+        l <- as.numeric(temp[17])
+        if (l > 0) i_BSOURCE <- rawToChar(temp[18:(17+l)])
+        l <- as.numeric(temp[25])
+        if (l > 0) i_ASOURCE <- rawToChar(temp[26:(25+l)])
 
         #date record
-        raw_IRRAD_DATE<-readBin(con,what="raw",4,size=1,endian="little")#27-Nov-2006
+        raw_IRRAD_DATE <- readBin(con, what = "raw", 2, size = 1, endian = "little") # 27-Nov-2006
         bitDATE<-as.integer(rawToBits(raw_IRRAD_DATE))
         DATE.AAAA<-sum(bitDATE[seq(12,16)]*c(1,2,4,8,16))+1980
         DATE.MM<-sum(bitDATE[seq(1,4)]*c(1,2,4,8))
         DATE.JJ<-sum(bitDATE[seq(5,9)]*c(1,2,4,8,16))
         i_IRRAD_DATE<-paste0(DATE.AAAA,"-",MM=DATE.MM,"-",JJ=DATE.JJ)
 
-        #string[40]
-        i_RUNREMARK <- readBin(con, "raw", n = 40)
-        i_RUNREMARK <- rawToChar(i_RUNREMARK[2:40])
+        #string[41]
+        i_RUNREMARK <- readBin(con, "raw", n = 42)
+        l <- as.numeric(i_RUNREMARK[1])
+        if (l > 0) i_RUNREMARK <- rawToChar(i_RUNREMARK[2:(1+l)])
 
         i_DATA <- readBin(con,what="double",i_MAXPT+1,size=8,endian="little")
 
-        results.DATA[i,':='(ID=i,MAXPT=i_MAXPT,SPACING=i_SPACING,NDISK=i_NDISK,NRUN=i_NRUN,D1=i_D1,NPT=i_NPT,
+        results.DATA[i,':='(ID=i,MAXPT=i_MAXPT,SPACING=i_SPACING,NDISK=i_NDISK,NRUN=i_NRUN,D1=i_D1,
+                            DEVN = i_DEVN,
+                            NPT = i_NPT,
                             NATL=i_NATL,TLRUN=i_TLRUN,BEFORE_IRRAD=i_BEFORE_IRRAD,
-                            SHIFT=i_SHIFT,RAMPRATE=i_RAMPRATE,
+                            NORMALIZATION = i_NORMALIZATION,
+                            SINGLE_ALIQUOT = i_SINGLE_ALIQUOT,
+                            SEKOND = i_SEKOND,
+                            SHIFT = i_SHIFT,
+                            NTB = i_NTB,
+                            TEMPERATURE = i_TEMPERATURE,
+                            OSLBG = i_OSLBG,
+                            RAMPRATE = i_RAMPRATE,
+                            LPOWER = i_LPOWER,
                             GRATE=i_GRATE,BRATE=i_BRATE,ARATE=i_ARATE,
                             GAMMADOSE=i_GAMMADOSE,BETADOSE=i_BETADOSE,ALPHADOSE=i_ALPHADOSE,
                             BLEACHINGTIME=i_BLEACHINGTIME,
@@ -272,14 +326,27 @@ read_Daybreak2R <- function(
 
           ##create list of records
           records <- lapply(1:nrow(DT), function(j){
+            if (DT[["DEVN"]][j] == 0) {
+              xx <- seq(from = DT[["SPACING"]][j], by = DT[["SPACING"]][j], length.out = DT[["NPT"]][j]) # nocov
+            } else {
+              tb <- c(0.01, 0.1, 1.0, 10.0)
+              last_t <- 0
+              BT <- as.integer(writeBin(DT[["NTB"]][j], con = raw()))
+              xx <- numeric()
+              for (k in 1:4) {
+                if (BT[k] > 0) {
+                  xx <- c(xx, seq(from = last_t + tb[k], by = tb[k], length.out = BT[k]))
+                  last_t <- xx[length(xx)]
+                }
+              }
+            }
             set_RLum(
               class = "RLum.Data.Curve",
               originator = "read_Daybreak2R",
               recordType = NA_character_,
               data = matrix(
                 data = c(
-                  seq(from = 0, by = DT[["SPACING"]][j], length.out = DT[["MAXPT"]][j] + 1),
-                  DT[["DATA"]][j][[1]]),
+                    xx, DT[["DATA"]][j][[1]][2:(DT[["NPT"]][j] + 1)]),
                 ncol = 2),
               info = as.list(DT[j,1:(ncol(DT) - 1)])
             )
@@ -299,7 +366,7 @@ read_Daybreak2R <- function(
 
     ## Read ASCII file ------------------------------------------------------
     if(verbose){
-      cat("\n[read_Daybreak] file extension not of type '.DAT' try to import ASCII-file ... \n")
+      cat("\n[read_Daybreak()] File extension not of type '.DAT', trying to import ASCII-file ... \n")
     }
 
     ##read file

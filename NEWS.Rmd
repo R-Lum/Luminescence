@@ -135,9 +135,10 @@ odd inputs (#1260).
 * The function will no longer crash if the data point entries have more than
 four columns (thanks to @andrzejbluszcz for reporting).
 
-* The function now accepts both `.DAT` and `.dat` extension, and supports
-DataType=Command records (#1263; thanks to @andrzejbluszcz for contributing
-code and datasets).
+* The import of binary `.DAT` files has been overhauled and made more correct;
+moreover, the function accepts both `.DAT` and `.dat` extensions for binary
+inputs, and supports `DataType=Command` records in ASCII files (#1263, #1266;
+thanks to @andrzejbluszcz for contributing code and datasets).
 
 * Trying to import multiple files by specifying a directory name failed
 because the generated path missed a directory separator (#1264).
