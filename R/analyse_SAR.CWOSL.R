@@ -1368,7 +1368,7 @@ if(is.list(object)){
     x = 0.8,
     y = y_coord_l,
     labels = paste(x$Value, x$sign, x$Threshold),
-    cex = 0.6,
+    cex = 0.7,
     adj = c(1, 1.5))
 
   ## add final points
