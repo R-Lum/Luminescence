@@ -86,6 +86,10 @@ already extracted automatically, as it required users to manually insert dose
 values regardless of the automated extraction. This argument is also available 
 in other functions that wrap around `analyse_SAR.CWOSL()` (#4fc985d).
 
+* The function reports a clearer error message if `background.integral.min` is
+not greater than `signal.integral.max`, and improved warnings in other cases
+when the integrals are set incorrectly (#1267).
+
 ### `calc_OSLLxTxRatio()`
 
 * The `signal.integral` or `background.integral` arguments are now better

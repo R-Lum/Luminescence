@@ -7,6 +7,33 @@ object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1:2)
 object_CH_TL <- get_RLum(object, record.id = -seq(1,30,4), drop = FALSE)
 object_NO_TL <- get_RLum(object, record.id = -seq(1,30,2), drop = FALSE)
 
+test_that("input validation", {
+  testthat::skip_on_cran()
+
+  expect_error(analyse_SAR.CWOSL("fail"),
+               "'object' should be of class 'RLum.Analysis'")
+
+  expect_error(analyse_SAR.CWOSL(object[[1]],
+                                 signal.integral.min = 1.2,
+                                 signal.integral.max = 3.5,
+                                 background.integral.min = 900,
+                                 background.integral.max = 1000),
+               "'signal.integral' or 'background.integral' is not of type integer")
+
+  expect_error(analyse_SAR.CWOSL(object[[1]],
+                                 signal.integral.min = 1,
+                                 signal.integral.max = 500,
+                                 background.integral.min = 500,
+                                 background.integral.max = 1000),
+               "'background.integral.min' must be larger than 'signal.integral.max'")
+  expect_error(analyse_SAR.CWOSL(object[[1]],
+                                 signal.integral.min = 999,
+                                 signal.integral.max = 1000,
+                                 background.integral.min = c(900, 1975),
+                                 background.integral.max = c(900, 1975)),
+               "'background.integral.min' must be larger than 'signal.integral.max'")
+})
+
 ## FIXME(mcol): snapshots were produced on R 4.3.3, and a tolerance of 1.5e-6
 ## was sufficient; however, both R 4.4 and Rdevel produce slightly different
 ## values that required increasing the tolerance to 1.5e-3. When a new R
@@ -219,19 +246,6 @@ test_that("check functionality", {
                                  rejection.criteria = list(recuperation_reference = NULL)),
     "Recuperation reference invalid, valid values are: 'Natural', 'R1', 'R2'")
 
-   # Trigger stops -----------------------------------------------------------
-   ##trigger stops for parameters
-   ##object
-  expect_error(analyse_SAR.CWOSL("fail"),
-               "'object' should be of class 'RLum.Analysis'")
-
-  expect_error(analyse_SAR.CWOSL(object[[1]],
-                                 signal.integral.min = 1.2,
-                                 signal.integral.max = 3.5,
-                                 background.integral.min = 900,
-                                 background.integral.max = 1000),
-               "'signal.integral' or 'background.integral' is not of type integer")
-
   ## check stop for OSL.components ... failing
   SW({
   expect_message(expect_null(
@@ -361,17 +375,6 @@ test_that("check functionality", {
                "Background integral out of bounds, reset to 600:1000")
   expect_match(warnings, all = FALSE,
                "Background integral for Tx out of bounds, reset to 606:1000")
-
-  expect_message(expect_null(suppressWarnings(
-    analyse_SAR.CWOSL(
-      object = object[[1]],
-      signal.integral.min = 999,
-      signal.integral.max = 1000,
-      background.integral.min = c(900, 1975),
-      background.integral.max = c(900, 1975),
-      plot = FALSE,
-      verbose = FALSE)
-  )), "Error: Something went wrong while generating the LxTx table")
 
   ## plot_singlePanels
   expect_error(analyse_SAR.CWOSL(object[[1]],

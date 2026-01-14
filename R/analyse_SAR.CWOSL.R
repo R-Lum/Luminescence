@@ -385,6 +385,10 @@ if(is.list(object)){
     signal.integral <- signal.integral.min[1]:signal.integral.max[1]
     background.integral <- background.integral.min[1]:background.integral.max[1]
 
+    if (background.integral.min[1] <= signal.integral.max[1]) {
+      .throw_error("'background.integral.min' must be larger than 'signal.integral.max'")
+    }
+
     if (!is.integer(signal.integral) || !is.integer(background.integral)) {
       .throw_error("'signal.integral' or 'background.integral' is not of type integer")
     }
