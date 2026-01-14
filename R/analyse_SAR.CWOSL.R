@@ -429,16 +429,16 @@ if(is.list(object)){
 
     ## account for the case that the uset did not provide everything ...
     if (is.null(signal.integral.Tx) && !is.null(background.integral.Tx)) {
-          signal.integral.Tx <- signal.integral
-          .throw_warning("Background integral for Tx curves set, but not for ",
-                         "the signal integral; signal integral for Tx automatically set")
-        }
+      signal.integral.Tx <- signal.integral
+      .throw_warning("Signal integral for Tx curves set automatically to ",
+                     .format_range(signal.integral.Tx))
+    }
 
     if (!is.null(signal.integral.Tx) && is.null(background.integral.Tx)) {
-        background.integral.Tx <- background.integral
-        .throw_warning("Signal integral for Tx curves set, but not for the ",
-                       "background integral; background integral for Tx automatically set")
-      }
+      background.integral.Tx <- background.integral
+      .throw_warning("Background integral for Tx curves set automatically to ",
+                     .format_range(background.integral.Tx))
+    }
   }
 
   ## try to extract the correct curves for the sequence based on allowed curve types and

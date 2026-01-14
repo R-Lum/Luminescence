@@ -335,7 +335,7 @@ test_that("check functionality", {
       fit.method = "LIN",
       plot = FALSE,
       verbose = FALSE
-  ), "Background integral for Tx curves set, but not for the signal integral")
+  ), "Signal integral for Tx curves set automatically to 1:2")
 
   expect_warning(expect_message(
       analyse_SAR.CWOSL(
@@ -348,7 +348,7 @@ test_that("check functionality", {
           plot = FALSE,
           verbose = FALSE
       ), "Something went wrong while generating the LxTx table"),
-  "Signal integral for Tx curves set, but not for the background integral")
+  "Background integral for Tx curves set automatically to 800:1000")
 
   ## this generates multiple warnings
   warnings <- capture_warnings(analyse_SAR.CWOSL(
