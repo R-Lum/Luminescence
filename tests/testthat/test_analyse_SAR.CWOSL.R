@@ -320,7 +320,6 @@ test_that("check functionality", {
       verbose = FALSE
   ), "Background integral for Tx curves set, but not for the signal integral")
 
-
   expect_warning(expect_message(
       analyse_SAR.CWOSL(
           object = object[[1]],
@@ -345,7 +344,23 @@ test_that("check functionality", {
       plot = FALSE,
       verbose = FALSE))
   expect_match(warnings, all = FALSE,
-               "Background integral for Tx out of bounds")
+               "Background integral out of bounds, reset to 600:1000")
+  expect_match(warnings, all = FALSE,
+               "Background integral for Tx out of bounds, reset to 600:1000")
+
+  warnings <- capture_warnings(analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal.integral.min = c(100, 500),
+      signal.integral.max = c(400, 605),
+      background.integral.min = 800,
+      background.integral.max = 1200,
+      fit.method = "LIN",
+      plot = FALSE,
+      verbose = FALSE))
+  expect_match(warnings, all = FALSE,
+               "Background integral out of bounds, reset to 600:1000")
+  expect_match(warnings, all = FALSE,
+               "Background integral for Tx out of bounds, reset to 606:1000")
 
   expect_message(expect_null(suppressWarnings(
     analyse_SAR.CWOSL(

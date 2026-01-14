@@ -546,37 +546,36 @@ if(is.list(object)){
     return(invisible(NULL))
   }
 
-  ## background integral should not be longer than curve channel length
-  if (!anyNA(background.integral) &&
-        max(background.integral) > temp.matrix.length[1]) {
-      background.integral <-
-          c((temp.matrix.length[1] - length(background.integral)):temp.matrix.length[1])
+  ## the background integral should not exceed the channel length
+  channel.length <- temp.matrix.length[1]
+  excess <- max(background.integral) - channel.length
+  if (!anyNA(background.integral) && excess > 0) {
+    background.integral <- background.integral - excess
 
-      ##prevent that the background integral becomes negative
-      if(min(background.integral) < max(signal.integral)){
-        background.integral <- c((max(signal.integral) + 1):max(background.integral))
-      }
-
-      .throw_warning("Background integral out of bounds, set to ",
-                     .format_range(background.integral))
+    ## prevent the background integral from overlapping with the signal integral
+    if (min(background.integral) < max(signal.integral)) {
+      background.integral <- (max(signal.integral) + 1):max(background.integral)
     }
 
-    ##Do the same for the Tx-if set
-    if (!is.null(background.integral.Tx)) {
-      if (max(background.integral.Tx) > temp.matrix.length[2]) {
-        background.integral.Tx <-
-          c((temp.matrix.length[2] - length(background.integral.Tx)):temp.matrix.length[2])
+    .throw_warning("Background integral out of bounds, reset to ",
+                     .format_range(background.integral))
+  }
 
-        ##prevent that the background integral becomes negative
-        if (min(background.integral.Tx) < max(signal.integral.Tx)) {
-          background.integral.Tx <-
-            c((max(signal.integral.Tx) + 1):max(background.integral.Tx))
-        }
+  ## do the same for the Tx, if set
+  if (!is.null(background.integral.Tx)) {
+    excess <- max(background.integral.Tx) - channel.length
+    if (excess > 0) {
+      background.integral.Tx <- background.integral.Tx - excess
 
-        .throw_warning("Background integral for Tx out of bounds, set to ",
+      ## prevent the background integral from overlapping with the signal integral
+      if (min(background.integral.Tx) < max(signal.integral.Tx)) {
+        background.integral.Tx <- (max(signal.integral.Tx) + 1):max(background.integral.Tx)
+      }
+
+      .throw_warning("Background integral for Tx out of bounds, reset to ",
                        .format_range(background.integral.Tx))
       }
-    }
+  }
 
   # Grep Curves -------------------------------------------------------------
   ## extract relevant curves from RLum.Analysis object
