@@ -122,7 +122,7 @@ test_that("check functionality", {
       verbose = FALSE,
       fit.weights = FALSE
     ),
-    "[analyse_SAR.CWOSL()] No signal or background integral applied as they",
+    "[analyse_SAR.CWOSL()] No signal or background integral applied as at least",
     fixed = TRUE)
 
   expect_error(

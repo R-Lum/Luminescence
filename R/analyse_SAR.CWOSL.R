@@ -375,9 +375,11 @@ if(is.list(object)){
     signal.integral <- background.integral <- NA
     signal.integral.Tx <- background.integral.Tx <- NULL
 
-    if(is.null(OSL.component))
-    .throw_warning("No signal or background integral applied ",
-                   "as they were set to NA")
+    if (is.null(OSL.component)) {
+      .throw_warning("No signal or background integral applied as at least ",
+                     "one of them contained NA values and 'OSL.component' was ",
+                     "not specified")
+    }
   } else {
     ## build signal and background integrals
     signal.integral <- signal.integral.min[1]:signal.integral.max[1]
