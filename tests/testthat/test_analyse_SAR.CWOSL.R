@@ -14,6 +14,14 @@ test_that("input validation", {
                "'object' should be of class 'RLum.Analysis'")
 
   expect_error(analyse_SAR.CWOSL(object[[1]],
+                                 signal.integral.min = 1,
+                                 signal.integral.max = 2,
+                                 background.integral.min = 900,
+                                 background.integral.max = 1000,
+                                 plot_singlePanels = list()),
+               "'plot_singlePanels' should be of class 'logical', 'integer' or 'numeric'")
+
+  expect_error(analyse_SAR.CWOSL(object[[1]],
                                  signal.integral.min = 1.2,
                                  signal.integral.max = 3.5,
                                  background.integral.min = 900,
@@ -34,15 +42,10 @@ test_that("input validation", {
                "'background.integral.min' must be larger than 'signal.integral.max'")
 })
 
-## FIXME(mcol): snapshots were produced on R 4.3.3, and a tolerance of 1.5e-6
-## was sufficient; however, both R 4.4 and Rdevel produce slightly different
-## values that required increasing the tolerance to 1.5e-3. When a new R
-## release happens, so that R 4.3.3 is no longer oldrel, the snapshots should
-## be rebuilt and the tolerance restored to 1.5e-6.
-snapshot.tolerance <- 1.5e-3
-
 test_that("snapshot tests", {
   testthat::skip_on_cran()
+
+  snapshot.tolerance <- 1.5e-6
 
   expect_snapshot_RLum(
     results <- analyse_SAR.CWOSL(
@@ -375,15 +378,6 @@ test_that("check functionality", {
                "Background integral out of bounds, reset to 600:1000")
   expect_match(warnings, all = FALSE,
                "Background integral for Tx out of bounds, reset to 606:1000")
-
-  ## plot_singlePanels
-  expect_error(analyse_SAR.CWOSL(object[[1]],
-                                 signal.integral.min = 1,
-                                 signal.integral.max = 2,
-                                 background.integral.min = 900,
-                                 background.integral.max = 1000,
-                                 plot_singlePanels = list()),
-               "'plot_singlePanels' should be of class 'logical', 'integer'")
 
   ## add one OSL curve
   expect_warning(expect_null(
