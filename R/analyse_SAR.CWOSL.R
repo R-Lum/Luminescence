@@ -446,7 +446,7 @@ if(is.list(object)){
   ## now remove all non-allowed curves
   CWcurve.type <- regmatches(
     x = names(object),
-    m = regexpr("(OSL[a-zA-Z]*|IRSL[a-zA-Z]*|POSL[a-zA-Z]*)", names(object), perl = TRUE))
+    m = regexpr("(P?OSL[a-zA-Z]*|IRSL[a-zA-Z]*)", names(object), perl = TRUE))
 
   if(length(CWcurve.type) == 0) {
     .throw_message("No record of type 'OSL', 'IRSL', 'POSL' detected, ",
@@ -666,11 +666,10 @@ if(is.list(object)){
     .throw_error("'dose.points' contains NA values or was not set")
   }
 
-    ##check whether the first OSL/IRSL curve (i.e., the Natural) has 0 dose. If not
-    ##not, it is probably a Dose Recovery Test with the given dose that is treated as the
-    ##unknown dose. We overwrite this value and warn the user.
-    if (LnLxTnTx$Dose[1] != 0 &
-         (is.null(list(...)$mode) || (!is.null(list(...)$mode) && list(...)$mode != "alternate"))) {
+  ## check whether the first OSL/IRSL curve (i.e., the Natural) has 0 dose. If
+  ## not, it is probably a dose recovery test with the given dose being treated
+  ## as the unknown dose. We overwrite this value and warn the user.
+  if (LnLxTnTx$Dose[1] != 0 && (list(...)$mode %||% "") != "alternate") {
       .throw_warning("The natural signal has a dose of ", LnLxTnTx$Dose[1],
                      " s, which is indicative of a dose recovery test. ",
                      "The natural dose was set to 0.")
