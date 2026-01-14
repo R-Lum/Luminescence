@@ -375,23 +375,56 @@ if(is.list(object)){
     signal.integral <- background.integral <- NA
     signal.integral.Tx <- background.integral.Tx <- NULL
 
-    if(is.null(OSL.component))
-    .throw_warning("No signal or background integral applied ",
-                   "as they were set to NA")
+    if (is.null(OSL.component)) {
+      .throw_warning("No signal or background integral applied as at least ",
+                     "one of them contained NA values and 'OSL.component' was ",
+                     "not specified")
+    }
   } else {
     ## build signal and background integrals
     signal.integral <- signal.integral.min[1]:signal.integral.max[1]
     background.integral <- background.integral.min[1]:background.integral.max[1]
-    signal.integral.Tx <- NULL
-    background.integral.Tx <- NULL
 
-    ## account for the case that Lx and Tx integral differ
-    if (length(signal.integral.min) == 2 && length(signal.integral.max) == 2) {
-      signal.integral.Tx <- signal.integral.min[2]:signal.integral.max[2]
+    if (background.integral.min[1] <= signal.integral.max[1]) {
+      .throw_error("'background.integral.min' must be larger than 'signal.integral.max'")
     }
 
+    if (!is.integer(signal.integral) || !is.integer(background.integral)) {
+      .throw_error("'signal.integral' or 'background.integral' is not of type integer")
+    }
+
+    if (length(signal.integral) == 1) {
+      signal.integral <- signal.integral + 0:1
+      .throw_warning("Signal integral limits cannot be equal, reset to ",
+                     .format_range(signal.integral))
+    }
+
+    if (length(background.integral) == 1) {
+      ## we subtract 25 to avoid warnings from calc_OSLLxTxRatio()
+      background.integral <- background.integral - 25:0
+      .throw_warning("Background integral limits cannot be equal, reset to ",
+                     .format_range(background.integral))
+    }
+
+    ## signal and background integrals for the Tx curve
+    signal.integral.Tx <- NULL
+    if (length(signal.integral.min) == 2 && length(signal.integral.max) == 2) {
+      signal.integral.Tx <- signal.integral.min[2]:signal.integral.max[2]
+      if (length(signal.integral.Tx) == 1) {
+        signal.integral.Tx <- signal.integral.Tx + 0:1
+        .throw_warning("Signal integral limits for Tx curves cannot be equal, reset to ",
+                       .format_range(signal.integral.Tx))
+      }
+    }
+
+    background.integral.Tx <- NULL
     if (length(background.integral.min) == 2 && length(background.integral.max) == 2) {
       background.integral.Tx <- background.integral.min[2]:background.integral.max[2]
+      if (length(background.integral.Tx) == 1) {
+        background.integral.Tx <- background.integral.Tx - 25:0
+        .throw_warning("Background integral limits for Tx curves cannot be equal, reset to ",
+                       .format_range(background.integral.Tx))
+      }
     }
 
     ## account for the case that the uset did not provide everything ...
@@ -406,11 +439,6 @@ if(is.list(object)){
         .throw_warning("Signal integral for Tx curves set, but not for the ",
                        "background integral; background integral for Tx automatically set")
       }
-
-    ##INTEGRAL LIMITS
-    if (!is.integer(signal.integral) || !is.integer(background.integral)) {
-      .throw_error("'signal.integral' or 'background.integral' is not of type integer")
-    }
   }
 
   ## try to extract the correct curves for the sequence based on allowed curve types and
@@ -522,55 +550,36 @@ if(is.list(object)){
     return(invisible(NULL))
   }
 
-    ##check background integral
-    if (!all(is.na(signal.integral)) &&
-        max(signal.integral) == min(signal.integral)) {
-      signal.integral <- min(signal.integral):(max(signal.integral) + 1)
-      .throw_warning("Integral signal limits cannot be equal, reset automatically")
+  ## the background integral should not exceed the channel length
+  channel.length <- temp.matrix.length[1]
+  excess <- max(background.integral) - channel.length
+  if (!anyNA(background.integral) && excess > 0) {
+    background.integral <- background.integral - excess
+
+    ## prevent the background integral from overlapping with the signal integral
+    if (min(background.integral) < max(signal.integral)) {
+      background.integral <- (max(signal.integral) + 1):max(background.integral)
     }
 
-    ##background integral should not be longer than curve channel length
-    if (!all(is.na(background.integral)) &&
-             max(background.integral) == min(background.integral)) {
-      background.integral <-
-        c((min(background.integral) - 1) : max(background.integral))
-    }
-
-    if (!all(is.na(background.integral)) &&
-        max(background.integral) > temp.matrix.length[1]) {
-      background.integral <-
-          c((temp.matrix.length[1] - length(background.integral)):temp.matrix.length[1])
-
-      ##prevent that the background integral becomes negative
-      if(min(background.integral) < max(signal.integral)){
-        background.integral <- c((max(signal.integral) + 1):max(background.integral))
-      }
-
-      .throw_warning("Background integral out of bounds, set to ",
+    .throw_warning("Background integral out of bounds, reset to ",
                      .format_range(background.integral))
-    }
+  }
 
-    ##Do the same for the Tx-if set
-    if (!is.null(background.integral.Tx)) {
-      if (max(background.integral.Tx) == min(background.integral.Tx)) {
-        background.integral.Tx <-
-          c((min(background.integral.Tx) - 1) : max(background.integral.Tx))
+  ## do the same for the Tx, if set
+  if (!is.null(background.integral.Tx)) {
+    excess <- max(background.integral.Tx) - channel.length
+    if (excess > 0) {
+      background.integral.Tx <- background.integral.Tx - excess
+
+      ## prevent the background integral from overlapping with the signal integral
+      if (min(background.integral.Tx) < max(signal.integral.Tx)) {
+        background.integral.Tx <- (max(signal.integral.Tx) + 1):max(background.integral.Tx)
       }
 
-      if (max(background.integral.Tx) > temp.matrix.length[2]) {
-        background.integral.Tx <-
-          c((temp.matrix.length[2] - length(background.integral.Tx)):temp.matrix.length[2])
-
-        ##prevent that the background integral becomes negative
-        if (min(background.integral.Tx) < max(signal.integral.Tx)) {
-          background.integral.Tx <-
-            c((max(signal.integral.Tx) + 1):max(background.integral.Tx))
-        }
-
-        .throw_warning("Background integral for Tx out of bounds, set to ",
+      .throw_warning("Background integral for Tx out of bounds, reset to ",
                        .format_range(background.integral.Tx))
       }
-    }
+  }
 
   # Grep Curves -------------------------------------------------------------
   ## extract relevant curves from RLum.Analysis object
