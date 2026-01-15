@@ -392,7 +392,7 @@ test_that("check functionality", {
    object_short[[1]]@records[[2]]@data <- object_short[[1]]@records[[2]]@data[-nrow(object_short[[1]]@records[[2]]@data),]
 
    ## without fix
-   expect_warning(
+   expect_warning(expect_null(
      analyse_SAR.CWOSL(
        object = object_short[[1]],
        signal.integral.min = 1,
@@ -401,8 +401,8 @@ test_that("check functionality", {
        background.integral.max = 9900,
        fit.method = "LIN",
        plot = FALSE,
-       verbose = FALSE),
-     "[analyse_SAR.CWOSL()] Input curves have different lengths",
+       verbose = FALSE)),
+     "Input curves have different lengths (999, 1000), consider setting",
      fixed = TRUE)
 
    ## with new parameter
@@ -418,6 +418,24 @@ test_that("check functionality", {
        plot = FALSE,
        verbose = FALSE),
    class = "RLum.Results")
+
+  ## different curve types matching
+  object_short[[1]]@records[[4]]@recordType <- "OSL (NA)"
+  suppressWarnings( # Input curves have different lengths (999, 1000)
+  expect_warning(expect_null(
+     analyse_SAR.CWOSL(
+       object = object_short[[1]],
+       signal.integral.min = 1,
+       signal.integral.max = 2,
+       background.integral.min = 800,
+       background.integral.max = 9900,
+       fit.method = "LIN",
+       trim_channels = TRUE,
+       plot = FALSE,
+       verbose = FALSE)),
+     "Curve type 'OSL' matches multiple record types: 'OSL', 'OSL (NA)'",
+     fixed = TRUE)
+  )
 })
 
 test_that("advance tests run", {

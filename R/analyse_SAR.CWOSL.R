@@ -360,9 +360,10 @@ if(is.list(object)){
   .validate_scalar(dose_rate_source, null.ok = TRUE)
 
   ## trim OSL or IRSL channels
+  record.types <- vapply(object@records, function(x) x@recordType, character(1))
   if (trim_channels) {
     ## fetch names with OSL and IRSL
-    tmp_names <- unique(vapply(object@records, function(x) x@recordType, character(1)))
+    tmp_names <- unique(record.types)
     tmp_names <- grep("OSL|IRSL", tmp_names, value = TRUE, perl = TRUE)
 
     ## trim
@@ -441,21 +442,21 @@ if(is.list(object)){
     }
   }
 
-  ## try to extract the correct curves for the sequence based on allowed curve types and
-  ## the curve type used most frequently
-  ## now remove all non-allowed curves
-  CWcurve.type <- regmatches(
+  ## extract the correct curves for the sequence based on allowed curve types
+  ## and the most common curve type (after stripping extra specifiers in the
+  ## curve names)
+  stripped.curve.types <- regmatches(
     x = names(object),
     m = regexpr("(P?OSL[a-zA-Z]*|IRSL[a-zA-Z]*)", names(object), perl = TRUE))
 
-  if(length(CWcurve.type) == 0) {
+  if (length(stripped.curve.types) == 0) {
     .throw_message("No record of type 'OSL', 'IRSL', 'POSL' detected, ",
                    "NULL returned")
     return(NULL)
   }
 
   ## now get the type which is used most
-  CWcurve.type <- names(which.max(table(CWcurve.type)))
+  CWcurve.type <- names(which.max(table(stripped.curve.types)))
 
 # Rejection criteria ------------------------------------------------------
 
@@ -537,10 +538,21 @@ if(is.list(object)){
                                       }))
 
   if(length(unique(temp.matrix.length))!=1){
+    ## check if the selected curve type (stripped of specifiers) corresponds to
+    ## multiple record types, as that may be problematic if they have different
+    ## numbers of channels
+    matched.types <- unique(grep(CWcurve.type, record.types,
+                                 fixed = TRUE, value = TRUE))
+    if (length(matched.types) > 1) {
+      .throw_warning("Curve type '", CWcurve.type, "' matches multiple record types: ",
+                     .collapse(matched.types), ", please ensure that your curve ",
+                     "selection is correct")
+    }
+
+    hint <- if (trim_channels) "" else ", consider setting 'trim_channels = TRUE'"
     error.list[[2]] <- paste0("Input curves have different lengths (",
-                              .collapse(unique(temp.matrix.length),
-                                        quote = FALSE), "), consider setting ",
-                              "'trim_channels = TRUE'")
+                              .collapse(sort(unique(temp.matrix.length)),
+                                        quote = FALSE), ")", hint)
   }
 
   ## return early in case of errors
