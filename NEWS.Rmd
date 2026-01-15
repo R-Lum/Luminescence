@@ -90,6 +90,10 @@ in other functions that wrap around `analyse_SAR.CWOSL()` (#4fc985d).
 not greater than `signal.integral.max`, and improved warnings in other cases
 when the integrals are set incorrectly (#1267).
 
+* The function warns if the most common curve type (which is the one used in
+the analysis) matches multiple record types, as this may be a sign that the
+user has forgotten to select the correct set of curves to analyze (#1269).
+
 ### `calc_OSLLxTxRatio()`
 
 * The `signal.integral` or `background.integral` arguments are now better
