@@ -539,7 +539,7 @@ if(is.list(object)){
   if(length(unique(temp.matrix.length))!=1){
     hint <- if (trim_channels) "" else ", consider setting 'trim_channels = TRUE'"
     error.list[[2]] <- paste0("Input curves have different lengths (",
-                              .collapse(unique(temp.matrix.length),
+                              .collapse(sort(unique(temp.matrix.length)),
                                         quote = FALSE), ")", hint)
   }
 
