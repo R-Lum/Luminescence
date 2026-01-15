@@ -424,9 +424,7 @@ setMethod("get_RLum",
               ##recordType
               .validate_class(recordType, "character", null.ok = TRUE)
               if (is.null(recordType)) {
-                recordType <-
-                  unique(vapply(object@records, function(x)
-                    x@recordType, character(1)))
+                recordType <- unique(names(object))
               }
 
               ##curveType
@@ -578,8 +576,7 @@ setMethod("structure_RLum",
             temp.id <- seq_len(temp.object.length)
 
             ##recordType
-            temp.recordType <-
-              vapply(object@records, function(x) x@recordType, character(1))
+            temp.recordType <- names(object)
 
             ##PROTOCOL STEP
             temp.protocol.step <- rep_len(NA_character_, temp.object.length)
@@ -668,7 +665,7 @@ setMethod("length_RLum",
 setMethod("names_RLum",
           "RLum.Analysis",
           function(object){
-            sapply(object@records, function(x) x@recordType)
+            vapply(object@records, function(x) x@recordType, character(1))
           })
 
 

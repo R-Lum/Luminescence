@@ -10,6 +10,6 @@ test_that("check functionality", {
 
   ## empty object
   res <- names_RLum(set_RLum("RLum.Analysis"))
-  expect_type(res, "list")
+  expect_type(res, "character")
   expect_length(res, 0)
 })
