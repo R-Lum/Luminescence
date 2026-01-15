@@ -116,6 +116,12 @@
   `NaN` values even in cases where dead time was not corrected; fixed
   (#1d978cf).
 
+### `get_RLum()`
+
+- An internal optimization increased the performance of the function by
+  over 50% in some particular cases, such as when merging a large number
+  of `RLum.Analysis` object (#1271).
+
 ### `normalise_RLum()`
 
 - The argument `norm` was not respected if applied to an `RLum.Analysis`
