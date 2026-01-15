@@ -448,21 +448,22 @@ setMethod("get_RLum",
               object@records <- object@records[record.id]
               record.id <- seq_along(object@records)
 
+              ## translate input to regular expression and remove ^ $
+              recordType <- glob2rx(recordType)
+              recordType <- substr(recordType,
+                                   start = 2, stop = nchar(recordType) - 1)
+
               ##select curves according to the chosen parameter
               temp <- lapply(record.id, function(x) {
-                  if (inherits(object@records[[x]], RLum.type)) {
-                    ## translate input to regular expression and remove ^ $
-                    recordType <- glob2rx(recordType)
-                    recordType <- substr(recordType,
-                                         start = 2, stop = nchar(recordType) - 1)
-                    temp <- lapply(recordType, function(type) {
-                      ## use format() to handle NA so that it gets turned into
-                      ## the "NA" string (as.character() would leave it as NA)
-                      recordType_comp <- format(object@records[[x]]@recordType)
+                  if (inherits(object@records[[x]], RLum.type) &&
+                      object@records[[x]]@curveType %in% curveType) {
+                    ## use format() to handle NA so that it gets turned into
+                    ## the "NA" string (as.character() would leave it as NA)
+                    recordType_comp <- format(object@records[[x]]@recordType)
 
+                    temp <- lapply(recordType, function(type) {
                       ## get the results object and if requested, get the index
-                      if (grepl(type, recordType_comp) &&
-                          object@records[[x]]@curveType %in% curveType) {
+                      if (grepl(type, recordType_comp)) {
                         if (!get.index) object@records[[x]] else x
                       }
                     })
