@@ -58,9 +58,10 @@ NumericVector fit_functionGOK_cpp(double a, double b, double c, double d, Numeri
   int n = x.size();
   NumericVector y(n);
 
+  double c_over_b = c / b;
+  double exponent = -1.0 / c;
   for (int i = 0; i < n; ++i) {
-    double base = 1.0 + (x[i] * c / b);
-    double exponent = -1.0 / c;
+    double base = 1.0 + (x[i] * c_over_b);
     y[i] = a * (d - std::pow(base, exponent));
   }
 

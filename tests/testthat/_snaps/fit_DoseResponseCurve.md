@@ -2967,7 +2967,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.48968168]
+                  "value": [1.48688466]
                 },
                 {
                   "type": "double",
@@ -2977,7 +2977,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [36723.77984878]
+                  "value": [38354.62187569]
                 },
                 {
                   "type": "logical",
@@ -3007,7 +3007,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [34.2116338]
+                  "value": [34.20681301]
                 },
                 {
                   "type": "character",
@@ -3022,22 +3022,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [32.28916116]
+                  "value": [32.23093708]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [33.19676254]
+                  "value": [33.24045105]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [31.01111023]
+                  "value": [31.01952031]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [37.03091533]
+                  "value": [37.00318495]
                 },
                 {
                   "type": "double",
@@ -3054,7 +3054,7 @@
             {
               "type": "double",
               "attributes": {},
-              "value": [34.12815328, 34.5680113, 34.91672119, 36.26791555, 34.64384833, 35.75195674, 35.0538973, 32.30178051, 31.77411001, 32.70994379]
+              "value": [34.12812623, 34.56798696, 34.91651162, 36.26706301, 34.64441481, 35.75192712, 35.00773289, 32.30210873, 31.77399706, 32.7082617]
             },
             {
               "type": "list",
@@ -3074,15 +3074,15 @@
                       "attributes": {},
                       "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
                     },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["data.frame"]
-                    },
                     "row.names": {
                       "type": "integer",
                       "attributes": {},
                       "value": [1, 2, 3, 4, 5, 6, 7]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["data.frame"]
                     }
                   },
                   "value": [

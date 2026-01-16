@@ -105,6 +105,13 @@ It did nothing on a single `RLum.Data.Curve()` object; fixed (#1d978cf).
 * If the channel resolution was not changing, the function produced `NaN` values even 
 in cases where dead time was not corrected; fixed (#1d978cf).
 
+### `fit_DoseResponseCurve()`
+
+* The C++ implementation of the GOK function has been tweaked to avoid some
+repeated computations in a loop. Given the different ordering of computations
+(although mathematically equivalent), there will be small differences in the
+numerical output when `fit.method = "GOK"` is used (#1277).
+
 ### `get_RLum()`
 
 * An internal optimization increased the performance of the function by over
