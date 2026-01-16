@@ -185,9 +185,8 @@ extract_IrradiationTimes <- function(
   .set_function_name("extract_IrradiationTimes")
   on.exit(.unset_function_name(), add = TRUE)
 
-  # SELF CALL -----------------------------------------------------------------------------------
-  if(is.list(object)){
-    ##show message for non-supported arguments
+  ## Self-call --------------------------------------------------------------
+  if (inherits(object, "list")) {
     if(!missing(file.BINX))
       .throw_warning("argument 'file.BINX' is not supported in self-call mode.")
 
