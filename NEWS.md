@@ -4,13 +4,22 @@
 
 ## Breaking changes
 
+More information on these changes are available at
+<https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/01/upcoming-breaking-changes-in-luminescence/>.
+
 - Function `Risoe.BINfileData2RLum.Data.Curve()` will now append the
   string “(PMT)” to the `recordType` slot of the `RLum.Data.Curve`
   object generated from BIN/BINX files. This is for consistency with
   what is already done for XSYG files, where the name of the detector
   used (or NA if that information is not available) is always reported
-  (#1275). More information on this change are available at
-  <https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/01/upcoming-breaking-changes-in-luminescence/>.
+  (#1275).
+
+- Function `read_XSYG2R()` will now prepend an underscore to the
+  `recordType` slot of the `RLum.Data.Curve` object generated from an
+  XSYG file for all objects after the first curve in a record. This will
+  allow an easier way to differentiate the curves to analyse (for
+  example, “OSL (UVVIS”) from those that are not useful in the analysis
+  (for example, “\_OSL (NA)“) (#1276).
 
 ## New functions
 
