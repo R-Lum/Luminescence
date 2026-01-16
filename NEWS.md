@@ -9,7 +9,8 @@
   object generated from BIN/BINX files. This is for consistency with
   what is already done for XSYG files, where the name of the detector
   used (or NA if that information is not available) is always reported
-  (#1275).
+  (#1275). More information on this change are available at
+  <https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/01/upcoming-breaking-changes-in-luminescence/>.
 
 ## New functions
 
@@ -80,10 +81,10 @@
   detected a dose-recovery test and automatically reset this dose point
   to 0. While this is likely convenient in 9 out of 10 cases, it caused
   trouble if the `mode = "alternate"` (passed on to
-  `fit_DoseResponseCurve()` because it modified the first dose point and
-  this required additional handling afterwards. Please keep in mind that
-  you have to redefine the recuperation reference in such a case: this
-  is wanted and not a bug (#9ff29bfd).
+  `fit_DoseResponseCurve()`) because it modified the first dose point
+  and this required additional handling afterwards. Please keep in mind
+  that you have to redefine the recuperation reference in such a case:
+  this is wanted and not a bug (#9ff29bfd).
 
 - The order of columns in the `rejection.criteria` data frame that is
   output by the function has been changed so that the `UID` column
