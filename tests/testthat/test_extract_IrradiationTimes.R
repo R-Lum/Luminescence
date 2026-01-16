@@ -91,3 +91,11 @@ test_that("snapshot tests", {
                                                 recordType = list("OSL (UVVIS)")),
                        tolerance = snapshot.tolerance)
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 1273
+  expect_error(extract_IrradiationTimes(iris, file.BINX = NA),
+               "'object' should be of class 'character', 'RLum.Analysis' or")
+})
