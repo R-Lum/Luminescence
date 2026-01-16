@@ -11,7 +11,7 @@ test_that("input validation", {
   expect_error(extract_IrradiationTimes(letters),
                "'object' should have length 1")
   expect_error(extract_IrradiationTimes(tempdir()),
-               "File is expected to have 'xsyg' or 'XSYG' extension")
+               "Input file should have 'xsyg' or 'XSYG' extension")
   expect_error(extract_IrradiationTimes(FALSE),
                "'object' should be of class 'character', 'RLum.Analysis' or a")
   expect_error(extract_IrradiationTimes(xsyg, file.BINX = "fail"),
@@ -19,7 +19,7 @@ test_that("input validation", {
   expect_error(extract_IrradiationTimes(xsyg, return_same_as_input = "error"),
                "return_same_as_input' should be a single logical value")
   expect_error(extract_IrradiationTimes(xsyg, file.BINX = tempdir()),
-               "File is expected to have 'binx' or 'BINX' extension")
+               "'file.BINX' should have 'binx' or 'BINX' extension")
 
   expect_message(extract_IrradiationTimes(xsyg, file.BINX = binx,
                                           txtProgressBar = FALSE),
