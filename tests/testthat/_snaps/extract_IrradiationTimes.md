@@ -332,7 +332,7 @@
                 "recordType": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["TL (NA)"]
+                  "value": ["_TL (NA)"]
                 },
                 "curveType": {
                   "type": "character",
@@ -489,7 +489,7 @@
                 "recordType": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["TL (NA)"]
+                  "value": ["_TL (NA)"]
                 },
                 "curveType": {
                   "type": "character",
@@ -808,7 +808,7 @@
                 "recordType": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["OSL (NA)"]
+                  "value": ["_OSL (NA)"]
                 },
                 "curveType": {
                   "type": "character",
@@ -965,7 +965,7 @@
                 "recordType": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["OSL (NA)"]
+                  "value": ["_OSL (NA)"]
                 },
                 "curveType": {
                   "type": "character",
@@ -1117,7 +1117,7 @@
                 "recordType": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["OSL (NA)"]
+                  "value": ["_OSL (NA)"]
                 },
                 "curveType": {
                   "type": "character",
@@ -1274,7 +1274,7 @@
                 "recordType": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["OSL (NA)"]
+                  "value": ["_OSL (NA)"]
                 },
                 "curveType": {
                   "type": "character",
@@ -1749,7 +1749,7 @@
                 "recordType": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["TL (NA)"]
+                  "value": ["_TL (NA)"]
                 },
                 "curveType": {
                   "type": "character",
@@ -1906,7 +1906,7 @@
                 "recordType": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["TL (NA)"]
+                  "value": ["_TL (NA)"]
                 },
                 "curveType": {
                   "type": "character",

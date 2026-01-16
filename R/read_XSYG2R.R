@@ -461,6 +461,11 @@ read_XSYG2R <- function(
         curve <- record[[j]]
         attrs <- XML::xmlAttrs(curve)
 
+        ## all curves after the first in a record are marked with a leading
+        ## underscore: this should make it easier to identify the curve to
+        ## analyze (the first) from the others
+        recordType <- paste0(ifelse(j == 1, "", "_"), recordType)
+
           ##get curveType
           temp.sequence.object.curveType <- as.character(attrs["curveType"])
 
