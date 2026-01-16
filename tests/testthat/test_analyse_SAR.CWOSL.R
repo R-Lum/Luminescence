@@ -433,7 +433,7 @@ test_that("check functionality", {
        trim_channels = TRUE,
        plot = FALSE,
        verbose = FALSE)),
-     "Curve type 'OSL' matches multiple record types: 'OSL', 'OSL (NA)'",
+     "Curve type 'OSL' matches multiple record types: 'OSL (PMT)', 'OSL (NA)'",
      fixed = TRUE)
   )
 })

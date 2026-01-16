@@ -322,9 +322,9 @@ plot_RLum.Analysis <- function(
 
         } else{
           col <- "black"
-          if (grepl("IRSL", temp[[i]]@recordType)) {
+          if (grepl("IRSL", temp[[i]]@recordType, fixed = TRUE)) {
             col <- "red"
-          } else if (grepl("OSL", temp[[i]]@recordType)) {
+          } else if (grepl("OSL", temp[[i]]@recordType, fixed = TRUE)) {
             col <- "blue"
           }
         }
@@ -483,7 +483,7 @@ plot_RLum.Analysis <- function(
 
       ##xlab
       xlab <- plot.settings$xlab[[k]] %||% (
-        if (temp.recordType[[k]] == "TL")
+        if (grepl("TL", temp.recordType[[k]], fixed = TRUE))
           "Temperature [\u00B0C]"
         else
           "Time [s]"

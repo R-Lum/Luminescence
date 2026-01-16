@@ -154,7 +154,7 @@ test_that("RLum.Analysis", {
 
  ## apply a trimming to OSL curves only
  t <- testthat::expect_s4_class(
-   object = trim_RLum.Data(temp, recordType = "OSL", trim_range = c(10,20)),
+   object = trim_RLum.Data(temp, recordType = "OSL (PMT)", trim_range = c(10,20)),
    class = "RLum.Analysis")
  testthat::expect_length(
    object = t@records[[4]]@data[,1], n = 11)
