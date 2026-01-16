@@ -124,14 +124,15 @@ plot_RLum.Data.Curve<- function(
 
   ## set labelling unit
   if (!is.na(object@recordType)) {
-      if(object@recordType[1] %in% c("OSL", "IRSL", "RL", "RF", "LM-OSL", "RBR")){
+    recordType.stripped <- gsub(" \\(.*)", "", object@recordType[1])
+    if (recordType.stripped %in% c("OSL", "IRSL", "RL", "RF", "LM-OSL", "RBR")) {
         lab.unit <- "s"
         lab.xlab <- "Stimulation time"
-      } else if(object@recordType[1] == "TL") {
+    } else if (recordType.stripped == "TL") {
         lab.unit <- "\u00B0C"
         lab.xlab <- "Temperature"
-      }
     }
+  }
 
     ##XSYG
     ##check for curveDescripter

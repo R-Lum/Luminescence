@@ -89,7 +89,7 @@
   # Build object ------------------------------------------------------------
   set_RLum(
     class = "RLum.Data.Curve",
-    recordType = METADATA[["LTYPE"]][id],
+    recordType = paste(METADATA[["LTYPE"]][id], "(PMT)"),
     data =  src_create_RLumDataCurve_matrix(
       DATA = DATA[[id]],
       NPOINTS = METADATA[["NPOINTS"]][id],

@@ -213,7 +213,7 @@ test_that("input validation", {
                                        plot = FALSE),
                  "The following unrecognised record types have been removed:")
 
-  object.noTL <- subset(object, recordType != "TL")
+  object.noTL <- subset(object, recordType != "TL (PMT)")
   expect_warning(analyse_pIRIRSequence(list(object.noTL),
                                        main = "Title",
                                        signal.integral.min = 1,

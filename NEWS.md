@@ -2,6 +2,15 @@
 
 # Changes in version 1.1.2.9000-36 (2026-01-16)
 
+## Breaking changes
+
+- Function `Risoe.BINfileData2RLum.Data.Curve()` will now append the
+  string “(PMT)” to the `recordType` slot of the `RLum.Data.Curve`
+  object generated from BIN/BINX files. This is for consistency with
+  what is already done for XSYG files, where the name of the detector
+  used (or NA if that information is not available) is always reported
+  (#1275).
+
 ## New functions
 
 - `normalise_RLum()`: This function enables a fast normalisation of

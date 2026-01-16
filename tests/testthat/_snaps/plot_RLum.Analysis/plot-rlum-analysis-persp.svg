@@ -23656,10 +23656,10 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMzYwLjAwfDcyMC4wMHwwLjAwfDU3Ni4wMA==)'>
-<text x='554.40' y='34.48' text-anchor='middle' style='font-size: 14.40px; font-weight: bold; font-family: sans;' textLength='16.80px' lengthAdjust='spacingAndGlyphs'>TL</text>
+<text x='554.40' y='34.48' text-anchor='middle' style='font-size: 14.40px; font-weight: bold; font-family: sans;' textLength='60.80px' lengthAdjust='spacingAndGlyphs'>TL (PMT)</text>
 <text x='554.40' y='571.68' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='35.34px' lengthAdjust='spacingAndGlyphs'>(5 K/s)</text>
 <text x='554.40' y='557.28' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='92.17px' lengthAdjust='spacingAndGlyphs'>Temperature [°C]</text>
-<text transform='translate(372.96,280.80) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='82.84px' lengthAdjust='spacingAndGlyphs'>TL [cts/0.88 °C]</text>
+<text transform='translate(372.96,280.80) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='119.51px' lengthAdjust='spacingAndGlyphs'>TL (PMT) [cts/0.88 °C]</text>
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <text x='554.40' y='56.16' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='10.68px' lengthAdjust='spacingAndGlyphs'>#2</text>

@@ -45,9 +45,9 @@
 <text transform='translate(41.76,139.29) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='20.02px' lengthAdjust='spacingAndGlyphs'>250</text>
 <text transform='translate(41.76,69.92) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='20.02px' lengthAdjust='spacingAndGlyphs'>300</text>
 <polygon points='59.04,502.56 603.36,502.56 603.36,59.04 59.04,59.04 ' style='stroke-width: 0.75; fill: none;' />
-<text x='331.20' y='34.48' text-anchor='middle' style='font-size: 14.40px; font-weight: bold; font-family: sans;' textLength='83.26px' lengthAdjust='spacingAndGlyphs'>TL combined</text>
+<text x='331.20' y='34.48' text-anchor='middle' style='font-size: 14.40px; font-weight: bold; font-family: sans;' textLength='127.25px' lengthAdjust='spacingAndGlyphs'>TL (PMT) combined</text>
 <text x='331.20' y='557.28' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='92.17px' lengthAdjust='spacingAndGlyphs'>Temperature [°C]</text>
-<text transform='translate(12.96,280.80) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='44.02px' lengthAdjust='spacingAndGlyphs'>TL [a.u.]</text>
+<text transform='translate(12.96,280.80) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='80.68px' lengthAdjust='spacingAndGlyphs'>TL (PMT) [a.u.]</text>
 </g>
 <defs>
   <clipPath id='cpNTkuMDR8NjAzLjM2fDU5LjA0fDUwMi41Ng=='>

@@ -134,7 +134,7 @@ test_that("plot_DetPlot", {
                  "'n.channels' not specified, set to 3")
 
   ## analyse_pIRIRSequence
-  tmp <- subset(object, recordType != "IRSL" & ID != 1)
+  tmp <- subset(object, recordType != "IRSL (PMT)" & ID != 1)
   plot_DetPlot(
       tmp,
       method = "expansion",

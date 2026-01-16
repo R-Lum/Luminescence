@@ -309,10 +309,10 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMC4wMHwzNjAuMDB8MC4wMHwxOTIuMDA=)'>
-<text x='189.50' y='22.75' text-anchor='middle' style='font-size: 9.50px; font-weight: bold; font-family: sans;' textLength='11.09px' lengthAdjust='spacingAndGlyphs'>TL</text>
+<text x='189.50' y='22.75' text-anchor='middle' style='font-size: 9.50px; font-weight: bold; font-family: sans;' textLength='40.13px' lengthAdjust='spacingAndGlyphs'>TL (PMT)</text>
 <text x='189.50' y='189.15' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='23.33px' lengthAdjust='spacingAndGlyphs'>(5 K/s)</text>
 <text x='189.50' y='179.64' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='60.84px' lengthAdjust='spacingAndGlyphs'>Temperature [°C]</text>
-<text transform='translate(8.55,91.25) rotate(-90)' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='54.68px' lengthAdjust='spacingAndGlyphs'>TL [cts/0.88 °C]</text>
+<text transform='translate(8.55,91.25) rotate(-90)' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='78.87px' lengthAdjust='spacingAndGlyphs'>TL (PMT) [cts/0.88 °C]</text>
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <text x='189.50' y='37.07' text-anchor='middle' style='font-size: 19.20px; font-family: sans;' textLength='21.36px' lengthAdjust='spacingAndGlyphs'>#1</text>
@@ -1350,9 +1350,9 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMzYwLjAwfDcyMC4wMHwwLjAwfDE5Mi4wMA==)'>
-<text x='549.50' y='22.75' text-anchor='middle' style='font-size: 9.50px; font-weight: bold; font-family: sans;' textLength='19.02px' lengthAdjust='spacingAndGlyphs'>OSL</text>
+<text x='549.50' y='22.75' text-anchor='middle' style='font-size: 9.50px; font-weight: bold; font-family: sans;' textLength='48.06px' lengthAdjust='spacingAndGlyphs'>OSL (PMT)</text>
 <text x='549.50' y='179.64' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='66.91px' lengthAdjust='spacingAndGlyphs'>Stimulation time [s]</text>
-<text transform='translate(368.55,91.25) rotate(-90)' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='56.36px' lengthAdjust='spacingAndGlyphs'>OSL [cts/0.04 s]</text>
+<text transform='translate(368.55,91.25) rotate(-90)' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='80.56px' lengthAdjust='spacingAndGlyphs'>OSL (PMT) [cts/0.04 s]</text>
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <text x='549.50' y='37.07' text-anchor='middle' style='font-size: 19.20px; font-family: sans;' textLength='21.36px' lengthAdjust='spacingAndGlyphs'>#2</text>
@@ -1641,10 +1641,10 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMC4wMHwzNjAuMDB8MTkyLjAwfDM4NC4wMA==)'>
-<text x='189.50' y='214.75' text-anchor='middle' style='font-size: 9.50px; font-weight: bold; font-family: sans;' textLength='11.09px' lengthAdjust='spacingAndGlyphs'>TL</text>
+<text x='189.50' y='214.75' text-anchor='middle' style='font-size: 9.50px; font-weight: bold; font-family: sans;' textLength='40.13px' lengthAdjust='spacingAndGlyphs'>TL (PMT)</text>
 <text x='189.50' y='381.15' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='23.33px' lengthAdjust='spacingAndGlyphs'>(5 K/s)</text>
 <text x='189.50' y='371.64' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='60.84px' lengthAdjust='spacingAndGlyphs'>Temperature [°C]</text>
-<text transform='translate(8.55,283.25) rotate(-90)' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='54.68px' lengthAdjust='spacingAndGlyphs'>TL [cts/0.64 °C]</text>
+<text transform='translate(8.55,283.25) rotate(-90)' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='78.87px' lengthAdjust='spacingAndGlyphs'>TL (PMT) [cts/0.64 °C]</text>
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <text x='189.50' y='229.07' text-anchor='middle' style='font-size: 19.20px; font-family: sans;' textLength='21.36px' lengthAdjust='spacingAndGlyphs'>#3</text>
@@ -2678,9 +2678,9 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMzYwLjAwfDcyMC4wMHwxOTIuMDB8Mzg0LjAw)'>
-<text x='549.50' y='214.75' text-anchor='middle' style='font-size: 9.50px; font-weight: bold; font-family: sans;' textLength='19.02px' lengthAdjust='spacingAndGlyphs'>OSL</text>
+<text x='549.50' y='214.75' text-anchor='middle' style='font-size: 9.50px; font-weight: bold; font-family: sans;' textLength='48.06px' lengthAdjust='spacingAndGlyphs'>OSL (PMT)</text>
 <text x='549.50' y='371.64' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='66.91px' lengthAdjust='spacingAndGlyphs'>Stimulation time [s]</text>
-<text transform='translate(368.55,283.25) rotate(-90)' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='56.36px' lengthAdjust='spacingAndGlyphs'>OSL [cts/0.04 s]</text>
+<text transform='translate(368.55,283.25) rotate(-90)' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='80.56px' lengthAdjust='spacingAndGlyphs'>OSL (PMT) [cts/0.04 s]</text>
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <text x='549.50' y='229.07' text-anchor='middle' style='font-size: 19.20px; font-family: sans;' textLength='21.36px' lengthAdjust='spacingAndGlyphs'>#4</text>
@@ -2972,10 +2972,10 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMC4wMHwzNjAuMDB8Mzg0LjAwfDU3Ni4wMA==)'>
-<text x='189.50' y='406.75' text-anchor='middle' style='font-size: 9.50px; font-weight: bold; font-family: sans;' textLength='11.09px' lengthAdjust='spacingAndGlyphs'>TL</text>
+<text x='189.50' y='406.75' text-anchor='middle' style='font-size: 9.50px; font-weight: bold; font-family: sans;' textLength='40.13px' lengthAdjust='spacingAndGlyphs'>TL (PMT)</text>
 <text x='189.50' y='573.15' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='23.33px' lengthAdjust='spacingAndGlyphs'>(5 K/s)</text>
 <text x='189.50' y='563.64' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='60.84px' lengthAdjust='spacingAndGlyphs'>Temperature [°C]</text>
-<text transform='translate(8.55,475.25) rotate(-90)' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='54.68px' lengthAdjust='spacingAndGlyphs'>TL [cts/0.88 °C]</text>
+<text transform='translate(8.55,475.25) rotate(-90)' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='78.87px' lengthAdjust='spacingAndGlyphs'>TL (PMT) [cts/0.88 °C]</text>
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <text x='189.50' y='421.07' text-anchor='middle' style='font-size: 19.20px; font-family: sans;' textLength='21.36px' lengthAdjust='spacingAndGlyphs'>#5</text>
@@ -4010,9 +4010,9 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMzYwLjAwfDcyMC4wMHwzODQuMDB8NTc2LjAw)'>
-<text x='549.50' y='406.75' text-anchor='middle' style='font-size: 9.50px; font-weight: bold; font-family: sans;' textLength='19.02px' lengthAdjust='spacingAndGlyphs'>OSL</text>
+<text x='549.50' y='406.75' text-anchor='middle' style='font-size: 9.50px; font-weight: bold; font-family: sans;' textLength='48.06px' lengthAdjust='spacingAndGlyphs'>OSL (PMT)</text>
 <text x='549.50' y='563.64' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='66.91px' lengthAdjust='spacingAndGlyphs'>Stimulation time [s]</text>
-<text transform='translate(368.55,475.25) rotate(-90)' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='56.36px' lengthAdjust='spacingAndGlyphs'>OSL [cts/0.04 s]</text>
+<text transform='translate(368.55,475.25) rotate(-90)' text-anchor='middle' style='font-size: 7.92px; font-family: sans;' textLength='80.56px' lengthAdjust='spacingAndGlyphs'>OSL (PMT) [cts/0.04 s]</text>
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <text x='549.50' y='421.07' text-anchor='middle' style='font-size: 19.20px; font-family: sans;' textLength='21.36px' lengthAdjust='spacingAndGlyphs'>#6</text>
