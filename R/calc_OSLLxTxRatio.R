@@ -30,6 +30,13 @@
 #' \deqn{se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx * sig0)^2)}
 #'
 #'
+#' **`SN_RATIO_LnLx` and `SN_RATIO_TnTx`**
+#'
+#' For convenience, the function returns the signal-to-noise ratio (`SN_RATIO`)
+#' for the `LnLx` and the `TnTx` curves. This is simply the signal divided
+#' by the background signal counts normalised to the `k` value (see below).
+#'
+#'
 #' **`background.count.distribution`**
 #'
 #' This argument allows selecting the distribution assumption that is used for
@@ -115,6 +122,8 @@
 #' .. $ Net_LnLx.Error
 #' .. $ Net_TnTx
 #' .. $ Net_TnTx.Error
+#' .. $ SN_RATIO_LnLx,
+#' .. $ SN_RATIO_TnTx,
 #' .. $ LxTx
 #' .. $ LxTx.Error
 #' $ calc.parameters (list)
@@ -135,7 +144,7 @@
 #' **Caution:** If you are using early light subtraction (EBG), please either provide your
 #' own `sigmab` value or use `background.count.distribution = "poisson"`.
 #'
-#' @section Function version: 0.8.2
+#' @section Function version: 0.9.0
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -247,6 +256,8 @@ calc_OSLLxTxRatio <- function(
       Net_LnLx.Error = 0,
       Net_TnTx = TnTx,
       Net_TnTx.Error = 0,
+      SN_RATIO_LnLx = 0,
+      SN_RATIO_TnTx = 0,
       LxTx = LnLx/TnTx,
       LxTx.Error = 0)
 
@@ -463,12 +474,13 @@ calc_OSLLxTxRatio <- function(
     Net_LnLx = LnLx,
     Net_LnLx.Error = LnLx.Error,
     Net_TnTx = TnTx,
-    Net_TnTx.Error = TnTx.Error
+    Net_TnTx.Error = TnTx.Error,
+    SN_RATIO_LnLx = Lx.signal/(Lx.background/k),
+    SN_RATIO_TnTx = Tx.signal/(Tx.background/k.Tx)
   )
 
   ## ------------------------------------------------------------------------
   ## (4) Calculate LxTx error according Galbraith (2014)
-
   temp <- .calculate_LxTx_error(LnLxTnTx, sig0, digits)
 
   calc.parameters <- list(

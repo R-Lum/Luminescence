@@ -82,6 +82,8 @@ Slot \code{data} contains a \link{list} with the following structure:
 .. $ Net_LnLx.Error
 .. $ Net_TnTx
 .. $ Net_TnTx.Error
+.. $ SN_RATIO_LnLx,
+.. $ SN_RATIO_TnTx,
 .. $ LxTx
 .. $ LxTx.Error
 $ calc.parameters (list)
@@ -124,6 +126,12 @@ the already calculated \code{LxTx} and the result is add up by:
 
 \deqn{se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx * sig0)^2)}
 
+\strong{\code{SN_RATIO_LnLx} and \code{SN_RATIO_TnTx}}
+
+For convenience, the function returns the signal to noise ratio (\code{SN_RATIO})
+for the \code{LnLx} and the \code{TnTx} curves. This is simply the signal divided
+by the background signal counts normalised to the \code{k} value (see below).
+
 \strong{\code{background.count.distribution}}
 
 This argument allows selecting the distribution assumption that is used for
@@ -154,7 +162,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.8.2
+ 0.9.0
 }
 
 \examples{
