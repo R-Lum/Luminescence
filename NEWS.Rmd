@@ -29,7 +29,7 @@ that are not useful in the analysis (for example, "_OSL (NA)") (#1276).
 
 * Function `calc_OSLLxTxRatio()` adds two new columns to the output `SN_RATIO_LnLx` and 
 `SN_RATIO_TnTx`. This may potentially disrupt code that relies on the column index
-instead of the name. 
+instead of the name (#1281).
 
 ## New functions
 
@@ -121,7 +121,7 @@ user has forgotten to select the correct set of curves to analyze (#1269).
 validated (#1252).
 
 * The function now returns `SN_RATIO_LnLx` and `SN_RATIO_TnTx`. This is the 
-signal-to-noise ratio for the respective shine-down curves for `Lx` and `Tx`. 
+signal-to-noise ratio for the respective shine-down curves for `Lx` and `Tx` (#1281). 
 
 ### `correct_PMTLinerarity()` 
 * The function introduced with the last release, unintentionally came with a major flaw: 
