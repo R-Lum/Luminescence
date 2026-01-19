@@ -40,7 +40,7 @@
 #' Andrzej Bluszcz, Silesian University of Technology, Gliwice (Poland)\cr
 #' Antoine Zink, C2RMF, Palais du Louvre, Paris (France)
 #'
-#' The ASCII-file import is based on a suggestion by Willian Amidonl and
+#' The ASCII-file import is based on a suggestion by William Amidon and
 #' Andrew Louis Gorin.
 #'
 #' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data.Curve-class], [data.table::data.table]

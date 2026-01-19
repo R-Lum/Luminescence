@@ -60,7 +60,7 @@ Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Ins
 Andrzej Bluszcz, Silesian University of Technology, Gliwice (Poland)\cr
 Antoine Zink, C2RMF, Palais du Louvre, Paris (France)
 
-The ASCII-file import is based on a suggestion by Willian Amidonl and
+The ASCII-file import is based on a suggestion by William Amidon and
 Andrew Louis Gorin.
 }
 \keyword{IO}
