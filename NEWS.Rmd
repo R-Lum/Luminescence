@@ -27,26 +27,33 @@ objects after the first curve in a record. This will allow an easier way to
 differentiate the curves to analyse (for example, "OSL (UVVIS") from those
 that are not useful in the analysis (for example, "_OSL (NA)") (#1276).
 
-* Function `calc_OSLLxTxRatio()` adds two new columns to the output `SN_RATIO_LnLx` and 
-`SN_RATIO_TnTx`. This may potentially disrupt code that relies on the column index
-instead of the name (#1281).
+* Function `calc_OSLLxTxRatio()` adds two new columns, `SN_RATIO_LnLx` and
+`SN_RATIO_TnTx`, to the output. This may potentially disrupt code that relies
+on column indices instead of column names (#1281).
 
 ## New functions
 
-* `normalise_RLum()`: This function enables a fast normalisation of `RLum.Data.Curve-class`, `RLum.Data.Spectrum-class`, `RLum.Data.Image-class` and their combination in `RLum.Analysis-class` objects. Normalisation was already possible for plotting (e.g., `plot_RLum.Data.Curve(…, norm = TRUE)`), which uses an internal function called `.normalise_curves()` to do the job. With `normalise_RLum()` we 
-expose this functionality to `RLum-class` objects and enable a convenient 
-normalisation of values that might come in handy in same cases. Normalised values are only count values. 
-Currently implemented is normalisation via keywords, such as `’min’`, `’max’`, `’first’`, `’last’`, `’hout’`. 
-Additionally, the function supports the normalisation to any real number (PR #1250 by @RLumSK).
+* `normalise_RLum()`: This function enables a fast normalisation of
+`RLum.Data.Curve-class`, `RLum.Data.Spectrum-class`, `RLum.Data.Image-class`
+and their combination in `RLum.Analysis-class` objects. Normalisation was
+already possible for plotting (e.g., `plot_RLum.Data.Curve(…, norm = TRUE)`),
+which uses an internal function called `.normalise_curves()` to do the job.
+With `normalise_RLum()` we expose this functionality to `RLum-class` objects
+and enable a convenient normalisation of values that might come in handy in
+same cases. Normalised values are only count values. Currently implemented is
+normalisation via keywords, such as `’min’`, `’max’`, `’first’`, `’last’`,
+`’hout’`. Additionally, the function supports the normalisation to any real
+number (#1250 by @RLumSK).
 
-* `read_BINXLOG2R()`: This new function enables you to salvage log files created 
+* `read_BINXLOG2R()`: This function enables you to salvage log files created
 by a Risø reader into R as `RLum.Analysis-class`. The function also allows the 
-export of these files into a BIN/BINX format. While the function has been tested 
-on a few examples, it is important to note that log files are never a well-defined 
-data format. This function is intended for use in cases where you have a corrupted 
-BIN/BINX file but a complete log file is still available. Supported log formats 
-are TL, OSL, and OSL curves. All other formats are ignored.
-Thanks to Michael Kenzler for bringing this to our attention (@RLumSK with #1241).
+export of these files into a BIN/BINX format. While the function has been
+tested on a few examples, it is important to note that log files are not a
+well-defined data format. This function is intended for use in cases where you
+have a corrupted BIN/BINX file but a complete log file is still available.
+Supported log formats are TL, OSL, and OSL curves. All other formats are
+ignored (#1241 by @RLumSK; thanks to Michael Kenzler for bringing this to our
+attention).
 
 ## Removed functions and deprecations
 
