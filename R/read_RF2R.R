@@ -227,7 +227,7 @@ read_RF2R <- function(
           class = "RLum.Data.Curve",
           originator = "read_RF2R",
           curveType = "measured",
-          recordType = "RF",
+          recordType = "RF (NA)",
           data = temp_curve
         )
       })

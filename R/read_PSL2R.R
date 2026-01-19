@@ -289,7 +289,7 @@ format_Measurements <- function(x, convert, header) {
   set_RLum(
     class = "RLum.Data.Curve",
     originator = "read_PSL2R",
-    recordType = recordType,
+    recordType = paste(recordType, "(PMT)"),
     curveType = "measured",
     data = data,
     info = list(settings = c(settings_list, header),

@@ -348,11 +348,11 @@ read_Daybreak2R <- function(
             set_RLum(
               class = "RLum.Data.Curve",
               originator = "read_Daybreak2R",
-              recordType = ifelse(dev == 0, "TL",
-                           ifelse((dev >= 10) && (dev < 20), "bleaching",
-                           ifelse((dev >= 20) && (dev < 30), "OSL",
-                           ifelse((dev >= 30) && (dev < 40), "isoTL",
-                           ifelse((dev == 200), "missing_point", NA_character_))))),
+              recordType = ifelse(dev == 0, "TL (PMT)",
+                           ifelse((dev >= 10) && (dev < 20), "bleaching (PMT)",
+                           ifelse((dev >= 20) && (dev < 30), "OSL (PMT)",
+                           ifelse((dev >= 30) && (dev < 40), "isoTL (PMT)",
+                           ifelse((dev == 200), "missing_point (NA)", NA_character_))))),
               curveType = "measured",
               data = matrix(
                 data = c(

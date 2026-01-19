@@ -11,6 +11,8 @@ test_that("input validation", {
   SW({
   expect_message(expect_null(subset(temp, recordType == "xx")),
                  "'subset' expression produced an empty selection, NULL returned")
+  expect_message(expect_null(subset(temp, recordType == "RF")),
+                 "'subset' expression produced an empty selection, NULL returned")
   })
 })
 
@@ -23,13 +25,15 @@ test_that("check functionality", {
   expect_identical(subset(temp)[[1]], temp[[1]])
 
   ### valid
-  expect_s4_class(subset(temp, recordType == "RF"), class = "RLum.Analysis")
-  expect_s4_class(subset(temp, recordType == "RF")[[1]], class = "RLum.Data.Curve")
-  expect_length(subset(temp, recordType == "RF"), n = length(temp))
+  expect_s4_class(subset(temp, recordType == "RF (NA)"), class = "RLum.Analysis")
+  expect_s4_class(subset(temp, recordType == "RF (NA)")[[1]], class = "RLum.Data.Curve")
+  expect_length(subset(temp, recordType == "RF (NA)"), n = length(temp))
 
   ## get_RLum(<obj>, subset = (<condition>))
-  expect_s4_class(get_RLum(temp, subset = recordType == "RF"), class = "RLum.Analysis")
-  expect_s4_class(get_RLum(temp, subset = recordType == "RF")[[1]], class = "RLum.Data.Curve")
-  expect_length(get_RLum(temp, subset = recordType == "RF"), n = length(temp))
-
+  expect_s4_class(get_RLum(temp, subset = recordType == "RF (NA)"),
+                  "RLum.Analysis")
+  expect_s4_class(get_RLum(temp, subset = recordType == "RF (NA)")[[1]],
+                  "RLum.Data.Curve")
+  expect_length(get_RLum(temp, subset = recordType == "RF (NA)"),
+                length(temp))
 })
