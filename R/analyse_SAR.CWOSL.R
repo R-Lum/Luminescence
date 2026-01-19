@@ -663,13 +663,13 @@ analyse_SAR.CWOSL<- function(
       LnLxTnTx$Dose <- dose.points
   }
 
-  ## set test dose points
+  ## set test dose points; we set it to -1 if nothing is available
   LnLxTnTx$Test_Dose <- rep_len(dose.points.test %||% -1, nrow(LnLxTnTx))
 
   ## use source dose rate
   if(!is.null(dose_rate_source)) {
     LnLxTnTx$Dose <- LnLxTnTx$Dose * dose_rate_source
-    LnLxTnTx$Test_Dose <- LnLxTnTx$Test_Dose * dose_rate_source
+    LnLxTnTx$Test_Dose <- ifelse(LnLxTnTx$Test_Dose < 1, -1, LnLxTnTx$Test_Dose  * dose_rate_source)
   }
 
   ##check whether we have dose points at all

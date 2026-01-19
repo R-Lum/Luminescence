@@ -89,6 +89,21 @@ test_that("snapshot tests", {
       verbose = FALSE
     ), tolerance = snapshot.tolerance
   )
+  ## with test dose
+  expect_snapshot_RLum(
+    analyse_SAR.CWOSL(
+      object = object[1:2],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      fit.method = "LIN", 
+      dose.points.test = 1,
+      dose_rate_source = 0.2,
+      plot = FALSE,
+      verbose = FALSE
+    ), tolerance = snapshot.tolerance
+  )
 
   ## check rejection criteria and recuperation point selection
   expect_snapshot_RLum(
