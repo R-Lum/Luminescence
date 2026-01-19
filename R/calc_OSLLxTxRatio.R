@@ -5,8 +5,8 @@
 #' background subtraction.
 #'
 #' @details
-#' The integrity of the chosen values for the signal and background integral is
-#' checked by the function; the signal integral limits have to be lower than
+#' The function checks the integrity of the values chosen for the signal and
+#' background integrals; the signal integral limits have to be lower than
 #' the background integral limits. If a [vector] is given as input instead
 #' of a [data.frame], an artificial [data.frame] is produced. The
 #' error calculation is done according to Galbraith (2002).
@@ -56,7 +56,7 @@
 #' **Please note** that when using the early background subtraction method in
 #' combination with the 'non-poisson' distribution argument, the corresponding `Lx/Tx` error
 #' may considerably increase due to a high `sigmab` value.
-#' Please check whether this is valid for your data set and  if necessary
+#' Please check whether this is valid for your data set and if necessary
 #' consider to provide an own `sigmab` value using the corresponding argument `sigmab`.
 #'
 #' @param Lx.data [Luminescence::RLum.Data.Curve-class] or [data.frame] (**required**):

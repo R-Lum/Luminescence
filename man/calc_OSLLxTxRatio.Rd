@@ -102,8 +102,8 @@ Calculate \code{Lx/Tx} ratios from a given set of CW-OSL curves assuming late li
 background subtraction.
 }
 \details{
-The integrity of the chosen values for the signal and background integral is
-checked by the function; the signal integral limits have to be lower than
+The function checks the integrity of the values chosen for the signal and
+background integrals; the signal integral limits have to be lower than
 the background integral limits. If a \link{vector} is given as input instead
 of a \link{data.frame}, an artificial \link{data.frame} is produced. The
 error calculation is done according to Galbraith (2002).
@@ -128,7 +128,7 @@ the already calculated \code{LxTx} and the result is add up by:
 
 \strong{\code{SN_RATIO_LnLx} and \code{SN_RATIO_TnTx}}
 
-For convenience, the function returns the signal to noise ratio (\code{SN_RATIO})
+For convenience, the function returns the signal-to-noise ratio (\code{SN_RATIO})
 for the \code{LnLx} and the \code{TnTx} curves. This is simply the signal divided
 by the background signal counts normalised to the \code{k} value (see below).
 
@@ -151,7 +151,7 @@ standard error is calculated as:
 \strong{Please note} that when using the early background subtraction method in
 combination with the 'non-poisson' distribution argument, the corresponding \code{Lx/Tx} error
 may considerably increase due to a high \code{sigmab} value.
-Please check whether this is valid for your data set and  if necessary
+Please check whether this is valid for your data set and if necessary
 consider to provide an own \code{sigmab} value using the corresponding argument \code{sigmab}.
 }
 \note{
