@@ -1496,9 +1496,9 @@ analyse_baSAR <- function(
             sig0 = sig0[[k]])$LxTx.table
         )
 
-        Disc_Grain.list[[k]][[dd]][[gg]][[3]][nb_index] <- LxTx.table[[9]]
-        Disc_Grain.list[[k]][[dd]][[gg]][[4]][nb_index] <- LxTx.table[[10]]
-        Disc_Grain.list[[k]][[dd]][[gg]][[5]][nb_index] <- LxTx.table[[7]]
+        Disc_Grain.list[[k]][[dd]][[gg]][[3]][nb_index] <- LxTx.table$LxTx
+        Disc_Grain.list[[k]][[dd]][[gg]][[4]][nb_index] <- LxTx.table$LxTx.Error
+        Disc_Grain.list[[k]][[dd]][[gg]][[5]][nb_index] <- LxTx.table$Net_TnTx
 
         ##free memory
         rm(LxTx.table)

@@ -19,7 +19,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "LxTx", "LxTx.Error"]
+                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -72,6 +72,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [88.5]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1233.3]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [115.4]
                 },
                 {
                   "type": "double",
@@ -168,7 +178,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "LxTx", "LxTx.Error"]
+                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
                 },
                 "class": {
                   "type": "character",
@@ -183,7 +193,7 @@
               },
               "value": [
                 {
-                  "type": "double",
+                  "type": "integer",
                   "attributes": {},
                   "value": [81709]
                 },
@@ -193,7 +203,7 @@
                   "value": [530]
                 },
                 {
-                  "type": "double",
+                  "type": "integer",
                   "attributes": {},
                   "value": [7403]
                 },
@@ -221,6 +231,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [87.0610418]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1233.34339623]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [115.44639376]
                 },
                 {
                   "type": "double",
@@ -317,7 +337,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "LxTx", "LxTx.Error"]
+                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
                 },
                 "class": {
                   "type": "character",
@@ -332,7 +352,7 @@
               },
               "value": [
                 {
-                  "type": "double",
+                  "type": "integer",
                   "attributes": {},
                   "value": [81709]
                 },
@@ -342,7 +362,7 @@
                   "value": [530]
                 },
                 {
-                  "type": "double",
+                  "type": "integer",
                   "attributes": {},
                   "value": [7403]
                 },
@@ -370,6 +390,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [86.41252803]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1233.34339623]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [115.44639376]
                 },
                 {
                   "type": "double",
@@ -466,7 +496,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "LxTx", "LxTx.Error"]
+                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
                 },
                 "class": {
                   "type": "character",
@@ -481,7 +511,7 @@
               },
               "value": [
                 {
-                  "type": "double",
+                  "type": "integer",
                   "attributes": {},
                   "value": [81709]
                 },
@@ -491,7 +521,7 @@
                   "value": [530]
                 },
                 {
-                  "type": "double",
+                  "type": "integer",
                   "attributes": {},
                   "value": [7403]
                 },
@@ -519,6 +549,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [88.53580793]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1233.34339623]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [115.44639376]
                 },
                 {
                   "type": "double",
@@ -615,7 +655,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "LxTx", "LxTx.Error"]
+                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
                 },
                 "class": {
                   "type": "character",
@@ -640,7 +680,7 @@
                   "value": [0]
                 },
                 {
-                  "type": "double",
+                  "type": "integer",
                   "attributes": {},
                   "value": [7403]
                 },
@@ -668,6 +708,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [88.53580793]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NaN"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [115.44639376]
                 },
                 {
                   "type": "double",
@@ -764,7 +814,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "LxTx", "LxTx.Error"]
+                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
                 },
                 "class": {
                   "type": "character",
@@ -779,7 +829,7 @@
               },
               "value": [
                 {
-                  "type": "double",
+                  "type": "integer",
                   "attributes": {},
                   "value": [81709]
                 },
@@ -817,6 +867,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [0]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1233.34339623]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NaN"]
                 },
                 {
                   "type": "double",
@@ -913,7 +973,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "LxTx", "LxTx.Error"]
+                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
                 },
                 "class": {
                   "type": "character",
@@ -966,6 +1026,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [0]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NaN"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NaN"]
                 },
                 {
                   "type": "double",
@@ -1062,7 +1132,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "LxTx", "LxTx.Error"]
+                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
                 },
                 "class": {
                   "type": "character",
@@ -1115,6 +1185,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [0]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [8]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NaN"]
                 },
                 {
                   "type": "double",
@@ -1211,7 +1291,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "LxTx", "LxTx.Error"]
+                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
                 },
                 "class": {
                   "type": "character",
@@ -1226,7 +1306,7 @@
               },
               "value": [
                 {
-                  "type": "double",
+                  "type": "integer",
                   "attributes": {},
                   "value": [81709]
                 },
@@ -1264,6 +1344,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [0]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1233.34339623]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [8]
                 },
                 {
                   "type": "double",
@@ -1360,7 +1450,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "LxTx", "LxTx.Error"]
+                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
                 },
                 "class": {
                   "type": "character",
@@ -1413,6 +1503,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [0]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [8]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [8]
                 },
                 {
                   "type": "double",

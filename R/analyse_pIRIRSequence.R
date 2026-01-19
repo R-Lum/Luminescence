@@ -496,7 +496,7 @@ analyse_pIRIRSequence <- function(
       plot_singlePanels = temp.plot.single,
       cex = cex,
       ...
-    ) ##TODO should be replaced be useful explicit arguments
+    ) ##TODO should be replaced with useful explicit arguments
 
       ##check whether NULL was return
       if (is.null(temp.results)) {

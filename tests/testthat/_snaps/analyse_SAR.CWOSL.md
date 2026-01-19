@@ -171,7 +171,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "LxTx", "LxTx.Error", "Test_Dose"]
+                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error", "Test_Dose"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -239,6 +239,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [69.24881953, 71.06915956, 71.66840482, 72.07167521, 75.88225924, 77.37975808, 78.87190162]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [17117.23099078, 5834.5231314, 7954.76374305, 10100.42195856, 10070.7992761, 3869.1171521, 102.71617369]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [3277.81324084, 3081.47469046, 2457.59471537, 2112.27772326, 1978.91089613, 2319.1286468, 2621.50761656]
                 },
                 {
                   "type": "double",
@@ -507,7 +517,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "LxTx", "LxTx.Error", "Test_Dose"]
+                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error", "Test_Dose"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -575,6 +585,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [69.24881953, 71.06915956, 71.66840482, 72.07167521, 75.88225924, 77.37975808, 78.87190162, 52.87145759, 51.57060047, 53.11637252, 51.88217561, 52.86735235, 53.7204695, 54.90405407]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [17117.23099078, 5834.5231314, 7954.76374305, 10100.42195856, 10070.7992761, 3869.1171521, 102.71617369, 17447.10380678, 6343.01107299, 9203.17913569, 11034.46421985, 10967.53646132, 4255.20317192, 107.92784118]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [3277.81324084, 3081.47469046, 2457.59471537, 2112.27772326, 1978.91089613, 2319.1286468, 2621.50761656, 4249.89926963, 3966.37806336, 3090.63337004, 2644.10565888, 2247.60957278, 2728.66255144, 3267.88616746]
                 },
                 {
                   "type": "double",
@@ -843,7 +863,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "LxTx", "LxTx.Error", "Test_Dose"]
+                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error", "Test_Dose"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -911,6 +931,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [69.24881953, 71.06915956, 71.66840482, 72.07167521, 75.88225924, 77.37975808, 78.87190162, 52.87145759, 51.57060047, 53.11637252, 51.88217561, 52.86735235, 53.7204695, 54.90405407]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [17117.23099078, 5834.5231314, 7954.76374305, 10100.42195856, 10070.7992761, 3869.1171521, 102.71617369, 17447.10380678, 6343.01107299, 9203.17913569, 11034.46421985, 10967.53646132, 4255.20317192, 107.92784118]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [3277.81324084, 3081.47469046, 2457.59471537, 2112.27772326, 1978.91089613, 2319.1286468, 2621.50761656, 4249.89926963, 3966.37806336, 3090.63337004, 2644.10565888, 2247.60957278, 2728.66255144, 3267.88616746]
                 },
                 {
                   "type": "double",
@@ -1179,7 +1209,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "LxTx", "LxTx.Error", "Test_Dose"]
+                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error", "Test_Dose"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -1247,6 +1277,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [69.24881953, 71.06915956, 71.66840482, 72.07167521, 75.88225924, 77.37975808, 78.87190162]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [17117.23099078, 5834.5231314, 7954.76374305, 10100.42195856, 10070.7992761, 3869.1171521, 102.71617369]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [3277.81324084, 3081.47469046, 2457.59471537, 2112.27772326, 1978.91089613, 2319.1286468, 2621.50761656]
                 },
                 {
                   "type": "double",
