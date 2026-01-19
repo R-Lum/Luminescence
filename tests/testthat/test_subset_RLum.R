@@ -1,17 +1,10 @@
-# RLum.Analysis -----------------------------------------------------------
-test_that("subset RLum.Analysis", {
+## load data
+data(ExampleData.RLum.Analysis, envir = environment())
+temp <- IRSAR.RF.Data
+
+test_that("input validation", {
   testthat::skip_on_cran()
 
-  data(ExampleData.RLum.Analysis, envir = environment())
-  temp <- IRSAR.RF.Data
-
-  ## subset.RLum.Analysis() - S3 method
-  ### empty call
-  expect_s4_class(subset(temp), "RLum.Analysis")
-  expect_length(subset(temp), length(temp))
-  expect_identical(subset(temp)[[1]], temp[[1]])
-
-  ### errors
   expect_error(subset(temp, LTYPE == "RF"),
                "[get_RLum()] Invalid subset expression, valid terms are",
                fixed = TRUE)
@@ -19,6 +12,15 @@ test_that("subset RLum.Analysis", {
   expect_message(expect_null(subset(temp, recordType == "xx")),
                  "'subset' expression produced an empty selection, NULL returned")
   })
+})
+
+test_that("check functionality", {
+  testthat::skip_on_cran()
+
+  ### empty call
+  expect_s4_class(subset(temp), "RLum.Analysis")
+  expect_length(subset(temp), length(temp))
+  expect_identical(subset(temp)[[1]], temp[[1]])
 
   ### valid
   expect_s4_class(subset(temp, recordType == "RF"), class = "RLum.Analysis")
