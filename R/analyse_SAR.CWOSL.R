@@ -304,8 +304,8 @@ analyse_SAR.CWOSL<- function(
   .set_function_name("analyse_SAR.CWOSL")
   on.exit(.unset_function_name(), add = TRUE)
 
-# SELF CALL -----------------------------------------------------------------------------------
-if(is.list(object)){
+  ## Self-call --------------------------------------------------------------
+  if (inherits(object, "list")) {
   ##clean object input and expand parameters
   object <- .rm_nonRLum(object)
   parm <- .expand_parameters(length(object))
