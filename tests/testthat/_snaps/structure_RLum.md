@@ -28,7 +28,7 @@
         {
           "type": "character",
           "attributes": {},
-          "value": ["RF", "RF"]
+          "value": ["RF (NA)", "RF (NA)"]
         },
         {
           "type": "character",
@@ -156,7 +156,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["RF", "RF"]
+              "value": ["RF (NA)", "RF (NA)"]
             },
             {
               "type": "character",
@@ -277,7 +277,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["RF", "RF"]
+              "value": ["RF (NA)", "RF (NA)"]
             },
             {
               "type": "character",

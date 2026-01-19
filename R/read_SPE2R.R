@@ -388,7 +388,7 @@ read_SPE2R <- function(
     object <- set_RLum(
       class = "RLum.Data.Spectrum",
       originator = "read_SPE2R",
-      recordType = "Spectrum",
+      recordType = "Spectrum (NA)",
       curveType = "measured",
       data = data.spectrum.matrix,
       info = temp.info)
@@ -401,7 +401,7 @@ read_SPE2R <- function(
   }else if(output.object == "RLum.Data.Image"){
     object <- as(data.list, "RLum.Data.Image")
     object@originator <- "read_SPE2R"
-    object@recordType <- "Image"
+    object@recordType <- "Image (NA)"
     object@curveType <- "measured"
     object@info <- temp.info
   }

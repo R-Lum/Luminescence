@@ -274,7 +274,7 @@ read_BINXLOG2R <- function(
       set_RLum(
         class = "RLum.Data.Curve",
         originator = "read_BINXLOG2R",
-        recordType = recordType[["LTYPE"]],
+        recordType = paste(recordType[["LTYPE"]], "PMT"),
         data = DATA,
         info = list(
           DATE = DATE[j],
@@ -293,7 +293,6 @@ read_BINXLOG2R <- function(
 
     ## create RLum.Analysis
     set_RLum("RLum.Analysis", records = records, originator = "read_BINXLOG2R")
-
   })
 
   ## return

@@ -171,7 +171,8 @@ analyse_portableOSL <- function(
 
   ## check length and start of the sequence pattern, we check it further below
   if (length(object) %% 5 != 0 ||
-      !all(names(object)[1:5] == c("USER", "IRSL", "USER", "OSL", "USER")))
+      !all(gsub(" (PMT)", "", names(object)[1:5], fixed = TRUE) ==
+           c("USER", "IRSL", "USER", "OSL", "USER")))
     .throw_error("Sequence pattern not supported: see the manual for details")
 
   if (is.null(signal.integral)) {

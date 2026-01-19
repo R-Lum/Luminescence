@@ -18,7 +18,7 @@
                 "recordType": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["RF"]
+                  "value": ["RF (NA)"]
                 },
                 "curveType": {
                   "type": "character",
@@ -82,7 +82,7 @@
                 "recordType": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["RF"]
+                  "value": ["RF (NA)"]
                 },
                 "curveType": {
                   "type": "character",
@@ -189,7 +189,7 @@
                 "recordType": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["RF"]
+                  "value": ["RF (NA)"]
                 },
                 "curveType": {
                   "type": "character",
@@ -253,7 +253,7 @@
                 "recordType": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["RF"]
+                  "value": ["RF (NA)"]
                 },
                 "curveType": {
                   "type": "character",
@@ -317,7 +317,7 @@
                 "recordType": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["RF"]
+                  "value": ["RF (NA)"]
                 },
                 "curveType": {
                   "type": "character",

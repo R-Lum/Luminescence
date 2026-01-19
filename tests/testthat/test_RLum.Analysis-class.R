@@ -83,12 +83,18 @@ test_that("get_RLum", {
                "'get.index' should be a single logical value")
   expect_error(get_RLum(obj, get.index = NULL),
                "'get.index' should be a single logical value")
-  expect_error(get_RLum(obj, subset = "recordType == 'RF'", get.index = NA),
+  expect_error(get_RLum(obj, subset = "recordType == 'RF (NA)'", get.index = NA),
                "'get.index' should be a single logical value")
+  SW({
+  expect_message(expect_null(get_RLum(obj, subset = (recordType == "RF"))),
+                 "Error: 'subset' expression produced an empty selection")
+  expect_message(expect_null(get_RLum(obj, subset = "recordType == 'RF'")),
+                 "Error: 'subset' expression produced an empty selection")
+  })
 
   ## check functionality
-  expect_length(get_RLum(obj, subset = (recordType == "RF")), 2)
-  expect_length(get_RLum(obj, subset = "recordType == 'RF'"), 2)
+  expect_length(get_RLum(obj, subset = (recordType == "RF (NA)")), 2)
+  expect_length(get_RLum(obj, subset = "recordType == 'RF (NA)'"), 2)
   expect_length(get_RLum(tmp, subset = (el == "2")), 1)
   expect_s4_class(get_RLum(tmp, subset = (el == "2")), "RLum.Analysis")
   expect_type(get_RLum(tmp, info.object = "el"), "character")
@@ -239,7 +245,7 @@ test_that("structure_RLum", {
   expect_equal(nrow(res), length(obj@records))
   expect_equal(ncol(res), 13)
   expect_equal(res$n.channels, c(5, 524))
-  expect_equal(res$recordType, c("RF", "RF"))
+  expect_equal(res$recordType, c("RF (NA)", "RF (NA)"))
   expect_equal(unlist(res$info), c(NA, NA))
 
   expect_s3_class(res2 <- structure_RLum(obj, fullExtent = TRUE),
