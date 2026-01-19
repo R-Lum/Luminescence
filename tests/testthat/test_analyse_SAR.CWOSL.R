@@ -12,6 +12,8 @@ test_that("input validation", {
 
   expect_error(analyse_SAR.CWOSL("fail"),
                "'object' should be of class 'RLum.Analysis'")
+  expect_error(analyse_SAR.CWOSL(iris),
+               "'object' should be of class 'RLum.Analysis'")
 
   expect_error(analyse_SAR.CWOSL(object[[1]],
                                  signal.integral.min = 1,
