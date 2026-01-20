@@ -736,16 +736,11 @@ analyse_SAR.CWOSL<- function(
 
   ## Recuperation Rate (capable of handling multiple type of recuperation values)
   if ("R0" %in% LnLxTnTx$Name) {
-    Recuperation <- LnLxTnTx$LxTx[LnLxTnTx$Name == "R0"] /
-      LnLxTnTx$LxTx[LnLxTnTx$Name == recuperation_reference]
-
-     ##transform and name
-     Recuperation <- t(setNames(
-        object = Recuperation,
-        nm = paste0(
-          "Recuperation rate (", recuperation_reference, ") ",
-          seq_along(Recuperation))
-      ))
+    R0 <- LnLxTnTx$LxTx[LnLxTnTx$Name == "R0"]
+    Rref <- LnLxTnTx$LxTx[LnLxTnTx$Name == recuperation_reference]
+    labels <- paste0("Recuperation rate (", recuperation_reference, ") ",
+                     seq_along(Recuperation))
+    Recuperation <- t(setNames(R0 / Rref, labels))
   }
 
     # Evaluate and Combine Rejection Criteria ---------------------------------
