@@ -79,7 +79,9 @@ Allowed arguments are \code{recycling.ratio}, \code{recuperation.rate},
 Example: \code{rejection.criteria = list(recycling.ratio = 10)}.
 By default, all numerical values are set to 10, \code{exceed.max.regpoint = TRUE}.
 Every criterion can be set to \code{NA}, in which case values are calculated, but
-they are not considered, i.e. their corresponding RC.Status is always \code{'OK'}.}
+they are not considered, i.e. their corresponding RC.Status is always \code{'OK'}.
+If \code{onlyLxTxTable = TRUE}, the \code{palaeodose.error} and \code{exceed.max.regpoint}
+criteria are not computed.}
 
 \item{dose.points}{\link{numeric} (\emph{optional}):
 a numeric vector containing the dose points values. Using this argument
@@ -117,8 +119,9 @@ not the legend (5) or the
 growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 \code{plot = TRUE}.}
 
-\item{onlyLxTxTable}{\link{logical} (\emph{with default}): If \code{TRUE} the dose response
-curve fitting and plotting is skipped.
+\item{onlyLxTxTable}{\link{logical} (\emph{with default}):
+If \code{TRUE} the dose response curve fitting and plotting is skipped, and the
+\code{palaeodose.error} and \code{exceed.max.regpoint} criteria are not computed.
 This allows to get hands on the \code{Lx/Tx} table for large datasets
 without the need for a curve fitting.}
 

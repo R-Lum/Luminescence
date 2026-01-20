@@ -142,6 +142,8 @@
 #' By default, all numerical values are set to 10, `exceed.max.regpoint = TRUE`.
 #' Every criterion can be set to `NA`, in which case values are calculated, but
 #' they are not considered, i.e. their corresponding RC.Status is always `'OK'`.
+#' If `onlyLxTxTable = TRUE`, the `palaeodose.error` and `exceed.max.regpoint`
+#' criteria are not computed.
 #'
 #' @param dose.points [numeric] (*optional*):
 #' a numeric vector containing the dose points values. Using this argument
@@ -179,8 +181,9 @@
 #' growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 #' `plot = TRUE`.
 #'
-#' @param onlyLxTxTable [logical] (*with default*): If `TRUE` the dose response
-#' curve fitting and plotting is skipped.
+#' @param onlyLxTxTable [logical] (*with default*):
+#' If `TRUE` the dose response curve fitting and plotting is skipped, and the
+#' `palaeodose.error` and `exceed.max.regpoint` criteria are not computed.
 #' This allows to get hands on the `Lx/Tx` table for large datasets
 #' without the need for a curve fitting.
 #'
@@ -712,9 +715,16 @@ analyse_SAR.CWOSL<- function(
       LnLxTnTx)
 
   ## Calculate rejection criteria -------------------------------------------
-  RecyclingRatio <- Recuperation <- NA
+
+  ## compare a single value with a threshold (either can be NA)
+  .status_from_threshold <- function(value, threshold) {
+    if (is.na(threshold) || isTRUE(value <= threshold))
+      return("OK")
+    "FAILED"
+  }
 
   ## Calculate Recycling Ratio ----------------------------------------------
+  RecyclingRatio <- NA
   if (any(LnLxTnTx$Repeated)) {
       ## get repeated and previous dose points
       repeated <- LnLxTnTx[LnLxTnTx$Repeated, ]
@@ -728,7 +738,23 @@ analyse_SAR.CWOSL<- function(
           nm = paste0("Recycling ratio (", repeated$Name, "/", previous$Name, ")")))
   }
 
+  ## Recycling Ratio
+  recycling.threshold <- rep(rejection.criteria$recycling.ratio / 100,
+                             length(RecyclingRatio))
+  status.RecyclingRatio <- rep("OK", length(RecyclingRatio))
+  if (!anyNA(RecyclingRatio) && !is.na(rejection.criteria$recycling.ratio)) {
+    status.RecyclingRatio[abs(1 - RecyclingRatio) > recycling.threshold] <- "FAILED"
+
+    ## set better ratio by given the absolute margin depending
+    ## on whether we have values larger or smaller than 1
+    idx.gt1 <- which(RecyclingRatio > 1)
+    recycling.threshold[idx.gt1] <- 1 + recycling.threshold[idx.gt1]
+    idx.lt1 <- which(RecyclingRatio < 1)
+    recycling.threshold[idx.lt1] <- 1 - recycling.threshold[idx.lt1]
+  }
+
   ## Calculate Recuperation Rate --------------------------------------------
+  Recuperation <- NA
   if (!recuperation_reference %in% LnLxTnTx$Name) {
       .throw_error("Recuperation reference invalid, valid values are: ",
                    .collapse(LnLxTnTx[, "Name"]))
@@ -743,67 +769,28 @@ analyse_SAR.CWOSL<- function(
     Recuperation <- t(setNames(R0 / Rref, labels))
   }
 
-    # Evaluate and Combine Rejection Criteria ---------------------------------
-    ## set threshold
-    temp.threshold <-
-      c(
-       rep(rejection.criteria$recycling.ratio, length(RecyclingRatio)),
-       rep(rejection.criteria$recuperation.rate, length(Recuperation))) / 100
+  recuperation.threshold <- rep(rejection.criteria$recuperation.rate / 100,
+                                length(Recuperation))
+  status.Recuperation <- sapply(Recuperation, function(value) {
+    if (is.na(value))
+      return("OK")
+    .status_from_threshold(value, rejection.criteria$recuperation.rate / 100)
+  })
 
+  ## Calculate Testdose error -----------------------------------------------
+  Testdose.error <- (LnLxTnTx$Net_TnTx.Error/LnLxTnTx$Net_TnTx)[1]
+  testdose.threshold <- rejection.criteria$testdose.error / 100
+  status.Testdose <- .status_from_threshold(Testdose.error, testdose.threshold)
 
-    ## compare a single value with a threshold (either can be NA)
-    .status_from_threshold <- function(value, threshold) {
-      if (is.na(threshold) || isTRUE(value <= threshold))
-        return("OK")
-      "FAILED"
-    }
-
-    ##RecyclingRatio
-    temp.status.RecyclingRatio <- rep("OK", length(RecyclingRatio))
-    if (!anyNA(RecyclingRatio) && !is.na(rejection.criteria$recycling.ratio)) {
-      temp.status.RecyclingRatio[abs(1 - RecyclingRatio) > (
-        rejection.criteria$recycling.ratio / 100)] <- "FAILED"
-
-      ## set better ratio by given the absolute margin depending
-      ## on whether we have values larger or smaller than 1
-      idx.gt1 <- which(RecyclingRatio > 1)
-      temp.threshold[idx.gt1] <- temp.threshold[idx.gt1] + 1
-      idx.lt1 <- which(RecyclingRatio < 1)
-      temp.threshold[idx.lt1] <- 1 - temp.threshold[idx.lt1]
-    }
-
-    ##Recuperation
-    temp.status.Recuperation <- sapply(Recuperation, function(value) {
-      if (is.na(value))
-        return("OK")
-      .status_from_threshold(value, rejection.criteria$recuperation.rate / 100)
-    })
-
-    # Provide Rejection Criteria for Testdose error --------------------------
-    testdose.error.calculated <- (LnLxTnTx$Net_TnTx.Error/LnLxTnTx$Net_TnTx)[1]
-
-    testdose.error.threshold <-
-      rejection.criteria$testdose.error / 100
-
-    testdose.error.data.frame <- data.frame(
-      Criteria = "Testdose error",
-      Value = testdose.error.calculated,
-      Threshold = testdose.error.threshold,
-      Status = .status_from_threshold(testdose.error.calculated,
-                                      testdose.error.threshold),
-      stringsAsFactors = FALSE
-    )
-
-    RejectionCriteria <- data.frame(
+  RejectionCriteria <- data.frame(
       Criteria = c(colnames(RecyclingRatio) %||% NA_character_,
-                   colnames(Recuperation) %||% NA_character_),
-      Value = c(RecyclingRatio, Recuperation),
-      Threshold = temp.threshold,
-      Status = c(temp.status.RecyclingRatio,temp.status.Recuperation),
+                   colnames(Recuperation) %||% NA_character_,
+                   "Testdose error"),
+      Value = c(RecyclingRatio, Recuperation, Testdose.error),
+      Threshold = c(recycling.threshold, recuperation.threshold, testdose.threshold),
+      Status = c(status.RecyclingRatio, status.Recuperation, status.Testdose),
       stringsAsFactors = FALSE
-    )
-
-    RejectionCriteria <- rbind(RejectionCriteria, testdose.error.data.frame)
+  )
 
   ## Plotting ---------------------------------------------------------------
   if (plot) {
