@@ -331,7 +331,7 @@ analyse_SAR.CWOSL<- function(
       trim_channels = parm$trim_channels[[x]],
       mtext.outer = parm$mtext.outer[[x]],
       plot = parm$plot[[x]],
-      rejection.criteria = parm$rejection.criteria[[x]],
+      rejection.criteria = parm$rejection.criteria[x],
       plot_singlePanels = parm$plot_singlePanels[[x]],
       plot_onePage = parm$plot_onePage[[x]],
       onlyLxTxTable = parm$onlyLxTxTable[[x]],
@@ -357,6 +357,7 @@ analyse_SAR.CWOSL<- function(
   .validate_logical_scalar(plot)
   .validate_logical_scalar(plot_onePage)
   .validate_logical_scalar(onlyLxTxTable)
+  .validate_class(rejection.criteria, "list", null.ok = TRUE)
   .validate_scalar(dose_rate_source, null.ok = TRUE)
 
   ## trim OSL or IRSL channels
@@ -460,9 +461,6 @@ analyse_SAR.CWOSL<- function(
 
 # Rejection criteria ------------------------------------------------------
 
-  if (class(rejection.criteria)[1] != "list")
-    rejection.criteria <- list()
-
   ##set list
   rejection.criteria <- modifyList(x = list(
       recycling.ratio = 10,
@@ -472,8 +470,12 @@ analyse_SAR.CWOSL<- function(
       exceed.max.regpoint = TRUE,
       recuperation_reference = "Natural"
     ),
-    val = rejection.criteria,
+    val = rejection.criteria %||% list(),
     keep.null = TRUE)
+
+  recuperation_reference <- rejection.criteria$recuperation_reference
+  .validate_class(recuperation_reference, "character", length = 1,
+                  name = "'recuperation_reference' in 'rejection.criteria'")
 
 
 # Deal with extra arguments ----------------------------------------------------
@@ -724,27 +726,27 @@ analyse_SAR.CWOSL<- function(
         setNames(
           object = round(repeated$LxTx / previous$LxTx, 4),
           nm = paste0("Recycling ratio (", repeated$Name, "/", previous$Name, ")")))
-    }
+  }
 
   ## Calculate Recuperation Rate --------------------------------------------
-  if (is.null(rejection.criteria$recuperation_reference) ||
-      !rejection.criteria$recuperation_reference[1] %in% LnLxTnTx$Name)
+  if (!recuperation_reference %in% LnLxTnTx$Name) {
       .throw_error("Recuperation reference invalid, valid values are: ",
                    .collapse(LnLxTnTx[, "Name"]))
+  }
 
   ## Recuperation Rate (capable of handling multiple type of recuperation values)
   if ("R0" %in% LnLxTnTx$Name) {
     Recuperation <- LnLxTnTx$LxTx[LnLxTnTx$Name == "R0"] /
-      LnLxTnTx$LxTx[LnLxTnTx$Name == rejection.criteria$recuperation_reference[1]]
+      LnLxTnTx$LxTx[LnLxTnTx$Name == recuperation_reference]
 
      ##transform and name
      Recuperation <- t(setNames(
         object = Recuperation,
         nm = paste0(
-          "Recuperation rate (", rejection.criteria$recuperation_reference[1], ") ",
+          "Recuperation rate (", recuperation_reference, ") ",
           seq_along(Recuperation))
       ))
-    }
+  }
 
     # Evaluate and Combine Rejection Criteria ---------------------------------
     ## set threshold

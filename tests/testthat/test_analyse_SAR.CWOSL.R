@@ -42,6 +42,20 @@ test_that("input validation", {
                                  background.integral.min = c(900, 1975),
                                  background.integral.max = c(900, 1975)),
                "'background.integral.min' must be larger than 'signal.integral.max'")
+  expect_error(analyse_SAR.CWOSL(object[[1]],
+                                 signal.integral.min = 1,
+                                 signal.integral.max = 2,
+                                 background.integral.min = 900,
+                                 background.integral.max = 1000,
+                                 rejection.criteria = "error"),
+               "'rejection.criteria' should be of class 'list'")
+  expect_error(analyse_SAR.CWOSL(object[[1]],
+                                 signal.integral.min = 1,
+                                 signal.integral.max = 2,
+                                 background.integral.min = 900,
+                                 background.integral.max = 1000,
+                                 rejection.criteria = list(recuperation_reference = letters)),
+               "'recuperation_reference' in 'rejection.criteria' should be of class 'character'")
 })
 
 test_that("snapshot tests", {
@@ -97,7 +111,7 @@ test_that("snapshot tests", {
       signal.integral.max = 2,
       background.integral.min = 900,
       background.integral.max = 1000,
-      fit.method = "LIN", 
+      fit.method = "LIN",
       dose.points.test = 1,
       dose_rate_source = 0.2,
       plot = FALSE,
@@ -257,13 +271,6 @@ test_that("check functionality", {
         exceed.max.regpoint = FALSE),
       plot = TRUE
     ),
-    "Recuperation reference invalid, valid values are: 'Natural', 'R1', 'R2'")
-  expect_error(analyse_SAR.CWOSL(object[[1]],
-                                 signal.integral.min = 1,
-                                 signal.integral.max = 2,
-                                 background.integral.min = 900,
-                                 background.integral.max = 1000,
-                                 rejection.criteria = list(recuperation_reference = NULL)),
     "Recuperation reference invalid, valid values are: 'Natural', 'R1', 'R2'")
 
   ## check stop for OSL.components ... failing
@@ -516,7 +523,7 @@ test_that("advance tests run", {
   ##test failed recycling ratio
   test_failed <-
     analyse_SAR.CWOSL(
-      object = object[1],
+      object = object[[1]],
       signal.integral.min = 1,
       signal.integral.max = 2,
       background.integral.min = 200,
