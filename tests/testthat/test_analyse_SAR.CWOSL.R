@@ -326,7 +326,7 @@ test_that("check functionality", {
      verbose = FALSE
    ), regexp = "Background integral out of bounds")
 
-  expect_warning(expect_warning(analyse_SAR.CWOSL(
+  expect_warning(analyse_SAR.CWOSL(
       object = object[[1]],
       signal.integral.min = 1,
       signal.integral.max = 1,
@@ -335,10 +335,9 @@ test_that("check functionality", {
       fit.method = "LIN",
       plot = FALSE,
       verbose = FALSE
-  ), "Signal integral limits cannot be equal, reset to 1:2"),
-  "Background integral limits cannot be equal, reset to 975:1000")
+  ), "Background integral limits cannot be equal, reset to 975:1000")
 
-  expect_warning(expect_warning(analyse_SAR.CWOSL(
+  expect_warning(analyse_SAR.CWOSL(
       object = object[[1]],
       signal.integral.min = c(1, 1),
       signal.integral.max = c(2, 1),
@@ -347,8 +346,7 @@ test_that("check functionality", {
       fit.method = "LIN",
       plot = FALSE,
       verbose = FALSE
-  ), "Signal integral limits for Tx curves cannot be equal, reset to 1:2"),
-  "Background integral limits for Tx curves cannot be equal, reset to 975:1000")
+  ), "Background integral limits for Tx curves cannot be equal, reset to 975:1000")
 
   expect_warning(analyse_SAR.CWOSL(
       object = object[[1]],

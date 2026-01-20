@@ -398,12 +398,6 @@ analyse_SAR.CWOSL<- function(
       .throw_error("'signal.integral' or 'background.integral' is not of type integer")
     }
 
-    if (length(signal.integral) == 1) {
-      signal.integral <- signal.integral + 0:1
-      .throw_warning("Signal integral limits cannot be equal, reset to ",
-                     .format_range(signal.integral))
-    }
-
     if (length(background.integral) == 1) {
       ## we subtract 25 to avoid warnings from calc_OSLLxTxRatio()
       background.integral <- background.integral - 25:0
@@ -415,11 +409,6 @@ analyse_SAR.CWOSL<- function(
     signal.integral.Tx <- NULL
     if (length(signal.integral.min) == 2 && length(signal.integral.max) == 2) {
       signal.integral.Tx <- signal.integral.min[2]:signal.integral.max[2]
-      if (length(signal.integral.Tx) == 1) {
-        signal.integral.Tx <- signal.integral.Tx + 0:1
-        .throw_warning("Signal integral limits for Tx curves cannot be equal, reset to ",
-                       .format_range(signal.integral.Tx))
-      }
     }
 
     background.integral.Tx <- NULL
