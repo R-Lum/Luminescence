@@ -73,11 +73,13 @@ provide a \emph{named} list and set rejection criteria in \strong{percentage}
 for further calculation. Can be a \link{list} in a \link{list}, if \code{object} is of type \link{list}.
 Note: If an \emph{unnamed} \link{list} is provided the new settings are ignored!
 
-Allowed arguments are \code{recycling.ratio}, \code{recuperation.rate},
-\code{palaeodose.error}, \code{testdose.error}, \code{exceed.max.regpoint = TRUE/FALSE},
-\code{recuperation_reference} ("Natural" or any other dose point, e.g., \code{"R1"}).
+Allowed options: \code{recycling.ratio}, \code{recuperation.rate}, \code{palaeodose.error},
+\code{testdose.error}, \code{sn.ratio}, \code{exceed.max.regpoint = TRUE/FALSE},
+\code{recuperation_reference} ("Natural" or any other dose point, e.g., \code{"R1"}),
+\code{sn_reference} ("Natural" or any other dose point).
 Example: \code{rejection.criteria = list(recycling.ratio = 10)}.
-By default, all numerical values are set to 10, \code{exceed.max.regpoint = TRUE}.
+By default, all numerical values are set to 10, with the exception of
+\code{sn.ratio = 50} and \code{exceed.max.regpoint = TRUE}.
 Every criterion can be set to \code{NA}, in which case values are calculated, but
 they are not considered, i.e. their corresponding RC.Status is always \code{'OK'}.
 If \code{onlyLxTxTable = TRUE}, the \code{palaeodose.error} and \code{exceed.max.regpoint}
@@ -221,6 +223,10 @@ in \link{calc_OSLLxTxRatio}.
 \verb{[palaeodose.error]}: set the allowed error for the De value, which per
 default should not exceed 10\%.
 
+\verb{[sn.ratio]}: set the allowed signal/noise ratio, which by default should
+be at least 50. By default it uses the value from the natural curve, but
+this can be changed by specifying \code{sn_reference}.
+
 \strong{Irradiation times}
 
 The function makes two attempts to extra irradiation data (dose points)
@@ -264,6 +270,8 @@ rejection.criteria = list(
   testdose.error = 10,
   palaeodose.error = 10,
   recuperation_reference = "Natural",
+  sn.ratio = 50,
+  sn_reference = "Natural",
   exceed.max.regpoint = TRUE)
 )
 

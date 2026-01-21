@@ -135,6 +135,13 @@ when the integrals are set incorrectly (#1267).
 the analysis) matches multiple record types, as this may be a sign that the
 user has forgotten to select the correct set of curves to analyze (#1269).
 
+* A new signal-to-noise ratio rejection criterion has been added, with
+default threshold of 50 (controllable by setting the `sn.ratio` parameter in
+the `rejection.criteria` list to a different value). By default it uses the
+signal-to-noise value computed for the natural curve, but a different curve
+can be specified via the `sn_reference` parameter in the `rejection.criteria`
+list (#1284).
+
 ### `calc_OSLLxTxRatio()`
 
 * The `signal.integral` or `background.integral` arguments are now better

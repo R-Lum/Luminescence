@@ -74,6 +74,10 @@
 #' `[palaeodose.error]`: set the allowed error for the De value, which per
 #' default should not exceed 10%.
 #'
+#' `[sn.ratio]`: set the allowed signal/noise ratio, which by default should
+#' be at least 50. By default it uses the value from the natural curve, but
+#' this can be changed by specifying `sn_reference`.
+#'
 #' **Irradiation times**
 #'
 #' The function makes two attempts to extra irradiation data (dose points)
@@ -135,11 +139,13 @@
 #' for further calculation. Can be a [list] in a [list], if `object` is of type [list].
 #' Note: If an *unnamed* [list] is provided the new settings are ignored!
 #'
-#' Allowed arguments are `recycling.ratio`, `recuperation.rate`,
-#' `palaeodose.error`, `testdose.error`, `exceed.max.regpoint = TRUE/FALSE`,
-#' `recuperation_reference` ("Natural" or any other dose point, e.g., `"R1"`).
+#' Allowed options: `recycling.ratio`, `recuperation.rate`, `palaeodose.error`,
+#' `testdose.error`, `sn.ratio`, `exceed.max.regpoint = TRUE/FALSE`,
+#' `recuperation_reference` ("Natural" or any other dose point, e.g., `"R1"`),
+#' `sn_reference` ("Natural" or any other dose point).
 #' Example: `rejection.criteria = list(recycling.ratio = 10)`.
-#' By default, all numerical values are set to 10, `exceed.max.regpoint = TRUE`.
+#' By default, all numerical values are set to 10, with the exception of
+#' `sn.ratio = 50` and `exceed.max.regpoint = TRUE`.
 #' Every criterion can be set to `NA`, in which case values are calculated, but
 #' they are not considered, i.e. their corresponding RC.Status is always `'OK'`.
 #' If `onlyLxTxTable = TRUE`, the `palaeodose.error` and `exceed.max.regpoint`
@@ -261,6 +267,8 @@
 #'   testdose.error = 10,
 #'   palaeodose.error = 10,
 #'   recuperation_reference = "Natural",
+#'   sn.ratio = 50,
+#'   sn_reference = "Natural",
 #'   exceed.max.regpoint = TRUE)
 #')
 #'
@@ -470,6 +478,8 @@ analyse_SAR.CWOSL<- function(
       recuperation.rate = 10,
       palaeodose.error = 10,
       testdose.error = 10,
+      sn.ratio = 50,
+      sn_reference = "Natural",
       exceed.max.regpoint = TRUE,
       recuperation_reference = "Natural"
     ),
@@ -479,6 +489,9 @@ analyse_SAR.CWOSL<- function(
   recuperation_reference <- rejection.criteria$recuperation_reference
   .validate_class(recuperation_reference, "character", length = 1,
                   name = "'recuperation_reference' in 'rejection.criteria'")
+  sn_reference <- rejection.criteria$sn_reference
+  .validate_class(sn_reference, "character", length = 1,
+                  name = "'sn_reference' in 'rejection.criteria'")
 
 
 # Deal with extra arguments ----------------------------------------------------
@@ -782,13 +795,27 @@ analyse_SAR.CWOSL<- function(
   testdose.threshold <- rejection.criteria$testdose.error / 100
   status.Testdose <- .status_from_threshold(Testdose.error, testdose.threshold)
 
+  ## Calculate Signal-to-noise ratio ----------------------------------------
+  sn.idx <- match(sn_reference, LnLxTnTx$Name)
+  if (is.na(sn.idx)) {
+    .throw_error("Signal-to-noise reference invalid, valid values are: ",
+                 .collapse(LnLxTnTx[, "Name"]))
+  }
+  SN.ratio <- LnLxTnTx$SN_RATIO_LnLx[sn.idx]
+  SN.threshold <- rejection.criteria$sn.ratio
+  status.SN.ratio <- ifelse(is.na(SN.threshold) || SN.ratio >= SN.threshold,
+                            "OK", "FAILED")
+
   RejectionCriteria <- data.frame(
       Criteria = c(colnames(RecyclingRatio) %||% NA_character_,
                    colnames(Recuperation) %||% NA_character_,
-                   "Testdose error"),
-      Value = c(RecyclingRatio, Recuperation, Testdose.error),
-      Threshold = c(recycling.threshold, recuperation.threshold, testdose.threshold),
-      Status = c(status.RecyclingRatio, status.Recuperation, status.Testdose),
+                   "Testdose error",
+                   "Signal-to-noise ratio"),
+      Value = c(RecyclingRatio, Recuperation, Testdose.error, SN.ratio),
+      Threshold = c(recycling.threshold, recuperation.threshold,
+                    testdose.threshold, SN.threshold),
+      Status = c(status.RecyclingRatio, status.Recuperation,
+                 status.Testdose, status.SN.ratio),
       stringsAsFactors = FALSE
   )
 
