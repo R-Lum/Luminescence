@@ -143,6 +143,12 @@ validated (#1252).
 * The function now returns `SN_RATIO_LnLx` and `SN_RATIO_TnTx`. This is the 
 signal-to-noise ratio for the respective shine-down curves for `Lx` and `Tx` (#1281). 
 
+### `convert_CW2pHMi()` and `convert_CW2pPMi()`
+
+* The function now checks if the results of the approximation step are not
+valid because all points lie outside of the computed interpolation range,
+which can happen if the input data is misspecified (#1295).
+
 ### `correct_PMTLinerarity()` 
 * The function introduced with the last release, unintentionally came with a major flaw: 
 It did nothing on a single `RLum.Data.Curve()` object; fixed (#1d978cf). 
