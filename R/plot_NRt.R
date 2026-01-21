@@ -17,8 +17,8 @@
 #' @param data [list], [data.frame], [matrix] or [Luminescence::RLum.Analysis-class] (**required**):
 #' X,Y data of measured values (time and counts). See details on individual data structure.
 #'
-#' @param log [character] (*optional*):
-#' logarithmic axes (`c("x", "y", "xy")`).
+#' @param log [character] (*with default*):
+#' logarithmic axes (`"x"`, `"y"`, `"xy"`) or `""` (default) for linear axes.
 #'
 #' @param smooth [character] (*with default*):
 #' apply data smoothing. If `"none"` (default), no data smoothing is applied.
@@ -120,9 +120,8 @@
 #' # reset graphical parameters
 #' par(mfrow = c(1, 1))
 #'
-#'
 #' @export
-plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k = 3,
+plot_NRt <- function(data, log = "", smooth = c("none", "spline", "rmean"), k = 3,
                      legend = TRUE, legend.pos = "topright", ...) {
   .set_function_name("plot_NRt")
   on.exit(.unset_function_name(), add = TRUE)
@@ -160,6 +159,7 @@ plot_NRt <- function(data, log = FALSE, smooth = c("none", "spline", "rmean"), k
     if (length(curves) < 2)
       .throw_error("'data' contains only curve data for the natural signal")
   }
+  .validate_class(log, "character", length = 1)
 
   smooth <- .validate_args(smooth, c("none", "spline", "rmean"))
 

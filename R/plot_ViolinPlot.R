@@ -98,6 +98,8 @@ plot_ViolinPlot <- function(
 
   .validate_class(data, c("RLum.Results", "data.frame", "matrix"))
   .validate_not_empty(data)
+  .validate_logical_scalar(boxplot)
+  .validate_logical_scalar(rug)
   .validate_class(summary, "character")
   if (is.numeric(summary.pos)) {
     .validate_length(summary.pos, 2)

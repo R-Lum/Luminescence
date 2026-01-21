@@ -14,6 +14,10 @@ test_that("test functionality", {
   temp <- calc_CommonDose(ExampleData.DeValues$CA1)
   })
 
+  expect_error(report_RLum(temp, file = iris),
+               "'file' should be of class 'character' and have length 1")
+  expect_error(report_RLum(temp, css.file = iris),
+               "'css.file' should be of class 'character' or NULL and have length 1")
   expect_error(report_RLum(temp, css.file = "error"),
                "Couldn't find the specified CSS file")
 

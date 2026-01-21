@@ -5,7 +5,7 @@
 \title{Transform a CW-OSL curve into a pHM-OSL curve via interpolation under
 hyperbolic modulation conditions}
 \usage{
-convert_CW2pHMi(values, delta)
+convert_CW2pHMi(values, delta = NULL)
 }
 \arguments{
 \item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):

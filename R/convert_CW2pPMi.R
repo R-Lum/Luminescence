@@ -57,8 +57,8 @@
 #' [Luminescence::RLum.Data.Curve-class] or `data.frame` with measured curve data of type
 #' stimulation time (t) (`values[,1]`) and measured counts (cts) (`values[,2]`)
 #'
-#' @param P [vector] (*optional*):
-#' stimulation period in seconds. If no value is given, the optimal value is
+#' @param P [numeric] (*optional*):
+#' stimulation period in seconds. If set to `NULL`, the optimal value is
 #' estimated automatically (see details). Greater values of P produce more
 #' points in the rising tail of the curve.
 #'
@@ -159,7 +159,7 @@
 #' @export
 convert_CW2pPMi<- function(
   values,
-  P
+  P = NULL
 ) {
   .set_function_name("convert_CW2pPMi")
   on.exit(.unset_function_name(), add = TRUE)
@@ -191,6 +191,7 @@ convert_CW2pPMi<- function(
   if (nrow(temp.values) < 2) {
     .throw_error("'values' should have at least 2 non-missing values")
   }
+  .validate_positive_scalar(P, null.ok = TRUE)
 
   # (3) Transform values ------------------------------------------------------
 
@@ -203,7 +204,7 @@ convert_CW2pPMi<- function(
   ##set P
   ##if no values for P is set selected a P value for a maximum of
   ##two extrapolation points
-  if (missing(P)) {
+  if (is.null(P)) {
     i<-1
     P<-1/i
     t.transformed<-(1/3)*(1/P^2)*t^3

@@ -21,6 +21,8 @@ test_that("input validation", {
                "'sigmab' should be a value between 0 and 1 if log = TRUE")
   expect_error(calc_CentralDose(data.frame()),
                "should have at least two columns and two rows")
+  expect_error(calc_CentralDose(iris, iris),
+               "'sigmab' should be of class 'numeric' and have length 1")
 
   SW({
   expect_s4_class(calc_CentralDose(temp_NA), "RLum.Results")

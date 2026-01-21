@@ -358,6 +358,7 @@ plot_RadialPlot <- function(
   }
 
   ## optionally, remove NA-values
+  .validate_logical_scalar(na.rm)
   if (na.rm) {
     for(i in 1:length(data)) {
       data[[i]] <- na.exclude(data[[i]])

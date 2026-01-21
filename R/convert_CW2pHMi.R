@@ -196,7 +196,7 @@
 #' @export
 convert_CW2pHMi<- function(
   values,
-  delta
+  delta = NULL
 ) {
   .set_function_name("convert_CW2pHMi")
   on.exit(.unset_function_name(), add = TRUE)
@@ -221,7 +221,6 @@ convert_CW2pHMi<- function(
     temp.values <- as(values, "data.frame")
 
   }else{
-
     temp.values <- values
   }
 
@@ -230,6 +229,7 @@ convert_CW2pHMi<- function(
   if (nrow(temp.values) < 2) {
     .throw_error("'values' should have at least 2 non-missing values")
   }
+  .validate_class(delta, "numeric", null.ok = TRUE)
 
   # (1) Transform values ------------------------------------------------------
 
@@ -242,7 +242,7 @@ convert_CW2pHMi<- function(
   ##set delta
   ##if no values for delta is set selected a delta value for a maximum of
   ##two extrapolation points
-  if (missing(delta)) {
+  if (is.null(delta)) {
     i<-10
     delta<-i
     t.transformed<-t-(1/delta)*log(1+delta*t)

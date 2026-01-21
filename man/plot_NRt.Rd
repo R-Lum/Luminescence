@@ -6,7 +6,7 @@
 \usage{
 plot_NRt(
   data,
-  log = FALSE,
+  log = "",
   smooth = c("none", "spline", "rmean"),
   k = 3,
   legend = TRUE,
@@ -18,8 +18,8 @@ plot_NRt(
 \item{data}{\link{list}, \link{data.frame}, \link{matrix} or \linkS4class{RLum.Analysis} (\strong{required}):
 X,Y data of measured values (time and counts). See details on individual data structure.}
 
-\item{log}{\link{character} (\emph{optional}):
-logarithmic axes (\code{c("x", "y", "xy")}).}
+\item{log}{\link{character} (\emph{with default}):
+logarithmic axes (\code{"x"}, \code{"y"}, \code{"xy"}) or \code{""} (default) for linear axes.}
 
 \item{smooth}{\link{character} (\emph{with default}):
 apply data smoothing. If \code{"none"} (default), no data smoothing is applied.
@@ -126,7 +126,6 @@ for (i in 1:length(aliquot)) {
 
 # reset graphical parameters
 par(mfrow = c(1, 1))
-
 
 }
 \references{

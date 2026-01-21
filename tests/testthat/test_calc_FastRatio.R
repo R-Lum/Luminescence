@@ -14,6 +14,11 @@ test_that("input validation", {
   expect_error(calc_FastRatio(matrix()),
                "'object' should have at least two columns")
 
+  expect_error(calc_FastRatio(obj, stimulation.power = iris),
+               "'stimulation.power' should be a single positive value")
+  expect_error(calc_FastRatio(obj, wavelength = iris),
+               "'wavelength' should be a single positive value")
+
   expect_error(calc_FastRatio(obj, Ch_L1 = NULL),
                "'Ch_L1' should be a single positive integer value")
   expect_error(calc_FastRatio(obj, Ch_L1 = 0),

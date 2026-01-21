@@ -494,6 +494,7 @@ plot_AbanicoPlot <- function(
   }
 
   ## optionally, remove NA-values
+  .validate_logical_scalar(na.rm)
   if (na.rm) {
     for(i in seq_along(data)) {
       n.NA <- sum(!stats::complete.cases(data[[i]]))

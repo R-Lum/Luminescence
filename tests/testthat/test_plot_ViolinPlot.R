@@ -9,6 +9,10 @@ test_that("input validation", {
                "'data' should be of class 'RLum.Results', 'data.frame' or 'matrix'")
   expect_error(plot_ViolinPlot("error"),
                "'data' should be of class 'RLum.Results', 'data.frame' or 'matrix'")
+  expect_error(plot_ViolinPlot(df, boxplot = 5),
+               "'boxplot' should be a single logical value")
+  expect_error(plot_ViolinPlot(df, rug = iris),
+               "'rug' should be a single logical value")
   expect_error(plot_ViolinPlot(df, summary = 5),
                "'summary' should be of class 'character'")
   expect_error(plot_ViolinPlot(df, summary.pos = 5),

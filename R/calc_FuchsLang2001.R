@@ -93,6 +93,7 @@ calc_FuchsLang2001 <- function(
 
   .validate_class(data, c("data.frame", "RLum.Results"))
   .validate_not_empty(data)
+  .validate_positive_scalar(cvThreshold)
   if (inherits(data, "RLum.Results")) {
     data <- get_RLum(data, "data")
   }

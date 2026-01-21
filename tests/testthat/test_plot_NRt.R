@@ -25,6 +25,8 @@ test_that("input validation", {
                 "'data' contains missing values in the natural signal")
   expect_error(plot_NRt(data.frame(a = 1:5, b = 1:5, c = NA)),
                 "'data' contains missing values in the regenerated signal")
+  expect_error(plot_NRt(curves, log = FALSE),
+               "'log' should be of class 'character' and have length 1")
   expect_error(plot_NRt(curves, smooth = "error"),
                "'smooth' should be one of 'none', 'spline' or 'rmean'")
 
