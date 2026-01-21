@@ -34,6 +34,13 @@ test_that("check functionality", {
       expect_snapshot_plain(convert_CW2pPMi(values, P = 1/10),
                             tolerance = tol),
       "t' is beyond the time resolution: only two data points have been extrapolated")
+
+  expect_warning(expect_error(convert_CW2pLMi(iris),
+                              "All points are outside the interpolation range"),
+                 "collapsing to unique 'x' values")
+  expect_warning(expect_error(convert_CW2pPMi(iris),
+                              "All points are outside the interpolation range"),
+                 "collapsing to unique 'x' values")
 })
 
 test_that("Test RLum.Types", {
