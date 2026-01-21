@@ -56,6 +56,13 @@ test_that("input validation", {
                                  background.integral.max = 1000,
                                  rejection.criteria = list(recuperation_reference = letters)),
                "'recuperation_reference' in 'rejection.criteria' should be of class 'character'")
+  expect_error(analyse_SAR.CWOSL(object[[1]],
+                                 signal.integral.min = 1,
+                                 signal.integral.max = 2,
+                                 background.integral.min = 900,
+                                 background.integral.max = 1000,
+                                 rejection.criteria = list(sn_reference = letters)),
+               "'sn_reference' in 'rejection.criteria' should be of class 'character'")
 })
 
 test_that("snapshot tests", {
@@ -272,6 +279,19 @@ test_that("check functionality", {
       plot = TRUE
     ),
     "Recuperation reference invalid, valid values are: 'Natural', 'R1', 'R2'")
+
+  expect_error(
+    analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal.integral.min = 1,
+      signal.integral.max = 2,
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      fit.method = "LIN",
+      rejection.criteria = list(sn_reference = "error"),
+      plot = TRUE
+    ),
+    "Signal-to-noise reference invalid, valid values are: 'Natural', 'R1', 'R2'")
 
   ## check stop for OSL.components ... failing
   SW({
@@ -660,6 +680,7 @@ test_that("advance tests run", {
       dose.points = seq_len(7),
       mode = "alternate",
       rejection.criteria = list(
+        sn_reference = "R0",
         recuperation_reference = "R1"),
       plot = FALSE,
       verbose = FALSE))
@@ -748,7 +769,7 @@ test_that("graphical snapshot tests", {
                                   background.integral.max = 1000,
                                   fit.method = "LIN",
                                   log = "x",
-                                  plot_onePage = TRUE), )
+                                  plot_onePage = TRUE))
 
   vdiffr::expect_doppelganger("NO_TL log xy",
                               analyse_SAR.CWOSL(

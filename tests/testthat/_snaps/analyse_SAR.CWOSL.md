@@ -278,7 +278,7 @@
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
-                  "value": [1, 2, 3, 4, 5]
+                  "value": [1, 2, 3, 4, 5, 6]
                 },
                 "class": {
                   "type": "character",
@@ -290,22 +290,22 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["Recycling ratio (R5/R1)", "Recuperation rate (Natural) 1", "Testdose error", "Palaeodose error", "De > max. dose point"]
+                  "value": ["Recycling ratio (R5/R1)", "Recuperation rate (Natural) 1", "Testdose error", "Signal-to-noise ratio", "Palaeodose error", "De > max. dose point"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.0501, 0.00376529, 0.01474165, 0.02843, 1668.25051542]
+                  "value": [1.0501, 0.00376529, 0.01474165, 17117.23099078, 0.02843, 1668.25051542]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.1, 0.1, 0.1, 0.1, 2550]
+                  "value": [1.1, 0.1, 0.1, 50, 0.1, 2550]
                 },
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["OK", "OK", "OK", "OK", "OK"]
+                  "value": ["OK", "OK", "OK", "OK", "OK", "OK"]
                 }
               ]
             }
@@ -624,7 +624,7 @@
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
-                  "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                  "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
                 },
                 "class": {
                   "type": "character",
@@ -636,22 +636,22 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["Recycling ratio (R5/R1)", "Recuperation rate (Natural) 1", "Testdose error", "Palaeodose error", "De > max. dose point", "Recycling ratio (R5/R1)", "Recuperation rate (Natural) 1", "Testdose error", "Palaeodose error", "De > max. dose point"]
+                  "value": ["Recycling ratio (R5/R1)", "Recuperation rate (Natural) 1", "Testdose error", "Signal-to-noise ratio", "Palaeodose error", "De > max. dose point", "Recycling ratio (R5/R1)", "Recuperation rate (Natural) 1", "Testdose error", "Signal-to-noise ratio", "Palaeodose error", "De > max. dose point"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.0501, 0.00376529, 0.01474165, 0.02075, 1768.62308496, 1.0163, 0.00411087, 0.01954246, 0.02671, 1660.6965308]
+                  "value": [1.0501, 0.00376529, 0.01474165, 17117.23099078, 0.02075, 1768.62308496, 1.0163, 0.00411087, 0.01954246, 17447.10380678, 0.02671, 1660.6965308]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.1, 0.1, 0.1, 0.1, 2550, 1.1, 0.1, 0.1, 0.1, 2550]
+                  "value": [1.1, 0.1, 0.1, 50, 0.1, 2550, 1.1, 0.1, 0.1, 50, 0.1, 2550]
                 },
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK"]
+                  "value": ["OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK"]
                 }
               ]
             }
@@ -970,7 +970,7 @@
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
-                  "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                  "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
                 },
                 "class": {
                   "type": "character",
@@ -982,22 +982,22 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["Recycling ratio (R5/R1)", "Recuperation rate (Natural) 1", "Testdose error", "Palaeodose error", "De > max. dose point", "Recycling ratio (R5/R1)", "Recuperation rate (Natural) 1", "Testdose error", "Palaeodose error", "De > max. dose point"]
+                  "value": ["Recycling ratio (R5/R1)", "Recuperation rate (Natural) 1", "Testdose error", "Signal-to-noise ratio", "Palaeodose error", "De > max. dose point", "Recycling ratio (R5/R1)", "Recuperation rate (Natural) 1", "Testdose error", "Signal-to-noise ratio", "Palaeodose error", "De > max. dose point"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.0501, 0.00376529, 0.01474165, 0.01845, 353.72461699, 1.0163, 0.00411087, 0.01954246, 0.02128, 332.13930616]
+                  "value": [1.0501, 0.00376529, 0.01474165, 17117.23099078, 0.01845, 353.72461699, 1.0163, 0.00411087, 0.01954246, 17447.10380678, 0.02128, 332.13930616]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.1, 0.1, 0.1, 0.1, 510, 1.1, 0.1, 0.1, 0.1, 510]
+                  "value": [1.1, 0.1, 0.1, 50, 0.1, 510, 1.1, 0.1, 0.1, 50, 0.1, 510]
                 },
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK"]
+                  "value": ["OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK"]
                 }
               ]
             }
@@ -1316,7 +1316,7 @@
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
-                  "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                  "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
                 },
                 "class": {
                   "type": "character",
@@ -1328,22 +1328,22 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["Recycling ratio (R5/R1)", "Recuperation rate (Natural) 1", "Testdose error", "Palaeodose error", "De > max. dose point", "Recycling ratio (R5/R1)", "Recuperation rate (Natural) 1", "Testdose error", "Palaeodose error", "De > max. dose point"]
+                  "value": ["Recycling ratio (R5/R1)", "Recuperation rate (Natural) 1", "Testdose error", "Signal-to-noise ratio", "Palaeodose error", "De > max. dose point", "Recycling ratio (R5/R1)", "Recuperation rate (Natural) 1", "Testdose error", "Signal-to-noise ratio", "Palaeodose error", "De > max. dose point"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.0501, 0.00376529, 0.01474165, 0.01815, 353.72461699, 1.0163, 0.00411087, 0.01954246, 0.02544, 332.13930616]
+                  "value": [1.0501, 0.00376529, 0.01474165, 17117.23099078, 0.01815, 353.72461699, 1.0163, 0.00411087, 0.01954246, 17447.10380678, 0.02544, 332.13930616]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.1, 0.1, 0.1, 0.1, 510, 1.1, 0.1, 0.1, 0.1, 510]
+                  "value": [1.1, 0.1, 0.1, 50, 0.1, 510, 1.1, 0.1, 0.1, 50, 0.1, 510]
                 },
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK"]
+                  "value": ["OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK"]
                 }
               ]
             }
@@ -1662,7 +1662,7 @@
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
-                  "value": [1, 2, 3, 4, 5]
+                  "value": [1, 2, 3, 4, 5, 6]
                 },
                 "class": {
                   "type": "character",
@@ -1674,22 +1674,22 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["Recycling ratio (R5/R1)", "Recuperation rate (R1) 1", "Testdose error", "Palaeodose error", "De > max. dose point"]
+                  "value": ["Recycling ratio (R5/R1)", "Recuperation rate (R1) 1", "Testdose error", "Signal-to-noise ratio", "Palaeodose error", "De > max. dose point"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.0501, 0.0106012, 0.01474165, 0.0188, 1768.62308496]
+                  "value": [1.0501, 0.0106012, 0.01474165, 17117.23099078, 0.0188, 1768.62308496]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": ["NA", 0.01, 0.01, "NA", "Inf"]
+                  "value": ["NA", 0.01, 0.01, 50, "NA", "Inf"]
                 },
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["OK", "FAILED", "FAILED", "OK", "OK"]
+                  "value": ["OK", "FAILED", "FAILED", "OK", "OK", "OK"]
                 }
               ]
             }

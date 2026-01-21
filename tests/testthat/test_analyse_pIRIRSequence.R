@@ -234,7 +234,7 @@ test_that("check class and length of output", {
     expect_s3_class(results$rejection.criteria, "data.frame")
 
    expect_equal(round(sum(results$data[1:2, 1:4]), 0),7584)
-   expect_equal(round(sum(results$rejection.criteria$Value), 2),3338.69)
+   expect_equal(round(sum(results$rejection.criteria$Value), 2), 37573.16)
 })
 
 test_that("regression tests", {
