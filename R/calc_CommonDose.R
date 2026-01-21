@@ -99,7 +99,7 @@
 #' @export
 calc_CommonDose <- function(
   data,
-  sigmab,
+  sigmab = 0,
   log=TRUE,
   ...
 ) {
@@ -117,6 +117,7 @@ calc_CommonDose <- function(
   if (ncol(data) < 2) {
     .throw_error("'data' object must have two columns")
   }
+  .validate_class(sigmab, "numeric", length = 1)
   if (!missing(sigmab) && (sigmab < 0 || sigmab > 1)) {
       .throw_error("'sigmab' must be a value between 0 and 1")
   }
@@ -135,9 +136,6 @@ calc_CommonDose <- function(
   ##============================================================================##
   ## CALCULATIONS
   ##============================================================================##
-
-  # set default value of sigmab
-  if (missing(sigmab)) sigmab<- 0
 
   # calculate  yu = log(ED) and su = se(logED)
   if (log) {

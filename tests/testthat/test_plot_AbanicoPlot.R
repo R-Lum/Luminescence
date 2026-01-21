@@ -21,6 +21,8 @@ test_that("input validation", {
       "Error: After removing invalid entries, nothing is plotted"),
       "Data set 1 empty or consisting of only 1 row, removed")
 
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, na.rm = "error"),
+               "'na.rm' should be a single logical value")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, plot = FALSE),
                "'plot.ratio' should be a single positive value")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, xlab = "x"),

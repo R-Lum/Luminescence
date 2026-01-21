@@ -60,7 +60,7 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(convert_CW2pLMi(values, P = 0),
-               "[convert_CW2pLMi()] P has to be > 0", fixed = TRUE)
+               "[convert_CW2pLMi()] 'P' should be a single positive value", fixed = TRUE)
   expect_warning(convert_CW2pLMi(values, P = 10),
                  "t' is beyond the time resolution and more than two data points")
 
@@ -72,6 +72,8 @@ test_that("input validation", {
                "'values' should have 2 columns")
   expect_error(convert_CW2pHMi(data.frame(a = 1:10, b = NA)),
                "'values' should have at least 2 non-missing values")
+  expect_error(convert_CW2pHMi(values, iris),
+               "'delta' should be of class 'numeric' or NULL")
 
   expect_error(convert_CW2pLMi(values = matrix(0, 2)),
                "'values' should be of class 'data.frame' or 'RLum.Data.Curve'")
@@ -81,6 +83,8 @@ test_that("input validation", {
                "'values' should have 2 columns")
   expect_error(convert_CW2pLMi(data.frame(a = 1:10, b = NA)),
                "'values' should have at least 2 non-missing values")
+  expect_error(convert_CW2pLMi(object, iris),
+               "'P' should be a single positive value")
 
   expect_error(convert_CW2pLM(values = matrix(0, 2)),
                "'values' should be of class 'data.frame' or 'RLum.Data.Curve'")
@@ -97,6 +101,8 @@ test_that("input validation", {
                "'values' should have 2 columns")
   expect_error(convert_CW2pPMi(data.frame(a = 1:10, b = NA)),
                "'values' should have at least 2 non-missing values")
+  expect_error(convert_CW2pPMi(values, iris),
+               "'P' should be a single positive value or NULL")
 
   object@recordType <- "RF"
   expect_error(convert_CW2pLM(values = object),

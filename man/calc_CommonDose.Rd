@@ -5,7 +5,7 @@
 \title{Apply the (un-)logged common age model after Galbraith et al. (1999) to a
 given De distribution}
 \usage{
-calc_CommonDose(data, sigmab, log = TRUE, ...)
+calc_CommonDose(data, sigmab = 0, log = TRUE, ...)
 }
 \arguments{
 \item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):

@@ -16,6 +16,8 @@ test_that("input validation", {
                "'data' cannot be an empty data.frame")
   expect_error(fit_SurfaceExposure(matrix()),
                "'data' should have at least two columns")
+  expect_error(fit_SurfaceExposure(d1, sigmaphi = NA),
+               "'sigmaphi' should be a single positive value or NULL")
   expect_error(fit_SurfaceExposure(list(d1)),
                "'age' must be of the same length")
   expect_error(fit_SurfaceExposure(d4, age = 1e4),
@@ -136,7 +138,7 @@ test_that("not enough parameters provided", {
   )
 
   expect_message(res <- fit_SurfaceExposure(list(d1, d1), age = c(NA, 1e4),
-                                            sigmaphi = NA, mu = NA,
+                                            sigmaphi = NULL, mu = NA,
                                             log = "y", plot = TRUE),
                  "Original error from minpack.lm::nlsLM(): evaluation of fn",
                  fixed = TRUE)

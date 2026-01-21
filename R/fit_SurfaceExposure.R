@@ -292,6 +292,8 @@ fit_SurfaceExposure <- function(
     .throw_error("'data' should have at least two columns")
   }
 
+  .validate_positive_scalar(sigmaphi, null.ok = TRUE)
+
   # Check which parameters have been provided
   if (!is.null(age) && anyNA(age)) age <- NULL
   if (!is.null(sigmaphi) && anyNA(sigmaphi)) sigmaphi <- NULL

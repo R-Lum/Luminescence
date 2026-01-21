@@ -131,6 +131,8 @@ calc_FastRatio <- function(object,
   .validate_class(object, c("RLum.Analysis", "RLum.Results", "RLum.Data.Curve",
                             "data.frame", "matrix"))
   .validate_not_empty(object)
+  .validate_positive_scalar(stimulation.power)
+  .validate_positive_scalar(wavelength)
   .validate_positive_scalar(Ch_L1, int = TRUE)
   .validate_positive_scalar(Ch_L2, int = TRUE, null.ok = TRUE)
   .validate_class(Ch_L3, c("integer", "numeric"), null.ok = TRUE, length = 2)

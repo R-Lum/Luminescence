@@ -113,6 +113,7 @@ calc_CentralDose <- function(
   if (inherits(data, "RLum.Results")) {
     data <- get_RLum(data, "data")
   }
+  .validate_class(sigmab, "numeric", length = 1)
 
   ##remove NA values
   if (anyNA(data)) {

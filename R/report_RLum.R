@@ -208,6 +208,8 @@ report_RLum <- function(
   # nocov end
 
   # check if files exist
+  .validate_class(file, "character", length = 1)
+  .validate_class(css.file, "character", length = 1, null.ok = TRUE)
   if (!is.null(css.file) && !file.exists(css.file)) {
       .throw_error("Couldn't find the specified CSS file at '", css.file, "'")
   }
