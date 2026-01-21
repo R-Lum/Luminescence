@@ -292,12 +292,11 @@ fit_SurfaceExposure <- function(
     .throw_error("'data' should have at least two columns")
   }
 
-  .validate_positive_scalar(sigmaphi, null.ok = TRUE)
-
   # Check which parameters have been provided
   if (!is.null(age) && anyNA(age)) age <- NULL
   if (!is.null(sigmaphi) && anyNA(sigmaphi)) sigmaphi <- NULL
   if (!is.null(mu) && anyNA(mu)) mu <- NULL
+  .validate_positive_scalar(sigmaphi, null.ok = TRUE)
 
   ## Weighting options (only available for global fitting)
   if (ncol(data) >= 3 && weights && !global_fit)
