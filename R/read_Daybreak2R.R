@@ -267,7 +267,7 @@ read_Daybreak2R <- function(
         raw_IRRAD_DATE <- readBin(con, what = "raw", 2, size = 1, endian = "little") # 27-Nov-2006
         bitDATE<-as.integer(rawToBits(raw_IRRAD_DATE))
         DATE.AAAA <- sum(bitDATE[10:16] * c(1, 2, 4, 8, 16, 32, 64)) + 1900
-        if (DATE.AAAA < 1950) DATE.AAAA <- DATE.AAAA + 128
+        if (DATE.AAAA < 1950) DATE.AAAA <- DATE.AAAA + 128 # nocov
         DATE.MM<-sum(bitDATE[seq(1,4)]*c(1,2,4,8))
         DATE.JJ<-sum(bitDATE[seq(5,9)]*c(1,2,4,8,16))
         i_IRRAD_DATE<-paste0(DATE.AAAA,"-",MM=DATE.MM,"-",JJ=DATE.JJ)
