@@ -258,6 +258,11 @@
 #'
 #' @noRd
 .normalise_curve <- function(data, norm) {
+  ## early return if no normalisation is requested
+  if (isFALSE(norm)) {
+    return(data)
+  }
+
   if (norm == "max" || isTRUE(norm)) {
     data <- data / max(data, na.rm = TRUE)
   }
