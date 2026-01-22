@@ -478,6 +478,10 @@ test_that("Test internals", {
                "'iris' should be a single value")
   expect_error(.validate_scalar(iris, null.ok = TRUE),
                "'iris' should be a single value or NULL")
+  expect_error(.validate_scalar(iris, extra = "something else"),
+               "'iris' should be a single value or something else")
+  expect_error(.validate_scalar(iris, extra = "something else", null.ok = TRUE),
+               "'iris' should be a single value or something else or NULL")
   expect_error(.validate_scalar(array(1, c(1, 1, 0))),
                "'NA' should be a single value")
   expect_error(.validate_scalar(-1:2, name = "'var'"),
@@ -510,6 +514,10 @@ test_that("Test internals", {
                "'iris' should be a single positive value")
   expect_error(.validate_positive_scalar(iris, null.ok = TRUE),
                "'iris' should be a single positive value or NULL")
+  expect_error(.validate_positive_scalar(iris, extra = "something else"),
+               "'iris' should be a single positive value or something else")
+  expect_error(.validate_positive_scalar(iris, extra = "something else", null.ok = TRUE),
+               "'iris' should be a single positive value or something else or NULL")
   expect_error(.validate_positive_scalar(1:2, name = "'var'"),
                "'var' should be a single positive value")
   expect_error(.validate_positive_scalar(0, name = "'var'"),
@@ -540,6 +548,10 @@ test_that("Test internals", {
                "'iris' should be a single logical value")
   expect_error(.validate_logical_scalar(iris, null.ok = TRUE),
                "'iris' should be a single logical value or NULL")
+  expect_error(.validate_logical_scalar(iris, extra = "something else"),
+               "'iris' should be a single logical value or something else")
+  expect_error(.validate_logical_scalar(iris, extra = "something else", null.ok = TRUE),
+               "'iris' should be a single logical value or something else or NULL")
   expect_error(.validate_logical_scalar(c(TRUE, FALSE), name = "'var'"),
                "'var' should be a single logical value")
   expect_error(.validate_logical_scalar(0, name = "'var'"),
