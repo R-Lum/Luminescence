@@ -773,7 +773,7 @@ setMethod("normalise_RLum", signature = "list",
           function(object, norm, ...) {
             ## apply method in the objects and return the same
             lapply(object, function(x) {
-              if (inherits(x, "RLum.Data") || inherits(x, "RLum.Analysis")) {
+              if (inherits(x, c("RLum.Analysis", "RLum.Data"))) {
                 return(normalise_RLum(x, norm = norm, ...))
               } else {
                 return(x)
