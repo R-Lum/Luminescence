@@ -191,6 +191,11 @@ elements to process (#1258).
 causing plots intended to appear side-by-side to be rendered on separate pages
 (#1247).
 
+### `plot_RLum.Data.Spectrum()`
+
+* The `norm` argument is no longer limited to just `"min"` and `"max"` but
+now supports all options provided by `normalise_RLum()` (#1303).
+
 ### `plot_FilterCombinations()`
 
 * The interactive mode did not accept all plotting options from the non-interactive

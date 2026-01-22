@@ -16,7 +16,7 @@ test_that("input validation", {
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "error"),
                "'plot.type' should be one of 'contour', 'persp', 'single'")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, norm = "error"),
-               "'norm' should be one of 'min', 'max' or NULL")
+               "'norm' should be one of 'max', 'min', 'first', 'last' or 'huot'")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bg.spectrum = "error"),
                "'bg.spectrum' should be of class 'RLum.Data.Spectrum', 'matrix' or")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bin.rows = 1.7),
