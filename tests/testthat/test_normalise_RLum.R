@@ -1,4 +1,6 @@
+## load data
 data(ExampleData.CW_OSL_Curve, envir = environment())
+
 ## curve
 temp <-
   set_RLum(
@@ -16,13 +18,18 @@ spectra <- set_RLum("RLum.Data.Spectrum", data = matrix(1:10, ncol = 2))
 ## array
 image <- set_RLum("RLum.Data.Image", data = array(1:12, dim = c(2,3,2)))
 
-test_that("check class and length of output", {
+test_that("input validation", {
   testthat::skip_on_cran()
 
-  ## break function
-  expect_error(normalise_RLum(temp, norm = "error"), "'norm' should be one of 'min', 'max', 'first', 'last' or 'huot'")
+  expect_error(normalise_RLum(temp, norm = "error"),
+               "'norm' should be one of 'max', 'min', 'first', 'last' or 'huot'")
   expect_error(normalise_RLum(temp, norm = c(1,1)), "'norm' should be of class 'logical', 'character' or 'numeric' and have length 1")
+  expect_error(normalise_RLum(temp, norm = -3),
+               "'norm' should be a single positive value or one of 'max', 'min'")
+})
 
+test_that("check functionality", {
+  testthat::skip_on_cran()
 
   ##standard tests
   expect_s4_class(temp, class = "RLum.Data.Curve")

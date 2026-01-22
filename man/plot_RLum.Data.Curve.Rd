@@ -60,13 +60,10 @@ count value in the curve
 \code{norm = "min"}: Curve values are normalised to the smallest count value
 in the curve
 
-\code{norm = 2.2}: Curve values are normalised to 2.2, while this can be any
-real number
+\code{norm = "first"}: Curve values are normalised to the very first count value
 
 \code{norm = "last"}: Curve values are normalised to the last count value
 (this can be useful in particular for radiofluorescence curves)
-
-\code{norm = "first"}: Curve values are normalised to the very first count value
 
 \code{norm = "huot"}: Curve values are normalised as suggested by Sébastien Huot
 via GitHub:
@@ -76,6 +73,8 @@ y = (observed - median(background)) / (max(observed) - median(background))
 
 The background of the curve is defined as the last 20\% of the count values
 of a curve.
+
+\code{norm = 2.2}: Curve values are normalised to a positive number (e.g., 2.2).
 }
 \note{
 Not all arguments of \link{plot} will be passed!

@@ -29,8 +29,8 @@ S4 object of class \code{RLum}}
 
 \item{norm}{\link{logical} \link{character} (\strong{required}):
 if logical, whether curve normalisation should occur; alternatively, one
-of \code{"max"} (used with \code{TRUE}), \code{"min"}, \code{"last"},  \code{"huot"} or an arbitrary
-real number (e.g., 2.2)}
+of \code{"max"} (used with \code{TRUE}), \code{"min"}, \code{"first"}, \code{"last"}, \code{"huot"}
+or a positive number (e.g., 2.2)}
 
 \item{...}{further arguments passed to the specific class method}
 
@@ -62,9 +62,6 @@ count value in the curve
 \code{norm = "min"}: Curve values are normalised to the smallest count value
 in the curve
 
-\code{norm = 2.2}: Curve values are normalised to 2.2, while this can be any
-real number
-
 \code{norm = "first"}: Curve values are normalised to the first count value.
 
 \code{norm = "last"}: Curve values are normalised to the last count value
@@ -78,6 +75,8 @@ y = (observed - median(background)) / (max(observed) - median(background))
 
 The background of the curve is defined as the last 20\% of the count values
 of a curve.
+
+\code{norm = 2.2}: Curve values are normalised to a positive number (e.g., 2.2).
 }
 \section{Functions}{
 \itemize{

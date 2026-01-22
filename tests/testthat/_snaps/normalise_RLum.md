@@ -1,4 +1,4 @@
-# check class and length of output
+# check functionality
 
     {
       "type": "S4",

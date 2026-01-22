@@ -685,8 +685,8 @@ setMethod("smooth_RLum", signature = "list",
 #'
 #' @param norm [logical] [character] (**required**):
 #' if logical, whether curve normalisation should occur; alternatively, one
-#' of `"max"` (used with `TRUE`), `"min"`, `"last"`,  `"huot"` or an arbitrary
-#' real number (e.g., 2.2)
+#' of `"max"` (used with `TRUE`), `"min"`, `"first"`, `"last"`, `"huot"`
+#' or a positive number (e.g., 2.2)
 #'
 #' @param ... further arguments passed to the specific class method
 #'
@@ -699,9 +699,6 @@ setMethod("smooth_RLum", signature = "list",
 #'
 #' `norm = "min"`: Curve values are normalised to the smallest count value
 #' in the curve
-#'
-#' `norm = 2.2`: Curve values are normalised to 2.2, while this can be any
-#' real number
 #'
 #' `norm = "first"`: Curve values are normalised to the first count value.
 #'
@@ -716,6 +713,8 @@ setMethod("smooth_RLum", signature = "list",
 #'
 #' The background of the curve is defined as the last 20% of the count values
 #' of a curve.
+#'
+#' `norm = 2.2`: Curve values are normalised to a positive number (e.g., 2.2).
 #'
 #' @return
 #' An object of the same type as the input object provided.
@@ -755,8 +754,11 @@ setGeneric("normalise_RLum", function(object, norm = TRUE, ...) {
   ## validation
   .validate_class(norm, c("logical", "character", "numeric"), length = 1)
 
+  valid.norms <- c("max", "min", "first", "last", "huot")
   if(inherits(norm, "character"))
-    .validate_args(norm, c("min", "max", "first", "last", "huot"))
+    .validate_args(norm, valid.norms)
+  else if (inherits(norm, "numeric"))
+    .validate_positive_scalar(norm, extra = paste("one of", .collapse(valid.norms)))
 
   ## set generic
   standardGeneric("normalise_RLum")

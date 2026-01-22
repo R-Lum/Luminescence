@@ -253,8 +253,8 @@
 #'
 #' @param norm [logical] [character] (**required**):
 #' if logical, whether curve normalisation should occur; alternatively, one
-#' of `"max"` (used with `TRUE`), `"min"`, `"first"`, `"last"`,  `"huot"` or an arbitrary
-#' real number (e.g., 2.2)
+#' of `"max"` (used with `TRUE`), `"min"`, `"first"`, `"last"`,  `"huot"`
+#' or a positive number (e.g., 2.2).
 #'
 #' @noRd
 .normalise_curve <- function(data, norm) {
