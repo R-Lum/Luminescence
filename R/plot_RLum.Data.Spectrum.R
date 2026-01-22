@@ -133,9 +133,10 @@
 #' e.g. `bin.cols = 2` two channels are summed up.
 #' Binning is applied after the background subtraction.
 #'
-#' @param norm [character] (*optional*):
-#' Normalise data to the maximum (`norm = "max"`) or minimum (`norm = "min"`)
-#' count values. The normalisation is applied after binning.
+#' @param norm [logical], [character] (*optional*):
+#' if logical, whether curve normalisation should occur (`FALSE` by default);
+#' alternatively, one of the values detailed in [Luminescence::plot_RLum.Data.Curve].
+#' The normalisation is applied after binning.
 #'
 #' @param rug [logical] (*with default*):
 #' enable/disable colour rug. Currently only implemented for plot
@@ -257,7 +258,7 @@ plot_RLum.Data.Spectrum <- function(
   bg.channels = NULL,
   bin.rows = 1,
   bin.cols = 1,
-  norm = NULL,
+  norm = FALSE,
   rug = TRUE,
   limit_counts = NULL,
   xaxis.energy = FALSE,
@@ -287,8 +288,8 @@ plot_RLum.Data.Spectrum <- function(
   if (length(object@data) < 2) {
     .throw_error("'object' contains no data")
   }
+  ## `norm` is not validated here but will be validated by normalise_RLum()
   .validate_class(bg.spectrum, c("RLum.Data.Spectrum", "matrix"), null.ok = TRUE)
-  .validate_args(norm, c("min", "max"), null.ok = TRUE)
   .validate_args(plot.type, c("contour", "persp", "single", "multiple.lines",
                               "image", "transect", "interactive"))
   .validate_positive_scalar(bin.rows, int = TRUE)
@@ -515,12 +516,13 @@ plot_RLum.Data.Spectrum <- function(
     temp.xyz[temp.xyz[] > max(min(temp.xyz), limit_counts[1])] <- limit_counts[1]
   }
 
-  # Normalise if wanted -------------------------------------------------------------------------
-  if(!is.null(norm)){
-    if(norm == "min")
-      temp.xyz <- temp.xyz/min(temp.xyz)
-    else if (norm == "max")
-      temp.xyz <- temp.xyz/max(temp.xyz)
+  ## data normalisation -----------------------------------------------------
+  if (!isFALSE(norm)) {
+    ## this is a bit cumbersome, but we cannot call `normalise_RLum()` directly
+    ## on a matrix (and calling `.normalise_curve()` ourselves means that we
+    ## would have to duplicate the input validation steps here), see #1303
+    temp.spectrum <- set_RLum("RLum.Data.Spectrum", data = temp.xyz)
+    temp.xyz <- normalise_RLum(temp.spectrum, norm)@data
   }
 
   ##check for zlim

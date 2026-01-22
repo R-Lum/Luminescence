@@ -13,7 +13,7 @@ plot_RLum.Data.Spectrum(
   bg.channels = NULL,
   bin.rows = 1,
   bin.cols = 1,
-  norm = NULL,
+  norm = FALSE,
   rug = TRUE,
   limit_counts = NULL,
   xaxis.energy = FALSE,
@@ -71,9 +71,10 @@ allow summing-up channel counts (vertical binning) for plotting,
 e.g. \code{bin.cols = 2} two channels are summed up.
 Binning is applied after the background subtraction.}
 
-\item{norm}{\link{character} (\emph{optional}):
-Normalise data to the maximum (\code{norm = "max"}) or minimum (\code{norm = "min"})
-count values. The normalisation is applied after binning.}
+\item{norm}{\link{logical}, \link{character} (\emph{optional}):
+if logical, whether curve normalisation should occur (\code{FALSE} by default);
+alternatively, one of the values detailed in \link{plot_RLum.Data.Curve}.
+The normalisation is applied after binning.}
 
 \item{rug}{\link{logical} (\emph{with default}):
 enable/disable colour rug. Currently only implemented for plot
