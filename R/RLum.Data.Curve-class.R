@@ -278,9 +278,8 @@ setMethod("get_RLum",
 
 ## length_RLum() ------------------------------------------------------------
 #' @describeIn length_RLum
-#' Returns the number of channels in the curve, which is the maximum of the
-#' value time/temperature of the curve (corresponding to the stimulation
-#' length).
+#' Returns the length of the curve object, which is the maximum of the value
+#' time/temperature of the curve (corresponding to the stimulation length).
 #'
 #' @export
 setMethod("length_RLum",

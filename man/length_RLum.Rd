@@ -32,9 +32,8 @@ function will be selected.
 \itemize{
 \item \code{length_RLum(RLum.Analysis)}: Returns the number of records stored in the object.
 
-\item \code{length_RLum(RLum.Data.Curve)}: Returns the number of channels in the curve, which is the maximum of the
-value time/temperature of the curve (corresponding to the stimulation
-length).
+\item \code{length_RLum(RLum.Data.Curve)}: Returns the length of the curve object, which is the maximum of the value
+time/temperature of the curve (corresponding to the stimulation length).
 
 \item \code{length_RLum(RLum.Results)}: Returns the number of stored data elements.
 
