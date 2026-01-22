@@ -8,7 +8,9 @@ test_that("input validation", {
   expect_error(plot_RLum.Data.Curve("error"),
                "'object' should be of class 'RLum.Data.Curve'")
   expect_error(plot_RLum.Data.Curve(temp, norm = "error"),
-               "'norm' should be one of 'max', 'last', 'huot'")
+               "'norm' should be one of 'max', 'min', 'first', 'last' or 'huot'")
+  expect_error(plot_RLum.Data.Curve(temp, norm = -2),
+               "'norm' should be a single positive value or one of 'max', 'min'")
 
   temp_NA <- temp
   temp_NA@data[] <- suppressWarnings(NA_real_)

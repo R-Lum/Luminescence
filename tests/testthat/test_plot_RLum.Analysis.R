@@ -27,6 +27,8 @@ test_that("input validation", {
                "'ncols' should be a single positive integer value")
   expect_error(plot_RLum.Analysis(temp, combine = -1),
                "'combine' should be a single logical value")
+  expect_error(plot_RLum.Analysis(temp, norm = -3),
+               "'norm' should be a single positive value or one of 'max', 'min'")
 
   expect_error(plot_RLum.Analysis(
       set_RLum("RLum.Analysis", records = list(c1@records[[1]],
@@ -80,7 +82,7 @@ test_that("check functionality", {
       c1@records[[1]],
       set_RLum("RLum.Data.Curve", recordType = "OSL")
       )), norm = TRUE, combine = TRUE),
-    "[plot_RLum.Analysis()] Curve normalisation produced Inf/NaN values",
+    "[normalise_RLum()] Curve normalisation produced Inf/NaN values, values replaced",
     fixed = TRUE))
 
   ##Basic plot

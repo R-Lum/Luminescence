@@ -104,12 +104,7 @@ plot_RLum.Data.Curve<- function(
     return(NULL)
   }
 
-  if (is.logical(norm))
-    norm <- norm[1]
-  else
-    norm <- .validate_args(norm, c("max", "last", "huot"),
-                           extra = "a logical value")
-
+  ## `norm` is not validated here but will be validated by normalise_RLum()
   .validate_logical_scalar(par.local)
   .validate_logical_scalar(smooth)
   .validate_logical_scalar(auto_scale)
@@ -164,7 +159,7 @@ plot_RLum.Data.Curve<- function(
 
   ## curve normalisation
   if (!isFALSE(norm)) {
-    object@data[, 2] <- .normalise_curve(object@data[, 2], norm)
+    object <- normalise_RLum(object, norm)
   }
 
   extraArgs <- list(...)

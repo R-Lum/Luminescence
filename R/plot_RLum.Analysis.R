@@ -352,7 +352,7 @@ plot_RLum.Analysis <- function(
               lty = plot.settings$lty[[i]],
               xlim = xlim.set,
               ylim = ylim.set,
-              norm = plot.settings$norm,
+              norm = plot.settings$norm[[i]],
               pch = plot.settings$pch[[i]],
               cex = plot.settings$cex[[i]],
               legend.col = plot.settings$legend.col[[i]],
@@ -465,16 +465,10 @@ plot_RLum.Analysis <- function(
           object.list[[x]] <- get(curve.transformation)(object.list[[x]])
         }
 
-        temp.data <- as(object.list[[x]], "data.frame")
-
         ## curve normalisation
-        if (isTRUE(plot.settings$norm[[k]][1]) ||
-            plot.settings$norm[[k]][1] %in% c("max", "last", "huot")) {
-          temp.data[[2]] <- .normalise_curve(temp.data[[2]],
-                                             plot.settings$norm[[k]])
-        }
-
-        return(temp.data)
+        object.list[[x]] <- normalise_RLum(object.list[[x]],
+                                           plot.settings$norm[[k]][1])
+        as(object.list[[x]], "data.frame")
       })
 
       ##set plot parameters
