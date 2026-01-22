@@ -641,7 +641,10 @@ fit_DoseResponseCurve <- function(
       b.MC <- suppressWarnings(rnorm(50, mean = b, sd = b / 100))
     }
 
-    c.MC <- suppressWarnings(rnorm(50, mean = c, sd = c / 100))
+    if(fit.force_through_origin)
+      c.MC <- rep(0, 50)
+    else
+      c.MC <- suppressWarnings(rnorm(50, mean = c, sd = c / 100))
     g.MC <- suppressWarnings(rnorm(50, mean = g, sd = g / 1))
 
     ##set start vector (to avoid errors within the loop)
@@ -727,13 +730,14 @@ fit_DoseResponseCurve <- function(
       ## prepare what we can outside the loop
       a.start <-  b.start <- c.start <- numeric(length(a.MC))
       lower_bounds <- c(a = 0, b = 1e-6, c = 0)
-      control_settings <-  minpack.lm::nls.lm.control(maxiter = 500)
-
+      control_settings <-  minpack.lm::nls.lm.control(
+        maxiter = 500)
+      
       ## loop for better attempt
       for (i in seq_along(a.MC)) {
         ## get start list
         start_list <- list(a = a.MC[i], b = b.MC[i], c = c.MC[i])
-
+  
         ## run fit
         fit.initial <- suppressWarnings(try(minpack.lm::nlsLM(
           formula = y ~ fit_functionEXP_cpp(a, b, c, x),
@@ -758,7 +762,6 @@ fit_DoseResponseCurve <- function(
       a <- median(a.start, na.rm = TRUE)
       b <- median(b.start, na.rm = TRUE)
       c <- median(c.start, na.rm = TRUE)
-
       ## exception: if b is 1 it is likely to be wrong and should be reset
       if(!is.na(b) && b == 1)
         b <- mean(b.MC)
