@@ -196,6 +196,11 @@ causing plots intended to appear side-by-side to be rendered on separate pages
 * The `norm` argument is no longer limited to just `"min"` and `"max"` but
 now supports all options provided by `normalise_RLum()` (#1303).
 
+* The function now returns `NULL` (instead of producing an empty plot or
+crashing) whenever the normalisation step replaces all values with zeroes,
+which can happen if the normalisation term used is 0, for example when the
+`bg.spectrum` argument is used and `norm = "min"` (#1305).
+
 ### `plot_FilterCombinations()`
 
 * The interactive mode did not accept all plotting options from the non-interactive

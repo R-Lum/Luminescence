@@ -137,6 +137,13 @@ test_that("check functionality", {
       )
     ))
 
+  ## normalisation replaces all values with 0
+  expect_warning(expect_message(expect_null(
+      plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "persp",
+                              bg.spectrum = bg.spectrum, norm = "min")),
+      "Error: Insufficient data for plotting, NULL returned"),
+      "Curve normalisation produced Inf/NaN values, values replaced by 0")
+
   ## more coverage
   plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "multiple.lines",
                           phi = 15, theta = -30, r = 10, log = "xyz",
