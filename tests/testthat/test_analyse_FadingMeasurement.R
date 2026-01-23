@@ -108,7 +108,7 @@ test_that("test functionality", {
                                            plot = TRUE, plot.single = TRUE,
                                            verbose = FALSE,
                                            n.MC = 10),
-                 "'plot.single' is deprecated, use 'plot_singlePanels'")
+                 "'plot.single' has been deprecated, use 'plot_singlePanels'")
 
   ## more coverage
   data.inf <- fading_data

@@ -499,8 +499,7 @@ analyse_SAR.CWOSL<- function(
   ## deprecated argument
   if ("plot.single" %in% names(extraArgs)) {
     plot_singlePanels <- extraArgs$plot.single
-    .throw_warning("'plot.single' is deprecated, use 'plot_singlePanels' ",
-                   "instead")
+    .deprecated("plot.single", "plot_singlePanels")
   }
 
 # Protocol Integrity Checks --------------------------------------------------

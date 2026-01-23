@@ -319,6 +319,14 @@ test_that("Test internals", {
   expect_message(fun.docall_do(error = FALSE),
                  "[fun.int()] Simple message", fixed = TRUE)
 
+  ## .deprecated() ----------------------------------------------------------
+  expect_warning(.deprecated("old", "new"),
+                 "'old' has been deprecated, use 'new' instead")
+  expect_warning(.deprecated("old", "new", "1.0"),
+                 "'old' has been deprecated since v1.0, use 'new' instead")
+  expect_warning(.deprecated(c("old1", "old2"), c("new1", "new2"), "1.0"),
+                 "'old1' and 'old2' have been deprecated since v1.0, use 'new1' and 'new2' instead")
+
   ## SW() ------------------------------------------------------------------
   expect_silent(SW(cat("silenced message")))
   expect_silent(SW(message("silenced message")))

@@ -78,7 +78,7 @@ test_that("input validation", {
   expect_warning(
       plot_GrowthCurve(LxTxData, verbose = FALSE,
                        output.plotExtended.single = TRUE),
-      "'output.plotExtended.single' is deprecated, use 'plot_singlePanels'")
+      "'output.plotExtended.single' has been deprecated, use 'plot_singlePanels'")
 })
 
 test_that("main tests", {
@@ -196,6 +196,6 @@ test_that("additional tests", {
                all = FALSE, fixed = TRUE)
   expect_match(warnings, "Fitting a non-linear least-squares model requires",
                all = FALSE, fixed = TRUE)
-  expect_match(warnings, "'NumberIterations.MC' is deprecated, use 'n.MC' instead",
+  expect_match(warnings, "'NumberIterations.MC' has been deprecated, use 'n.MC' instead",
                all = FALSE, fixed = TRUE)
 })

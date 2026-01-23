@@ -1064,6 +1064,23 @@ fancy_scientific <- function(l) {
           if (error) "Error: ", ...)
 }
 
+#' @title Throws a deprecation warning
+#'
+#' @param old Old argument names.
+#' @param new New argument names.
+#' @param since Release when the deprecation started (`NULL` by default).
+#'
+#' @noRd
+.deprecated <- function(old, new, since = NULL) {
+  plural <- length(old) > 1
+  .throw_warning(.collapse(old, last_sep = " and "),
+                 if (plural) " have " else " has ",
+                 "been deprecated",
+                 if (!is.null(since)) paste0(" since v", since),
+                 ", use ",
+                 .collapse(new, last_sep = " and "), " instead")
+}
+
 #' @title Silence Output and Warnings during Tests
 #'
 #' @description

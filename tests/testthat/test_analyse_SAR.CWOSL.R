@@ -535,7 +535,7 @@ test_that("advance tests run", {
                         background.integral.max = 1000,
                         plot.single = TRUE,
                         verbose = FALSE),
-      "'plot.single' is deprecated, use 'plot_singlePanels' instead")
+      "'plot.single' has been deprecated, use 'plot_singlePanels' instead")
   })
 
   ##test failed recycling ratio

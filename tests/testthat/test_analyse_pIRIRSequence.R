@@ -133,7 +133,7 @@ test_that("check plot stuff", {
     plot = TRUE,
     plot.single = TRUE,
     verbose = FALSE),
-    "'plot.single' is deprecated, use 'plot_singlePanels' instead")
+    "'plot.single' has been deprecated, use 'plot_singlePanels' instead")
   )
 })
 

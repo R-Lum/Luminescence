@@ -278,8 +278,7 @@ analyse_pIRIRSequence <- function(
   ## deprecated argument
   if ("plot.single" %in% ...names()) {
     plot_singlePanels <- list(...)$plot.single
-    .throw_warning("'plot.single' is deprecated, use 'plot_singlePanels' ",
-                   "instead")
+    .deprecated("plot.single", "plot_singlePanels")
   }
 
   ## Deal with extra arguments

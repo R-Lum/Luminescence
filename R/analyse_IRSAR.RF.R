@@ -689,8 +689,7 @@ analyse_IRSAR.RF<- function(
   ## deprecated argument
   if ("method.control" %in% names(extraArgs)) {
     method_control <- extraArgs$method.control
-    .throw_warning("'method.control' is deprecated, use ",
-                   "'method_control' instead")
+    .deprecated("method.control", "method_control")
   }
 
   ##modify list if necessary

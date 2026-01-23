@@ -197,8 +197,7 @@ plot_RLum.Analysis <- function(
   ## deprecated argument
   if ("plot.single" %in% names(extraArgs)) {
     plot_singlePanels <- extraArgs$plot.single
-    .throw_warning("'plot.single' is deprecated, use 'plot_singlePanels' ",
-                   "instead")
+    .deprecated("plot.single", "plot_singlePanels")
   }
 
   ##try to find optimal parameters, this is however, a little bit stupid, but

@@ -70,7 +70,7 @@ test_that("input validation", {
   expect_message(plot_RLum.Analysis(c1, combine = TRUE, main = "Curve"),
                  "'combine' can't be used with fewer than two curves")
   expect_warning(plot_RLum.Analysis(c1, plot.single = TRUE),
-                  "'plot.single' is deprecated, use 'plot_singlePanels'")
+                  "'plot.single' has been deprecated, use 'plot_singlePanels'")
 })
 
 test_that("check functionality", {

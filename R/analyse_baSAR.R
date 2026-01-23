@@ -799,12 +799,11 @@ analyse_baSAR <- function(
   ## deprecated arguments
   if ("output.plot" %in% ...names()) {
     additional_arguments$plot_drc <- list(...)$output.plot
-    .throw_warning("'output.plot' is deprecated, use 'plot_drc' instead")
+    .deprecated("output.plot", "plot_drc")
   }
   if ("output.plotExtended" %in% ...names()) {
     additional_arguments$plot_extended <- list(...)$output.plotExtended
-    .throw_warning("'output.plotExtended' is deprecated, use 'plot_extended' ",
-                   "instead")
+    .deprecated("output.plotExtended", "plot_extended")
   }
 
   ##set function arguments
@@ -1819,8 +1818,7 @@ analyse_baSAR <- function(
     ## deprecated argument
     if ("plot.single" %in% ...names()) {
       plot_singlePanels <- list(...)$plot.single
-      .throw_warning("'plot.single' is deprecated, use 'plot_singlePanels' ",
-                     "instead")
+      .deprecated("plot.single", "plot_singlePanels")
     }
 
     ##get colours from the package Luminescence
