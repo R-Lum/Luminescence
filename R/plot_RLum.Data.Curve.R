@@ -31,6 +31,8 @@
 #' The background of the curve is defined as the last 20% of the count values
 #' of a curve.
 #'
+#' `norm = "intensity"`: Curve values are normalised to the channel length.
+#'
 #' `norm = 2.2`: Curve values are normalised to a positive number (e.g., 2.2).
 #'
 #' @param object [Luminescence::RLum.Data.Curve-class] (**required**):

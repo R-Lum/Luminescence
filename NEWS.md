@@ -48,9 +48,10 @@ More information on these changes are available at
   `normalise_RLum()` we expose this functionality to `RLum-class`
   objects and enable a convenient normalisation of values that might
   come in handy in same cases. Normalised values are only count values.
-  Currently implemented is normalisation via keywords, such as `’min’`,
-  `’max’`, `’first’`, `’last’`, `’hout’`. Additionally, the function
-  supports the normalisation to any real number (#1250 by @RLumSK).
+  Currently implemented is normalisation via keywords, such as `"max"`,
+  `"min"`, `"first"`, `"last"`, `"huot"`, `"intensity"`. Additionally,
+  the function supports normalisation to a positive number (#1250 by
+  @RLumSK, \#1300).
 
 - `read_BINXLOG2R()`: This function enables you to salvage log files
   created by a Risø reader into R as `RLum.Analysis-class`. The function
@@ -182,11 +183,6 @@ More information on these changes are available at
   over 50% in some particular cases, such as when merging a large number
   of `RLum.Analysis` object (#1271).
 
-### `normalise_RLum()`
-
-- The argument `norm` was not respected if applied to an `RLum.Analysis`
-  object, or a `list` of it; fixed (#ccb1484).
-
 ### `plot_DetPlot()`
 
 - When operating on a list with the default setting of
@@ -263,10 +259,11 @@ More information on these changes are available at
 ## Other changes
 
 - The internal function `.normalise_curve()` received support to
-  normalise against by the minimum value (`"min"`), the first values
-  (`"first"`) or an arbitrary number (e.g, `2.2`) to be set by the user.
-  This new settings are automatically available to
-  `plot_RLum.Data.Curve(..., norm = <setting>)`.
+  normalise by the minimum value (`"min"`), the first value (`"first"`),
+  the channel length (`"intensity"`) or a positive number (e.g, 2.2).
+  These new settings are automatically available to
+  `plot_RLum.Analysis()` and the `plot_RLum.Data.*()` functions (#1250,
+  \#1300).
 
 - The package no longer depends on `RcppArmadillo`. This has no visible
   impact to the user other than a small reduction in the package size

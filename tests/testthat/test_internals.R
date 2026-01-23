@@ -88,22 +88,23 @@ test_that("Test internals", {
   data <- runif(100)
   expect_equal(data, .normalise_curve(data, FALSE))
   expect_equal(.normalise_curve(data, TRUE), .normalise_curve(data, "max"))
-  expect_silent(.normalise_curve(data, "last"))
-  expect_silent(.normalise_curve(data, "first"))
   expect_silent(.normalise_curve(data, "min"))
-  expect_silent(.normalise_curve(data, 2.2))
+  expect_silent(.normalise_curve(data, "first"))
+  expect_silent(.normalise_curve(data, "last"))
   expect_silent(.normalise_curve(data, "huot"))
+  expect_silent(.normalise_curve(data, "intensity"))
+  expect_silent(.normalise_curve(data, 2.2))
 
   ## check for matrix
   m <- matrix(runif(10), ncol = 2)
   expect_equal(m, .normalise_curve(m, FALSE))
   expect_equal(.normalise_curve(m, TRUE), .normalise_curve(m, "max"))
-  expect_true(is.matrix(.normalise_curve(m, "last")))
-  expect_silent(.normalise_curve(m, "first"))
   expect_silent(.normalise_curve(m, "min"))
-  expect_silent(.normalise_curve(m, 2.2))
+  expect_silent(.normalise_curve(m, "first"))
+  expect_true(is.matrix(.normalise_curve(m, "last")))
   expect_silent(.normalise_curve(m, "huot"))
-
+  expect_silent(.normalise_curve(m, "intensity"))
+  expect_silent(.normalise_curve(m, 2.2))
 
   data[100] <- 0
   expect_warning(.normalise_curve(data, "last"),

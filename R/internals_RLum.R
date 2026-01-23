@@ -241,20 +241,20 @@
 #' Curve normalisation
 #'
 #' Details on the normalisation methods are specified in
-#' [Luminescence::plot_RLum.Analysis]
-#' and [Luminescence::plot_RLum.Data.Curve].
+#' [Luminescence::plot_RLum.Data.Curve].
 #'
 #' The function assumes that `NA` or other invalid values have already been
 #' removed by the caller function, and that the `norm` option has already
 #' been validated.
 #'
-#' @param data [numeric] (**required**): the curve data to be normalised
-#' (can be a matrix)
+#' @param data [numeric], [matrix] (**required**):
+#' the curve data to be normalised.
 #'
 #' @param norm [logical] [character] (**required**):
 #' if logical, whether curve normalisation should occur; alternatively, one
-#' of `"max"` (used with `TRUE`), `"min"`, `"first"`, `"last"`,  `"huot"`
-#' or a positive number (e.g., 2.2).
+#' of `"max"` (used with `TRUE`), `"min"`, `"first"`, `"last"`, `"huot"`,
+#' or a positive number (e.g., 2.2; here it can also be a vector of the same
+#' length as `data` to support the `"intensity"` option).
 #'
 #' @noRd
 .normalise_curve <- function(data, norm) {
@@ -263,7 +263,10 @@
     return(data)
   }
 
-  if (norm == "max" || isTRUE(norm)) {
+  if (inherits(norm, "numeric")) {
+    data <- data / norm
+  }
+  else if (norm == "max" || isTRUE(norm)) {
     data <- data / max(data, na.rm = TRUE)
   }
   else if (norm == "last") {
@@ -278,10 +281,6 @@
   else if (norm == "huot") {
     bg <- median(data[floor(length(data) * 0.8):length(data)], na.rm = TRUE)
     data <- (data - bg) / max(data - bg, na.rm = TRUE)
-  }
-  else if (inherits(norm, "numeric")) {
-    data <- data / norm
-
   }
 
   ## check for Inf and NA
