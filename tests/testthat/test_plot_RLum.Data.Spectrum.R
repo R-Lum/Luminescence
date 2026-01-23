@@ -144,10 +144,12 @@ test_that("check functionality", {
       "Error: Insufficient data for plotting, NULL returned"),
       "Curve normalisation produced Inf/NaN values, values replaced by 0")
 
-  ## avoid log transformation
+  ## log transformation with negative data
+  suppressWarnings( # surface extends beyond the box
   expect_warning(plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "persp",
                                          log = "z", norm = "huot"),
-                 "Data contains non-positive values, 'log' reset to ''")
+                 "Data contains non-positive values, set to NA")
+  )
 
   ## more coverage
   plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "multiple.lines",
@@ -292,4 +294,12 @@ test_that("regression tests", {
                           data = spec@data[, 15:16, drop = FALSE])
   expect_silent(plot_RLum.Data.Spectrum(spec, bg.spectrum = bg.spectrum,
                                         xlim = c(0, 100), ylim = c(0, 10)))
+
+  ## issue 1307
+  expect_warning(plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "single",
+                                         log = "z", norm = "huot"),
+                 "Data contains non-positive values, set to NA")
+  expect_warning(plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "transect",
+                                         log = "z", norm = "huot"),
+                 "Data contains non-positive values, set to NA")
 })

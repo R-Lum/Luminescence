@@ -533,12 +533,12 @@ plot_RLum.Data.Spectrum <- function(
 
   ## don't apply a logarithmic transformation if non-positive values are present
   if (grepl("z", log) && any(temp.xyz <= 0)) {
-    log <- gsub("z", "", log, fixed = TRUE)
-    .throw_warning("Data contains non-positive values, 'log' reset to '", log, "'")
+    .throw_warning("Data contains non-positive values, set to NA")
+    temp.xyz[temp.xyz <= 0] <- NA
   }
 
   ##check for zlim
-  zlim <- extraArgs$zlim %||% range(temp.xyz)
+  zlim <- extraArgs$zlim %||% range(temp.xyz, na.rm = TRUE)
 
   # set colour values --------------------------------------------------------
   if (is.null(extraArgs$col) || plot.type %in% c("single", "multiple.lines")) {
@@ -873,10 +873,14 @@ if(plot){
     col <- extraArgs$col %||% "black"
     box <- extraArgs$box[1] %||% TRUE
     frames <- extraArgs$frames %||% 1:length(y)
-
     for(i in frames) {
       if (!"zlim" %in% names(extraArgs))
-        zlim <- range(temp.xyz[, i])
+        zlim <- suppressWarnings(range(temp.xyz[, i], na.rm = TRUE))
+
+      ## we get infinities if all elements in the current frame are NA
+      if (any(is.infinite(zlim)))
+        next
+
       plot(x, temp.xyz[,i],
            xlab = xlab,
            ylab = ylab,
@@ -1044,7 +1048,7 @@ if(plot){
     ## ========================================================================#
 
     ##sum up rows (column sum)
-    temp.xyz <- colSums(temp.xyz)
+    temp.xyz <- colSums(temp.xyz, na.rm = TRUE)
 
     ##consider differences within the arguments
     zlim <- extraArgs$zlim %||% c(0, max(temp.xyz))
