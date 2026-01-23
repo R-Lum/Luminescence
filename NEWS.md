@@ -210,10 +210,11 @@ More information on these changes are available at
   example when the `bg.spectrum` argument is used and `norm = "min"`
   (#1305).
 
-- Setting `log = "z"` will produce a warning and will be ignored if the
-  data contains non-positive values (for example after background
-  subtraction or normalisation). This avoids producing infinities or NaN
-  values that would lead to crashes for some plot types (#1307).
+- Setting `log = "z"` will produce a warning if the data contains
+  non-positive values (for example after background subtraction or
+  normalisation) before setting those values to `NA`. This avoids
+  producing infinities or NaN values that would lead to crashes for some
+  plot types (#1307).
 
 ### `plot_FilterCombinations()`
 
