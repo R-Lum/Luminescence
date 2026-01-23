@@ -523,6 +523,12 @@ plot_RLum.Data.Spectrum <- function(
     ## would have to duplicate the input validation steps here), see #1303
     temp.spectrum <- set_RLum("RLum.Data.Spectrum", data = temp.xyz)
     temp.xyz <- normalise_RLum(temp.spectrum, norm)@data
+
+    ## check if all values were replaced by 0 because normalisation produced Inf/Nan
+    if (sum(range(temp.xyz)) == 0) {
+      .throw_message("Insufficient data for plotting, NULL returned")
+      return(NULL)
+    }
   }
 
   ##check for zlim
