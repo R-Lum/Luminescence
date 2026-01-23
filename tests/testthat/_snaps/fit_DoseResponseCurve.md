@@ -1100,12 +1100,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1787.14784685]
+                  "value": [1787.14784607]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [39.0205444]
+                  "value": [31.61291874]
                 },
                 {
                   "type": "double",
@@ -1115,7 +1115,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [3591614.20373586]
+                  "value": [3941555.60542011]
                 },
                 {
                   "type": "double",
@@ -1125,7 +1125,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [387.36156052]
+                  "value": [349.76111536]
                 },
                 {
                   "type": "double",
@@ -1145,7 +1145,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1811.36154986]
+                  "value": [1776.09790884]
                 },
                 {
                   "type": "character",
@@ -1160,39 +1160,39 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1778.26645496]
+                  "value": [1742.40192541]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1860.87796402]
+                  "value": [1809.16531224]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1729.85433406]
+                  "value": [1710.37093635]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1881.30876733]
+                  "value": [1840.81038577]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1787.14784685]
+                  "value": [1787.14784607]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1787.14784685]
+                  "value": [1787.14784607]
                 }
               ]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": ["NA", 1824.8371709, "NA", 1830.71377093, 1776.78064125, 1864.234325, 1746.9287764, 1831.20796013, 1804.82820438, "NA"]
+              "value": ["NA", 1723.54413029, 1796.4093712, 1828.02310736, "NA", 1752.66609901, 1777.67895178, 1789.55519238, 1757.63560658, 1783.27081211]
             },
             {
               "type": "list",
@@ -1212,15 +1212,15 @@
                       "attributes": {},
                       "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
                     },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["data.frame"]
-                    },
                     "row.names": {
                       "type": "integer",
                       "attributes": {},
                       "value": [1, 2, 3, 4, 5, 6, 7]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["data.frame"]
                     }
                   },
                   "value": [
@@ -1371,7 +1371,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [56.6268594]
+                  "value": [54.19442476]
                 },
                 {
                   "type": "logical",
@@ -1411,7 +1411,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1654.19502336]
+                  "value": [1669.0942116]
                 },
                 {
                   "type": "character",
@@ -1426,22 +1426,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1582.80598467]
+                  "value": [1627.90159103]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1664.18544782]
+                  "value": [1745.89058868]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1543.17772435]
+                  "value": [1548.1249392]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1768.20963115]
+                  "value": [1766.67274168]
                 },
                 {
                   "type": "double",
@@ -1458,7 +1458,7 @@
             {
               "type": "double",
               "attributes": {},
-              "value": [1610.90625651, 1571.71222246, 1605.16197247, 1740.38278054, 1618.06265129, 1702.16986024, 1616.05022924, 1701.93514277, 1668.3974487, 1707.17166934]
+              "value": [1620.95823537, 1721.16318919, 1683.49963712, 1732.09258203, 1706.67706308, 1601.22752689, 1685.25436426, 1698.02258543, 1673.4200665, 1568.62686617]
             },
             {
               "type": "list",
@@ -1637,7 +1637,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [48.55301013]
+                  "value": [38.63346361]
                 },
                 {
                   "type": "double",
@@ -1647,7 +1647,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1172919.43207962]
+                  "value": [1412460.72866658]
                 },
                 {
                   "type": "logical",
@@ -1677,7 +1677,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1776.80630104]
+                  "value": [1793.61366242]
                 },
                 {
                   "type": "character",
@@ -1692,22 +1692,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1709.52409162]
+                  "value": [1745.24731759]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1815.21373726]
+                  "value": [1835.57232806]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1687.30524567]
+                  "value": [1717.41744949]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1884.87282188]
+                  "value": [1874.14354875]
                 },
                 {
                   "type": "double",
@@ -1724,7 +1724,7 @@
             {
               "type": "double",
               "attributes": {},
-              "value": [1808.35884356, 1836.22119257, 1727.57455606, 1758.36718057, 1768.18562486, 1868.39982966, 1747.13948612, 1738.69134267, 1722.99453709, 1792.13041729]
+              "value": [1822.41378322, 1817.64396438, 1769.44814495, 1840.75845359, 1758.65958446, 1789.85106517, 1854.71127969, 1763.67263182, 1782.12799836, 1736.84971855]
             },
             {
               "type": "list",
@@ -1744,15 +1744,15 @@
                       "attributes": {},
                       "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
                     },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["data.frame"]
-                    },
                     "row.names": {
                       "type": "integer",
                       "attributes": {},
                       "value": [1, 2, 3, 4, 5, 6, 7]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["data.frame"]
                     }
                   },
                   "value": [
@@ -1903,7 +1903,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [77.95285537]
+                  "value": [50.06631493]
                 },
                 {
                   "type": "logical",
@@ -1943,7 +1943,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1753.44276397]
+                  "value": [1775.17942127]
                 },
                 {
                   "type": "character",
@@ -1958,22 +1958,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1699.32043814]
+                  "value": [1716.85828165]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1861.38817349]
+                  "value": [1819.29868821]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1580.77946599]
+                  "value": [1677.08730028]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1889.17121384]
+                  "value": [1882.57070402]
                 },
                 {
                   "type": "double",
@@ -1990,7 +1990,7 @@
             {
               "type": "double",
               "attributes": {},
-              "value": [1799.42248907, 1829.68778811, 1776.23866755, 1754.03040759, 1792.50205253, 1781.25824859, 1691.51738922, 1604.2103926, 1847.21826033, 1658.34194408]
+              "value": [1868.26714504, 1784.60619937, 1795.41264653, 1736.4260389, 1781.72968045, 1827.37621417, 1743.48170063, 1692.59604052, 1739.76955512, 1782.12899192]
             },
             {
               "type": "list",
@@ -2010,15 +2010,15 @@
                       "attributes": {},
                       "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
                     },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["data.frame"]
-                    },
                     "row.names": {
                       "type": "integer",
                       "attributes": {},
                       "value": [1, 2, 3, 4, 5, 6, 7]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["data.frame"]
                     }
                   },
                   "value": [
@@ -2169,7 +2169,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.39886094]
+                  "value": [0.9549762]
                 },
                 {
                   "type": "logical",
@@ -2209,7 +2209,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [38.31783644]
+                  "value": [38.81891087]
                 },
                 {
                   "type": "character",
@@ -2224,22 +2224,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [37.35026698]
+                  "value": [37.81229478]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [39.61393712]
+                  "value": [39.38855346]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [34.64601674]
+                  "value": [37.16077452]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [36.75776271]
+                  "value": [40.63905201]
                 },
                 {
                   "type": "double",
@@ -2256,7 +2256,7 @@
             {
               "type": "double",
               "attributes": {},
-              "value": [38.69116731, 39.49372174, 38.82570931, 38.85488204, 40.26606975, 37.32510744, 37.96030455, 35.1485078, 38.84913316, 37.76376128]
+              "value": [39.50787089, 38.82432113, 38.53875922, 37.92382868, 38.54820175, 40.99766458, 38.95154792, 39.10654028, 37.55876612, 38.23160818]
             },
             {
               "type": "list",
@@ -2701,7 +2701,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.09105621]
+                  "value": [1.43988413]
                 },
                 {
                   "type": "logical",
@@ -2741,7 +2741,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [79.52740453]
+                  "value": [79.0838269]
                 },
                 {
                   "type": "character",
@@ -2756,22 +2756,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [78.67441032]
+                  "value": [77.16719741]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [80.8363829]
+                  "value": [77.83116262]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [77.05293089]
+                  "value": [76.13076392]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [81.492696]
+                  "value": [81.70159396]
                 },
                 {
                   "type": "double",
@@ -2788,7 +2788,7 @@
             {
               "type": "double",
               "attributes": {},
-              "value": [79.81261428, 79.80856481, 80.50743904, 81.13335449, 79.56704355, 77.3350591, 80.16124123, 78.78651318, 78.42661789, 79.73559768]
+              "value": [76.90758822, 79.73278864, 79.49341497, 79.55197507, 76.93516221, 81.23246085, 78.10158418, 78.55301697, 79.77985571, 80.55042221]
             },
             {
               "type": "list",
@@ -2967,7 +2967,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.48688466]
+                  "value": [1.65874829]
                 },
                 {
                   "type": "double",
@@ -2977,7 +2977,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [38354.62187569]
+                  "value": [75392.58719593]
                 },
                 {
                   "type": "logical",
@@ -3007,7 +3007,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [34.20681301]
+                  "value": [34.38395554]
                 },
                 {
                   "type": "character",
@@ -3022,22 +3022,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [32.23093708]
+                  "value": [32.54639962]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [33.24045105]
+                  "value": [36.30211665]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [31.01952031]
+                  "value": [30.81130228]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [37.00318495]
+                  "value": [37.7736549]
                 },
                 {
                   "type": "double",
@@ -3054,7 +3054,7 @@
             {
               "type": "double",
               "attributes": {},
-              "value": [34.12812623, 34.56798696, 34.91651162, 36.26706301, 34.64441481, 35.75192712, 35.00773289, 32.30210873, 31.77399706, 32.7082617]
+              "value": [31.54884705, 35.62588421, 34.87222172, 35.14232504, 37.12396316, 33.13674524, 33.32601195, 32.72699779, 34.84347163, 35.4930876]
             },
             {
               "type": "list",
@@ -3233,7 +3233,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [58.99218367]
+                  "value": [50.20096095]
                 },
                 {
                   "type": "logical",
@@ -3273,7 +3273,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1788.89148852]
+                  "value": [1760.12853523]
                 },
                 {
                   "type": "character",
@@ -3288,22 +3288,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1706.43514417]
+                  "value": [1714.53072468]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1823.83177165]
+                  "value": [1805.12853145]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1691.12254059]
+                  "value": [1645.84219145]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1913.15529256]
+                  "value": [1692.62145115]
                 },
                 {
                   "type": "double",
@@ -3320,7 +3320,7 @@
             {
               "type": "double",
               "attributes": {},
-              "value": [1874.57405078, 1754.238186, 1894.28573177, 1788.81334827, 1760.26524196, 1822.77893028, 1719.56247861, 1726.16829554, 1790.31821394, 1757.91040806]
+              "value": [1743.09071305, 1662.3783858, 1737.18736558, 1746.73615363, 1747.03838323, 1834.77945427, 1759.73952997, 1741.81110822, 1823.99641953, 1804.52783904]
             },
             {
               "type": "list",
@@ -3340,15 +3340,15 @@
                       "attributes": {},
                       "value": ["Dose", "LxTx", "LxTx.Error", "TnTx", "Test_Dose"]
                     },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["data.frame"]
-                    },
                     "row.names": {
                       "type": "integer",
                       "attributes": {},
                       "value": [1, 2, 3, 4, 5, 6, 7]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["data.frame"]
                     }
                   },
                   "value": [
@@ -3509,12 +3509,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [240.61031918]
+                  "value": [240.61030656]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [165.91387047]
+                  "value": [268.39602392]
                 },
                 {
                   "type": "logical",
@@ -3539,7 +3539,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-8.30139364]
+                  "value": [-8.30139361]
                 },
                 {
                   "type": "double",
@@ -3559,22 +3559,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-41.2612897]
+                  "value": [-55.89473373]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-24.37010663]
+                  "value": [-39.00610196]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-49.45701167]
+                  "value": [-59.70829574]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-15.77459335]
+                  "value": [-41.09448116]
                 },
                 {
                   "type": "logical",
@@ -3584,7 +3584,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-34.95268902]
+                  "value": [-34.95268888]
                 }
               ]
             },
@@ -3611,15 +3611,15 @@
                       "attributes": {},
                       "value": ["dose", "LxTx", "LxTx.error"]
                     },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["data.frame"]
-                    },
                     "row.names": {
                       "type": "integer",
                       "attributes": {},
                       "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["data.frame"]
                     }
                   },
                   "value": [
@@ -3760,22 +3760,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [24.61204633]
+                  "value": [24.59377656]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [11.96318337]
+                  "value": [7.05528192]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [13.97865548]
+                  "value": [13.96070874]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [23.69305992]
+                  "value": [19.34582106]
                 },
                 {
                   "type": "logical",
@@ -3800,12 +3800,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-4.88467828]
+                  "value": [-4.88467971]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [42.86720976]
+                  "value": [41.76227733]
                 },
                 {
                   "type": "character",
@@ -3820,39 +3820,39 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [27.64281546]
+                  "value": [32.09503136]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [55.81473853]
+                  "value": [46.02183267]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [19.59369459]
+                  "value": [29.74946483]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [67.60095124]
+                  "value": [56.35698521]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-24.61204633]
+                  "value": [-24.59377656]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-24.61204633]
+                  "value": [-24.59377656]
                 }
               ]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": [57.98862973, 52.67565547, "NA", "NA", 31.36203062, "NA", "NA", 32.61030557, 39.69942739, "NA"]
+              "value": [39.35026129, 40.09233949, 34.02268886, "NA", 47.88280502, "NA", 32.91384018, 42.64153433, 42.68275842, 54.51199103]
             },
             {
               "type": "list",
@@ -3872,15 +3872,15 @@
                       "attributes": {},
                       "value": ["dose", "LxTx", "LxTx.error"]
                     },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["data.frame"]
-                    },
                     "row.names": {
                       "type": "integer",
                       "attributes": {},
                       "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["data.frame"]
                     }
                   },
                   "value": [
