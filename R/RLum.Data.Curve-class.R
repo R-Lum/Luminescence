@@ -414,7 +414,12 @@ setMethod(
   f = "normalise_RLum",
   signature = "RLum.Data.Curve",
   function(object, norm) {
-    object@data[,2] <- .normalise_curve(object@data[,2], norm = norm)
+    if (norm == "intensity") {
+      ## compute the channel length and assign it to `norm`, so that we can
+      ## piggy-back on the code for normalisation by a scalar
+      norm <- diff(c(0, object@data[, 1]))
+    }
+    object@data[, 2] <- .normalise_curve(object@data[, 2], norm)
     object
   }
 )

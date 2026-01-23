@@ -328,6 +328,12 @@ setMethod(
   f = "normalise_RLum",
   signature = "RLum.Data.Spectrum",
   function(object, norm = TRUE) {
+    if (norm == "intensity") {
+      ## compute the channel length and assign it to `norm`, so that we can
+      ## piggy-back on the code for normalisation by a scalar
+      time.temp <- as.numeric(colnames(object@data))
+      norm <- rep(diff(c(0, time.temp)), each = nrow(object@data))
+    }
     object@data[] <- .normalise_curve(object@data[], norm = norm)
     object
   }

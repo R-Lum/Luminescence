@@ -8,7 +8,7 @@ test_that("input validation", {
   expect_error(plot_RLum.Data.Curve("error"),
                "'object' should be of class 'RLum.Data.Curve'")
   expect_error(plot_RLum.Data.Curve(temp, norm = "error"),
-               "'norm' should be one of 'max', 'min', 'first', 'last' or 'huot'")
+               "'norm' should be one of 'max', 'min', 'first', 'last', 'huot' or 'intensity'")
   expect_error(plot_RLum.Data.Curve(temp, norm = -2),
                "'norm' should be a single positive value or one of 'max', 'min'")
 
@@ -29,6 +29,7 @@ test_that("check functionality", {
   expect_silent(plot_RLum.Data.Curve(temp, norm = "max"))
   expect_silent(plot_RLum.Data.Curve(temp, norm = "last"))
   expect_silent(plot_RLum.Data.Curve(temp, norm = "huot"))
+  expect_silent(plot_RLum.Data.Curve(temp, norm = "intensity"))
   expect_silent(plot_RLum.Data.Curve(temp, main = "title", col = "red"))
   expect_silent(plot_RLum.Data.Curve(temp, auto_scale = TRUE, xlim = c(10,20)))
   expect_silent(plot_RLum.Data.Curve(temp, auto_scale = TRUE, ylim = c(1,200)))
@@ -56,7 +57,6 @@ test_that("check interactive mode", {
     lty = 2,
     col = "red",
     log = "xy"))
-
 })
 
 test_that("graphical snapshot tests", {

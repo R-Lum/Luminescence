@@ -13,7 +13,8 @@ temp <-
 temp_analysis <- set_RLum("RLum.Analysis", records = list(temp, temp))
 
 ## spectra object
-spectra <- set_RLum("RLum.Data.Spectrum", data = matrix(1:10, ncol = 2))
+spectra <- set_RLum("RLum.Data.Spectrum",
+                    data = matrix(1:10, ncol = 2, dimnames = list(1:5, c(0.2, 1.3))))
 
 ## array
 image <- set_RLum("RLum.Data.Image", data = array(1:12, dim = c(2,3,2)))
@@ -22,7 +23,7 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(normalise_RLum(temp, norm = "error"),
-               "'norm' should be one of 'max', 'min', 'first', 'last' or 'huot'")
+               "'norm' should be one of 'max', 'min', 'first', 'last', 'huot' or 'intensity'")
   expect_error(normalise_RLum(temp, norm = c(1,1)), "'norm' should be of class 'logical', 'character' or 'numeric' and have length 1")
   expect_error(normalise_RLum(temp, norm = -3),
                "'norm' should be a single positive value or one of 'max', 'min'")
@@ -112,4 +113,5 @@ test_that("snapshot tests", {
  expect_snapshot_RLum(normalise_RLum(small, norm = "last"))
  expect_snapshot_RLum(normalise_RLum(small, norm = 2.2))
  expect_snapshot_RLum(normalise_RLum(small, norm = "huot"))
+ expect_snapshot_RLum(normalise_RLum(small, norm = "intensity"))
 })

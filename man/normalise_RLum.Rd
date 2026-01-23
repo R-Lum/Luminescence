@@ -29,8 +29,8 @@ S4 object of class \code{RLum}}
 
 \item{norm}{\link{logical} \link{character} (\strong{required}):
 if logical, whether curve normalisation should occur; alternatively, one
-of \code{"max"} (used with \code{TRUE}), \code{"min"}, \code{"first"}, \code{"last"}, \code{"huot"}
-or a positive number (e.g., 2.2)}
+of \code{"max"} (used with \code{TRUE}), \code{"min"}, \code{"first"}, \code{"last"}, \code{"huot"},
+\code{"intensity"} or a positive number (e.g., 2.2).}
 
 \item{...}{further arguments passed to the specific class method}
 
@@ -53,8 +53,8 @@ function will be selected. The normalisation is performed in the internal
 function \code{.normalise_curve()}.
 }
 \details{
-The argument \code{norm} normalises all count values. To date the following
-options are supported:
+The \code{norm} argument normalises all count values. The following options are
+supported:
 
 \code{norm = TRUE} or \code{norm = "max"}: Curve values are normalised to the highest
 count value in the curve
@@ -76,6 +76,8 @@ y = (observed - median(background)) / (max(observed) - median(background))
 The background of the curve is defined as the last 20\% of the count values
 of a curve.
 
+\code{norm = "intensity"}: Curve values are normalised to the channel length.
+
 \code{norm = 2.2}: Curve values are normalised to a positive number (e.g., 2.2).
 }
 \section{Functions}{
@@ -95,7 +97,7 @@ the argument \code{norm}
 
 }}
 \section{Function version}{
- 0.1.1
+ 0.1.2
 }
 
 \examples{

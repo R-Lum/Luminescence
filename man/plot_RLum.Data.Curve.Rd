@@ -74,6 +74,8 @@ y = (observed - median(background)) / (max(observed) - median(background))
 The background of the curve is defined as the last 20\% of the count values
 of a curve.
 
+\code{norm = "intensity"}: Curve values are normalised to the channel length.
+
 \code{norm = 2.2}: Curve values are normalised to a positive number (e.g., 2.2).
 }
 \note{
