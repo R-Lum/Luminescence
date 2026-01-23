@@ -114,4 +114,5 @@ test_that("snapshot tests", {
  expect_snapshot_RLum(normalise_RLum(small, norm = 2.2))
  expect_snapshot_RLum(normalise_RLum(small, norm = "huot"))
  expect_snapshot_RLum(normalise_RLum(small, norm = "intensity"))
+ expect_snapshot_RLum(normalise_RLum(spectra, norm = "intensity"))
 })

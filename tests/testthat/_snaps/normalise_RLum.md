@@ -792,3 +792,72 @@
       }
     }
 
+---
+
+    {
+      "type": "S4",
+      "attributes": {
+        "recordType": {
+          "type": "character",
+          "attributes": {},
+          "value": ["Spectrum"]
+        },
+        "curveType": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        "data": {
+          "type": "double",
+          "attributes": {
+            "dim": {
+              "type": "integer",
+              "attributes": {},
+              "value": [5, 2]
+            },
+            "dimnames": {
+              "type": "list",
+              "attributes": {},
+              "value": [
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["1", "2", "3", "4", "5"]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["0.2", "1.3"]
+                }
+              ]
+            }
+          },
+          "value": [5, 10, 15, 20, 25, 5.45454545, 6.36363636, 7.27272727, 8.18181818, 9.09090909]
+        },
+        "info": {
+          "type": "list",
+          "attributes": {},
+          "value": []
+        },
+        "originator": {
+          "type": "character",
+          "attributes": {},
+          "value": ["eval"]
+        },
+        ".uid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        ".pid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        }
+      },
+      "value": {
+        "class": "RLum.Data.Spectrum",
+        "package": "Luminescence"
+      }
+    }
+
