@@ -144,6 +144,11 @@ test_that("check functionality", {
       "Error: Insufficient data for plotting, NULL returned"),
       "Curve normalisation produced Inf/NaN values, values replaced by 0")
 
+  ## avoid log transformation
+  expect_warning(plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "persp",
+                                         log = "z", norm = "huot"),
+                 "Data contains non-positive values, 'log' reset to ''")
+
   ## more coverage
   plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "multiple.lines",
                           phi = 15, theta = -30, r = 10, log = "xyz",

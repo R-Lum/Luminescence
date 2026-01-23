@@ -531,6 +531,12 @@ plot_RLum.Data.Spectrum <- function(
     }
   }
 
+  ## don't apply a logarithmic transformation if non-positive values are present
+  if (grepl("z", log) && any(temp.xyz <= 0)) {
+    log <- gsub("z", "", log, fixed = TRUE)
+    .throw_warning("Data contains non-positive values, 'log' reset to '", log, "'")
+  }
+
   ##check for zlim
   zlim <- extraArgs$zlim %||% range(temp.xyz)
 
