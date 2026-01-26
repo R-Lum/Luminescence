@@ -33,29 +33,12 @@ results <- analyse_pIRIRSequence(
   plot_singlePanels = TRUE,
   verbose = FALSE
 )
-
-## check plot_RLum.Results
-expect_silent(plot_RLum.Results(results))
-
-## plot_singlePanels = FALSE && plot == TRUE
-suppressWarnings( # warnings thrown by analyse_SAR.CWOSL and fit_DoseResponseCurve
-  analyse_pIRIRSequence(
-    object,
-    signal.integral.min = c(1, 2),
-    signal.integral.max = c(2, 3),
-    background.integral.min = 900,
-    background.integral.max = 1000,
-    fit.method = "EXP",
-    sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
-    main = "Pseudo pIRIR data set based on quartz OSL",
-    plot = TRUE,
-    plot_singlePanels = FALSE,
-    verbose = FALSE
-  )
-)
 })
 
 test_that("check plot stuff", {
+  ## check plot_RLum.Results
+  expect_silent(plot_RLum.Results(results))
+
   ## it should throw a warning about the plot size
   pdf.out <- tempfile(fileext = ".pdf")
   pdf(pdf.out, width = 6, height = 8)
@@ -275,6 +258,17 @@ test_that("graphical snapshot tests", {
                                   plot = TRUE,
                                   plot_singlePanels = FALSE,
                                   verbose = FALSE))
-
+    vdiffr::expect_doppelganger("different limits",
+                                analyse_pIRIRSequence(
+                                    object,
+                                    signal.integral.min = c(1, 2),
+                                    signal.integral.max = c(2, 3),
+                                    background.integral.min = c(900, 800),
+                                    background.integral.max = c(1000, 1000),
+                                    fit.method = "EXP",
+                                    sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
+                                    plot = TRUE,
+                                    plot_singlePanels = FALSE,
+                                    verbose = FALSE))
   })
 })
