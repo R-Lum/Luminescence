@@ -222,7 +222,7 @@
                   "value": [133, 7, 144, 7, 7, 7, 133, 144]
                 }
               },
-              "value": ["analyse_SAR.TL(object = o, object.background = object.background, ", "    signal.integral.min = signal.integral.min, signal.integral.max = signal.integral.max, ", "    integral_input = integral_input, sequence.structure = sequence.structure, ", "    rejection.criteria = rejection.criteria, dose.points = dose.points, ", "    log = log, ...)"]
+              "value": ["analyse_SAR.TL(object = o, object.background = object.background, ", "    signal_integral = signal_integral, integral_input = integral_input, ", "    sequence.structure = sequence.structure, rejection.criteria = rejection.criteria, ", "    dose.points = dose.points, log = log, ...)"]
             },
             {
               "type": "language",
@@ -250,7 +250,7 @@
                   "value": [133, 7, 144, 7, 7, 7, 133, 144]
                 }
               },
-              "value": ["analyse_SAR.TL(object = o, object.background = object.background, ", "    signal.integral.min = signal.integral.min, signal.integral.max = signal.integral.max, ", "    integral_input = integral_input, sequence.structure = sequence.structure, ", "    rejection.criteria = rejection.criteria, dose.points = dose.points, ", "    log = log, ...)"]
+              "value": ["analyse_SAR.TL(object = o, object.background = object.background, ", "    signal_integral = signal_integral, integral_input = integral_input, ", "    sequence.structure = sequence.structure, rejection.criteria = rejection.criteria, ", "    dose.points = dose.points, log = log, ...)"]
             }
           ]
         },
@@ -495,7 +495,7 @@
                   "value": [133, 7, 144, 7, 7, 7, 133, 144]
                 }
               },
-              "value": ["analyse_SAR.TL(object = o, object.background = object.background, ", "    signal.integral.min = signal.integral.min, signal.integral.max = signal.integral.max, ", "    integral_input = integral_input, sequence.structure = sequence.structure, ", "    rejection.criteria = rejection.criteria, dose.points = dose.points, ", "    log = log, ...)"]
+              "value": ["analyse_SAR.TL(object = o, object.background = object.background, ", "    signal_integral = signal_integral, integral_input = integral_input, ", "    sequence.structure = sequence.structure, rejection.criteria = rejection.criteria, ", "    dose.points = dose.points, log = log, ...)"]
             }
           ]
         },
@@ -716,31 +716,8 @@
           "value": [
             {
               "type": "language",
-              "attributes": {
-                "srcref": {
-                  "type": "integer",
-                  "attributes": {
-                    "srcfile": {
-                      "type": "environment",
-                      "attributes": {
-                        "class": {
-                          "type": "character",
-                          "attributes": {},
-                          "value": ["srcfilecopy", "srcfile"]
-                        }
-                      },
-                      "value": {}
-                    },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["srcref"]
-                    }
-                  },
-                  "value": [7, 3, 7, 30, 3, 30, 7, 7]
-                }
-              },
-              "value": ["analyse_SAR.TL(object, signal.integral.min = 2, signal.integral.max = 3, ", "    sequence.structure = c(\"SIGNAL\", \"EXCLUDE\"))"]
+              "attributes": {},
+              "value": ["analyse_SAR.TL(object, signal_integral = 2:3, sequence.structure = c(\"SIGNAL\", ", "    \"EXCLUDE\"))"]
             }
           ]
         },
@@ -961,31 +938,8 @@
           "value": [
             {
               "type": "language",
-              "attributes": {
-                "srcref": {
-                  "type": "integer",
-                  "attributes": {
-                    "srcfile": {
-                      "type": "environment",
-                      "attributes": {
-                        "class": {
-                          "type": "character",
-                          "attributes": {},
-                          "value": ["srcfilecopy", "srcfile"]
-                        }
-                      },
-                      "value": {}
-                    },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["srcref"]
-                    }
-                  },
-                  "value": [7, 3, 7, 30, 3, 30, 7, 7]
-                }
-              },
-              "value": ["analyse_SAR.TL(object, sequence.structure = c(\"SIGNAL\", \"BACKGROUND\"), ", "    signal.integral.min = 2, signal.integral.max = 3)"]
+              "attributes": {},
+              "value": ["analyse_SAR.TL(object, sequence.structure = c(\"SIGNAL\", \"BACKGROUND\"), ", "    signal_integral = 2:3)"]
             }
           ]
         },
@@ -1201,31 +1155,8 @@
           "value": [
             {
               "type": "language",
-              "attributes": {
-                "srcref": {
-                  "type": "integer",
-                  "attributes": {
-                    "srcfile": {
-                      "type": "environment",
-                      "attributes": {
-                        "class": {
-                          "type": "character",
-                          "attributes": {},
-                          "value": ["srcfilecopy", "srcfile"]
-                        }
-                      },
-                      "value": {}
-                    },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["srcref"]
-                    }
-                  },
-                  "value": [7, 3, 7, 30, 3, 30, 7, 7]
-                }
-              },
-              "value": ["analyse_SAR.TL(object, dose.points = 2, signal.integral.min = 210, ", "    signal.integral.max = 220, sequence.structure = c(\"SIGNAL\", ", "        \"BACKGROUND\"))"]
+              "attributes": {},
+              "value": ["analyse_SAR.TL(object, dose.points = 2, signal_integral = 210:220, ", "    sequence.structure = c(\"SIGNAL\", \"BACKGROUND\"))"]
             }
           ]
         },

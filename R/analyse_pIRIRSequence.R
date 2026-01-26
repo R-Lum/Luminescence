@@ -33,21 +33,13 @@
 #' If a [list] is provided the functions tries to iterate over each element
 #' in the list.
 #'
-#' @param signal.integral.min [integer] (**required**):
-#' lower bound of the signal integral. Provide this value as vector for different
-#' integration limits for the different IRSL curves.
+#' @param signal_integral [integer] (**required**):
+#' vector of channels for the signal integral. Provide this value as a list
+#' for different integration limits for the different IRSL curves.
 #'
-#' @param signal.integral.max [integer] (**required**):
-#' upper bound of the signal integral. Provide this value as vector for different
-#' integration limits for the different IRSL curves.
-#'
-#' @param background.integral.min [integer] (**required**):
-#' lower bound of the background integral. Provide this value as vector for
-#' different integration limits for the different IRSL curves.
-#'
-#' @param background.integral.max [integer] (**required**):
-#' upper bound of the background integral. Provide this value as vector for
-#' different integration limits for the different IRSL curves.
+#' @param background_integral [integer] (**required**):
+#' vector of channels for the background integral. Provide this value as a list
+#' for different integration limits for the different IRSL curves.
 #'
 #' @param dose.points [numeric] (*optional*):
 #' a numeric vector containing the dose points values. Using this argument overwrites dose point
@@ -94,7 +86,7 @@
 #'
 #' `pdf(file = "<YOUR FILENAME>", height = 18, width = 18)`
 #'
-#' @section Function version: 0.2.6
+#' @section Function version: 0.2.7
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -143,10 +135,8 @@
 #' ##(2) Perform pIRIR analysis (for this example with quartz OSL data!)
 #' ## Note: output as single plots to avoid problems with this example
 #' results <- analyse_pIRIRSequence(object,
-#'      signal.integral.min = 1,
-#'      signal.integral.max = 2,
-#'      background.integral.min = 900,
-#'      background.integral.max = 1000,
+#'      signal_integral = 1:2,
+#'      background_integral = 900:1000,
 #'      fit.method = "EXP",
 #'      sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
 #'      main = "Pseudo pIRIR data set based on quartz OSL",
@@ -159,10 +149,8 @@
 #' tempfile <- tempfile(fileext = ".pdf")
 #' pdf(file = tempfile, height = 18, width = 18)
 #'   results <- analyse_pIRIRSequence(object,
-#'          signal.integral.min = 1,
-#'          signal.integral.max = 2,
-#'          background.integral.min = 900,
-#'          background.integral.max = 1000,
+#'          signal_integral = 1:2,
+#'          background_integral = 900:1000,
 #'          fit.method = "EXP",
 #'          main = "Pseudo pIRIR data set based on quartz OSL")
 #'
@@ -172,10 +160,8 @@
 #' @export
 analyse_pIRIRSequence <- function(
   object,
-  signal.integral.min,
-  signal.integral.max,
-  background.integral.min,
-  background.integral.max,
+  signal_integral,
+  background_integral,
   dose.points = NULL,
   sequence.structure = c("TL", "IR50", "pIRIR225"),
   plot = TRUE,
@@ -191,33 +177,33 @@ analyse_pIRIRSequence <- function(
   par.default <- .par_defaults()
   on.exit(par(par.default), add = TRUE)
 
+  ## deprecated argument
+  if (any(grepl("[signal|background]\\.integral", ...names()))) {
+    .deprecated(old = c("signal.integral", "background.integral"),
+                new = c("signal_integral", "background_integral"),
+                since = "1.2.0")
+    signal_integral <- list(...)$signal.integral
+    background_integral <- list(...)$background.integral
+  }
+
   ## Self-call --------------------------------------------------------------
   if (inherits(object, "list")) {
     lapply(object, .validate_class, "RLum.Analysis",
            name = "All elements of 'object'")
 
     ## make life easy
-    if(missing("signal.integral.min")){
-      signal.integral.min <- 1
-      .throw_warning("'signal.integral.min' missing, set to 1")
+    if (missing("signal_integral")){
+      signal_integral <- 1:2
+      .throw_warning("'signal_integral' missing, set to 1:2")
     }
 
-    if(missing("signal.integral.max")){
-      signal.integral.max <- signal.integral.min + 1
-      .throw_warning("'signal.integral.max' missing, set to ",
-                     signal.integral.max)
-    }
-
-    .validate_class(background.integral.min, c("integer", "numeric"))
-    .validate_class(background.integral.max, c("integer", "numeric"))
+    .validate_class(background_integral, c("integer", "numeric"))
 
    ## expand input arguments
    rep.length <- length(object)
 
-   signal.integral.min <- .listify(signal.integral.min, rep.length)
-   signal.integral.max <- .listify(signal.integral.max, rep.length)
-   background.integral.min <- .listify(background.integral.min, rep.length)
-   background.integral.max <- .listify(background.integral.max, rep.length)
+   signal_integral <- .listify(signal_integral, rep.length)
+   background_integral <- .listify(background_integral, rep.length)
    sequence.structure <- .listify(sequence.structure, rep.length)
    dose.points <- .listify(dose.points, rep.length)
 
@@ -228,10 +214,8 @@ analyse_pIRIRSequence <- function(
    ## run analysis
    temp <- .warningCatcher(lapply(1:length(object), function(x) {
       analyse_pIRIRSequence(object[[x]],
-                        signal.integral.min = signal.integral.min[[x]],
-                        signal.integral.max = signal.integral.max[[x]],
-                        background.integral.min = background.integral.min[[x]],
-                        background.integral.max = background.integral.max[[x]] ,
+                        signal_integral = signal_integral[[x]],
+                        background_integral = background_integral[[x]],
                         dose.points = dose.points[[x]],
                         sequence.structure = sequence.structure[[x]],
                         plot = plot,
@@ -255,10 +239,8 @@ analyse_pIRIRSequence <- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, "RLum.Analysis", extra = "'list'")
-  .validate_class(signal.integral.min, c("integer", "numeric"))
-  .validate_class(signal.integral.max, c("integer", "numeric"))
-  .validate_class(background.integral.min, c("integer", "numeric"))
-  .validate_class(background.integral.max, c("integer", "numeric"))
+  signal_integral <- .validate_integral(signal_integral, list.ok = TRUE)
+  background_integral <- .validate_integral(background_integral, list.ok = TRUE)
   .validate_logical_scalar(plot)
   .validate_logical_scalar(plot_singlePanels)
 
@@ -458,17 +440,13 @@ analyse_pIRIRSequence <- function(
     temp.curves <- get_RLum(object, record.id = temp.id.sel, drop = FALSE)
 
     ##(b) grep integral limits as they might be different for different curves
-    if(length(signal.integral.min)>1){
-      temp.signal.integral.min <- signal.integral.min[i]
-      temp.signal.integral.max <- signal.integral.max[i]
-      temp.background.integral.min <- background.integral.min[i]
-      temp.background.integral.max <- background.integral.max[i]
+    if (inherits(signal_integral, "list") && length(signal_integral) > 1) {
+      temp.signal_integral <- signal_integral[[i]]
+      temp.background_integral <- background_integral[[i]]
 
     }else{
-      temp.signal.integral.min <- signal.integral.min
-      temp.signal.integral.max <- signal.integral.max
-      temp.background.integral.min <- background.integral.min
-      temp.background.integral.max <- background.integral.max
+      temp.signal_integral <- signal_integral
+      temp.background_integral <- background_integral
     }
 
     ##(c) call analysis sequence and plot
@@ -486,10 +464,8 @@ analyse_pIRIRSequence <- function(
     par(cex = cex)
     temp.results <- analyse_SAR.CWOSL(
       temp.curves,
-      signal.integral.min = temp.signal.integral.min,
-      signal.integral.max = temp.signal.integral.max,
-      background.integral.min = temp.background.integral.min,
-      background.integral.max = temp.background.integral.max,
+      signal_integral = temp.signal_integral,
+      background_integral = temp.background_integral,
       plot = plot,
       dose.points = dose.points,
       plot_singlePanels = temp.plot.single,

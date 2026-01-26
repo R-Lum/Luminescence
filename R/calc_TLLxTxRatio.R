@@ -28,13 +28,10 @@
 #' TL data (x = temperature, y = counts).
 #' If no data are provided no background subtraction is performed.
 #'
-#' @param signal.integral.min [integer] (**required**):
-#' channel number for the lower signal integral bound
-#' (e.g. `signal.integral.min = 100`).
+#' @param signal_integral [integer] (**required**):
+#' vector of channels for the signal integral.
 #'
-#' @param signal.integral.max [integer] (**required**):
-#' channel number for the upper signal integral bound
-#' (e.g. `signal.integral.max = 200`).
+#' @param ... currently not used.
 #'
 #' @return
 #' Returns an S4 object of type [Luminescence::RLum.Results-class].
@@ -54,7 +51,7 @@
 #' **This function has still BETA status!** Please further note that a similar
 #' background for both curves results in a zero error and is therefore set to `NA`.
 #'
-#' @section Function version: 0.3.4
+#' @section Function version: 0.3.5
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
@@ -76,16 +73,14 @@
 #' Lx.data.background <- get_RLum(temp, record.id=2)
 #' Tx.data.signal <- get_RLum(temp, record.id=3)
 #' Tx.data.background <- get_RLum(temp, record.id=4)
-#' signal.integral.min <- 210
-#' signal.integral.max <- 230
+#' signal_integral <- 210:230
 #'
 #' output <- calc_TLLxTxRatio(
 #'  Lx.data.signal,
 #'  Lx.data.background,
 #'  Tx.data.signal,
 #'  Tx.data.background,
-#'  signal.integral.min,
-#'  signal.integral.max)
+#'  signal_integral)
 #' get_RLum(output)
 #'
 #' @export
@@ -94,8 +89,8 @@ calc_TLLxTxRatio <- function(
   Lx.data.background = NULL,
   Tx.data.signal = NULL,
   Tx.data.background = NULL,
-  signal.integral.min = NULL,
-  signal.integral.max = NULL
+  signal_integral = NULL,
+  ...
 ) {
   .set_function_name("calc_TLLxTxRatio")
   on.exit(.unset_function_name(), add = TRUE)
@@ -103,8 +98,6 @@ calc_TLLxTxRatio <- function(
   ## Integrity checks -------------------------------------------------------
   .validate_class(Lx.data.signal, c("data.frame", "RLum.Data.Curve"))
   .validate_class(Tx.data.signal, c("data.frame", "RLum.Data.Curve"))
-  .validate_positive_scalar(signal.integral.min, int = TRUE)
-  .validate_positive_scalar(signal.integral.max, int = TRUE)
 
   ##check DATA TYPE differences
    if(is(Lx.data.signal)[1] != is(Tx.data.signal)[1])
@@ -128,14 +121,19 @@ calc_TLLxTxRatio <- function(
     .throw_error("Channel numbers differ for Lx and Tx data")
   }
 
-   ##(e) - check if signal integral is valid
-   if(signal.integral.min < 1 | signal.integral.max > length(Lx.data.signal[,2])){
-     .throw_error("'signal.integral' is not valid")
-   }
+  ## deprecated argument
+  if (any(grepl("signal.integral", ...names(), fixed = TRUE))) {
+    .deprecated(old = "signal.integral",
+                new = "signal_integral",
+                since = "1.2.0")
+    signal_integral <- list(...)$signal.integral
+  }
+  signal_integral <- .validate_integral(signal_integral,
+                                        max = length(Lx.data.signal[, 2]))
 
 #  Background Consideration --------------------------------------------------
   LnLx.BG <- TnTx.BG <- NA
-  signal.interval <- signal.integral.min:signal.integral.max
+  signal.interval <- signal_integral
 
   ## Lx.data
   if (!is.null(Lx.data.background))

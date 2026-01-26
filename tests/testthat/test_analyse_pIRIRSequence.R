@@ -22,10 +22,8 @@ object <-
 SW({
 results <- analyse_pIRIRSequence(
   object,
-  signal.integral.min = 1,
-  signal.integral.max = 2,
-  background.integral.min = 900,
-  background.integral.max = 1000,
+  signal_integral = 1:2,
+  background_integral = 900:1000,
   fit.method = "EXP",
   sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
   main = "Pseudo pIRIR data set based on quartz OSL",
@@ -44,10 +42,8 @@ test_that("check plot stuff", {
   pdf(pdf.out, width = 6, height = 8)
   expect_warning(analyse_pIRIRSequence(
     object,
-    signal.integral.min = 1,
-    signal.integral.max = 2,
-    background.integral.min = 900,
-    background.integral.max = 1000,
+    signal_integral = 1:2,
+    background_integral = 900:1000,
     fit.method = "EXP",
     sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
     main = "Pseudo pIRIR data set based on quartz OSL",
@@ -62,10 +58,8 @@ test_that("check plot stuff", {
   pdf(pdf.out, width = 16, height = 16)
   expect_silent(analyse_pIRIRSequence(
     object,
-    signal.integral.min = 1,
-    signal.integral.max = 2,
-    background.integral.min = 900,
-    background.integral.max = 1000,
+    signal_integral = 1:2,
+    background_integral = 900:1000,
     fit.method = "EXP",
     sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
     main = "Pseudo pIRIR data set based on quartz OSL",
@@ -78,10 +72,8 @@ test_that("check plot stuff", {
   pdf(pdf.out, width = 25, height = 25)
   suppressWarnings(analyse_pIRIRSequence(
       object,
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 900,
-      background.integral.max = 1000,
+      signal_integral = 1:2,
+      background_integral = 900:1000,
       fit.method = "EXP",
       sequence.structure = c("TL", paste0("pseudoIRSL", 1:6)),
       main = "Pseudo pIRIR data set based on quartz OSL",
@@ -94,10 +86,8 @@ test_that("check plot stuff", {
   ## this should not throw any warning with plot_singlePanels = TRUE
   expect_silent(analyse_pIRIRSequence(
     object,
-    signal.integral.min = 1,
-    signal.integral.max = 2,
-    background.integral.min = 900,
-    background.integral.max = 1000,
+    signal_integral = 1:2,
+    background_integral = 900:1000,
     fit.method = "EXP",
     sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
     main = "Pseudo pIRIR data set based on quartz OSL",
@@ -108,15 +98,22 @@ test_that("check plot stuff", {
   suppressWarnings( # duplicated plot.single warnings from sanalyse_SAR.CWOSL()
   expect_warning(analyse_pIRIRSequence(
     object,
-    signal.integral.min = 1,
-    signal.integral.max = 2,
-    background.integral.min = 900,
-    background.integral.max = 1000,
+    signal_integral = 1:2,
+    background_integral = 900:1000,
     fit.method = "EXP",
     plot = TRUE,
     plot.single = TRUE,
     verbose = FALSE),
     "'plot.single' was deprecated in v1.0.0, use 'plot_singlePanels' instead")
+  )
+
+  ## deprecated arguments
+  suppressWarnings( # Argument 'plot' reset to 'FALSE'
+  expect_warning(analyse_pIRIRSequence(object,
+                                       signal.integral = 1:2,
+                                       background.integral = 900:1000,
+                                       verbose = FALSE),
+                 "were deprecated in v1.2.0, use 'signal_integral' and")
   )
 })
 
@@ -126,50 +123,30 @@ test_that("input validation", {
   expect_error(analyse_pIRIRSequence(list(data.frame())),
                "All elements of 'object' should be of class 'RLum.Analysis'")
   expect_error(analyse_pIRIRSequence(list("test"),
-                                     signal.integral.min = 1,
-                                     signal.integral.max = 2,
-                                     background.integral.min = 900,
-                                     background.integral.max = 1000),
+                                     signal_integral = 1:2,
+                                     background_integral = 900:1000),
                "'object' should be of class 'RLum.Analysis'")
   expect_error(analyse_pIRIRSequence(object),
-               "'signal.integral.min' should be of class 'integer' or 'numeric'")
+               "'signal_integral' should be of class 'integer', 'numeric' or 'list'")
   expect_error(analyse_pIRIRSequence(object,
-                                     signal.integral.min = 1,
-                                     signal.integral.max = 2,
-                                     background.integral.min = 900,
-                                     background.integral.max = 1000,
+                                     signal_integral = 1:2,
+                                     background_integral = 900:1000,
                                      sequence.structure = "TL"),
                "'sequence.structure' should contain at least one IR step")
   expect_error(analyse_pIRIRSequence(object,
-                                     signal.integral.min = 1,
-                                     signal.integral.max = 2,
-                                     background.integral.min = 900,
-                                     background.integral.max = 1000,
+                                     signal_integral = 1:2,
+                                     background_integral = 900:1000,
                                      sequence.structure = c("IR50", "error",
                                                             "error2", "error2")),
                "'error' and 'error2' not allowed in 'sequence.structure'")
 
   SW({
   expect_warning(expect_error(analyse_pIRIRSequence(list(object)),
-                              "'background.integral.min' should be of class"),
-                 "'signal.integral.min' missing, set to 1")
+                              "'background_integral' should be of class"),
+                 "'signal_integral' missing, set to 1")
   expect_warning(analyse_pIRIRSequence(list(object),
-                                       signal.integral.max = 2,
-                                       background.integral.min = 900,
-                                       background.integral.max = 1000,
-                                       plot = FALSE),
-                 "'signal.integral.min' missing, set to 1")
-  expect_warning(analyse_pIRIRSequence(list(object),
-                                       signal.integral.min = 1,
-                                       background.integral.min = 900,
-                                       background.integral.max = 1000,
-                                       plot = FALSE),
-                 "'signal.integral.max' missing, set to 2")
-  expect_warning(analyse_pIRIRSequence(list(object),
-                                       signal.integral.min = 1,
-                                       signal.integral.max = 2,
-                                       background.integral.min = 900,
-                                       background.integral.max = 1000,
+                                       signal_integral = 1:2,
+                                       background_integral = 900:1000,
                                        sequence.structure = c("TL", "IRSL",
                                                               "EXCLUDE"),
                                        plot = FALSE),
@@ -177,10 +154,8 @@ test_that("input validation", {
 
   expect_message(expect_null(
       analyse_pIRIRSequence(list(object),
-                            signal.integral.min = 1,
-                            signal.integral.max = 2,
-                            background.integral.min = 900,
-                            background.integral.max = 1000,
+                            signal_integral = 1:2,
+                            background_integral = 900:1000,
                             sequence.structure = c("TL", "pseudoIRSL1"),
                             plot = FALSE)),
       "The number of records is not a multiple of the defined sequence structure")
@@ -189,20 +164,16 @@ test_that("input validation", {
   for (i in 1:6) object.warn@records[[i]]@recordType <- "error"
   expect_warning(analyse_pIRIRSequence(object.warn,
                                        main = "Title",
-                                       signal.integral.min = 1,
-                                       signal.integral.max = 2,
-                                       background.integral.min = 900,
-                                       background.integral.max = 1000,
+                                       signal_integral = 1:2,
+                                       background_integral = 900:1000,
                                        plot = FALSE),
                  "The following unrecognised record types have been removed:")
 
   object.noTL <- subset(object, recordType != "TL (PMT)")
   expect_warning(analyse_pIRIRSequence(list(object.noTL),
                                        main = "Title",
-                                       signal.integral.min = 1,
-                                       signal.integral.max = 2,
-                                       background.integral.min = 900,
-                                       background.integral.max = 1000,
+                                       signal_integral = 1:2,
+                                       background_integral = 900:1000,
                                        plot = FALSE),
                  "Your sequence does not contain 'TL' curves")
   })
@@ -230,10 +201,8 @@ test_that("regression tests", {
     x
   })
   expect_s4_class(analyse_pIRIRSequence(object.mod,
-                                        signal.integral.min = 1,
-                                        signal.integral.max = 10,
-                                        background.integral.min = 900,
-                                        background.integral.max = 1000,
+                                        signal_integral = 1:10,
+                                        background_integral = 900:1000,
                                         plot = FALSE,
                                         verbose = FALSE),
                "RLum.Results")
@@ -248,10 +217,8 @@ test_that("graphical snapshot tests", {
     vdiffr::expect_doppelganger("default",
                                 analyse_pIRIRSequence(
                                   object,
-                                  signal.integral.min = 1,
-                                  signal.integral.max = 2,
-                                  background.integral.min = 900,
-                                  background.integral.max = 1000,
+                                  signal_integral = 1:2,
+                                  background_integral = 900:1000,
                                   fit.method = "EXP",
                                   sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
                                   main = "Pseudo pIRIR data set based on quartz OSL",
@@ -261,10 +228,8 @@ test_that("graphical snapshot tests", {
     vdiffr::expect_doppelganger("different limits",
                                 analyse_pIRIRSequence(
                                     object,
-                                    signal.integral.min = c(1, 2),
-                                    signal.integral.max = c(2, 3),
-                                    background.integral.min = c(900, 800),
-                                    background.integral.max = c(1000, 1000),
+                                    signal_integral = list(1:2, 2:3),
+                                    background_integral = list(900:1000, 800:1000),
                                     fit.method = "EXP",
                                     sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
                                     plot = TRUE,

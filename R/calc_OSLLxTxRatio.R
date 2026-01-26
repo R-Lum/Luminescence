@@ -67,21 +67,21 @@
 #' input is given the `Tx.data` will be treated as `NA` and no `Lx/Tx` ratio
 #' is calculated.
 #'
-#' @param signal.integral [numeric] (**required**):
-#' vector with the limits for the signal integral. If set to `NA`, no integrals
-#' are considered and all other integrals are ignored.
+#' @param signal_integral [integer] (**required**):
+#' vector of channels for the signal integral. If set to `NA`, no integrals
+#' are taken into account.
 #'
-#' @param signal.integral.Tx [numeric] (*optional*):
-#' vector with the limits for the signal integral for the `Tx`-curve. If
-#' missing, the value from `signal.integral` is used.
+#' @param background_integral [integer] (**required**):
+#' vector of channels for the background integral. If set to `NA`, no integrals
+#' are taken into account.
 #'
-#' @param background.integral [numeric] (**required**):
-#' vector with the limits for the background integral. If set to `NA`, no
-#' integrals are considered and all other integrals ignored.
+#' @param signal_integral_Tx [integer] (*optional*):
+#' vector of channels for the signal integral for the `Tx` curve.
+#' If missing, the `signal_integral` vector is used.
 #'
-#' @param background.integral.Tx [numeric] (*optional*):
-#' vector with the limits for the background integral for the `Tx` curve.
-#' If missing, the value from `background.integral` is used.
+#' @param background_integral_Tx [integer] (*optional*):
+#' vector of channels for the background integral for the `Tx` curve.
+#' If missing, the `background_integral` vector is used.
 #'
 #' @param background.count.distribution [character] (*with default*):
 #' sets the count distribution assumed for the error calculation.
@@ -105,6 +105,8 @@
 #'
 #' @param digits [integer] (*with default*):
 #' round numbers to the specified digits. If set to `NULL` no rounding occurs.
+#'
+#' @param ... currently not used.
 #'
 #' @return
 #' Returns an S4 object of type [Luminescence::RLum.Results-class].
@@ -144,7 +146,7 @@
 #' **Caution:** If you are using early light subtraction (EBG), please either provide your
 #' own `sigmab` value or use `background.count.distribution = "poisson"`.
 #'
-#' @section Function version: 0.9.0
+#' @section Function version: 0.9.1
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -172,8 +174,8 @@
 #' results <- calc_OSLLxTxRatio(
 #'  Lx.data = Lx.data,
 #'  Tx.data = Tx.data,
-#'  signal.integral = c(1:2),
-#'  background.integral = c(85:100))
+#'  signal_integral = 1:2,
+#'  background_integral = 85:100)
 #'
 #' ##get results object
 #' get_RLum(results)
@@ -182,15 +184,16 @@
 calc_OSLLxTxRatio <- function(
   Lx.data,
   Tx.data = NULL,
-  signal.integral = NULL,
-  signal.integral.Tx = NULL,
-  background.integral = NULL,
-  background.integral.Tx = NULL,
+  signal_integral = NULL,
+  background_integral = NULL,
+  signal_integral_Tx = NULL,
+  background_integral_Tx = NULL,
   background.count.distribution = "non-poisson",
   use_previousBG = FALSE,
   sigmab = NULL,
   sig0 = 0,
-  digits = NULL
+  digits = NULL,
+  ...
 ) {
   .set_function_name("calc_OSLLxTxRatio")
   on.exit(.unset_function_name(), add = TRUE)
@@ -241,9 +244,25 @@ calc_OSLLxTxRatio <- function(
     Tx.data <- data.frame(x = NA,y = NA)
   }
 
+  ## deprecated arguments
+  extraArgs <- list(...)
+  if (any(grepl("[signal|background]\\.integral\\.?[.Tx]?", names(extraArgs))) &&
+      !is.null(c(extraArgs$signal.integral, extraArgs$signal.integral.Tx,
+                 extraArgs$background.integral, extraArgs$background.integral.Tx))) {
+    .deprecated(old = c("signal.integral", "background.integral",
+                        "signal.integral.Tx", "background.integral.Tx"),
+                new = c("signal_integral", "background_integral",
+                        "signal_integral.Tx", "background_integral.Tx"),
+                since = "1.2.0")
+    signal_integral <- extraArgs$signal.integral
+    background_integral <- extraArgs$background.integral
+    signal_integral_Tx <- extraArgs$signal.integral.Tx
+    background_integral_Tx <- extraArgs$background.integral.Tx
+  }
+
   # Alternate mode ----------------------------------------------------------
-  if (anyNA(c(signal.integral, background.integral))) {
-    signal.integral <- background.integral <- NA
+  if (anyNA(c(signal_integral, background_integral))) {
+    signal_integral <- background_integral <- NA
     LnLx <- sum(Lx.data[,2])
     TnTx <- sum(Tx.data[,2])
 
@@ -271,51 +290,34 @@ calc_OSLLxTxRatio <- function(
   }
 
   # Continue checks ---------------------------------------------------------
-  .validate_class(signal.integral, c("integer", "numeric"))
-  .validate_class(background.integral, c("integer", "numeric"))
-
-  ##(e) - check if signal integral is valid
-  if (min(signal.integral) < 1 || max(signal.integral) > len.Lx) {
-    .throw_error("'signal.integral' is not valid, max: ", len.Lx)
-  }
-
-  ##(f) - check if background integral is valid
-  if (min(background.integral) < 1 || max(background.integral) > len.Lx) {
-    .throw_error("'background.integral' is not valid, max: ", len.Lx)
-  }
-
-  ##(g) - check if signal and background integral overlapping
-  if(min(background.integral)<=max(signal.integral)){
-    .throw_error("'signal.integral' and 'background.integral' overlap")
-  }
+  signal_integral <- .validate_integral(signal_integral, max = len.Lx)
+  background_integral <- .validate_integral(background_integral,
+                                            min = max(signal_integral) + 1,
+                                            max = len.Lx)
 
   ##(h) - similar procedure for the Tx limits
-  if(!anyNA(Tx.data) && all(c(!is.null(signal.integral.Tx),!is.null(background.integral.Tx)))){
+  if (!anyNA(Tx.data) && all(c(!is.null(signal_integral_Tx), !is.null(background_integral_Tx)))) {
     if(use_previousBG){
       .throw_warning("With 'use_previousBG = TRUE' independent Lx and Tx ",
                      "integral limits are not allowed. Integral limits ",
                      "of Lx used for Tx.")
-      signal.integral.Tx <- signal.integral
-      background.integral.Tx <- background.integral
+      signal_integral_Tx <- signal_integral
+      background_integral_Tx <- background_integral
     }
 
-    if (min(signal.integral.Tx) < 1 || max(signal.integral.Tx) > len.Tx) {
-      .throw_error("'signal.integral.Tx' is not valid, max: ", len.Tx)
-    }
-    if (min(background.integral.Tx) < 1 || max(background.integral.Tx) > len.Tx) {
-      .throw_error("'background.integral.Tx' is not valid, max: ", len.Tx)
-    }
+    signal_integral_Tx <- .validate_integral(signal_integral_Tx, max = len.Tx,
+                                             null.ok = TRUE)
+    background_integral_Tx <- .validate_integral(background_integral_Tx,
+                                                 min = max(signal_integral_Tx) + 1,
+                                                 max = len.Tx,
+                                                 null.ok = TRUE)
 
-    if(min(background.integral.Tx)<=max(signal.integral.Tx)){
-      .throw_error("'signal.integral.Tx' and 'background.integral.Tx' overlap")
-    }
-
-  }else if(!anyNA(Tx.data) && !all(c(is.null(signal.integral.Tx),is.null(background.integral.Tx)))){
-    .throw_error("You have to provide both 'signal.integral.Tx' and ",
-                 "'background.integral.Tx'")
+  } else if (!anyNA(Tx.data) && !all(c(is.null(signal_integral_Tx), is.null(background_integral_Tx)))) {
+    .throw_error("You have to provide both 'signal_integral_Tx' and ",
+                 "'background_integral_Tx'")
   }else{
-    signal.integral.Tx <- signal.integral
-    background.integral.Tx <- background.integral
+    signal_integral_Tx <- signal_integral
+    background_integral_Tx <- background_integral
   }
 
   ##--------------------------------------------------------------------------##
@@ -323,31 +325,31 @@ calc_OSLLxTxRatio <- function(
 
   ## calculate k value - express the background as multiple value from the number
   ## of signal integral channels, however, it can be < 1 also
-  n <- length(signal.integral)
-  m <- length(background.integral)
+  n <- length(signal_integral)
+  m <- length(background_integral)
   k <- m/n
-  n.Tx <- length(signal.integral.Tx)
+  n.Tx <- length(signal_integral_Tx)
 
   ##use previous BG and account for the option to set different integral limits
-  m.Tx <- if (use_previousBG) m else length(background.integral.Tx)
+  m.Tx <- if (use_previousBG) m else length(background_integral_Tx)
   k.Tx <- m.Tx/n.Tx
 
   ##LnLx (comments are corresponding variables to Galbraith, 2002)
   Lx.curve <- Lx.data[,2]
-  Lx.signal <- sum(Lx.curve[signal.integral])                #Y.0
-  Lx.background <- sum(Lx.curve[background.integral])        #Y.1
+  Lx.signal <- sum(Lx.curve[signal_integral])                #Y.0
+  Lx.background <- sum(Lx.curve[background_integral])        #Y.1
   Lx.background <- Lx.background*1/k                         #mu.B
   LnLx <- Lx.signal - Lx.background
 
   ##TnTx
   Tx.curve <- ifelse(is.na(Tx.data[, 1]), NA, Tx.data[, 2])
-  Tx.signal <- sum(Tx.curve[signal.integral.Tx])
+  Tx.signal <- sum(Tx.curve[signal_integral_Tx])
 
   ##use previous BG
   if(use_previousBG)
     Tx.background <- Lx.background
   else
-    Tx.background <- sum(Tx.curve[background.integral.Tx]) * 1 / k.Tx
+    Tx.background <- sum(Tx.curve[background_integral_Tx]) * 1 / k.Tx
 
   TnTx <- (Tx.signal-Tx.background)
 
@@ -362,20 +364,20 @@ calc_OSLLxTxRatio <- function(
   ## Y.1 (total counts over m later channels)
   Y.0 <- Lx.signal
   Y.0_TnTx <- Tx.signal
-  Y.1 <- sum(Lx.curve[background.integral])
-  Y.1_TnTx <- sum(Tx.curve[background.integral.Tx])
+  Y.1 <- sum(Lx.curve[background_integral])
+  Y.1_TnTx <- sum(Tx.curve[background_integral_Tx])
 
   ##(b) estimate overdispersion (here called sigmab), see equation (4) in
   ## Galbraith (2002), Galbraith (2014)
   ## If else condition for the case that k < 2
 
-  len.sig.integral <- length(signal.integral)
-  min.bg.integral <- min(background.integral)
+  len.sig.integral <- length(signal_integral)
+  min.bg.integral <- min(background_integral)
   if (round(k, digits = 1) >= 2 &&
       min.bg.integral + len.sig.integral * (2 + 1) <= len.Lx) {
 
     ##(b)(1)(1)
-    ## note that m = n*k = multiple of background.integral from signal.integral
+    ## note that m = n*k = multiple of background_integral from signal_integral
     Y.i <- vapply(0:round(k,digits=0), function(i){
       sum(Lx.curve[min.bg.integral +
                    (len.sig.integral * i):(len.sig.integral * (i + 1))])
@@ -393,16 +395,16 @@ calc_OSLLxTxRatio <- function(
                      "error estimation might not be reliable")
     }
 
-    sigmab.LnLx <- abs((stats::var(Lx.curve[background.integral]) -
-                          mean(Lx.curve[background.integral])) * n)
+    sigmab.LnLx <- abs((stats::var(Lx.curve[background_integral]) -
+                          mean(Lx.curve[background_integral])) * n)
   }
 
-  len.sig.integral.Tx <- length(signal.integral.Tx)
-  min.bg.integral.Tx <- min(background.integral.Tx)
+  len.sig.integral.Tx <- length(signal_integral_Tx)
+  min.bg.integral.Tx <- min(background_integral_Tx)
   if (round(k.Tx, digits = 1) >= 2 &&
       min.bg.integral.Tx + len.sig.integral.Tx * (2 + 1) <= length(Tx.curve)) {
     ##(b)(1)(1)
-    ## note that m.Tx = n.Tx*k.Tx = multiple of background.integral.Tx from signal.integral.Tx
+    ## note that m.Tx = n.Tx*k.Tx = multiple of background_integral_Tx from signal_integral_Tx
     ## also for the TnTx signal
     Y.i_TnTx <- vapply(0:round(k.Tx, digits = 0), function(i) {
       sum(Tx.curve[min.bg.integral.Tx +
@@ -420,8 +422,8 @@ calc_OSLLxTxRatio <- function(
                      "error estimation might not be reliable")
     }
 
-    sigmab.TnTx <- abs((stats::var(Tx.curve[background.integral.Tx]) -
-                          mean(Tx.curve[background.integral.Tx])) * n.Tx)
+    sigmab.TnTx <- abs((stats::var(Tx.curve[background_integral_Tx]) -
+                        mean(Tx.curve[background_integral_Tx])) * n.Tx)
   }
 
   ##account for a manually set sigmab value

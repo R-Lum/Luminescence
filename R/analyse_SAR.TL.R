@@ -22,19 +22,13 @@
 #'
 #' @param object.background currently not used
 #'
-#' @param signal.integral.min [integer] (**required**):
-#' requires the channel number for the lower signal integral bound
-#' (e.g. `signal.integral.min = 100`)
-#'
-#' @param signal.integral.max [integer] (**required**):
-#' requires the channel number for the upper signal integral bound
-#' (e.g. `signal.integral.max = 200`)
+#' @param signal_integral [integer] (**required**):
+#' vector of inputs (as defined by `integral_input`) for the signal integral.
 #'
 #' @param integral_input [character] (*with default*):
-#' defines the input for the arguments `signal.integral.min` and
-#' `signal.integral.max`. These limits can be either provided `'channel'`
-#' number (the default) or `'temperature'`. If `'temperature'` is chosen, the
-#' best matching channel is selected.
+#' defines the input for `signal_integral`. These limits can be either provided
+#' as `"channel"` number (default) or `"temperature"`. For `"temperature"`,
+#' the best matching channel is selected.
 #'
 #' @param sequence.structure [vector] [character] (*with default*):
 #' specifies the general sequence structure. Three steps are allowed
@@ -71,7 +65,7 @@
 #'
 #' No TL curves will be removed from the input object without further warning.
 #'
-#' @section Function version: 0.3.1
+#' @section Function version: 0.3.2
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -100,8 +94,7 @@
 #' ##perform analysis
 #' analyse_SAR.TL(
 #'  object = object,
-#'  signal.integral.min = 210,
-#'  signal.integral.max = 220,
+#'  signal_integral = 210:220,
 #'  fit.method = "EXP OR LIN",
 #'  sequence.structure = c("SIGNAL", "BACKGROUND"))
 #'
@@ -109,8 +102,7 @@
 analyse_SAR.TL <- function(
   object,
   object.background,
-  signal.integral.min,
-  signal.integral.max,
+  signal_integral,
   integral_input = "channel",
   sequence.structure = c("PREHEAT", "SIGNAL", "BACKGROUND"),
   rejection.criteria = list(recycling.ratio = 10, recuperation.rate = 10),
@@ -120,6 +112,14 @@ analyse_SAR.TL <- function(
 ) {
   .set_function_name("analyse_SAR.TL")
   on.exit(.unset_function_name(), add = TRUE)
+
+  ## deprecated argument
+  if (any(grepl("signal.integral", ...names(), fixed = TRUE))) {
+    .deprecated(old = "signal.integral",
+                new = "signal_integral",
+                since = "1.2.0")
+    signal_integral <- list(...)$signal.integral
+  }
 
   # Self-call -----------------------------------------------------------------------------------
   if(inherits(object, "list")){
@@ -131,8 +131,7 @@ analyse_SAR.TL <- function(
       analyse_SAR.TL(
         object = o,
         object.background = object.background,
-        signal.integral.min = signal.integral.min,
-        signal.integral.max = signal.integral.max,
+        signal_integral = signal_integral,
         integral_input = integral_input,
         sequence.structure =  sequence.structure,
         rejection.criteria = rejection.criteria,
@@ -154,8 +153,7 @@ analyse_SAR.TL <- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, "RLum.Analysis")
-  .validate_class(signal.integral.min, c("numeric", "integer"))
-  .validate_class(signal.integral.max, c("numeric", "integer"))
+  signal_integral <- .validate_integral(signal_integral)
   integral_input <- .validate_args(integral_input, c("channel", "temperature"))
 
   # Protocol Integrity Checks --------------------------------------------------
@@ -218,14 +216,15 @@ analyse_SAR.TL <- function(
 
   ##comfort ... translate integral limits from temperature to channel
   if(integral_input == "temperature"){
-    signal.integral.min <-
+    signal.min <-
       which.min(abs(
-        signal.integral.min - get_RLum(object, record.id = TL.signal.ID[1])[, 1]
+        min(signal_integral) - get_RLum(object, record.id = TL.signal.ID[1])[, 1]
       ))
-    signal.integral.max <-
+    signal.max <-
       which.min(abs(
-        signal.integral.max - get_RLum(object, record.id = TL.signal.ID[1])[, 1]
+        max(signal_integral) - get_RLum(object, record.id = TL.signal.ID[1])[, 1]
       ))
+    signal_integral <- signal.min:signal.max
   }
 
   ##calculate LxTx values using external function
@@ -241,8 +240,7 @@ analyse_SAR.TL <- function(
         Tx.data.signal = get_RLum(object, record.id = TL.signal.ID[i + 1]),
         Lx.data.background = Lx.data.background,
         Tx.data.background = Tx.data.background,
-        signal.integral.min,
-        signal.integral.max
+        signal_integral
     )
     temp.LnLxTnTx <- get_RLum(LxTxRatio)
     rm(LxTxRatio)
@@ -359,9 +357,8 @@ analyse_SAR.TL <- function(
   ## 4 -> TL Tx Plateau
   ## 5 -> Legend
 
-  ##recalculate signal.integral from channels to temperature
-  signal.integral.temperature <- c(object@records[[TL.signal.ID[1]]]@data[signal.integral.min,1] :
-                                     object@records[[TL.signal.ID[1]]]@data[signal.integral.max,1])
+  ## recalculate signal_integral from channels to temperature
+  signal.integral.temperature <- object@records[[TL.signal.ID[1]]]@data[signal_integral, 1]
 
   ## warning if number of curves exceeds colour values
   if(length(col)<length(TL.signal.ID/2)){
@@ -478,7 +475,7 @@ analyse_SAR.TL <- function(
     lines(Reg1.net.LnLx, col = col[2])
 
     ##plot
-    TL.tmp <- TL.Plateau.LnLx[c(signal.integral.min:signal.integral.max), 2]
+    TL.tmp <- TL.Plateau.LnLx[signal_integral, 2]
     ylim.max <- quantile(TL.tmp[!is.infinite(TL.tmp)],
                          probs = 0.90, na.rm = TRUE)
     par(new = TRUE)
@@ -542,7 +539,7 @@ analyse_SAR.TL <- function(
       ylab = "",
       ylim = c(0,
                quantile(
-                 TL.Plateau.TnTx[c(signal.integral.min:signal.integral.max), 2],
+                 TL.Plateau.TnTx[signal_integral, 2],
                  probs = 0.90, na.rm = TRUE
                ) + 3),
       col = "darkgreen"

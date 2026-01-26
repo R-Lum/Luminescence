@@ -9,10 +9,10 @@ analyse_baSAR(
   CSV_file = NULL,
   aliquot_range = NULL,
   source_doserate = NULL,
-  signal.integral,
-  signal.integral.Tx = NULL,
-  background.integral,
-  background.integral.Tx = NULL,
+  signal_integral,
+  background_integral,
+  signal_integral_Tx = NULL,
+  background_integral_Tx = NULL,
   irradiation_times = NULL,
   sigmab = 0,
   sig0 = 0.025,
@@ -56,31 +56,31 @@ the new selection will add the aliquots to the removed aliquots table.}
 \item{source_doserate}{\link{numeric} (\strong{required}):
 source dose rate of beta-source used for the measurement and its uncertainty
 in Gy/s, e.g., \code{source_doserate = c(0.12, 0.04)}. Parameter can be provided
-as \code{list}, for the case that more than one BIN-file is provided, e.g.,
+as a list, for the case that more than one BIN-file is provided, e.g.,
 \code{source_doserate = list(c(0.04, 0.004), c(0.05, 0.004))}.}
 
-\item{signal.integral}{\link{vector} (\strong{required}):
+\item{signal_integral}{\link{vector} (\strong{required}):
 vector with the limits for the signal integral used for the calculation,
-e.g., \code{signal.integral = c(1:5)}. Ignored if \code{object} is an
+e.g., \code{signal_integral = 1:5}. It is ignored if \code{object} is an
 \linkS4class{RLum.Results} object.
-The parameter can be provided as \code{list}, see \code{source_doserate}.}
+The parameter can be provided as a list, see \code{source_doserate}.}
 
-\item{signal.integral.Tx}{\link{vector} (\emph{optional}):
-vector with the limits for the signal integral for the Tx curve. I
-f nothing is provided the value from \code{signal.integral} is used and it is ignored
+\item{background_integral}{\link{vector} (\strong{required}):
+vector with the limits for the background integral. It is ignored if
+\code{object} is an \linkS4class{RLum.Results} object.
+The parameter can be provided as a list, see \code{source_doserate}.}
+
+\item{signal_integral_Tx}{\link{vector} (\emph{optional}):
+vector with the limits for the signal integral for the Tx curve. If nothing
+is provided, the value from \code{signal_integral} is used. It is ignored
 if \code{object} is an \linkS4class{RLum.Results} object.
-The parameter can be provided as \code{list}, see \code{source_doserate}.}
+The parameter can be provided as a list, see \code{source_doserate}.}
 
-\item{background.integral}{\link{vector} (\strong{required}):
-vector with the bounds for the background integral.
-Ignored if \code{object} is an \linkS4class{RLum.Results} object.
-The parameter can be provided as \code{list}, see \code{source_doserate}.}
-
-\item{background.integral.Tx}{\link{vector} (\emph{optional}):
+\item{background_integral_Tx}{\link{vector} (\emph{optional}):
 vector with the limits for the background integral for the Tx curve.
-If nothing is provided the value from \code{background.integral} is used.
-Ignored if \code{object} is an \linkS4class{RLum.Results} object.
-The parameter can be provided as \code{list}, see \code{source_doserate}.}
+If nothing is provided, the value from \code{background_integral} is used.
+It is ignored if \code{object} is an \linkS4class{RLum.Results} object.
+The parameter can be provided as a list, see \code{source_doserate}.}
 
 \item{irradiation_times}{\link{numeric} (\emph{optional}): if set this vector replaces all irradiation
 times for one aliquot and one cycle (Lx and Tx curves) and recycles it for all others cycles and aliquots.
@@ -361,15 +361,15 @@ functions.
 \strong{If you provide more than one BIN-file}, it is \strong{strongly} recommended to provide
 a \code{list} with the same number of elements for the following parameters:
 
-\code{source_doserate}, \code{signal.integral}, \code{signal.integral.Tx}, \code{background.integral},
-\code{background.integral.Tx}, \code{sigmab}, \code{sig0}.
+\code{source_doserate}, \code{signal_integral}, \code{signal_integral_Tx}, \code{background_integral},
+\code{background_integral_Tx}, \code{sigmab}, \code{sig0}.
 
 Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 0.006))}
 
 \strong{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.38
+ 0.1.39
 }
 
 \examples{
@@ -389,15 +389,14 @@ CWOSL.SAR.Data <- subset(
 results <- analyse_baSAR(
   object = CWOSL.SAR.Data,
   source_doserate = c(0.04, 0.001),
-  signal.integral = c(1:2),
-  background.integral = c(80:100),
+  signal_integral = 1:2,
+  background_integral = 80:100,
   fit.method = "LIN",
   plot = FALSE,
   n.MCMC = 200
 )
 
 print(results)
-
 
 ##CSV_file template
 ##copy and paste this the code below in the terminal
@@ -411,9 +410,7 @@ list(
  GRAIN = NA_real_),
    .Names = c("BIN_FILE", "DISC", "GRAIN"),
    class = "data.frame",
-   row.names = 1L
-)
-
+   row.names = 1L)
 }
 
 }

@@ -16,51 +16,41 @@ test_that("input validation", {
                "'object' should be of class 'RLum.Analysis'")
 
   expect_error(analyse_SAR.CWOSL(object[[1]],
-                                 signal.integral.min = 1,
-                                 signal.integral.max = 2,
-                                 background.integral.min = 900,
-                                 background.integral.max = 1000,
+                                 signal_integral = 1:2,
+                                 background_integral = 900:1000,
                                  plot_singlePanels = list()),
                "'plot_singlePanels' should be of class 'logical', 'integer' or 'numeric'")
 
   expect_error(analyse_SAR.CWOSL(object[[1]],
-                                 signal.integral.min = 1.2,
-                                 signal.integral.max = 3.5,
-                                 background.integral.min = 900,
-                                 background.integral.max = 1000),
-               "'signal.integral' or 'background.integral' is not of type integer")
+                                 signal_integral = NULL,
+                                 background_integral = 900:1000),
+               "'signal_integral' should be of class 'integer' or 'numeric'")
+  expect_error(analyse_SAR.CWOSL(object[[1]],
+                                 signal_integral = -9:0,
+                                 background_integral = 900:1000),
+               "'signal_integral' is of length 0 after removing values smaller than 1")
+  expect_error(analyse_SAR.CWOSL(object[[1]],
+                                 signal_integral = 1.2:3.5,
+                                 background_integral = 900:1000),
+               "'signal_integral' should be a vector of integers")
 
   expect_error(analyse_SAR.CWOSL(object[[1]],
-                                 signal.integral.min = 1,
-                                 signal.integral.max = 500,
-                                 background.integral.min = 500,
-                                 background.integral.max = 1000),
-               "'background.integral.min' must be larger than 'signal.integral.max'")
+                                 signal_integral = 1:2,
+                                 background_integral = NULL),
+               "'background_integral' should be of class 'integer' or 'numeric'")
   expect_error(analyse_SAR.CWOSL(object[[1]],
-                                 signal.integral.min = 999,
-                                 signal.integral.max = 1000,
-                                 background.integral.min = c(900, 1975),
-                                 background.integral.max = c(900, 1975)),
-               "'background.integral.min' must be larger than 'signal.integral.max'")
-  expect_error(analyse_SAR.CWOSL(object[[1]],
-                                 signal.integral.min = 1,
-                                 signal.integral.max = 2,
-                                 background.integral.min = 900,
-                                 background.integral.max = 1000,
+                                 signal_integral = 1:2,
+                                 background_integral = 900:1000,
                                  rejection.criteria = "error"),
                "'rejection.criteria' should be of class 'list'")
   expect_error(analyse_SAR.CWOSL(object[[1]],
-                                 signal.integral.min = 1,
-                                 signal.integral.max = 2,
-                                 background.integral.min = 900,
-                                 background.integral.max = 1000,
+                                 signal_integral = 1:2,
+                                 background_integral = 900:1000,
                                  rejection.criteria = list(recuperation_reference = letters)),
                "'recuperation_reference' in 'rejection.criteria' should be of class 'character'")
   expect_error(analyse_SAR.CWOSL(object[[1]],
-                                 signal.integral.min = 1,
-                                 signal.integral.max = 2,
-                                 background.integral.min = 900,
-                                 background.integral.max = 1000,
+                                 signal_integral = 1:2,
+                                 background_integral = 900:1000,
                                  rejection.criteria = list(sn_reference = letters)),
                "'sn_reference' in 'rejection.criteria' should be of class 'character'")
 })
@@ -73,10 +63,8 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(
     results <- analyse_SAR.CWOSL(
       object = object[[1]],
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 900,
-      background.integral.max = 1000,
+      signal_integral = 1:2,
+      background_integral = 900:1000,
       plot = FALSE,
       verbose = FALSE
     ), tolerance = snapshot.tolerance
@@ -86,10 +74,8 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(
     analyse_SAR.CWOSL(
       object = object[1:2],
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 900,
-      background.integral.max = 1000,
+      signal_integral = 1:2,
+      background_integral = 900:1000,
       fit.method = "LIN",
       plot = FALSE,
       verbose = FALSE
@@ -100,10 +86,8 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(
     analyse_SAR.CWOSL(
       object = object[1:2],
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 900,
-      background.integral.max = 1000,
+      signal_integral = 1:2,
+      background_integral = 900:1000,
       fit.method = "LIN",
       dose_rate_source = 0.2,
       plot = FALSE,
@@ -114,10 +98,8 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(
     analyse_SAR.CWOSL(
       object = object[1:2],
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 900,
-      background.integral.max = 1000,
+      signal_integral = 1:2,
+      background_integral = 900:1000,
       fit.method = "LIN",
       dose.points.test = 1,
       dose_rate_source = 0.2,
@@ -130,10 +112,8 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(
     t <- analyse_SAR.CWOSL(
       object = object[[1]],
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 900,
-      background.integral.max = 1000,
+      signal_integral = 1:2,
+      background_integral = 900:1000,
       fit.method = "LIN",
       rejection.criteria = list(
         recycling.ratio = NA,
@@ -164,10 +144,8 @@ test_that("check functionality", {
   t <- expect_s4_class(
     analyse_SAR.CWOSL(
       object = object_f,
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 900,
-      background.integral.max = 1000,
+      signal_integral = 1:2,
+      background_integral = 900:1000,
       fit.method = "LIN",
       plot = FALSE,
       verbose = FALSE
@@ -196,10 +174,8 @@ test_that("check functionality", {
   expect_error(
     analyse_SAR.CWOSL(
       object = object,
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 900,
-      background.integral.max = 1000,
+      signal_integral = 1:2,
+      background_integral = 900:1000,
       fit.method = "OTORX",
       plot = FALSE,
       verbose = FALSE,
@@ -230,10 +206,8 @@ test_that("check functionality", {
   t <- expect_s4_class(
     analyse_SAR.CWOSL(
       object = object_mixed[2:3],
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 900,
-      background.integral.max = 1000,
+      signal_integral = 1:2,
+      background_integral = 900:1000,
       fit.method = "LIN",
       log = "x",
       plot = FALSE,
@@ -247,10 +221,8 @@ test_that("check functionality", {
   expect_s4_class(
     analyse_SAR.CWOSL(
       object = object[[1]],
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 900,
-      background.integral.max = 1000,
+      signal_integral = 1:2,
+      background_integral = 900:1000,
       fit.method = "EXP",
       plot = TRUE,
       plot_singlePanels = TRUE
@@ -263,10 +235,8 @@ test_that("check functionality", {
   expect_error(
     analyse_SAR.CWOSL(
       object = object[[1]],
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 900,
-      background.integral.max = 1000,
+      signal_integral = 1:2,
+      background_integral = 900:1000,
       fit.method = "LIN",
       rejection.criteria= list(
         recycling.ratio = NA,
@@ -283,10 +253,8 @@ test_that("check functionality", {
   expect_error(
     analyse_SAR.CWOSL(
       object = object[[1]],
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 900,
-      background.integral.max = 1000,
+      signal_integral = 1:2,
+      background_integral = 900:1000,
       fit.method = "LIN",
       rejection.criteria = list(sn_reference = "error"),
       plot = TRUE
@@ -298,10 +266,8 @@ test_that("check functionality", {
   expect_message(expect_null(
       analyse_SAR.CWOSL(
        object = object[[1]],
-       signal.integral.min = 1,
-       signal.integral.max = 2,
-       background.integral.min = 900,
-       background.integral.max = 1000,
+       signal_integral = 1:2,
+       background_integral = 900:1000,
        OSL.component = 1,
        verbose = FALSE
       )),
@@ -310,10 +276,8 @@ test_that("check functionality", {
 
    expect_error(analyse_SAR.CWOSL(
      object = object[[1]],
-     signal.integral.min = 1,
-     signal.integral.max = 2,
-     background.integral.min = 900,
-     background.integral.max = 1000,
+     signal_integral = 1:2,
+     background_integral = 900:1000,
      dose.points = c(0,1,2),
      fit.method = "LIN",
      plot = FALSE,
@@ -324,45 +288,46 @@ test_that("check functionality", {
   expect_message(
    expect_null(analyse_SAR.CWOSL(
      object = set_RLum("RLum.Analysis",records = list(set_RLum("RLum.Data.Curve", recordType = "false"))),
-     signal.integral.min = 1,
-     signal.integral.max = 2,
-     background.integral.min = 800,
-     background.integral.max = 900,
+     signal_integral = 1:2,
+     background_integral = 800:900,
      fit.method = "LIN",
      plot = FALSE,
      verbose = FALSE
    )),
    "No record of type 'OSL', 'IRSL', 'POSL' detected")
 
-   ##check background integral
+  ## check background integral
+  expect_warning(analyse_SAR.CWOSL(
+      object[[1]],
+      signal_integral = 1:500,
+      background_integral = 500:1000,
+      verbose = FALSE),
+      "'background_integral' reset to be between 501 and 1000")
+
    expect_warning(analyse_SAR.CWOSL(
      object = object[[1]],
-     signal.integral.min = 1,
-     signal.integral.max = 2,
-     background.integral.min = 800,
-     background.integral.max = 9900,
+     signal_integral = 1:2,
+     background_integral = 800:9900,
      fit.method = "LIN",
      plot = FALSE,
      verbose = FALSE
-   ), regexp = "Background integral out of bounds")
+   ), regexp = "'background_integral' out of bounds, reset to 800:1000")
 
   expect_warning(analyse_SAR.CWOSL(
       object = object[[1]],
-      signal.integral.min = 1,
-      signal.integral.max = 1,
-      background.integral.min = 1000,
-      background.integral.max = 1000,
+      signal_integral = 1:1,
+      background_integral = 1000:1000,
       fit.method = "LIN",
       plot = FALSE,
       verbose = FALSE
-  ), "Background integral limits cannot be equal, reset to 975:1000")
+  ), "Background integral should contain at least two values, reset to 975:1000")
 
   expect_warning(analyse_SAR.CWOSL(
       object = object[[1]],
-      signal.integral.min = c(1, 1),
-      signal.integral.max = c(2, 1),
-      background.integral.min = c(900, 1000),
-      background.integral.max = c(1000, 1000),
+      signal_integral = 1:2,
+      signal_integral_Tx = 1:1,
+      background_integral = 900:1000,
+      background_integral_Tx = 1000:1000,
       fit.method = "LIN",
       plot = FALSE,
       verbose = FALSE
@@ -370,63 +335,60 @@ test_that("check functionality", {
 
   expect_warning(analyse_SAR.CWOSL(
       object = object[[1]],
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = c(600, 800),
-      background.integral.max = c(900, 1000),
+      signal_integral = 1:2,
+      background_integral = 600:900,
+      background_integral_Tx = 800:1000,
       fit.method = "LIN",
       plot = FALSE,
       verbose = FALSE
-  ), "Signal integral for Tx curves set automatically to 1:2")
+  ), "'signal_integral_Tx' set automatically to 1:2")
 
-  expect_warning(expect_message(
+  expect_warning(expect_warning(expect_message(
       analyse_SAR.CWOSL(
           object = object[[1]],
-          signal.integral.min = c(1, 1500),
-          signal.integral.max = c(2, 2000),
-          background.integral.min = 800,
-          background.integral.max = 1000,
+          signal_integral = 1:2,
+          signal_integral_Tx = 500:2000,
+          background_integral = 800:1000,
           fit.method = "LIN",
           plot = FALSE,
           verbose = FALSE
       ), "Something went wrong while generating the LxTx table"),
-  "Background integral for Tx curves set automatically to 800:1000")
+      "'signal_integral_Tx' reset to be between 500 and 1000"),
+      "'background_integral_Tx' set automatically to 800:1000")
 
   ## this generates multiple warnings
   warnings <- capture_warnings(analyse_SAR.CWOSL(
       object = object[[1]],
-      signal.integral.min = c(1, 70),
-      signal.integral.max = c(2, 80),
-      background.integral.min = 800,
-      background.integral.max = 1200,
+      signal_integral = 1:2,
+      signal_integral_Tx = 70:80,
+      background_integral = 800:1200,
       fit.method = "LIN",
       plot = FALSE,
       verbose = FALSE))
   expect_match(warnings, all = FALSE,
-               "Background integral out of bounds, reset to 600:1000")
+               "'background_integral' out of bounds, reset to 800:1000")
   expect_match(warnings, all = FALSE,
-               "Background integral for Tx out of bounds, reset to 600:1000")
+               "'background_integral_Tx' out of bounds, reset to 800:1000")
 
   warnings <- capture_warnings(analyse_SAR.CWOSL(
       object = object[[1]],
-      signal.integral.min = c(100, 500),
-      signal.integral.max = c(400, 605),
-      background.integral.min = 800,
-      background.integral.max = 1200,
+      signal_integral = 100:400,
+      signal_integral_Tx = 500:605,
+      background_integral = 800:1200,
       fit.method = "LIN",
       plot = FALSE,
       verbose = FALSE))
   expect_match(warnings, all = FALSE,
-               "Background integral out of bounds, reset to 600:1000")
+               "'background_integral' out of bounds, reset to 800:1000")
   expect_match(warnings, all = FALSE,
-               "Background integral for Tx out of bounds, reset to 606:1000")
+               "'background_integral_Tx' out of bounds, reset to 800:1000")
 
   ## add one OSL curve
   expect_warning(expect_null(
       analyse_SAR.CWOSL(
           object = merge(object[[1]], object[[1]][[2]]),
-          signal.integral.min = 1, signal.integral.max = 2,
-          background.integral.min = 800, background.integral.max = 1200)),
+          signal_integral = 1:2,
+          background_integral = 800:1200)),
       "Input OSL/IRSL curves are not a multiple of two")
 
    ## check different curve numbers by shorten one OSL curve
@@ -437,10 +399,8 @@ test_that("check functionality", {
    expect_warning(expect_null(
      analyse_SAR.CWOSL(
        object = object_short[[1]],
-       signal.integral.min = 1,
-       signal.integral.max = 2,
-       background.integral.min = 800,
-       background.integral.max = 9900,
+       signal_integral = 1:2,
+       background_integral = 800:9900,
        fit.method = "LIN",
        plot = FALSE,
        verbose = FALSE)),
@@ -451,10 +411,8 @@ test_that("check functionality", {
    testthat::expect_s4_class(
      object = analyse_SAR.CWOSL(
        object = object_short[[1]],
-       signal.integral.min = 1,
-       signal.integral.max = 2,
-       background.integral.min = 800,
-       background.integral.max = 999,
+       signal_integral = 1:2,
+       background_integral = 800:999,
        fit.method = "LIN",
        trim_channels = TRUE,
        plot = FALSE,
@@ -467,10 +425,8 @@ test_that("check functionality", {
   expect_warning(expect_null(
      analyse_SAR.CWOSL(
        object = object_short[[1]],
-       signal.integral.min = 1,
-       signal.integral.max = 2,
-       background.integral.min = 800,
-       background.integral.max = 9900,
+       signal_integral = 1:2,
+       background_integral = 800:9900,
        fit.method = "LIN",
        trim_channels = TRUE,
        plot = FALSE,
@@ -504,10 +460,8 @@ test_that("advance tests run", {
   SW({ # repeated message
   expect_message(
       analyse_SAR.CWOSL(list(obj_irr, obj_irr),
-                        signal.integral.min = 1,
-                        signal.integral.max = 2,
-                        background.integral.min = 900,
-                        background.integral.max = 1000,
+                        signal_integral = 1:2,
+                        background_integral = 900:1000,
                         fit.method = "LIN", verbose = FALSE),
       "All points have the same dose, NULL returned"
   )
@@ -518,10 +472,8 @@ test_that("advance tests run", {
   expect_warning(expect_warning(
       analyse_SAR.CWOSL(merge(object[[1]], object[[2]],
                               object[[1]], object[[2]]),
-                        signal.integral.min = 1,
-                        signal.integral.max = 2,
-                        background.integral.min = 900,
-                        background.integral.max = 900,
+                        signal_integral = 1:2,
+                        background_integral = 900:900,
                         background.count.distribution = "poisson",
                         log = "xy", verbose = FALSE),
       "Too many curves, only the first 21 curves are plotted"),
@@ -529,10 +481,8 @@ test_that("advance tests run", {
 
   expect_warning(
       analyse_SAR.CWOSL(object = object[[1]],
-                        signal.integral.min = 1,
-                        signal.integral.max = 2,
-                        background.integral.min = 900,
-                        background.integral.max = 1000,
+                        signal_integral = 1:2,
+                        background_integral = 900:1000,
                         plot.single = TRUE,
                         verbose = FALSE),
       "'plot.single' was deprecated in v1.0.0, use 'plot_singlePanels' instead")
@@ -542,10 +492,8 @@ test_that("advance tests run", {
   test_failed <-
     analyse_SAR.CWOSL(
       object = object[[1]],
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 200,
-      background.integral.max = 1000,
+      signal_integral = 1:2,
+      background_integral = 200:1000,
       fit.method = "LIN",
       rejection.criteria = list(recycling.ratio = 0),
       plot = FALSE,
@@ -558,10 +506,8 @@ test_that("advance tests run", {
    expect_error(
      analyse_SAR.CWOSL(
       object = no_irr_object,
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 200,
-      background.integral.max = 1000,
+      signal_integral = 1:2,
+      background_integral = 200:1000,
       fit.method = "LIN",
       plot = FALSE,
       verbose = FALSE),
@@ -580,10 +526,8 @@ test_that("advance tests run", {
   expect_null(
     analyse_SAR.CWOSL(
        object = unsuitable_type,
-       signal.integral.min = 1,
-       signal.integral.max = 2,
-       background.integral.min = 200,
-       background.integral.max = 1000,
+       signal_integral = 1:2,
+       background_integral = 200:1000,
        fit.method = "OTOR",
        n.MC = 10,
        plot = FALSE,
@@ -594,10 +538,8 @@ test_that("advance tests run", {
   test_failed <-
     analyse_SAR.CWOSL(
       object = object[1],
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 200,
-      background.integral.max = 1000,
+      signal_integral = 1:2,
+      background_integral = 200:1000,
       fit.method = "LIN",
       rejection.criteria = list(
         recycling.ratio = NA,
@@ -613,10 +555,8 @@ test_that("advance tests run", {
   test_ok <-
     analyse_SAR.CWOSL(
       object = object[1],
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 200,
-      background.integral.max = 1000,
+      signal_integral = 1:2,
+      background_integral = 200:1000,
       fit.method = "LIN",
       rejection.criteria = list(1),
       plot = FALSE,
@@ -627,10 +567,8 @@ test_that("advance tests run", {
   expect_s4_class(
     analyse_SAR.CWOSL(
       object = object[1:2],
-      signal.integral.min = 1,
-      signal.integral.max = list(10,20),
-      background.integral.min = 900,
-      background.integral.max = 1000,
+      signal_integral = list(1:10, 1:20),
+      background_integral = 900:1000,
       fit.method = "LIN",
       plot = FALSE,
       verbose = FALSE
@@ -642,10 +580,8 @@ test_that("advance tests run", {
   expect_s4_class(
     analyse_SAR.CWOSL(
       object = object[1:2],
-      signal.integral.min = 1,
-      signal.integral.max = list(10,20),
-      background.integral.min = 900,
-      background.integral.max = 1000,
+      signal_integral = list(1:10, 1:20),
+      background_integral = 900:1000,
       rejection.criteria = list(list(recycling.ratio = 0)),
       fit.method = "LIN",
       unknown_argument = "hallo",
@@ -660,10 +596,9 @@ test_that("advance tests run", {
   SW({
   expect_warning(analyse_SAR.CWOSL(
       object = object[[1]],
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = c(900, 975),
-      background.integral.max = c(900, 975),
+      signal_integral = 1:2,
+      background_integral = 900:900,
+      background_integral_Tx = 975:975,
       dose.points = rep(2, 7),
       plot = FALSE,
       verbose = FALSE),
@@ -673,10 +608,8 @@ test_that("advance tests run", {
     ## however we have to reset the R1 (this is OK!)
     expect_silent(analyse_SAR.CWOSL(
       object = object[[1]],
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = c(900),
-      background.integral.max = c(975),
+      signal_integral = 1:2,
+      background_integral = 900:975,
       dose.points = seq_len(7),
       mode = "alternate",
       rejection.criteria = list(
@@ -688,12 +621,11 @@ test_that("advance tests run", {
   ## OTORX
   expect_s4_class(suppressWarnings(analyse_SAR.CWOSL(
       object = object[[1]],
-      signal.integral.min = 1,
-      signal.integral.max = 2,
+      signal_integral = 1:2,
+      background_integral = 900:900,
+      background_integral_Tx = 975:975,
       fit.method = "OTORX",
       dose.points.test = 5,
-      background.integral.min = c(900, 975),
-      background.integral.max = c(900, 975),
       plot = FALSE,
       n.MC = 10,
       verbose = FALSE)), class = "RLum.Results")
@@ -701,10 +633,8 @@ test_that("advance tests run", {
   object[[1]]@records[[2]][1, 1] <- 0
   expect_warning(analyse_SAR.CWOSL(
       object = object[[1]],
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 900,
-      background.integral.max = 975,
+      signal_integral = 1:2,
+      background_integral = 900:975,
       log = "x",
       verbose = FALSE),
       "Curves shifted by one channel for log-plot")
@@ -717,10 +647,8 @@ test_that("advance tests run", {
 
   expect_s4_class(analyse_SAR.CWOSL(
     object = sg,
-    signal.integral.min = 1,
-    signal.integral.max = 2,
-    background.integral.min = 900,
-    background.integral.max = 975,
+    signal_integral = 1:2,
+    background_integral = 900:975,
     plot_onePage = TRUE,
     verbose = FALSE), "RLum.Results")
 })
@@ -735,38 +663,30 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("default",
                               analyse_SAR.CWOSL(
                                   object = object[[1]],
-                                  signal.integral.min = 1,
-                                  signal.integral.max = 2,
-                                  background.integral.min = 900,
-                                  background.integral.max = 1000,
+                                  signal_integral = 1:2,
+                                  background_integral = 900:1000,
                                   plot_onePage = TRUE))
 
   vdiffr::expect_doppelganger("source_dose_rate",
                                 analyse_SAR.CWOSL(
                                   object = object[[1]],
-                                  signal.integral.min = 1,
-                                  signal.integral.max = 2,
+                                  signal_integral = 1:2,
+                                  background_integral = 900:1000,
                                   dose_rate_source = 0.22,
-                                  background.integral.min = 900,
-                                  background.integral.max = 1000,
                                   plot_onePage = TRUE))
 
   vdiffr::expect_doppelganger("list-cex",
                               analyse_SAR.CWOSL(
                                   object = list(object[[1]]),
-                                  signal.integral.min = 1,
-                                  signal.integral.max = 5,
-                                  background.integral.min = 800,
-                                  background.integral.max = 1000,
+                                  signal_integral = 1:5,
+                                  background_integral = 800:1000,
                                   plot_onePage = TRUE, cex = 1.9))
 
   vdiffr::expect_doppelganger("CH_TL log x",
                               analyse_SAR.CWOSL(
                                   object = object_CH_TL[[1]],
-                                  signal.integral.min = 4,
-                                  signal.integral.max = 10,
-                                  background.integral.min = 900,
-                                  background.integral.max = 1000,
+                                  signal_integral = 4:10,
+                                  background_integral = 900:1000,
                                   fit.method = "LIN",
                                   log = "x",
                                   plot_onePage = TRUE))
@@ -774,20 +694,16 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("NO_TL log xy",
                               analyse_SAR.CWOSL(
                                   object = object_NO_TL[[1]],
-                                  signal.integral.min = 1,
-                                  signal.integral.max = 5,
-                                  background.integral.min = 600,
-                                  background.integral.max = 900,
+                                  signal_integral = 1:5,
+                                  background_integral = 600:900,
                                   log = "xy",
                                   plot_onePage = TRUE))
 
   vdiffr::expect_doppelganger("onlyLxTxTable",
                               analyse_SAR.CWOSL(
                                   object = object,
-                                  signal.integral.min = 1,
-                                  signal.integral.max = 2,
-                                  background.integral.min = 900,
-                                  background.integral.max = 1000,
+                                  signal_integral = 1:2,
+                                  background_integral = 900:1000,
                                   onlyLxTxTable = TRUE,
                                   plot_onePage = TRUE))
   })
@@ -800,9 +716,33 @@ test_that("regression tests", {
   data <- object[[1]]
   data@records[[1]]@recordType <- NA_character_
   expect_s4_class(analyse_SAR.CWOSL(data, verbose = FALSE,
-                                    signal.integral.min = 1,
-                                    signal.integral.max = 2,
-                                    background.integral.min = 900,
-                                    background.integral.max = 1000),
+                                    signal_integral = 1:2,
+                                    background_integral = 900:1000),
                   "RLum.Results")
+})
+
+test_that("deprecated arguments", {
+  testthat::skip_on_cran()
+
+  SW({
+  expect_warning(analyse_SAR.CWOSL(object[[1]],
+                                   signal.integral.min = 1,
+                                   signal.integral.max = 2,
+                                   background.integral.min = 900,
+                                   background.integral.max = 1000),
+                 "were deprecated in v1.2.0, use 'signal_integral'")
+  expect_warning(analyse_SAR.CWOSL(object[1:2],
+                                   signal.integral.min = list(1, 1),
+                                   signal.integral.max = list(10, 20),
+                                   background.integral.min = list(900, 950),
+                                   background.integral.max = list(1000, 1000)),
+                 "were deprecated in v1.2.0, use 'signal_integral'")
+
+  ## mix of deprecated and newly-named arguments is not supported
+  expect_error(analyse_SAR.CWOSL(object[1:2],
+                                 signal.integral.min = list(1, 1),
+                                 signal.integral.max = list(10, 20),
+                                 background_integral = 900:1000),
+               "argument of length 0")
+  })
 })

@@ -7,8 +7,7 @@
 analyse_SAR.TL(
   object,
   object.background,
-  signal.integral.min,
-  signal.integral.max,
+  signal_integral,
   integral_input = "channel",
   sequence.structure = c("PREHEAT", "SIGNAL", "BACKGROUND"),
   rejection.criteria = list(recycling.ratio = 10, recuperation.rate = 10),
@@ -23,19 +22,13 @@ input object containing data for analysis}
 
 \item{object.background}{currently not used}
 
-\item{signal.integral.min}{\link{integer} (\strong{required}):
-requires the channel number for the lower signal integral bound
-(e.g. \code{signal.integral.min = 100})}
-
-\item{signal.integral.max}{\link{integer} (\strong{required}):
-requires the channel number for the upper signal integral bound
-(e.g. \code{signal.integral.max = 200})}
+\item{signal_integral}{\link{integer} (\strong{required}):
+vector of inputs (as defined by \code{integral_input}) for the signal integral.}
 
 \item{integral_input}{\link{character} (\emph{with default}):
-defines the input for the arguments \code{signal.integral.min} and
-\code{signal.integral.max}. These limits can be either provided \code{'channel'}
-number (the default) or \code{'temperature'}. If \code{'temperature'} is chosen, the
-best matching channel is selected.}
+defines the input for \code{signal_integral}. These limits can be either provided
+as \code{"channel"} number (default) or \code{"temperature"}. For \code{"temperature"},
+the best matching channel is selected.}
 
 \item{sequence.structure}{\link{vector} \link{character} (\emph{with default}):
 specifies the general sequence structure. Three steps are allowed
@@ -92,7 +85,7 @@ background see Aitken and Smith (1988)
 No TL curves will be removed from the input object without further warning.
 }
 \section{Function version}{
- 0.3.1
+ 0.3.2
 }
 
 \examples{
@@ -106,8 +99,7 @@ object <- Risoe.BINfileData2RLum.Analysis(TL.SAR.Data, pos=3)
 ##perform analysis
 analyse_SAR.TL(
  object = object,
- signal.integral.min = 210,
- signal.integral.max = 220,
+ signal_integral = 210:220,
  fit.method = "EXP OR LIN",
  sequence.structure = c("SIGNAL", "BACKGROUND"))
 

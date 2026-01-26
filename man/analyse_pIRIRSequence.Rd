@@ -6,10 +6,8 @@
 \usage{
 analyse_pIRIRSequence(
   object,
-  signal.integral.min,
-  signal.integral.max,
-  background.integral.min,
-  background.integral.max,
+  signal_integral,
+  background_integral,
   dose.points = NULL,
   sequence.structure = c("TL", "IR50", "pIRIR225"),
   plot = TRUE,
@@ -24,21 +22,13 @@ input object containing data for analysis.
 If a \link{list} is provided the functions tries to iterate over each element
 in the list.}
 
-\item{signal.integral.min}{\link{integer} (\strong{required}):
-lower bound of the signal integral. Provide this value as vector for different
-integration limits for the different IRSL curves.}
+\item{signal_integral}{\link{integer} (\strong{required}):
+vector of channels for the signal integral. Provide this value as a list
+for different integration limits for the different IRSL curves.}
 
-\item{signal.integral.max}{\link{integer} (\strong{required}):
-upper bound of the signal integral. Provide this value as vector for different
-integration limits for the different IRSL curves.}
-
-\item{background.integral.min}{\link{integer} (\strong{required}):
-lower bound of the background integral. Provide this value as vector for
-different integration limits for the different IRSL curves.}
-
-\item{background.integral.max}{\link{integer} (\strong{required}):
-upper bound of the background integral. Provide this value as vector for
-different integration limits for the different IRSL curves.}
+\item{background_integral}{\link{integer} (\strong{required}):
+vector of channels for the background integral. Provide this value as a list
+for different integration limits for the different IRSL curves.}
 
 \item{dose.points}{\link{numeric} (\emph{optional}):
 a numeric vector containing the dose points values. Using this argument overwrites dose point
@@ -114,7 +104,7 @@ with the following options:
 \code{pdf(file = "<YOUR FILENAME>", height = 18, width = 18)}
 }
 \section{Function version}{
- 0.2.6
+ 0.2.7
 }
 
 \examples{
@@ -145,10 +135,8 @@ object <- set_RLum(class = "RLum.Analysis", records = object, protocol = "pIRIR"
 ##(2) Perform pIRIR analysis (for this example with quartz OSL data!)
 ## Note: output as single plots to avoid problems with this example
 results <- analyse_pIRIRSequence(object,
-     signal.integral.min = 1,
-     signal.integral.max = 2,
-     background.integral.min = 900,
-     background.integral.max = 1000,
+     signal_integral = 1:2,
+     background_integral = 900:1000,
      fit.method = "EXP",
      sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
      main = "Pseudo pIRIR data set based on quartz OSL",
@@ -161,10 +149,8 @@ results <- analyse_pIRIRSequence(object,
 tempfile <- tempfile(fileext = ".pdf")
 pdf(file = tempfile, height = 18, width = 18)
   results <- analyse_pIRIRSequence(object,
-         signal.integral.min = 1,
-         signal.integral.max = 2,
-         background.integral.min = 900,
-         background.integral.max = 1000,
+         signal_integral = 1:2,
+         background_integral = 900:1000,
          fit.method = "EXP",
          main = "Pseudo pIRIR data set based on quartz OSL")
 

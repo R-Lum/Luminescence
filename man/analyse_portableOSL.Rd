@@ -6,7 +6,7 @@
 \usage{
 analyse_portableOSL(
   object,
-  signal.integral = NULL,
+  signal_integral = NULL,
   invert = FALSE,
   normalise = FALSE,
   mode = "profile",
@@ -21,8 +21,8 @@ object produced by \link{read_PSL2R}. The input can be a \link{list} of such obj
 in which case each input is treated as a separate sample and the results
 are merged.}
 
-\item{signal.integral}{\link{numeric} (\strong{required}):
-A vector specifying the range of channels used to calculate the OSL/IRSL
+\item{signal_integral}{\link{numeric} (\strong{required}):
+vector specifying the range of channels used to calculate the OSL/IRSL
 signal. It can be provided as a vector of length 2 such as \code{c(1, 5)}, or
 as a sequence such as \code{1:5}, in which case the lowest and highest values
 define the range.}
@@ -78,8 +78,8 @@ This function only works with \linkS4class{RLum.Analysis} objects produced by \l
 It further assumes (or rather requires) an equal amount of OSL and IRSL curves that
 are pairwise combined for calculating the IRSL/OSL ratio.
 For calculating the depletion ratios, the cumulative signal of the last \emph{n}
-channels (same number of channels as specified by \code{signal.integral}) is
-divided by cumulative signal of the first \emph{n} channels (\code{signal.integral}).
+channels (same number of channels as specified by \code{signal_integral}) is
+divided by cumulative signal of the first \emph{n} channels (\code{signal_integral}).
 
 \strong{Note:  The function assumes the following sequence pattern:
 \verb{DARK COUNT}, \code{IRSL}, \verb{DARK COUNT}, \code{BSL}, \verb{DARK COUNT}.} Therefore, the
@@ -108,7 +108,7 @@ If in your profile the x-coordinates were not measured, \emph{x} should be set
 to 0. Note that, in such case, a surface plot cannot be produced.
 }
 \section{Function version}{
- 0.1.3
+ 0.1.4
 }
 
 \examples{
@@ -129,7 +129,7 @@ merged
 # (3) analyse and plot
 results <- analyse_portableOSL(
   merged,
-  signal.integral = 1:5,
+  signal_integral = 1:5,
   invert = FALSE,
   normalise = TRUE)
 get_RLum(results)

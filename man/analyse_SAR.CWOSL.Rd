@@ -6,10 +6,10 @@
 \usage{
 analyse_SAR.CWOSL(
   object,
-  signal.integral.min = NA,
-  signal.integral.max = NA,
-  background.integral.min = NA,
-  background.integral.max = NA,
+  signal_integral = NA,
+  background_integral = NA,
+  signal_integral_Tx = NULL,
+  background_integral_Tx = NULL,
   OSL.component = NULL,
   rejection.criteria = list(),
   dose.points = NULL,
@@ -30,31 +30,24 @@ input object containing data for analysis, alternatively a \link{list} of
 \linkS4class{RLum.Analysis} objects can be provided. The object should \strong{only}
 contain curves considered part of the SAR protocol (see Details).}
 
-\item{signal.integral.min}{\link{integer} (\strong{required}):
-lower bound of the signal integral. It can be a \link{list} of integers, if
-\code{object} is a list. If the input is a vector (e.g., \code{c(1,2)}), the second
-value will be interpreted as the minimum signal integral for the \code{Tx} curve.
-It can be set to \code{NA}, in which case no integrals are taken into account.}
+\item{signal_integral}{\link{integer} (\strong{required}):
+vector of channels for the signal integral. It can be a \link{list} of integers,
+if \code{object} is a list. If set to \code{NA}, no integrals are taken into account.}
 
-\item{signal.integral.max}{\link{integer} (\strong{required}):
-upper bound of the signal integral. It can be a \link{list} of integers if
-\code{object} is a list. If the input is a vector (e.g., \code{c(1,2)}), the second
-value will be interpreted as the maximum signal integral for the \code{Tx} curve.
-It can be set to \code{NA}, in which case no integrals are taken into account.}
+\item{background_integral}{\link{integer} (\strong{required}):
+vector of channels for the background integral. It can be a \link{list} of
+integers, if \code{object} is a list. If set to \code{NA}, no integrals are taken
+into account.}
 
-\item{background.integral.min}{\link{integer} (\strong{required}):
-lower bound of the background integral. It can be a \link{list} of integers if
-\code{object} is a list. If the input is a vector (e.g., \code{c(1,2)}), the second
-value will be interpreted as the minimum background integral for the \code{Tx}
-curve. It can be set to \code{NA}, in which case no integrals are taken into
-account.}
+\item{signal_integral_Tx}{\link{integer} (\emph{optional}):
+vector of channels for the signal integral for the \code{Tx} curve. It can be a
+\link{list} of integers, if \code{object} is a list. If set to \code{NA}, no integrals are
+taken into account.}
 
-\item{background.integral.max}{\link{integer} (\strong{required}):
-upper bound of the background integral. It can be a \link{list} of integers if
-\code{object} is a list. If the input is a vector (e.g., \code{c(1,2)}), the second
-value will be interpreted as the maximum background integral for the \code{Tx}
-curve. It can be set to \code{NA}, in which case no integrals are taken into
-account.}
+\item{background_integral_Tx}{\link{integer} (\emph{optional}):
+vector of channels for the background integral for the \code{Tx} curve. It can
+be a \link{list} of integers, if \code{object} is a list. If set to \code{NA}, no integrals
+are taken into account.}
 
 \item{OSL.component}{\link{character} or \link{integer} (\emph{optional}):
 single index or a \link{character} defining the signal component to be evaluated.
@@ -241,7 +234,7 @@ function does \strong{not} overwrite values preset in \code{IRR_TIME}.
 }
 }
 \section{Function version}{
- 0.12.0
+ 0.13.0
 }
 
 \examples{
@@ -257,10 +250,8 @@ object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 ##perform SAR analysis and set rejection criteria
 results <- analyse_SAR.CWOSL(
 object = object,
-signal.integral.min = 1,
-signal.integral.max = 2,
-background.integral.min = 900,
-background.integral.max = 1000,
+signal_integral = 1:2,
+background_integral = 900:1000,
 log = "x",
 fit.method = "EXP",
 plot_onePage = TRUE,
@@ -286,11 +277,9 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 \dontrun{
 results <- analyse_SAR.CWOSL(
  object = object,
- signal.integral.min = 1,
- signal.integral.max = 2,
+ signal_integral = 1:2,
+ background_integral = 900:1000,
  dose.points.test = 15,
- background.integral.min = 900,
- background.integral.max = 1000,
  n.MC = 10,
  fit.method = "OTORX")
 }

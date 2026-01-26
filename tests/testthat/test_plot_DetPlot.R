@@ -9,21 +9,19 @@ test_that("input validation", {
                "'object' should be of class 'RLum.Analysis'")
   expect_error(plot_DetPlot(set_RLum("RLum.Analysis")),
                "'object' cannot be an empty RLum.Analysis")
+  expect_warning(
   expect_error(plot_DetPlot(object, signal.integral.min = "error"),
-               "'signal.integral.min' should be a single positive integer value")
-  expect_error(plot_DetPlot(object, signal.integral.min = 1,
-                            signal.integral.max = 1),
-               "'signal.integral.max' must be greater than 'signal.integral.min'")
-  expect_error(plot_DetPlot(object, signal.integral.min = 1,
-                            signal.integral.max = 2,
-                            background.integral.min = 900,
-                            background.integral.max = 1000,
+               "'signal.integral.min' should be of class 'integer' or 'numeric'"),
+               "were deprecated in v1.2.0, use 'signal_integral'")
+
+  expect_error(plot_DetPlot(object,
+                            signal_integral = 1:2,
+                            background_integral = 900:1000,
                             method = "error"),
                "'method' should be one of 'shift' or 'expansion'")
-  expect_error(plot_DetPlot(object, signal.integral.min = 1,
-                            signal.integral.max = 2,
-                            background.integral.min = 900,
-                            background.integral.max = 1000,
+  expect_error(plot_DetPlot(object,
+                            signal_integral = 1:2,
+                            background_integral = 900:1000,
                             analyse_function = "error",
                             verbose = FALSE),
                "'analyse_function' should be one of 'analyse_SAR.CWOSL'")
@@ -36,10 +34,8 @@ test_that("plot_DetPlot", {
   results <- expect_s4_class(plot_DetPlot(
     object,
     method = "shift",
-    signal.integral.min = 1,
-    signal.integral.max = 3,
-    background.integral.min = 900,
-    background.integral.max = 1000,
+    signal_integral = 1:3,
+    background_integral = 900:1000,
     analyse_function.control = list(
       fit.method = "LIN"),
     n.channels = 2,
@@ -52,10 +48,8 @@ test_that("plot_DetPlot", {
   expect_message(expect_s4_class(plot_DetPlot(
     object = list(x = object, y = object),
     method = "shift",
-    signal.integral.min = 1,
-    signal.integral.max = 3,
-    background.integral.min = 900,
-    background.integral.max = 1000,
+    signal_integral = 1:3,
+    background_integral = 900:1000,
     analyse_function.control = list(
       fit.method = "LIN",
       trim_channels = TRUE
@@ -70,10 +64,8 @@ test_that("plot_DetPlot", {
   expect_s4_class(plot_DetPlot(
     object = list(x = object, y = object),
     method = "shift",
-    signal.integral.min = 1,
-    signal.integral.max = 3,
-    background.integral.min = 900,
-    background.integral.max = 1000,
+    signal_integral = 1:3,
+    background_integral = 900:1000,
     analyse_function.control = list(
       fit.method = "LIN",
       trim_channels = TRUE
@@ -87,10 +79,8 @@ test_that("plot_DetPlot", {
   expect_s4_class(plot_DetPlot(
     object = list(x = object, y = object),
     method = "shift",
-    signal.integral.min = 1,
-    signal.integral.max = 3,
-    background.integral.min = 900,
-    background.integral.max = 1000,
+    signal_integral = 1:3,
+    background_integral = 900:1000,
     analyse_function.control = list(
       fit.method = "LIN",
       trim_channels = TRUE
@@ -110,10 +100,8 @@ test_that("plot_DetPlot", {
   results <- expect_s4_class(suppressWarnings(plot_DetPlot(
     object,
     method = "expansion",
-    signal.integral.min = 1,
-    signal.integral.max = 3,
-    background.integral.min = 900,
-    background.integral.max = 1000,
+    signal_integral = 1:3,
+    background_integral = 900:1000,
     analyse_function.control = list(
       fit.method = "EXP"),
     verbose = FALSE,
@@ -124,10 +112,8 @@ test_that("plot_DetPlot", {
   ## n.channels not set
   expect_message(plot_DetPlot(object,
                               method = "shift",
-                              signal.integral.min = 5,
-                              signal.integral.max = 6,
-                              background.integral.min = 10,
-                              background.integral.max = 50,
+                              signal_integral = 5:6,
+                              background_integral = 10:50,
                               analyse_function.control = list(
                                   fit.method = "LIN"),
                               verbose = TRUE),
@@ -138,10 +124,8 @@ test_that("plot_DetPlot", {
   plot_DetPlot(
       tmp,
       method = "expansion",
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 900,
-      background.integral.max = 1000,
+      signal_integral = 1:2,
+      background_integral = 900:1000,
       analyse_function = "analyse_pIRIRSequence",
       analyse_function.control = list(
           sequence.structure = c("TL", "IR50"),
@@ -152,10 +136,8 @@ test_that("plot_DetPlot", {
   expect_warning(plot_DetPlot(
       tmp,
       method = "expansion",
-      signal.integral.min = 1,
-      signal.integral.max = 2,
-      background.integral.min = 900,
-      background.integral.max = 1000,
+      signal_integral = 1:2,
+      background_integral = 900:1000,
       plot.single = TRUE,
       n.channels = 2),
       "'plot.single' was deprecated in v1.0.0, use 'plot_singlePanels' instead")
@@ -165,10 +147,8 @@ test_that("plot_DetPlot", {
   expect_error(
       expect_warning(plot_DetPlot(
           object,
-          signal.integral.min = 1,
-          signal.integral.max = 2,
-          background.integral.min = 900,
-          background.integral.max = 1000,
+          signal_integral = 1:2,
+          background_integral = 900:1000,
           analyse_function = "analyse_pIRIRSequence",
           analyse_function.control = list(
               fit.method = "LIN"),
@@ -177,6 +157,17 @@ test_that("plot_DetPlot", {
           "An error occurred, analysis skipped"),
       "No valid results produced")
   )
+
+  ## deprecated argument
+  expect_warning(plot_DetPlot(
+      object,
+      method = "shift",
+      signal.integral.min = 1,
+      signal.integral.max = 3,
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      n.channels = 1),
+      "were deprecated in v1.2.0, use 'signal_integral' and 'background_integral'")
   })
 })
 
@@ -190,10 +181,8 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("shift trim",
                               plot_DetPlot(object,
                                            method = "shift",
-                                           signal.integral.min = 1,
-                                           signal.integral.max = 3,
-                                           background.integral.min = 900,
-                                           background.integral.max = 1000,
+                                           signal_integral = 1:3,
+                                           background_integral = 900:1000,
                                            analyse_function.control = list(
                                                fit.method = "LIN",
                                                trim_channels = TRUE
@@ -202,10 +191,8 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("expansion",
                               plot_DetPlot(object,
                                            method = "expansion",
-                                           signal.integral.min = 1,
-                                           signal.integral.max = 3,
-                                           background.integral.min = 900,
-                                           background.integral.max = 1000,
+                                           signal_integral = 1:3,
+                                           background_integral = 900:1000,
                                            analyse_function.control = list(
                                                fit.method = "LIN"),
                                            n.channels = 2))

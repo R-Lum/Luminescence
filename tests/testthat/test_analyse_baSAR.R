@@ -6,75 +6,91 @@ CWOSL.sub <- subset(CWOSL.SAR.Data,
 test_that("input validation", {
   skip_on_cran()
 
-  expect_error(analyse_baSAR("error", verbose = FALSE),
+  expect_error(analyse_baSAR("error",
+                             signal_integral = 1:2, background_integral = 80:100,
+                             verbose = FALSE),
                "File '.*error' does not exist") # windows CI needs the regexp
-  expect_error(analyse_baSAR(list("error"), verbose = FALSE),
+  expect_error(analyse_baSAR(list("error"),
+                             signal_integral = 1:2, background_integral = 80:100,
+                             verbose = FALSE),
                "File '.*error' does not exist") # windows CI needs the regexp
   expect_error(analyse_baSAR(data.frame(), verbose = FALSE),
                "'object' should be of class 'Risoe.BINfileData', 'RLum.Results'")
   expect_error(analyse_baSAR(character(0), verbose = FALSE),
                "'object' cannot be an empty character")
-  expect_error(analyse_baSAR(list(data.frame()), verbose = FALSE),
+  expect_error(analyse_baSAR(list(data.frame()),
+                             signal_integral = 1:2, background_integral = 80:100,
+                             verbose = FALSE),
                "All elements of 'object' should be of class 'Risoe.BINfileData'")
-  expect_error(analyse_baSAR(list(CWOSL.sub, "error"), verbose = FALSE),
+  expect_error(analyse_baSAR(list(CWOSL.sub, "error"),
+                             signal_integral = 1:2, background_integral = 80:100,
+                             verbose = FALSE),
                "'object' only accepts a list of objects of the same type")
-  expect_error(analyse_baSAR(CWOSL.sub, n.MCMC = NULL),
+  expect_error(analyse_baSAR(CWOSL.sub,
+                             signal_integral = 1:2, background_integral = 80:100,
+                             n.MCMC = NULL),
                "'n.MCMC' should be a single positive integer value")
-  expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE),
+  expect_error(analyse_baSAR(CWOSL.sub,
+                             signal_integral = 1:2, background_integral = 80:100,
+                             verbose = FALSE),
                "'source_doserate' is missing, but the current implementation")
-  expect_error(analyse_baSAR(CWOSL.sub, fit.method = "error"),
+  expect_error(analyse_baSAR(CWOSL.sub,
+                             signal_integral = 1:2, background_integral = 80:100,
+                             fit.method = "error"),
                "'fit.method' should be one of 'EXP', 'EXP+LIN' or 'LIN'",
                fixed = TRUE)
-  expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
+  expect_error(analyse_baSAR(CWOSL.sub,
+                             background_integral = 80:100,
+                             verbose = FALSE,
                              source_doserate = c(0.04, 0.001)),
-               'argument "signal.integral" is missing, with no default')
+               "'signal_integral' should be of class 'integer', 'numeric' or 'list'")
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),
-                             signal.integral = c(1:2)),
-               'argument "background.integral" is missing, with no default')
+                             signal_integral = 1:2),
+               "'background_integral' should be of class 'integer', 'numeric' or 'list'")
 
   ## CSV_file
   csv.file <- tempfile()
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),
-                             signal.integral = c(1:2),
-                             background.integral = c(80:100),
+                             signal_integral = 1:2,
+                             background_integral = 80:100,
                              CSV_file = list()),
                "'CSV_file' should be of class 'data.frame', 'character' or NULL")
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),
-                             signal.integral = c(1:2),
-                             background.integral = c(80:100),
+                             signal_integral = 1:2,
+                             background_integral = 80:100,
                              CSV_file = "error"),
                "does not exist or is non-readable")
   data.table::fwrite(data.frame(BIN_file = "a", DISC = 1), file = csv.file)
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),
-                             signal.integral = c(1:2),
-                             background.integral = c(80:100),
+                             signal_integral = 1:2,
+                             background_integral = 80:100,
                              CSV_file = csv.file),
                "'CSV_file' should have at least 3 columns for the name of the")
   data.table::fwrite(data.frame(a = "error", b = 1, c = 2), file = csv.file)
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),
-                             signal.integral = c(1:2),
-                             background.integral = c(80:100),
+                             signal_integral = 1:2,
+                             background_integral = 80:100,
                              CSV_file = csv.file),
                "One of the first 3 columns in 'CSV_file' has no header")
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),
-                             signal.integral = c(1:2),
-                             background.integral = c(80:100),
+                             signal_integral = 1:2,
+                             background_integral = 80:100,
                              CSV_file = data.frame(a = NA, b = NA)),
                "'CSV_file' should have at least 3 columns for the name of the")
   expect_warning(expect_error(
                  analyse_baSAR(CWOSL.sub, verbose = FALSE,
                                sigmab = list(0.23), sig0 = list(0.02),
                                source_doserate = list(0.04, 0.001),
-                               signal.integral = list(1, 2),
-                               signal.integral.Tx = c(2:4),
-                               background.integral = list(80, 100),
-                               background.integral.Tx = c(80:100),
+                               signal_integral = list(1, 2),
+                               signal_integral_Tx = 2:4,
+                               background_integral = list(80, 100),
+                               background_integral_Tx = 80:100,
                                CSV_file = data.frame(a = "error", b = 1, c = 2)),
                  "BIN-file names provided via 'CSV_file' do not match the loaded BIN-files",
                  fixed = TRUE),
@@ -82,18 +98,20 @@ test_that("input validation", {
 
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),
-                             signal.integral = c(1:2),
-                             background.integral = c(80:100),
+                             signal_integral = 1:2,
+                             background_integral = 80:100,
                              CSV_file = data.frame(a = NA, b = 1, c = 2)),
                "Number of discs/grains = 0")
 
   SW({
   obj <- Risoe.BINfileData2RLum.Analysis(CWOSL.sub)
   expect_error(suppressWarnings(
-      analyse_baSAR(obj, verbose = TRUE)),
+      analyse_baSAR(obj, signal_integral = 1:2, background_integral = 80:100,
+                    verbose = TRUE)),
       "No records of the appropriate type were found")
   expect_error(suppressWarnings(
-    analyse_baSAR(obj, recordType = "NONE", verbose = TRUE)),
+      analyse_baSAR(obj, signal_integral = 1:2, background_integral = 80:100,
+                    recordType = "NONE", verbose = TRUE)),
     "No records of the appropriate type were found")
 
   empty <- CWOSL.sub
@@ -101,8 +119,8 @@ test_that("input validation", {
   expect_error(expect_warning(
       analyse_baSAR(list(empty),
                     source_doserate = c(0.04, 0.001),
-                    signal.integral = c(1:2),
-                    background.integral = c(80:100)),
+                    signal_integral = 1:2,
+                    background_integral = 80:100),
       "No data selected from BIN-file 1, BIN-file removed from input"),
       "All provided objects were removed")
   })
@@ -110,8 +128,8 @@ test_that("input validation", {
   expect_warning(expect_output(
       analyse_baSAR(CWOSL.sub, verbose = FALSE,
                     source_doserate = c(0.04, 0.001),
-                    signal.integral = c(1:2),
-                    background.integral = c(80:100),
+                    signal_integral = 1:2,
+                    background_integral = 80:100,
                     fit.method = "LIN", fit.force_through_origin = FALSE,
                     distribution = "error"),
       "[analyse_baSAR()] No pre-defined model for the requested distribution",
@@ -121,8 +139,8 @@ test_that("input validation", {
   expect_warning(expect_output(
       analyse_baSAR(CWOSL.sub, verbose = FALSE,
                     source_doserate = c(0.04, 0.001),
-                    signal.integral = c(1:2),
-                    background.integral = c(80:100),
+                    signal_integral = 1:2,
+                    background_integral = 80:100,
                     distribution = "user_defined"),
       "[analyse_baSAR()] You specified a 'user_defined' distribution",
       fixed = TRUE),
@@ -131,8 +149,8 @@ test_that("input validation", {
   expect_message(expect_output(suppressWarnings(
       analyse_baSAR(CWOSL.sub, verbose = FALSE,
                     source_doserate = c(0.04, 0.001),
-                    signal.integral = c(1:2),
-                    background.integral = c(80:100),
+                    signal_integral = 1:2,
+                    background_integral = 80:100,
                     distribution = "cauchy",
                     baSAR_model = "error")),
       "Error parsing model file"),
@@ -141,22 +159,24 @@ test_that("input validation", {
   expect_error(suppressWarnings(
       analyse_baSAR(CWOSL.SAR.Data, verbose = FALSE,
                     source_doserate = c(0.04, 0.001),
-                    signal.integral = c(1:2),
-                    background.integral = c(80:100),
+                    signal_integral = 1:2,
+                    background_integral = 80:100,
                     distribution = "user_defined")),
       "Different number of channels for Lx (250) and Tx (1000)",
       fixed = TRUE)
 
   SW({
   data(ExampleData.RLum.Analysis, envir = environment())
-  expect_error(analyse_baSAR(list(IRSAR.RF.Data), verbose = TRUE),
+  expect_error(analyse_baSAR(list(IRSAR.RF.Data),
+                             signal_integral = 1:2, background_integral = 80:100,
+                             verbose = TRUE),
                "At least two aliquots are needed for the calculation")
 
   expect_warning(expect_output(
       analyse_baSAR(list(CWOSL.sub, CWOSL.sub), verbose = TRUE,
                     source_doserate = c(0.04, 0.001),
-                    signal.integral = c(1:2),
-                    background.integral = c(80:100),
+                    signal_integral = 1:2,
+                    background_integral = 80:100,
                     fit.method = "LIN", fit.force_through_origin = FALSE,
                     distribution = "normal",
                     n.MCMC = 75)),
@@ -165,8 +185,8 @@ test_that("input validation", {
   CWOSL.min <- subset(CWOSL.sub, subset = ID < 20)
   expect_warning(expect_error(
       analyse_baSAR(CWOSL.min, source_doserate = c(0.04, 0.001),
-                    signal.integral = c(1:2),
-                    background.integral = c(5:15),
+                    signal_integral = 1:2,
+                    background_integral = 5:15,
                     method_control = list(n.chains = 1),
                     n.MCMC = 10),
       "In input 1 the number of data points (19) is not a multiple of the",
@@ -177,8 +197,8 @@ test_that("input validation", {
   CWOSL.sub2@METADATA$FNAME <- "Other file"
   expect_warning(analyse_baSAR(list(CWOSL.sub, CWOSL.sub2),
                                source_doserate = list(c(0.04, 0.001), c(0.05, 0.02)),
-                               signal.integral = c(1:2),
-                               background.integral = c(5:15),
+                               signal_integral = 1:2,
+                               background_integral = 5:15,
                                method_control = list(n.chains = 1),
                                n.MCMC = 10),
                  "Provided source dose rate errors differ")
@@ -189,8 +209,8 @@ test_that("input validation", {
   expect_warning(expect_message(expect_null(
       analyse_baSAR(CWOSL.mod, verbose = FALSE,
                     source_doserate = c(0.04, 0.001),
-                    signal.integral = 1:2,
-                    background.integral = 80:100)),
+                    signal_integral = 1:2,
+                    background_integral = 80:100)),
       "position number 2 does not exist, NULL returned"),
       "Only multiple grain data provided, automatic selection skipped")
 
@@ -199,8 +219,8 @@ test_that("input validation", {
   expect_warning(expect_message(expect_null(
       analyse_baSAR(CWOSL.mod, verbose = FALSE,
                     source_doserate = c(0.04, 0.001),
-                    signal.integral = 1:2,
-                    background.integral = 80:100)),
+                    signal_integral = 1:2,
+                    background_integral = 80:100)),
       "grain number 0 does not exist, NULL returned"),
       "Only multiple grain data provided, automatic selection skipped")
 })
@@ -216,8 +236,8 @@ test_that("Full check of analyse_baSAR function", {
     expect_snapshot_RLum(results <- suppressWarnings(analyse_baSAR(
       object = CWOSL.sub,
       source_doserate = c(0.04, 0.001),
-      signal.integral = c(1:2),
-      background.integral = c(80:100),
+      signal_integral = 1:2,
+      background_integral = 80:100,
       fit.method = "EXP",
       method_control = list(inits = list(
         list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 1),
@@ -237,8 +257,8 @@ test_that("Full check of analyse_baSAR function", {
       expect_snapshot_RLum(results <- suppressWarnings(analyse_baSAR(
         object = CWOSL.sub,
         source_doserate = c(0.04),
-        signal.integral = c(1:2),
-        background.integral = c(80:100),
+        signal_integral = 1:2,
+        background_integral = 80:100,
         fit.method = "EXP",
         method_control = list(inits = list(
           list(.RNG.name = "base::Wichmann-Hill", .RNG.seed = 1),
@@ -346,8 +366,8 @@ test_that("Full check of analyse_baSAR function", {
   expect_warning(analyse_baSAR(
       object = CWOSL.sub,
       source_doserate = c(NaN, 0.001),
-      signal.integral = 1:2,
-      background.integral = 80:100,
+      signal_integral = 1:2,
+      background_integral = 80:100,
       plot = FALSE,
       verbose = TRUE,
       n.MCMC = 100),
@@ -358,8 +378,8 @@ test_that("Full check of analyse_baSAR function", {
   CWOSL.mod@METADATA$SEL <- FALSE
   expect_warning(expect_null(analyse_baSAR(CWOSL.mod, verbose = TRUE,
                                            source_doserate = c(0.04, 0.001),
-                                           signal.integral = c(1:2),
-                                           background.integral = c(80:100),
+                                           signal_integral = 1:2,
+                                           background_integral = 80:100,
                                            method_control = list(n.chains = 1),
                                            n.MCMC = 100)),
                  "No records selected, NULL returned")
@@ -368,8 +388,8 @@ test_that("Full check of analyse_baSAR function", {
   CWOSL.mod@METADATA$SEL[19:24] <- FALSE
   expect_message(analyse_baSAR(CWOSL.mod, verbose = TRUE,
                                source_doserate = c(0.04, 0.001),
-                               signal.integral = c(1:2),
-                               background.integral = c(80:100),
+                               signal_integral = 1:2,
+                               background_integral = 80:100,
                                method_control = list(n.chains = 1),
                                n.MCMC = 100),
                  "Record pre-selection in BIN-file detected, record reduced to")
@@ -378,8 +398,8 @@ test_that("Full check of analyse_baSAR function", {
   CWOSL.mod@METADATA$GRAIN[-c(19:24)] <- 2
   expect_warning(analyse_baSAR(CWOSL.mod, verbose = TRUE,
                                source_doserate = c(0.04, 0.001),
-                               signal.integral = c(1:2),
-                               background.integral = c(80:100),
+                               signal_integral = 1:2,
+                               background_integral = 80:100,
                                method_control = list(n.chains = 1),
                                n.MCMC = 100),
                  "Automatic grain selection: 3 curves with grain index 0 have been removed")
@@ -397,8 +417,8 @@ test_that("Full check of analyse_baSAR function", {
 
   SW({
   expect_warning(analyse_baSAR(CWOSL.sub, source_doserate = c(0.04, 0.001),
-                               signal.integral = c(1:2),
-                               background.integral = c(8:10),
+                               signal_integral = 1:2,
+                               background_integral = 8:10,
                                method_control = list(n.chains = 1),
                                n.MCMC = 10),
                  "Number of background channels for Tx < 25")
@@ -407,8 +427,8 @@ test_that("Full check of analyse_baSAR function", {
   analyse_baSAR(CWOSL.sub,
                 CSV_file = df,
                 source_doserate = c(0.04, 0.001),
-                signal.integral = c(1:2),
-                background.integral = c(8:10),
+                signal_integral = 1:2,
+                background_integral = 8:10,
                 method_control = list(n.chains = 1),
                 aliquot_range = 1:2,
                 n.MCMC = 10)
@@ -417,8 +437,8 @@ test_that("Full check of analyse_baSAR function", {
   analyse_baSAR(CWOSL.sub,
                 CSV_file = df,
                 source_doserate = c(0.04, 0.001),
-                signal.integral = 1:2,
-                background.integral = 8:40,
+                signal_integral = 1:2,
+                background_integral = 8:40,
                 method_control = list(n.chains = 1),
                 aliquot_range = 1:4,
                 n.MCMC = 10)
@@ -426,8 +446,8 @@ test_that("Full check of analyse_baSAR function", {
   vnames <- c("central_D", "sigma_D", "")
   expect_message(analyse_baSAR(CWOSL.sub,
                                source_doserate = c(0.04, 0.001),
-                               signal.integral = 1:2,
-                               background.integral = 60:100,
+                               signal_integral = 1:2,
+                               background_integral = 60:100,
                                method_control = list(n.chains = 1,
                                                      variable.names = vnames),
                                plot_reduced = FALSE,
@@ -437,8 +457,8 @@ test_that("Full check of analyse_baSAR function", {
   vnames <- c("D", "Q", "a", "b", "c", "g")
   expect_message(analyse_baSAR(CWOSL.sub,
                                source_doserate = c(0.04, 0.001),
-                               signal.integral = 1:2,
-                               background.integral = 60:100,
+                               signal_integral = 1:2,
+                               background_integral = 60:100,
                                method_control = list(n.chains = 1,
                                                      variable.names = vnames),
                                n.MCMC = 10, verbose = FALSE),
@@ -447,8 +467,8 @@ test_that("Full check of analyse_baSAR function", {
   ## user model just for coverage
   expect_output(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                               source_doserate = c(0.04, 0.001),
-                              signal.integral = 1:2,
-                              background.integral = 80:100,
+                              signal_integral = 1:2,
+                              background_integral = 80:100,
                               distribution = "cauchy",
                               baSAR_model =
                                 "model {
@@ -468,6 +488,15 @@ test_that("Full check of analyse_baSAR function", {
                                 }",
                               method_control = list(n.chains = 1),
                               n.MCMC = 10))
+
+  ## deprecated arguments
+  expect_warning(analyse_baSAR(CWOSL.sub, verbose = FALSE,
+                               source_doserate = c(0.04, 0.001),
+                               signal.integral = 1:2,
+                               background.integral = 80:100,
+                               method_control = list(n.chains = 1, thin = 10),
+                               n.MCMC = 60),
+                 "deprecated in v1.2.0, use 'signal_integral', 'background_integral'")
   })
 })
 
@@ -479,8 +508,8 @@ test_that("regression tests", {
   expect_warning(expect_s4_class(
       analyse_baSAR(CWOSL.sub, verbose = FALSE, plot = FALSE,
                     source_doserate = c(0.04, 0.001),
-                    signal.integral = c(1:2),
-                    background.integral = c(80:100),
+                    signal_integral = 1:2,
+                    background_integral = 80:100,
                     method_control = list(n.chains = 1, thin = 60),
                     n.MCMC = 60),
       "RLum.Results"),
@@ -492,8 +521,8 @@ test_that("regression tests", {
       analyse_baSAR(CWOSL.sub,
                     CSV_file = df,
                     source_doserate = c(0.04, 0.001),
-                    signal.integral = 1:2,
-                    background.integral = 8:40,
+                    signal_integral = 1:2,
+                    background_integral = 8:40,
                     method_control = list(n.chains = 1),
                     aliquot_range = 1,
                     n.MCMC = 10),
@@ -507,12 +536,12 @@ test_that("regression tests", {
                 verbose = FALSE,
                 plot = FALSE,
                 source_doserate = c(0.04, 0.001),
-                signal.integral = c(1:2),
+                signal_integral = 1:2,
                 irradiation_times = c(0, 0, 0, 0, 0, 0, 450, 450, 450, 0, 0, 0,
                                       1050, 1050, 1050, 0, 0, 0, 2000, 2000, 2000, 0, 0, 0,
                                       2550, 2550, 2550, 0, 0, 0, 450, 450,
                                       450, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-                background.integral = c(80:100),
+                background_integral = 80:100,
                 n.MCMC = 10)), "RLum.Results")
   })
 
@@ -522,9 +551,9 @@ test_that("regression tests", {
                 verbose = FALSE,
                 plot = FALSE,
                 source_doserate = c(0.04, 0.001),
-                signal.integral = c(1:2),
+                signal_integral = 1:2,
                 irradiation_times = c(0),
-                background.integral = c(80:100),
+                background_integral = 80:100,
                 n.MCMC = 10)),
      regexp = "Error: All irradiation times are identical, NULL returned")
 
@@ -543,8 +572,8 @@ test_that("regression tests", {
                 plot = FALSE,
                 recordType = c("OSL", "NONE"),
                 source_doserate = c(0.04, 0.001),
-                signal.integral = c(1:2),
-                background.integral = c(80:100),
+                signal_integral = 1:2,
+                background_integral = 80:100,
                 n.MCMC = 10)), "RLum.Results")
   })
 
@@ -555,8 +584,8 @@ test_that("regression tests", {
                     verbose = FALSE,
                     recordType = c("OSL", "NONE"),
                     source_doserate = c(0.04, 0.001),
-                    signal.integral = c(1:2),
-                    background.integral = c(80:100),
+                    signal_integral = 1:2,
+                    background_integral = 80:100,
                     n.MCMC = 10)),
       "Object conversion failed, NULL returned")
   })

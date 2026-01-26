@@ -138,10 +138,8 @@
 #'##perform SAR analysis and set rejection criteria
 #'results <- analyse_SAR.CWOSL(
 #' object = object,
-#' signal.integral.min = 1,
-#' signal.integral.max = 2,
-#' background.integral.min = 900,
-#' background.integral.max = 1000,
+#' signal_integral = 1:2,
+#' background_integral = 900:900,
 #' verbose = FALSE,
 #' plot = FALSE,
 #' onlyLxTxTable = TRUE
