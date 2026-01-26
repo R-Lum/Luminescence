@@ -143,11 +143,11 @@ plot_GrowthCurve <- function(
   extraArgs <- list(...)
   if ("output.plotExtended.single" %in% names(extraArgs)) {
     plot_singlePanels <- extraArgs$output.plotExtended.single
-    .deprecated("output.plotExtended.single", "plot_singlePanels")
+    .deprecated("output.plotExtended.single", "plot_singlePanels", since = "1.0.0")
   }
   if ("NumberIterations.MC" %in% names(extraArgs)) {
     n.MC <- extraArgs$NumberIterations.MC
-    .deprecated("NumberIterations.MC", "n.MC")
+    .deprecated("NumberIterations.MC", "n.MC", since = "1.0.0")
   }
 
   ## input validation

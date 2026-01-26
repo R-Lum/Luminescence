@@ -633,7 +633,7 @@ analyse_FadingMeasurement <- function(
     ## deprecated argument
     if ("plot.single" %in% ...names()) {
       plot_singlePanels <- list(...)$plot.single
-      .deprecated("plot.single", "plot_singlePanels")
+      .deprecated("plot.single", "plot_singlePanels", since = "1.0.0")
     }
 
     ## split the plot area into 4 regions if plot_singlePanels = FALSE (default)

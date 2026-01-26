@@ -158,7 +158,7 @@ test_that("plot_DetPlot", {
       background.integral.max = 1000,
       plot.single = TRUE,
       n.channels = 2),
-      "'plot.single' has been deprecated, use 'plot_singlePanels' instead")
+      "'plot.single' was deprecated in v1.0.0, use 'plot_singlePanels' instead")
 
   ## analyse_pIRIRSequence on an inconsistent object
   suppressWarnings( # ignore additional warnings from fit_DoseResponseCurve()

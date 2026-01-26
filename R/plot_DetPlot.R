@@ -229,7 +229,7 @@ plot_DetPlot <- function(
   ## deprecated argument
   if ("plot.single" %in% ...names()) {
     plot_singlePanels <- list(...)$plot.single
-    .deprecated("plot.single", "plot_singlePanels")
+    .deprecated("plot.single", "plot_singlePanels", since = "1.0.0")
   }
 
 # Set parameters ------------------------------------------------------------------------------

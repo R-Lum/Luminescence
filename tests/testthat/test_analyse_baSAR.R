@@ -308,8 +308,8 @@ test_that("Full check of analyse_baSAR function", {
       output.plot = FALSE,
       output.plotExtended = FALSE,
       n.MCMC = 100),
-    "'output.plotExtended' has been deprecated, use 'plot_extended' instead"),
-    "'plot.single' has been deprecated, use 'plot_singlePanels' instead")
+    "'output.plotExtended' was deprecated in v1.2.0, use 'plot_extended' instead"),
+    "'plot.single' was deprecated in v1.0.0, use 'plot_singlePanels' instead")
 
   expect_message(
       analyse_baSAR(

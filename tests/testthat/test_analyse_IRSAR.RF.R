@@ -115,7 +115,7 @@ test_that("input validation", {
   ## deprecated option
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, verbose = FALSE,
                                   method.control = list(cores = 1)),
-                 "'method.control' has been deprecated, use 'method_control'")
+                 "'method.control' was deprecated in v1.0.0, use 'method_control'")
 })
 
 test_that("snapshot tests", {

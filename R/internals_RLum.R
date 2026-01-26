@@ -1068,17 +1068,14 @@ fancy_scientific <- function(l) {
 #'
 #' @param old Old argument names.
 #' @param new New argument names.
-#' @param since Release when the deprecation started (`NULL` by default).
+#' @param since Release when the deprecation happened.
 #'
 #' @noRd
-.deprecated <- function(old, new, since = NULL) {
-  plural <- length(old) > 1
+.deprecated <- function(old, new, since) {
   .throw_warning(.collapse(old, last_sep = " and "),
-                 if (plural) " have " else " has ",
-                 "been deprecated",
-                 if (!is.null(since)) paste0(" since v", since),
-                 ", use ",
-                 .collapse(new, last_sep = " and "), " instead")
+                 if (length(old) > 1) " were " else " was ", "deprecated",
+                 paste0(" in v", since),
+                 ", use ", .collapse(new, last_sep = " and "), " instead")
 }
 
 #' @title Silence Output and Warnings during Tests
