@@ -10,8 +10,8 @@
 #' It further assumes (or rather requires) an equal amount of OSL and IRSL curves that
 #' are pairwise combined for calculating the IRSL/OSL ratio.
 #' For calculating the depletion ratios, the cumulative signal of the last *n*
-#' channels (same number of channels as specified by `signal.integral`) is
-#' divided by cumulative signal of the first *n* channels (`signal.integral`).
+#' channels (same number of channels as specified by `signal_integral`) is
+#' divided by cumulative signal of the first *n* channels (`signal_integral`).
 #'
 #' **Note:  The function assumes the following sequence pattern:
 #' `DARK COUNT`, `IRSL`, `DARK COUNT`, `BSL`, `DARK COUNT`.** Therefore, the
@@ -44,8 +44,8 @@
 #' in which case each input is treated as a separate sample and the results
 #' are merged.
 #'
-#' @param signal.integral [numeric] (**required**):
-#' A vector specifying the range of channels used to calculate the OSL/IRSL
+#' @param signal_integral [numeric] (**required**):
+#' vector specifying the range of channels used to calculate the OSL/IRSL
 #' signal. It can be provided as a vector of length 2 such as `c(1, 5)`, or
 #' as a sequence such as `1:5`, in which case the lowest and highest values
 #' define the range.
@@ -97,7 +97,7 @@
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @section Function version: 0.1.3
+#' @section Function version: 0.1.4
 #'
 #' @keywords datagen plot
 #'
@@ -119,7 +119,7 @@
 #' # (3) analyse and plot
 #' results <- analyse_portableOSL(
 #'   merged,
-#'   signal.integral = 1:5,
+#'   signal_integral = 1:5,
 #'   invert = FALSE,
 #'   normalise = TRUE)
 #' get_RLum(results)
@@ -127,7 +127,7 @@
 #' @export
 analyse_portableOSL <- function(
   object,
-  signal.integral = NULL,
+  signal_integral = NULL,
   invert = FALSE,
   normalise = FALSE,
   mode = "profile",
@@ -143,7 +143,7 @@ analyse_portableOSL <- function(
       temp <- .warningCatcher(lapply(seq_along(object), function(x) {
         analyse_portableOSL(
           object = object[[x]],
-          signal.integral = signal.integral,
+          signal_integral = signal_integral,
           invert = invert,
           normalise = normalise,
           mode = mode,
@@ -175,24 +175,28 @@ analyse_portableOSL <- function(
            c("USER", "IRSL", "USER", "OSL", "USER")))
     .throw_error("Sequence pattern not supported: see the manual for details")
 
-  if (is.null(signal.integral)) {
-    signal.integral <- c(1, 1)
-    .throw_warning("No value for 'signal.integral' provided. Only the ",
-                   "first data point of each curve was used")
-  } else {
-    signal.integral <- range(signal.integral)
+  ## deprecated argument
+  if (any(grepl("signal.integral", ...names(), fixed = TRUE))) {
+    .deprecated(old = "signal.integral",
+                new = "signal_integral",
+                since = "1.2.0")
+    signal_integral <- list(...)$signal.integral
   }
 
   ## set the maximum signal_integral allowed: as this must be valid across all
   ## records, we cap it to the minimum number of points
   num.points <- min(lengths(get_RLum(object, recordType = c("OSL", "IRSL"))))
-  if (max(signal.integral) > num.points || min(signal.integral) < 1) {
-    orig.signal.int <- signal.integral
-    signal.integral <- pmin(pmax(signal.integral, 1), num.points)
-    .throw_warning("'signal.integral' (",
-                   .collapse(orig.signal.int, quote = FALSE), ") ",
-                   "exceeds the number of data points, reset to (",
-                   .collapse(signal.integral, quote = FALSE), ")")
+
+  signal_integral <- .validate_integral(signal_integral, max = num.points,
+                                        null.ok = TRUE)
+
+  ## convert the signal integral to a range
+  if (is.null(signal_integral)) {
+    signal_integral <- c(1, 1)
+    .throw_warning("No value for 'signal_integral' provided. Only the ",
+                   "first data point of each curve was used")
+  } else {
+    signal_integral <- range(signal_integral)
   }
 
   .validate_args(mode, c("profile", "surface"))
@@ -209,11 +213,11 @@ analyse_portableOSL <- function(
   ## returns a list
   ### get OSL -------
   OSL <- .unlist_RLum(list(get_RLum(object, recordType = "OSL")))
-  OSL <- do.call(rbind, lapply(OSL, .posl_get_signal, signal.integral))
+  OSL <- do.call(rbind, lapply(OSL, .posl_get_signal, signal_integral))
 
   ### get IRSL -------
   IRSL <- .unlist_RLum(list(get_RLum(object, recordType = "IRSL")))
-  IRSL <- do.call(rbind, lapply(IRSL, .posl_get_signal, signal.integral))
+  IRSL <- do.call(rbind, lapply(IRSL, .posl_get_signal, signal_integral))
 
   if (nrow(OSL) != nrow(IRSL)) {
     .throw_error("Sequence pattern not supported: the number of OSL records ",

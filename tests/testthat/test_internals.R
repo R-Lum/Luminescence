@@ -583,6 +583,32 @@ test_that("Test internals", {
   expect_false(.check_originator(NULL, "orig"))
   expect_false(.check_originator(iris, "orig"))
 
+  ## .validate_integral() ----------------------------------------------------
+  expect_null(.validate_integral(NULL, null.ok = TRUE))
+  expect_equal(.validate_integral(integral <- 5:1),
+               1:5)
+  expect_warning(expect_equal(.validate_integral(integral <- c(5:1, -3:3)),
+                              1:5),
+                 "'integral' reset to be between 1 and 5")
+  expect_warning(expect_equal(.validate_integral(integral <- 1:100,
+                                                 min = 5, max = 50),
+                              5:50),
+                 "'integral' reset to be between 5 and 50")
+  expect_error(.validate_integral(integral <- "error"),
+               "'integral' should be of class 'integer' or 'numeric'")
+  expect_error(.validate_integral(integral <- -9:0),
+               "'integral' is of length 0 after removing values smaller than 1$")
+  expect_error(.validate_integral(integral <- 1:10, min = 50, max = 100),
+               "after removing values smaller than 50 and greater than 100")
+  expect_error(.validate_integral(integral <- 1:5 + 0.1),
+               "'integral' should be a vector of integers")
+  expect_error(.validate_integral(list.integral <- list(1:4)),
+               "'list.integral' should be of class 'integer' or 'numeric'")
+  expect_error(.validate_integral(list.integral <- list("error"), list.ok = TRUE),
+               "All elements of 'list.integral' should be of class 'integer' or")
+  expect_equal(.validate_integral(list.integral <- list(5:1), list.ok = TRUE),
+               list(1:5))
+
   ## .require_suggested_package() -------------------------------------------
   expect_true(.require_suggested_package("utils"))
   expect_error(.require_suggested_package("error"),

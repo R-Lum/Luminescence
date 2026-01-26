@@ -7,15 +7,16 @@
 calc_OSLLxTxRatio(
   Lx.data,
   Tx.data = NULL,
-  signal.integral = NULL,
-  signal.integral.Tx = NULL,
-  background.integral = NULL,
-  background.integral.Tx = NULL,
+  signal_integral = NULL,
+  background_integral = NULL,
+  signal_integral_Tx = NULL,
+  background_integral_Tx = NULL,
   background.count.distribution = "non-poisson",
   use_previousBG = FALSE,
   sigmab = NULL,
   sig0 = 0,
-  digits = NULL
+  digits = NULL,
+  ...
 )
 }
 \arguments{
@@ -27,21 +28,21 @@ requires a CW-OSL shine down curve (x = time, y = counts). If no
 input is given the \code{Tx.data} will be treated as \code{NA} and no \code{Lx/Tx} ratio
 is calculated.}
 
-\item{signal.integral}{\link{numeric} (\strong{required}):
-vector with the limits for the signal integral. If set to \code{NA}, no integrals
-are considered and all other integrals are ignored.}
+\item{signal_integral}{\link{integer} (\strong{required}):
+vector of channels for the signal integral. If set to \code{NA}, no integrals
+are taken into account.}
 
-\item{signal.integral.Tx}{\link{numeric} (\emph{optional}):
-vector with the limits for the signal integral for the \code{Tx}-curve. If
-missing, the value from \code{signal.integral} is used.}
+\item{background_integral}{\link{integer} (\strong{required}):
+vector of channels for the background integral. If set to \code{NA}, no integrals
+are taken into account.}
 
-\item{background.integral}{\link{numeric} (\strong{required}):
-vector with the limits for the background integral. If set to \code{NA}, no
-integrals are considered and all other integrals ignored.}
+\item{signal_integral_Tx}{\link{integer} (\emph{optional}):
+vector of channels for the signal integral for the \code{Tx} curve.
+If missing, the \code{signal_integral} vector is used.}
 
-\item{background.integral.Tx}{\link{numeric} (\emph{optional}):
-vector with the limits for the background integral for the \code{Tx} curve.
-If missing, the value from \code{background.integral} is used.}
+\item{background_integral_Tx}{\link{integer} (\emph{optional}):
+vector of channels for the background integral for the \code{Tx} curve.
+If missing, the \code{background_integral} vector is used.}
 
 \item{background.count.distribution}{\link{character} (\emph{with default}):
 sets the count distribution assumed for the error calculation.
@@ -65,6 +66,8 @@ allow adding an extra component of error to the final \code{Lx/Tx} error value
 
 \item{digits}{\link{integer} (\emph{with default}):
 round numbers to the specified digits. If set to \code{NULL} no rounding occurs.}
+
+\item{...}{currently not used.}
 }
 \value{
 Returns an S4 object of type \linkS4class{RLum.Results}.
@@ -162,7 +165,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.9.0
+ 0.9.1
 }
 
 \examples{
@@ -174,8 +177,8 @@ data(ExampleData.LxTxOSLData, envir = environment())
 results <- calc_OSLLxTxRatio(
  Lx.data = Lx.data,
  Tx.data = Tx.data,
- signal.integral = c(1:2),
- background.integral = c(85:100))
+ signal_integral = 1:2,
+ background_integral = 85:100)
 
 ##get results object
 get_RLum(results)

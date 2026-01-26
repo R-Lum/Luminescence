@@ -187,31 +187,31 @@
 #' @param source_doserate [numeric] (**required**):
 #' source dose rate of beta-source used for the measurement and its uncertainty
 #' in Gy/s, e.g., `source_doserate = c(0.12, 0.04)`. Parameter can be provided
-#' as `list`, for the case that more than one BIN-file is provided, e.g.,
+#' as a list, for the case that more than one BIN-file is provided, e.g.,
 #' `source_doserate = list(c(0.04, 0.004), c(0.05, 0.004))`.
 #'
-#' @param signal.integral [vector] (**required**):
+#' @param signal_integral [vector] (**required**):
 #' vector with the limits for the signal integral used for the calculation,
-#' e.g., `signal.integral = c(1:5)`. Ignored if `object` is an
+#' e.g., `signal_integral = 1:5`. It is ignored if `object` is an
 #' [Luminescence::RLum.Results-class] object.
-#' The parameter can be provided as `list`, see `source_doserate`.
+#' The parameter can be provided as a list, see `source_doserate`.
 #'
-#' @param signal.integral.Tx [vector] (*optional*):
-#' vector with the limits for the signal integral for the Tx curve. I
-#' f nothing is provided the value from `signal.integral` is used and it is ignored
+#' @param background_integral [vector] (**required**):
+#' vector with the limits for the background integral. It is ignored if
+#' `object` is an [Luminescence::RLum.Results-class] object.
+#' The parameter can be provided as a list, see `source_doserate`.
+#'
+#' @param signal_integral_Tx [vector] (*optional*):
+#' vector with the limits for the signal integral for the Tx curve. If nothing
+#' is provided, the value from `signal_integral` is used. It is ignored
 #' if `object` is an [Luminescence::RLum.Results-class] object.
-#' The parameter can be provided as `list`, see `source_doserate`.
+#' The parameter can be provided as a list, see `source_doserate`.
 #'
-#' @param background.integral [vector] (**required**):
-#' vector with the bounds for the background integral.
-#' Ignored if `object` is an [Luminescence::RLum.Results-class] object.
-#' The parameter can be provided as `list`, see `source_doserate`.
-#'
-#' @param background.integral.Tx [vector] (*optional*):
+#' @param background_integral_Tx [vector] (*optional*):
 #' vector with the limits for the background integral for the Tx curve.
-#' If nothing is provided the value from `background.integral` is used.
-#' Ignored if `object` is an [Luminescence::RLum.Results-class] object.
-#' The parameter can be provided as `list`, see `source_doserate`.
+#' If nothing is provided, the value from `background_integral` is used.
+#' It is ignored if `object` is an [Luminescence::RLum.Results-class] object.
+#' The parameter can be provided as a list, see `source_doserate`.
 #'
 #' @param irradiation_times [numeric] (*optional*): if set this vector replaces all irradiation
 #' times for one aliquot and one cycle (Lx and Tx curves) and recycles it for all others cycles and aliquots.
@@ -325,7 +325,7 @@
 #'
 #' **Please note: If distribution was set to `log_normal` the central dose is given as geometric mean!**
 #'
-#' @section Function version: 0.1.38
+#' @section Function version: 0.1.39
 #'
 #' @author
 #' Norbert Mercier, Archéosciences Bordeaux, CNRS-Université Bordeaux Montaigne (France) \cr
@@ -361,8 +361,8 @@
 #' **If you provide more than one BIN-file**, it is **strongly** recommended to provide
 #' a `list` with the same number of elements for the following parameters:
 #'
-#' `source_doserate`, `signal.integral`, `signal.integral.Tx`, `background.integral`,
-#' `background.integral.Tx`, `sigmab`, `sig0`.
+#' `source_doserate`, `signal_integral`, `signal_integral_Tx`, `background_integral`,
+#' `background_integral_Tx`, `sigmab`, `sig0`.
 #'
 #' Example for two BIN-files: `source_doserate = list(c(0.04, 0.006), c(0.05, 0.006))`
 #'
@@ -387,15 +387,14 @@
 #' results <- analyse_baSAR(
 #'   object = CWOSL.SAR.Data,
 #'   source_doserate = c(0.04, 0.001),
-#'   signal.integral = c(1:2),
-#'   background.integral = c(80:100),
+#'   signal_integral = 1:2,
+#'   background_integral = 80:100,
 #'   fit.method = "LIN",
 #'   plot = FALSE,
 #'   n.MCMC = 200
 #' )
 #'
 #' print(results)
-#'
 #'
 #' ##CSV_file template
 #' ##copy and paste this the code below in the terminal
@@ -409,9 +408,7 @@
 #'  GRAIN = NA_real_),
 #'    .Names = c("BIN_FILE", "DISC", "GRAIN"),
 #'    class = "data.frame",
-#'    row.names = 1L
-#' )
-#'
+#'    row.names = 1L)
 #' }
 #'
 #' @export
@@ -420,10 +417,10 @@ analyse_baSAR <- function(
   CSV_file = NULL,
   aliquot_range = NULL,
   source_doserate = NULL,
-  signal.integral,
-  signal.integral.Tx = NULL,
-  background.integral,
-  background.integral.Tx = NULL,
+  signal_integral,
+  background_integral,
+  signal_integral_Tx = NULL,
+  background_integral_Tx = NULL,
   irradiation_times = NULL,
   sigmab = 0,
   sig0 = 0.025,
@@ -749,6 +746,21 @@ analyse_baSAR <- function(
   ##END
   ##////////////////////////////////////////////////////////////////////////////////////////////////
 
+  ## deprecated arguments
+  extraArgs <- list(...)
+  if (any(grepl("[signal|background]\\.integral\\.?[.Tx]?", names(extraArgs))) &&
+      !is.null(c(extraArgs$signal.integral, extraArgs$signal.integral.Tx,
+                 extraArgs$background.integral, extraArgs$background.integral.Tx))) {
+    .deprecated(old = c("signal.integral", "background.integral",
+                        "signal.integral.Tx", "background.integral.Tx"),
+                new = c("signal_integral", "background_integral",
+                        "signal_integral.Tx", "background_integral.Tx"),
+                since = "1.2.0")
+    signal_integral <- extraArgs$signal.integral
+    background_integral <- extraArgs$background.integral
+    signal_integral_Tx <- extraArgs$signal.integral.Tx
+    background_integral_Tx <- extraArgs$background.integral.Tx
+  }
 
   ## Integrity checks -------------------------------------------------------
   .require_suggested_package("rjags")
@@ -756,6 +768,14 @@ analyse_baSAR <- function(
   .validate_class(object, c("Risoe.BINfileData", "RLum.Results", "character", "list"))
   .validate_not_empty(object)
   .validate_class(CSV_file, c("data.frame", "character"), null.ok = TRUE)
+  if (!inherits(object, "RLum.Results")) {
+    signal_integral <- .validate_integral(signal_integral, list.ok = TRUE)
+    background_integral <- .validate_integral(background_integral, list.ok = TRUE)
+    signal_integral_Tx <- .validate_integral(signal_integral_Tx,
+                                             null.ok = TRUE, list.ok = TRUE)
+    background_integral_Tx <- .validate_integral(background_integral_Tx,
+                                                 null.ok = TRUE, list.ok = TRUE)
+  }
   .validate_positive_scalar(n.MCMC, int = TRUE)
   fit.method <- .validate_args(fit.method, c("EXP", "EXP+LIN", "LIN"))
   distribution_plot <- .validate_args(distribution_plot, c("kde", "abanico"),
@@ -1140,14 +1160,14 @@ analyse_baSAR <- function(
   source_doserate <- .listify(source_doserate, rep.length)
   sigmab <- .listify(sigmab, rep.length)
   sig0 <- .listify(sig0, rep.length)
-  signal.integral <- .listify(signal.integral, rep.length)
-  background.integral <- .listify(background.integral, rep.length)
+  signal_integral <- .listify(signal_integral, rep.length)
+  background_integral <- .listify(background_integral, rep.length)
 
-  if (!is.null(signal.integral.Tx)) {
-    signal.integral.Tx <- .listify(signal.integral.Tx, rep.length)
+  if (!is.null(signal_integral_Tx)) {
+    signal_integral_Tx <- .listify(signal_integral_Tx, rep.length)
   }
-  if (!is.null(background.integral.Tx)) {
-    background.integral.Tx <- .listify(background.integral.Tx, rep.length)
+  if (!is.null(background_integral_Tx)) {
+    background_integral_Tx <- .listify(background_integral_Tx, rep.length)
   }
 
   # Read CSV file -----------------------------------------------------------
@@ -1432,8 +1452,8 @@ analyse_baSAR <- function(
       )
 
       ##add integration limits
-      abline(v = range(signal.integral[[k]]), lty = 2, col = "green")
-      abline(v = range(background.integral[[k]]), lty = 2, col = "red")
+      abline(v = range(signal_integral[[k]]), lty = 2, col = "green")
+      abline(v = range(background_integral[[k]]), lty = 2, col = "red")
       mtext(paste0("ALQ: ",count, ":", count + ncol(curve_index)))
 
       graphics::matplot(
@@ -1447,9 +1467,9 @@ analyse_baSAR <- function(
       )
 
       ##add integration limits depending on the choosen value
-      abline(v = range(signal.integral.Tx[[k]] %||% signal.integral[[k]]),
+      abline(v = range(signal_integral_Tx[[k]] %||% signal_integral[[k]]),
              lty = 2, col = "green")
-      abline(v = range(background.integral.Tx[[k]] %||% background.integral[[k]]),
+      abline(v = range(background_integral_Tx[[k]] %||% background_integral[[k]]),
              lty = 2, col = "red")
 
       mtext(paste0("ALQ: ",count, ":", count + ncol(curve_index)))
@@ -1486,10 +1506,10 @@ analyse_baSAR <- function(
           calc_OSLLxTxRatio(
             Lx.data = Lx.data,
             Tx.data = Tx.data,
-            signal.integral = signal.integral[[k]],
-            signal.integral.Tx = signal.integral.Tx[[k]],
-            background.integral = background.integral[[k]],
-            background.integral.Tx = background.integral.Tx[[k]],
+            signal_integral = signal_integral[[k]],
+            signal_integral_Tx = signal_integral_Tx[[k]],
+            background_integral = background_integral[[k]],
+            background_integral_Tx = background_integral_Tx[[k]],
             background.count.distribution = additional_arguments$background.count.distribution,
             sigmab = sigmab[[k]],
             sig0 = sig0[[k]])$LxTx.table

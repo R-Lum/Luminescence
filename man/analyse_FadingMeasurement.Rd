@@ -7,8 +7,8 @@
 analyse_FadingMeasurement(
   object,
   structure = c("Lx", "Tx"),
-  signal.integral = NULL,
-  background.integral = NULL,
+  signal_integral = NULL,
+  background_integral = NULL,
   t_star = "half",
   n.MC = 100,
   verbose = TRUE,
@@ -39,11 +39,11 @@ independent samples, you have use this function in a loop.}}
 \item{structure}{\link{character} (\emph{with default}):
 the structure of the measurement data, one of \code{'Lx'} or \code{c('Lx','Tx')}.}
 
-\item{signal.integral}{\link{vector} (\strong{required}):
+\item{signal_integral}{\link{vector} (\strong{required}):
 vector with channels for the signal integral (e.g., \code{1:10}). It is not
 required if a \code{data.frame} with \code{LxTx} values is provided.}
 
-\item{background.integral}{\link{vector} (\strong{required}):
+\item{background_integral}{\link{vector} (\strong{required}):
 vector with channels for the background integral (e.g., \code{90:100}). It is not
 required if a \code{data.frame} with \code{LxTx} values is provided.}
 
@@ -165,7 +165,7 @@ a maximum of five pause steps are plotted to avoid graphically overloaded plots.
 However, \emph{all} pause times are taken into consideration for the analysis.
 }
 \section{Function version}{
- 0.1.25
+ 0.1.26
 }
 
 \examples{

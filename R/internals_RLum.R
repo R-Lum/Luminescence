@@ -1376,6 +1376,54 @@ SW <- function(expr) {
   .hasSlot(object, "originator") && object@originator %in% choices
 }
 
+#' Validate a vector used for signal and background integrals
+#'
+#' @param integral [vector] [integer] (**required**):
+#' the vector to validate.
+#'
+#' @param min [integer] (*with default*):
+#' the minimum value for the integral.
+#'
+#' @param max [integer] (*with default*):
+#' the maximum value for the integral.
+#'
+#' @param list.ok [logical] (*with default*):
+#' whether the argument should be considered valid also as a list (`FALSE` by
+#' default).
+#'
+#' @inheritParams .validate_args
+#'
+#' @return
+#' A vector with negative elements and `NA` values removed, sorted and without
+#' duplicates, unless the validation failed with an error thrown. If `max.value`
+#' is not `NULL`, then the integral is capped to the value specified.
+#'
+#' @noRd
+.validate_integral <- function(integral, min = 1, max = Inf,
+                               null.ok = FALSE, list.ok = FALSE,
+                               name = NULL) {
+  if (null.ok && is.null(integral))
+    return(integral)
+  name <- name %||% .first_argument()
+  .validate_class(integral, c("integer", "numeric", if (list.ok) "list"),
+                  null.ok = null.ok, name = name)
+  if (list.ok && inherits(integral, "list")) {
+    return(lapply(integral, .validate_integral,
+                  name = paste("All elements of", name)))
+  }
+  orig.length <- length(integral)
+  integral <- integral[!is.na(integral) & between(integral, min, max)]
+  if (length(integral) == 0)
+    .throw_error(name, " is of length 0 after removing values smaller than ",
+                 min, if (!is.infinite(max)) paste(" and greater than", max))
+  else if (length(integral) != orig.length)
+    .throw_warning(name, " reset to be between ", min(integral),
+                   " and ", max(integral))
+  if (any(integral != as.integer(integral)))
+    .throw_error(name, " should be a vector of integers")
+  sort(unique(integral))
+}
+
 #' Check that a suggested package is installed
 #'
 #' Report a message with installation instructions if a suggested package

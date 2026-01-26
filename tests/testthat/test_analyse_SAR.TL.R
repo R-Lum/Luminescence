@@ -13,26 +13,21 @@ test_that("input validation", {
                "[analyse_SAR.TL()] 'object' should be of class 'RLum.Analysis'",
                fixed = TRUE)
   expect_error(analyse_SAR.TL(object),
-               "'signal.integral.min' should be of class 'numeric' or 'integer'")
-  expect_error(analyse_SAR.TL(object, signal.integral.min = 1,
-                              signal.integral.max = NA),
-               "'signal.integral.max' should be of class 'numeric' or 'integer'")
+               "'signal_integral' should be of class 'integer' or 'numeric'")
+  expect_error(analyse_SAR.TL(object, signal_integral = NA),
+               "'signal_integral' should be of class 'integer' or 'numeric'")
   expect_error(analyse_SAR.TL(list(object, "test")),
                "All elements of 'object' should be of class 'RLum.Analysis'")
-  expect_error(analyse_SAR.TL(object, signal.integral.min = 1,
-                              signal.integral.max = 2),
+  expect_error(analyse_SAR.TL(object, signal_integral = 1:2),
                "Input TL curves are not a multiple of the sequence structure")
-  expect_error(analyse_SAR.TL(object, signal.integral.min = 1,
-                              signal.integral.max = 2,
+  expect_error(analyse_SAR.TL(object, signal_integral = 1:2,
                               sequence.structure = "EXCLUDE"),
                "'sequence.structure' contains no 'SIGNAL' entry")
   expect_error(analyse_SAR.TL(object, dose.points = c(2, 2),
-                              signal.integral.min = 210,
-                              signal.integral.max = 220,
+                              signal_integral = 210:220,
                               sequence.structure = c("SIGNAL", "BACKGROUND")),
                "Length of 'dose.points' not compatible with number of signals")
-  expect_error(analyse_SAR.TL(object, signal.integral.min = 1,
-                              signal.integral.max = 2,
+  expect_error(analyse_SAR.TL(object, signal_integral = 1:2,
                               sequence.structure = c("SIGNAL", "BACKGROUND"),
                               integral_input = "error"),
                "[analyse_SAR.TL()] 'integral_input' should be one of ",
@@ -40,17 +35,22 @@ test_that("input validation", {
 
   obj.rm <- object
   obj.rm@records[[1]]@data <- obj.rm@records[[1]]@data[1:225, ]
-  expect_error(analyse_SAR.TL(obj.rm, signal.integral.min = 210,
-                              signal.integral.max = 220,
+  expect_error(analyse_SAR.TL(obj.rm, signal_integral = 210:220,
                               sequence.structure = c("SIGNAL", "BACKGROUND")),
                "Signal ranges differ (225, 250), check sequence structure",
                fixed = TRUE)
 
   expect_output(expect_null(
       analyse_SAR.TL(object[1:4], fit.method = "ERROR",
-                     signal.integral.min = 2, signal.integral.max = 3,
+                     signal_integral = 2:3,
                      sequence.structure = "SIGNAL"),
       "'fit.method' should be one of 'LIN', 'QDR', 'EXP', 'EXP OR LIN'"))
+
+  ## deprecated argument
+  expect_warning(analyse_SAR.TL(object, signal.integral = 2:3,
+                                sequence.structure = c("SIGNAL", "BACKGROUND"),
+                                verbose = FALSE),
+                 "was deprecated in v1.2.0, use 'signal_integral'")
 })
 
 test_that("snapshot tests", {
@@ -60,8 +60,7 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(
     analyse_SAR.TL(
         list(object, object),
-        signal.integral.min = 210,
-        signal.integral.max = 220,
+        signal_integral = 210:220,
         dose.points = 1:7,
         integral_input = "temperature",
         sequence.structure = c("SIGNAL", "BACKGROUND"))
@@ -71,8 +70,7 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(
     analyse_SAR.TL(
         list(object),
-        signal.integral.min = 210,
-        signal.integral.max = 220,
+        signal_integral = 210:220,
         dose.points = 1:7,
         log = "x",
         sequence.structure = c("SIGNAL", "BACKGROUND"))
@@ -81,15 +79,14 @@ test_that("snapshot tests", {
   )
 
   SW({
-  expect_message(analyse_SAR.TL(object, signal.integral.min = 2,
-                                signal.integral.max = 3,
+  expect_message(analyse_SAR.TL(object, signal_integral = 2:3,
                                 sequence.structure = "SIGNAL"),
                  "Too many curves, only the first 21 curves are plotted")
   })
 
   expect_warning(
   expect_snapshot_RLum(
-    analyse_SAR.TL(object, signal.integral.min = 2, signal.integral.max = 3,
+    analyse_SAR.TL(object, signal_integral = 2:3,
                    sequence.structure = c("SIGNAL", "EXCLUDE"))
     ),
   "Error column invalid or 0, 'fit.weights' ignored")
@@ -103,8 +100,7 @@ test_that("graphical snapshot tests", {
   SW({
   vdiffr::expect_doppelganger("default",
                               analyse_SAR.TL(object,
-                                             signal.integral.min = 210,
-                                             signal.integral.max = 220,
+                                             signal_integral = 210:220,
                                              sequence.structure = c("SIGNAL", "BACKGROUND")))
   })
 })
@@ -118,15 +114,14 @@ test_that("regression tests", {
   set.seed(1)
   expect_snapshot_RLum(
     analyse_SAR.TL(object, sequence.structure = c("SIGNAL", "BACKGROUND"),
-                   signal.integral.min = 2, signal.integral.max = 3),
+                   signal_integral = 2:3),
     tolerance = 1.5e-4
   )
 
   seq.structure <- c("SIGNAL", "EXCLUDE", "BACKGROUND", "EXCLUDE", "PREHEAT",
                      "EXCLUDE", "BACKGROUND", "SIGNAL", "EXCLUDE", "EXCLUDE",
                      "EXCLUDE", "EXCLUDE")
-  expect_error(analyse_SAR.TL(object, signal.integral.min = 2,
-                              signal.integral.max = 2,
+  expect_error(analyse_SAR.TL(object, signal_integral = 2,
                               sequence.structure = seq.structure),
                "[calc_TLLxTxRatio()] 'Tx.data.signal' should be of class 'data.frame'",
                fixed = TRUE)
@@ -135,7 +130,7 @@ test_that("regression tests", {
   expect_message(
   expect_snapshot_RLum(
     analyse_SAR.TL(object, dose.points = 2,
-                   signal.integral.min = 210, signal.integral.max = 220,
+                   signal_integral = 210:220,
                    sequence.structure = c("SIGNAL", "BACKGROUND"))
   ),
   "[fit_DoseResponseCurve()] Error: All points have the same dose, NULL returned",
@@ -146,7 +141,7 @@ test_that("regression tests", {
   SW({
   expect_error(
       analyse_SAR.TL(read_BIN2R(bin.v8, fastForward = TRUE, verbose = FALSE),
-                     signal.integral.min = 1, signal.integral.max = 20),
+                     signal_integral = 1:20),
       "Input TL curves are not a multiple of the sequence structure")
   })
 })

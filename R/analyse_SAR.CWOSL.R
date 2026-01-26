@@ -96,31 +96,24 @@
 #' [Luminescence::RLum.Analysis-class] objects can be provided. The object should **only**
 #' contain curves considered part of the SAR protocol (see Details).
 #'
-#' @param signal.integral.min [integer] (**required**):
-#' lower bound of the signal integral. It can be a [list] of integers, if
-#' `object` is a list. If the input is a vector (e.g., `c(1,2)`), the second
-#' value will be interpreted as the minimum signal integral for the `Tx` curve.
-#' It can be set to `NA`, in which case no integrals are taken into account.
+#' @param signal_integral [integer] (**required**):
+#' vector of channels for the signal integral. It can be a [list] of integers,
+#' if `object` is a list. If set to `NA`, no integrals are taken into account.
 #'
-#' @param signal.integral.max [integer] (**required**):
-#' upper bound of the signal integral. It can be a [list] of integers if
-#' `object` is a list. If the input is a vector (e.g., `c(1,2)`), the second
-#' value will be interpreted as the maximum signal integral for the `Tx` curve.
-#' It can be set to `NA`, in which case no integrals are taken into account.
+#' @param background_integral [integer] (**required**):
+#' vector of channels for the background integral. It can be a [list] of
+#' integers, if `object` is a list. If set to `NA`, no integrals are taken
+#' into account.
 #'
-#' @param background.integral.min [integer] (**required**):
-#' lower bound of the background integral. It can be a [list] of integers if
-#' `object` is a list. If the input is a vector (e.g., `c(1,2)`), the second
-#' value will be interpreted as the minimum background integral for the `Tx`
-#' curve. It can be set to `NA`, in which case no integrals are taken into
-#' account.
+#' @param signal_integral_Tx [integer] (*optional*):
+#' vector of channels for the signal integral for the `Tx` curve. It can be a
+#' [list] of integers, if `object` is a list. If set to `NA`, no integrals are
+#' taken into account.
 #'
-#' @param background.integral.max [integer] (**required**):
-#' upper bound of the background integral. It can be a [list] of integers if
-#' `object` is a list. If the input is a vector (e.g., `c(1,2)`), the second
-#' value will be interpreted as the maximum background integral for the `Tx`
-#' curve. It can be set to `NA`, in which case no integrals are taken into
-#' account.
+#' @param background_integral_Tx [integer] (*optional*):
+#' vector of channels for the background integral for the `Tx` curve. It can
+#' be a [list] of integers, if `object` is a list. If set to `NA`, no integrals
+#' are taken into account.
 #'
 #' @param OSL.component [character] or [integer] (*optional*):
 #' single index or a [character] defining the signal component to be evaluated.
@@ -215,7 +208,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.12.0
+#' @section Function version: 0.13.0
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -254,10 +247,8 @@
 #' ##perform SAR analysis and set rejection criteria
 #' results <- analyse_SAR.CWOSL(
 #' object = object,
-#' signal.integral.min = 1,
-#' signal.integral.max = 2,
-#' background.integral.min = 900,
-#' background.integral.max = 1000,
+#' signal_integral = 1:2,
+#' background_integral = 900:1000,
 #' log = "x",
 #' fit.method = "EXP",
 #' plot_onePage = TRUE,
@@ -283,11 +274,9 @@
 #' \dontrun{
 #' results <- analyse_SAR.CWOSL(
 #'  object = object,
-#'  signal.integral.min = 1,
-#'  signal.integral.max = 2,
+#'  signal_integral = 1:2,
+#'  background_integral = 900:1000,
 #'  dose.points.test = 15,
-#'  background.integral.min = 900,
-#'  background.integral.max = 1000,
 #'  n.MC = 10,
 #'  fit.method = "OTORX")
 #' }
@@ -295,10 +284,10 @@
 #' @export
 analyse_SAR.CWOSL<- function(
   object,
-  signal.integral.min = NA,
-  signal.integral.max = NA,
-  background.integral.min = NA,
-  background.integral.max = NA,
+  signal_integral = NA,
+  background_integral = NA,
+  signal_integral_Tx = NULL,
+  background_integral_Tx = NULL,
   OSL.component = NULL,
   rejection.criteria = list(),
   dose.points = NULL,
@@ -328,13 +317,14 @@ analyse_SAR.CWOSL<- function(
     main <- as.list(paste0("ALQ #",1:length(object)))
   }
 
+    ## deprecated arguments
+    extraArgs <- list(...)
+
   results <- .warningCatcher(merge_RLum(lapply(seq_along(object), function(x){
     analyse_SAR.CWOSL(
       object = object[[x]],
-      signal.integral.min = parm$signal.integral.min[[x]],
-      signal.integral.max = parm$signal.integral.max[[x]],
-      background.integral.min = parm$background.integral.min[[x]],
-      background.integral.max = parm$background.integral.max[[x]],
+      signal_integral = parm$signal_integral[[x]],
+      background_integral = parm$background_integral[[x]],
       OSL.component = parm$OSL.component[[x]],
       dose.points = parm$dose.points[[x]],
       dose.points.test = parm$dose.points.test[[x]],
@@ -347,6 +337,13 @@ analyse_SAR.CWOSL<- function(
       plot_onePage = parm$plot_onePage[[x]],
       onlyLxTxTable = parm$onlyLxTxTable[[x]],
       main = main[[x]],
+
+      ## deprecated arguments
+      signal.integral.min = extraArgs$signal.integral.min[[x]],
+      signal.integral.max = extraArgs$signal.integral.max[[x]],
+      background.integral.min = extraArgs$background.integral.min[[x]],
+      background.integral.max = extraArgs$background.integral.max[[x]],
+
       ...)
   })))
 
@@ -382,64 +379,74 @@ analyse_SAR.CWOSL<- function(
     object <- trim_RLum.Data(object, recordType = tmp_names)
   }
 
-  ##skip all those tests if signal integral is NA
-  if (anyNA(c(signal.integral.min, signal.integral.max,
-              background.integral.min, background.integral.max))) {
-    signal.integral <- background.integral <- NA
-    signal.integral.Tx <- background.integral.Tx <- NULL
+  ## deprecated arguments
+  extraArgs <- list(...)
+  if (any(grepl("[signal|background]\\.integral\\.[min|max]", names(extraArgs))) &&
+      !is.null(c(extraArgs$signal.integral.min, extraArgs$signal.integral.max,
+                 extraArgs$background.integral.min, extraArgs$background.integral.max))) {
+    .deprecated(old = c("signal.integral.min", "signal.integral.max",
+                        "background.integral.min", "background.integral.max"),
+                new = c("signal_integral", "background_integral"),
+                since = "1.2.0")
+    signal.integral.min <- extraArgs$signal.integral.min
+    signal.integral.max <- extraArgs$signal.integral.max
+    background.integral.min <- extraArgs$background.integral.min
+    background.integral.max <- extraArgs$background.integral.max
+    signal_integral_Tx <- background_integral_Tx <- NULL
+    if (anyNA(c(signal.integral.min, signal.integral.max,
+                 background.integral.min, background.integral.max))) {
+      signal_integral <- background_integral <- NA
+    } else {
+      signal_integral <- signal.integral.min[1]:signal.integral.max[1]
+      background_integral <- background.integral.min[1]:background.integral.max[1]
+      if (length(signal.integral.min) == 2 && length(signal.integral.max) == 2)
+        signal_integral_Tx <- signal.integral.min[2]:signal.integral.max[2]
+      if (length(background.integral.min) == 2 && length(background.integral.max) == 2)
+        background_integral_Tx <- background.integral.min[2]:background.integral.max[2]
+    }
+  }
 
+  if (anyNA(c(signal_integral, background_integral,
+              signal_integral_Tx, background_integral_Tx))) {
+    signal_integral <- background_integral <- NA
+    signal_integral_Tx <- background_integral_Tx <- NULL
     if (is.null(OSL.component)) {
       .throw_warning("No signal or background integral applied as at least ",
                      "one of them contained NA values and 'OSL.component' was ",
                      "not specified")
     }
   } else {
-    ## build signal and background integrals
-    signal.integral <- signal.integral.min[1]:signal.integral.max[1]
-    background.integral <- background.integral.min[1]:background.integral.max[1]
+    signal_integral <- .validate_integral(signal_integral)
+    background_integral <- .validate_integral(background_integral,
+                                              min = max(signal_integral) + 1)
+    signal_integral_Tx <- .validate_integral(signal_integral_Tx, null.ok = TRUE)
+    background_integral_Tx <- .validate_integral(background_integral_Tx,
+                                                 null.ok = TRUE)
 
-    if (background.integral.min[1] <= signal.integral.max[1]) {
-      .throw_error("'background.integral.min' must be larger than 'signal.integral.max'")
-    }
-
-    if (!is.integer(signal.integral) || !is.integer(background.integral)) {
-      .throw_error("'signal.integral' or 'background.integral' is not of type integer")
-    }
-
-    if (length(background.integral) == 1) {
+    if (length(background_integral) == 1) {
       ## we subtract 25 to avoid warnings from calc_OSLLxTxRatio()
-      background.integral <- background.integral - 25:0
-      .throw_warning("Background integral limits cannot be equal, reset to ",
-                     .format_range(background.integral))
+      background_integral <- background_integral - 25:0
+      .throw_warning("Background integral should contain at least two values, reset to ",
+                     .format_range(background_integral))
     }
 
-    ## signal and background integrals for the Tx curve
-    signal.integral.Tx <- NULL
-    if (length(signal.integral.min) == 2 && length(signal.integral.max) == 2) {
-      signal.integral.Tx <- signal.integral.min[2]:signal.integral.max[2]
+    ## background integrals for the Tx curve
+    if (length(background_integral_Tx) == 1) {
+      background_integral_Tx <- background_integral_Tx - 25:0
+      .throw_warning("Background integral limits for Tx curves cannot be equal, reset to ",
+                     .format_range(background_integral_Tx))
     }
 
-    background.integral.Tx <- NULL
-    if (length(background.integral.min) == 2 && length(background.integral.max) == 2) {
-      background.integral.Tx <- background.integral.min[2]:background.integral.max[2]
-      if (length(background.integral.Tx) == 1) {
-        background.integral.Tx <- background.integral.Tx - 25:0
-        .throw_warning("Background integral limits for Tx curves cannot be equal, reset to ",
-                       .format_range(background.integral.Tx))
-      }
+    ## account for the cases when the user provided only one of the Tx integrals
+    if (is.null(signal_integral_Tx) && !is.null(background_integral_Tx)) {
+      signal_integral_Tx <- signal_integral
+      .throw_warning("'signal_integral_Tx' set automatically to ",
+                     .format_range(signal_integral_Tx))
     }
-
-    ## account for the case that the uset did not provide everything ...
-    if (is.null(signal.integral.Tx) && !is.null(background.integral.Tx)) {
-      signal.integral.Tx <- signal.integral
-      .throw_warning("Signal integral for Tx curves set automatically to ",
-                     .format_range(signal.integral.Tx))
-    }
-
-    if (!is.null(signal.integral.Tx) && is.null(background.integral.Tx)) {
-      background.integral.Tx <- background.integral
-      .throw_warning("Background integral for Tx curves set automatically to ",
-                     .format_range(background.integral.Tx))
+    if (!is.null(signal_integral_Tx) && is.null(background_integral_Tx)) {
+      background_integral_Tx <- background_integral
+      .throw_warning("'background_integral_Tx' set automatically to ",
+                     .format_range(background_integral_Tx))
     }
   }
 
@@ -485,7 +492,6 @@ analyse_SAR.CWOSL<- function(
 
 # Deal with extra arguments ----------------------------------------------------
   ##deal with addition arguments
-  extraArgs <- list(...)
 
   main <- extraArgs$main %||% ""
   log <- extraArgs$log %||% ""
@@ -570,32 +576,27 @@ analyse_SAR.CWOSL<- function(
 
   ## the background integral should not exceed the channel length
   channel.length <- temp.matrix.length[1]
-  excess <- max(background.integral) - channel.length
-  if (!anyNA(background.integral) && excess > 0) {
-    background.integral <- background.integral - excess
+  excess <- max(background_integral) - channel.length
+  if (!anyNA(background_integral) && excess > 0) {
+    background_integral <- intersect(background_integral, 1:channel.length)
 
-    ## prevent the background integral from overlapping with the signal integral
-    if (min(background.integral) < max(signal.integral)) {
-      background.integral <- (max(signal.integral) + 1):max(background.integral)
-    }
-
-    .throw_warning("Background integral out of bounds, reset to ",
-                     .format_range(background.integral))
+    .throw_warning("'background_integral' out of bounds, reset to ",
+                     .format_range(background_integral))
   }
 
   ## do the same for the Tx, if set
-  if (!is.null(background.integral.Tx)) {
-    excess <- max(background.integral.Tx) - channel.length
+  if (!is.null(background_integral_Tx)) {
+    excess <- max(background_integral_Tx) - channel.length
     if (excess > 0) {
-      background.integral.Tx <- background.integral.Tx - excess
+      background_integral_Tx <- intersect(background_integral_Tx, 1:channel.length)
 
       ## prevent the background integral from overlapping with the signal integral
-      if (min(background.integral.Tx) < max(signal.integral.Tx)) {
-        background.integral.Tx <- (max(signal.integral.Tx) + 1):max(background.integral.Tx)
+      if (min(background_integral_Tx) <= max(signal_integral_Tx)) {
+        background_integral_Tx <- setdiff(background_integral_Tx, signal_integral_Tx)
       }
 
-      .throw_warning("Background integral for Tx out of bounds, reset to ",
-                       .format_range(background.integral.Tx))
+      .throw_warning("'background_integral_Tx' out of bounds, reset to ",
+                       .format_range(background_integral_Tx))
       }
   }
 
@@ -634,10 +635,10 @@ analyse_SAR.CWOSL<- function(
           calc_OSLLxTxRatio(
             Lx.data = object@records[[OSL.Curves.ID[x]]]@data,
             Tx.data = object@records[[OSL.Curves.ID[x + 1]]]@data,
-            signal.integral = signal.integral,
-            signal.integral.Tx = signal.integral.Tx,
-            background.integral = background.integral,
-            background.integral.Tx = background.integral.Tx,
+            signal_integral = signal_integral,
+            signal_integral_Tx = signal_integral_Tx,
+            background_integral = background_integral,
+            background_integral_Tx = background_integral_Tx,
             background.count.distribution = background.count.distribution,
             sigmab = sigmab,
             sig0 = sig0))
@@ -933,8 +934,8 @@ analyse_SAR.CWOSL<- function(
         .plot_ShineDownCurves(
           record_list,
           curve_ids = OSL.Curves.ID.Lx,
-          signal_integral = signal.integral,
-          background_integral = background.integral,
+          signal_integral = signal_integral,
+          background_integral = background_integral,
           set_main = main,
           set_log = log,
           set_cex = cex,
@@ -1013,8 +1014,8 @@ analyse_SAR.CWOSL<- function(
         .plot_ShineDownCurves(
           record_list,
           curve_ids = OSL.Curves.ID.Tx,
-          signal_integral = signal.integral,
-          background_integral = background.integral,
+          signal_integral = signal_integral,
+          background_integral = background_integral,
           set_main = main,
           set_log = log,
           set_cex = cex,
@@ -1188,10 +1189,10 @@ analyse_SAR.CWOSL<- function(
 
   ## add information on the integration limits
   temp.GC.extended <- data.frame(
-      signal.range = .format_range(signal.integral),
-      background.range = .format_range(background.integral),
-      signal.range.Tx = .format_range(signal.integral.Tx %||% NA),
-      background.range.Tx = .format_range(background.integral.Tx %||% NA),
+      signal.range = .format_range(signal_integral),
+      background.range = .format_range(background_integral),
+      signal.range.Tx = .format_range(signal_integral_Tx %||% NA),
+      background.range.Tx = .format_range(background_integral_Tx %||% NA),
       stringsAsFactors = FALSE)
 
 # Set return Values -----------------------------------------------------------

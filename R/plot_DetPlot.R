@@ -26,18 +26,11 @@
 #' @param object [Luminescence::RLum.Analysis-class] (**required**): input object containing data for analysis
 #' Can be provided as a [list] of such objects.
 #'
-#' @param signal.integral.min [integer] (**required**):
-#' lower bound of the signal integral.
+#' @param signal_integral [integer] (**required**):
+#' vector of channels for the signal integral.
 #'
-#' @param signal.integral.max [integer] (**required**):
-#' upper bound of the signal integral. Must be strictly greater than
-#' `signal.integral.min`.
-#'
-#' @param background.integral.min [integer] (**required**):
-#' lower bound of the background integral.
-#'
-#' @param background.integral.max [integer] (**required**):
-#' upper bound of the background integral.
+#' @param background_integral [integer] (**required**):
+#' vector of channels for the background integral.
 #'
 #' @param method [character] (*with default*):
 #' method applied for constructing the De(t) plot.
@@ -103,7 +96,6 @@
 #' call \tab `call` \tab the original function call
 #' }
 #'
-#'
 #' @note
 #' The entire analysis is based on the used analysis functions, namely
 #' [Luminescence::analyse_SAR.CWOSL] and [Luminescence::analyse_pIRIRSequence]. However, the integrity
@@ -111,7 +103,7 @@
 #' It means, that every sequence should be checked carefully before running long
 #' calculations using several hundreds of channels.
 #'
-#' @section Function version: 0.1.8
+#' @section Function version: 0.1.9
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -135,20 +127,16 @@
 #'
 #' plot_DetPlot(
 #'   object,
-#'   signal.integral.min = 1,
-#'   signal.integral.max = 3,
-#'   background.integral.min = 900,
-#'   background.integral.max = 1000,
+#'   signal_integral = 1:3,
+#'   background_integral = 900:1000,
 #'   n.channels = 5)
 #' }
 #'
 #' @export
 plot_DetPlot <- function(
   object,
-  signal.integral.min,
-  signal.integral.max,
-  background.integral.min,
-  background.integral.max,
+  signal_integral,
+  background_integral,
   method = "shift",
   signal_integral.seq = NULL,
   analyse_function = "analyse_SAR.CWOSL",
@@ -207,36 +195,42 @@ plot_DetPlot <- function(
 
   .validate_class(object, "RLum.Analysis")
   .validate_not_empty(object)
-
-  ## signal.integral
-  .validate_positive_scalar(signal.integral.min, int = TRUE)
-  .validate_positive_scalar(signal.integral.max, int = TRUE)
-  if (signal.integral.min >= signal.integral.max) {
-    .throw_error("'signal.integral.max' must be greater than 'signal.integral.min'")
-  }
-
-  ## background.integral
-  .validate_positive_scalar(background.integral.min, int = TRUE)
-  .validate_positive_scalar(background.integral.min, int = TRUE)
-
-  ## method
   method <- .validate_args(method, c("shift", "expansion"))
-
-  ## analyse_function
   analyse_function <- .validate_args(analyse_function,
                                      c("analyse_SAR.CWOSL", "analyse_pIRIRSequence"))
 
-  ## deprecated argument
+  ## deprecated arguments
   if ("plot.single" %in% ...names()) {
     plot_singlePanels <- list(...)$plot.single
     .deprecated("plot.single", "plot_singlePanels", since = "1.0.0")
   }
+  if (any(grepl("[signal|background]\\.integral\\.[min|max]", ...names()))) {
+    extraArgs <- list(...)
+    .deprecated(old = c("signal.integral.min", "signal.integral.max",
+                        "background.integral.min", "background.integral.max"),
+                new = c("signal_integral", "background_integral"),
+                since = "1.2.0")
+    signal.integral.min <- extraArgs$signal.integral.min
+    signal.integral.max <- extraArgs$signal.integral.max
+    background.integral.min <- extraArgs$background.integral.min
+    background.integral.max <- extraArgs$background.integral.max
+    .validate_class(signal.integral.min, c("integer", "numeric"))
+    .validate_class(signal.integral.max, c("integer", "numeric"))
+    .validate_class(background.integral.min, c("integer", "numeric"))
+    .validate_class(background.integral.max, c("integer", "numeric"))
+    signal_integral <- signal.integral.min:signal.integral.max
+    background_integral <- background.integral.min:background.integral.max
+  }
+
+  signal_integral <- .validate_integral(signal_integral)
+  background_integral <- .validate_integral(background_integral,
+                                            min = max(signal_integral) + 1)
 
 # Set parameters ------------------------------------------------------------------------------
   ##set n.channels
   if(is.null(n.channels)){
     n.channels <- ceiling(
-      (background.integral.min - 1 - signal.integral.max) / (signal.integral.max - signal.integral.min)
+      (min(background_integral) - 1 - max(signal_integral)) / (max(signal_integral) - min(signal_integral))
     )
     if (verbose) {
       .throw_message("'n.channels' not specified, set to ", n.channels,
@@ -260,19 +254,18 @@ plot_DetPlot <- function(
 # Analyse -------------------------------------------------------------------------------------
   ##set integral sequence
   if (is.null(signal_integral.seq)) {
-    signal_integral.seq <- seq(signal.integral.min,
-                               background.integral.min - 1,
-                               by = signal.integral.max - signal.integral.min)
+    signal_integral.seq <- seq(min(signal_integral),
+                               min(background_integral) - 1,
+                               by = max(signal_integral) - min(signal_integral))
   }
 
   if(analyse_function  == "analyse_SAR.CWOSL"){
     results <- merge_RLum(lapply(1:n.channels, function(x){
+      integral <- signal_integral.seq[if (method == "shift") x else 1]:signal_integral.seq[x+1]
       analyse_SAR.CWOSL(
         object = object,
-        signal.integral.min = if(method == "shift"){signal_integral.seq[x]}else{signal_integral.seq[1]},
-        signal.integral.max =  signal_integral.seq[x+1],
-        background.integral.min = background.integral.min,
-        background.integral.max = background.integral.max,
+        signal_integral = integral,
+        background_integral = background_integral,
         dose.points = analyse_function.settings$dose.points,
         mtext.outer = analyse_function.settings$mtext.outer,
         fit.force_through_origin = analyse_function.settings$fit.force_through_origin,
@@ -285,12 +278,11 @@ plot_DetPlot <- function(
     }))
   } else if (analyse_function == "analyse_pIRIRSequence") {
     results <- lapply(1:n.channels, function(x) {
+      integral <- signal_integral.seq[if (method == "shift") x else 1]:signal_integral.seq[x+1]
       analyse_pIRIRSequence(
         object = object,
-        signal.integral.min = if(method == "shift"){signal_integral.seq[x]}else{signal_integral.seq[1]},
-        signal.integral.max = signal_integral.seq[x+1],
-        background.integral.min = background.integral.min,
-        background.integral.max = background.integral.max,
+        signal_integral = integral,
+        background_integral = background_integral,
         dose.points = analyse_function.settings$dose.points,
         mtext.outer = analyse_function.settings$mtext.outer,
         plot = analyse_function.settings$plot,
@@ -367,7 +359,7 @@ plot_DetPlot <- function(
 
         ##set x-axis
         df_x <-
-          OSL_curve[seq(signal.integral.max, signal_integral.seq[n.channels+1], length.out = nrow(df)),1]
+          OSL_curve[seq(max(signal_integral), signal_integral.seq[n.channels+1], length.out = nrow(df)),1]
 
         #combine everything to allow excluding unwanted values
         df_final <- cbind(df, df_x)

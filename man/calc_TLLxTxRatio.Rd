@@ -9,8 +9,8 @@ calc_TLLxTxRatio(
   Lx.data.background = NULL,
   Tx.data.signal = NULL,
   Tx.data.background = NULL,
-  signal.integral.min = NULL,
-  signal.integral.max = NULL
+  signal_integral = NULL,
+  ...
 )
 }
 \arguments{
@@ -28,13 +28,10 @@ TL data (x = temperature, y = counts) (TL test signal).}
 TL data (x = temperature, y = counts).
 If no data are provided no background subtraction is performed.}
 
-\item{signal.integral.min}{\link{integer} (\strong{required}):
-channel number for the lower signal integral bound
-(e.g. \code{signal.integral.min = 100}).}
+\item{signal_integral}{\link{integer} (\strong{required}):
+vector of channels for the signal integral.}
 
-\item{signal.integral.max}{\link{integer} (\strong{required}):
-channel number for the upper signal integral bound
-(e.g. \code{signal.integral.max = 200}).}
+\item{...}{currently not used.}
 }
 \value{
 Returns an S4 object of type \linkS4class{RLum.Results}.
@@ -68,7 +65,7 @@ if both signals are similar the error becomes zero.
 background for both curves results in a zero error and is therefore set to \code{NA}.
 }
 \section{Function version}{
- 0.3.4
+ 0.3.5
 }
 
 \examples{
@@ -83,16 +80,14 @@ Lx.data.signal <- get_RLum(temp, record.id=1)
 Lx.data.background <- get_RLum(temp, record.id=2)
 Tx.data.signal <- get_RLum(temp, record.id=3)
 Tx.data.background <- get_RLum(temp, record.id=4)
-signal.integral.min <- 210
-signal.integral.max <- 230
+signal_integral <- 210:230
 
 output <- calc_TLLxTxRatio(
  Lx.data.signal,
  Lx.data.background,
  Tx.data.signal,
  Tx.data.background,
- signal.integral.min,
- signal.integral.max)
+ signal_integral)
 get_RLum(output)
 
 }

@@ -85,11 +85,11 @@
 #' @param structure [character] (*with default*):
 #' the structure of the measurement data, one of `'Lx'` or `c('Lx','Tx')`.
 #'
-#' @param signal.integral [vector] (**required**):
+#' @param signal_integral [vector] (**required**):
 #' vector with channels for the signal integral (e.g., `1:10`). It is not
 #' required if a `data.frame` with `LxTx` values is provided.
 #'
-#' @param background.integral [vector] (**required**):
+#' @param background_integral [vector] (**required**):
 #' vector with channels for the background integral (e.g., `90:100`). It is not
 #' required if a `data.frame` with `LxTx` values is provided.
 #'
@@ -146,7 +146,7 @@
 #' `call` \tab `call` \tab the original function call\cr
 #' }
 #'
-#' @section Function version: 0.1.25
+#' @section Function version: 0.1.26
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 #' Christoph Burow, University of Cologne (Germany)
@@ -199,8 +199,8 @@
 analyse_FadingMeasurement <- function(
   object,
   structure = c("Lx", "Tx"),
-  signal.integral = NULL,
-  background.integral = NULL,
+  signal_integral = NULL,
+  background_integral = NULL,
   t_star = 'half',
   n.MC = 100,
   verbose = TRUE,
@@ -211,9 +211,23 @@ analyse_FadingMeasurement <- function(
   .set_function_name("analyse_FadingMeasurement")
   on.exit(.unset_function_name(), add = TRUE)
 
+  ## deprecated arguments
+  extraArgs <- list(...)
+  if (any(grepl("[signal|background]\\.integral", names(extraArgs)))) {
+    .deprecated(old = c("signal.integral", "background.integral"),
+                new = c("signal_integral", "background_integral"),
+                since = "1.2.0")
+    signal_integral <- extraArgs$signal.integral
+    background_integral <- extraArgs$background.integral
+  }
+
   ## Integrity checks -------------------------------------------------------
   .validate_class(object, c("RLum.Analysis", "data.frame", "list"))
   .validate_class(structure, "character")
+  signal_integral <- .validate_integral(signal_integral, null.ok = TRUE)
+  background_integral <- .validate_integral(background_integral,
+                                            min = max(signal_integral) + 1,
+                                            null.ok = TRUE)
   .validate_class(plot_singlePanels, c("logical", "integer", "numeric"))
   .validate_positive_scalar(n.MC, int = TRUE)
 
@@ -440,10 +454,10 @@ analyse_FadingMeasurement <- function(
       calc_OSLLxTxRatio(
         Lx.data = Lx_data[[x]],
         Tx.data = Tx_data[[x]],
-        signal.integral = signal.integral,
-        background.integral = background.integral,
-        signal.integral.Tx = list(...)$signal.integral.Tx,
-        background.integral.Tx = list(...)$background.integral.Tx,
+        signal_integral = signal_integral,
+        background_integral = background_integral,
+        signal_integral_Tx = list(...)$signal_integral_Tx,
+        background_integral_Tx = list(...)$background_integral_Tx,
         sigmab = list(...)$sigmab,
         sig0 = list(...)$sig0 %||% formals(calc_OSLLxTxRatio)$sig0,
         background.count.distribution =
@@ -677,18 +691,18 @@ analyse_FadingMeasurement <- function(
     ## compute integration limits for plots
     if (!is.null(object)) {
       if (length(structure) == 2) {
-        int.limits.lx <- c(object_clean[[1]][range(signal.integral), 1],
-                           object_clean[[1]][range(background.integral), 1])
+        int.limits.lx <- c(object_clean[[1]][range(signal_integral), 1],
+                           object_clean[[1]][range(background_integral), 1])
       } else {
-        int.limits.lx <- c(range(signal.integral), range(background.integral)) *
+        int.limits.lx <- c(range(signal_integral), range(background_integral)) *
           max(as.matrix(object_clean[[1]][, 1])) /
           nrow(as.matrix(object_clean[[1]]))
       }
-      if (is.null(list(...)$signal.integral.Tx)) {
+      if (is.null(list(...)$signal_integral_Tx)) {
         int.limits.tx <- int.limits.lx
       } else {
-        int.limits.tx <- c(range(list(...)$signal.integral.Tx),
-                           range(list(...)$background.integral.Tx)) *
+        int.limits.tx <- c(range(list(...)$signal_integral_Tx),
+                           range(list(...)$background_integral_Tx)) *
           max(as.matrix(object_clean[[1]][, 1])) /
           nrow(as.matrix(object_clean[[1]]))
       }

@@ -44,11 +44,11 @@ test_that("input validation", {
   expect_error(analyse_FadingMeasurement(data.frame(NA, 1:5, 1:5)),
                "After NA removal, nothing is left from the data set")
 
-  expect_error(analyse_FadingMeasurement(object, signal.integral = 1:2,
-                                         background.integral = 2),
-               "'signal.integral' and 'background.integral' overlap")
-  expect_error(analyse_FadingMeasurement(object[-3], signal.integral = 1:2,
-                                         background.integral = 3:40,
+  expect_error(analyse_FadingMeasurement(object, signal_integral = 1:2,
+                                         background_integral = 2),
+               "'background_integral' is of length 0 after removing values smaller than 3")
+  expect_error(analyse_FadingMeasurement(object[-3], signal_integral = 1:2,
+                                         background_integral = 3:40,
                                          structure = c("Lx", "Tx")),
                "The number of Lx curves (3) differs from the number of Tx curves (2)",
                fixed = TRUE)
@@ -78,7 +78,7 @@ test_that("input validation", {
   })
 })
 
-test_that("test functionality", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
   ## run routine analysis
@@ -118,6 +118,15 @@ test_that("test functionality", {
     plot = FALSE,
     verbose = FALSE,
     n.MC = 10), class = "RLum.Results")
+
+  ## deprecated arguments
+  expect_warning(analyse_FadingMeasurement(
+      object,
+      signal.integral = 1:2,
+      background.integral = 10:40,
+      verbose = FALSE,
+      n.MC = 10),
+      "deprecated in v1.2.0, use 'signal_integral' and 'background_integral'")
 })
 
 test_that("test XSYG file fading data", {
@@ -126,8 +135,8 @@ test_that("test XSYG file fading data", {
   SW({
   expect_s4_class(analyse_FadingMeasurement(
     object,
-    signal.integral = 1:2,
-    background.integral = 10:40,
+    signal_integral = 1:2,
+    background_integral = 10:40,
     structure = "Lx"
   ), "RLum.Results")
   })
@@ -135,9 +144,9 @@ test_that("test XSYG file fading data", {
   SW({
   expect_s4_class(analyse_FadingMeasurement(
     object,
-    signal.integral = 1:2,
+    signal_integral = 1:2,
     t_star = "end",
-    background.integral = 10:40,
+    background_integral = 10:40,
     structure = "Lx",
     plot = FALSE
   ), "RLum.Results")
@@ -148,22 +157,22 @@ test_that("test XSYG file fading data", {
                  "After irradiation step removal not enough curves are left")
 
   SW({
-  expect_warning(analyse_FadingMeasurement(object[-c(3,6,9)], signal.integral = 1:2,
-                                           background.integral = 3,
+  expect_warning(analyse_FadingMeasurement(object[-c(3,6,9)], signal_integral = 1:2,
+                                           background_integral = 3,
                                            structure = "Lx"),
                  "Number of background channels for Lx < 25")
 
   object@records[[3]]@data <- object@records[[3]]@data[1:10, ]
-  expect_warning(analyse_FadingMeasurement(object, signal.integral = 1:2,
-                                           background.integral = 3:40),
+  expect_warning(analyse_FadingMeasurement(object, signal_integral = 1:2,
+                                           background_integral = 3:40),
                  "Skipped the following samples because Lx and Tx have different sizes: 1")
   })
 
   obj.mod <- object
   obj.mod@records[[6]]@data <- obj.mod@records[[6]]@data[1:10, ]
   obj.mod@records[[9]]@data <- obj.mod@records[[9]]@data[1:10, ]
-  expect_error(analyse_FadingMeasurement(obj.mod, signal.integral = 1:2,
-                                         background.integral = 3:40),
+  expect_error(analyse_FadingMeasurement(obj.mod, signal_integral = 1:2,
+                                         background_integral = 3:40),
                "No curves left after removing those with different Lx and Tx sizes")
 })
 
@@ -179,36 +188,36 @@ test_that("test BIN file while fading data", {
   d2 <- read_BIN2R(test_path("_data/BINfile_V5.binx"), verbose = FALSE,
                    fastForward = TRUE)
   })
-  expect_output(analyse_FadingMeasurement(d2, signal.integral = 1:2,
-                                          background.integral = 10:30,
+  expect_output(analyse_FadingMeasurement(d2, signal_integral = 1:2,
+                                          background_integral = 10:30,
                                           plot = TRUE))
   expect_message(expect_null(
-      analyse_FadingMeasurement(d2, signal.integral = 1:2,
-                                background.integral = 10:30,
+      analyse_FadingMeasurement(d2, signal_integral = 1:2,
+                                background_integral = 10:30,
                                 structure = c("Lx", "Tx", "Lx"))),
       "Error: 'structure' can only be 'Lx' or c('Lx', 'Tx'), NULL returned",
       fixed = TRUE)
 
   ## more coverage
-  analyse_FadingMeasurement(d2, signal.integral = 1:2,
-                            background.integral = 10:30,
-                            signal.integral.Tx = 2,
-                            background.integral.Tx = 5:30,
+  analyse_FadingMeasurement(d2, signal_integral = 1:2,
+                            background_integral = 10:30,
+                            signal_integral.Tx = 2,
+                            background_integral.Tx = 5:30,
                             plot_singlePanels = 2:3, ylim = c(0.1, 1.1),
                             background.count.distribution = "poisson",
                             sig0 = 2, verbose = FALSE, plot = TRUE)
 
   d2[[2]]@records[[1]]@info$TIMESINCEIRR <- -1
   expect_message(expect_warning(expect_null(
-      analyse_FadingMeasurement(d2, signal.integral = 1:2,
-                                background.integral = 10:30,
+      analyse_FadingMeasurement(d2, signal_integral = 1:2,
+                                background_integral = 10:30,
                                 verbose = TRUE)),
       "removed 2 records with negative 'time since irradiation'"),
       "After record removal nothing is left from the data set, NULL returned")
   suppressWarnings( # repeated warning about negative time since irradiation
   expect_warning(expect_s4_class(
-      analyse_FadingMeasurement(d2, signal.integral = 1:2,
-                                background.integral = 10:40,
+      analyse_FadingMeasurement(d2, signal_integral = 1:2,
+                                background_integral = 10:40,
                                 structure = "Lx", verbose = FALSE),
       "RLum.Results"),
       "removed 1 records with negative 'time since irradiation'")
@@ -274,24 +283,24 @@ test_that("graphical snapshot tests", {
                                                         n.MC = 10))
   vdiffr::expect_doppelganger("lx half_complex",
                               analyse_FadingMeasurement(object,
-                                                        signal.integral = 1:2,
-                                                        background.integral = 10:40,
+                                                        signal_integral = 1:2,
+                                                        background_integral = 10:40,
                                                         structure = "Lx",
                                                         t_star = "half_complex",
                                                         n.MC = 10))
   vdiffr::expect_doppelganger("lx tx identity",
                               analyse_FadingMeasurement(object,
-                                                        signal.integral = 1:2,
-                                                        background.integral = 10:40,
+                                                        signal_integral = 1:2,
+                                                        background_integral = 10:40,
                                                         structure = c("Lx", "Tx"),
                                                         t_star = identity,
                                                         n.MC = 10))
   vdiffr::expect_doppelganger("integral tx",
                               analyse_FadingMeasurement(object,
-                                                        signal.integral = 1:2,
-                                                        background.integral = 10:40,
-                                                        signal.integral.Tx = 4:8,
-                                                        background.integral.Tx = 30:40,
+                                                        signal_integral = 1:2,
+                                                        background_integral = 10:40,
+                                                        signal_integral_Tx = 4:8,
+                                                        background_integral_Tx = 30:40,
                                                         structure = c("Lx", "Tx"),
                                                         n.MC = 10))
   })

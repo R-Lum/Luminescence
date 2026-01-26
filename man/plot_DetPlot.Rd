@@ -6,10 +6,8 @@
 \usage{
 plot_DetPlot(
   object,
-  signal.integral.min,
-  signal.integral.max,
-  background.integral.min,
-  background.integral.max,
+  signal_integral,
+  background_integral,
   method = "shift",
   signal_integral.seq = NULL,
   analyse_function = "analyse_SAR.CWOSL",
@@ -27,18 +25,11 @@ plot_DetPlot(
 \item{object}{\linkS4class{RLum.Analysis} (\strong{required}): input object containing data for analysis
 Can be provided as a \link{list} of such objects.}
 
-\item{signal.integral.min}{\link{integer} (\strong{required}):
-lower bound of the signal integral.}
+\item{signal_integral}{\link{integer} (\strong{required}):
+vector of channels for the signal integral.}
 
-\item{signal.integral.max}{\link{integer} (\strong{required}):
-upper bound of the signal integral. Must be strictly greater than
-\code{signal.integral.min}.}
-
-\item{background.integral.min}{\link{integer} (\strong{required}):
-lower bound of the background integral.}
-
-\item{background.integral.max}{\link{integer} (\strong{required}):
-upper bound of the background integral.}
+\item{background_integral}{\link{integer} (\strong{required}):
+vector of channels for the background integral.}
 
 \item{method}{\link{character} (\emph{with default}):
 method applied for constructing the De(t) plot.
@@ -137,7 +128,7 @@ It means, that every sequence should be checked carefully before running long
 calculations using several hundreds of channels.
 }
 \section{Function version}{
- 0.1.8
+ 0.1.9
 }
 
 \examples{
@@ -153,10 +144,8 @@ object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 
 plot_DetPlot(
   object,
-  signal.integral.min = 1,
-  signal.integral.max = 3,
-  background.integral.min = 900,
-  background.integral.max = 1000,
+  signal_integral = 1:3,
+  background_integral = 900:1000,
   n.channels = 5)
 }
 

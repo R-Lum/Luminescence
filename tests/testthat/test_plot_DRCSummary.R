@@ -3,10 +3,8 @@ data(ExampleData.BINfileData, envir = environment())
 object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
 results <- analyse_SAR.CWOSL(
     object = object,
-    signal.integral.min = 1,
-    signal.integral.max = 2,
-    background.integral.min = 900,
-    background.integral.max = 1000,
+    signal_integral = 1:2,
+    background_integral = 900:1000,
     plot = FALSE,
     verbose = FALSE
 )
@@ -33,10 +31,8 @@ test_that("Test plotting", {
   results_OTOR <- analyse_SAR.CWOSL(
     object = object,
     fit.method = "OTOR",
-    signal.integral.min = 1,
-    signal.integral.max = 2,
-    background.integral.min = 900,
-    background.integral.max = 1000,
+    signal_integral = 1:2,
+    background_integral = 900:1000,
     n.MC = 2,
     plot = FALSE,
     verbose = FALSE
@@ -47,10 +43,8 @@ test_that("Test plotting", {
     object = object,
     fit.method = "OTORX",
     dose.points.test = 10,
-    signal.integral.min = 1,
-    signal.integral.max = 2,
-    background.integral.min = 900,
-    background.integral.max = 1000,
+    signal_integral = 1:2,
+    background_integral = 900:1000,
     n.MC = 2,
     plot = FALSE,
     verbose = FALSE
