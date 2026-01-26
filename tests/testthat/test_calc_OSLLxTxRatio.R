@@ -1,38 +1,6 @@
 ## load data
 data(ExampleData.LxTxOSLData, envir = environment())
 
-test_that("test arguments", {
-  testthat::skip_on_cran()
-  snapshot.tolerance <- 1.5e-6
-
-  ##digits
-  expect_snapshot_RLum(expect_silent(calc_OSLLxTxRatio(
-    Lx.data,
-    Tx.data,
-    signal.integral = c(1:2),
-    background.integral = c(85:100),
-    digits = 1)
-    ), tolerance = snapshot.tolerance)
-
-  ##sigmab
-  expect_snapshot_RLum(expect_silent(calc_OSLLxTxRatio(
-    Lx.data,
-    Tx.data,
-    signal.integral = c(1:2),
-    background.integral = c(85:100),
-    sigmab = c(1000,100))
-    ), tolerance = snapshot.tolerance)
-
-  ##poisson
-  expect_snapshot_RLum(expect_silent(calc_OSLLxTxRatio(
-    Lx.data,
-    Tx.data,
-    signal.integral = c(1:2),
-    background.integral = c(85:100),
-    background.count.distribution = "poisson")
-    ), tolerance = snapshot.tolerance)
-})
-
 test_that("test input", {
   testthat::skip_on_cran()
 
@@ -219,11 +187,38 @@ test_that("snapshot tests", {
   testthat::skip_on_cran()
   snapshot.tolerance <- 1.5e-6
 
+  ## digits
+  expect_snapshot_RLum(expect_silent(calc_OSLLxTxRatio(
+      Lx.data,
+      Tx.data,
+      signal.integral = 1:2,
+      background.integral = 85:100,
+      digits = 1)
+  ), tolerance = snapshot.tolerance)
+
+  ## sigmab
+  expect_snapshot_RLum(expect_silent(calc_OSLLxTxRatio(
+      Lx.data,
+      Tx.data,
+      signal.integral = 1:2,
+      background.integral = 85:100,
+      sigmab = c(1000,100))
+  ), tolerance = snapshot.tolerance)
+
+  ## poisson
+  expect_snapshot_RLum(expect_silent(calc_OSLLxTxRatio(
+      Lx.data,
+      Tx.data,
+      signal.integral = 1:2,
+      background.integral = 85:100,
+      background.count.distribution = "poisson")
+  ), tolerance = snapshot.tolerance)
+
   expect_snapshot_RLum(calc_OSLLxTxRatio(
       Lx.data = Lx.data,
       Tx.data = Tx.data,
-      signal.integral = c(1:2),
-      background.integral = c(85:100)
+      signal.integral = 1:2,
+      background.integral = 85:100
   ), tolerance = snapshot.tolerance)
 
   ## check weird circumstances

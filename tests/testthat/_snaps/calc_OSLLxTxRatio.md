@@ -1,4 +1,4 @@
-# test arguments
+# snapshot tests
 
     {
       "type": "S4",
@@ -475,7 +475,7 @@
       }
     }
 
-# snapshot tests
+---
 
     {
       "type": "S4",
