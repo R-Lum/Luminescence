@@ -594,7 +594,6 @@ analyse_SAR.CWOSL<- function(
   excess <- max(background_integral) - channel.length
   if (!anyNA(background_integral) && excess > 0) {
     background_integral <- intersect(background_integral, 1:channel.length)
-
     .throw_warning("'background_integral' out of bounds, reset to ",
                      .format_range(background_integral))
   }
@@ -604,12 +603,6 @@ analyse_SAR.CWOSL<- function(
     excess <- max(background_integral_Tx) - channel.length
     if (excess > 0) {
       background_integral_Tx <- intersect(background_integral_Tx, 1:channel.length)
-
-      ## prevent the background integral from overlapping with the signal integral
-      if (min(background_integral_Tx) <= max(signal_integral_Tx)) {
-        background_integral_Tx <- setdiff(background_integral_Tx, signal_integral_Tx)
-      }
-
       .throw_warning("'background_integral_Tx' out of bounds, reset to ",
                        .format_range(background_integral_Tx))
       }

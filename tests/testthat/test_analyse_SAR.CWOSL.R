@@ -740,6 +740,12 @@ test_that("deprecated arguments", {
                                    background.integral.min = 900,
                                    background.integral.max = 1000),
                  "were deprecated in v1.2.0, use 'signal_integral'")
+  expect_warning(analyse_SAR.CWOSL(object[[1]],
+                                   signal.integral.min = 1:2,
+                                   signal.integral.max = 2:3,
+                                   background.integral.min = c(800, 900),
+                                   background.integral.max = c(900, 1000)),
+                 "were deprecated in v1.2.0, use 'signal_integral'")
   expect_warning(analyse_SAR.CWOSL(object[1:2],
                                    signal.integral.min = list(1, 1),
                                    signal.integral.max = list(10, 20),
