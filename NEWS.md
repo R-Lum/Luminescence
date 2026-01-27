@@ -278,6 +278,13 @@ More information on these changes are available at
 - If the functions was used on a shiny server, the plot showed only
   after the app was closed; fixed (#c27a656).
 
+### `plot_RadialPlot()`
+
+- If the error column contains zero values, they are reset to the
+  smallest between the non-zero errors in the dataset and 10-9. This
+  avoids a crash when using the argument `centrality = "mean.weighted"`,
+  which is the default for this function (#1314).
+
 ### `read_BIN2R()`
 
 - The function could crash if called with `do.call()` and some

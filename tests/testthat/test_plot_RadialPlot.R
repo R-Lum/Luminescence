@@ -160,6 +160,9 @@ test_that("check functionality", {
     )
   expect_silent(plot_RadialPlot(df, central.value = -1, log.z = FALSE,
                                 bar.col = "none"))
+
+  expect_warning(plot_RadialPlot(data.frame(c(12, 2, 7), c(0, 2, 3))),
+                 "Error values cannot be zero, reset to 1e-09")
 })
 
 test_that("graphical snapshot tests", {
