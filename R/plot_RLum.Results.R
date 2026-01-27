@@ -141,7 +141,7 @@ plot_RLum.Results<- function(
       tryCatch({
 
         xvals <- as.data.frame(profiles@profile[[i]]$par.vals)[[i]]
-        xlim <- range(xvals[xvals > 0, na.rm = TRUE])
+        xlim <- range(xvals[xvals > 0])
         suppressWarnings(
           bbmle::plot(profiles, which = i, xlab = "", xaxt = "n", xlim = xlim)
         )
