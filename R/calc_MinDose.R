@@ -573,7 +573,7 @@ calc_MinDose <- function(
   if (log) {
     lcd <- log(data[, 1]) * ifelse(invert, -1, 1)
     if (invert) {
-      x.offset <- abs(min(lcd))
+      x.offset <- abs(min(lcd, na.rm = TRUE))
       lcd <- lcd+x.offset
     }
     lse <- sqrt((data[ ,2]/data[ ,1])^2 + sigmab^2)
