@@ -217,7 +217,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.13.0
+#' @section Function version: 0.13.1
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -808,7 +808,7 @@ analyse_SAR.CWOSL<- function(
                    colnames(Recuperation) %||% NA_character_,
                    "Testdose error",
                    "Signal-to-noise ratio"),
-      Value = c(RecyclingRatio, Recuperation, Testdose.error, SN.ratio),
+      Value = c(RecyclingRatio, Recuperation, Testdose.error, SN.ratio %||% NA_real_),
       Threshold = c(recycling.threshold, recuperation.threshold,
                     testdose.threshold, SN.threshold),
       Status = c(status.RecyclingRatio, status.Recuperation,
