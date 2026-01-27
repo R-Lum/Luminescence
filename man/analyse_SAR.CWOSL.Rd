@@ -69,7 +69,7 @@ Note: If an \emph{unnamed} \link{list} is provided the new settings are ignored!
 Allowed options:
 \itemize{
 \item \code{recycling.ratio} \link{numeric} (default: \code{10})
-\item \code{recuperation.rate} \link{numeric} (default: \code{5})
+\item \code{recuperation.rate} \link{numeric} (default: \code{10})
 \item \code{palaeodose.error} \link{numeric} (default: \code{10})
 \item \code{testdose.error} \link{numeric} (default: \code{10})
 \item \code{sn.ratio} \link{numeric} (default: \code{50})
@@ -80,8 +80,10 @@ Allowed options:
 
 Example: \code{rejection.criteria = list(recycling.ratio = 10)}.
 
-Every criterion can be set to \code{NA}, in which case values are calculated, but
-they are not considered, i.e. their corresponding RC.Status is always \code{'OK'}.
+All numerical criteria can be set to \code{NA}, in which case values are
+calculated, but they are not considered, and their corresponding RC.Status
+is always \code{"OK"}. In the "Checks" plot, they are shown with a grey circle
+and only their value is reported (without showing \verb{<= NA} or \verb{>= NA}).
 
 If \code{onlyLxTxTable = TRUE}, the \code{palaeodose.error} and \code{exceed.max.regpoint}
 criteria are not computed.}

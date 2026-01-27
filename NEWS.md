@@ -172,6 +172,11 @@ More information on these changes are available at
   defines a vector of channels for the respective integrals. The older
   names will still work but generate a deprecation warning (#1290).
 
+- When rejection criteria are set to `NA`, in the plot we now only show
+  the value calculated (say, 1.1) instead of incorrectly showing `NA`s
+  for both the sign and the threshold (as in `1.1 NA NA`) which would
+  look ugly and confusing (#1318).
+
 ## `analyse_SAR.TL()`
 
 - Argument `signal.integral` has been renamed to `signal_integral`. The

@@ -133,23 +133,23 @@
 #' Note: If an *unnamed* [list] is provided the new settings are ignored!
 #'
 #'
-#' Allowed options: 
+#' Allowed options:
 #' * `recycling.ratio` [numeric] (default: `10`)
-#' * `recuperation.rate` [numeric] (default: `5`)
+#' * `recuperation.rate` [numeric] (default: `10`)
 #' * `palaeodose.error` [numeric] (default: `10`)
 #' * `testdose.error` [numeric] (default: `10`)
 #' * `sn.ratio` [numeric] (default: `50`)
 #' * `exceed.max.regpoint` [logical] (default: `FALSE`)
 #' * `recuperation_reference` [character] (default: `"Natural"`; set to, e.g., `"R1"` for other point)
 #' * `sn_reference` [character] (default: `"Natural"`).
-#' 
+#'
 #' Example: `rejection.criteria = list(recycling.ratio = 10)`.
-#' 
-#' 
-#' Every criterion can be set to `NA`, in which case values are calculated, but
-#' they are not considered, i.e. their corresponding RC.Status is always `'OK'`.
-#' 
-#' 
+#'
+#' All numerical criteria can be set to `NA`, in which case values are
+#' calculated, but they are not considered, and their corresponding RC.Status
+#' is always `"OK"`. In the "Checks" plot, they are shown with a grey circle
+#' and only their value is reported (without showing `<= NA` or `>= NA`).
+#'
 #' If `onlyLxTxTable = TRUE`, the `palaeodose.error` and `exceed.max.regpoint`
 #' criteria are not computed.
 #'
@@ -1399,6 +1399,8 @@ analyse_SAR.CWOSL<- function(
   x$Value <- round(x$Value, 1)
   x$Threshold <- round(x$Threshold, 2)
   x$sign <- ifelse(x$Value > x$Threshold, ">=", "<=")
+  x[is.na(x$sign), c("Threshold", "sign")] <- ""
+
   text(
     x = 0.8,
     y = y_coord_l,
