@@ -706,6 +706,15 @@ test_that("graphical snapshot tests", {
                                   background_integral = 900:1000,
                                   onlyLxTxTable = TRUE,
                                   plot_onePage = TRUE))
+
+  vdiffr::expect_doppelganger("NA rejection criteria",
+                              analyse_SAR.CWOSL(
+                                  object = object,
+                                  signal_integral = 1:2,
+                                  background_integral = 900:1000,
+                                  rejection.criteria = list(recycling.ratio = NA,
+                                                            sn.ratio = NA),
+                                  plot_onePage = TRUE))
   })
 })
 
