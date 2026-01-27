@@ -85,6 +85,16 @@ test_that("check functionality", {
       "After NA removal, nothing is left from the data set"),
       "Input data contained NA/NaN values, which were removed")
 
+  ## non-positive De values with log = TRUE
+  set.seed(3)
+  SW({
+  expect_warning(calc_MinDose(data = data.frame(De = c(rnorm(4) + 5, -1),
+                                                De_Err = rnorm(5) + 1),
+                              sigmab = 1, log = TRUE, bootstrap = TRUE,
+                              bs.M = 10, bs.N = 5, bs.h = 2),
+                 "De values must be positive with 'log = TRUE', 1 values set to NA")
+  })
+
   ## no converging fit
   skip_on_os("windows")
   set.seed(1)

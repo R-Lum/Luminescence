@@ -374,6 +374,12 @@ calc_MinDose <- function(
     .throw_error("'par' can only be set to 3 or 4")
   }
 
+  .validate_logical_scalar(log)
+  .validate_logical_scalar(bootstrap)
+  .validate_logical_scalar(log.output)
+  .validate_logical_scalar(plot)
+  .validate_logical_scalar(multicore)
+
   ##============================================================================##
   ## ... ARGUMENTS
   ##============================================================================##
@@ -442,6 +448,16 @@ calc_MinDose <- function(
     cores <- parallel::detectCores()
     if (multicore)
       message("Logical CPU cores detected: ", cores) # nocov
+  }
+
+  ## remove non-positive values if using log-transformation
+  if (log) {
+    nonpos <- data[, 1] <= 0
+    if (sum(nonpos) > 0) {
+      .throw_warning("De values must be positive with 'log = TRUE', ",
+                     sum(nonpos), " values set to NA")
+      data[nonpos, 1] <- NA
+    }
   }
 
 
@@ -568,6 +584,10 @@ calc_MinDose <- function(
 
   # create new data frame with DE and combined relative error
   dat <- cbind(lcd, lse)
+
+  ## remove NAs which may be present if we had non-positive De values with
+  ## log = TRUE
+  dat <- dat[!is.na(dat[, 1]), ]
 
   # get the maximum likelihood estimate
   ests <- Get_mle(dat)
@@ -757,7 +777,8 @@ calc_MinDose <- function(
     # Function that takes each of the N replicates and produces a kernel density
     # estimate of length n.
     get_KDE <- function(d) {
-      f <- approx(density(x=d[ ,1], kernel="gaussian", bw = h), xout = d[ ,1])
+      f <- approx(density(x = d[, 1], kernel = "gaussian", bw = h, na.rm = TRUE),
+                  xout = d[, 1])
       pStarTheta <- as.vector(f$y / sum(f$y))
       pStarTheta / (1 / n)
     }

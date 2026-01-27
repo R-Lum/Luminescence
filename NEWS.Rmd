@@ -173,6 +173,11 @@ deprecation warning (#1290).
 * Argument `signal.integral` has been renamed to `signal_integral`. The older
 name will still work but generate a deprecation warning (#1290).
 
+### `calc_MinDose()`
+
+* The function now set non-positive De values to `NA` when `log = TRUE`, which
+used to lead to a crash when combined with `bootstrap = TRUE` (#1313).
+
 ### `calc_OSLLxTxRatio()`
 
 * The function now returns `SN_RATIO_LnLx` and `SN_RATIO_TnTx`. This is the 
