@@ -427,7 +427,7 @@ plot_RadialPlot <- function(
           z.central = switch(as.character(centrality[1]),
                              mean = rep(mean(x[, 3], na.rm = TRUE), nrow(x)),
                              median = rep(median(x[, 3], na.rm = TRUE), nrow(x)),
-                             mean.weighted = sum(x[, 3] / x[, 4]^2) / sum(1 / x[, 4]^2),
+                             mean.weighted = rep(weighted.mean(x[, 3], w = 1 / x[, 4]^2), nrow(x)),
                              median.weighted = rep(.weighted.median(x[, 3], w = x[, 4]), nrow(x)),
                              if (is.numeric(centrality) && length(centrality) >= length(data)) {
                                rep(median(x[, 3], na.rm = TRUE), nrow(x))
@@ -460,7 +460,7 @@ plot_RadialPlot <- function(
   z.central.global <- switch(as.character(centrality[1]),
                              mean = mean(data.global[, 3], na.rm = TRUE),
                              median = median(data.global[, 3], na.rm = TRUE),
-                             mean.weighted = sum(data.global[, 3] / data.global[, 4]^2) / sum(1 / data.global[, 4]^2),
+                             mean.weighted = weighted.mean(data.global[, 3], w = 1 / data.global[, 4]^2),
                              median.weighted = .weighted.median(data.global[, 3], w = data.global[, 4]),
                              if (is.numeric(centrality) && length(centrality) >= length(data)) {
                                mean(data.global[, 3], na.rm = TRUE)
