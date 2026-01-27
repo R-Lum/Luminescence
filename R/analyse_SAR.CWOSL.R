@@ -132,15 +132,24 @@
 #' for further calculation. Can be a [list] in a [list], if `object` is of type [list].
 #' Note: If an *unnamed* [list] is provided the new settings are ignored!
 #'
-#' Allowed options: `recycling.ratio`, `recuperation.rate`, `palaeodose.error`,
-#' `testdose.error`, `sn.ratio`, `exceed.max.regpoint = TRUE/FALSE`,
-#' `recuperation_reference` ("Natural" or any other dose point, e.g., `"R1"`),
-#' `sn_reference` ("Natural" or any other dose point).
+#'
+#' Allowed options: 
+#' * `recycling.ratio` [numeric] (default: `10`)
+#' * `recuperation.rate` [numeric] (default: `5`)
+#' * `palaeodose.error` [numeric] (default: `10`)
+#' * `testdose.error` [numeric] (default: `10`)
+#' * `sn.ratio` [numeric] (default: `50`)
+#' * `exceed.max.regpoint` [logical] (default: `FALSE`)
+#' * `recuperation_reference` [character] (default: `"Natural"`; set to, e.g., `"R1"` for other point)
+#' * `sn_reference` [character] (default: `"Natural"`).
+#' 
 #' Example: `rejection.criteria = list(recycling.ratio = 10)`.
-#' By default, all numerical values are set to 10, with the exception of
-#' `sn.ratio = 50` and `exceed.max.regpoint = TRUE`.
+#' 
+#' 
 #' Every criterion can be set to `NA`, in which case values are calculated, but
 #' they are not considered, i.e. their corresponding RC.Status is always `'OK'`.
+#' 
+#' 
 #' If `onlyLxTxTable = TRUE`, the `palaeodose.error` and `exceed.max.regpoint`
 #' criteria are not computed.
 #'

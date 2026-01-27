@@ -66,15 +66,23 @@ provide a \emph{named} list and set rejection criteria in \strong{percentage}
 for further calculation. Can be a \link{list} in a \link{list}, if \code{object} is of type \link{list}.
 Note: If an \emph{unnamed} \link{list} is provided the new settings are ignored!
 
-Allowed options: \code{recycling.ratio}, \code{recuperation.rate}, \code{palaeodose.error},
-\code{testdose.error}, \code{sn.ratio}, \code{exceed.max.regpoint = TRUE/FALSE},
-\code{recuperation_reference} ("Natural" or any other dose point, e.g., \code{"R1"}),
-\code{sn_reference} ("Natural" or any other dose point).
+Allowed options:
+\itemize{
+\item \code{recycling.ratio} \link{numeric} (default: \code{10})
+\item \code{recuperation.rate} \link{numeric} (default: \code{5})
+\item \code{palaeodose.error} \link{numeric} (default: \code{10})
+\item \code{testdose.error} \link{numeric} (default: \code{10})
+\item \code{sn.ratio} \link{numeric} (default: \code{50})
+\item \code{exceed.max.regpoint} \link{logical} (default: \code{FALSE})
+\item \code{recuperation_reference} \link{character} (default: \code{"Natural"}; set to, e.g., \code{"R1"} for other point)
+\item \code{sn_reference} \link{character} (default: \code{"Natural"}).
+}
+
 Example: \code{rejection.criteria = list(recycling.ratio = 10)}.
-By default, all numerical values are set to 10, with the exception of
-\code{sn.ratio = 50} and \code{exceed.max.regpoint = TRUE}.
+
 Every criterion can be set to \code{NA}, in which case values are calculated, but
 they are not considered, i.e. their corresponding RC.Status is always \code{'OK'}.
+
 If \code{onlyLxTxTable = TRUE}, the \code{palaeodose.error} and \code{exceed.max.regpoint}
 criteria are not computed.}
 
