@@ -326,6 +326,12 @@ analyse_SAR.CWOSL<- function(
     main <- as.list(paste0("ALQ #",1:length(object)))
   }
 
+    ## remove unnamed rejection criteria
+    if (!is.null(parm$rejection.criteria)) {
+      parm$rejection.criteria <- lapply(parm$rejection.criteria,
+                                        .rm_unnamed_elements)
+    }
+
     ## deprecated arguments
     extraArgs <- list(...)
 
@@ -341,7 +347,7 @@ analyse_SAR.CWOSL<- function(
       trim_channels = parm$trim_channels[[x]],
       mtext.outer = parm$mtext.outer[[x]],
       plot = parm$plot[[x]],
-      rejection.criteria = parm$rejection.criteria[x],
+      rejection.criteria = parm$rejection.criteria[[x]],
       plot_singlePanels = parm$plot_singlePanels[[x]],
       plot_onePage = parm$plot_onePage[[x]],
       onlyLxTxTable = parm$onlyLxTxTable[[x]],

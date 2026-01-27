@@ -491,7 +491,7 @@ test_that("advance tests run", {
   ##test failed recycling ratio
   test_failed <-
     analyse_SAR.CWOSL(
-      object = object[[1]],
+      object = object[1],
       signal_integral = 1:2,
       background_integral = 200:1000,
       fit.method = "LIN",
