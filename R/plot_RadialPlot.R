@@ -318,9 +318,20 @@ plot_RadialPlot <- function(
       ## what `calc_Statistics() does)
       if (ncol(data[[i]]) < 2) {
         data[[i]] <- data.frame(data[[i]], 10^-9)
-      } else if (ncol(data[[i]]) > 2) {
-        ## keep only the first two columns
-        data[[i]] <- data[[i]][, 1:2]
+      } else {
+        if (ncol(data[[i]]) > 2) {
+          ## keep only the first two columns
+          data[[i]] <- data[[i]][, 1:2]
+        }
+
+        ## don't let the error be zero: we set it to the smallest between the
+        ## smallest non-zero error and 10^-9
+        is.zero <- data[[i]][, 2] == 0
+        if (any(is.zero)) {
+          min.value <- min(data[[i]][!is.zero, 2], 10^-9)
+          data[[i]][is.zero, 2] <- min.value
+          .throw_warning("Error values cannot be zero, reset to ", min.value)
+        }
       }
   }
 
