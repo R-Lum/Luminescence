@@ -209,6 +209,14 @@ test_that("Test internals", {
               "list")
   expect_length(t, 0)
 
+  # .rm_unnamed_elements() --------------------------------------------------
+  expect_equal(.rm_unnamed_elements(list(a = "a", b = "b")),
+               list(a = "a", b = "b"))
+  expect_equal(.rm_unnamed_elements(list(a = "a", b = NULL, 3, 4, c = 5)),
+               list(a = "a", b = NULL, c = 5))
+  expect_null(.rm_unnamed_elements(list("a", NULL)))
+  expect_null(.rm_unnamed_elements(list()))
+
   # .matrix_binning() ---------------------------------------------------------------------------
   m <- matrix(data = c(rep(1:20, each = 20)), ncol = 20, nrow = 20)
   rownames(m) <- 1:nrow(m)

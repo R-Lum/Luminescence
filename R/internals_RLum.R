@@ -661,6 +661,28 @@ fancy_scientific <- function(l) {
 }
 
 #++++++++++++++++++++++++++++++
+#+ .rm_unnamed_elements       +
+#++++++++++++++++++++++++++++++
+#' @title Removes all unnamed elements from a list
+#'
+#' @param x [list] (**required**): list
+#'
+#' @author Marco Colombo, Institute of Geography, Heidelberg University (Germany)
+#'
+#' @examples
+#' l <- list(a1 = "a", a2 = NULL, 3, 4)
+#' .rm_unnamed_elements(l)
+#'
+#' @return [list] without `NULL` elements, can be empty
+#'
+#' @noRd
+.rm_unnamed_elements <- function(x) {
+  nm <- names(x)
+  if (is.null(nm)) return(NULL)
+  x[nzchar(nm)]
+}
+
+#++++++++++++++++++++++++++++++
 #+ .matrix_binning            +
 #++++++++++++++++++++++++++++++
 #' @title Efficient binning of matrices
