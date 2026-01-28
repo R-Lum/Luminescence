@@ -18,16 +18,17 @@
 #'
 #' **(Un-)logged model**
 #'
-#' In the original version of the minimum dose model, the basic data are the natural
+#' In the original version of the minimum dose model, which is applied if
+#' `log = TRUE` (default), the basic data are the natural
 #' logarithms of the De estimates and relative standard errors of the De
 #' estimates. The value for `sigmab` must be provided as a ratio
-#' (e.g, 0.2 for 20 %). This model will be applied if `log = TRUE`.
+#' (e.g, 0.2 for 20 %).
 #'
 #' If `log=FALSE`, the modified un-logged model will be applied instead. This
-#' has essentially the same form as the original version.  `gamma` and
+#' has essentially the same form as the original version, but  `gamma` and
 #' `sigma` are in Gy and `gamma` becomes the minimum true dose in the
 #' population.
-#' **Note** that the un-logged model requires `sigmab` to be in the same
+#' **Note:** the un-logged model requires `sigmab` to be in the same
 #' absolute unit as the provided De values (seconds or Gray).
 #'
 #' While the original (logged) version of the minimum dose
@@ -36,7 +37,7 @@
 #' samples containing negative, zero or near-zero De estimates (Arnold et al.
 #' 2009, p. 323).
 #'
-#' **Initial values & boundaries**
+#' **Initial values and boundaries**
 #'
 #' The log-likelihood calculations use the [nlminb] function for box-constrained
 #' optimisation using PORT routines.  Accordingly, initial values for the four
@@ -46,37 +47,35 @@
 #' *sigma* and *p0* are totally off target, consider providing custom
 #' starting values via `init.values`.
 #'
-#' The boundaries for the individual model parameters are not required to be
-#' explicitly specified. If you want to override the default boundary values,
-#' use arguments `gamma.lower`, `gamma.upper`, `sigma.lower`, `sigma.upper`,
+#' The boundaries for individual model parameters need not be specified
+#' explicitly. To override the default boundary values, provide arguments
+#' `gamma.lower`, `gamma.upper`, `sigma.lower`, `sigma.upper`,
 #' `p0.lower`, `p0.upper`, `mu.lower` and `mu.upper`.
 #'
 #' **Bootstrap**
 #'
 #' When `bootstrap=TRUE` the function applies the bootstrapping method as
-#' described in Cunningham & Wallinga (2012). By default, the minimum age model
-#' produces 1000 first level and 3000 second level bootstrap replicates. The
-#' uncertainty on `sigmab` is 0.04 by default. These values can be changed by
-#' using the arguments `bs.M` (first level replicates), `bs.N`
-#' (second level replicates) and `sigmab.sd` (error on `sigmab`). The bandwidth
-#' of the kernel density estimate can be specified with `bs.h`. By default,
-#' this is calculated as:
+#' described in Cunningham & Wallinga (2012). The minimum age model produces
+#' `bs.M` first-level bootstrap replicates (1000 by default) and `bs.N`
+#' second-level replicates (`3 * bs.M` by default), with an uncertainty
+#' `sigma.sd` on the overdispersion parameter (0.04 by default). These values
+#' can be changed by using arguments `bs.M`, `bs.N` and `sigmab.sd`,
+#' respectively. The bandwidth of the kernel density estimate can be specified
+#' with `bs.h`. By default, this is calculated as:
 #'
 #' \deqn{h = (2*\sigma_{DE})/\sqrt{n}}
 #'
 #' **Multicore support**
 #'
-#' Parallel computations can be activated by setting `multicore=TRUE`.
-#' By default, the number of available logical CPU cores is determined
-#' automatically, but can be changed with `cores`. The multicore support
-#' is only available when `bootstrap=TRUE` and spawns `n` R instances
-#' for each core to get MAM estimates for each of the N and M bootstrap
-#' replicates. Note that this option is highly experimental and may or may not
-#' work for your machine. The performance gain increases for larger number
-#' of bootstrap replicates. However, note that with each additional core (and
-#' hence R instance) the memory usage can significantly increase, depending
-#' on the number of bootstrap replicates. When insufficient memory is available,
-#' there will be a massive performance hit.
+#' Parallel processing can be enabled by setting `multicore = TRUE`. By default,
+#' the number of logical CPU cores is detected automatically, but it can be
+#' overridded with the `cores` argument. Multicore processing is supported
+#' only when `bootstrap = TRUE`, and spawns one R process per core to compute
+#' MAM estimates for each of the `N * M` bootstrap replicates. Note that this
+#' feature is experimental and may not work on all systems. Performance gains
+#' grow with the number of bootstrap replicates, but each additional core (R
+#' process) increases memory usage. When memory is insufficient, overall
+#' performance can degrade severely.
 #'
 #' **Likelihood profiles**
 #'
@@ -104,7 +103,8 @@
 #' See details.
 #'
 #' @param log [logical] (*with default*):
-#' whether the logged minimum dose model should be fit to De data.
+#' whether the logged minimum dose model should be fit to De data (`TRUE` by
+#' default).
 #'
 #' @param par [numeric] (*with default*):
 #' number of parameters in the minimum age model, either 3 (default) or 4.
@@ -133,8 +133,8 @@
 #' @param multicore [logical] (*with default*):
 #' parallelize the computation of the bootstrap by creating a multicore cluster
 #' (only considered if `bootstrap = TRUE`). By default, it uses all available
-#' logical CPU cores, but this can be changed with option `cores`. Note that
-#' this option is highly experimental and may not work on all machines.
+#' logical CPU cores, but this can be changed with the `cores` argument. ote
+#' that this feature is experimental and may not work on all systems.
 #'
 #' @param ... (*optional*) further arguments for bootstrapping
 #' (`bs.M`, `bs.N`, `bs.h`, `sigmab.sd`). See details for their usage.
