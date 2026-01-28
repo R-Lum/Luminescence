@@ -33,18 +33,17 @@
 #' **@data**
 #' ```
 #' $LxTx.table (data.frame)
-#' .. $ LnLx
-#' .. $ TnTx
 #' .. $ Net_LnLx
 #' .. $ Net_LnLx.Error
 #' .. $ Net_TnTx
 #' .. $ Net_TnTx.Error
+#' .. $ SN_RATIO_LnLx = NA,
+#' .. $ SN_RATIO_TnTx = NA
 #' .. $ LxTx
-#' .. $ LxTx.relError
 #' .. $ LxTx.Error
 #' ```
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Dirk Mittelstrass
 #'
@@ -142,21 +141,16 @@ calc_OSLLxTxDecomposed <- function(
     TnTx.Error <- Tx.data$n.error[component_index]
   }
 
-  ##combine results
-  LnLxTnTx <- cbind(
-    LnLx,
-    LnLx.Error,
-    TnTx,
-    TnTx.Error
-  )
-
   ##--------------------------------------------------------------------------##
   ##(4) Calculate LxTx error according Galbraith (2014)
 
   ## transform results to a data.frame
-  LnLxTnTx <- as.data.frame(LnLxTnTx)
-  colnames(LnLxTnTx)<-c("Net_LnLx", "Net_LnLx.Error",
-                        "Net_TnTx", "Net_TnTx.Error")
+  LnLxTnTx <- data.frame(Net_LnLx = LnLx,
+                         Net_LnLx.Error = LnLx.Error,
+                         Net_TnTx = TnTx,
+                         Net_TnTx.Error = TnTx.Error,
+                         SN_RATIO_LnLx = NA,
+                         SN_RATIO_TnTx = NA)
 
   temp <- .calculate_LxTx_error(LnLxTnTx, sig0, digits)
 
