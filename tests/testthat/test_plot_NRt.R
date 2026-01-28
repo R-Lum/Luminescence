@@ -17,13 +17,19 @@ test_that("input validation", {
                 "'data' contains only curve data for the natural signal")
   expect_error(plot_NRt(curves[[1]]@data),
                 "'data' contains only curve data for the natural signal")
+  expect_error(plot_NRt(iris),
+                "'data' contains non-numerical columns")
+  expect_error(plot_NRt(data.frame(a = NA, b = 1:5, c = 1:5)),
+                "'data' contains non-numerical columns")
+  expect_error(plot_NRt(list(a = 1, b = iris)),
+                "'data' contains elements of different types: 'numeric', 'data.frame'")
   expect_error(plot_NRt(list(a = 1, b = 2)),
                 "'data' doesn't contain the expected type of elements")
-  expect_error(plot_NRt(data.frame(a = NA, b = 1:5, c = 1:5)),
+  expect_error(plot_NRt(data.frame(a = c(1:4, NA), b = 1:5, c = 1:5)),
                 "'data' contains missing values in the time column")
-  expect_error(plot_NRt(data.frame(a = 1:5, b = NA, c = 1:5)),
+  expect_error(plot_NRt(data.frame(a = 1:5, b = c(1:4, NA), c = 1:5)),
                 "'data' contains missing values in the natural signal")
-  expect_error(plot_NRt(data.frame(a = 1:5, b = 1:5, c = NA)),
+  expect_error(plot_NRt(data.frame(a = 1:5, b = 1:5, c = c(NA, 2:5))),
                 "'data' contains missing values in the regenerated signal")
   expect_error(plot_NRt(curves, log = FALSE),
                "'log' should be of class 'character' and have length 1")
