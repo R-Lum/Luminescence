@@ -24,7 +24,9 @@ test_that("input validation", {
                "'mu' must either be of the same length or of length 1")
   expect_error(fit_SurfaceExposure(data.frame(NA, 1:5)),
                "After NA removal, nothing is left from the data set")
-
+  expect_error(fit_SurfaceExposure(data = d1, sigmaphi = 5e-10, mu = 0.9,
+                                   verbose = NULL),
+               "'verbose' should be a single logical value")
   SW({
   expect_message(fit_SurfaceExposure(rbind(d1, NA), mu = 0.9),
                  "\\[fit\\_SurfaceExposure\\(\\)\\] NA values in 'data' were removed")

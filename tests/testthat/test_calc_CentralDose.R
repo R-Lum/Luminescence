@@ -23,6 +23,8 @@ test_that("input validation", {
                "should have at least two columns and two rows")
   expect_error(calc_CentralDose(iris, iris),
                "'sigmab' should be of class 'numeric' and have length 1")
+  expect_error(calc_CentralDose(iris, verbose = NA),
+               "'verbose' should be a single logical value")
 
   SW({
   expect_s4_class(calc_CentralDose(temp_NA), "RLum.Results")

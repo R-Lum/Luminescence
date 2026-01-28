@@ -399,6 +399,8 @@ fit_DoseResponseCurve <- function(
   .validate_positive_scalar(fit.NumberRegPoints, int = TRUE, null.ok = TRUE)
   .validate_positive_scalar(fit.NumberRegPointsReal, int = TRUE, null.ok = TRUE)
   .validate_positive_scalar(n.MC, int = TRUE)
+  .validate_logical_scalar(txtProgressBar)
+  .validate_logical_scalar(verbose)
 
   ## convert input to data.frame
   switch(
@@ -732,12 +734,12 @@ fit_DoseResponseCurve <- function(
       lower_bounds <- c(a = 0, b = 1e-6, c = 0)
       control_settings <-  minpack.lm::nls.lm.control(
         maxiter = 500)
-      
+
       ## loop for better attempt
       for (i in seq_along(a.MC)) {
         ## get start list
         start_list <- list(a = a.MC[i], b = b.MC[i], c = c.MC[i])
-  
+
         ## run fit
         fit.initial <- suppressWarnings(try(minpack.lm::nlsLM(
           formula = y ~ fit_functionEXP_cpp(a, b, c, x),

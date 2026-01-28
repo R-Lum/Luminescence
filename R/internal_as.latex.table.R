@@ -63,7 +63,6 @@
     tabular_only = FALSE,
 ...) {
 
-
   ## TODO:
   # - Improve by using RegEx to dynamically find error fields, e.g. ( "([ ]err)|(^err)" )
   # -
@@ -185,10 +184,9 @@
     .throw_error("Length of 'pos' does not match the number of columns")
 
   ## Default settings ----
-  options <- list(verbose = TRUE)
-
-  ## Override settings ----
-  options <- modifyList(options, list(...))
+  options <- modifyList(list(verbose = TRUE),
+                        list(...))
+  .validate_logical_scalar(options$verbose, name = "'verbose'")
 
   ## Subset data frame ----
   if (!is.null(select)) {

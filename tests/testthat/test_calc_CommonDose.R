@@ -16,6 +16,8 @@ test_that("input validation", {
                "'sigmab' should be of class 'numeric' and have length 1")
   expect_error(calc_CommonDose(ExampleData.DeValues$CA1, sigmab = 2),
                "'sigmab' must be a value between 0 and 1")
+  expect_error(calc_CommonDose(ExampleData.DeValues$CA1, verbose = NA),
+               "'verbose' should be a single logical value")
 })
 
 test_that("check functionality", {

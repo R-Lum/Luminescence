@@ -67,6 +67,9 @@ test_that("input validation", {
   expect_error(fit_DoseResponseCurve(LxTxData,
                                      n.MC = "error"),
                "'n.MC' should be a single positive integer value")
+  expect_error(fit_DoseResponseCurve(LxTxData,
+                                     verbose = "error"),
+               "'verbose' should be a single logical value")
 
   ## shorten dataframe
   expect_warning(fit_DoseResponseCurve(LxTxData[1:2, ], verbose = FALSE),

@@ -36,6 +36,8 @@ test_that("Check .as.latex.table.data.frame()", {
                "Length of 'row.names' does not match the number of rows")
   expect_error(.as.latex.table.data.frame(df, pos = c("pos1", "pos2")),
                "Length of 'pos' does not match the number of columns")
+  expect_error(.as.latex.table.data.frame(df, verbose = NA),
+               "'verbose' should be a single logical value")
 
   expect_output(.as.latex.table.data.frame(df, tabular_only = TRUE))
   expect_output(.as.latex.table.data.frame(df[, 1, drop = FALSE],

@@ -130,8 +130,11 @@ calc_CommonDose <- function(
   ##============================================================================##
   ## ADDITIONAL ARGUMENTS
   ##============================================================================##
-  settings <- list(verbose = TRUE)
-  settings <- modifyList(settings, list(...))
+
+  settings <- modifyList(list(verbose = TRUE),
+                         list(...))
+  .validate_logical_scalar(settings$verbose, name = "'verbose'")
+
 
   ##============================================================================##
   ## CALCULATIONS
