@@ -85,16 +85,6 @@ test_that("check functionality", {
       "After NA removal, nothing is left from the data set"),
       "Input data contained NA/NaN values, which were removed")
 
-  ## non-positive De values with log = TRUE
-  set.seed(3)
-  SW({
-  expect_warning(calc_MinDose(data = data.frame(De = c(rnorm(4) + 5, -1),
-                                                De_Err = rnorm(5) + 1),
-                              sigmab = 1, log = TRUE, bootstrap = TRUE,
-                              bs.M = 10, bs.N = 5, bs.h = 2),
-                 "De values must be positive with 'log = TRUE', 1 values set to NA")
-  })
-
   ## no converging fit
   skip_on_os("windows")
   set.seed(1)
@@ -173,4 +163,17 @@ test_that("regression tests", {
   expect_warning(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                               bootstrap = TRUE, bs.M = 1,
                               verbose = FALSE, plot = FALSE))
+
+  ## issue 1332
+  ## the seed was picked to get the smallest number of warnings and messages;
+  ## this test relies on not using SW() to do its job
+  set.seed(27)
+  expect_warning(expect_warning(expect_message(
+      calc_MinDose(data = data.frame(De = c(rnorm(4) + 5, -1),
+                                     De_Err = rnorm(5) + 1),
+                   sigmab = 1, log = TRUE, bootstrap = TRUE,
+                   bs.M = 10, bs.N = 5, bs.h = 2, verbose = FALSE),
+      "Unable to plot the likelihood profile for: p0"),
+      "De values must be positive with 'log = TRUE', 1 values set to NA"),
+      "Not enough bootstrap replicates for loess fitting, try increasing `bs.M`")
 })
