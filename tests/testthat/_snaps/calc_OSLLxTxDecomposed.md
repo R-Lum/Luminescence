@@ -19,7 +19,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "LxTx", "LxTx.Error"]
+                  "value": ["Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -52,6 +52,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [4638]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -121,7 +131,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "LxTx", "LxTx.Error"]
+                  "value": ["Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -154,6 +164,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [2765]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -223,7 +243,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "LxTx", "LxTx.Error"]
+                  "value": ["Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -256,6 +276,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [1655]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",

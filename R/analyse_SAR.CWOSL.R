@@ -808,13 +808,17 @@ analyse_SAR.CWOSL<- function(
                    colnames(Recuperation) %||% NA_character_,
                    "Testdose error",
                    "Signal-to-noise ratio"),
-      Value = c(RecyclingRatio, Recuperation, Testdose.error, SN.ratio %||% NA_real_),
+      Value = c(RecyclingRatio, Recuperation, Testdose.error, SN.ratio),
       Threshold = c(recycling.threshold, recuperation.threshold,
                     testdose.threshold, SN.threshold),
       Status = c(status.RecyclingRatio, status.Recuperation,
                  status.Testdose, status.SN.ratio),
       stringsAsFactors = FALSE
   )
+
+  ## remove rejection criteria that have a NA value (it can happen for sn.ratio
+  ## if OSL.component is used)
+  RejectionCriteria <- RejectionCriteria[!is.na(RejectionCriteria$Value), ]
 
   ## Plotting ---------------------------------------------------------------
   if (plot) {

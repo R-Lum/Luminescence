@@ -44,14 +44,13 @@ Slot \code{data} contains a \link{list} with the following structure:
 \strong{@data}
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{$LxTx.table (data.frame)
-.. $ LnLx
-.. $ TnTx
 .. $ Net_LnLx
 .. $ Net_LnLx.Error
 .. $ Net_TnTx
 .. $ Net_TnTx.Error
+.. $ SN_RATIO_LnLx = NA,
+.. $ SN_RATIO_TnTx = NA
 .. $ LxTx
-.. $ LxTx.relError
 .. $ LxTx.Error
 }\if{html}{\out{</div>}}
 }
@@ -60,7 +59,7 @@ Calculate \code{Lx/Tx} ratios from a given set of decomposed
 CW-OSL curves decomposed by \code{OSLdecomposition::RLum.OSL_decomposition}.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.1
 }
 
 \references{

@@ -38,9 +38,10 @@ More information on these changes are available at
   example, “OSL (UVVIS”) from those that are not useful in the analysis
   (for example, “\_OSL (NA)“) (#1276).
 
-- Function `calc_OSLLxTxRatio()` adds two new columns, `SN_RATIO_LnLx`
-  and `SN_RATIO_TnTx`, to the output. This may potentially disrupt code
-  that relies on column indices instead of column names (#1281).
+- Functions `calc_OSLLxTxRatio()` and `calc_OSLLxTxDecomposed()` add two
+  new columns to the output, `SN_RATIO_LnLx` and `SN_RATIO_TnTx`. This
+  may disrupt code that relies on column indices instead of column names
+  (#1281, \#1330).
 
 ## New functions
 
@@ -203,11 +204,18 @@ More information on these changes are available at
   which used to lead to a crash when combined with `bootstrap = TRUE`
   (#1313).
 
+### `calc_OSLLxTxDecomposed()`
+
+- The data frame returned by the function now contains two additional
+  columns, `SN_RATIO_LnLx` and `SN_RATIO_TnTx` (containing `NA`) for
+  consistency with the output produced by `calc_OSLLxTxRatio()` (#1330).
+
 ### `calc_OSLLxTxRatio()`
 
-- The function now returns `SN_RATIO_LnLx` and `SN_RATIO_TnTx`. This is
-  the signal-to-noise ratio for the respective shine-down curves for
-  `Lx` and `Tx` (#1281).
+- The data frame returned by the function now contains two additional
+  columns, `SN_RATIO_LnLx` and `SN_RATIO_TnTx`. This is the
+  signal-to-noise ratio for the respective shine-down curves for `Lx`
+  and `Tx` (#1281).
 
 - Arguments `signal.integral`, `background.integral`,
   `signal.integral.Tx` and `background.integral.Tx` have been renamed to
