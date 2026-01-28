@@ -95,6 +95,8 @@ calc_gSGC<- function(
   gSGC.type <- .validate_args(gSGC.type, c("0-250", "0-450"))
   .validate_class(gSGC.parameters, "list", null.ok = TRUE)
   .validate_positive_scalar(n.MC, int = TRUE)
+  .validate_logical_scalar(verbose)
+  .validate_logical_scalar(plot)
 
   ##rename columns for consistency reasons
   colnames(data) <- c('LnTn', 'LnTn.error', 'Lr1Tr1', 'Lr1Tr1.error', 'Dr1')

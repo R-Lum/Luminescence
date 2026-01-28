@@ -182,6 +182,8 @@ calc_FastRatio <- function(object,
   # override defaults with args in ...
   settings <- modifyList(settings, list(...))
 
+  .validate_logical_scalar(settings$verbose, name = "'verbose'")
+  .validate_logical_scalar(settings$output.terminal, name = "'output.terminal'")
 
   ## Calculations --------------------------------------------------------------
   # iterate over all user provided objects and calculate the FR

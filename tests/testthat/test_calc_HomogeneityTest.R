@@ -14,6 +14,8 @@ test_that("input validation", {
                "'data' should have 2 columns")
   expect_error(calc_HomogeneityTest(data.frame(1:4, letters[1:4])),
                "All columns of 'data' should be of class 'numeric' or 'integer'")
+  expect_error(calc_HomogeneityTest(iris, verbose = NA),
+               "'verbose' should be a single logical value")
 })
 
 test_that("check values from output example", {

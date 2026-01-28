@@ -69,6 +69,8 @@ test_that("input validation", {
                "After NA removal, nothing is left from the data set")
   expect_error(calc_FastRatio(data.frame(1:4, NA)),
                "After NA removal, nothing is left from the data set")
+  expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve, verbose = NA),
+               "'verbose' should be a single logical value")
 
   expect_warning(expect_null(calc_FastRatio(ExampleData.CW_OSL_Curve,
                                             Ch_L2 = 1)),

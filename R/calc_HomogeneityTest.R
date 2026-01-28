@@ -83,6 +83,7 @@ calc_HomogeneityTest <- function(
 
   ## set plot main title
   verbose<- extraArgs$verbose %||% TRUE
+  .validate_logical_scalar(verbose, name = "'verbose'")
 
   ##============================================================================##
   ## CALCULATIONS

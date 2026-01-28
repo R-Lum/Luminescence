@@ -153,10 +153,11 @@ calc_CentralDose <- function(
   ## ... ARGUMENTS
   ## ============================================================================##
 
-  options <- list(verbose = TRUE,
-                  trace = FALSE)
-
-  options <- modifyList(options, list(...))
+  options <- modifyList(list(verbose = TRUE,
+                             trace = FALSE),
+                        list(...))
+  .validate_logical_scalar(options$verbose, name = "'verbose'")
+  .validate_logical_scalar(options$trace, name = "'trace'")
 
   ## deprecated argument
   if ("na.rm" %in% ...names()) {

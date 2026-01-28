@@ -347,6 +347,9 @@ fit_OSLLifeTimes <- function(
     return(NULL)
   }
 
+  .validate_logical_scalar(plot)
+  .validate_logical_scalar(plot_simple)
+  .validate_logical_scalar(verbose)
 
 # Fitting -------------------------------------------------------------------------------------
 

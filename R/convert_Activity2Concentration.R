@@ -102,13 +102,13 @@ convert_Activity2Concentration <- function(
   data,
   input_unit = "activity",
   verbose = TRUE
-
 ) {
   .set_function_name("convert_Activity2Concentration")
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
   .validate_class(data, "data.frame")
+  .validate_logical_scalar(verbose)
 
   if(ncol(data)<3)
     .throw_error("'data' should have at least 3 columns")

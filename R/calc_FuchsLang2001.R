@@ -105,6 +105,7 @@ calc_FuchsLang2001 <- function(
   ##deal with addition arguments
   extraArgs <- list(...)
   verbose <- extraArgs$verbose %||% TRUE
+  .validate_logical_scalar(verbose)
 
   ##============================================================================##
   ##PREPARE DATA

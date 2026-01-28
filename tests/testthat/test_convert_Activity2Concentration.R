@@ -27,6 +27,9 @@ test_that("input validation", {
   expect_error(
     object = convert_Activity2Concentration(data = data_activity, input_unit = "stop"),
     "'input_unit' should be one of 'activity' or 'abundance'")
+
+  expect_error(convert_Activity2Concentration(data_activity, verbose = NA),
+    "'verbose' should be a single logical value")
 })
 
 test_that("snapshot tests", {
