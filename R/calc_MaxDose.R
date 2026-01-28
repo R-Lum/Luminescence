@@ -131,7 +131,10 @@ calc_MaxDose<- function(
 ){
   res<- calc_MinDose(data, sigmab, log, par, bootstrap, init.values, plot=FALSE, invert=TRUE, ...)
   res@originator<- "calc_MaxDose"
-  if (plot) try(plot_RLum.Results(res, ...))
+  if (plot) {
+    try(plot_RLum.Results(res, ...),
+        outFile = stdout()) # redirect error messages so they can be silenced
+  }
 
   invisible(res)
 }

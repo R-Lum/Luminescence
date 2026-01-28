@@ -977,8 +977,10 @@ calc_MinDose <- function(
 
   ##=========##
   ## PLOTTING
-  if (plot)
-    try(plot_RLum.Results(results, ...))
+  if (plot) {
+    try(plot_RLum.Results(results, ...),
+        outFile = stdout()) # redirect error messages so they can be silenced
+  }
 
   results
 }
