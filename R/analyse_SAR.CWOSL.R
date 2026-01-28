@@ -1170,8 +1170,9 @@ analyse_SAR.CWOSL<- function(
               }else{
                 as.numeric(max(LnLxTnTx$Dose))
               },
-            Status = .status_from_threshold(De, max(LnLxTnTx$Dose))
-          )
+            Status = NA_character_)
+      exceed.max.regpoint.data.frame$Status <- 
+        .status_from_threshold(De, exceed.max.regpoint.data.frame$Threshold)
 
           ##add to RejectionCriteria data.frame
           RejectionCriteria <- rbind(RejectionCriteria,
