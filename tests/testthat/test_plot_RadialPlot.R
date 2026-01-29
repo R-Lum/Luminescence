@@ -42,6 +42,8 @@ test_that("input validation", {
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
   expect_error(plot_RadialPlot(df, summary.pos = "error"),
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
+  expect_error(plot_RadialPlot(df, plot.ratio = NA),
+               "'plot.ratio' should be a single positive value or NULL")
   expect_error(plot_RadialPlot(df, line = c(NA, NA)),
                "'line' should be of class 'numeric', 'integer' or NULL")
   expect_error(plot_RadialPlot(df, zlim = 1),
@@ -201,7 +203,7 @@ test_that("graphical snapshot tests", {
                               plot_RadialPlot(ExampleData.DeValues$CA1,
                                               xlim = c(0, 30),
                                               zlim = c(5, 1000),
-                                              plot.ratio = 0))
+                                              plot.ratio = 0.0001))
   vdiffr::expect_doppelganger("regression 1194",
                               plot_RadialPlot(ExampleData.DeValues$CA1,
                                               xlim = c(0, 0.416),

@@ -22,6 +22,8 @@ test_that("input validation", {
                "'age' must be of the same length")
   expect_error(fit_SurfaceExposure(d4, age = rep(1e4, 5), mu = c(0.8, 0.9)),
                "'mu' must either be of the same length or of length 1")
+  expect_error(fit_SurfaceExposure(d1, age = 1e4, plot = NA),
+               "'plot' should be a single logical value")
   expect_error(fit_SurfaceExposure(data.frame(NA, 1:5)),
                "After NA removal, nothing is left from the data set")
   expect_error(fit_SurfaceExposure(data = d1, sigmaphi = 5e-10, mu = 0.9,

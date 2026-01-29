@@ -23,6 +23,10 @@ test_that("input validation", {
                "should have at least two columns and two rows")
   expect_error(calc_CentralDose(iris, iris),
                "'sigmab' should be of class 'numeric' and have length 1")
+  expect_error(calc_CentralDose(iris, log = NA),
+               "'log' should be a single logical value")
+  expect_error(calc_CentralDose(iris, plot = NA),
+               "'plot' should be a single logical value")
   expect_error(calc_CentralDose(iris, verbose = NA),
                "'verbose' should be a single logical value")
 

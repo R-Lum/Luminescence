@@ -71,6 +71,7 @@ calc_WodaFuchs2008 <- function(
   }
   .validate_not_empty(data)
   .validate_positive_scalar(breaks, null.ok = TRUE)
+  .validate_logical_scalar(plot)
 
   if (inherits(data, "RLum.Results")) {
         data <- tryCatch(get_RLum(data, "data"),

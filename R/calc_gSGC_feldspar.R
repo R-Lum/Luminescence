@@ -84,6 +84,8 @@ calc_gSGC_feldspar <- function(
   }
   colnames(data) <- c("LnTn", "LnTn.error", "Lr1Tr1", "Lr1Tr1.error",
                       "Dr1")
+  .validate_positive_scalar(n.MC)
+  .validate_logical_scalar(plot)
 
 # Parametrize -------------------------------------------------------------
   params <- data.frame( # this is the data from Table 3 of Li et al., 2015
