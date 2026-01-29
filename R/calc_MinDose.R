@@ -277,8 +277,6 @@
 #'                                   sigma == .(round(res$sig, 1)) ~ ", " ~
 #'                                   rho == .(round(res$p0, 2))))
 #'
-#'
-#'
 #' # (3) Run the minimum age model with bootstrap
 #' # NOTE: Bootstrapping is computationally intensive
 #' # (3.1) run the minimum age model with default values for bootstrapping
@@ -356,9 +354,7 @@ calc_MinDose <- function(
 
   .validate_positive_scalar(sigmab)
   if (!is.null(init.values)) {
-    if (!is.list(init.values)) {
-      .throw_error("'init.values' is expected to be a named list")
-    }
+    .validate_class(init.values, "list")
     exp.names <- c("gamma", "sigma", "p0", "mu")
     mis.names <- setdiff(exp.names, names(init.values))
     if (length(init.values) < length(exp.names) || length(mis.names) > 0) {
@@ -374,6 +370,7 @@ calc_MinDose <- function(
     .throw_error("'par' can only be set to 3 or 4")
   }
 
+  .validate_positive_scalar(level)
   .validate_logical_scalar(log)
   .validate_logical_scalar(bootstrap)
   .validate_logical_scalar(log.output)
@@ -536,9 +533,9 @@ calc_MinDose <- function(
     lf2i <- log1p(-p0) - 0.5 * log(s2) - 0.5 * (zi - mu)^2 / s2  - logsqrt2pi
     lf2i <- lf2i + log1p(-stats::pnorm(res0)) - log1p(-stats::pnorm(res1))
     llik <- log( exp(lf1i) + exp(lf2i) )
-    negll <- -sum(llik)
 
-    return(negll)
+    ## negative log-likelihood
+    -sum(llik)
   }
 
   # THIS MAXIMIZES THE Neglik_f LIKELIHOOD FUNCTION AND RETURNS AN MLE OBJECT
@@ -562,7 +559,17 @@ calc_MinDose <- function(
     }, error = function(e) {
       .throw_error("Maximizing the negative log-likelihood failed: ", e$message) # nocov
     })
-    return(mle)
+    mle
+  }
+
+  ## Function to extract the estimate of gamma from mle2 objects and converting
+  ## it back to the 'normal' scale
+  save_Gamma <- function(ests) {
+    m <- bbmle::coef(ests)[["gamma"]]
+    if (log && invert) {
+      m <- exp(-(m - x.offset))
+    }
+    m
   }
 
   ##============================================================================##
@@ -601,8 +608,10 @@ calc_MinDose <- function(
     print(suppressWarnings(bbmle::summary(ests)))
 
   ## deal with NA/NaN values
-  if (anyNA(coef_err))
-    coef_err[which(is.na(coef_err))] <- t(as.data.frame(ests@coef))[which(is.na(coef_err))] / 100
+  if (anyNA(coef_err)) {
+    na.idx <- is.na(coef_err)
+    coef_err[na.idx] <- t(as.data.frame(ests@coef))[na.idx] / 100
+  }
 
   which <- c("gamma", "sigma", "p0", if (par == 4) "mu")
   prof.lower <- c(gamma = -Inf, sigma = 0, p0 = 0, mu = -Inf)
@@ -656,7 +665,7 @@ calc_MinDose <- function(
   BIC <- BIC(ests)
 
   # retrieve results from mle2-object
-  pal <- if (log) {
+  De <- if (log) {
     if (invert) {
       exp((bbmle::coef(ests)[["gamma"]]-x.offset)*-1)
     } else {
@@ -704,7 +713,7 @@ calc_MinDose <- function(
 
   ##============================================================================##
   ## AGGREGATE RESULTS
-  summary <- data.frame(de=pal,
+  summary <- data.frame(de = De,
                         de_err=gamma_err,
                         ci_level = level,
                         ci_lower = conf["gamma", 1],
@@ -741,7 +750,7 @@ calc_MinDose <- function(
         R[i, ] <- sample(x = n, size = n, replace = TRUE)
         f[i, ] <- tabulate(R, n)
       }
-      return(list(R = R, freq = f))
+      list(R = R, freq = f)
     }
 
     # Function that adds the additional error sigmab to each individual DE error
@@ -752,26 +761,15 @@ calc_MinDose <- function(
       } else {
         d[ ,2] <- sqrt(d[ ,2]^2 + e^2)
       }
-      return(d)
+      d
     }
 
     # Function that produces N+M replicates from the original data set using
     # randomly sampled indices with replacement and adding a randomly drawn
     # sigmab error
-    create_Replicates <- function(f, s) {
+    create_Replicates <- function(f, e) {
       d <- apply(f$R, 1, function(x) data[x, ])
-      r <- mapply(function(x, y) combine_Errors(x, y), d, s, SIMPLIFY = FALSE)
-      return(r)
-    }
-
-    # Function to extract the estimate of gamma from mle2 objects and converting
-    # it back to the 'normal' scale
-    save_Gamma <- function(d) {
-      m <- bbmle::coef(d)[["gamma"]]
-      if (log && invert) {
-        m <- exp(-(m - x.offset))
-      }
-      return(m)
+      mapply(function(x, y) combine_Errors(x, y), d, e, SIMPLIFY = FALSE)
     }
 
     # Function that takes each of the N replicates and produces a kernel density
@@ -786,7 +784,7 @@ calc_MinDose <- function(
     # Function that calculates the product term of the recycled bootstrap
     get_ProductTerm <- function(Pmat, b2Pmatrix) {
       prodterm <- apply(Pmat^b2Pmatrix$freq[1:N, ], 1, prod)
-      return(prodterm)
+      prodterm
     }
 
     # Function that calculates the pseudo likelihoods for M replicates and
@@ -901,10 +899,7 @@ calc_MinDose <- function(
 
       cat("\n--- final parameter estimates ---\n")
       tmp <- round(data.frame(
-        gamma=ifelse(!invert,
-                     ifelse(log, exp(bbmle::coef(ests)[["gamma"]]), bbmle::coef(ests)[["gamma"]]),
-                     ifelse(log, exp((bbmle::coef(ests)[["gamma"]]-x.offset)*-1),(bbmle::coef(ests)[["gamma"]]-x.offset)*-1)
-        ),
+        gamma = save_Gamma(ests),
         sigma=ifelse(log, exp(bbmle::coef(ests)[["sigma"]]), bbmle::coef(ests)[["sigma"]]),
         p0=bbmle::coef(ests)[["p0"]],
         mu=ifelse(par==4,
@@ -935,13 +930,13 @@ calc_MinDose <- function(
       print(conf_print)
 
       cat("\n------ De (asymmetric error) -----\n")
-      print(round(data.frame(De=pal,
+      print(round(data.frame(De = De,
                              lower = conf["gamma", 1],
                              upper = conf["gamma", 2],
                              row.names=""), 2))
 
       cat("\n------ De (symmetric error) -----\n")
-      print(round(data.frame(De=pal,
+      print(round(data.frame(De = De,
                              error=gamma_err,
                              row.names=""), 2))
   }

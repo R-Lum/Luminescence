@@ -19,7 +19,7 @@ test_that("input validation", {
   expect_error(calc_MinDose(ExampleData.DeValues$CA1),
                "'sigmab' should be a single positive value")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 1, init.values = 1:4),
-               "'init.values' is expected to be a named list")
+               "'init.values' should be of class 'list'")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                             init.values = list(1, 2, 3)),
                "Please provide initial values for all model parameters")
@@ -30,6 +30,8 @@ test_that("input validation", {
                "'par' should be a single positive integer value")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1, par = 2),
                "'par' can only be set to 3 or 4")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1, level = 0),
+               "'level' should be a single positive value")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                             invert = "error"),
                "'invert' should be a single logical value")

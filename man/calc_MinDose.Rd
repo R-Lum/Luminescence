@@ -245,8 +245,6 @@ plot_AbanicoPlot(data = ExampleData.DeValues$CA1,
                                   sigma == .(round(res$sig, 1)) ~ ", " ~
                                   rho == .(round(res$p0, 2))))
 
-
-
 # (3) Run the minimum age model with bootstrap
 # NOTE: Bootstrapping is computationally intensive
 # (3.1) run the minimum age model with default values for bootstrapping
