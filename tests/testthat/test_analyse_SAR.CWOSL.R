@@ -758,6 +758,6 @@ test_that("deprecated arguments", {
                                  signal.integral.min = list(1, 1),
                                  signal.integral.max = list(10, 20),
                                  background_integral = 900:1000),
-               "argument of length 0")
+               "Convert all integral arguments to the new names")
   })
 })

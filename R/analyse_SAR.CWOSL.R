@@ -313,6 +313,16 @@ analyse_SAR.CWOSL<- function(
   .set_function_name("analyse_SAR.CWOSL")
   on.exit(.unset_function_name(), add = TRUE)
 
+  ## deprecated arguments
+  extraArgs <- list(...)
+  if (any(grepl("[signal|background]\\.integral\\.[min|max]", names(extraArgs))) &&
+      !is.null(c(extraArgs$signal.integral.min, extraArgs$signal.integral.max,
+                 extraArgs$background.integral.min, extraArgs$background.integral.max)) &&
+      (!anyNA(signal_integral) || !anyNA(background_integral))) {
+    .throw_error("Convert all integral arguments to the new names, ",
+                 "'signal_integral' and 'background_integral'")
+  }
+
   ## Self-call --------------------------------------------------------------
   if (inherits(object, "list")) {
   ##clean object input and expand parameters
@@ -331,9 +341,6 @@ analyse_SAR.CWOSL<- function(
       parm$rejection.criteria <- lapply(parm$rejection.criteria,
                                         .rm_unnamed_elements)
     }
-
-    ## deprecated arguments
-    extraArgs <- list(...)
 
   results <- .warningCatcher(merge_RLum(lapply(seq_along(object), function(x){
     analyse_SAR.CWOSL(
@@ -395,7 +402,6 @@ analyse_SAR.CWOSL<- function(
   }
 
   ## deprecated arguments
-  extraArgs <- list(...)
   if (any(grepl("[signal|background]\\.integral\\.[min|max]", names(extraArgs))) &&
       !is.null(c(extraArgs$signal.integral.min, extraArgs$signal.integral.max,
                  extraArgs$background.integral.min, extraArgs$background.integral.max))) {
@@ -403,10 +409,10 @@ analyse_SAR.CWOSL<- function(
                         "background.integral.min", "background.integral.max"),
                 new = c("signal_integral", "background_integral"),
                 since = "1.2.0")
-    signal.integral.min <- extraArgs$signal.integral.min
-    signal.integral.max <- extraArgs$signal.integral.max
-    background.integral.min <- extraArgs$background.integral.min
-    background.integral.max <- extraArgs$background.integral.max
+    signal.integral.min <- extraArgs$signal.integral.min %||% NA
+    signal.integral.max <- extraArgs$signal.integral.max %||% NA
+    background.integral.min <- extraArgs$background.integral.min %||% NA
+    background.integral.max <- extraArgs$background.integral.max %||% NA
     signal_integral_Tx <- background_integral_Tx <- NULL
     if (anyNA(c(signal.integral.min, signal.integral.max,
                  background.integral.min, background.integral.max))) {
@@ -1175,7 +1181,7 @@ analyse_SAR.CWOSL<- function(
                 as.numeric(max(LnLxTnTx$Dose))
               },
             Status = NA_character_)
-      exceed.max.regpoint.data.frame$Status <- 
+      exceed.max.regpoint.data.frame$Status <-
         .status_from_threshold(De, exceed.max.regpoint.data.frame$Threshold)
 
           ##add to RejectionCriteria data.frame
