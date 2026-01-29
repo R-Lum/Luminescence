@@ -113,10 +113,12 @@ test_that("snapshot tests", {
   snapshot.tolerance <- 1.5e-6
 
   expect_snapshot_RLum(temp, tolerance = snapshot.tolerance)
+  SW({
   expect_snapshot_RLum(calc_MinDose(data = ExampleData.DeValues$CA1 / 100,
                                     sigmab = 0.2, gamma.upper = 4, par = 4,
-                                    log.output = TRUE, verbose = FALSE, plot = FALSE),
+                                    log.output = TRUE, plot = FALSE),
                        tolerance = snapshot.tolerance)
+  })
   expect_snapshot_RLum(calc_MinDose(data = ExampleData.DeValues$CA1,
                                     sigmab = 0.2, log = FALSE,
                                     verbose = FALSE, plot = FALSE),
