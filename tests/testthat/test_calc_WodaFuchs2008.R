@@ -12,6 +12,8 @@ test_that("input validation", {
                "'data' should have only numeric fields")
   expect_error(calc_WodaFuchs2008(ExampleData.DeValues$CA1, breaks = 0),
                "'breaks' should be a single positive value")
+  expect_error(calc_WodaFuchs2008(ExampleData.DeValues$CA1, plot = 0),
+               "'plot' should be a single logical value")
   res <- calc_WodaFuchs2008(ExampleData.DeValues$CA1)
   expect_error(calc_WodaFuchs2008(res, breaks = 4),
                "Insufficient number of data points")

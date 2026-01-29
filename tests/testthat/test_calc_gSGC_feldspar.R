@@ -30,6 +30,9 @@ test_that("input validation", {
     ),
     "'data' should have 5 columns"
   )
+
+  expect_error(calc_gSGC_feldspar(iris, n.MC = -1))
+  expect_error(calc_gSGC_feldspar(iris, plot = NA))
 })
 
 test_that("test functionality", {

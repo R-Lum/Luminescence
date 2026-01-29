@@ -26,6 +26,10 @@ test_that("input validation", {
   expect_message(
       plot_DoseResponseCurve(fit, reg_points_pch = 1),
       "'reg_points_pch' should have length 3")
+
+  ## there's nothing we can do for this, apart adding a useless 'plot' argument
+  expect_error(plot_DoseResponseCurve(fit, plot = NA),
+               "argument 2 matches multiple formal arguments")
   })
 
 test_that("plot output", {

@@ -239,6 +239,7 @@ fit_SurfaceExposure <- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_not_empty(data)
+  .validate_logical_scalar(weights)
 
   ## Data type validation
   if (inherits(data, "RLum.Results"))
@@ -298,6 +299,10 @@ fit_SurfaceExposure <- function(
   if (!is.null(mu) && anyNA(mu)) mu <- NULL
   .validate_positive_scalar(sigmaphi, null.ok = TRUE)
   .validate_logical_scalar(settings$verbose, name = "'verbose'")
+  .validate_logical_scalar(plot)
+  .validate_logical_scalar(legend)
+  .validate_logical_scalar(error_bars)
+  .validate_logical_scalar(coord_flip)
 
   ## Weighting options (only available for global fitting)
   if (ncol(data) >= 3 && weights && !global_fit)

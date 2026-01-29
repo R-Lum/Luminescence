@@ -93,13 +93,14 @@ calc_FuchsLang2001 <- function(
 
   .validate_class(data, c("data.frame", "RLum.Results"))
   .validate_not_empty(data)
-  .validate_positive_scalar(cvThreshold)
   if (inherits(data, "RLum.Results")) {
     data <- get_RLum(data, "data")
   }
   if (ncol(data) < 2) {
     .throw_error("'data' should have 2 columns")
   }
+  .validate_positive_scalar(cvThreshold)
+  .validate_logical_scalar(plot)
 
   # Deal with extra arguments -----------------------------------------------
   ##deal with addition arguments

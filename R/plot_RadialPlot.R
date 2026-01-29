@@ -353,6 +353,8 @@ plot_RadialPlot <- function(
 
   .validate_class(stats, "character")
   .validate_logical_scalar(rug)
+  .validate_positive_scalar(plot.ratio, null.ok = TRUE)
+  .validate_logical_scalar(y.ticks)
   .validate_class(line, c("numeric", "integer"), null.ok = TRUE)
 
   if (is.null(bar.col)) {

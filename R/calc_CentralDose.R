@@ -136,6 +136,7 @@ calc_CentralDose <- function(
     log <- FALSE
     .throw_warning("'data' contains non-positive De values, 'log' set to FALSE")
   }
+  .validate_logical_scalar(plot)
 
   ## don't allow negative errors, silently make them positive
   if (any(data[, 2] < 0)) {
