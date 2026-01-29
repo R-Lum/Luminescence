@@ -533,8 +533,8 @@ calc_MinDose <- function(
     res0 <- (gamma - mu0)/sigma0
     res1 <- (gamma - mu)/sigma
     lf1i <- log(p0) - log(si) - 0.5*((zi-gamma)/si)^2   - logsqrt2pi
-    lf2i <- log(1-p0) - 0.5*log(s2) - 0.5*(zi-mu)^2/s2  - logsqrt2pi
-    lf2i <- lf2i + log(1 - stats::pnorm(res0)) - log(1 - stats::pnorm(res1))
+    lf2i <- log1p(-p0) - 0.5 * log(s2) - 0.5 * (zi - mu)^2 / s2  - logsqrt2pi
+    lf2i <- lf2i + log1p(-stats::pnorm(res0)) - log1p(-stats::pnorm(res1))
     llik <- log( exp(lf1i) + exp(lf2i) )
     negll <- -sum(llik)
 

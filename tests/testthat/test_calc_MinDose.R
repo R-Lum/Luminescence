@@ -87,7 +87,7 @@ test_that("check functionality", {
 
   ## no converging fit
   skip_on_os("windows")
-  set.seed(1)
+  set.seed(7)
   data.nofit <- data.frame(rep(4, 5), rnorm(5, 5))
   SW({
   expect_error(calc_MinDose(data.nofit, sigmab = 0.9, par=4),
@@ -167,7 +167,7 @@ test_that("regression tests", {
   ## issue 1332
   ## the seed was picked to get the smallest number of warnings and messages;
   ## this test relies on not using SW() to do its job
-  set.seed(27)
+  set.seed(3)
   expect_warning(expect_warning(expect_message(
       calc_MinDose(data = data.frame(De = c(rnorm(4) + 5, -1),
                                      De_Err = rnorm(5) + 1),
