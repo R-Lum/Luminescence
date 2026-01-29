@@ -16,7 +16,7 @@ test_that("check functionality", {
 
   ## calc_MinDose
   d1 <- calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
-                     bootstrap = TRUE, bs.M = 10, bs.N = 10,
+                     bootstrap = TRUE, bs.M = 20, bs.N = 10,
                      plot = FALSE, verbose = FALSE)
   expect_silent(plot_RLum.Results(d1, main = "Title"))
   expect_silent(plot_RLum.Results(d1, single = FALSE, log = "", lty = 1,
