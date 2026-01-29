@@ -876,7 +876,7 @@ calc_MinDose <- function(
     # distribution where actually none is given. The non-parametric
     # LOESS (LOcal polynomial regrESSion) often yields better results than
     # standard polynomials.
-    if (nrow(unique(pairs)) >= 7) {
+    if (length(unique(pairs[, 1])) >= 15) {
       loess <- loess(pairs[, 2] ~ pairs[, 1])
     } else {
       loess <- NA

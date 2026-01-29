@@ -111,7 +111,7 @@ test_that("check functionality", {
                              verbose = TRUE, log.output = TRUE, par = 4))
   expect_silent(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                              verbose = FALSE, invert = TRUE,
-                             bootstrap = TRUE, bs.M = 10, bs.N = 5, bs.h = 10))
+                             bootstrap = TRUE, bs.M = 20, bs.N = 5, bs.h = 10))
   })
 })
 
