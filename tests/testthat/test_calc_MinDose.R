@@ -54,7 +54,7 @@ test_that("input validation", {
                             bootstrap = TRUE, bs.h = -1),
                "'bs.h' should be a single positive value")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
-                            cores = -1),
+                            cores = -1, multicore = TRUE),
                "'cores' should be a single positive integer value")
 })
 
@@ -70,7 +70,7 @@ test_that("check functionality", {
                               bootstrap = TRUE, bs.M = 10, bs.N = 5, bs.h = 5,
                               sigmab.sd = 0.04, debug = TRUE, log = FALSE,
                               multicore = TRUE, cores = 2),
-                 "bootstrap replicates using 2 cores")
+                 "Applying the model to all replicates using 2 cores")
   })
 
   ## RLum.Results object

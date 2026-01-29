@@ -438,11 +438,11 @@ calc_MinDose <- function(
     debug <- FALSE
   }
 
-  if ("cores" %in% names(extraArgs)) {
+  if (multicore && "cores" %in% names(extraArgs)) {
     cores <- .validate_positive_scalar(extraArgs$cores,
                                        int = TRUE, name = "'cores'")
   } else {
-    cores <- parallel::detectCores()
+    cores <- ifelse(multicore, parallel::detectCores(), 1)
     if (multicore)
       message("Logical CPU cores detected: ", cores) # nocov
   }
@@ -805,9 +805,8 @@ calc_MinDose <- function(
                          "\n N = %d",
                          "\n sigmab = %.2f \U00B1 %.2f",
                          "\n h = %.2f",
-                         "\n\nCreating %d bootstrap replicates%s..."),
-                   M, N, sigmab, sigmab.sd, h, N+M,
-                   if (multicore) paste(" using", cores, "cores") else "")
+                         "\n\nCreating %d bootstrap replicates..."),
+                   M, N, sigmab, sigmab.sd, h, N+M)
     if (verbose)
       message(msg)
 
@@ -822,8 +821,11 @@ calc_MinDose <- function(
     # MULTICORE: The call to 'Get_mle' is the bottleneck of the function.
     # Using multiple CPU cores can reduce the computation cost, but may
     # not work for all machines.
-    if (verbose)
-      message("Applying the model to all replicates, this may take a while...")
+    if (verbose) {
+      message("Applying the model to all replicates using ", cores,
+              " cores, this may take a while...")
+    }
+
     if (multicore) {
       cl <- parallel::makeCluster(cores)
       mle <- parallel::parLapply(cl, replicates, Get_mle)
