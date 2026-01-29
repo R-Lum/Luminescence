@@ -548,7 +548,7 @@
             {
               "type": "language",
               "attributes": {},
-              "value": ["calc_MinDose(data = ExampleData.DeValues$CA1/100, sigmab = 0.2, ", "    gamma.upper = 4, par = 4, log.output = TRUE, verbose = FALSE, ", "    plot = FALSE)"]
+              "value": ["calc_MinDose(data = ExampleData.DeValues$CA1/100, sigmab = 0.2, ", "    gamma.upper = 4, par = 4, log.output = TRUE, plot = FALSE)"]
             },
             {
               "type": "double",
