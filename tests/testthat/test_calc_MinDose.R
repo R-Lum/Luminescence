@@ -64,9 +64,6 @@ test_that("check functionality", {
   SW({
   ## bootstrap
   expect_message(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
-                              bootstrap = TRUE, bs.M = 10, bs.N = 5),
-                 "Recycled Bootstrap")
-  expect_message(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                               bootstrap = TRUE, bs.M = 10, bs.N = 5, bs.h = 5,
                               sigmab.sd = 0.04, debug = TRUE, log = FALSE,
                               multicore = TRUE, cores = 2),
@@ -106,33 +103,35 @@ test_that("check functionality", {
                              bootstrap = TRUE, bs.M = 5, bs.N = 5, bs.h = 5,
                              debug = TRUE, log = FALSE),
                  "Not enough bootstrap replicates for loess fitting")
-  expect_output(calc_MinDose(ExampleData.DeValues$CA1 / 100, sigmab = 0.1,
-                             gamma.upper = 4,
-                             verbose = TRUE, log.output = TRUE, par = 4))
-  expect_silent(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
-                             verbose = FALSE, invert = TRUE,
-                             bootstrap = TRUE, bs.M = 20, bs.N = 5, bs.h = 10))
   })
 })
 
-test_that("check values from output example", {
+test_that("snapshot tests", {
   testthat::skip_on_cran()
 
-  expect_s4_class(temp, "RLum.Results")
-  expect_equal(length(temp), 9)
+  set.seed(1)
+  snapshot.tolerance <- 1.5e-6
 
-  results <- get_RLum(temp)
-  expect_equal(round(results$de, digits = 5), 34.31834)
-  expect_equal(round(results$de_err, digits = 6), 2.550964)
-  expect_equal(results$ci_level, 0.95)
-  expect_equal(round(results$ci_lower, digits = 5), 29.37526)
-  expect_equal(round(results$ci_upper, digits = 5), 39.37503)
-  expect_equal(results$par, 3)
-  expect_equal(round(results$sig, digits = 2), 2.07)
-  expect_equal(round(results$p0, digits = 8), 0.01053938)
-  expect_equal(results$mu, NA)
-  expect_equal(round(results$Lmax, digits = 5), -43.57969)
-  expect_equal(round(results$BIC, digits = 4), 106.4405)
+  expect_snapshot_RLum(temp, tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(calc_MinDose(data = ExampleData.DeValues$CA1 / 100,
+                                    sigmab = 0.2, gamma.upper = 4, par = 4,
+                                    log.output = TRUE, verbose = FALSE, plot = FALSE),
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(calc_MinDose(data = ExampleData.DeValues$CA1,
+                                    sigmab = 0.2, log = FALSE,
+                                    verbose = FALSE, plot = FALSE),
+                       tolerance = snapshot.tolerance)
+  suppressWarnings( # Not enough bootstrap replicates for loess fitting
+  expect_snapshot_RLum(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                                    bootstrap = TRUE, bs.M = 10, bs.N = 5,
+                                    verbose = FALSE, plot = FALSE),
+                       tolerance = snapshot.tolerance)
+  )
+  expect_snapshot_RLum(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.2,
+                                    invert = TRUE, bootstrap = TRUE,
+                                    bs.M = 20, bs.N = 5, bs.h = 10,
+                                    verbose = FALSE, plot = FALSE),
+                       tolerance = snapshot.tolerance)
 })
 
 test_that("graphical snapshot tests", {
