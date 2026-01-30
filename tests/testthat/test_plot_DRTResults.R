@@ -19,6 +19,8 @@ test_that("input validation", {
                "'given.dose' should be of class 'numeric'")
   expect_error(plot_DRTResults(df, given.dose = numeric(0)),
                "'given.dose' cannot be an empty numeric")
+  expect_error(plot_DRTResults(df, given.dose = NA_real_),
+               "'given.dose' cannot contain NA values")
   expect_error(plot_DRTResults(df, given.dose = c(2800, 3000)),
                "'given.dose' should have length equal to the number of input")
   expect_warning(plot_DRTResults(df, boxplot = TRUE),

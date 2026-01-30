@@ -417,6 +417,7 @@ setMethod(f = "set_Risoe.BINfileData",
 
             }else{
               .validate_class(METADATA, "data.frame")
+              .validate_class(DATA, "list")
               new(
                 "Risoe.BINfileData",
                 METADATA = METADATA,

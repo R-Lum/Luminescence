@@ -74,6 +74,8 @@ test_that("input validation", {
                "'values' should have at least 2 non-missing values")
   expect_error(convert_CW2pHMi(values, iris),
                "'delta' should be of class 'numeric' or NULL")
+  expect_error(convert_CW2pHMi(values, NA_real_),
+               "'delta' cannot contain NA values")
 
   expect_error(convert_CW2pLMi(values = matrix(0, 2)),
                "'values' should be of class 'data.frame' or 'RLum.Data.Curve'")

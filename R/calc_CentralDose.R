@@ -113,7 +113,7 @@ calc_CentralDose <- function(
   if (inherits(data, "RLum.Results")) {
     data <- get_RLum(data, "data")
   }
-  .validate_class(sigmab, "numeric", length = 1)
+  .validate_nonnegative_scalar(sigmab)
 
   ##remove NA values
   if (anyNA(data)) {
@@ -143,9 +143,6 @@ calc_CentralDose <- function(
     data[, 2] <- abs(data[, 2])
   }
 
-  if (sigmab < 0) {
-    .throw_error("'sigmab' should be a non-negative value")
-  }
   if (log && sigmab > 1) {
     .throw_error("'sigmab' should be a value between 0 and 1 if log = TRUE")
   }

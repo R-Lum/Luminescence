@@ -112,6 +112,10 @@ setGeneric("get_RLum", function(object, ...) {
 #' @export
 setMethod("get_RLum", signature = "list",
     function(object, class = NULL, null.rm = FALSE, ...) {
+      ## input validation
+      .validate_class(class, "character", null.ok = TRUE, length = 1)
+      .validate_logical_scalar(null.rm)
+
       ## take care of the class argument
       if (!is.null(class)) {
         sel <- class[1] == vapply(object, function(x) class(x)[1], character(1))

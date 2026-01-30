@@ -203,6 +203,8 @@ plot_DRTResults <- function(
 
   .validate_not_empty(values)
   .validate_class(given.dose, "numeric", null.ok = TRUE)
+  if (anyNA(given.dose))
+    .throw_error("'given.dose' cannot contain NA values")
   .validate_logical_scalar(boxplot)
   if (boxplot && is.null(preheat)) {
     boxplot <- FALSE
