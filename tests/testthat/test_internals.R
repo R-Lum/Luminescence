@@ -546,6 +546,38 @@ test_that("Test internals", {
   expect_error(.validate_positive_scalar(NA, int = TRUE, name = "The variable"),
                "The variable should be a single positive integer value")
 
+  ## .validate_nonnegative_scalar() -----------------------------------------
+  expect_equal(.validate_nonnegative_scalar(0),
+               0)
+  expect_equal(.validate_nonnegative_scalar(2, int = TRUE),
+               2)
+  expect_null(.validate_nonnegative_scalar(NULL, int = TRUE, null.ok = TRUE))
+
+  expect_error(.validate_nonnegative_scalar(int = TRUE),
+               "'NA' should be a single non-negative integer value")
+  expect_error(.validate_nonnegative_scalar(test <- "a"),
+               "'test' should be a single non-negative value")
+  expect_error(.validate_nonnegative_scalar(test <- NULL),
+               "'test' should be a single non-negative value")
+  expect_error(.validate_nonnegative_scalar(iris),
+               "'iris' should be a single non-negative value")
+  expect_error(.validate_nonnegative_scalar(iris, null.ok = TRUE),
+               "'iris' should be a single non-negative value or NULL")
+  expect_error(.validate_nonnegative_scalar(iris, extra = "something else"),
+               "'iris' should be a single non-negative value or something else")
+  expect_error(.validate_nonnegative_scalar(iris, extra = "something else", null.ok = TRUE),
+               "'iris' should be a single non-negative value or something else or NULL")
+  expect_error(.validate_nonnegative_scalar(1:2, name = "'var'"),
+               "'var' should be a single non-negative value")
+  expect_error(.validate_nonnegative_scalar(-1, name = "'var'"),
+               "'var' should be a single non-negative value")
+  expect_error(.validate_nonnegative_scalar(Inf, int = TRUE, name = "'var'"),
+               "'var' should be a single non-negative integer value")
+  expect_error(.validate_nonnegative_scalar(1.5, int = TRUE, name = "'var'"),
+               "'var' should be a single non-negative integer value")
+  expect_error(.validate_nonnegative_scalar(NA, int = TRUE, name = "The variable"),
+               "The variable should be a single non-negative integer value")
+
   ## .validate_logical_scalar() ---------------------------------------------
   expect_equal(.validate_logical_scalar(TRUE),
                TRUE)

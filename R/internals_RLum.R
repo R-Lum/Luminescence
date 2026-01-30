@@ -1316,6 +1316,8 @@ SW <- function(expr) {
 #'        integer (`FALSE` by default).
 #' @param pos [logical] (*with default*): whether the value has to be positive
 #'        (`FALSE` by default).
+#' @param nng [logical] (*with default*): whether the value has to be non-negative
+#'        (`FALSE` by default).
 #' @param log [logical] (*with default*): whether the value has to be logical
 #'        (`FALSE` by default).
 #' @inheritParams .validate_args
@@ -1324,14 +1326,14 @@ SW <- function(expr) {
 #' The validated value, unless the validation failed with an error thrown.
 #'
 #' @noRd
-.validate_scalar <- function(val, int = FALSE, pos = FALSE, log = FALSE,
+.validate_scalar <- function(val, int = FALSE, pos = FALSE, nng = FALSE, log = FALSE,
                              null.ok = FALSE, name = NULL, extra = NULL) {
   if (!missing(val) && is.null(val) && null.ok)
     return(NULL)
   if (missing(val) || NROW(val) != 1 || NCOL(val) != 1 || !is.null(dim(val)) || is.na(val) ||
       (!log && !is.numeric(val)) || (log && !is.logical(val)) ||
       (int && (is.infinite(val) || val != as.integer(val))) ||
-      (pos && val <= 0)) {
+      (pos && val <= 0) || (nng && val < 0)) {
     ## additional text to append for extra options that cannot be validated
     ## but we want to report
     if (null.ok)
@@ -1339,7 +1341,8 @@ SW <- function(expr) {
     if (!is.null(extra))
       extra <- paste(" or", .collapse(extra, quote = FALSE, last_sep = " or "))
     .throw_error(name %||% .first_argument(), " should be a single ",
-                 if (pos) "positive ", if (int) "integer ", if (log) "logical ",
+                 if (pos) "positive ", if (nng) "non-negative ",
+                 if (int) "integer ", if (log) "logical ",
                  "value", extra)
   }
   val
@@ -1353,6 +1356,17 @@ SW <- function(expr) {
 .validate_positive_scalar <- function(val, int = FALSE, null.ok = FALSE,
                                       name = NULL, extra = NULL) {
   .validate_scalar(val, int = int, pos = TRUE, null.ok = null.ok,
+                   name = name %||% .first_argument(), extra = extra)
+}
+
+#' @title Validate scalar variables expected to be non-negative
+#'
+#' @inheritParams .validate_scalar
+#'
+#' @noRd
+.validate_nonnegative_scalar <- function(val, int = FALSE, null.ok = FALSE,
+                                         name = NULL, extra = NULL) {
+  .validate_scalar(val, int = int, nng = TRUE, null.ok = null.ok,
                    name = name %||% .first_argument(), extra = extra)
 }
 
