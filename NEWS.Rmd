@@ -183,6 +183,11 @@ sign and the threshold (as in `1.1 NA NA`) which would look ugly and confusing
 * Argument `signal.integral` has been renamed to `signal_integral`. The older
 name will still work but generate a deprecation warning (#1290).
 
+### `calc_CommonDose()`
+
+* The function incorrectly disallowed setting `sigmab > 1` when `log = FALSE`
+due to excessively strict input validation (#1343).
+
 ### `calc_gSGC()`
 
 * The function no longer crashes in `n.MC` is set to 0 (#1327).
