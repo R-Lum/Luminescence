@@ -443,7 +443,7 @@ calc_MinDose <- function(
                                        int = TRUE, name = "'cores'")
   } else {
     cores <- ifelse(multicore, parallel::detectCores(), 1)
-    if (multicore)
+    if (multicore && verbose)
       message("Logical CPU cores detected: ", cores) # nocov
   }
 
