@@ -230,6 +230,9 @@ convert_CW2pHMi<- function(
     .throw_error("'values' should have at least 2 non-missing values")
   }
   .validate_class(delta, "numeric", null.ok = TRUE)
+  if (anyNA(delta)) {
+    .throw_error("'delta' cannot contain NA values")
+  }
 
   # (1) Transform values ------------------------------------------------------
 

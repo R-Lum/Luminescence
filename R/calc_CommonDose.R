@@ -117,7 +117,7 @@ calc_CommonDose <- function(
   if (ncol(data) < 2) {
     .throw_error("'data' object must have two columns")
   }
-  .validate_class(sigmab, "numeric", length = 1)
+  .validate_nonnegative_scalar(sigmab)
   if (!missing(sigmab) && (sigmab < 0 || sigmab > 1)) {
       .throw_error("'sigmab' must be a value between 0 and 1")
   }
