@@ -1620,3 +1620,336 @@
       }
     }
 
+---
+
+    {
+      "type": "S4",
+      "attributes": {
+        "data": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["summary", "data", "args", "call", "BIC", "confint", "bootstrap"]
+            }
+          },
+          "value": [
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["de", "de_err", "ci_level", "ci_lower", "ci_upper", "par", "sig", "p0", "mu", "Lmax", "BIC"]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
+                },
+                "row.names": {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1]
+                }
+              },
+              "value": [
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [20.86957969]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.95]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [28.50506153]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [4]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [19.75355228]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.01538445]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [68.23686149]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-278.4318914]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [576.14490906]
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["ED", "ED_Error"]
+                },
+                "row.names": {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
+                }
+              },
+              "value": [
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [19.7, 26.2, 31.48, 31.95, 36.17, 37.05, 42.58, 47.23, 47.61, 48.1, 48.11, 50.73, 51.51, 52.06, 52.28, 53.6, 53.96, 55.54, 56.84, 58.97, 61.14, 61.58, 63.24, 64.5, 64.58, 64.76, 65.57, 66.43, 66.8, 66.84, 70.68, 71.46, 71.6, 74.12, 74.73, 75.67, 75.75, 76.21, 76.92, 77.5, 79.01, 79.27, 79.78, 82.86, 83.19, 83.87, 85.26, 86.36, 86.58, 88.7, 89.1, 89.52, 89.53, 93.27, 97.77, 98.64, 102.63, 103.57, 106.23, 107.98, 111.46, 119.06]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [2.14, 2.04, 2.34, 2.34, 2.95, 3.15, 8.22, 3.23, 4.43, 4.43, 3.14, 9.64, 6.76, 5.6, 10.27, 4.69, 3.78, 4.37, 6.87, 4.63, 4.05, 4.76, 5.58, 8.11, 6.91, 7.78, 12.4, 5.82, 8.61, 10.33, 8.87, 9.59, 10.32, 6.33, 10.16, 10.29, 12.47, 5.75, 7.89, 8.78, 7.97, 7.54, 5.4, 10.36, 11.04, 9.9, 9.84, 12.34, 9.5, 14.15, 15.99, 9.74, 10.99, 8.17, 11.92, 6.83, 7.87, 9.18, 21.23, 14.85, 11.63, 14.88]
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["log", "sigmab", "par", "bootstrap", "init.values", "log.output", "bs.M", "bs.N", "bs.h", "sigmab.sd"]
+                }
+              },
+              "value": [
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [false]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [2.1]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [4]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [true]
+                },
+                {
+                  "type": "list",
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["gamma", "sigma", "p0", "mu"]
+                    }
+                  },
+                  "value": [
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [53.69]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [1.2]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [0.01]
+                    },
+                    {
+                      "type": "double",
+                      "attributes": {},
+                      "value": [69.92564516]
+                    }
+                  ]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [false]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [20]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [5]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [10]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.04]
+                }
+              ]
+            },
+            {
+              "type": "language",
+              "attributes": {},
+              "value": ["calc_MinDose(ExampleData.DeValues$CA1, sigmab = 2.1, bootstrap = TRUE, ", "    log = FALSE, par = 4, bs.M = 20, bs.N = 5, bs.h = 10, verbose = FALSE, ", "    plot = FALSE)"]
+            },
+            {
+              "type": "double",
+              "attributes": {},
+              "value": [576.14490906]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["2.5 %", "97.5 %"]
+                },
+                "row.names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["gamma", "sigma", "p0", "mu"]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
+                }
+              },
+              "value": [
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", 15.28902535, "NA", 61.90415978]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [28.50506153, 26.07991704, 0.09419383, 74.10472675]
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["pairs"]
+                }
+              },
+              "value": [
+                {
+                  "type": "list",
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["gamma"]
+                    }
+                  },
+                  "value": [
+                    {
+                      "type": "double",
+                      "attributes": {
+                        "dim": {
+                          "type": "integer",
+                          "attributes": {},
+                          "value": [20, 2]
+                        },
+                        "dimnames": {
+                          "type": "list",
+                          "attributes": {},
+                          "value": [
+                            {
+                              "type": "NULL"
+                            },
+                            {
+                              "type": "character",
+                              "attributes": {},
+                              "value": ["theta", "likelihood"]
+                            }
+                          ]
+                        }
+                      },
+                      "value": [27.00656052, 20.52638921, 28.77903743, 32.88518379, 34.83359748, 21.61508577, 26.98803759, 30.18009558, 19.71995549, 31.75864374, 31.66089021, 21.06913251, 34.66647025, 20.75113437, 31.53798736, 31.96704758, 19.7256217, 19.71411476, 24.10473795, 19.70860072, 0.00327626, 0.00477668, 0.00047801, 2.08477023e-07, 2.15300459e-07, 0.00031603, 0.00023385, 3.23072306e-06, 0.00011004, 0.00086173, 0.00010993, 0.01786614, 0.0006327, 0.00002125, 1.62228206e-06, 0.00007744, 0.00012444, 0.00003495, 0.0006425, 0.00762425]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "originator": {
+          "type": "character",
+          "attributes": {},
+          "value": ["calc_MinDose"]
+        },
+        "info": {
+          "type": "list",
+          "attributes": {},
+          "value": []
+        },
+        ".uid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        ".pid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        }
+      },
+      "value": {
+        "class": "RLum.Results",
+        "package": "Luminescence"
+      }
+    }
+

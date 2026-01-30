@@ -123,6 +123,8 @@ test_that("snapshot tests", {
                                     sigmab = 0.2, log = FALSE,
                                     verbose = FALSE, plot = FALSE),
                        tolerance = snapshot.tolerance)
+
+  ## bootstrap = TRUE
   suppressWarnings( # Not enough bootstrap replicates for loess fitting
   expect_snapshot_RLum(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                                     bootstrap = TRUE, bs.M = 10, bs.N = 5,
@@ -131,6 +133,11 @@ test_that("snapshot tests", {
   )
   expect_snapshot_RLum(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.2,
                                     invert = TRUE, bootstrap = TRUE,
+                                    bs.M = 20, bs.N = 5, bs.h = 10,
+                                    verbose = FALSE, plot = FALSE),
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 2.1,
+                                    bootstrap = TRUE, log = FALSE, par = 4,
                                     bs.M = 20, bs.N = 5, bs.h = 10,
                                     verbose = FALSE, plot = FALSE),
                        tolerance = snapshot.tolerance)
