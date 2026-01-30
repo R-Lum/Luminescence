@@ -573,6 +573,31 @@ calc_MinDose <- function(
     m
   }
 
+  ## Undo the invert transformation on a confidence interval data frame
+  undo_invert <- function(conf) {
+    conf[1, ] <- (conf[1, ] - x.offset) * -1
+    tmp <- conf[1, 1]
+    conf[1, 1] <- conf[1,2]
+    conf[1, 2] <- tmp
+    conf
+  }
+
+  ## Collect the parameter estimates from mle2 objects, converting back
+  ## log-transformed values to the normal scale
+  extract_estimates <- function(ests) {
+    res <- data.frame(gamma = save_Gamma(ests),
+                      sigma = bbmle::coef(ests)[["sigma"]],
+                      p0 = bbmle::coef(ests)[["p0"]],
+                      mu = if (par == 4) bbmle::coef(ests)[["mu"]] else NA,
+                      row.names = "Estimate", check.names = FALSE)
+    if (log) {
+      res$sigma <- exp(res$sigma)
+      res$mu <- exp(res$mu)
+    }
+
+    res
+  }
+
   ##============================================================================##
   ## MAIN PROGRAM
   ##============================================================================##
@@ -662,27 +687,9 @@ calc_MinDose <- function(
     prof@profile$mu <- prof@profile$mu[is.finite(prof@profile$mu$z), ]
   }
 
-  # calculate Bayesian Information Criterion (BIC)
+  ## calculate Bayesian Information Criterion (BIC)
   BIC <- BIC(ests)
-
-  # retrieve results from mle2-object
-  De <- if (log) {
-    if (invert) {
-      exp((bbmle::coef(ests)[["gamma"]]-x.offset)*-1)
-    } else {
-      exp(bbmle::coef(ests)[["gamma"]])
-    }
-  } else {
-    bbmle::coef(ests)[["gamma"]]
-  }
-  sig <- bbmle::coef(ests)[["sigma"]]
-  p0end <- bbmle::coef(ests)[["p0"]]
-
-  if (par == 4) {
-    muend <- ifelse(log, exp(bbmle::coef(ests)[["mu"]]), bbmle::coef(ests)[["mu"]])
-  } else {
-    muend <- NA
-  }
+  Lmax <- -ests@min
 
   ##============================================================================##
   ## ERROR CALCULATION
@@ -696,10 +703,7 @@ calc_MinDose <- function(
   class(conf[,1]) <- class(conf[,2]) <- "numeric"
 
   if (invert) {
-    conf[1, ] <- (conf[1, ]-x.offset)*-1
-    t <- conf[1,1]
-    conf[1,1] <- conf[1,2]
-    conf[1,2] <- t
+    conf <- undo_invert(conf)
   }
 
   ## keep a copy of the original conf object to be returned at the end
@@ -711,31 +715,8 @@ calc_MinDose <- function(
 
   gamma_err <- (conf["gamma", 2] - conf["gamma", 1]) / 3.92
 
-
-  ##============================================================================##
-  ## AGGREGATE RESULTS
-  summary <- data.frame(de = De,
-                        de_err=gamma_err,
-                        ci_level = level,
-                        ci_lower = conf["gamma", 1],
-                        ci_upper = conf["gamma", 2],
-                        par=par,
-                        sig=ifelse(log, exp(sig), sig),
-                        p0=p0end,
-                        mu=muend,
-                        Lmax=-ests@min,
-                        BIC=BIC)
-  call <- sys.call()
-  args <- list(log=log, sigmab=sigmab, par = par, bootstrap=bootstrap,
-               init.values=start, log.output = log.output,
-               bs.M=M, bs.N=N, bs.h=h, sigmab.sd=sigmab.sd)
-
-  if (!is.na(summary$mu) && !is.na(summary$de) &&
-    ## equivalent to log(summary$de) > summary$mu, but also valid if de < 0
-    summary$de > exp(summary$mu)) {
-      .throw_warning("Gamma is larger than mu, consider running the model ",
-                     "with new boundary values (see details '?calc_MinDose')")
-  }
+  ## retrieve results from mle2 object
+  res <- extract_estimates(ests)
 
   ##============================================================================##
   ## BOOTSTRAP
@@ -813,11 +794,11 @@ calc_MinDose <- function(
 
     n <- length(data[ ,1])
     # Draw N+M samples from a normally distributed sigmab
-    sigmab <- rnorm(N + M, sigmab, sigmab.sd)
+    sigmab.bs <- rnorm(N + M, sigmab, sigmab.sd)
     # Draw N+M random indices and their frequencies
     b2Pmatrix <- draw_Freq()
     # Finally draw N+M bootstrap replicates
-    replicates <- create_Replicates(b2Pmatrix, sigmab)
+    replicates <- create_Replicates(b2Pmatrix, sigmab.bs)
 
     # MULTICORE: The call to 'Get_mle' is the bottleneck of the function.
     # Using multiple CPU cores can reduce the computation cost, but may
@@ -887,9 +868,36 @@ calc_MinDose <- function(
 
   }#EndOf::Bootstrap
 
+  ## ========================================================================
+  ## AGGREGATE RESULTS
+
+  summary <- data.frame(de = res$gamma,
+                        de_err = gamma_err,
+                        ci_level = level,
+                        ci_lower = conf["gamma", 1],
+                        ci_upper = conf["gamma", 2],
+                        par = par,
+                        sig = res$sigma,
+                        p0 = res$p0,
+                        mu = res$mu,
+                        Lmax = Lmax,
+                        BIC = BIC)
+  call <- sys.call()
+  args <- list(log = log, sigmab = sigmab, par = par, bootstrap = bootstrap,
+               init.values = start, log.output = log.output,
+               bs.M = M, bs.N = N, bs.h = h, sigmab.sd = sigmab.sd)
+
+  if (!is.na(summary$mu) && !is.na(summary$de) &&
+    ## equivalent to log(summary$de) > summary$mu, but also valid if de < 0
+    summary$de > exp(summary$mu)) {
+      .throw_warning("Gamma is larger than mu, consider running the model ",
+                     "with new boundary values (see details '?calc_MinDose')")
+  }
+
   ##============================================================================##
   ## CONSOLE PRINT
   ##============================================================================##
+
   if (verbose && !bootstrap) {
       cat("\n----------- meta data -----------\n")
       print(data.frame(n=length(data[ ,1]),
@@ -901,23 +909,13 @@ calc_MinDose <- function(
                        row.names = ""))
 
       cat("\n--- final parameter estimates ---\n")
-      tmp <- round(data.frame(
-        gamma = save_Gamma(ests),
-        sigma=ifelse(log, exp(bbmle::coef(ests)[["sigma"]]), bbmle::coef(ests)[["sigma"]]),
-        p0=bbmle::coef(ests)[["p0"]],
-        mu=ifelse(par==4,
-                  muend,
-                  0),
-        row.names="", check.names = FALSE), 2)
-
-      if (log && log.output) {
-        tmp$`log(gamma)` <- round(log(tmp$gamma),2)
-        tmp$`log(sigma)` <- round(log(tmp$sigma),2)
-        if (par == 4)
-          tmp$`log(mu)` <- round(log(tmp$mu),2)
-      }
-
-      print(tmp)
+    if (log && log.output) {
+      res$`log(gamma)` <- log(res$gamma)
+      res$`log(sigma)` <- log(res$sigma)
+      if (par == 4)
+        res$`log(mu)` <- log(res$mu)
+    }
+    print(round(res, 2))
 
       cat("\n------ confidence intervals -----\n")
       conf_print <- round(conf, 2)
@@ -933,15 +931,15 @@ calc_MinDose <- function(
       print(conf_print)
 
       cat("\n------ De (asymmetric error) -----\n")
-      print(round(data.frame(De = De,
-                             lower = conf["gamma", 1],
-                             upper = conf["gamma", 2],
-                             row.names=""), 2))
+    print(round(data.frame(De = summary$de,
+                           lower = conf["gamma", 1],
+                           upper = conf["gamma", 2],
+                           row.names = ""), 2))
 
       cat("\n------ De (symmetric error) -----\n")
-      print(round(data.frame(De = De,
-                             error=gamma_err,
-                             row.names=""), 2))
+    print(round(data.frame(De = summary$de,
+                           error = gamma_err,
+                           row.names = ""), 2))
   }
 
   ##============================================================================##

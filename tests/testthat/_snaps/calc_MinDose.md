@@ -74,9 +74,9 @@
                   "value": [0.01053938]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1030,9 +1030,9 @@
                   "value": [0.01053938]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1363,9 +1363,9 @@
                   "value": [0.64821381]
                 },
                 {
-                  "type": "logical",
+                  "type": "double",
                   "attributes": {},
-                  "value": [null]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
