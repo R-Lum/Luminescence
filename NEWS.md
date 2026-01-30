@@ -204,6 +204,11 @@ More information on these changes are available at
   which used to lead to a crash when combined with `bootstrap = TRUE`
   (#1313).
 
+- The bootstrap results stored in the `@data$bootstrap$pairs$gamma`
+  matrix are now correctly converted to the normal scale for log models.
+  This fixes a regression introduced in v1.0.0, which caused those
+  values to be stored in the log scale (#1345).
+
 ### `calc_OSLLxTxDecomposed()`
 
 - The data frame returned by the function now contains two additional

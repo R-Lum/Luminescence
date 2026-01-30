@@ -566,9 +566,10 @@ calc_MinDose <- function(
   ## it back to the 'normal' scale
   save_Gamma <- function(ests) {
     m <- bbmle::coef(ests)[["gamma"]]
-    if (log && invert) {
-      m <- exp(-(m - x.offset))
-    }
+    if (invert)
+      m <- -1 * (m - x.offset)
+    if (log)
+      m <- exp(m)
     m
   }
 
