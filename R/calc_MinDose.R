@@ -902,10 +902,7 @@ calc_MinDose <- function(
 
       cat("\n--- final parameter estimates ---\n")
       tmp <- round(data.frame(
-        gamma = ifelse(!invert,
-                     ifelse(log, exp(bbmle::coef(ests)[["gamma"]]), bbmle::coef(ests)[["gamma"]]),
-                     ifelse(log, exp((bbmle::coef(ests)[["gamma"]]-x.offset)*-1),(bbmle::coef(ests)[["gamma"]]-x.offset)*-1)
-        ),
+        gamma = save_Gamma(ests),
         sigma=ifelse(log, exp(bbmle::coef(ests)[["sigma"]]), bbmle::coef(ests)[["sigma"]]),
         p0=bbmle::coef(ests)[["p0"]],
         mu=ifelse(par==4,
