@@ -34,7 +34,7 @@ test_that("check functionality", {
   expect_equal(results$par, 3)
   expect_equal(round(results$sig, digits = 2), 1.71)
   expect_equal(round(results$p0, digits = 2), 0.65)
-  expect_equal(results$mu, NA)
+  expect_equal(results$mu, NA_real_)
   expect_equal(round(results$Lmax, digits = 2), -19.79)
   expect_equal(round(results$BIC, digits = 2), 58.87)
 })
