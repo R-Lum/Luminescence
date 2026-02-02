@@ -217,6 +217,11 @@ More information on these changes are available at
   terminal also when using bootstrap (#1336; thanks to @feldsparlover
   and Arindam Biswas for reporting).
 
+- The function crashed when bootstrapping with `bs.N = 1`. Now the
+  `bs.N` parameter is silently reset to 2 in that case, although such
+  low values are discouraged as they may trigger a warning during loess
+  fitting (#1355).
+
 ### `calc_OSLLxTxDecomposed()`
 
 - The data frame returned by the function now contains two additional
