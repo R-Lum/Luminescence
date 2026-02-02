@@ -602,21 +602,30 @@ calc_MinDose <- function(
   ## MAIN PROGRAM
   ##============================================================================##
 
-  # combine errors
-  if (log) {
-    lcd <- log(data[, 1]) * ifelse(invert, -1, 1)
-    if (invert) {
-      x.offset <- abs(min(lcd, na.rm = TRUE))
-      lcd <- lcd+x.offset
+  ## adds the sigmab error to each individual De error
+  combine_Errors <- function(data, err) {
+    if (log) {
+      lcd  <- log(data[, 1]) * ifelse(invert, -1, 1)
+      if (invert) {
+        lcd <- lcd + x.offset
+      }
+      lse <- sqrt((data[, 2] / data[, 1])^2 + err^2)
+    } else {
+      lcd <- data[, 1]
+      lse <- sqrt(data[, 2]^2 + err^2)
     }
-    lse <- sqrt((data[ ,2]/data[ ,1])^2 + sigmab^2)
-  } else {
-    lcd <- data[ ,1]
-    lse <- sqrt(data[ ,2]^2 + sigmab^2)
+    cbind(lcd, lse)
   }
 
-  # create new data frame with DE and combined relative error
-  dat <- cbind(lcd, lse)
+  ## create new data frame with DE and combined relative error
+  x.offset <- 0
+  dat <- combine_Errors(data, sigmab)
+
+  ## recompute the offset if necessary
+  if (log && invert) {
+    x.offset <- abs(min(dat[, 1], na.rm = TRUE))
+    dat[, 1] <- dat[, 1] + x.offset
+  }
 
   ## remove NAs which may be present if we had non-positive De values with
   ## log = TRUE
@@ -733,17 +742,6 @@ calc_MinDose <- function(
         f[i, ] <- tabulate(R, n)
       }
       list(R = R, freq = f)
-    }
-
-    # Function that adds the additional error sigmab to each individual DE error
-    combine_Errors <- function(d, e) {
-      if (log) {
-        d[ ,2] <- sqrt((d[ ,2]/d[ ,1])^2 + e^2)
-        d[ ,1] <- log(d[ ,1])
-      } else {
-        d[ ,2] <- sqrt(d[ ,2]^2 + e^2)
-      }
-      d
     }
 
     # Function that produces N+M replicates from the original data set using
