@@ -262,7 +262,7 @@ plot_RLum.Data.Curve<- function(
     do.call(graphics::plot.default,
             c(list(x = object@data[, 1], y = object@data[, 2]), extraArgs))
 
-        ##plot additional mtext
-        mtext(plot_settings$mtext, side = 3, cex = plot_settings$cex * 0.8)
+    ## plot additional mtext
+    mtext(plot_settings$mtext, side = 3, cex = 0.8 * ifelse(par.local, extraArgs$cex, 1))
   }
 }
