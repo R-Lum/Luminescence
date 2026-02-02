@@ -34,9 +34,6 @@
   file,
   output_type = "RLum.Results"
 ) {
-  .set_function_name(".import_ThermochronometryData")
-  on.exit(.unset_function_name(), add = TRUE)
-
 # Helper functions -------------------------------------------------------
   ## consistently extract numerical data
   .extract_numerics <- function(x) {
