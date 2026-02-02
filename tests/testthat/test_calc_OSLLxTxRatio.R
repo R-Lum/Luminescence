@@ -134,7 +134,7 @@ test_that("input validation", {
     signal_integral_Tx = 1:20,
     background_integral = 80:100,
     background_integral_Tx = NULL
-  ), "You have to provide both 'signal_integral_Tx' and 'background_integral_Tx'")
+  ), "Both 'signal_integral_Tx' and 'background_integral_Tx' must be set when")
 
   expect_error(calc_OSLLxTxRatio(
     Lx.data,

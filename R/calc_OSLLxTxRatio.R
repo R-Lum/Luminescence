@@ -291,28 +291,29 @@ calc_OSLLxTxRatio <- function(
   background_integral <- .validate_integral(background_integral,
                                             min = max(signal_integral) + 1,
                                             max = len.Lx)
+  if (!anyNA(Tx.data) && xor(is.null(signal_integral_Tx),
+                             is.null(background_integral_Tx))) {
+    .throw_error("Both 'signal_integral_Tx' and 'background_integral_Tx' ",
+                 "must be set when 'Tx.data' is provided")
+  }
 
-  ##(h) - similar procedure for the Tx limits
-  if (!anyNA(Tx.data) && all(c(!is.null(signal_integral_Tx), !is.null(background_integral_Tx)))) {
-    if(use_previousBG){
+  if (!anyNA(Tx.data) &&
+      all(!is.null(signal_integral_Tx), !is.null(background_integral_Tx))) {
+    if (use_previousBG) {
       .throw_warning("With 'use_previousBG = TRUE' independent Lx and Tx ",
                      "integral limits are not allowed. Integral limits ",
                      "of Lx used for Tx.")
       signal_integral_Tx <- signal_integral
       background_integral_Tx <- background_integral
+    } else {
+      signal_integral_Tx <- .validate_integral(signal_integral_Tx, max = len.Tx,
+                                               null.ok = TRUE)
+      background_integral_Tx <- .validate_integral(background_integral_Tx,
+                                                   min = max(signal_integral_Tx) + 1,
+                                                   max = len.Tx,
+                                                   null.ok = TRUE)
     }
-
-    signal_integral_Tx <- .validate_integral(signal_integral_Tx, max = len.Tx,
-                                             null.ok = TRUE)
-    background_integral_Tx <- .validate_integral(background_integral_Tx,
-                                                 min = max(signal_integral_Tx) + 1,
-                                                 max = len.Tx,
-                                                 null.ok = TRUE)
-
-  } else if (!anyNA(Tx.data) && !all(c(is.null(signal_integral_Tx), is.null(background_integral_Tx)))) {
-    .throw_error("You have to provide both 'signal_integral_Tx' and ",
-                 "'background_integral_Tx'")
-  }else{
+  } else {
     signal_integral_Tx <- signal_integral
     background_integral_Tx <- background_integral
   }
@@ -392,8 +393,8 @@ calc_OSLLxTxRatio <- function(
                      "error estimation might not be reliable")
     }
 
-    sigmab.LnLx <- abs((stats::var(Lx.curve[background_integral]) -
-                          mean(Lx.curve[background_integral])) * n)
+    sigmab.LnLx <- abs(stats::var(Lx.curve[background_integral]) -
+                       mean(Lx.curve[background_integral])) * n
   }
 
   len.sig.integral.Tx <- length(signal_integral_Tx)
@@ -436,23 +437,25 @@ calc_OSLLxTxRatio <- function(
   ## Discussion with Rex Galbraith via e-mail (2014-02-27):
   ## Equation 6 is appropriate to be implemented as standard
 
-  if(background.count.distribution == "poisson"){
-    ##(c.1) estimate relative standard error for assuming a poisson distribution
-    LnLx.relError <- sqrt((Y.0 + Y.1/k^2))/(Y.0-Y.1/k)        ##  rse(mu.s)
-    TnTx.relError <- sqrt((Y.0_TnTx + Y.1_TnTx/k^2))/(Y.0_TnTx-Y.1_TnTx/k)
+  ## relative standard error from equation (6)
+  ## when sigmab = 0, this reduces to equation (3), valid for poisson
+  rse <- function(Y0, Y1, k, sigmab) {
+    sqrt(Y0 + Y1 / k^2 + sigmab * (1 + 1 / k)) / (Y0 - Y1 / k)
+  }
 
+  if(background.count.distribution == "poisson"){
+    used.sigmab.LnLx <- used.sigmab.TnTx <- 0
   }else{
-    ##(c.2) estimate relative standard error for a non-poisson distribution
     if(background.count.distribution != "non-poisson"){
       .throw_warning("Unknown method for 'background.count.distribution', ",
                      "a non-poisson distribution is assumed")
     }
-
-    LnLx.relError <- sqrt(Y.0 + Y.1/k^2 + sigmab.LnLx*(1+1/k))/
-      (Y.0 - Y.1/k)
-    TnTx.relError <- sqrt(Y.0_TnTx + Y.1_TnTx/k^2 + sigmab.TnTx*(1+1/k))/
-      (Y.0_TnTx - Y.1_TnTx/k)
+    used.sigmab.LnLx <- sigmab.LnLx
+    used.sigmab.TnTx <- sigmab.TnTx
   }
+
+  LnLx.relError <- rse(Y.0, Y.1, k, used.sigmab.LnLx)
+  TnTx.relError <- rse(Y.0_TnTx, Y.1_TnTx, k, used.sigmab.TnTx)
 
   ##(d)
   ##calculate absolute standard error
