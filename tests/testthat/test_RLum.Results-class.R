@@ -38,12 +38,16 @@ test_that("get_RLum", {
                "'data.object' should be of class 'character' or 'numeric'")
   expect_error(get_RLum(obj, 100),
                "'data.object' index out of bounds")
+  expect_error(get_RLum(obj, info.object = 1:2),
+               "'info.object' should be of class 'character' or NULL and have length 1")
   expect_warning(expect_null(get_RLum(obj, info.object = "error")),
                  "[get_RLum()] Invalid 'info.object' name, valid names are:",
                  fixed = TRUE)
   expect_warning(expect_null(get_RLum(empty, info.object = "error")),
                  "[get_RLum()] This 'RLum.Results' object has no info objects",
                  fixed = TRUE)
+  expect_error(get_RLum(obj, drop = NA),
+               "'drop' should be a single logical value")
 
   ## full functionality
   expect_s3_class(get_RLum(obj),

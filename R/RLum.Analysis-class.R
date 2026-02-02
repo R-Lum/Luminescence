@@ -378,6 +378,7 @@ setMethod("get_RLum",
 
             ##if info.object is set, only the info objects are returned
             else if(!is.null(info.object)) {
+              .validate_class(info.object, "character", null.ok = TRUE, length = 1)
               if(info.object %in% names(object@info)){
                 return(unlist(object@info[info.object]))
               }
@@ -489,6 +490,7 @@ setMethod("get_RLum",
                 if (get.index) {
                   return(unlist(temp))
                 }
+                .validate_logical_scalar(drop)
                 if (!drop) {
                     temp <- set_RLum(
                       class = "RLum.Analysis",

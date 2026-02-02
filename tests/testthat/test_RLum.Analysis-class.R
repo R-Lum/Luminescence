@@ -83,6 +83,10 @@ test_that("get_RLum", {
                "'get.index' should be a single logical value")
   expect_error(get_RLum(obj, get.index = NULL),
                "'get.index' should be a single logical value")
+  expect_error(get_RLum(obj, drop = NA),
+               "'drop' should be a single logical value")
+  expect_error(get_RLum(obj, info.object = list()),
+               "'info.object' should be of class 'character' or NULL and have length 1")
   expect_error(get_RLum(obj, subset = "recordType == 'RF (NA)'", get.index = NA),
                "'get.index' should be a single logical value")
   SW({
