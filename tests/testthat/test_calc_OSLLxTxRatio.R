@@ -150,7 +150,7 @@ test_that("input validation", {
     signal_integral = 1:20,
     background_integral = 80:100,
     sigmab = c(1, 2, 3)
-  ), "'sigmab' can have at most length 2")
+  ), "'sigmab' should be of class 'numeric' or NULL and have length 1 or 2")
 })
 
 test_that("create warnings", {

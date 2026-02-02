@@ -1212,10 +1212,9 @@ SW <- function(expr) {
 #'        thrown in case of failed validation (`TRUE` by default). If `FALSE`,
 #'        the function raises a warning and proceeds.
 #' @param length [integer] (*with default*): if not `NULL`, validate that
-#'        the length matches the one provided. This can be used only when
-#'        `classes` contains only base vector types, not
-#'        [Luminescence::RLum-class] objects
-#'        or container types.
+#'        the length matches the one (or more) provided. This can be used only
+#'        when `classes` contains only base vector types, not
+#'        [Luminescence::RLum-class] objects or container types.
 #' @inheritParams .validate_args
 #'
 #' @return
@@ -1231,7 +1230,7 @@ SW <- function(expr) {
     return(TRUE)
 
   if (missing(arg) || sum(inherits(arg, classes)) == 0L ||
-      !is.null(length) && length(arg) != length) {
+      !is.null(length) && !length(arg) %in% length) {
     ## additional text to append after the valid classes to account for
     ## extra options that cannot be validated but we want to report
     classes.extra <- c(sQuote(classes, q = FALSE), extra)
@@ -1241,7 +1240,8 @@ SW <- function(expr) {
     msg <- paste0(name %||% .first_argument(), " should be of class ",
                   .collapse(classes.extra, quote = FALSE, last_sep = " or "))
     if (!is.null(length))
-      msg <- paste0(msg, " and have length ", length)
+      msg <- paste0(msg, " and have length ",
+                    .collapse(length, quote = FALSE, last_sep = " or "))
     .error_or_warning(msg, throw.error)
     return(FALSE)
   }

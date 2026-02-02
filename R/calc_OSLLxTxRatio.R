@@ -203,10 +203,7 @@ calc_OSLLxTxRatio <- function(
   .validate_not_empty(Lx.data)
   .validate_class(Tx.data, c("RLum.Data.Curve", "data.frame", "numeric", "matrix"),
                   null.ok = TRUE)
-  .validate_class(sigmab, "numeric", null.ok = TRUE)
-  if (!is.null(sigmab) && length(sigmab) > 2) {
-    .throw_error("'sigmab' can have at most length 2")
-  }
+  .validate_class(sigmab, "numeric", null.ok = TRUE, length = 1:2)
 
   ## Lx - coerce if required
   Lx.data <- switch(

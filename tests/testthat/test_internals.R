@@ -406,6 +406,7 @@ test_that("Test internals", {
   expect_true(.validate_class(iris, c("data.frame", "integer")))
   expect_true(.validate_class(iris, c("data.frame", "integer"),
                               throw.error = FALSE))
+  expect_true(.validate_class(1:3, "integer", length = c(2, 3)))
   expect_warning(expect_false(.validate_class(arg <- NULL, "data.frame",
                                    throw.error = FALSE)),
       "'arg' should be of class 'data.frame'")
@@ -421,6 +422,8 @@ test_that("Test internals", {
                "'test' should be of class 'data.frame'")
   expect_error(.validate_class(test <- 1:5, "data.frame", length = 2),
                "'test' should be of class 'data.frame' and have length 2")
+  expect_error(.validate_class(test <- 1:5, "data.frame", length = 1:2),
+               "'test' should be of class 'data.frame' and have length 1 or 2")
   expect_error(.validate_class(test <- 1:5, c("list", "data.frame", "numeric")),
                "'test' should be of class 'list', 'data.frame' or 'numeric'")
   expect_error(.validate_class(test <- 1:5, c("list", "data.frame")),
