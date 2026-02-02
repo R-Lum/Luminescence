@@ -262,6 +262,7 @@ setMethod("get_RLum",
     if (is.null(info.object)) {
       return(object@data)
     }
+    .validate_class(info.object, "character", null.ok = TRUE, length = 1)
     if (length(object@info) == 0) {
       .throw_warning("'object' has no info objects, NULL returned")
       return(NULL)

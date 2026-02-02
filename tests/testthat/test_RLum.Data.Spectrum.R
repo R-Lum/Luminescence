@@ -14,6 +14,8 @@ test_that("check class", {
                "Invalid element name, valid names are: 'a'")
   expect_error(get_RLum(object, info.object = 1L),
                "'info.object' should be of class 'character'")
+  expect_error(get_RLum(object, info.object = list()),
+               "'info.object' should be of class 'character' or NULL and have length 1")
   expect_type(get_RLum(object, info.object = "a"), "character")
 
   ##test method names

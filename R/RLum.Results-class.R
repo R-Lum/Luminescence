@@ -178,6 +178,7 @@ setMethod(
 
     ## if info.object is set, only the info objects are returned if present
     if (!is.null(info.object)) {
+      .validate_class(info.object, "character", null.ok = TRUE, length = 1)
       if (!info.object %in% names(object@info)) {
         if (length(object@info) == 0) {
           .throw_warning("This 'RLum.Results' object has no info objects, ",
@@ -220,6 +221,7 @@ setMethod(
     }
 
     ## check whether an RLum.Results object needs to be produced
+    .validate_logical_scalar(drop)
     if (drop) {
         ##we need to access the list here, otherwise we get unexpected behaviour as drop = TRUE
         ##should always return the lowest possible element here

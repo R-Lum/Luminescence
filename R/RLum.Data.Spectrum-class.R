@@ -239,7 +239,7 @@ setMethod("get_RLum",
               .set_function_name("get_RLum")
               on.exit(.unset_function_name(), add = TRUE)
 
-              .validate_class(info.object, "character", null.ok = TRUE)
+              .validate_class(info.object, "character", null.ok = TRUE, length = 1)
               if (!is.null(info.object)) {
                 if (!info.object %in% names(object@info)) {
                   .throw_error("Invalid element name, valid names are: ",
