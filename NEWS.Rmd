@@ -205,6 +205,11 @@ are now correctly converted to the normal scale for log models. This fixes a
 regression introduced in v1.0.0, which caused those values to be stored in
 the log scale (#1345).
 
+* The function now stores the bootstrap results in the `summary` slot when
+`bootstrap = TRUE`. Moreover, summary results are printed to the terminal also
+when using bootstrap (#1336; thanks to @feldsparlover and Arindam Biswas for
+reporting).
+
 ### `calc_OSLLxTxDecomposed()`
 
 * The data frame returned by the function now contains two additional columns,
