@@ -368,8 +368,10 @@ plot_RLum.Results<- function(
 
 
       if (anyNA(c(mean, sd))) {
+        ## no longer reachable since #1353
+        # nocov start
         .throw_warning("Unable to plot the MAM single estimate (NA value)")
-
+        # nocov end
       } else {
 
         x<- seq(mean-5*sd, mean+5*sd, 0.001)
