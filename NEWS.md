@@ -196,6 +196,11 @@ More information on these changes are available at
 
 - The function no longer crashes in `n.MC` is set to 0 (#1327).
 
+### `calc_MaxDose()`
+
+- The De estimates produced when `bootstrap = TRUE` were not transformed
+  back to the original scale before being returned to the user (#1351).
+
 ### `calc_MinDose()`
 
 - The function now set non-positive De values to `NA` when `log = TRUE`,
