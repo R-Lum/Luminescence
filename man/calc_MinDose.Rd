@@ -83,7 +83,7 @@ following elements:
 \item{$args}{\link{list} used arguments}
 \item{$call}{\link{call} the function call}
 \item{$mle}{\link[bbmle:mle2]{bbmle::mle2} object containing the maximum log likelihood functions for all parameters}
-\item{$BIC}{\link{numeric} BIC score}
+\item{$BIC}{\link{numeric} BIC score from the non-bootstrapped model}
 \item{$confint}{\link{data.frame} confidence intervals for all parameters}
 \item{$profile}{\link[stats:profile]{stats::profile} the log likelihood profiles}
 \item{$bootstrap}{\link{list} bootstrap results}
@@ -192,7 +192,7 @@ model with \code{debug=TRUE} which provides extended console output and
 forwards all internal warning messages.
 }
 \section{Function version}{
- 0.4.6
+ 0.5.0
 }
 
 \examples{
@@ -339,6 +339,7 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10.
 }
 \author{
 Christoph Burow, University of Cologne (Germany) \cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany) \cr
 Based on a rewritten S script of Rex Galbraith, 2010 \cr
 The bootstrap approach is based on a rewritten MATLAB script of Alastair Cunningham. \cr
 Alastair Cunningham is thanked for his help in implementing and cross-checking the code.

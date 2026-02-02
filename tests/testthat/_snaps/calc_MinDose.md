@@ -992,12 +992,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [34.31833755]
+                  "value": [35.1261536]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [2.55096356]
+                  "value": [6.22603029]
                 },
                 {
                   "type": "double",
@@ -1007,12 +1007,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [29.37525703]
+                  "value": [27.22093984]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [39.37503417]
+                  "value": [43.74527786]
                 },
                 {
                   "type": "double",
@@ -1022,12 +1022,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [2.07245215]
+                  "value": [2.07964502]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.01053938]
+                  "value": [0.01221935]
                 },
                 {
                   "type": "double",
@@ -1200,12 +1200,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [3.38015272, 0.56507147, "NA"]
+                  "value": [3.30398652, 0.51772756, 0.00626278]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [3.67313197, 0.94489014, 0.11385176]
+                  "value": [3.77838367, 0.96627826, 0.01698235]
                 }
               ]
             },
@@ -1325,12 +1325,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [76.57571206]
+                  "value": [77.99604104]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [7.56990863]
+                  "value": [6.17248199]
                 },
                 {
                   "type": "double",
@@ -1340,12 +1340,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [69.65357717]
+                  "value": [68.993929]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [99.32761899]
+                  "value": [88.88813204]
                 },
                 {
                   "type": "double",
@@ -1355,12 +1355,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.71200089]
+                  "value": [1.67192316]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.64821381]
+                  "value": [0.57088679]
                 },
                 {
                   "type": "double",
@@ -1533,12 +1533,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [4.24353406, 0.35699288, "NA"]
+                  "value": [4.23401852, 0.38826832, 0.17025588]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [4.59842367, 0.95792395, 0.87279996]
+                  "value": [4.48737864, 0.82615561, 0.84330658]
                 }
               ]
             },
@@ -1658,12 +1658,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [20.86957969]
+                  "value": [26.4599162]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": ["NA"]
+                  "value": [5.70100862]
                 },
                 {
                   "type": "double",
@@ -1673,12 +1673,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": ["NA"]
+                  "value": [19.71121989]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [28.50506153]
+                  "value": [34.75421205]
                 },
                 {
                   "type": "double",
@@ -1688,17 +1688,17 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [19.75355228]
+                  "value": [17.2946164]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.01538445]
+                  "value": [0.04399467]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [68.23686149]
+                  "value": [69.15431816]
                 },
                 {
                   "type": "double",
@@ -1851,27 +1851,27 @@
                   "attributes": {},
                   "value": ["2.5 %", "97.5 %"]
                 },
-                "row.names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["gamma", "sigma", "p0", "mu"]
-                },
                 "class": {
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "row.names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["gamma", "sigma", "p0", "mu"]
                 }
               },
               "value": [
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": ["NA", 15.28902535, "NA", 61.90415978]
+                  "value": [19.71121989, 13.83131049, 0.01249814, 64.30091521]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [28.50506153, 26.07991704, 0.09419383, 74.10472675]
+                  "value": [34.75421205, 21.66321617, 0.11628449, 73.28156377]
                 }
               ]
             },

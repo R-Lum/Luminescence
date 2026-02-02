@@ -152,7 +152,7 @@
 #' \item{$args}{[list] used arguments}
 #' \item{$call}{[call] the function call}
 #' \item{$mle}{[bbmle::mle2] object containing the maximum log likelihood functions for all parameters}
-#' \item{$BIC}{[numeric] BIC score}
+#' \item{$BIC}{[numeric] BIC score from the non-bootstrapped model}
 #' \item{$confint}{[data.frame] confidence intervals for all parameters}
 #' \item{$profile}{[stats::profile] the log likelihood profiles}
 #' \item{$bootstrap}{[list] bootstrap results}
@@ -169,10 +169,11 @@
 #' model with `debug=TRUE` which provides extended console output and
 #' forwards all internal warning messages.
 #'
-#' @section Function version: 0.4.6
+#' @section Function version: 0.5.0
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany) \cr
 #' Based on a rewritten S script of Rex Galbraith, 2010 \cr
 #' The bootstrap approach is based on a rewritten MATLAB script of Alastair Cunningham. \cr
 #' Alastair Cunningham is thanked for his help in implementing and cross-checking the code.
@@ -864,6 +865,30 @@ calc_MinDose <- function(
                      "increasing `bs.M`")
     }
 
+    ## extract the parameters from the bootstrap replicates
+    mle <- rbindlist(lapply(mle[N + 1:M], extract_estimates))
+
+    ## compute the mean of each parameter
+    res <- data.frame(apply(mle, 2, mean, simplify = FALSE))
+    rownames(res) <- "Estimate"
+
+    ## quantiles from the bootstrap replicates
+    prob <- (1 + c(-level, level)) / 2
+    conf <- data.frame(t(apply(mle[, 1:par], 2, quantile,
+                               na.rm = TRUE, probs = prob)))
+    colnames(conf) <- paste(prob * 100, "%")
+
+    ## keep a copy of the conf object in the scale in which the models were
+    ## fitted
+    conf.orig <- conf
+    if (log) {
+      logged.rows <- row.names(conf.orig) != "p0"
+      conf.orig[logged.rows, ] <- log(conf.orig[logged.rows, ])
+    }
+
+    ## standard deviation over the De values from the bootstrap replicates
+    gamma_err <- sd(pairs[, "theta"])
+
   }#EndOf::Bootstrap
 
   ## ========================================================================
@@ -896,45 +921,57 @@ calc_MinDose <- function(
   ## CONSOLE PRINT
   ##============================================================================##
 
-  if (verbose && !bootstrap) {
-      cat("\n----------- meta data -----------\n")
-      print(data.frame(n=length(data[ ,1]),
+  if (verbose) {
+    cat("\n----------- Meta data -----------\n")
+    print(data.frame(n = length(data[, 1]),
                        par=par,
                        sigmab=sigmab,
                        logged=log,
-                       Lmax=-ests@min,
+                       Lmax = Lmax,
                        BIC=BIC,
                        row.names = ""))
 
-      cat("\n--- final parameter estimates ---\n")
+    cat(sprintf("\n--- Final parameter estimates%s ---\n",
+                ifelse(bootstrap, " (bootstrap)", "")))
     if (log && log.output) {
       res$`log(gamma)` <- log(res$gamma)
       res$`log(sigma)` <- log(res$sigma)
-      if (par == 4)
-        res$`log(mu)` <- log(res$mu)
+      res$`log(mu)` <- log(res$mu)
     }
-    print(round(res, 2))
+    print(round(res[, 1:par], 2))
 
-      cat("\n------ confidence intervals -----\n")
-      conf_print <- round(conf, 2)
-      if (log && log.output) {
-          conf_tmp <- round(conf.orig, 2)
-          conf_tmp[which(rownames(conf_tmp) == "p0"), ] <- "-"
-          conf_print <- cbind(conf_print,
-                              setNames(conf_tmp, names(conf_tmp)))
-          conf_print <- rbind(
-            setNames(data.frame("", "", "(logged)", "(logged)", row.names = "", stringsAsFactors = FALSE), names(conf_print)),
-            conf_print)
-      }
-      print(conf_print)
+    cat(sprintf("\n------ Confidence intervals%s -----\n",
+                ifelse(bootstrap, " (bootstrap)", "")))
+    conf_print <- conf
+    conf_print <- round(conf_print, 2)
 
-      cat("\n------ De (asymmetric error) -----\n")
+    if (log && log.output) {
+      logged.rows <- row.names(conf) != "p0"
+      conf_log <- conf
+      conf_log[logged.rows, ] <- log(conf_log[logged.rows, ])
+
+      conf_log <- round(conf_log, 2)
+      conf_log[which(rownames(conf_log) == "p0"), ] <- "-"
+      conf_print <- cbind(conf_print, conf_log)
+      ncols <- ncol(conf_print) / 2
+      conf_print <- rbind(setNames(data.frame(as.list(rep("", ncols)),
+                                              as.list(rep("(logged)", ncols)),
+                                              row.names = ""),
+                                   colnames(conf_print)),
+                          conf_print)
+    }
+
+    print(conf_print)
+
+    cat(sprintf("\n------ De (asymmetric error)%s -----\n",
+                ifelse(bootstrap, " (bootstrap)", "")))
     print(round(data.frame(De = summary$de,
                            lower = conf["gamma", 1],
                            upper = conf["gamma", 2],
                            row.names = ""), 2))
 
-      cat("\n------ De (symmetric error) -----\n")
+    cat(sprintf("\n------ De (symmetric error)%s -----\n",
+                ifelse(bootstrap, " (bootstrap)", "")))
     print(round(data.frame(De = summary$de,
                            error = gamma_err,
                            row.names = ""), 2))
