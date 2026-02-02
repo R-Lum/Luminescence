@@ -186,4 +186,9 @@ test_that("regression tests", {
       "Unable to plot the likelihood profile for: p0"),
       "De values must be positive with 'log = TRUE', 1 values set to NA"),
       "Not enough bootstrap replicates for loess fitting, try increasing `bs.M`")
+
+  ## issue 1355
+  expect_warning(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                              bootstrap = TRUE, bs.M = 10, bs.N = 1,
+                              verbose = FALSE, plot = FALSE))
 })
