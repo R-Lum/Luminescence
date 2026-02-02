@@ -648,6 +648,12 @@ test_that("Test internals", {
                "All elements of 'list.integral' should be of class 'integer' or")
   expect_equal(.validate_integral(list.integral <- list(5:1), list.ok = TRUE),
                list(1:5))
+  expect_warning(.validate_integral(integral <- c(1, 3)),
+                 "'integral' was defined as c(1, 3) but in general we would",
+                 fixed = TRUE)
+  expect_no_warning(.validate_integral(integral <- c(1, 2)),
+                    message = "'integral' was defined as c(1, 2) but in general")
+
 
   ## .require_suggested_package() -------------------------------------------
   expect_true(.require_suggested_package("utils"))

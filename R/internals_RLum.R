@@ -1457,6 +1457,10 @@ SW <- function(expr) {
                    " and ", max(integral))
   if (any(integral != as.integer(integral)))
     .throw_error(name, " should be a vector of integers")
+  if (length(integral) == 2 && diff(integral) > 1)
+    .throw_warning(name, " was defined as c(", .format_range(integral, sep = ", "),
+                   ") but in general we would expect it to be defined as ",
+                   .format_range(integral), ", please check your input")
   sort(unique(integral))
 }
 
