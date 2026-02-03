@@ -635,44 +635,48 @@ analyse_SAR.CWOSL<- function(
 
 # Calculate LnLxTnTx values  --------------------------------------------------
   ##calculate LxTx values using external function
-  LnLxTnTx <- try(lapply(seq(1, length(OSL.Curves.ID), by = 2), function(x) {
-      if (length(OSL.component) > 0) {
-       temp.LnLxTnTx <- get_RLum(
+  if (length(OSL.component) > 0) {
+    LnLxTnTx <- try(lapply(seq(1, length(OSL.Curves.ID), by = 2), function(x) {
+      temp.LnLxTnTx <- get_RLum(
           calc_OSLLxTxDecomposed(
-            Lx.data = object@records[[OSL.Curves.ID[x]]]@info$COMPONENTS,
-            Tx.data = object@records[[OSL.Curves.ID[x + 1]]]@info$COMPONENTS,
-            OSL.component = OSL.component,
-            digits = 4,
-            sig0 = sig0))
-      } else {
-       temp.LnLxTnTx <- get_RLum(
-          calc_OSLLxTxRatio(
-            Lx.data = object@records[[OSL.Curves.ID[x]]]@data,
-            Tx.data = object@records[[OSL.Curves.ID[x + 1]]]@data,
+              Lx.data = object@records[[OSL.Curves.ID[x]]]@info$COMPONENTS,
+              Tx.data = object@records[[OSL.Curves.ID[x + 1]]]@info$COMPONENTS,
+              OSL.component = OSL.component,
+              digits = 4,
+              sig0 = sig0))
+    }), silent = TRUE)
+  } else {
+    LnLxTnTx <- try(get_RLum(
+        calc_OSLLxTxRatio(
+            Lx.data = object@records[OSL.Curves.ID.Lx],
+            Tx.data = object@records[OSL.Curves.ID.Tx],
             signal_integral = signal_integral,
             signal_integral_Tx = signal_integral_Tx,
             background_integral = background_integral,
             background_integral_Tx = background_integral_Tx,
             background.count.distribution = background.count.distribution,
             sigmab = sigmab,
-            sig0 = sig0))
-      }
+            sig0 = sig0)
+    ), silent = TRUE)
+  }
 
-      temp.Dose <- object@records[[OSL.Curves.ID[x]]]@info$IRR_TIME %||% NA
-      temp.LnLxTnTx <- cbind(Dose = temp.Dose, temp.LnLxTnTx)
-
-  }), silent = TRUE)
-
-  ## this is basically for the OSL.component case to avoid that everything
-  ## fails if something goes wrong therein
+  ## catch errors generated in calc_OSLLxTxDecomposed() or calc_OSLLxTxRatio()
   if (inherits(LnLxTnTx, "try-error")) {
       .throw_message("Something went wrong while generating the LxTx table, ",
                      "NULL returned")
       return(NULL)
-    }
+  }
 
-    ##combine
-    LnLxTnTx <- data.table::rbindlist(LnLxTnTx)
+  ## extract the dose
+  temp.Dose <- lapply(OSL.Curves.ID.Lx, function(x) {
+    object@records[[x]]@info$IRR_TIME %||% NA
+  })
+  LnLxTnTx <- lapply(seq_along(LnLxTnTx), function(x) {
+    cbind(Dose = temp.Dose[[x]], LnLxTnTx[[x]])
+  })
+
+  ## combine all tables
+  LnLxTnTx <- data.table::rbindlist(LnLxTnTx)
 
   ## Set regeneration points ------------------------------------------------
   ## overwrite dose point manually

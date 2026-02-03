@@ -53,7 +53,7 @@ test_that("input validation", {
   expect_error(calc_OSLLxTxRatio(numeric()),
                "'Lx.data' cannot be an empty numeric")
   expect_error(calc_OSLLxTxRatio(Lx.data, "error"),
-               "'Tx.data' should be of class 'RLum.Data.Curve', 'data.frame', 'numeric', 'matrix'")
+               "'Tx.data' should be of class 'RLum.Data.Curve', 'data.frame', 'matrix', 'numeric', a list")
   expect_error(calc_OSLLxTxRatio("error", "error"),
                "'Lx.data' should be of class 'RLum.Data.Curve', 'data.frame'")
   expect_error(calc_OSLLxTxRatio(Lx.data[, 1, drop = FALSE]),
@@ -74,6 +74,8 @@ test_that("input validation", {
   expect_error(calc_OSLLxTxRatio(Lx.data[1:10, ], signal_integral = 1:2,
                                  background_integral = matrix(1:4, ncol =2)),
                "'background_integral' should be of class 'integer' or 'numeric'")
+  expect_error(calc_OSLLxTxRatio(list(Lx.data, Lx.data), Tx.data),
+               "'Tx.data' should be a list of the same length as 'Lx.data'")
 
   expect_warning(expect_error(calc_OSLLxTxRatio(
     Lx.data,

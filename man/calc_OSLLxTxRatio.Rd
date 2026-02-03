@@ -20,13 +20,15 @@ calc_OSLLxTxRatio(
 )
 }
 \arguments{
-\item{Lx.data}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
-requires a CW-OSL shine down curve (x = time, y = counts)}
+\item{Lx.data}{\linkS4class{RLum.Data.Curve}, \link{data.frame}, \link{list} (\strong{required}):
+requires a CW-OSL shine down curve (x = time, y = counts). Data can also be
+provided as a list.}
 
 \item{Tx.data}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\emph{optional}):
 requires a CW-OSL shine down curve (x = time, y = counts). If no
 input is given the \code{Tx.data} will be treated as \code{NA} and no \code{Lx/Tx} ratio
-is calculated.}
+is calculated. When \code{Lx.data} is a list, it must be provided as a list of
+the same length.}
 
 \item{signal_integral}{\link{integer} (\strong{required}):
 vector of channels for the signal integral. If set to \code{NA}, no integrals
@@ -165,7 +167,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.9.1
+ 0.9.2
 }
 
 \examples{

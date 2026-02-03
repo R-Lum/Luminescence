@@ -449,11 +449,10 @@ analyse_FadingMeasurement <- function(
     }
 
     ##calculate Lx/Tx table
-    len.Tx <- length(Tx_data)
-    LxTx_table <- merge_RLum(.warningCatcher(lapply(1:length(Lx_data), function(x) {
+    LxTx_table <- merge_RLum(.warningCatcher(
       calc_OSLLxTxRatio(
-        Lx.data = Lx_data[[x]],
-        Tx.data = Tx_data[[x]],
+        Lx.data = Lx_data,
+        Tx.data = Tx_data,
         signal_integral = signal_integral,
         background_integral = background_integral,
         signal_integral_Tx = list(...)$signal_integral_Tx,
@@ -464,7 +463,7 @@ analyse_FadingMeasurement <- function(
           list(...)$background.count.distribution %||%
                    formals(calc_OSLLxTxRatio)$background.count.distribution
       )
-    })))$LxTx.table
+    ))$LxTx.table
   }
 
   ##create unique identifier
