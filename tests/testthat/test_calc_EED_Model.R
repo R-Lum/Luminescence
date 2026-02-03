@@ -10,19 +10,25 @@ test_that("input validation", {
   expect_error(calc_EED_Model(1L),
                "'data' should be of class 'data.frame'")
 
+  ## D0
+  expect_error(calc_EED_Model(MortarData, NA),
+               "'D0' should be a single positive integer value")
+
   ## expected dose
   expect_error(calc_EED_Model(MortarData),
-               "'expected_dose' should be of class 'numeric'")
+               "'expected_dose' should be a single positive value")
   expect_error(calc_EED_Model(MortarData, expected_dose = "error"),
-               "'expected_dose' should be of class 'numeric'")
+               "'expected_dose' should be a single positive value")
+  expect_error(calc_EED_Model(MortarData, expected_dose = numeric()),
+               "'expected_dose' should be a single positive value")
 
   ## IndivDose
   expect_error(calc_EED_Model(MortarData, expected_dose = 0.17,
                               MinIndivDose = "error"),
-               "'MinIndivDose' should be of class 'numeric")
+               "'MinIndivDose' should be a single positive value or NULL")
   expect_error(calc_EED_Model(MortarData, expected_dose = 0.17,
                               MaxIndivDose = "error"),
-               "'MaxIndivDose' should be of class 'numeric")
+               "'MaxIndivDose' should be a single positive value or NULL")
 })
 
 test_that("snapshot tests", {

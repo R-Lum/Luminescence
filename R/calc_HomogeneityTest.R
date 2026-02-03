@@ -92,7 +92,7 @@ calc_HomogeneityTest <- function(
     if (any(data < 0, na.rm = TRUE))
       .throw_warning("'data' contains negative values and 'log = TRUE', ",
                      "check your input")
-    dat <- log(data)
+    dat <- suppressWarnings(log(data))
     dat[[2]] <- data[[2]]/data[[1]]
   } else {
     dat <- data

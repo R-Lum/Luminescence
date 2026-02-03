@@ -146,6 +146,7 @@ plot_Histogram <- function(
   .validate_class(data[, 1], c("numeric", "integer"),
                   name = "All columns of 'data'")
 
+  .validate_class(mtext, "character", length = 1)
   .validate_class(cex.global, "numeric")
   .validate_class(summary, "character")
   if (is.numeric(summary.pos)) {

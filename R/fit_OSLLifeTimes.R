@@ -299,6 +299,7 @@ fit_OSLLifeTimes <- function(
   ##signal_range
   if(!is.null(signal_range)){
     .validate_class(signal_range, "numeric")
+    .validate_not_empty(signal_range)
 
     ## format the extremes of the signal range
     reset_msg <- function(sr) {

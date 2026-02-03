@@ -19,6 +19,8 @@ test_that("input validation", {
                "'n.components' should be a single positive integer value")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, signal_range = FALSE),
                "'signal_range' should be of class 'numeric'")
+  expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, signal_range = numeric()),
+               "'signal_range' cannot be an empty numeric")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, plot = NA),
                "'plot' should be a single logical value")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, verbose = NA),
