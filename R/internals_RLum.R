@@ -1448,6 +1448,9 @@ SW <- function(expr) {
                   name = paste("All elements of", name)))
   }
   orig.length <- length(integral)
+  if (min > max)
+    .throw_error(name, " is expected to be at least ", min,
+                 ", but the maximum allowed is ", max)
   integral <- integral[!is.na(integral) & between(integral, min, max)]
   if (length(integral) == 0)
     .throw_error(name, " is of length 0 after removing values smaller than ",

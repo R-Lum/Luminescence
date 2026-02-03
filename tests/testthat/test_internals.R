@@ -643,6 +643,8 @@ test_that("Test internals", {
                "'integral' is of length 0 after removing values smaller than 1$")
   expect_error(.validate_integral(integral <- 1:10, min = 50, max = 100),
                "after removing values smaller than 50 and greater than 100")
+  expect_error(.validate_integral(integral <- 1:10, min = 150, max = 100),
+               "is expected to be at least 150, but the maximum allowed is 100")
   expect_error(.validate_integral(integral <- 1:5 + 0.1),
                "'integral' should be a vector of integers")
   expect_error(.validate_integral(list.integral <- list(1:4)),

@@ -80,7 +80,7 @@ test_that("input validation", {
     Tx.data,
     signal_integral = 1:2000,
     background_integral = 85:100
-  ), "'background_integral' is of length 0 after removing values smaller than 101"),
+  ), "'background_integral' is expected to be at least 101, but the maximum allowed is 100"),
   "'signal_integral' reset to be between 1 and 100")
 
   SW({
@@ -124,7 +124,7 @@ test_that("input validation", {
     signal_integral_Tx = 1:1000,
     background_integral = 85:100,
     background_integral_Tx = 85:100
-  ), "background_integral_Tx' is of length 0 after removing values smaller than 101"),
+  ), "background_integral_Tx' is expected to be at least 101, but the maximum"),
   "'signal_integral_Tx' reset to be between 1 and 100")
 
   expect_error(calc_OSLLxTxRatio(
