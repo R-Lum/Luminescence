@@ -205,31 +205,26 @@ calc_OSLLxTxRatio <- function(
                   null.ok = TRUE)
   .validate_class(sigmab, "numeric", null.ok = TRUE, length = 1:2)
 
-  ## Lx - coerce if required
-  Lx.data <- switch(
-    class(Lx.data)[1],
-    RLum.Data.Curve = as(Lx.data, "data.frame"),
-    matrix = as.data.frame(Lx.data),
-    data.frame = Lx.data,
-    data.frame(x = 1:length(Lx.data),y = Lx.data)
-  )
-  if (ncol(Lx.data) < 2) {
-    .throw_error("'Lx.data' should have 2 columns")
+  .coerce <- function(data) {
+    data <- switch(
+        class(data)[1],
+        RLum.Data.Curve = as(data, "data.frame"),
+        matrix = as.data.frame(data),
+        data.frame = data,
+        data.frame(x = 1:length(data), y = data)
+    )
+    if (ncol(data) < 2)
+      .throw_error(.first_argument(), " should have 2 columns")
+    data
   }
+
+  ## Lx - coerce if required
+  Lx.data <- .coerce(Lx.data)
   len.Lx <- nrow(Lx.data)
 
   ## Tx - coerce if required
   if(!is.null(Tx.data)){
-    Tx.data <- switch(
-      class(Tx.data)[1],
-      RLum.Data.Curve = as(Tx.data, "data.frame"),
-      matrix = as.data.frame(Tx.data),
-      data.frame = Tx.data,
-      data.frame(x = 1:length(Tx.data),y = Tx.data)
-    )
-    if (ncol(Tx.data) < 2) {
-      .throw_error("'Tx.data' should have 2 columns")
-    }
+    Tx.data <- .coerce(Tx.data)
     len.Tx <- nrow(Tx.data)
 
     ## check channel number
