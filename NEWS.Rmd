@@ -260,6 +260,9 @@ repeated computations in a loop. Given the different ordering of computations
 (although mathematically equivalent), there will be small differences in the
 numerical output when `fit.method = "GOK"` is used (#1277).
 
+* The fit message reported is now also stored in the `@info` slot of the
+object returned by the function (#1362).
+
 ### `get_RLum()`
 
 * An internal optimization increased the performance of the function by over

@@ -111,7 +111,13 @@ following elements:
 In case of a resulting  linear fit when using \code{LIN}, \code{QDR} or \verb{EXP OR LIN} \cr
 \code{..Fit.Args} : \tab \code{list} \tab Arguments to the function \cr
 \code{..$Formula} : \tab \link{expression} \tab Fitting formula as R expression \cr
-\code{..$call} : \tab \code{call} \tab The original function call\cr
+}
+
+The \verb{@info} slot contains the following elements:
+\tabular{lll}{
+\strong{DATA.OBJECT} \tab \strong{TYPE} \tab \strong{DESCRIPTION} \cr
+\code{..$fit_messag}: \tab \code{character} \tab The fit message reported \cr
+\code{..$call} : \tab \code{call} \tab The original function call \cr
 }
 
 If \code{object} is a list, then the function returns a list of
@@ -276,7 +282,7 @@ Each error estimation is done with the function of the chosen fitting method.
 }
 }
 \section{Function version}{
- 1.4.3
+ 1.4.4
 }
 
 \examples{

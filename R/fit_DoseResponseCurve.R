@@ -221,7 +221,13 @@
 #' In case of a resulting  linear fit when using `LIN`, `QDR` or `EXP OR LIN` \cr
 #' `..Fit.Args` : \tab `list` \tab Arguments to the function \cr
 #' `..$Formula` : \tab [expression] \tab Fitting formula as R expression \cr
-#' `..$call` : \tab `call` \tab The original function call\cr
+#' }
+#'
+#' The `@info` slot contains the following elements:
+#' \tabular{lll}{
+#' **DATA.OBJECT** \tab **TYPE** \tab **DESCRIPTION** \cr
+#' `..$fit_messag`: \tab `character` \tab The fit message reported \cr
+#' `..$call` : \tab `call` \tab The original function call \cr
 #' }
 #'
 #' If `object` is a list, then the function returns a list of
@@ -251,7 +257,7 @@
 #' `.De.raw` \tab [numeric] \tab equivalent dose reported 'as is', that is containing infinities and negative values if they could be calculated. Bear in mind that negative values are meaningless and may be arbitrary.\cr
 #' }
 #'
-#' @section Function version: 1.4.3
+#' @section Function version: 1.4.4
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -586,21 +592,22 @@ fit_DoseResponseCurve <- function(
       .throw_message(msg, error = FALSE)
   }
 
-  ## helper to report the fit
+  ## helper to report the fit: this assigns the
+  fit_message <- ""
   .report_fit <- function(De, ...) {
-    if (verbose && mode != "alternate") {
-      writeLines(paste0("[fit_DoseResponseCurve()] Fit: ", fit.method,
-                        " (", mode,") ", "| De = ", round(abs(De), 2),
-                        ...))
+    if (mode != "alternate") {
+      fit_message <<- paste0(sprintf("Fit: %s (%s) | De = %.2f",
+                                     fit.method, mode, abs(De)), ...)
+      if (verbose)
+        writeLines(paste("[fit_DoseResponseCurve()]", fit_message))
     }
   }
 
   ## helper to report a failure in the fit
   .report_fit_failure <- function(method, mode, ...) {
-    if (verbose) {
-      writeLines(paste0("[fit_DoseResponseCurve()] Fit failed for ",
-                        fit.method, " (", mode, ")"))
-    }
+    fit_message <<- sprintf("Fit failed for %s (%s)", fit.method, mode)
+    if (verbose)
+      writeLines(paste("[fit_DoseResponseCurve()]", fit_message))
   }
 
   ##START PARAMETER ESTIMATION
@@ -1799,7 +1806,8 @@ fit_DoseResponseCurve <- function(
       Formula = fit_formula
     ),
     info = list(
-      call = sys.call()
+        fit_message = fit_message,
+        call = sys.call()
     )
   )
 }
