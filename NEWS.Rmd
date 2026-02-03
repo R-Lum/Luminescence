@@ -232,6 +232,10 @@ respective shine-down curves for `Lx` and `Tx` (#1281).
 respectively. The older names will still work but generate a deprecation
 warning (#1290).
 
+* The function can now accept lists for its `Lx.data` and `Tx.data` arguments,
+in which case it will self-call. This can simplify using the function, as it's
+no longer necessary to write a loop to process all records (#1299).
+
 ### `calc_TLLxTxRatio()`
 
 * Argument `signal.integral` has been renamed to `signal_integral`. The older

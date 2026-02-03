@@ -29,13 +29,11 @@
 #'
 #' \deqn{se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx * sig0)^2)}
 #'
-#'
 #' **`SN_RATIO_LnLx` and `SN_RATIO_TnTx`**
 #'
 #' For convenience, the function returns the signal-to-noise ratio (`SN_RATIO`)
 #' for the `LnLx` and the `TnTx` curves. This is simply the signal divided
 #' by the background signal counts normalised to the `k` value (see below).
-#'
 #'
 #' **`background.count.distribution`**
 #'
@@ -59,13 +57,15 @@
 #' Please check whether this is valid for your data set and if necessary
 #' consider to provide an own `sigmab` value using the corresponding argument `sigmab`.
 #'
-#' @param Lx.data [Luminescence::RLum.Data.Curve-class] or [data.frame] (**required**):
-#' requires a CW-OSL shine down curve (x = time, y = counts)
+#' @param Lx.data [Luminescence::RLum.Data.Curve-class], [data.frame], [list] (**required**):
+#' requires a CW-OSL shine down curve (x = time, y = counts). Data can also be
+#' provided as a list.
 #'
 #' @param Tx.data [Luminescence::RLum.Data.Curve-class] or [data.frame] (*optional*):
 #' requires a CW-OSL shine down curve (x = time, y = counts). If no
 #' input is given the `Tx.data` will be treated as `NA` and no `Lx/Tx` ratio
-#' is calculated.
+#' is calculated. When `Lx.data` is a list, it must be provided as a list of
+#' the same length.
 #'
 #' @param signal_integral [integer] (**required**):
 #' vector of channels for the signal integral. If set to `NA`, no integrals
@@ -146,7 +146,7 @@
 #' **Caution:** If you are using early light subtraction (EBG), please either provide your
 #' own `sigmab` value or use `background.count.distribution = "poisson"`.
 #'
-#' @section Function version: 0.9.1
+#' @section Function version: 0.9.2
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -198,11 +198,36 @@ calc_OSLLxTxRatio <- function(
   .set_function_name("calc_OSLLxTxRatio")
   on.exit(.unset_function_name(), add = TRUE)
 
+  ## Self-call --------------------------------------------------------------
+  if (inherits(Lx.data, "list")) {
+    if (!is.null(Tx.data)) {
+      if (!inherits(Tx.data, "list") || length(Lx.data) != length(Tx.data))
+        .throw_error("'Tx.data' should be a list of the same length as 'Lx.data'")
+    }
+    ret <- lapply(seq_along(Lx.data), function(x) {
+      calc_OSLLxTxRatio(Lx.data[[x]],
+                        Tx.data[[x]],
+                        signal_integral = signal_integral,
+                        background_integral = background_integral,
+                        signal_integral_Tx = signal_integral_Tx,
+                        background_integral_Tx = background_integral_Tx,
+                        background.count.distribution = background.count.distribution,
+                        use_previousBG = use_previousBG,
+                        sigmab = sigmab,
+                        sig0 = sig0,
+                        digits = digits,
+                        ...)
+    })
+
+    return(ret)
+  }
+
   ## Integrity checks -------------------------------------------------------
-  .validate_class(Lx.data, c("RLum.Data.Curve", "data.frame", "numeric", "matrix"))
+  valid.classes <- c("RLum.Data.Curve", "data.frame", "matrix", "numeric")
+  .validate_class(Lx.data, valid.classes, extra = "a list of such objects")
   .validate_not_empty(Lx.data)
-  .validate_class(Tx.data, c("RLum.Data.Curve", "data.frame", "numeric", "matrix"),
-                  null.ok = TRUE)
+  .validate_class(Tx.data, valid.classes, null.ok = TRUE,
+                  extra = "a list of such objects")
   .validate_class(sigmab, "numeric", null.ok = TRUE, length = 1:2)
 
   .coerce <- function(data) {
