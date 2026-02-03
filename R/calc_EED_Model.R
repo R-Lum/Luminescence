@@ -127,9 +127,10 @@ calc_EED_Model <- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(data, "data.frame")
-  .validate_class(expected_dose, "numeric")
-  .validate_class(MinIndivDose, "numeric", null.ok = TRUE)
-  .validate_class(MaxIndivDose, "numeric", null.ok = TRUE)
+  .validate_positive_scalar(D0, int = TRUE)
+  .validate_positive_scalar(expected_dose)
+  .validate_positive_scalar(MinIndivDose, null.ok = TRUE)
+  .validate_positive_scalar(MaxIndivDose, null.ok = TRUE)
 
   ##store and restore par settings
   par.default <- .par_defaults()

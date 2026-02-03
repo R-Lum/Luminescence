@@ -15,6 +15,8 @@ test_that("input validation", {
                "All columns of 'data' should be of class 'numeric'")
   expect_error(plot_Histogram(set_RLum("RLum.Results")),
                "'data' cannot be an empty RLum.Results")
+  expect_error(plot_Histogram(df, mtext = numeric()),
+               "'mtext' should be of class 'character' and have length 1")
   expect_error(plot_Histogram(df, summary = 5),
                "'summary' should be of class 'character'")
   expect_error(plot_Histogram(df, summary.pos = 5),
