@@ -336,7 +336,9 @@ plot_RLum.Data.Spectrum <- function(
   ylab <- extraArgs$ylab %||% ifelse(plot.type %in% c("single", "multiple.lines"),
                                      "Luminescence [cts/channel]", ylab)
   xlim <- extraArgs$xlim %||% range(as.numeric(rownames(object@data)))
+  .validate_class(xlim, "numeric", length = 2)
   ylim <- extraArgs$ylim %||% range(as.numeric(colnames(object@data)))
+  .validate_class(ylim, "numeric", length = 2)
   #for zlim see below
 
   mtext <- extraArgs$mtext %||% ""
@@ -392,7 +394,7 @@ plot_RLum.Data.Spectrum <- function(
     temp.xyz <- temp.xyz[x.vals >= xlim[1] & x.vals <= xlim[2],
                          y.vals >= ylim[1] & y.vals <= ylim[2],
                          drop = FALSE]
-    if (nrow(temp.xyz) == 0 || ncol(temp.xyz) == 0) {
+    if (nrow(temp.xyz) == 0 || ncol(temp.xyz) == 0 || all(is.na(temp.xyz))) {
       .throw_error("No data left after applying 'xlim' and 'ylim'")
     }
   }
@@ -539,6 +541,7 @@ plot_RLum.Data.Spectrum <- function(
 
   ##check for zlim
   zlim <- extraArgs$zlim %||% range(temp.xyz, na.rm = TRUE)
+  .validate_class(zlim, "numeric", length = 2)
 
   # set colour values --------------------------------------------------------
   if (is.null(extraArgs$col) || plot.type %in% c("single", "multiple.lines")) {

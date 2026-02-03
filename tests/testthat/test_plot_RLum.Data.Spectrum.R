@@ -24,10 +24,20 @@ test_that("input validation", {
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bin.cols = 0),
                "'bin.cols' should be a single positive integer value")
 
+  expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, xlim = 1.2),
+               "'xlim' should be of class 'numeric' and have length 2")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, xlim = c(0, 100)),
       "No data left after applying 'xlim' and 'ylim'")
+  expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, xlim = c(NA, 1.2)),
+               "No data left after applying 'xlim' and 'ylim'")
+  expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, ylim = 1.2),
+               "'ylim' should be of class 'numeric' and have length 2")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, ylim = c(5, 10)),
       "No data left after applying 'xlim' and 'ylim'")
+  expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, ylim = c(NA_real_, NA_real_)),
+               "No data left after applying 'xlim' and 'ylim'")
+  expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, zlim = 1.2),
+               "'zlim' should be of class 'numeric' and have length 2")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bg.spectrum = bg.spectrum,
                                        ylim = c(0, 100)),
                "No background channels left after applying 'ylim'")
