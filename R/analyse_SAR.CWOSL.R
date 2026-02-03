@@ -514,6 +514,7 @@ analyse_SAR.CWOSL<- function(
 # Deal with extra arguments ----------------------------------------------------
   ##deal with addition arguments
 
+  verbose <- extraArgs$verbose %||% TRUE
   main <- extraArgs$main %||% ""
   log <- extraArgs$log %||% ""
   cex <- extraArgs$cex %||% 1
@@ -1129,8 +1130,16 @@ analyse_SAR.CWOSL<- function(
         Test_Dose = LnLxTnTx$Test_Dose
     )
 
+    ## we want to force fit_DoseResponseCurve to run with verbose = FALSE so
+    ## that we can print out the fit message ourselves
+    extraArgs$verbose <- NULL
     temp.GC <- do.call(fit_DoseResponseCurve,
-                       args = c(list(object = temp.sample), list(...)))
+                       modifyList(list(object = temp.sample, verbose = FALSE),
+                                  extraArgs))
+    if (verbose) {
+      .throw_message(paste("Dose Response Curve", temp.GC@info$fit_message),
+                     error = FALSE)
+    }
 
     if (is.null(temp.GC)) {
       temp.GC <- temp.GC.all.na

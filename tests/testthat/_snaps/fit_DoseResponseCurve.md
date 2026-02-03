@@ -242,10 +242,16 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": []
+              "value": ["fit_message"]
             }
           },
-          "value": []
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07"]
+            }
+          ]
         },
         ".uid": {
           "type": "character",
@@ -508,10 +514,16 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": []
+              "value": ["fit_message"]
             }
           },
-          "value": []
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Fit: LIN (interpolation) | De = 1811.33"]
+            }
+          ]
         },
         ".uid": {
           "type": "character",
@@ -774,10 +786,16 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": []
+              "value": ["fit_message"]
             }
           },
-          "value": []
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Fit: LIN (extrapolation) | De = 0.00"]
+            }
+          ]
         },
         ".uid": {
           "type": "character",
@@ -834,12 +852,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1792.84643199]
+                  "value": [1792.84643176]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [86.47320469]
+                  "value": [86.47324899]
                 },
                 {
                   "type": "logical",
@@ -879,7 +897,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1803.21636269]
+                  "value": [1803.21633612]
                 },
                 {
                   "type": "character",
@@ -894,39 +912,39 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1710.77644211]
+                  "value": [1710.77622828]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1914.52469575]
+                  "value": [1914.52464853]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1623.60579751]
+                  "value": [1623.6055124]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1975.43912209]
+                  "value": [1975.43912469]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1792.84643199]
+                  "value": [1792.84643176]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1792.84643199]
+                  "value": [1792.84643176]
                 }
               ]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": [1914.24507824, 1828.69651439, 1745.45958689, 1778.69354572, 1893.51534248, 1672.1968566, 1796.04640723, 1911.58346408, 1688.02253938, 1803.70429191]
+              "value": [1914.2450758, 1828.69651438, 1745.45960214, 1778.69356889, 1893.51533271, 1672.19656623, 1796.04638153, 1911.58346553, 1688.02255079, 1803.70430324]
             },
             {
               "type": "list",
@@ -1040,10 +1058,16 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": []
+              "value": ["fit_message"]
             }
           },
-          "value": []
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Fit: EXP+LIN (interpolation) | De = 1792.85"]
+            }
+          ]
         },
         ".uid": {
           "type": "character",
@@ -1306,10 +1330,16 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": []
+              "value": ["fit_message"]
             }
           },
-          "value": []
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Fit: EXP+EXP (interpolation) | De = 1787.15 | D01 = 3521.17 | D02 = 549.02"]
+            }
+          ]
         },
         ".uid": {
           "type": "character",
@@ -1572,10 +1602,16 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": []
+              "value": ["fit_message"]
             }
           },
-          "value": []
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Fit: QDR (interpolation) | De = 1666.20"]
+            }
+          ]
         },
         ".uid": {
           "type": "character",
@@ -1838,10 +1874,16 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": []
+              "value": ["fit_message"]
             }
           },
-          "value": []
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Fit: GOK (interpolation) | De = 1786.19 | D01 = 31521.73 | c = 31.04"]
+            }
+          ]
         },
         ".uid": {
           "type": "character",
@@ -2104,10 +2146,16 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": []
+              "value": ["fit_message"]
             }
           },
-          "value": []
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Fit: OTOR (interpolation) | De = 1784.78 | R = 0.36 | Dc = 7033.69"]
+            }
+          ]
         },
         ".uid": {
           "type": "character",
@@ -2370,10 +2418,16 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": []
+              "value": ["fit_message"]
             }
           },
-          "value": []
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Fit: QDR (extrapolation) | De = 38.69"]
+            }
+          ]
         },
         ".uid": {
           "type": "character",
@@ -2435,7 +2489,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.00001106]
+                  "value": [0.00001005]
                 },
                 {
                   "type": "logical",
@@ -2475,7 +2529,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.00001188]
+                  "value": [7.61418926e-06]
                 },
                 {
                   "type": "character",
@@ -2490,22 +2544,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-3.75017962e-06]
+                  "value": [-2.74869073e-06]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.00001895]
+                  "value": [8.51598154e-06]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-6.71130835e-06]
+                  "value": [-5.05702522e-06]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.00003598]
+                  "value": [0.00002523]
                 },
                 {
                   "type": "double",
@@ -2522,7 +2576,7 @@
             {
               "type": "double",
               "attributes": {},
-              "value": [6.38893784e-06, 0.00001699, 0.00003051, 2.77700759e-06, 0.00002978, 8.59208378e-06, 6.50030518e-06, 1.40328309e-06, 0.0000155, 3.59310991e-07]
+              "value": [4.58989043e-06, 0.00002087, 9.00437874e-06, 6.46832726e-07, 4.49968588e-06, 1.00868975e-06, 3.47078547e-07, 3.51572129e-06, 0.00003026, 1.40617182e-06]
             },
             {
               "type": "list",
@@ -2636,10 +2690,16 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": []
+              "value": ["fit_message"]
             }
           },
-          "value": []
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Fit: QDR (extrapolation) | De = 0.00"]
+            }
+          ]
         },
         ".uid": {
           "type": "character",
@@ -2902,10 +2962,16 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": []
+              "value": ["fit_message"]
             }
           },
-          "value": []
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Fit: LIN (extrapolation) | De = 79.46"]
+            }
+          ]
         },
         ".uid": {
           "type": "character",
@@ -3168,10 +3234,16 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": []
+              "value": ["fit_message"]
             }
           },
-          "value": []
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Fit: GOK (extrapolation) | De = 33.97 | D01 = 3439.82 | c = 1.32"]
+            }
+          ]
         },
         ".uid": {
           "type": "character",
@@ -3439,10 +3511,16 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": []
+              "value": ["fit_message"]
             }
           },
-          "value": []
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Fit: OTORX (interpolation) | De = 1785.43 | Q = 0.67 | D63 = 4429.03"]
+            }
+          ]
         },
         ".uid": {
           "type": "character",
@@ -3700,10 +3778,16 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": []
+              "value": ["fit_message"]
             }
           },
-          "value": []
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Fit: EXP (interpolation) | De = 34.95 | D01 = 240.61"]
+            }
+          ]
         },
         ".uid": {
           "type": "character",
@@ -3961,10 +4045,16 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": []
+              "value": ["fit_message"]
             }
           },
-          "value": []
+          "value": [
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["Fit: EXP (extrapolation) | De = 24.59 | D01 = 13.96"]
+            }
+          ]
         },
         ".uid": {
           "type": "character",

@@ -274,6 +274,9 @@ More information on these changes are available at
   differences in the numerical output when `fit.method = "GOK"` is used
   (#1277).
 
+- The fit message reported is now also stored in the `@info` slot of the
+  object returned by the function (#1362).
+
 ### `get_RLum()`
 
 - An internal optimization increased the performance of the function by
