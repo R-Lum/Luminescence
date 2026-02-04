@@ -741,8 +741,8 @@ analyse_SAR.CWOSL<- function(
   ## Calculate rejection criteria -------------------------------------------
 
   ## compare a single value with a threshold (either can be NA)
-  .status_from_threshold <- function(value, threshold) {
-    if (is.na(threshold) || isTRUE(value <= threshold))
+  .status_from_threshold <- function(value, threshold, comparator = `<=`) {
+    if (is.na(threshold) || isTRUE(comparator(value, threshold)))
       return("OK")
     "FAILED"
   }
@@ -765,10 +765,11 @@ analyse_SAR.CWOSL<- function(
   ## Recycling Ratio
   recycling.threshold <- rep(rejection.criteria$recycling.ratio / 100,
                              length(RecyclingRatio))
-  status.RecyclingRatio <- rep("OK", length(RecyclingRatio))
-  if (!anyNA(RecyclingRatio) && !is.na(rejection.criteria$recycling.ratio)) {
-    status.RecyclingRatio[abs(1 - RecyclingRatio) > recycling.threshold] <- "FAILED"
+  status.RecyclingRatio <- vapply(abs(1 - RecyclingRatio), .status_from_threshold,
+                                  threshold = recycling.threshold[1],
+                                  FUN.VALUE = character(1))
 
+  if (!is.na(rejection.criteria$recycling.ratio)) {
     ## set better ratio by given the absolute margin depending
     ## on whether we have values larger or smaller than 1
     idx.gt1 <- which(RecyclingRatio > 1)
@@ -814,8 +815,8 @@ analyse_SAR.CWOSL<- function(
   }
   SN.ratio <- LnLxTnTx$SN_RATIO_LnLx[sn.idx]
   SN.threshold <- rejection.criteria$sn.ratio
-  status.SN.ratio <- ifelse(is.na(SN.threshold) || SN.ratio >= SN.threshold,
-                            "OK", "FAILED")
+  status.SN.ratio <- .status_from_threshold(SN.ratio, SN.threshold,
+                                            comparator = `>=`)
 
   RejectionCriteria <- data.frame(
       Criteria = c(colnames(RecyclingRatio) %||% NA_character_,
