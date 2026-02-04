@@ -76,7 +76,12 @@
 #'
 #' `[sn.ratio]`: set the allowed signal/noise ratio, which by default should
 #' be at least 50. By default it uses the value from the natural curve, but
-#' this can be changed by specifying `sn_reference`.
+#' this can be changed by specifying the `sn_reference` option.
+#'
+#' By default, the computed values are compared directly to the corresponding
+#' thresholds to establish their result status ("OK" or "FAILED"). However, by
+#' setting option `consider.uncertainties = TRUE`, a 10% uncertainty is
+#' considered when comparing a computed value with its threshold.
 #'
 #' **Irradiation times**
 #'
@@ -128,10 +133,9 @@
 #' `NULL` does not process any component.
 #'
 #' @param rejection.criteria [list] (*with default*):
-#' provide a *named* list and set rejection criteria in **percentage**
-#' for further calculation. Can be a [list] in a [list], if `object` is of type [list].
-#' Note: If an *unnamed* [list] is provided the new settings are ignored!
-#'
+#' provide a *named* list and set rejection criteria in **percentage**. It can
+#' be a nested [list], if `object` is of type [list].
+#' Note: *unnamed* list elements are ignored.
 #'
 #' Allowed options:
 #' * `recycling.ratio` [numeric] (default: `10`)
@@ -140,7 +144,9 @@
 #' * `testdose.error` [numeric] (default: `10`)
 #' * `sn.ratio` [numeric] (default: `50`)
 #' * `exceed.max.regpoint` [logical] (default: `FALSE`)
-#' * `recuperation_reference` [character] (default: `"Natural"`; set to, e.g., `"R1"` for other point)
+#' * `consider.uncertainties` [logical] (default: `FALSE`)
+#' * `recuperation_reference` [character] (default: `"Natural"`; set to, e.g.,
+#'   `"R1"` for other point)
 #' * `sn_reference` [character] (default: `"Natural"`).
 #'
 #' Example: `rejection.criteria = list(recycling.ratio = 10)`.
@@ -217,7 +223,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.13.1
+#' @section Function version: 0.13.2
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -496,20 +502,22 @@ analyse_SAR.CWOSL<- function(
       palaeodose.error = 10,
       testdose.error = 10,
       sn.ratio = 50,
-      sn_reference = "Natural",
       exceed.max.regpoint = TRUE,
+      consider.uncertainties = FALSE,
+      sn_reference = "Natural",
       recuperation_reference = "Natural"
     ),
     val = rejection.criteria %||% list(),
     keep.null = TRUE)
 
+  .validate_logical_scalar(rejection.criteria$consider.uncertainties,
+                           name = "'consider.uncertainties' in 'rejection.criteria'")
   recuperation_reference <- rejection.criteria$recuperation_reference
   .validate_class(recuperation_reference, "character", length = 1,
                   name = "'recuperation_reference' in 'rejection.criteria'")
   sn_reference <- rejection.criteria$sn_reference
   .validate_class(sn_reference, "character", length = 1,
                   name = "'sn_reference' in 'rejection.criteria'")
-
 
 # Deal with extra arguments ----------------------------------------------------
   ##deal with addition arguments
@@ -742,6 +750,8 @@ analyse_SAR.CWOSL<- function(
 
   ## compare a single value with a threshold (either can be NA)
   .status_from_threshold <- function(value, threshold, comparator = `<=`) {
+    if (rejection.criteria$consider.uncertainties)
+      value <- value * ifelse(identical(comparator, `<=`), 0.9, 1.1)
     if (is.na(threshold) || isTRUE(comparator(value, threshold)))
       return("OK")
     "FAILED"
@@ -1289,13 +1299,8 @@ analyse_SAR.CWOSL<- function(
 
   ## (8) Plot rejection criteria --------------------------------------------
   if (plot && 7 %in% plot.single.sel) {
-      ##Rejection criteria
-      temp.rejection.criteria <- get_RLum(
-        temp.results.final,
-        data.object = "rejection.criteria")
-
-      .plot_RCCriteria(temp.rejection.criteria)
-    }
+    .plot_RCCriteria(RejectionCriteria, rejection.criteria$consider.uncertainties)
+  }
 
   ## Return -----------------------------------------------------------------
   invisible(temp.results.final)
@@ -1357,7 +1362,7 @@ analyse_SAR.CWOSL<- function(
 }
 
 # create rejection criteria plot
-.plot_RCCriteria <- function(x) {
+.plot_RCCriteria <- function(x, consider.uncertainties) {
   ##set par
   par.old <- par(mar = c(1, 0, 3.2, 0.35))
   on.exit(par(par.old), add = TRUE)
@@ -1424,6 +1429,14 @@ analyse_SAR.CWOSL<- function(
   x$Threshold <- mapply(function(x, d) round(x, digits = d), x$Threshold, digits)
   x$sign <- ifelse(x$Value > x$Threshold, ">=", "<=")
   x[is.na(x$sign), c("Threshold", "sign")] <- ""
+
+  ## add uncertainties if requested, but don't show them if the value is 0
+  ## and if there is no threshold
+  if (consider.uncertainties) {
+    x$Value <- ifelse(x$Value != 0 & nzchar(x$Threshold),
+                      paste(x$Value, "\u00b1", x$Value * 0.1),  # \u00b1 is ±
+                      x$Value)
+  }
 
   text(
     x = 0.8,

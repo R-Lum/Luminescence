@@ -434,6 +434,32 @@ test_that("check functionality", {
      "Curve type 'OSL' matches multiple record types: 'OSL (PMT)', 'OSL (NA)'",
      fixed = TRUE)
   )
+
+  ## consider.uncertainties
+  res <- analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal_integral = 1:2,
+      background_integral = 900:1000,
+      fit.method = "LIN",
+      rejection.criteria = list(
+          recuperation.rate = 1,
+          recuperation_reference = "R1",
+          consider.uncertainties = FALSE),
+      plot = FALSE, verbose = FALSE)
+  expect_equal(res$rejection.criteria$Status[[2]],
+               "FAILED")
+  res <- analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal_integral = 1:2,
+      background_integral = 900:1000,
+      fit.method = "LIN",
+      rejection.criteria = list(
+          recuperation.rate = 1,
+          recuperation_reference = "R1",
+          consider.uncertainties = TRUE),
+      plot = FALSE, verbose = FALSE)
+  expect_equal(res$rejection.criteria$Status[[2]],
+               "OK")
 })
 
 test_that("advance tests run", {
@@ -713,7 +739,8 @@ test_that("graphical snapshot tests", {
                                   signal_integral = 1:2,
                                   background_integral = 900:1000,
                                   rejection.criteria = list(recycling.ratio = NA,
-                                                            sn.ratio = NA),
+                                                            sn.ratio = NA,
+                                                            consider.uncertainties = TRUE),
                                   plot_onePage = TRUE))
 
   vdiffr::expect_doppelganger("multiple recuperation rates",
