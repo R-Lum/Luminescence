@@ -1415,9 +1415,13 @@ analyse_SAR.CWOSL<- function(
     lines(x = c(0.1,1), y = rep(y_coord_l[i],2), lwd = 0.25)
   }
 
+  ## round to the minimum number of digits so that a difference between value
+  ## and threshold can be seen
+  digits <- pmax(ceiling(-log10(abs(x$Value - x$Threshold))), 0, na.rm = TRUE)
+
   ## set labels
-  x$Value <- round(x$Value, 1)
-  x$Threshold <- round(x$Threshold, 2)
+  x$Value <- mapply(function(x, d) round(x, digits = d), x$Value, digits)
+  x$Threshold <- mapply(function(x, d) round(x, digits = d), x$Threshold, digits)
   x$sign <- ifelse(x$Value > x$Threshold, ">=", "<=")
   x[is.na(x$sign), c("Threshold", "sign")] <- ""
 

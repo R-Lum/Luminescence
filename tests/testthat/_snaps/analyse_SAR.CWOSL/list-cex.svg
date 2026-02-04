@@ -756,12 +756,12 @@
 <polyline points='629.73,337.84 710.66,337.84 ' style='stroke-width: 0.19;' />
 <polyline points='629.73,313.37 710.66,313.37 ' style='stroke-width: 0.19;' />
 <polyline points='629.73,288.91 710.66,288.91 ' style='stroke-width: 0.19;' />
-<text x='692.67' y='421.11' text-anchor='end' style='font-size: 9.58px; font-family: sans;' textLength='35.15px' lengthAdjust='spacingAndGlyphs'>1 &lt;= 1.1</text>
+<text x='692.67' y='421.11' text-anchor='end' style='font-size: 9.58px; font-family: sans;' textLength='48.46px' lengthAdjust='spacingAndGlyphs'>1.05 &lt;= 1.1</text>
 <text x='692.67' y='396.65' text-anchor='end' style='font-size: 9.58px; font-family: sans;' textLength='35.15px' lengthAdjust='spacingAndGlyphs'>0 &lt;= 0.1</text>
-<text x='692.67' y='372.18' text-anchor='end' style='font-size: 9.58px; font-family: sans;' textLength='35.15px' lengthAdjust='spacingAndGlyphs'>0 &lt;= 0.1</text>
-<text x='692.67' y='347.72' text-anchor='end' style='font-size: 9.58px; font-family: sans;' textLength='61.78px' lengthAdjust='spacingAndGlyphs'>10907.7 &gt;= 50</text>
-<text x='692.67' y='323.26' text-anchor='end' style='font-size: 9.58px; font-family: sans;' textLength='35.15px' lengthAdjust='spacingAndGlyphs'>0 &lt;= 0.1</text>
-<text x='692.67' y='298.80' text-anchor='end' style='font-size: 9.58px; font-family: sans;' textLength='67.11px' lengthAdjust='spacingAndGlyphs'>1748.3 &lt;= 2550</text>
+<text x='692.67' y='372.18' text-anchor='end' style='font-size: 9.58px; font-family: sans;' textLength='48.46px' lengthAdjust='spacingAndGlyphs'>0.01 &lt;= 0.1</text>
+<text x='692.67' y='347.72' text-anchor='end' style='font-size: 9.58px; font-family: sans;' textLength='53.80px' lengthAdjust='spacingAndGlyphs'>10908 &gt;= 50</text>
+<text x='692.67' y='323.26' text-anchor='end' style='font-size: 9.58px; font-family: sans;' textLength='48.46px' lengthAdjust='spacingAndGlyphs'>0.02 &lt;= 0.1</text>
+<text x='692.67' y='298.80' text-anchor='end' style='font-size: 9.58px; font-family: sans;' textLength='59.12px' lengthAdjust='spacingAndGlyphs'>1748 &lt;= 2550</text>
 <circle cx='706.16' cy='423.45' r='4.00' style='stroke-width: 0.75; stroke: #61D04F; fill: #61D04F;' />
 <circle cx='706.16' cy='398.99' r='4.00' style='stroke-width: 0.75; stroke: #61D04F; fill: #61D04F;' />
 <circle cx='706.16' cy='374.53' r='4.00' style='stroke-width: 0.75; stroke: #61D04F; fill: #61D04F;' />
