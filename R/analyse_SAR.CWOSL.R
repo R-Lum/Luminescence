@@ -663,9 +663,12 @@ analyse_SAR.CWOSL<- function(
 
   ## catch errors generated in calc_OSLLxTxDecomposed() or calc_OSLLxTxRatio()
   if (inherits(LnLxTnTx, "try-error")) {
-      .throw_message("Something went wrong while generating the LxTx table, ",
-                     "NULL returned")
-      return(NULL)
+    .throw_message("Failed to generate the LxTx table, NULL returned\n",
+                   "The original error was: ",
+                   ## return the first part of message coming from get_RLum(),
+                   ## as it's it makes the error too long and confusing
+                   gsub(".*:", "", attr(LnLxTnTx, "condition")$message))
+    return(NULL)
   }
 
   ## extract the dose

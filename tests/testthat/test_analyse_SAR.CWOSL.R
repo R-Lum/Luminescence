@@ -271,7 +271,7 @@ test_that("check functionality", {
        OSL.component = 1,
        verbose = FALSE
       )),
-      "Something went wrong while generating the LxTx table, NULL returned")
+      "Failed to generate the LxTx table, NULL returned")
   })
 
    expect_error(analyse_SAR.CWOSL(
@@ -352,7 +352,7 @@ test_that("check functionality", {
           fit.method = "LIN",
           plot = FALSE,
           verbose = FALSE
-      ), "Something went wrong while generating the LxTx table"),
+      ), "Failed to generate the LxTx table, NULL returned"),
       "'signal_integral_Tx' reset to be between 500 and 1000"),
       "'background_integral_Tx' set automatically to 800:1000")
 
