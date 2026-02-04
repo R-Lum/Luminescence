@@ -1140,8 +1140,7 @@ analyse_SAR.CWOSL<- function(
                        modifyList(list(object = temp.sample, verbose = FALSE),
                                   extraArgs))
     if (verbose) {
-      .throw_message(paste("Dose Response Curve", temp.GC@info$fit_message),
-                     error = FALSE)
+      .throw_message(temp.GC@info$fit_message, error = FALSE)
     }
 
     if (is.null(temp.GC)) {
