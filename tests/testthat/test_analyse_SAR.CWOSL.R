@@ -715,6 +715,13 @@ test_that("graphical snapshot tests", {
                                   rejection.criteria = list(recycling.ratio = NA,
                                                             sn.ratio = NA),
                                   plot_onePage = TRUE))
+
+  vdiffr::expect_doppelganger("multiple recuperation rates",
+                              analyse_SAR.CWOSL(
+                                  object = merge(object[[1]], object[[2]]),
+                                  signal_integral = 1:2,
+                                  background_integral = 900:1000,
+                                  plot_onePage = TRUE))
   })
 })
 
