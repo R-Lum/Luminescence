@@ -5,6 +5,8 @@ test_that("input validation", {
                "'file' should be of class 'character' or 'RLum'")
   expect_error(convert_PSL2CSV(character(0)),
                "'file' cannot be an empty character")
+  expect_error(convert_PSL2CSV("filename", numeric()),
+               "'extract_raw_data' should be a single logical value")
 })
 
 test_that("check functionality", {

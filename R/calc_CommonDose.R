@@ -118,10 +118,10 @@ calc_CommonDose <- function(
     .throw_error("'data' object must have two columns")
   }
   .validate_nonnegative_scalar(sigmab)
+  .validate_logical_scalar(log)
   if (log && (sigmab < 0 || sigmab > 1)) {
     .throw_error("'sigmab' must be a value between 0 and 1 if 'log = TRUE'")
   }
-  .validate_logical_scalar(log)
 
   ## set expected column names
   colnames(data)[1:2] <- c("ED", "ED_Error")

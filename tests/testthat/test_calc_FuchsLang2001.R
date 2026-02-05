@@ -13,6 +13,8 @@ test_that("input validation", {
                "'data' should have 2 columns")
   expect_error(calc_FuchsLang2001(ExampleData.DeValues$BT998, "error"),
                "'cvThreshold' should be a single positive value")
+  expect_error(calc_FuchsLang2001(ExampleData.DeValues$BT998, startDeValue = numeric()),
+               "'startDeValue' should be a single positive integer value")
   expect_error(calc_FuchsLang2001(ExampleData.DeValues$BT998, plot = NA),
                "'plot' should be a single logical value")
   expect_error(calc_FuchsLang2001(ExampleData.DeValues$BT998, verbose = NA),

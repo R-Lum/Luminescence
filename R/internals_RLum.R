@@ -156,6 +156,9 @@
   .set_function_name(".smoothing")
   on.exit(.unset_function_name(), add = TRUE)
 
+  .validate_positive_scalar(k, int = TRUE, null.ok = TRUE)
+  if (is.array(fill) || !(length(fill) == 1 && is.na(fill)))
+    .validate_class(fill, "numeric", length = 1, extra = "NA")
   .validate_args(align, c("right", "center", "left"))
   method <- .validate_args(method, c("mean", "median", "Carter_etal_2018"))
   .validate_positive_scalar(p_acceptance)
