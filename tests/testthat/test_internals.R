@@ -636,6 +636,8 @@ test_that("Test internals", {
   expect_null(.validate_integral(NULL, null.ok = TRUE))
   expect_equal(.validate_integral(integral <- 5:1),
                1:5)
+  expect_equal(.validate_integral(integral <- NA, na.ok = TRUE),
+               NA)
   expect_warning(expect_equal(.validate_integral(integral <- c(5:1, -3:3)),
                               1:5),
                  "'integral' reset to be between 1 and 5")
@@ -644,6 +646,10 @@ test_that("Test internals", {
                               5:50),
                  "'integral' reset to be between 5 and 50")
   expect_error(.validate_integral(integral <- "error"),
+               "'integral' should be of class 'integer' or 'numeric'")
+  expect_error(.validate_integral(integral <- list(NA), na.ok = TRUE),
+               "'integral' should be of class 'integer', 'numeric' or NA")
+  expect_error(.validate_integral(integral <- NA, na.ok = FALSE),
                "'integral' should be of class 'integer' or 'numeric'")
   expect_error(.validate_integral(integral <- -9:0),
                "'integral' is of length 0 after removing values smaller than 1$")
@@ -683,6 +689,15 @@ test_that("Test internals", {
   expect_equal(.listify(letters, length = 5),
                .listify(list(letters), length = 5))
 
+
+  ## .strict_na() -----------------------------------------------------------
+  expect_true(.strict_na(NA))
+  expect_true(.strict_na(NA_real_))
+  expect_false(.strict_na(NULL))
+  expect_false(.strict_na(c(1, NA)))
+  expect_false(.strict_na(c(NA, NA)))
+  expect_false(.strict_na(matrix()))
+  expect_false(.strict_na(set_RLum("RLum.Data.Curve")))
 
   ## .collapse() ------------------------------------------------------------
   expect_equal(.collapse(1:3),

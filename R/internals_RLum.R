@@ -1430,6 +1430,10 @@ SW <- function(expr) {
 #' whether the argument should be considered valid also as a list (`FALSE` by
 #' default).
 #'
+#' @param na.ok [logical] (*with default*):
+#' whether the argument should be considered valid also when it's exactly `NA`
+#' (`FALSE` by default).
+#'
 #' @inheritParams .validate_args
 #'
 #' @return
@@ -1439,13 +1443,13 @@ SW <- function(expr) {
 #'
 #' @noRd
 .validate_integral <- function(integral, min = 1, max = Inf,
-                               null.ok = FALSE, list.ok = FALSE,
+                               null.ok = FALSE, list.ok = FALSE, na.ok = FALSE,
                                name = NULL) {
-  if (null.ok && is.null(integral))
+  if (null.ok && is.null(integral) || na.ok && .strict_na(integral))
     return(integral)
   name <- name %||% .first_argument()
   .validate_class(integral, c("integer", "numeric", if (list.ok) "list"),
-                  null.ok = null.ok, name = name)
+                  null.ok = null.ok, extra = if (na.ok) "NA" else NULL, name = name)
   if (list.ok && inherits(integral, "list")) {
     return(lapply(integral, .validate_integral,
                   name = paste("All elements of", name)))
@@ -1513,6 +1517,18 @@ SW <- function(expr) {
   if (!inherits(x, "list"))
     x <- list(x)
   rep(x, length = length)
+}
+
+#' Check that a given object is exactly `NA`
+#'
+#' @param x (**required): The object to check.
+#'
+#' @return
+#' Whether the object is exactly `NA`.
+.strict_na <- function(x) {
+  if (length(x) != 1 || is.recursive(x) || is.array(x))
+    return(FALSE)
+  is.na(x)
 }
 
 #' Comma-separated string concatenation
