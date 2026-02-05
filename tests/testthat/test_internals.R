@@ -65,6 +65,12 @@ test_that("Test internals", {
   expect_error(.smoothing(c(1, 1, 2, 50, 0, 2, 1, 2, 0, 1, 50),
                           method = "Carter", p_acceptance = 0.5),
                "'p_acceptance' rejects all counts, set it to a smaller value")
+  expect_error(.smoothing(runif(100), k = integer()),
+               "'k' should be a single positive integer value or NULL")
+  expect_error(.smoothing(runif(100), fill = numeric()),
+               "'fill' should be of class 'numeric' or NA and have length 1")
+  expect_error(.smoothing(runif(100), fill = matrix()),
+               "'fill' should be of class 'numeric' or NA and have length 1")
   expect_error(.smoothing(runif(100), method = "error"),
                "'method' should be one of 'mean', 'median' or")
   expect_error(.smoothing(runif(100), align = "error"),

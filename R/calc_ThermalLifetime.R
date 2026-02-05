@@ -159,8 +159,14 @@ calc_ThermalLifetime <- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(E, "numeric")
+  .validate_not_empty(E)
   .validate_class(s, "numeric")
+  .validate_not_empty(s)
   .validate_class(T, c("numeric", "integer"))
+  .validate_not_empty(T)
+  .validate_logical_scalar(profiling)
+  .validate_logical_scalar(verbose)
+  .validate_logical_scalar(plot)
 
 # Set variables -------------------------------------------------------------------------------
 

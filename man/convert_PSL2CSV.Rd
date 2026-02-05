@@ -43,14 +43,12 @@ become the output folder.
 file <- system.file("extdata/DorNie_0016.psl", package="Luminescence")
 convert_PSL2CSV(file, export = FALSE, single_table = TRUE)
 
-
 \dontrun{
 ##select your BIN-file
 file <- file.choose()
 
 ##convert
 convert_PSL2CSV(file)
-
 }
 
 }

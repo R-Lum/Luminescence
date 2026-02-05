@@ -78,6 +78,10 @@ setMethod(
   "replicate_RLum",
   "RLum",
   definition = function(object, times = 1) {
+    .set_function_name("replicate_RLum")
+    on.exit(.unset_function_name(), add = TRUE)
+
+    .validate_positive_scalar(times, int = TRUE)
     lapply(1:times, function(x) object)
   }
 )

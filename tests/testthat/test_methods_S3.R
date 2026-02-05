@@ -79,6 +79,8 @@ test_that("test RLum.Data.Curve S3 methods", {
   expect_visible(curve / curve)
   expect_vector(curve[1])
   expect_equal(curve$a, c(a = "test"))
+  expect_error(rep(curve, numeric()),
+               "'times' should be a single positive integer value")
 })
 
 test_that("test RLum.Data.Image S3 methods", {

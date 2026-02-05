@@ -100,6 +100,7 @@ calc_FuchsLang2001 <- function(
     .throw_error("'data' should have 2 columns")
   }
   .validate_positive_scalar(cvThreshold)
+  .validate_positive_scalar(startDeValue, int = TRUE)
   .validate_logical_scalar(plot)
 
   # Deal with extra arguments -----------------------------------------------

@@ -249,6 +249,7 @@ calc_OSLLxTxRatio <- function(
 
   ## Tx - coerce if required
   if(!is.null(Tx.data)){
+    .validate_not_empty(Tx.data)
     Tx.data <- .coerce(Tx.data)
     len.Tx <- nrow(Tx.data)
 
