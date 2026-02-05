@@ -120,6 +120,8 @@ test_that("check plot stuff", {
 test_that("input validation", {
   expect_error(analyse_pIRIRSequence("test"),
                "'object' should be of class 'RLum.Analysis' or 'list'")
+  expect_error(analyse_pIRIRSequence(list()),
+               "'object' cannot be an empty list")
   expect_error(analyse_pIRIRSequence(list(data.frame())),
                "All elements of 'object' should be of class 'RLum.Analysis'")
   expect_error(analyse_pIRIRSequence(list("test"),
