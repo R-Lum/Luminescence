@@ -764,6 +764,15 @@ test_that("regression tests", {
                                     signal_integral = 1:2,
                                     background_integral = 900:1000),
                   "RLum.Results")
+
+  ## issue 1370
+  SW({
+  expect_message(analyse_SAR.CWOSL(object, signal_integral = 1:4,
+                                   background_integral = 100:200,
+                                   dose.points = 0:6),
+                 "[analyse_SAR.CWOSL()] Fit failed for EXP (interpolation)",
+                 fixed = TRUE)
+  })
 })
 
 test_that("deprecated arguments", {

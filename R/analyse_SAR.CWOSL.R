@@ -1173,7 +1173,7 @@ analyse_SAR.CWOSL<- function(
     temp.GC <- do.call(fit_DoseResponseCurve,
                        modifyList(list(object = temp.sample, verbose = FALSE),
                                   extraArgs))
-    if (verbose) {
+    if (verbose && !is.null(temp.GC)) {
       .throw_message(temp.GC@info$fit_message, error = FALSE)
     }
 
