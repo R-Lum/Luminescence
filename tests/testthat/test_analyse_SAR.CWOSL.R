@@ -444,10 +444,11 @@ test_that("check functionality", {
       rejection.criteria = list(
           recuperation.rate = 1,
           recuperation_reference = "R1",
+          recycling.ratio = 4,
           consider.uncertainties = FALSE),
       plot = FALSE, verbose = FALSE)
-  expect_equal(res$rejection.criteria$Status[[2]],
-               "FAILED")
+  expect_equal(res$rejection.criteria$Status[1:2],
+               c("FAILED", "FAILED"))
   res <- analyse_SAR.CWOSL(
       object = object[[1]],
       signal_integral = 1:2,
@@ -456,10 +457,11 @@ test_that("check functionality", {
       rejection.criteria = list(
           recuperation.rate = 1,
           recuperation_reference = "R1",
+          recycling.ratio = 4,
           consider.uncertainties = TRUE),
       plot = FALSE, verbose = FALSE)
-  expect_equal(res$rejection.criteria$Status[[2]],
-               "OK")
+  expect_equal(res$rejection.criteria$Status[1:2],
+               c("OK", "OK"))
 })
 
 test_that("advance tests run", {

@@ -233,9 +233,13 @@ be at least 50. By default it uses the value from the natural curve, but
 this can be changed by specifying the \code{sn_reference} option.
 
 By default, the computed values are compared directly to the corresponding
-thresholds to establish their result status ("OK" or "FAILED"). However, by
-setting option \code{consider.uncertainties = TRUE}, a 10\% uncertainty is
-considered when comparing a computed value with its threshold.
+thresholds to establish their result status ("OK" or "FAILED"). By setting
+the option \code{consider.uncertainties = TRUE} in the \code{rejection.criteria}
+list, quantified uncertainties are considered into the computation of the
+test value prior before comparing it to the threshold(currently supported
+only for \code{recycling.ratio}, \code{recuperation.rate} and \code{exceed.max.regpoint}).
+This reduces tests being marked as "FAILED" when the deviation from the
+threshold is smaller than the uncertainty margin.
 
 \strong{Irradiation times}
 
@@ -251,7 +255,7 @@ function does \strong{not} overwrite values preset in \code{IRR_TIME}.
 }
 }
 \section{Function version}{
- 0.13.1
+ 0.13.2
 }
 
 \examples{

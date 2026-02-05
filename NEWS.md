@@ -182,9 +182,9 @@ More information on these changes are available at
   correctly, and in most cases validated to `"FAILED"` even for
   thresholds set to `NA` or `Inf` (3562bcab).
 
-- It is now possible to consider a 10% uncertainty when comparing the
-  values computed for the various rejection criteria to their
-  thresholds. This can be done by setting
+- It is now possible to consider value uncertainties in the computation
+  of some rejection criteria (currently only `recycling.ratio`,
+  `recuperation.rate` and `exceed.max.point`) by setting
   `consider.uncertainties = TRUE` in the `rejection.criteria` list. This
   is disabled by default to preserve existing behaviour (#1325).
 
