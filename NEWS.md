@@ -230,6 +230,12 @@ More information on these changes are available at
   low values are discouraged as they may trigger a warning during loess
   fitting (#1355).
 
+- The computation of frequencies of bootstrap replicates has been fixed
+  to be sample-wise, while before it was mistakenly computed as a
+  cumulative sum over all samples. In our tests, the difference in
+  results produced by the two implementations appears to be minimal
+  (#1374).
+
 ### `calc_OSLLxTxDecomposed()`
 
 - The data frame returned by the function now contains two additional
