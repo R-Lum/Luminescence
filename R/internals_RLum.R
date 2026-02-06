@@ -1525,6 +1525,8 @@ SW <- function(expr) {
 #'
 #' @return
 #' Whether the object is exactly `NA`.
+#'
+#' @noRd
 .strict_na <- function(x) {
   if (length(x) != 1 || is.recursive(x) || is.array(x))
     return(FALSE)
