@@ -123,9 +123,7 @@ setMethod("show",
             #skip this part if nothing is included in the object
             if(length(object@records) > 0){
               ##get object class types
-              temp <- vapply(object@records, function(x){
-                class(x)[1]
-              }, FUN.VALUE = character(1))
+              temp <- vapply(object@records, \(x) class(x)[1], character(1))
 
               ##print object class types
               table.temp <- table(temp)
@@ -144,12 +142,14 @@ setMethod("show",
 
                 ##create terminal output
                 terminal_output <-
-                  vapply(1:length(object@records),  function(i) {
+                  vapply(seq_along(object@records),  function(i) {
+                    ## take care of NULL objects and keep this output the rest
+                    o <- object@records[[i]] %||% return("<NULL object>")
+                    
                     if (inherits(object@records[[i]], x)) {
-                      if (i %% temp.width == 0 & i != length(object@records)) {
+                      if (i %% temp.width == 0 & i != length(object@records)) 
                         assign(x = "linebreak", value = TRUE, envir = env)
-                      }
-
+              
                       ##FIRST
                       first <-  paste0("#", i, " ", object@records[[i]]@recordType)
 

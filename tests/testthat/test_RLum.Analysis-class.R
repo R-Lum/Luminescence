@@ -56,7 +56,11 @@ test_that("Check the example and the numerical values", {
   ## show()
   expect_output(print(tmp))
   expect_output(print(old))
-
+  
+    ## variant of show where we have NULL elements
+    o_NULL <- set_RLum("RLum.Analysis", records = list(set_RLum("RLum.Data.Curve"), NULL))
+    expect_output(print(o_NULL))
+    
   ## names()
   expect_type(names(tmp), "character")
 })
