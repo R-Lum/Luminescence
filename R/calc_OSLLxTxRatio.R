@@ -356,8 +356,7 @@ calc_OSLLxTxRatio <- function(
   ##LnLx (comments are corresponding variables to Galbraith, 2002)
   Lx.curve <- Lx.data[,2]
   Lx.signal <- sum(Lx.curve[signal_integral])                #Y.0
-  Lx.background <- sum(Lx.curve[background_integral])        #Y.1
-  Lx.background <- Lx.background*1/k                         #mu.B
+  Lx.background <- sum(Lx.curve[background_integral]) / k    #Y.1, mu.B
   LnLx <- Lx.signal - Lx.background
 
   ##TnTx
@@ -368,7 +367,7 @@ calc_OSLLxTxRatio <- function(
   if(use_previousBG)
     Tx.background <- Lx.background
   else
-    Tx.background <- sum(Tx.curve[background_integral_Tx]) * 1 / k.Tx
+    Tx.background <- sum(Tx.curve[background_integral_Tx]) / k.Tx
 
   TnTx <- (Tx.signal-Tx.background)
 
@@ -498,9 +497,8 @@ calc_OSLLxTxRatio <- function(
     Net_LnLx.Error = LnLx.Error,
     Net_TnTx = TnTx,
     Net_TnTx.Error = TnTx.Error,
-    SN_RATIO_LnLx = Lx.signal/(Lx.background/k),
-    SN_RATIO_TnTx = Tx.signal/(Tx.background/k.Tx)
-  )
+    SN_RATIO_LnLx = Lx.signal / Lx.background,
+    SN_RATIO_TnTx = Tx.signal / Tx.background)
 
   ## ------------------------------------------------------------------------
   ## (4) Calculate LxTx error according Galbraith (2014)
