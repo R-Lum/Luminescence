@@ -24,7 +24,7 @@ test_that("input validation", {
   expect_error(analyse_SAR.CWOSL(object[[1]],
                                  signal_integral = NULL,
                                  background_integral = 900:1000),
-               "'signal_integral' should be of class 'integer' or 'numeric'")
+               "'signal_integral' should be of class 'integer', 'numeric' or NA")
   expect_error(analyse_SAR.CWOSL(object[[1]],
                                  signal_integral = -9:0,
                                  background_integral = 900:1000),
@@ -37,7 +37,18 @@ test_that("input validation", {
   expect_error(analyse_SAR.CWOSL(object[[1]],
                                  signal_integral = 1:2,
                                  background_integral = NULL),
-               "'background_integral' should be of class 'integer' or 'numeric'")
+               "'background_integral' should be of class 'integer', 'numeric' or NA")
+  expect_error(analyse_SAR.CWOSL(object[[1]],
+                                 signal_integral = 1:2,
+                                 background_integral = 900:1000,
+                                 signal_integral_Tx = NA),
+               "'signal_integral_Tx' should be of class 'integer', 'numeric' or NULL")
+  expect_error(analyse_SAR.CWOSL(object[[1]],
+                                 signal_integral = 1:2,
+                                 background_integral = 900:1000,
+                                 signal_integral_Tx = 1:2,
+                                 background_integral_Tx = "error"),
+               "'background_integral_Tx' should be of class 'integer', 'numeric', NA or NULL")
   expect_error(analyse_SAR.CWOSL(object[[1]],
                                  signal_integral = 1:2,
                                  background_integral = 900:1000,
@@ -168,8 +179,20 @@ test_that("check functionality", {
       verbose = FALSE,
       fit.weights = FALSE
     ),
-    "[analyse_SAR.CWOSL()] No signal or background integral applied as at least",
+    "[analyse_SAR.CWOSL()] No signal or background integral applied",
     fixed = TRUE)
+
+  expect_warning(
+    analyse_SAR.CWOSL(
+      object = object[1],
+      signal_integral = NA,
+      background_integral = 900:1000,
+      fit.method = "EXP",
+      plot = FALSE,
+      verbose = FALSE,
+      fit.weights = FALSE
+    ),
+    "No signal or background integral applied as 'signal_integral = NA'")
 
   expect_error(
     analyse_SAR.CWOSL(
@@ -750,6 +773,13 @@ test_that("graphical snapshot tests", {
                                   object = merge(object[[1]], object[[2]]),
                                   signal_integral = 1:2,
                                   background_integral = 900:1000,
+                                  plot_onePage = TRUE))
+
+  vdiffr::expect_doppelganger("background_integral NA",
+                              analyse_SAR.CWOSL(
+                                  object = object,
+                                  signal_integral = 1:5,
+                                  background_integral = NA,
                                   plot_onePage = TRUE))
   })
 })
