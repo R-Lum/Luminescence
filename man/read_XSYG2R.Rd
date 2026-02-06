@@ -178,7 +178,7 @@ be done using the functions provided with the package \code{'XML'}.
 Corresponding values in the XSXG file are skipped.
 }
 \section{Function version}{
- 0.8.0
+ 0.8.1
 }
 
 \examples{
