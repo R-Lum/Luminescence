@@ -20,6 +20,7 @@ expect_snapshot_RLum <- function(object, ...) {
         object@data$fits$simulated$m <- NULL
         object@data$fits$simulated$call <- NULL
         object@data$fits$simulated$weights <- NULL # for macos/windows CI
+        object@data$fits$simulated$convInfo$finIter <- NULL
       }
       if ("measured" %in% names(object@data$fits)) {
         object@data$fits$measured$m <- NULL

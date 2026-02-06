@@ -331,7 +331,7 @@
                         "names": {
                           "type": "character",
                           "attributes": {},
-                          "value": ["isConv", "finIter", "finTol", "stopCode", "stopMessage"]
+                          "value": ["isConv", "finTol", "stopCode", "stopMessage"]
                         }
                       },
                       "value": [
@@ -339,11 +339,6 @@
                           "type": "logical",
                           "attributes": {},
                           "value": [true]
-                        },
-                        {
-                          "type": "integer",
-                          "attributes": {},
-                          "value": [8]
                         },
                         {
                           "type": "double",
@@ -1046,7 +1041,7 @@
                         "names": {
                           "type": "character",
                           "attributes": {},
-                          "value": ["isConv", "finIter", "finTol", "stopCode", "stopMessage"]
+                          "value": ["isConv", "finTol", "stopCode", "stopMessage"]
                         }
                       },
                       "value": [
@@ -1054,11 +1049,6 @@
                           "type": "logical",
                           "attributes": {},
                           "value": [true]
-                        },
-                        {
-                          "type": "integer",
-                          "attributes": {},
-                          "value": [3]
                         },
                         {
                           "type": "double",
@@ -1766,7 +1756,7 @@
                         "names": {
                           "type": "character",
                           "attributes": {},
-                          "value": ["isConv", "finIter", "finTol", "stopCode", "stopMessage"]
+                          "value": ["isConv", "finTol", "stopCode", "stopMessage"]
                         }
                       },
                       "value": [
@@ -1774,11 +1764,6 @@
                           "type": "logical",
                           "attributes": {},
                           "value": [true]
-                        },
-                        {
-                          "type": "integer",
-                          "attributes": {},
-                          "value": [3]
                         },
                         {
                           "type": "double",
@@ -2486,7 +2471,7 @@
                         "names": {
                           "type": "character",
                           "attributes": {},
-                          "value": ["isConv", "finIter", "finTol", "stopCode", "stopMessage"]
+                          "value": ["isConv", "finTol", "stopCode", "stopMessage"]
                         }
                       },
                       "value": [
@@ -2494,11 +2479,6 @@
                           "type": "logical",
                           "attributes": {},
                           "value": [true]
-                        },
-                        {
-                          "type": "integer",
-                          "attributes": {},
-                          "value": [16]
                         },
                         {
                           "type": "double",
