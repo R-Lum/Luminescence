@@ -56,11 +56,11 @@ test_that("Check the example and the numerical values", {
   ## show()
   expect_output(print(tmp))
   expect_output(print(old))
-  
+
     ## variant of show where we have NULL elements
     o_NULL <- set_RLum("RLum.Analysis", records = list(set_RLum("RLum.Data.Curve"), NULL))
     expect_output(print(o_NULL))
-    
+
   ## names()
   expect_type(names(tmp), "character")
 })
@@ -349,7 +349,9 @@ test_that("remove_RLum", {
   SW({
   t <- expect_type(remove_RLum(list(sar, sar), subset = "recordType == 'TL'"), "list")
   })
-
   expect_length(t, n = 2)
 
+  ## invalid indices
+  expect_equal(remove_RLum(sar, record.id = 70),
+               sar)
 })

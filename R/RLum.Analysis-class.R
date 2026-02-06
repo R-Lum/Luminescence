@@ -547,6 +547,10 @@ setMethod("remove_RLum",
   else
     rm_id <- suppressWarnings(do.call(get_RLum, args = c(object, args_set, args)))
 
+  ## ensure that we don't specify invalid record indices, or we end up adding
+  ## NULL records
+  rm_id <- rm_id[rm_id <= length(object@records)]
+
   ## remove objects
   object@records[rm_id] <- NULL
   return(object)
