@@ -7,8 +7,24 @@ s <- stats::rnorm(50, 10, 2)
 test_that("input validation", {
   testthat::skip_on_cran()
 
+  expect_error(combine_De_Dr("error"),
+               "'De' should be of class 'numeric'")
+  expect_error(combine_De_Dr(De, "error"),
+               "'s' should be of class 'numeric'")
+  expect_error(combine_De_Dr(De, s, "error"),
+               "'Dr' should be of class 'numeric'")
   expect_error(combine_De_Dr(De, s[-1], Dr, int_OD = 0.1),
                "'De' and 's' should have the same length")
+  expect_error(combine_De_Dr(De, s, Dr, int_OD = -1),
+               "'int_OD' should be a single non-negative value")
+  expect_error(combine_De_Dr(De, s, Dr, int_OD = 0.1, Age_range = 1:4),
+               "'Age_range' should be of class 'numeric' and have length 2")
+  expect_error(combine_De_Dr(De, s, Dr, int_OD = 0.1, Age_range = c(1, NA)),
+               "'Age_range' cannot contain missing values")
+  expect_error(combine_De_Dr(De, s, Dr, int_OD = 0.1, outlier_threshold = NA),
+               "'outlier_threshold' should be a single positive value")
+  expect_error(combine_De_Dr(De, s, Dr, int_OD = 0.1, outlier_method = NA),
+               "'outlier_method' should be of class 'character' and have length 1")
   SW({
   expect_error(combine_De_Dr(De, s, Dr, int_OD = 0.1,
                              method_control = list(n.chains = 1, diag = TRUE,

@@ -518,9 +518,18 @@ combine_De_Dr <- function(
   .require_suggested_package("mclust")
 
   ## Integrity checks -------------------------------------------------------
-
+  .validate_class(De, "numeric")
+  .validate_class(s, "numeric")
+  .validate_class(Dr, "numeric")
   if (length(De) != length(s))
     .throw_error("'De' and 's' should have the same length")
+  .validate_nonnegative_scalar(int_OD)
+  .validate_class(Age_range, "numeric", length = 2)
+  if (anyNA(Age_range))
+    .throw_error("'Age_range' cannot contain missing values")
+  .validate_positive_scalar(outlier_threshold)
+  .validate_class(outlier_method, "character", length = 1)
+  .validate_logical_scalar(outlier_analysis_plot)
   .validate_logical_scalar(verbose)
   .validate_logical_scalar(plot)
 
