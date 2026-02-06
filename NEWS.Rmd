@@ -379,6 +379,12 @@ those attributes are now available for filtering (#1239; thanks to
 * The function could crash if called with `do.call()` and some particularly
 odd inputs (#1260).
 
+### `remove_RLum()`
+
+* The function used to add spurious `NULL` records when an invalid `record.id`
+was specified, which in turn could cause a crash when displaying the object to
+the terminal (#1380).
+
 ### `report_RLum()`
 
 * The function could crash if called with `do.call()` and some particularly
@@ -396,6 +402,4 @@ functions (#1250, #1300).
 impact to the user other than a small reduction in the package size (#1254).
 
 * The show method for an `RLum.Analysis-class` object would fail if the record
-slot contains `NULL` elements. This should not happen by design, however, 
-it may happen if the user uses, for instance, `remove_RLum()` to strip records
-that do no exists. Regardless, the show method should not fail; fixed.
+slot contained `NULL` elements (f1846c5c).
