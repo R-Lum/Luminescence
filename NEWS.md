@@ -190,6 +190,10 @@ More information on these changes are available at
   `consider.uncertainties = TRUE` in the `rejection.criteria` list. This
   is disabled by default to preserve existing behaviour (#1325).
 
+- The functionnow supports setting `background_integral = NA`, in which
+  case no background integral is subtracted (#1385; thanks to Annette
+  Kadereit for reporting).
+
 ## `analyse_SAR.TL()`
 
 - Argument `signal.integral` has been renamed to `signal_integral`. The

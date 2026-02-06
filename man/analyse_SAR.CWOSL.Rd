@@ -32,22 +32,24 @@ contain curves considered part of the SAR protocol (see Details).}
 
 \item{signal_integral}{\link{integer} (\strong{required}):
 vector of channels for the signal integral. It can be a \link{list} of integers,
-if \code{object} is a list. If set to \code{NA}, no integrals are taken into account.}
+if \code{object} is a list. If set to \code{NA}, no integrals are taken into account
+and their settings are ignored.}
 
 \item{background_integral}{\link{integer} (\strong{required}):
 vector of channels for the background integral. It can be a \link{list} of
-integers, if \code{object} is a list. If set to \code{NA}, no integrals are taken
-into account.}
+integers, if \code{object} is a list. If set to \code{NA}, no background integral is
+subtracted.}
 
 \item{signal_integral_Tx}{\link{integer} (\emph{optional}):
 vector of channels for the signal integral for the \code{Tx} curve. It can be a
-\link{list} of integers, if \code{object} is a list. If set to \code{NA}, no integrals are
-taken into account.}
+\link{list} of integers, if \code{object} is a list. If \code{NULL}, the \code{signal_integral}
+vector is used also for the \code{Tx} curve.}
 
 \item{background_integral_Tx}{\link{integer} (\emph{optional}):
 vector of channels for the background integral for the \code{Tx} curve. It can
-be a \link{list} of integers, if \code{object} is a list. If set to \code{NA}, no integrals
-are taken into account.}
+be a \link{list} of integers, if \code{object} is a list. If \code{NULL}, the
+\code{background_integral} vector is used. If set to \code{NA}, no background integral
+for the \code{Tx} curve is subtracted.}
 
 \item{OSL.component}{\link{character} or \link{integer} (\emph{optional}):
 single index or a \link{character} defining the signal component to be evaluated.
@@ -255,7 +257,7 @@ function does \strong{not} overwrite values preset in \code{IRR_TIME}.
 }
 }
 \section{Function version}{
- 0.13.2
+ 0.13.3
 }
 
 \examples{
@@ -328,7 +330,8 @@ doi:10.1016/j.radmeas.2008.06.002
 \linkS4class{RLum.Results}
 }
 \author{
-Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 }
 \keyword{datagen}
 \keyword{plot}

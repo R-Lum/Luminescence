@@ -107,22 +107,24 @@
 #'
 #' @param signal_integral [integer] (**required**):
 #' vector of channels for the signal integral. It can be a [list] of integers,
-#' if `object` is a list. If set to `NA`, no integrals are taken into account.
+#' if `object` is a list. If set to `NA`, no integrals are taken into account
+#' and their settings are ignored.
 #'
 #' @param background_integral [integer] (**required**):
 #' vector of channels for the background integral. It can be a [list] of
-#' integers, if `object` is a list. If set to `NA`, no integrals are taken
-#' into account.
+#' integers, if `object` is a list. If set to `NA`, no background integral is
+#' subtracted.
 #'
 #' @param signal_integral_Tx [integer] (*optional*):
 #' vector of channels for the signal integral for the `Tx` curve. It can be a
-#' [list] of integers, if `object` is a list. If set to `NA`, no integrals are
-#' taken into account.
+#' [list] of integers, if `object` is a list. If `NULL`, the `signal_integral`
+#' vector is used also for the `Tx` curve.
 #'
 #' @param background_integral_Tx [integer] (*optional*):
 #' vector of channels for the background integral for the `Tx` curve. It can
-#' be a [list] of integers, if `object` is a list. If set to `NA`, no integrals
-#' are taken into account.
+#' be a [list] of integers, if `object` is a list. If `NULL`, the
+#' `background_integral` vector is used. If set to `NA`, no background integral
+#' for the `Tx` curve is subtracted.
 #'
 #' @param OSL.component [character] or [integer] (*optional*):
 #' single index or a [character] defining the signal component to be evaluated.
@@ -227,9 +229,11 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.13.2
+#' @section Function version: 0.13.3
 #'
-#' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+#' @author
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [Luminescence::calc_OSLLxTxRatio], [Luminescence::fit_DoseResponseCurve],
 #' [Luminescence::plot_DoseResponseCurve], [Luminescence::RLum.Analysis-class],
@@ -437,24 +441,22 @@ analyse_SAR.CWOSL<- function(
     }
   }
 
-  if (anyNA(c(signal_integral, background_integral,
-              signal_integral_Tx, background_integral_Tx))) {
+  if (.strict_na(signal_integral)) {
     signal_integral <- background_integral <- NA
     signal_integral_Tx <- background_integral_Tx <- NULL
     if (is.null(OSL.component)) {
-      .throw_warning("No signal or background integral applied as at least ",
-                     "one of them contained NA values and 'OSL.component' was ",
-                     "not specified")
+      .throw_warning("No signal or background integral applied as ",
+                     "'signal_integral = NA' (and 'OSL.component' was not specified)")
     }
   } else {
-    signal_integral <- .validate_integral(signal_integral)
-    background_integral <- .validate_integral(background_integral,
+    signal_integral <- .validate_integral(signal_integral, na.ok = TRUE)
+    background_integral <- .validate_integral(background_integral, na.ok = TRUE,
                                               min = max(signal_integral) + 1)
     signal_integral_Tx <- .validate_integral(signal_integral_Tx, null.ok = TRUE)
     background_integral_Tx <- .validate_integral(background_integral_Tx,
-                                                 null.ok = TRUE)
+                                                 na.ok = TRUE, null.ok = TRUE)
 
-    if (length(background_integral) == 1) {
+    if (length(background_integral) == 1 && !.strict_na(background_integral)) {
       ## we subtract 25 to avoid warnings from calc_OSLLxTxRatio()
       background_integral <- background_integral - 25:0
       .throw_warning("Background integral should contain at least two values, reset to ",
@@ -462,7 +464,7 @@ analyse_SAR.CWOSL<- function(
     }
 
     ## background integrals for the Tx curve
-    if (length(background_integral_Tx) == 1) {
+    if (length(background_integral_Tx) == 1 && !.strict_na(background_integral_Tx)) {
       background_integral_Tx <- background_integral_Tx - 25:0
       .throw_warning("Background integral limits for Tx curves cannot be equal, reset to ",
                      .format_range(background_integral_Tx))
@@ -612,14 +614,14 @@ analyse_SAR.CWOSL<- function(
   ## the background integral should not exceed the channel length
   channel.length <- temp.matrix.length[1]
   excess <- max(background_integral) - channel.length
-  if (!anyNA(background_integral) && excess > 0) {
+  if (!.strict_na(background_integral) && excess > 0) {
     background_integral <- intersect(background_integral, 1:channel.length)
     .throw_warning("'background_integral' out of bounds, reset to ",
                      .format_range(background_integral))
   }
 
   ## do the same for the Tx, if set
-  if (!is.null(background_integral_Tx)) {
+  if (!is.null(background_integral_Tx) && !.strict_na(background_integral_Tx)) {
     excess <- max(background_integral_Tx) - channel.length
     if (excess > 0) {
       background_integral_Tx <- intersect(background_integral_Tx, 1:channel.length)
@@ -679,7 +681,7 @@ analyse_SAR.CWOSL<- function(
     .throw_message("Failed to generate the LxTx table, NULL returned\n",
                    "The original error was: ",
                    ## return the first part of message coming from get_RLum(),
-                   ## as it's it makes the error too long and confusing
+                   ## as it makes the error too long and confusing
                    gsub(".*:", "", attr(LnLxTnTx, "condition")$message))
     return(NULL)
   }
@@ -1166,6 +1168,15 @@ analyse_SAR.CWOSL<- function(
         TnTx = LnLxTnTx$Net_TnTx,
         Test_Dose = LnLxTnTx$Test_Dose
     )
+
+    ## if `background_integral = NA`, the LxTx.Error column contains only NAs
+    ## and fit_DoseResponseCurve returns NULL, so we set errors to 0
+    if (.strict_na(background_integral)) {
+      temp.sample$LxTx.Error <- 0
+
+      ## silence warning from fit_DoseResponseCurve when the error column is 0
+      extraArgs$fit.weights <- FALSE
+    }
 
     ## we want to force fit_DoseResponseCurve to run with verbose = FALSE so
     ## that we can print out the fit message ourselves
