@@ -260,6 +260,11 @@ More information on these changes are available at
   the function, as it’s no longer necessary to write a loop to process
   all records (#1299).
 
+- The function now supports setting `signal_integral` to a chosen set of
+  channels while setting `background_integral = NA`. In this case, no
+  background integral is subtracted and the error calculation and the
+  signal-to-noise ratio will report `NA` values (#1375).
+
 ### `calc_TLLxTxRatio()`
 
 - Argument `signal.integral` has been renamed to `signal_integral`. The

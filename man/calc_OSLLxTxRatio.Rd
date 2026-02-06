@@ -31,20 +31,23 @@ is calculated. When \code{Lx.data} is a list, it must be provided as a list of
 the same length.}
 
 \item{signal_integral}{\link{integer} (\strong{required}):
-vector of channels for the signal integral. If set to \code{NA}, no integrals
-are taken into account.}
+vector of channels for the signal integral. If set to \code{NA} (alternate mode),
+no integrals are taken into account and their settings are ignored.}
 
 \item{background_integral}{\link{integer} (\strong{required}):
-vector of channels for the background integral. If set to \code{NA}, no integrals
-are taken into account.}
+vector of channels for the background integral. If set to \code{NA}, no
+background integral is subtracted; in this case, the error calculation and
+the signal-to-noise ratio will report \code{NA} values.}
 
 \item{signal_integral_Tx}{\link{integer} (\emph{optional}):
 vector of channels for the signal integral for the \code{Tx} curve.
-If missing, the \code{signal_integral} vector is used.}
+If \code{NULL}, the \code{signal_integral} vector is used.}
 
 \item{background_integral_Tx}{\link{integer} (\emph{optional}):
 vector of channels for the background integral for the \code{Tx} curve.
-If missing, the \code{background_integral} vector is used.}
+If \code{NULL}, the \code{background_integral} vector is used. If set to \code{NA}, no
+background integral for the \code{Tx} curve is subtracted; in this case, the
+error calculation and the signal-to-noise ratio will report \code{NA} values.}
 
 \item{background.count.distribution}{\link{character} (\emph{with default}):
 sets the count distribution assumed for the error calculation.
@@ -167,7 +170,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.9.2
+ 0.9.3
 }
 
 \examples{
@@ -202,5 +205,6 @@ background-corrected OSL count. Ancient TL, 31 (2), 1-3. \doi{10.26034/la.atl.20
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 }
 \keyword{datagen}

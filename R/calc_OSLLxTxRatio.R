@@ -68,20 +68,23 @@
 #' the same length.
 #'
 #' @param signal_integral [integer] (**required**):
-#' vector of channels for the signal integral. If set to `NA`, no integrals
-#' are taken into account.
+#' vector of channels for the signal integral. If set to `NA` (alternate mode),
+#' no integrals are taken into account and their settings are ignored.
 #'
 #' @param background_integral [integer] (**required**):
-#' vector of channels for the background integral. If set to `NA`, no integrals
-#' are taken into account.
+#' vector of channels for the background integral. If set to `NA`, no
+#' background integral is subtracted; in this case, the error calculation and
+#' the signal-to-noise ratio will report `NA` values.
 #'
 #' @param signal_integral_Tx [integer] (*optional*):
 #' vector of channels for the signal integral for the `Tx` curve.
-#' If missing, the `signal_integral` vector is used.
+#' If `NULL`, the `signal_integral` vector is used.
 #'
 #' @param background_integral_Tx [integer] (*optional*):
 #' vector of channels for the background integral for the `Tx` curve.
-#' If missing, the `background_integral` vector is used.
+#' If `NULL`, the `background_integral` vector is used. If set to `NA`, no
+#' background integral for the `Tx` curve is subtracted; in this case, the
+#' error calculation and the signal-to-noise ratio will report `NA` values.
 #'
 #' @param background.count.distribution [character] (*with default*):
 #' sets the count distribution assumed for the error calculation.
@@ -146,10 +149,11 @@
 #' **Caution:** If you are using early light subtraction (EBG), please either provide your
 #' own `sigmab` value or use `background.count.distribution = "poisson"`.
 #'
-#' @section Function version: 0.9.2
+#' @section Function version: 0.9.3
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @seealso [Luminescence::RLum.Data.Curve-class], [Luminescence::fit_DoseResponseCurve],
 #' [Luminescence::analyse_SAR.CWOSL]
@@ -279,8 +283,7 @@ calc_OSLLxTxRatio <- function(
   }
 
   # Alternate mode ----------------------------------------------------------
-  if (anyNA(c(signal_integral, background_integral))) {
-    signal_integral <- background_integral <- NA
+  if (.strict_na(signal_integral)) {
     LnLx <- sum(Lx.data[,2])
     TnTx <- sum(Tx.data[,2])
 
@@ -308,10 +311,13 @@ calc_OSLLxTxRatio <- function(
   }
 
   # Continue checks ---------------------------------------------------------
-  signal_integral <- .validate_integral(signal_integral, max = len.Lx)
-  background_integral <- .validate_integral(background_integral,
+  signal_integral <- .validate_integral(signal_integral, na.ok = TRUE,
+                                        max = len.Lx)
+  background_integral <- .validate_integral(background_integral, na.ok = TRUE,
                                             min = max(signal_integral) + 1,
                                             max = len.Lx)
+  bg.integral.na <- .strict_na(background_integral)
+
   if (!anyNA(Tx.data) && xor(is.null(signal_integral_Tx),
                              is.null(background_integral_Tx))) {
     .throw_error("Both 'signal_integral_Tx' and 'background_integral_Tx' ",
@@ -329,7 +335,7 @@ calc_OSLLxTxRatio <- function(
     } else {
       signal_integral_Tx <- .validate_integral(signal_integral_Tx, max = len.Tx,
                                                null.ok = TRUE)
-      background_integral_Tx <- .validate_integral(background_integral_Tx,
+      background_integral_Tx <- .validate_integral(background_integral_Tx, na.ok = TRUE,
                                                    min = max(signal_integral_Tx) + 1,
                                                    max = len.Tx,
                                                    null.ok = TRUE)
@@ -357,6 +363,10 @@ calc_OSLLxTxRatio <- function(
   Lx.curve <- Lx.data[,2]
   Lx.signal <- sum(Lx.curve[signal_integral])                #Y.0
   Lx.background <- sum(Lx.curve[background_integral]) / k    #Y.1, mu.B
+  SN.ratio.LnLx <- Lx.signal / Lx.background
+  if (bg.integral.na)
+    Lx.background <- 0
+
   LnLx <- Lx.signal - Lx.background
 
   ##TnTx
@@ -368,6 +378,9 @@ calc_OSLLxTxRatio <- function(
     Tx.background <- Lx.background
   else
     Tx.background <- sum(Tx.curve[background_integral_Tx]) / k.Tx
+  SN.ratio.TnTx <- Tx.signal / Tx.background
+  if (bg.integral.na)
+    Tx.background <- 0
 
   TnTx <- (Tx.signal-Tx.background)
 
@@ -408,7 +421,7 @@ calc_OSLLxTxRatio <- function(
   }else{
     ## provide warning if m is < 25, as suggested by Rex Galbraith
     ## low number of degree of freedom
-    if (m < 25) {
+    if (m < 25 && !bg.integral.na) {
       .throw_warning("Number of background channels for Lx < 25, ",
                      "error estimation might not be reliable")
     }
@@ -435,7 +448,7 @@ calc_OSLLxTxRatio <- function(
   } else{
     ## provide warning if m is < 25, as suggested by Rex Galbraith
     ## low number of degree of freedom
-    if (!anyNA(Tx.data) && m.Tx < 25 && !use_previousBG) {
+    if (!anyNA(Tx.data) && m.Tx < 25 && !use_previousBG && !bg.integral.na) {
       .throw_warning("Number of background channels for Tx < 25, ",
                      "error estimation might not be reliable")
     }
@@ -497,8 +510,8 @@ calc_OSLLxTxRatio <- function(
     Net_LnLx.Error = LnLx.Error,
     Net_TnTx = TnTx,
     Net_TnTx.Error = TnTx.Error,
-    SN_RATIO_LnLx = Lx.signal / Lx.background,
-    SN_RATIO_TnTx = Tx.signal / Tx.background)
+    SN_RATIO_LnLx = SN.ratio.LnLx,
+    SN_RATIO_TnTx = SN.ratio.TnTx)
 
   ## ------------------------------------------------------------------------
   ## (4) Calculate LxTx error according Galbraith (2014)

@@ -64,18 +64,24 @@ test_that("input validation", {
                "Different number of channels for Lx (10) and Tx (100)",
                fixed = TRUE)
   expect_error(calc_OSLLxTxRatio(Lx.data[1:10, ], signal_integral = NULL),
-               "'signal_integral' should be of class 'integer' or 'numeric'")
+               "'signal_integral' should be of class 'integer', 'numeric' or NA")
   expect_error(calc_OSLLxTxRatio(Lx.data[1:10, ], signal_integral = list(1, 2)),
-               "'signal_integral' should be of class 'integer' or 'numeric'")
+               "'signal_integral' should be of class 'integer', 'numeric' or NA")
   expect_warning(expect_error(
       calc_OSLLxTxRatio(Lx.data[1:10, ], signal_integral = -1:4),
-      "'background_integral' should be of class 'integer' or 'numeric'"),
+      "'background_integral' should be of class 'integer', 'numeric' or NA"),
       "'signal_integral' reset to be between 1 and 4")
   expect_error(calc_OSLLxTxRatio(Lx.data[1:10, ], signal_integral = 1:2,
                                  background_integral = matrix(1:4, ncol =2)),
-               "'background_integral' should be of class 'integer' or 'numeric'")
+               "'background_integral' should be of class 'integer', 'numeric' or NA")
   expect_error(calc_OSLLxTxRatio(list(Lx.data, Lx.data), Tx.data),
                "'Tx.data' should be a list of the same length as 'Lx.data'")
+
+  expect_error(calc_OSLLxTxRatio(Lx.data, Tx.data,
+                                 signal_integral = 1:20, background_integral = NA,
+                                 signal_integral_Tx = 1:20,
+                                 background_integral_Tx = NULL),
+               "Both 'signal_integral_Tx' and 'background_integral_Tx' must be set when")
 
   expect_warning(expect_error(calc_OSLLxTxRatio(
     Lx.data,
@@ -290,17 +296,43 @@ test_that("snapshot tests", {
     signal_integral = 1:2,
     background_integral = 85:100
   ))
-})
 
-test_that("test NA mode with no signal integrals", {
-  testthat::skip_on_cran()
-
-  data(ExampleData.LxTxOSLData, envir = environment())
-  temp <- expect_s4_class(calc_OSLLxTxRatio(
+  ## alternate mode with no signal integrals
+  expect_snapshot_RLum(calc_OSLLxTxRatio(
     Lx.data = Lx.data,
     Tx.data = Tx.data,
     signal_integral = NA,
-    background_integral = NA), "RLum.Results")
+    background_integral = NA
+  ))
 
-  expect_equal(round(sum(temp$LxTx.table[1,]),0), 391926)
+  ## ------------------------------------------------------------------------
+  ## background_integral = NA
+
+  expect_snapshot_RLum(calc_OSLLxTxRatio(
+      Lx.data,
+      Tx.data = NULL,
+      signal_integral = 1:2,
+      background_integral = NA))
+
+  expect_snapshot_RLum(calc_OSLLxTxRatio(
+      Lx.data,
+      Tx.data,
+      signal_integral = 1:2,
+      background_integral = NA))
+
+  expect_snapshot_RLum(calc_OSLLxTxRatio(
+    Lx.data,
+    Tx.data,
+    signal_integral = 1:20,
+    background_integral = NA,
+    signal_integral_Tx = 1:10,
+    background_integral_Tx = NA))
+
+  expect_snapshot_RLum(calc_OSLLxTxRatio(
+    Lx.data,
+    Tx.data,
+    signal_integral = 1:20,
+    background_integral = NA,
+    signal_integral_Tx = 1:10,
+    background_integral_Tx = 70:100))
 })
