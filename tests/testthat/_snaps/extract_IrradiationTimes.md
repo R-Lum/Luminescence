@@ -189,7 +189,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "detector", "curveDescripter", "offset", "interval", "duration", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "name", "RATE", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "detector", "curveDescripter", "offset", "interval", "duration", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "RATE", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -236,7 +236,7 @@
                     {
                       "type": "character",
                       "attributes": {},
-                      "value": ["unknown"]
+                      "value": ["Luminescence"]
                     },
                     {
                       "type": "character",
@@ -287,11 +287,6 @@
                       "type": "integer",
                       "attributes": {},
                       "value": [1]
-                    },
-                    {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["Luminescence"]
                     },
                     {
                       "type": "double",
@@ -361,7 +356,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -398,7 +393,7 @@
                     {
                       "type": "character",
                       "attributes": {},
-                      "value": ["unknown"]
+                      "value": ["Luminescence"]
                     },
                     {
                       "type": "character",
@@ -449,11 +444,6 @@
                       "type": "integer",
                       "attributes": {},
                       "value": [1]
-                    },
-                    {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["Luminescence"]
                     },
                     {
                       "type": "double",
@@ -518,7 +508,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -550,7 +540,7 @@
                     {
                       "type": "character",
                       "attributes": {},
-                      "value": ["unknown"]
+                      "value": ["Luminescence"]
                     },
                     {
                       "type": "character",
@@ -601,11 +591,6 @@
                       "type": "integer",
                       "attributes": {},
                       "value": [1]
-                    },
-                    {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["Luminescence"]
                     },
                     {
                       "type": "double",
@@ -670,7 +655,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "detector", "curveDescripter", "offset", "interval", "duration", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "detector", "curveDescripter", "offset", "interval", "duration", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -717,7 +702,7 @@
                     {
                       "type": "character",
                       "attributes": {},
-                      "value": ["unknown"]
+                      "value": ["Luminescence"]
                     },
                     {
                       "type": "character",
@@ -768,11 +753,6 @@
                       "type": "integer",
                       "attributes": {},
                       "value": [1]
-                    },
-                    {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["Luminescence"]
                     },
                     {
                       "type": "double",
@@ -837,7 +817,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -874,7 +854,7 @@
                     {
                       "type": "character",
                       "attributes": {},
-                      "value": ["unknown"]
+                      "value": ["Luminescence"]
                     },
                     {
                       "type": "character",
@@ -925,11 +905,6 @@
                       "type": "integer",
                       "attributes": {},
                       "value": [1]
-                    },
-                    {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["Luminescence"]
                     },
                     {
                       "type": "double",
@@ -994,7 +969,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -1026,7 +1001,7 @@
                     {
                       "type": "character",
                       "attributes": {},
-                      "value": ["unknown"]
+                      "value": ["Luminescence"]
                     },
                     {
                       "type": "character",
@@ -1077,11 +1052,6 @@
                       "type": "integer",
                       "attributes": {},
                       "value": [1]
-                    },
-                    {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["Luminescence"]
                     },
                     {
                       "type": "double",
@@ -1146,7 +1116,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -1183,7 +1153,7 @@
                     {
                       "type": "character",
                       "attributes": {},
-                      "value": ["unknown"]
+                      "value": ["Luminescence"]
                     },
                     {
                       "type": "character",
@@ -1234,11 +1204,6 @@
                       "type": "integer",
                       "attributes": {},
                       "value": [1]
-                    },
-                    {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["Luminescence"]
                     },
                     {
                       "type": "double",
@@ -1303,7 +1268,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -1340,7 +1305,7 @@
                     {
                       "type": "character",
                       "attributes": {},
-                      "value": ["unknown"]
+                      "value": ["Luminescence"]
                     },
                     {
                       "type": "character",
@@ -1391,11 +1356,6 @@
                       "type": "integer",
                       "attributes": {},
                       "value": [1]
-                    },
-                    {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["Luminescence"]
                     },
                     {
                       "type": "double",
@@ -1460,7 +1420,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "name", "recordType", "sequenceStepNumber", "comment", "endDate", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "name", "recordType", "sequenceStepNumber", "comment", "endDate", "position", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -1497,7 +1457,7 @@
                     {
                       "type": "character",
                       "attributes": {},
-                      "value": ["unknown"]
+                      "value": ["Luminescence"]
                     },
                     {
                       "type": "character",
@@ -1523,11 +1483,6 @@
                       "type": "integer",
                       "attributes": {},
                       "value": [1]
-                    },
-                    {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["Luminescence"]
                     },
                     {
                       "type": "double",
@@ -1606,7 +1561,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "detector", "curveDescripter", "offset", "interval", "duration", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "name", "RATE", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "detector", "curveDescripter", "offset", "interval", "duration", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "RATE", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -1653,7 +1608,7 @@
                     {
                       "type": "character",
                       "attributes": {},
-                      "value": ["unknown"]
+                      "value": ["Luminescence"]
                     },
                     {
                       "type": "character",
@@ -1704,11 +1659,6 @@
                       "type": "integer",
                       "attributes": {},
                       "value": [1]
-                    },
-                    {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["Luminescence"]
                     },
                     {
                       "type": "double",
@@ -1778,7 +1728,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "offset", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -1815,7 +1765,7 @@
                     {
                       "type": "character",
                       "attributes": {},
-                      "value": ["unknown"]
+                      "value": ["Luminescence"]
                     },
                     {
                       "type": "character",
@@ -1866,11 +1816,6 @@
                       "type": "integer",
                       "attributes": {},
                       "value": [1]
-                    },
-                    {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["Luminescence"]
                     },
                     {
                       "type": "double",
@@ -1935,7 +1880,7 @@
                     "names": {
                       "type": "character",
                       "attributes": {},
-                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "name", "IRR_TIME", "TIMESINCEIRR"]
+                      "value": ["state", "parentID", "startDate", "stimulator", "curveDescripter", "name", "recordType", "sequenceStepNumber", "comment", "metaIrrType", "metaIrrDuration", "sampleCondition", "filterCombination", "detectionWindow", "endDate", "position", "IRR_TIME", "TIMESINCEIRR"]
                     }
                   },
                   "value": [
@@ -1967,7 +1912,7 @@
                     {
                       "type": "character",
                       "attributes": {},
-                      "value": ["unknown"]
+                      "value": ["Luminescence"]
                     },
                     {
                       "type": "character",
@@ -2018,11 +1963,6 @@
                       "type": "integer",
                       "attributes": {},
                       "value": [1]
-                    },
-                    {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["Luminescence"]
                     },
                     {
                       "type": "double",

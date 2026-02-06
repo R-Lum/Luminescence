@@ -157,7 +157,7 @@
 #' **So far, no image data import is provided!** \cr
 #' Corresponding values in the XSXG file are skipped.
 #'
-#' @section Function version: 0.8.0
+#' @section Function version: 0.8.1
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -456,6 +456,9 @@ read_XSYG2R <- function(
       ## get all record attributes
       attrs_record <- XML::xmlAttrs(record)
 
+      header.position <- as.integer(as.character(sequence.header["position", ]))
+      header.name <- as.character(sequence.header["name", ])
+
       ## loop 3rd level
       lapply(1:xml.size, function(j) {
         curve <- record[[j]]
@@ -476,14 +479,13 @@ read_XSYG2R <- function(
           attrs_comb <- as.list(c(attrs, attrs_record))
           attrs_comb <- attrs_comb[!duplicated(names(attrs_comb))]
 
-          ##get additional information
-          temp.sequence.object.info <- c(
-            attrs_comb,
-            position = as.integer(as.character(sequence.header["position", ])),
-            name = as.character(sequence.header["name", ]))
+        ## get additional information
+        temp.sequence.object.info <- modifyList(attrs_comb,
+                                                list(position = header.position,
+                                                     name = header.name))
 
-          ## TL curve recalculation ============================================
-          if(recalculate.TL.curves){
+        ## TL curve recalculation ===========================================
+        if (recalculate.TL.curves) {
             ##TL curve heating values is stored in the 3rd curve of every set
             if (recordType == "TL" && j == 1) {
               #grep values from PMT measurement or spectrometer
