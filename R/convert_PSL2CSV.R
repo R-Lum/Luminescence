@@ -40,14 +40,12 @@
 #' file <- system.file("extdata/DorNie_0016.psl", package="Luminescence")
 #' convert_PSL2CSV(file, export = FALSE, single_table = TRUE)
 #'
-#'
 #' \dontrun{
 #' ##select your BIN-file
 #' file <- file.choose()
 #'
 #' ##convert
 #' convert_PSL2CSV(file)
-#'
 #' }
 #'
 #' @export
@@ -64,6 +62,8 @@ convert_PSL2CSV <- function(
 
   .validate_class(file, c("character", "RLum"))
   .validate_not_empty(file)
+  .validate_logical_scalar(extract_raw_data)
+  .validate_logical_scalar(single_table)
 
   ##set input arguments
   convert_PSL2R_settings.default <- list(

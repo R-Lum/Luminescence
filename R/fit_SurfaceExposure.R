@@ -240,6 +240,8 @@ fit_SurfaceExposure <- function(
 
   .validate_not_empty(data)
   .validate_logical_scalar(weights)
+  if (!is.null(mu))
+    .validate_not_empty(mu)
 
   ## Data type validation
   if (inherits(data, "RLum.Results"))
@@ -297,6 +299,7 @@ fit_SurfaceExposure <- function(
   if (!is.null(age) && anyNA(age)) age <- NULL
   if (!is.null(sigmaphi) && anyNA(sigmaphi)) sigmaphi <- NULL
   if (!is.null(mu) && anyNA(mu)) mu <- NULL
+  .validate_class(mu, "numeric", null.ok = TRUE)
   .validate_positive_scalar(sigmaphi, null.ok = TRUE)
   .validate_logical_scalar(settings$verbose, name = "'verbose'")
   .validate_logical_scalar(plot)

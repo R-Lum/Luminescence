@@ -65,6 +65,12 @@ test_that("Test internals", {
   expect_error(.smoothing(c(1, 1, 2, 50, 0, 2, 1, 2, 0, 1, 50),
                           method = "Carter", p_acceptance = 0.5),
                "'p_acceptance' rejects all counts, set it to a smaller value")
+  expect_error(.smoothing(runif(100), k = integer()),
+               "'k' should be a single positive integer value or NULL")
+  expect_error(.smoothing(runif(100), fill = numeric()),
+               "'fill' should be of class 'numeric' or NA and have length 1")
+  expect_error(.smoothing(runif(100), fill = matrix()),
+               "'fill' should be of class 'numeric' or NA and have length 1")
   expect_error(.smoothing(runif(100), method = "error"),
                "'method' should be one of 'mean', 'median' or")
   expect_error(.smoothing(runif(100), align = "error"),
@@ -630,6 +636,8 @@ test_that("Test internals", {
   expect_null(.validate_integral(NULL, null.ok = TRUE))
   expect_equal(.validate_integral(integral <- 5:1),
                1:5)
+  expect_equal(.validate_integral(integral <- NA, na.ok = TRUE),
+               NA)
   expect_warning(expect_equal(.validate_integral(integral <- c(5:1, -3:3)),
                               1:5),
                  "'integral' reset to be between 1 and 5")
@@ -638,6 +646,10 @@ test_that("Test internals", {
                               5:50),
                  "'integral' reset to be between 5 and 50")
   expect_error(.validate_integral(integral <- "error"),
+               "'integral' should be of class 'integer' or 'numeric'")
+  expect_error(.validate_integral(integral <- list(NA), na.ok = TRUE),
+               "'integral' should be of class 'integer', 'numeric' or NA")
+  expect_error(.validate_integral(integral <- NA, na.ok = FALSE),
                "'integral' should be of class 'integer' or 'numeric'")
   expect_error(.validate_integral(integral <- -9:0),
                "'integral' is of length 0 after removing values smaller than 1$")
@@ -677,6 +689,15 @@ test_that("Test internals", {
   expect_equal(.listify(letters, length = 5),
                .listify(list(letters), length = 5))
 
+
+  ## .strict_na() -----------------------------------------------------------
+  expect_true(.strict_na(NA))
+  expect_true(.strict_na(NA_real_))
+  expect_false(.strict_na(NULL))
+  expect_false(.strict_na(c(1, NA)))
+  expect_false(.strict_na(c(NA, NA)))
+  expect_false(.strict_na(matrix()))
+  expect_false(.strict_na(set_RLum("RLum.Data.Curve")))
 
   ## .collapse() ------------------------------------------------------------
   expect_equal(.collapse(1:3),

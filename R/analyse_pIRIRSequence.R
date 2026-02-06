@@ -188,6 +188,7 @@ analyse_pIRIRSequence <- function(
 
   ## Self-call --------------------------------------------------------------
   if (inherits(object, "list")) {
+    .validate_not_empty(object)
     lapply(object, .validate_class, "RLum.Analysis",
            name = "All elements of 'object'")
 

@@ -76,7 +76,16 @@
 #'
 #' `[sn.ratio]`: set the allowed signal/noise ratio, which by default should
 #' be at least 50. By default it uses the value from the natural curve, but
-#' this can be changed by specifying `sn_reference`.
+#' this can be changed by specifying the `sn_reference` option.
+#'
+#' By default, the computed values are compared directly to the corresponding
+#' thresholds to establish their result status ("OK" or "FAILED"). By setting
+#' the option `consider.uncertainties = TRUE` in the `rejection.criteria`
+#' list, quantified uncertainties are considered into the computation of the
+#' test value prior before comparing it to the threshold(currently supported
+#' only for `recycling.ratio`, `recuperation.rate` and `exceed.max.regpoint`).
+#' This reduces tests being marked as "FAILED" when the deviation from the
+#' threshold is smaller than the uncertainty margin.
 #'
 #' **Irradiation times**
 #'
@@ -128,10 +137,9 @@
 #' `NULL` does not process any component.
 #'
 #' @param rejection.criteria [list] (*with default*):
-#' provide a *named* list and set rejection criteria in **percentage**
-#' for further calculation. Can be a [list] in a [list], if `object` is of type [list].
-#' Note: If an *unnamed* [list] is provided the new settings are ignored!
-#'
+#' provide a *named* list and set rejection criteria in **percentage**. It can
+#' be a nested [list], if `object` is of type [list].
+#' Note: *unnamed* list elements are ignored.
 #'
 #' Allowed options:
 #' * `recycling.ratio` [numeric] (default: `10`)
@@ -140,7 +148,9 @@
 #' * `testdose.error` [numeric] (default: `10`)
 #' * `sn.ratio` [numeric] (default: `50`)
 #' * `exceed.max.regpoint` [logical] (default: `FALSE`)
-#' * `recuperation_reference` [character] (default: `"Natural"`; set to, e.g., `"R1"` for other point)
+#' * `consider.uncertainties` [logical] (default: `FALSE`)
+#' * `recuperation_reference` [character] (default: `"Natural"`; set to, e.g.,
+#'   `"R1"` for other point)
 #' * `sn_reference` [character] (default: `"Natural"`).
 #'
 #' Example: `rejection.criteria = list(recycling.ratio = 10)`.
@@ -217,7 +227,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.13.1
+#' @section Function version: 0.13.2
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -496,20 +506,23 @@ analyse_SAR.CWOSL<- function(
       palaeodose.error = 10,
       testdose.error = 10,
       sn.ratio = 50,
-      sn_reference = "Natural",
       exceed.max.regpoint = TRUE,
+      consider.uncertainties = FALSE,
+      sn_reference = "Natural",
       recuperation_reference = "Natural"
     ),
     val = rejection.criteria %||% list(),
     keep.null = TRUE)
 
+  consider.uncertainties <- rejection.criteria$consider.uncertainties
+  .validate_logical_scalar(consider.uncertainties,
+                           name = "'consider.uncertainties' in 'rejection.criteria'")
   recuperation_reference <- rejection.criteria$recuperation_reference
   .validate_class(recuperation_reference, "character", length = 1,
                   name = "'recuperation_reference' in 'rejection.criteria'")
   sn_reference <- rejection.criteria$sn_reference
   .validate_class(sn_reference, "character", length = 1,
                   name = "'sn_reference' in 'rejection.criteria'")
-
 
 # Deal with extra arguments ----------------------------------------------------
   ##deal with addition arguments
@@ -663,9 +676,12 @@ analyse_SAR.CWOSL<- function(
 
   ## catch errors generated in calc_OSLLxTxDecomposed() or calc_OSLLxTxRatio()
   if (inherits(LnLxTnTx, "try-error")) {
-      .throw_message("Something went wrong while generating the LxTx table, ",
-                     "NULL returned")
-      return(NULL)
+    .throw_message("Failed to generate the LxTx table, NULL returned\n",
+                   "The original error was: ",
+                   ## return the first part of message coming from get_RLum(),
+                   ## as it's it makes the error too long and confusing
+                   gsub(".*:", "", attr(LnLxTnTx, "condition")$message))
+    return(NULL)
   }
 
   ## extract the dose
@@ -737,9 +753,14 @@ analyse_SAR.CWOSL<- function(
 
   ## Calculate rejection criteria -------------------------------------------
 
+  ## compute the standard error of a ratio
+  .se.ratio <- function(num, num.err, den, den.err) {
+    num / den * sqrt((num.err / num)^2 + (den.err / den)^2)
+  }
+
   ## compare a single value with a threshold (either can be NA)
-  .status_from_threshold <- function(value, threshold) {
-    if (is.na(threshold) || isTRUE(value <= threshold))
+  .status_from_threshold <- function(value, threshold, comparator = `<=`) {
+    if (is.na(threshold) || isTRUE(comparator(value, threshold)))
       return("OK")
     "FAILED"
   }
@@ -752,20 +773,28 @@ analyse_SAR.CWOSL<- function(
       previous <- data.table::rbindlist(
         lapply(repeated$Dose, \(x) LnLxTnTx[LnLxTnTx$Dose == x & !LnLxTnTx$Repeated, ][1, ]))
 
-      ## calculate value and set names
-      RecyclingRatio <- t(
-        setNames(
-          object = round(repeated$LxTx / previous$LxTx, 4),
+    ratio <- repeated$LxTx / previous$LxTx
+    if (consider.uncertainties) {
+      uncertainty <- .se.ratio(repeated$LxTx, repeated$LxTx.Error,
+                               previous$LxTx, previous$LxTx.Error)
+      ## add the uncertainty in the most favourable direction
+      ratio <- ifelse(ratio > 1, ratio - uncertainty, ratio + uncertainty)
+    }
+
+    ## calculate value and set names
+    RecyclingRatio <- t(
+        setNames(round(ratio, 4),
           nm = paste0("Recycling ratio (", repeated$Name, "/", previous$Name, ")")))
   }
 
   ## Recycling Ratio
   recycling.threshold <- rep(rejection.criteria$recycling.ratio / 100,
                              length(RecyclingRatio))
-  status.RecyclingRatio <- rep("OK", length(RecyclingRatio))
-  if (!anyNA(RecyclingRatio) && !is.na(rejection.criteria$recycling.ratio)) {
-    status.RecyclingRatio[abs(1 - RecyclingRatio) > recycling.threshold] <- "FAILED"
+  status.RecyclingRatio <- vapply(abs(1 - RecyclingRatio), .status_from_threshold,
+                                  threshold = recycling.threshold[1],
+                                  FUN.VALUE = character(1))
 
+  if (!is.na(rejection.criteria$recycling.ratio)) {
     ## set better ratio by given the absolute margin depending
     ## on whether we have values larger or smaller than 1
     idx.gt1 <- which(RecyclingRatio > 1)
@@ -783,11 +812,19 @@ analyse_SAR.CWOSL<- function(
 
   ## Recuperation Rate (capable of handling multiple type of recuperation values)
   if ("R0" %in% LnLxTnTx$Name) {
-    R0 <- LnLxTnTx$LxTx[LnLxTnTx$Name == "R0"]
-    Rref <- LnLxTnTx$LxTx[LnLxTnTx$Name == recuperation_reference]
+    idx.R0 <- LnLxTnTx$Name == "R0"
+    idx.Rref <- LnLxTnTx$Name == recuperation_reference
+    R0 <- LnLxTnTx$LxTx[idx.R0]
+    Rref <- LnLxTnTx$LxTx[idx.Rref]
+    ratio <- R0 / Rref
+    if (consider.uncertainties) {
+      uncertainty <- .se.ratio(R0, LnLxTnTx$LxTx.Error[idx.R0],
+                               Rref, LnLxTnTx$LxTx.Error[idx.Rref])
+      ratio <- ratio - uncertainty
+    }
     labels <- paste0("Recuperation rate (", recuperation_reference, ") ",
-                     seq_along(Recuperation))
-    Recuperation <- t(setNames(R0 / Rref, labels))
+                     seq_along(R0))
+    Recuperation <- t(setNames(ratio, labels))
   }
 
   recuperation.threshold <- rep(rejection.criteria$recuperation.rate / 100,
@@ -811,8 +848,8 @@ analyse_SAR.CWOSL<- function(
   }
   SN.ratio <- LnLxTnTx$SN_RATIO_LnLx[sn.idx]
   SN.threshold <- rejection.criteria$sn.ratio
-  status.SN.ratio <- ifelse(is.na(SN.threshold) || SN.ratio >= SN.threshold,
-                            "OK", "FAILED")
+  status.SN.ratio <- .status_from_threshold(SN.ratio, SN.threshold,
+                                            comparator = `>=`)
 
   RejectionCriteria <- data.frame(
       Criteria = c(colnames(RecyclingRatio) %||% NA_character_,
@@ -1136,9 +1173,8 @@ analyse_SAR.CWOSL<- function(
     temp.GC <- do.call(fit_DoseResponseCurve,
                        modifyList(list(object = temp.sample, verbose = FALSE),
                                   extraArgs))
-    if (verbose) {
-      .throw_message(paste("Dose Response Curve", temp.GC@info$fit_message),
-                     error = FALSE)
+    if (verbose && !is.null(temp.GC)) {
+      .throw_message(temp.GC@info$fit_message, error = FALSE)
     }
 
     if (is.null(temp.GC)) {
@@ -1163,14 +1199,11 @@ analyse_SAR.CWOSL<- function(
 
           ##grep results
           temp.GC <- get_RLum(temp.GC)
+          De <- temp.GC$De
+          De.err <- temp.GC$De.Error
 
           # Provide Rejection Criteria for Palaeodose error --------------------------
-          palaeodose.error.calculated <- NA
-          De <- as.numeric(temp.GC[, 1])
-          if (!is.na(De)) {
-            palaeodose.error.calculated <- round(temp.GC[, 2] / De, digits = 5)
-          }
-
+          palaeodose.error.calculated <- round(De.err / De, digits = 5)
           palaeodose.error.threshold <-
             rejection.criteria$palaeodose.error / 100
 
@@ -1185,7 +1218,7 @@ analyse_SAR.CWOSL<- function(
 
           exceed.max.regpoint.data.frame <- data.frame(
             Criteria = "De > max. dose point",
-            Value = De,
+            Value = De - ifelse(consider.uncertainties, De.err, 0),
             Threshold = if(is.na(rejection.criteria$exceed.max.regpoint)){
                 NA
               }else if(!rejection.criteria$exceed.max.regpoint){
@@ -1286,13 +1319,8 @@ analyse_SAR.CWOSL<- function(
 
   ## (8) Plot rejection criteria --------------------------------------------
   if (plot && 7 %in% plot.single.sel) {
-      ##Rejection criteria
-      temp.rejection.criteria <- get_RLum(
-        temp.results.final,
-        data.object = "rejection.criteria")
-
-      .plot_RCCriteria(temp.rejection.criteria)
-    }
+    .plot_RCCriteria(RejectionCriteria)
+  }
 
   ## Return -----------------------------------------------------------------
   invisible(temp.results.final)
@@ -1412,9 +1440,13 @@ analyse_SAR.CWOSL<- function(
     lines(x = c(0.1,1), y = rep(y_coord_l[i],2), lwd = 0.25)
   }
 
+  ## round to the minimum number of digits so that a difference between value
+  ## and threshold can be seen
+  digits <- pmax(ceiling(-log10(abs(x$Value - x$Threshold))), 0, na.rm = TRUE)
+
   ## set labels
-  x$Value <- round(x$Value, 1)
-  x$Threshold <- round(x$Threshold, 2)
+  x$Value <- mapply(function(x, d) round(x, digits = d), x$Value, digits)
+  x$Threshold <- mapply(function(x, d) round(x, digits = d), x$Threshold, digits)
   x$sign <- ifelse(x$Value > x$Threshold, ">=", "<=")
   x[is.na(x$sign), c("Threshold", "sign")] <- ""
 

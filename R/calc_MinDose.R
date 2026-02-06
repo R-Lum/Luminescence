@@ -734,23 +734,11 @@ calc_MinDose <- function(
   ##============================================================================##
   if (bootstrap) {
 
-    ## BOOTSTRAP FUNCTIONS ----
-    # Function that draws N+M sets of integer values from 1:n and returns
-    # both the indices and frequencies
-    draw_Freq <- function() {
-      f <- R <- matrix(0L, N+M, n)
-      for (i in seq_len(N+M)) {
-        R[i, ] <- sample(x = n, size = n, replace = TRUE)
-        f[i, ] <- tabulate(R, n)
-      }
-      list(R = R, freq = f)
-    }
-
     # Function that produces N+M replicates from the original data set using
     # randomly sampled indices with replacement and adding a randomly drawn
     # sigmab error
-    create_Replicates <- function(f, e) {
-      d <- apply(f$R, 1, function(x) data[x, ])
+    create_Replicates <- function(R, e) {
+      d <- apply(R, 1, function(x) data[x, ])
       mapply(function(x, y) combine_Errors(x, y), d, e, SIMPLIFY = FALSE)
     }
 
@@ -764,9 +752,8 @@ calc_MinDose <- function(
     }
 
     # Function that calculates the product term of the recycled bootstrap
-    get_ProductTerm <- function(Pmat, b2Pmatrix) {
-      prodterm <- apply(Pmat^b2Pmatrix$freq[1:N, ], 1, prod)
-      prodterm
+    get_ProductTerm <- function(Pmat, freq) {
+      apply(Pmat^freq, 1, prod)
     }
 
     # Function that calculates the pseudo likelihoods for M replicates and
@@ -795,10 +782,13 @@ calc_MinDose <- function(
     n <- length(data[ ,1])
     # Draw N+M samples from a normally distributed sigmab
     sigmab.bs <- rnorm(N + M, sigmab, sigmab.sd)
-    # Draw N+M random indices and their frequencies
-    b2Pmatrix <- draw_Freq()
+
+    ## Draw N+M random indices of size n
+    indices <- matrix(sample(n, size = n * (N + M), replace = TRUE),
+                      nrow = N + M, ncol = n, byrow = TRUE)
+
     # Finally draw N+M bootstrap replicates
-    replicates <- create_Replicates(b2Pmatrix, sigmab.bs)
+    replicates <- create_Replicates(indices, sigmab.bs)
 
     # MULTICORE: The call to 'Get_mle' is the bottleneck of the function.
     # Using multiple CPU cores can reduce the computation cost, but may
@@ -822,9 +812,12 @@ calc_MinDose <- function(
     # Save 2nd- and 1st-level bootstrap results (i.e. estimates of gamma)
     b2mam <- sapply(mle[1:N], save_Gamma)
     theta <- sapply(mle[c(N+1):c(N+M)], save_Gamma)
+
     # Calculate the probability/pseudo-likelihood
     Pmat <- lapply(replicates[c(N+1):c(N+M)], get_KDE)
-    prodterm <- vapply(Pmat, get_ProductTerm, b2Pmatrix, FUN.VALUE = numeric(N))
+    freq <- t(apply(indices[1:N, ], 1, tabulate, n))
+    prodterm <- vapply(Pmat, get_ProductTerm, freq, FUN.VALUE = numeric(N))
+
     # Save the bootstrap results as dose-likelihood pairs
     pairs <- make_Pairs(theta, b2mam, prodterm)
 

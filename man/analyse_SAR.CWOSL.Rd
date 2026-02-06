@@ -62,9 +62,9 @@ aliquot with component \code{1} and the second aliquot with component \code{2}.
 \code{NULL} does not process any component.}
 
 \item{rejection.criteria}{\link{list} (\emph{with default}):
-provide a \emph{named} list and set rejection criteria in \strong{percentage}
-for further calculation. Can be a \link{list} in a \link{list}, if \code{object} is of type \link{list}.
-Note: If an \emph{unnamed} \link{list} is provided the new settings are ignored!
+provide a \emph{named} list and set rejection criteria in \strong{percentage}. It can
+be a nested \link{list}, if \code{object} is of type \link{list}.
+Note: \emph{unnamed} list elements are ignored.
 
 Allowed options:
 \itemize{
@@ -74,7 +74,9 @@ Allowed options:
 \item \code{testdose.error} \link{numeric} (default: \code{10})
 \item \code{sn.ratio} \link{numeric} (default: \code{50})
 \item \code{exceed.max.regpoint} \link{logical} (default: \code{FALSE})
-\item \code{recuperation_reference} \link{character} (default: \code{"Natural"}; set to, e.g., \code{"R1"} for other point)
+\item \code{consider.uncertainties} \link{logical} (default: \code{FALSE})
+\item \code{recuperation_reference} \link{character} (default: \code{"Natural"}; set to, e.g.,
+\code{"R1"} for other point)
 \item \code{sn_reference} \link{character} (default: \code{"Natural"}).
 }
 
@@ -228,7 +230,16 @@ default should not exceed 10\%.
 
 \verb{[sn.ratio]}: set the allowed signal/noise ratio, which by default should
 be at least 50. By default it uses the value from the natural curve, but
-this can be changed by specifying \code{sn_reference}.
+this can be changed by specifying the \code{sn_reference} option.
+
+By default, the computed values are compared directly to the corresponding
+thresholds to establish their result status ("OK" or "FAILED"). By setting
+the option \code{consider.uncertainties = TRUE} in the \code{rejection.criteria}
+list, quantified uncertainties are considered into the computation of the
+test value prior before comparing it to the threshold(currently supported
+only for \code{recycling.ratio}, \code{recuperation.rate} and \code{exceed.max.regpoint}).
+This reduces tests being marked as "FAILED" when the deviation from the
+threshold is smaller than the uncertainty margin.
 
 \strong{Irradiation times}
 
@@ -244,7 +255,7 @@ function does \strong{not} overwrite values preset in \code{IRR_TIME}.
 }
 }
 \section{Function version}{
- 0.13.1
+ 0.13.2
 }
 
 \examples{

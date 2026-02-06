@@ -3,10 +3,16 @@ test_that("input validation", {
 
   expect_error(calc_ThermalLifetime(),
                "'E' should be of class 'numeric'")
+  expect_error(calc_ThermalLifetime(numeric()),
+               "'E' cannot be an empty numeric")
   expect_error(calc_ThermalLifetime(E = 1.4),
                "'s' should be of class 'numeric'")
+  expect_error(calc_ThermalLifetime(E = 1.4, s = numeric()),
+               "'s' cannot be an empty numeric")
   expect_error(calc_ThermalLifetime(E = 1.4, s = 2, T = "error"),
                "'T' should be of class 'numeric' or 'integer'")
+  expect_error(calc_ThermalLifetime(E = 1.4, s = 2, T = numeric()),
+               "'T' cannot be an empty numeric")
 
   ##profiling settings
   SW({

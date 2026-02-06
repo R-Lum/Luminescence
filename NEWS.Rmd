@@ -120,6 +120,8 @@ by `signal_integral` and `background_integral`: each of them now defines a
 vector of channels for the respective integrals. The older names will still
 work but generate a deprecation warning (#1290).
 
+* The function crashed if called on an empty list (#1372).
+
 ### `analyse_portableOSL()`
 
 * Argument `signal.integral` has been renamed to `signal_integral`. The older
@@ -173,8 +175,15 @@ value calculated (say, 1.1) instead of incorrectly showing `NA`s for both the
 sign and the threshold (as in `1.1 NA NA`) which would look ugly and confusing
 (#1318).
 
-* The rejection criteria for the highest dose points was not considered correctly
-and in most cases validated to `"FAILED"` even for thresholds set to `NA` or `Inf; fixed.
+* The rejection criteria for the highest dose points was not considered
+correctly, and in most cases validated to `"FAILED"` even for thresholds set
+to `NA` or `Inf` (3562bcab).
+
+* It is now possible to consider value uncertainties in the computation of
+some rejection criteria (currently only `recycling.ratio`, `recuperation.rate`
+and `exceed.max.point`) by setting `consider.uncertainties = TRUE` in the
+`rejection.criteria` list. This is disabled by default to preserve existing
+behaviour (#1325).
 
 ## `analyse_SAR.TL()`
 
@@ -214,6 +223,11 @@ reporting).
 parameter is silently reset to 2 in that case, although such low values are
 discouraged as they may trigger a warning during loess fitting (#1355).
 
+* The computation of frequencies of bootstrap replicates has been fixed to be
+sample-wise, while before it was mistakenly computed as a cumulative sum over
+all samples. In our tests, the difference in results produced by the two
+implementations appears to be minimal (#1374).
+
 ### `calc_OSLLxTxDecomposed()`
 
 * The data frame returned by the function now contains two additional columns,
@@ -240,6 +254,11 @@ no longer necessary to write a loop to process all records (#1299).
 
 * Argument `signal.integral` has been renamed to `signal_integral`. The older
 name will still work but generate a deprecation warning (#1290).
+
+### `combine_De_Dr()`
+
+* The function crashed if the `Age_range` argument contained missing values
+(#1378).
 
 ### `convert_CW2pHMi()` and `convert_CW2pPMi()`
 

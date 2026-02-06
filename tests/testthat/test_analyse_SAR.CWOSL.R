@@ -271,7 +271,7 @@ test_that("check functionality", {
        OSL.component = 1,
        verbose = FALSE
       )),
-      "Something went wrong while generating the LxTx table, NULL returned")
+      "Failed to generate the LxTx table, NULL returned")
   })
 
    expect_error(analyse_SAR.CWOSL(
@@ -352,7 +352,7 @@ test_that("check functionality", {
           fit.method = "LIN",
           plot = FALSE,
           verbose = FALSE
-      ), "Something went wrong while generating the LxTx table"),
+      ), "Failed to generate the LxTx table, NULL returned"),
       "'signal_integral_Tx' reset to be between 500 and 1000"),
       "'background_integral_Tx' set automatically to 800:1000")
 
@@ -434,6 +434,34 @@ test_that("check functionality", {
      "Curve type 'OSL' matches multiple record types: 'OSL (PMT)', 'OSL (NA)'",
      fixed = TRUE)
   )
+
+  ## consider.uncertainties
+  res <- analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal_integral = 1:2,
+      background_integral = 900:1000,
+      fit.method = "LIN",
+      rejection.criteria = list(
+          recuperation.rate = 1,
+          recuperation_reference = "R1",
+          recycling.ratio = 4,
+          consider.uncertainties = FALSE),
+      plot = FALSE, verbose = FALSE)
+  expect_equal(res$rejection.criteria$Status[1:2],
+               c("FAILED", "FAILED"))
+  res <- analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal_integral = 1:2,
+      background_integral = 900:1000,
+      fit.method = "LIN",
+      rejection.criteria = list(
+          recuperation.rate = 1,
+          recuperation_reference = "R1",
+          recycling.ratio = 4,
+          consider.uncertainties = TRUE),
+      plot = FALSE, verbose = FALSE)
+  expect_equal(res$rejection.criteria$Status[1:2],
+               c("OK", "OK"))
 })
 
 test_that("advance tests run", {
@@ -713,7 +741,15 @@ test_that("graphical snapshot tests", {
                                   signal_integral = 1:2,
                                   background_integral = 900:1000,
                                   rejection.criteria = list(recycling.ratio = NA,
-                                                            sn.ratio = NA),
+                                                            sn.ratio = NA,
+                                                            consider.uncertainties = TRUE),
+                                  plot_onePage = TRUE))
+
+  vdiffr::expect_doppelganger("multiple recuperation rates",
+                              analyse_SAR.CWOSL(
+                                  object = merge(object[[1]], object[[2]]),
+                                  signal_integral = 1:2,
+                                  background_integral = 900:1000,
                                   plot_onePage = TRUE))
   })
 })
@@ -728,6 +764,15 @@ test_that("regression tests", {
                                     signal_integral = 1:2,
                                     background_integral = 900:1000),
                   "RLum.Results")
+
+  ## issue 1370
+  SW({
+  expect_message(analyse_SAR.CWOSL(object, signal_integral = 1:4,
+                                   background_integral = 100:200,
+                                   dose.points = 0:6),
+                 "[analyse_SAR.CWOSL()] Fit failed for EXP (interpolation)",
+                 fixed = TRUE)
+  })
 })
 
 test_that("deprecated arguments", {
