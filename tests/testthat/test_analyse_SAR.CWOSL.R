@@ -800,7 +800,7 @@ test_that("regression tests", {
   expect_message(analyse_SAR.CWOSL(object, signal_integral = 1:4,
                                    background_integral = 100:200,
                                    dose.points = 0:6),
-                 "[analyse_SAR.CWOSL()] Fit failed for EXP (interpolation)",
+                 "[analyse_SAR.CWOSL()] ALQ: #1 | Fit failed for EXP (interpolation)",
                  fixed = TRUE)
   })
 })

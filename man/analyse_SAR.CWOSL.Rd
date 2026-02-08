@@ -257,7 +257,7 @@ function does \strong{not} overwrite values preset in \code{IRR_TIME}.
 }
 }
 \section{Function version}{
- 0.13.3
+ 0.13.4
 }
 
 \examples{

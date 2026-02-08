@@ -229,7 +229,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.13.3
+#' @section Function version: 0.13.4
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
@@ -379,6 +379,9 @@ analyse_SAR.CWOSL<- function(
       signal.integral.max = extraArgs$signal.integral.max[[x]],
       background.integral.min = extraArgs$background.integral.min[[x]],
       background.integral.max = extraArgs$background.integral.max[[x]],
+      
+      ## internal information 
+      .aliquot_number = x,
 
       ...)
   })))
@@ -1185,7 +1188,13 @@ analyse_SAR.CWOSL<- function(
                        modifyList(list(object = temp.sample, verbose = FALSE),
                                   extraArgs))
     if (verbose && !is.null(temp.GC)) {
-      .throw_message(temp.GC@info$fit_message, error = FALSE)
+      .throw_message(
+        if(is.null(list(...)$.aliquot_number)) 
+          NULL 
+        else 
+          paste0("ALQ: #", list(...)$.aliquot_number, " | "),
+        temp.GC@info$fit_message, 
+        error = FALSE)
     }
 
     if (is.null(temp.GC)) {

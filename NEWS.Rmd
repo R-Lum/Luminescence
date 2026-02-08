@@ -185,9 +185,13 @@ and `exceed.max.point`) by setting `consider.uncertainties = TRUE` in the
 `rejection.criteria` list. This is disabled by default to preserve existing
 behaviour (#1325).
 
-* The functionnow supports setting `background_integral = NA`, in which case
+* The function now supports setting `background_integral = NA`, in which case
 no background integral is subtracted (#1385; thanks to Annette Kadereit for
 reporting).
+
+* If the function processes a list of objects, as is the typical scenario,
+the aliquot number (not the position number) is returned. The aliquot
+number represents the consecutive number of objects processed. 
 
 ## `analyse_SAR.TL()`
 
