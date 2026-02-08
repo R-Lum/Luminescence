@@ -782,13 +782,13 @@
 <text x='694.79' y='417.49' text-anchor='end' style='font-size: 5.04px; font-family: sans;' textLength='25.51px' lengthAdjust='spacingAndGlyphs'>1.05 &lt;= 1.1</text>
 <text x='694.79' y='388.08' text-anchor='end' style='font-size: 5.04px; font-family: sans;' textLength='18.50px' lengthAdjust='spacingAndGlyphs'>0 &lt;= 0.1</text>
 <text x='694.79' y='358.67' text-anchor='end' style='font-size: 5.04px; font-family: sans;' textLength='25.51px' lengthAdjust='spacingAndGlyphs'>0.01 &lt;= 0.1</text>
-<text x='694.79' y='329.26' text-anchor='end' style='font-size: 5.04px; font-family: sans;' textLength='22.71px' lengthAdjust='spacingAndGlyphs'>339 &gt;= 50</text>
+<text x='694.79' y='329.26' text-anchor='end' style='font-size: 5.04px; font-family: sans;' textLength='11.21px' lengthAdjust='spacingAndGlyphs'>339  </text>
 <text x='694.79' y='299.85' text-anchor='end' style='font-size: 5.04px; font-family: sans;' textLength='25.51px' lengthAdjust='spacingAndGlyphs'>0.03 &lt;= 0.1</text>
 <text x='694.79' y='270.44' text-anchor='end' style='font-size: 5.04px; font-family: sans;' textLength='31.12px' lengthAdjust='spacingAndGlyphs'>1668 &lt;= 2550</text>
 <circle cx='708.66' cy='427.00' r='2.11' style='stroke-width: 0.75; stroke: #61D04F; fill: #61D04F;' />
 <circle cx='708.66' cy='397.59' r='2.11' style='stroke-width: 0.75; stroke: #61D04F; fill: #61D04F;' />
 <circle cx='708.66' cy='368.18' r='2.11' style='stroke-width: 0.75; stroke: #61D04F; fill: #61D04F;' />
-<circle cx='708.66' cy='338.76' r='2.11' style='stroke-width: 0.75; stroke: #61D04F; fill: #61D04F;' />
+<circle cx='708.66' cy='338.76' r='2.11' style='stroke-width: 0.75; stroke: #9E9E9E; fill: #9E9E9E;' />
 <circle cx='708.66' cy='309.35' r='2.11' style='stroke-width: 0.75; stroke: #61D04F; fill: #61D04F;' />
 <circle cx='708.66' cy='279.94' r='2.11' style='stroke-width: 0.75; stroke: #61D04F; fill: #61D04F;' />
 </g>
