@@ -285,7 +285,7 @@
 <text x='693.33' y='535.01' text-anchor='middle' style='font-size: 13.68px; font-family: sans;' textLength='16.72px' lengthAdjust='spacingAndGlyphs'>(0)</text>
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8NDYwLjgwfDU3Ni4wMA==)'>
-<line x1='0.000000000000080' y1='465.07' x2='720.00' y2='465.07' style='stroke-width: 0.38;' />
+<line x1='0.000000000000081' y1='465.07' x2='720.00' y2='465.07' style='stroke-width: 0.38;' />
 </g>
 <defs>
   <clipPath id='cpNDYwLjY4fDYwMC43M3w0OS4yNXwxNjQuNzQ='>
@@ -513,7 +513,7 @@
 <line x1='649.97' y1='47.46' x2='645.05' y2='47.46' style='stroke-width: 0.75;' />
 <line x1='649.97' y1='41.98' x2='645.05' y2='41.98' style='stroke-width: 0.75;' />
 <line x1='649.97' y1='36.50' x2='645.05' y2='36.50' style='stroke-width: 0.75;' />
-<line x1='649.97' y1='31.03' x2='645.05' y2='31.03' style='stroke-width: 0.75;' />
+<line x1='649.97' y1='31.02' x2='645.05' y2='31.02' style='stroke-width: 0.75;' />
 <line x1='649.97' y1='25.55' x2='645.05' y2='25.55' style='stroke-width: 0.75;' />
 <text transform='translate(640.13,47.46) rotate(-90)' text-anchor='middle' style='font-size: 10.94px; font-family: sans;' textLength='6.09px' lengthAdjust='spacingAndGlyphs'>1</text>
 <text transform='translate(640.13,25.55) rotate(-90)' text-anchor='middle' style='font-size: 10.94px; font-family: sans;' textLength='12.17px' lengthAdjust='spacingAndGlyphs'>20</text>
