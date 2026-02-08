@@ -148,7 +148,7 @@
 #' * `recuperation.rate` [numeric] (default: `10`)
 #' * `palaeodose.error` [numeric] (default: `10`)
 #' * `testdose.error` [numeric] (default: `10`)
-#' * `sn.ratio` [numeric] (default: `50`)
+#' * `sn.ratio` [numeric] (default: `NA`)
 #' * `exceed.max.regpoint` [logical] (default: `FALSE`)
 #' * `consider.uncertainties` [logical] (default: `FALSE`)
 #' * `recuperation_reference` [character] (default: `"Natural"`; set to, e.g.,
@@ -507,7 +507,7 @@ analyse_SAR.CWOSL<- function(
       recuperation.rate = 10,
       palaeodose.error = 10,
       testdose.error = 10,
-      sn.ratio = 50,
+      sn.ratio = NA,
       exceed.max.regpoint = TRUE,
       consider.uncertainties = FALSE,
       sn_reference = "Natural",

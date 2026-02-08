@@ -74,7 +74,7 @@ Allowed options:
 \item \code{recuperation.rate} \link{numeric} (default: \code{10})
 \item \code{palaeodose.error} \link{numeric} (default: \code{10})
 \item \code{testdose.error} \link{numeric} (default: \code{10})
-\item \code{sn.ratio} \link{numeric} (default: \code{50})
+\item \code{sn.ratio} \link{numeric} (default: \code{NA})
 \item \code{exceed.max.regpoint} \link{logical} (default: \code{FALSE})
 \item \code{consider.uncertainties} \link{logical} (default: \code{FALSE})
 \item \code{recuperation_reference} \link{character} (default: \code{"Natural"}; set to, e.g.,
