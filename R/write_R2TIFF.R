@@ -64,7 +64,7 @@ write_R2TIFF <- function(
       .throw_error("Empty RLum.Data.Image object detected")
   })
 
-  .validate_class(file, "character")
+  .validate_class(file, "character", length = 1)
   .validate_positive_scalar(norm)
 
   ## Prepare filenames ------------------------------------------------------
