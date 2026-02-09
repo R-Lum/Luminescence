@@ -379,9 +379,9 @@ analyse_SAR.CWOSL<- function(
       signal.integral.max = extraArgs$signal.integral.max[[x]],
       background.integral.min = extraArgs$background.integral.min[[x]],
       background.integral.max = extraArgs$background.integral.max[[x]],
-      
-      ## internal information 
-      .aliquot_number = x,
+
+      ## internal information
+      .aliquot_number = sprintf("ALQ: #%d | ", x),
 
       ...)
   })))
@@ -1188,13 +1188,8 @@ analyse_SAR.CWOSL<- function(
                        modifyList(list(object = temp.sample, verbose = FALSE),
                                   extraArgs))
     if (verbose && !is.null(temp.GC)) {
-      .throw_message(
-        if(is.null(list(...)$.aliquot_number)) 
-          NULL 
-        else 
-          paste0("ALQ: #", list(...)$.aliquot_number, " | "),
-        temp.GC@info$fit_message, 
-        error = FALSE)
+      .throw_message(extraArgs$.aliquot_number, temp.GC@info$fit_message,
+                     error = FALSE)
     }
 
     if (is.null(temp.GC)) {
