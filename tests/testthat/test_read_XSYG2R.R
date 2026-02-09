@@ -50,9 +50,11 @@ test_that("test import of XSYG files", {
                                      verbose = FALSE),
                          type = "list")
   expect_type(results[[1]]@info$file, type = "character")
-  expect_equal(results[[1]]@records[[1]]@info$name,
+  expect_equal(results[[1]]@records[[1]]@info$recordName,
+               "unknown")
+  expect_equal(results[[1]]@records[[1]]@info$sequenceName,
                "20150601_BT706_TL_Spectra_FS_SLS365")
-  expect_length(results[[1]]@records[[1]]@info, 25)
+  expect_length(results[[1]]@records[[1]]@info, 26)
   expect_output(print(results))
 
   ## check n_records argument
