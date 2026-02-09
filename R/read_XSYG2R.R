@@ -455,6 +455,7 @@ read_XSYG2R <- function(
 
       ## get all record attributes
       attrs_record <- XML::xmlAttrs(record)
+      names(attrs_record) <- gsub("^name$", "recordName", names(attrs_record))
 
       header.position <- as.integer(as.character(sequence.header["position", ]))
       header.name <- as.character(sequence.header["name", ])
@@ -482,7 +483,7 @@ read_XSYG2R <- function(
         ## get additional information
         temp.sequence.object.info <- modifyList(attrs_comb,
                                                 list(position = header.position,
-                                                     name = header.name))
+                                                     sequenceName = header.name))
 
         ## TL curve recalculation ===========================================
         if (recalculate.TL.curves) {
