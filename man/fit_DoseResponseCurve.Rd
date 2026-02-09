@@ -215,23 +215,25 @@ where \eqn{c > 0} is a kinetic order modifier
 \strong{Keyword: \code{OTOR}} (former \code{LambertW})
 
 This tries to fit a dose-response curve based on the Lambert W function
-and the one trap one recombination centre (OTOR)
-model according to Pagonis et al. (2020). The function has the form
+and the one trap one recombination centre (OTOR) model according to Pagonis
+et al. (2020). The function has the form:
 
 \deqn{y = (1 + (\mathcal{W}((R - 1) * exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
 
-with \eqn{W} the Lambert W function, calculated using the package \link[lamW:lamW]{lamW::lambertW0},
+with \eqn{W} the Lambert W function (calculated using \link[lamW:lamW]{lamW::lambertW0}),
 \eqn{R} the dimensionless retrapping ratio, \eqn{N} the total concentration
-of trappings states in cm\eqn{^{-3}} and \eqn{D_{c} = N/R} a constant. \eqn{D_{int}} is
-the offset on the x-axis. Please note that finding the root in \code{mode = "extrapolation"}
+of trappings states in cm\eqn{^{-3}}, \eqn{D_{c} = N/R} a constant, and
+\eqn{D_{int}} is the offset on the x-axis. Note that \eqn{R} and \eqn{D_{c}}
+have a valid physical interpretation only when saturation is reached.
+Please note that finding the root in \code{mode = "extrapolation"}
 is a non-easy task due to the shape of the function and the results might be
 unexpected.
 
 \strong{Keyword: \code{OTORX}}
 
-This adapts extended OTOR (therefore: OTORX) model proposed by Lawless and Timar-Gabor (2024)
-accounting for retrapping. Mathematically, the implementation reads (the equation here
-as implemented, it is slightly differently written than in the original manuscript):
+This adapts extended OTOR (therefore: OTORX) model proposed by Lawless and
+Timar-Gabor (2024) accounting for retrapping (the equation implemented here
+is slightly differently written than in the original manuscript):
 
 \deqn{F_{OTORX} = 1 + \left[\mathcal{W}(-Q * exp(-Q-(1-Q*(1-\frac{1}{exp(1)})) * \frac{(D + a)}{D_{63}}))\right] / Q}
 
