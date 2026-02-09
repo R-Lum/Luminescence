@@ -353,7 +353,6 @@ test_that("snapshot tests", {
       background_integral = NA,
       use_previousBG = TRUE))
 
-  expect_warning( # FIXME(mcol): this should warn
   expect_snapshot_RLum(calc_OSLLxTxRatio(
       Lx.data,
       Tx.data,
@@ -361,5 +360,4 @@ test_that("snapshot tests", {
       background_integral = 70:100,
       signal_integral_Tx = 1:10,
       background_integral_Tx = NA))
-  , "Number of background channels for Tx < 25")
 })

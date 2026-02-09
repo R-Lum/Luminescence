@@ -379,7 +379,7 @@ calc_OSLLxTxRatio <- function(
   else
     Tx.background <- sum(Tx.curve[background_integral_Tx]) / k.Tx
   SN.ratio.TnTx <- Tx.signal / Tx.background
-  if (bg.integral.na)
+  if (.strict_na(background_integral_Tx))
     Tx.background <- 0
 
   TnTx <- (Tx.signal-Tx.background)
@@ -448,7 +448,7 @@ calc_OSLLxTxRatio <- function(
   } else{
     ## provide warning if m is < 25, as suggested by Rex Galbraith
     ## low number of degree of freedom
-    if (!anyNA(Tx.data) && m.Tx < 25 && !use_previousBG && !bg.integral.na) {
+    if (!anyNA(Tx.data) && m.Tx < 25 && !use_previousBG && !.strict_na(background_integral_Tx)) {
       .throw_warning("Number of background channels for Tx < 25, ",
                      "error estimation might not be reliable")
     }
