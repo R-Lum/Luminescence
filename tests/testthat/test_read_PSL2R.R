@@ -28,6 +28,10 @@ test_that("input validation", {
                "'file' cannot be an empty character")
 
   ## directory given (assumes that we have a .psl file under inst/extdata)
+  expect_message(
+    read_PSL2R(file = system.file("extdata", package = "Luminescence"),
+               verbose = TRUE),
+    "The following files were found and imported")
   expect_silent(
     read_PSL2R(file = system.file("extdata", package = "Luminescence"),
                verbose = FALSE))
