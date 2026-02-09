@@ -28,11 +28,12 @@ test_that("input validation", {
                "'file' cannot be an empty character")
 
   ## directory given (assumes that we have a .psl file under inst/extdata)
-  expect_message(
+  expect_silent(
     read_PSL2R(file = system.file("extdata", package = "Luminescence"),
-               verbose = FALSE),
-    "The following files were found and imported"
-  )
+               verbose = FALSE))
+  expect_error(read_PSL2R(system.file("extdata", package = "Luminescence"),
+                          pattern = NA),
+               "'pattern' should be of class 'character' and have length 1")
 
   ## single file with no .psl extension
   expect_error(

@@ -83,15 +83,16 @@ read_PSL2R <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-
   .validate_class(file, "character")
   .validate_not_empty(file)
-  .validate_class(pattern, "character")
+  .validate_logical_scalar(verbose)
 
   if (length(file) == 1 && !grepl("\\.psl$", file, ignore.case = TRUE)) {
+    .validate_class(pattern, "character", length = 1)
       file <- list.files(file, pattern = pattern, full.names = TRUE, ignore.case = TRUE)
       if (length(file) == 0)
         .throw_error("No .psl files found")
+    if (verbose)
       .throw_message("The following files were found and imported:\n",
                      paste(" ..", file, collapse = "\n"), error = FALSE)
   }
