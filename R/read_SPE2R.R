@@ -126,29 +126,10 @@ read_SPE2R <- function(
 
   ##check if file exists
   if(!file.exists(file)){
-    failed <- TRUE
+    destfile <- tempfile("read_SPE2R_FILE", fileext = ".SPE")
+    file <- .download_file(file, destfile)
 
-    ## check if the file is an URL ... you never know
-    if (grepl(pattern = "^https?://", x = file)) {
-      if(verbose){
-        cat("[read_SPE2R()] URL detected, checking connection ... ")
-      }
-
-      ##check URL
-      if(!httr::http_error(file)){
-        if (verbose) cat("OK\n")
-
-        ##download file
-        file_link <- tempfile("read_SPE2R_FILE", fileext = ".SPE")
-        download.file(file, destfile = file_link, quiet = !verbose, mode = "wb")
-        file <- file_link
-        failed <- FALSE
-      } else if (verbose) {
-        cat("FAILED\n")
-      }
-    }
-
-    if (failed) {
+    if (is.null(file)) {
       .throw_message("File does not exist, NULL returned")
       return(NULL)
     }
