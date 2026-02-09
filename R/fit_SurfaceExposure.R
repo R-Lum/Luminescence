@@ -32,9 +32,8 @@
 #' If `data` is [list] of multiple `data.frame`s, each representing a separate
 #' sample, the function automatically performs a global fit to the data. This
 #' may be useful to better constrain the parameters `sigmaphi` or `mu` and
-#' **requires** that known ages for each sample is provided
+#' **requires** that a known age for each sample
 #' (e.g., `age = c(100, 1000)` if `data` is a list with two samples).
-#'
 #'
 #' @param data [data.frame] or [list] (**required**):
 #' Measured OSL surface exposure data with the following structure:
@@ -173,7 +172,6 @@
 #'  sigmaphi = 5e-10)
 #' get_RLum(results)
 #'
-#'
 #' ## Example 2 - Single sample and considering dose rate
 #' # Known parameters: 10000 a, mu = 0.9, sigmaphi = 5e-10,
 #' # dose rate = 2.5 Gy/ka, D0 = 40 Gy
@@ -197,7 +195,6 @@
 #'   sigmaphi = 5e-10)
 #' get_RLum(results)
 #'
-#'
 #' ## Example 4 - Multiple samples (global fit) and considering dose rate
 #' # Known parameters: ages = 1e2, 1e3, 1e4, 1e5, 1e6 a, mu = 0.9, sigmaphi = 5e-10,
 #' # dose rate = 1.0 Ga/ka, D0 = 40 Gy
@@ -209,7 +206,7 @@
 #'  sigmaphi = 5e-10,
 #'  Ddot = 1,
 #'  D0 = 40)
-#'get_RLum(results)
+#' get_RLum(results)
 #'
 #' @export
 fit_SurfaceExposure <- function(
@@ -255,6 +252,8 @@ fit_SurfaceExposure <- function(
 
   ## For global fitting of multiple data sets 'data' must be a list
   if (inherits(data, "list")) {
+    lapply(data, function(x) .validate_class(x, "data.frame",
+                                             name = "All elements of 'data'"))
 
     # Global fitting requires and equal amount of ages to be provided
     if (length(data) != length(age))
