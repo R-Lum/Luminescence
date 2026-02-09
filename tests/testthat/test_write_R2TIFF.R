@@ -10,6 +10,8 @@ test_that("input validation", {
                fixed = TRUE)
   expect_error(write_R2TIFF(ExampleData.RLum.Data.Image, file = NULL),
                "'file' should be of class 'character'")
+  expect_error(write_R2TIFF(ExampleData.RLum.Data.Image, file = character()),
+               "'file' should be of class 'character' and have length 1")
   expect_error(write_R2TIFF(ExampleData.RLum.Data.Image, norm = 0),
                "'norm' should be a single positive value")
   expect_error(write_R2TIFF(ExampleData.RLum.Data.Image, file = "error/error"),

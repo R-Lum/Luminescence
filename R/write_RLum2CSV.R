@@ -124,13 +124,13 @@ write_RLum2CSV <- function(
   .validate_class(object, c("RLum", "data.frame"),
                   extra = "a 'list' of such objects")
   .validate_not_empty(object)
-  .validate_class(path, "character", null.ok = TRUE)
   .validate_class(prefix, "character")
   .validate_logical_scalar(export)
   .validate_logical_scalar(compact)
 
   ## check export path
   if (export) {
+    .validate_class(path, "character", null.ok = TRUE, length = 1)
     if (is.null(path) || !nzchar(path)) {
       path <- getwd()
       .throw_message("Path automatically set to: ", path, error = FALSE)
