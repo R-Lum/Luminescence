@@ -149,7 +149,7 @@
 #' **Caution:** If you are using early light subtraction (EBG), please either provide your
 #' own `sigmab` value or use `background.count.distribution = "poisson"`.
 #'
-#' @section Function version: 0.9.3
+#' @section Function version: 0.9.4
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
@@ -318,7 +318,6 @@ calc_OSLLxTxRatio <- function(
   background_integral <- .validate_integral(background_integral, na.ok = TRUE,
                                             min = max(signal_integral) + 1,
                                             max = len.Lx)
-  bg.integral.na <- .strict_na(background_integral)
 
   if (!anyNA(Tx.data) && xor(is.null(signal_integral_Tx),
                              is.null(background_integral_Tx))) {
@@ -364,7 +363,7 @@ calc_OSLLxTxRatio <- function(
   Lx.signal <- sum(Lx.curve[signal_integral])                #Y.0
   Lx.background <- sum(Lx.curve[background_integral]) / k    #Y.1, mu.B
   SN.ratio.LnLx <- Lx.signal / Lx.background
-  if (bg.integral.na)
+  if (.strict_na(background_integral))
     Lx.background <- 0
 
   LnLx <- Lx.signal - Lx.background
@@ -401,64 +400,43 @@ calc_OSLLxTxRatio <- function(
   ##(b) estimate overdispersion (here called sigmab), see equation (4) in
   ## Galbraith (2002), Galbraith (2014)
   ## If else condition for the case that k < 2
+  .calc_sigmab <- function(Lx.curve, signal_integral, background_integral,
+                           m, n, k, what, usepreviousBG = FALSE) {
+    len.sg.integral <- length(signal_integral)
+    min.bg.integral <- min(background_integral)
+    if (round(k, digits = 1) >= 2 &&
+        min.bg.integral + len.sg.integral * (2 + 1) <= length(Lx.curve)) {
 
-  len.sig.integral <- length(signal_integral)
-  min.bg.integral <- min(background_integral)
-  if (round(k, digits = 1) >= 2 &&
-      min.bg.integral + len.sig.integral * (2 + 1) <= len.Lx) {
+      ## note that m = n*k = multiple of background_integral from signal_integral
+      Y.i <- vapply(0:round(k, digits = 0), function(i) {
+        sum(Lx.curve[min.bg.integral +
+                     (len.sg.integral * i):(len.sg.integral * (i + 1))])
+      }, FUN.VALUE = numeric(1))
 
-    ##(b)(1)(1)
-    ## note that m = n*k = multiple of background_integral from signal_integral
-    Y.i <- vapply(0:round(k,digits=0), function(i){
-      sum(Lx.curve[min.bg.integral +
-                   (len.sig.integral * i):(len.sig.integral * (i + 1))])
-    }, FUN.VALUE = numeric(1))
+      Y.i <- na.exclude(Y.i)
+      n <- 1
+    } else {
+      ## warn if m is < 25, as suggested by Rex Galbraith (low number of
+      ## degrees of freedom)
+      if (m < 25 && !use_previousBG && !.strict_na(background_integral)) {
+        .throw_warning("Number of background channels for ", what, " < 25, ",
+                       "error estimation might not be reliable")
+      }
 
-    Y.i <- na.exclude(Y.i)
-    sigmab.LnLx <- abs(stats::var(Y.i) - mean(Y.i))  ##sigmab is denoted as sigma^2 = s.Y^2-Y.mean
-    ##therefore here absolute values are given
-
-  }else{
-    ## provide warning if m is < 25, as suggested by Rex Galbraith
-    ## low number of degree of freedom
-    if (m < 25 && !bg.integral.na) {
-      .throw_warning("Number of background channels for Lx < 25, ",
-                     "error estimation might not be reliable")
+      Y.i <- Lx.curve[background_integral]
     }
 
-    sigmab.LnLx <- abs(stats::var(Lx.curve[background_integral]) -
-                       mean(Lx.curve[background_integral])) * n
-  }
-
-  len.sig.integral.Tx <- length(signal_integral_Tx)
-  min.bg.integral.Tx <- min(background_integral_Tx)
-  if (round(k.Tx, digits = 1) >= 2 &&
-      min.bg.integral.Tx + len.sig.integral.Tx * (2 + 1) <= length(Tx.curve)) {
-    ##(b)(1)(1)
-    ## note that m.Tx = n.Tx*k.Tx = multiple of background_integral_Tx from signal_integral_Tx
-    ## also for the TnTx signal
-    Y.i_TnTx <- vapply(0:round(k.Tx, digits = 0), function(i) {
-      sum(Tx.curve[min.bg.integral.Tx +
-                   (len.sig.integral.Tx * i):(len.sig.integral.Tx * (i + 1))])
-    }, FUN.VALUE = numeric(1))
-
-    Y.i_TnTx <- na.exclude(Y.i_TnTx)
-    sigmab.TnTx <- abs(stats::var(Y.i_TnTx) - mean(Y.i_TnTx))
-
-  } else{
-    ## provide warning if m is < 25, as suggested by Rex Galbraith
-    ## low number of degree of freedom
-    if (!anyNA(Tx.data) && m.Tx < 25 && !use_previousBG && !.strict_na(background_integral_Tx)) {
-      .throw_warning("Number of background channels for Tx < 25, ",
-                     "error estimation might not be reliable")
-    }
-
-    sigmab.TnTx <- abs((stats::var(Tx.curve[background_integral_Tx]) -
-                        mean(Tx.curve[background_integral_Tx])) * n.Tx)
+    ## sigmab is denoted as sigma^2 = s.Y^2 - Y.mean, therefore abs() is used
+    abs(stats::var(Y.i) - mean(Y.i)) * n
   }
 
   ##account for a manually set sigmab value
-  if (!is.null(sigmab)) {
+  if (is.null(sigmab)) {
+    sigmab.LnLx <- .calc_sigmab(Lx.curve, signal_integral, background_integral,
+                                m, n, k, "Lx")
+    sigmab.TnTx <- .calc_sigmab(Tx.curve, signal_integral_Tx, background_integral_Tx,
+                                m.Tx, n.Tx, k.Tx, "Tx", use_previousBG)
+  } else {
     sigmab.LnLx <- sigmab[1]
     sigmab.TnTx <- sigmab[length(sigmab)]
   }

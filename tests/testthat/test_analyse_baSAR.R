@@ -416,12 +416,12 @@ test_that("Full check of analyse_baSAR function", {
                  "Error: Number of aliquots < 3, NULL returned")
 
   SW({
-  expect_warning(analyse_baSAR(CWOSL.sub, source_doserate = c(0.04, 0.001),
+  expect_no_warning(analyse_baSAR(CWOSL.sub, source_doserate = c(0.04, 0.001),
                                signal_integral = 1:2,
                                background_integral = 8:10,
                                method_control = list(n.chains = 1),
                                n.MCMC = 10),
-                 "Number of background channels for Tx < 25")
+                 message = "Number of background channels for Tx < 25")
 
   df <- CWOSL.sub@METADATA[, c("FNAME", "POSITION", "GRAIN")]
   analyse_baSAR(CWOSL.sub,
