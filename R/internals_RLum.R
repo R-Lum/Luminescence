@@ -939,34 +939,38 @@ fancy_scientific <- function(l) {
 #++++++++++++++++++++++++++++++
 #+ .download_file             +
 #++++++++++++++++++++++++++++++
-#'@title Internal File Download Handler
+#' @title Internal file download handler
 #'
-#'@description For file imports using function commencing with `read_` the file download
-#'was little consistent and surprisingly error-prone. This function should keep the requirements
-#'more consistent
+#' @description
+#' For file imports using function commencing with `read_` the file download
+#' was little consistent and surprisingly error-prone. This function should
+#' keep the callers more consistent.
 #'
-#'@param url [character] (**required**)
+#' @param url [character] (**required**):
+#' URL to download.
 #'
-#'@param dest [character] (*with default*)
+#' @param destfile [character] (*with default*):
+#' filename where the content of the URL should be saved into. By default, a
+#' temporary file will be used.
 #'
-#' @param verbose [logical] (*with default*)
+#' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
 #'
-#'@returns Returns either nothing (no URL) or the file path of the downloaded file
+#' @returns
+#' Returns the file path of the downloaded file or `NULL` in case of failure.
 #'
-#'@author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+#' @author
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
-#'@examples
+#' @examples
+#' ## returns just NULL (no valid URL detected)
+#' .download_file(url = "teststs")
+#' .download_file(url = "https://")
+#' .download_file(url = "_https://github.com/")
 #'
-#'## returns just NULL (no URL detected)
-#'.download_file(url = "teststs")
-#'
-#'## attempts download
-#'.download_file(url = "https://raw.githubusercontent.com/R-Lum/rxylib/master/inst/extg")
-#'
-#'## attempts download silently
-#' suppressMessages(
-#' .download_file(url = "https://raw.githubusercontent.com/R-Lum/rxylib/master/inst/extg"))
+#' ## attempts download
+#' .download_file("https://raw.githubusercontent.com/R-Lum/rxylib/master/NEWS.md")
 #'
 #'@noRd
 .download_file <- function(
@@ -976,16 +980,15 @@ fancy_scientific <- function(l) {
 ) {
   out_file_path <- NULL
 
-  ## detect and extract URL
-  if(grepl(pattern = "https?\\:\\/\\/", x = url, perl = TRUE)) {
+  ## detect and extract url after removing possible whitespace
+  url <- trimws(url)
+  pattern <- "^https?\\:\\/\\/.+"
+  if (grepl(pattern, url, perl = TRUE)) {
     ## status reports
     if (verbose) {
-      .throw_message("URL detected: ", url, error = FALSE)
-      .throw_message("Attempting download ... ", appendLF = FALSE, error = FALSE)
+      .throw_message("Downloading ", url, " ... ",
+                     appendLF = FALSE, error = FALSE)
     }
-
-    ## extract URL from string only
-    url <- regmatches(x = url, m = regexec(pattern = "https?\\:\\/\\/.+", text = url, perl = TRUE))[[1]]
 
     fail.msg <- function(w) {
       if (verbose)
@@ -1008,7 +1011,6 @@ fancy_scientific <- function(l) {
       if (verbose)
         message("OK ", appendLF = TRUE)
       out_file_path <- destfile
-      unlink(url)
     }
   }
 

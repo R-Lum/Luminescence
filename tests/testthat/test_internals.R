@@ -253,23 +253,26 @@ test_that("Test internals", {
 
   ## returns just NULL (no URL detected)
   expect_null(.download_file(url = "_url"))
+  expect_null(.download_file(url = "https://"))
+  expect_null(.download_file(url = "_https://github.com"))
 
   ## attempts download but fails
   url.404 <- "https://raw.githubusercontent.com/R-Lum/rxylib/master/inst/extg"
   expect_message(
-      expect_message(
           expect_message(expect_null(.download_file(url = url.404)),
-                         "URL detected:"),
-          "Attempting download ..."),
+                         "Downloading"),
       "FAILED")
 
   ## attempts download and succeeds
   url.ok <- "https://raw.githubusercontent.com/R-Lum/rxylib/master/codecov.yml"
-  suppressMessages( # silence other messages already tested above
-      expect_message(expect_type(.download_file(url = url.ok),
-                                 "character"),
-                     "OK")
-  )
+  destfile <- tempfile()
+  SW({
+  expect_message(expect_equal(.download_file(url = url.ok, destfile),
+                              destfile),
+                 "OK")
+  expect_message(.download_file(url = paste("  ", url.ok, "\n")),
+                 "OK")
+  })
 
   ## .throw_error() ---------------------------------------------------------
   fun.int <- function() {
