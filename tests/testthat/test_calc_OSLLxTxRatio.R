@@ -45,6 +45,14 @@ test_that("test input", {
     Tx.data = NULL,
     signal_integral = 1:2,
     background_integral = 70:100))
+
+  ## list
+  expect_type(calc_OSLLxTxRatio(
+      list(Lx.data),
+      Tx.data = NULL,
+      signal_integral = 1:2,
+      background_integral = 70:100),
+      "list")
 })
 
 test_that("input validation", {
@@ -241,11 +249,13 @@ test_that("snapshot tests", {
       background.count.distribution = "poisson")
   ), tolerance = snapshot.tolerance)
 
+  ## use_previousBG
   expect_snapshot_RLum(calc_OSLLxTxRatio(
       Lx.data = Lx.data,
       Tx.data = Tx.data,
       signal_integral = 1:2,
-      background_integral = 85:100
+      background_integral = 85:100,
+      use_previousBG = TRUE
   ), tolerance = snapshot.tolerance)
 
   ## check weird circumstances
@@ -335,4 +345,21 @@ test_that("snapshot tests", {
     background_integral = NA,
     signal_integral_Tx = 1:10,
     background_integral_Tx = 70:100))
+
+  expect_snapshot_RLum(calc_OSLLxTxRatio(
+      Lx.data,
+      Tx.data,
+      signal_integral = 1:2,
+      background_integral = NA,
+      use_previousBG = TRUE))
+
+  expect_warning( # FIXME(mcol): this should warn
+  expect_snapshot_RLum(calc_OSLLxTxRatio(
+      Lx.data,
+      Tx.data,
+      signal_integral = 1:20,
+      background_integral = 70:100,
+      signal_integral_Tx = 1:10,
+      background_integral_Tx = NA))
+  , "Number of background channels for Tx < 25")
 })
