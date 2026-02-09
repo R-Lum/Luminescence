@@ -201,8 +201,8 @@ test_that("test BIN file while fading data", {
   ## more coverage
   analyse_FadingMeasurement(d2, signal_integral = 1:2,
                             background_integral = 10:30,
-                            signal_integral.Tx = 2,
-                            background_integral.Tx = 5:30,
+                            signal_integral_Tx = 2,
+                            background_integral_Tx = 5:30,
                             plot_singlePanels = 2:3, ylim = c(0.1, 1.1),
                             background.count.distribution = "poisson",
                             sig0 = 2, verbose = FALSE, plot = TRUE)

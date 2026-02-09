@@ -274,7 +274,7 @@ calc_OSLLxTxRatio <- function(
     .deprecated(old = c("signal.integral", "background.integral",
                         "signal.integral.Tx", "background.integral.Tx"),
                 new = c("signal_integral", "background_integral",
-                        "signal_integral.Tx", "background_integral.Tx"),
+                        "signal_integral_Tx", "background_integral_Tx"),
                 since = "1.2.0")
     signal_integral <- extraArgs$signal.integral
     background_integral <- extraArgs$background.integral
