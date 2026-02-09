@@ -204,9 +204,10 @@ calc_OSLLxTxRatio <- function(
 
   ## Self-call --------------------------------------------------------------
   if (inherits(Lx.data, "list")) {
-    if (!is.null(Tx.data)) {
-      if (!inherits(Tx.data, "list") || length(Lx.data) != length(Tx.data))
-        .throw_error("'Tx.data' should be a list of the same length as 'Lx.data'")
+    if (!is.null(Tx.data) &&
+        (!inherits(Tx.data, "list") || length(Lx.data) != length(Tx.data))) {
+      .throw_error("When 'Lx.data' is a list, 'Tx.data' should either be ",
+                   "a list of the same length or NULL")
     }
     ret <- lapply(seq_along(Lx.data), function(x) {
       calc_OSLLxTxRatio(Lx.data[[x]],
@@ -233,6 +234,7 @@ calc_OSLLxTxRatio <- function(
   .validate_class(Tx.data, valid.classes, null.ok = TRUE,
                   extra = "a list of such objects")
   .validate_class(sigmab, "numeric", null.ok = TRUE, length = 1:2)
+  .validate_nonnegative_scalar(sig0)
 
   .coerce <- function(data) {
     data <- switch(
@@ -320,26 +322,24 @@ calc_OSLLxTxRatio <- function(
 
   if (!anyNA(Tx.data) && xor(is.null(signal_integral_Tx),
                              is.null(background_integral_Tx))) {
-    .throw_error("Both 'signal_integral_Tx' and 'background_integral_Tx' ",
-                 "must be set when 'Tx.data' is provided")
+    .throw_error("When 'Tx.data' is provided, either both 'signal_integral_Tx' ",
+                 "and 'background_integral_Tx' must be provided, or neither")
   }
 
-  if (!anyNA(Tx.data) &&
-      all(!is.null(signal_integral_Tx), !is.null(background_integral_Tx))) {
-    if (use_previousBG) {
-      .throw_warning("With 'use_previousBG = TRUE' independent Lx and Tx ",
-                     "integral limits are not allowed. Integral limits ",
-                     "of Lx used for Tx.")
-      signal_integral_Tx <- signal_integral
-      background_integral_Tx <- background_integral
-    } else {
+  any_given <- !is.null(signal_integral_Tx) || !is.null(background_integral_Tx)
+  if (!anyNA(Tx.data) && use_previousBG && any_given) {
+    .throw_warning("When 'use_previousBG = TRUE', independent Tx integral ",
+                   "limits are not allowed, Lx limits will be used for Tx")
+  }
+
+  both_given <- !is.null(signal_integral_Tx) && !is.null(background_integral_Tx)
+  if (!anyNA(Tx.data) && !use_previousBG && both_given) {
       signal_integral_Tx <- .validate_integral(signal_integral_Tx, max = len.Tx,
                                                null.ok = TRUE)
       background_integral_Tx <- .validate_integral(background_integral_Tx, na.ok = TRUE,
                                                    min = max(signal_integral_Tx) + 1,
                                                    max = len.Tx,
                                                    null.ok = TRUE)
-    }
   } else {
     signal_integral_Tx <- signal_integral
     background_integral_Tx <- background_integral

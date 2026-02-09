@@ -83,13 +83,13 @@ test_that("input validation", {
                                  background_integral = matrix(1:4, ncol =2)),
                "'background_integral' should be of class 'integer', 'numeric' or NA")
   expect_error(calc_OSLLxTxRatio(list(Lx.data, Lx.data), Tx.data),
-               "'Tx.data' should be a list of the same length as 'Lx.data'")
+               "'Tx.data' should either be a list of the same length or NULL")
 
   expect_error(calc_OSLLxTxRatio(Lx.data, Tx.data,
                                  signal_integral = 1:20, background_integral = NA,
                                  signal_integral_Tx = 1:20,
                                  background_integral_Tx = NULL),
-               "Both 'signal_integral_Tx' and 'background_integral_Tx' must be set when")
+               "When 'Tx.data' is provided, either both 'signal_integral_Tx' and")
 
   expect_warning(expect_error(calc_OSLLxTxRatio(
     Lx.data,
@@ -150,7 +150,7 @@ test_that("input validation", {
     signal_integral_Tx = 1:20,
     background_integral = 80:100,
     background_integral_Tx = NULL
-  ), "Both 'signal_integral_Tx' and 'background_integral_Tx' must be set when")
+  ), "When 'Tx.data' is provided, either both 'signal_integral_Tx' and")
 
   expect_error(calc_OSLLxTxRatio(
     Lx.data,
@@ -167,6 +167,9 @@ test_that("input validation", {
     background_integral = 80:100,
     sigmab = c(1, 2, 3)
   ), "'sigmab' should be of class 'numeric' or NULL and have length 1 or 2")
+
+  expect_error(calc_OSLLxTxRatio(Lx.data, Tx.data, sig0 = -1),
+               "'sig0' should be a single non-negative value")
 })
 
 test_that("create warnings", {
@@ -215,7 +218,7 @@ test_that("create warnings", {
     background_integral = 60:100,
     background_integral_Tx = 40:100,
     use_previousBG = TRUE
-  ), "With 'use_previousBG = TRUE' independent Lx and Tx integral limits are")
+  ), "When 'use_previousBG = TRUE', independent Tx integral limits are not")
 })
 
 test_that("snapshot tests", {
