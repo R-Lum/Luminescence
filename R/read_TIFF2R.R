@@ -45,12 +45,12 @@ read_TIFF2R <- function(
 
   # Self call ---------------------------------------------------------------
   if(inherits(file, "list") || length(file) > 1) {
-    .validate_class(merge2stack, "logical")
+    .validate_logical_scalar(merge2stack)
 
     ## read list
     tmp <- lapply(file, read_TIFF2R, verbose = verbose)
 
-    if(merge2stack[1]) {
+    if (merge2stack) {
       ## because we don't know what we get, we determine the minimal dimensions
       t_dim <- vapply(tmp, function(x) dim(x@data), numeric(3))
       t_range <- matrixStats::rowMins(t_dim)
@@ -58,8 +58,7 @@ read_TIFF2R <- function(
       ## the image stack cannot be bigger than the smallest image
       tmp <- lapply(tmp, function(x) x@data[1:t_range[1],1:t_range[2],])
       tmp <- array(unlist(tmp), dim = c(t_range[1], t_range[2], length(tmp)))
-
-      return(set_RLum(class = "RLum.Data.Image", data = tmp))
+      tmp <- set_RLum(class = "RLum.Data.Image", data = tmp)
     }
 
     ## return the results
