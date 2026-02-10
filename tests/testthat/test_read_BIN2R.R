@@ -37,6 +37,8 @@ test_that("input validation", {
                "'show.record.number' should be a single logical value")
   expect_error(read_BIN2R(bin.v3, ignore.RECTYPE = "error"),
                "'ignore.RECTYPE' should be of class 'logical' or 'numeric'")
+  expect_error(read_BIN2R(bin.v3, ignore.RECTYPE = 1:2),
+               "'ignore.RECTYPE' should be of class 'logical' or 'numeric' and have length 1")
 
   ## check for broken files
   zero <- tempfile(pattern = "zero", fileext = ".binx")
@@ -166,7 +168,7 @@ test_that("test the import of various BIN-file versions", {
   expect_message(t <- expect_s4_class(read_BIN2R(bin.v8, verbose = TRUE,
                                                  ignore.RECTYPE = 1),
                                       class = "Risoe.BINfileData"),
-                 "Record #1 skipped due to ignore.RECTYPE setting")
+                 "Record #1 skipped due to 'ignore.RECTYPE = 1'")
   })
 
     ## should be zero now

@@ -223,7 +223,7 @@ read_BIN2R <- function(
   .validate_logical_scalar(fastForward)
   .validate_logical_scalar(show.record.number)
   .validate_logical_scalar(txtProgressBar)
-  .validate_class(ignore.RECTYPE, c("logical", "numeric"))
+  .validate_class(ignore.RECTYPE, c("logical", "numeric"), length = 1)
 
   ##set file_link for internet downloads
   url_file <- NULL
@@ -594,12 +594,13 @@ read_BIN2R <- function(
         RECTYPE[id_row] <- temp.RECTYPE
 
         ## we can check for a specific value for temp.RECTYPE
-        if(inherits(ignore.RECTYPE[1], "numeric") && temp.RECTYPE == ignore.RECTYPE[1]) {
+        if (inherits(ignore.RECTYPE, "numeric") && temp.RECTYPE == ignore.RECTYPE) {
           seek.connection(con, temp.LENGTH - 15, origin = "current")
           if(verbose) {
             message("") # add a newline
             .throw_message("Record #", temp.ID + 1,
-                           " skipped due to ignore.RECTYPE setting", error = FALSE)
+                           " skipped due to 'ignore.RECTYPE = ", ignore.RECTYPE,
+                           "'", error = FALSE)
           }
           next()
         }
@@ -610,7 +611,7 @@ read_BIN2R <- function(
           msg <- paste0("Byte RECTYPE = ", temp.RECTYPE,
                         " is not supported in record #", temp.ID + 1)
           if (!ignore.RECTYPE) {
-            .throw_error(msg, ", set `ignore.RECTYPE = TRUE` to skip this record")
+            .throw_error(msg, ", set 'ignore.RECTYPE = TRUE' to skip this record")
           }
 
           ## skip to next record
