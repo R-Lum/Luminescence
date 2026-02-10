@@ -226,7 +226,6 @@ read_XSYG2R <- function(
 
   .validate_class(file, c("character", "list"))
   .validate_positive_scalar(n_records, int = TRUE, null.ok = TRUE)
-  .validate_class(pattern, "character")
 
   # Self Call -----------------------------------------------------------------------------------
   # Option (a): Input is a list, every element in the list will be treated as file connection
@@ -237,7 +236,8 @@ read_XSYG2R <- function(
     .validate_length(file, 1)
 
     ##If this is not really a path we skip this here
-    if (dir.exists(file) & length(dir(file)) > 0) {
+    if (dir.exists(file) && length(dir(file)) > 0) {
+      .validate_class(pattern, "character")
       if (verbose)
         .throw_message("Directory detected, trying to extract ",
                        "'*.xsyg' files ...\n", error = FALSE)
@@ -263,14 +263,12 @@ read_XSYG2R <- function(
       )
     })
 
-    ##return
-    if (fastForward) {
-      if (import)
-        return(unlist(temp.return, recursive = FALSE))
-      return(as.data.frame(data.table::rbindlist(temp.return)))
-    } else{
+    if (!fastForward)
       return(temp.return)
-    }
+    if (import)
+      return(unlist(temp.return, recursive = FALSE))
+
+    return(as.data.frame(data.table::rbindlist(temp.return)))
   }
 
   ## Integrity checks -------------------------------------------------------
@@ -284,7 +282,6 @@ read_XSYG2R <- function(
   ## check for URL and attempt download
   url_file <- .download_file(file, tempfile("read_XSYG2R_FILE"),
                              verbose = verbose)
-
   if(!is.null(url_file))
     file <- url_file
 
