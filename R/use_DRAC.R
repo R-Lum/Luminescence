@@ -28,7 +28,7 @@
 #' if the version has changed, but not the column order
 #' - `user` [character]: option to provide username for secured site
 #' - `password` [character]: password for secured site, only works jointly with `user`
-#' - `verbose` [logical]: show or hide console output
+#' - `verbose` [logical]: enable/disable output to the terminal
 #'
 #' @return Returns an [Luminescence::RLum.Results-class] object containing the following elements:
 #'

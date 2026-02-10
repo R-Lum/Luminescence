@@ -38,7 +38,7 @@ or \code{"R"}. Default is \code{"text"}.}
 if the version has changed, but not the column order
 \item \code{user} \link{character}: option to provide username for secured site
 \item \code{password} \link{character}: password for secured site, only works jointly with \code{user}
-\item \code{verbose} \link{logical}: show or hide console output
+\item \code{verbose} \link{logical}: enable/disable output to the terminal
 }}
 }
 \value{

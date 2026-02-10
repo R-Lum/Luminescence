@@ -97,7 +97,7 @@
 #'
 #' @param ... Further parameters passed to [plot].
 #' Custom parameters include:
-#' - `verbose` ([logical]): show or hide console output
+#' - `verbose` ([logical]): enable/disable output to the terminal
 #' - `line_col`: Colour of the fitted line
 #' - `line_lty`: Type of the fitted line (see `lty` in `?par`)
 #' - `line_lwd`: Line width of the fitted line (see `lwd` in `?par`)

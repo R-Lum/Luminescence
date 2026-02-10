@@ -82,7 +82,7 @@ Flip the coordinate system.}
 \item{...}{Further parameters passed to \link{plot}.
 Custom parameters include:
 \itemize{
-\item \code{verbose} (\link{logical}): show or hide console output
+\item \code{verbose} (\link{logical}): enable/disable output to the terminal
 \item \code{line_col}: Colour of the fitted line
 \item \code{line_lty}: Type of the fitted line (see \code{lty} in \code{?par})
 \item \code{line_lwd}: Line width of the fitted line (see \code{lwd} in \code{?par})

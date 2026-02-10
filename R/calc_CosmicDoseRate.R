@@ -113,7 +113,8 @@
 #' @param error [numeric] (*with default*):
 #' general error (percentage) to be implemented on corrected cosmic dose rate estimate
 #'
-#' @param ... further arguments (`verbose` to disable/enable console output).
+#' @param ... further arguments (`verbose` to disable/enable output to the
+#' terminal).
 #'
 #' @return
 #' Returns a terminal output. In addition an

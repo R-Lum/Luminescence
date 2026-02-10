@@ -50,7 +50,8 @@ sedimentation rate can safely be assumed.}
 \item{error}{\link{numeric} (\emph{with default}):
 general error (percentage) to be implemented on corrected cosmic dose rate estimate}
 
-\item{...}{further arguments (\code{verbose} to disable/enable console output).}
+\item{...}{further arguments (\code{verbose} to disable/enable output to the
+terminal).}
 }
 \value{
 Returns a terminal output. In addition an
