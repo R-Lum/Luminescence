@@ -10,11 +10,13 @@ test_that("input validation", {
   expect_error(read_XSYG2R(data.frame()),
                "'file' should be of class 'character' or 'list'")
   expect_error(read_XSYG2R(character(0)),
-               "'file' should have length 1")
+               "'file' cannot be an empty character")
+  expect_error(read_XSYG2R(list()),
+               "'file' cannot be an empty list")
   expect_message(expect_null(read_XSYG2R("_error_file_")),
-                "Error: File does not exist, nothing imported")
+                "File '.*_error_file_' does not exist") # windows CI needs the regexp
   expect_message(expect_null(read_XSYG2R("/Test", fastForward = TRUE)),
-                 "Error: File does not exist, nothing imported")
+                 "File '.*/Test' does not exist") # windows CI needs the regexp
   expect_message(expect_null(read_XSYG2R(test_path("_data/xsyg-tests/XSYG_broken.xsyg"), fastForward = TRUE)),
                  "Error: XML file not readable, nothing imported")
   expect_error(read_XSYG2R(xsyg.file, n_records = "error"),
@@ -73,7 +75,6 @@ test_that("test import of XSYG files", {
   expect_type(read_XSYG2R(list(xsyg.file), fastForward = FALSE,
                           verbose = FALSE),
               "list")
-  expect_length(read_XSYG2R(list()), 0)
 
   ## check also internal files
   SW({
@@ -143,7 +144,7 @@ test_that("regression tests", {
 
   ## issue 1260
   SW({
-  expect_null(do.call(read_XSYG2R, list("a test")),
-              "File does not exist, NULL returned")
+  expect_message(expect_null(do.call(read_XSYG2R, list("a test"))),
+                 "File '.*a test' does not exist") # windows CI needs the regexp
   })
 })

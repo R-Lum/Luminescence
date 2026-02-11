@@ -18,10 +18,14 @@
 #' the conversion. This should be okay in most cases, however, it may become problematic
 #' if you have data for dedicated curve analysis.
 #'
-#'@param file [character] (**required**): ASCII log file to read. There is no check
-#'the file extension; just see whether it works or not.
+#' @param file [character] (**required**):
+#' name of one or multiple ASCII log files to read; it can be a path to a
+#' directory, in which case the function tries to read all files it finds
+#' (there is no file extension check, so it may fail ungracefully on binary
+#' files).
 #'
-#'@param verbose [logical] (*with default*): enable/disable output to the terminal.
+#' @param verbose [logical] (*with default*):
+#' enable/disable output to the terminal.
 #'
 #'@param ... further arguments that will be passed to the function (currently not used)
 #'
@@ -29,14 +33,15 @@
 #' [base::readLines], [Luminescence::RLum.Analysis-class], [list.files]
 #'
 #'@return
-#' Returns an S4 [Luminescence::RLum.Analysis-class] object or a [list] of it.
+#' Returns an S4 [Luminescence::RLum.Analysis-class] object. Results are
+#' returned as a list when multiple files are processed or `file` is a list.
 #'
 #'@note
 #' This function tries to extract data from a log file produced for debugging
 #' purposes. There is no guarantee regarding the format stability, and the
 #' function is meant as a last resort if your BIN/BINX files are unusable.
 #'
-#'@section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #'@author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -65,22 +70,17 @@ read_BINXLOG2R <- function(
   .set_function_name("read_BINXLOG2R")
   on.exit(.unset_function_name(), add = TRUE)
 
-# Incoming integrity ------------------------------------------------------
-  .validate_class(file, c("character", "list"))
+  ## Integrity checks -------------------------------------------------------
   .validate_logical_scalar(verbose)
+  file <- .validate_file(file, verbose = verbose)
 
-# Self-call ---------------------------------------------------------------
-  if(inherits(file, "list")) {
+  ## Self-call --------------------------------------------------------------
+  if (inherits(file, "list")) {
     out <- lapply(file, read_BINXLOG2R, verbose = verbose)
     return(unlist(out, recursive = FALSE))
   }
 
-  .validate_length(file, 1)
-
 # Function core -----------------------------------------------------------
-  ## check whether the file is real
-  if(!file.exists(file))
-    .throw_error("File does not exist!")
 
   ## open file connection and ensure that it properly closed
   con <- file(file, "rb")

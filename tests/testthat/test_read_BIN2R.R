@@ -7,12 +7,12 @@ test_that("input validation", {
                "'file' should be of class 'character' or 'list'")
   expect_error(read_BIN2R(character(0)),
                "'file' cannot be an empty character")
-  expect_error(read_BIN2R(letters),
-               "'file' should have length 1")
+  expect_error(read_BIN2R(list()),
+               "'file' cannot be an empty list")
   expect_error(read_BIN2R(file = "error"),
                "File '.*error' does not exist") # windows CI needs the regexp
-  expect_message(expect_null(read_BIN2R(test_path("test_read_BIN2R.R"))),
-                 "is not a file of type 'BIN' or 'BINX'")
+  expect_error(read_BIN2R(test_path("test_read_BIN2R.R")),
+               "extension 'R' is not supported, only 'bin' and 'binx' are valid")
   expect_error(read_BIN2R(test_path("_data/BINfile_V3.bin"), verbose = FALSE,
                           forced.VersionNumber = 1),
                "BIN/BINX format version (01) is not supported or file is broken",
@@ -43,8 +43,8 @@ test_that("input validation", {
   ## check for broken files
   zero <- tempfile(pattern = "zero", fileext = ".binx")
   file.create(zero)
-  expect_message(expect_null(read_BIN2R(zero, verbose = FALSE)),
-                 "is a zero-byte file, NULL returned")
+  expect_error(read_BIN2R(zero, verbose = FALSE),
+               "is a zero-byte file")
   write(raw(), zero)
   expect_error(read_BIN2R(zero, verbose = FALSE),
                "BIN/BINX format version \\(..\\) is not supported or file is")
@@ -83,14 +83,13 @@ test_that("test the import of various BIN-file versions", {
   ## this test needs an internet connection ... test for it
   github.url <- file.path("https://github.com/R-Lum/Luminescence",
                           "raw/archive/dev_0.9.x/tests/testthat/_data")
-  if (!httr::http_error(github.url)) {
+
     ## V3
     bin <- read_BIN2R(file.path(github.url, "BINfile_V3.bin"),
                       verbose = FALSE)
     ## remove randomness in FNAME due to the use of a temporary file
-    bin@METADATA$FNAME <- substr(bin@METADATA$FNAME, 1, 16)
+  bin@METADATA$FNAME <- substr(bin@METADATA$FNAME, 1, 9)
     expect_snapshot_plain(bin)
-  }
 
   ## V4
   expect_snapshot_plain(read_BIN2R(test_path("_data/BINfile_V4.bin"),
@@ -182,16 +181,16 @@ test_that("test the import of various BIN-file versions", {
              forced.VersionNumber = list(8), fastForward = TRUE)
   expect_length(res[[2]], 1)
 
+  res <- read_BIN2R(c(bin.v8, bin.v8), verbose = FALSE, n.records = 2,
+                    fastForward = TRUE)
+  expect_length(res, 2)
+
   res <- read_BIN2R(bin.v8, verbose = FALSE, n.records = 2, fastForward = TRUE)
   expect_length(res, 1)
 
   res <- read_BIN2R(test_path("_data/BINfile_V3.bin"), n.records = 2)
   expect_length(res, 1)
   })
-
-  res <- expect_silent(read_BIN2R(list()))
-  expect_type(res, "list")
-  expect_length(res, 0)
 })
 
 test_that("test hand-crafted files", {
@@ -262,5 +261,5 @@ test_that("regression tests", {
 
   ## issue 1260
   expect_error(do.call(read_BIN2R, list("a test")),
-               "File 'a test' does not exist")
+               "File '.*a test' does not exist") # windows CI needs the regexp
 })

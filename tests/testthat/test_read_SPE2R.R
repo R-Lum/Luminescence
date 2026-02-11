@@ -10,8 +10,8 @@ test_that("input validation", {
                "'file' should be of class 'character'")
   expect_error(read_SPE2R(character(0)),
                "'file' should have length 1")
-  expect_message(expect_null(read_SPE2R("error")),
-                 "Error: File does not exist, NULL returned")
+  expect_error(read_SPE2R("error"),
+               "File '.*error' does not exist") # windows CI needs the regexp
   expect_error(read_SPE2R(local.file, output.object = "error"),
                "'output.object' should be one of 'RLum.Data.Image'")
   expect_error(read_SPE2R(local.file, frame.range = NA),
@@ -20,14 +20,15 @@ test_that("input validation", {
                "'frame.range' should contain positive values")
   expect_error(read_SPE2R(local.file, frame.range = c(0, 3)),
                "'frame.range' should contain positive values")
-  SW({
-  expect_message(expect_null(read_SPE2R("http://httpbingo.org/status/404")),
-                 "Error: File does not exist, NULL returned")
-  })
+  expect_message(expect_message(expect_null(read_SPE2R("http://httpbingo.org/status/404")),
+                                "Downloading"), "FAILED")
 
   wrong <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
   expect_error(read_SPE2R(wrong),
-               "Unsupported file format")
+               "File extension 'binx' is not supported, only 'SPE' is valid")
+  expect_message(expect_message(expect_null(read_SPE2R(dirname(wrong))),
+                                "Directory detected, looking for"),
+                 "Error: No files matching the given pattern found in directory")
 })
 
 test_that("check functionality", {

@@ -17,11 +17,9 @@ read_PSL2R(
 }
 \arguments{
 \item{file}{\link{character} (\strong{required}):
-path and file name of the PSL file. If input is a \code{vector} it should comprise
-only \code{character}s representing valid paths and PSL file names.
-Alternatively, the input character can be just a directory (path), in which
-case the function tries to detect and import all PSL files found in the
-directory.}
+name of one or multiple PSL files (URLs are supported); it can be the path
+to a directory, in which case the function tries to detect and import all
+PSL files found in the directory.}
 
 \item{drop_bg}{\link{logical} (\emph{with default}):
 \code{TRUE} to automatically remove all non-OSL/IRSL curves.}
@@ -50,7 +48,8 @@ enable/disable output to the terminal.}
 }
 \value{
 Returns an S4 \linkS4class{RLum.Analysis} object containing
-\linkS4class{RLum.Data.Curve} objects for each curve.
+\linkS4class{RLum.Data.Curve} objects for each curve. Results are
+returned as a list when multiple files are processed or \code{file} is a list.
 }
 \description{
 This function provides an import routine for the SUERC portable OSL Reader
@@ -66,7 +65,7 @@ a specific PSL file please report to \verb{<christoph.burow@gmx.net>} so the
 function can be updated.
 }
 \section{Function version}{
- 0.1.1
+ 0.1.2
 }
 
 \examples{

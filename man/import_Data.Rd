@@ -27,7 +27,7 @@ reading data into R by looping through all in the package available data import
 functions starting with \code{read_}. Import data types can be mixed.
 }
 \section{Function version}{
- 0.1.5
+ 0.1.6
 }
 
 \examples{

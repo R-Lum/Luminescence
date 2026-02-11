@@ -15,12 +15,7 @@ read_SPE2R(
 }
 \arguments{
 \item{file}{\link{character} (\strong{required}):
-SPE-file name (including path), e.g.
-\itemize{
-\item \verb{[WIN]}: \code{read_SPE2R("C:/Desktop/test.spe")}
-\item \verb{[MAC/LINUX]}: \code{read_SPE2R("/User/test/Desktop/test.spe")}.
-Additionally, it can be a URL starting with \verb{http://} or \verb{https://}.
-}}
+name of the SPE file to read (URLs are supported).}
 
 \item{output.object}{\link{character} (\emph{with default}):
 set the output object type. Allowed types are \linkS4class{RLum.Data.Spectrum},
@@ -34,8 +29,8 @@ of 100 if \code{output.object = "RLum.Data.Image"}) are read.}
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
 enable/disable the progress bar. Ignored if \code{verbose = FALSE}.}
 
-\item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
-terminal.}
+\item{verbose}{\link{logical} (\emph{with default}):
+enable/disable output to the terminal.}
 
 \item{...}{not used, for compatibility reasons only.}
 }
@@ -80,7 +75,7 @@ The function has been successfully tested for SPE format versions 2.x.
 \emph{Currently not all information provided by the SPE format are supported.}
 }
 \section{Function version}{
- 0.1.5
+ 0.1.6
 }
 
 \examples{

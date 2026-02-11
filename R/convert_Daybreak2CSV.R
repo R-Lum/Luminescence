@@ -1,6 +1,7 @@
 #' @title Export measurement data produced by a Daybreak luminescence reader to CSV-files
 #'
-#' @description This function is a wrapper function around the functions [Luminescence::read_Daybreak2R] and
+#' @description
+#' This function is a wrapper function around the functions [Luminescence::read_Daybreak2R] and
 #' [Luminescence::write_RLum2CSV] and it imports a Daybreak-file (TXT-file, DAT-file)
 #' and directly exports its content to CSV-files.  If nothing is set for the
 #' argument `path` ([Luminescence::write_RLum2CSV]) the input folder will become the output folder.
@@ -15,7 +16,7 @@
 #' The function returns either a CSV-file (or many of them) or for the option `export = FALSE`
 #' a list comprising objects of type [data.frame] and [matrix]
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -32,7 +33,6 @@
 #'
 #' ##convert
 #' convert_Daybreak2CSV(file)
-#'
 #' }
 #'
 #' @export
@@ -61,6 +61,7 @@ convert_Daybreak2CSV <- function(
 
   # Import file ---------------------------------------------------------------------------------
   if(!inherits(file, "RLum")){
+    .validate_length(file, 1)
     object <- read_Daybreak2R(
       file = file,
       raw = convert_Daybreak2R_settings$raw,

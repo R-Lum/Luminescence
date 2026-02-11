@@ -4,14 +4,13 @@ test_that("input validation", {
   expect_error(read_HeliosOSL2R(data.frame()),
                "'file' should be of class 'character' or 'list'")
   expect_error(read_HeliosOSL2R(character(0)),
-               "'file' should have length 1")
+               "'file' cannot be an empty character")
   expect_error(read_HeliosOSL2R(NA_character_),
-               "'file' is not valid")
+               "File 'NA' does not exist")
   expect_error(read_HeliosOSL2R("error"),
-               "[read_HeliosOSL2R()] File extension '' not supported",
-               fixed = TRUE)
-  expect_error(object = read_HeliosOSL2R("error.err"),
-               "[read_HeliosOSL2R()] File extension 'err' not supported",
+               "File '.*error' does not exist") # windows CI needs the regexp
+  expect_error(object = read_HeliosOSL2R(test_path("_data/BINfile_V3.bin")),
+               "[read_HeliosOSL2R()] File extension 'bin' is not supported, only",
                fixed = TRUE)
 })
 

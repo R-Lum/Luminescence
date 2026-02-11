@@ -325,7 +325,7 @@
 #'
 #' **Please note: If distribution was set to `log_normal` the central dose is given as geometric mean!**
 #'
-#' @section Function version: 0.1.39
+#' @section Function version: 0.1.40
 #'
 #' @author
 #' Norbert Mercier, Archéosciences Bordeaux, CNRS-Université Bordeaux Montaigne (France) \cr
@@ -1067,11 +1067,13 @@ analyse_baSAR <- function(
             pattern = additional_arguments$pattern,
             verbose = verbose
           )
+          fileBIN.list <- .rm_NULL_elements(fileBIN.list)
+          if (length(fileBIN.list) == 0)
+            return(NULL)
         }
 
     } else if (is.character(object)) {
-      fileBIN.list <- list(
-        read_BIN2R(
+      bin <- read_BIN2R(
           file = object,
           position = additional_arguments$position,
           duplicated.rm = additional_arguments$duplicated.rm,
@@ -1079,7 +1081,6 @@ analyse_baSAR <- function(
           pattern = additional_arguments$pattern,
           verbose = verbose
         )
-      )
     }
 
     ##Problem ... the user might have made a pre-selection in the Analyst software, if this the

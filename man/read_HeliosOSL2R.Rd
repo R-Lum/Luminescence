@@ -7,26 +7,30 @@
 read_HeliosOSL2R(file, verbose = TRUE, ...)
 }
 \arguments{
-\item{file}{\link{character} (\strong{required}): path to file to be imported. Can be a \link{list}
-for further processing}
+\item{file}{\link{character}, \link{list} (\strong{required}):
+name of one or multiple \code{.osl} files (URLs are supported); it can be the
+path to a directory, in which case the function tries to detect and import
+all \code{.osl} files found in the directory.}
 
-\item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
-terminal.}
+\item{verbose}{\link{logical} (\emph{with default}):
+enable/disable output to the terminal.}
 
 \item{...}{not in use, for compatibility reasons only}
 }
 \value{
-\linkS4class{RLum.Analysis} object
+A \linkS4class{RLum.Analysis} object. Results are returned as a
+list when multiple files are processed or \code{file} is a list.
 }
 \description{
-Straightforward import of files with the ending \code{.osl} produced
-by the zero rad Helios luminescence reader and conversion to \linkS4class{RLum.Analysis} objects.
+Import of files with \code{.osl} extension produced by the zero rad Helios
+luminescence reader and conversion to \linkS4class{RLum.Analysis}
+objects.
 }
 \note{
 Thanks to Krzysztof Maternicki for providing example data.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.1
 }
 
 \examples{

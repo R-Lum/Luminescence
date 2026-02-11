@@ -957,14 +957,15 @@ fancy_scientific <- function(l) {
 #' enable/disable output to the terminal.
 #'
 #' @returns
-#' Returns the file path of the downloaded file or `NULL` in case of failure.
+#' Returns the file path of the downloaded file, or `NULL` if `url` is not
+#' valid, or `NA` in case of failure during download.
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @examples
-#' ## returns just NULL (no valid URL detected)
+#' ## returns NA (no valid URL detected)
 #' .download_file(url = "teststs")
 #' .download_file(url = "https://")
 #' .download_file(url = "_https://github.com/")
@@ -978,12 +979,13 @@ fancy_scientific <- function(l) {
     destfile = tempfile(),
     verbose = TRUE
 ) {
-  out_file_path <- NULL
-
   ## detect and extract url after removing possible whitespace
   url <- trimws(url)
   pattern <- "^https?\\:\\/\\/.+"
-  if (grepl(pattern, url, perl = TRUE)) {
+  if (!grepl(pattern, url, perl = TRUE)) {
+    return(NULL)
+  }
+
     ## status reports
     if (verbose) {
       .throw_message("Downloading ", url, " ... ",
@@ -993,7 +995,7 @@ fancy_scientific <- function(l) {
     fail.msg <- function(w) {
       if (verbose)
         message("FAILED")
-      NULL
+      NA
     }
     ## use internal download
     t <- tryCatch(
@@ -1007,11 +1009,11 @@ fancy_scientific <- function(l) {
       warning = fail.msg,
       error = fail.msg)
 
-    if(!is.null(t) && t == 0) {
+  out_file_path <- NA
+  if (!is.na(t) && t == 0) {
       if (verbose)
         message("OK ", appendLF = TRUE)
       out_file_path <- destfile
-    }
   }
 
   ## return file path
@@ -1145,6 +1147,15 @@ SW <- function(expr) {
   if (throw.error)
     .throw_error(msg)
   .throw_warning(msg)
+}
+
+#' @title Throw an error or a message based on a condition
+#'
+#' @noRd
+.error_or_message <- function(msg, throw.error) {
+  if (throw.error)
+    .throw_error(msg)
+  .throw_message(msg)
 }
 
 #' @title Validate a character argument from a list of choices
@@ -1384,6 +1395,130 @@ SW <- function(expr) {
                                      name = NULL, extra = NULL) {
   .validate_scalar(val, log = TRUE, null.ok = null.ok,
                    name = name %||% .first_argument(), extra = extra)
+}
+
+#' @title Validate a filename
+#'
+#' @param file [character], [list] (**required**):
+#' Name of file to validate (can be more than one), or path to a directory to
+#' scan for files, or list of file names.
+#'
+#' @param ext [character] (*optional*):
+#' Vector of accepted extensions. If `NULL` (default), no check against the
+#' file extension is performed. The check is always case-insensitive.
+#'
+#' @param pattern [character] (*optional*):
+#' A regular expression pattern to select files from a directory. If `NULL`
+#' (default), no pattern is applied, which corresponds to selecting all files
+#' found. It is considered only when `file` is a path to a directory.
+#'
+#' @inheritParams .validate_class
+#'
+#' @return
+#' A list of file names or a single file name or `NULL`, unless the validation
+#' failed with an error thrown.
+#'
+#' @noRd
+.validate_file <- function(file, ext = NULL, pattern = NULL,
+                           throw.error = TRUE, verbose = TRUE) {
+  .validate_class(file, c("character", "list"))
+  .validate_not_empty(file)
+
+  ## if it's a list, we only validate its elements and return it as is
+  if (inherits(file, "list")) {
+    lapply(file, .validate_class, classes = "character", length = 1,
+           name = "All elements of 'file'")
+    return(file)
+  }
+
+  ## if it's a character vector, we return it as a list
+  if (length(file) > 1) {
+    return(as.list(file))
+  }
+
+  ## check if it's a path: if we find multiple files (or none), we return
+  files_in_path <- .scan_path_for_files(file, pattern, verbose)
+  if (length(files_in_path) != 1) {
+    return(as.list(files_in_path))
+  }
+
+  ## this was not a path or the path contained a single file
+  file <- files_in_path
+
+  ## check if it's a URL, in which case download the file locally
+  ## .download_file() returns one of these:
+  ## - NULL: the URL is not valid, so we continue with `file`
+  ## - NA:   the download failed, so we exit
+  ## - else: the download was successful, so we continue with `url_file`
+  url_file <- tempfile("url_file_", fileext = paste0(".", ext[1]))
+  url_file <- .download_file(file, destfile = url_file, verbose = verbose)
+  if (.strict_na(url_file)) {
+    return(NULL)
+  }
+  if (!is.null(url_file)) {
+    file <- url_file
+  }
+
+  ## from now on, we are dealing with a filename
+  filename <- normalizePath(file, mustWork = FALSE)
+  info <- file.info(filename)
+  if (is.na(info$size) || isTRUE(info$isdir)) {
+    .error_or_message(paste0("File '", filename, "' does not exist"),
+                      throw.error)
+    return(NULL)
+  }
+
+  if (info$size == 0) {
+    .error_or_message(paste0("File '", filename, "' is a zero-byte file"),
+                      throw.error)
+    return(NULL)
+  }
+
+  if (!is.null(ext)) {
+    file.ext <- tools::file_ext(filename)
+    if (!tolower(file.ext) %in% tolower(ext)) {
+      msg <- paste0 ("File extension '", file.ext, "' is not supported, only ",
+                     .collapse(ext, last_sep = " and "),
+                     ifelse(length(ext) > 1, " are", " is"), " valid")
+      .error_or_message(msg, throw.error)
+      return(NULL)
+    }
+  }
+
+  filename
+}
+
+#' Find the files matching a given pattern in a path
+#'
+#' @param path [character] (**required**):
+#' The path to search.
+#'
+#' @inheritParams .validate_file
+#'
+#' @return
+#' A vector of file names, or `NULL` if no files are found.
+#'
+#' @noRd
+.scan_path_for_files <- function(path, pattern, verbose) {
+  ## return immediately if this is not a path to a directory
+  if (!dir.exists(path) || length(dir(path)) == 0) {
+    return(path)
+  }
+
+  if (verbose) {
+    .throw_message("Directory detected, looking for ",
+                   if (is.null(pattern)) "any" else .collapse(pattern),
+                   " files ...", error = FALSE)
+  }
+
+  files <- dir(path, pattern = pattern, recursive = FALSE,
+               full.names = TRUE, include.dirs = FALSE)
+  if (length(files) == 0 && verbose) {
+    .throw_message("No files matching the given pattern found in directory")
+    files <- NULL
+  }
+
+  files
 }
 
 #' @title Validate the originator of an RLum object

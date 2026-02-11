@@ -10,9 +10,9 @@ test_that("input validation", {
                              signal_integral = 1:2, background_integral = 80:100,
                              verbose = FALSE),
                "File '.*error' does not exist") # windows CI needs the regexp
-  expect_error(analyse_baSAR(list("error"),
+  expect_output(expect_null(analyse_baSAR(list("error"),
                              signal_integral = 1:2, background_integral = 80:100,
-                             verbose = FALSE),
+                             verbose = FALSE)),
                "File '.*error' does not exist") # windows CI needs the regexp
   expect_error(analyse_baSAR(data.frame(), verbose = FALSE),
                "'object' should be of class 'Risoe.BINfileData', 'RLum.Results'")

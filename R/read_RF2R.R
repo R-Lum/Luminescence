@@ -9,23 +9,27 @@
 #' This functions provides an easy import to process the data seamlessly with the R package 'Luminescence'.
 #' The output of the function can be passed to function [Luminescence::analyse_IRSAR.RF].
 #'
-#' @param file [character] (**required**): path and file name of the RF file. Alternatively a list of file
-#' names can be provided.
+#' @param file [character] (**required**):
+#' name of one or multiple RF files (URLs are supported); it can be the path
+#' to a directory, in which case the function tries to detect and import all
+#' RF files found in the directory.
 #'
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
 #'
 #' @param ... not used, only for compatible reasons
 #'
-#' @return Returns an S4 [Luminescence::RLum.Analysis-class] object containing
-#' [Luminescence::RLum.Data.Curve-class] objects for each curve.
+#' @return
+#' Returns an S4 [Luminescence::RLum.Analysis-class] object containing
+#' [Luminescence::RLum.Data.Curve-class] objects for each curve. Results are
+#' returned as a list when multiple files are processed or `file` is a list.
 #'
 #' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data.Curve-class],
 #' [Luminescence::analyse_IRSAR.RF]
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @keywords IO
 #'
@@ -47,13 +51,13 @@ read_RF2R <- function(
   .set_function_name("read_RF2R")
   on.exit(.unset_function_name(), add = TRUE)
 
-# Self-call -----------------------------------------------------------------------------------
-  if(inherits(file, "list")){
+  ## Integrity checks -------------------------------------------------------
+  .validate_logical_scalar(verbose)
+  file <- .validate_file(file, verbose = verbose)
+
+  ## Self-call --------------------------------------------------------------
+  if (inherits(file, "list")) {
     results_list <- lapply(file, function(f){
-      if (!.validate_class(f, "character", throw.error = FALSE,
-                           name = "All elements of 'file'")) {
-        return(NULL)
-      }
       temp <- try(read_RF2R(file = f, verbose = verbose), silent = TRUE)
 
       ##check whether it worked
@@ -67,24 +71,6 @@ read_RF2R <- function(
 
     return(unlist(results_list, recursive = FALSE))
   }
-
-
-  ## Integrity checks -------------------------------------------------------
-
-  .validate_class(file, "character", extra = "'list'")
-  .validate_not_empty(file)
-
-  ##throw warning if we have a vector
-  if(length(file) > 1){
-    .throw_warning("'file' has length > 1, only the first element was taken. ",
-                   "If you want to import multiple files, 'file' has to be ",
-                   "of type 'list'")
-    file <- file[1]
-  }
-
-  ##check whether file is available
-  if(!file.exists(file))
-    .throw_error("File '", file, "' does not exist")
 
   ##read first line to ensure the format
   vers_str <-  readLines(file, 1)

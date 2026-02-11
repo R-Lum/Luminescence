@@ -116,7 +116,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["read_BIN22R_FILE", "read_BIN22R_FILE"]
+              "value": ["url_file_", "url_file_"]
             },
             {
               "type": "character",

@@ -6,10 +6,10 @@ test_that("input validation", {
   expect_error(convert_XSYG2CSV(character(0)),
                "'file' cannot be an empty character")
   expect_error(convert_XSYG2CSV(letters),
-               "[read_XSYG2R()] 'file' should have length 1",
+               "[convert_XSYG2CSV()] 'file' should have length 1",
                fixed = TRUE)
   expect_error(convert_PSL2CSV(file = "error"),
-               "No .psl files found")
+               "File '.*error' does not exist") # windows CI needs the regexp
   SW({
   expect_error(expect_message(convert_XSYG2CSV(file = "", export = FALSE),
                               "XML file not readable, nothing imported"),

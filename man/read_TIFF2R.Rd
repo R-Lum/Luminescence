@@ -7,27 +7,28 @@
 read_TIFF2R(file, merge2stack = FALSE, verbose = TRUE, ...)
 }
 \arguments{
-\item{file}{\link{character} (\strong{required}): file name, can be of type \link{list} for automated
-processing of many images}
+\item{file}{\link{character} (\strong{required}):
+name of the TIFF file to read (URLs are supported).}
 
 \item{merge2stack}{\link{logical} (\emph{with default}): if \code{file} is a \link{list} it merges
 the individual images into one image stack. Please note that the smallest image
 dimension determines pixel dimension of the output stack.}
 
-\item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
-terminal}
+\item{verbose}{\link{logical} (\emph{with default}):
+enable/disable output to the terminal.}
 
 \item{...}{not in use, for compatibility reasons only}
 }
 \value{
-\linkS4class{RLum.Data.Image} object
+Returns an \linkS4class{RLum.Data.Image} object. Results are
+returned as a list when multiple files are processed or \code{file} is a list.
 }
 \description{
-Simple wrapper around \link[tiff:readTIFF]{tiff::readTIFF} to import TIFF images
-and TIFF image stacks to be further processed within the package \code{'Luminescence'}
+Simple wrapper around \link[tiff:readTIFF]{tiff::readTIFF} to import TIFF images and TIFF image
+stacks to be further processed within the 'Luminescence' package.
 }
 \section{Function version}{
- 0.2.0
+ 0.2.1
 }
 
 \examples{

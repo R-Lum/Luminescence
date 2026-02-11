@@ -8,10 +8,9 @@ read_Daybreak2R(file, raw = FALSE, verbose = TRUE, txtProgressBar = TRUE, ...)
 }
 \arguments{
 \item{file}{\link{character} or \link{list} (\strong{required}):
-path and file name of the file to be imported. Alternatively a list of file
-names can be provided or just the path a folder containing measurement data.
-Please note that the specific, common, file extension (\code{.txt}) is likely
-leading to function failures during import when just a path is provided.}
+name of one or multiple \code{.DAT} or \code{.txt} files (URLs are supported); it can
+be the path to a directory, in which case the function tries to detect and
+import all files with \code{.txt} extension.}
 
 \item{raw}{\link{logical} (\emph{with default}):
 if the input is a DAT-file (binary) a \link[data.table:data.table]{data.table::data.table} instead of
@@ -26,7 +25,8 @@ enable/disable \link{txtProgressBar}.}
 \item{...}{not in use, for compatibility reasons only}
 }
 \value{
-A list of \linkS4class{RLum.Analysis} objects (each per position) is provided.
+A list of \linkS4class{RLum.Analysis} objects (each per position)
+is returned.
 }
 \description{
 Import a TXT-file (ASCII file) or a DAT-file (binary file) produced by a
@@ -41,7 +41,7 @@ This function still needs to be tested properly. In particular
 the function has underwent only very rough tests using a few files.
 }
 \section{Function version}{
- 0.4.0
+ 0.4.1
 }
 
 \examples{
