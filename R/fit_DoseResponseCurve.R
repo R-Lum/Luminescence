@@ -597,12 +597,10 @@ fit_DoseResponseCurve <- function(
   ## helper to report the fit: this assigns the
   fit_message <- ""
   .report_fit <- function(De, ...) {
-    if (mode != "alternate") {
       fit_message <<- paste0(sprintf("Fit: %s (%s) | De = %.2f",
                                      fit.method, mode, abs(De)), ...)
       if (verbose)
         writeLines(paste("[fit_DoseResponseCurve()]", fit_message))
-    }
   }
 
   ## helper to report a failure in the fit

@@ -160,11 +160,11 @@ test_that("additional tests", {
                                  mode = "alternate",
                                  verbose = FALSE,
                                  n.MC = 10))
-  expect_silent(plot_GrowthCurve(LxTxData,
+  expect_output(plot_GrowthCurve(LxTxData,
                                  fit.method = "LIN",
                                  mode = "alternate",
                                  n.MC = 10))
-  expect_silent(plot_GrowthCurve(LxTxData,
+  expect_output(plot_GrowthCurve(LxTxData,
                                  fit.method = "EXP",
                                  mode = "alternate",
                                  n.MC = 10))
@@ -173,11 +173,11 @@ test_that("additional tests", {
                                  mode = "alternate",
                                  verbose = FALSE,
                                  n.MC = 10))
-  expect_silent(plot_GrowthCurve(LxTxData,
+  expect_output(plot_GrowthCurve(LxTxData,
                                  fit.method = "GOK",
                                  mode = "alternate",
                                  n.MC = 10))
-  expect_silent(plot_GrowthCurve(LxTxData,
+  expect_output(plot_GrowthCurve(LxTxData,
                                  fit.method = "OTOR",
                                  mode = "alternate",
                                  n.MC = 10))
