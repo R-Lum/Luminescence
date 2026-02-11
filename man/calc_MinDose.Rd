@@ -61,7 +61,7 @@ enable/disable the plot output.}
 \item{multicore}{\link{logical} (\emph{with default}):
 parallelize the computation of the bootstrap by creating a multicore cluster
 (only considered if \code{bootstrap = TRUE}). By default, it uses all available
-logical CPU cores, but this can be changed with the \code{cores} argument. ote
+logical CPU cores, but this can be changed with the \code{cores} argument. Note
 that this feature is experimental and may not work on all systems.}
 
 \item{...}{(\emph{optional}) further arguments for bootstrapping
@@ -159,7 +159,7 @@ with \code{bs.h}. By default, this is calculated as:
 
 Parallel processing can be enabled by setting \code{multicore = TRUE}. By default,
 the number of logical CPU cores is detected automatically, but it can be
-overridded with the \code{cores} argument. Multicore processing is supported
+overridden with the \code{cores} argument. Multicore processing is supported
 only when \code{bootstrap = TRUE}, and spawns one R process per core to compute
 MAM estimates for each of the \code{N * M} bootstrap replicates. Note that this
 feature is experimental and may not work on all systems. Performance gains

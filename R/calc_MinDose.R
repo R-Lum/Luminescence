@@ -69,7 +69,7 @@
 #'
 #' Parallel processing can be enabled by setting `multicore = TRUE`. By default,
 #' the number of logical CPU cores is detected automatically, but it can be
-#' overridded with the `cores` argument. Multicore processing is supported
+#' overridden with the `cores` argument. Multicore processing is supported
 #' only when `bootstrap = TRUE`, and spawns one R process per core to compute
 #' MAM estimates for each of the `N * M` bootstrap replicates. Note that this
 #' feature is experimental and may not work on all systems. Performance gains
@@ -133,7 +133,7 @@
 #' @param multicore [logical] (*with default*):
 #' parallelize the computation of the bootstrap by creating a multicore cluster
 #' (only considered if `bootstrap = TRUE`). By default, it uses all available
-#' logical CPU cores, but this can be changed with the `cores` argument. ote
+#' logical CPU cores, but this can be changed with the `cores` argument. Note
 #' that this feature is experimental and may not work on all systems.
 #'
 #' @param ... (*optional*) further arguments for bootstrapping
