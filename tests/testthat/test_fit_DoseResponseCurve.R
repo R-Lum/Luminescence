@@ -488,6 +488,7 @@ temp_OTORX_alt <-
   set.seed(1)
   LxTxData[1,2:3] <- c(0.5, 0.001)
 
+  SW({
   ##LIN
   expect_s4_class(
     fit_DoseResponseCurve(LxTxData, mode = "alternate", fit.method = "LIN"),
@@ -497,6 +498,7 @@ temp_OTORX_alt <-
   EXP <- expect_s4_class(
     fit_DoseResponseCurve(LxTxData, mode = "alternate", fit.method = "EXP"),
     "RLum.Results")
+  })
 
   ## EXP+LIN
   EXPLIN <- expect_s4_class(
