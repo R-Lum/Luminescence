@@ -7,15 +7,20 @@
 read_BINXLOG2R(file, verbose = TRUE, ...)
 }
 \arguments{
-\item{file}{\link{character} (\strong{required}): ASCII log file to read. There is no check
-the file extension; just see whether it works or not.}
+\item{file}{\link{character} (\strong{required}):
+name of one or multiple ASCII log files to read; it can be a path to a
+directory, in which case the function tries to read all files it finds
+(there is no file extension check, so it may fail ungracefully on binary
+files).}
 
-\item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the terminal.}
+\item{verbose}{\link{logical} (\emph{with default}):
+enable/disable output to the terminal.}
 
 \item{...}{further arguments that will be passed to the function (currently not used)}
 }
 \value{
-Returns an S4 \linkS4class{RLum.Analysis} object or a \link{list} of it.
+Returns an S4 \linkS4class{RLum.Analysis} object. Results are
+returned as a list when multiple files are processed or \code{file} is a list.
 }
 \description{
 The function attempts to extract meaningful measurement data from the
@@ -41,7 +46,7 @@ purposes. There is no guarantee regarding the format stability, and the
 function is meant as a last resort if your BIN/BINX files are unusable.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.1
 }
 
 \examples{

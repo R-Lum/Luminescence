@@ -15,8 +15,7 @@ test_that("input validation", {
   expect_error(write_R2TIFF(ExampleData.RLum.Data.Image, norm = 0),
                "'norm' should be a single positive value")
   expect_error(write_R2TIFF(ExampleData.RLum.Data.Image, file = "error/error"),
-               "[write_R2TIFF()] Path 'error' does not exist",
-               fixed = TRUE)
+               "Path '.*error' does not exist") # windows CI needs the regexp
   expect_error(write_R2TIFF(set_RLum("RLum.Data.Image")),
                "Empty RLum.Data.Image object detected")
 })

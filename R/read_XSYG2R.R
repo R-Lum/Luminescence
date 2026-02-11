@@ -97,11 +97,9 @@
 #' is supported as this may lead to endless loops.
 #'
 #' @param file [character] or [list] (**required**):
-#' path and file name of the XSYG file. If input is a `list` it should comprise
-#' only `character`s representing each valid path and XSYG-file names.
-#' Alternatively, the input character can be just a directory (path), in which
-#' case the function tries to detect and import all XSYG-files found in the
-#' directory.
+#' name of one or multiple XSYG files (URLs are supported); it can be the path
+#' to a directory, in which case the function tries to detect and import all
+#' XSYG files found in the directory.
 #'
 #' @param recalculate.TL.curves [logical] (*with default*):
 #' if set to `TRUE`, TL curves are returned as temperature against count values
@@ -157,7 +155,7 @@
 #' **So far, no image data import is provided!** \cr
 #' Corresponding values in the XSXG file are skipped.
 #'
-#' @section Function version: 0.8.1
+#' @section Function version: 0.8.2
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -224,7 +222,11 @@ read_XSYG2R <- function(
   ##  - the should be a mode importing ALL metadata
   ##  - xlum should be general, xsyg should take care about subsequent details
 
-  .validate_class(file, c("character", "list"))
+  .validate_logical_scalar(verbose)
+  .validate_class(pattern, "character")
+  file <- .validate_file(file, pattern = pattern, throw.error = FALSE, verbose = verbose)
+  if (length(file) == 0)
+    return(NULL)
   .validate_positive_scalar(n_records, int = TRUE, null.ok = TRUE)
 
   # Self Call -----------------------------------------------------------------------------------
@@ -232,25 +234,6 @@ read_XSYG2R <- function(
   # with that many file can be read in at the same time
   # Option (b): The input is just a path, the function tries to grep ALL xsyg/XSYG files in the
   # directory and import them, if this is detected, we proceed as list
-  if (is.character(file)) {
-    .validate_length(file, 1)
-
-    ##If this is not really a path we skip this here
-    if (dir.exists(file) && length(dir(file)) > 0) {
-      .validate_class(pattern, "character")
-      if (verbose)
-        .throw_message("Directory detected, trying to extract ",
-                       "'*.xsyg' files ...\n", error = FALSE)
-      file <- as.list(dir(file, recursive = TRUE, pattern = pattern, full.names = TRUE))
-      if (length(file) == 0) {
-        if (verbose)
-          .throw_message("No files matching the given pattern ",
-                         "found in directory, NULL returned")
-        return(NULL)
-      }
-    }
-  }
-
   if (inherits(file, "list")) {
     temp.return <- lapply(seq_along(file), function(x) {
       read_XSYG2R(
@@ -272,28 +255,10 @@ read_XSYG2R <- function(
   }
 
   ## Integrity checks -------------------------------------------------------
-
   .validate_logical_scalar(fastForward)
   .validate_logical_scalar(import)
   .validate_logical_scalar(auto_linearity_correction)
-  .validate_logical_scalar(verbose)
   .validate_logical_scalar(txtProgressBar)
-
-  ## check for URL and attempt download
-  url_file <- .download_file(file, tempfile("read_XSYG2R_FILE"),
-                             verbose = verbose)
-  if(!is.null(url_file))
-    file <- url_file
-
-  ## normalise path, just in case
-  file <- suppressWarnings(normalizePath(file))
-
-  ## check whether file exist
-  if(!file.exists(file)) {
-    if(verbose)
-      .throw_message("File does not exist, nothing imported, NULL returned")
-    return(NULL)
-  }
 
   ## don't show the progress bar if not verbose
   if (!verbose)

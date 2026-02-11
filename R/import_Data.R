@@ -16,7 +16,7 @@
 #' @param verbose [logical] (*with default*): enable/disable output to the
 #' terminal.
 #'
-#'@section Function version: 0.1.5
+#' @section Function version: 0.1.6
 #'
 #'@author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -67,12 +67,13 @@ import_Data <- function(
 
   ## just try all functions and all files
   for (i in fun) {
+    SW({
       ## get arguments and remove non-supported arguments
-      t <- suppressWarnings(suppressMessages(try(do.call(what = i, args = args), silent = TRUE)))
+      t <- try(do.call(what = i, args = args), silent = TRUE)
+    })
 
       if (!is.null(t) && !inherits(t, "try-error"))
         out <- c(out, t)
-
   }
 
   ## return if output is not empty
@@ -80,5 +81,4 @@ import_Data <- function(
    .throw_message("Unknown file format, nothing imported")
 
   return(out)
-
 }

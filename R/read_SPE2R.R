@@ -8,10 +8,7 @@
 #' references).
 #'
 #' @param file [character] (**required**):
-#' SPE-file name (including path), e.g.
-#' - `[WIN]`: `read_SPE2R("C:/Desktop/test.spe")`
-#' - `[MAC/LINUX]`: `read_SPE2R("/User/test/Desktop/test.spe")`.
-#' Additionally, it can be a URL starting with `http://` or `https://`.
+#' name of the SPE file to read (URLs are supported).
 #'
 #' @param output.object [character] (*with default*):
 #' set the output object type. Allowed types are [Luminescence::RLum.Data.Spectrum-class],
@@ -25,8 +22,8 @@
 #' @param txtProgressBar [logical] (*with default*):
 #' enable/disable the progress bar. Ignored if `verbose = FALSE`.
 #'
-#' @param verbose [logical] (*with default*): enable/disable output to the
-#' terminal.
+#' @param verbose [logical] (*with default*):
+#' enable/disable output to the terminal.
 #'
 #' @param ... not used, for compatibility reasons only.
 #'
@@ -63,7 +60,7 @@
 #'
 #' *Currently not all information provided by the SPE format are supported.*
 #'
-#' @section Function version: 0.1.5
+#' @section Function version: 0.1.6
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -124,28 +121,15 @@ read_SPE2R <- function(
   if (anyNA(frame.range) || any(frame.range <= 0))
     .throw_error("'frame.range' should contain positive values")
 
-  ##check if file exists
-  if(!file.exists(file)){
-    destfile <- tempfile("read_SPE2R_FILE", fileext = ".SPE")
-    file <- .download_file(file, destfile)
-
-    if (is.null(file)) {
-      .throw_message("File does not exist, NULL returned")
-      return(NULL)
-    }
-  }
-
-  ##check file extension
-  if(!grepl(basename(file), pattern = "SPE$", ignore.case = TRUE)){
-    if(strsplit(file, split = "\\.")[[1]][2] != "SPE"){
-      .throw_error("Unsupported file format: *.",
-                   strsplit(file, split = "\\.")[[1]][2], sep = "")
-  }}
-
   if (!verbose)
     txtProgressBar <- FALSE
 
   # Open Connection ---------------------------------------------------------
+
+  file <- .validate_file(file, ext = "SPE", pattern = "\\.SPE$",
+                         verbose = verbose)
+  if (length(file) == 0)
+    return(NULL)
 
   con <- file(file, "rb")
 

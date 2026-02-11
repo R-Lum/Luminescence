@@ -8,10 +8,9 @@
 #' 2200.
 #'
 #' @param file [character] or [list] (**required**):
-#' path and file name of the file to be imported. Alternatively a list of file
-#' names can be provided or just the path a folder containing measurement data.
-#' Please note that the specific, common, file extension (`.txt`) is likely
-#' leading to function failures during import when just a path is provided.
+#' name of one or multiple `.DAT` or `.txt` files (URLs are supported); it can
+#' be the path to a directory, in which case the function tries to detect and
+#' import all files with `.txt` extension.
 #'
 #' @param raw [logical] (*with default*):
 #' if the input is a DAT-file (binary) a [data.table::data.table] instead of
@@ -26,14 +25,15 @@
 #' @param ... not in use, for compatibility reasons only
 #'
 #' @return
-#' A list of [Luminescence::RLum.Analysis-class] objects (each per position) is provided.
+#' A list of [Luminescence::RLum.Analysis-class] objects (each per position)
+#' is returned.
 #'
 #' @note
 #' **`[BETA VERSION]`**
 #' This function still needs to be tested properly. In particular
 #' the function has underwent only very rough tests using a few files.
 #'
-#' @section Function version: 0.4.0
+#' @section Function version: 0.4.1
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -83,19 +83,9 @@ read_Daybreak2R <- function(
   if (!verbose)
     txtProgressBar <- FALSE
 
-  if (is.character(file)) {
-    .validate_length(file, 1)
-
-    ##If this is not really a path we skip this here
-    if (dir.exists(file) && length(dir(file)) > 0) {
-      if(verbose){
-        cat("[read_Daybreak2R()] Directory detected, trying to extract '*.txt' files ...\n")
-      }
-
-      file <- as.list(dir(file, pattern = ".txt", full.names = TRUE,
-                          recursive = FALSE))
-    }
-  }
+  ## Integrity checks -------------------------------------------------------
+  file <- .validate_file(file, ext = c("DAT", "txt"), pattern = ".txt$",
+                         verbose = verbose)
 
   ##if the input is already a list
   if (inherits(file, "list")) {
@@ -107,15 +97,7 @@ read_Daybreak2R <- function(
       )
     })
 
-    ##return
-      return(temp.return)
-  }
-
-
-  ## Integrity checks -------------------------------------------------------
-  ##check if file exists
-  if(!file.exists(file)){
-    .throw_error("File '", file, "' does not exist")
+    return(temp.return)
   }
 
   ##check for file extension ... distinguish between TXT and DAT

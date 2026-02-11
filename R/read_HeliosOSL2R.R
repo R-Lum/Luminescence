@@ -1,23 +1,29 @@
 #'@title Import Luminescence Data from Helios Luminescence Reader
 #'
-#'@description Straightforward import of files with the ending `.osl` produced
-#'by the zero rad Helios luminescence reader and conversion to [Luminescence::RLum.Analysis-class] objects.
+#' @description
+#' Import of files with `.osl` extension produced by the zero rad Helios
+#' luminescence reader and conversion to [Luminescence::RLum.Analysis-class]
+#' objects.
 #'
-#'@param file [character] (**required**): path to file to be imported. Can be a [list]
-#'for further processing
+#' @param file [character], [list] (**required**):
+#' name of one or multiple `.osl` files (URLs are supported); it can be the
+#' path to a directory, in which case the function tries to detect and import
+#' all `.osl` files found in the directory.
 #'
-#' @param verbose [logical] (*with default*): enable/disable output to the
-#' terminal.
+#' @param verbose [logical] (*with default*):
+#' enable/disable output to the terminal.
 #'
 #'@param ... not in use, for compatibility reasons only
 #'
 #'@note Thanks to Krzysztof Maternicki for providing example data.
 #'
-#'@return [Luminescence::RLum.Analysis-class] object
+#' @return
+#' A [Luminescence::RLum.Analysis-class] object. Results are returned as a
+#' list when multiple files are processed or `file` is a list.
 #'
 #'@author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
-#'@section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #'@seealso [Luminescence::RLum.Data.Curve-class], [Luminescence::RLum.Analysis-class]
 #'
@@ -36,8 +42,13 @@ read_HeliosOSL2R <- function(
   .set_function_name("read_HeliosOSL2R")
   on.exit(.unset_function_name(), add = TRUE)
 
-# Self-call ---------------------------------------------------------------
-  if(inherits(file, "list")) {
+  ## Integrity checks -------------------------------------------------------
+  .validate_logical_scalar(verbose)
+  file <- .validate_file(file, ext = "osl", pattern = "\\.osl$",
+                         verbose = verbose)
+
+  ## Self-call --------------------------------------------------------------
+  if (inherits(file, "list")) {
     out <- lapply(file, function(x) {
       tmp <- try(read_HeliosOSL2R(x, verbose = verbose), silent = TRUE)
       if(inherits(tmp, "try-error")) {
@@ -55,22 +66,6 @@ read_HeliosOSL2R <- function(
 
     return(out)
   }
-
-
-  ## Integrity checks -------------------------------------------------------
-
-  .validate_class(file, c("character", "list"))
-  .validate_length(file, 1)
-  if (is.na(file)) {
-    .throw_error("'file' is not valid")
-  }
-
-  ## check file format
-  if (tolower(ext <- tools::file_ext(file)) != "osl")
-    .throw_error("File extension '", ext, "' not supported")
-
-  ## fix path
-  file <- normalizePath(file)
 
   ## Import -----------------------------------------------------------------
 

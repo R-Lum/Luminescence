@@ -5,12 +5,11 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(read_TIFF2R(data.frame()),
-               "'file' should be of class 'character' and have length 1")
+               "'file' should be of class 'character' or 'list'")
   expect_error(read_TIFF2R(character(0)),
-               "'file' should be of class 'character' and have length 1")
+               "'file' cannot be an empty character")
   expect_error(object = read_TIFF2R(file = "text"),
-               "[read_TIFF2R()] File does not exist or is not readable",
-               fixed = TRUE)
+               "File '.*text' does not exist") # windows CI needs the regexp
   expect_error(read_TIFF2R(list(file), merge2stack = NA),
                "'merge2stack' should be a single logical value")
 })

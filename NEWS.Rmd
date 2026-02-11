@@ -370,6 +370,9 @@ error (#1323).
 * The function could crash if called with `do.call()` and some particularly
 odd inputs (#1260).
 
+* The function now throws an error instead of returning `NULL` when a file
+with the wrong extension is read (#1395).
+
 ### `read_Daybreak2R()`
 
 * The function struggled with variable header lengths (#1262; thanks to
@@ -385,6 +388,21 @@ thanks to @andrzejbluszcz for contributing code and datasets).
 
 * Trying to import multiple files by specifying a directory name failed
 because the generated path missed a directory separator (#1264).
+
+### `read_PSL2R()`
+
+* The function now returns `NULL` instead of throwing an error if a directory
+is provided and no PSL files are found within it (#1395).
+
+### `read_RF2R()`
+
+* The function now throws an error instead of returning `NULL` if a list
+containing elements other than character strings is provided (#1395).
+
+### `read_SPE2R()`
+
+* The function now throws an error instead of returning `NULL` if the filename
+provided does not exist (#1395).
 
 ### `read_XSYG2R()`
 
@@ -414,6 +432,10 @@ by the minimum value (`"min"`), the first value (`"first"`), the channel
 length (`"intensity"`) or a positive number (e.g, 2.2). These new settings are
 automatically available to `plot_RLum.Analysis()` and the `plot_RLum.Data.*()`
 functions (#1250, #1300).
+
+* All the `read_*()` functions now process and validate the `file` argument
+through the same internal helper function. This allows them to support single
+and multiple files, URLs and directory paths (#1395).
 
 * The package no longer depends on `RcppArmadillo`. This has no visible
 impact to the user other than a small reduction in the package size (#1254).

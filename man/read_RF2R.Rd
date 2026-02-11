@@ -7,8 +7,10 @@
 read_RF2R(file, verbose = TRUE, ...)
 }
 \arguments{
-\item{file}{\link{character} (\strong{required}): path and file name of the RF file. Alternatively a list of file
-names can be provided.}
+\item{file}{\link{character} (\strong{required}):
+name of one or multiple RF files (URLs are supported); it can be the path
+to a directory, in which case the function tries to detect and import all
+RF files found in the directory.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enable/disable output to the terminal.}
@@ -17,7 +19,8 @@ enable/disable output to the terminal.}
 }
 \value{
 Returns an S4 \linkS4class{RLum.Analysis} object containing
-\linkS4class{RLum.Data.Curve} objects for each curve.
+\linkS4class{RLum.Data.Curve} objects for each curve. Results are
+returned as a list when multiple files are processed or \code{file} is a list.
 }
 \description{
 Import files produced by the IR-RF 'ImageJ' macro (\code{SR-RF.ijm};
@@ -31,7 +34,7 @@ This functions provides an easy import to process the data seamlessly with the R
 The output of the function can be passed to function \link{analyse_IRSAR.RF}.
 }
 \section{Function version}{
- 0.1.1
+ 0.1.2
 }
 
 \examples{

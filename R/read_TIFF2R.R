@@ -1,25 +1,28 @@
 #'@title Import TIFF Image Data into R
 #'
-#'@description Simple wrapper around [tiff::readTIFF] to import TIFF images
-#'and TIFF image stacks to be further processed within the package `'Luminescence'`
+#' @description
+#' Simple wrapper around [tiff::readTIFF] to import TIFF images and TIFF image
+#' stacks to be further processed within the 'Luminescence' package.
 #'
-#'@param file [character] (**required**): file name, can be of type [list] for automated
-#'processing of many images
+#' @param file [character] (**required**):
+#' name of the TIFF file to read (URLs are supported).
 #'
 #'@param merge2stack [logical] (*with default*): if `file` is a [list] it merges
 #'the individual images into one image stack. Please note that the smallest image
 #'dimension determines pixel dimension of the output stack.
 #'
-#'@param verbose [logical] (*with default*): enable/disable output to the
-#'terminal
+#' @param verbose [logical] (*with default*):
+#' enable/disable output to the terminal.
 #'
 #'@param ... not in use, for compatibility reasons only
 #'
-#'@return [Luminescence::RLum.Data.Image-class] object
+#' @return
+#' Returns an [Luminescence::RLum.Data.Image-class] object. Results are
+#' returned as a list when multiple files are processed or `file` is a list.
 #'
 #'@author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
-#'@section Function version: 0.2.0
+#' @section Function version: 0.2.1
 #'
 #'@seealso [tiff::readTIFF], [Luminescence::RLum.Data.Image-class]
 #'
@@ -43,6 +46,11 @@ read_TIFF2R <- function(
   .set_function_name("read_TIFF2R")
   on.exit(.unset_function_name(), add = TRUE)
 
+  ## Integrity checks -------------------------------------------------------
+  .require_suggested_package("tiff", "Importing TIFF files")
+  .validate_logical_scalar(verbose)
+  file <- .validate_file(file, ext = c("tiff", "tif"), pattern = "\\.tiff?$")
+
   # Self call ---------------------------------------------------------------
   if(inherits(file, "list") || length(file) > 1) {
     .validate_logical_scalar(merge2stack)
@@ -64,13 +72,6 @@ read_TIFF2R <- function(
     ## return the results
     return(tmp)
   }
-
-  ## Integrity checks -------------------------------------------------------
-  .validate_class(file, "character", length = 1)
-  .require_suggested_package("tiff", "Importing TIFF files")
-
-  if(!file.exists(file))
-    .throw_error("File does not exist or is not readable")
 
   ## Import -----------------------------------------------------------------
 

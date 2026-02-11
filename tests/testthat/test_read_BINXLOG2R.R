@@ -6,20 +6,18 @@ IRSL_BROKEN <- system.file("extdata/BINX_IRSL_LOG_BROKEN.TXT", package = "Lumine
 test_that("input validation", {
   testthat::skip_on_cran()
 
-  ## break the function
-
   ## nothing for file
   expect_error(read_BINXLOG2R(), regexp = "'file' should be of class 'character' or 'list'")
 
   ## wrong file path
-  expect_error(read_BINXLOG2R(file = "error"), regexp = "File does not exist!")
+  expect_error(read_BINXLOG2R(file = "error"),
+               "File '.*error' does not exist") # windows CI needs the regexp
 
   ## verbose wrong
   expect_error(read_BINXLOG2R(file = IRSL, verbose = "error"), regexp = "'verbose' should be a single logical value")
 
   ## broken file
   expect_error(read_BINXLOG2R(file = IRSL_BROKEN, verbose = FALSE), regexp = "The file does not seem to be a valid debugging log-file")
-
 })
 
 test_that("standard run", {
@@ -49,5 +47,4 @@ test_that("standard run", {
     file = tempfile(),
     version = 4,
     verbose = FALSE))
-
 })

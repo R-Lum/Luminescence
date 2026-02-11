@@ -16,7 +16,7 @@
 #' The function returns either a CSV-file (or many of them) or for the option `export = FALSE`
 #' a list comprising objects of type [data.frame] and [matrix]
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -66,6 +66,7 @@ convert_XSYG2CSV <- function(
 
   # Import file ---------------------------------------------------------------------------------
   if(!inherits(file, "RLum")){
+    .validate_length(file, 1)
     object <- read_XSYG2R(
       file = file,
       fastForward = TRUE,

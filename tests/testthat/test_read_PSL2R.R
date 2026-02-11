@@ -28,10 +28,12 @@ test_that("input validation", {
                "'file' cannot be an empty character")
 
   ## directory given (assumes that we have a .psl file under inst/extdata)
+  SW({
   expect_message(
     read_PSL2R(file = system.file("extdata", package = "Luminescence"),
                verbose = TRUE),
-    "The following files were found and imported")
+    "Directory detected, looking for")
+  })
   expect_silent(
     read_PSL2R(file = system.file("extdata", package = "Luminescence"),
                verbose = FALSE))
@@ -43,11 +45,12 @@ test_that("input validation", {
   expect_error(
     read_PSL2R(file = system.file("extdata/RF_file.rf",
                                   package = "Luminescence")),
-    "No .psl files found"
-  )
-  expect_error(read_PSL2R(system.file("extdata", package = "Luminescence"),
-                          pattern = "error"),
-               "No .psl files found")
+    "File extension 'rf' is not supported, only 'psl' is valid")
+  expect_message(expect_message(
+      expect_null(read_PSL2R(system.file("extdata", package = "Luminescence"),
+                             pattern = "error")),
+      "Directory detected, looking for 'error' files"),
+      "No files matching the given pattern found in directory")
 
   ## list of files with a non-existent file
   expect_error(
