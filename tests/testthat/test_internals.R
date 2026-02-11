@@ -259,7 +259,7 @@ test_that("Test internals", {
   ## attempts download but fails
   url.404 <- "https://raw.githubusercontent.com/R-Lum/rxylib/master/inst/extg"
   expect_message(
-          expect_message(expect_null(.download_file(url = url.404)),
+          expect_message(expect_equal(.download_file(url = url.404), NA),
                          "Downloading"),
       "FAILED")
 
@@ -674,6 +674,51 @@ test_that("Test internals", {
   expect_no_warning(.validate_integral(integral <- c(1, 2)),
                     message = "'integral' was defined as c(1, 2) but in general")
 
+  ## .validate_file() -------------------------------------------------------
+
+  dir.path <- system.file("extdata", package = "Luminescence")
+  expect_equal(.validate_file(file <- c("file1", "file2")),
+               list("file1", "file2"))
+  expect_equal(.validate_file(file <- list("file1")),
+               list("file1"))
+  expect_message(expect_equal(.validate_file(dir.path),
+                              as.list(dir(dir.path, full.names = TRUE))),
+                 "Directory detected, looking for any files")
+  expect_silent(.validate_file(dir.path, verbose = FALSE))
+  expect_message(expect_equal(basename(.validate_file(dir.path, pattern = "xsyg")),
+                              "XSYG_file.xsyg"),
+                 "Directory detected, looking for 'xsyg' files")
+  expect_message(expect_message(
+      expect_length(.validate_file(dir.path, pattern = "_none_"), 0),
+      "Directory detected, looking for '_none_' files"),
+      "No files matching the given pattern found")
+
+  url <- "https://raw.githubusercontent.com/R-Lum/rxylib/master"
+  expect_message(expect_message(.validate_file(file.path(url, "_pkgdown.yml")),
+                                "Downloading"), "OK")
+  expect_message(expect_message(.validate_file(file.path(url, "_error_")),
+                                "Downloading"), "FAILED")
+
+  expect_error(.validate_file(file <- TRUE),
+               "'file' should be of class 'character' or 'list'")
+  expect_error(.validate_file(file <- list(TRUE)),
+               "All elements of 'file' should be of class 'character' and have length 1")
+  expect_error(.validate_file("_error_"),
+               "File '_error_' does not exist")
+  expect_message(expect_null(.validate_file("_error_", throw.error = FALSE)),
+                 "File '_error_' does not exist")
+  file.create(zero <- tempfile(pattern = "zero", fileext = ".binx"))
+  expect_error(.validate_file(zero),
+               "is a zero-byte file")
+  expect_message(expect_null(.validate_file(zero, throw.error = FALSE)),
+                             "is a zero-byte file")
+  expect_error(.validate_file(test_path("test_read_BIN2R.R"), ext = "e1"),
+               "File extension 'R' is not supported, only 'e1' is valid")
+  expect_error(.validate_file(test_path("test_read_BIN2R.R"), ext = c("e1", "e2")),
+               "File extension 'R' is not supported, only 'e1' and 'e2' are valid")
+  expect_message(expect_null(.validate_file(test_path("test_read_BIN2R.R"),
+                                            ext = c("e1", "e2", "e3"), throw.error = FALSE)),
+                 "File extension 'R' is not supported, only 'e1', 'e2' and 'e3'")
 
   ## .require_suggested_package() -------------------------------------------
   expect_true(.require_suggested_package("utils"))
