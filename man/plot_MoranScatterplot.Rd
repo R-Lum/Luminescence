@@ -12,16 +12,19 @@ plot_MoranScatterplot(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Results} or \link{numeric} (\strong{required}): containing a numerical vector of length 100,
+\item{object}{\linkS4class{RLum.Results} or \link{numeric} (\strong{required}):
+containing a numerical vector of length 100,
 representing one or more measurement discs ("positions") in a reader.
 Each element in the vector represents one grain hole location on a disc.}
 
-\item{df_neighbours}{\link{data.frame} (\emph{with default}) Data frame indicating
+\item{df_neighbours}{\link{data.frame} (\emph{with default}):
+Data frame indicating
 which borders to consider, and their respective weights (see the description
 provided for \link{calc_MoransI}). If \code{NULL} (default), this is constructed
 automatically by the internal function \code{.get_Neighbours}.}
 
-\item{str_y_def}{\link{character} (\emph{with default}) Calculation of y position. Defaults to \code{"mean_neighbours"}
+\item{str_y_def}{\link{character} (\emph{with default}):
+Calculation of y position. Defaults to \code{"mean_neighbours"}
 which is the plain mean of all neighbour values and the most illustrative. The other option is \code{"weighted_sum"},
 which means the sum of the border weights times the neighbour values, which is actually closer
 to the way Moran's I is by default calculated in this package.}
@@ -34,16 +37,19 @@ differences, \code{log = "x"}, \code{log = "y"} and \code{log = "xy"}are support
 In case of negative values and logarithmic plotting, values are increased
 so the smallest value to plot is 1. Summary elements such as means, least
 square line etc. will still be based on the linear case.
-\code{pch} accepts options "show_location_ids"\verb{(plots grain location id's),}"show_n_neighbours"\verb{(indicates numbers of neighbours) and the normal base plot}pch` options.}
+\code{pch} accepts options \code{"show_location_ids"} (plots grain location id's),
+\code{"show_n_neighbours"} (indicates numbers of neighbours) and the normal
+base plot \code{pch} options.}
 }
 \value{
 Returns (invisibly) a data frame with plotting coordinates and
 grain location id's, for creating user-defined plots.
 }
 \description{
-Scatter plot, with on the x axis the original grain signal and on the y axis
-the weighted mean of the neighbour grain signals. The plot area is divided into four quadrants,
-and also a least square line (which slopes indicates, but not exactly represents, Moran's I) and
+The function produces a scatter plot, with on the x axis the original grain
+signal and on the y axis the weighted mean of the neighbour grain signals.
+The plot area is divided into four quadrants, and also a least square line
+(which slopes indicates, but not exactly represents, Moran's I) and
 an 1:1 line (which indicates a Moran's I of around 1).
 }
 \details{
@@ -60,9 +66,10 @@ plot_MoranScatterplot(1:100)
 }
 \references{
 de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
-A novel tool to assess crosstalk in single-grain luminescence detection.
-Submitted.
+A novel method to assess crosstalk in single-grain luminescence detection.
+Radiation Measurements 186, 107459. \doi{10.1016/j.radmeas.2025.107459}
 }
 \author{
-Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
+Anna-Maartje de Boer, Wageningen University & Research (The Netherlands)\cr
+Luc Steinbuch, Wageningen University & Research (The Netherlands)\cr
 }

@@ -17,28 +17,33 @@ calc_MaxDose(
 }
 \arguments{
 \item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
-for \link{data.frame}: two columns with De \code{(data[ ,1])} and De error \code{(data[ ,2])}.}
+for \link{data.frame}: two columns with \code{(data[, 1])} and De error \code{(data[, 2])}.}
 
 \item{sigmab}{\link{numeric} (\strong{required}):
 additional spread in De values, representing the expected overdispersion in
 the data should the sample be well-bleached (Cunningham & Wallinga 2012, p. 100).
-\strong{NOTE}: For the logged model (\code{log = TRUE}) this value must be
+\strong{Note:} For the logged model (\code{log = TRUE}) this value must be
 a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
-sigmab must be provided in the same absolute units of the De values (seconds or Gray).
-See details (\link{calc_MinDose}.}
+\code{sigmab} must be provided in the same absolute units of the De values (seconds or Gray).
+See details.}
 
 \item{log}{\link{logical} (\emph{with default}):
-fit the (un-)logged three parameter minimum dose model to De data}
+whether the logged minimum dose model should be fit to De data (\code{TRUE} by
+default).}
 
 \item{par}{\link{numeric} (\emph{with default}):
-apply the 3- or 4-parameter minimum age model (\code{par=3} or \code{par=4}).}
+number of parameters in the minimum age model, either 3 (default) or 4.}
 
 \item{bootstrap}{\link{logical} (\emph{with default}):
 apply the recycled bootstrap approach of Cunningham & Wallinga (2012).}
 
-\item{init.values}{\link{numeric} (\emph{with default}):
-starting values for gamma, sigma, p0 and mu. Custom values need to be provided in a vector of
-length three in the form of \code{c(gamma, sigma, p0)}.}
+\item{init.values}{\link{numeric} (\emph{optional}):
+a named list with starting values for \code{gamma}, \code{sigma}, \code{p0} and \code{mu}
+(e.g. \code{list(gamma=100, sigma=1.5, p0=0.1, mu=100)}). If no values are
+provided, reasonable values will be estimated from the data.
+\strong{Note:} the initial values must always be given in the absolute units.
+If a logged model is applied (\code{log = TRUE}), the provided \code{init.values}
+are automatically log-transformed.}
 
 \item{plot}{\link{logical} (\emph{with default}):
 enable/disable the plot output.}

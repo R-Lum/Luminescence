@@ -29,7 +29,8 @@ The function searches explicitly for this column name.}
 selects calculation mode of the function.
 \itemize{
 \item \code{"interpolation"} (default) calculates the De by interpolation,
-\item \code{"extrapolation"} calculates the equivalent dose by extrapolation (useful for MAAD measurements) and
+\item \code{"extrapolation"} calculates the equivalent dose by extrapolation
+(useful for MAAD measurements) and
 \item \code{"alternate"} calculates no equivalent dose and just fits the data points.
 }
 
@@ -37,26 +38,15 @@ Please note that for option \code{"interpolation"} the first point is considered
 as natural dose}
 
 \item{fit.method}{\link{character} (\emph{with default}):
-function used for fitting. Possible options are:
-\itemize{
-\item \code{LIN},
-\item \code{QDR},
-\item \code{EXP},
-\item \verb{EXP OR LIN},
-\item \code{EXP+LIN},
-\item \code{EXP+EXP},
-\item \code{GOK},
-\item \code{OTOR},
-\item \code{OTORX}
-}
-
-See details in \link{fit_DoseResponseCurve}.}
+function used for fitting. Possible options are: \code{LIN}, \code{QDR}, \code{EXP},
+\verb{EXP OR LIN}, \code{EXP+LIN}, \code{EXP+EXP} (not defined for extrapolation), \code{GOK},
+\code{OTOR} and \code{OTORX}. See details.}
 
 \item{output.plot}{\link{logical} (\emph{with default}):
 enable/disable the plot output.}
 
 \item{output.plotExtended}{\link{logical} (\emph{with default}):
-If' \code{TRUE}, 3 plots on one plot area are provided:
+If \code{TRUE}, 3 plots on one plot area are provided:
 \enumerate{
 \item growth curve,
 \item histogram from Monte Carlo error simulation and
@@ -67,7 +57,7 @@ If \code{FALSE}, just the growth curve will be plotted.}
 
 \item{plot_singlePanels}{\link{logical} (\emph{with default}):
 single plot output (\code{TRUE/FALSE}) to allow for plotting the results in
-single plot windows. Requires \code{plotExtended = TRUE}.}
+single plot windows. Requires \code{output.plotExtended = TRUE}.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enable/disable output to the terminal.}

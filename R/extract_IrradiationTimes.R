@@ -34,7 +34,7 @@
 #' produced by the function [Luminescence::read_XSYG2R];
 #' alternatively, a `list` of [Luminescence::RLum.Analysis-class] can be provided.
 #'
-#' **Note**: If an [Luminescence::RLum.Analysis-class] is used, any input for
+#' **Note:** If an [Luminescence::RLum.Analysis-class] is used, any input for
 #' the arguments `file.BINX` and `recordType` will be ignored!
 #'
 #' @param file.BINX [character] (*optional*):

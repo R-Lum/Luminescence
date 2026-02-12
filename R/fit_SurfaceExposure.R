@@ -23,7 +23,7 @@
 #' saturation dose (`D0`) (in Gy) must be provided. The function will then fit
 #' equation 12 in Sohbati et al. (2012b) to the data.
 #'
-#' **NOTE**: Currently, this function does **not** consider the variability
+#' **Note:** Currently, this function does **not** consider the variability
 #' of the dose rate with sample depth (`x`)! In the original equation the dose
 #' rate `D` is an arbitrary function of `x` (term `D(x)`), but here `D` is assumed
 #' constant.

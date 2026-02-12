@@ -45,8 +45,8 @@
 #' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data.Curve-class],
 #' [Luminescence::RLum.Data.Curve-class]
 #'
-#' @author Christoph Burow, University of Cologne (Germany),
-#' F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+#' @author Christoph Burow, University of Cologne (Germany)\cr
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 #'
 #' @section Function version: 0.1.2
 #'

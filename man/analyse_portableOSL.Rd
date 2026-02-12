@@ -27,7 +27,8 @@ signal. It can be provided as a vector of length 2 such as \code{c(1, 5)}, or
 as a sequence such as \code{1:5}, in which case the lowest and highest values
 define the range.}
 
-\item{invert}{\link{logical} (\emph{with default}): \code{TRUE} flip the plot the data in reverse order.}
+\item{invert}{\link{logical} (\emph{with default}):
+whether the data should be plotted in reverse order (\code{FALSE} by default).}
 
 \item{normalise}{\link{logical} (\emph{with default}):
 whether the OSL/IRSL signals should be normalised to the \emph{mean} of all
@@ -81,20 +82,20 @@ For calculating the depletion ratios, the cumulative signal of the last \emph{n}
 channels (same number of channels as specified by \code{signal_integral}) is
 divided by cumulative signal of the first \emph{n} channels (\code{signal_integral}).
 
-\strong{Note:  The function assumes the following sequence pattern:
-\verb{DARK COUNT}, \code{IRSL}, \verb{DARK COUNT}, \code{BSL}, \verb{DARK COUNT}.} Therefore, the
+\strong{Note:} The function assumes the following sequence pattern:
+\verb{DARK COUNT}, \code{IRSL}, \verb{DARK COUNT}, \code{BSL}, \verb{DARK COUNT}. Therefore, the
 total number of curves in the input object must be a multiple of 5, and
-there must be 3 \code{DARK_COUNT} records for each IRSL/BSL pair. If you have used
-a different sequence, the function will produce an error.
+there must be 3 \code{DARK_COUNT} records for each IRSL/BSL pair. If a different
+sequence was used, the function will produce an error.
 
 \strong{Signal processing}
-The function processes the signals as follows: \code{BSL} and \code{IRSL} signals are extracted using the
-chosen signal integral, dark counts are taken in full.
+The function processes the signals as follows: \code{BSL} and \code{IRSL} signals are
+extracted using the chosen signal integral, dark counts are taken in full.
 
 \strong{Working with coordinates}
-Usually samples are taken from a profile with a certain stratigraphy. In the past the function
-calculated an index. With this newer version, you have two option of passing on xy-coordinates
-to the function:
+Usually samples are taken from a profile with a certain stratigraphy. In
+the past, the function calculated an index. Currently, you have two ways
+of passing on xy-coordinates to the function:
 \itemize{
 \item (1) Add coordinates to the sample name during measurement. The form is rather
 strict and has to follow the scheme \verb{_x:<number>|y:<number>}. Example:

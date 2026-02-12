@@ -16,13 +16,12 @@
 #'The emission spectra (on an energy scale) can be best described as the sum of multiple
 #'Gaussian components:
 #'
-#''\deqn{
-#'y = \Sigma  Ci * 1/(\sigma_{i} * \sqrt(2 * \pi)) * exp(-1/2 * ((x - \mu_{i})/\sigma_{i}))^2)
+#'\deqn{
+#' y = \sum_i \frac{C_i}{\sigma_{i} \sqrt{2 \pi}} exp(-1/2 ((x - \mu_{i})/\sigma_{i})^2)
 #'}
 #'
 #'with the parameters \eqn{\sigma} (peak width) and \eqn{\mu} (peak centre) and \eqn{C}
 #'(scaling factor).
-#'
 #'
 #'**Start parameter estimation and fitting algorithm**
 #'
@@ -32,8 +31,8 @@
 #'2. Start parameter estimation \cr
 #'3. Fitting via [minpack.lm::nls.lm]\cr
 #'
-#'The peak finding is realised by an approach (re-)suggested by Petr Pikal via the R-help
-#'mailing list (`https://stat.ethz.ch/pipermail/r-help/2005-November/thread.html`) in November 2005.
+#' The peak finding is based on an approach (re-)suggested by Petr Pikal in
+#' November 2005 in the R-help mailing list (https://stat.ethz.ch/pipermail/r-help/2005-November/thread.html).
 #'This goes back to even earlier discussion in 2001 based on Prof Brian Ripley's idea.
 #'It smartly uses the functions [stats::embed] and [max.col] to identify peaks positions.
 #'For the use in this context, the algorithm has been further modified to scale on the

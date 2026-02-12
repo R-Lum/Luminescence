@@ -30,12 +30,12 @@
 #' - `"kurtosis"` (kurtosis)
 #' - `"skewness"` (skewness)
 #'
-#' **Note** that the input data for the statistic summary is sent to function
+#' **Note:** the input data for the statistic summary is sent to function
 #' [Luminescence::calc_Statistics] depending on the log-option for the z-scale. If
 #' `"log.z = TRUE"`, the summary is based on the logarithms of the input
 #' data. If `"log.z = FALSE"` the linearly-scaled data is used.
 #'
-#' **Note** as well, that [Luminescence::calc_Statistics] calculates these statistic
+#' **Note:** [Luminescence::calc_Statistics] calculates these statistic
 #' measures in three different ways: `unweighted`, `weighted` and
 #' `MCM-based` (i.e., based on Monte Carlo Methods). By default, the
 #' MCM-based version is used. This can be controlled via the `summary.method`
@@ -50,7 +50,7 @@
 #' `list` (e.g. `list(dataset1, dataset2)`).
 #'
 #' @param na.rm [logical] (*with default*):
-#' exclude NA values from the data set prior to any further operation.
+#' exclude `NA` values from the data set prior to any further operation.
 #'
 #' @param values.cumulative [logical] (*with default*):
 #' show cumulative individual data.
@@ -79,7 +79,7 @@
 #'
 #' @param summary.method [character] (*with default*):
 #' keyword indicating the method used to calculate the statistic summary.
-#' One out of `"MCM"` (default), `"weighted"` or `"unweighted"`.
+#' One of `"MCM"` (default), `"weighted"` or `"unweighted"`.
 #' See [Luminescence::calc_Statistics] for details.
 #'
 #' @param bw [character], [numeric] (*with default*):

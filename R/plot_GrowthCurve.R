@@ -6,6 +6,8 @@
 #' regenerative or additive protocol as implemented in [Luminescence::fit_DoseResponseCurve]
 #' and [Luminescence::plot_DoseResponseCurve]
 #'
+#' @inheritParams fit_DoseResponseCurve
+#'
 #' @param sample [data.frame] (**required**):
 #' data frame with columns for `Dose`, `LxTx`, `LxTx.Error` and `TnTx`.
 #' The column for the test dose response is optional, but requires `'TnTx'` as
@@ -14,34 +16,11 @@
 #' to provide the test dose in the same unit as the dose in a column called `Test_Dose`.
 #' The function searches explicitly for this column name.
 #'
-#' @param mode [character] (*with default*):
-#' selects calculation mode of the function.
-#' - `"interpolation"` (default) calculates the De by interpolation,
-#' - `"extrapolation"` calculates the equivalent dose by extrapolation (useful for MAAD measurements) and
-#' - `"alternate"` calculates no equivalent dose and just fits the data points.
-#'
-#' Please note that for option `"interpolation"` the first point is considered
-#' as natural dose
-#'
-#' @param fit.method [character] (*with default*):
-#' function used for fitting. Possible options are:
-#' - `LIN`,
-#' - `QDR`,
-#' - `EXP`,
-#' - `EXP OR LIN`,
-#' - `EXP+LIN`,
-#' - `EXP+EXP`,
-#' - `GOK`,
-#' - `OTOR`,
-#' - `OTORX`
-#'
-#' See details in [Luminescence::fit_DoseResponseCurve].
-#'
 #' @param output.plot [logical] (*with default*):
 #' enable/disable the plot output.
 #'
 #' @param output.plotExtended [logical] (*with default*):
-#' If' `TRUE`, 3 plots on one plot area are provided:
+#' If `TRUE`, 3 plots on one plot area are provided:
 #' 1. growth curve,
 #' 2. histogram from Monte Carlo error simulation and
 #' 3. a test dose response plot.
@@ -50,10 +29,7 @@
 #'
 #' @param plot_singlePanels [logical] (*with default*):
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in
-#' single plot windows. Requires `plotExtended = TRUE`.
-#'
-#' @param verbose [logical] (*with default*):
-#' enable/disable output to the terminal.
+#' single plot windows. Requires `output.plotExtended = TRUE`.
 #'
 #' @param n.MC [integer] (*with default*):
 #' number of MC runs for error calculation.

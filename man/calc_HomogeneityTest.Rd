@@ -61,6 +61,6 @@ of dose obtained using OSL. Ancient TL 21, 75-77.
 \link[stats:Chisquare]{stats::pchisq}
 }
 \author{
-Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
-F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+Christoph Burow, University of Cologne (Germany)\cr
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 }

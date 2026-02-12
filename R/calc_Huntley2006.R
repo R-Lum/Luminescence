@@ -107,7 +107,7 @@
 #' [x, ]|  Rx     | LxTx | LxTx error |
 #'
 #' ```
-#' **NOTE:** The function assumes the first row of the data to be the
+#' **Note:** The function assumes the first row of the data to be the
 #' `Ln/Tn`-value. If you want to provide more than one `Ln/Tn`-values, consider
 #' using argument `LnTn`.
 #'
@@ -130,7 +130,7 @@
 #' this value must be calculated beforehand and used in the first row in the
 #' data frame for argument `data`.
 #'
-#' **NOTE:** This argument should **only** be used to provide more than one
+#' **Note:** This argument should **only** be used to provide more than one
 #' `Ln/Tn`-value. If you provide `LnTn`-values with this argument, the data
 #' frame for the `data`-argument **must not** contain any `LnTn`-values.
 #'
@@ -189,7 +189,7 @@
 #' - `cex` [numeric]: Scaling of the plot (default = 1)
 #' - `maxiter` [numeric]: Number of iteration limits for nls fitting
 #' - `trace` [logical]: Enable/disable value tracing the terminal during fitting
-#' **Note** that it is generally advised to have a large number of Monte Carlo
+#' **Note:** it is generally advised to have a large number of Monte Carlo
 #' iterations for the results to converge. Decreasing the number of iterations
 #' will often result in unstable estimates.
 #'

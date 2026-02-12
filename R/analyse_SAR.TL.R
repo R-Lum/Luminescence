@@ -56,7 +56,7 @@
 #'
 #' \item{De.values}{[data.frame] containing De-values and further parameters}
 #' \item{LnLxTnTx.values}{[data.frame] of all calculated `Lx/Tx` values including signal, background counts and the dose points.}
-#' \item{rejection.criteria}{[data.frame] with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.}
+#' \item{rejection.criteria}{[data.frame] with values that might by used as rejection criteria. `NA` is produced if no R0 dose point exists.}
 #'
 #' The output should be accessed using the function [Luminescence::get_RLum].
 #'

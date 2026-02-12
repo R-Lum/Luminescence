@@ -58,12 +58,12 @@
 #' - `"kurtosis"` (kurtosis)
 #' - `"skewness"` (skewness)
 #'
-#' **Note** that the input data for the statistic summary is sent to the function
+#' **Note:** the input data for the statistic summary is sent to the function
 #' [Luminescence::calc_Statistics] depending on the log-option for the z-scale. If
 #' `"log.z = TRUE"`, the summary is based on the logarithms of the input
 #' data. If `"log.z = FALSE"` the linearly scaled data is used.
 #'
-#' **Note** as well, that [Luminescence::calc_Statistics] calculates these statistic
+#' **Note:** [Luminescence::calc_Statistics] calculates these statistic
 #' measures in three different ways: `unweighted`, `weighted` and
 #' `MCM-based` (i.e., based on Monte Carlo Methods). By default, the
 #' MCM-based version is used. If you wish to use another method, indicate this
@@ -88,7 +88,7 @@
 #'  `list`, e.g. `list(data.1, data.2)`.
 #'
 #' @param na.rm [logical] (*with default*):
-#' exclude NA values from the data set prior to any further operations.
+#' exclude `NA` values from the data set prior to any further operations.
 #'
 #' @param log.z [logical] (*with default*):
 #' Option to display the z-axis in logarithmic scale. Default is `TRUE`.
@@ -134,11 +134,7 @@
 #'
 #' @param summary.method [character] (*with default*):
 #' keyword indicating the method used to calculate the statistic summary.
-#' One out of
-#' - `"unweighted"`,
-#' - `"weighted"` and
-#' - `"MCM"`.
-#'
+#' One of `"MCM"` (default), `"weighted"` or `"unweighted"`.
 #' See [Luminescence::calc_Statistics] for details.
 #'
 #' @param legend [character] vector (*optional*):
@@ -246,7 +242,7 @@
 #' @references
 #' Galbraith, R. & Green, P., 1990. Estimating the component ages
 #' in a finite mixture. International Journal of Radiation Applications and
-#' Instrumentation. Part D. Nuclear Tracks and Radiation Measurements, 17 (3),
+#' Instrumentation. Part D. Nuclear Tracks and Radiation Measurements 17 (3),
 #' 197-206.
 #'
 #' Dietze, M., Kreutzer, S., Burow, C., Fuchs, M.C., Fischer, M., Schmidt, C., 2015.

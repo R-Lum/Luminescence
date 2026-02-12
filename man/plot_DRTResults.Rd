@@ -83,10 +83,10 @@ legend to be plotted.}
 \item{par.local}{\link{logical} (\emph{with default}):
 use local graphical parameters for plotting, e.g. the plot is shown in one
 column and one row. If \code{par.local = FALSE}, global parameters are inherited,
-i.e. parameters provided via \code{par()} work}
+i.e. parameters provided via \code{par()} work.}
 
-\item{na.rm}{\link{logical} (\emph{with default}): indicating whether \code{NA} values are
-removed before plotting from the input data set}
+\item{na.rm}{\link{logical} (\emph{with default}):
+whether \code{NA} values should be removed from the input data before plotting.}
 
 \item{...}{further arguments and graphical parameters passed to \link{plot},
 supported are:
@@ -196,7 +196,7 @@ plot_DRTResults(
 \references{
 Wintle, A.G., Murray, A.S., 2006. A review of quartz optically
 stimulated luminescence characteristics and their relevance in
-single-aliquot regeneration dating protocols. Radiation Measurements, 41,
+single-aliquot regeneration dating protocols. Radiation Measurements 41,
 369-391.
 }
 \seealso{

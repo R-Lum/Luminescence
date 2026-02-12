@@ -26,15 +26,15 @@ Can also be a wide table, i.e. a \link{data.frame} with a number of columns
 divisible by 3 and where each triplet has the before mentioned column
 structure.
 
-\strong{Please note: The input object should solely consists of the curve needed
+\strong{Note:} The input object should solely consists of the curve needed
 for the data analysis, i.e. only IRSL curves representing Lx (and Tx). If
 the object originated from an XSYG file, also the irradiation steps must
-be preserved in the input object.}
+be preserved in the input object.
 
-If data from multiple aliquots are provided please \strong{see the details below}
-with regard to Lx/Tx normalisation. \strong{The function assumes that all your
+If data from multiple aliquots are provided, please see the details below
+with regard to Lx/Tx normalisation. \strong{Note:} The function assumes that all your
 measurements are related to one (comparable) sample. If you have to treat
-independent samples, you have use this function in a loop.}}
+independent samples, you have use this function in a loop.}
 
 \item{structure}{\link{character} (\emph{with default}):
 the structure of the measurement data, one of \code{'Lx'} or \code{c('Lx','Tx')}.}

@@ -132,7 +132,7 @@ that the 2-sigma range may also refer to the z-scale, which it does not!
 Rather it applies only to the x-y-coordinate system (standardised error vs.
 precision). A spread in doses or ages must be drawn as lines originating at
 zero precision (x0) and zero standardised estimate (y0). Such a range may be
-drawn by adding lines to the radial plot ( \code{line}, \code{line.col},
+drawn by adding lines to the radial plot (\code{line}, \code{line.col},
 \code{line.label}, cf. examples).
 
 A statistic summary, i.e. a collection of statistic measures of
@@ -267,29 +267,29 @@ plot_RadialPlot(
 }
 \references{
 Galbraith, R.F., 1988. Graphical Display of Estimates Having
-Differing Standard Errors. Technometrics, 30 (3), 271-281.
+Differing Standard Errors. Technometrics 30 (3), 271-281.
 
 Galbraith, R.F., 1990. The radial plot: Graphical assessment of spread in
 ages. International Journal of Radiation Applications and Instrumentation.
-Part D. Nuclear Tracks and Radiation Measurements, 17 (3), 207-214.
+Part D. Nuclear Tracks and Radiation Measurements 17 (3), 207-214.
 
 Galbraith, R. & Green, P., 1990. Estimating the component ages in a finite
 mixture. International Journal of Radiation Applications and
-Instrumentation. Part D. Nuclear Tracks and Radiation Measurements, 17 (3)
+Instrumentation. Part D. Nuclear Tracks and Radiation Measurements 17 (3)
 197-206.
 
 Galbraith, R.F. & Laslett, G.M., 1993. Statistical models for mixed fission
-track ages. Nuclear Tracks And Radiation Measurements, 21 (4), 459-470.
+track ages. Nuclear Tracks And Radiation Measurements 21 (4), 459-470.
 
 Galbraith, R.F., 1994. Some Applications of Radial Plots. Journal of the
-American Statistical Association, 89 (428), 1232-1242.
+American Statistical Association 89 (428), 1232-1242.
 
-Galbraith, R.F., 2010. On plotting OSL equivalent doses. Ancient TL, 28 (1),
+Galbraith, R.F., 2010. On plotting OSL equivalent doses. Ancient TL 28 (1),
 1-10.
 
 Galbraith, R.F. & Roberts, R.G., 2012. Statistical aspects of equivalent
 dose and error calculation and display in OSL dating: An overview and some
-recommendations. Quaternary Geochronology, 11, 1-27.
+recommendations. Quaternary Geochronology 11, 1-27.
 }
 \seealso{
 \link{plot}, \link{plot_KDE}, \link{plot_Histogram}, \link{plot_AbanicoPlot}

@@ -44,7 +44,7 @@ and where each triplet has the aforementioned column structure.
 
 }\if{html}{\out{</div>}}
 
-\strong{NOTE:} The function assumes the first row of the data to be the
+\strong{Note:} The function assumes the first row of the data to be the
 \code{Ln/Tn}-value. If you want to provide more than one \code{Ln/Tn}-values, consider
 using argument \code{LnTn}.}
 
@@ -66,7 +66,7 @@ another mean value (e.g. a weighted mean or median) or error is preferred,
 this value must be calculated beforehand and used in the first row in the
 data frame for argument \code{data}.
 
-\strong{NOTE:} This argument should \strong{only} be used to provide more than one
+\strong{Note:} This argument should \strong{only} be used to provide more than one
 \code{Ln/Tn}-value. If you provide \code{LnTn}-values with this argument, the data
 frame for the \code{data}-argument \strong{must not} contain any \code{LnTn}-values.}
 
@@ -125,7 +125,7 @@ enable/disable the plot output.}
 \item \code{cex} \link{numeric}: Scaling of the plot (default = 1)
 \item \code{maxiter} \link{numeric}: Number of iteration limits for nls fitting
 \item \code{trace} \link{logical}: Enable/disable value tracing the terminal during fitting
-\strong{Note} that it is generally advised to have a large number of Monte Carlo
+\strong{Note:} it is generally advised to have a large number of Monte Carlo
 iterations for the results to converge. Decreasing the number of iterations
 will often result in unstable estimates.
 }

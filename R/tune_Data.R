@@ -39,7 +39,7 @@
 #'                  summary = c("n", "mean"))
 #'
 #' ## increase sample size by 200 %
-#' #plot_AbanicoPlot(data = tune_Data(x, increase.data = 2) ,
+#' #plot_AbanicoPlot(data = tune_Data(x, increase.data = 2),
 #' #                summary = c("n", "mean"))
 #'
 #' @export

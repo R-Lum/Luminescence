@@ -200,6 +200,6 @@ report_RLum(object = x, file = "~/arbitray_list")
 \link{browseURL}
 }
 \author{
-Christoph Burow, University of Cologne (Germany),
+Christoph Burow, University of Cologne (Germany)\cr
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 }

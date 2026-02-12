@@ -26,8 +26,9 @@
 #'
 #' @section Function version: 0.3.0
 #'
-#' @author Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
-#' F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+#' @author
+#' Christoph Burow, University of Cologne (Germany)\cr
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 #'
 #' @seealso [stats::pchisq]
 #'

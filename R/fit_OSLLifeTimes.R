@@ -132,7 +132,8 @@
 #'
 #' @section Function version: 0.1.5
 #'
-#' @author Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University,
+#' @author
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 #' Christoph Schmidt, University of Bayreuth (Germany)
 #'
 #' @seealso [minpack.lm::nls.lm], [DEoptim::DEoptim]

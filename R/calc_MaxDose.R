@@ -26,32 +26,7 @@
 #'
 #' Please see [Luminescence::calc_MinDose].
 #'
-#' @param data [Luminescence::RLum.Results-class] or [data.frame] (**required**):
-#' for [data.frame]: two columns with De `(data[ ,1])` and De error `(data[ ,2])`.
-#'
-#' @param sigmab [numeric] (**required**):
-#' additional spread in De values, representing the expected overdispersion in
-#' the data should the sample be well-bleached (Cunningham & Wallinga 2012, p. 100).
-#' **NOTE**: For the logged model (`log = TRUE`) this value must be
-#' a fraction, e.g. 0.2 (= 20 %). If the un-logged model is used (`log = FALSE`),
-#' sigmab must be provided in the same absolute units of the De values (seconds or Gray).
-#' See details ([Luminescence::calc_MinDose].
-#'
-#' @param log [logical] (*with default*):
-#' fit the (un-)logged three parameter minimum dose model to De data
-#'
-#' @param par [numeric] (*with default*):
-#' apply the 3- or 4-parameter minimum age model (`par=3` or `par=4`).
-#'
-#' @param bootstrap [logical] (*with default*):
-#' apply the recycled bootstrap approach of Cunningham & Wallinga (2012).
-#'
-#' @param init.values [numeric] (*with default*):
-#' starting values for gamma, sigma, p0 and mu. Custom values need to be provided in a vector of
-#' length three in the form of `c(gamma, sigma, p0)`.
-#'
-#' @param plot [logical] (*with default*):
-#' enable/disable the plot output.
+#' @inheritParams calc_MinDose
 #'
 #' @param ... further arguments for bootstrapping (`bs.M, bs.N, bs.h, sigmab.sd`).
 #' See details for their usage.

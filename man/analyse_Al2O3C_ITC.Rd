@@ -96,8 +96,8 @@ handled using the argument \code{method_control} only, e.g.,
 
 \tabular{lll}{
 \strong{ARGUMENT} \tab \strong{FUNCTION} \tab \strong{DESCRIPTION}\cr
-\code{mode} \tab \code{fit_DoseResponseCurve} \tab as in \link{fit_DoseResponseCurve}; sets the mode used for fitting\cr
-\code{fit.method} \tab \code{fit_DoseResponseCurve} \tab as in \link{fit_DoseResponseCurve}; sets the function applied for fitting\cr
+\code{mode} \tab \code{fit_DoseResponseCurve} \tab sets the mode used for fitting\cr
+\code{fit.method} \tab \code{fit_DoseResponseCurve} \tab sets the function applied for fitting\cr
 }
 }
 \section{Function version}{

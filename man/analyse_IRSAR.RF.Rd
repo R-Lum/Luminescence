@@ -263,7 +263,7 @@ MC run results. Nothing is shown if the distribution is too narrow.
 \item \code{show_fit} (\link{logical}, default: \code{FALSE}): enable/disable the plot of the
 fitted curve routinely obtained during the evaluation.
 \item \code{n.MC} (\link{integer}, default: 1000): number of Monte Carlo runs within the
-sliding (assessing the possible minimum values). \strong{Note}: This parameter
+sliding (assessing the possible minimum values). \strong{Note:} This parameter
 is not the same as the function argument \code{n.MC}.
 \item \code{vslide_range} (\link{numeric} or \link{character}, default: "auto"): boundaries
 for the vertical curve sliding. The argument expects a vector with absolute
@@ -345,8 +345,8 @@ might be useful to evaluate the shape of the curves. For \code{method = "FIT"},
 this parameter is obtained during the fitting; for \code{method = "SLIDE"} a
 rather rough estimation is made using the function \link[minpack.lm:nlsLM]{minpack.lm::nlsLM} and
 the equation given above.
-Note: As this procedure requests more computation time, it is performed only
-if all three parameters are set.
+\strong{Note:} As this procedure requests more computation time, it is performed
+only if all three parameters are set.
 }
 }
 \note{

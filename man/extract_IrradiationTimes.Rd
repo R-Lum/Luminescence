@@ -19,7 +19,7 @@ path and file name of the XSYG file or an \linkS4class{RLum.Analysis}
 produced by the function \link{read_XSYG2R};
 alternatively, a \code{list} of \linkS4class{RLum.Analysis} can be provided.
 
-\strong{Note}: If an \linkS4class{RLum.Analysis} is used, any input for
+\strong{Note:} If an \linkS4class{RLum.Analysis} is used, any input for
 the arguments \code{file.BINX} and \code{recordType} will be ignored!}
 
 \item{file.BINX}{\link{character} (\emph{optional}):

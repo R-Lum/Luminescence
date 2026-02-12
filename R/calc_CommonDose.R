@@ -26,7 +26,7 @@
 #' @param sigmab [numeric] (*with default*):
 #' additional spread in De values, representing the expected overdispersion in
 #' the data should the sample be well-bleached (Cunningham & Wallinga 2012, p. 100).
-#' **NOTE**: For the logged model (`log = TRUE`) this value must be
+#' **Note:** For the logged model (`log = TRUE`) this value must be
 #' a fraction, e.g. 0.2 (= 20%). If the un-logged model is used (`log = FALSE`),
 #' `sigmab` must be provided in the same absolute units of the De values
 #' (seconds or Gray).
@@ -83,7 +83,7 @@
 #' Quaternary Geochronology 12, 98-106.
 #'
 #' Rodnight, H., Duller, G.A.T., Wintle, A.G. & Tooth, S., 2006. Assessing the reproducibility and accuracy
-#' of optical dating of fluvial deposits.  Quaternary Geochronology, 1 109-120.
+#' of optical dating of fluvial deposits.  Quaternary Geochronology 1 109-120.
 #'
 #' Rodnight, H., 2008. How many equivalent dose values are needed to
 #' obtain a reproducible distribution?. Ancient TL 26, 3-10.

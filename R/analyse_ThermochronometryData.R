@@ -23,8 +23,8 @@
 #' @section Function version: 0.1.0
 #'
 #' @author
-#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany),
-#' Svenja Riedesel, DTU Risø (Denmark)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+#' Svenja Riedesel, DTU Risø (Denmark)\cr
 #'
 #' @keywords datagen
 #'

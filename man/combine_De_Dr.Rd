@@ -21,7 +21,8 @@ combine_De_Dr(
 )
 }
 \arguments{
-\item{De}{\link{numeric} (\strong{required}): a equivalent dose sample}
+\item{De}{\link{numeric} (\strong{required}):
+an equivalent dose sample.}
 
 \item{s}{\link{numeric} (\strong{required}): a vector of measurement errors on the equivalent dose}
 
@@ -30,17 +31,19 @@ combine_De_Dr(
 \item{int_OD}{\link{numeric} (\strong{required}): the intrinsic overdispersion, typically the standard deviation
 characterizing a dose-recovery test distribution}
 
-\item{Age_range}{\link{numeric} (\emph{with default}): the age range to be investigated by the algorithm, the larger
-the value the more iterations are needed and the longer it takes. Should not be set too narrow, cut
-the algorithm some slack.}
+\item{Age_range}{\link{numeric} (\emph{with default}):
+age range to be investigated by the algorithm. The larger the value, the
+more iterations are needed and the longer it takes. It should not be set
+too narrow to cut the algorithm some slack.}
 
 \item{outlier_threshold}{\link{numeric} (\emph{with default}): the required significance level used
 for the outlier detection. If set to \code{1}, no outliers are removed. If
 \code{outlier_method = "RousseeuwCroux1993"}, the median distance is used as outlier threshold.
 Please see details for further information.}
 
-\item{outlier_method}{\link{character} (\emph{with default}): select the outlier detection
-method, either \code{"default"} or \code{"RousseeuwCroux1993"}. See details for further information.}
+\item{outlier_method}{\link{character} (\emph{with default}):
+outlier detection method, either \code{"default"} or \code{"RousseeuwCroux1993"}.
+See details.}
 
 \item{outlier_analysis_plot}{\link{logical} (\emph{with default}): enable/disable the
 outlier analysis plot. Note: the outlier analysis will happen independently
@@ -61,10 +64,11 @@ used to set the random seed for the MCMC chains (four by default):
 \item{par_local}{\link{logical} (\emph{with default}): if set to \code{TRUE} the function uses its
 own \link[graphics:par]{graphics::par} settings (which will end in two plots next to each other)}
 
-\item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
-terminal.}
+\item{verbose}{\link{logical} (\emph{with default}):
+enable/disable output to the terminal.}
 
-\item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.}
+\item{plot}{\link{logical} (\emph{with default}):
+enable/disable the plot output.}
 
 \item{...}{a few further arguments to fine-tune the plot output such as
 \code{cdf_ADr_quantiles} (\code{TRUE}/\code{FALSE}), \code{legend.pos}, \code{legend} (\code{TRUE}/\code{FALSE})}
@@ -161,13 +165,15 @@ writeLines(results@info$model_BCAM)
 
 }
 \references{
-Mercier, N., Galharret, J.-M., Tribolo, C., Kreutzer, S., Philippe, A., preprint.
-Luminescence age calculation through Bayesian convolution of equivalent dose and
-dose-rate distributions: the De_Dr model. Geochronology, 1-22.
+Mercier, N., Galharret, J.-M., Tribolo, C., Kreutzer, S., Philippe, A., (2022).
+Luminescence age calculation through Bayesian convolution of equivalent dose
+and dose-rate distributions: the De_Dr model. Geochronology 4, 297-310.
+\doi{10.5194/gchron-4-297-2022}
 
-Galharret, J-M., Philippe, A., Mercier, N., preprint. Detection of outliers with
-a Bayesian hierarchical model: application to the single-grain luminescence dating method.
-Electronic Journal of Applied Statistics
+Galharret, J-M., Philippe, A., Mercier, N. (2021). Detection of outliers
+with a Bayesian hierarchical model: application to the single-grain
+luminescence dating method. Electronic Journal of Applied Statistics 14 (2),
+318-338. \doi{10.1285/i20705948v14n2p318}
 
 \strong{Further reading}
 

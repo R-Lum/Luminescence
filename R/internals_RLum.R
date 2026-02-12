@@ -794,7 +794,7 @@ fancy_scientific <- function(l) {
 #' repeated in every function using the self-call. This functions
 #' does it once and for all similar in all functions.
 #'
-#' **NOTE**: the first argument is never extended due to performance reasons,
+#' **Note:** the first argument is never extended due to performance reasons,
 #' it might be a very large object
 #'
 #' @param len [numeric] (**required**): length of the parameter expansion

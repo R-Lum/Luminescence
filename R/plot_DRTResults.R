@@ -73,10 +73,10 @@
 #' @param par.local [logical] (*with default*):
 #' use local graphical parameters for plotting, e.g. the plot is shown in one
 #' column and one row. If `par.local = FALSE`, global parameters are inherited,
-#' i.e. parameters provided via `par()` work
+#' i.e. parameters provided via `par()` work.
 #'
-#' @param na.rm [logical] (*with default*): indicating whether `NA` values are
-#' removed before plotting from the input data set
+#' @param na.rm [logical] (*with default*):
+#' whether `NA` values should be removed from the input data before plotting.
 #'
 #' @param ... further arguments and graphical parameters passed to [plot],
 #' supported are:
@@ -99,7 +99,7 @@
 #' @references
 #' Wintle, A.G., Murray, A.S., 2006. A review of quartz optically
 #' stimulated luminescence characteristics and their relevance in
-#' single-aliquot regeneration dating protocols. Radiation Measurements, 41,
+#' single-aliquot regeneration dating protocols. Radiation Measurements 41,
 #' 369-391.
 #'
 #' @keywords dplot

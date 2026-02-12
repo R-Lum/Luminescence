@@ -45,8 +45,7 @@
 #' (7)
 #' Combine values and truncate all values for t' > `max(t)`
 #'
-#'
-#' **NOTE:**
+#' **Note:**
 #' The number of values for t' < `min(t)` depends on the stimulation
 #' period (P) and therefore on the stimulation rate 1/P. To avoid the
 #' production of too many artificial data at the raising tail of the determined
@@ -82,9 +81,8 @@
 #' @section Function version: 0.3.2
 #'
 #' @author
-#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
-#'
-#' Based on comments and suggestions from:\cr
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+#' Based on comments and suggestions from:
 #' Adrie J.J. Bos, Delft University of Technology, The Netherlands
 #'
 #' @seealso [Luminescence::convert_CW2pLM], [Luminescence::convert_CW2pHMi], [Luminescence::convert_CW2pPMi],
@@ -92,16 +90,16 @@
 #'
 #' @references
 #' Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
-#' signal components. Radiation Measurements, 47, 752-758.
+#' signal components. Radiation Measurements 47, 752-758.
 #'
 #' **Further Reading**
 #'
 #' Bulur, E., 1996. An Alternative Technique For
-#' Optically Stimulated Luminescence (OSL) Experiment. Radiation Measurements,
+#' Optically Stimulated Luminescence (OSL) Experiment. Radiation Measurements
 #' 26, 701-709.
 #'
 #' Bulur, E., 2000. A simple transformation for converting CW-OSL curves to
-#' LM-OSL curves. Radiation Measurements, 32, 141-145.
+#' LM-OSL curves. Radiation Measurements 32, 141-145.
 #'
 #' @keywords manip
 #'

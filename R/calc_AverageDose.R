@@ -25,7 +25,7 @@
 #' sample size used for the bootstrapping
 #'
 #' @param na.rm [logical] (*with default*):
-#' exclude NA values from the data set prior to any further operation.
+#' exclude `NA` values from the data set prior to any further operation.
 #'
 #' @param plot [logical] (*with default*):
 #' enable/disable the plot output.
@@ -43,9 +43,9 @@
 #'
 #' @section Function version: 0.1.6
 #'
-#' @author Claire Christophe, IRAMAT-CRP2A, Université de Nantes (France),
-#' Anne Philippe, Université de Nantes, (France),
-#' Guillaume Guérin, IRAMAT-CRP2A, Université Bordeaux Montaigne, (France),
+#' @author Claire Christophe, IRAMAT-CRP2A, Université de Nantes (France)\cr
+#' Anne Philippe, Université de Nantes, (France)\cr
+#' Guillaume Guérin, IRAMAT-CRP2A, Université Bordeaux Montaigne, (France)\cr
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [read.table], [graphics::hist]

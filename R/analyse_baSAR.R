@@ -147,7 +147,7 @@
 #' functions.
 #'
 #' \tabular{llll}{
-#' **Supported argument** \tab **Corresponding function** \tab **Default** \tab **Short description **\cr
+#' **Supported argument** \tab **Corresponding function** \tab **Default** \tab **Short description**\cr
 #' `threshold` \tab [Luminescence::verify_SingleGrainData] \tab `30` \tab change rejection threshold for curve selection \cr
 #' `skip` \tab [data.table::fread] \tab `0` \tab number of rows to be skipped during import\cr
 #' `n.records` \tab [Luminescence::read_BIN2R] \tab `NULL` \tab limit records during BIN-file import\cr

@@ -12,25 +12,30 @@
 #' @details If an element in `object` is `NA`, it is internally set to 0, so it will not
 #' be added.
 #'
-#' @param object [Luminescence::RLum.Results-class] or [numeric] (**required**): containing
+#' @param object [Luminescence::RLum.Results-class] or [numeric] (**required**):
 #' a numerical vector of length 100, representing one or more measurement
 #' discs ("positions") in a reader.
 #' Each element in the vector represents one grain hole location on a disc.
 #'
-#' @param n_crosstalk [numeric] (*with default*): A single number quantifying the added
+#' @param n_crosstalk [numeric] (*with default*):
+#' A single number quantifying the added
 #' crosstalk. Defaults for testing purposes to 0.2. Can be any number, even negative,
 #' but for realistic simulations we suggest something between 0 and 0.25.
 #'
 #' @keywords manip
 #'
-#' @return A vector of size 100, with the value at each grain hole location including simulated crosstalk.
+#' @return
+#' A vector of size 100, with the value at each grain hole location including
+#' simulated crosstalk.
 #'
-#' @author Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
+#' @author
+#' Anna-Maartje de Boer, Wageningen University & Research (The Netherlands)\cr
+#' Luc Steinbuch, Wageningen University & Research (The Netherlands)\cr
 #'
 #' @references
 #' de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
-#' A novel tool to assess crosstalk in single-grain luminescence detection.
-#' Submitted.
+#' A novel method to assess crosstalk in single-grain luminescence detection.
+#' Radiation Measurements 186, 107459. \doi{10.1016/j.radmeas.2025.107459}
 #'
 #' @examples
 #' ## Create artificial disc observation

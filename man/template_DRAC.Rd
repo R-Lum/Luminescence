@@ -14,8 +14,8 @@ sets you want to submit).}
 \item{preset}{\link{character} (\emph{optional}):
 By default, all values of the template are set to \code{NA}, which means that
 the user needs to fill in \strong{all} data first before submitting to DRAC
-using \link{use_DRAC}. To reduce the number of values that need to be
-provided, \code{preset} can be used to create a template with at least
+using \link{use_DRAC}. To reduce the number of values that need to
+be provided, \code{preset} can be used to create a template with at least
 a minimum of reasonable preset values.
 
 \code{preset} can be one of the following:
@@ -32,12 +32,13 @@ a minimum of reasonable preset values.
 Note that the last three options can be used to produce a template
 with values directly taken from the official DRAC input \code{.csv} file.}
 
-\item{file_input}{\link{character} file connection to a DRAC \code{.csv} file, the file
-will be imported and translated to the template that can be used by \link{use_DRAC}.
-Please note that there is not check on validity of the \code{.csv} file.}
+\item{file_input}{\link{character} (\emph{optional}):
+file connection to a DRAC \code{.csv} file. The file will be imported and
+translated to a template usable by \link{use_DRAC}.
+Please note that there is no check on the validity of the \code{.csv} file.}
 
 \item{notification}{\link{logical} (\emph{with default}):
-show or hide the notification}
+show or hide the notification.}
 }
 \value{
 A  list of class \code{DRAC.list}.
@@ -104,5 +105,6 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
 \link{as.data.frame}, \link{list}
 }
 \author{
-Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+Christoph Burow, University of Cologne (Germany)\cr
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 }

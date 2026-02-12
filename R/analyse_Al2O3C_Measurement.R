@@ -99,9 +99,10 @@
 #'  `data_TDcorrected` \tab `data.frame` \tab travel dosimeter corrected results (only if TD was provided)\cr
 #' }
 #'
-#' *Note: If correction the irradiation time and the cross-talk correction method is used, the De
-#' values in the table `data` table are already corrected, i.e. if you want to get an uncorrected value,
-#' you can use the column `CT_CORRECTION` remove the correction*
+#' **Note:** If correction the irradiation time and the cross-talk correction
+#' method is used, the De values in the table `data` table are already
+#' corrected, i.e. if you want to get an uncorrected value, you can use the
+#' column `CT_CORRECTION` remove the correction.
 #'
 #'**slot:** **`@info`**
 #'

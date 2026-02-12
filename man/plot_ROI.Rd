@@ -18,37 +18,41 @@ plot_ROI(
 \item{object}{\linkS4class{RLum.Analysis}, \linkS4class{RLum.Results} or a \link{list} of such objects (\strong{required}):
 input data created either by \link{read_RF2R} or \link{extract_ROI}.}
 
-\item{exclude_ROI}{\link{numeric} (\emph{with default}): option to remove particular ROIs from the
-analysis. Those ROIs are plotted but not coloured and not taken into account
-in distance analysis. \code{NULL} excludes nothing.}
+\item{exclude_ROI}{\link{numeric} (\emph{with default}):
+option to remove particular ROIs from the analysis. Those ROIs are plotted
+but not coloured and not taken into account in distance analysis. \code{NULL}
+excludes nothing.}
 
-\item{dist_thre}{\link{numeric} (\emph{optional}): euclidean distance threshold in pixel
-distance. All ROI for which the euclidean distance is smaller are marked. This
-helps to identify ROIs that might be affected by signal cross-talk. Note:
-the distance is calculated from the centre of an ROI, e.g., the threshold
-should include consider the ROIs or grain radius.}
+\item{dist_thre}{\link{numeric} (\emph{optional}):
+euclidean distance threshold in pixel distance. All ROI for which the
+euclidean distance is smaller are marked. This helps to identify ROIs that
+might be affected by signal cross-talk. Note: the distance is calculated
+from the centre of an ROI, e.g., the threshold should include consider the
+ROIs or grain radius.}
 
-\item{dim.CCD}{\link{numeric} (\emph{optional}): metric x and y for the recorded (chip)
-surface in µm. For instance \code{c(8192,8192)}, if set additional x and y-axes are shown}
+\item{dim.CCD}{\link{numeric} (\emph{optional}):
+metric x and y for the recorded (chip) surface in µm. For instance
+\code{c(8192, 8192)}, if set additional x and y-axes are shown.}
 
-\item{bg_image}{\linkS4class{RLum.Data.Image} (\emph{optional}): background image object
-(please note that dimensions are not checked).}
+\item{bg_image}{\linkS4class{RLum.Data.Image} (\emph{optional}):
+background image object (please note that dimensions are not checked).}
 
 \item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.}
 
-\item{...}{further parameters to manipulate the plot. On top of all arguments of
-\link[graphics:plot.default]{graphics::plot.default} the following arguments are supported: \code{lwd.ROI}, \code{lty.ROI},
-\code{col.ROI}, \code{col.pixel}, \code{text.labels}, \code{text.offset}, \code{grid} (\code{TRUE/FALSE}), \code{legend} (\code{TRUE/FALSE}),
+\item{...}{further parameters to manipulate the plot. Besides the standard
+arguments of \link[graphics:plot.default]{graphics::plot.default}, the following arguments are
+supported: \code{lwd.ROI}, \code{lty.ROI}, \code{col.ROI}, \code{col.pixel}, \code{text.labels},
+\code{text.offset}, \code{grid} (\code{TRUE/FALSE}), \code{legend} (\code{TRUE/FALSE}),
 \code{legend.text}, \code{legend.pos}}
 }
 \value{
-An ROI plot and an \linkS4class{RLum.Results} object with a matrix containing
-the extracted ROI data and a object produced by \link[stats:dist]{stats::dist} containing
-the euclidean distance between the ROIs.
+An ROI plot and an \linkS4class{RLum.Results} object with a matrix
+containing the extracted ROI data and a object produced by \link[stats:dist]{stats::dist}
+containing the euclidean distance between the ROIs.
 }
 \description{
-The function creates ROI graphic with data extracted from the
-data imported via \link{read_RF2R}. This function might be of use to work with
+The function creates ROI graphic with data extracted from the data imported
+via \link{read_RF2R}. This function might be of use to work with
 reduced data from spatially resolved measurements.
 The plot dimensions mimic the original image dimensions.
 }

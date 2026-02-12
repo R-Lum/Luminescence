@@ -8,8 +8,8 @@
 #' to be displayed. As this function is wrapped around the base plot function, one can also choose to add elements
 #' manually.
 #'
-#' @param object [Luminescence::RLum.Results-class] or [numeric] (**required**): the values
-#' to show, should have length 100.
+#' @param object [Luminescence::RLum.Results-class] or [numeric] (**required**):
+#' the values to show, should have length 100.
 #'
 #' @param show_coordinates [logical] (*with default*): Show coordinates (1..10)
 #' in x and in y direction. Defaults to `FALSE`.
@@ -17,7 +17,7 @@
 #' @param show_location_ids [logical] (*with default*): Show id with every
 #' grain location (1..100). Defaults to `FALSE`.
 #'
-#' @param show_neighbours [logical]  (*with default*): Show which
+#' @param show_neighbours [logical] (*with default*): Show which
 #' neighbour connections are taken into account if calculating Moran's I.
 #' This makes sense when there are `NA` observations, or when a non-standard
 #' neighbour setting is defined.
@@ -48,12 +48,14 @@
 #' as `main`, `col` and `pch`. `legend` can be used to enable/disable the
 #' legend (`FALSE` by default).
 #'
-#' @author Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
+#' @author
+#' Anna-Maartje de Boer, Wageningen University & Research (The Netherlands)\cr
+#' Luc Steinbuch, Wageningen University & Research (The Netherlands)\cr
 #'
 #' @references
 #' de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
-#' A novel tool to assess crosstalk in single-grain luminescence detection.
-#' Submitted.
+#' A novel method to assess crosstalk in single-grain luminescence detection.
+#' Radiation Measurements 186, 107459. \doi{10.1016/j.radmeas.2025.107459}
 #'
 #' @examples
 #'

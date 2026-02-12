@@ -84,9 +84,10 @@ Function returns results numerically and graphically:
 \code{data_TDcorrected} \tab \code{data.frame} \tab travel dosimeter corrected results (only if TD was provided)\cr
 }
 
-\emph{Note: If correction the irradiation time and the cross-talk correction method is used, the De
-values in the table \code{data} table are already corrected, i.e. if you want to get an uncorrected value,
-you can use the column \code{CT_CORRECTION} remove the correction}
+\strong{Note:} If correction the irradiation time and the cross-talk correction
+method is used, the De values in the table \code{data} table are already
+corrected, i.e. if you want to get an uncorrected value, you can use the
+column \code{CT_CORRECTION} remove the correction.
 
 \strong{slot:} \strong{\verb{@info}}
 

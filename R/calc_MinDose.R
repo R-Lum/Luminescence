@@ -92,12 +92,12 @@
 #' (also available here: [https://CRAN.R-project.org/package=bbmle]().
 #'
 #' @param data [Luminescence::RLum.Results-class] or [data.frame] (**required**):
-#' for [data.frame]: two columns for De and De error.
+#' for [data.frame]: two columns with `(data[, 1])` and De error `(data[, 2])`.
 #'
 #' @param sigmab [numeric] (**required**):
 #' additional spread in De values, representing the expected overdispersion in
 #' the data should the sample be well-bleached (Cunningham & Wallinga 2012, p. 100).
-#' **NOTE**: For the logged model (`log = TRUE`) this value must be
+#' **Note:** For the logged model (`log = TRUE`) this value must be
 #' a fraction, e.g. 0.2 (= 20 %). If the un-logged model is used (`log = FALSE`),
 #' `sigmab` must be provided in the same absolute units of the De values (seconds or Gray).
 #' See details.
@@ -116,7 +116,7 @@
 #' a named list with starting values for `gamma`, `sigma`, `p0` and `mu`
 #' (e.g. `list(gamma=100, sigma=1.5, p0=0.1, mu=100)`). If no values are
 #' provided, reasonable values will be estimated from the data.
-#' **NOTE**: the initial values must always be given in the absolute units.
+#' **Note:** the initial values must always be given in the absolute units.
 #' If a logged model is applied (`log = TRUE`), the provided `init.values`
 #' are automatically log-transformed.
 #'
@@ -175,8 +175,8 @@
 #' Christoph Burow, University of Cologne (Germany) \cr
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany) \cr
 #' Based on a rewritten S script of Rex Galbraith, 2010 \cr
-#' The bootstrap approach is based on a rewritten MATLAB script of Alastair Cunningham. \cr
-#' Alastair Cunningham is thanked for his help in implementing and cross-checking the code.
+#' The bootstrap approach is based on a MATLAB script by Alastair Cunningham,
+#' who helped with implementation and cross-checking.
 #'
 #' @seealso [Luminescence::calc_CentralDose], [Luminescence::calc_CommonDose], [Luminescence::calc_FiniteMixture],
 #' [Luminescence::calc_FuchsLang2001], [Luminescence::calc_MaxDose]

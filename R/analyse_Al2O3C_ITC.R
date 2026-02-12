@@ -20,8 +20,8 @@
 #'
 #' \tabular{lll}{
 #' **ARGUMENT** \tab **FUNCTION** \tab **DESCRIPTION**\cr
-#' `mode` \tab `fit_DoseResponseCurve` \tab as in [Luminescence::fit_DoseResponseCurve]; sets the mode used for fitting\cr
-#' `fit.method` \tab `fit_DoseResponseCurve` \tab as in [Luminescence::fit_DoseResponseCurve]; sets the function applied for fitting\cr
+#' `mode` \tab `fit_DoseResponseCurve` \tab sets the mode used for fitting\cr
+#' `fit.method` \tab `fit_DoseResponseCurve` \tab sets the function applied for fitting\cr
 #' }
 #'
 #' @param object [Luminescence::RLum.Analysis-class] or [list] (**required**):

@@ -23,8 +23,8 @@ objects. Each curve will be represented by two columns for time and counts}
 \link{read_PSL2R} and \link{write_RLum2CSV}}
 }
 \value{
-The function returns either a CSV-file (or many of them) or for the option
-\code{export = FALSE} a list comprising objects of type \link{data.frame} and \link{matrix}
+The function returns either a CSV-file (or many of them) or, when
+\code{export = FALSE}, a list of \link{data.frame} and \link{matrix} objects.
 }
 \description{
 This function is a wrapper function around the functions \link{read_PSL2R} and

@@ -50,10 +50,10 @@ plot_OSLAgeSummary(object)
 \link{combine_De_Dr}, \link{plot.default}, \link[rjags:rjags-package]{rjags::rjags}
 }
 \author{
-Anne Philippe, Université de Nantes (France),
-Jean-Michel Galharret, Université de Nantes (France),
-Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France),
-Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+Anne Philippe, Université de Nantes (France)\cr
+Jean-Michel Galharret, Université de Nantes (France)\cr
+Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)\cr
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 }
 \keyword{dplot}
 \keyword{hplot}

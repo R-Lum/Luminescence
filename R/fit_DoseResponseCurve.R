@@ -159,18 +159,9 @@
 #' as natural dose
 #'
 #' @param fit.method [character] (*with default*):
-#' function used for fitting. Possible options are:
-#' - `LIN`,
-#' - `QDR`,
-#' - `EXP`,
-#' - `EXP OR LIN`,
-#' - `EXP+LIN`,
-#' - `EXP+EXP` (not defined for extrapolation),
-#' - `GOK`,
-#' - `OTOR`,
-#' - `OTORX`
-#'
-#' See details.
+#' function used for fitting. Possible options are: `LIN`, `QDR`, `EXP`,
+#' `EXP OR LIN`, `EXP+LIN`, `EXP+EXP` (not defined for extrapolation), `GOK`,
+#' `OTOR` and `OTORX`. See details.
 #'
 #' @param fit.force_through_origin [logical] (*with default*)
 #' allow to force the fitted function through the origin.
@@ -197,8 +188,8 @@
 #' with the fit methods `EXP`, `EXP+LIN`, `EXP OR LIN`, `GOK`, `OTOR`, `OTORX`
 #' Argument to be inserted for experimental application only!
 #'
-#' @param n.MC [integer] (*with default*):  number of Monte Carlo simulations
-#' for error estimation, see details.
+#' @param n.MC [integer] (*with default*):
+#' number of Monte Carlo simulations for error estimation, see details.
 #'
 #' @param txtProgressBar [logical] (*with default*):
 #' enable/disable the progress bar. If `verbose = FALSE` also no

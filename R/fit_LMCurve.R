@@ -203,19 +203,19 @@
 #'
 #' @references
 #' Bulur, E., 1996. An Alternative Technique For Optically
-#' Stimulated Luminescence (OSL) Experiment. Radiation Measurements, 26, 5,
+#' Stimulated Luminescence (OSL) Experiment. Radiation Measurements 26, 5,
 #' 701-709.
 #'
 #' Jain, M., Murray, A.S., Boetter-Jensen, L., 2003. Characterisation of
 #' blue-light stimulated luminescence components in different quartz samples:
-#' implications for dose measurement. Radiation Measurements, 37 (4-5),
+#' implications for dose measurement. Radiation Measurements 37 (4-5),
 #' 441-449.
 #'
 #' Kitis, G. & Pagonis, V., 2008. Computerized curve deconvolution analysis for
-#' LM-OSL. Radiation Measurements, 43, 737-741.
+#' LM-OSL. Radiation Measurements 43, 737-741.
 #'
 #' Lave, C.A.T., 1970. The Demand for Urban Mass Transportation. The Review of
-#' Economics and Statistics, 52 (3), 320-323.
+#' Economics and Statistics 52 (3), 320-323.
 #'
 #' Ritz, C. & Streibig, J.C., 2008. Nonlinear Regression with R. R. Gentleman,
 #' K. Hornik, & G. Parmigiani, eds., Springer, p. 150.

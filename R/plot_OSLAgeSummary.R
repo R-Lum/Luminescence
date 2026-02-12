@@ -26,10 +26,11 @@
 #'@return A posterior distribution plot and an [Luminescence::RLum.Results-class]
 #' object with the credible interval.
 #'
-#'@author Anne Philippe, Université de Nantes (France),
-#' Jean-Michel Galharret, Université de Nantes (France),
-#' Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France),
-#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+#' @author
+#' Anne Philippe, Université de Nantes (France)\cr
+#' Jean-Michel Galharret, Université de Nantes (France)\cr
+#' Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)\cr
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 #'
 #'@section Function version: 0.1.0
 #'

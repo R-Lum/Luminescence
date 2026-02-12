@@ -43,7 +43,6 @@
 #' - `"Guerinetal2011"` (Guérin et al., 2011)
 #' - `"AdamiecAitken1998"` (Adamiec and Aitken, 1998)
 #'
-#'
 #' **Water content**
 #'
 #' The water content provided by the user should be calculated according to:
@@ -91,7 +90,7 @@
 #' - `id` ([character]): an arbitrary id or name of each layer
 #' - `thickness` ([numeric]): vertical extent of each layer in cm
 #' - `sample_offset` ([logical]): distance of the sample in cm,
-#'  **measured from the BOTTOM OF THE TARGET LAYER**. Except for the target layer
+#'  **measured from the bottom of the target layer**. Except for the target layer
 #'  all values must be `NA`.
 #' - `K` ([numeric]): K nuclide content in %
 #' - `K_se` ([numeric]): error on the K content
@@ -209,12 +208,11 @@
 #' Radiation Measurements 120, 195-201. \doi{10.1016/j.radmeas.2018.02.007}
 #'
 #' Guérin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
-#' factors: update. Ancient TL, 29, 5-8. \doi{10.26034/la.atl.2011.443}
+#' factors: update. Ancient TL 29, 5-8. \doi{10.26034/la.atl.2011.443}
 #'
 #' Liritzis, I., Stamoulis, K., Papachristodoulou, C., Ioannides, K., 2013.
 #' A re-evaluation of radiation dose-rate conversion factors. Mediterranean
 #' Archaeology and Archaeometry 13, 1-15.
-#'
 #'
 #' @section Acknowledgements:
 #'

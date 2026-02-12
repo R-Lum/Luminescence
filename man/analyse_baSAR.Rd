@@ -341,7 +341,7 @@ This list summarizes the additional arguments that can be passed to the internal
 functions.
 
 \tabular{llll}{
-\strong{Supported argument} \tab \strong{Corresponding function} \tab \strong{Default} \tab **Short description **\cr
+\strong{Supported argument} \tab \strong{Corresponding function} \tab \strong{Default} \tab \strong{Short description}\cr
 \code{threshold} \tab \link{verify_SingleGrainData} \tab \code{30} \tab change rejection threshold for curve selection \cr
 \code{skip} \tab \link[data.table:fread]{data.table::fread} \tab \code{0} \tab number of rows to be skipped during import\cr
 \code{n.records} \tab \link{read_BIN2R} \tab \code{NULL} \tab limit records during BIN-file import\cr

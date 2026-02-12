@@ -56,7 +56,7 @@ returned containing the following elements:
 
 \item{De.values}{\link{data.frame} containing De-values and further parameters}
 \item{LnLxTnTx.values}{\link{data.frame} of all calculated \code{Lx/Tx} values including signal, background counts and the dose points.}
-\item{rejection.criteria}{\link{data.frame} with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.}
+\item{rejection.criteria}{\link{data.frame} with values that might by used as rejection criteria. \code{NA} is produced if no R0 dose point exists.}
 
 The output should be accessed using the function \link{get_RLum}.
 }

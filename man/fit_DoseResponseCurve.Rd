@@ -45,20 +45,9 @@ Please note that for option \code{"interpolation"} the first point is considered
 as natural dose}
 
 \item{fit.method}{\link{character} (\emph{with default}):
-function used for fitting. Possible options are:
-\itemize{
-\item \code{LIN},
-\item \code{QDR},
-\item \code{EXP},
-\item \verb{EXP OR LIN},
-\item \code{EXP+LIN},
-\item \code{EXP+EXP} (not defined for extrapolation),
-\item \code{GOK},
-\item \code{OTOR},
-\item \code{OTORX}
-}
-
-See details.}
+function used for fitting. Possible options are: \code{LIN}, \code{QDR}, \code{EXP},
+\verb{EXP OR LIN}, \code{EXP+LIN}, \code{EXP+EXP} (not defined for extrapolation), \code{GOK},
+\code{OTOR} and \code{OTORX}. See details.}
 
 \item{fit.force_through_origin}{\link{logical} (\emph{with default})
 allow to force the fitted function through the origin.
@@ -85,8 +74,8 @@ set lower fit bounds for all fitting parameters to 0. Limited for the use
 with the fit methods \code{EXP}, \code{EXP+LIN}, \verb{EXP OR LIN}, \code{GOK}, \code{OTOR}, \code{OTORX}
 Argument to be inserted for experimental application only!}
 
-\item{n.MC}{\link{integer} (\emph{with default}):  number of Monte Carlo simulations
-for error estimation, see details.}
+\item{n.MC}{\link{integer} (\emph{with default}):
+number of Monte Carlo simulations for error estimation, see details.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
 enable/disable the progress bar. If \code{verbose = FALSE} also no

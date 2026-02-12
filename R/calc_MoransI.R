@@ -16,8 +16,8 @@
 #' corresponds to `-1 / (n - 1)`, with `n` being the number of non-missing
 #' observations.
 #'
-#' @param object [Luminescence::RLum.Results-class] or [numeric] (**required**) containing
-#' the values of the grains of one. Should have length 100; can contain `NA`
+#' @param object [Luminescence::RLum.Results-class] or [numeric] (**required**):
+#' values of the grains of one disc. Should have length 100; can contain `NA`
 #' values.
 #'
 #' @param df_neighbours [data.frame] (*with default*): a data frame with 3
@@ -67,12 +67,14 @@
 #' a list with several values used for calculation is returned instead of a
 #' single outcome.
 #'
-#' @author Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
+#' @author
+#' Anna-Maartje de Boer, Wageningen University & Research (The Netherlands)\cr
+#' Luc Steinbuch, Wageningen University & Research (The Netherlands)\cr
 #'
 #' @references
 #' de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
-#' A novel tool to assess crosstalk in single-grain luminescence detection.
-#' Submitted.
+#' A novel method to assess crosstalk in single-grain luminescence detection.
+#' Radiation Measurements 186, 107459. \doi{10.1016/j.radmeas.2025.107459}
 #'
 #' @examples
 #'
@@ -202,12 +204,14 @@ calc_MoransI <- function(object,
 #'
 #' @seealso https://geodacenter.github.io/workbook/5a_global_auto/lab5a.html#permutation-inference
 #'
-#' @author Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
+#' @author
+#' Anna-Maartje de Boer, Wageningen University & Research (The Netherlands)\cr
+#' Luc Steinbuch, Wageningen University & Research (The Netherlands)\cr
 #'
 #' @references
 #' de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
-#' A novel tool to assess crosstalk in single-grain luminescence detection.
-#' Submitted.
+#' A novel method to assess crosstalk in single-grain luminescence detection.
+#' Radiation Measurements 186, 107459. \doi{10.1016/j.radmeas.2025.107459}
 #'
 #' @keywords internal
 #' @noRd
@@ -272,12 +276,14 @@ calc_MoransI <- function(object,
 #' of the vector with observations; the relative weight is standard set to one.
 #' Note that the concept of "location" versus "neighbour" is symmetric.
 #'
-#' @author Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
+#' @author
+#' Anna-Maartje de Boer, Wageningen University & Research (The Netherlands)\cr
+#' Luc Steinbuch, Wageningen University & Research (The Netherlands)\cr
 #'
 #' @references
 #' de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
-#' A novel tool to assess crosstalk in single-grain luminescence detection.
-#' Submitted.
+#' A novel method to assess crosstalk in single-grain luminescence detection.
+#' Radiation Measurements 186, 107459. \doi{10.1016/j.radmeas.2025.107459}
 #'
 #' @keywords internal
 #'

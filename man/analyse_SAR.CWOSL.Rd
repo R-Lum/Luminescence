@@ -138,8 +138,8 @@ without the need for a curve fitting.}
 \link{fit_DoseResponseCurve}, \link{plot_DoseResponseCurve}
 or \link{calc_OSLLxTxRatio}
 (supported: \code{background.count.distribution}, \code{sigmab}, \code{sig0}).
-\strong{Please note} that if you consider to use the early light subtraction
-method you should provide your own \code{sigmab} value!}
+\strong{Note:} if you consider to use the early light subtraction method,
+\code{sigmab} should be provided.}
 }
 \value{
 A plot (\emph{optional}) and an \linkS4class{RLum.Results} object is
@@ -313,7 +313,7 @@ Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 after bleaching. Quaternary Science Reviews 7, 387-393.
 
 Duller, G., 2003. Distinguishing quartz and feldspar in single grain
-luminescence measurements. Radiation Measurements, 37 (2), 161-165.
+luminescence measurements. Radiation Measurements 37 (2), 161-165.
 
 Murray, A.S. and Wintle, A.G., 2000. Luminescence dating of quartz using an
 improved single-aliquot regenerative-dose protocol. Radiation Measurements

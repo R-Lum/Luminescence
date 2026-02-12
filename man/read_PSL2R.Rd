@@ -83,7 +83,7 @@ plot(psl, combine = TRUE)
 \linkS4class{RLum.Data.Curve}
 }
 \author{
-Christoph Burow, University of Cologne (Germany),
-F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+Christoph Burow, University of Cologne (Germany)\cr
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 }
 \keyword{IO}

@@ -38,11 +38,11 @@
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
-#' @seealso [Luminescence::plot_RLum.Data.Curve], [Luminescence::RLum.Data.Curve-class],
-#' [Luminescence::plot_RLum.Data.Spectrum],[Luminescence::RLum.Data.Spectrum-class],
-#' [Luminescence::plot_RLum.Data.Image], [Luminescence::RLum.Data.Image-class],
-#' [Luminescence::plot_RLum.Analysis], [Luminescence::RLum.Analysis-class],
-#' [Luminescence::plot_RLum.Results], [Luminescence::RLum.Results-class]
+#' @seealso [Luminescence::plot_RLum.Analysis],
+#' [Luminescence::plot_RLum.Data.Curve],
+#' [Luminescence::plot_RLum.Data.Spectrum],
+#' [Luminescence::plot_RLum.Data.Image],
+#' [Luminescence::plot_RLum.Results]
 #'
 #' @keywords dplot
 #'

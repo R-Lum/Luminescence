@@ -13,20 +13,20 @@
 #' channels (same number of channels as specified by `signal_integral`) is
 #' divided by cumulative signal of the first *n* channels (`signal_integral`).
 #'
-#' **Note:  The function assumes the following sequence pattern:
-#' `DARK COUNT`, `IRSL`, `DARK COUNT`, `BSL`, `DARK COUNT`.** Therefore, the
+#' **Note:** The function assumes the following sequence pattern:
+#' `DARK COUNT`, `IRSL`, `DARK COUNT`, `BSL`, `DARK COUNT`. Therefore, the
 #' total number of curves in the input object must be a multiple of 5, and
-#' there must be 3 `DARK_COUNT` records for each IRSL/BSL pair. If you have used
-#' a different sequence, the function will produce an error.
+#' there must be 3 `DARK_COUNT` records for each IRSL/BSL pair. If a different
+#' sequence was used, the function will produce an error.
 #'
 #' **Signal processing**
-#' The function processes the signals as follows: `BSL` and `IRSL` signals are extracted using the
-#' chosen signal integral, dark counts are taken in full.
+#' The function processes the signals as follows: `BSL` and `IRSL` signals are
+#' extracted using the chosen signal integral, dark counts are taken in full.
 #'
 #' **Working with coordinates**
-#' Usually samples are taken from a profile with a certain stratigraphy. In the past the function
-#' calculated an index. With this newer version, you have two option of passing on xy-coordinates
-#' to the function:
+#' Usually samples are taken from a profile with a certain stratigraphy. In
+#' the past, the function calculated an index. Currently, you have two ways
+#' of passing on xy-coordinates to the function:
 #'
 #' * (1) Add coordinates to the sample name during measurement. The form is rather
 #' strict and has to follow the scheme `_x:<number>|y:<number>`. Example:
@@ -50,7 +50,8 @@
 #' as a sequence such as `1:5`, in which case the lowest and highest values
 #' define the range.
 #'
-#' @param invert [logical] (*with default*): `TRUE` flip the plot the data in reverse order.
+#' @param invert [logical] (*with default*):
+#' whether the data should be plotted in reverse order (`FALSE` by default).
 #'
 #' @param normalise [logical] (*with default*):
 #' whether the OSL/IRSL signals should be normalised to the *mean* of all

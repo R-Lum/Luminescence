@@ -1,39 +1,45 @@
 #' @title Create Regions of Interest (ROI) Graphic
 #'
-#' @description The function creates ROI graphic with data extracted from the
-#' data imported via [Luminescence::read_RF2R]. This function might be of use to work with
+#' @description
+#' The function creates ROI graphic with data extracted from the data imported
+#' via [Luminescence::read_RF2R]. This function might be of use to work with
 #' reduced data from spatially resolved measurements.
 #' The plot dimensions mimic the original image dimensions.
 #'
 #' @param object [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Results-class] or a [list] of such objects (**required**):
 #' input data created either by [Luminescence::read_RF2R] or [Luminescence::extract_ROI].
 #'
-#'@param exclude_ROI [numeric] (*with default*): option to remove particular ROIs from the
-#'analysis. Those ROIs are plotted but not coloured and not taken into account
-#'in distance analysis. `NULL` excludes nothing.
+#' @param exclude_ROI [numeric] (*with default*):
+#' option to remove particular ROIs from the analysis. Those ROIs are plotted
+#' but not coloured and not taken into account in distance analysis. `NULL`
+#' excludes nothing.
 #'
-#'@param dist_thre [numeric] (*optional*): euclidean distance threshold in pixel
-#'distance. All ROI for which the euclidean distance is smaller are marked. This
-#'helps to identify ROIs that might be affected by signal cross-talk. Note:
-#'the distance is calculated from the centre of an ROI, e.g., the threshold
-#'should include consider the ROIs or grain radius.
+#' @param dist_thre [numeric] (*optional*):
+#' euclidean distance threshold in pixel distance. All ROI for which the
+#' euclidean distance is smaller are marked. This helps to identify ROIs that
+#' might be affected by signal cross-talk. Note: the distance is calculated
+#' from the centre of an ROI, e.g., the threshold should include consider the
+#' ROIs or grain radius.
 #'
-#'@param dim.CCD [numeric] (*optional*): metric x and y for the recorded (chip)
-#'surface in µm. For instance `c(8192,8192)`, if set additional x and y-axes are shown
+#' @param dim.CCD [numeric] (*optional*):
+#' metric x and y for the recorded (chip) surface in µm. For instance
+#' `c(8192, 8192)`, if set additional x and y-axes are shown.
 #'
-#' @param bg_image [Luminescence::RLum.Data.Image-class] (*optional*): background image object
-#' (please note that dimensions are not checked).
+#' @param bg_image [Luminescence::RLum.Data.Image-class] (*optional*):
+#' background image object (please note that dimensions are not checked).
 #'
 #' @param plot [logical] (*with default*): enable/disable the plot output.
 #'
-#'@param ... further parameters to manipulate the plot. On top of all arguments of
-#'[graphics::plot.default] the following arguments are supported: `lwd.ROI`, `lty.ROI`,
-#'`col.ROI`, `col.pixel`, `text.labels`, `text.offset`, `grid` (`TRUE/FALSE`), `legend` (`TRUE/FALSE`),
-#'`legend.text`, `legend.pos`
+#' @param ... further parameters to manipulate the plot. Besides the standard
+#' arguments of [graphics::plot.default], the following arguments are
+#' supported: `lwd.ROI`, `lty.ROI`, `col.ROI`, `col.pixel`, `text.labels`,
+#' `text.offset`, `grid` (`TRUE/FALSE`), `legend` (`TRUE/FALSE`),
+#' `legend.text`, `legend.pos`
 #'
-#'@return An ROI plot and an [Luminescence::RLum.Results-class] object with a matrix containing
-#'the extracted ROI data and a object produced by [stats::dist] containing
-#'the euclidean distance between the ROIs.
+#' @return
+#' An ROI plot and an [Luminescence::RLum.Results-class] object with a matrix
+#' containing the extracted ROI data and a object produced by [stats::dist]
+#' containing the euclidean distance between the ROIs.
 #'
 #'@section Function version: 0.2.0
 #'

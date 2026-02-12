@@ -72,15 +72,15 @@
 #' divisible by 3 and where each triplet has the before mentioned column
 #' structure.
 #'
-#' **Please note: The input object should solely consists of the curve needed
+#' **Note:** The input object should solely consists of the curve needed
 #' for the data analysis, i.e. only IRSL curves representing Lx (and Tx). If
 #' the object originated from an XSYG file, also the irradiation steps must
-#' be preserved in the input object.**
+#' be preserved in the input object.
 #'
-#' If data from multiple aliquots are provided please **see the details below**
-#' with regard to Lx/Tx normalisation. **The function assumes that all your
+#' If data from multiple aliquots are provided, please see the details below
+#' with regard to Lx/Tx normalisation. **Note:** The function assumes that all your
 #' measurements are related to one (comparable) sample. If you have to treat
-#' independent samples, you have use this function in a loop.**
+#' independent samples, you have use this function in a loop.
 #'
 #' @param structure [character] (*with default*):
 #' the structure of the measurement data, one of `'Lx'` or `c('Lx','Tx')`.

@@ -20,12 +20,12 @@ calc_MinDose(
 }
 \arguments{
 \item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
-for \link{data.frame}: two columns for De and De error.}
+for \link{data.frame}: two columns with \code{(data[, 1])} and De error \code{(data[, 2])}.}
 
 \item{sigmab}{\link{numeric} (\strong{required}):
 additional spread in De values, representing the expected overdispersion in
 the data should the sample be well-bleached (Cunningham & Wallinga 2012, p. 100).
-\strong{NOTE}: For the logged model (\code{log = TRUE}) this value must be
+\strong{Note:} For the logged model (\code{log = TRUE}) this value must be
 a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
 \code{sigmab} must be provided in the same absolute units of the De values (seconds or Gray).
 See details.}
@@ -44,7 +44,7 @@ apply the recycled bootstrap approach of Cunningham & Wallinga (2012).}
 a named list with starting values for \code{gamma}, \code{sigma}, \code{p0} and \code{mu}
 (e.g. \code{list(gamma=100, sigma=1.5, p0=0.1, mu=100)}). If no values are
 provided, reasonable values will be estimated from the data.
-\strong{NOTE}: the initial values must always be given in the absolute units.
+\strong{Note:} the initial values must always be given in the absolute units.
 If a logged model is applied (\code{log = TRUE}), the provided \code{init.values}
 are automatically log-transformed.}
 
@@ -341,6 +341,6 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10.
 Christoph Burow, University of Cologne (Germany) \cr
 Marco Colombo, Institute of Geography, Heidelberg University (Germany) \cr
 Based on a rewritten S script of Rex Galbraith, 2010 \cr
-The bootstrap approach is based on a rewritten MATLAB script of Alastair Cunningham. \cr
-Alastair Cunningham is thanked for his help in implementing and cross-checking the code.
+The bootstrap approach is based on a MATLAB script by Alastair Cunningham,
+who helped with implementation and cross-checking.
 }

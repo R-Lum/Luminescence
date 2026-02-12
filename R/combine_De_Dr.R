@@ -373,7 +373,8 @@
 #' `return_mcmc`\tab [logical] \tab `FALSE` \tab return additional MCMC diagnostic information\cr
 #'}
 #'
-#'@param De [numeric] (**required**): a equivalent dose sample
+#' @param De [numeric] (**required**):
+#' an equivalent dose sample.
 #'
 #'@param s [numeric] (**required**): a vector of measurement errors on the equivalent dose
 #'
@@ -382,17 +383,19 @@
 #'@param int_OD [numeric] (**required**): the intrinsic overdispersion, typically the standard deviation
 #'characterizing a dose-recovery test distribution
 #'
-#'@param Age_range [numeric] (*with default*): the age range to be investigated by the algorithm, the larger
-#'the value the more iterations are needed and the longer it takes. Should not be set too narrow, cut
-#'the algorithm some slack.
+#' @param Age_range [numeric] (*with default*):
+#' age range to be investigated by the algorithm. The larger the value, the
+#' more iterations are needed and the longer it takes. It should not be set
+#' too narrow to cut the algorithm some slack.
 #'
 #'@param outlier_threshold [numeric] (*with default*): the required significance level used
 #'for the outlier detection. If set to `1`, no outliers are removed. If
 #'`outlier_method = "RousseeuwCroux1993"`, the median distance is used as outlier threshold.
 #'Please see details for further information.
 #'
-#'@param outlier_method [character] (*with default*): select the outlier detection
-#'method, either `"default"` or `"RousseeuwCroux1993"`. See details for further information.
+#' @param outlier_method [character] (*with default*):
+#' outlier detection method, either `"default"` or `"RousseeuwCroux1993"`.
+#' See details.
 #'
 #' @param outlier_analysis_plot [logical] (*with default*): enable/disable the
 #' outlier analysis plot. Note: the outlier analysis will happen independently
@@ -413,10 +416,11 @@
 #'@param par_local [logical] (*with default*): if set to `TRUE` the function uses its
 #'own [graphics::par] settings (which will end in two plots next to each other)
 #'
-#' @param verbose [logical] (*with default*): enable/disable output to the
-#' terminal.
+#' @param verbose [logical] (*with default*):
+#' enable/disable output to the terminal.
 #'
-#' @param plot [logical] (*with default*): enable/disable the plot output.
+#' @param plot [logical] (*with default*):
+#' enable/disable the plot output.
 #'
 #'@param ... a few further arguments to fine-tune the plot output such as
 #'`cdf_ADr_quantiles` (`TRUE`/`FALSE`), `legend.pos`, `legend` (`TRUE`/`FALSE`)
@@ -440,15 +444,17 @@
 #' `.. $model_IAM`: the BUGS model used to derive the individual age\cr
 #' `.. $model_BCAM`: the BUGS model used to calculate the Bayesian Central Age\cr
 #'
-#'@references
+#' @references
 #'
-#'Mercier, N., Galharret, J.-M., Tribolo, C., Kreutzer, S., Philippe, A., preprint.
-#'Luminescence age calculation through Bayesian convolution of equivalent dose and
-#'dose-rate distributions: the De_Dr model. Geochronology, 1-22.
+#' Mercier, N., Galharret, J.-M., Tribolo, C., Kreutzer, S., Philippe, A., (2022).
+#' Luminescence age calculation through Bayesian convolution of equivalent dose
+#' and dose-rate distributions: the De_Dr model. Geochronology 4, 297-310.
+#' \doi{10.5194/gchron-4-297-2022}
 #'
-#'Galharret, J-M., Philippe, A., Mercier, N., preprint. Detection of outliers with
-#'a Bayesian hierarchical model: application to the single-grain luminescence dating method.
-#'Electronic Journal of Applied Statistics
+#' Galharret, J-M., Philippe, A., Mercier, N. (2021). Detection of outliers
+#' with a Bayesian hierarchical model: application to the single-grain
+#' luminescence dating method. Electronic Journal of Applied Statistics 14 (2),
+#' 318-338. \doi{10.1285/i20705948v14n2p318}
 #'
 #'**Further reading**
 #'

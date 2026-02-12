@@ -189,6 +189,6 @@ Journal of Global Optimization 11, 341–359.
 \link[minpack.lm:nls.lm]{minpack.lm::nls.lm}, \link[DEoptim:DEoptim]{DEoptim::DEoptim}
 }
 \author{
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University,
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 Christoph Schmidt, University of Bayreuth (Germany)
 }

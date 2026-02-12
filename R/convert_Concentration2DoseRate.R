@@ -67,11 +67,11 @@
 #'Assessment of nuclear data. Radiation Measurements 120, 195-201.
 #'
 #'Guérin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion factors: update.
-#'Ancient TL, 29, 5-8.
+#'Ancient TL 29, 5-8.
 #'
 #'Guérin, G., Mercier, N., Nathan, R., Adamiec, G., Lefrais, Y., 2012. On the use
 #'of the infinite matrix assumption and associated concepts: A critical review.
-#'Radiation Measurements, 47, 778-785.
+#'Radiation Measurements 47, 778-785.
 #'
 #'Liritzis, I., Stamoulis, K., Papachristodoulou, C., Ioannides, K., 2013.
 #'A re-evaluation of radiation dose-rate conversion factors. Mediterranean

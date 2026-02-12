@@ -142,7 +142,7 @@ numeric values for the dose rate (\code{Ddot}) (in Gy/ka) and the characteristic
 saturation dose (\code{D0}) (in Gy) must be provided. The function will then fit
 equation 12 in Sohbati et al. (2012b) to the data.
 
-\strong{NOTE}: Currently, this function does \strong{not} consider the variability
+\strong{Note:} Currently, this function does \strong{not} consider the variability
 of the dose rate with sample depth (\code{x})! In the original equation the dose
 rate \code{D} is an arbitrary function of \code{x} (term \code{D(x)}), but here \code{D} is assumed
 constant.

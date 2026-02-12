@@ -59,8 +59,9 @@
 #' @param ... further parameters that can be passed to better control the plot output. Support arguments
 #' are `xlab`, `xlim`.
 #'
-#' @author Pierre Guibert, IRAMAT-CRP2A, UMR 5060, Université Bordeaux Montaigne (France),
-#' Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+#' @author
+#' Pierre Guibert, IRAMAT-CRP2A, UMR 5060, Université Bordeaux Montaigne (France)\cr
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 #'
 #' @section Function version: 0.1.1
 #'

@@ -80,7 +80,7 @@ Transform values using
 
 (7) Combine all values and truncate all values for t' > \code{max(t)}
 
-\strong{NOTE:}
+\strong{Note:}
 The number of values for t' < \code{min(t)} depends on the stimulation rate
 parameter \code{delta}. To avoid the production of too many artificial data
 at the raising tail of the determined pHM curve, it is recommended to use
@@ -181,16 +181,16 @@ text(0.5,6500,"PM", col="blue" ,cex=.8)
 }
 \references{
 Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL
-signal components. Radiation Measurements, 47, 752-758.\cr
+signal components. Radiation Measurements 47, 752-758.\cr
 
 \strong{Further Reading}
 
 Bulur, E., 1996. An Alternative Technique For
-Optically Stimulated Luminescence (OSL) Experiment. Radiation Measurements,
+Optically Stimulated Luminescence (OSL) Experiment. Radiation Measurements
 26, 701-709.
 
 Bulur, E., 2000. A simple transformation for converting CW-OSL curves to
-LM-OSL curves. Radiation Measurements, 32, 141-145.
+LM-OSL curves. Radiation Measurements 32, 141-145.
 }
 \seealso{
 \link{convert_CW2pLM}, \link{convert_CW2pLMi}, \link{convert_CW2pPMi},
@@ -198,7 +198,7 @@ LM-OSL curves. Radiation Measurements, 32, 141-145.
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
-Based on comments and suggestions from:\cr
+Based on comments and suggestions from:
 Adrie J.J. Bos, Delft University of Technology, The Netherlands
 }
 \keyword{manip}

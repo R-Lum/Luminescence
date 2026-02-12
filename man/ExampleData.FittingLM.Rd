@@ -31,7 +31,7 @@ plot(values.curve,log="x")
 \references{
 Fuchs, M., Kreutzer, S., Fischer, M., Sauer, D., Soerensen, R., 2012. OSL and IRSL
 dating of raised beach sand deposits along the south-eastern coast of Norway.
-Quaternary Geochronology, 10, 195-200.
+Quaternary Geochronology 10, 195-200.
 }
 \keyword{datasets}
 \keyword{internal}

@@ -28,7 +28,7 @@ unrecognised measurement uncertainty.}
 sample size used for the bootstrapping}
 
 \item{na.rm}{\link{logical} (\emph{with default}):
-exclude NA values from the data set prior to any further operation.}
+exclude \code{NA} values from the data set prior to any further operation.}
 
 \item{plot}{\link{logical} (\emph{with default}):
 enable/disable the plot output.}
@@ -140,9 +140,9 @@ and Other Measures of Statistical Accuracy. Statistical Science 1, 54-75.
 \link{read.table}, \link[graphics:hist]{graphics::hist}
 }
 \author{
-Claire Christophe, IRAMAT-CRP2A, Université de Nantes (France),
-Anne Philippe, Université de Nantes, (France),
-Guillaume Guérin, IRAMAT-CRP2A, Université Bordeaux Montaigne, (France),
+Claire Christophe, IRAMAT-CRP2A, Université de Nantes (France)\cr
+Anne Philippe, Université de Nantes, (France)\cr
+Guillaume Guérin, IRAMAT-CRP2A, Université Bordeaux Montaigne, (France)\cr
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{datagen}

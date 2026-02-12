@@ -22,12 +22,13 @@
 #' [Luminescence::read_PSL2R] and [Luminescence::write_RLum2CSV]
 #'
 #' @return
-#' The function returns either a CSV-file (or many of them) or for the option
-#' `export = FALSE` a list comprising objects of type [data.frame] and [matrix]
+#' The function returns either a CSV-file (or many of them) or, when
+#' `export = FALSE`, a list of [data.frame] and [matrix] objects.
 #'
 #' @section Function version: 0.1.2
 #'
-#' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+#' @author
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data-class], [Luminescence::RLum.Results-class],
 #' [utils::write.table], [Luminescence::write_RLum2CSV], [Luminescence::read_PSL2R]

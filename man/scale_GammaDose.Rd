@@ -24,7 +24,7 @@ table must have the following named columns:
 \item \code{id} (\link{character}): an arbitrary id or name of each layer
 \item \code{thickness} (\link{numeric}): vertical extent of each layer in cm
 \item \code{sample_offset} (\link{logical}): distance of the sample in cm,
-\strong{measured from the BOTTOM OF THE TARGET LAYER}. Except for the target layer
+\strong{measured from the bottom of the target layer}. Except for the target layer
 all values must be \code{NA}.
 \item \code{K} (\link{numeric}): K nuclide content in \%
 \item \code{K_se} (\link{numeric}): error on the K content
@@ -244,7 +244,7 @@ Dose rate conversion parameters: Assessment of nuclear data.
 Radiation Measurements 120, 195-201. \doi{10.1016/j.radmeas.2018.02.007}
 
 Guérin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
-factors: update. Ancient TL, 29, 5-8. \doi{10.26034/la.atl.2011.443}
+factors: update. Ancient TL 29, 5-8. \doi{10.26034/la.atl.2011.443}
 
 Liritzis, I., Stamoulis, K., Papachristodoulou, C., Ioannides, K., 2013.
 A re-evaluation of radiation dose-rate conversion factors. Mediterranean

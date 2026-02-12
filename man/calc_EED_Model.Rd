@@ -119,7 +119,7 @@ Radiation Measurements 107, 48–57. \doi{10.1016/j.radmeas.2017.10.003}
 \link{calc_IEU}, \link{calc_FiniteMixture}
 }
 \author{
-Pierre Guibert, IRAMAT-CRP2A, UMR 5060, Université Bordeaux Montaigne (France),
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University (United Kingdom)
+Pierre Guibert, IRAMAT-CRP2A, UMR 5060, Université Bordeaux Montaigne (France)\cr
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 }
 \keyword{datagen}

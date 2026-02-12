@@ -18,13 +18,13 @@ plot_ViolinPlot(
 \item{data}{\link{numeric} or \linkS4class{RLum.Results} (\strong{required}):
 input data for plotting. Alternatively a \link{data.frame} or a \link{matrix} can
 be provided, but only the first column will be considered by the
-function}
+function.}
 
 \item{boxplot}{\link{logical} (\emph{with default}):
-enable/disable boxplot}
+enable/disable the boxplot.}
 
 \item{rug}{\link{logical} (\emph{with default}):
-enable/disable rug}
+enable/disable the rug.}
 
 \item{summary}{\link{character} (\emph{with default}):
 add statistic measures of centrality and dispersion to the plot.
@@ -37,7 +37,7 @@ below the plot header. However, this latter option in only possible if
 \code{mtext} is not used.}
 
 \item{na.rm}{\link{logical} (\emph{with default}):
-exclude NA values from the data set prior to any further operations.}
+exclude \code{NA} values from the data set prior to any further operations.}
 
 \item{...}{further arguments and graphical parameters passed to
 \link{plot.default}, \link[stats:density]{stats::density} and \link{boxplot}. See details for further
@@ -59,7 +59,7 @@ The function is passing several arguments to the functions \link{plot},
 Supported arguments are:
 \code{xlim}, \code{main}, \code{xlab}, \code{ylab}, \code{col.violin}, \code{col.boxplot}, \code{mtext}, \code{cex}, \code{mtext}
 
-\strong{\verb{Valid summary keywords}}
+\strong{Valid summary keywords}
 
 \code{'n'}, \code{'mean'}, \code{'median'}, \code{'sd.abs'}, \code{'sd.rel'}, \code{'se.abs'}, \code{'se.rel'}.
 \code{'skewness'}, \code{'kurtosis'}

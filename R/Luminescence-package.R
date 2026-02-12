@@ -76,19 +76,19 @@
 #' @references
 #' Dietze, M., Kreutzer, S., Fuchs, M.C., Burow, C., Fischer, M.,
 #' Schmidt, C., 2013. A practical guide to the R package Luminescence.
-#' Ancient TL, 31 (1), 11-18.
+#' Ancient TL 31 (1), 11-18.
 #'
 #' Dietze, M., Kreutzer, S., Burow, C., Fuchs, M.C., Fischer, M., Schmidt, C., 2016. The abanico plot:
-#' visualising chronometric data with individual standard errors. Quaternary Geochronology 31, 1-7.
-#' https://doi.org/10.1016/j.quageo.2015.09.003
+#' visualising chronometric data with individual standard errors.
+#' Quaternary Geochronology 31, 1-7. \doi{10.1016/j.quageo.2015.09.003}
 #'
 #' Fuchs, M.C., Kreutzer, S., Burow, C., Dietze, M., Fischer, M., Schmidt, C.,
 #' Fuchs, M., 2015. Data processing in luminescence dating analysis: An
 #' exemplary workflow using the R package 'Luminescence'. Quaternary
-#' International, 362,8-13. https://doi.org/10.1016/j.quaint.2014.06.034
+#' International 362, 8-13. \doi{10.1016/j.quaint.2014.06.034}
 #'
 #' Kreutzer, S., Schmidt, C., Fuchs, M.C., Dietze, M., Fischer, M., Fuchs, M.,
-#' 2012. Introducing an R package for luminescence dating analysis. Ancient TL,
+#' 2012. Introducing an R package for luminescence dating analysis. Ancient TL
 #' 30 (1), 1-8.
 #'
 #' Mercier, N., Kreutzer, S., Christophe, C., Guérin, G., Guibert, P., Lahaye, C., Lanos, P., Philippe, A.,
@@ -98,14 +98,14 @@
 #' Mercier, N., Galharret, J.-M., Tribolo, C., Kreutzer, S., Philippe, A., 2022.
 #' Luminescence age calculation through Bayesian convolution of equivalent dose
 #' and dose-rate distributions: the De_Dr model.
-#' Geochronology 4, 297–310. https://doi.org/10.5194/gchron-4-297-2022
+#' Geochronology 4, 297–310. \doi{10.5194/gchron-4-297-2022}
 #'
 #' Smedley, R.K., 2015. A new R function for the Internal External Uncertainty (IEU) model.
-#' Ancient TL, 33 (1), 16-21.
+#' Ancient TL 33 (1), 16-21.
 #'
 #' King, E.G., Burow, C., Roberts, H., Pearce, N.J.G., 2018. Age determination
-#' using feldspar: evaluating fading-correction model performance. Radiation Measurements 119, 58-73.
-#' https://doi.org/10.1016/j.radmeas.2018.07.013
+#' using feldspar: evaluating fading-correction model performance.
+#' Radiation Measurements 119, 58-73. \doi{10.1016/j.radmeas.2018.07.013}
 #'
 #' @keywords package
 #'
@@ -183,7 +183,7 @@ NULL
 #' Radiation Measurements 120, 195-201.
 #'
 #' Guérin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
-#' factors: update. Ancient TL, 29, 5-8.
+#' factors: update. Ancient TL 29, 5-8.
 #'
 #' Liritzis, I., Stamoulis, K., Papachristodoulou, C., Ioannides, K., 2013.
 #' A re-evaluation of radiation dose-rate conversion factors. Mediterranean
@@ -208,7 +208,7 @@ NULL
 #'
 #' Guérin, G., Mercier, N., Nathan, R., Adamiec, G., Lefrais, Y., 2012.
 #' On the use of the infinite matrix assumption and associated concepts:
-#' A critical review. Radiation Measurements, 47, 778-785.
+#' A critical review. Radiation Measurements 47, 778-785.
 #'
 #' @examples
 #' ## grain size attenuation
@@ -318,14 +318,14 @@ NULL
 #'
 #' @references
 #' Gruen, R., 2009. The "AGE" program for the calculation of luminescence age estimates.
-#' Ancient TL, 27, pp. 45-46.
+#' Ancient TL 27, pp. 45-46.
 #'
 #' Prescott, J.R., Hutton, J.T., 1988. Cosmic ray and gamma ray dosimetry for
-#' TL and ESR. Nuclear Tracks and Radiation Measurements, 14, pp. 223-227.
+#' TL and ESR. Nuclear Tracks and Radiation Measurements 14, pp. 223-227.
 #'
 #' Prescott, J.R., Hutton, J.T., 1994. Cosmic ray contributions to dose rates
 #' for luminescence and ESR dating: large depths and long-term time variations.
-#' Radiation Measurements, 23, pp. 497-500.
+#' Radiation Measurements 23, pp. 497-500.
 #'
 #' @source
 #' The following data were carefully read from figures in mentioned
@@ -522,11 +522,11 @@ NULL
 #' @references
 #' Baartman, J.E.M., Veldkamp, A., Schoorl, J.M., Wallinga, J.,
 #' Cammeraat, L.H., 2011. Unravelling Late Pleistocene and Holocene landscape
-#' dynamics: The Upper Guadalentin Basin, SE Spain. Geomorphology, 125,
+#' dynamics: The Upper Guadalentin Basin, SE Spain. Geomorphology 125,
 #' 172-185.
 #'
 #' Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL signal
-#' components. Radiation Measurements, 47, 752-758.
+#' components. Radiation Measurements 47, 752-758.
 #'
 #' @source **ExampleData.CW_OSL_Curve**
 #'
@@ -600,7 +600,7 @@ NULL
 #' @references
 #' Fuchs, M., Kreutzer, S., Fischer, M., Sauer, D., Soerensen, R., 2012. OSL and IRSL
 #' dating of raised beach sand deposits along the south-eastern coast of Norway.
-#' Quaternary Geochronology, 10, 195-200.
+#' Quaternary Geochronology 10, 195-200.
 #'
 #' @source
 #'

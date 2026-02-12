@@ -16,8 +16,8 @@ calc_MoransI(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Results} or \link{numeric} (\strong{required}) containing
-the values of the grains of one. Should have length 100; can contain \code{NA}
+\item{object}{\linkS4class{RLum.Results} or \link{numeric} (\strong{required}):
+values of the grains of one disc. Should have length 100; can contain \code{NA}
 values.}
 
 \item{df_neighbours}{\link{data.frame} (\emph{with default}): a data frame with 3
@@ -100,9 +100,10 @@ calc_MoransI(object = rnorm(n = 100))
 }
 \references{
 de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
-A novel tool to assess crosstalk in single-grain luminescence detection.
-Submitted.
+A novel method to assess crosstalk in single-grain luminescence detection.
+Radiation Measurements 186, 107459. \doi{10.1016/j.radmeas.2025.107459}
 }
 \author{
-Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research, 2025
+Anna-Maartje de Boer, Wageningen University & Research (The Netherlands)\cr
+Luc Steinbuch, Wageningen University & Research (The Netherlands)\cr
 }

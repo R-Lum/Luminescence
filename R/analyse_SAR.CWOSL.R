@@ -211,8 +211,8 @@
 #' [Luminescence::fit_DoseResponseCurve], [Luminescence::plot_DoseResponseCurve]
 #' or [Luminescence::calc_OSLLxTxRatio]
 #' (supported: `background.count.distribution`, `sigmab`, `sig0`).
-#' **Please note** that if you consider to use the early light subtraction
-#' method you should provide your own `sigmab` value!
+#' **Note:** if you consider to use the early light subtraction method,
+#' `sigmab` should be provided.
 #
 #' @return
 #' A plot (*optional*) and an [Luminescence::RLum.Results-class] object is
@@ -244,7 +244,7 @@
 #' after bleaching. Quaternary Science Reviews 7, 387-393.
 #'
 #' Duller, G., 2003. Distinguishing quartz and feldspar in single grain
-#' luminescence measurements. Radiation Measurements, 37 (2), 161-165.
+#' luminescence measurements. Radiation Measurements 37 (2), 161-165.
 #'
 #' Murray, A.S. and Wintle, A.G., 2000. Luminescence dating of quartz using an
 #' improved single-aliquot regenerative-dose protocol. Radiation Measurements

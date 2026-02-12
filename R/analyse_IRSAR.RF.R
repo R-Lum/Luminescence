@@ -91,7 +91,7 @@
 #' - `show_fit` ([logical], default: `FALSE`): enable/disable the plot of the
 #' fitted curve routinely obtained during the evaluation.
 #' - `n.MC` ([integer], default: 1000): number of Monte Carlo runs within the
-#' sliding (assessing the possible minimum values). **Note**: This parameter
+#' sliding (assessing the possible minimum values). **Note:** This parameter
 #' is not the same as the function argument `n.MC`.
 #' - `vslide_range` ([numeric] or [character], default: "auto"): boundaries
 #' for the vertical curve sliding. The argument expects a vector with absolute
@@ -177,9 +177,8 @@
 #' this parameter is obtained during the fitting; for `method = "SLIDE"` a
 #' rather rough estimation is made using the function [minpack.lm::nlsLM] and
 #' the equation given above.
-#' Note: As this procedure requests more computation time, it is performed only
-#' if all three parameters are set.
-#'
+#' **Note:** As this procedure requests more computation time, it is performed
+#' only if all three parameters are set.
 #'
 #' @param object [Luminescence::RLum.Analysis-class] or a [list] of [Luminescence::RLum.Analysis-class]-objects (**required**):
 #' input object containing data for protocol analysis. The function expects to
