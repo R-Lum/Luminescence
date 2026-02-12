@@ -208,26 +208,12 @@ plot_RLum.Analysis <- function(
   else
     n.plots <- max(length_RLum(object), 1)
 
-  ## set appropriate values for nrows and ncols if not both specified
-  if (is.null(nrows) || is.null(ncols)) {
-    if (n.plots == 1) {
-      if (is.null(nrows))
-        nrows <- 1
-      if (is.null(ncols))
-        ncols <- 1
-
-    } else { # n.plots > 1
-      if (is.null(ncols)) {
-        ncols <- 2
-      }
-      if (is.null(nrows)) {
-        if (n.plots <= 4) {
-          nrows <- ceiling(n.plots / 2)
-        } else {
-          nrows <- 3
-        }
-      }
-    }
+  ## set appropriate values for nrows and ncols if not specified
+  if (is.null(nrows)) {
+    nrows <- if (n.plots <= 4) ceiling(n.plots / 2) else 3
+  }
+  if (is.null(ncols)) {
+    ncols <- min(n.plots, 2)
   }
 
   curve.transformation <- .validate_args(curve.transformation,
@@ -280,8 +266,8 @@ plot_RLum.Analysis <- function(
 
         ##check plot settings and adjust
         ##xlim
+        xlim.set <- plot.settings$xlim[[i]]
         if (!is.null(plot.settings$xlim)) {
-          xlim.set <- plot.settings$xlim[[i]]
           if (plot.settings$xlim[[i]][1] < min(temp[[i]]@data[,1])) {
             .throw_warning("min('xlim') < x-value range for curve #", i,
                            ", reset to minimum")
@@ -292,14 +278,11 @@ plot_RLum.Analysis <- function(
                            ", reset to maximum")
             xlim.set[2] <- max(temp[[i]]@data[,1])
           }
-
-        }else{
-          xlim.set <- plot.settings$xlim[[i]]
         }
 
         ##ylim
+        ylim.set <- plot.settings$ylim[[i]]
         if (!is.null(plot.settings$ylim)) {
-          ylim.set <- plot.settings$ylim[[i]]
           if (plot.settings$ylim[[i]][1] < min(temp[[i]]@data[,2])) {
             .throw_warning("min('ylim') < y-value range for curve #", i,
                            ", reset to minimum")
@@ -310,9 +293,6 @@ plot_RLum.Analysis <- function(
                            ", reset to maximum")
             ylim.set[2] <- max(temp[[i]]@data[,2])
           }
-
-        }else{
-          ylim.set <- plot.settings$ylim[[i]]
         }
 
         ##col
@@ -371,26 +351,21 @@ plot_RLum.Analysis <- function(
           do.call(what = "abline", args = abline[i])
         }
 
-      } else if(inherits(temp[[i]], "RLum.Data.Spectrum")) {
-        ## remove already provided arguments
-        args <- extraArgs[!names(extraArgs) %in% c("object", "mtext", "par.local", "main")]
+      } else {
+        ## RLum.Data.Spectrum and RLum.Data.Image objects
+        args <- extraArgs
+        if (inherits(temp[[i]], "RLum.Data.Spectrum")) {
+          ## remove already provided arguments
+          args <- args[!names(args) %in% c("object", "mtext", "par.local", "main")]
+        }
 
-        do.call(what = "plot_RLum.Data.Spectrum", args = c(list(
+        do.call(what = paste0("plot_", class(temp[[i]])), args = c(list(
             object = temp[[i]],
             mtext = plot.settings$mtext[[i]] %||% paste0("#", i),
             par.local = FALSE,
             main = plot.settings$main %||% temp[[i]]@recordType
         ), args))
-      } else {
-        ## RLum.Data.Image objects
-        do.call(what = "plot_RLum.Data.Image", args = c(list(
-            object = temp[[i]],
-            mtext = plot.settings$mtext[[i]] %||% paste0("#", i),
-            par.local = FALSE,
-            main = plot.settings$main %||% temp[[i]]@recordType
-        ), extraArgs))
       }
-
     }#end for loop
 
   }else{
@@ -529,14 +504,10 @@ plot_RLum.Analysis <- function(
         pch <- rep(plot.settings$pch[[k]], times = num.objects)
       }
 
-      ##legend.text
+      ## legend
       legend.text <- plot.settings$legend.text[[k]] %||%
         paste("Curve", records_show %||% 1:num.objects)
-
-      ##legend.col
       legend.col <- plot.settings$legend.col[[k]]
-
-      ##legend.pos
       legend.pos <- plot.settings$legend.pos[[k]] %||% "topright"
 
       if (legend.pos == "outside") {
