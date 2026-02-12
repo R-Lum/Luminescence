@@ -399,11 +399,11 @@ calc_OSLLxTxRatio <- function(
 
   ##(b) estimate overdispersion (here called sigmab), see equation (4) in
   ## Galbraith (2002), Galbraith (2014)
-  ## If else condition for the case that k < 2
   .calc_sigmab <- function(Lx.curve, signal_integral, background_integral,
-                           m, n, k, what, usepreviousBG = FALSE) {
+                           m, k, what) {
     len.sg.integral <- length(signal_integral)
     min.bg.integral <- min(background_integral)
+
     if (round(k, digits = 1) >= 2 &&
         min.bg.integral + len.sg.integral * (2 + 1) <= length(Lx.curve)) {
 
@@ -418,12 +418,13 @@ calc_OSLLxTxRatio <- function(
     } else {
       ## warn if m is < 25, as suggested by Rex Galbraith (low number of
       ## degrees of freedom)
-      if (m < 25 && !use_previousBG && !.strict_na(background_integral)) {
+      if (m < 25 && !.strict_na(background_integral)) {
         .throw_warning("Number of background channels for ", what, " < 25, ",
                        "error estimation might not be reliable")
       }
 
       Y.i <- Lx.curve[background_integral]
+      n <- len.sg.integral
     }
 
     ## sigmab is denoted as sigma^2 = s.Y^2 - Y.mean, therefore abs() is used
@@ -431,14 +432,14 @@ calc_OSLLxTxRatio <- function(
   }
 
   ##account for a manually set sigmab value
-  if (is.null(sigmab)) {
-    sigmab.LnLx <- .calc_sigmab(Lx.curve, signal_integral, background_integral,
-                                m, n, k, "Lx")
-    sigmab.TnTx <- .calc_sigmab(Tx.curve, signal_integral_Tx, background_integral_Tx,
-                                m.Tx, n.Tx, k.Tx, "Tx", use_previousBG)
-  } else {
+  if (!is.null(sigmab)) {
     sigmab.LnLx <- sigmab[1]
     sigmab.TnTx <- sigmab[length(sigmab)]
+  } else {
+    sigmab.LnLx <- .calc_sigmab(Lx.curve, signal_integral, background_integral,
+                                m, k, "Lx")
+    sigmab.TnTx <- .calc_sigmab(Tx.curve, signal_integral_Tx, background_integral_Tx,
+                                m.Tx, k.Tx, "Tx")
   }
 
   ##(c)
