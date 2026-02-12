@@ -399,17 +399,17 @@ calc_OSLLxTxRatio <- function(
 
   ##(b) estimate overdispersion (here called sigmab), see equation (4) in
   ## Galbraith (2002), Galbraith (2014)
-  .calc_sigmab <- function(Lx.curve, signal_integral, background_integral,
+  .calc_sigmab <- function(curve, signal_integral, background_integral,
                            m, k, what) {
     len.sg.integral <- length(signal_integral)
     min.bg.integral <- min(background_integral)
 
     if (round(k, digits = 1) >= 2 &&
-        min.bg.integral + len.sg.integral * (2 + 1) <= length(Lx.curve)) {
+        min.bg.integral + len.sg.integral * (2 + 1) <= length(curve)) {
 
       ## note that m = n*k = multiple of background_integral from signal_integral
       Y.i <- vapply(0:round(k, digits = 0), function(i) {
-        sum(Lx.curve[min.bg.integral +
+        sum(curve[min.bg.integral +
                      (len.sg.integral * i):(len.sg.integral * (i + 1))])
       }, FUN.VALUE = numeric(1))
 
@@ -423,7 +423,7 @@ calc_OSLLxTxRatio <- function(
                        "error estimation might not be reliable")
       }
 
-      Y.i <- Lx.curve[background_integral]
+      Y.i <- curve[background_integral]
       n <- len.sg.integral
     }
 
