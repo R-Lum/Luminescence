@@ -17,10 +17,7 @@
 #'
 #' The output of the function can be further used for LM-OSL fitting.
 #'
-#' @param values [Luminescence::RLum.Data.Curve-class] or [data.frame] (**required**):
-#' `RLum.Data.Curve` data object. Alternatively, a `data.frame` of the measured
-#' curve data of type stimulation time (t) (`values[,1]`) and measured counts (cts)
-#' (`values[,2]`) can be provided.
+#' @inheritParams convert_CW2pLMi
 #'
 #' @return
 #' The function returns the same data type as the input data type with

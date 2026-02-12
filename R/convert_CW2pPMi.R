@@ -53,14 +53,7 @@
 #' automatic estimation routine for `P`, i.e. provide no value for
 #' `P`.
 #'
-#' @param values [Luminescence::RLum.Data.Curve-class] or [data.frame] (**required**):
-#' [Luminescence::RLum.Data.Curve-class] or `data.frame` with measured curve data of type
-#' stimulation time (t) (`values[,1]`) and measured counts (cts) (`values[,2]`)
-#'
-#' @param P [numeric] (*optional*):
-#' stimulation period in seconds. If set to `NULL`, the optimal value is
-#' estimated automatically (see details). Greater values of P produce more
-#' points in the rising tail of the curve.
+#' @inheritParams convert_CW2pLMi
 #'
 #' @return
 #' The function returns the same data type as the input data type with

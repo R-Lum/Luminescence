@@ -8,9 +8,9 @@ convert_CW2pLM(values)
 }
 \arguments{
 \item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
-\code{RLum.Data.Curve} data object. Alternatively, a \code{data.frame} of the measured
-curve data of type stimulation time (t) (\code{values[,1]}) and measured counts (cts)
-(\code{values[,2]}) can be provided.}
+\linkS4class{RLum.Data.Curve} object or a \code{data.frame} with measured
+curve data of type stimulation time (t) (\code{values[, 1]}) and measured counts
+(cts) (\code{values[, 2]}).}
 }
 \value{
 The function returns the same data type as the input data type with

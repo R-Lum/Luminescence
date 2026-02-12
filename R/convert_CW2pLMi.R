@@ -53,8 +53,9 @@
 #' `P`, i.e. provide no own value for `P`.
 #'
 #' @param values [Luminescence::RLum.Data.Curve-class] or [data.frame] (**required**):
-#' [Luminescence::RLum.Data.Curve-class] or `data.frame` with measured curve data of type
-#' stimulation time (t) (`values[,1]`) and measured counts (cts) (`values[,2]`)
+#' [Luminescence::RLum.Data.Curve-class] object or a `data.frame` with measured
+#' curve data of type stimulation time (t) (`values[, 1]`) and measured counts
+#' (cts) (`values[, 2]`).
 #'
 #' @param P [numeric] (*optional*):
 #' stimulation time in seconds. If set to `NULL`, the optimal value is

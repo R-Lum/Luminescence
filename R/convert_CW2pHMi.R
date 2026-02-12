@@ -50,9 +50,7 @@
 #' the automatic estimation routine for `delta`, i.e. provide no value for
 #' `delta`.
 #'
-#' @param values [Luminescence::RLum.Data.Curve-class] or [data.frame] (**required**):
-#' [Luminescence::RLum.Data.Curve-class] or [data.frame] with measured curve data of type
-#' stimulation time (t) (`values[,1]`) and measured counts (cts) (`values[,2]`).
+#' @inheritParams convert_CW2pLMi
 #'
 #' @param delta [vector] (*optional*):
 #' stimulation rate parameter, if no value is given, the optimal value is

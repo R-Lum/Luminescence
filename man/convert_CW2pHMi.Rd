@@ -9,8 +9,9 @@ convert_CW2pHMi(values, delta = NULL)
 }
 \arguments{
 \item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
-\linkS4class{RLum.Data.Curve} or \link{data.frame} with measured curve data of type
-stimulation time (t) (\code{values[,1]}) and measured counts (cts) (\code{values[,2]}).}
+\linkS4class{RLum.Data.Curve} object or a \code{data.frame} with measured
+curve data of type stimulation time (t) (\code{values[, 1]}) and measured counts
+(cts) (\code{values[, 2]}).}
 
 \item{delta}{\link{vector} (\emph{optional}):
 stimulation rate parameter, if no value is given, the optimal value is
