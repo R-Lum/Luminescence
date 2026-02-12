@@ -15,6 +15,7 @@ calc_OSLLxTxRatio(
   use_previousBG = FALSE,
   sigmab = NULL,
   sig0 = 0,
+  od_counts = NULL,
   digits = NULL,
   ...
 )
@@ -69,6 +70,12 @@ absolute squared count values, e.g. \code{sigmab = c(300,300)}.
 allow adding an extra component of error to the final \code{Lx/Tx} error value
 (e.g., instrumental error, see details).}
 
+\item{od_counts}{\link{numeric} (\emph{optional}):
+a vector of three elements: the dark count rate (or background count rate),
+the background count overdispersion, and the photon count overdispersion.
+If set, an alternative way of computing the overdispersion will be used
+(see details). It is ignored if \code{sigmab} is provided.}
+
 \item{digits}{\link{integer} (\emph{with default}):
 round numbers to the specified digits. If set to \code{NULL} no rounding occurs.}
 
@@ -98,6 +105,9 @@ $ calc.parameters (list)
 .. $ sigmab.LnTx
 .. $ sigmab.TnTx
 .. $ k
+.. $ B_DC
+.. $ k_DC
+.. $ k_p
 }\if{html}{\out{</div>}}
 
 \strong{@info}
@@ -133,6 +143,31 @@ error value. The input will be treated as factor that is multiplied with
 the already calculated \code{LxTx} and the result is add up by:
 
 \deqn{se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx * sig0)^2)}
+
+\strong{\code{od_counts}}
+
+Setting this argument activates an alternative path for the overdispersion
+calculation proposed by Andrzej Bluszcz. The argument expects a 3-element
+vector, whose values should be experimentally established in advance.
+
+The dark count rate (or background count rate) \eqn{B_{DC}} and the
+background count overdispersion \eqn{k_{DC}} can be obtained by direct
+experiments, while the photon count overdispersion \eqn{p} needs a photon
+source with a constant photon emission rate and independent photon
+emissions (so the number of photons emitted in a fixed time is a Poisson
+variable).
+
+Under the assumption of statistically independent background and photon
+counts, the total number of counts (say, a certain integral \eqn{N} of the
+OSL curve over time \eqn{t}) is:
+
+\deqn{N = N_p + N_{DC}}
+
+and has the following variance:
+
+\deqn{ s^2(N) = k_p^2 N_p + K_{DC}^2 N_{DC}
+              = k_p^2 (N - B_{DC} t) + k_{DC}^2 B_{DC} t
+              = k_p^2 N + (k_{DC}^2 + k_p^2) B_{DC} t }
 
 \strong{\code{SN_RATIO_LnLx} and \code{SN_RATIO_TnTx}}
 
@@ -170,7 +205,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.9.4
+ 0.10
 }
 
 \examples{
@@ -205,6 +240,7 @@ background-corrected OSL count. Ancient TL, 31 (2), 1-3. \doi{10.26034/la.atl.20
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
-Marco Colombo, Institute of Geography, Heidelberg University (Germany)
+Marco Colombo, Institute of Geography, Heidelberg University (Germany) \cr
+Andrzej Bluszcz, Silesian University of Technology, Gliwice (Poland)\cr
 }
 \keyword{datagen}
