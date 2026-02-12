@@ -29,6 +29,31 @@
 #'
 #' \deqn{se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx * sig0)^2)}
 #'
+#' **`od_counts`**
+#'
+#' Setting this argument activates an alternative path for the overdispersion
+#' calculation proposed by Andrzej Bluszcz. The argument expects a 3-element
+#' vector, whose values should be experimentally established in advance.
+#'
+#' The dark count rate (or background count rate) \eqn{B_{DC}} and the
+#' background count overdispersion \eqn{k_{DC}} can be obtained by direct
+#' experiments, while the photon count overdispersion \eqn{p} needs a photon
+#' source with a constant photon emission rate and independent photon
+#' emissions (so the number of photons emitted in a fixed time is a Poisson
+#' variable).
+#'
+#' Under the assumption of statistically independent background and photon
+#' counts, the total number of counts (say, a certain integral \eqn{N} of the
+#' OSL curve over time \eqn{t}) is:
+#'
+#' \deqn{N = N_p + N_{DC}}
+#'
+#' and has the following variance:
+#'
+#' \deqn{ s^2(N) = k_p^2 N_p + K_{DC}^2 N_{DC}
+#'               = k_p^2 (N - B_{DC} t) + k_{DC}^2 B_{DC} t
+#'               = k_p^2 N + (k_{DC}^2 + k_p^2) B_{DC} t }
+#'
 #' **`SN_RATIO_LnLx` and `SN_RATIO_TnTx`**
 #'
 #' For convenience, the function returns the signal-to-noise ratio (`SN_RATIO`)
@@ -106,6 +131,12 @@
 #' allow adding an extra component of error to the final `Lx/Tx` error value
 #' (e.g., instrumental error, see details).
 #'
+#' @param od_counts [numeric] (*optional*):
+#' a vector of three elements: the dark count rate (or background count rate),
+#' the background count overdispersion, and the photon count overdispersion.
+#' If set, an alternative way of computing the overdispersion will be used
+#' (see details). It is ignored if `sigmab` is provided.
+#'
 #' @param digits [integer] (*with default*):
 #' round numbers to the specified digits. If set to `NULL` no rounding occurs.
 #'
@@ -135,6 +166,9 @@
 #' .. $ sigmab.LnTx
 #' .. $ sigmab.TnTx
 #' .. $ k
+#' .. $ B_DC
+#' .. $ k_DC
+#' .. $ k_p
 #' ```
 #'
 #' **@info**
@@ -149,16 +183,18 @@
 #' **Caution:** If you are using early light subtraction (EBG), please either provide your
 #' own `sigmab` value or use `background.count.distribution = "poisson"`.
 #'
-#' @section Function version: 0.9.4
+#' @section Function version: 0.10
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
-#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany) \cr
+#' Andrzej Bluszcz, Silesian University of Technology, Gliwice (Poland)\cr
 #'
 #' @seealso [Luminescence::RLum.Data.Curve-class], [Luminescence::fit_DoseResponseCurve],
 #' [Luminescence::analyse_SAR.CWOSL]
 #'
-#' @references Duller, G., 2018. Analyst v4.57 - User Manual.
+#' @references
+#' Duller, G., 2018. Analyst v4.57 - User Manual.
 #' `https://users.aber.ac.uk/ggd`\cr
 #'
 #' Galbraith, R.F., 2002. A note on the variance of a background-corrected OSL
@@ -196,6 +232,7 @@ calc_OSLLxTxRatio <- function(
   use_previousBG = FALSE,
   sigmab = NULL,
   sig0 = 0,
+  od_counts = NULL,
   digits = NULL,
   ...
 ) {
@@ -235,6 +272,7 @@ calc_OSLLxTxRatio <- function(
                   extra = "a list of such objects")
   .validate_class(sigmab, "numeric", null.ok = TRUE, length = 1:2)
   .validate_nonnegative_scalar(sig0)
+  .validate_class(od_counts, "numeric", null.ok = TRUE, length = 3)
 
   .coerce <- function(data) {
     data <- switch(
@@ -431,10 +469,27 @@ calc_OSLLxTxRatio <- function(
     abs(stats::var(Y.i) - mean(Y.i)) * n
   }
 
-  ##account for a manually set sigmab value
+  ## calculate overdispersion according to communication of Bluszcz via e-mail
+  .calc_sigmab_bluszcz <- function(signal, time, B_DC, k_DC, k_p) {
+    sqrt(k_p^2 * signal + (k_DC^2 - k_p^2) * B_DC * time)
+  }
+
+  ## account for when sigmab or od_counts is provided
+  B_DC <- k_DC <- k_p <- NA
   if (!is.null(sigmab)) {
+    if (!is.null(od_counts))
+      .throw_warning("Both 'sigmab' and 'od_counts' provided, 'od_counts' set to NULL")
     sigmab.LnLx <- sigmab[1]
     sigmab.TnTx <- sigmab[length(sigmab)]
+  } else if (!is.null(od_counts)) {
+    ## calculate overdispersion according to Andrzej Bluszcz
+    .validate_positive_scalar(B_DC <- od_counts[1], name = "'od_counts[1]'")
+    .validate_positive_scalar(k_DC <- od_counts[2], name = "'od_counts[2]'")
+    .validate_positive_scalar(k_p  <- od_counts[3], name = "'od_counts[3]'")
+    time.Lx <- diff(Lx.data[range(signal_integral), 1])
+    time.Tx <- diff(Tx.data[range(signal_integral_Tx), 1])
+    sigmab.LnLx <- .calc_sigmab_bluszcz(Lx.signal, time.Lx, B_DC, k_DC, k_p)
+    sigmab.TnTx <- .calc_sigmab_bluszcz(Tx.signal, time.Tx, B_DC, k_DC, k_p)
   } else {
     sigmab.LnLx <- .calc_sigmab(Lx.curve, signal_integral, background_integral,
                                 m, k, "Lx")
@@ -499,7 +554,10 @@ calc_OSLLxTxRatio <- function(
   calc.parameters <- list(
     sigmab.LnLx = sigmab.LnLx,
     sigmab.TnTx = sigmab.TnTx,
-    k = k)
+    k = k,
+    B_DC = B_DC,
+    k_DC = k_DC,
+    k_p = k_p)
 
   ##set results object
   set_RLum(

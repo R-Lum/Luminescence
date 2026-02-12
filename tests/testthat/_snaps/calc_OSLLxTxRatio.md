@@ -101,7 +101,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -119,6 +119,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [8]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -260,7 +275,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -278,6 +293,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [8]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -419,7 +449,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -437,6 +467,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [8]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -578,7 +623,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -596,6 +641,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [8]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -737,7 +797,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -755,6 +815,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [8]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -896,7 +971,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -914,6 +989,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [8]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -1055,7 +1145,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -1073,6 +1163,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [8]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -1214,7 +1319,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -1232,6 +1337,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [8]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -1373,7 +1493,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -1391,6 +1511,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [8]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -1532,7 +1667,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -1550,6 +1685,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [8]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -1837,7 +1987,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -1855,6 +2005,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [0.5]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -1996,7 +2161,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -2014,6 +2179,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [0.5]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -2155,7 +2335,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -2173,6 +2353,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [0.05]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -2314,7 +2509,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -2332,6 +2527,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [0.05]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -2473,7 +2683,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -2491,6 +2701,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [0.5]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -2632,7 +2857,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -2650,6 +2875,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [1.55]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
