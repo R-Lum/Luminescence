@@ -1,26 +1,26 @@
-#' @title Function to apply spectral efficiency correction to RLum.Data.Spectrum S4
-#' class objects
+#' @title Apply spectral efficiency correction to RLum.Data.Spectrum objects
 #'
-#' @description The function allows spectral efficiency corrections for RLum.Data.Spectrum
-#' S4 class objects
+#' @description
+#' The function applies spectral efficiency correction to
+#' [Luminescence::RLum.Data.Spectrum-class] objects.
 #'
 #' @details
 #' The efficiency correction is based on a spectral response dataset provided
 #' by the user. Usually the data set for the quantum efficiency is of lower
 #' resolution and values are interpolated for the required spectral resolution using
-#' the function [stats::approx][stats::approxfun]
+#' function [stats::approx].
 #'
 #' If the energy calibration differs for both data set `NA` values are produces that
 #' will be removed from the matrix.
 #'
 #' @param object [Luminescence::RLum.Data.Spectrum-class] or [Luminescence::RLum.Analysis-class] (**required**):
-#' S4 object of class `RLum.Data.Spectrum`,  `RLum.Analysis`or a [list] of such objects. Other objects in
-#' the list are skipped.
+#' object of class `RLum.Data.Spectrum`, `RLum.Analysis`or a [list] of such
+#' objects. Other objects in the list are skipped.
 #'
 #' @param spectral.efficiency [data.frame] (**required**):
-#' Data set containing wavelengths (x-column) and relative spectral response values
-#' (y-column) (values between 0 and 1). The provided data will be used to correct all spectra if `object` is
-#' a [list]
+#' data frame with 2 columns containing wavelengths and relative spectral
+#' response values (values between 0 and 1). The provided data will be used to
+#' correct all spectra if `object` is a [list].
 #'
 #' @return Returns same object as provided as input
 #'
@@ -29,7 +29,7 @@
 #' sufficiently correct for spectral efficiency of the entire optical system
 #' (e.g., spectrometer, camera ...).
 #'
-#' @section Function version: 0.2.0
+#' @section Function version: 0.2.1
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -111,18 +111,22 @@ apply_EfficiencyCorrection <- function(
   #set data for interpolation
   temp.efficiency.x <- as.numeric(row.names(temp.matrix))
 
-  temp.efficiency.interpolated  <- approx(
+  interpolated  <- approx(
     x = temp.efficiency[,1],
     y = temp.efficiency[,2],
     xout = temp.efficiency.x,
     ties = mean)
 
+  if (all(is.na(interpolated$y))) {
+    .throw_error("Interpolation failed: this happens when the x-values in ",
+                 "'spectral.efficiency' are outside the range of the x-values ",
+                 "in 'object'")
+  }
 
   ##correct for quantum efficiency
-  temp.matrix <- vapply(X = 1:ncol(temp.matrix), FUN = function(x){
-    temp.matrix[,x]/temp.efficiency.interpolated$y*max(temp.efficiency.interpolated$y, na.rm = TRUE)
-
-  }, FUN.VALUE =  numeric(length = nrow(temp.matrix)))
+  temp.matrix <- vapply(1:ncol(temp.matrix), FUN = function(x) {
+    temp.matrix[, x] / interpolated$y * max(interpolated$y, na.rm = TRUE)
+  }, FUN.VALUE = numeric(nrow(temp.matrix)))
 
   ##remove NA values
   temp.matrix <- na.exclude(temp.matrix)
