@@ -8,44 +8,39 @@ plot_RLum(object, ...)
 }
 \arguments{
 \item{object}{\linkS4class{RLum} (\strong{required}):
-S4 object of class \code{RLum}. Optional a \link{list} containing objects of
-class \linkS4class{RLum} can be provided. In this case the function tries to plot
-every object in this list according to its \code{RLum} class. Non-RLum objects are
-removed.}
+object of class \linkS4class{RLum} or a list of such objects. If a
+list is provided, the function tries to plot every object in the list
+according to its \code{RLum} class, after removing non-RLum objects.}
 
-\item{...}{further arguments and graphical parameters that will be passed
-to the specific plot functions. The only argument that is supported directly is \code{main}
-(setting the plot title). In contrast to the normal behaviour \code{main} can be here provided as
-\link{list} and the arguments in the list will dispatched to the plots if the \code{object}
-is of type \code{list} as well.}
+\item{...}{further arguments and graphical parameters to pass to the
+specific plot functions. The only arguments that are supported directly are
+\code{main} (plot title) and \code{mtext} (plot subtitle). Here \code{main} can be provided
+as a list and the arguments in the
+list will dispatched to the plots if \code{object} is of type \code{list} as well.}
 }
 \value{
-Returns a plot.
+Produces a plot depending on the input object.
 }
 \description{
-Function calls object specific plot functions for RLum S4 class objects.
+The function calls object specific plot functions for RLum S4 class objects.
 }
 \details{
-The function provides a generalised access point for plotting specific
-\linkS4class{RLum} objects.\cr
-Depending on the input object, the
-corresponding plot function will be selected.  Allowed arguments can be
+The function provides a generalised access point for plotting various
+\linkS4class{RLum} objects. Depending on the input object, the
+corresponding plot function will be selected. Allowed arguments can be
 found in the documentations of each plot function.
 
 \tabular{lll}{
-\strong{object} \tab \tab \strong{corresponding plot function} \cr
-\linkS4class{RLum.Data.Curve} \tab : \tab \link{plot_RLum.Data.Curve} \cr
-\linkS4class{RLum.Data.Spectrum} \tab : \tab \link{plot_RLum.Data.Spectrum}\cr
-\linkS4class{RLum.Data.Image} \tab : \tab \link{plot_RLum.Data.Image}\cr
-\linkS4class{RLum.Analysis} \tab : \tab \link{plot_RLum.Analysis}\cr
-\linkS4class{RLum.Results} \tab : \tab \link{plot_RLum.Results}
+\strong{object} \tab \strong{corresponding plot function} \cr
+\linkS4class{RLum.Data.Curve} \tab \link{plot_RLum.Data.Curve} \cr
+\linkS4class{RLum.Data.Spectrum} \tab \link{plot_RLum.Data.Spectrum}\cr
+\linkS4class{RLum.Data.Image} \tab \link{plot_RLum.Data.Image}\cr
+\linkS4class{RLum.Analysis} \tab \link{plot_RLum.Analysis}\cr
+\linkS4class{RLum.Results} \tab \link{plot_RLum.Results}
 }
-}
-\note{
-The provided plot output depends on the input object.
 }
 \section{Function version}{
- 0.4.4
+ 0.5
 }
 
 \examples{
@@ -67,6 +62,7 @@ plot_RLum(temp)
 \link{plot_RLum.Results}
 }
 \author{
-Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
 }
 \keyword{dplot}

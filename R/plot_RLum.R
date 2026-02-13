@@ -1,42 +1,42 @@
 #' @title General plot function for RLum S4 class objects
 #'
-#' @description Function calls object specific plot functions for RLum S4 class objects.
+#' @description
+#' The function calls object specific plot functions for RLum S4 class objects.
 #'
-#' @details The function provides a generalised access point for plotting specific
-#' [Luminescence::RLum-class] objects.\cr
-#' Depending on the input object, the
-#' corresponding plot function will be selected.  Allowed arguments can be
+#' @details
+#' The function provides a generalised access point for plotting various
+#' [Luminescence::RLum-class] objects. Depending on the input object, the
+#' corresponding plot function will be selected. Allowed arguments can be
 #' found in the documentations of each plot function.
 #'
 #' \tabular{lll}{
-#' **object** \tab \tab **corresponding plot function** \cr
-#' [Luminescence::RLum.Data.Curve-class] \tab : \tab [Luminescence::plot_RLum.Data.Curve] \cr
-#' [Luminescence::RLum.Data.Spectrum-class] \tab : \tab [Luminescence::plot_RLum.Data.Spectrum]\cr
-#' [Luminescence::RLum.Data.Image-class] \tab : \tab [Luminescence::plot_RLum.Data.Image]\cr
-#' [Luminescence::RLum.Analysis-class] \tab : \tab [Luminescence::plot_RLum.Analysis]\cr
-#' [Luminescence::RLum.Results-class] \tab : \tab [Luminescence::plot_RLum.Results]
+#' **object** \tab **corresponding plot function** \cr
+#' [Luminescence::RLum.Data.Curve-class] \tab [Luminescence::plot_RLum.Data.Curve] \cr
+#' [Luminescence::RLum.Data.Spectrum-class] \tab [Luminescence::plot_RLum.Data.Spectrum]\cr
+#' [Luminescence::RLum.Data.Image-class] \tab [Luminescence::plot_RLum.Data.Image]\cr
+#' [Luminescence::RLum.Analysis-class] \tab [Luminescence::plot_RLum.Analysis]\cr
+#' [Luminescence::RLum.Results-class] \tab [Luminescence::plot_RLum.Results]
 #' }
 #'
 #' @param object [Luminescence::RLum-class] (**required**):
-#' S4 object of class `RLum`. Optional a [list] containing objects of
-#' class [Luminescence::RLum-class] can be provided. In this case the function tries to plot
-#' every object in this list according to its `RLum` class. Non-RLum objects are
-#' removed.
+#' object of class [Luminescence::RLum-class] or a list of such objects. If a
+#' list is provided, the function tries to plot every object in the list
+#' according to its `RLum` class, after removing non-RLum objects.
 #'
-#' @param ... further arguments and graphical parameters that will be passed
-#' to the specific plot functions. The only argument that is supported directly is `main`
-#' (setting the plot title). In contrast to the normal behaviour `main` can be here provided as
-#' [list] and the arguments in the list will dispatched to the plots if the `object`
-#' is of type `list` as well.
+#' @param ... further arguments and graphical parameters to pass to the
+#' specific plot functions. The only arguments that are supported directly are
+#' `main` (plot title) and `mtext` (plot subtitle). Here `main` can be provided
+#' as a list and the arguments in the
+#' list will dispatched to the plots if `object` is of type `list` as well.
 #'
-#' @return Returns a plot.
+#' @return
+#' Produces a plot depending on the input object.
 #'
-#' @note The provided plot output depends on the input object.
-#'
-#' @section Function version: 0.4.4
+#' @section Function version: 0.5
 #'
 #' @author
-#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
 #'
 #' @seealso [Luminescence::plot_RLum.Analysis],
 #' [Luminescence::plot_RLum.Data.Curve],
@@ -64,64 +64,58 @@ plot_RLum <- function(
   .set_function_name("plot_RLum")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Define dispatcher function ---------------------------------------------
-  RLum.dispatcher <- function(object, ...) {
-    .validate_class(object, "RLum")
-
-    ## select which plot function should be used and call it
-    switch(
-        class(object),
-        RLum.Data.Curve = plot_RLum.Data.Curve(object = object, ...),
-        RLum.Data.Spectrum = plot_RLum.Data.Spectrum(object = object, ...),
-        RLum.Data.Image = plot_RLum.Data.Image(object = object, ...),
-
-        ## here we have to prevent the partial matching of 'sub' by 'subset'
-        RLum.Analysis = if (!"subset" %in% ...names()) {
-          plot_RLum.Analysis(object = object, subset = NULL, ...)
-        }else{
-          plot_RLum.Analysis(object = object, ...)
-        },
-
-        RLum.Results = plot_RLum.Results(object = object, ...))
-  }
-
-  # Run dispatcher ------------------------------------------------------------------------------
-  ##call for the list, if not just proceed as normal
-  if(inherits(object, "list")) {
-    ##(0) we might have plenty of sublists before we have the list containing only
-    ##RLum-objects
+  orig.list <- inherits(object, "list")
+  if (orig.list) {
+    ## we might have plenty of sublists before we reach the list containing
+    ## only RLum-objects
     object <- .unlist_RLum(object)
     object <- .rm_nonRLum(object)
 
-    ##(2) check if empty, if empty do nothing ...
-    if (length(object) != 0) {
-      extraArgs <- list(...)
+    ## return early if there is nothing to plot
+    if (length(object) == 0)
+      return(NULL)
+  } else {
+    ## transform a single object to a list, so the logic can be simplified
+    object <- list(object)
+  }
 
-      ## If we iterate over a list, this might be extremely useful to have different plot titles
-      main <- extraArgs$main
-      if (!is.null(main)) {
-        main <- .listify(extraArgs$main, length = length(object))
-      }
+  extraArgs <- list(...)
 
-      ##set also mtext, but in a different way
-      mtext <- extraArgs$mtext
-      if (is.null(mtext)) {
-        if (inherits(object[[1]], "RLum.Analysis")) {
-          mtext <- paste("Record:", 1:length(object))
-        }
-      }else{
-        mtext <- rep_len(mtext, length(object))
-      }
-      for (i in 1:length(object)) {
-        RLum.dispatcher(
-          object = object[[i]],
-          main = main[[i]],
-          mtext = mtext[[i]],
-          ...)
-      }
-    }
-  }else{
-    ##dispatch object
-    RLum.dispatcher(object = object, ...)
+  ## allow for different plot titles
+  main <- NULL
+  if (!is.null(extraArgs$main)) {
+    main <- if (orig.list)
+              .listify(extraArgs$main, length = length(object))
+            else
+              list(extraArgs$main)
+  }
+
+  ## allow for different subtitles
+  mtext <- NULL
+  if (!is.null(extraArgs$mtext)) {
+    mtext <- rep_len(extraArgs$mtext, length(object))
+  } else if (orig.list && inherits(object[[1]], "RLum.Analysis")) {
+    mtext <- paste("Record:", 1:length(object))
+  }
+
+  for (i in seq_along(object)) {
+    .validate_class(object[[i]], "RLum")
+    plot_fun <- switch(
+        class(object[[i]]),
+        RLum.Analysis = function(object, ...) {
+          if (!"subset" %in% ...names())
+            plot_RLum.Analysis(object = object, subset = NULL, ...)
+          else
+            plot_RLum.Analysis(object = object, ...)
+        },
+        RLum.Data.Curve = plot_RLum.Data.Curve,
+        RLum.Data.Spectrum = plot_RLum.Data.Spectrum,
+        RLum.Data.Image = plot_RLum.Data.Image,
+        RLum.Results = plot_RLum.Results)
+
+    plot_fun(object = object[[i]],
+             main = main[[i]],
+             mtext = mtext[[i]],
+             ...)
   }
 }
