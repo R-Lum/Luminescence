@@ -85,43 +85,45 @@ plot_RLum <- function(
         RLum.Results = plot_RLum.Results(object = object, ...))
   }
 
-  # Run dispatcher ------------------------------------------------------------------------------
-  ##call for the list, if not just proceed as normal
-  if(inherits(object, "list")) {
-    ##(0) we might have plenty of sublists before we have the list containing only
-    ##RLum-objects
+  orig.list <- inherits(object, "list")
+  if (orig.list) {
+    ## we might have plenty of sublists before we reach the list containing
+    ## only RLum-objects
     object <- .unlist_RLum(object)
     object <- .rm_nonRLum(object)
 
-    ##(2) check if empty, if empty do nothing ...
-    if (length(object) != 0) {
-      extraArgs <- list(...)
+    ## return early if there is nothing to plot
+    if (length(object) == 0)
+      return(NULL)
+  } else {
+    ## transform a single object to a list, so the logic can be simplified
+    object <- list(object)
+  }
 
-      ## If we iterate over a list, this might be extremely useful to have different plot titles
-      main <- extraArgs$main
-      if (!is.null(main)) {
-        main <- .listify(extraArgs$main, length = length(object))
-      }
+  extraArgs <- list(...)
 
-      ##set also mtext, but in a different way
-      mtext <- extraArgs$mtext
-      if (is.null(mtext)) {
-        if (inherits(object[[1]], "RLum.Analysis")) {
-          mtext <- paste("Record:", 1:length(object))
-        }
-      }else{
-        mtext <- rep_len(mtext, length(object))
-      }
-      for (i in 1:length(object)) {
+  ## allow for different plot titles
+  main <- NULL
+  if (!is.null(extraArgs$main)) {
+    main <- if (orig.list)
+              .listify(extraArgs$main, length = length(object))
+            else
+              list(extraArgs$main)
+  }
+
+  ## allow for different subtitles
+  mtext <- NULL
+  if (!is.null(extraArgs$mtext)) {
+    mtext <- rep_len(extraArgs$mtext, length(object))
+  } else if (orig.list && inherits(object[[1]], "RLum.Analysis")) {
+    mtext <- paste("Record:", 1:length(object))
+  }
+
+  for (i in seq_along(object)) {
         RLum.dispatcher(
           object = object[[i]],
           main = main[[i]],
           mtext = mtext[[i]],
           ...)
-      }
-    }
-  }else{
-    ##dispatch object
-    RLum.dispatcher(object = object, ...)
   }
 }

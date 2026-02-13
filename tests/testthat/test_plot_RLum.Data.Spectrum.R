@@ -69,8 +69,9 @@ test_that("check functionality", {
                    "Duplicated column names found")
 
     ## no plot
-    expect_type(plot(TL.Spectrum, plot = FALSE),
+    expect_type(plot_RLum.Data.Spectrum(TL.Spectrum, plot = FALSE),
                 "double")
+    expect_null(plot(TL.Spectrum, plot = FALSE))
 
     ##test background subtraction ... with bgchannel
     expect_warning(plot_RLum.Data.Spectrum(
