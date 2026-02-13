@@ -407,6 +407,8 @@ analyse_SAR.CWOSL<- function(
   .validate_class(rejection.criteria, "list", null.ok = TRUE)
   .validate_scalar(dose_rate_source, null.ok = TRUE)
 
+  ## Protocol integrity checks ----------------------------------------------
+
   ## trim OSL or IRSL channels
   record.types <- vapply(object@records, function(x) x@recordType, character(1))
   if (trim_channels) {
@@ -417,6 +419,93 @@ analyse_SAR.CWOSL<- function(
     ## trim
     object <- trim_RLum.Data(object, recordType = tmp_names)
   }
+
+  ## extract the correct curves for the sequence based on allowed curve types
+  ## and the most common curve type (after stripping extra specifiers in the
+  ## curve names)
+  stripped.curve.types <- regmatches(
+      x = names(object),
+      m = regexpr("(P?OSL[a-zA-Z]*|IRSL[a-zA-Z]*)", names(object), perl = TRUE))
+
+  if (length(stripped.curve.types) == 0) {
+    .throw_message("No record of type 'OSL', 'IRSL', 'POSL' detected, ",
+                   "NULL returned")
+    return(NULL)
+  }
+
+  ## now get the type which is used most
+  CWcurve.type <- names(which.max(table(stripped.curve.types)))
+
+  ##check overall structure of the object
+  ##every SAR protocol has to have equal number of curves
+
+  ## grep curve types from analysis value and remove unwanted information
+  temp.ltype <- sapply(1:length(object@records), function(x) {
+    ## export as global variable
+    object@records[[x]]@recordType <<- gsub(" .*", "", object@records[[x]]@recordType)
+    object@records[[x]]@recordType
+  })
+
+  ## FI lexsyg devices provide irradiation information in a separate curve
+  if (any("irradiation" %in% temp.ltype)) {
+    temp.irradiation <- extract_IrradiationTimes(object)@data$irr.times[["IRR_TIME"]]
+
+    ## add this to the records
+    for (i in 1:length(object@records)) {
+      if (is.null(object@records[[i]]@info$IRR_TIME))
+        object@records[[i]]@info <- c(object@records[[i]]@info,
+                                      IRR_TIME = temp.irradiation[i])
+    }
+
+    ## remove irradiation curves
+    object <- get_RLum(object, record.id = !temp.ltype %in% "irradiation",
+                       drop = FALSE)
+  }
+
+  ## collect error messages to be reported together
+  error.list <- list()
+
+  ## check if the wanted curves are a multiple of two
+  if (table(temp.ltype)[CWcurve.type] %% 2 != 0) {
+    error.list[[1]] <- "Input OSL/IRSL curves are not a multiple of two"
+  }
+
+  ## check if the curve lengths differ
+  temp.matrix.length <- unlist(lapply(object@records,
+                                      function(x) {
+                                        if (x@recordType %in% CWcurve.type)
+                                          nrow(x@data)
+                                      }))
+
+  if (length(unique(temp.matrix.length)) != 1) {
+    ## check if the selected curve type (stripped of specifiers) corresponds to
+    ## multiple record types, as that may be problematic if they have different
+    ## numbers of channels
+    matched.types <- unique(grep(CWcurve.type, record.types,
+                                 fixed = TRUE, value = TRUE))
+    if (length(matched.types) > 1) {
+      .throw_warning("Curve type '", CWcurve.type, "' matches multiple record types: ",
+                     .collapse(matched.types), ", please ensure that your curve ",
+                     "selection is correct")
+    }
+
+    hint <- if (trim_channels) "" else ", consider setting 'trim_channels = TRUE'"
+    error.list[[2]] <- paste0("Input curves have different lengths (",
+                              .collapse(sort(unique(temp.matrix.length)),
+                                        quote = FALSE), ")", hint)
+  }
+
+  ## return early in case of errors
+  if (length(error.list) > 0) {
+    .throw_warning(paste(unlist(error.list), collapse = "\n"),
+                   "\n... >> nothing was done here!")
+    return(NULL)
+  }
+
+  ## maximum number of channels available
+  channel.length <- temp.matrix.length[1]
+
+  ## Integrals checks -------------------------------------------------------
 
   ## deprecated arguments
   if (any(grepl("[signal|background]\\.integral\\.[min|max]", names(extraArgs))) &&
@@ -452,12 +541,11 @@ analyse_SAR.CWOSL<- function(
                      "'signal_integral = NA' (and 'OSL.component' was not specified)")
     }
   } else {
-    signal_integral <- .validate_integral(signal_integral, na.ok = TRUE)
+    signal_integral <- .validate_integral(signal_integral, max = channel.length,
+                                          na.ok = TRUE)
     background_integral <- .validate_integral(background_integral, na.ok = TRUE,
-                                              min = max(signal_integral) + 1)
-    signal_integral_Tx <- .validate_integral(signal_integral_Tx, null.ok = TRUE)
-    background_integral_Tx <- .validate_integral(background_integral_Tx,
-                                                 na.ok = TRUE, null.ok = TRUE)
+                                              min = max(signal_integral) + 1,
+                                              max = channel.length)
 
     if (length(background_integral) == 1 && !.strict_na(background_integral)) {
       ## we subtract 25 to avoid warnings from calc_OSLLxTxRatio()
@@ -466,41 +554,32 @@ analyse_SAR.CWOSL<- function(
                      .format_range(background_integral))
     }
 
-    ## background integrals for the Tx curve
-    if (length(background_integral_Tx) == 1 && !.strict_na(background_integral_Tx)) {
-      background_integral_Tx <- background_integral_Tx - 25:0
-      .throw_warning("Background integral limits for Tx curves cannot be equal, reset to ",
-                     .format_range(background_integral_Tx))
-    }
-
-    ## account for the cases when the user provided only one of the Tx integrals
+    ## signal integrals for the Tx curve
+    signal_integral_Tx <- .validate_integral(signal_integral_Tx,
+                                             max = channel.length,
+                                             null.ok = TRUE)
     if (is.null(signal_integral_Tx) && !is.null(background_integral_Tx)) {
       signal_integral_Tx <- signal_integral
       .throw_warning("'signal_integral_Tx' set automatically to ",
                      .format_range(signal_integral_Tx))
     }
+
+    ## background integrals for the Tx curve
+    background_integral_Tx <- .validate_integral(background_integral_Tx,
+                                                 min = max(signal_integral_Tx) + 1,
+                                                 max = channel.length,
+                                                 na.ok = TRUE, null.ok = TRUE)
     if (!is.null(signal_integral_Tx) && is.null(background_integral_Tx)) {
       background_integral_Tx <- background_integral
       .throw_warning("'background_integral_Tx' set automatically to ",
                      .format_range(background_integral_Tx))
     }
+    if (length(background_integral_Tx) == 1 && !.strict_na(background_integral_Tx)) {
+      background_integral_Tx <- background_integral_Tx - 25:0
+      .throw_warning("Background integral limits for Tx curves cannot be equal, reset to ",
+                     .format_range(background_integral_Tx))
+    }
   }
-
-  ## extract the correct curves for the sequence based on allowed curve types
-  ## and the most common curve type (after stripping extra specifiers in the
-  ## curve names)
-  stripped.curve.types <- regmatches(
-    x = names(object),
-    m = regexpr("(P?OSL[a-zA-Z]*|IRSL[a-zA-Z]*)", names(object), perl = TRUE))
-
-  if (length(stripped.curve.types) == 0) {
-    .throw_message("No record of type 'OSL', 'IRSL', 'POSL' detected, ",
-                   "NULL returned")
-    return(NULL)
-  }
-
-  ## now get the type which is used most
-  CWcurve.type <- names(which.max(table(stripped.curve.types)))
 
 # Rejection criteria ------------------------------------------------------
 
@@ -546,91 +625,6 @@ analyse_SAR.CWOSL<- function(
   if ("plot.single" %in% names(extraArgs)) {
     plot_singlePanels <- extraArgs$plot.single
     .deprecated("plot.single", "plot_singlePanels", since = "1.0.0")
-  }
-
-# Protocol Integrity Checks --------------------------------------------------
-  ##check overall structure of the object
-  ##every SAR protocol has to have equal number of curves
-
-  ##grep curve types from analysis value and remove unwanted information
-  temp.ltype <- sapply(1:length(object@records), function(x) {
-     ##export as global variable
-     object@records[[x]]@recordType <<- gsub(" .*", "", object@records[[x]]@recordType)
-     object@records[[x]]@recordType
-  })
-
-  ##FI lexsyg devices provide irradiation information in a separate curve
-  if(any("irradiation" %in% temp.ltype)){
-    temp.irradiation <- extract_IrradiationTimes(object)@data$irr.times[["IRR_TIME"]]
-
-    ##write this into the records
-    for(i in 1:length(object@records)){
-      if(is.null(object@records[[i]]@info$IRR_TIME))
-        object@records[[i]]@info <- c(object@records[[i]]@info, IRR_TIME = temp.irradiation[i])
-    }
-
-    ## remove irradiation curves
-    object <- get_RLum(object, record.id = !temp.ltype %in% "irradiation", drop = FALSE)
-  }
-
-  ## collect error messages to be reported together
-  error.list <- list()
-
-  ##check if the wanted curves are a multiple of two
-  ##gsub removes unwanted information from the curves
-  if(table(temp.ltype)[CWcurve.type]%%2!=0){
-    error.list[[1]] <- "Input OSL/IRSL curves are not a multiple of two"
-  }
-
-  ##check if the curve lengths differ
-  temp.matrix.length <- unlist(lapply(object@records,
-                                      function(x) {
-                                        if (x@recordType %in% CWcurve.type)
-                                          nrow(x@data)
-                                      }))
-
-  if(length(unique(temp.matrix.length))!=1){
-    ## check if the selected curve type (stripped of specifiers) corresponds to
-    ## multiple record types, as that may be problematic if they have different
-    ## numbers of channels
-    matched.types <- unique(grep(CWcurve.type, record.types,
-                                 fixed = TRUE, value = TRUE))
-    if (length(matched.types) > 1) {
-      .throw_warning("Curve type '", CWcurve.type, "' matches multiple record types: ",
-                     .collapse(matched.types), ", please ensure that your curve ",
-                     "selection is correct")
-    }
-
-    hint <- if (trim_channels) "" else ", consider setting 'trim_channels = TRUE'"
-    error.list[[2]] <- paste0("Input curves have different lengths (",
-                              .collapse(sort(unique(temp.matrix.length)),
-                                        quote = FALSE), ")", hint)
-  }
-
-  ## return early in case of errors
-  if (length(error.list) > 0) {
-    .throw_warning(paste(unlist(error.list), collapse = "\n"),
-                   "\n... >> nothing was done here!")
-    return(invisible(NULL))
-  }
-
-  ## the background integral should not exceed the channel length
-  channel.length <- temp.matrix.length[1]
-  excess <- max(background_integral) - channel.length
-  if (!.strict_na(background_integral) && excess > 0) {
-    background_integral <- intersect(background_integral, 1:channel.length)
-    .throw_warning("'background_integral' out of bounds, reset to ",
-                     .format_range(background_integral))
-  }
-
-  ## do the same for the Tx, if set
-  if (!is.null(background_integral_Tx) && !.strict_na(background_integral_Tx)) {
-    excess <- max(background_integral_Tx) - channel.length
-    if (excess > 0) {
-      background_integral_Tx <- intersect(background_integral_Tx, 1:channel.length)
-      .throw_warning("'background_integral_Tx' out of bounds, reset to ",
-                       .format_range(background_integral_Tx))
-      }
   }
 
   # Grep Curves -------------------------------------------------------------
