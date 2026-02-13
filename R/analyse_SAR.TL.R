@@ -26,9 +26,9 @@
 #' vector of inputs (as defined by `integral_input`) for the signal integral.
 #'
 #' @param integral_input [character] (*with default*):
-#' defines the input for `signal_integral`. These limits can be either provided
-#' as `"channel"` number (default) or `"temperature"`. For `"temperature"`,
-#' the best matching channel is selected.
+#' input type for `signal_integral`, one of `"channel"` (default) or
+#' `"measurement"`. If set to `"measurement"`, the best matching channels
+#' corresponding to the given temperature range are selected.
 #'
 #' @param sequence.structure [vector] [character] (*with default*):
 #' specifies the general sequence structure. Three steps are allowed
@@ -65,7 +65,7 @@
 #'
 #' No TL curves will be removed from the input object without further warning.
 #'
-#' @section Function version: 0.3.2
+#' @section Function version: 0.3.3
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -120,6 +120,12 @@ analyse_SAR.TL <- function(
                 since = "1.2.0")
     signal_integral <- list(...)$signal.integral
   }
+  if (integral_input == "temperature") {
+    .deprecated(old = "integral_input = \"temperature\"",
+                new = "integral_input = \"measurement\"",
+                since = "1.2.0")
+    integral_input <- "measurement"
+  }
 
   # Self-call -----------------------------------------------------------------------------------
   if(inherits(object, "list")){
@@ -153,8 +159,9 @@ analyse_SAR.TL <- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, "RLum.Analysis")
-  signal_integral <- .validate_integral(signal_integral)
-  integral_input <- .validate_args(integral_input, c("channel", "temperature"))
+  integral_input <- .validate_args(integral_input, c("channel", "measurement"))
+  signal_integral <- .validate_integral(signal_integral,
+                                        int = integral_input == "channel")
 
   # Protocol Integrity Checks --------------------------------------------------
 
@@ -215,7 +222,7 @@ analyse_SAR.TL <- function(
   }
 
   ## convert integral limits from temperature to channel
-  if(integral_input == "temperature"){
+  if (integral_input == "measurement") {
     temp.obj <- get_RLum(object, record.id = TL.signal.ID[1])
     signal_integral <- .convert_to_channels(temp.obj, signal_integral,
                                             unit = "temperature")

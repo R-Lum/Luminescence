@@ -208,6 +208,12 @@ More information on these changes are available at
 - Argument `signal.integral` has been renamed to `signal_integral`. The
   older name will still work but generate a deprecation warning (#1290).
 
+- The `integral_input` argument now accepts options “channel” (as
+  before) and “measurement” (instead of “temperature”). This was done to
+  uniform the choices accepted by the argument throughout the package.
+  The older name will still work but generates a deprecation warning
+  (#1396).
+
 ### `apply_EfficiencyCorrection()`
 
 - The function no longer produces an invalid object when the

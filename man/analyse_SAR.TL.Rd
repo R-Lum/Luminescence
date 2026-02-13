@@ -26,9 +26,9 @@ input object containing data for analysis}
 vector of inputs (as defined by \code{integral_input}) for the signal integral.}
 
 \item{integral_input}{\link{character} (\emph{with default}):
-defines the input for \code{signal_integral}. These limits can be either provided
-as \code{"channel"} number (default) or \code{"temperature"}. For \code{"temperature"},
-the best matching channel is selected.}
+input type for \code{signal_integral}, one of \code{"channel"} (default) or
+\code{"measurement"}. If set to \code{"measurement"}, the best matching channels
+corresponding to the given temperature range are selected.}
 
 \item{sequence.structure}{\link{vector} \link{character} (\emph{with default}):
 specifies the general sequence structure. Three steps are allowed
@@ -85,7 +85,7 @@ background see Aitken and Smith (1988)
 No TL curves will be removed from the input object without further warning.
 }
 \section{Function version}{
- 0.3.2
+ 0.3.3
 }
 
 \examples{

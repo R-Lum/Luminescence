@@ -33,6 +33,17 @@ test_that("input validation", {
                "[analyse_SAR.TL()] 'integral_input' should be one of ",
                fixed = TRUE)
 
+  SW({
+  expect_warning(analyse_SAR.TL(object, signal_integral = c(0, 1.5),
+                                sequence.structure = c("SIGNAL", "BACKGROUND"),
+                                integral_input = "measurement"),
+                 "Conversion of integrals from temperature to channels failed")
+  expect_warning(analyse_SAR.TL(object, signal_integral = 2000:2100,
+                                sequence.structure = c("SIGNAL", "BACKGROUND"),
+                                integral_input = "measurement"),
+                 "Conversion of integrals from temperature to channels failed")
+  })
+
   obj.rm <- object
   obj.rm@records[[1]]@data <- obj.rm@records[[1]]@data[1:225, ]
   expect_error(analyse_SAR.TL(obj.rm, signal_integral = 210:220,
@@ -51,6 +62,12 @@ test_that("input validation", {
                                 sequence.structure = c("SIGNAL", "BACKGROUND"),
                                 verbose = FALSE),
                  "was deprecated in v1.2.0, use 'signal_integral'")
+  expect_warning(analyse_SAR.TL(object,
+                                signal_integral = 210:220,
+                                integral_input = "temperature",
+                                sequence.structure = c("SIGNAL", "BACKGROUND"),
+                                verbose = FALSE),
+                 "was deprecated in v1.2.0, use 'integral_input = \"measurement\"")
 })
 
 test_that("snapshot tests", {
@@ -62,7 +79,7 @@ test_that("snapshot tests", {
         list(object, object),
         signal_integral = 210:220,
         dose.points = 1:7,
-        integral_input = "temperature",
+        integral_input = "measurement",
         sequence.structure = c("SIGNAL", "BACKGROUND"))
   )
 
