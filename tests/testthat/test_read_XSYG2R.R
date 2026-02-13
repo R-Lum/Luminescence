@@ -83,6 +83,11 @@ test_that("test import of XSYG files", {
                           fastForward = TRUE, import = TRUE,
                           verbose = TRUE),
               "list")
+
+  ## recursive traversal
+  expect_length(read_XSYG2R(test_path("_data"),
+                            fastForward = TRUE, verbose = FALSE),
+                7)
   })
 
   ## more tests for different TL curve calculation cases
