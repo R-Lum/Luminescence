@@ -1,3 +1,9 @@
+## load data
+obj <- set_RLum(class = "RLum.Analysis",
+                records = list(
+                    set_RLum("RLum.Data.Curve", data = matrix(1:10, ncol = 2)),
+                    set_RLum("RLum.Data.Curve", data = matrix(1:20, ncol = 2))))
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -40,18 +46,15 @@ test_that("check functionality", {
     verbose = FALSE,
     fit.method = "LIN")
   expect_null(plot_RLum(results))
+
+  ## subset
+  expect_silent(plot_RLum(list(obj), main = list("test", "test2"),
+                          mtext = "test", subset = NA))
 })
 
 test_that("graphical snapshot tests", {
   testthat::skip_on_cran()
   testthat::skip_if_not_installed("vdiffr")
-
-  ## test list of RLum.Analysis
-  obj <- set_RLum(
-    class = "RLum.Analysis",
-    records = list(
-      set_RLum("RLum.Data.Curve", data = matrix(1:10, ncol = 2)),
-      set_RLum("RLum.Data.Curve", data = matrix(1:20, ncol = 2))))
 
   SW({
   vdiffr::expect_doppelganger("RLum.Analysis main",
