@@ -214,17 +214,11 @@ analyse_SAR.TL <- function(
                    "of signals")
   }
 
-  ##comfort ... translate integral limits from temperature to channel
+  ## convert integral limits from temperature to channel
   if(integral_input == "temperature"){
-    signal.min <-
-      which.min(abs(
-        min(signal_integral) - get_RLum(object, record.id = TL.signal.ID[1])[, 1]
-      ))
-    signal.max <-
-      which.min(abs(
-        max(signal_integral) - get_RLum(object, record.id = TL.signal.ID[1])[, 1]
-      ))
-    signal_integral <- signal.min:signal.max
+    temp.obj <- get_RLum(object, record.id = TL.signal.ID[1])
+    signal_integral <- .convert_to_channels(temp.obj, signal_integral,
+                                            unit = "temperature")
   }
 
   ##calculate LxTx values using external function
