@@ -20,6 +20,10 @@ test_that("input validation", {
   expect_error(apply_EfficiencyCorrection(TL.Spectrum,
                                           spectral.efficiency = data.frame(1:10, NA)),
                "No valid data remains in 'spectral.efficiency' after removing")
+  expect_error(apply_EfficiencyCorrection(TL.Spectrum,
+                                          spectral.efficiency = data.frame(1:10,
+                                                                           runif(10))),
+               "Interpolation failed: this happens when the x-values in")
   eff_data[1, 2] <- 2
   expect_error(apply_EfficiencyCorrection(TL.Spectrum,
                                           spectral.efficiency = eff_data),
