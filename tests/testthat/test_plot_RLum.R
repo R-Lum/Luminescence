@@ -15,6 +15,7 @@ test_that("input validation", {
 test_that("empty objects", {
   testthat::skip_on_cran()
 
+  expect_null(plot_RLum(list()))
   expect_message(plot_RLum(set_RLum("RLum.Analysis")),
                  "Nothing to plot, NULL returned")
   expect_silent(plot_RLum(set_RLum("RLum.Data.Curve")))
