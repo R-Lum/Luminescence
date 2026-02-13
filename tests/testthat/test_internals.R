@@ -676,6 +676,22 @@ test_that("Test internals", {
   expect_no_warning(.validate_integral(integral <- c(1, 2)),
                     message = "'integral' was defined as c(1, 2) but in general")
 
+  ## .convert_to_channels() -------------------------------------------------
+  data(ExampleData.BINfileData, envir = environment())
+  tl <- Risoe.BINfileData2RLum.Analysis(TL.SAR.Data, run = 1)@records[[1]]
+  expect_equal(.convert_to_channels(tl, 0:20),
+               1:11)
+  expect_equal(.convert_to_channels(tl, 200:220),
+               111:122)
+  expect_warning(expect_equal(.convert_to_channels(tl, c(0, 1.5),
+                                                   unit = "temperature"),
+                              1),
+                 "Conversion of integrals from temperature to channels failed")
+  expect_warning(expect_equal(.convert_to_channels(tl, c(1000, 2000),
+                                                   unit = "temperature"),
+                              250),
+                 "Conversion of integrals from temperature to channels failed")
+
   ## .validate_file() -------------------------------------------------------
 
   dir.path <- system.file("extdata", package = "Luminescence")
