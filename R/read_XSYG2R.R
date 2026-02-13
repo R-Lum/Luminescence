@@ -99,7 +99,7 @@
 #' @param file [character] or [list] (**required**):
 #' name of one or multiple XSYG files (URLs are supported); it can be the path
 #' to a directory, in which case the function tries to detect and import all
-#' XSYG files found in the directory.
+#' XSYG files found recursively from the given directory.
 #'
 #' @param recalculate.TL.curves [logical] (*with default*):
 #' if set to `TRUE`, TL curves are returned as temperature against count values
@@ -224,7 +224,8 @@ read_XSYG2R <- function(
 
   .validate_logical_scalar(verbose)
   .validate_class(pattern, "character")
-  file <- .validate_file(file, pattern = pattern, throw.error = FALSE, verbose = verbose)
+  file <- .validate_file(file, pattern = pattern, recursive = TRUE,
+                         throw.error = FALSE, verbose = verbose)
   if (length(file) == 0)
     return(NULL)
   .validate_positive_scalar(n_records, int = TRUE, null.ok = TRUE)

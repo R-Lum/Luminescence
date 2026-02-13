@@ -20,7 +20,7 @@ read_XSYG2R(
 \item{file}{\link{character} or \link{list} (\strong{required}):
 name of one or multiple XSYG files (URLs are supported); it can be the path
 to a directory, in which case the function tries to detect and import all
-XSYG files found in the directory.}
+XSYG files found recursively from the given directory.}
 
 \item{recalculate.TL.curves}{\link{logical} (\emph{with default}):
 if set to \code{TRUE}, TL curves are returned as temperature against count values

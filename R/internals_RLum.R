@@ -1412,6 +1412,10 @@ SW <- function(expr) {
 #' (default), no pattern is applied, which corresponds to selecting all files
 #' found. It is considered only when `file` is a path to a directory.
 #'
+#' @param recursive [logical] (*with default*):
+#' Whether the scan of a path for files should be done recursively (`FALSE`
+#' by default).
+#'
 #' @inheritParams .validate_class
 #'
 #' @return
@@ -1419,7 +1423,7 @@ SW <- function(expr) {
 #' failed with an error thrown.
 #'
 #' @noRd
-.validate_file <- function(file, ext = NULL, pattern = NULL,
+.validate_file <- function(file, ext = NULL, pattern = NULL, recursive = FALSE,
                            throw.error = TRUE, verbose = TRUE) {
   .validate_class(file, c("character", "list"))
   .validate_not_empty(file)
@@ -1437,7 +1441,7 @@ SW <- function(expr) {
   }
 
   ## check if it's a path: if we find multiple files (or none), we return
-  files_in_path <- .scan_path_for_files(file, pattern, verbose)
+  files_in_path <- .scan_path_for_files(file, pattern, recursive, verbose)
   if (length(files_in_path) != 1) {
     return(as.list(files_in_path))
   }
@@ -1499,7 +1503,7 @@ SW <- function(expr) {
 #' A vector of file names, or `NULL` if no files are found.
 #'
 #' @noRd
-.scan_path_for_files <- function(path, pattern, verbose) {
+.scan_path_for_files <- function(path, pattern, recursive, verbose) {
   ## return immediately if this is not a path to a directory
   if (!dir.exists(path) || length(dir(path)) == 0) {
     return(path)
@@ -1511,7 +1515,7 @@ SW <- function(expr) {
                    " files ...", error = FALSE)
   }
 
-  files <- dir(path, pattern = pattern, recursive = FALSE,
+  files <- dir(path, pattern = pattern, recursive = recursive,
                full.names = TRUE, include.dirs = FALSE)
   if (length(files) == 0 && verbose) {
     .throw_message("No files matching the given pattern found in directory")
