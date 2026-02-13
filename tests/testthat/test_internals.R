@@ -643,11 +643,11 @@ test_that("Test internals", {
                NA)
   expect_warning(expect_equal(.validate_integral(integral <- c(5:1, -3:3)),
                               1:5),
-                 "'integral' reset to be between 1 and 5")
+                 "'integral' out of bounds, reset to be between 1 and 5")
   expect_warning(expect_equal(.validate_integral(integral <- 1:100,
                                                  min = 5, max = 50),
                               5:50),
-                 "'integral' reset to be between 5 and 50")
+                 "'integral' out of bounds, reset to be between 5 and 50")
   expect_error(.validate_integral(integral <- "error"),
                "'integral' should be of class 'integer' or 'numeric'")
   expect_error(.validate_integral(integral <- list(NA), na.ok = TRUE),

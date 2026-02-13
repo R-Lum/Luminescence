@@ -1600,7 +1600,7 @@ SW <- function(expr) {
     .throw_error(name, " is of length 0 after removing values smaller than ",
                  min, if (!is.infinite(max)) paste(" and greater than", max))
   else if (length(integral) != orig.length)
-    .throw_warning(name, " reset to be between ", min(integral),
+    .throw_warning(name, " out of bounds, reset to be between ", min(integral),
                    " and ", max(integral))
   if (any(integral != as.integer(integral)))
     .throw_error(name, " should be a vector of integers")

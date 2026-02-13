@@ -78,7 +78,7 @@ test_that("check functionality", {
       Tx.data.signal,
       Tx.data.background,
       signal_integral = 10:1000),
-      "'signal_integral' reset to be between 10 and 250")
+      "'signal_integral' out of bounds, reset to be between 10 and 250")
 
   expect_warning(calc_TLLxTxRatio(
       Lx.data.signal,

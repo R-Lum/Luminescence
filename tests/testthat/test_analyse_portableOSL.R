@@ -186,7 +186,7 @@ test_that("input validation", {
 
     expect_warning(analyse_portableOSL(merged[1:5],
                                        signal_integral = c(1, 102)),
-                   "'signal_integral' reset to be between 1 and 1")
+                   "'signal_integral' out of bounds, reset to be between 1 and 1")
 })
 
 test_that("graphical snapshot tests", {
@@ -226,6 +226,6 @@ test_that("regression tests", {
   ## issue 680
   expect_warning(analyse_portableOSL(ExampleData.portableOSL[[1]],
                                      signal_integral = -3:200),
-                 "'signal_integral' reset to be between 1 and 100")
+                 "'signal_integral' out of bounds, reset to be between 1 and 100")
   })
 })

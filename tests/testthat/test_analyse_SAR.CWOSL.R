@@ -325,7 +325,7 @@ test_that("check functionality", {
       signal_integral = 1:500,
       background_integral = 500:1000,
       verbose = FALSE),
-      "'background_integral' reset to be between 501 and 1000")
+      "'background_integral' out of bounds, reset to be between 501 and 1000")
 
    expect_warning(analyse_SAR.CWOSL(
      object = object[[1]],
@@ -376,7 +376,7 @@ test_that("check functionality", {
           plot = FALSE,
           verbose = FALSE
       ), "Failed to generate the LxTx table, NULL returned"),
-      "'signal_integral_Tx' reset to be between 500 and 1000"),
+      "'signal_integral_Tx' out of bounds, reset to be between 500 and 1000"),
       "'background_integral_Tx' set automatically to 800:1000")
 
   ## this generates multiple warnings
