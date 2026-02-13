@@ -13,6 +13,8 @@ xsyg_v1 <- set_RLum("RLum.Analysis", records = list(
   xsyg[[1]]@records[[4]],
   xsyg[[1]]@records[[4]]
   ))
+xsyg_v2 <- xsyg_v1
+xsyg_v2@records[c(3, 6)] <- NULL
 
 test_that("input validation", {
   testthat::skip_on_cran()
@@ -39,7 +41,7 @@ test_that("input validation", {
     regexp = "'clean_up' should be a single logical value")
 })
 
-test_that("simple run", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
   ## with clean_up
@@ -49,10 +51,6 @@ test_that("simple run", {
   ## without clean_up
   t <- expect_s4_class(remove_SignalBackground(xsyg_v1, clean_up = FALSE), "RLum.Analysis")
   expect_equal(length(t@records), expected = 6)
-
-  ## with clean_up
-  t <- expect_s4_class(remove_SignalBackground(xsyg_v1), "RLum.Analysis")
-  expect_equal(length(t@records), expected = 4)
 
   ## with invalid recordType set
   expect_warning(remove_SignalBackground(xsyg_v1, recordType = "error"),
@@ -67,10 +65,6 @@ test_that("simple run", {
   expect_equal(length(t), expected = 1)
 
   ## test with different inputs for object_bg
-  ## RLum.Data.Curve()
-  expect_s4_class(remove_SignalBackground(
-    object = xsyg_v1, recordType = "OSL (UVVIS)",
-    object_bg = xsyg_v1[[2]]), "RLum.Analysis")
   ## list
   expect_s4_class(remove_SignalBackground(
     object = xsyg_v1, recordType = "OSL (UVVIS)",
@@ -83,4 +77,15 @@ test_that("simple run", {
   expect_s4_class(remove_SignalBackground(
     object = xsyg_v1, recordType = "OSL (UVVIS)",
     object_bg = c(runif(100,1,100))), "RLum.Analysis")
+})
+
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
+
+  snapshot.tolerance <- 1.5e-6
+
+  expect_snapshot_RLum(remove_SignalBackground(xsyg_v2))
+  expect_snapshot_RLum(remove_SignalBackground(xsyg_v2,
+                                               recordType = "OSL (UVVIS)",
+                                               object_bg = xsyg_v1[[2]]))
 })

@@ -1,5 +1,8 @@
 ## load data
 data(ExampleData.CW_OSL_Curve, envir = environment())
+curve <- set_RLum(class = "RLum.Data.Curve",
+                  recordType = "OSL",
+                  data = as.matrix(ExampleData.CW_OSL_Curve))
 
 test_that("input validation", {
   testthat::skip_on_cran()
@@ -8,15 +11,13 @@ test_that("input validation", {
                "'object' contains no data")
 })
 
-test_that("check class and length of output", {
+test_that("snapshot tests", {
   testthat::skip_on_cran()
 
-  curve <- set_RLum(class = "RLum.Data.Curve",
-                    recordType = "OSL",
-                    data = as.matrix(ExampleData.CW_OSL_Curve))
+  snapshot.tolerance <- 1.5e-6
 
-  expect_s4_class(bin_RLum.Data(curve), class = "RLum.Data.Curve")
-  expect_length(bin_RLum.Data(curve)[,1], 500)
-  expect_equal(sum(bin_RLum.Data(curve)[,2]), 119200)
-  expect_equal(sum(bin_RLum.Data(curve, bin = 5)[1,2]), 41146)
+  expect_snapshot_RLum(bin_RLum.Data(curve),
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(bin_RLum.Data(curve, bin = 5),
+                       tolerance = snapshot.tolerance)
 })
