@@ -641,6 +641,8 @@ test_that("Test internals", {
                1:5)
   expect_equal(.validate_integral(integral <- NA, na.ok = TRUE),
                NA)
+  expect_error(.validate_integral(integral <- 1:5 + 0.1, int = FALSE),
+               integral)
   expect_warning(expect_equal(.validate_integral(integral <- c(5:1, -3:3)),
                               1:5),
                  "'integral' out of bounds, reset to be between 1 and 5")

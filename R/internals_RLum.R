@@ -1563,6 +1563,9 @@ SW <- function(expr) {
 #' @param max [integer] (*with default*):
 #' the maximum value for the integral.
 #'
+#' @param int [logical] (*with default*):
+#' whether the integral values should be integers (`TRUE` by default).
+#'
 #' @param list.ok [logical] (*with default*):
 #' whether the argument should be considered valid also as a list (`FALSE` by
 #' default).
@@ -1579,7 +1582,7 @@ SW <- function(expr) {
 #' is not `NULL`, then the integral is capped to the value specified.
 #'
 #' @noRd
-.validate_integral <- function(integral, min = 1, max = Inf,
+.validate_integral <- function(integral, min = 1, max = Inf, int = TRUE,
                                null.ok = FALSE, list.ok = FALSE, na.ok = FALSE,
                                name = NULL) {
   if (null.ok && is.null(integral) || na.ok && .strict_na(integral))
@@ -1602,7 +1605,7 @@ SW <- function(expr) {
   else if (length(integral) != orig.length)
     .throw_warning(name, " out of bounds, reset to be between ", min(integral),
                    " and ", max(integral))
-  if (any(integral != as.integer(integral)))
+  if (int && any(integral != as.integer(integral)))
     .throw_error(name, " should be a vector of integers")
   if (length(integral) == 2 && diff(integral) > 1)
     .throw_warning(name, " was defined as c(", .format_range(integral, sep = ", "),
