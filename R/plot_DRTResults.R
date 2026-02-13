@@ -268,6 +268,8 @@ plot_DRTResults <- function(
       }
 
       values[[i]] <- na.exclude(values[[i]])
+      if (nrow(values[[i]]) == 0)
+        .throw_error("No valid data remains after removing NA values")
     }
   }
 

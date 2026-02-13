@@ -82,14 +82,21 @@ apply_EfficiencyCorrection <- function(
     return(object)
   }
 
-
   ## Integrity checks -------------------------------------------------------
-
   .validate_class(object, "RLum.Data.Spectrum")
   .validate_class(spectral.efficiency, "data.frame")
+  .validate_not_empty(spectral.efficiency)
+  if (ncol(spectral.efficiency) < 2)
+    .throw_error("'spectral.efficiency' should have 2 columns")
 
   ## grep data matrix from the input object
   temp.matrix <- as(object, "matrix")
+
+  ## remove missing values
+  spectral.efficiency <- na.exclude(spectral.efficiency)
+  if (nrow(spectral.efficiency) == 0)
+    .throw_error("No valid data remains in 'spectral.efficiency' after ",
+                 "removing NA values")
 
   ## grep efficency values
   temp.efficiency <- as.matrix(spectral.efficiency[,1:2])
@@ -122,7 +129,6 @@ apply_EfficiencyCorrection <- function(
 
   ##correct colnames
   colnames(temp.matrix) <- colnames(get_RLum(object))
-
 
   # Return Output------------------------------------------------------------
   set_RLum(

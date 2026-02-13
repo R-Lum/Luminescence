@@ -100,7 +100,7 @@ test_that("check functionality", {
 
   ## single-column data frame
   expect_message(plot_RadialPlot(data.frame(x = c(-0.1, -1.2, 10))),
-                 "Attention, small standardised estimate scatter")
+                 "Small standardised estimate scatter")
 
   ## data frame with more than 2 columns
   expect_silent(plot_RadialPlot(cbind(df, df)))
@@ -147,7 +147,7 @@ test_that("check functionality", {
       data = data.frame(x = df$x, y = rep(0.0001, nrow(df))),
       centrality = -1,
       log.z = FALSE),
-    regexp = "Attention.*")
+    regexp = "Small standardised estimate scatter")
 
   expect_message(plot_RadialPlot(df, line = -1),
                  "Lines with negative value skipped due to 'log.z = TRUE'")
@@ -164,7 +164,10 @@ test_that("check functionality", {
                                 bar.col = "none"))
 
   expect_warning(plot_RadialPlot(data.frame(c(12, 2, 7), c(0, 2, 3))),
-                 "Error values cannot be zero, reset to 1e-09")
+                 "Error values cannot be zero or NA, reset to 1e-09")
+  expect_message(expect_warning(plot_RadialPlot(data.frame(1:5, NA)),
+                                "Error values cannot be zero or NA, reset to"),
+                 "Small standardised estimate scatter, toggle off y.ticks?")
 })
 
 test_that("graphical snapshot tests", {
