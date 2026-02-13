@@ -324,13 +324,19 @@ plot_RadialPlot <- function(
           data[[i]] <- data[[i]][, 1:2]
         }
 
-        ## don't let the error be zero: we set it to the smallest between the
-        ## smallest non-zero error and 10^-9
+        ## if all errors are NA, we set them to 0 so we correct them in the
+        ## next block
+        if (all(is.na(data[[i]][, 2]))) {
+          data[[i]][, 2] <- 0
+        }
+
+        ## don't let the error be NA or zero: we set it to the smallest between
+        ## the smallest non-zero error and 10^-9
         is.zero <- data[[i]][, 2] == 0
         if (any(is.zero)) {
           min.value <- min(data[[i]][!is.zero, 2], 10^-9)
           data[[i]][is.zero, 2] <- min.value
-          .throw_warning("Error values cannot be zero, reset to ", min.value)
+          .throw_warning("Error values cannot be zero or NA, reset to ", min.value)
         }
       }
   }
@@ -489,8 +495,8 @@ plot_RadialPlot <- function(
 
   ## print warning for too small scatter
   if (max(abs(1 / data.global[, 6])) < 0.02) {
-    message("Attention, small standardised estimate scatter. ",
-            "Toggle off y.ticks?")
+    .throw_message("Small standardised estimate scatter, toggle off y.ticks?",
+                   error = FALSE)
   }
 
   ## read out additional arguments---------------------------------------------
