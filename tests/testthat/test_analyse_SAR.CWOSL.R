@@ -49,6 +49,13 @@ test_that("input validation", {
                                  signal_integral_Tx = 1:2,
                                  background_integral_Tx = "error"),
                "'background_integral_Tx' should be of class 'integer', 'numeric', NA or NULL")
+
+  expect_warning(expect_error(analyse_SAR.CWOSL(object[[1]],
+                                                signal_integral = 1:1500,
+                                                background_integral = 1900:2000),
+                              "expected to be at least 1001, but the maximum allowed is 1000"),
+                 "'signal_integral' out of bounds, reset to be between 1 and 1000")
+
   expect_error(analyse_SAR.CWOSL(object[[1]],
                                  signal_integral = 1:2,
                                  background_integral = 900:1000,
@@ -334,7 +341,7 @@ test_that("check functionality", {
      fit.method = "LIN",
      plot = FALSE,
      verbose = FALSE
-   ), regexp = "'background_integral' out of bounds, reset to 800:1000")
+   ), regexp = "'background_integral' out of bounds, reset to be between 800 and 1000")
 
   expect_warning(analyse_SAR.CWOSL(
       object = object[[1]],
@@ -366,6 +373,17 @@ test_that("check functionality", {
       verbose = FALSE
   ), "'signal_integral_Tx' set automatically to 1:2")
 
+  expect_warning(expect_warning(analyse_SAR.CWOSL(
+      object = object[[1]],
+      signal_integral = 1:2,
+      background_integral = 600:900,
+      background_integral_Tx = 1:1200,
+      fit.method = "LIN",
+      plot = FALSE,
+      verbose = FALSE
+  ), "'signal_integral_Tx' set automatically to 1:2"),
+  "'background_integral_Tx' out of bounds, reset to be between 3 and 1000")
+
   expect_warning(expect_warning(expect_message(
       analyse_SAR.CWOSL(
           object = object[[1]],
@@ -389,9 +407,9 @@ test_that("check functionality", {
       plot = FALSE,
       verbose = FALSE))
   expect_match(warnings, all = FALSE,
-               "'background_integral' out of bounds, reset to 800:1000")
+               "'background_integral' out of bounds, reset to be between 800 and 1000")
   expect_match(warnings, all = FALSE,
-               "'background_integral_Tx' out of bounds, reset to 800:1000")
+               "'background_integral_Tx' set automatically to 800:1000")
 
   warnings <- capture_warnings(analyse_SAR.CWOSL(
       object = object[[1]],
@@ -402,9 +420,9 @@ test_that("check functionality", {
       plot = FALSE,
       verbose = FALSE))
   expect_match(warnings, all = FALSE,
-               "'background_integral' out of bounds, reset to 800:1000")
+               "'background_integral' out of bounds, reset to be between 800 and 1000")
   expect_match(warnings, all = FALSE,
-               "'background_integral_Tx' out of bounds, reset to 800:1000")
+               "'background_integral_Tx' set automatically to 800:1000")
 
   ## add one OSL curve
   expect_warning(expect_null(
