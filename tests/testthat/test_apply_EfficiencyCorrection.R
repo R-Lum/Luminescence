@@ -33,10 +33,6 @@ test_that("input validation", {
 test_that("check functionality", {
   testthat::skip_on_cran()
 
-  ##run tests
-  expect_s4_class(apply_EfficiencyCorrection(TL.Spectrum,spectral.efficiency = eff_data),
-                  "RLum.Data.Spectrum")
-
   ##run list test
   expect_warning(
     apply_EfficiencyCorrection(list(a = "test", TL.Spectrum), spectral.efficiency = eff_data),
@@ -57,4 +53,14 @@ test_that("check functionality", {
   input <- list(a = "test", TL.Spectrum,set_RLum("RLum.Analysis", records = list(TL.Spectrum)))
   expect_warning(apply_EfficiencyCorrection(input, eff_data),
                  "Skipping 'character' object in input list")
+})
+
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
+
+  snapshot.tolerance <- 1.5e-5
+
+  expect_snapshot_RLum(apply_EfficiencyCorrection(TL.Spectrum,
+                                                  spectral.efficiency = eff_data),
+                       tolerance = snapshot.tolerance)
 })
