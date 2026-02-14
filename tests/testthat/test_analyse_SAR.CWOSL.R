@@ -735,6 +735,15 @@ test_that("graphical snapshot tests", {
                                   signal_integral = 1:2,
                                   background_integral = 900:1000,
                                   plot_onePage = TRUE))
+    
+    vdiffr::expect_doppelganger("legend_mod",
+                                analyse_SAR.CWOSL(
+                                  object = object[[1]],
+                                  signal_integral = 1:2,
+                                  legend.cex = 2,
+                                  legend.pch = "R",
+                                  background_integral = 900:1000,
+                                  plot_onePage = TRUE))
 
   vdiffr::expect_doppelganger("source_dose_rate",
                                 analyse_SAR.CWOSL(

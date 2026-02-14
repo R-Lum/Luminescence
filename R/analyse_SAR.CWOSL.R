@@ -209,10 +209,14 @@
 #'
 #' @param ... further arguments that will be passed to the functions
 #' [Luminescence::fit_DoseResponseCurve], [Luminescence::plot_DoseResponseCurve]
-#' or [Luminescence::calc_OSLLxTxRatio]
-#' (supported: `background.count.distribution`, `sigmab`, `sig0`).
+#' or [Luminescence::calc_OSLLxTxRatio] (supported: 
+#' `background.count.distribution`, `sigmab`, `sig0`).
+
 #' **Note:** if you consider to use the early light subtraction method,
 #' `sigmab` should be provided.
+#'
+#' Additionally, supported are `legend.cex` and `legend.pch` to modify the
+#' the legend symbols. 
 #
 #' @return
 #' A plot (*optional*) and an [Luminescence::RLum.Results-class] object is
@@ -229,7 +233,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.13.4
+#' @section Function version: 0.13.5
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
@@ -615,6 +619,8 @@ analyse_SAR.CWOSL<- function(
   main <- extraArgs$main %||% ""
   log <- extraArgs$log %||% ""
   cex <- extraArgs$cex %||% 1
+  legend.cex <- extraArgs$legend.cex %||% 4
+  legend.pch <- extraArgs$legend.pch %||% 20
 
   background.count.distribution <-
       extraArgs$background.count.distribution %||% "non-poisson"
@@ -1100,12 +1106,12 @@ analyse_SAR.CWOSL<- function(
 
         plot(
           x, y,
-          type = "p",
           axes = FALSE,
           xlab = "", ylab = "",
-          pch = 20,
+          pch = legend.pch,
+          type = "p",
           col = unique(col[1:length(OSL.Curves.ID)]),
-          cex = 4,
+          cex = legend.cex,
           ylim = c(0,10))
 
         ## add legend text

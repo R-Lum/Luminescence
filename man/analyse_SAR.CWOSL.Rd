@@ -136,10 +136,13 @@ without the need for a curve fitting.}
 
 \item{...}{further arguments that will be passed to the functions
 \link{fit_DoseResponseCurve}, \link{plot_DoseResponseCurve}
-or \link{calc_OSLLxTxRatio}
-(supported: \code{background.count.distribution}, \code{sigmab}, \code{sig0}).
+or \link{calc_OSLLxTxRatio} (supported:
+\code{background.count.distribution}, \code{sigmab}, \code{sig0}).
 \strong{Note:} if you consider to use the early light subtraction method,
-\code{sigmab} should be provided.}
+\code{sigmab} should be provided.
+
+Additionally, supported are \code{legend.cex} and \code{legend.pch} to modify the
+the legend symbols.}
 }
 \value{
 A plot (\emph{optional}) and an \linkS4class{RLum.Results} object is
@@ -257,7 +260,7 @@ function does \strong{not} overwrite values preset in \code{IRR_TIME}.
 }
 }
 \section{Function version}{
- 0.13.4
+ 0.13.5
 }
 
 \examples{
