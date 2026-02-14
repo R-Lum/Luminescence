@@ -209,7 +209,7 @@ More information on these changes are available at
   processed.
 
 - Add support to control the legend size and the legend symbols via
-  `legend.cex` and `legend.pch`.
+  `legend.cex` and `legend.pch` (9ec687d).
 
 ## `analyse_SAR.TL()`
 
