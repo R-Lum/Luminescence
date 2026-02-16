@@ -58,11 +58,11 @@ convert_SG2MG <- function(
   ## Transform --------------------------------------------------------------
   ## reset the rownames because they may not correspond to the row indices
   ## (see #1415)
-  rownames(object@METADATA) <- 1:nrow(object@METADATA)
+  rownames(object@METADATA) <- NULL
 
   ## ids of single grain records
   sg_id <- as.numeric(rownames(
-      unique(object@METADATA[object@METADATA[["GRAIN"]] != 0, "ID"])))
+      unique(object@METADATA[object@METADATA[["GRAIN"]] != 0, "ID", drop = FALSE])))
 
   for (i in sg_id) {
     ##get IDs of all relevant records
