@@ -12,9 +12,7 @@ test_that("input validation", {
   expect_error(analyse_ThermochronometryData(input.csv[1], verbose = "error"),
                "'verbose' should be a single logical value")
   expect_error(analyse_ThermochronometryData(test_path("_data/CLBR.xlsx")),
-               "XLS/XLSX format is not supported, use CSV instead")
-  expect_error(analyse_ThermochronometryData(test_path("_data/CLBR.xlsx")),
-               "XLS/XLSX format is not supported, use CSV instead")
+               "File extension 'xlsx' is not supported, only 'csv' is valid")
   expect_error(analyse_ThermochronometryData(input.csv[1], ITL_model = "error"),
                "'ITL_model' should be one of 'GOK' or 'BTS'")
 })

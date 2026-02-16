@@ -6,13 +6,13 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(.import_ThermochronometryData(list()),
-               "'file' should be of class 'character'")
+               "'file' cannot be an empty list")
   expect_error(.import_ThermochronometryData("filename", output_type = "error"),
-               "'output_type' should be one of 'RLum.Results' or 'list'")
+               "File 'filename' does not exist")
   expect_error(.import_ThermochronometryData(input.xls),
-               "XLS/XLSX format is not supported, use CSV instead")
+               "File extension 'xlsx' is not supported, only 'csv' is valid")
   expect_error(.import_ThermochronometryData(c(input.csv, input.xls)),
-               "XLS/XLSX format is not supported, use CSV instead")
+               "File extension 'xlsx' is not supported, only 'csv' is valid")
   expect_error(.import_ThermochronometryData("error"),
                "File 'error' does not exist")
   expect_error(.import_ThermochronometryData(c(input.csv, "error")),

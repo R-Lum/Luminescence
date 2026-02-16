@@ -217,33 +217,17 @@ extract_IrradiationTimes <- function(
   if (is.character(object[1])) {
     .validate_length(object, 1)
 
-    ##XSYG
-    file.XSYG <- object
-    if (!file.exists(file.XSYG)) {
-      .throw_error("Wrong XSYG file name or file does not exist!")
-    }
-
-    if (tolower(tools::file_ext(file.XSYG)) != "xsyg") {
-      .throw_error("Input file should have 'xsyg' or 'XSYG' extension")
-    }
-
-    ##BINX
-    if(!missing(file.BINX)){
-      if (!file.exists(file.BINX)) {
-        .throw_error("Wrong BINX file name or file does not exist!")
-      }
-      if (tolower(tools::file_ext(file.BINX)) != "binx") {
-        .throw_error("'file.BINX' should have 'binx' or 'BINX' extension")
-      }
-    }
-
     ## Import XSYG and BINX -------------------------------------------------
+    file.XSYG <- .validate_file(object, ext = "xsyg", scan.dir = FALSE,
+                                verbose = txtProgressBar)
     temp.XSYG <- read_XSYG2R(
       file = file.XSYG,
       txtProgressBar = txtProgressBar,
       verbose = txtProgressBar)
 
     if(!missing(file.BINX)){
+      file.BINX <- .validate_file(file.BINX, ext = "binx", scan.dir = FALSE,
+                                  verbose = txtProgressBar)
       temp.BINX <- read_BIN2R(
         file = file.BINX,
         txtProgressBar = txtProgressBar,

@@ -44,16 +44,8 @@
   }
 
   ## Integrity checks -------------------------------------------------------
-  .validate_class(file, "character")
+  file <- .validate_file(file, ext = "csv", scan.dir = FALSE)
   .validate_args(output_type, c("RLum.Results", "list"))
-
-  exists <- file.exists(file)
-  if (!all(exists)) {
-    .throw_error("File '", file[!exists][1], "' does not exist")
-  }
-  if (any(grepl("xlsx?", tools::file_ext(file), ignore.case = TRUE))) {
-    .throw_error("XLS/XLSX format is not supported, use CSV instead")
-  }
 
   ## define variable
   ka <- 1e+3 * .const$year_s # ka in seconds
@@ -61,6 +53,7 @@
   ## Import -----------------------------------------------------------------
   records <- lapply(file, function(x) {
     ## read the files separating header and body
+    .validate_file(x, ext = "csv", scan.dir = FALSE)
     head <- data.table::fread(x, nrows = 3, select = 1:5)
     body <- data.table::fread(x, skip = 3, header = TRUE)
 

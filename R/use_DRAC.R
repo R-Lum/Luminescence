@@ -153,14 +153,9 @@ use_DRAC <- function(
   .validate_not_empty(file)
 
   if (inherits(file, "character")) {
+    .validate_file(file, ext = "csv", scan.dir = FALSE,
+                   verbose = settings$verbose)
     .validate_length(file, 1)
-    if(!file.exists(file)){
-      .throw_error("Input file does not exist")
-    }
-
-    if (tools::file_ext(file) == "xls" || tools::file_ext(file) == "xlsx") {
-      .throw_error("XLS/XLSX format no longer supported, use CSV instead")
-    }
 
     ## Import data ----------------------------------------------------------
 

@@ -91,37 +91,28 @@ merge_Risoe.BINfileData <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-
   .validate_class(input.objects, c("character", "list"))
+  .validate_logical_scalar(keep.position.number)
+  .validate_logical_scalar(verbose)
   if(length(input.objects) < 2){
     .throw_message("At least two input objects are needed, nothing done",
                    error = FALSE)
     return(input.objects)
   }
 
+  ## Import files -----------------------------------------------------------
   if (is.character(input.objects)) {
     for(i in 1:length(input.objects)){
-      if (!file.exists(input.objects[i])) {
-        .throw_error("File '", input.objects[i], "' does not exist")
-      }
+      .validate_file(input.objects[[i]], ext = c("bin", "binx"),
+                     scan.dir = FALSE, verbose = verbose)
     }
+    temp <- lapply(input.objects, read_BIN2R, verbose = verbose)
 
   }else{
     for (i in 1:length(input.objects)) {
       .validate_class(input.objects[[i]], "Risoe.BINfileData",
                       name = "All elements of 'input.objects'")
     }
-  }
-  .validate_logical_scalar(verbose)
-
-  # Import Files ------------------------------------------------------------
-
-  ##loop over all files to store the results in a list
-  ##or the input is already a list
-
-  if (is.character(input.objects)) {
-    temp <- lapply(input.objects, read_BIN2R, verbose = verbose)
-  }else{
     temp <- input.objects
   }
 

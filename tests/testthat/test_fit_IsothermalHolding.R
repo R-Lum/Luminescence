@@ -23,7 +23,7 @@ test_that("input validation", {
   expect_error(fit_IsothermalHolding(input.csv[1], rhop = 1e-7, verbose = "error"),
                "'verbose' should be a single logical value")
   expect_error(fit_IsothermalHolding(test_path("_data/CLBR.xlsx"), rhop = 1e-7),
-               "XLS/XLSX format is not supported, use CSV instead")
+               "File extension 'xlsx' is not supported, only 'csv' is valid")
   expect_error(fit_IsothermalHolding(input.csv[1], rhop = 1e-7, ITL_model = "BTS",
                                      num_s_values_bts = 0),
                "'num_s_values_bts' should be a single positive integer value")
