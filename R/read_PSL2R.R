@@ -207,7 +207,7 @@ read_PSL2R <- function(
        protocol = "portable OSL",
        info = c(
          header,
-         list(Sequence = measurement_sequence)),
+         list(Sequence = as.data.frame(measurement_sequence))),
        records = measurements_formatted)
   }#Eof::Loop
 

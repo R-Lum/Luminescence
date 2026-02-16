@@ -1,7 +1,7 @@
 ## load data
 data(ExampleData.RLum.Analysis, envir = environment())
 
-test_that("test for errors", {
+test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(convert_RLum2Risoe.BINfileData(object = NA),
@@ -10,14 +10,8 @@ test_that("test for errors", {
                "'object' cannot be an empty RLum.Analysis")
 })
 
-test_that("functionality", {
+test_that("test functionality", {
   testthat::skip_on_cran()
-
-  ##provide RLum.Analysis
-  expect_s4_class(convert_RLum2Risoe.BINfileData(IRSAR.RF.Data), "Risoe.BINfileData")
-
-  ##provide RLum.Data.Curve
-  expect_s4_class(convert_RLum2Risoe.BINfileData(IRSAR.RF.Data@records[[1]]), "Risoe.BINfileData")
 
   ##provide list
   expect_s4_class(convert_RLum2Risoe.BINfileData(list(IRSAR.RF.Data,IRSAR.RF.Data)), "Risoe.BINfileData")
@@ -48,5 +42,18 @@ test_that("functionality", {
   expect_s4_class(
     convert_RLum2Risoe.BINfileData(tmp_object),
     class = "Risoe.BINfileData")
+})
 
+test_that("test functionality", {
+  testthat::skip_on_cran()
+
+  ## mock current time
+  local_mocked_bindings(Sys.time = function() as.POSIXct("2026-02-16 10:22:03"),
+                        .package = "base")
+
+  ## RLum.Analysis
+  expect_snapshot_Risoe(convert_RLum2Risoe.BINfileData(IRSAR.RF.Data))
+
+  ## RLum.Data.Curve
+  expect_snapshot_Risoe(convert_RLum2Risoe.BINfileData(IRSAR.RF.Data@records[[1]]))
 })

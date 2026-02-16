@@ -1,3 +1,14 @@
+## load data
+tmp <- matrix(data = c(seq(0, 1, 0.1), seq(10000, 1000, length.out = 11)),
+              ncol = 2)
+o0 <- set_RLum("RLum.Analysis",
+               records = list(set_RLum("RLum.Data.Curve")))
+o1 <- set_RLum("RLum.Analysis",
+              records = list(set_RLum("RLum.Data.Curve", data = tmp)))
+o2 <- set_RLum("RLum.Analysis",
+               records = list(set_RLum("RLum.Data.Curve", data = tmp),
+                              set_RLum("RLum.Data.Image")))
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -35,43 +46,30 @@ test_that("Test internals", {
                o)
 
   ## run with only one row
-  o <- set_RLum(
-      class = "RLum.Analysis",
-      records = list(
-          set_RLum("RLum.Data.Curve")))
   t <- expect_s4_class(
-      object = correct_PMTLinearity(o, PMT_pulse_pair_resolution = 10),
-      class = "RLum.Analysis")
-
-  ## create dataset
-  tmp_data <- matrix(data = c(seq(0, 1, 0.1), seq(10000, 1000, length.out = 11)),
-                     ncol = 2)
-
-  ## run normally
-  o <- set_RLum(
-      class = "RLum.Analysis",
-      records = list(
-          set_RLum("RLum.Data.Curve", data = tmp_data)))
-  expect_s4_class(
-      object = correct_PMTLinearity(o, PMT_pulse_pair_resolution = 10),
+      object = correct_PMTLinearity(o0, PMT_pulse_pair_resolution = 10),
       class = "RLum.Analysis")
 
   ## intermix different records; the non-RLum.Data.Curve() should be skipped
-  o <- set_RLum(
-      class = "RLum.Analysis",
-      records = list(
-          set_RLum("RLum.Data.Curve", data = tmp_data),
-          set_RLum("RLum.Data.Image")
-      ))
   t <- expect_s4_class(
-      object = correct_PMTLinearity(o, PMT_pulse_pair_resolution = 10),
+      object = correct_PMTLinearity(o2, PMT_pulse_pair_resolution = 10),
       class = "RLum.Analysis")
   expect_length(t, 2)
   expect_equal(t@records[[1]][1,2], 10010, tolerance = 0.001)
 
   ## test list case
   t <- expect_type(
-    object = correct_PMTLinearity(list(o,o,"not correct"), PMT_pulse_pair_resolution = 10),
+    object = correct_PMTLinearity(list(o2, o2, "not correct"),
+                                  PMT_pulse_pair_resolution = 10),
     type = "list")
   expect_length(t, 2)
+})
+
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
+
+  snapshot.tolerance <- 1.5e-6
+
+  expect_snapshot_RLum(correct_PMTLinearity(o1, PMT_pulse_pair_resolution = 10),
+                       tolerance = snapshot.tolerance)
 })

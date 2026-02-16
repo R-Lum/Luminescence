@@ -1,23 +1,5 @@
-## load file
+## input file
 psl.file <- system.file("extdata/DorNie_0016.psl", package = "Luminescence")
-
-test_that("Test functionality", {
-  testthat::skip_on_cran()
-
-  ## default values
-  SW({
-  expect_s4_class(read_PSL2R(
-    file = psl.file
-  ), "RLum.Analysis")
-  })
-
-  ## custom values (all inverted), multiple files given to test merge=TRUE
-  expect_s4_class(read_PSL2R(
-    file = c(psl.file, psl.file),
-    drop_bg = TRUE, as_decay_curve = FALSE, smooth = TRUE, merge = TRUE,
-    verbose = FALSE
-  ), "RLum.Analysis")
-})
 
 test_that("input validation", {
   testthat::skip_on_cran()
@@ -57,4 +39,17 @@ test_that("input validation", {
     read_PSL2R(file = c(psl.file, "non-existent")),
     "The following files do not exist"
   )
+})
+
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
+
+  SW({
+  expect_snapshot_RLum(read_PSL2R(psl.file))
+
+  ## custom values (all inverted), multiple files given to test merge = TRUE
+  expect_snapshot_RLum(read_PSL2R(c(psl.file, psl.file), drop_bg = TRUE,
+                                  as_decay_curve = FALSE, smooth = TRUE,
+                                  merge = TRUE, verbose = FALSE))
+  })
 })
