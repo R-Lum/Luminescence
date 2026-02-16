@@ -4,7 +4,6 @@
 #' reader into R.
 #'
 #' @details
-#'
 #' The binary data file is parsed byte by byte following the data structure
 #' published in the Appendices of the Analyst manual p. 42.
 #'
@@ -14,7 +13,7 @@
 #' @param file [character] or [list] (**required**):
 #' name of one or multiple BIN/BINX files (URLs are supported); it can be the
 #' path to a directory, in which case the function tries to detect and import
-#' all BIN/BINX files found in the directory.
+#' all BIN/BINX files found recursively from the given directory.
 #'
 #' @param show.raw.values [logical] (*with default*):
 #' shows raw values from BIN-file for `LTYPE`, `DTYPE` and `LIGHTSOURCE` without
@@ -151,6 +150,7 @@ read_BIN2R <- function(
   # directory and import them, if this is detected, we proceed as list
   file <- .validate_file(file, ext = c("bin", "binx"),
                          pattern = pattern %||% "\\.bin.*$",
+                         recursive = TRUE,
                          verbose = verbose)
 
   if (is.list(file)) {

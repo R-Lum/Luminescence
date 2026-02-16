@@ -25,7 +25,7 @@ read_BIN2R(
 \item{file}{\link{character} or \link{list} (\strong{required}):
 name of one or multiple BIN/BINX files (URLs are supported); it can be the
 path to a directory, in which case the function tries to detect and import
-all BIN/BINX files found in the directory.}
+all BIN/BINX files found recursively from the given directory.}
 
 \item{show.raw.values}{\link{logical} (\emph{with default}):
 shows raw values from BIN-file for \code{LTYPE}, \code{DTYPE} and \code{LIGHTSOURCE} without
