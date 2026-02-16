@@ -12,7 +12,7 @@
 #' of named after the original one with `-SG` appended to it.
 #'
 #' @param ... further arguments passed down to [Luminescence::read_BIN2R] and
-#' [Luminescence::write_BIN2R] if `object` is a path to a file.
+#' [Luminescence::write_R2BIN] if `object` is a path to a file.
 #'
 #' @return
 #' A [Luminescence::Risoe.BINfileData-class] object. If `write_file = TRUE` an

@@ -16,7 +16,7 @@ is of type character). The multiple grain file will be written to a file
 of named after the original one with \code{-SG} appended to it.}
 
 \item{...}{further arguments passed down to \link{read_BIN2R} and
-\link{write_BIN2R} if \code{object} is a path to a file.}
+\link{write_R2BIN} if \code{object} is a path to a file.}
 }
 \value{
 A \linkS4class{Risoe.BINfileData} object. If \code{write_file = TRUE} an
