@@ -39,7 +39,7 @@
                 "originator": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["inherits"]
+                  "value": [null]
                 },
                 "info": {
                   "type": "list",

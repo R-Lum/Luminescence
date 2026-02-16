@@ -70,6 +70,8 @@ test_that("snapshot tests", {
 
   snapshot.tolerance <- 1.5e-6
 
-  expect_snapshot_RLum(correct_PMTLinearity(o1, PMT_pulse_pair_resolution = 10),
-                       tolerance = snapshot.tolerance)
+  res <- correct_PMTLinearity(o1, PMT_pulse_pair_resolution = 10)
+  ## reset originator to avoid failures during the test_coverage workflow in CI
+  res@records[[1]]@originator <- NA_character_
+  expect_snapshot_RLum(res, tolerance = snapshot.tolerance)
 })
