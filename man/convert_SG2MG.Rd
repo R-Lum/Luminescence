@@ -7,25 +7,27 @@
 convert_SG2MG(object, write_file = FALSE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{Risoe.BINfileData} \link{character} (\strong{required}): \linkS4class{Risoe.BINfileData}
-object or BIN/BINX-file name}
+\item{object}{\linkS4class{Risoe.BINfileData}, \link{character} (\strong{required}):
+\linkS4class{Risoe.BINfileData} object or BIN/BINX-file name.}
 
-\item{write_file}{\link{logical} (\emph{with default}): if the input was a path to a file, the
-output can be written to a file if \code{TRUE}. The multiple grain file will be written into the
-same folder and with extension \code{-SG} to the file name.}
+\item{write_file}{\link{logical} (\emph{with default}):
+whether the output should be written to a file (only considered if \code{object}
+is of type character). The multiple grain file will be written to a file
+of named after the original one with \code{-SG} appended to it.}
 
-\item{...}{further arguments passed down to \link{read_BIN2R} if input is file path}
+\item{...}{further arguments passed down to \link{read_BIN2R} and
+\link{write_BIN2R} if \code{object} is a path to a file.}
 }
 \value{
-\linkS4class{Risoe.BINfileData} object and if \code{write_file = TRUE} and the input
-was a file path, a file is written to origin folder.
+A \linkS4class{Risoe.BINfileData} object. If \code{write_file = TRUE} an
+the input was a file path, a file is also written out to origin folder.
 }
 \description{
 Conversion of single-grain data to multiple-grain data by adding signals
 from grains belonging to one disc (unique pairs of position, set and run).
 }
 \section{Function version}{
- 0.1.0
+ 0.1.1
 }
 
 \examples{
@@ -36,7 +38,8 @@ convert_SG2MG(CWOSL.SAR.Data)
 
 }
 \seealso{
-\linkS4class{Risoe.BINfileData}, \link{read_BIN2R}, \link{write_R2BIN}
+\linkS4class{Risoe.BINfileData}, \link{read_BIN2R},
+\link{write_R2BIN}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr

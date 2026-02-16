@@ -3,25 +3,29 @@
 #' @description Conversion of single-grain data to multiple-grain data by adding signals
 #' from grains belonging to one disc (unique pairs of position, set and run).
 #'
-#' @param object [Luminescence::Risoe.BINfileData-class] [character] (**required**): [Luminescence::Risoe.BINfileData-class]
-#' object or BIN/BINX-file name
+#' @param object [Luminescence::Risoe.BINfileData-class], [character] (**required**):
+#' [Luminescence::Risoe.BINfileData-class] object or BIN/BINX-file name.
 #'
-#' @param write_file [logical] (*with default*): if the input was a path to a file, the
-#' output can be written to a file if `TRUE`. The multiple grain file will be written into the
-#' same folder and with extension `-SG` to the file name.
+#' @param write_file [logical] (*with default*):
+#' whether the output should be written to a file (only considered if `object`
+#' is of type character). The multiple grain file will be written to a file
+#' of named after the original one with `-SG` appended to it.
 #'
-#' @param ... further arguments passed down to [Luminescence::read_BIN2R] if input is file path
+#' @param ... further arguments passed down to [Luminescence::read_BIN2R] and
+#' [Luminescence::write_BIN2R] if `object` is a path to a file.
 #'
-#' @return [Luminescence::Risoe.BINfileData-class] object and if `write_file = TRUE` and the input
-#' was a file path, a file is written to origin folder.
+#' @return
+#' A [Luminescence::Risoe.BINfileData-class] object. If `write_file = TRUE` an
+#' the input was a file path, a file is also written out to origin folder.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 #' Norbert Mercier, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux Montaigne (France)
 #'
-#' @seealso [Luminescence::Risoe.BINfileData-class], [Luminescence::read_BIN2R], [Luminescence::write_R2BIN]
+#' @seealso [Luminescence::Risoe.BINfileData-class], [Luminescence::read_BIN2R],
+#' [Luminescence::write_R2BIN]
 #'
 #' @keywords IO
 #'
@@ -41,12 +45,13 @@ convert_SG2MG <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-
   .validate_class(object, c("character", "Risoe.BINfileData"))
   .validate_not_empty(object)
+  .validate_logical_scalar(write_file)
 
+  file_name <- NULL
   if (!inherits(object, "Risoe.BINfileData")) {
-    file_name <- object
+    file_name <- normalizePath(object, mustWork = FALSE)
     object <- read_BIN2R(object, ...)
   }
 
@@ -81,16 +86,13 @@ convert_SG2MG <- function(
   object@METADATA[["ID"]] <- 1:length(object@DATA)
   object@METADATA[["GRAIN"]] <- 0
 
-
 # Write file --------------------------------------------------------------
-  if (write_file[1] &&
-      !inherits(try(file.exists(file_name), silent = FALSE), "try-error")) {
-      dirname <- dirname(normalizePath(file_name))
-      filename <- strsplit(basename(normalizePath(file_name)), ".", fixed = TRUE)[[1]]
-
-      write_R2BIN(object, paste0(dirname,"/",filename[1],"_SG.",filename[2]), ...)
+  if (write_file && !is.null(file_name)) {
+    write_R2BIN(object,
+                file = paste0(tools::file_path_sans_ext(file_name), "_SG.",
+                              tools::file_ext(file_name)),
+                ...)
   }
 
-# Return object -----------------------------------------------------------
-return(object)
+  object
 }
