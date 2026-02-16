@@ -10,6 +10,8 @@ test_that("input validation", {
                "'selection' should be of class 'data.frame' or 'matrix'")
   expect_error(subset_SingleGrainData(CWOSL.SAR.Data, data.frame(1:10, 1)),
                "No matching records, check POSITION and GRAIN in 'selection'")
+  expect_error(subset_SingleGrainData(CWOSL.SAR.Data, data.frame(1:10)),
+               "'selection' should have 2 columns")
 })
 
 test_that("check functionality", {
