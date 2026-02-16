@@ -3,8 +3,7 @@ test_that("input validation", {
 
   ## wrong file name
   expect_error(use_DRAC("error"),
-               "[use_DRAC()] Input file does not exist",
-               fixed = TRUE)
+               "File '.*error' does not exist") # windows CI needs the regexp
   expect_error(use_DRAC(NA),
                "'file' should be of class 'character', 'DRAC.list' or")
   expect_error(use_DRAC(character(0)),
@@ -15,7 +14,7 @@ test_that("input validation", {
   ## XLS input
   file.create(fake.xls <- tempfile(fileext = ".xls"))
   expect_error(use_DRAC(fake.xls),
-               "XLS/XLSX format no longer supported, use CSV instead")
+               "File extension 'xls' is not supported, only 'csv' is valid")
 
   ## CSV file with the wrong header
   fake <- data.table::fread(test_path("_data/DRAC_Input_Template.csv"))

@@ -1412,6 +1412,9 @@ SW <- function(expr) {
 #' (default), no pattern is applied, which corresponds to selecting all files
 #' found. It is considered only when `file` is a path to a directory.
 #'
+#' @param scan.dir [logical] (*with default*):
+#' Whether directories should be scanned for filed (`TRUE` by default).
+#'
 #' @param recursive [logical] (*with default*):
 #' Whether the scan of a path for files should be done recursively (`FALSE`
 #' by default).
@@ -1423,7 +1426,8 @@ SW <- function(expr) {
 #' failed with an error thrown.
 #'
 #' @noRd
-.validate_file <- function(file, ext = NULL, pattern = NULL, recursive = FALSE,
+.validate_file <- function(file, ext = NULL, pattern = NULL,
+                           scan.dir = TRUE, recursive = FALSE,
                            throw.error = TRUE, verbose = TRUE) {
   .validate_class(file, c("character", "list"))
   .validate_not_empty(file)
@@ -1441,13 +1445,15 @@ SW <- function(expr) {
   }
 
   ## check if it's a path: if we find multiple files (or none), we return
-  files_in_path <- .scan_path_for_files(file, pattern, recursive, verbose)
-  if (length(files_in_path) != 1) {
-    return(as.list(files_in_path))
-  }
+  if (scan.dir) {
+    files_in_path <- .scan_path_for_files(file, pattern, recursive, verbose)
+    if (length(files_in_path) != 1) {
+      return(as.list(files_in_path))
+    }
 
-  ## this was not a path or the path contained a single file
-  file <- files_in_path
+    ## this was not a path or the path contained a single file
+    file <- files_in_path
+  }
 
   ## check if it's a URL, in which case download the file locally
   ## .download_file() returns one of these:
@@ -1472,12 +1478,6 @@ SW <- function(expr) {
     return(NULL)
   }
 
-  if (info$size == 0) {
-    .error_or_message(paste0("File '", filename, "' is a zero-byte file"),
-                      throw.error)
-    return(NULL)
-  }
-
   if (!is.null(ext)) {
     file.ext <- tools::file_ext(filename)
     if (!tolower(file.ext) %in% tolower(ext)) {
@@ -1487,6 +1487,12 @@ SW <- function(expr) {
       .error_or_message(msg, throw.error)
       return(NULL)
     }
+  }
+
+  if (info$size == 0) {
+    .error_or_message(paste0("File '", filename, "' is a zero-byte file"),
+                      throw.error)
+    return(NULL)
   }
 
   filename

@@ -725,6 +725,8 @@ test_that("Test internals", {
                "File '.*_error_' does not exist") # windows CI needs the regexp
   expect_message(expect_null(.validate_file("_error_", throw.error = FALSE)),
                  "File '.*_error_' does not exist") # windows CI needs the regexp
+  expect_error(.validate_file(dir.path, scan.dir = FALSE),
+               "File '.*' does not exist")
   file.create(zero <- tempfile(pattern = "zero", fileext = ".binx"))
   expect_error(.validate_file(zero),
                "is a zero-byte file")
