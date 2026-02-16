@@ -576,7 +576,8 @@ analyse_SAR.CWOSL<- function(
     if (!is.null(signal_integral_Tx) && is.null(background_integral_Tx)) {
       background_integral_Tx <- background_integral
       .throw_warning("'background_integral_Tx' set automatically to ",
-                     .format_range(background_integral_Tx))
+                     if (.strict_na(background_integral_Tx)) NA
+                     else .format_range(background_integral_Tx))
     }
     if (length(background_integral_Tx) == 1 && !.strict_na(background_integral_Tx)) {
       background_integral_Tx <- background_integral_Tx - 25:0

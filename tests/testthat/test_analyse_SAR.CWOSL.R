@@ -397,6 +397,16 @@ test_that("check functionality", {
       "'signal_integral_Tx' out of bounds, reset to be between 500 and 1000"),
       "'background_integral_Tx' set automatically to 800:1000")
 
+  expect_warning(analyse_SAR.CWOSL(
+      object[[1]],
+      signal_integral = 1:4,
+      background_integral = NA,
+      signal_integral_Tx = 1:3,
+      fit.method = "LIN",
+      plot = FALSE,
+      verbose = FALSE
+  ), "'background_integral_Tx' set automatically to NA$")
+
   ## this generates multiple warnings
   warnings <- capture_warnings(analyse_SAR.CWOSL(
       object = object[[1]],
