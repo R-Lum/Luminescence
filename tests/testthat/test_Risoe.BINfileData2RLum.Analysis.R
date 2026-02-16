@@ -44,6 +44,10 @@ test_that("check functionality", {
   expect_type(res, "list")
   expect_length(res, 3)
 
+  res <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1,
+                                         txtProgressBar = TRUE)
+  expect_s4_class(res, "RLum.Analysis")
+
   ## FI readers like to write a NA instead of 0 in the grain column
   obj <- CWOSL.SAR.Data
   obj@METADATA[["GRAIN"]] <- rep(NA, length(obj@METADATA[["GRAIN"]]))
