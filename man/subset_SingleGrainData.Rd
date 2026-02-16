@@ -7,22 +7,21 @@
 subset_SingleGrainData(object, selection)
 }
 \arguments{
-\item{object}{\linkS4class{Risoe.BINfileData} (\strong{required}): input object with the
-data to subset}
+\item{object}{\linkS4class{Risoe.BINfileData} (\strong{required}):
+input object with the data to subset.}
 
-\item{selection}{\link{data.frame} (\strong{required}): selection table with two columns
-for position (1st column) and grain (2nd column) (columns names do not matter)}
+\item{selection}{\link{data.frame}, \link{matrix} (\strong{required}):
+selection table with two columns for position and grain, respectively.}
 }
 \value{
 A subset \linkS4class{Risoe.BINfileData} object
 }
 \description{
-Most measured single grains do not exhibit light and it makes
-usually sense to subset single grain datasets using a table of
-position and grain pairs
+Most measured single grains do not exhibit light and it usually makes sense
+to subset single grain datasets using a table of position and grain pairs.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.1
 }
 
 \examples{

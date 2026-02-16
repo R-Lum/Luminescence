@@ -461,6 +461,11 @@ More information on these changes are available at
 - The function could crash if called with `do.call()` and some
   particularly odd inputs (#1260).
 
+### `subset_SingleGrainData()`
+
+- The function reports an helpful error instead of crashing if the given
+  grains and positions table produces an empty selection (#1412).
+
 ## Other changes
 
 - The internal function `.normalise_curve()` received support to
