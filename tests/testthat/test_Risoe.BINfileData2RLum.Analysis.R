@@ -44,10 +44,6 @@ test_that("check functionality", {
   expect_type(res, "list")
   expect_length(res, 3)
 
-  res <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1,
-                                         txtProgressBar = TRUE)
-  expect_s4_class(res, "RLum.Analysis")
-
   ## FI readers like to write a NA instead of 0 in the grain column
   obj <- CWOSL.SAR.Data
   obj@METADATA[["GRAIN"]] <- rep(NA, length(obj@METADATA[["GRAIN"]]))
@@ -77,4 +73,14 @@ test_that("check functionality", {
   expect_message(expect_null(
       Risoe.BINfileData2RLum.Analysis(zero, keep.empty = FALSE)),
       "Empty Risoe.BINfileData object detected")
+})
+
+test_that("check functionality", {
+  testthat::skip_on_cran()
+
+  SW({
+  expect_snapshot_RLum(Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data,
+                                                       pos = 1, run = 1,
+                                                       txtProgressBar = FALSE))
+  })
 })

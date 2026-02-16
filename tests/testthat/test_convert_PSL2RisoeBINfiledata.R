@@ -1,3 +1,7 @@
+## load data
+data("ExampleData.portableOSL", envir = environment())
+merged <- merge_RLum(ExampleData.portableOSL)
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -10,11 +14,7 @@ test_that("input validation", {
 test_that("check functionality", {
   testthat::skip_on_cran()
 
-  data("ExampleData.portableOSL", envir = environment())
-  merged <- merge_RLum(ExampleData.portableOSL)
   bin <- convert_PSL2Risoe.BINfileData(merged)
-
-  ##checks
   expect_s4_class(bin, "Risoe.BINfileData")
   expect_equal(length(bin), 70)
 
@@ -28,4 +28,12 @@ test_that("check functionality", {
   fake@records[10][[1]]@originator <- "unexpected-originator"
   expect_error(convert_PSL2Risoe.BINfileData(fake),
                "At least one element of 'object' has an unsupported originator")
+})
+
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
+
+  SW({
+  expect_snapshot_Risoe(convert_PSL2Risoe.BINfileData(merged))
+  })
 })

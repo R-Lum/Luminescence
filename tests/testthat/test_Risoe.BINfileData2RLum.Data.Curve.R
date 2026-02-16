@@ -1,7 +1,8 @@
+## load data
+data(ExampleData.BINfileData, envir = environment())
+
 test_that("check functionality", {
   testthat::skip_on_cran()
-
-  data(ExampleData.BINfileData, envir = environment())
 
   res <- .Risoe.BINfileData2RLum.Data.Curve(CWOSL.SAR.Data, id = 1)
   expect_s4_class(res, "RLum.Data.Curve")
@@ -15,4 +16,13 @@ test_that("check functionality", {
   expect_equal(res1@data, res@data)
   expect_equal(res1@info, res@info)
   expect_equal(res1@originator, res@originator)
+})
+
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
+
+  SW({
+  expect_snapshot_RLum(.Risoe.BINfileData2RLum.Data.Curve(CWOSL.SAR.Data,
+                                                          pos = 1, set = 2, run = 1))
+  })
 })
