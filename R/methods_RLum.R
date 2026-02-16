@@ -213,6 +213,8 @@ subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {
       x@METADATA <- x@METADATA[sel, ]
       x@DATA <- x@DATA[sel]
       x@METADATA[["ID"]] <- 1:length(x@METADATA[["ID"]])
+      rownames(x@METADATA) <- NULL
+
       ## the .RESERVED slot may not be there, in which case we don't subset it,
       ## otherwise we generate a list of NULLs which can't be written out by
       ## write_R2BIN()

@@ -1,3 +1,8 @@
+## load data
+data(ExampleData.BINfileData, envir = environment())
+test_file_MG <- test_file_SG <- CWOSL.SAR.Data
+test_file_SG@METADATA$GRAIN <- 1
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -11,11 +16,6 @@ test_that("input validation", {
 
 test_that("test conversion from single grain data to multiple grain data", {
   testthat::skip_on_cran()
-
-  ## load example dataset
-  data(ExampleData.BINfileData, envir = environment())
-  test_file_MG <- test_file_SG <- CWOSL.SAR.Data
-  test_file_SG@METADATA$GRAIN <- 1
 
   ## test pass through for pure multiple grain data
   expect_s4_class(convert_SG2MG(test_file_MG), "Risoe.BINfileData")
@@ -38,4 +38,12 @@ test_that("test conversion from single grain data to multiple grain data", {
 
   ##clear temp folder otherwise we have a problem with the CRAN check
   file.remove(list.files(dir,pattern = ".bin", full.names = TRUE))
+})
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 1415
+  small <- subset(test_file_SG, POSITION == 1)
+  expect_silent(convert_SG2MG(small))
 })
