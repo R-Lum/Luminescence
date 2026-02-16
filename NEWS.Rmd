@@ -385,7 +385,10 @@ error (#1323).
 odd inputs (#1260).
 
 * The function now throws an error instead of returning `NULL` when a file
-with the wrong extension is read (#1395).
+with the wrong extension is read (#1393).
+
+* The function will now look for files recursively if the path to a directory
+is provided (#1393).
 
 ### `read_Daybreak2R()`
 
@@ -406,17 +409,17 @@ because the generated path missed a directory separator (#1264).
 ### `read_PSL2R()`
 
 * The function now returns `NULL` instead of throwing an error if a directory
-is provided and no PSL files are found within it (#1395).
+is provided and no PSL files are found within it (#1393).
 
 ### `read_RF2R()`
 
 * The function now throws an error instead of returning `NULL` if a list
-containing elements other than character strings is provided (#1395).
+containing elements other than character strings is provided (#1393).
 
 ### `read_SPE2R()`
 
 * The function now throws an error instead of returning `NULL` if the filename
-provided does not exist (#1395).
+provided does not exist (#1393).
 
 ### `read_XSYG2R()`
 
@@ -449,7 +452,7 @@ functions (#1250, #1300).
 
 * All the `read_*()` functions now process and validate the `file` argument
 through the same internal helper function. This allows them to support single
-and multiple files, URLs and directory paths (#1395).
+and multiple files, URLs and directory paths (#1393).
 
 * The package no longer depends on `RcppArmadillo`. This has no visible
 impact to the user other than a small reduction in the package size (#1254).
