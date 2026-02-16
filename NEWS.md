@@ -318,6 +318,12 @@ More information on these changes are available at
   `NaN` values even in cases where dead time was not corrected; fixed
   (#1d978cf).
 
+## `convert_SG2MG()`
+
+- The function crashed if used on an object resulting from a subset
+  operation, as it used the rownames (which may no longer correspond to
+  row indices) to index into the `METADATA` slot (#1415).
+
 ### `fit_DoseResponseCurve()`
 
 - The C++ implementation of the GOK function has been tweaked to avoid
@@ -460,12 +466,6 @@ More information on these changes are available at
 
 - The function could crash if called with `do.call()` and some
   particularly odd inputs (#1260).
-
-## `subset.Risoe.BINfileData()`
-
-- The rownames of the `METADATA` slot were not reset after subsetting,
-  which led to crashes in functions (such as `convert_SG2MG()`) that
-  attempted to use the resulting object (#1415).
 
 ### `subset_SingleGrainData()`
 

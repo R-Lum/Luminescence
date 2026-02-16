@@ -55,12 +55,16 @@ convert_SG2MG <- function(
     object <- read_BIN2R(object, ...)
   }
 
-# Transform ---------------------------------------------------------------
-  ## get unique pairs of position, run and set and then
-  upairs_sg_id <- as.numeric(rownames(
-    unique(object@METADATA[object@METADATA[["GRAIN"]] != 0,c("POSITION", "RUN", "SET")])))
+  ## Transform --------------------------------------------------------------
+  ## reset the rownames because they may not correspond to the row indices
+  ## (see #1415)
+  rownames(object@METADATA) <- NULL
 
-  for(i in upairs_sg_id){
+  ## ids of single grain records
+  sg_id <- as.numeric(rownames(
+      unique(object@METADATA[object@METADATA[["GRAIN"]] != 0, "ID"])))
+
+  for (i in sg_id) {
     ##get IDs of all relevant records
     records_id <- object@METADATA[
       object@METADATA[["POSITION"]] == object@METADATA[["POSITION"]][[i]] &
