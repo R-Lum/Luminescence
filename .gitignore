@@ -31,6 +31,7 @@ README.html
 
 tests/vdiffr.Rout.fail
 tests/testthat/_snaps/*.new.md
+tests/testthat/_snaps/*.new.svg
 vignettes/*_cache/
 vignettes/*_files/
 vignettes/*.xsyg
