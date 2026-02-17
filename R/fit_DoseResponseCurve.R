@@ -109,6 +109,9 @@
 #' the regeneration dose points. This value is essential and needs to provided
 #' along with the usual dose and \eqn{\frac{L_x}{T_x}} values (see `object` parameter input
 #' and the example section). For more details see Lawless and Timar-Gabor (2024).
+#' 
+#' The fit also returns the parameter \eqn{R} know from `OTOR`, which is derived
+#' as \eqn{R = 1 - Q}. 
 #'
 #' *Note: The offset adder \eqn{a} is not part of the formula in Timar-Gabor (2024) and can
 #' be set to zero with the option `fit.force_through_origin = TRUE`*
@@ -232,10 +235,12 @@
 #' \tabular{lll}{
 #' `De` \tab [numeric] \tab equivalent dose \cr
 #' `De.Error` \tab [numeric] \tab standard error the equivalent dose \cr
-#' `D01` \tab [numeric] \tab D-nought value, curvature parameter of the exponential \cr
-#' `D01.ERROR` \tab [numeric] \tab standard error of the D-nought value\cr
-#' `D02` \tab [numeric] \tab 2nd D-nought value, only for `EXP+EXP`\cr
-#' `D02.ERROR` \tab [numeric] \tab standard error for 2nd D-nought; only for `EXP+EXP`\cr
+#' `D01` \tab [numeric] \tab \eqn{D_0} value, curvature parameter of the exponential \cr
+#' `D01.ERROR` \tab [numeric] \tab standard error of the \eqn{D_0} value\cr
+#' `D02` \tab [numeric] \tab 2nd \eqn{D_0} value, only for `EXP+EXP`\cr
+#' `D02.ERROR` \tab [numeric] \tab standard error for 2nd \eqn{D_0}; only for `EXP+EXP`\cr
+#' `R` \tab [numeric] \tab the material specific parameter \eqn{R}\cr
+#' `R.ERROR` \tab [numeric] \tab the uncertainty of R \eqn{R}\cr
 #' `Dc` \tab [numeric] \tab value indicating saturation level; only for `OTOR` \cr
 #' `D63` \tab [numeric] \tab the specific saturation level; only for `OTORX` \cr
 #' `n_N` \tab [numeric] \tab saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (`N`) to the integral until `De` (`n`) (e.g.,  Guralnik et al., 2015)\cr
@@ -250,7 +255,7 @@
 #' `.De.raw` \tab [numeric] \tab equivalent dose reported 'as is', that is containing infinities and negative values if they could be calculated. Bear in mind that negative values are meaningless and may be arbitrary.\cr
 #' }
 #'
-#' @section Function version: 1.4.4
+#' @section Function version: 1.4.5
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -526,7 +531,7 @@ fit_DoseResponseCurve <- function(
   x.natural <- rep(NA_real_, n.MC)
 
   ##1.4 set initialise variables
-  De <- De.Error <- D01 <-  R <-  Dc <- D63 <- N <- TEST_DOSE <- NA_real_
+  De <- De.Error <- D01 <- R <- R.ERROR <- Dc <- D63 <- N <- TEST_DOSE <- NA_real_
 
   ##1.5 create bindings (we generate this with an internal function klate)
   var.g <- d <- Dint <- Q <- NA_real_
@@ -1441,7 +1446,7 @@ fit_DoseResponseCurve <- function(
           #	--Fit many curves and calculate a new De +/- De_Error
           #	--take De_Error
           #set variables
-          var.Dc <- vector(mode = "numeric", length = n.MC)
+          var.Dc <- var.R <- vector(mode = "numeric", length = n.MC)
 
           #start loop
           for (i in 1:n.MC) {
@@ -1462,7 +1467,7 @@ fit_DoseResponseCurve <- function(
             if (!inherits(fit.MC, "try-error")) {
               # get parameters out
               parameters <- coef(fit.MC)
-              var.R <- as.numeric(parameters["R"])
+              var.R[i] <- as.numeric(parameters["R"])
               var.Dc[i] <- as.numeric(parameters["Dc"])
               var.N <- as.numeric(parameters["N"])
               var.Dint <- as.numeric(parameters["Dint"])
@@ -1474,7 +1479,7 @@ fit_DoseResponseCurve <- function(
                   f = function(x, R, Dc, N, Dint, LnTn) {
                     fit.functionOTOR(R, Dc, N, Dint, x) - LnTn},
                   interval = c(0, max(object[[1]]) * 1.2),
-                  R = var.R,
+                  R = var.R[i],
                   Dc = var.Dc[i],
                   N = var.N,
                   Dint = var.Dint,
@@ -1487,7 +1492,7 @@ fit_DoseResponseCurve <- function(
                     f = function(x, R, Dc, N, Dint) {
                       fit.functionOTOR(R, Dc, N, Dint, x)},
                     interval = c(-max(object[[1]]), 0),
-                    R = var.R,
+                    R = var.R[i],
                     Dc = var.Dc[i],
                     N = var.N,
                     Dint = var.Dint)$root),
@@ -1498,7 +1503,7 @@ fit_DoseResponseCurve <- function(
                     f = function(x, R, Dc, N, Dint) {
                       fit.functionOTOR(R, Dc, N, Dint, x)},
                     interval = c(-max(object[[1]]), 0),
-                    R = var.R,
+                    R = var.R[i],
                     Dc = var.Dc[i],
                     N = var.N,
                     Dint = var.Dint)$minimum),
@@ -1513,9 +1518,11 @@ fit_DoseResponseCurve <- function(
 
           ##write Dc.ERROR
           Dc.ERROR <- sd(var.Dc, na.rm = TRUE)
+          R.ERROR <- sd(var.R, na.rm = TRUE)
 
           ##remove values
           rm(var.Dc)
+          rm(var.R)
 
     }#endif::try-error fit
 
@@ -1559,6 +1566,9 @@ fit_DoseResponseCurve <- function(
     } else {
       #get parameters out of it
       .get_coef(fit)
+      
+      ## get also R, this is not part of the fit
+      R <- 1-Q
 
       #calculate De
       De <- NA
@@ -1604,14 +1614,14 @@ fit_DoseResponseCurve <- function(
 
       if (inherits(De, "try-error")) De <- NA # nocov
 
-      .report_fit(De, " | Q = ", round(Q, 2), " | D63 = ", round(D63, 2))
+      .report_fit(De, " | R = ", round(1-Q, 2), " | D63 = ", round(D63, 2))
 
       #OTORX MC -----
       ##Monte Carlo Simulation
       #	--Fit many curves and calculate a new De +/- De_Error
       #	--take De_Error
       #set variables
-      var.D63 <- vector(mode = "numeric", length = n.MC)
+      var.D63 <- var.Q <- vector(mode = "numeric", length = n.MC)
 
       #start loop
       for (i in 1:n.MC) {
@@ -1632,7 +1642,7 @@ fit_DoseResponseCurve <- function(
         if (!inherits(fit.MC, "try-error")) {
           # get parameters out
           parameters<-coef(fit.MC)
-          var.Q <- as.numeric(parameters["Q"])
+          var.Q[i] <- as.numeric(parameters["Q"])
           var.D63[i] <- as.numeric(parameters["D63"])
           var.c <- as.numeric(parameters["c"])
           var.a <- as.numeric(parameters["a"])
@@ -1644,7 +1654,7 @@ fit_DoseResponseCurve <- function(
                 f = function(x, Q, D63, c, a, LnTn) {
                   fit.functionOTORX(x, Q, D63, c, a) - LnTn},
                 interval = c(0, max(object[[1]]) * 1.2),
-                Q = var.Q,
+                Q = var.Q[i],
                 D63 = var.D63[i],
                 c = var.c,
                 a = var.a,
@@ -1657,7 +1667,7 @@ fit_DoseResponseCurve <- function(
                 f = function(x, Q, D63, c, a, LnTn) {
                   fit.functionOTORX(x, Q, D63, c, a, x)},
                 interval = c(-max(object[[1]]), 0),
-                Q = var.Q,
+                Q = var.Q[i],
                 D63 = var.D63[i],
                 c = var.c,
                 a = var.a)$root),
@@ -1668,8 +1678,8 @@ fit_DoseResponseCurve <- function(
                 f = function(x, Q, D63, c, a) {
                   fit.functionOTOR(x, Q, D63, c, a)},
                 interval = c(-max(object[[1]]), 0),
-                Q = var.R,
-                D63 = var.Dc[i],
+                Q = var.Q[i],
+                D63 = var.D63[i],
                 c = var.c,
                 a = var.a)$minimum),
                 silent = TRUE)
@@ -1682,9 +1692,11 @@ fit_DoseResponseCurve <- function(
 
       ##write Dc.ERROR
       D63.ERROR <- sd(var.D63, na.rm = TRUE)
+      R.ERROR <- sd(1-var.Q, na.rm = TRUE)
 
       ##remove values
       rm(var.D63)
+      rm(var.Q)
 
     }#endif::try-error fit
   }#End if fit.method selection (for all)
@@ -1760,6 +1772,8 @@ fit_DoseResponseCurve <- function(
     D01.ERROR = D01.ERROR,
     D02 = D02,
     D02.ERROR = D02.ERROR,
+    R = R, 
+    R.ERROR = R.ERROR,
     Dc = Dc,
     D63 = D63,
     n_N = n_N,

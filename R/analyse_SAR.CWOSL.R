@@ -233,7 +233,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.13.5
+#' @section Function version: 0.13.6
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
@@ -1142,6 +1142,8 @@ analyse_SAR.CWOSL<- function(
         D01.ERROR = NA,
         D02 = NA,
         D02.ERROR = NA,
+        R = NA,
+        R.ERROR = NA,
         Dc = NA,
         D63 = NA,
         n_N = NA,
