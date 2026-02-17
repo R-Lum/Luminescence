@@ -1630,8 +1630,8 @@ SW <- function(expr) {
 
 #' Convert integral from time/temperature to channel numbers
 #'
-#' @param object [Luminescence::RLum.Data-class] (**required**)
-#' The object containing time/temperature.
+#' @param x.range [numeric] (**required**)
+#' The measurement values.
 #'
 #' @param integral [numeric] (**required**):
 #' The integral range expressed as time/temperature.
@@ -1645,9 +1645,9 @@ SW <- function(expr) {
 #' thrown and the lower or upper bound of the valid values is returned.
 #'
 #' @noRd
-.convert_to_channels <- function(object, integral, unit) {
+.convert_to_channels <- function(x.range, integral, unit,
+                                 null.ok = FALSE, na.ok = FALSE) {
   name <- .first_argument(idx = 2)
-  x.range <- object[, 1]
   if (min(integral) > max(x.range) || max(integral) < min(x.range))
     .throw_warning("Conversion of ", name, " from ", unit,
                    " to channels failed: expected values in ",

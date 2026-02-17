@@ -682,19 +682,16 @@ test_that("Test internals", {
                     message = "'integral' was defined as c(1, 2) but in general")
 
   ## .convert_to_channels() -------------------------------------------------
-  data(ExampleData.BINfileData, envir = environment())
-  tl <- Risoe.BINfileData2RLum.Analysis(TL.SAR.Data, run = 1)@records[[1]]
+  tl <- seq(1.8, 450, by = 1.8)
   expect_equal(.convert_to_channels(tl, 0:20),
                1:11)
   expect_equal(.convert_to_channels(tl, 200:220),
                111:122)
-  signal_integral <- c(0, 1.5)
-  expect_warning(expect_equal(.convert_to_channels(tl, signal_integral,
+  expect_warning(expect_equal(.convert_to_channels(tl, signal_integral <- c(0, 1.5),
                                                    unit = "temperature"),
                               1),
                  "Conversion of 'signal_integral' from temperature to channels failed")
-  signal_integral <- c(1000, 2000)
-  expect_warning(expect_equal(.convert_to_channels(tl, signal_integral,
+  expect_warning(expect_equal(.convert_to_channels(tl, signal_integral <- c(1000, 2000),
                                                    unit = "temperature"),
                               250),
                  "Conversion of 'signal_integral' from temperature to channels failed")
