@@ -320,7 +320,7 @@ numerical output when `fit.method = "GOK"` is used (#1277).
 object returned by the function (#1362).
 
 * The function now consistently returns the material specific parameter
-`R` for `OTOR` and `OTORX` and its uncertainty. 
+`R` for `OTOR` and `OTORX` and its uncertainty (9b4d6bd).
 
 ### `get_RLum()`
 

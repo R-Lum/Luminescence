@@ -19,7 +19,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc","D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -62,6 +62,16 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -148,15 +158,15 @@
                       "attributes": {},
                       "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
                     },
-                    "row.names": {
-                      "type": "integer",
-                      "attributes": {},
-                      "value": [1, 2, 3, 4, 5, 6, 7]
-                    },
                     "class": {
                       "type": "character",
                       "attributes": {},
                       "value": ["data.frame"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
                     }
                   },
                   "value": [
@@ -291,7 +301,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -334,6 +344,16 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -420,15 +440,15 @@
                       "attributes": {},
                       "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
                     },
-                    "row.names": {
-                      "type": "integer",
-                      "attributes": {},
-                      "value": [1, 2, 3, 4, 5, 6, 7]
-                    },
                     "class": {
                       "type": "character",
                       "attributes": {},
                       "value": ["data.frame"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
                     }
                   },
                   "value": [
@@ -563,7 +583,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -606,6 +626,16 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -692,15 +722,15 @@
                       "attributes": {},
                       "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
                     },
-                    "row.names": {
-                      "type": "integer",
-                      "attributes": {},
-                      "value": [1, 2, 3, 4, 5, 6, 7]
-                    },
                     "class": {
                       "type": "character",
                       "attributes": {},
                       "value": ["data.frame"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
                     }
                   },
                   "value": [
@@ -835,7 +865,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -878,6 +908,16 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -964,15 +1004,15 @@
                       "attributes": {},
                       "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
                     },
-                    "row.names": {
-                      "type": "integer",
-                      "attributes": {},
-                      "value": [1, 2, 3, 4, 5, 6, 7]
-                    },
                     "class": {
                       "type": "character",
                       "attributes": {},
                       "value": ["data.frame"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
                     }
                   },
                   "value": [
@@ -1107,7 +1147,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -1150,6 +1190,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [349.76111536]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1236,15 +1286,15 @@
                       "attributes": {},
                       "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
                     },
-                    "row.names": {
-                      "type": "integer",
-                      "attributes": {},
-                      "value": [1, 2, 3, 4, 5, 6, 7]
-                    },
                     "class": {
                       "type": "character",
                       "attributes": {},
                       "value": ["data.frame"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
                     }
                   },
                   "value": [
@@ -1379,7 +1429,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -1422,6 +1472,16 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1508,15 +1568,15 @@
                       "attributes": {},
                       "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
                     },
-                    "row.names": {
-                      "type": "integer",
-                      "attributes": {},
-                      "value": [1, 2, 3, 4, 5, 6, 7]
-                    },
                     "class": {
                       "type": "character",
                       "attributes": {},
                       "value": ["data.frame"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
                     }
                   },
                   "value": [
@@ -1651,7 +1711,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -1694,6 +1754,16 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1780,15 +1850,15 @@
                       "attributes": {},
                       "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
                     },
-                    "row.names": {
-                      "type": "integer",
-                      "attributes": {},
-                      "value": [1, 2, 3, 4, 5, 6, 7]
-                    },
                     "class": {
                       "type": "character",
                       "attributes": {},
                       "value": ["data.frame"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
                     }
                   },
                   "value": [
@@ -1923,7 +1993,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -1966,6 +2036,16 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.3552187]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.28056656]
                 },
                 {
                   "type": "double",
@@ -2052,15 +2132,15 @@
                       "attributes": {},
                       "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
                     },
-                    "row.names": {
-                      "type": "integer",
-                      "attributes": {},
-                      "value": [1, 2, 3, 4, 5, 6, 7]
-                    },
                     "class": {
                       "type": "character",
                       "attributes": {},
                       "value": ["data.frame"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
                     }
                   },
                   "value": [
@@ -2195,7 +2275,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -2238,6 +2318,16 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -2324,15 +2414,15 @@
                       "attributes": {},
                       "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
                     },
-                    "row.names": {
-                      "type": "integer",
-                      "attributes": {},
-                      "value": [1, 2, 3, 4, 5, 6, 7]
-                    },
                     "class": {
                       "type": "character",
                       "attributes": {},
                       "value": ["data.frame"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
                     }
                   },
                   "value": [
@@ -2467,7 +2557,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -2510,6 +2600,16 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -2596,15 +2696,15 @@
                       "attributes": {},
                       "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
                     },
-                    "row.names": {
-                      "type": "integer",
-                      "attributes": {},
-                      "value": [1, 2, 3, 4, 5, 6, 7]
-                    },
                     "class": {
                       "type": "character",
                       "attributes": {},
                       "value": ["data.frame"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
                     }
                   },
                   "value": [
@@ -2739,7 +2839,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -2782,6 +2882,16 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -2868,15 +2978,15 @@
                       "attributes": {},
                       "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
                     },
-                    "row.names": {
-                      "type": "integer",
-                      "attributes": {},
-                      "value": [1, 2, 3, 4, 5, 6, 7]
-                    },
                     "class": {
                       "type": "character",
                       "attributes": {},
                       "value": ["data.frame"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
                     }
                   },
                   "value": [
@@ -3011,7 +3121,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -3054,6 +3164,16 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -3140,15 +3260,15 @@
                       "attributes": {},
                       "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
                     },
-                    "row.names": {
-                      "type": "integer",
-                      "attributes": {},
-                      "value": [1, 2, 3, 4, 5, 6, 7]
-                    },
                     "class": {
                       "type": "character",
                       "attributes": {},
                       "value": ["data.frame"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
                     }
                   },
                   "value": [
@@ -3283,7 +3403,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -3326,6 +3446,16 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.32877534]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.19009545]
                 },
                 {
                   "type": "double",
@@ -3412,15 +3542,15 @@
                       "attributes": {},
                       "value": ["Dose", "LxTx", "LxTx.Error", "TnTx", "Test_Dose"]
                     },
-                    "row.names": {
-                      "type": "integer",
-                      "attributes": {},
-                      "value": [1, 2, 3, 4, 5, 6, 7]
-                    },
                     "class": {
                       "type": "character",
                       "attributes": {},
                       "value": ["data.frame"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
                     }
                   },
                   "value": [
@@ -3518,7 +3648,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: OTORX (interpolation) | De = 1785.43 | Q = 0.67 | D63 = 4429.03"]
+              "value": ["Fit: OTORX (interpolation) | De = 1785.43 | R = 0.33 | D63 = 4429.03"]
             }
           ]
         },
@@ -3560,7 +3690,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -3603,6 +3733,16 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -3689,15 +3829,15 @@
                       "attributes": {},
                       "value": ["dose", "LxTx", "LxTx.error"]
                     },
-                    "row.names": {
-                      "type": "integer",
-                      "attributes": {},
-                      "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-                    },
                     "class": {
                       "type": "character",
                       "attributes": {},
                       "value": ["data.frame"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
                     }
                   },
                   "value": [
@@ -3827,7 +3967,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -3870,6 +4010,16 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -3956,15 +4106,15 @@
                       "attributes": {},
                       "value": ["dose", "LxTx", "LxTx.error"]
                     },
-                    "row.names": {
-                      "type": "integer",
-                      "attributes": {},
-                      "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-                    },
                     "class": {
                       "type": "character",
                       "attributes": {},
                       "value": ["data.frame"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
                     }
                   },
                   "value": [
