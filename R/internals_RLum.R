@@ -1570,14 +1570,15 @@ SW <- function(expr) {
 #' @param integral [vector] [integer] (**required**):
 #' the vector to validate.
 #'
+#' @param int [logical] (*with default*):
+#' whether the integral values should be integers (`TRUE` by default).
+#'
 #' @param min [integer] (*with default*):
-#' the minimum value for the integral.
+#' the minimum value for the integral. By default the minimum value is 1 if
+#' `int = TRUE` (channels), and 0 otherwise (measurements).
 #'
 #' @param max [integer] (*with default*):
 #' the maximum value for the integral.
-#'
-#' @param int [logical] (*with default*):
-#' whether the integral values should be integers (`TRUE` by default).
 #'
 #' @param list.ok [logical] (*with default*):
 #' whether the argument should be considered valid also as a list (`FALSE` by
@@ -1595,7 +1596,7 @@ SW <- function(expr) {
 #' is not `NULL`, then the integral is capped to the value specified.
 #'
 #' @noRd
-.validate_integral <- function(integral, min = 1, max = Inf, int = TRUE,
+.validate_integral <- function(integral, int = TRUE, min = ifelse(int, 1, 0), max = Inf,
                                null.ok = FALSE, list.ok = FALSE, na.ok = FALSE,
                                name = NULL) {
   if (null.ok && is.null(integral) || na.ok && .strict_na(integral))
@@ -1620,7 +1621,7 @@ SW <- function(expr) {
                    " and ", max(integral))
   if (int && any(integral != as.integer(integral)))
     .throw_error(name, " should be a vector of integers")
-  if (length(integral) == 2 && diff(integral) > 1)
+  if (length(integral) == 2 && diff(integral) > 1 && int)
     .throw_warning(name, " was defined as c(", .format_range(integral, sep = ", "),
                    ") but in general we would expect it to be defined as ",
                    .format_range(integral), ", please check your input")

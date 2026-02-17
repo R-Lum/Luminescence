@@ -641,6 +641,8 @@ test_that("Test internals", {
                1:5)
   expect_equal(.validate_integral(integral <- NA, na.ok = TRUE),
                NA)
+  expect_equal(.validate_integral(c(0, 1.5), int = FALSE),
+               c(0, 1.5))
   expect_error(.validate_integral(integral <- 1:5 + 0.1, int = FALSE),
                integral)
   expect_warning(expect_equal(.validate_integral(integral <- c(5:1, -3:3)),
@@ -664,6 +666,9 @@ test_that("Test internals", {
                "is expected to be at least 150, but the maximum allowed is 100")
   expect_error(.validate_integral(integral <- 1:5 + 0.1),
                "'integral' should be a vector of integers")
+  expect_warning(expect_error(.validate_integral(integral <- c(0, 1.5)),
+                              "'integral' should be a vector of integers"),
+                 "'integral' out of bounds, reset to be between 1.5 and 1.5")
   expect_error(.validate_integral(list.integral <- list(1:4)),
                "'list.integral' should be of class 'integer' or 'numeric'")
   expect_error(.validate_integral(list.integral <- list("error"), list.ok = TRUE),
