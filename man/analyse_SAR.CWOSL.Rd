@@ -10,6 +10,7 @@ analyse_SAR.CWOSL(
   background_integral = NA,
   signal_integral_Tx = NULL,
   background_integral_Tx = NULL,
+  integral_input = c("channel", "measurement"),
   OSL.component = NULL,
   rejection.criteria = list(),
   dose.points = NULL,
@@ -50,6 +51,11 @@ vector of channels for the background integral for the \code{Tx} curve. It can
 be a \link{list} of integers, if \code{object} is a list. If \code{NULL}, the
 \code{background_integral} vector is used. If set to \code{NA}, no background integral
 for the \code{Tx} curve is subtracted.}
+
+\item{integral_input}{\link{character} (\emph{with default}):
+input type for \code{signal_integral}, one of \code{"channel"} (default) or
+\code{"measurement"}. If set to \code{"measurement"}, the best matching channels
+corresponding to the given time range (in seconds) are selected.}
 
 \item{OSL.component}{\link{character} or \link{integer} (\emph{optional}):
 single index or a \link{character} defining the signal component to be evaluated.
@@ -134,7 +140,7 @@ If \code{TRUE} the dose response curve fitting and plotting is skipped, and the
 This allows to get hands on the \code{Lx/Tx} table for large datasets
 without the need for a curve fitting.}
 
-\item{...}{further arguments that will be passed to the functions
+\item{...}{further arguments that will be passed to
 \link{fit_DoseResponseCurve}, \link{plot_DoseResponseCurve}
 or \link{calc_OSLLxTxRatio} (supported:
 \code{background.count.distribution}, \code{sigmab}, \code{sig0}).
@@ -260,7 +266,7 @@ function does \strong{not} overwrite values preset in \code{IRR_TIME}.
 }
 }
 \section{Function version}{
- 0.13.6
+ 0.13.7
 }
 
 \examples{

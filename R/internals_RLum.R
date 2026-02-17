@@ -1630,8 +1630,8 @@ SW <- function(expr) {
 
 #' Convert integral from time/temperature to channel numbers
 #'
-#' @param object [Luminescence::RLum.Data-class] (**required**)
-#' The object containing time/temperature.
+#' @param x.range [numeric] (**required**)
+#' The measurement values.
 #'
 #' @param integral [numeric] (**required**):
 #' The integral range expressed as time/temperature.
@@ -1639,15 +1639,32 @@ SW <- function(expr) {
 #' @param unit [character] (**required**):
 #' The measurement unit expected ("time" or "temperature").
 #'
+#' @inheritParams .validate_integral
+#'
 #' @return
 #' The best matching channel numbers corresponding to the given measurement
-#' range. If all integral values are outside the object range, a warning is
-#' thrown and the lower or upper bound of the valid values is returned.
+#' range, unless the validation failed with an error thrown. If all integral
+#' values are outside the object range, a warning is thrown and the lower or
+#' upper bound (whichever is closest) of the valid values is returned.
 #'
 #' @noRd
-.convert_to_channels <- function(object, integral, unit) {
-  name <- .first_argument(idx = 2)
-  x.range <- object[, 1]
+.convert_to_channels <- function(x.range, integral, unit,
+                                 null.ok = FALSE, na.ok = FALSE,
+                                 list.ok = FALSE, name = NULL) {
+  if (null.ok && is.null(integral) || na.ok && .strict_na(integral))
+    return(integral)
+
+  name <- name %||% .first_argument(idx = 2)
+  .validate_class(integral, c("integer", "numeric", if (list.ok) "list"),
+                  null.ok = null.ok, extra = if (na.ok) "NA" else NULL,
+                  name = name)
+  if (list.ok && inherits(integral, "list")) {
+    return(lapply(integral, .convert_to_channels, x.range = x.range, unit = unit,
+                  null.ok = null.ok, na.ok = na.ok, list.ok = FALSE,
+                  name = paste("All elements of", name)))
+  }
+
+  integral <- integral[!is.na(integral)]
   if (min(integral) > max(x.range) || max(integral) < min(x.range))
     .throw_warning("Conversion of ", name, " from ", unit,
                    " to channels failed: expected values in ",

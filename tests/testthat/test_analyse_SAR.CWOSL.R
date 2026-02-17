@@ -18,6 +18,11 @@ test_that("input validation", {
   expect_error(analyse_SAR.CWOSL(object[[1]],
                                  signal_integral = 1:2,
                                  background_integral = 900:1000,
+                                 integral_input = list()),
+               "'integral_input' should be one of 'channel' or 'measurement'")
+  expect_error(analyse_SAR.CWOSL(object[[1]],
+                                 signal_integral = 1:2,
+                                 background_integral = 900:1000,
                                  plot_singlePanels = list()),
                "'plot_singlePanels' should be of class 'logical', 'integer' or 'numeric'")
 
@@ -723,13 +728,40 @@ test_that("advance tests run", {
   sg <- get_RLum(object, recordType = "OSL", drop = FALSE)
   replace_metadata(sg[[1]], info_element = "GRAIN") <- 1
   replace_metadata(sg[[2]], info_element = "GRAIN") <- 2
-
   expect_s4_class(analyse_SAR.CWOSL(
     object = sg,
     signal_integral = 1:2,
     background_integral = 900:975,
     plot_onePage = TRUE,
     verbose = FALSE), "RLum.Results")
+})
+
+test_that("integral_input = 'measurement'", {
+  testthat::skip_on_cran()
+
+  expect_equal(analyse_SAR.CWOSL(object[[1]],
+                                 signal_integral = c(0, 0.08),
+                                 background_integral = 36:40,
+                                 integral_input = "measurement",
+                                 plot = FALSE,
+                                 verbose = FALSE)$LnLxTnTx.table[, 1:16], # remove UID
+               analyse_SAR.CWOSL(object[[1]],
+                                 signal_integral = 1:2,
+                                 background_integral = 900:1000,
+                                 integral_input = "channel",
+                                 plot = FALSE,
+                                 verbose = FALSE)$LnLxTnTx.table[, 1:16])
+
+  expect_warning(expect_warning(
+      analyse_SAR.CWOSL(
+          object[[1]],
+          signal_integral = c(0, 1.5),
+          background_integral = 900:1000,
+          integral_input = "measurement",
+          plot = FALSE,
+          verbose = FALSE),
+      "'background_integral' from time to channels failed: expected values in 0.04:40.00"),
+      "Background integral should contain at least two values, reset to 975:1000")
 })
 
 test_that("graphical snapshot tests", {
@@ -745,7 +777,7 @@ test_that("graphical snapshot tests", {
                                   signal_integral = 1:2,
                                   background_integral = 900:1000,
                                   plot_onePage = TRUE))
-    
+
     vdiffr::expect_doppelganger("legend_mod",
                                 analyse_SAR.CWOSL(
                                   object = object[[1]],
@@ -871,5 +903,12 @@ test_that("deprecated arguments", {
                                  signal.integral.max = list(10, 20),
                                  background_integral = 900:1000),
                "Convert all integral arguments to the new names")
+  expect_error(analyse_SAR.CWOSL(object[[1]],
+                                 signal.integral.min = 1,
+                                 signal.integral.max = 2,
+                                 background.integral.min = 900,
+                                 background.integral.max = 1000,
+                                 integral_input = "measurement"),
+               "'integral_input' is not supported with old argument names")
   })
 })

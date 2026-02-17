@@ -126,6 +126,11 @@
 #' `background_integral` vector is used. If set to `NA`, no background integral
 #' for the `Tx` curve is subtracted.
 #'
+#' @param integral_input [character] (*with default*):
+#' input type for `signal_integral`, one of `"channel"` (default) or
+#' `"measurement"`. If set to `"measurement"`, the best matching channels
+#' corresponding to the given time range (in seconds) are selected.
+#'
 #' @param OSL.component [character] or [integer] (*optional*):
 #' single index or a [character] defining the signal component to be evaluated.
 #' It requires that the object was processed by `OSLdecomposition::RLum.OSL_decomposition`.
@@ -207,16 +212,16 @@
 #' This allows to get hands on the `Lx/Tx` table for large datasets
 #' without the need for a curve fitting.
 #'
-#' @param ... further arguments that will be passed to the functions
+#' @param ... further arguments that will be passed to
 #' [Luminescence::fit_DoseResponseCurve], [Luminescence::plot_DoseResponseCurve]
-#' or [Luminescence::calc_OSLLxTxRatio] (supported: 
+#' or [Luminescence::calc_OSLLxTxRatio] (supported:
 #' `background.count.distribution`, `sigmab`, `sig0`).
 
 #' **Note:** if you consider to use the early light subtraction method,
 #' `sigmab` should be provided.
 #'
 #' Additionally, supported are `legend.cex` and `legend.pch` to modify the
-#' the legend symbols. 
+#' the legend symbols.
 #
 #' @return
 #' A plot (*optional*) and an [Luminescence::RLum.Results-class] object is
@@ -233,7 +238,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.13.6
+#' @section Function version: 0.13.7
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
@@ -315,6 +320,7 @@ analyse_SAR.CWOSL<- function(
   background_integral = NA,
   signal_integral_Tx = NULL,
   background_integral_Tx = NULL,
+  integral_input = c("channel", "measurement"),
   OSL.component = NULL,
   rejection.criteria = list(),
   dose.points = NULL,
@@ -365,6 +371,7 @@ analyse_SAR.CWOSL<- function(
       object = object[[x]],
       signal_integral = parm$signal_integral[[x]],
       background_integral = parm$background_integral[[x]],
+      integral_input = parm$integral_input[[x]],
       OSL.component = parm$OSL.component[[x]],
       dose.points = parm$dose.points[[x]],
       dose.points.test = parm$dose.points.test[[x]],
@@ -403,6 +410,7 @@ analyse_SAR.CWOSL<- function(
 
   ## Integrity checks -------------------------------------------------------
   .validate_class(object, "RLum.Analysis")
+  integral_input <- .validate_args(integral_input, c("channel", "measurement"))
   .validate_class(plot_singlePanels, c("logical", "integer", "numeric"))
   .validate_logical_scalar(trim_channels)
   .validate_logical_scalar(plot)
@@ -519,6 +527,9 @@ analyse_SAR.CWOSL<- function(
                         "background.integral.min", "background.integral.max"),
                 new = c("signal_integral", "background_integral"),
                 since = "1.2.0")
+    if (integral_input != "channel") {
+      .throw_error("'integral_input' is not supported with old argument names")
+    }
     signal.integral.min <- extraArgs$signal.integral.min %||% NA
     signal.integral.max <- extraArgs$signal.integral.max %||% NA
     background.integral.min <- extraArgs$background.integral.min %||% NA
@@ -545,6 +556,20 @@ analyse_SAR.CWOSL<- function(
                      "'signal_integral = NA' (and 'OSL.component' was not specified)")
     }
   } else {
+    ## convert integrals to channels
+    if (integral_input == "measurement") {
+      x.range <- get_RLum(object, recordType = CWcurve.type)[[1]][, 1]
+      unit <- "time"
+      signal_integral <- .convert_to_channels(x.range, signal_integral, unit,
+                                              na.ok = TRUE)
+      background_integral <- .convert_to_channels(x.range, background_integral, unit,
+                                                  na.ok = TRUE)
+      signal_integral_Tx <- .convert_to_channels(x.range, signal_integral_Tx, unit,
+                                                 null.ok = TRUE)
+      background_integral_Tx <- .convert_to_channels(x.range, background_integral_Tx, unit,
+                                                     na.ok = TRUE, null.ok = TRUE)
+    }
+
     signal_integral <- .validate_integral(signal_integral, max = channel.length,
                                           na.ok = TRUE)
     background_integral <- .validate_integral(background_integral, na.ok = TRUE,

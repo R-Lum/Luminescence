@@ -682,22 +682,36 @@ test_that("Test internals", {
                     message = "'integral' was defined as c(1, 2) but in general")
 
   ## .convert_to_channels() -------------------------------------------------
-  data(ExampleData.BINfileData, envir = environment())
-  tl <- Risoe.BINfileData2RLum.Analysis(TL.SAR.Data, run = 1)@records[[1]]
+  tl <- seq(1.8, 450, by = 1.8)
+  expect_equal(.convert_to_channels(tl, NULL, null.ok = TRUE),
+               NULL)
+  expect_equal(.convert_to_channels(tl, NA, na.ok = TRUE),
+               NA)
   expect_equal(.convert_to_channels(tl, 0:20),
                1:11)
   expect_equal(.convert_to_channels(tl, 200:220),
                111:122)
-  signal_integral <- c(0, 1.5)
-  expect_warning(expect_equal(.convert_to_channels(tl, signal_integral,
+  expect_equal(.convert_to_channels(tl, c(200:210, NA, 200:220)),
+               111:122)
+  expect_equal(.convert_to_channels(tl, list(200:210, 200:220), list.ok = TRUE),
+               list(111:117, 111:122))
+  expect_warning(expect_equal(.convert_to_channels(tl, signal_integral <- c(0, 1.5),
                                                    unit = "temperature"),
                               1),
                  "Conversion of 'signal_integral' from temperature to channels failed")
-  signal_integral <- c(1000, 2000)
-  expect_warning(expect_equal(.convert_to_channels(tl, signal_integral,
+  expect_warning(expect_equal(.convert_to_channels(tl, signal_integral <- c(1000, 2000),
                                                    unit = "temperature"),
                               250),
                  "Conversion of 'signal_integral' from temperature to channels failed")
+
+  expect_error(.convert_to_channels(tl, integral <- NULL),
+               "'integral' should be of class 'integer' or 'numeric'")
+  expect_error(.convert_to_channels(tl, integral <- NA),
+               "'integral' should be of class 'integer' or 'numeric'")
+  expect_error(.convert_to_channels(tl, integral <- list(200:210, NA), list.ok = FALSE),
+               "'integral' should be of class 'integer' or 'numeric'")
+  expect_error(.convert_to_channels(tl, integral <- list(200:210, NA), list.ok = TRUE),
+               "All elements of 'integral' should be of class 'integer' or 'numeric'")
 
   ## .validate_file() -------------------------------------------------------
 

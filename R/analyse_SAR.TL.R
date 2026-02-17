@@ -223,8 +223,8 @@ analyse_SAR.TL <- function(
 
   ## convert integral limits from temperature to channel
   if (integral_input == "measurement") {
-    temp.obj <- get_RLum(object, record.id = TL.signal.ID[1])
-    signal_integral <- .convert_to_channels(temp.obj, signal_integral,
+    x.values <- get_RLum(object, record.id = TL.signal.ID[1])[, 1]
+    signal_integral <- .convert_to_channels(x.values, signal_integral,
                                             unit = "temperature")
   }
 

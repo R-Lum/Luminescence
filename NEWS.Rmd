@@ -110,6 +110,11 @@ output was unnecessarily split over two pages (#1247).
 `signal_integral`, `background_integral`, respectively. The older names will
 still work but generate a deprecation warning (#1290).
 
+* The function now supports the `integral_input` argument, which can be set
+to either `"channel"` (default) and `"measurement"`. When the latter is used,
+the integrals can be specified in terms of seconds, in which case the function
+performs an automatic conversion to channels (#1396).
+
 ### `analyse_IRSAR.RF()`
 
 * The `slide$squared_residuals` field of the `@data` slot in the `RLum.Results`
@@ -126,10 +131,20 @@ work but generate a deprecation warning (#1290).
 
 * The function crashed if called on an empty list (#1372).
 
+* The function now supports the `integral_input` argument, which can be set
+to either `"channel"` (default) and `"measurement"`. When the latter is used,
+the integrals can be specified in terms of seconds, in which case the function
+performs an automatic conversion to channels (#1396).
+
 ### `analyse_portableOSL()`
 
 * Argument `signal.integral` has been renamed to `signal_integral`. The older
 name will still work but generates a deprecation warning (#1290).
+
+* The function now supports the `integral_input` argument, which can be set
+to either `"channel"` (default) and `"measurement"`. When the latter is used,
+the integrals can be specified in terms of seconds, in which case the function
+performs an automatic conversion to channels (#1396).
 
 ### `analyse_SAR.CWOSL()`
 
@@ -199,6 +214,11 @@ number represents the consecutive number of objects processed.
 
 * Add support to control the legend size and the legend symbols via
 `legend.cex` and `legend.pch` (9ec687d). 
+
+* The function now supports the `integral_input` argument, which can be set
+to either `"channel"` (default) and `"measurement"`. When the latter is used,
+the integrals can be specified in terms of seconds, in which case the function
+performs an automatic conversion to channels (#1396).
 
 ## `analyse_SAR.TL()`
 
@@ -281,10 +301,20 @@ channels while setting `background_integral = NA`. In this case, no background
 integral is subtracted and the error calculation and the signal-to-noise ratio
 will report `NA` values (#1375).
 
+* The function now supports the `integral_input` argument, which can be set
+to either `"channel"` (default) and `"measurement"`. When the latter is used,
+the integrals can be specified in terms of time or temperature, in which case
+the function performs an automatic conversion to channels (#1396).
+
 ### `calc_TLLxTxRatio()`
 
 * Argument `signal.integral` has been renamed to `signal_integral`. The older
 name will still work but generate a deprecation warning (#1290).
+
+* The function now supports the `integral_input` argument, which can be set
+to either `"channel"` (default) and `"measurement"`. When the latter is used,
+the integrals can be specified in terms of temperature, in which case the
+function performs an automatic conversion to channels (#1396).
 
 ### `combine_De_Dr()`
 
@@ -340,6 +370,11 @@ by `signal_integral`, `background_integral`, `signal_integral_Tx` and
 `background_integral_Tx`: each of them now defines a vector of channels for
 the respective integrals. The older names will still work but generate a
 deprecation warning (#1290).
+
+* The function now supports the `integral_input` argument, which can be set
+to either `"channel"` (default) and `"measurement"`. When the latter is used,
+the integrals can be specified in terms of seconds, in which case the function
+performs an automatic conversion to channels (#1396).
 
 ### `plot_RLum.Analysis()`
 

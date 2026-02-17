@@ -7,6 +7,7 @@
 analyse_portableOSL(
   object,
   signal_integral = NULL,
+  integral_input = c("channel", "measurement"),
   invert = FALSE,
   normalise = FALSE,
   mode = "profile",
@@ -26,6 +27,11 @@ vector specifying the range of channels used to calculate the OSL/IRSL
 signal. It can be provided as a vector of length 2 such as \code{c(1, 5)}, or
 as a sequence such as \code{1:5}, in which case the lowest and highest values
 define the range.}
+
+\item{integral_input}{\link{character} (\emph{with default}):
+input type for \code{signal_integral}, one of \code{"channel"} (default) or
+\code{"measurement"}. If set to \code{"measurement"}, the best matching channels
+corresponding to the given time range (in seconds) are selected.}
 
 \item{invert}{\link{logical} (\emph{with default}):
 whether the data should be plotted in reverse order (\code{FALSE} by default).}
@@ -109,7 +115,7 @@ If in your profile the x-coordinates were not measured, \emph{x} should be set
 to 0. Note that, in such case, a surface plot cannot be produced.
 }
 \section{Function version}{
- 0.1.4
+ 0.1.5
 }
 
 \examples{

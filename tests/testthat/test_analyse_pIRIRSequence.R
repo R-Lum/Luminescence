@@ -107,6 +107,26 @@ test_that("check plot stuff", {
     "'plot.single' was deprecated in v1.0.0, use 'plot_singlePanels' instead")
   )
 
+  ## integral_input
+  set.seed(1)
+  res1 <- analyse_pIRIRSequence(object,
+                                signal_integral = c(0.04, 0.16),
+                                background_integral = 34:40,
+                                integral_input = "measurement",
+                                fit.method = "EXP",
+                                plot = FALSE,
+                                verbose = FALSE)
+  set.seed(1)
+  res2 <- analyse_pIRIRSequence(object,
+                                signal_integral = 1:4,
+                                background_integral = 850:1000,
+                                integral_input = "channel",
+                                fit.method = "EXP",
+                                plot = FALSE,
+                                verbose = FALSE)
+  res1@info <- res2@info <- list() # remove $call
+  expect_equal(res1, res2)
+
   ## deprecated arguments
   suppressWarnings( # Argument 'plot' reset to 'FALSE'
   expect_warning(analyse_pIRIRSequence(object,
@@ -115,6 +135,12 @@ test_that("check plot stuff", {
                                        verbose = FALSE),
                  "were deprecated in v1.2.0, use 'signal_integral' and")
   )
+  expect_warning(expect_error(analyse_pIRIRSequence(object,
+                                                    signal.integral = 1:2,
+                                                    background.integral = 90:100,
+                                                    integral_input = "measurement"),
+                              "'integral_input' is not supported with old argument names"),
+                 "were deprecated in v1.2.0, use 'signal_integral' and")
 })
 
 test_that("input validation", {
@@ -128,7 +154,7 @@ test_that("input validation", {
                                      signal_integral = 1:2,
                                      background_integral = 900:1000),
                "'object' should be of class 'RLum.Analysis'")
-  expect_error(analyse_pIRIRSequence(object),
+  expect_error(analyse_pIRIRSequence(object, plot = FALSE),
                "'signal_integral' should be of class 'integer', 'numeric' or 'list'")
   expect_error(analyse_pIRIRSequence(object,
                                      signal_integral = 1:2,

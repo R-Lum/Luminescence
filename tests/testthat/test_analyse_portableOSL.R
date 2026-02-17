@@ -79,6 +79,26 @@ test_that("check functionality", {
     ),
     "RLum.Results")
 
+    ## integral_input
+    res1 <- analyse_portableOSL(merged,
+                                signal_integral = 1:5,
+                                integral_input = "measurement",
+                                invert = FALSE,
+                                mode = "profile",
+                                normalise = TRUE,
+                                plot = FALSE)
+    res2 <- analyse_portableOSL(merged,
+                                signal_integral = 1:5,
+                                integral_input = "channel",
+                                invert = FALSE,
+                                mode = "profile",
+                                normalise = TRUE,
+                                plot = FALSE)
+    res1@info <- res2@info <- list() # remove $call
+    res1@.uid <- res2@.uid <- NA_character_
+    res1@data$args$integral_input <- res2@data$args$integral_input <- NULL
+    expect_equal(res1, res2)
+
     ## more coverage
     expect_s4_class(analyse_portableOSL(
         merged,
@@ -90,6 +110,11 @@ test_that("check functionality", {
     ## deprecated arguments
     expect_warning(analyse_portableOSL(merged,
                                        signal.integral = 1:5),
+                   "was deprecated in v1.2.0, use 'signal_integral'")
+    expect_warning(expect_error(analyse_portableOSL(merged,
+                                                    signal.integral = 1:5,
+                                                    integral_input = "measurement"),
+                   "'integral_input' is not supported with old argument names"),
                    "was deprecated in v1.2.0, use 'signal_integral'")
 })
 

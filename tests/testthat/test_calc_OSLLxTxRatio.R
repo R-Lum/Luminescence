@@ -53,6 +53,16 @@ test_that("test input", {
       signal_integral = 1:2,
       background_integral = 70:100),
       "list")
+
+  ## integral_input
+  expect_equal(calc_OSLLxTxRatio(Lx.data, Tx.data,
+                                 signal_integral = c(0.0, 0.4),
+                                 background_integral = c(13.8, 15.8, 19.8),
+                                 integral_input = "measurement")@data,
+               calc_OSLLxTxRatio(Lx.data, Tx.data,
+                                 signal_integral = 1:3,
+                                 background_integral = 70:100,
+                                 integral_input = "channel")@data)
 })
 
 test_that("input validation", {
@@ -183,6 +193,14 @@ test_that("create warnings", {
       background.integral = 85:100,
       digits = 1),
       "were deprecated in v1.2.0, use 'signal_integral', 'background_integral'")
+  expect_warning(expect_error(calc_OSLLxTxRatio(
+      Lx.data,
+      Tx.data,
+      signal.integral = 1:2,
+      background.integral = 85:100,
+      integral_input = "measurement"),
+      "'integral_input' is not supported with old argument names"),
+      "were deprecated in v1.2.0, use 'signal_integral', 'background_integral'")
 
   expect_warning(calc_OSLLxTxRatio(
     Lx.data,
@@ -219,6 +237,18 @@ test_that("create warnings", {
     background_integral_Tx = 40:100,
     use_previousBG = TRUE
   ), "When 'use_previousBG = TRUE', independent Tx integral limits are not")
+
+  ## integral_input = "measurement"
+  expect_warning(expect_warning(calc_OSLLxTxRatio(
+    Lx.data,
+    Tx.data,
+    signal_integral = 1:10,
+    signal_integral_Tx = 1:7,
+    background_integral = 10:20,
+    background_integral_Tx = 7:100,
+    integral_input = "measurement"),
+    "'background_integral' out of bounds, reset to be between 52 and 100"),
+    "'background_integral_Tx' out of bounds, reset to be between 37 and 100")
 })
 
 test_that("snapshot tests", {

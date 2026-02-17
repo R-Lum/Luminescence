@@ -40,6 +40,11 @@
 #' @param signal_integral.seq [numeric] (*optional*):
 #' argument to provide an own signal integral sequence for constructing the De(t) plot
 #'
+#' @param integral_input [character] (*with default*):
+#' input type for `signal_integral`, one of `"channel"` (default) or
+#' `"measurement"`. If set to `"measurement"`, the best matching channels
+#' corresponding to the given time range (in seconds) are selected.
+#'
 #' @param analyse_function [character] (*with default*):
 #' name of the analyse function to be called. Supported functions are:
 #' [Luminescence::analyse_SAR.CWOSL], [Luminescence::analyse_pIRIRSequence]
@@ -103,7 +108,7 @@
 #' It means, that every sequence should be checked carefully before running long
 #' calculations using several hundreds of channels.
 #'
-#' @section Function version: 0.1.9
+#' @section Function version: 0.1.10
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -139,6 +144,7 @@ plot_DetPlot <- function(
   background_integral,
   method = "shift",
   signal_integral.seq = NULL,
+  integral_input = c("channel", "measurement"),
   analyse_function = "analyse_SAR.CWOSL",
   analyse_function.control = list(),
   n.channels = NULL,
@@ -192,9 +198,9 @@ plot_DetPlot <- function(
   }
 
   ## Integrity checks -------------------------------------------------------
-
   .validate_class(object, "RLum.Analysis")
   .validate_not_empty(object)
+  integral_input <- .validate_args(integral_input, c("channel", "measurement"))
   method <- .validate_args(method, c("shift", "expansion"))
   analyse_function <- .validate_args(analyse_function,
                                      c("analyse_SAR.CWOSL", "analyse_pIRIRSequence"))
@@ -210,6 +216,10 @@ plot_DetPlot <- function(
                         "background.integral.min", "background.integral.max"),
                 new = c("signal_integral", "background_integral"),
                 since = "1.2.0")
+
+    if (integral_input != "channel") {
+      .throw_error("'integral_input' is not supported with old argument names")
+    }
     signal.integral.min <- extraArgs$signal.integral.min
     signal.integral.max <- extraArgs$signal.integral.max
     background.integral.min <- extraArgs$background.integral.min
@@ -222,6 +232,11 @@ plot_DetPlot <- function(
     background_integral <- background.integral.min:background.integral.max
   }
 
+  if (integral_input == "measurement") {
+    x.range <- get_RLum(object, recordType = c("OSL", "IRSL"))[[1]][, 1]
+    signal_integral <- .convert_to_channels(x.range, signal_integral, "time")
+    background_integral <- .convert_to_channels(x.range, background_integral, "time")
+  }
   signal_integral <- .validate_integral(signal_integral)
   background_integral <- .validate_integral(background_integral,
                                             min = max(signal_integral) + 1)

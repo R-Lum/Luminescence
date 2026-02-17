@@ -9,6 +9,7 @@ analyse_FadingMeasurement(
   structure = c("Lx", "Tx"),
   signal_integral = NULL,
   background_integral = NULL,
+  integral_input = c("channel", "measurement"),
   t_star = "half",
   n.MC = 100,
   verbose = TRUE,
@@ -46,6 +47,11 @@ required if a \code{data.frame} with \code{LxTx} values is provided.}
 \item{background_integral}{\link{vector} (\strong{required}):
 vector with channels for the background integral (e.g., \code{90:100}). It is not
 required if a \code{data.frame} with \code{LxTx} values is provided.}
+
+\item{integral_input}{\link{character} (\emph{with default}):
+input type for \code{signal_integral}, one of \code{"channel"} (default) or
+\code{"measurement"}. If set to \code{"measurement"}, the best matching channels
+corresponding to the given time range (in seconds) are selected.}
 
 \item{t_star}{\link{character}, \link{function} (\emph{with default}):
 method for calculating the time elapsed since irradiation if input is
@@ -165,7 +171,7 @@ a maximum of five pause steps are plotted to avoid graphically overloaded plots.
 However, \emph{all} pause times are taken into consideration for the analysis.
 }
 \section{Function version}{
- 0.1.26
+ 0.1.27
 }
 
 \examples{

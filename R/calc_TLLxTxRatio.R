@@ -31,6 +31,11 @@
 #' @param signal_integral [integer] (**required**):
 #' vector of channels for the signal integral.
 #'
+#' @param integral_input [character] (*with default*):
+#' input type for `signal_integral`, one of `"channel"` (default) or
+#' `"measurement"`. If set to `"measurement"`, the best matching channels
+#' corresponding to the given temperature range are selected.
+#'
 #' @param ... currently not used.
 #'
 #' @return
@@ -51,7 +56,7 @@
 #' **This function has still BETA status!** Please further note that a similar
 #' background for both curves results in a zero error and is therefore set to `NA`.
 #'
-#' @section Function version: 0.3.5
+#' @section Function version: 0.3.6
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
@@ -90,6 +95,7 @@ calc_TLLxTxRatio <- function(
   Tx.data.signal = NULL,
   Tx.data.background = NULL,
   signal_integral = NULL,
+  integral_input = c("channel", "measurement"),
   ...
 ) {
   .set_function_name("calc_TLLxTxRatio")
@@ -121,12 +127,22 @@ calc_TLLxTxRatio <- function(
     .throw_error("Channel numbers differ for Lx and Tx data")
   }
 
+  integral_input <- .validate_args(integral_input, c("channel", "measurement"))
+
   ## deprecated argument
   if (any(grepl("signal.integral", ...names(), fixed = TRUE))) {
     .deprecated(old = "signal.integral",
                 new = "signal_integral",
                 since = "1.2.0")
+    if (integral_input != "channel") {
+      .throw_error("'integral_input' is not supported with old argument names")
+    }
     signal_integral <- list(...)$signal.integral
+  }
+
+  if (integral_input == "measurement") {
+    signal_integral <- .convert_to_channels(Lx.data.signal[, 1], signal_integral,
+                                            "temperature")
   }
   signal_integral <- .validate_integral(signal_integral,
                                         max = length(Lx.data.signal[, 2]))
