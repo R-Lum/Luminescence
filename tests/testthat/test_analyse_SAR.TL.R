@@ -37,11 +37,11 @@ test_that("input validation", {
   expect_warning(analyse_SAR.TL(object, signal_integral = c(0, 1.5),
                                 sequence.structure = c("SIGNAL", "BACKGROUND"),
                                 integral_input = "measurement"),
-                 "Conversion of integrals from temperature to channels failed")
+                 "Conversion of 'signal_integral' from temperature to channels failed")
   expect_warning(analyse_SAR.TL(object, signal_integral = 2000:2100,
                                 sequence.structure = c("SIGNAL", "BACKGROUND"),
                                 integral_input = "measurement"),
-                 "Conversion of integrals from temperature to channels failed")
+                 "Conversion of 'signal_integral' from temperature to channels failed")
   })
 
   obj.rm <- object

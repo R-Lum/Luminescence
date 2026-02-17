@@ -1134,10 +1134,13 @@ SW <- function(expr) {
 
 #' @title Retrieve the name of the variable used as first argument
 #'
+#' @param idx [integer] (*with default*):
+#' Index of the argument to use to retrieve the name.
+#'
 #' @noRd
-.first_argument <- function() {
+.first_argument <- function(idx = 1) {
   sprintf("'%s'", all.vars(match.call(sys.function(sys.parent()),
-                                      sys.call(sys.parent())))[1])
+                                      sys.call(sys.parent())))[idx])
 }
 
 #' @title Throw an error or a warning based on a condition
@@ -1642,9 +1645,10 @@ SW <- function(expr) {
 #'
 #' @noRd
 .convert_to_channels <- function(object, integral, unit) {
+  name <- .first_argument(idx = 2)
   x.range <- object[, 1]
   if (min(integral) > max(x.range) || max(integral) < min(x.range))
-    .throw_warning("Conversion of integrals from ", unit,
+    .throw_warning("Conversion of ", name, " from ", unit,
                    " to channels failed: expected values in ",
                    .format_range(x.range))
 

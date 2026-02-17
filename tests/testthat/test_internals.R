@@ -683,14 +683,16 @@ test_that("Test internals", {
                1:11)
   expect_equal(.convert_to_channels(tl, 200:220),
                111:122)
-  expect_warning(expect_equal(.convert_to_channels(tl, c(0, 1.5),
+  signal_integral <- c(0, 1.5)
+  expect_warning(expect_equal(.convert_to_channels(tl, signal_integral,
                                                    unit = "temperature"),
                               1),
-                 "Conversion of integrals from temperature to channels failed")
-  expect_warning(expect_equal(.convert_to_channels(tl, c(1000, 2000),
+                 "Conversion of 'signal_integral' from temperature to channels failed")
+  signal_integral <- c(1000, 2000)
+  expect_warning(expect_equal(.convert_to_channels(tl, signal_integral,
                                                    unit = "temperature"),
                               250),
-                 "Conversion of integrals from temperature to channels failed")
+                 "Conversion of 'signal_integral' from temperature to channels failed")
 
   ## .validate_file() -------------------------------------------------------
 
