@@ -11,6 +11,7 @@ calc_OSLLxTxRatio(
   background_integral = NULL,
   signal_integral_Tx = NULL,
   background_integral_Tx = NULL,
+  integral_input = c("channel", "measurement"),
   background.count.distribution = "non-poisson",
   use_previousBG = FALSE,
   sigmab = NULL,
@@ -48,6 +49,11 @@ vector of channels for the background integral for the \code{Tx} curve.
 If \code{NULL}, the \code{background_integral} vector is used. If set to \code{NA}, no
 background integral for the \code{Tx} curve is subtracted; in this case, the
 error calculation and the signal-to-noise ratio will report \code{NA} values.}
+
+\item{integral_input}{\link{character} (\emph{with default}):
+input type for \code{signal_integral}, one of \code{"channel"} (default) or
+\code{"measurement"}. If set to \code{"measurement"}, the best matching channels
+corresponding to the given time/temperature range are selected.}
 
 \item{background.count.distribution}{\link{character} (\emph{with default}):
 sets the count distribution assumed for the error calculation.
@@ -170,7 +176,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.9.4
+ 0.9.5
 }
 
 \examples{

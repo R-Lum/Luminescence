@@ -86,6 +86,11 @@
 #' background integral for the `Tx` curve is subtracted; in this case, the
 #' error calculation and the signal-to-noise ratio will report `NA` values.
 #'
+#' @param integral_input [character] (*with default*):
+#' input type for `signal_integral`, one of `"channel"` (default) or
+#' `"measurement"`. If set to `"measurement"`, the best matching channels
+#' corresponding to the given time/temperature range are selected.
+#'
 #' @param background.count.distribution [character] (*with default*):
 #' sets the count distribution assumed for the error calculation.
 #' Possible arguments are `"poisson"` or `"non-poisson"` (default). See
@@ -149,7 +154,7 @@
 #' **Caution:** If you are using early light subtraction (EBG), please either provide your
 #' own `sigmab` value or use `background.count.distribution = "poisson"`.
 #'
-#' @section Function version: 0.9.4
+#' @section Function version: 0.9.5
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
@@ -192,6 +197,7 @@ calc_OSLLxTxRatio <- function(
   background_integral = NULL,
   signal_integral_Tx = NULL,
   background_integral_Tx = NULL,
+  integral_input = c("channel", "measurement"),
   background.count.distribution = "non-poisson",
   use_previousBG = FALSE,
   sigmab = NULL,
@@ -216,6 +222,7 @@ calc_OSLLxTxRatio <- function(
                         background_integral = background_integral,
                         signal_integral_Tx = signal_integral_Tx,
                         background_integral_Tx = background_integral_Tx,
+                        integral_input = integral_input,
                         background.count.distribution = background.count.distribution,
                         use_previousBG = use_previousBG,
                         sigmab = sigmab,
@@ -233,6 +240,7 @@ calc_OSLLxTxRatio <- function(
   .validate_not_empty(Lx.data)
   .validate_class(Tx.data, valid.classes, null.ok = TRUE,
                   extra = "a list of such objects")
+  integral_input <- .validate_args(integral_input, c("channel", "measurement"))
   .validate_class(sigmab, "numeric", null.ok = TRUE, length = 1:2)
   .validate_nonnegative_scalar(sig0)
 
@@ -278,6 +286,9 @@ calc_OSLLxTxRatio <- function(
                 new = c("signal_integral", "background_integral",
                         "signal_integral_Tx", "background_integral_Tx"),
                 since = "1.2.0")
+    if (integral_input != "channel") {
+      .throw_error("'integral_input' is not supported with old argument names")
+    }
     signal_integral <- extraArgs$signal.integral
     background_integral <- extraArgs$background.integral
     signal_integral_Tx <- extraArgs$signal.integral.Tx
@@ -313,6 +324,18 @@ calc_OSLLxTxRatio <- function(
   }
 
   # Continue checks ---------------------------------------------------------
+  if (integral_input == "measurement") {
+    unit <- "time"
+    signal_integral <- .convert_to_channels(Lx.data[, 1], signal_integral, unit,
+                                            na.ok = TRUE)
+    background_integral <- .convert_to_channels(Lx.data[, 1], background_integral, unit,
+                                                na.ok = TRUE)
+    signal_integral_Tx <- .convert_to_channels(Lx.data[, 1], signal_integral_Tx, unit,
+                                               null.ok = TRUE)
+    background_integral_Tx <- .convert_to_channels(Lx.data[, 1], background_integral_Tx, unit,
+                                                   na.ok = TRUE, null.ok = TRUE)
+  }
+
   signal_integral <- .validate_integral(signal_integral, na.ok = TRUE,
                                         max = len.Lx)
   background_integral <- .validate_integral(background_integral, na.ok = TRUE,

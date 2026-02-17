@@ -10,6 +10,7 @@ calc_TLLxTxRatio(
   Tx.data.signal = NULL,
   Tx.data.background = NULL,
   signal_integral = NULL,
+  integral_input = c("channel", "measurement"),
   ...
 )
 }
@@ -30,6 +31,11 @@ If no data are provided no background subtraction is performed.}
 
 \item{signal_integral}{\link{integer} (\strong{required}):
 vector of channels for the signal integral.}
+
+\item{integral_input}{\link{character} (\emph{with default}):
+input type for \code{signal_integral}, one of \code{"channel"} (default) or
+\code{"measurement"}. If set to \code{"measurement"}, the best matching channels
+corresponding to the given temperature range are selected.}
 
 \item{...}{currently not used.}
 }
@@ -65,7 +71,7 @@ if both signals are similar the error becomes zero.
 background for both curves results in a zero error and is therefore set to \code{NA}.
 }
 \section{Function version}{
- 0.3.5
+ 0.3.6
 }
 
 \examples{

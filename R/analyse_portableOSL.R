@@ -50,6 +50,11 @@
 #' as a sequence such as `1:5`, in which case the lowest and highest values
 #' define the range.
 #'
+#' @param integral_input [character] (*with default*):
+#' input type for `signal_integral`, one of `"channel"` (default) or
+#' `"measurement"`. If set to `"measurement"`, the best matching channels
+#' corresponding to the given time range (in seconds) are selected.
+#'
 #' @param invert [logical] (*with default*):
 #' whether the data should be plotted in reverse order (`FALSE` by default).
 #'
@@ -98,7 +103,7 @@
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @section Function version: 0.1.4
+#' @section Function version: 0.1.5
 #'
 #' @keywords datagen plot
 #'
@@ -129,6 +134,7 @@
 analyse_portableOSL <- function(
   object,
   signal_integral = NULL,
+  integral_input = c("channel", "measurement"),
   invert = FALSE,
   normalise = FALSE,
   mode = "profile",
@@ -145,6 +151,7 @@ analyse_portableOSL <- function(
         analyse_portableOSL(
           object = object[[x]],
           signal_integral = signal_integral,
+          integral_input = integral_input,
           invert = invert,
           normalise = normalise,
           mode = mode,
@@ -160,6 +167,7 @@ analyse_portableOSL <- function(
   ## only RLum.Analysis objects
   .validate_class(object, "RLum.Analysis")
   .validate_not_empty(object)
+  integral_input <- .validate_args(integral_input, c("channel", "measurement"))
 
   ## only curve objects
   if (!all(sapply(object, class) == "RLum.Data.Curve"))
@@ -180,7 +188,10 @@ analyse_portableOSL <- function(
   if (any(grepl("signal.integral", ...names(), fixed = TRUE))) {
     .deprecated(old = "signal.integral",
                 new = "signal_integral",
-                since = "1.2.0")
+               since = "1.2.0")
+    if (integral_input != "channel") {
+      .throw_error("'integral_input' is not supported with old argument names")
+    }
     signal_integral <- list(...)$signal.integral
   }
 
@@ -188,6 +199,11 @@ analyse_portableOSL <- function(
   ## records, we cap it to the minimum number of points
   num.points <- min(lengths(get_RLum(object, recordType = c("OSL", "IRSL"))))
 
+  if (integral_input == "measurement") {
+    x.range <- get_RLum(object, recordType = c("OSL", "IRSL"))[[1]][, 1]
+    signal_integral <- .convert_to_channels(x.range, signal_integral, "time",
+                                            null.ok = TRUE)
+  }
   signal_integral <- .validate_integral(signal_integral, max = num.points,
                                         null.ok = TRUE)
 

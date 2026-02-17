@@ -10,6 +10,7 @@ plot_DetPlot(
   background_integral,
   method = "shift",
   signal_integral.seq = NULL,
+  integral_input = c("channel", "measurement"),
   analyse_function = "analyse_SAR.CWOSL",
   analyse_function.control = list(),
   n.channels = NULL,
@@ -40,6 +41,11 @@ method applied for constructing the De(t) plot.
 
 \item{signal_integral.seq}{\link{numeric} (\emph{optional}):
 argument to provide an own signal integral sequence for constructing the De(t) plot}
+
+\item{integral_input}{\link{character} (\emph{with default}):
+input type for \code{signal_integral}, one of \code{"channel"} (default) or
+\code{"measurement"}. If set to \code{"measurement"}, the best matching channels
+corresponding to the given time range (in seconds) are selected.}
 
 \item{analyse_function}{\link{character} (\emph{with default}):
 name of the analyse function to be called. Supported functions are:
@@ -128,7 +134,7 @@ It means, that every sequence should be checked carefully before running long
 calculations using several hundreds of channels.
 }
 \section{Function version}{
- 0.1.9
+ 0.1.10
 }
 
 \examples{

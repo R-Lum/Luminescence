@@ -127,6 +127,15 @@ test_that("check functionality", {
       verbose = FALSE,
       n.MC = 10),
       "deprecated in v1.2.0, use 'signal_integral' and 'background_integral'")
+  expect_warning(expect_error(analyse_FadingMeasurement(
+      object,
+      signal.integral = 1:2,
+      background.integral = 10:40,
+      integral_input = "measurement",
+      verbose = FALSE,
+      n.MC = 10),
+      "'integral_input' is not supported with old argument names"),
+      "deprecated in v1.2.0, use 'signal_integral' and 'background_integral'")
 })
 
 test_that("test XSYG file fading data", {
@@ -197,6 +206,29 @@ test_that("test BIN file while fading data", {
                                 structure = c("Lx", "Tx", "Lx"))),
       "Error: 'structure' can only be 'Lx' or c('Lx', 'Tx'), NULL returned",
       fixed = TRUE)
+
+  ## integral_input
+  set.seed(1)
+  res1 <- analyse_FadingMeasurement(d2,
+                                    signal_integral = c(220.004, 220.012),
+                                    background_integral = c(220.760, 221),
+                                    integral_input = "measurement",
+                                    t_star = "end",
+                                    structure = "Lx",
+                                    plot = FALSE,
+                                    verbose = FALSE)
+  set.seed(1)
+  res2 <- analyse_FadingMeasurement(d2,
+                                    signal_integral = 1:3,
+                                    background_integral = 190:250,
+                                    integral_input = "channel",
+                                    t_star = "end",
+                                    structure = "Lx",
+                                    plot = FALSE,
+                                    verbose = FALSE)
+  res1@info <- res2@info <- list() # remove $call
+  res1@data$fit <- res2@data$fit <- NULL
+  expect_equal(res1, res2)
 
   ## more coverage
   analyse_FadingMeasurement(d2, signal_integral = 1:2,

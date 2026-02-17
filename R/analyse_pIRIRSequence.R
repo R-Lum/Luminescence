@@ -41,6 +41,11 @@
 #' vector of channels for the background integral. Provide this value as a list
 #' for different integration limits for the different IRSL curves.
 #'
+#' @param integral_input [character] (*with default*):
+#' input type for `signal_integral`, one of `"channel"` (default) or
+#' `"measurement"`. If set to `"measurement"`, the best matching channels
+#' corresponding to the given time range (in seconds) are selected.
+#'
 #' @param dose.points [numeric] (*optional*):
 #' a numeric vector containing the dose points values. Using this argument overwrites dose point
 #' values in the signal curves.
@@ -86,7 +91,7 @@
 #'
 #' `pdf(file = "<YOUR FILENAME>", height = 18, width = 18)`
 #'
-#' @section Function version: 0.2.7
+#' @section Function version: 0.2.8
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -162,6 +167,7 @@ analyse_pIRIRSequence <- function(
   object,
   signal_integral,
   background_integral,
+  integral_input = c("channel", "measurement"),
   dose.points = NULL,
   sequence.structure = c("TL", "IR50", "pIRIR225"),
   plot = TRUE,
@@ -177,11 +183,16 @@ analyse_pIRIRSequence <- function(
   par.default <- .par_defaults()
   on.exit(par(par.default), add = TRUE)
 
+  integral_input <- .validate_args(integral_input, c("channel", "measurement"))
+
   ## deprecated argument
   if (any(grepl("[signal|background]\\.integral", ...names()))) {
     .deprecated(old = c("signal.integral", "background.integral"),
                 new = c("signal_integral", "background_integral"),
                 since = "1.2.0")
+    if (integral_input != "channel") {
+      .throw_error("'integral_input' is not supported with old argument names")
+    }
     signal_integral <- list(...)$signal.integral
     background_integral <- list(...)$background.integral
   }
@@ -217,6 +228,7 @@ analyse_pIRIRSequence <- function(
       analyse_pIRIRSequence(object[[x]],
                         signal_integral = signal_integral[[x]],
                         background_integral = background_integral[[x]],
+                        integral_input = integral_input,
                         dose.points = dose.points[[x]],
                         sequence.structure = sequence.structure[[x]],
                         plot = plot,
@@ -238,10 +250,7 @@ analyse_pIRIRSequence <- function(
   }
 
   ## Integrity checks -------------------------------------------------------
-
   .validate_class(object, "RLum.Analysis", extra = "'list'")
-  signal_integral <- .validate_integral(signal_integral, list.ok = TRUE)
-  background_integral <- .validate_integral(background_integral, list.ok = TRUE)
   .validate_logical_scalar(plot)
   .validate_logical_scalar(plot_singlePanels)
 
@@ -369,6 +378,20 @@ analyse_pIRIRSequence <- function(
   ##grep information on the names of the IR curves, we need them later on
   pIRIR.curve.names  <- unique(temp.sequence.structure[
     temp.sequence.structure[IRSL.curves.id,"id"],"protocol.step"])
+
+  ## Integrals checks -------------------------------------------------------
+
+  if (integral_input == "measurement") {
+    x.range <- object@records[[IRSL.curves.id[1]]][, 1]
+    unit <- "time"
+    signal_integral <- .convert_to_channels(x.range, signal_integral, unit,
+                                            list.ok = TRUE)
+    background_integral <- .convert_to_channels(x.range, background_integral, unit,
+                                                list.ok = TRUE)
+  }
+  signal_integral <- .validate_integral(signal_integral, list.ok = TRUE)
+  background_integral <- .validate_integral(background_integral, list.ok = TRUE)
+
 
   ##===========================================================================#
   ## set graphic layout using the layout option

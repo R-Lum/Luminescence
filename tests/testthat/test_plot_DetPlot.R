@@ -158,6 +158,30 @@ test_that("plot_DetPlot", {
       "No valid results produced")
   )
 
+  ## integral_input
+  set.seed(1)
+  res1 <- plot_DetPlot(object, method = "shift",
+                       signal_integral = c(0.04, 0.12),
+                       background_integral = 34:40,
+                       integral_input = "measurement",
+                       analyse_function.control = list(
+                           fit.method = "LIN",
+                           trim_channels = TRUE),
+                       n.channels = 3,
+                       plot = FALSE)
+  set.seed(1)
+  res2 <- plot_DetPlot(object, method = "shift",
+                       signal_integral = 1:3,
+                       background_integral = 850:1000,
+                       integral_input = "channel",
+                       analyse_function.control = list(
+                           fit.method = "LIN",
+                           trim_channels = TRUE),
+                       n.channels = 3,
+                       plot = FALSE)
+  res1@info <- res2@info <- list() # remove $call
+  expect_equal(res1, res2)
+
   ## deprecated argument
   expect_warning(plot_DetPlot(
       object,
@@ -167,6 +191,17 @@ test_that("plot_DetPlot", {
       background.integral.min = 900,
       background.integral.max = 1000,
       n.channels = 1),
+      "were deprecated in v1.2.0, use 'signal_integral' and 'background_integral'")
+  expect_warning(expect_error(plot_DetPlot(
+      object,
+      method = "shift",
+      signal.integral.min = 1,
+      signal.integral.max = 3,
+      background.integral.min = 900,
+      background.integral.max = 1000,
+      integral_input = "measurement",
+      n.channels = 1),
+      "'integral_input' is not supported with old argument names"),
       "were deprecated in v1.2.0, use 'signal_integral' and 'background_integral'")
   })
 })

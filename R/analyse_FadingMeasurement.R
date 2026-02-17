@@ -93,6 +93,11 @@
 #' vector with channels for the background integral (e.g., `90:100`). It is not
 #' required if a `data.frame` with `LxTx` values is provided.
 #'
+#' @param integral_input [character] (*with default*):
+#' input type for `signal_integral`, one of `"channel"` (default) or
+#' `"measurement"`. If set to `"measurement"`, the best matching channels
+#' corresponding to the given time range (in seconds) are selected.
+#'
 #' @param t_star [character], [function] (*with default*):
 #' method for calculating the time elapsed since irradiation if input is
 #' **not** a `data.frame`. Options are: `'half'` (the default), `'half_complex`,
@@ -146,7 +151,7 @@
 #' `call` \tab `call` \tab the original function call\cr
 #' }
 #'
-#' @section Function version: 0.1.26
+#' @section Function version: 0.1.27
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 #' Christoph Burow, University of Cologne (Germany)
@@ -201,6 +206,7 @@ analyse_FadingMeasurement <- function(
   structure = c("Lx", "Tx"),
   signal_integral = NULL,
   background_integral = NULL,
+  integral_input = c("channel", "measurement"),
   t_star = 'half',
   n.MC = 100,
   verbose = TRUE,
@@ -211,12 +217,17 @@ analyse_FadingMeasurement <- function(
   .set_function_name("analyse_FadingMeasurement")
   on.exit(.unset_function_name(), add = TRUE)
 
+  integral_input <- .validate_args(integral_input, c("channel", "measurement"))
+
   ## deprecated arguments
   extraArgs <- list(...)
   if (any(grepl("[signal|background]\\.integral", names(extraArgs)))) {
     .deprecated(old = c("signal.integral", "background.integral"),
                 new = c("signal_integral", "background_integral"),
                 since = "1.2.0")
+    if (integral_input != "channel") {
+      .throw_error("'integral_input' is not supported with old argument names")
+    }
     signal_integral <- extraArgs$signal.integral
     background_integral <- extraArgs$background.integral
   }
@@ -224,10 +235,7 @@ analyse_FadingMeasurement <- function(
   ## Integrity checks -------------------------------------------------------
   .validate_class(object, c("RLum.Analysis", "data.frame", "list"))
   .validate_class(structure, "character")
-  signal_integral <- .validate_integral(signal_integral, null.ok = TRUE)
-  background_integral <- .validate_integral(background_integral,
-                                            min = max(signal_integral) + 1,
-                                            null.ok = TRUE)
+  ## signal_integral and background_integral are validated in calc_OSLLxTxRatio()
   .validate_class(plot_singlePanels, c("logical", "integer", "numeric"))
   .validate_positive_scalar(n.MC, int = TRUE)
 
@@ -457,6 +465,7 @@ analyse_FadingMeasurement <- function(
         background_integral = background_integral,
         signal_integral_Tx = list(...)$signal_integral_Tx,
         background_integral_Tx = list(...)$background_integral_Tx,
+        integral_input = integral_input,
         sigmab = list(...)$sigmab,
         sig0 = list(...)$sig0 %||% formals(calc_OSLLxTxRatio)$sig0,
         background.count.distribution =
