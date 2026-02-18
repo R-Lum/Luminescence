@@ -101,6 +101,9 @@ a deprecation warning (#1244).
 respectively. The older names will still work but generate a deprecation
 warning (#1290).
 
+* The function no longer crashes if `aliquot_range` specifies non-positive
+indices (#1424).
+
 ### `analyse_FadingMeasurement()`
 
 * The plots were affected by a bug in `plot_RLum.Analysis()`, so that the

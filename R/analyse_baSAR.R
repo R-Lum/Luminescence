@@ -893,37 +893,24 @@ analyse_baSAR <- function(
     plot <- arguments.new$plot
     verbose <- arguments.new$verbose
 
-     ##limit according to aliquot_range
-     ##TODO Take care of the case that this was provided, otherwise more and more is removed!
-     if (!is.null(aliquot_range)) {
-       if (max(aliquot_range) <= nrow(object$input_object)) {
-         input_object <- object$input_object[aliquot_range, ]
+    input_object <- object$input_object
+    removed_aliquots <- object$removed_aliquots
+
+    ## limit according to aliquot_range
+    if (!is.null(aliquot_range)) {
+      .validate_class(aliquot_range, c("integer", "numeric"), null.ok = TRUE)
+      if (min(aliquot_range) < 1 ||  max(aliquot_range) > nrow(input_object)) {
+        .throw_message("'aliquot_range' out of bounds, input ignored")
+        aliquot_range <- NULL
+      } else {
+        input_object <- input_object[aliquot_range, ]
 
          ##update list of removed aliquots
          removed_aliquots <-rbind(object$removed_aliquots, object$input_object[-aliquot_range,])
 
          ##correct Nb_aliquots
          Nb_aliquots <- nrow(input_object)
-
-       } else{
-         .throw_message("'aliquot_range' out of bounds, input ignored")
-
-         ##reset aliquot range
-         aliquot_range <- NULL
-
-         ##take entire object
-         input_object <- object$input_object
-
-         ##set removed aliquots
-         removed_aliquots <- object$removed_aliquots
        }
-
-     } else{
-       ##set the normal case
-       input_object <- object$input_object
-
-       ##set removed aliquots
-       removed_aliquots <- object$removed_aliquots
      }
 
      ##set non function arguments
