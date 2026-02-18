@@ -861,7 +861,7 @@ analyse_baSAR <- function(
     ## evaluate all arguments, as match.call() may leave some of them as
     ## unevaluated symbols (such as 1:3 instead of c(1, 2, 3))
     arguments.new$`...` <- NULL
-    arguments.new <- lapply(arguments.new, eval)
+    arguments.new <- lapply(arguments.new, eval, envir = parent.frame())
 
      ##get maximum cycles
      max_cycles <- max(object$input_object[["CYCLES_NB"]])
