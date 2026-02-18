@@ -345,6 +345,22 @@ test_that("Full check of analyse_baSAR function", {
           method_control = list(n.chains = 1, thin = 25),
           n.MCMC = 100),
       "Error: 'aliquot_range' out of bounds, input ignored")
+  expect_message(
+      analyse_baSAR(
+          object = results,
+          plot = FALSE,
+          verbose = TRUE,
+          txtProgressBar = FALSE,
+          fit.method = "EXP",
+          fit.force_through_origin = TRUE,
+          distribution = "cauchy",
+          aliquot_range = -1:3,
+          distribution_plot = NULL,
+          method_control = list(n.chains = 1, thin = 25),
+          n.MCMC = 100),
+      "Error: 'aliquot_range' out of bounds, input ignored")
+  expect_error(analyse_baSAR(results, aliquot_range = NA),
+               "'aliquot_range' should be of class 'integer', 'numeric' or NULL")
 
   expect_warning(expect_message(
       analyse_baSAR(
