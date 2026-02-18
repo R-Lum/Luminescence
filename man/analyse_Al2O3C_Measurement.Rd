@@ -7,6 +7,7 @@
 analyse_Al2O3C_Measurement(
   object,
   signal_integral = NULL,
+  integral_input = c("channel", "measurement"),
   dose_points = c(0, 4),
   recordType = c("OSL (UVVIS)", "TL (UVVIS)"),
   calculate_TL_dose = FALSE,
@@ -25,6 +26,11 @@ analyse_Al2O3C_Measurement(
 \item{signal_integral}{\link{numeric} (\emph{optional}): signal integral, used for the signal
 and the background. Example: \code{c(1:10)} for the first 10 channels.
 If nothing is provided the full range is used}
+
+\item{integral_input}{\link{character} (\emph{with default}):
+input type for \code{signal_integral}, one of \code{"channel"} (default) or
+\code{"measurement"}. If set to \code{"measurement"}, the best matching channels
+corresponding to the given time range (in seconds) are selected.}
 
 \item{dose_points}{\link{numeric} (\emph{with default}):
 vector with dose points, if dose points are repeated, only the general
@@ -137,7 +143,7 @@ the information from the first curves with all others. If the ratio differs more
 unity than the defined by the threshold, a warning is returned.
 }
 \section{Function version}{
- 0.2.6
+ 0.2.7
 }
 
 \examples{

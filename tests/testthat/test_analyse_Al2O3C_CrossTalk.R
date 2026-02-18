@@ -13,7 +13,7 @@ test_that("input validation", {
   expect_error(analyse_Al2O3C_CrossTalk(set_RLum("RLum.Analysis")),
                "'object' cannot be an empty RLum.Analysis")
   expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk, signal_integral = NA),
-               "'signal_integral' should be of class 'numeric', 'integer' or NULL")
+               "'signal_integral' should be of class 'integer', 'numeric' or NULL")
   expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk, dose_points = NA),
                "'dose_points' should be of class 'numeric' or 'integer'")
   expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk, dose_points = numeric(0)),
@@ -36,12 +36,33 @@ test_that("input validation", {
   expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk,
                                         irradiation_time_correction = corr),
                "'irradiation_time_correction' has an unsupported originator")
-  expect_warning(analyse_Al2O3C_CrossTalk(data_CrossTalk,
-                                          signal_integral = 0),
-                 "'signal_integral' corrected to 1:99")
+  expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk,
+                                        signal_integral = 0),
+               "is of length 0 after removing values smaller than 1 and greater than 99")
 })
 
 test_that("check functionality", {
+  skip_on_cran()
+
+  ## integral_input
+  res1 <- analyse_Al2O3C_CrossTalk(data_CrossTalk[[1]],
+                                   signal_integral = c(42.1, 42.4),
+                                   integral_input = "measurement")
+  res2 <- analyse_Al2O3C_CrossTalk(data_CrossTalk[[1]],
+                                   signal_integral = 1:4,
+                                   integral_input = "channel")
+  res1@info <- res2@info <- list() # remove $call
+  res1@data$fit <- res2@data$fit <- NULL
+  res1@.uid <- res2@.uid <- NA_character_
+  expect_equal(res1, res2)
+
+  expect_warning(analyse_Al2O3C_CrossTalk(data_CrossTalk[[1]],
+                                          signal_integral = 1:4,
+                                          integral_input = "measurement"),
+                 "from time to channels failed: expected values in 42.1:51.9")
+})
+
+test_that("snapshot tests", {
   skip_on_cran()
 
   set.seed(1)
