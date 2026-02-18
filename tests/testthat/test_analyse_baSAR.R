@@ -377,6 +377,20 @@ test_that("Full check of analyse_baSAR function", {
       fixed = TRUE),
       "'source_doserate' is ignored in this mode as it was already set")
 
+  ## filename as input
+  expect_warning(expect_message(expect_null(
+      analyse_baSAR(test_path("_data/BINfile_V3.bin"),
+                    signal_integral = 1:2,
+                    background_integral = 80:100,
+                    source_doserate = 2,
+                    fit.method = "LIN",
+                    plot = FALSE,
+                    verbose = FALSE,
+                    method_control = list(n.chains = 1),
+                    n.MCMC = 100)),
+      "Error: All irradiation times are identical, NULL returned"),
+      "Only multiple grain data provided, automatic selection skipped")
+
   ## more coverage
   SW({
   expect_warning(analyse_baSAR(

@@ -986,11 +986,8 @@ analyse_baSAR <- function(
       }
     }
 
-    if (inherits(object, "Risoe.BINfileData")) {
-      fileBIN.list <- list(object)
-
-    } else if (inherits(object, "list")) {
-      ##check what the list containes ...
+    if (inherits(object, "list")) {
+      ## check what the list contains ...
       object_type <- unique(sapply(object, function(x) {
         .validate_class(x, c("Risoe.BINfileData", "character"),
                         name = "All elements of 'object'")
@@ -1018,14 +1015,16 @@ analyse_baSAR <- function(
         }
 
     } else if (is.character(object)) {
-      bin <- read_BIN2R(
+      fileBIN.list <- list(read_BIN2R(
           file = object,
           position = additional_arguments$position,
           duplicated.rm = additional_arguments$duplicated.rm,
           n.records = additional_arguments$n.records,
           pattern = additional_arguments$pattern,
-          verbose = verbose
-        )
+          verbose = verbose))
+
+    } else if (inherits(object, "Risoe.BINfileData")) {
+      fileBIN.list <- list(object)
     }
 
     ##Problem ... the user might have made a pre-selection in the Analyst software, if this the
