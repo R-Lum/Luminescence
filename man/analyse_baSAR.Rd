@@ -9,8 +9,8 @@ analyse_baSAR(
   CSV_file = NULL,
   aliquot_range = NULL,
   source_doserate = NULL,
-  signal_integral,
-  background_integral,
+  signal_integral = NULL,
+  background_integral = NULL,
   signal_integral_Tx = NULL,
   background_integral_Tx = NULL,
   irradiation_times = NULL,
@@ -369,7 +369,7 @@ Example for two BIN-files: \code{source_doserate = list(c(0.04, 0.006), c(0.05, 
 \strong{The function is currently limited to work with standard Risoe BIN-files only!}
 }
 \section{Function version}{
- 0.1.40
+ 0.1.41
 }
 
 \examples{

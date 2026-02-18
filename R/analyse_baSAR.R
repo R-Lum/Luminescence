@@ -163,7 +163,6 @@
 #' `recordType` \tab [Luminescence::get_RLum] \tab `c(OSL (UVVIS), irradiation (NA)` \tab helps for the curve selection\cr
 #' }
 #'
-#'
 #' @param object [Luminescence::Risoe.BINfileData-class], [Luminescence::RLum.Results-class], [list] of [Luminescence::RLum.Analysis-class],
 #' [character] or [list] (**required**):
 #' input object used for the Bayesian analysis. If a `character` is provided the function
@@ -325,7 +324,7 @@
 #'
 #' **Please note: If distribution was set to `log_normal` the central dose is given as geometric mean!**
 #'
-#' @section Function version: 0.1.40
+#' @section Function version: 0.1.41
 #'
 #' @author
 #' Norbert Mercier, Archéosciences Bordeaux, CNRS-Université Bordeaux Montaigne (France) \cr
@@ -417,8 +416,8 @@ analyse_baSAR <- function(
   CSV_file = NULL,
   aliquot_range = NULL,
   source_doserate = NULL,
-  signal_integral,
-  background_integral,
+  signal_integral = NULL,
+  background_integral = NULL,
   signal_integral_Tx = NULL,
   background_integral_Tx = NULL,
   irradiation_times = NULL,
@@ -851,15 +850,18 @@ analyse_baSAR <- function(
   if (inherits(object, "RLum.Results")) {
     .validate_originator(object, "analyse_baSAR")
 
-      ##We want to use previous function arguments and recycle them
+    ## start with arguments used in the RLum.Results object
+    function_arguments <- modifyList(formals(),
+                                     as.list(object@info$call))
 
-        ##(1) get information you need as input from the RLum.Results object
-        function_arguments <- as.list(object@info$call)
+    ## overwrite with currently provided arguments
+    arguments.new <- modifyList(function_arguments,
+                                as.list(match.call()))
 
-        ##(2) overwrite by current provided arguments
-        ##by using a new argument we have the choise which argument is allowed for
-        ##changes
-        function_arguments.new <- modifyList(x = function_arguments, val = as.list(match.call()))
+    ## evaluate all arguments, as match.call() may leave some of them as
+    ## unevaluated symbols (such as 1:3 instead of c(1, 2, 3))
+    arguments.new$`...` <- NULL
+    arguments.new <- lapply(arguments.new, eval)
 
      ##get maximum cycles
      max_cycles <- max(object$input_object[["CYCLES_NB"]])
@@ -873,67 +875,23 @@ analyse_baSAR <- function(
        return(NULL)
      }
 
-     ##set variables
-     ##Why is.null() ... it prevents that in case of a function crash is nothing is provided ...
+    ## source_doserate
+    if (length(as.list(match.call())$source_doserate) > 0) {
+      .throw_warning("'source_doserate' is ignored in this mode as ",
+                     "it was already set")
+    }
 
-     ##set changeable function arguments
-
-       ##distribution
-       if(!is.null(function_arguments.new$distribution)){
-         distribution <- function_arguments.new$distribution
-       }
-
-       ##n.MCMC
-       if(!is.null(function_arguments.new$n.MCMC)){
-         n.MCMC <- function_arguments.new$n.MCMC
-       }
-
-       ##fit.method
-       if(!is.null(function_arguments.new$fit.method)){
-         fit.method <- function_arguments.new$fit.method
-       }
-
-       ## fit.force_through_origin
-       if(!is.null(function_arguments.new$fit.force_through_origin)){
-          fit.force_through_origin <- function_arguments.new$fit.force_through_origin
-       }
-
-       ##fit.includingRepeatedRegPoints
-       if(!is.null(function_arguments.new$fit.includingRepeatedRegPoints)){
-          fit.includingRepeatedRegPoints <- function_arguments.new$fit.includingRepeatedRegPoints
-       }
-
-       ##source_doserate
-       if(length(as.list(match.call())$source_doserate) > 0){
-         .throw_warning("'source_doserate' is ignored in this mode as ",
-                        "it was already set")
-       }
-
-       ##aliquot_range
-       if(!is.null(function_arguments.new$aliquot_range)){
-         aliquot_range <- eval(function_arguments.new$aliquot_range)
-       }
-
-       ##method_control
-       if(!is.null(function_arguments.new$method_control)){
-         method_control <- eval(function_arguments.new$method_control)
-       }
-
-       ##baSAR_model
-       if(!is.null(function_arguments.new$baSAR_model)){
-         baSAR_model <- eval(function_arguments.new$baSAR_model)
-       }
-
-       ##plot
-       if(!is.null(function_arguments.new$plot)){
-         plot <- function_arguments.new$plot
-       }
-
-       ##verbose
-       if(!is.null(function_arguments.new$verbose)){
-         verbose <- function_arguments.new$verbose
-       }
-
+    ## set variables
+    distribution <- arguments.new$distribution
+    n.MCMC <- arguments.new$n.MCMC
+    fit.method <- arguments.new$fit.method
+    fit.force_through_origin <- arguments.new$fit.force_through_origin
+    fit.includingRepeatedRegPoints <- arguments.new$fit.includingRepeatedRegPoints
+    aliquot_range <- arguments.new$aliquot_range
+    method_control <- arguments.new$method_control
+    baSAR_model <- arguments.new$baSAR_model
+    plot <- arguments.new$plot
+    verbose <- arguments.new$verbose
 
      ##limit according to aliquot_range
      ##TODO Take care of the case that this was provided, otherwise more and more is removed!
