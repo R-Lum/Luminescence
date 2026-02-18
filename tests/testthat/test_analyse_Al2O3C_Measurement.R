@@ -42,8 +42,8 @@ test_that("input validation", {
                                           cross_talk_correction = set_RLum("RLum.Results")),
                "'cross_talk_correction' has an unsupported originator")
 
-  expect_warning(Luminescence:::.warningCatcher(
-                                     analyse_Al2O3C_Measurement(object = data_CrossTalk, signal_integral = 1000)))
+  expect_error(analyse_Al2O3C_Measurement(osl, signal_integral = 1000),
+               "'signal_integral' is of length 0 after removing values smaller")
   })
 
   data(ExampleData.RF70Curves, envir = environment())
@@ -96,6 +96,21 @@ test_that("check functionality", {
                                             cross_talk_correction = c(-2e-4, -3e-4, 0),
                                             plot = FALSE, verbose = FALSE),
                  "'travel_dosimeter' specifies every position")
+
+  ## integral_input
+  set.seed(1)
+  res1 <- analyse_Al2O3C_Measurement(osl, signal_integral = c(42.1, 42.3),
+                                     integral_input = "measurement", verbose = FALSE)
+  set.seed(1)
+  res2 <- analyse_Al2O3C_Measurement(osl, signal_integral = 1:3,
+                                     integral_input = "channel", verbose = FALSE)
+  res1@info <- res2@info <- list() # remove $call
+  expect_equal(res1, res2)
+
+  expect_warning(analyse_Al2O3C_Measurement(osl[[1]], signal_integral = 1:4,
+                                            integral_input = "measurement",
+                                            verbose = FALSE),
+                 "from time to channels failed: expected values in 42.1:51.9")
 })
 
 test_that("graphical snapshot tests", {

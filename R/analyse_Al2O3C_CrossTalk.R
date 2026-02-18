@@ -10,6 +10,11 @@
 #' signal integral, used for the signal and the background.
 #' If nothing is provided, the full range is used.
 #'
+#' @param integral_input [character] (*with default*):
+#' input type for `signal_integral`, one of `"channel"` (default) or
+#' `"measurement"`. If set to `"measurement"`, the best matching channels
+#' corresponding to the given time range (in seconds) are selected.
+#'
 #' @param dose_points [numeric] (*with default*):
 #' vector with dose points, if dose points are repeated, only the general
 #' pattern needs to be provided. Default values follow the suggestions
@@ -61,7 +66,7 @@
 #'
 #' - An overview of the obtained apparent dose values
 #'
-#' @section Function version: 0.1.3
+#' @section Function version: 0.1.4
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -87,6 +92,7 @@
 analyse_Al2O3C_CrossTalk <- function(
   object,
   signal_integral = NULL,
+  integral_input = c("channel", "measurement"),
   dose_points = c(0,4),
   recordType = "OSL (UVVIS)",
   irradiation_time_correction = NULL,
@@ -107,7 +113,7 @@ analyse_Al2O3C_CrossTalk <- function(
   } else {
     object <- list(object)
   }
-  .validate_class(signal_integral, c("numeric", "integer"), null.ok = TRUE)
+  integral_input <- .validate_args(integral_input, c("channel", "measurement"))
   .validate_class(dose_points, c("numeric", "integer"))
   .validate_not_empty(dose_points)
   if (length(dose_points) != 1 && length(dose_points) %% 2 != 0) {
@@ -143,14 +149,16 @@ analyse_Al2O3C_CrossTalk <- function(
     method_control_settings <- modifyList(x = method_control_settings, val = method_control)
   }
 
-  ##set signal integral
-  max.signal_integral <- nrow(object[[1]][[1]][])
-  if(is.null(signal_integral)){
-    signal_integral <- 1:max.signal_integral
-  } else if (min(signal_integral) < 1 || max(signal_integral) > max.signal_integral) {
-    ## check whether the input is valid, otherwise make it valid
-      signal_integral <- 1:max.signal_integral
-      .throw_warning("'signal_integral' corrected to 1:", max.signal_integral)
+  ## signal integral
+  x.range <- object[[1]]@records[[1]][, 1]
+  if (integral_input == "measurement") {
+    signal_integral <- .convert_to_channels(x.range, signal_integral,
+                                            "time", null.ok = TRUE)
+  }
+  signal_integral <- .validate_integral(signal_integral,
+                                        max = length(x.range), null.ok = TRUE)
+  if (is.null(signal_integral)) {
+    signal_integral <- seq_along(x.range)
   }
 
   ##check irradiation time correction
