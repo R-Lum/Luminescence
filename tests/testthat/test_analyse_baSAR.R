@@ -546,6 +546,19 @@ test_that("regression tests", {
       "Adaptation incomplete")
   })
 
+  ## issue 1426
+  suppressMessages( # Error: All points have the same dose, NULL returned
+  expect_warning(expect_warning(
+      analyse_baSAR(CWOSL.sub, verbose = FALSE, plot = FALSE,
+                    source_doserate = 0,
+                    signal_integral = 1:2,
+                    background_integral = 80:100,
+                    method_control = list(n.chains = 1),
+                    n.MCMC = 60),
+      "Only multiple grain data provided, automatic selection skipped"),
+      "this may indicate an incorrect 'source_doserate'")
+  )
+
   ## check parameters irradiation times
   SW({
   expect_s4_class(suppressWarnings(analyse_baSAR(CWOSL.sub,
