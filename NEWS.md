@@ -100,7 +100,7 @@ More information on these changes are available at
   work but generate a deprecation warning (#1290).
 
 - The function no longer crashes if `aliquot_range` specifies
-  non-positive indices (#1424).
+  non-positive indices or if `source_doserate = 0` (#1424, \#1426).
 
 ### `analyse_FadingMeasurement()`
 

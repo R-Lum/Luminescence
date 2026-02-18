@@ -1706,24 +1706,19 @@ analyse_baSAR <- function(
         }
       }
 
-      systematic_error <- unlist(lapply(source_doserate, function(x){
-        if(length(x) == 2) x[2] else 0
-       }))
-    }
+      systematic_error <- unlist(lapply(source_doserate, function(x) {
+        if (length(x) == 2 && !is.na(x[2])) x[2] else 0
+      }))
 
-    ##state are warning for very different errors
-    if(mean(systematic_error) != systematic_error[1]){
-      .throw_warning("Provided source dose rate errors differ: the mean was ",
-                     "taken, but the calculated systematic error may not be valid")
+      ## check if different errors were provided
+      if (length(unique(systematic_error)) > 1) {
+        .throw_warning("Provided source dose rate errors differ: the mean was ",
+                       "taken, but the calculated systematic error may not be valid")
+      }
     }
 
     ##add to the final de
     DE_FINAL.ERROR <- sqrt(results[[1]][["CENTRAL.SD"]]^2 + mean(systematic_error)^2)
-
-    ##consider the case that we get NA and this might be confusing
-    if(is.na(DE_FINAL.ERROR)){
-      DE_FINAL.ERROR <- results[[1]][["CENTRAL.SD"]]
-    }
 
     ##combine
     results[[1]] <- cbind(results[[1]], DE_FINAL = results[[1]][["CENTRAL"]], DE_FINAL.ERROR = DE_FINAL.ERROR)
