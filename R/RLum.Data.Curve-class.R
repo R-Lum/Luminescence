@@ -207,6 +207,8 @@ setMethod(
     curveType = NA_character_,
     data = matrix(0, ncol = 2),
     info = list()) {
+    .set_function_name("set_RLum")
+    on.exit(.unset_function_name(), add = TRUE)
 
     ##The case where an RLum.Data.Curve object can be provided
     ##with this RLum.Data.Curve objects can be provided to be reconstructed
@@ -227,6 +229,10 @@ setMethod(
       .uid <- data@.uid
       .pid <- data@.pid
       data <- data@data
+    }
+
+    if (NCOL(data) != 2) {
+      .throw_error("'data' should be a matrix with 2 columns")
     }
 
     ## set empty class form object

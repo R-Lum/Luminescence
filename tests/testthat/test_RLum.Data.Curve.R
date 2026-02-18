@@ -4,6 +4,8 @@ test_that("check class", {
   ##set empty curve object and show it
   expect_output(show(set_RLum(class = "RLum.Data.Curve")))
 
+  expect_error(set_RLum("RLum.Data.Curve", data = matrix(1:5, ncol = 1)))
+
   ##check replacements fo
   object <- set_RLum(class = "RLum.Data.Curve")
   expect_s4_class(set_RLum(class = "RLum.Data.Curve", data = object), class = "RLum.Data.Curve")
