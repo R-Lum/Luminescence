@@ -1495,7 +1495,7 @@ analyse_baSAR <- function(
           verbose = verbose,
           txtProgressBar = FALSE
         ))
-      if (additional_arguments$plot_drc) {
+      if (!is.null(fitcurve) && additional_arguments$plot_drc) {
         plot_DoseResponseCurve(
             fitcurve,
             plot_extended = additional_arguments$plot_extended,
@@ -1663,11 +1663,13 @@ analyse_baSAR <- function(
       .throw_warning(sprintf(msg, "lower"))
     }
 
-    if (min(input_object[["DE"]][input_object[["DE"]] > 0], na.rm = TRUE) < method_control$lower_centralD ||
-        max(input_object[["DE"]], na.rm = TRUE) > method_control$upper_centralD) {
+  temp.DE <- input_object$DE
+  if (all(is.na(temp.DE)) ||
+      min(temp.DE[temp.DE > 0], na.rm = TRUE) < method_control$lower_centralD ||
+      max(temp.DE, na.rm = TRUE) > method_control$upper_centralD) {
       .throw_warning("Your lower_centralD and/or upper_centralD values ",
-                     "seem not to fit to your input data. This may indicate ",
-                     "a wronlgy set 'source_doserate'.")
+                     "seem not to fit to your input data, this may indicate ",
+                     "an incorrect 'source_doserate'")
     }
 
   ##>> try here is much better, as the user might run a very long preprocessing and do not
