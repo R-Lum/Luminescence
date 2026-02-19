@@ -896,6 +896,12 @@ test_that("deprecated arguments", {
                                    background.integral.min = list(900, 950),
                                    background.integral.max = list(1000, 1000)),
                  "were deprecated in v1.2.0, use 'signal_integral'")
+  expect_warning(analyse_SAR.CWOSL(object,
+                                   signal.integral.min = 1,
+                                   signal.integral.max = 187,
+                                   background.integral.min = 900,
+                                   background.integral.max = 1000),
+                 "were deprecated in v1.2.0, use 'signal_integral'")
 
   ## mix of deprecated and newly-named arguments is not supported
   expect_error(analyse_SAR.CWOSL(object[1:2],
