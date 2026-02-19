@@ -96,6 +96,12 @@ More information on these changes are available at
 
 - The `signal_integral` argument was silently ignored (#1428).
 
+- The function now supports the `integral_input` argument, which can be
+  set to either `"channel"` (default) and `"measurement"`. When the
+  latter is used, the integrals can be specified in terms of seconds, in
+  which case the function performs an automatic conversion to channels
+  (#1396).
+
 ### `analyse_Al2O3C_Measurement()`
 
 - The function now supports the `integral_input` argument, which can be
