@@ -204,8 +204,8 @@ analyse_Al2O3C_ITC <- function(
 
   ##calculate curve sums, assuming the background
   net_SIGNAL <- vapply(seq(1, length(object), by = 2), function(x) {
-    temp_signal <- sum(object[[x]][, 2])
-    temp_background <- sum(object[[x + 1]][, 2])
+    temp_signal <- sum(object[[x]][signal_integral, 2])
+    temp_background <- sum(object[[x + 1]][signal_integral, 2])
     return(temp_signal - temp_background)
   }, FUN.VALUE = numeric(1))
 
