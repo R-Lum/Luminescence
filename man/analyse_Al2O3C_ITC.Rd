@@ -7,6 +7,7 @@
 analyse_Al2O3C_ITC(
   object,
   signal_integral = NULL,
+  integral_input = c("channel", "measurement"),
   dose_points = c(2, 4, 8, 12, 16),
   recordType = "OSL (UVVIS)",
   method_control = NULL,
@@ -23,6 +24,11 @@ Alternatively a list of \linkS4class{RLum.Analysis} objects can be provided to a
 \item{signal_integral}{\link{numeric} (\emph{optional}):
 signal integral, used for the signal and the background.
 If nothing is provided the full range is used. Argument can be provided as \link{list}.}
+
+\item{integral_input}{\link{character} (\emph{with default}):
+input type for \code{signal_integral}, one of \code{"channel"} (default) or
+\code{"measurement"}. If set to \code{"measurement"}, the best matching channels
+corresponding to the given time range (in seconds) are selected.}
 
 \item{dose_points}{\link{numeric} (\emph{with default}):
 vector with dose points, if dose points are repeated, only the general
@@ -101,7 +107,7 @@ handled using the argument \code{method_control} only, e.g.,
 }
 }
 \section{Function version}{
- 0.1.1
+ 0.1.2
 }
 
 \examples{

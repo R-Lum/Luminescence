@@ -32,6 +32,11 @@
 #' signal integral, used for the signal and the background.
 #' If nothing is provided the full range is used. Argument can be provided as [list].
 #'
+#' @param integral_input [character] (*with default*):
+#' input type for `signal_integral`, one of `"channel"` (default) or
+#' `"measurement"`. If set to `"measurement"`, the best matching channels
+#' corresponding to the given time range (in seconds) are selected.
+#'
 #' @param dose_points [numeric] (*with default*):
 #' vector with dose points, if dose points are repeated, only the general
 #' pattern needs to be provided. Default values follow the suggestions
@@ -81,7 +86,7 @@
 #'
 #' - A dose response curve with the marked correction values
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -107,6 +112,7 @@
 analyse_Al2O3C_ITC <- function(
   object,
   signal_integral = NULL,
+  integral_input = c("channel", "measurement"),
   dose_points = c(2,4,8,12,16),
   recordType = "OSL (UVVIS)",
   method_control = NULL,
@@ -136,6 +142,7 @@ analyse_Al2O3C_ITC <- function(
       results <- try(analyse_Al2O3C_ITC(
         object = object[[x]],
         signal_integral = signal_integral[[x]],
+        integral_input = integral_input,
         dose_points = dose_points[[x]],
         method_control = method_control,
         verbose = verbose,
@@ -156,6 +163,7 @@ analyse_Al2O3C_ITC <- function(
 
   ## Integrity checks -------------------------------------------------------
   .validate_class(object, "RLum.Analysis", extra = "a 'list' of such objects")
+  integral_input <- .validate_args(integral_input, c("channel", "measurement"))
   .validate_class(dose_points, c("numeric", "list"))
   if (is.list(dose_points)) {
     lapply(dose_points, .validate_class, "numeric",
@@ -191,15 +199,17 @@ analyse_Al2O3C_ITC <- function(
   dose_points <- rep(dose_points, times = length(object)/2)
 
   # Calculation ---------------------------------------------------------------------------------
-  ##set signal integral
-  max.signal_integral <- nrow(object[[1]][])
-  if(is.null(signal_integral)){
-    signal_integral <- 1:max.signal_integral
-  } else if (min(signal_integral) < 1 ||
-             max(signal_integral) > max.signal_integral) {
-    ## check whether the input is valid, otherwise make it valid
-    signal_integral <- 1:max.signal_integral
-    .throw_warning("'signal_integral' corrected to 1:", max.signal_integral)
+
+  ## signal integral
+  x.range <- object[[1]][, 1]
+  if (integral_input == "measurement") {
+    signal_integral <- .convert_to_channels(x.range, signal_integral,
+                                            "time", null.ok = TRUE)
+  }
+  signal_integral <- .validate_integral(signal_integral,
+                                        max = length(x.range), null.ok = TRUE)
+  if (is.null(signal_integral)) {
+    signal_integral <- seq_along(x.range)
   }
 
   ##calculate curve sums, assuming the background
