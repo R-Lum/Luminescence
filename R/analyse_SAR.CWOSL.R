@@ -360,12 +360,23 @@ analyse_SAR.CWOSL<- function(
     main <- as.list(paste0("ALQ #",1:length(object)))
   }
 
+    ## deprecated arguments
+    if (any(grepl("[signal|background]\\.integral\\.[min|max]", names(extraArgs)))) {
+        extraArgs$signal.integral.min <- .listify(extraArgs$signal.integral.min,
+                                                  length(object))
+        extraArgs$signal.integral.max <- .listify(extraArgs$signal.integral.max,
+                                                  length(object))
+        extraArgs$background.integral.min <- .listify(extraArgs$background.integral.min,
+                                                      length(object))
+        extraArgs$background.integral.max <- .listify(extraArgs$background.integral.max,
+                                                      length(object))
+    }
+
     ## remove unnamed rejection criteria
     if (!is.null(parm$rejection.criteria)) {
       parm$rejection.criteria <- lapply(parm$rejection.criteria,
                                         .rm_unnamed_elements)
     }
-
   results <- .warningCatcher(merge_RLum(lapply(seq_along(object), function(x){
     analyse_SAR.CWOSL(
       object = object[[x]],
