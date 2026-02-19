@@ -634,3 +634,162 @@
       }
     }
 
+---
+
+    {
+      "type": "S4",
+      "attributes": {
+        "data": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["data", "data_full", "col.seq"]
+            }
+          },
+          "value": [
+            {
+              "type": "list",
+              "attributes": {
+                "row.names": {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1, 2]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["POSITION", "AD", "AD_ERROR"]
+                }
+              },
+              "value": [
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1, 2]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-0.00246398, -0.00190197]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["POSITION", "DOSE", "DOSE_ERROR", "STEP", "INTEGRAL", "BACKGROUND", "NET_INTEGRAL", "AD", "AD_ERROR"]
+                },
+                "row.names": {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1, 2, 3, 4]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
+                }
+              },
+              "value": [
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1, 1, 2, 2]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0, 4, 0, 4]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0, 0, 0, 0]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["NATURAL", "REGENERATED", "NATURAL", "REGENERATED"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [2479, 124308, 2926, 78673]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [2554, 2554, 2962, 2962]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-75, 121754, -36, 75711]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-0.00246398, -0.00246398, -0.00190197, -0.00190197]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA", "NA", "NA"]
+                }
+              ]
+            },
+            {
+              "type": "character",
+              "attributes": {},
+              "value": ["#006228", "#A51122"]
+            }
+          ]
+        },
+        "originator": {
+          "type": "character",
+          "attributes": {},
+          "value": ["analyse_Al2O3C_CrossTalk"]
+        },
+        "info": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": []
+            }
+          },
+          "value": []
+        },
+        ".uid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        ".pid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        }
+      },
+      "value": {
+        "class": "RLum.Results",
+        "package": "Luminescence"
+      }
+    }
+

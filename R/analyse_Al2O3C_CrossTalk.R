@@ -181,9 +181,9 @@ analyse_Al2O3C_CrossTalk <- function(
   ##create signal table list
   signal_table_list <- lapply(object, function(x) {
     ##calculate all the three signals needed
-    BACKGROUND <- sum(x[[3]][, 2])
-    NATURAL <- sum(x[[1]][, 2])
-    REGENERATED <- sum(x[[2]][, 2])
+    NATURAL <- sum(x[[1]][signal_integral, 2])
+    REGENERATED <- sum(x[[2]][signal_integral, 2])
+    BACKGROUND <- sum(x[[3]][signal_integral, 2])
 
     temp_df <- data.frame(
       POSITION = get_RLum(x[[1]], info.object = "position"),

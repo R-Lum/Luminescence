@@ -91,6 +91,12 @@ test_that("snapshot tests", {
       analyse_Al2O3C_CrossTalk(data_CrossTalk,
                                irradiation_time_correction = corr),
       tolerance = snapshot.tolerance)
+
+  ## signal integral
+  expect_snapshot_RLum(
+      analyse_Al2O3C_CrossTalk(data_CrossTalk,
+                               signal_integral = 1:5),
+      tolerance = snapshot.tolerance)
 })
 
 test_that("regression tests", {
