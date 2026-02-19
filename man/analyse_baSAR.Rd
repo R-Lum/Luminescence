@@ -99,14 +99,15 @@ allow adding an extra component of error to the final Lx/Tx error value
 The parameter can be provided as \code{list}, see \code{source_doserate}.}
 
 \item{distribution}{\link{character} (\emph{with default}):
-type of distribution that is used during Bayesian calculations for
-determining the Central dose and overdispersion values.
-Allowed inputs are \code{"cauchy"}, \code{"normal"} and \code{"log_normal"}.}
+type of distribution used during Bayesian calculations to determine the
+Central dose and overdispersion values (one of \code{"cauchy"}, \code{"normal"},
+\code{"log_normal"} and \code{"user_defined"}). If set to \code{"user_defined"}, argument
+\code{baSAR_model} must be provided.}
 
 \item{baSAR_model}{\link{character} (\emph{optional}):
 option to provide an own modified or new model for the Bayesian calculation
-(see details). If an own model is provided the argument \code{distribution} is
-ignored and set to \code{'user_defined'}}
+(see details). If provided, argument \code{distribution} is automatically set to
+\code{"user_defined"}.}
 
 \item{n.MCMC}{\link{integer} (\emph{with default}):
 number of iterations for the Markov chain Monte Carlo (MCMC) simulations}
@@ -384,8 +385,8 @@ CWOSL.SAR.Data <- subset(
 
 \dontrun{
 ##(3) run analysis
-##please not that the here selected parameters are
-##choosen for performance, not for reliability
+## please note that the parameters used here are
+## chosen for performance, not for reliability
 results <- analyse_baSAR(
   object = CWOSL.SAR.Data,
   source_doserate = c(0.04, 0.001),

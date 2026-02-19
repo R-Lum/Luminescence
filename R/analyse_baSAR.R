@@ -229,14 +229,15 @@
 #' The parameter can be provided as `list`, see `source_doserate`.
 #'
 #' @param distribution [character] (*with default*):
-#' type of distribution that is used during Bayesian calculations for
-#' determining the Central dose and overdispersion values.
-#' Allowed inputs are `"cauchy"`, `"normal"` and `"log_normal"`.
+#' type of distribution used during Bayesian calculations to determine the
+#' Central dose and overdispersion values (one of `"cauchy"`, `"normal"`,
+#' `"log_normal"` and `"user_defined"`). If set to `"user_defined"`, argument
+#' `baSAR_model` must be provided.
 #'
 #' @param baSAR_model [character] (*optional*):
 #' option to provide an own modified or new model for the Bayesian calculation
-#' (see details). If an own model is provided the argument `distribution` is
-#' ignored and set to `'user_defined'`
+#' (see details). If provided, argument `distribution` is automatically set to
+#' `"user_defined"`.
 #'
 #' @param n.MCMC [integer] (*with default*):
 #' number of iterations for the Markov chain Monte Carlo (MCMC) simulations
@@ -381,8 +382,8 @@
 #'
 #' \dontrun{
 #' ##(3) run analysis
-#' ##please not that the here selected parameters are
-#' ##choosen for performance, not for reliability
+#' ## please note that the parameters used here are
+#' ## chosen for performance, not for reliability
 #' results <- analyse_baSAR(
 #'   object = CWOSL.SAR.Data,
 #'   source_doserate = c(0.04, 0.001),
@@ -456,25 +457,18 @@ analyse_baSAR <- function(
              fit.force_through_origin,
              fit.includingRepeatedRegPoints,
              method_control,
+             lower_centralD,
+             upper_centralD,
              baSAR_model,
              verbose)
     {
-      ## lower and upper De
-      lower_centralD <- method_control[["lower_centralD"]]
-      upper_centralD <- method_control[["upper_centralD"]]
-
-      ##number of MCMC
       n.chains <- method_control[["n.chains"]] %||% 3
-
-      ##inits
       inits <- method_control[["inits"]]
-
-      ##thin
       thin <-  if (is.null(method_control[["thin"]])) {
         if(n.MCMC >= 1e+05){
-          thin <- n.MCMC/1e+05 * 250
+          n.MCMC / 1e+05 * 250
         }else{
-          thin <- min(10, n.MCMC / 2)
+          min(10, n.MCMC / 2)
         }
       } else{
         .validate_positive_scalar(method_control[["thin"]], int = TRUE,
@@ -490,14 +484,11 @@ analyse_baSAR <- function(
                        "', reset to ", thin)
       }
 
-      ## check whether this makes sense at all, just a quick and dirty test
-      stopifnot(lower_centralD >= 0)
-
       ExpoGC <- as.numeric(grepl("EXP", fit.method))
       LinGC <- as.numeric(grepl("LIN", fit.method))
       GC_Origin <- as.numeric(fit.force_through_origin)
 
-      ##Include or exclude repeated dose points
+      ## exclude repeated dose points
       if (!fit.includingRepeatedRegPoints) {
         for (i in 1:Nb_aliquots) {
           temp.logic <- !duplicated(data.Dose[, i], incomparables = 0) # logical excluding 0
@@ -523,13 +514,12 @@ analyse_baSAR <- function(
 
       # Bayesian Models ----------------------------------------------------------------------------
       # INFO: >
-      #  > sometimes lines apear to be in a wrong logical order, however, this is allowed in the
+      #  > sometimes lines appear to be in a wrong logical order, however, this is allowed in the
       #  > model definition since:
       #  > "The data block is not limited to logical relations, but may also include stochastic relations."
       #  > (Plummer, 2017. JAGS Version 4.3.0 user manual, p. 9)
       baSAR_models <- list(
         cauchy = "model {
-
             central_D ~  dunif(lower_centralD,upper_centralD)
 
             precision_D ~ dt(0, pow(0.16*central_D, -2), 1)T(0, )
@@ -574,7 +564,6 @@ analyse_baSAR <- function(
               Lum[1,i] ~ dnorm ( Q[1,i] , S_y[1,i])
               Q[1,i]  <-  GC_Origin * g[i] + LinGC * (c[i] * D[i] ) + ExpoGC * (a[i] * (1 - exp (-D[i] /b[i])) )
 
-
               for (m in 2:Limited_cycles[i]) {
                 S_y[m,i] <-  1/(sLum[m,i]^2 + sigma_f[i]^2)
                 Lum[m,i] ~ dnorm( Q[m,i] , S_y[m,i] )
@@ -616,13 +605,6 @@ analyse_baSAR <- function(
        )
 
       ##check whether the input for distribution was sufficient
-      if (!distribution %in% names(baSAR_models)) {
-        .throw_error("No pre-defined model for the requested distribution. ",
-                     "Please select one of ",
-                     .collapse(rev(names(baSAR_models))[-1]),
-                     ", or define an own model using argument 'baSAR_model'")
-      }
-
       if (distribution == "user_defined" && is.null(baSAR_model)) {
         .throw_error("You specified a 'user_defined' distribution, ",
                      "but did not provide a model via 'baSAR_model'")
@@ -647,16 +629,8 @@ analyse_baSAR <- function(
         cat("[analyse_baSAR()] Bayesian analysis in progress ...\n")
         message(".. >> bounds set to: lower_centralD = ", lower_centralD,
                 " | upper_centralD = ", upper_centralD)
-      }
-
-      Nb_Iterations <- n.MCMC
-
-      if (verbose) {
-        message(
-          ".. >> calculation will be done assuming a '",
-          distribution,
-          "' distribution\n"
-        )
+        message(".. >> calculation will be done assuming a '",
+                distribution, "' distribution\n")
       }
 
       ##set model
@@ -665,14 +639,14 @@ analyse_baSAR <- function(
           data = data_list,
           inits = inits,
           n.chains = n.chains,
-          n.adapt = Nb_Iterations,
+          n.adapt = n.MCMC,
           quiet = !verbose
        )
 
       ##update jags model (it is a S3-method)
       stats::update(
         object = jagsfit,
-        n.iter = Nb_Iterations,
+        n.iter = n.MCMC,
         progress.bar = if(verbose){"text"}else{NULL}
         )
 
@@ -680,7 +654,7 @@ analyse_baSAR <- function(
       sampling <- rjags::coda.samples(
         model = jagsfit,
         variable.names = variable.names,
-        n.iter = Nb_Iterations,
+        n.iter = n.MCMC,
         thin = thin
       )
 
@@ -690,7 +664,7 @@ analyse_baSAR <- function(
       sampling_reduced <- rjags::coda.samples(
         model = jagsfit,
         variable.names = c('central_D', 'sigma_D'),
-        n.iter = Nb_Iterations,
+        n.iter = n.MCMC,
         thin = thin
       )
 
@@ -775,8 +749,12 @@ analyse_baSAR <- function(
     background_integral_Tx <- .validate_integral(background_integral_Tx,
                                                  null.ok = TRUE, list.ok = TRUE)
   }
+  distribution <- .validate_args(distribution, c("cauchy", "normal",
+                                                 "log_normal", "user_defined"))
+  .validate_class(baSAR_model, "character", length = 1, null.ok = TRUE)
   .validate_positive_scalar(n.MCMC, int = TRUE)
   fit.method <- .validate_args(fit.method, c("EXP", "EXP+LIN", "LIN"))
+  .validate_nonnegative_scalar(digits, int = TRUE)
   distribution_plot <- .validate_args(distribution_plot, c("kde", "abanico"),
                                       null.ok = TRUE) %||% ""
 
@@ -839,6 +817,33 @@ analyse_baSAR <- function(
   ## always monitor the D variable
   variable.names <- unique(c(variable.names, "D"))
 
+  ## check the central_D bounds and set defaults according to Combès et al., 2015
+  ## "We set the bounds for the prior on the central dose D, Dmin = 0 Gy and
+  ##  Dmax = 1000 Gy, to cover the likely range of possible values for D."
+  msg <- paste("You have modified the %s central_D boundary while applying",
+               "a predefined model. This is possible but not recommended")
+
+  ## check lower_centralD and upper_centralD
+  lower_centralD <- method_control$lower_centralD
+  if (is.null(lower_centralD)) {
+    lower_centralD <- 0
+  } else if (distribution != "user_defined") {
+    .validate_nonnegative_scalar(lower_centralD, null.ok = TRUE,
+                                 name = "'lower_centralD' in 'method_control'")
+    .throw_warning(sprintf(msg, "lower"))
+  }
+  upper_centralD <- method_control$upper_centralD
+  if (is.null(upper_centralD)) {
+    upper_centralD <- 1000
+  } else if (distribution != "user_defined") {
+    .validate_nonnegative_scalar(upper_centralD, null.ok = TRUE,
+                                 name = "'upper_centralD' in 'method_control'")
+    .throw_warning(sprintf(msg, "upper"))
+  }
+  if (upper_centralD <= lower_centralD) {
+    .throw_error("'upper_centralD' in 'method_control' must be greater than ",
+                 "'lower_centralD'")
+  }
 
   # Set input -----------------------------------------------------------------------------------
 
@@ -863,13 +868,8 @@ analyse_baSAR <- function(
     arguments.new$`...` <- NULL
     arguments.new <- lapply(arguments.new, eval, envir = parent.frame())
 
-     ##get maximum cycles
-     max_cycles <- max(object$input_object[["CYCLES_NB"]])
-
-     ##set Nb_aliquots
-     Nb_aliquots <- nrow(object$input_object)
-
      ## return NULL if not at least three aliquots are used for the calculation
+     Nb_aliquots <- nrow(object$input_object)
      if (Nb_aliquots < 3) {
        .throw_message("Number of aliquots < 3, NULL returned")
        return(NULL)
@@ -914,6 +914,7 @@ analyse_baSAR <- function(
      }
 
      ##set non function arguments
+     max_cycles <- max(object$input_object[["CYCLES_NB"]])
      Doses <- t(input_object[,9:(8 + max_cycles)])
      LxTx <- t(input_object[,(9 + max_cycles):(8 + 2 * max_cycles)])
      LxTx.error <-  t(input_object[,(9 + 2 * max_cycles):(8 + 3 * max_cycles)])
@@ -951,7 +952,7 @@ analyse_baSAR <- function(
 
       ## check that we are not left with empty records
       if (length(object[[1]]@records) == 0) {
-        .throw_error("No records of the appropriate type were found")
+        .throw_error("No records of the appropriate type found")
       }
 
       ##extract irradiation times
@@ -1215,8 +1216,7 @@ analyse_baSAR <- function(
       if (!is.na(datalu[nn, 1]))  {
 
         ##check whether one file fits
-        file.basename <- strsplit(basename(datalu[nn, 1]),
-                                  split = ".", fixed = TRUE)[[1]][1]
+        file.basename <- tools::file_path_sans_ext(basename(datalu[nn, 1]))
         matches <- grep(pattern = file.basename, x = unlist(object.file_name))
         if (length(matches) > 0) {
           k <- matches[1]
@@ -1280,8 +1280,7 @@ analyse_baSAR <- function(
     }
 
   if(verbose){
-    cat("\n[analyse_baSAR()] Preliminary analysis in progress ... ")
-    cat("\n[analyse_baSAR()] Hang on, this may take a while ... \n")
+    cat("[analyse_baSAR()] Preliminary analysis in progress, this may take a while ... \n")
   }
 
   for (k in seq_along(fileBIN.list)) {
@@ -1314,6 +1313,8 @@ analyse_baSAR <- function(
       return(NULL)
     }
 
+    dose.rate <- unlist(source_doserate[[k]][1]) %||% 1
+
     ### Automatic Filling - Disc_Grain.list
     for (i in seq_along(Disc[[k]])) {
       disc_selected <-  as.integer(Disc[[k]][i])
@@ -1343,11 +1344,7 @@ analyse_baSAR <- function(
         grain_selected <- 1
 
       for (t in index_list) {
-              dose.value <- irrad_time.vector[t]
-              if(!is.null(unlist(source_doserate))){
-                dose.value <- dose.value * unlist(source_doserate[[k]][1])
-              }
-
+        dose.value <- irrad_time.vector[t] * dose.rate
               s <- 1 + length( Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[1]] )
               Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[1]][s] <- n_index.vector[t]  # indexes
               if ( s%%2 == 1) { Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[2]][as.integer(1+s/2)] <- dose.value  }      # irradiation doses
@@ -1411,7 +1408,7 @@ analyse_baSAR <- function(
         type = "l"
       )
 
-      ##add integration limits depending on the choosen value
+      ## add integration limits depending on the chosen value
       abline(v = range(signal_integral_Tx[[k]] %||% signal_integral[[k]]),
              lty = 2, col = "green")
       abline(v = range(background_integral_Tx[[k]] %||% background_integral[[k]]),
@@ -1640,34 +1637,12 @@ analyse_baSAR <- function(
 
   # Call baSAR-function -------------------------------------------------------------------------
 
-  ##check for the central_D bound settings
-  ##Why do we use 0 and 1000: Combes et al., 2015 wrote
-  ## that "We set the bounds for the prior on the central dose D, Dmin = 0 Gy and
-  ## Dmax = 1000 Gy, to cover the likely range of possible values for D.
-
-  msg <- paste("You have modified the %s central_D boundary while applying",
-               "a predefined model. This is possible but not recommended")
-
-    ##check if something is set in method control, if not, set it
-    if (is.null(method_control[["upper_centralD"]])) {
-      method_control <- c(method_control, upper_centralD = 1000)
-    } else if (distribution %in% c("normal", "cauchy", "log_normal")) {
-      .throw_warning(sprintf(msg, "upper"))
-    }
-
-    ## do the same for the lower_centralD, just to have everything in one place
-    if (is.null(method_control[["lower_centralD"]])) {
-      method_control <- c(method_control, lower_centralD = 0)
-    } else if (distribution %in% c("normal", "cauchy", "log_normal")) {
-      .throw_warning(sprintf(msg, "lower"))
-    }
-
   temp.DE <- input_object$DE
   if (all(is.na(temp.DE)) ||
-      min(temp.DE[temp.DE > 0], na.rm = TRUE) < method_control$lower_centralD ||
-      max(temp.DE, na.rm = TRUE) > method_control$upper_centralD) {
+      min(temp.DE[temp.DE > 0], na.rm = TRUE) < lower_centralD ||
+      max(temp.DE, na.rm = TRUE) > upper_centralD) {
       .throw_warning("Your lower_centralD and/or upper_centralD values ",
-                     "seem not to fit to your input data, this may indicate ",
+                     "seem not to fit to your input data, which may indicate ",
                      "an incorrect 'source_doserate'")
     }
 
@@ -1685,6 +1660,8 @@ analyse_baSAR <- function(
       fit.force_through_origin = fit.force_through_origin,
       fit.includingRepeatedRegPoints = fit.includingRepeatedRegPoints,
       method_control = method_control,
+      lower_centralD = lower_centralD,
+      upper_centralD = upper_centralD,
       baSAR_model = baSAR_model,
       verbose = verbose
     ), outFile = stdout()) # redirect error messages so they can be silenced
@@ -2092,7 +2069,7 @@ analyse_baSAR <- function(
             nrow(input_object),
             " (removed are NA values)"
           )
-        )))
+        )), outFile = stdout()) # redirect error messages so they can be silenced
 
         if (!inherits(plot_check, "try-error")) {
           abline(v = results[[1]]$CENTRAL, lty = 2)

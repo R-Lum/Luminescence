@@ -49,6 +49,21 @@ test_that("input validation", {
                              signal_integral = 1:2),
                "'background_integral' should be of class 'integer', 'numeric' or 'list'")
 
+  expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
+                             signal_integral = 1:2, background_integral = 70:90,
+                             method_control = list(lower_centralD = -2)),
+               "'lower_centralD' in 'method_control' should be a single non-negative")
+  expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
+                             signal_integral = 1:2, background_integral = 70:90,
+                             method_control = list(upper_centralD = list())),
+               "'upper_centralD' in 'method_control' should be a single non-negative")
+  expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
+                             signal_integral = 1:2,
+                             background_integral = 70:90,
+                             distribution = "user_defined",
+                             method_control = list(lower_centralD = 2000)),
+               "'upper_centralD' in 'method_control' must be greater")
+
   ## CSV_file
   csv.file <- tempfile()
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
@@ -108,11 +123,11 @@ test_that("input validation", {
   expect_error(suppressWarnings(
       analyse_baSAR(obj, signal_integral = 1:2, background_integral = 80:100,
                     verbose = TRUE)),
-      "No records of the appropriate type were found")
+      "No records of the appropriate type found")
   expect_error(suppressWarnings(
       analyse_baSAR(obj, signal_integral = 1:2, background_integral = 80:100,
                     recordType = "NONE", verbose = TRUE)),
-    "No records of the appropriate type were found")
+    "No records of the appropriate type found")
 
   empty <- CWOSL.sub
   empty@METADATA <- empty@METADATA[integer(0), ]
@@ -125,16 +140,11 @@ test_that("input validation", {
       "All provided objects were removed")
   })
 
-  expect_warning(expect_output(
-      analyse_baSAR(CWOSL.sub, verbose = FALSE,
-                    source_doserate = c(0.04, 0.001),
-                    signal_integral = 1:2,
-                    background_integral = 80:100,
-                    fit.method = "LIN", fit.force_through_origin = FALSE,
-                    distribution = "error"),
-      "[analyse_baSAR()] No pre-defined model for the requested distribution",
-      fixed = TRUE),
-      "Only multiple grain data provided, automatic selection skipped")
+  expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
+                             signal_integral = 1:2,
+                             background_integral = 80:100,
+                             distribution = "error"),
+               "'distribution' should be one of 'cauchy', 'normal', 'log_normal' or")
 
   expect_warning(expect_output(
       analyse_baSAR(CWOSL.sub, verbose = FALSE,
@@ -402,6 +412,18 @@ test_that("Full check of analyse_baSAR function", {
       verbose = TRUE,
       n.MCMC = 100),
       "'Nb_aliquots' corrected due to NaN or Inf values")
+
+  data(ExampleData.Al2O3C, envir = environment())
+  expect_output(expect_warning(analyse_baSAR(
+      object = list(data_CrossTalk[[1]][1:4], data_ITC),
+      source_doserate = c(0.04, 0.001),
+      signal_integral = 1:2,
+      background_integral = 80:99,
+      fit.method = "EXP",
+      n.MCMC = 100, irradiation_times = c(1, 2, 3)),
+      "The number of dose points differs across your data set"),
+      "Error : [calc_Statistics()] 'data' cannot be an empty data.frame",
+      fixed = TRUE)
   })
 
   CWOSL.mod <- CWOSL.sub
@@ -570,7 +592,7 @@ test_that("regression tests", {
                     method_control = list(n.chains = 1),
                     n.MCMC = 60),
       "Only multiple grain data provided, automatic selection skipped"),
-      "this may indicate an incorrect 'source_doserate'")
+      "which may indicate an incorrect 'source_doserate'")
   )
 
   ## check parameters irradiation times
