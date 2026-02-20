@@ -27,7 +27,7 @@
 #'
 #' **Background subtraction**
 #'
-#' When a background signal is provided with the `values.bg` argument, the
+#' When a background signal is provided with the `object.bg` argument, the
 #' user can choose among three methods for background subtraction by setting
 #' the `bg.subtraction` argument to one of these:
 #'
@@ -42,7 +42,7 @@
 #' - `"channel"`: the measured background signal is subtracted channel-wise
 #' from the measured signal.
 #'
-#' - `"none"`: this disables background subtraction even if `values.bg` is
+#' - `"none"`: this disables background subtraction even if `object.bg` is
 #' provided.
 #'
 #' **Start values**
@@ -86,10 +86,10 @@
 #'
 #' *For more details on the nonlinear regression in R, see Ritz & Streibig (2008).*
 #'
-#' @param values [Luminescence::RLum.Data.Curve-class] or [data.frame] (**required**):
+#' @param object [Luminescence::RLum.Data.Curve-class] or [data.frame] (**required**):
 #' x,y data of measured values (time and counts).
 #'
-#' @param values.bg [Luminescence::RLum.Data.Curve-class] or [data.frame] (*optional*):
+#' @param object.bg [Luminescence::RLum.Data.Curve-class] or [data.frame] (*optional*):
 #' x,y data of measured values (time and counts) for background subtraction.
 #'
 #' @param n.components [integer] (*with default*):
@@ -129,7 +129,7 @@
 #' @param bg.subtraction [character] (*with default*):
 #' specifies method for background subtraction (one of `"polynomial"`,
 #' `"linear"`, `"channel"`, or `"none"`, see Details). Only considered if
-#' `values.bg` is specified.
+#' `object.bg` is specified.
 #'
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
@@ -194,7 +194,7 @@
 #' global minimum rather than a local minimum! In any case of doubt, the use of
 #' manual start values is highly recommended.
 #'
-#' @section Function version: 0.3.7
+#' @section Function version: 0.3.8
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -226,29 +226,29 @@
 #'
 #' ##(1) fit LM data without background subtraction
 #' data(ExampleData.FittingLM, envir = environment())
-#' fit_LMCurve(values = values.curve, n.components = 3, log = "x")
+#' fit_LMCurve(values.curve, n.components = 3, log = "x")
 #'
 #' ##(2) fit LM data with background subtraction and export as JPEG
 #' ## -alter file path for your preferred system
 #' ##jpeg(file = "~/Desktop/Fit_Output\%03d.jpg", quality = 100,
 #' ## height = 3000, width = 3000, res = 300)
 #' data(ExampleData.FittingLM, envir = environment())
-#' fit_LMCurve(values = values.curve, values.bg = values.curveBG,
+#' fit_LMCurve(values.curve, object.bg = values.curveBG,
 #'             n.components = 2, log = "x", plot.BG = TRUE)
 #' ##dev.off()
 #'
 #' ##(3) fit LM data with manual start parameters
 #' data(ExampleData.FittingLM, envir = environment())
-#' fit_LMCurve(values = values.curve,
-#'             values.bg = values.curveBG,
+#' fit_LMCurve(values.curve,
+#'             object.bg = values.curveBG,
 #'             n.components = 3,
 #'             log = "x",
 #'             start_values = data.frame(Im = c(170,25,400), xm = c(56,200,1500)))
 #'
 #' @export
 fit_LMCurve<- function(
-  values,
-  values.bg,
+  object,
+  object.bg,
   n.components = 3,
   start_values = NULL,
   input.dataType = "LM",
@@ -272,41 +272,52 @@ fit_LMCurve<- function(
   .set_function_name("fit_LMCurve")
   on.exit(.unset_function_name(), add = TRUE)
 
+  ## deprecated arguments
+  if ("values" %in% ...names()) {
+    object <- list(...)$values
+    .deprecated(old = "values", new = "object", since = "1.2.0")
+  }
+  if ("values.bg" %in% ...names()) {
+    object.bg <- list(...)$values.bg
+    .deprecated(old = "values.bg", new = "object.bg", since = "1.2.0")
+  }
+
   ## Integrity checks -------------------------------------------------------
 
   ##(1) data.frame or RLum.Data.Curve object?
-  .validate_class(values, c("data.frame", "RLum.Data.Curve"))
-  .validate_not_empty(values)
+  .validate_class(object, c("data.frame", "RLum.Data.Curve"))
+  .validate_not_empty(object)
 
-  if (inherits(values, "RLum.Data.Curve")) {
-    if (!values@recordType %in% c("RBR", "LM-OSL")) {
+  if (inherits(object, "RLum.Data.Curve")) {
+    if (!object@recordType %in% c("RBR", "LM-OSL")) {
       .throw_error("recordType should be 'RBR' or 'LM-OSL'. ",
                    "Consider using `as(object, 'data.frame')` if you ",
                    "have used a pseudo transformation function")
     }
 
-    values <- as(values,"data.frame")
+    object <- as(object,"data.frame")
   }
-  if (ncol(values) < 2) {
-    .throw_error("'values' should have 2 columns")
+  if (ncol(object) < 2) {
+    .throw_error("'object' should have 2 columns")
   }
 
   ##(2) data.frame or RLum.Data.Curve object?
-  if (!missing(values.bg)) {
-    .validate_class(values.bg, c("data.frame", "RLum.Data.Curve"))
+  if (!missing(object.bg)) {
+    .validate_class(object.bg, c("data.frame", "RLum.Data.Curve"))
 
-    if (inherits(values.bg, "RLum.Data.Curve") && (is.na(values.bg@recordType) || values.bg@recordType != "RBR"))
-      .throw_error("'recordType' for values.bg should be 'RBR'!")
+    if (inherits(object.bg, "RLum.Data.Curve") &&
+        (is.na(object.bg@recordType) || object.bg@recordType != "RBR"))
+      .throw_error("'recordType' for 'object.bg' should be 'RBR'")
 
-    if (inherits(values.bg, "RLum.Data.Curve"))
-      values.bg <- as(values.bg, "data.frame")
+    if (inherits(object.bg, "RLum.Data.Curve"))
+      object.bg <- as(object.bg, "data.frame")
 
     ## check if length of bg and signal is consistent
-    if (nrow(values) != nrow(values.bg))
-      .throw_error("'values' and 'values.bg' have different lengths")
+    if (nrow(object) != nrow(object.bg))
+      .throw_error("'object' and 'object.bg' have different lengths")
 
-    ## silently limit columns of values.bg to prevent problems
-    values.bg <- values.bg[,1:2]
+    ## silently limit columns of object.bg to prevent problems
+    object.bg <- object.bg[, 1:2]
   }
 
   .validate_positive_scalar(n.components, int = TRUE)
@@ -322,13 +333,16 @@ fit_LMCurve<- function(
   .validate_class(method_control, "list")
 
   ## remove missing values
+  values <- object
+  if (!missing(object.bg))
+    values.bg <- object.bg
   if (anyNA(values)) {
     na.idx <- unique(which(is.na(values), arr.ind = TRUE)[, 1])
     values <- values[-na.idx, ]
-    if (!missing(values.bg))
+    if (!missing(object.bg))
       values.bg <- values.bg[-na.idx, ]
   }
-  if (!missing(values.bg) && anyNA(values.bg)) {
+  if (!missing(object.bg) && anyNA(object.bg)) {
     na.idx <- unique(which(is.na(values.bg), arr.ind = TRUE)[, 1])
     values <- values[-na.idx, ]
     values.bg <- values.bg[-na.idx, ]
@@ -371,7 +385,7 @@ fit_LMCurve<- function(
   ##============================================================================##
   ##  BACKGROUND SUBTRACTION
   ##============================================================================##
-  if (!missing(values.bg) && bg.subtraction != "none") {
+  if (!missing(object.bg) && bg.subtraction != "none") {
     if (bg.subtraction %in% c("polynomial", "linear")) {
       if (bg.subtraction == "polynomial") {
         ## fit polynomial function to background

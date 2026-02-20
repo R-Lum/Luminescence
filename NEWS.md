@@ -259,7 +259,7 @@ More information on these changes are available at
   which case the function performs an automatic conversion to channels
   (#1396).
 
-## `analyse_SAR.TL()`
+### `analyse_SAR.TL()`
 
 - Argument `signal.integral` has been renamed to `signal_integral`. The
   older name will still work but generate a deprecation warning (#1290).
@@ -275,6 +275,11 @@ More information on these changes are available at
 - The function no longer produces an invalid object when the
   interpolation range is outside of the wavelength range of the
   RLum.Data.Spectrum object (#1402).
+
+## `calc_CobbleDoseRate()`
+
+- Argument `input` has been renamed to `object`. The older name will
+  still work but generates a deprecation warning (#1434).
 
 ### `calc_CommonDose()`
 
@@ -383,11 +388,26 @@ More information on these changes are available at
   `NaN` values even in cases where dead time was not corrected; fixed
   (#1d978cf).
 
-## `convert_SG2MG()`
+### `convert_Concentration2DoseRate()`
+
+- Argument `input` has been renamed to `object`. The older name will
+  still work but generates a deprecation warning (#1434).
+
+### `convert_CW2p*()`
+
+- Argument `values` has been renamed to `object`. The older name will
+  still work but generates a deprecation warning (#1434).
+
+### `convert_SG2MG()`
 
 - The function crashed if used on an object resulting from a subset
   operation, as it used the rownames (which may no longer correspond to
   row indices) to index into the `METADATA` slot (#1415).
+
+### `fit_CWCurve()`
+
+- Argument `values` has been renamed to `object`. The older name will
+  still work but generates a deprecation warning (#1434).
 
 ### `fit_DoseResponseCurve()`
 
@@ -402,6 +422,12 @@ More information on these changes are available at
 
 - The function now consistently returns the material specific parameter
   `R` for `OTOR` and `OTORX` and its uncertainty (9b4d6bd).
+
+### `fit_LMCurve()`
+
+- Arguments `values` and `values.bg` have been renamed to `object` and
+  `object.bg`, respectively. The older names will still work but
+  generate a deprecation warning (#1434).
 
 ### `get_RLum()`
 
@@ -432,6 +458,11 @@ More information on these changes are available at
   latter is used, the integrals can be specified in terms of seconds, in
   which case the function performs an automatic conversion to channels
   (#1396).
+
+## `plot_DRTResults()`
+
+- Argument `values` has been renamed to `object`. The older name will
+  still work but generates a deprecation warning (#1434).
 
 ### `plot_RLum.Analysis()`
 
@@ -469,6 +500,11 @@ More information on these changes are available at
 
 - If the functions was used on a shiny server, the plot showed only
   after the app was closed; fixed (#c27a656).
+
+### `plot_GrowthCurve()`
+
+- Argument `sample` has been renamed to `object`. The older name will
+  still work but generates a deprecation warning (#1434).
 
 ### `plot_RadialPlot()`
 

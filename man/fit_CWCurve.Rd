@@ -5,7 +5,7 @@
 \title{Non-linear Least Squares Fit for CW-OSL curves -beta version-}
 \usage{
 fit_CWCurve(
-  values,
+  object,
   n.components.max = 7,
   fit.failure_threshold = 5,
   fit.method = "port",
@@ -23,8 +23,8 @@ fit_CWCurve(
 )
 }
 \arguments{
-\item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
-x, y data of measured values (time and counts). See examples.}
+\item{object}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
+x, y data of measured values (time and counts).}
 
 \item{n.components.max}{\link{vector} (\emph{optional}):
 maximum number of components that are to be used for fitting.
@@ -163,7 +163,7 @@ The function \strong{does not} ensure that the fitting procedure has reached a
 global minimum rather than a local minimum!
 }
 \section{Function version}{
- 0.5.5
+ 0.5.6
 }
 
 \examples{
@@ -172,7 +172,7 @@ global minimum rather than a local minimum!
 data(ExampleData.CW_OSL_Curve, envir = environment())
 
 ##fit data
-fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
+fit <- fit_CWCurve(ExampleData.CW_OSL_Curve,
                    main = "CW Curve Fit",
                    n.components.max = 4,
                    log = "x")

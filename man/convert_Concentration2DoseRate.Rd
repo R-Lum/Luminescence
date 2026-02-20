@@ -4,29 +4,33 @@
 \alias{convert_Concentration2DoseRate}
 \title{Dose-rate conversion function}
 \usage{
-convert_Concentration2DoseRate(input, conversion = "Guerinetal2011")
+convert_Concentration2DoseRate(object, conversion = "Guerinetal2011", ...)
 }
 \arguments{
-\item{input}{\link{data.frame} (\emph{optional}): a table containing all relevant
-information for each individual layer. If nothing is provided, the function
-returns a template data frame, the values of which need to be filled in by
-the user. Please note that only one dataset per input is supported.}
+\item{object}{\link{data.frame} (\emph{optional}):
+a data frame containing all relevant information for each individual layer.
+If nothing is provided, the function returns a template data frame, the
+values of which should be filled in by the user. Please note that only one
+dataset per input is supported.}
 
 \item{conversion}{\link{character} (\emph{with default}):
 dose rate conversion factors to use, by default those by Guérin et al. (2011).
 For accepted values see \link{BaseDataSet.ConversionFactors}.}
+
+\item{...}{currently not used.}
 }
 \value{
-The function returns an \linkS4class{RLum.Results} object for which the first
-element is \link{matrix} with the converted values. If no input is provided, the
-function returns a template \link{data.frame} that can be used as input.
+The function returns an \linkS4class{RLum.Results} object for which
+the first element is a \link{matrix} with the converted values. If no input is
+provided, the function returns a template \link{data.frame} that can be used as
+input.
 }
 \description{
-This function converts radionuclide concentrations
-(K in \%, Th and U in ppm) into dose rates (Gy/ka). Beta-dose rates are also
-attenuated for the grain size. Beta and gamma-dose rates are corrected
-for the water content. This function converts concentrations into dose rates
-(Gy/ka) and corrects for grain size attenuation and water content
+This function converts radionuclide concentrations (K in \%, Th and U in ppm)
+into dose rates (Gy/ka). Beta-dose rates are also attenuated for the grain
+size. Beta and gamma-dose rates are corrected for the water content. This
+function converts concentrations into dose rates (Gy/ka) and corrects for
+grain size attenuation and water content.
 
 Dose rate conversion factors can be chosen from Adamiec and Aitken (1998),
 Guérin et al. (2011), Liritzis et al. (201) and Cresswell et al. (2018).
@@ -63,7 +67,7 @@ The water content provided by the user should be calculated according to:
 The unit for the weight is gram (g).
 }
 \section{Function version}{
- 0.1.0
+ 0.1.1
 }
 
 \examples{

@@ -7,11 +7,11 @@ test_that("input validation", {
 
   df$Distance[[14]] <- 50000
   expect_error(calc_CobbleDoseRate("error"),
-               "'input' should be of class 'data.frame'")
+               "'object' should be of class 'data.frame'")
   expect_error(calc_CobbleDoseRate(data.frame()),
-               "'input' cannot be an empty data.frame")
+               "'object' cannot be an empty data.frame")
   expect_error(calc_CobbleDoseRate(iris),
-               "'input' doesn't contain the following columns:")
+               "'object' doesn't contain the following columns:")
   expect_error(calc_CobbleDoseRate(df),
                "Slices outside of cobble: please ensure your distances are in mm")
 
@@ -47,4 +47,8 @@ test_that("more coverage", {
   df <- df[1:9, ]
   expect_s4_class(calc_CobbleDoseRate(df),
                   "RLum.Results")
+
+  ## deprecated argument
+  expect_warning(calc_CobbleDoseRate(input = df),
+                 "'input' was deprecated in v1.2.0, use 'object' instead")
 })

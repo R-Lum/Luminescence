@@ -69,7 +69,7 @@ test_that("input validation", {
   ## do not include reg point
   expect_s4_class(
     plot_GrowthCurve(
-      sample = LxTxData,
+      LxTxData,
       verbose = FALSE,
       fit.includingRepeatedRegPoints = FALSE),
     class = "RLum.Results")
@@ -79,6 +79,9 @@ test_that("input validation", {
       plot_GrowthCurve(LxTxData, verbose = FALSE,
                        output.plotExtended.single = TRUE),
       "'output.plotExtended.single' was deprecated in v1.0.0, use 'plot_singlePanels'")
+  expect_warning(
+      plot_GrowthCurve(sample = LxTxData, verbose = FALSE),
+      "'sample' was deprecated in v1.2.0, use 'object' instead")
 })
 
 test_that("main tests", {

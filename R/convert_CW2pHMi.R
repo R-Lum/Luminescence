@@ -90,7 +90,7 @@
 #' the values are removed and no further interpolation is attempted.
 #' In every case a warning message is shown.
 #'
-#' @section Function version: 0.2.3
+#' @section Function version: 0.2.4
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -192,39 +192,46 @@
 #'
 #' @export
 convert_CW2pHMi<- function(
-  values,
-  delta = NULL
+  object,
+  delta = NULL,
+  ...
 ) {
   .set_function_name("convert_CW2pHMi")
   on.exit(.unset_function_name(), add = TRUE)
 
+  ## deprecated argument
+  if ("values" %in% ...names()) {
+    object <- list(...)$values
+    .deprecated(old = "values", new = "object", since = "1.2.0")
+  }
+
   ## Integrity checks -------------------------------------------------------
 
   ##(1) data.frame or RLum.Data.Curve object?
-  .validate_class(values, c("data.frame", "RLum.Data.Curve"))
-  .validate_not_empty(values)
-  if (ncol(values) < 2) {
-    .throw_error("'values' should have 2 columns")
+  .validate_class(object, c("data.frame", "RLum.Data.Curve"))
+  .validate_not_empty(object)
+  if (ncol(object) < 2) {
+    .throw_error("'object' should have 2 columns")
   }
 
   ##(2) if the input object is an 'RLum.Data.Curve' object check for allowed curves
-  if (inherits(values, "RLum.Data.Curve")) {
-    if(!grepl("OSL", values@recordType) & !grepl("IRSL", values@recordType)){
+  if (inherits(object, "RLum.Data.Curve")) {
+    if(!grepl("OSL", object@recordType) & !grepl("IRSL", object@recordType)){
 
-      .throw_error("recordType ", values@recordType,
+      .throw_error("recordType ", object@recordType,
                    " is not allowed for the transformation")
     }
 
-    temp.values <- as(values, "data.frame")
+    temp.values <- as(object, "data.frame")
 
   }else{
-    temp.values <- values
+    temp.values <- object
   }
 
   ## remove NAs
   temp.values <- na.exclude(temp.values)
   if (nrow(temp.values) < 2) {
-    .throw_error("'values' should have at least 2 non-missing values")
+    .throw_error("'object' should have at least 2 non-missing values")
   }
   .validate_class(delta, "numeric", null.ok = TRUE)
   if (anyNA(delta)) {
@@ -332,18 +339,18 @@ convert_CW2pHMi<- function(
   # (5) Return values ---------------------------------------------------------
 
   ##returns the same data type as the input
-  if (is.data.frame(values)) {
+  if (is.data.frame(object)) {
     return(temp.values)
   }
 
     ##add old info elements to new info elements
-    temp.info <- c(values@info,
+    temp.info <- c(object@info,
                    CW2pHMi.x.t = list(temp.values$x.t),
                    CW2pHMi.method = list(temp.values$method))
 
   set_RLum(
       class = "RLum.Data.Curve",
-      recordType = values@recordType,
+      recordType = object@recordType,
       data = as.matrix(temp.values[,1:2]),
       info = temp.info)
 }

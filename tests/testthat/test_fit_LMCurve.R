@@ -5,21 +5,21 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(fit_LMCurve("error"),
-               "'values' should be of class 'data.frame' or 'RLum.Data.Curve'")
+               "'object' should be of class 'data.frame' or 'RLum.Data.Curve'")
   expect_error(fit_LMCurve(data.frame()),
-               "'values' cannot be an empty data.frame")
+               "'object' cannot be an empty data.frame")
   expect_error(fit_LMCurve(iris[, 1, drop = FALSE]),
-               "'values' should have 2 columns")
+               "'object' should have 2 columns")
   expect_error(fit_LMCurve(set_RLum("RLum.Data.Curve")),
                "recordType should be 'RBR' or 'LM-OSL'")
   expect_error(fit_LMCurve(set_RLum("RLum.Data.Curve", recordType = "OSL")),
                "recordType should be 'RBR' or 'LM-OSL'")
-  expect_error(fit_LMCurve(values.curve, values.bg = "error"),
-               "'values.bg' should be of class 'data.frame' or 'RLum.Data.Curve'")
+  expect_error(fit_LMCurve(values.curve, object.bg = "error"),
+               "'object.bg' should be of class 'data.frame' or 'RLum.Data.Curve'")
   expect_error(fit_LMCurve(set_RLum("RLum.Data.Curve", recordType = "LM-OSL"),
-                           values.bg = values.curveBG),
-               "'values' and 'values.bg' have different lengths")
-  expect_error(fit_LMCurve(values.curve, values.bg = values.curveBG,
+                           object.bg = values.curveBG),
+               "'object' and 'object.bg' have different lengths")
+  expect_error(fit_LMCurve(values.curve, object.bg = values.curveBG,
                            bg.subtraction = "error"),
                "'bg.subtraction' should be one of 'polynomial', 'linear', 'channel'")
   expect_error(fit_LMCurve(values.curve, n.components = "error"),
@@ -27,18 +27,26 @@ test_that("input validation", {
   expect_error(fit_LMCurve(values.curve, input.dataType = "error"),
                "'input.dataType' should be one of 'LM' or 'pLM'")
   expect_error(fit_LMCurve(
-    values = values.curve,
-    values.bg = set_RLum("RLum.Data.Curve", data = as.matrix(values.curve), recordType = "OSL"),
+    values.curve,
+    object.bg = set_RLum("RLum.Data.Curve", data = as.matrix(values.curve), recordType = "OSL"),
     verbose = FALSE),
-               "'recordType' for values.bg should be 'RBR'!")
+               "'recordType' for 'object.bg' should be 'RBR'")
   expect_error(fit_LMCurve(data.frame(NA, 1:5)),
                "After NA removal, nothing is left from the data set")
 
   ## warning for failed confint ...skip on windows because with R >= 4.2 is does not fail anymore
   # SW({
   # if (!grepl(pattern = "mingw", sessionInfo()$platform) && !grepl(pattern = "linux", sessionInfo()$platform))
-  #   fit_LMCurve(values = values.curve, fit.calcError = TRUE)
+  #   fit_LMCurve(values.curve, fit.calcError = TRUE)
   # })
+
+  ## deprecated argument
+  SW({
+  expect_warning(fit_LMCurve(values = values.curve, fit.calcError = TRUE),
+                 "'values' was deprecated in v1.2.0, use 'object' instead")
+  expect_warning(fit_LMCurve(values.curve, values.bg = values.curveBG),
+                 "'values.bg' was deprecated in v1.2.0, use 'object.bg' instead")
+  })
 })
 
 test_that("snapshot tests", {
@@ -48,7 +56,7 @@ test_that("snapshot tests", {
 
   SW({
   set.seed(1)
-  fit <- fit_LMCurve(values.curve, values.bg = values.curveBG,
+  fit <- fit_LMCurve(values.curve, object.bg = values.curveBG,
                      n.components = 3, log = "x",
                      method_control = list(
                          export.comp.contrib.matrix = TRUE),
@@ -58,8 +66,8 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(fit, tolerance = snapshot.tolerance)
 
   SW({
-  fit2 <- fit_LMCurve(values = values.curve,
-                      values.bg = values.curveBG,
+  fit2 <- fit_LMCurve(values.curve,
+                      object.bg = values.curveBG,
                       n.components = 3,
                       log = "x",
                       method_control = list(
@@ -70,21 +78,21 @@ test_that("snapshot tests", {
 
   SW({
   expect_message(expect_warning(
-      fit <- fit_LMCurve(values.curve, values.bg = values.curveBG,
+      fit <- fit_LMCurve(values.curve, object.bg = values.curveBG,
                          n.components = 6, fit.method = "port"),
       "`fit.method = 'port'` is deprecated, fitting always occurs with the 'LM'"),
       "Error: Fitting failed, plot without fit produced")
   expect_equal(fit@data$component_matrix, NA)
 
   set.seed(1)
-  expect_snapshot_RLum(fit_LMCurve(values.curve, values.bg = values.curveBG,
+  expect_snapshot_RLum(fit_LMCurve(values.curve, object.bg = values.curveBG,
                                    method_control = list(
                                        export.comp.contrib.matrix = TRUE),
                                    plot.BG = TRUE, bg.subtraction = "linear"),
                        tolerance = snapshot.tolerance)
 
   suppressWarnings(
-      expect_warning(fit_LMCurve(values.curve, values.bg = values.curveBG,
+      expect_warning(fit_LMCurve(values.curve, object.bg = values.curveBG,
                                  n.components = 4, fit.calcError = TRUE),
                  "The computation of the parameter confidence intervals failed")
   )
@@ -103,13 +111,13 @@ test_that("snapshot tests", {
 
   SW({
   skip_on_os("mac")
-  expect_snapshot_RLum(fit_LMCurve(values.curve, values.bg = values.curveBG,
+  expect_snapshot_RLum(fit_LMCurve(values.curve, object.bg = values.curveBG,
                                    xlim = c(0, 4000), ylim = c(0, 600), cex = 0.9,
                                    method_control = list(
                                        export.comp.contrib.matrix = TRUE),
                                    fit.calcError = TRUE),
                        tolerance = snapshot.tolerance)
-  expect_snapshot_RLum(fit_LMCurve(values.curve, values.bg = values.curveBG,
+  expect_snapshot_RLum(fit_LMCurve(values.curve, object.bg = values.curveBG,
                                    plot.BG = TRUE, input.dataType = "pLM",
                                    method_control = list(
                                        export.comp.contrib.matrix = TRUE),
@@ -144,10 +152,10 @@ test_that("regression tests", {
   values.na <- values.curve
   values.na[c(5, 25), ] <- NA
   expect_silent(fit_LMCurve(values.na, verbose = FALSE))
-  expect_silent(fit_LMCurve(values.na, values.bg = values.curveBG, verbose = FALSE))
+  expect_silent(fit_LMCurve(values.na, object.bg = values.curveBG, verbose = FALSE))
 
   ## issue 763
   values.na <- values.curveBG
   values.na[c(5, 25), ] <- NA
-  expect_silent(fit_LMCurve(values.curve, values.bg = values.na, verbose = FALSE))
+  expect_silent(fit_LMCurve(values.curve, object.bg = values.na, verbose = FALSE))
 })

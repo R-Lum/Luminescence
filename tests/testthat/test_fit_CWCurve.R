@@ -11,15 +11,15 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(fit_CWCurve("error"),
-               "'values' should be of class 'RLum.Data.Curve' or 'data.frame'")
+               "'object' should be of class 'RLum.Data.Curve' or 'data.frame'")
   expect_error(fit_CWCurve(data.frame()),
-               "'values' cannot be an empty data.frame")
+               "'object' cannot be an empty data.frame")
   expect_error(fit_CWCurve(iris[, 1, drop = FALSE]),
-               "'values' should have 2 columns")
+               "'object' should have 2 columns")
   expect_error(fit_CWCurve(data.frame(a = 1:10, b = NA)),
-               "'values' contains no positive counts")
+               "'object' contains no positive counts")
   expect_error(fit_CWCurve(set_RLum("RLum.Data.Curve")),
-               "'values' contains no positive counts")
+               "'object' contains no positive counts")
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, fit.method = "error"),
                "'fit.method' should be one of 'port' or 'LM'")
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, n.components.max = 0),
@@ -96,6 +96,13 @@ test_that("more coverage", {
                  "Figure margins too large or plot area too small")
   expect_error(fit_CWCurve(data.frame(NA, 1:5)),
                "0 (non-NA) cases", fixed = TRUE)
+
+  ## deprecated argument
+  SW({
+  expect_warning(fit_CWCurve(values = ExampleData.CW_OSL_Curve,
+                             n.components.max = 2),
+                 "'values' was deprecated in v1.2.0, use 'object' instead")
+  })
 })
 
 test_that("regression tests", {
