@@ -56,7 +56,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "net_LnLx", "net_LnLx.Error", "net_TnTx", "net_TnTx.Error", "LxTx", "LxTx.Error"]
+                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "net_LnLx", "net_LnLx.Error", "net_TnTx", "net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -124,6 +124,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [322.15784951, 315.36962441, 220.21876464, 1987.54338496, 152.20183667, 451.9334645, 167.47955058, 322.15784951, 315.36962441, 220.21876464, 1987.54338496, 152.20183667, 451.9334645, 167.47955058]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [9.23809524, 35.76923077, 98.03225806, 140.45454545, 243.92424242, 1.01960784, 123.3877551, 9.23809524, 35.76923077, 98.03225806, 140.45454545, 243.92424242, 1.01960784, 123.3877551]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [27.8, 45.6, 45.49090909, 71.27027027, 44.04918033, 36.50724638, 48.37037037, 27.8, 45.6, 45.49090909, 71.27027027, 44.04918033, 36.50724638, 48.37037037]
                 },
                 {
                   "type": "double",
@@ -219,7 +229,7 @@
                       "value": ["srcref"]
                     }
                   },
-                  "value": [133, 7, 144, 7, 7, 7, 133, 144]
+                  "value": [137, 7, 147, 7, 7, 7, 137, 147]
                 }
               },
               "value": ["analyse_SAR.TL(object = o, object.background = object.background, ", "    signal_integral = signal_integral, integral_input = integral_input, ", "    sequence.structure = sequence.structure, rejection.criteria = rejection.criteria, ", "    dose.points = dose.points, log = log, ...)"]
@@ -247,7 +257,7 @@
                       "value": ["srcref"]
                     }
                   },
-                  "value": [133, 7, 144, 7, 7, 7, 133, 144]
+                  "value": [137, 7, 147, 7, 7, 7, 137, 147]
                 }
               },
               "value": ["analyse_SAR.TL(object = o, object.background = object.background, ", "    signal_integral = signal_integral, integral_input = integral_input, ", "    sequence.structure = sequence.structure, rejection.criteria = rejection.criteria, ", "    dose.points = dose.points, log = log, ...)"]
@@ -329,7 +339,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "net_LnLx", "net_LnLx.Error", "net_TnTx", "net_TnTx.Error", "LxTx", "LxTx.Error"]
+                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "net_LnLx", "net_LnLx.Error", "net_TnTx", "net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -397,6 +407,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [9831.88240676, 505.28303788, 8827.98669696, 15756.02600879, 26083.14939525, 3959.18877496, 12188.88207632]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [113.90506329, 49.71640212, 80.77969613, 104.78963731, 107.49181548, 1.18322296, 66.17482517]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [48.29381443, 48.63854167, 42.20349345, 37.05564024, 31.79060403, 42.78461538, 39.64951198]
                 },
                 {
                   "type": "double",
@@ -492,7 +512,7 @@
                       "value": ["srcref"]
                     }
                   },
-                  "value": [133, 7, 144, 7, 7, 7, 133, 144]
+                  "value": [137, 7, 147, 7, 7, 7, 137, 147]
                 }
               },
               "value": ["analyse_SAR.TL(object = o, object.background = object.background, ", "    signal_integral = signal_integral, integral_input = integral_input, ", "    sequence.structure = sequence.structure, rejection.criteria = rejection.criteria, ", "    dose.points = dose.points, log = log, ...)"]
@@ -574,7 +594,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "net_LnLx", "net_LnLx.Error", "net_TnTx", "net_TnTx.Error", "LxTx", "LxTx.Error"]
+                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "net_LnLx", "net_LnLx.Error", "net_TnTx", "net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -642,6 +662,16 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null, null, null, null, null, null, null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA", "NA", "NA", "NA", "NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA", "NA", "NA", "NA", "NA", "NA"]
                 },
                 {
                   "type": "double",
@@ -796,7 +826,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "net_LnLx", "net_LnLx.Error", "net_TnTx", "net_TnTx.Error", "LxTx", "LxTx.Error"]
+                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "net_LnLx", "net_LnLx.Error", "net_TnTx", "net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -864,6 +894,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [56.13339986, 13.87017148, 14.51429709, 3.04939799, 31.04841594, 66.11448404, 9.10919912]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.92, 4.6875, 9.28571429, 8.70588235, 10.88888889, 1.42105263, 9.35714286]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [7.61538462, 7.53846154, 5.10526316, 5.3125, 7.27272727, 9.5, 5.29411765]
                 },
                 {
                   "type": "double",
@@ -1013,7 +1053,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "net_LnLx", "net_LnLx.Error", "net_TnTx", "net_TnTx.Error", "LxTx", "LxTx.Error"]
+                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "net_LnLx", "net_LnLx.Error", "net_TnTx", "net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -1081,6 +1121,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [9831.88240676, 505.28303788, 8827.98669696, 15756.02600879, 26083.14939525, 3959.18877496, 12188.88207632]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [113.90506329, 49.71640212, 80.77969613, 104.78963731, 107.49181548, 1.18322296, 66.17482517]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [48.29381443, 48.63854167, 42.20349345, 37.05564024, 31.79060403, 42.78461538, 39.64951198]
                 },
                 {
                   "type": "double",

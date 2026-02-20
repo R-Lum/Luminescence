@@ -19,7 +19,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "net_LnLx", "net_LnLx.Error", "net_TnTx", "net_TnTx.Error", "LxTx", "LxTx.Error"]
+                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "net_LnLx", "net_LnLx.Error", "net_TnTx", "net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
                 },
                 "class": {
                   "type": "character",
@@ -72,6 +72,16 @@
                   "type": "double",
                   "attributes": {},
                   "value": [21449.71659826]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [63.18633235]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [27.96398233]
                 },
                 {
                   "type": "double",
@@ -141,7 +151,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "net_LnLx", "net_LnLx.Error", "net_TnTx", "net_TnTx.Error", "LxTx", "LxTx.Error"]
+                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "net_LnLx", "net_LnLx.Error", "net_TnTx", "net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
                 },
                 "class": {
                   "type": "character",
@@ -194,6 +204,16 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",

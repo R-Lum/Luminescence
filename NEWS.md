@@ -37,10 +37,11 @@ More information on these changes are available at
   contains a `name` field: this has been replaced by `sequenceName`, to
   differentiate it from the newly-added `recordName` (#1239, \#1387).
 
-- Functions `calc_OSLLxTxRatio()` and `calc_OSLLxTxDecomposed()` add two
-  new columns to the output, `SN_RATIO_LnLx` and `SN_RATIO_TnTx`. This
-  may disrupt code that relies on column indices instead of column names
-  (#1281, \#1330).
+- Functions `calc_OSLLxTxRatio()`, `calc_OSLLxTxDecomposed()`,
+  `calc_TLLxTxRatio()` and `analyse_SAR.TL()` return two extra columns,
+  `SN_RATIO_LnLx` and `SN_RATIO_TnTx`, in their result object. This may
+  disrupt code that relies on column indices instead of column names
+  (#1281, \#1330, \#1436).
 
 ## New functions
 

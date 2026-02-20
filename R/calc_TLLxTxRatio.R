@@ -50,13 +50,17 @@
 #' .. $ TnTx.BG
 #' .. $ Net_LnLx
 #' .. $ Net_LnLx.Error
+#' .. $ SN_RATIO_LnLx
+#' .. $ SN_RATIO_TnTx
+#' .. $ LxTx
+#' .. $ LxTx.Error
 #' ```
 #'
 #' @note
 #' **This function has still BETA status!** Please further note that a similar
 #' background for both curves results in a zero error and is therefore set to `NA`.
 #'
-#' @section Function version: 0.3.6
+#' @section Function version: 0.3.7
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
@@ -210,6 +214,8 @@ calc_TLLxTxRatio <- function(
       net_LnLx.Error,
       net_TnTx,
       net_TnTx.Error,
+      SN_RATIO_LnLx = LnLx / LnLx.BG,
+      SN_RATIO_TnTx = TnTx / TnTx.BG,
       LxTx,
       LxTx.Error
     )
