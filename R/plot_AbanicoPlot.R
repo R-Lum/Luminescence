@@ -511,7 +511,7 @@ plot_AbanicoPlot <- function(
   }
   ##(2)
   ##check for sets with only 1 row or 0 rows at all
-  else if (any(sapply(data, nrow) < 2)) {
+  if (any(sapply(data, nrow) < 2)) {
     ##select problematic sets and remove the entries from the list
     NArm.id <- which(sapply(data, nrow) <= 1)
     data[NArm.id] <- NULL
@@ -804,8 +804,8 @@ plot_AbanicoPlot <- function(
   ylab <- extraArgs$ylab %||% "Standardised estimate"
   zlab <- extraArgs$zlab %||% expression(D[e] * " " * "[Gy]")
 
-  if ("zlim" %in% names(extraArgs) && !is.null(extraArgs$zlim)) {
-    limits.z <- extraArgs$zlim
+  limits.z <- extraArgs$zlim
+  if (!is.null(limits.z)) {
     .validate_class(limits.z, "numeric", name = "'zlim'")
     if (log.z && any(limits.z <= 0)) {
       .throw_error("'zlim' should only contain positive values when 'log.z = TRUE'")
@@ -817,8 +817,8 @@ plot_AbanicoPlot <- function(
                   (1.1 + z.span) * max(data.global[[1]]))
   }
 
-  if ("xlim" %in% names(extraArgs) && !is.null(extraArgs$xlim)) {
-    limits.x <- extraArgs$xlim
+  limits.x <- extraArgs$xlim
+  if (!is.null(limits.x)) {
     .validate_class(limits.x, "numeric", name = "'xlim'")
     if (limits.x[1] != 0) {
       .throw_warning("Lower x-axis limit was ", limits.x[1], ", reset to zero")
@@ -828,8 +828,8 @@ plot_AbanicoPlot <- function(
     limits.x <- c(0, max(data.global[,6]) * 1.05)
   }
 
-  if ("ylim" %in% names(extraArgs) && !is.null(extraArgs$ylim)) {
-    limits.y <- extraArgs$ylim
+  limits.y <- extraArgs$ylim
+  if (!is.null(limits.y)) {
     .validate_class(limits.y, "numeric", name = "'ylim'")
   } else {
     y.span <- (mean(data.global[,1]) * 10) / (sd(data.global[,1]) * 100)
