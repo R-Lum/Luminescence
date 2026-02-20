@@ -5,19 +5,21 @@
 \title{Transform a CW-OSL curve into a pHM-OSL curve via interpolation under
 hyperbolic modulation conditions}
 \usage{
-convert_CW2pHMi(values, delta = NULL)
+convert_CW2pHMi(object, delta = NULL, ...)
 }
 \arguments{
-\item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
+\item{object}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
 \linkS4class{RLum.Data.Curve} object or a \code{data.frame} with measured
-curve data of type stimulation time (t) (\code{values[, 1]}) and measured counts
-(cts) (\code{values[, 2]}).}
+curve data of type stimulation time (t) (\code{object[, 1]}) and measured counts
+(cts) (\code{object[, 2]}).}
 
 \item{delta}{\link{vector} (\emph{optional}):
 stimulation rate parameter, if no value is given, the optimal value is
 estimated automatically (see details). Smaller values of delta produce more
 points in the rising tail of
 the curve.}
+
+\item{...}{currently not used.}
 }
 \value{
 The function returns the same data type as the input data type with
@@ -101,7 +103,7 @@ the values are removed and no further interpolation is attempted.
 In every case a warning message is shown.
 }
 \section{Function version}{
- 0.2.3
+ 0.2.4
 }
 
 \examples{

@@ -13,7 +13,7 @@
 #' this sample.\cr
 #' In the plot the normalised De is shown on the y-axis, i.e. obtained De/Given Dose.
 #'
-#' @param values [Luminescence::RLum.Results-class] or [data.frame] (**required**):
+#' @param object [Luminescence::RLum.Results-class] or [data.frame] (**required**):
 #' input values containing at least De and De error. To plot
 #' more than one data set in one figure, a `list` of the individual data
 #' sets must be provided (e.g. `list(dataset.1, dataset.2)`).
@@ -21,7 +21,7 @@
 #' @param given.dose [numeric] (*optional*):
 #' given dose used for the dose recovery test to normalise data.
 #' If only one given dose is provided, this given dose is valid for all input
-#' data sets (i.e., `values` is a list). Otherwise, a given dose for each input
+#' data sets (i.e., `object` is a list). Otherwise, a given dose for each input
 #' data set has to be provided (e.g., `given.dose = c(100,200)`).
 #' If `given.dose` is `NULL` or 0, the values are plotted without normalisation
 #' (might be useful for preheat plateau tests).
@@ -111,13 +111,13 @@
 #'
 #' ## plot values
 #' plot_DRTResults(
-#'   values = ExampleData.DeValues$BT998[7:11,],
+#'   ExampleData.DeValues$BT998[7:11,],
 #'   given.dose = 2800,
 #'   mtext = "Example data")
 #'
 #' ## plot values with legend
 #' plot_DRTResults(
-#'   values = ExampleData.DeValues$BT998[7:11,],
+#'   ExampleData.DeValues$BT998[7:11,],
 #'   given.dose = 2800,
 #'   legend = "Test data set")
 #'
@@ -126,12 +126,12 @@
 #' x.2 <- ExampleData.DeValues$BT998[7:11,] * c(runif(5, 0.9, 1.1), 1)
 #'
 #' plot_DRTResults(
-#'   values = list(x.1, x.2),
+#'   list(x.1, x.2),
 #'   given.dose = 2800)
 #'
 #' ## some more user-defined plot parameters
 #' plot_DRTResults(
-#'   values = list(x.1, x.2),
+#'   list(x.1, x.2),
 #'   given.dose = 2800,
 #'   pch = c(2, 5),
 #'   col = c("orange", "blue"),
@@ -141,20 +141,20 @@
 #'
 #' ## plot the data with user-defined statistical measures as legend
 #' plot_DRTResults(
-#'   values = list(x.1, x.2),
+#'   list(x.1, x.2),
 #'   given.dose = 2800,
 #'   summary = c("n", "weighted$mean", "sd.abs"))
 #'
 #' ## plot the data with user-defined statistical measures as sub-header
 #' plot_DRTResults(
-#'   values = list(x.1, x.2),
+#'   list(x.1, x.2),
 #'   given.dose = 2800,
 #'   summary = c("n", "weighted$mean", "sd.abs"),
 #'   summary.pos = "sub")
 #'
 #' ## plot the data grouped by preheat temperatures
 #' plot_DRTResults(
-#'   values = ExampleData.DeValues$BT998[7:11,],
+#'   ExampleData.DeValues$BT998[7:11,],
 #'   given.dose = 2800,
 #'   preheat = c(200, 200, 200, 240, 240))
 #'
@@ -163,26 +163,26 @@
 #'
 #' ## plot values
 #' plot_DRTResults(
-#'   values = ExampleData.DeValues$BT998[7:11,],
+#'   ExampleData.DeValues$BT998[7:11,],
 #'   given.dose = 2800,
 #'   mtext = "Example data")
 #'
 #' ## plot two data sets grouped by preheat temperatures
 #' plot_DRTResults(
-#'   values = list(x.1, x.2),
+#'   list(x.1, x.2),
 #'   given.dose = 2800,
 #'   preheat = c(200, 200, 200, 240, 240))
 #'
 #' ## plot the data grouped by preheat temperatures as boxplots
 #' plot_DRTResults(
-#'   values = ExampleData.DeValues$BT998[7:11,],
+#'   ExampleData.DeValues$BT998[7:11,],
 #'   given.dose = 2800,
 #'   preheat = c(200, 200, 200, 240, 240),
 #'   boxplot = TRUE)
 #'
 #' @export
 plot_DRTResults <- function(
-  values,
+  object,
   given.dose = NULL,
   error.range = 10,
   preheat = NULL,
@@ -199,9 +199,14 @@ plot_DRTResults <- function(
   .set_function_name("plot_DRTResults")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity checks -------------------------------------------------------
+  ## deprecated argument
+  if ("values" %in% ...names()) {
+    object <- list(...)$values
+    .deprecated(old = "values", new = "object", since = "1.2.0")
+  }
 
-  .validate_not_empty(values)
+  ## Integrity checks -------------------------------------------------------
+  .validate_not_empty(object)
   .validate_class(given.dose, "numeric", null.ok = TRUE)
   if (anyNA(given.dose))
     .throw_error("'given.dose' cannot contain NA values")
@@ -229,17 +234,18 @@ plot_DRTResults <- function(
   }
 
   ## Homogenise and check input data
+  values <- object
   if (!inherits(values, "list"))
       values <- list(values)
 
   for (i in seq_along(values)) {
     .validate_class(values[[i]], c("data.frame", "RLum.Results"),
-                    name = "'values'")
+                    name = "'object'")
     if (inherits(values[[i]], "RLum.Results")) {
       val <- get_RLum(values[[i]])[, 1:2] %||% NA
       values[[i]] <- val
     } else if (ncol(values[[i]]) < 2) {
-      .throw_error("'values' should have 2 columns")
+      .throw_error("'object' should have 2 columns")
     }
   }
 

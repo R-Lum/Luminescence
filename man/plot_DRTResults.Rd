@@ -5,7 +5,7 @@
 \title{Visualise dose recovery test results}
 \usage{
 plot_DRTResults(
-  values,
+  object,
   given.dose = NULL,
   error.range = 10,
   preheat = NULL,
@@ -21,7 +21,7 @@ plot_DRTResults(
 )
 }
 \arguments{
-\item{values}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
+\item{object}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
 input values containing at least De and De error. To plot
 more than one data set in one figure, a \code{list} of the individual data
 sets must be provided (e.g. \code{list(dataset.1, dataset.2)}).}
@@ -29,7 +29,7 @@ sets must be provided (e.g. \code{list(dataset.1, dataset.2)}).}
 \item{given.dose}{\link{numeric} (\emph{optional}):
 given dose used for the dose recovery test to normalise data.
 If only one given dose is provided, this given dose is valid for all input
-data sets (i.e., \code{values} is a list). Otherwise, a given dose for each input
+data sets (i.e., \code{object} is a list). Otherwise, a given dose for each input
 data set has to be provided (e.g., \code{given.dose = c(100,200)}).
 If \code{given.dose} is \code{NULL} or 0, the values are plotted without normalisation
 (might be useful for preheat plateau tests).
@@ -123,13 +123,13 @@ data(ExampleData.DeValues, envir = environment())
 
 ## plot values
 plot_DRTResults(
-  values = ExampleData.DeValues$BT998[7:11,],
+  ExampleData.DeValues$BT998[7:11,],
   given.dose = 2800,
   mtext = "Example data")
 
 ## plot values with legend
 plot_DRTResults(
-  values = ExampleData.DeValues$BT998[7:11,],
+  ExampleData.DeValues$BT998[7:11,],
   given.dose = 2800,
   legend = "Test data set")
 
@@ -138,12 +138,12 @@ x.1 <- ExampleData.DeValues$BT998[7:11,]
 x.2 <- ExampleData.DeValues$BT998[7:11,] * c(runif(5, 0.9, 1.1), 1)
 
 plot_DRTResults(
-  values = list(x.1, x.2),
+  list(x.1, x.2),
   given.dose = 2800)
 
 ## some more user-defined plot parameters
 plot_DRTResults(
-  values = list(x.1, x.2),
+  list(x.1, x.2),
   given.dose = 2800,
   pch = c(2, 5),
   col = c("orange", "blue"),
@@ -153,20 +153,20 @@ plot_DRTResults(
 
 ## plot the data with user-defined statistical measures as legend
 plot_DRTResults(
-  values = list(x.1, x.2),
+  list(x.1, x.2),
   given.dose = 2800,
   summary = c("n", "weighted$mean", "sd.abs"))
 
 ## plot the data with user-defined statistical measures as sub-header
 plot_DRTResults(
-  values = list(x.1, x.2),
+  list(x.1, x.2),
   given.dose = 2800,
   summary = c("n", "weighted$mean", "sd.abs"),
   summary.pos = "sub")
 
 ## plot the data grouped by preheat temperatures
 plot_DRTResults(
-  values = ExampleData.DeValues$BT998[7:11,],
+  ExampleData.DeValues$BT998[7:11,],
   given.dose = 2800,
   preheat = c(200, 200, 200, 240, 240))
 
@@ -175,19 +175,19 @@ data(ExampleData.DeValues, envir = environment())
 
 ## plot values
 plot_DRTResults(
-  values = ExampleData.DeValues$BT998[7:11,],
+  ExampleData.DeValues$BT998[7:11,],
   given.dose = 2800,
   mtext = "Example data")
 
 ## plot two data sets grouped by preheat temperatures
 plot_DRTResults(
-  values = list(x.1, x.2),
+  list(x.1, x.2),
   given.dose = 2800,
   preheat = c(200, 200, 200, 240, 240))
 
 ## plot the data grouped by preheat temperatures as boxplots
 plot_DRTResults(
-  values = ExampleData.DeValues$BT998[7:11,],
+  ExampleData.DeValues$BT998[7:11,],
   given.dose = 2800,
   preheat = c(200, 200, 200, 240, 240),
   boxplot = TRUE)

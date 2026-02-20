@@ -5,7 +5,7 @@
 \title{Fit and plot a dose-response curve for luminescence data (Lx/Tx against dose)}
 \usage{
 plot_GrowthCurve(
-  sample,
+  object,
   mode = "interpolation",
   fit.method = "EXP",
   output.plot = TRUE,
@@ -17,13 +17,16 @@ plot_GrowthCurve(
 )
 }
 \arguments{
-\item{sample}{\link{data.frame} (\strong{required}):
+\item{object}{\link{data.frame} or a \link{list} of such objects (\strong{required}):
 data frame with columns for \code{Dose}, \code{LxTx}, \code{LxTx.Error} and \code{TnTx}.
 The column for the test dose response is optional, but requires \code{'TnTx'} as
 column name if used. For exponential fits at least three dose points
-(including the natural) should be provided. If \code{fit.method = "OTORX"} you have
-to provide the test dose in the same unit as the dose in a column called \code{Test_Dose}.
-The function searches explicitly for this column name.}
+(including the natural) should be provided. If \code{object} is a list,
+the function is called on each of its elements.
+If \code{fit.method = "OTORX"} you have  to provide the test dose in the same unit
+as the dose in a column called \code{Test_Dose}. The function searches explicitly
+for this column name. Only the first value will be used assuming a constant
+test dose over the measurement cycle.}
 
 \item{mode}{\link{character} (\emph{with default}):
 selects calculation mode of the function.
@@ -81,7 +84,7 @@ regenerative or additive protocol as implemented in \link{fit_DoseResponseCurve}
 and \link{plot_DoseResponseCurve}
 }
 \section{Function version}{
- 1.2.2
+ 1.2.3
 }
 
 \examples{

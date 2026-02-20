@@ -45,8 +45,8 @@
 #'
 #' *For details on the nonlinear regression in R, see Ritz & Streibig (2008).*
 #'
-#' @param values [Luminescence::RLum.Data.Curve-class] or [data.frame] (**required**):
-#' x, y data of measured values (time and counts). See examples.
+#' @param object [Luminescence::RLum.Data.Curve-class] or [data.frame] (**required**):
+#' x, y data of measured values (time and counts).
 #'
 #' @param n.components.max [vector] (*optional*):
 #' maximum number of components that are to be used for fitting.
@@ -140,7 +140,7 @@
 #' The function **does not** ensure that the fitting procedure has reached a
 #' global minimum rather than a local minimum!
 #'
-#' @section Function version: 0.5.5
+#' @section Function version: 0.5.6
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -166,14 +166,14 @@
 #' data(ExampleData.CW_OSL_Curve, envir = environment())
 #'
 #' ##fit data
-#' fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
+#' fit <- fit_CWCurve(ExampleData.CW_OSL_Curve,
 #'                    main = "CW Curve Fit",
 #'                    n.components.max = 4,
 #'                    log = "x")
 #'
 #' @export
 fit_CWCurve<- function(
-  values,
+  object,
   n.components.max = 7,
   fit.failure_threshold = 5,
   fit.method = "port",
@@ -192,23 +192,29 @@ fit_CWCurve<- function(
   .set_function_name("fit_CWCurve")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity checks -------------------------------------------------------
-
-  .validate_class(values, c("RLum.Data.Curve", "data.frame"))
-  .validate_not_empty(values)
-  if (inherits(values, "RLum.Data.Curve")) {
-    values <- as.data.frame(values@data[, 1:2, drop = FALSE])
+  ## deprecated argument
+  if ("values" %in% ...names()) {
+    object <- list(...)$values
+    .deprecated(old = "values", new = "object", since = "1.2.0")
   }
-  if (ncol(values) < 2) {
-    .throw_error("'values' should have 2 columns")
+
+  ## Integrity checks -------------------------------------------------------
+  .validate_class(object, c("RLum.Data.Curve", "data.frame"))
+  .validate_not_empty(object)
+  if (inherits(object, "RLum.Data.Curve")) {
+    object <- as.data.frame(object@data[, 1:2, drop = FALSE])
+  }
+  if (ncol(object) < 2) {
+    .throw_error("'object' should have 2 columns")
   }
 
   ## set x and y values
+  values <- object
   x <- values[, 1]
   y <- values[, 2]
 
   if (all(y <= 0, na.rm = TRUE)) {
-    .throw_error("'values' contains no positive counts")
+    .throw_error("'object' contains no positive counts")
   }
   if (any(order(x) != seq_along(x))) {
     .throw_error("Time values are not ordered")

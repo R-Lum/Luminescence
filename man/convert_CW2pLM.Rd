@@ -4,13 +4,15 @@
 \alias{convert_CW2pLM}
 \title{Transform a CW-OSL curve into a pLM-OSL curve}
 \usage{
-convert_CW2pLM(values)
+convert_CW2pLM(object, ...)
 }
 \arguments{
-\item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
+\item{object}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
 \linkS4class{RLum.Data.Curve} object or a \code{data.frame} with measured
-curve data of type stimulation time (t) (\code{values[, 1]}) and measured counts
-(cts) (\code{values[, 2]}).}
+curve data of type stimulation time (t) (\code{object[, 1]}) and measured counts
+(cts) (\code{object[, 2]}).}
+
+\item{...}{currently not used.}
 }
 \value{
 The function returns the same data type as the input data type with
@@ -39,7 +41,7 @@ The transformation is recommended for curves recorded with a channel
 resolution of at least 0.05 s/channel.
 }
 \section{Function version}{
- 0.4.2
+ 0.4.3
 }
 
 \examples{

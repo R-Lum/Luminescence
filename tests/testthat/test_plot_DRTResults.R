@@ -8,11 +8,11 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(plot_DRTResults("error"),
-               "'values' should be of class 'data.frame' or 'RLum.Results'")
+               "'object' should be of class 'data.frame' or 'RLum.Results'")
   expect_error(plot_DRTResults(list("error")),
-               "'values' should be of class 'data.frame' or 'RLum.Results'")
+               "'object' should be of class 'data.frame' or 'RLum.Results'")
   expect_error(plot_DRTResults(iris[, 1, drop = FALSE]),
-               "'values' should have 2 columns")
+               "'object' should have 2 columns")
   expect_error(plot_DRTResults(data.frame(1:5, NA)),
                "No valid data remains after removing NA values")
   expect_error(plot_DRTResults(df, preheat = c(200, 240, 240)),
@@ -38,11 +38,11 @@ test_that("input validation", {
 
   empty <- set_RLum("RLum.Results")
   expect_error(plot_DRTResults(empty),
-               "'values' cannot be an empty RLum.Results")
+               "'object' cannot be an empty RLum.Results")
   expect_error(plot_DRTResults(list()),
-               "'values' cannot be an empty list")
+               "'object' cannot be an empty list")
   expect_error(plot_DRTResults(data.frame()),
-               "'values' cannot be an empty data.frame")
+               "'object' cannot be an empty data.frame")
   expect_error(plot_DRTResults(list(empty, empty)),
                      "No valid records in 'values'")
 })
@@ -87,7 +87,10 @@ test_that("check functionality", {
   ## missing values
   df.na <- df
   df.na[2, 1] <- NA
-  expect_silent(plot_DRTResults(df, preheat = c(200, 200, 200, 240, 240)))
+  expect_silent(plot_DRTResults(df.na, preheat = c(200, 200, 200, 240, 240)))
+
+  ## deprecated argument
+  expect_warning(plot_DRTResults(values = df, preheat = c(200, 200, 200, 240, 240)))
 })
 
 test_that("graphical snapshot tests", {

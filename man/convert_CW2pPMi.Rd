@@ -5,18 +5,20 @@
 \title{Transform a CW-OSL curve into a pPM-OSL curve via interpolation under
 parabolic modulation conditions}
 \usage{
-convert_CW2pPMi(values, P = NULL)
+convert_CW2pPMi(object, P = NULL, ...)
 }
 \arguments{
-\item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
+\item{object}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
 \linkS4class{RLum.Data.Curve} object or a \code{data.frame} with measured
-curve data of type stimulation time (t) (\code{values[, 1]}) and measured counts
-(cts) (\code{values[, 2]}).}
+curve data of type stimulation time (t) (\code{object[, 1]}) and measured counts
+(cts) (\code{object[, 2]}).}
 
 \item{P}{\link{numeric} (\emph{optional}):
 stimulation time in seconds. If set to \code{NULL}, the optimal value is
 estimated automatically (see details). Greater values of P produce more
 points in the rising tail of the curve.}
+
+\item{...}{currently not used.}
 }
 \value{
 The function returns the same data type as the input data type with
@@ -98,7 +100,7 @@ should be limited to avoid artificial intensity data. If \code{P} is
 provided manually, not more than two points are extrapolated.
 }
 \section{Function version}{
- 0.2.2
+ 0.2.3
 }
 
 \examples{

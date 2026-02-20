@@ -1,14 +1,12 @@
 #'@title Calculate dose rate of slices in a spherical cobble
 #'
 #'@description
-#'
 #'Calculates the dose rate profile through the cobble based on Riedesel and Autzen (2020).
 #'
 #'Corrects the beta dose rate in the cobble for the grain size following results
 #'of Guérin et al. (2012). Sediment beta and gamma dose rates are corrected
 #'for the water content of the sediment using the correction factors of Aitken (1985).
 #'Water content in the cobble is assumed to be 0.
-#'
 #'
 #'@details
 #'
@@ -47,27 +45,31 @@
 #'
 #'\deqn{(Wet\_weight - Dry\_weight) / Dry\_weight * 100}
 #'
-#'@param input [data.frame] (**required**): A table containing all relevant information
-#'for each individual layer. For the table layout see details.
+#' @param object [data.frame] (**required**):
+#' A data frame containing all relevant information for each individual layer.
+#' For the table layout see details.
 #'
 #' @param conversion [character] (*with default*): dose rate conversion factors
 #' to use, see [Luminescence::BaseDataSet.ConversionFactors] for the accepted values.
+#'
+#' @param ... currently not used.
 #'
 #'@references
 #'Riedesel, S., Autzen, M., 2020. Beta and gamma dose rate attenuation in rocks and sediment.
 #'Radiation Measurements 133, 106295.
 #'
-#'@section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #'@author Svenja Riedesel, Aberystwyth University (United Kingdom) \cr
 #'Martin Autzen, DTU NUTECH Center for Nuclear Technologies (Denmark)
 #'
-#'@return The function returns an [Luminescence::RLum.Results-class] object for which the first element
-#'is a [matrix] (`DataIndividual`) that gives the dose rate results for each slice
-#'for each decay chain individually, for both, the cobble dose rate and the sediment
-#'dose rate. The second element is also a [matrix] (`DataComponent`) that gives
-#'the total beta and gamma-dose rates for the cobble and the adjacent sediment
-#'for each slice of the cobble.
+#' @return
+#' The function returns an [Luminescence::RLum.Results-class] object for which
+#' the first element is a [matrix] (`DataIndividual`) that gives the dose rate
+#' results for each slice for each decay chain individually, for both, the
+#' cobble dose rate and the sediment dose rate. The second element is also a
+#' [matrix] (`DataComponent`) that gives the total beta and gamma-dose rates
+#' for the cobble and the adjacent sediment for each slice of the cobble.
 #'
 #'@keywords datagen
 #'
@@ -81,27 +83,37 @@
 #'calc_CobbleDoseRate(ExampleData.CobbleData)
 #'
 #'@export
-calc_CobbleDoseRate <- function(input,conversion = "Guerinetal2011"){
+calc_CobbleDoseRate <- function(
+  object,
+  conversion = "Guerinetal2011",
+  ...
+  ) {
   .set_function_name("calc_CobbleDoseRate")
   on.exit(.unset_function_name(), add = TRUE)
 
+  ## deprecated argument
+  if ("input" %in% ...names()) {
+    object <- list(...)$input
+    .deprecated(old = "input", new = "object", since = "1.2.0")
+  }
+
   ## Integrity checks -------------------------------------------------------
-  .validate_class(input, "data.frame")
-  .validate_not_empty(input)
+  .validate_class(object, "data.frame")
+  .validate_not_empty(object)
 
   ## this lists only the columns that are referenced by name in the script
   exp.cols <- c("Distance", "DistanceError", "Thickness", "ThicknessError",
                 "Density", "CobbleDiameter")
+  input <- object
   mis.cols <- setdiff(exp.cols, colnames(input))
   if (length(mis.cols) > 0)
-    .throw_error("'input' doesn't contain the following columns: ",
+    .throw_error("'object' doesn't contain the following columns: ",
                  .collapse(mis.cols))
 
   if ((max(input[,1])>input$CobbleDiameter[1]*10) ||
       ((max(input[,1]) + input[length(input[,1]),3]) > input$CobbleDiameter[1]*10))
     .throw_error("Slices outside of cobble: please ensure your distances ",
                  "are in mm and diameter is in cm")
-
 
   ## conversion factors: we do not use BaseDataSet.ConversionFactors directly
   ## as it is in alphabetical level, but we want to have 'Guerinetal2011'
@@ -122,10 +134,10 @@ calc_CobbleDoseRate <- function(input,conversion = "Guerinetal2011"){
   CobbleDoseData <- cbind(CobbleDoseData,0,0)
   SedDoseData <- cbind(input[1,5],input[1,15:20],input[1,12],input[1,23:24])
 
-  CobbleDoseRate <- get_RLum(convert_Concentration2DoseRate(
-    input = CobbleDoseData, conversion = conversion))
+  CobbleDoseRate <- get_RLum(
+      convert_Concentration2DoseRate(CobbleDoseData, conversion = conversion))
   SedDoseRate <- get_RLum(
-    convert_Concentration2DoseRate(input = SedDoseData, conversion = conversion))
+      convert_Concentration2DoseRate(SedDoseData, conversion = conversion))
 
   ## Distance should be from the surface of the rock to the top of the slice. Distances and thicknesses are in mm
   N <- length(input$Distance)
@@ -394,7 +406,6 @@ calc_CobbleDoseRate <- function(input,conversion = "Guerinetal2011"){
       "Total Gamma Sed.",
       "SE"
     )
-
 
   DataIndividual[is.na(DataIndividual)] <- 0
   DataComponent[is.na(DataComponent)] <- 0

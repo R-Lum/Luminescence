@@ -5,8 +5,8 @@
 \title{Non-linear Least Squares Fit for LM-OSL curves}
 \usage{
 fit_LMCurve(
-  values,
-  values.bg,
+  object,
+  object.bg,
   n.components = 3,
   start_values = NULL,
   input.dataType = "LM",
@@ -29,10 +29,10 @@ fit_LMCurve(
 )
 }
 \arguments{
-\item{values}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
+\item{object}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
 x,y data of measured values (time and counts).}
 
-\item{values.bg}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\emph{optional}):
+\item{object.bg}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\emph{optional}):
 x,y data of measured values (time and counts) for background subtraction.}
 
 \item{n.components}{\link{integer} (\emph{with default}):
@@ -72,7 +72,7 @@ calculate 1-sigma error range of components using \link[stats:confint]{stats::co
 \item{bg.subtraction}{\link{character} (\emph{with default}):
 specifies method for background subtraction (one of \code{"polynomial"},
 \code{"linear"}, \code{"channel"}, or \code{"none"}, see Details). Only considered if
-\code{values.bg} is specified.}
+\code{object.bg} is specified.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enable/disable output to the terminal.}
@@ -155,7 +155,7 @@ et al. (2008):
 
 \strong{Background subtraction}
 
-When a background signal is provided with the \code{values.bg} argument, the
+When a background signal is provided with the \code{object.bg} argument, the
 user can choose among three methods for background subtraction by setting
 the \code{bg.subtraction} argument to one of these:
 \itemize{
@@ -167,7 +167,7 @@ function is used for background subtraction:
 \deqn{y = a*x + b}
 \item \code{"channel"}: the measured background signal is subtracted channel-wise
 from the measured signal.
-\item \code{"none"}: this disables background subtraction even if \code{values.bg} is
+\item \code{"none"}: this disables background subtraction even if \code{object.bg} is
 provided.
 }
 
@@ -222,28 +222,28 @@ global minimum rather than a local minimum! In any case of doubt, the use of
 manual start values is highly recommended.
 }
 \section{Function version}{
- 0.3.7
+ 0.3.8
 }
 
 \examples{
 
 ##(1) fit LM data without background subtraction
 data(ExampleData.FittingLM, envir = environment())
-fit_LMCurve(values = values.curve, n.components = 3, log = "x")
+fit_LMCurve(values.curve, n.components = 3, log = "x")
 
 ##(2) fit LM data with background subtraction and export as JPEG
 ## -alter file path for your preferred system
 ##jpeg(file = "~/Desktop/Fit_Output\\%03d.jpg", quality = 100,
 ## height = 3000, width = 3000, res = 300)
 data(ExampleData.FittingLM, envir = environment())
-fit_LMCurve(values = values.curve, values.bg = values.curveBG,
+fit_LMCurve(values.curve, object.bg = values.curveBG,
             n.components = 2, log = "x", plot.BG = TRUE)
 ##dev.off()
 
 ##(3) fit LM data with manual start parameters
 data(ExampleData.FittingLM, envir = environment())
-fit_LMCurve(values = values.curve,
-            values.bg = values.curveBG,
+fit_LMCurve(values.curve,
+            object.bg = values.curveBG,
             n.components = 3,
             log = "x",
             start_values = data.frame(Im = c(170,25,400), xm = c(56,200,1500)))

@@ -4,22 +4,25 @@
 \alias{calc_CobbleDoseRate}
 \title{Calculate dose rate of slices in a spherical cobble}
 \usage{
-calc_CobbleDoseRate(input, conversion = "Guerinetal2011")
+calc_CobbleDoseRate(object, conversion = "Guerinetal2011", ...)
 }
 \arguments{
-\item{input}{\link{data.frame} (\strong{required}): A table containing all relevant information
-for each individual layer. For the table layout see details.}
+\item{object}{\link{data.frame} (\strong{required}):
+A data frame containing all relevant information for each individual layer.
+For the table layout see details.}
 
 \item{conversion}{\link{character} (\emph{with default}): dose rate conversion factors
 to use, see \link{BaseDataSet.ConversionFactors} for the accepted values.}
+
+\item{...}{currently not used.}
 }
 \value{
-The function returns an \linkS4class{RLum.Results} object for which the first element
-is a \link{matrix} (\code{DataIndividual}) that gives the dose rate results for each slice
-for each decay chain individually, for both, the cobble dose rate and the sediment
-dose rate. The second element is also a \link{matrix} (\code{DataComponent}) that gives
-the total beta and gamma-dose rates for the cobble and the adjacent sediment
-for each slice of the cobble.
+The function returns an \linkS4class{RLum.Results} object for which
+the first element is a \link{matrix} (\code{DataIndividual}) that gives the dose rate
+results for each slice for each decay chain individually, for both, the
+cobble dose rate and the sediment dose rate. The second element is also a
+\link{matrix} (\code{DataComponent}) that gives the total beta and gamma-dose rates
+for the cobble and the adjacent sediment for each slice of the cobble.
 }
 \description{
 Calculates the dose rate profile through the cobble based on Riedesel and Autzen (2020).
@@ -66,7 +69,7 @@ The water content provided by the user should be calculated according to:
 \deqn{(Wet\_weight - Dry\_weight) / Dry\_weight * 100}
 }
 \section{Function version}{
- 0.1.0
+ 0.1.1
 }
 
 \examples{

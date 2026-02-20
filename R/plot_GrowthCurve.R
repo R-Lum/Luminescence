@@ -8,14 +8,6 @@
 #'
 #' @inheritParams fit_DoseResponseCurve
 #'
-#' @param sample [data.frame] (**required**):
-#' data frame with columns for `Dose`, `LxTx`, `LxTx.Error` and `TnTx`.
-#' The column for the test dose response is optional, but requires `'TnTx'` as
-#' column name if used. For exponential fits at least three dose points
-#' (including the natural) should be provided. If `fit.method = "OTORX"` you have
-#' to provide the test dose in the same unit as the dose in a column called `Test_Dose`.
-#' The function searches explicitly for this column name.
-#'
 #' @param output.plot [logical] (*with default*):
 #' enable/disable the plot output.
 #'
@@ -44,7 +36,7 @@
 #' Along with a plot (if wanted) the [Luminescence::RLum.Results-class] object produced by
 #' [Luminescence::fit_DoseResponseCurve] is returned.
 #'
-#' @section Function version: 1.2.2
+#' @section Function version: 1.2.3
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -102,7 +94,7 @@
 #'
 #' @export
 plot_GrowthCurve <- function(
-  sample,
+  object,
   mode = "interpolation",
   fit.method = "EXP",
   output.plot = TRUE,
@@ -125,6 +117,10 @@ plot_GrowthCurve <- function(
     n.MC <- extraArgs$NumberIterations.MC
     .deprecated("NumberIterations.MC", "n.MC", since = "1.0.0")
   }
+  if ("sample" %in% names(extraArgs)) {
+    object <- extraArgs$sample
+    .deprecated(old = "sample", new = "object", since = "1.2.0")
+  }
 
   ## input validation
   .validate_logical_scalar(output.plot)
@@ -133,7 +129,7 @@ plot_GrowthCurve <- function(
   .validate_logical_scalar(verbose)
 
   ## remaining input validation occurs inside the fitting function
-  fit <- fit_DoseResponseCurve(sample, mode, fit.method,
+  fit <- fit_DoseResponseCurve(object, mode, fit.method,
                                verbose = verbose, n.MC = n.MC, ...)
 
   if (is.null(fit)) {

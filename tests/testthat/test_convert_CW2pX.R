@@ -41,6 +41,18 @@ test_that("check functionality", {
   expect_warning(expect_error(convert_CW2pPMi(iris),
                               "All points are outside the interpolation range"),
                  "collapsing to unique 'x' values")
+
+  ## deprecated argument
+  expect_warning(convert_CW2pHMi(values = object),
+                 "'values' was deprecated in v1.2.0, use 'object' instead")
+  expect_warning(convert_CW2pLM(values = object),
+                 "'values' was deprecated in v1.2.0, use 'object' instead")
+  expect_warning(convert_CW2pLMi(values = object),
+                 "'values' was deprecated in v1.2.0, use 'object' instead")
+  SW({
+  expect_warning(convert_CW2pPMi(values = object),
+                 "'values' was deprecated in v1.2.0, use 'object' instead")
+  })
 })
 
 test_that("Test RLum.Types", {
@@ -64,58 +76,58 @@ test_that("input validation", {
   expect_warning(convert_CW2pLMi(values, P = 10),
                  "t' is beyond the time resolution and more than two data points")
 
-  expect_error(convert_CW2pHMi(values = matrix(0, 2)),
-               "'values' should be of class 'data.frame' or 'RLum.Data.Curve'")
-  expect_error(convert_CW2pHMi(values = data.frame()),
-               "'values' cannot be an empty data.frame")
+  expect_error(convert_CW2pHMi(matrix(0, 2)),
+               "'object' should be of class 'data.frame' or 'RLum.Data.Curve'")
+  expect_error(convert_CW2pHMi(data.frame()),
+               "'object' cannot be an empty data.frame")
   expect_error(convert_CW2pHMi(iris[, 1, drop = FALSE]),
-               "'values' should have 2 columns")
+               "'object' should have 2 columns")
   expect_error(convert_CW2pHMi(data.frame(a = 1:10, b = NA)),
-               "'values' should have at least 2 non-missing values")
+               "'object' should have at least 2 non-missing values")
   expect_error(convert_CW2pHMi(values, iris),
                "'delta' should be of class 'numeric' or NULL")
   expect_error(convert_CW2pHMi(values, NA_real_),
                "'delta' cannot contain NA values")
 
-  expect_error(convert_CW2pLMi(values = matrix(0, 2)),
-               "'values' should be of class 'data.frame' or 'RLum.Data.Curve'")
-  expect_error(convert_CW2pLMi(values = data.frame()),
-               "'values' cannot be an empty data.frame")
+  expect_error(convert_CW2pLMi(matrix(0, 2)),
+               "'object' should be of class 'data.frame' or 'RLum.Data.Curve'")
+  expect_error(convert_CW2pLMi(data.frame()),
+               "'object' cannot be an empty data.frame")
   expect_error(convert_CW2pLMi(iris[, 1, drop = FALSE]),
-               "'values' should have 2 columns")
+               "'object' should have 2 columns")
   expect_error(convert_CW2pLMi(data.frame(a = 1:10, b = NA)),
-               "'values' should have at least 2 non-missing values")
+               "'object' should have at least 2 non-missing values")
   expect_error(convert_CW2pLMi(object, iris),
                "'P' should be a single positive value")
 
-  expect_error(convert_CW2pLM(values = matrix(0, 2)),
-               "'values' should be of class 'data.frame' or 'RLum.Data.Curve'")
-  expect_error(convert_CW2pLM(values = data.frame()),
-               "'values' cannot be an empty data.frame")
+  expect_error(convert_CW2pLM(matrix(0, 2)),
+               "'object' should be of class 'data.frame' or 'RLum.Data.Curve'")
+  expect_error(convert_CW2pLM(data.frame()),
+               "'object' cannot be an empty data.frame")
   expect_error(convert_CW2pLM(iris[, 1, drop = FALSE]),
-               "'values' should have 2 columns")
+               "'object' should have 2 columns")
 
-  expect_error(convert_CW2pPMi(values = matrix(0, 2)),
-               "'values' should be of class 'data.frame' or 'RLum.Data.Curve'")
-  expect_error(convert_CW2pPMi(values = data.frame()),
-               "'values' cannot be an empty data.frame")
+  expect_error(convert_CW2pPMi(matrix(0, 2)),
+               "'object' should be of class 'data.frame' or 'RLum.Data.Curve'")
+  expect_error(convert_CW2pPMi(data.frame()),
+               "'object' cannot be an empty data.frame")
   expect_error(convert_CW2pPMi(iris[, 1, drop = FALSE]),
-               "'values' should have 2 columns")
+               "'object' should have 2 columns")
   expect_error(convert_CW2pPMi(data.frame(a = 1:10, b = NA)),
-               "'values' should have at least 2 non-missing values")
+               "'object' should have at least 2 non-missing values")
   expect_error(convert_CW2pPMi(values, iris),
                "'P' should be a single positive value or NULL")
 
   object@recordType <- "RF"
-  expect_error(convert_CW2pLM(values = object),
+  expect_error(convert_CW2pLM(object),
                "recordType RF is not allowed for the transformation")
-  expect_error(convert_CW2pLMi(values = object),
+  expect_error(convert_CW2pLMi(object),
                "[convert_CW2pLMi()] recordType RF is not allowed for the transformation",
                fixed = TRUE)
-  expect_error(convert_CW2pHMi(values = object),
+  expect_error(convert_CW2pHMi(object),
                "[convert_CW2pHMi()] recordType RF is not allowed for the transformation",
                fixed = TRUE)
-  expect_error(convert_CW2pPMi(values = object),
+  expect_error(convert_CW2pPMi(object),
                "[convert_CW2pPMi()] recordType RF is not allowed for the transformation",
                fixed = TRUE)
 })
