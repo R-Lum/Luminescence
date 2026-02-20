@@ -4,7 +4,12 @@
 \alias{merge_RLum.Data.Curve}
 \title{Merge function for RLum.Data.Curve S4 class objects}
 \usage{
-merge_RLum.Data.Curve(object, merge.method = "mean", method.info = NULL)
+merge_RLum.Data.Curve(
+  object,
+  merge.method = c("mean", "median", "sum", "sd", "var", "max", "min", "append", "-",
+    "*", "/"),
+  method.info = NULL
+)
 }
 \arguments{
 \item{object}{\link{list} of \linkS4class{RLum.Data.Curve} (\strong{required}):

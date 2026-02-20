@@ -4,7 +4,12 @@
 \alias{extract_ROI}
 \title{Extract Pixel Values through Circular Region-of-Interests (ROI) from an Image}
 \usage{
-extract_ROI(object, roi, roi_summary = "mean", plot = FALSE)
+extract_ROI(
+  object,
+  roi,
+  roi_summary = c("mean", "median", "sd", "sum"),
+  plot = FALSE
+)
 }
 \arguments{
 \item{object}{\linkS4class{RLum.Data.Image}, \link{array} or \link{matrix} (\strong{required}): input image data}

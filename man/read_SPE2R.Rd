@@ -6,7 +6,7 @@
 \usage{
 read_SPE2R(
   file,
-  output.object = "RLum.Data.Image",
+  output.object = c("RLum.Data.Image", "RLum.Data.Spectrum", "matrix"),
   frame.range = NULL,
   txtProgressBar = TRUE,
   verbose = TRUE,

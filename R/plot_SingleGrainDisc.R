@@ -70,7 +70,7 @@ plot_SingleGrainDisc <- function(
     show_positioning_holes = TRUE,
     df_neighbours = NULL,
     ignore_borders = FALSE,
-    str_transform = "sqrt", # Options: "lin", "log" and "sqrt"
+    str_transform = c("sqrt", "lin", "log"),
     ...
 ) {
   .set_function_name("plot_SingleGrainDisc")
@@ -101,7 +101,7 @@ plot_SingleGrainDisc <- function(
     .throw_error("'df_neighbours' should be a data frame with 3 columns")
   }
 
-  .validate_args(str_transform, c("sqrt", "lin", "log"))
+  str_transform <- .validate_args(str_transform, c("sqrt", "lin", "log"))
 
   ## get ... arguments
   plot_settings <- modifyList(

@@ -4,7 +4,11 @@
 \alias{convert_Second2Gray}
 \title{Converting equivalent dose values from seconds (s) to Gray (Gy)}
 \usage{
-convert_Second2Gray(data, dose.rate, error.propagation = "omit")
+convert_Second2Gray(
+  data,
+  dose.rate,
+  error.propagation = c("omit", "gaussian", "absolute")
+)
 }
 \arguments{
 \item{data}{\link{data.frame} (\strong{required}):

@@ -134,8 +134,8 @@ calc_SourceDoseRate <- function(
   calib.date,
   calib.dose.rate,
   calib.error,
-  source.type = "Sr-90",
-  dose.rate.unit = "Gy/s",
+  source.type = c("Sr-90", "Am-214", "Co-60", "Cs-137"),
+  dose.rate.unit = c("Gy/s", "Gy/min"),
   predict = NULL
 ) {
   .set_function_name("calc_SourceDoseRate")

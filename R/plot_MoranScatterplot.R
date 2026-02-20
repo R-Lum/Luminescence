@@ -63,7 +63,7 @@
 plot_MoranScatterplot <- function(
     object,
     df_neighbours = NULL,
-    str_y_def = "mean_neighbours", # , mean_neighbours, weighted_sum
+    str_y_def = c("mean_neighbours", "weighted_sum"),
     ...
 ) {
   .set_function_name("plot_MoranScatterplot")
@@ -86,7 +86,7 @@ plot_MoranScatterplot <- function(
     .throw_error("'df_neighbours' should be a data frame with 3 columns")
   }
 
-  .validate_args(str_y_def, c("mean_neighbours", "weighted_sum"))
+  str_y_def <- .validate_args(str_y_def, c("mean_neighbours", "weighted_sum"))
 
   ## get ... arguments
   plot_settings <- modifyList(

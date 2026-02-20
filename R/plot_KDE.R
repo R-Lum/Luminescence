@@ -162,7 +162,7 @@ plot_KDE <- function(
   rug = TRUE,
   summary = "",
   summary.pos = "sub",
-  summary.method = "MCM",
+  summary.method = c("MCM", "weighted", "unweighted"),
   bw = "nrd0",
   ...
 ) {
@@ -233,7 +233,7 @@ plot_KDE <- function(
   .validate_logical_scalar(order)
   .validate_logical_scalar(boxplot)
   .validate_logical_scalar(rug)
-  .validate_args(summary.method, c("MCM", "weighted", "unweighted"))
+  summary.method <- .validate_args(summary.method, c("MCM", "weighted", "unweighted"))
   .validate_class(summary, "character")
   if (is.numeric(summary.pos)) {
     .validate_length(summary.pos, 2)

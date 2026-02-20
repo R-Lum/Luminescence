@@ -6,8 +6,9 @@
 \usage{
 fit_DoseResponseCurve(
   object,
-  mode = "interpolation",
-  fit.method = "EXP",
+  mode = c("interpolation", "extrapolation", "alternate"),
+  fit.method = c("EXP", "LIN", "QDR", "EXP OR LIN", "EXP+LIN", "EXP+EXP", "GOK", "OTOR",
+    "OTORX"),
   fit.force_through_origin = FALSE,
   fit.weights = TRUE,
   fit.includingRepeatedRegPoints = TRUE,

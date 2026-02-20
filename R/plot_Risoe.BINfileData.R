@@ -112,7 +112,7 @@ plot_Risoe.BINfileData<- function(
   position = NULL,
   run = NULL,
   set = NULL,
-  sorter = "POSITION",
+  sorter = c("POSITION", "RUN", "SET"),
   ltype = c("IRSL","OSL","TL","RIR","RBR","RL"),
   curve.transformation = "None",
   dose_rate = NULL,
@@ -129,8 +129,7 @@ plot_Risoe.BINfileData<- function(
   .validate_class(position, c("integer", "numeric"), null.ok = TRUE)
   .validate_class(run, c("integer", "numeric"), null.ok = TRUE)
   .validate_class(set, c("integer", "numeric"), null.ok = TRUE)
-  .validate_args(sorter, c("POSITION", "RUN", "SET"))
-  .validate_length(sorter, 1)
+  sorter <- .validate_args(sorter, c("POSITION", "RUN", "SET"))
   .validate_positive_scalar(dose_rate, null.ok = TRUE)
   curve.transformation <- .validate_args(curve.transformation,
                                          c("CW2pLM", "CW2pLMi",

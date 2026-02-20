@@ -66,7 +66,7 @@
 fit_IsothermalHolding <- function(
     data,
     rhop,
-    ITL_model = "GOK",
+    ITL_model = c("GOK", "BTS"),
     normalise_LxTx = TRUE,
     plot = TRUE,
     verbose = TRUE,

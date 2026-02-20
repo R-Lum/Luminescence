@@ -6,7 +6,7 @@
 \usage{
 calc_Statistics(
   data,
-  weight.calc = "square",
+  weight.calc = c("square", "reciprocal"),
   digits = NULL,
   n.MCM = NULL,
   na.rm = TRUE

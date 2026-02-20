@@ -252,7 +252,8 @@
 plot_RLum.Data.Spectrum <- function(
   object,
   par.local = TRUE,
-  plot.type = "contour",
+  plot.type = c("contour", "persp", "single", "multiple.lines",
+                "image", "transect", "interactive"),
   optical.wavelength.colours = TRUE,
   bg.spectrum = NULL,
   bg.channels = NULL,
@@ -290,8 +291,9 @@ plot_RLum.Data.Spectrum <- function(
   }
   ## `norm` is not validated here but will be validated by normalise_RLum()
   .validate_class(bg.spectrum, c("RLum.Data.Spectrum", "matrix"), null.ok = TRUE)
-  .validate_args(plot.type, c("contour", "persp", "single", "multiple.lines",
-                              "image", "transect", "interactive"))
+  plot.type <- .validate_args(plot.type, c("contour", "persp", "single",
+                                           "multiple.lines", "image",
+                                           "transect", "interactive"))
   .validate_positive_scalar(bin.rows, int = TRUE)
   .validate_positive_scalar(bin.cols, int = TRUE)
 

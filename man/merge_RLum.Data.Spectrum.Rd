@@ -6,7 +6,8 @@
 \usage{
 merge_RLum.Data.Spectrum(
   object,
-  merge.method = "mean",
+  merge.method = c("mean", "median", "sum", "sd", "var", "min", "max", "append", "-",
+    "*", "/"),
   method.info = NULL,
   max.temp.diff = 0.1
 )

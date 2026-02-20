@@ -8,7 +8,7 @@ plot_RLum.Data.Image(
   object,
   frames = NULL,
   par.local = TRUE,
-  plot.type = "plot.raster",
+  plot.type = c("plot.raster", "contour"),
   ...
 )
 }

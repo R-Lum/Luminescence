@@ -16,19 +16,16 @@
 #' and the nuclide data from `https://www.iaea.org/resources/databases/livechart-of-nuclides-advanced-version`
 #'
 #' The factors can be calculated using the equation:
-#'
 #' \deqn{
 #' A = N_A \frac{N_{abund}}{N_{mol.mass}}  ln(2) / N.half.life
 #' }
 #'
 #' to convert in µg/g we further use:
-#'
 #' \deqn{
 #' f = A / 10^6
 #' }
 #'
 #' where:
-#'
 #' - `N_A` - Avogadro constant in 1/mol
 #' - `A` - specific activity of the nuclide in Bq/kg
 #' - `N.abund` - relative natural abundance of the isotope
@@ -36,7 +33,6 @@
 #' - `N.half.life` half-life of the nuclide in s
 #'
 #' example for calculating the activity of the radionuclide U-238:
-#'
 #'  * `N_A` = 6.02214076e+23 (1/mol)
 #'  * `T_0.5` = 1.41e+17 (s)
 #'  * `m_U_238` = 0.23802891 (kg/mol)
@@ -53,9 +49,9 @@
 #' `'U-238'`, `'Th-232'` and `'K-40'`. See examples for an example.
 #'
 #' @param input_unit [character] (*with default*):
-#' specify unit of input data given in the dose rate data frame, choose between
-#' `"activity"` (considered as given Bq/kg) and `"abundance"` (considered as given in mug/g or mass. %).
-#' The default value is `"activity"`
+#' specify unit of input data given in the dose rate data frame, one of
+#' `"activity"` (considered as given Bq/kg, the default) and `"abundance"`
+#' (considered as given in mug/g or mass. %).
 #'
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
@@ -100,7 +96,7 @@
 #' @export
 convert_Activity2Concentration <- function(
   data,
-  input_unit = "activity",
+  input_unit = c("activity", "abundance"),
   verbose = TRUE
 ) {
   .set_function_name("convert_Activity2Concentration")

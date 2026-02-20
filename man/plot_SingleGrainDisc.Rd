@@ -12,7 +12,7 @@ plot_SingleGrainDisc(
   show_positioning_holes = TRUE,
   df_neighbours = NULL,
   ignore_borders = FALSE,
-  str_transform = "sqrt",
+  str_transform = c("sqrt", "lin", "log"),
   ...
 )
 }

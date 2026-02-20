@@ -37,6 +37,8 @@ test_that("input validation", {
                "'dispersion' should be one of 'qr', 'sd', '2sd' or a percentile")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, dispersion = "p500"),
                "'dispersion' should be one of 'qr', 'sd', '2sd' or a percentile")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, dispersion = c("p95", "p86")),
+               "'dispersion' should have length 1")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, summary = 5),
                "'summary' should be of class 'character'")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, summary.pos = 5),

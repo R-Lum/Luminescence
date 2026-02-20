@@ -70,7 +70,7 @@ plot_RLum.Data.Image <- function(
   object,
   frames = NULL,
   par.local = TRUE,
-  plot.type = "plot.raster",
+  plot.type = c("plot.raster", "contour"),
   ...
 ) {
   .set_function_name("plot_RLum.Data.Image")

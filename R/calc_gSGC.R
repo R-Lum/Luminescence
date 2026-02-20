@@ -76,7 +76,7 @@
 #' @export
 calc_gSGC<- function(
   data,
-  gSGC.type = "0-250",
+  gSGC.type = c("0-250", "0-450"),
   gSGC.parameters = NULL,
   n.MC = 100,
   verbose = TRUE,

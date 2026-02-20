@@ -115,7 +115,8 @@
 #' @export
 merge_RLum.Data.Curve<- function(
   object,
-  merge.method = "mean",
+  merge.method = c("mean", "median", "sum", "sd", "var", "max", "min",
+                   "append", "-", "*", "/"),
   method.info = NULL
 ) {
   .set_function_name("merge_RLum.Data.Curve")

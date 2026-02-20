@@ -9,7 +9,7 @@ plot_RadialPlot(
   na.rm = TRUE,
   log.z = TRUE,
   central.value = NULL,
-  centrality = "mean.weighted",
+  centrality = c("mean.weighted", "mean.weighted", "median", "median.weighted"),
   mtext = "",
   summary = c("n", "in.2s"),
   summary.pos = "sub",

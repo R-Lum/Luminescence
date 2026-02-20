@@ -446,7 +446,7 @@ analyse_IRSAR.RF<- function(
   sequence_structure = c("NATURAL", "REGENERATED"),
   RF_nat.lim = NULL,
   RF_reg.lim = NULL,
-  method = "FIT",
+  method = c("FIT", "SLIDE", "VSLIDE", "NONE"),
   method_control = NULL,
   test_parameters = NULL,
   n.MC = 10,

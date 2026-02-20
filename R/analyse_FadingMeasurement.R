@@ -207,7 +207,7 @@ analyse_FadingMeasurement <- function(
   signal_integral = NULL,
   background_integral = NULL,
   integral_input = c("channel", "measurement"),
-  t_star = 'half',
+  t_star = c("half", "half_complex", "end"),
   n.MC = 100,
   verbose = TRUE,
   plot = TRUE,
