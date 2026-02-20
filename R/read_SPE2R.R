@@ -103,7 +103,7 @@
 #' @export
 read_SPE2R <- function(
   file,
-  output.object = "RLum.Data.Image",
+  output.object = c("RLum.Data.Image", "RLum.Data.Spectrum", "matrix"),
   frame.range = NULL,
   txtProgressBar = TRUE,
   verbose = TRUE,
@@ -115,8 +115,8 @@ read_SPE2R <- function(
   ## Integrity checks -------------------------------------------------------
   .validate_class(file, "character")
   .validate_length(file, 1)
-  .validate_args(output.object,
-                 c("RLum.Data.Image", "RLum.Data.Spectrum", "matrix"))
+  output.object <- .validate_args(output.object,
+                                  c("RLum.Data.Image", "RLum.Data.Spectrum", "matrix"))
   .validate_class(frame.range, c("integer", "numeric"), null.ok = TRUE)
   if (anyNA(frame.range) || any(frame.range <= 0))
     .throw_error("'frame.range' should contain positive values")

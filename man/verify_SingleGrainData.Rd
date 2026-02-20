@@ -10,7 +10,7 @@ verify_SingleGrainData(
   threshold = 10,
   use_fft = FALSE,
   cleanup = FALSE,
-  cleanup_level = "aliquot",
+  cleanup_level = c("aliquot", "curve"),
   verbose = TRUE,
   plot = FALSE,
   ...

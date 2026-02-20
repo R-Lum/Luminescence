@@ -433,14 +433,14 @@ plot_AbanicoPlot <- function(
   data,
   na.rm = TRUE,
   log.z = TRUE,
-  z.0 = "mean.weighted",
-  dispersion = "qr",
+  z.0 = c("mean.weighted", "mean.weighted", "median"),
+  dispersion = c("qr", "sd", "2sd"),
   plot.ratio = 0.75,
   rotate = FALSE,
   mtext = "",
   summary = c("n", "in.2s"),
   summary.pos = "sub",
-  summary.method = "MCM",
+  summary.method = c("MCM", "weighted", "unweighted"),
   legend = NULL,
   legend.pos = "topleft",
   stats = NULL,
@@ -567,8 +567,9 @@ plot_AbanicoPlot <- function(
   ## the 'pnn' option need some special treatment
   main.choices <- c("qr", "sd", "2sd")
   extra.choice <-"a percentile of the form 'pnn' (eg. 'p05')"
-  if (!dispersion %in% main.choices && !grepl("^p[0-9][0-9]$", dispersion))
+  if (!any(grepl("^p[0-9][0-9]$", dispersion)))
     dispersion <- .validate_args(dispersion, main.choices, extra = extra.choice)
+  .validate_length(dispersion, 1)
 
   valid.pos <- c("left", "center", "right", "topleft", "top", "topright",
                  "bottomleft", "bottom", "bottomright")
@@ -586,6 +587,7 @@ plot_AbanicoPlot <- function(
     legend.pos <- .validate_args(legend.pos, valid.pos)
   }
 
+  summary.method <- .validate_args(summary.method, c("MCM", "weighted", "unweighted"))
   frame <- .validate_args(frame, c(0, 1, 2, 3))
 
   ## check/set layout definitions

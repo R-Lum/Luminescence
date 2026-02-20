@@ -137,7 +137,7 @@ analyse_portableOSL <- function(
   integral_input = c("channel", "measurement"),
   invert = FALSE,
   normalise = FALSE,
-  mode = "profile",
+  mode = c("profile", "surface"),
   coord = NULL,
   plot = TRUE,
   ...
@@ -216,7 +216,7 @@ analyse_portableOSL <- function(
     signal_integral <- range(signal_integral)
   }
 
-  .validate_args(mode, c("profile", "surface"))
+  mode <- .validate_args(mode, c("profile", "surface"))
   .validate_logical_scalar(invert)
   .validate_logical_scalar(normalise)
   .validate_logical_scalar(plot)

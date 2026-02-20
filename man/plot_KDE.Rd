@@ -13,7 +13,7 @@ plot_KDE(
   rug = TRUE,
   summary = "",
   summary.pos = "sub",
-  summary.method = "MCM",
+  summary.method = c("MCM", "weighted", "unweighted"),
   bw = "nrd0",
   ...
 )

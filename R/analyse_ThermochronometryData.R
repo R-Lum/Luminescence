@@ -83,7 +83,7 @@ analyse_ThermochronometryData <- function(
   ## Integrity checks -------------------------------------------------------
   ## for a start we only allow data in the format proposed by the MatLab script
   .validate_class(object, "character")
-  .validate_args(ITL_model, c("GOK", "BTS"))
+  ITL_model <- .validate_args(ITL_model, c("GOK", "BTS"))
   .validate_logical_scalar(plot)
   .validate_logical_scalar(verbose)
 

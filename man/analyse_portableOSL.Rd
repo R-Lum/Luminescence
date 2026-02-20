@@ -10,7 +10,7 @@ analyse_portableOSL(
   integral_input = c("channel", "measurement"),
   invert = FALSE,
   normalise = FALSE,
-  mode = "profile",
+  mode = c("profile", "surface"),
   coord = NULL,
   plot = TRUE,
   ...

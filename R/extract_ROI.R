@@ -54,7 +54,7 @@
 extract_ROI <- function(
   object,
   roi,
-  roi_summary = "mean",
+  roi_summary = c("mean", "median", "sd", "sum"),
   plot = FALSE
 ) {
   .set_function_name("extract_ROI")

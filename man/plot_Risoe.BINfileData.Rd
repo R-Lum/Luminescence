@@ -9,7 +9,7 @@ plot_Risoe.BINfileData(
   position = NULL,
   run = NULL,
   set = NULL,
-  sorter = "POSITION",
+  sorter = c("POSITION", "RUN", "SET"),
   ltype = c("IRSL", "OSL", "TL", "RIR", "RBR", "RL"),
   curve.transformation = "None",
   dose_rate = NULL,

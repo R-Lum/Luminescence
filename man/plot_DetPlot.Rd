@@ -11,7 +11,7 @@ plot_DetPlot(
   method = "shift",
   signal_integral.seq = NULL,
   integral_input = c("channel", "measurement"),
-  analyse_function = "analyse_SAR.CWOSL",
+  analyse_function = c("analyse_SAR.CWOSL", "analyse_pIRIRSequence"),
   analyse_function.control = list(),
   n.channels = NULL,
   show_ShineDownCurve = TRUE,

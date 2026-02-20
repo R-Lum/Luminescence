@@ -6,7 +6,7 @@
 \usage{
 apply_CosmicRayRemoval(
   object,
-  method = "smooth",
+  method = c("smooth", "smooth.spline", "smooth_RLum", "Pych"),
   method.Pych.smoothing = 2,
   method.Pych.threshold_factor = 3,
   MARGIN = 2,

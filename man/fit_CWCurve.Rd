@@ -8,7 +8,7 @@ fit_CWCurve(
   object,
   n.components.max = 7,
   fit.failure_threshold = 5,
-  fit.method = "port",
+  fit.method = c("port", "LM"),
   fit.trace = FALSE,
   fit.calcError = FALSE,
   LED.power = 36,

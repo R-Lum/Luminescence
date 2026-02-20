@@ -95,7 +95,7 @@
 convert_Second2Gray <- function(
   data,
   dose.rate,
-  error.propagation = "omit"
+  error.propagation = c("omit", "gaussian", "absolute")
 ) {
   .set_function_name("convert_Second2Gray")
   on.exit(.unset_function_name(), add = TRUE)

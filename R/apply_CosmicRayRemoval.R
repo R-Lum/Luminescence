@@ -116,7 +116,7 @@
 #' @export
 apply_CosmicRayRemoval <- function(
   object,
-  method = "smooth",
+  method = c("smooth", "smooth.spline", "smooth_RLum", "Pych"),
   method.Pych.smoothing = 2,
   method.Pych.threshold_factor = 3,
   MARGIN = 2,
@@ -189,7 +189,7 @@ apply_CosmicRayRemoval <- function(
   if (length(object@data) < 2)
     .throw_error("'object' contains no data")
 
-  .validate_args(method, c("smooth", "smooth.spline", "smooth_RLum", "Pych"))
+  method <- .validate_args(method, c("smooth", "smooth.spline", "smooth_RLum", "Pych"))
   .validate_positive_scalar(method.Pych.smoothing, int = TRUE)
   .validate_positive_scalar(method.Pych.threshold_factor)
   .validate_args(MARGIN, c(1, 2))

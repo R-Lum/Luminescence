@@ -4,7 +4,11 @@
 \alias{convert_Activity2Concentration}
 \title{Convert Nuclide Activities to Abundance and Vice Versa}
 \usage{
-convert_Activity2Concentration(data, input_unit = "activity", verbose = TRUE)
+convert_Activity2Concentration(
+  data,
+  input_unit = c("activity", "abundance"),
+  verbose = TRUE
+)
 }
 \arguments{
 \item{data}{\link{data.frame} (\strong{required}):
@@ -14,9 +18,9 @@ in the 3rd column its error value. Allowed nuclide data are
 \code{'U-238'}, \code{'Th-232'} and \code{'K-40'}. See examples for an example.}
 
 \item{input_unit}{\link{character} (\emph{with default}):
-specify unit of input data given in the dose rate data frame, choose between
-\code{"activity"} (considered as given Bq/kg) and \code{"abundance"} (considered as given in mug/g or mass. \%).
-The default value is \code{"activity"}}
+specify unit of input data given in the dose rate data frame, one of
+\code{"activity"} (considered as given Bq/kg, the default) and \code{"abundance"}
+(considered as given in mug/g or mass. \%).}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enable/disable output to the terminal.}
@@ -45,13 +49,11 @@ all atomic weights and composition values from
 and the nuclide data from \verb{https://www.iaea.org/resources/databases/livechart-of-nuclides-advanced-version}
 
 The factors can be calculated using the equation:
-
 \deqn{
 A = N_A \frac{N_{abund}}{N_{mol.mass}}  ln(2) / N.half.life
 }
 
 to convert in µg/g we further use:
-
 \deqn{
 f = A / 10^6
 }

@@ -109,9 +109,9 @@
 #' the regeneration dose points. This value is essential and needs to provided
 #' along with the usual dose and \eqn{\frac{L_x}{T_x}} values (see `object` parameter input
 #' and the example section). For more details see Lawless and Timar-Gabor (2024).
-#' 
+#'
 #' The fit also returns the parameter \eqn{R} know from `OTOR`, which is derived
-#' as \eqn{R = 1 - Q}. 
+#' as \eqn{R = 1 - Q}.
 #'
 #' *Note: The offset adder \eqn{a} is not part of the formula in Timar-Gabor (2024) and can
 #' be set to zero with the option `fit.force_through_origin = TRUE`*
@@ -345,8 +345,9 @@
 #' @export
 fit_DoseResponseCurve <- function(
   object,
-  mode = "interpolation",
-  fit.method = "EXP",
+  mode = c("interpolation", "extrapolation", "alternate"),
+  fit.method = c("EXP", "LIN", "QDR", "EXP OR LIN", "EXP+LIN", "EXP+EXP",
+                 "GOK", "OTOR", "OTORX"),
   fit.force_through_origin = FALSE,
   fit.weights = TRUE,
   fit.includingRepeatedRegPoints = TRUE,
@@ -1566,7 +1567,7 @@ fit_DoseResponseCurve <- function(
     } else {
       #get parameters out of it
       .get_coef(fit)
-      
+
       ## get also R, this is not part of the fit
       R <- 1-Q
 
@@ -1772,7 +1773,7 @@ fit_DoseResponseCurve <- function(
     D01.ERROR = D01.ERROR,
     D02 = D02,
     D02.ERROR = D02.ERROR,
-    R = R, 
+    R = R,
     R.ERROR = R.ERROR,
     Dc = Dc,
     D63 = D63,

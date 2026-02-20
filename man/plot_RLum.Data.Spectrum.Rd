@@ -7,7 +7,8 @@
 plot_RLum.Data.Spectrum(
   object,
   par.local = TRUE,
-  plot.type = "contour",
+  plot.type = c("contour", "persp", "single", "multiple.lines", "image", "transect",
+    "interactive"),
   optical.wavelength.colours = TRUE,
   bg.spectrum = NULL,
   bg.channels = NULL,

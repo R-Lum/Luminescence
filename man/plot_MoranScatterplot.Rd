@@ -7,7 +7,7 @@
 plot_MoranScatterplot(
   object,
   df_neighbours = NULL,
-  str_y_def = "mean_neighbours",
+  str_y_def = c("mean_neighbours", "weighted_sum"),
   ...
 )
 }
