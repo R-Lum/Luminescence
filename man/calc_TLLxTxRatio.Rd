@@ -50,6 +50,10 @@ Slot \code{data} contains a \link{list} with the following structure:
 .. $ TnTx.BG
 .. $ Net_LnLx
 .. $ Net_LnLx.Error
+.. $ SN_RATIO_LnLx
+.. $ SN_RATIO_TnTx
+.. $ LxTx
+.. $ LxTx.Error
 }\if{html}{\out{</div>}}
 }
 \description{
@@ -71,7 +75,7 @@ if both signals are similar the error becomes zero.
 background for both curves results in a zero error and is therefore set to \code{NA}.
 }
 \section{Function version}{
- 0.3.6
+ 0.3.7
 }
 
 \examples{
