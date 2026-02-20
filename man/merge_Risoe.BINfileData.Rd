@@ -5,15 +5,16 @@
 \title{Merge Risoe.BINfileData objects or Risoe BIN-files}
 \usage{
 merge_Risoe.BINfileData(
-  input.objects,
+  objects,
   output.file,
   keep.position.number = FALSE,
   position.number.append.gap = 0,
-  verbose = TRUE
+  verbose = TRUE,
+  ...
 )
 }
 \arguments{
-\item{input.objects}{\link{character} or \linkS4class{Risoe.BINfileData} objects (\strong{required}):
+\item{objects}{\link{character} or \linkS4class{Risoe.BINfileData} (\strong{required}):
 Character vector with path and files names with ".bin" or ".binx" extension
 (e.g. \code{input.objects = c("path/file1.bin", "path/file2.bin")} or a list of
 \linkS4class{Risoe.BINfileData} objects (e.g. \code{input.objects = c(object1, object2)}).}
@@ -33,6 +34,8 @@ information.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enable/disable output to the terminal.}
+
+\item{...}{currently not used.}
 }
 \value{
 Returns a \linkS4class{Risoe.BINfileData} object or writes to the BIN-file
@@ -72,7 +75,7 @@ With no additional summand the new position numbers would be:
 The validity of the output objects is not further checked.
 }
 \section{Function version}{
- 0.2.10
+ 0.2.11
 }
 
 \examples{

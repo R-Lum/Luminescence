@@ -29,7 +29,7 @@
 #' `position.number.append.gap = 1` it will become:
 #' `1,3,5,7,9,11,13,15,17`.
 #'
-#' @param input.objects [character] or [Luminescence::Risoe.BINfileData-class] objects (**required**):
+#' @param objects [character] or [Luminescence::Risoe.BINfileData-class] (**required**):
 #' Character vector with path and files names with ".bin" or ".binx" extension
 #' (e.g. `input.objects = c("path/file1.bin", "path/file2.bin")` or a list of
 #' [Luminescence::Risoe.BINfileData-class] objects (e.g. `input.objects = c(object1, object2)`).
@@ -50,6 +50,8 @@
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
 #'
+#' @param ... currently not used.
+#'
 #' @return
 #' Returns a [Luminescence::Risoe.BINfileData-class] object or writes to the BIN-file
 #' specified by `output.file`.
@@ -57,7 +59,7 @@
 #' @note
 #' The validity of the output objects is not further checked.
 #'
-#' @section Function version: 0.2.10
+#' @section Function version: 0.2.11
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -81,39 +83,46 @@
 #'
 #' @export
 merge_Risoe.BINfileData <- function(
-  input.objects,
+  objects,
   output.file,
   keep.position.number = FALSE,
   position.number.append.gap = 0,
-  verbose = TRUE
+  verbose = TRUE,
+  ...
 ) {
   .set_function_name("merge_Risoe.BINfileData")
   on.exit(.unset_function_name(), add = TRUE)
 
+  ## deprecated argument
+  if ("input.objects" %in% ...names()) {
+    objects <- list(...)$input.objects
+    .deprecated(old = "input.objects", new = "objects", since = "1.2.0")
+  }
+
   ## Integrity checks -------------------------------------------------------
-  .validate_class(input.objects, c("character", "list"))
+  .validate_class(objects, c("character", "list"))
   .validate_logical_scalar(keep.position.number)
   .validate_logical_scalar(verbose)
-  if(length(input.objects) < 2){
+  if (length(objects) < 2) {
     .throw_message("At least two input objects are needed, nothing done",
                    error = FALSE)
-    return(input.objects)
+    return(objects)
   }
 
   ## Import files -----------------------------------------------------------
-  if (is.character(input.objects)) {
-    for(i in 1:length(input.objects)){
-      .validate_file(input.objects[[i]], ext = c("bin", "binx"),
+  if (is.character(objects)) {
+    for (i in 1:length(objects)) {
+      .validate_file(objects[[i]], ext = c("bin", "binx"),
                      scan.dir = FALSE, verbose = verbose)
     }
-    temp <- lapply(input.objects, read_BIN2R, verbose = verbose)
+    temp <- lapply(objects, read_BIN2R, verbose = verbose)
 
   }else{
-    for (i in 1:length(input.objects)) {
-      .validate_class(input.objects[[i]], "Risoe.BINfileData",
-                      name = "All elements of 'input.objects'")
+    for (i in 1:length(objects)) {
+      .validate_class(objects[[i]], "Risoe.BINfileData",
+                      name = "All elements of 'objects'")
     }
-    temp <- input.objects
+    temp <- objects
   }
 
   # Get POSITION values -------------------------------------------------------
@@ -144,7 +153,7 @@ merge_Risoe.BINfileData <- function(
                          temp[[1]]@.RESERVED else list()
 
   ## loop over the remaining input objects
-  for (i in 2:length(input.objects)) {
+  for (i in 2:length(objects)) {
     temp.new.METADATA <- rbind(temp.new.METADATA, temp[[i]]@METADATA)
     temp.new.DATA <- c(temp.new.DATA, temp[[i]]@DATA)
     if (".RESERVED" %in% slotNames(temp[[i]])) {

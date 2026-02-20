@@ -384,6 +384,11 @@ object returned by the function (#1362).
 50% in some particular cases, such as when merging a large number of
 `RLum.Analysis` object (#1271).
 
+### `merge_RLum.Risoe.BINfileData()`
+
+* Argument `input.objects` has been renamed to `objects`. The older name will
+still work but generates a deprecation warning (#1434).
+
 ### `plot_DetPlot()`
 
 * When operating on a list with the default setting of `multicore = TRUE`, the

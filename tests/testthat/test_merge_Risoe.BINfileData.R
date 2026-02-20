@@ -6,12 +6,12 @@ o2 <- CWOSL.SAR.Data
 test_that("input validation", {
   testthat::skip_on_cran()
 
-  expect_error(merge_Risoe.BINfileData(input.objects = c("data", "data2")),
+  expect_error(merge_Risoe.BINfileData(c("data", "data2")),
                "File 'data' does not exist")
-  expect_error(merge_Risoe.BINfileData(input.objects = list("data", "data2")),
-               "All elements of 'input.objects' should be of class 'Risoe.BINfileData'")
-  expect_error(merge_Risoe.BINfileData(input.objects = c(FALSE, FALSE)),
-               "'input.objects' should be of class 'character' or 'list'")
+  expect_error(merge_Risoe.BINfileData(list("data", "data2")),
+               "All elements of 'objects' should be of class 'Risoe.BINfileData'")
+  expect_error(merge_Risoe.BINfileData(c(FALSE, FALSE)),
+               "'objects' should be of class 'character' or 'list'")
   expect_error(merge_Risoe.BINfileData(c(o1, o2), verbose = NA),
                "'verbose' should be a single logical value")
 })
@@ -21,7 +21,7 @@ test_that("check functionality", {
 
   ## nothing done
   input <- "data"
-  expect_message(res <- merge_Risoe.BINfileData(input.objects = input),
+  expect_message(res <- merge_Risoe.BINfileData(objects = input),
                  "At least two input objects are needed, nothing done")
   expect_equal(res, input)
 
@@ -33,6 +33,10 @@ test_that("check functionality", {
   expect_s4_class(new <- read_BIN2R(output.file, verbose = FALSE),
                   "Risoe.BINfileData")
   expect_length(new, 4)
+
+  ## deprecated argument
+  expect_warning(merge_Risoe.BINfileData(input.objects = c(o1, o2)),
+                 "'input.objects' was deprecated in v1.2.0, use 'objects'")
 })
 
 test_that("snapshot tests", {
