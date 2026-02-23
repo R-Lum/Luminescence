@@ -1818,7 +1818,7 @@ analyse_baSAR <- function(
         horizontal = TRUE,
         outline = TRUE,
         col = box.col[i:step],
-        xlab = if(is.null(unlist(source_doserate))){"Dose [s]"}else{"Dose [Gy]"},
+        xlab = ifelse(is.null(unlist(source_doserate)), "Dose [s]", "Dose [Gy]"),
         ylab = "Aliquot index",
         yaxt = "n",
         xlim = c(1,19),
@@ -1921,7 +1921,7 @@ analyse_baSAR <- function(
           ylim = ylim,
           xlim = xlim,
           ylab = expression(paste(L[x] / T[x])),
-          xlab = if(is.null(unlist(source_doserate))){"Dose [s]"}else{"Dose [Gy]"},
+          xlab = ifelse(is.null(unlist(source_doserate)), "Dose [s]", "Dose [Gy]"),
           main = "baSAR Dose Response Curves"
         ))
 
@@ -2017,7 +2017,9 @@ analyse_baSAR <- function(
       if(distribution_plot == "abanico"){
         plot_check <- plot_AbanicoPlot(
           data = input_object[, c("DE", "DE.SD")],
-          zlab = if(is.null(unlist(source_doserate))){expression(paste(D[e], " [s]"))}else{expression(paste(D[e], " [Gy]"))},
+          zlab = ifelse(is.null(unlist(source_doserate)),
+                        expression(paste(D[e], " [s]")),
+                        expression(paste(D[e], " [Gy]"))),
           log.z = distribution == "log_normal",
           z.0 = results[[1]]$CENTRAL,
           y.axis = FALSE,
@@ -2054,7 +2056,9 @@ analyse_baSAR <- function(
       if(is.null(plot_check) && distribution_plot == "kde"){
         plot_check <- try(suppressWarnings(plot_KDE(
           data = input_object[, c("DE", "DE.SD")],
-          xlab = if(is.null(unlist(source_doserate))){expression(paste(D[e], " [s]"))}else{expression(paste(D[e], " [Gy]"))},
+          xlab = ifelse(is.null(unlist(source_doserate)),
+                        expression(paste(D[e], " [s]")),
+                        expression(paste(D[e], " [Gy]"))),
           mtext =   paste0(
             nrow(input_object) - length(which(is.na(input_object[, c("DE", "DE.SD")]))),
             "/",
