@@ -770,7 +770,7 @@ fit_DoseResponseCurve <- function(
       c <- median(c.start, na.rm = TRUE)
       ## exception: if b is 1 it is likely to be wrong and should be reset
       if(!is.na(b) && b == 1)
-        b <- mean(b.MC)
+        b <- mean(b.MC) # nocov
 
       ## set boundaries
       lower <- if (fit.bounds) c(0, 0, 0) else c(-Inf, -Inf, -Inf)
