@@ -86,12 +86,13 @@ test_that("input validation", {
                              CSV_file = csv.file),
                "'CSV_file' should have at least 3 columns for the name of the")
   data.table::fwrite(data.frame(a = "error", b = 1, c = 2), file = csv.file)
-  expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
+  expect_warning(expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),
                              signal_integral = 1:2,
                              background_integral = 80:100,
                              CSV_file = csv.file),
-               "One of the first 3 columns in 'CSV_file' has no header")
+                             "The BIN-file names provided via 'CSV_file' do not"),
+               "File 'error' doesn't match, skipped")
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),
                              signal_integral = 1:2,
@@ -109,7 +110,7 @@ test_that("input validation", {
                                CSV_file = data.frame(a = "error", b = 1, c = 2)),
                  "BIN-file names provided via 'CSV_file' do not match the loaded BIN-files",
                  fixed = TRUE),
-  "'error' not recognised or not loaded, skipped")
+  "File 'error' doesn't match, skipped")
 
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),

@@ -1181,10 +1181,6 @@ analyse_baSAR <- function(
       if (ncol(datalu) < 3) {
         .throw_error(err.msg)
       }
-      if(!all(grepl(colnames(datalu), pattern = " ")[1:3])){
-        .throw_error("One of the first 3 columns in 'CSV_file' has no ",
-                     "header. ", err.msg)
-      }
 
       ##get rid of empty rows if the BIN_FILE name column is empty
       datalu <- datalu[!is.na(datalu[[1]]), ]
@@ -1230,8 +1226,7 @@ analyse_baSAR <- function(
           }
 
         }else{
-          .throw_warning("'", datalu[nn, 1], "' not recognised ",
-                         "or not loaded, skipped")
+          .throw_warning("File '", datalu[nn, 1], "' doesn't match, skipped")
         }
 
       } else{
