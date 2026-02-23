@@ -612,3 +612,7 @@ More information on these changes are available at
 
 - The show method for an `RLum.Analysis-class` object would fail if the
   record slot contained `NULL` elements (f1846c5c).
+
+- The package has now reached 100% coverage! The test-coverage workflow
+  action has been updated so that any decrease in coverage will be
+  marked as a failure (#548).
