@@ -1808,7 +1808,7 @@ analyse_baSAR <- function(
     LinGC <- as.numeric(grepl("LIN", fit.method))
     GC_Origin <- as.numeric(fit.force_through_origin)
 
-    ## to assure a minimum of quality not more then 15 boxes are plotted in each plot
+    ## to ensure a minimum of quality no more than 15 boxes are plotted in each plot
     i <- 1
     while(i < ncol(plot_matrix)){
       step <- min(ncol(plot_matrix), i + 14)
@@ -1826,13 +1826,10 @@ analyse_baSAR <- function(
       ))
 
       if (!inherits(plot_check, "try-error")) {
-      if(step == ncol(plot_matrix)){
-        axis(side = 2, at = 1:15, labels = as.character(c(i:step, rep(" ", length = 15 - length(i:step)))),
-             cex.axis = 0.8
-        )
-      }else{
-        axis(side = 2, at = 1:15, labels = as.character(i:step), cex.axis = 0.8)
-      }
+        ## pad with spaces then take first 15
+        labels <- c(i:step, rep(" ", 15))[1:15]
+        tick.pos <- which(labels != " ")
+        axis(side = 2, at = tick.pos, labels = labels[tick.pos], cex.axis = 0.8)
 
       ##add HPD with text
       ##HPD - 68%

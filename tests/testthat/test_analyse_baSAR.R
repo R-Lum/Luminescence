@@ -425,6 +425,22 @@ test_that("Full check of analyse_baSAR function", {
       "The number of dose points differs across your data set"),
       "Error : [calc_Statistics()] 'data' cannot be an empty data.frame",
       fixed = TRUE)
+
+  CWOSL.large <- subset(CWOSL.SAR.Data,
+                        subset = POSITION %in% 1:18 & LTYPE == "OSL")
+  analyse_baSAR(
+        object = CWOSL.large,
+        source_doserate = 0.04,
+        signal_integral = 1:2,
+        background_integral = 80:100,
+        fit.method = "LIN",
+        method_control = list(n.chains = 1),
+        n.MCMC = 80,
+        n.MC = 30, # for fit_DoseResponseCurve()
+        plot = TRUE,
+        plot_drc = FALSE,
+        plot_extended = FALSE,
+        verbose = FALSE)
   })
 
   CWOSL.mod <- CWOSL.sub
