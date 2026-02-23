@@ -51,7 +51,7 @@ be prescriptive.
 
 \strong{(2) \code{gaussian}} error propagation
 
-\deqn{se(De) [Gy] = \sqrt((DR [Gy/s] * se(De) [s])^2 + (De [s] * se(DR) [Gy/s])^2)}
+\deqn{se(De) [Gy] = \sqrt{(DR [Gy/s] * se(De) [s])^2 + (De [s] * se(DR) [Gy/s])^2}}
 
 Applicable under the assumption that errors of \code{De} and \code{se} are uncorrelated.
 

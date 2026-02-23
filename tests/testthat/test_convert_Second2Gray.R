@@ -13,6 +13,8 @@ test_that("input validation", {
                "'data' should be of class 'data.frame'")
   expect_error(convert_Second2Gray(ExampleData.DeValues$BT998, dose.rate = FALSE),
                "'dose.rate' should be of class 'RLum.Results', 'data.frame' or")
+  expect_error(convert_Second2Gray(ExampleData.DeValues$BT998, dose.rate = numeric(0)),
+               "'dose.rate' cannot be an empty numeric")
   expect_error(convert_Second2Gray(ExampleData.DeValues$BT998,
                            dose.rate = results[1:5, ]),
                "'data' and 'dose.rate' must have the same length")
