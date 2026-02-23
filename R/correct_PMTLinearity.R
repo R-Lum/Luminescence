@@ -65,7 +65,6 @@ correct_PMTLinearity <- function(
       PMT_pulse_pair_resolution = PMT_pulse_pair_resolution))
   }
 
-
   ## input validation
   .validate_class(object, c("RLum.Analysis", "RLum.Data.Curve"))
   .validate_positive_scalar(PMT_pulse_pair_resolution, null.ok = TRUE)
@@ -115,7 +114,6 @@ correct_PMTLinearity <- function(
     idx <- cps > thresh
 
     ## correct if required
-    idx <- cps > thresh
     if (any(idx)) {
       new_vals <- round(cps[idx] / (1 - cps[idx] * res) * w)
       rec[idx, 2] <- new_vals
@@ -130,7 +128,5 @@ correct_PMTLinearity <- function(
   else
     object <- records[[1]]
 
-  ## return
   return(object)
 }
-
