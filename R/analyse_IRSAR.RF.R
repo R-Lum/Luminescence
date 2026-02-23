@@ -1045,7 +1045,7 @@ analyse_IRSAR.RF<- function(
 
       #(2) get minimum value (index and time value)
       index_min <- which.min(temp.sum.residuals$sliding_vector)
-      if(length(index_min) == 0) t_n.id <- 1 else t_n.id <- index_min
+      t_n.id <- if (length(index_min) == 0) 1 else index_min
 
       I_n <- vslide_range[temp.sum.residuals$vslide_index] %||% 0
       temp.sliding.step <- RF_reg.limited[t_n.id] - t_min
@@ -1554,7 +1554,7 @@ analyse_IRSAR.RF<- function(
         )
       }
 
-      ##plot range choosen for fitting
+      ## plot range chosen for fitting
       abline(v=RF_reg[min(RF_reg.lim), 1], lty=2)
       abline(v=RF_reg[max(RF_reg.lim), 1], lty=2)
 
@@ -1684,7 +1684,7 @@ analyse_IRSAR.RF<- function(
       ##could become a polygone for future versions
       #lapply(1:n.MC, function(x){lines(slide.MC.list[[x]], col = rgb(0,0,0, alpha = 0.2))})
 
-      ##plot range choosen for fitting
+      ## plot range chosen for fitting
       abline(v=RF_reg[min(RF_reg.lim), 1], lty=2)
       abline(v=RF_reg[max(RF_reg.lim), 1], lty=2)
 
