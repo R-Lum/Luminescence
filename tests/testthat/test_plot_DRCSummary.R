@@ -15,7 +15,7 @@ test_that("input validation", {
   expect_error(plot_DRCSummary("test"),
                "'object' should be of class 'RLum.Results'")
   expect_error(plot_DRCSummary(set_RLum("RLum.Results")),
-               "Object originator should be one of 'analyse_SAR.CWOSL' or")
+               "'object' has an unsupported originator")
 
   ## different fit
   err <- merge_RLum(list(results, results))

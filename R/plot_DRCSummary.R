@@ -132,9 +132,7 @@ if(inherits(object, "list")){
 
   ## Integrity checks -------------------------------------------------------
   .validate_class(object, "RLum.Results")
-  .validate_args(object@originator,
-                 c("analyse_SAR.CWOSL", "analyse_pIRIRSequence"),
-                 name = "Object originator")
+  .validate_originator(object, c("analyse_SAR.CWOSL", "analyse_pIRIRSequence"))
 
 # Extract data from object --------------------------------------------------------------------
 
