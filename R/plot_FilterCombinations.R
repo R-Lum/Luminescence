@@ -146,7 +146,6 @@
 #' ##Example 4
 #' ##show the filters using the interactive mode
 #' plot_FilterCombinations(filters = list(filter1, filter2), interactive = TRUE)
-#'
 #' }
 #'
 #' @export
@@ -317,12 +316,12 @@ plot_FilterCombinations <- function(
         title = plot_settings$main,
         showlegend = plot_settings$legend
       )
-      
-      ## use hidden option for shiny to make it 
+
+      ## use hidden option for shiny to make it
       ## work in the filter app
-      if(is.null(list(...)$.shiny_server)) 
+      if(is.null(list(...)$.shiny_server))
         print(p)
-      
+
       on.exit(return(p), add = TRUE)
 
     }else{

@@ -157,7 +157,6 @@ plot(results$OD_total)
 ##Example 4
 ##show the filters using the interactive mode
 plot_FilterCombinations(filters = list(filter1, filter2), interactive = TRUE)
-
 }
 
 }

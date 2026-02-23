@@ -203,7 +203,6 @@ read_RF2R <- function(
       records <- lapply(1:2, function(o) {
         if(o == 1){
           temp_curve <- m_RF_nat[,c(2,2 + a)]
-
         }else{
           temp_curve <- m_RF_reg[,c(2,2 + a)]
         }

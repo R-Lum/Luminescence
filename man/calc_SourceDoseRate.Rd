@@ -68,14 +68,16 @@ dose_rate for the function \link{convert_Second2Gray}.
 
 Calculation of the source dose rate based on the time elapsed since the last
 calibration of the irradiation source. Decay parameters assume a Sr-90 beta
-source. \deqn{dose.rate = D0 * exp(-log(2) / T.1/2 * t)} \cr with: D0 <-
-calibration dose rate T.1/2 <- half-life of the source nuclide (here in
-days) t <- time since source calibration (in days) log(2) / T.1/2 equals the
-decay constant lambda
+source.
+\deqn{dose.rate = D0 \exp(-\frac{\log(2)}{T.1/2} t)}
+
+where \code{D0} is the calibration dose rate, \eqn{T.1/2} is the half-life of the
+source nuclide (in days), \code{t} is the time since source calibration (in days),
+and \eqn{\log(2) / T.1/2} equals the decay constant lambda.
 
 Information on the date of measurements may be taken from the data's
 original .BIN file (using e.g., \code{BINfile <- Luminescence::read_BIN2R()} and the slot
-\code{BINfile@METADATA$DATE})
+\code{BINfile@METADATA$DATE}).
 
 \strong{Allowed source types and related values}
 
