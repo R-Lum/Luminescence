@@ -376,6 +376,10 @@ work but generates a deprecation warning (#1434).
 * Argument `values` has been renamed to `object`. The older name will still
 work but generates a deprecation warning (#1434).
 
+### `convert_Second2Gray()`
+
+* The `dose_rate` argument is now better validated (#1439).
+
 ### `convert_SG2MG()`
 
 * The function crashed if used on an object resulting from a subset operation,

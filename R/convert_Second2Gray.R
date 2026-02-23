@@ -25,7 +25,7 @@
 #'
 #' **(2) `gaussian`** error propagation
 #'
-#' \deqn{se(De) [Gy] = \sqrt((DR [Gy/s] * se(De) [s])^2 + (De [s] * se(DR) [Gy/s])^2)}
+#' \deqn{se(De) [Gy] = \sqrt{(DR [Gy/s] * se(De) [s])^2 + (De [s] * se(DR) [Gy/s])^2}}
 #'
 #' Applicable under the assumption that errors of `De` and `se` are uncorrelated.
 #'
@@ -113,6 +113,7 @@ convert_Second2Gray <- function(
     .validate_originator(dose.rate, "calc_SourceDoseRate")
     dose.rate <- get_RLum(dose.rate, data.object = "dose.rate")
   }
+  .validate_not_empty(dose.rate)
 
   error.propagation <- .validate_args(error.propagation,
                                       c("omit", "gaussian", "absolute"))
