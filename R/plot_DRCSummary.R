@@ -146,10 +146,12 @@ if(inherits(object, "list")){
         sel_curves <- 1:length(object@data$Formula)
   }
 
-    ## check the whether the fitting was all the same
-    if(length(unique(object@data[["data"]][["Fit"]])) != 1)
-      .throw_error("I can only visualise dose-response curves based ",
-                   "on the same fitting equation")
+  ## check whether the same fit method was used
+  fit.method <- unique(object@data[["data"]][["Fit"]])
+  if (length(fit.method) > 1) {
+    .throw_error("Dose-response curves fitted using different equations: ",
+                 .collapse(fit.method))
+  }
 
     ##get DRC
     DRC <- object@data$Formula[sel_curves]
@@ -212,7 +214,6 @@ if(inherits(object, "list")){
   #exchange x-axis if source dose rate is set
   if(!is.null(source_dose_rate)){
     axis(side = 1, at = axTicks(side = 1), labels = round(axTicks(side = 1) * source_dose_rate[1],0))
-
   }else{
     axis(side = 1)
   }
