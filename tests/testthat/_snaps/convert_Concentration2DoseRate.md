@@ -296,3 +296,152 @@
       }
     }
 
+---
+
+    {
+      "type": "S4",
+      "attributes": {
+        "data": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["InfDRG", "input_data"]
+            }
+          },
+          "value": [
+            {
+              "type": "double",
+              "attributes": {
+                "dim": {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [2, 6]
+                },
+                "dimnames": {
+                  "type": "list",
+                  "attributes": {},
+                  "value": [
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Beta", "Gamma"]
+                    },
+                    {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["K", "SE", "Th", "SE", "U", "SE"]
+                    }
+                  ]
+                }
+              },
+              "value": [0.053, 0.02, 0.006, 0.004, 0.039, 0.108, 0.005, 0.009, 0.068, 0.077, 0.007, 0.008]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["Mineral", "K", "K_SE", "Th", "Th_SE", "U", "U_SE", "GrainSize", "WaterContent", "WaterContent_SE"]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
+                },
+                "row.names": {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1]
+                }
+              },
+              "value": [
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["Q"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.09]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.009]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [2.4]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.2]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.75]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.07]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [617.5]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [8]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [4]
+                }
+              ]
+            }
+          ]
+        },
+        "originator": {
+          "type": "character",
+          "attributes": {},
+          "value": ["convert_Concentration2DoseRate"]
+        },
+        "info": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": []
+            }
+          },
+          "value": []
+        },
+        ".uid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        ".pid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        }
+      },
+      "value": {
+        "class": "RLum.Results",
+        "package": "Luminescence"
+      }
+    }
+

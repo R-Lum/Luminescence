@@ -132,7 +132,8 @@ calc_CobbleDoseRate <- function(
 
   CobbleDoseData <- input[1,5:12]
   CobbleDoseData <- cbind(CobbleDoseData,0,0)
-  SedDoseData <- cbind(input[1,5],input[1,15:20],input[1,12],input[1,23:24])
+  SedDoseData <- cbind(input[1, 5], input[1, 15:20], GrainSize = input[1, 12],
+                       input[1, 23:24])
 
   CobbleDoseRate <- get_RLum(
       convert_Concentration2DoseRate(CobbleDoseData, conversion = conversion))

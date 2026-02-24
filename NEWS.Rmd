@@ -371,6 +371,11 @@ in cases where dead time was not corrected; fixed (#1d978cf).
 * Argument `input` has been renamed to `object`. The older name will still
 work but generates a deprecation warning (#1434).
 
+* The interpolation of attenuation values has been corrected so that it will
+not unexpectedly fail if a non-integer value for the grain size is provided,
+as long as it's in the valid range (#1444; thanks to Christina Neudorf for
+reporting).
+
 ### `convert_CW2p*()`
 
 * Argument `values` has been renamed to `object`. The older name will still
