@@ -203,25 +203,13 @@ convert_CW2pLMi<- function(
     .throw_error("All points are outside the interpolation range")
   }
 
-  ##combine t.transformed and CW_OSL.interpolated in a data.frame
-  temp<-data.frame(x=t.transformed, y=unlist(CW_OSL.interpolated$y))
+  ## In some cases the interpolation algorithm is not working properly, and
+  ## Inf or NaN values are produced
+  interpolated <- .fix_interpolation_inf_nan(unlist(CW_OSL.interpolated$y),
+                                             warn = FALSE)
 
-  ##Problem: I rare cases the interpolation is not working properely and Inf or NaN values are returned
-
-  ##Fetch row number of the invalid values
-  invalid_values.id<-c(which(is.infinite(temp[,2]) | is.nan(temp[,2])))
-
-  ##interpolate between the lower and the upper value
-  invalid_values.interpolated<-sapply(1:length(invalid_values.id),
-                                      function(x) {
-                                        mean(c(temp[invalid_values.id[x]-1,2],temp[invalid_values.id[x]+1,2]))
-                                      }
-  )
-
-  ##replace invalid values in data.frame with newly interpolated values
-  if(length(invalid_values.id)>0){
-    temp[invalid_values.id,2]<-invalid_values.interpolated
-  }
+  ## combine t.transformed and CW_OSL.interpolated in a data.frame
+  temp <- data.frame(x = t.transformed, y = interpolated)
 
   # (3) Extrapolate first values of the curve ---------------------------------------------------
 
@@ -301,4 +289,21 @@ convert_CW2pLMi<- function(
   }
 
   object
+}
+
+.fix_interpolation_inf_nan <- function(values, warn) {
+  invalid.idx <- which(is.infinite(values) | is.nan(values))
+  if (length(invalid.idx) == 0)
+    return(values)
+
+  ## replace invalid values with mean of the value before and the value after
+  values[invalid.idx] <- sapply(invalid.idx,
+                                function(x) mean(values[c(x - 1, x + 1)]))
+
+  if (warn) {
+    .throw_warning(length(invalid.idx), " invalid values found, ",
+                   "replaced by the mean of the nearest values")
+  }
+
+  values
 }

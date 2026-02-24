@@ -244,28 +244,13 @@ convert_CW2pHMi<- function(
   ##interpolate values, values beyond the range return NA values
   CW_OSL.interpolated <- approx(t,CW_OSL.log, xout=t.transformed, rule=1)
 
-  ##combine t.transformed and CW_OSL.interpolated in a data.frame
-  temp <- data.frame(x=t.transformed, y=unlist(CW_OSL.interpolated$y))
+  ## In some cases the interpolation algorithm is not working properly, and
+  ## Inf or NaN values are produced
+  interpolated <- .fix_interpolation_inf_nan(unlist(CW_OSL.interpolated$y),
+                                             warn = TRUE)
 
-  ##Problem: In some cases the interpolation algorithm is not working properly
-  ##and Inf or NaN values are returned
-
-  ##fetch row number of the invalid values
-  invalid_values.id <- c(which(is.infinite(temp[,2]) | is.nan(temp[,2])))
-
-  if(length(invalid_values.id) > 0){
-    .throw_warning(length(invalid_values.id), " invalid values have been found ",
-                   "and replaced by the mean of the nearest values")
-  }
-
-  ##interpolate between the lower and the upper value
-  invalid_values.interpolated <- sapply(invalid_values.id,
-                                        function(x) mean(temp[c(x - 1, x + 1), 2]))
-
-  ##replace invalid values in data.frame with newly interpolated values
-  if(length(invalid_values.id)>0){
-    temp[invalid_values.id,2]<-invalid_values.interpolated
-  }
+  ## combine t.transformed and CW_OSL.interpolated in a data.frame
+  temp <- data.frame(x = t.transformed, y = interpolated)
 
   # (3) Extrapolate first values of the curve ---------------------------------
 

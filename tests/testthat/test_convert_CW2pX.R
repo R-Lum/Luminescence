@@ -19,11 +19,11 @@ test_that("check functionality", {
   expect_warning(
       expect_snapshot_plain(convert_CW2pHMi(values),
                             tolerance = tol),
-      "56 invalid values have been found")
+      "56 invalid values found, replaced by the mean of the nearest values")
   expect_warning(
       expect_snapshot_plain(convert_CW2pHMi(values, delta = 40),
                             tolerance = tol),
-      "56 invalid values have been found")
+      "56 invalid values found, replaced by the mean of the nearest values")
   SW({ # repeated warning about invalid values
   expect_warning(
       expect_snapshot_plain(convert_CW2pHMi(values, delta = 2),
