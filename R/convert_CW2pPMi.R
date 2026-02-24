@@ -205,30 +205,9 @@ convert_CW2pPMi<- function(
 
 
   # (5) Extrapolate first values of the curve ---------------------------------
-
-  ##(a) - find index of first rows which contain NA values (needed for extrapolation)
-  temp.sel.id <- min(which(!is.na(temp[, 2])))
-
-  ##(b) - fit linear function
-  fit.lm <- stats::lm(y ~ x, data.frame(x = t[1:2], y = CW_OSL.log[1:2]))
-
-  ##select values to extrapolate and predict (extrapolate) values based on the fitted function
-  x.i<-data.frame(x=temp[1:(min(temp.sel.id)-1),1])
-  y.i<-predict(fit.lm,x.i)
-
-  ##replace NA values by extrapolated values
-  temp[1:length(y.i),2]<-y.i
-
-  ##set method values
-  temp.method<-c(rep("extrapolation",length(y.i)),rep("interpolation",(length(temp[,2])-length(y.i))))
-
-
-  ##print a warning message for more than two extrapolation points
-  if (temp.sel.id > 2) {
-    .throw_warning("t' is beyond the time resolution: only two data points ",
-                   "have been extrapolated, the first ", temp.sel.id - 3,
-                   " points were set to 0")
-  }
+  res <- .extrapolate_first(temp, t = t[1:2], y = CW_OSL.log[1:2])
+  temp <- res$df
+  temp.method <- res$method
 
   # (6) Convert, transform and combine values ---------------------------------
 

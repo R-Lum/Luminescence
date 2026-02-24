@@ -33,7 +33,7 @@ test_that("check functionality", {
   expect_warning(
       expect_snapshot_plain(convert_CW2pPMi(values, P = 1/10),
                             tolerance = tol),
-      "t' is beyond the time resolution: only two data points have been extrapolated")
+      "t' is beyond the time resolution and more than two data points")
 
   expect_warning(expect_error(convert_CW2pLMi(iris),
                               "All points are outside the interpolation range"),

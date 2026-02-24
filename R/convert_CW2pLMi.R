@@ -213,26 +213,9 @@ convert_CW2pLMi<- function(
 
   # (3) Extrapolate first values of the curve ---------------------------------------------------
 
-  ##(a) - find index of first rows which contain NA values (needed for extrapolation)
-  temp.sel.id <- min(which(!is.na(temp[, 2])))
-
-  ##(b) - fit linear function
-  fit.lm <- stats::lm(y ~ x, data.frame(x = t[1:2], y = CW_OSL.log[1:2]))
-
-  ##select values to extrapolate and predict (extrapolate) values based on the fitted function
-  x.i<-data.frame(x=temp[1:(min(temp.sel.id)-1),1])
-  y.i<-predict(fit.lm,x.i)
-
-  ##replace NA values by extrapolated values
-  temp[1:length(y.i),2]<-y.i
-
-  ##set method values
-  temp.method<-c(rep("extrapolation",length(y.i)),rep("interpolation",(length(temp[,2])-length(y.i))))
-
-  ##print a warning message for more than two extrapolation points
-  if (length(y.i) > 2) {
-    .throw_warning("t' is beyond the time resolution and more than two ",
-                   "data points have been extrapolated")}
+  res <- .extrapolate_first(temp, t = t[1:2], y = CW_OSL.log[1:2])
+  temp <- res$df
+  temp.method <- res$method
 
   # (4) Convert, transform and combine values ---------------------------------------------------
 
@@ -306,4 +289,32 @@ convert_CW2pLMi<- function(
   }
 
   values
+}
+
+.extrapolate_first <- function(df, t, y) {
+  ##(a) - find index of first rows which contain NA values (needed for extrapolation)
+  temp.sel.id <- min(which(!is.na(df[, 2])))
+
+  ##(b) - fit linear function
+  fit.lm <- stats::lm(y ~ x, data.frame(x = t, y = y))
+
+  ## select values to extrapolate and predict (extrapolate) values based on
+  ## the fitted function
+  x.i <- data.frame(x = df[1:(min(temp.sel.id) - 1), 1])
+  y.i <- predict(fit.lm, x.i)
+
+  ## replace NA values by extrapolated values
+  df[1:length(y.i), 2] <- y.i
+
+  ##set method values
+  temp.method <- c(rep("extrapolation", length(y.i)),
+                   rep("interpolation", length(df[, 2]) - length(y.i)))
+
+  ## print a warning message for more than two extrapolation points
+  if (length(y.i) > 2) {
+    .throw_warning("t' is beyond the time resolution and more than two ",
+                   "data points have been extrapolated")
+  }
+
+  list(df = df, method = temp.method)
 }
