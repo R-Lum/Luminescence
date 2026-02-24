@@ -81,10 +81,11 @@
 #' provided manually and more than two points are extrapolated, a warning
 #' message is returned.
 #'
-#' @section Function version: 0.3.3
+#' @section Function version: 0.3.4
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
 #' Based on comments and suggestions from:
 #' Adrie J.J. Bos, Delft University of Technology, The Netherlands
 #'
@@ -164,36 +165,10 @@ convert_CW2pLMi<- function(
   }
 
   ## Integrity checks -------------------------------------------------------
-
-  ##(1) data.frame or RLum.Data.Curve object?
-  .validate_class(object, c("data.frame", "RLum.Data.Curve"))
-  .validate_not_empty(object)
-  if (ncol(object) < 2) {
-    .throw_error("'object' should have 2 columns")
-  }
-
-  ##(2) if the input object is an 'RLum.Data.Curve' object check for allowed curves
-  if (inherits(object, "RLum.Data.Curve")) {
-    if(!grepl("OSL", object@recordType) & !grepl("IRSL", object@recordType)){
-      .throw_error("recordType ", object@recordType,
-                   " is not allowed for the transformation")
-    }
-
-    temp.values <- as(object, "data.frame")
-
-  }else{
-    temp.values <- object
-  }
-
-  ## remove NAs
-  temp.values <- na.exclude(temp.values)
-  if (nrow(temp.values) < 2) {
-    .throw_error("'object' should have at least 2 non-missing values")
-  }
+  temp.values <- .prepare_CW2pX(object)
   .validate_positive_scalar(P, null.ok = TRUE)
 
   # (1) Transform values ------------------------------------------------------------------------
-
 
   ##(a) log transformation of the CW-OSL count values
   CW_OSL.log<-log(temp.values[,2])
@@ -250,7 +225,6 @@ convert_CW2pLMi<- function(
 
   # (3) Extrapolate first values of the curve ---------------------------------------------------
 
-
   ##(a) - find index of first rows which contain NA values (needed for extrapolation)
   temp.sel.id <- min(which(!is.na(temp[, 2])))
 
@@ -301,4 +275,30 @@ convert_CW2pLMi<- function(
       recordType = object@recordType,
       data = as.matrix(temp.values[,1:2]),
       info = temp.info)
+}
+
+.prepare_CW2pX <- function(object) {
+  .validate_class(object, c("data.frame", "RLum.Data.Curve"))
+  .validate_not_empty(object)
+  if (ncol(object) < 2) {
+    .throw_error("'object' should have 2 columns")
+  }
+
+  ##(2) if the input object is an 'RLum.Data.Curve' object check for allowed curves
+  if (inherits(object, "RLum.Data.Curve")) {
+    if (!grepl("OSL", object@recordType) && !grepl("IRSL", object@recordType)) {
+      .throw_error("recordType ", object@recordType,
+                   " is not allowed for the transformation")
+    }
+
+    object <- as(object, "data.frame")
+  }
+
+  ## remove NAs
+  object <- na.exclude(object)
+  if (nrow(object) < 2) {
+    .throw_error("'object' should have at least 2 non-missing values")
+  }
+
+  object
 }

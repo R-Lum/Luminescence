@@ -103,7 +103,7 @@ the values are removed and no further interpolation is attempted.
 In every case a warning message is shown.
 }
 \section{Function version}{
- 0.2.4
+ 0.2.5
 }
 
 \examples{
@@ -201,6 +201,7 @@ LM-OSL curves. Radiation Measurements 32, 141-145.
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
 Based on comments and suggestions from:
 Adrie J.J. Bos, Delft University of Technology, The Netherlands
 }
