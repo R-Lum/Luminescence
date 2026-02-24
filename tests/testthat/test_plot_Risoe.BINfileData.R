@@ -31,12 +31,9 @@ test_that("general test", {
 
   expect_warning(plot_Risoe.BINfileData(CWOSL.SAR.Data, position = 1,
                                         curve.transformation = "CW2pHMi"),
-                 "132 invalid values have been found and replaced by the mean")
-  SW({
-  expect_warning(plot_Risoe.BINfileData(CWOSL.SAR.Data, position = 1,
-                                        curve.transformation = "CW2pPMi"),
-                 "t' is beyond the time resolution")
-  })
+                 "132 invalid values found, replaced by the mean")
+  expect_silent(plot_Risoe.BINfileData(CWOSL.SAR.Data, position = 1,
+                                        curve.transformation = "CW2pPMi"))
 
   expect_silent(plot_Risoe.BINfileData(CWOSL.SAR.Data, position = 1,
                                        dose_rate = 3))

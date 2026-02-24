@@ -100,7 +100,7 @@ should be limited to avoid artificial intensity data. If \code{P} is
 provided manually, not more than two points are extrapolated.
 }
 \section{Function version}{
- 0.2.3
+ 0.2.4
 }
 
 \examples{
@@ -165,6 +165,7 @@ LM-OSL curves. Radiation Measurements 32, 141-145.
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
 Based on comments and suggestions from:
 Adrie J.J. Bos, Delft University of Technology, The Netherlands
 }

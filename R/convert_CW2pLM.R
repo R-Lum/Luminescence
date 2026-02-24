@@ -27,10 +27,11 @@
 #' The transformation is recommended for curves recorded with a channel
 #' resolution of at least 0.05 s/channel.
 #'
-#' @section Function version: 0.4.3
+#' @section Function version: 0.4.4
 #'
 #' @author
-#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
 #'
 #' @seealso [Luminescence::convert_CW2pHMi], [Luminescence::convert_CW2pLMi], [Luminescence::convert_CW2pPMi],
 #' [Luminescence::fit_LMCurve], [lm], [Luminescence::RLum.Data.Curve-class]
@@ -82,25 +83,7 @@ convert_CW2pLM <- function(
   }
 
   ## Integrity checks -------------------------------------------------------
-
-  ##(1) data.frame or RLum.Data.Curve object?
-  .validate_class(object, c("data.frame", "RLum.Data.Curve"))
-  .validate_not_empty(object)
-  if (ncol(object) < 2) {
-    .throw_error("'object' should have 2 columns")
-  }
-
-  ##(2) if the input object is an 'RLum.Data.Curve' object check for allowed curves
-  if (inherits(object, "RLum.Data.Curve")) {
-    if(!grepl("OSL", object@recordType) & !grepl("IRSL", object@recordType)){
-      .throw_error("recordType ", object@recordType,
-                   " is not allowed for the transformation")
-    }
-    temp.values <- as(object, "data.frame")
-
-  }else{
-    temp.values <- object
-  }
+  temp.values <- .prepare_CW2pX(object)
 
   # Calculation -------------------------------------------------------------
 

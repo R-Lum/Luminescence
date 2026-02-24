@@ -90,10 +90,11 @@
 #' the values are removed and no further interpolation is attempted.
 #' In every case a warning message is shown.
 #'
-#' @section Function version: 0.2.4
+#' @section Function version: 0.2.5
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
 #' Based on comments and suggestions from:
 #' Adrie J.J. Bos, Delft University of Technology, The Netherlands
 #'
@@ -206,33 +207,7 @@ convert_CW2pHMi<- function(
   }
 
   ## Integrity checks -------------------------------------------------------
-
-  ##(1) data.frame or RLum.Data.Curve object?
-  .validate_class(object, c("data.frame", "RLum.Data.Curve"))
-  .validate_not_empty(object)
-  if (ncol(object) < 2) {
-    .throw_error("'object' should have 2 columns")
-  }
-
-  ##(2) if the input object is an 'RLum.Data.Curve' object check for allowed curves
-  if (inherits(object, "RLum.Data.Curve")) {
-    if(!grepl("OSL", object@recordType) & !grepl("IRSL", object@recordType)){
-
-      .throw_error("recordType ", object@recordType,
-                   " is not allowed for the transformation")
-    }
-
-    temp.values <- as(object, "data.frame")
-
-  }else{
-    temp.values <- object
-  }
-
-  ## remove NAs
-  temp.values <- na.exclude(temp.values)
-  if (nrow(temp.values) < 2) {
-    .throw_error("'object' should have at least 2 non-missing values")
-  }
+  temp.values <- .prepare_CW2pX(object)
   .validate_class(delta, "numeric", null.ok = TRUE)
   if (anyNA(delta)) {
     .throw_error("'delta' cannot contain NA values")
@@ -269,52 +244,19 @@ convert_CW2pHMi<- function(
   ##interpolate values, values beyond the range return NA values
   CW_OSL.interpolated <- approx(t,CW_OSL.log, xout=t.transformed, rule=1)
 
-  ##combine t.transformed and CW_OSL.interpolated in a data.frame
-  temp <- data.frame(x=t.transformed, y=unlist(CW_OSL.interpolated$y))
+  ## In some cases the interpolation algorithm is not working properly, and
+  ## Inf or NaN values are produced
+  interpolated <- .fix_interpolation_inf_nan(unlist(CW_OSL.interpolated$y),
+                                             warn = TRUE)
 
-  ##Problem: In some cases the interpolation algorithm is not working properly
-  ##and Inf or NaN values are returned
-
-  ##fetch row number of the invalid values
-  invalid_values.id <- c(which(is.infinite(temp[,2]) | is.nan(temp[,2])))
-
-  if(length(invalid_values.id) > 0){
-    .throw_warning(length(invalid_values.id), " invalid values have been found ",
-                   "and replaced by the mean of the nearest values")
-  }
-
-  ##interpolate between the lower and the upper value
-  invalid_values.interpolated <- sapply(invalid_values.id,
-                                        function(x) mean(temp[c(x - 1, x + 1), 2]))
-
-  ##replace invalid values in data.frame with newly interpolated values
-  if(length(invalid_values.id)>0){
-    temp[invalid_values.id,2]<-invalid_values.interpolated
-  }
+  ## combine t.transformed and CW_OSL.interpolated in a data.frame
+  temp <- data.frame(x = t.transformed, y = interpolated)
 
   # (3) Extrapolate first values of the curve ---------------------------------
 
-  ##(a) - find index of first rows which contain NA values (needed for extrapolation)
-  temp.sel.id <- min(which(!is.na(temp[, 2])))
-
-  ##(b) - fit linear function
-  fit.lm <- stats::lm(y ~ x, data.frame(x = t[1:2], y = CW_OSL.log[1:2]))
-
-  ##select values to extrapolate and predict (extrapolate) values based on the fitted function
-  x.i<-data.frame(x=temp[1:(min(temp.sel.id)-1),1])
-  y.i<-predict(fit.lm,x.i)
-
-  ##replace NA values by extrapolated values
-  temp[1:length(y.i),2]<-y.i
-
-  ##set method values
-  temp.method<-c(rep("extrapolation",length(y.i)),rep("interpolation",(length(temp[,2])-length(y.i))))
-
-  ##print a warning message for more than two extrapolation points
-  if (length(y.i) > 2) {
-    .throw_warning("t' is beyond the time resolution and more than ",
-                   "two data points have been extrapolated")
-  }
+  res <- .extrapolate_first(temp, t = t[1:2], y = CW_OSL.log[1:2])
+  temp <- res$df
+  temp.method <- res$method
 
   # (4) Convert, transform and combine values ---------------------------------
 

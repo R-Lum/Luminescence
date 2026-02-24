@@ -91,7 +91,7 @@ provided manually and more than two points are extrapolated, a warning
 message is returned.
 }
 \section{Function version}{
- 0.3.3
+ 0.3.4
 }
 
 \examples{
@@ -156,6 +156,7 @@ LM-OSL curves. Radiation Measurements 32, 141-145.
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
 Based on comments and suggestions from:
 Adrie J.J. Bos, Delft University of Technology, The Netherlands
 }

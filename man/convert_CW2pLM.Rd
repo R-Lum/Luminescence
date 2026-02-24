@@ -41,7 +41,7 @@ The transformation is recommended for curves recorded with a channel
 resolution of at least 0.05 s/channel.
 }
 \section{Function version}{
- 0.4.3
+ 0.4.4
 }
 
 \examples{
@@ -80,6 +80,7 @@ Luminescence (OSL) Experiment. Radiation Measurements 26, 701-709.
 \link{fit_LMCurve}, \link{lm}, \linkS4class{RLum.Data.Curve}
 }
 \author{
-Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
 }
 \keyword{manip}

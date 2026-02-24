@@ -80,10 +80,11 @@
 #' should be limited to avoid artificial intensity data. If `P` is
 #' provided manually, not more than two points are extrapolated.
 #'
-#' @section Function version: 0.2.3
+#' @section Function version: 0.2.4
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
 #' Based on comments and suggestions from:
 #' Adrie J.J. Bos, Delft University of Technology, The Netherlands
 #'
@@ -163,32 +164,7 @@ convert_CW2pPMi<- function(
   }
 
   ## Integrity checks -------------------------------------------------------
-
-  ##(1) data.frame or RLum.Data.Curve object?
-  .validate_class(object, c("data.frame", "RLum.Data.Curve"))
-  .validate_not_empty(object)
-  if (ncol(object) < 2) {
-    .throw_error("'object' should have 2 columns")
-  }
-
-  ##(2) if the input object is an 'RLum.Data.Curve' object check for allowed curves
-  if (inherits(object, "RLum.Data.Curve")) {
-    if(!grepl("OSL", object@recordType) & !grepl("IRSL", object@recordType)){
-      .throw_error("recordType ", object@recordType,
-                   " is not allowed for the transformation")
-    }
-
-    temp.values <- as(object, "data.frame")
-
-  }else{
-    temp.values <- object
-  }
-
-  ## remove NAs
-  temp.values <- na.exclude(temp.values)
-  if (nrow(temp.values) < 2) {
-    .throw_error("'object' should have at least 2 non-missing values")
-  }
+  temp.values <- .prepare_CW2pX(object)
   .validate_positive_scalar(P, null.ok = TRUE)
 
   # (3) Transform values ------------------------------------------------------
@@ -229,30 +205,9 @@ convert_CW2pPMi<- function(
 
 
   # (5) Extrapolate first values of the curve ---------------------------------
-
-  ##(a) - find index of first rows which contain NA values (needed for extrapolation)
-  temp.sel.id <- min(which(!is.na(temp[, 2])))
-
-  ##(b) - fit linear function
-  fit.lm <- stats::lm(y ~ x, data.frame(x = t[1:2], y = CW_OSL.log[1:2]))
-
-  ##select values to extrapolate and predict (extrapolate) values based on the fitted function
-  x.i<-data.frame(x=temp[1:(min(temp.sel.id)-1),1])
-  y.i<-predict(fit.lm,x.i)
-
-  ##replace NA values by extrapolated values
-  temp[1:length(y.i),2]<-y.i
-
-  ##set method values
-  temp.method<-c(rep("extrapolation",length(y.i)),rep("interpolation",(length(temp[,2])-length(y.i))))
-
-
-  ##print a warning message for more than two extrapolation points
-  if (temp.sel.id > 2) {
-    .throw_warning("t' is beyond the time resolution: only two data points ",
-                   "have been extrapolated, the first ", temp.sel.id - 3,
-                   " points were set to 0")
-  }
+  res <- .extrapolate_first(temp, t = t[1:2], y = CW_OSL.log[1:2])
+  temp <- res$df
+  temp.method <- res$method
 
   # (6) Convert, transform and combine values ---------------------------------
 
