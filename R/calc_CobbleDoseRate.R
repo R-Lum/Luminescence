@@ -135,10 +135,11 @@ calc_CobbleDoseRate <- function(
   SedDoseData <- cbind(input[1, 5], input[1, 15:20], GrainSize = input[1, 12],
                        input[1, 23:24])
 
-  CobbleDoseRate <- get_RLum(
-      convert_Concentration2DoseRate(CobbleDoseData, conversion = conversion))
-  SedDoseRate <- get_RLum(
-      convert_Concentration2DoseRate(SedDoseData, conversion = conversion))
+  res <- convert_Concentration2DoseRate(CobbleDoseData, conversion = conversion)
+  CobbleDoseRate <- get_RLum(res)
+
+  res <- convert_Concentration2DoseRate(SedDoseData, conversion = conversion)
+  SedDoseRate <- get_RLum(res)
 
   ## Distance should be from the surface of the rock to the top of the slice. Distances and thicknesses are in mm
   N <- length(input$Distance)
