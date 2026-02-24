@@ -52,3 +52,20 @@ test_that("more coverage", {
   expect_warning(calc_CobbleDoseRate(input = df),
                  "'input' was deprecated in v1.2.0, use 'object' instead")
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 1424
+  df <- data.frame(Distance = 0, DistanceError = 0.01, Thickness = 0.6,
+                   ThicknessError = 0.01, Mineral = "Q", Cobble_K = 0.008,
+                   Cobble_K_SE = 0.0008, Cobble_Th = 0.62, Cobble_Th_SE = 0.06,
+                   Cobble_U = 0.2, Cobble_U_SE = 0.02, GrainSize = 9000,
+                   Density = 2.7, CobbleDiameter = 2.6, Sed_K = 0.09,
+                   Sed_K_SE = 0.009, Sed_Th = 2.4, Sed_Th_SE = 0.2,
+                   Sed_U = 0.75, Sed_U_SE = 0.07, GrainSize_Sed = 200L,
+                   Density_Sed = 1.8, WaterContent = 8.2, WaterContent_SE = 4.1)
+  expect_error(calc_CobbleDoseRate(df, conversion = "Cresswelletal2018"),
+               "No attenuation data available for the grain size provided (9000)",
+               fixed = TRUE)
+})

@@ -1,3 +1,4 @@
+## load data
 df <- data.frame(Mineral = "FS",
                  K = 2.13, K_SE = 0.07,
                  Th = 9.76, Th_SE = 0.32,
@@ -32,6 +33,9 @@ test_that("input validation", {
   df[[1]] <- "fail"
   expect_error(convert_Concentration2DoseRate(df),
                "As mineral only 'FS' or 'Q' is supported")
+  colnames(df)[8] <- "error"
+  expect_error(convert_Concentration2DoseRate(df),
+               "'object' should contain a 'GrainSize' column")
 })
 
 test_that("deprecated argument", {
@@ -50,4 +54,10 @@ test_that("snapshot tests", {
 
   df$Mineral <- "Q"
   expect_snapshot_RLum(convert_Concentration2DoseRate(df))
+
+  ## issue 1424
+  df <- data.frame(Mineral = "Q", K = 0.09, K_SE = 0.009,
+                   Th = 2.4, Th_SE = 0.2, U = 0.75, U_SE = 0.07,
+                   GrainSize = 617.5, WaterContent = 8, WaterContent_SE = 4)
+  expect_snapshot_RLum(convert_Concentration2DoseRate(df, "Cresswelletal2018"))
 })

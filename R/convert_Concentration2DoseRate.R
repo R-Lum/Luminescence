@@ -165,6 +165,8 @@ convert_Concentration2DoseRate <- function(
     .validate_class(object[, idx], c("numeric", "integer"),
                     name = "Each element of 'object' other than the first")
   }
+  if (!"GrainSize" %in% colnames(object))
+    .throw_error("'object' should contain a 'GrainSize' column")
 
   ## conversion factors: we do not use BaseDataSet.ConversionFactors directly
   ## as it is in alphabetical level, but we want to have 'Guerinetal2011'
@@ -211,28 +213,29 @@ convert_Concentration2DoseRate <- function(
       }
     }
 
-    ##### --- dose rate for grain size --- #####
+  ##### --- dose rate for grain size --- #####
+  grain.size <- input$GrainSize[1]
+  if (grain.size < min(GSA$GrainSize) || grain.size > max(GSA$GrainSize)) {
+    .throw_error("No attenuation data available for the grain size provided (",
+                 grain.size, ")")
+  }
 
-    if (input[1,1] == "FS") {                                       # FELDSPAR
-      KFit <- approx(GSA$GrainSize, GSA$FS_K, n = 981, method = "linear")
-      ThFit <- approx(GSA$GrainSize, GSA$FS_Th,n = 981, method = "linear")
-      UFit <- approx(GSA$GrainSize, GSA$FS_U, n = 981, method = "linear")
+  if (input[1, 1] == "FS") {
+    ## feldspar
+    KFit <- approx(GSA$GrainSize, GSA$FS_K, xout = grain.size, method = "linear")
+    ThFit <- approx(GSA$GrainSize, GSA$FS_Th, xout = grain.size, method = "linear")
+    UFit <- approx(GSA$GrainSize, GSA$FS_U, xout = grain.size, method = "linear")
 
-    } else if (input[1,1] == "Q")  {                                # QUARTZ
-      KFit <- approx(GSA$GrainSize, GSA$Q_K, n = 981, method = "linear")
-      ThFit <- approx(GSA$GrainSize, GSA$Q_Th, n = 981, method = "linear")
-      UFit <- approx(GSA$GrainSize, GSA$Q_U, n = 981, method = "linear")
-    }
+  } else if (input[1, 1] == "Q")  {
+    ## quartz
+    KFit <- approx(GSA$GrainSize, GSA$Q_K, xout = grain.size, method = "linear")
+    ThFit <- approx(GSA$GrainSize, GSA$Q_Th, xout = grain.size, method = "linear")
+    UFit <- approx(GSA$GrainSize, GSA$Q_U, xout = grain.size, method = "linear")
+  }
 
-    Temp <- which(KFit$x == input[1, 8])
-    if (length(Temp) == 0) {
-      .throw_error("No attenuation data available for the grain size provided (",
-                   input[1, 8], ")")
-    }
-
-    InfDR[1, 1] <- InfDR[1, 1] * (1 - KFit$y[Temp])   # K
-    InfDR[1, 3] <- InfDR[1, 3] * (1 - ThFit$y[Temp])  # Th
-    InfDR[1, 5] <- InfDR[1, 5] * (1 - UFit$y[Temp])   # U
+  InfDR[1, 1] <- InfDR[1, 1] * (1 - KFit$y)   # K
+  InfDR[1, 3] <- InfDR[1, 3] * (1 - ThFit$y)  # Th
+  InfDR[1, 5] <- InfDR[1, 5] * (1 - UFit$y)   # U
 
     ##### --- Correct beta sediment dose rate for water content --- #####
     InfDRG <- matrix(data = NA, nrow = 2, ncol = 6)
