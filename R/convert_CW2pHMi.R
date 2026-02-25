@@ -84,9 +84,9 @@
 #' provided manually and more than two points are extrapolated, a warning
 #' message is returned.
 #'
-#' The function [approx] may produce some `Inf` and `NaN` data.
-#' The function tries to manually interpolate these values by calculating
-#' the `mean` using the adjacent channels. If two invalid values are succeeding,
+#' The function [approx] may produce some `Inf` and `NaN` data, in which case
+#' the function tries to interpolate these values by calculating the mean of
+#' the adjacent channels. If two invalid values are succeeding,
 #' the values are removed and no further interpolation is attempted.
 #' In every case a warning message is shown.
 #'
@@ -147,19 +147,15 @@
 #'                                        ,"NPOINTS"]
 #'
 #' ##combine curve to data set
-#'
 #' curve<-data.frame(x = seq(curve.HIGH/curve.NPOINTS,curve.HIGH,
 #'                           by = curve.HIGH/curve.NPOINTS),
 #'                   y=unlist(CWOSL.SAR.Data@@DATA[curve.ID[1]]))
 #'
-#'
 #' ##transform values
-#'
 #' curve.transformed <- convert_CW2pHMi(curve)
 #'
 #' ##plot curve
 #' plot(curve.transformed$x, curve.transformed$y.t, log = "x")
-#'
 #'
 #' ##(3) - produce Fig. 4 from Bos & Wallinga (2012)
 #'

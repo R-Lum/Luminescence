@@ -73,6 +73,10 @@ test_that("input validation", {
 
   expect_error(convert_CW2pLMi(values, P = 0),
                "[convert_CW2pLMi()] 'P' should be a single positive value", fixed = TRUE)
+  expect_error(convert_CW2pLMi(data.frame(-1:2, 1:4)),
+               "'object' cannot contain negative times")
+  expect_error(convert_CW2pLMi(data.frame(1:4, -1:2)),
+               "'object' cannot contain negative counts")
   expect_warning(convert_CW2pLMi(values, P = 10),
                  "t' is beyond the time resolution and more than two data points")
 
@@ -82,6 +86,10 @@ test_that("input validation", {
                "'object' cannot be an empty data.frame")
   expect_error(convert_CW2pHMi(iris[, 1, drop = FALSE]),
                "'object' should have 2 columns")
+  expect_error(convert_CW2pHMi(data.frame(a = c(12, -2.1), b = c(1.34, 0))),
+               "'object' cannot contain negative times")
+  expect_error(convert_CW2pHMi(data.frame(a = c(12, 2.1), b = c(1.34, 0))),
+               "All interpolated values are Inf/NaN/NA, check your data")
   expect_error(convert_CW2pHMi(data.frame(a = 1:10, b = NA)),
                "'object' should have at least 2 non-missing values")
   expect_error(convert_CW2pHMi(values, iris),
