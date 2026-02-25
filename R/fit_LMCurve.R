@@ -351,6 +351,13 @@ fit_LMCurve<- function(
   if (nrow(values) == 0)
     .throw_error("After NA removal, nothing is left from the data set")
 
+  ## the models use two variables for each component
+  if (nrow(values) < n.components * 2) {
+    .throw_error("At least ", n.components * 2, " data points are required to ",
+                 "fit ", n.components, " components, but only ", nrow(values),
+                 " provided")
+  }
+
   ## Set plot format parameters -----------------------------------------------
   extraArgs <- list(...) # read out additional arguments list
 
