@@ -456,6 +456,11 @@ More information on these changes are available at
 - Argument `input.objects` has been renamed to `objects`. The older name
   will still work but generates a deprecation warning (#1434).
 
+### `merge_RLum.Data.Spectrum()`
+
+- The function no longer warns unnecessarily if the RLum.Data.Spectrum
+  object contains no column names (#1450).
+
 ### `plot_DetPlot()`
 
 - When operating on a list with the default setting of
