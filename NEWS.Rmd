@@ -391,6 +391,9 @@ work but generates a deprecation warning (#1434).
 as it used the rownames (which may no longer correspond to row indices) to
 index into the `METADATA` slot (#1415).
 
+* The function now exits cleanly instead of crashing if more than one input
+filenames are provided (#1446).
+
 ### `fit_CWCurve()`
 
 * Argument `values` has been renamed to `object`. The older name will still
