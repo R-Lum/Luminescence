@@ -46,6 +46,8 @@ test_that("input validation", {
                  "The time/temperatures recorded are too different")
   expect_silent(merge_RLum.Data.Spectrum(list(TL.Spectrum, TL.Spectrum_other),
                                          max.temp.diff = 1))
+  spectrum <- set_RLum("RLum.Data.Spectrum", data = matrix(1:10, ncol = 2))
+  expect_no_warning(merge_RLum(list(spectrum, spectrum)))
 })
 
 test_that("check functionality", {

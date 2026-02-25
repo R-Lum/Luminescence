@@ -181,9 +181,11 @@ merge_RLum.Data.Spectrum <- function(
 
     ## for time/temperature data we allow some small differences: we report
     ## a warning if they are too high, but continue anyway
-    if (max(abs(as.numeric(colnames(x@data)) - y.vals)) > max.temp.diff) {
-      .throw_warning("The time/temperatures recorded are too different, ",
-                     "proceed with caution")
+    if (!is.null(colnames(x@data))) {
+      if (max(abs(as.numeric(colnames(x@data)) - y.vals)) > max.temp.diff) {
+        .throw_warning("The time/temperatures recorded are too different, ",
+                       "proceed with caution")
+      }
     }
 
     x@data
