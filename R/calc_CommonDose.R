@@ -117,6 +117,9 @@ calc_CommonDose <- function(
   if (ncol(data) < 2) {
     .throw_error("'data' object must have two columns")
   }
+  if (any(data[, 1] < 0)) {
+    .throw_error("'data' cannot contain negative times")
+  }
   .validate_nonnegative_scalar(sigmab)
   .validate_logical_scalar(log)
   if (log && (sigmab < 0 || sigmab > 1)) {
