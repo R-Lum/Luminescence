@@ -43,6 +43,8 @@ test_that("input validation", {
                "When 'object' is a data.frame, the number of columns must be")
   expect_error(analyse_FadingMeasurement(data.frame(NA, 1:5, 1:5)),
                "After NA removal, nothing is left from the data set")
+  expect_error(analyse_FadingMeasurement(data.frame(1:3, 1:3, -1:1 + 0.1)),
+               "'object' cannot contain negative irradiation times")
 
   expect_error(analyse_FadingMeasurement(object, signal_integral = 1:2,
                                          background_integral = 2),

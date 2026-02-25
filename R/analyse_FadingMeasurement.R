@@ -271,6 +271,9 @@ analyse_FadingMeasurement <- function(
     ##set table and object
     LxTx_table <- data.frame(LxTx = object[[1]], LxTx.Error = object[[2]])
     irradiation_times <- TIMESINCEIRR <- object[[3]]
+    if (any(irradiation_times < 0)) {
+      .throw_error("'object' cannot contain negative irradiation times")
+    }
     object <- NULL
   }
 

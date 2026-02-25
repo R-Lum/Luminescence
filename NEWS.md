@@ -442,6 +442,9 @@ More information on these changes are available at
   `object.bg`, respectively. The older names will still work but
   generate a deprecation warning (#1434).
 
+- The function now checks that the number of data points provided is
+  large enough to fit the requested number of components (#1448).
+
 ### `get_RLum()`
 
 - An internal optimization increased the performance of the function by

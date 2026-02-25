@@ -33,6 +33,8 @@ test_that("input validation", {
                "'recordType' for 'object.bg' should be 'RBR'")
   expect_error(fit_LMCurve(data.frame(NA, 1:5)),
                "After NA removal, nothing is left from the data set")
+  expect_error(fit_LMCurve(values.curve[1:5, ]),
+               "At least 6 data points are required to fit 3 components")
 
   ## warning for failed confint ...skip on windows because with R >= 4.2 is does not fail anymore
   # SW({

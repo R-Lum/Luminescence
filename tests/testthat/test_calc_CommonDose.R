@@ -12,6 +12,8 @@ test_that("input validation", {
                "'data' object must have two columns")
   expect_error(calc_CommonDose(data.frame(col = 1:10)),
                "'data' object must have two columns")
+  expect_error(calc_CommonDose(data.frame(a = c(12, -2.1), b = 1:2)),
+               "'data' cannot contain negative times")
   expect_error(calc_CommonDose(ExampleData.DeValues$CA1, sigmab = iris),
                "'sigmab' should be a single non-negative value")
   expect_error(calc_CommonDose(ExampleData.DeValues$CA1, sigmab = 2),
