@@ -492,14 +492,14 @@ plot_AbanicoPlot <- function(
                     name = "All elements of 'data'")
     if (inherits(data[[i]], "RLum.Results")) {
       if (line.is.null &&
-          .check_originator(data[[i]], c("calc_CentralDose",
+          .check_originator(data[[i]], c("calc_AverageDose", "calc_CentralDose",
                                          "calc_MaxDose", "calc_MinDose",
                                          "calc_FiniteMixture"))) {
         ## set lines automatically based on originator
         de <- data[[i]]$summary$de
         de.pm.err <- sprintf("%.2f \u00b1 %.2f", de, data[[i]]$summary$de_err)
         lab <- switch(data[[i]]@originator,
-#                      "calc_AverageDose" = "ADM", FIXME(mcol)
+                      "calc_AverageDose" = "ADM",
                       "calc_CentralDose" = "CDM",
                       "calc_MaxDose" = "MDM",
                       "calc_MinDose" = "MAM",
