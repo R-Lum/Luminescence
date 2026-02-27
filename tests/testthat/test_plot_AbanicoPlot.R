@@ -2,6 +2,11 @@
 data(ExampleData.DeValues, envir = environment())
 ExampleData.DeValues <- ExampleData.DeValues$CA1
 
+CAM <- calc_CentralDose(ExampleData.DeValues,
+                        plot = FALSE, verbose = FALSE)
+FMM <- calc_FiniteMixture(ExampleData.DeValues, sigmab = 0.01,
+                          n.components = 2:3, plot = FALSE, verbose = FALSE)
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -133,9 +138,6 @@ test_that("Test examples from the example page", {
                    dispersion = "p17"))
 
   ## now with user-defined green line for minimum age model
-  CAM <- calc_CentralDose(ExampleData.DeValues,
-                          plot = FALSE, verbose = FALSE)
-
   expect_silent(plot_AbanicoPlot(data = ExampleData.DeValues,
                    line = list(CAM),
                    line.col = "darkgreen",
@@ -384,7 +386,6 @@ test_that("Test graphical snapshot", {
                                                  pch = c(2, 6),
                                                  angle = c(30, 50),
                                                  summary = c("n", "in.2s", "median")))
-
     vdiffr::expect_doppelganger("line frame legend rotated",
                                 plot_AbanicoPlot(data = data.list,
                                                  rotate = TRUE,
@@ -402,5 +403,16 @@ test_that("Test graphical snapshot", {
                                                  pch = c(2, 6),
                                                  angle = c(30, 50),
                                                  summary = c("n", "in.2s", "median")))
+
+    vdiffr::expect_doppelganger("CAM",
+                                plot_AbanicoPlot(data = CAM,
+                                                 line.col = "darkseagreen"))
+    vdiffr::expect_doppelganger("CAM cex",
+                                plot_AbanicoPlot(data = CAM, cex = 2))
+
+    vdiffr::expect_doppelganger("FMM",
+                                plot_AbanicoPlot(data = FMM, rotate = TRUE))
+    vdiffr::expect_doppelganger("FMM cex",
+                                plot_AbanicoPlot(data = FMM, rotate = TRUE, cex = 2))
   })
 })

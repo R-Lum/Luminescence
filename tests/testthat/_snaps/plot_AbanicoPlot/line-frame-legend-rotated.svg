@@ -40,7 +40,8 @@
 <text transform='translate(40.32,115.20) rotate(-90)' text-anchor='middle' style='font-size: 14.40px; font-family: sans;' textLength='36.04px' lengthAdjust='spacingAndGlyphs'>0.032</text>
 <text transform='translate(22.32,153.28) rotate(-90)' text-anchor='middle' style='font-size: 14.40px; font-family: sans;' textLength='112.06px' lengthAdjust='spacingAndGlyphs'>Density (bw 5.61)</text>
 <polyline points='360.00,518.40 340.33,200.88 340.33,115.20 ' style='stroke-width: 0.75; stroke-dasharray: 1.00,3.00;' />
-<text x='340.37' y='129.83' text-anchor='middle' style='font-size: 12.96px; font-family: sans;' textLength='28.81px' lengthAdjust='spacingAndGlyphs'>CAM</text>
+<rect x='327.75' y='122.40' width='35.98' height='11.75' style='stroke-width: 0.75; stroke: none;' />
+<text x='332.93' y='132.24' style='font-size: 11.52px; font-family: sans;' textLength='25.61px' lengthAdjust='spacingAndGlyphs'>CAM</text>
 <text x='306.21' y='26.21' style='font-size: 17.28px; font-family: sans;' textLength='12.48px' lengthAdjust='spacingAndGlyphs'>D</text>
 <text x='318.69' y='29.40' style='font-size: 12.10px; font-family: sans;' textLength='6.73px' lengthAdjust='spacingAndGlyphs'>e</text>
 <text x='325.42' y='26.21' style='font-size: 17.28px; font-family: sans;' textLength='4.80px' lengthAdjust='spacingAndGlyphs'> </text>

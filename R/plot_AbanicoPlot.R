@@ -73,8 +73,8 @@
 #' the entire plot. Each element of the plot can be addressed and its properties
 #' can be defined. This includes font type, size and decoration, colours and
 #' sizes of all plot items. To infer the definition of a specific layout style
-#' cf. [Luminescence::get_Layout] or type e.g., for the layout type `"journal"`
-#' [Luminescence::get_Layout]. A layout type can be modified by the user by
+#' cf. [Luminescence::get_Layout] or type, e.g. for the layout type `"journal"`.
+#' A layout type can be modified by the user by
 #' assigning new values to the list object.
 #'
 #' It is possible for the z-scale to specify where ticks are to be drawn
@@ -85,7 +85,16 @@
 #' @param data [data.frame] or [Luminescence::RLum.Results-class] object (**required**):
 #' for `data.frame` two columns: De (`data[,1]`) and De error (`data[,2]`).
 #'  To plot several data sets in one plot the data sets must be provided as
-#'  `list`, e.g. `list(data.1, data.2)`.
+#'  `list`, e.g. `list(data.1, data.2)`.\cr
+#' For some [Luminescence::RLum.Results-class] objects, one or more lines (and
+#' corresponding labels) are drawn automatically:
+#' - [Luminescence::calc_AverageDose] (ADM)
+#' - [Luminescence::calc_CentralDose] (CDM)
+#' - [Luminescence::calc_MaxDose] (MDM)
+#' - [Luminescence::calc_MinDose] (MAM)
+#' - [Luminescence::calc_FiniteMixture]
+#' Alternative labels can be set via the `line.label` option. This behaviour
+#' can be suppressed altogether by setting `line = NA`.
 #'
 #' @param na.rm [logical] (*with default*):
 #' exclude `NA` values from the data set prior to any further operations.
@@ -113,7 +122,7 @@
 #'
 #' @param plot.ratio [numeric] (*with default*):
 #' Relative space, given to the radial versus the cartesian plot part,
-#' default is `0.75`.
+#' default is 0.75.
 #'
 #' @param rotate [logical] (*with default*):
 #' Option to turn the plot by 90 degrees.
@@ -191,7 +200,8 @@
 #' `polygon = FALSE`. Default is `"grey80"`.
 #'
 #' @param line [numeric] or [Luminescence::RLum.Results-class]:
-#' numeric values of the additional lines to be added.
+#' numeric values of the additional lines to be added. This can be set to `NA`
+#' to suppress the line added automatically by some `RLum.Results` objects.
 #'
 #' @param line.col [character] or [numeric]:
 #' colour of the additional lines.
@@ -229,11 +239,12 @@
 #' @return
 #' Returns a plot object and, optionally, a list with plot calculus data.
 #'
-#' @section Function version: 0.1.20
+#' @section Function version: 0.1.21
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
 #' Inspired by a plot introduced by Galbraith & Green (1990)
 #'
 #' @seealso [Luminescence::plot_RadialPlot], [Luminescence::plot_KDE],
@@ -317,11 +328,8 @@
 #' ## now with user-defined green line for minimum age model
 #' CAM <- calc_CentralDose(ExampleData.DeValues,
 #'                         plot = FALSE)
-#'
-#' plot_AbanicoPlot(data = ExampleData.DeValues,
-#'                  line = CAM,
-#'                  line.col = "darkgreen",
-#'                  line.label = "CAM")
+#' plot_AbanicoPlot(data = CAM,
+#'                  line.col = "darkseagreen")
 #'
 #' ## now create plot with legend, colour, different points and smaller scale
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
@@ -474,12 +482,32 @@ plot_AbanicoPlot <- function(
     data <- list(data)
   }
 
+  ## whether the user has set the line argument or not
+  line.is.null <- is.null(line)
+
   ## Check input data
   for (i in seq_along(data)) {
     .validate_class(data[[i]], c("data.frame", "RLum.Results"),
                     name = "All elements of 'data'")
-    if (inherits(data[[i]], "RLum.Results"))
+    if (inherits(data[[i]], "RLum.Results")) {
+      if (line.is.null &&
+          .check_originator(data[[i]], c("calc_CentralDose",
+                                         "calc_MaxDose", "calc_MinDose",
+                                         "calc_FiniteMixture"))) {
+        ## set lines automatically based on originator
+        de <- data[[i]]$summary$de
+        de.pm.err <- sprintf("%.2f \u00b1 %.2f", de, data[[i]]$summary$de_err)
+        lab <- switch(data[[i]]@originator,
+#                      "calc_AverageDose" = "ADM", FIXME(mcol)
+                      "calc_CentralDose" = "CDM",
+                      "calc_MaxDose" = "MDM",
+                      "calc_MinDose" = "MAM",
+                      "calc_FiniteMixture" = de.pm.err)
+        line <- c(line, de)
+        line.label <- c(line.label, lab)
+      }
       data[[i]] <- get_RLum(data[[i]], "data")
+    }
 
       if (ncol(data[[i]]) < 2) {
         .throw_error("Data set ", i, " has fewer than 2 columns: data ",
@@ -935,6 +963,9 @@ plot_AbanicoPlot <- function(
   }
   text.rot <- function(x, y, ...) {
     if (!rotate) text(x, y, ...) else text(y, x, ...)
+  }
+  text_with_bg.rot <- function(x, y, ...) {
+    if (!rotate) .text_with_bg(x, y, ...) else .text_with_bg(y, x, ...)
   }
 
   ## create empty plot to update plot parameters
@@ -1499,11 +1530,7 @@ plot_AbanicoPlot <- function(
     if (log.z)
       line <- log(line)
     if (is.null(line.col))
-      line.col <- seq_along(line)
-    if (is.null(line.lty))
-      line.lty <- rep(1, length(line))
-    if (is.null(line.label))
-      line.label <- rep("", length(line))
+      line.col <- seq_along(line) + ifelse(line.is.null, 1, 0)
 
     ## calculate line coordinates and further parameters
     line.x <- c(limits.x[1], min.ellipse, y.max)
@@ -1513,14 +1540,14 @@ plot_AbanicoPlot <- function(
         lines.rot(x = line.x,
                   y = c(0, line.y[i], line.y[i]),
                   col = line.col[i],
-                  lty = line.lty[i]
+                  lty = line.lty[i] %||% 1
                   )
-        text.rot(x = line.x[3],
-                 y = line.y[i] + par()$cxy[2] * 0.3,
-                 labels = line.label[i],
-                 pos = 3 - rotate.idx,
-                 col = line.col[i],
-                 cex = 0.9)
+        text_with_bg.rot(x = line.x[3] - par()$cxy[rotate.idx] * 0.5,
+                         y = line.y[i] + par()$cxy[3 - rotate.idx] * 0.5,
+                         label = line.label[i] %||% "",
+                         pos = 3 - rotate.idx,
+                         bg = ifelse(line.is.null, line.col[i], NA),
+                         cex = 0.8)
       }
     }
 

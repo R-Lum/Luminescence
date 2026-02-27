@@ -143,6 +143,13 @@ test_that("Test internals", {
   expect_silent(Luminescence:::.add_fancy_log_axis(side = 2, las = 1))
   expect_null(.add_fancy_log_axis(side = 1, las = 1))
 
+  ## .text_with_bg() --------------------------------------------------------
+  expect_silent(.text_with_bg(x = 2, y = 0.1, label = "pos = NULL", pos = NULL))
+  expect_silent(.text_with_bg(x = 2, y = 0.01, label = "pos = 1", pos = 1))
+  expect_silent(.text_with_bg(x = 2, y = 0.01, label = "pos = 2", pos = 2))
+  expect_silent(.text_with_bg(x = 2, y = 0.01, label = "pos = 3", pos = 3))
+  expect_silent(.text_with_bg(x = 2, y = 0.01, label = "pos = 4", pos = 4))
+
   # .get_keyword_coordinates() ----------------------------------------------
   xlim <- c(0, 5)
   ylim <- c(2, 10)
