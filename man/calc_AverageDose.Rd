@@ -45,21 +45,20 @@ supported, but the output of \code{hist} is returned and can be used of own plot
 Further supported arguments: \code{mtext} (\link{character}), \code{rug} (\code{TRUE/FALSE}).}
 }
 \value{
-The function returns numerical output and an (\emph{optional}) plot.
+The function produces numerical output and an optional plot. In addition,
+an \linkS4class{RLum.Results} object containing the following
+elements is returned:
 
------------------------------------\cr
-\verb{[ NUMERICAL OUTPUT ]} \cr
------------------------------------\cr
-\strong{\code{RLum.Results}}-object\cr
+\item{$summary}{\link{data.frame} summary of all relevant model results.}
+\item{$data}{\link{data.frame} with original input data.}
+\item{$dstar}{\link{matrix} with bootstrap values.}
+\item{$hist}{\link{list} object as produced by the \link{hist} function.}
 
-\strong{slot:} \strong{\verb{@data}} \cr
-
-\verb{[.. $summary : data.frame]}\cr
-
+The \verb{$summary} data.frame contains the following columns:
 \tabular{lll}{
 \strong{Column} \tab \strong{Type} \tab \strong{Description}\cr
-AVERAGE_DOSE \tab \link{numeric} \tab the obtained average dose\cr
-AVERAGE_DOSE.SE \tab \link{numeric} \tab the average dose error \cr
+de \tab \link{numeric} \tab the obtained average dose\cr
+de_err \tab \link{numeric} \tab the average dose error \cr
 SIGMA_D \tab \link{numeric}\tab sigma \cr
 SIGMA_D.SE \tab \link{numeric}\tab standard error of the sigma  \cr
 IC_AVERAGE_DOSE.LEVEL  \tab \link{character}\tab confidence level average dose\cr
@@ -68,20 +67,10 @@ IC_AVERAGE_DOSE.UPPER \tab \link{character}\tab upper quantile of average dose\c
 IC_SIGMA_D.LEVEL \tab \link{integer}\tab confidence level sigma\cr
 IC_SIGMA_D.LOWER \tab \link{character}\tab lower sigma quantile\cr
 IC_SIGMA_D.UPPER \tab \link{character}\tab upper sigma quantile\cr
-L_MAX \tab \link{character}\tab maximum likelihood value
+L_MAX \tab \link{character}\tab maximum likelihood value \cr
+AVERAGE_DOSE \tab \link{numeric} \tab same as \code{de} (backward compatibility)\cr
+AVERAGE_DOSE.SE \tab \link{numeric} \tab same as \code{de_err} (backward compatibility)\cr
 }
-
-\verb{[.. $dstar : matrix]} \cr
-
-Matrix with bootstrap values\cr
-
-\verb{[.. $hist : list]}\cr
-
-Object as produced by the function histogram
-
-------------------------\cr
-\verb{[ PLOT OUTPUT ]}\cr
-------------------------\cr
 
 The function returns two different plot panels.
 
@@ -106,23 +95,19 @@ will be that over and above \code{sigma_m} (and individual uncertainties \code{s
 This function has beta status!
 }
 \section{Function version}{
- 0.1.6
+ 0.1.7
 }
 
 \examples{
 
-##Example 01 using package example data
-##load example data
+## load example data
 data(ExampleData.DeValues, envir = environment())
 
-##calculate Average dose
-##(use only the first 56 values here)
-AD <- calc_AverageDose(ExampleData.DeValues$CA1[1:56,], sigma_m = 0.1)
+## calculate Average dose (using only the first 56 values here)
+AD <- calc_AverageDose(ExampleData.DeValues$CA1[1:56, ], sigma_m = 0.1)
 
-##plot De and set Average dose as central value
-plot_AbanicoPlot(
- data = ExampleData.DeValues$CA1[1:56,],
- z.0 = AD$summary$AVERAGE_DOSE)
+## plot De and set Average dose as central value
+plot_AbanicoPlot(ExampleData.DeValues$CA1[1:56, ], z.0 = AD$summary$de)
 
 }
 \references{

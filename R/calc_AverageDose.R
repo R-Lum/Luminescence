@@ -41,7 +41,7 @@
 #'
 #' Further supported arguments: `mtext` ([character]), `rug` (`TRUE/FALSE`).
 #'
-#' @section Function version: 0.1.6
+#' @section Function version: 0.1.7
 #'
 #' @author Claire Christophe, IRAMAT-CRP2A, Université de Nantes (France)\cr
 #' Anne Philippe, Université de Nantes, (France)\cr
@@ -50,21 +50,21 @@
 #'
 #' @seealso [read.table], [graphics::hist]
 #'
-#' @return The function returns numerical output and an (*optional*) plot.
+#' @return
+#' The function produces numerical output and an optional plot. In addition,
+#' an [Luminescence::RLum.Results-class] object containing the following
+#' elements is returned:
 #'
-#' -----------------------------------\cr
-#' `[ NUMERICAL OUTPUT ]` \cr
-#' -----------------------------------\cr
-#' **`RLum.Results`**-object\cr
+#' \item{$summary}{[data.frame] summary of all relevant model results.}
+#' \item{$data}{[data.frame] with original input data.}
+#' \item{$dstar}{[matrix] with bootstrap values.}
+#' \item{$hist}{[list] object as produced by the [hist] function.}
 #'
-#' **slot:** **`@data`** \cr
-#'
-#' `[.. $summary : data.frame]`\cr
-#'
+#' The `$summary` data.frame contains the following columns:
 #' \tabular{lll}{
 #'  **Column** \tab **Type** \tab **Description**\cr
-#'  AVERAGE_DOSE \tab [numeric] \tab the obtained average dose\cr
-#'  AVERAGE_DOSE.SE \tab [numeric] \tab the average dose error \cr
+#'  de \tab [numeric] \tab the obtained average dose\cr
+#'  de_err \tab [numeric] \tab the average dose error \cr
 #'  SIGMA_D \tab [numeric]\tab sigma \cr
 #'  SIGMA_D.SE \tab [numeric]\tab standard error of the sigma  \cr
 #'  IC_AVERAGE_DOSE.LEVEL  \tab [character]\tab confidence level average dose\cr
@@ -73,20 +73,10 @@
 #'  IC_SIGMA_D.LEVEL \tab [integer]\tab confidence level sigma\cr
 #'  IC_SIGMA_D.LOWER \tab [character]\tab lower sigma quantile\cr
 #'  IC_SIGMA_D.UPPER \tab [character]\tab upper sigma quantile\cr
-#'  L_MAX \tab [character]\tab maximum likelihood value
+#'  L_MAX \tab [character]\tab maximum likelihood value \cr
+#'  AVERAGE_DOSE \tab [numeric] \tab same as `de` (backward compatibility)\cr
+#'  AVERAGE_DOSE.SE \tab [numeric] \tab same as `de_err` (backward compatibility)\cr
 #' }
-#'
-#' `[.. $dstar : matrix]` \cr
-#'
-#' Matrix with bootstrap values\cr
-#'
-#' `[.. $hist : list]`\cr
-#'
-#' Object as produced by the function histogram
-#'
-#' ------------------------\cr
-#' `[ PLOT OUTPUT ]`\cr
-#' ------------------------\cr
 #'
 #' The function returns two different plot panels.
 #'
@@ -112,18 +102,14 @@
 #'
 #' @examples
 #'
-#'##Example 01 using package example data
-#'##load example data
-#'data(ExampleData.DeValues, envir = environment())
+#' ## load example data
+#' data(ExampleData.DeValues, envir = environment())
 #'
-#'##calculate Average dose
-#'##(use only the first 56 values here)
-#'AD <- calc_AverageDose(ExampleData.DeValues$CA1[1:56,], sigma_m = 0.1)
+#' ## calculate Average dose (using only the first 56 values here)
+#' AD <- calc_AverageDose(ExampleData.DeValues$CA1[1:56, ], sigma_m = 0.1)
 #'
-#'##plot De and set Average dose as central value
-#'plot_AbanicoPlot(
-#'  data = ExampleData.DeValues$CA1[1:56,],
-#'  z.0 = AD$summary$AVERAGE_DOSE)
+#' ## plot De and set Average dose as central value
+#' plot_AbanicoPlot(ExampleData.DeValues$CA1[1:56, ], z.0 = AD$summary$de)
 #'
 #' @export
 calc_AverageDose <- function(
@@ -389,8 +375,8 @@ calc_AverageDose <- function(
 
   ##compile final results data frame
   results_df <- data.frame(
-    AVERAGE_DOSE = delta,
-    AVERAGE_DOSE.SE = sedelta,
+    de = delta,
+    de_err = sedelta,
     SIGMA_D = sigma_d,
     SIGMA_D.SE = sesigma_d,
     IC_AVERAGE_DOSE.LEVEL = IC_delta[1],
@@ -400,6 +386,8 @@ calc_AverageDose <- function(
     IC_SIGMA_D.LOWER = IC_sigma_d[2],
     IC_SIGMA_D.UPPER = IC_sigma_d[3],
     L_MAX = llik,
+    AVERAGE_DOSE = delta,
+    AVERAGE_DOSE.SE = sedelta,
     row.names = NULL
   )
 
@@ -492,6 +480,7 @@ calc_AverageDose <- function(
     class = "RLum.Results",
     data = list(
       summary = results_df,
+      data = data,
       dstar = as.data.frame(dstar),
       hist = hist
     ),
