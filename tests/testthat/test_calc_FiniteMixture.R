@@ -150,5 +150,9 @@ test_that("regression tests", {
   expect_silent(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.54,
                                    n.components = 2:5, pdf.weight = FALSE,
                                    verbose = FALSE))
+
+  ## issue 1458
+  expect_silent(calc_FiniteMixture(ExampleData.DeValues$CA1, sigmab = 0.1,
+                                   n.components = 1:3, verbose = FALSE))
   })
 })

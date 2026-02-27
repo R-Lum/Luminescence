@@ -221,7 +221,7 @@ calc_FiniteMixture <- function(
     .throw_error("'sigmab' must be a value between 0 and 1")
   }
   .validate_class(n.components, c("integer", "numeric"))
-  if (min(n.components) < 2) {
+  if (length(n.components) == 1 && n.components < 2) {
     .throw_error("'n.components' should be at least 2")
   }
   .validate_logical_scalar(grain.probability)
@@ -233,6 +233,7 @@ calc_FiniteMixture <- function(
   .validate_logical_scalar(plot)
 
   ## ensure that the chosen components are sorted
+  n.components <- setdiff(n.components, 1)
   n.components <- sort(n.components)
   multiple.components <- length(n.components) > 1
 
