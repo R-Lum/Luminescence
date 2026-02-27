@@ -102,7 +102,7 @@
 #' Smooth data based on rolling means or medians
 #'
 #' The function allows a direct and meaningful access to the functionality of
-#' `data.table::frollmean()` and `data.table::frollapply()`. It also provides
+#' `data.table::frollmean()` and `data.table::frollmedian()`. It also provides
 #' an implementation of the Poisson smoother of Carter et al. (2018).
 #'
 #' @param x [numeric] (**required**):
@@ -134,7 +134,7 @@
 #' @return
 #' Returns a numeric vector with smoothed values.
 #'
-#' @section Function version: 0.3
+#' @section Function version: 0.4
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -173,8 +173,7 @@
     data.table::frollmean(x, n = k, fill = fill, align = align)
   },
   median = {
-    data.table::frollapply(x, N = k, FUN = "median",
-                           fill = fill, align = align)
+    data.table::frollmedian(x, n = k, fill = fill, align = align)
   },
   Carter_etal_2018 = {
     ## Code derived with corrections and improvements from the supplementary

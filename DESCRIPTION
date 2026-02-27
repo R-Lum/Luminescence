@@ -46,7 +46,7 @@ LinkingTo:
     Rcpp (>= 1.1.0)
 Imports:
     bbmle (>= 1.0.25.1),
-    data.table (>= 1.15.4),
+    data.table (>= 1.18.2.1),
     DEoptim (>= 2.2-8),
     httr (>= 1.4.7),
     interp (>= 1.1-6),
