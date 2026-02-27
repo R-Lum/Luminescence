@@ -406,7 +406,8 @@ test_that("Test graphical snapshot", {
 
     vdiffr::expect_doppelganger("CAM",
                                 plot_AbanicoPlot(data = CAM,
-                                                 line.col = "darkseagreen"))
+                                                 line.col = "darkseagreen",
+                                                 summary.pos = "bottomleft"))
     vdiffr::expect_doppelganger("CAM cex",
                                 plot_AbanicoPlot(data = CAM, cex = 2))
 

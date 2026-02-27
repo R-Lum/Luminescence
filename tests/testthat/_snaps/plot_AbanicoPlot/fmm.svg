@@ -187,6 +187,6 @@
 <circle cx='402.68' cy='354.84' r='1.80' style='stroke-width: 0.75; fill: #000000;' />
 <polyline points='192.00,179.67 460.30,179.67 ' style='stroke-width: 0.75;' />
 <polygon points='360.00,518.40 460.30,189.54 460.30,100.80 192.00,100.80 192.00,189.54 ' style='stroke-width: 0.60; fill: none;' />
-<text x='360.00' y='47.52' text-anchor='middle' style='font-size: 10.00px; font-family: sans;' textLength='124.36px' lengthAdjust='spacingAndGlyphs'>n = 62 | in 2 sigma = 41.9 %</text>
+<text x='360.00' y='47.52' text-anchor='middle' style='font-size: 10.00px; font-family: sans;' textLength='223.67px' lengthAdjust='spacingAndGlyphs'>n = 62 | in 2 sigma = 41.9 % | FMM: 3 components</text>
 </g>
 </svg>

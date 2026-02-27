@@ -484,6 +484,7 @@ plot_AbanicoPlot <- function(
 
   ## whether the user has set the line argument or not
   line.is.null <- is.null(line)
+  line.mtext <- NULL
 
   ## Check input data
   for (i in seq_along(data)) {
@@ -505,6 +506,10 @@ plot_AbanicoPlot <- function(
                       "calc_FiniteMixture" = de.pm.err)
         line <- c(line, de)
         line.label <- c(line.label, lab)
+        if (data[[i]]@originator == "calc_FiniteMixture")
+          line.mtext <- c(line.mtext, paste("FMM:", length(de), "components"))
+        else
+          line.mtext <- c(line.mtext, paste0(lab, ": ", de.pm.err))
       }
       data[[i]] <- get_RLum(data[[i]], "data")
     }
@@ -516,6 +521,8 @@ plot_AbanicoPlot <- function(
 
       data[[i]] <- data[[i]][, 1:2]
   }
+  if (!is.null(line.mtext) && mtext == "" && summary.pos != "sub")
+    mtext <- line.mtext
 
   ## optionally, remove NA-values
   .validate_logical_scalar(na.rm)
@@ -1180,6 +1187,8 @@ plot_AbanicoPlot <- function(
       label.text[[i]] <- substr(x = label.text[[i]],
                                 start = 1,
                                 stop = nchar(label.text[[i]]) - 3)
+      if (!is.null(line.mtext))
+        label.text[[i]] <- paste(label.text[[i]], "|", line.mtext[i])
     }
   }
 
