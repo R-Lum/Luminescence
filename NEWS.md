@@ -293,6 +293,12 @@ More information on these changes are available at
 - The function incorrectly disallowed setting `sigmab > 1` when
   `log = FALSE` due to excessively strict input validation (#1343).
 
+### `calc_FiniteMixture()`
+
+- The function didn’t allow inputs such as `n.components = 1:3`,
+  enforcing the usage of `n.components = 2:3` instead. This check, added
+  in v1.1.0, was unnecessarily stringent and has been reverted (#1458).
+
 ### `calc_gSGC()`
 
 - The function no longer crashes in `n.MC` is set to 0 (#1327).
