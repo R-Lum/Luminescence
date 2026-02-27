@@ -275,9 +275,15 @@ More information on these changes are available at
 
 - The function no longer produces an invalid object when the
   interpolation range is outside of the wavelength range of the
-  RLum.Data.Spectrum object (#1402).
+  `RLum.Data.Spectrum` object (#1402).
 
-## `calc_CobbleDoseRate()`
+### `calc_AverageDose()`
+
+- The `RLum.Results` returned now contains a `@data` slot, and the
+  `$summary` data frame contains column labelled `de` and `de_err` for
+  consistency with similar functions (#1455).
+
+### `calc_CobbleDoseRate()`
 
 - Argument `input` has been renamed to `object`. The older name will
   still work but generates a deprecation warning (#1434).

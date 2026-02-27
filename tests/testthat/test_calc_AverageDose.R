@@ -55,7 +55,7 @@ test_that("check class and length of output", {
   )
 
   expect_s4_class(temp, "RLum.Results")
-  expect_equal(length(temp), 3)
+  expect_equal(length(temp), 4)
 
   results <- get_RLum(temp)
 
