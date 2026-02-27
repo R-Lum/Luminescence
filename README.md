@@ -50,9 +50,9 @@ Alternatively, to install the latest development builds directly from
 GitHub, run:
 
 ``` r
-if(!require("devtools"))
-  install.packages("devtools")
-devtools::install_github("R-Lum/Luminescence")
+if (!require("pak"))
+  install.packages("pak")
+pak::pkg_install("R-Lum/Luminescence")
 ```
 
 Please note that the version on the GitHub `master` branch is a

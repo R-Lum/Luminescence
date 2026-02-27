@@ -78,6 +78,11 @@ More information on these changes are available at
   `is.RLum.Data.Spectrum()` and `is.RLum.Results()` (deprecated since
   1.1.2) have been removed (#1242).
 
+- Function `install_DevelopmentVersion()` has been removed as it relied
+  on the now deprecated `devtools::install_github()`. Equivalent
+  functionality is available via
+  `pak::pkg_install("R-Lum/Luminescence")` (#1453).
+
 ## Bugfixes and changes
 
 ### `analyse_Al2O3C_CrossTalk()`
