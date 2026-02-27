@@ -109,7 +109,7 @@
 #' AD <- calc_AverageDose(ExampleData.DeValues$CA1[1:56, ], sigma_m = 0.1)
 #'
 #' ## plot De and set Average dose as central value
-#' plot_AbanicoPlot(ExampleData.DeValues$CA1[1:56, ], z.0 = AD$summary$de)
+#' plot_AbanicoPlot(AD, z.0 = AD$summary$de)
 #'
 #' @export
 calc_AverageDose <- function(
