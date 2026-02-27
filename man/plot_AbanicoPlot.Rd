@@ -44,7 +44,18 @@ plot_AbanicoPlot(
 \item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):
 for \code{data.frame} two columns: De (\code{data[,1]}) and De error (\code{data[,2]}).
 To plot several data sets in one plot the data sets must be provided as
-\code{list}, e.g. \code{list(data.1, data.2)}.}
+\code{list}, e.g. \code{list(data.1, data.2)}.\cr
+For some \linkS4class{RLum.Results} objects, one or more lines (and
+corresponding labels) are drawn automatically:
+\itemize{
+\item \link{calc_AverageDose} (ADM)
+\item \link{calc_CentralDose} (CDM)
+\item \link{calc_MaxDose} (MDM)
+\item \link{calc_MinDose} (MAM)
+\item \link{calc_FiniteMixture}
+Alternative labels can be set via the \code{line.label} option. This behaviour
+can be suppressed altogether by setting \code{line = NA}.
+}}
 
 \item{na.rm}{\link{logical} (\emph{with default}):
 exclude \code{NA} values from the data set prior to any further operations.}
@@ -74,7 +85,7 @@ centre the polygon.}
 
 \item{plot.ratio}{\link{numeric} (\emph{with default}):
 Relative space, given to the radial versus the cartesian plot part,
-default is \code{0.75}.}
+default is 0.75.}
 
 \item{rotate}{\link{logical} (\emph{with default}):
 Option to turn the plot by 90 degrees.}
@@ -154,7 +165,8 @@ polygon may be omitted for clarity. To disable it use \code{FALSE} or
 \code{polygon = FALSE}. Default is \code{"grey80"}.}
 
 \item{line}{\link{numeric} or \linkS4class{RLum.Results}:
-numeric values of the additional lines to be added.}
+numeric values of the additional lines to be added. This can be set to \code{NA}
+to suppress the line added automatically by some \code{RLum.Results} objects.}
 
 \item{line.col}{\link{character} or \link{numeric}:
 colour of the additional lines.}
@@ -268,8 +280,8 @@ The optional parameter \code{layout} allows more sophisticated ways to modify
 the entire plot. Each element of the plot can be addressed and its properties
 can be defined. This includes font type, size and decoration, colours and
 sizes of all plot items. To infer the definition of a specific layout style
-cf. \link{get_Layout} or type e.g., for the layout type \code{"journal"}
-\link{get_Layout}. A layout type can be modified by the user by
+cf. \link{get_Layout} or type, e.g. for the layout type \code{"journal"}.
+A layout type can be modified by the user by
 assigning new values to the list object.
 
 It is possible for the z-scale to specify where ticks are to be drawn
@@ -278,7 +290,7 @@ documentation of \code{axis}. Specifying tick positions manually overrides a
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.20
+ 0.1.21
 }
 
 \examples{
@@ -348,11 +360,8 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
 ## now with user-defined green line for minimum age model
 CAM <- calc_CentralDose(ExampleData.DeValues,
                         plot = FALSE)
-
-plot_AbanicoPlot(data = ExampleData.DeValues,
-                 line = CAM,
-                 line.col = "darkgreen",
-                 line.label = "CAM")
+plot_AbanicoPlot(data = CAM,
+                 line.col = "darkseagreen")
 
 ## now create plot with legend, colour, different points and smaller scale
 plot_AbanicoPlot(data = ExampleData.DeValues,
@@ -477,5 +486,6 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003
 \author{
 Michael Dietze, GFZ Potsdam (Germany)\cr
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
 Inspired by a plot introduced by Galbraith & Green (1990)
 }

@@ -438,6 +438,29 @@ fancy_scientific <- function(l) {
     args))
 }
 
+#' Add text with a background box to an existing plot
+#'
+#' @param label [character] (**required**):
+#' The text to be written.
+#'
+#' @param bg [character], [numeric] (*with default*):
+#' Background colour. If `NA`, no background box is drawn.
+#'
+#' @inheritParams base::text
+#'
+#' @noRd
+.text_with_bg <- function(x, y, label, col = "black", bg = NA,
+                          pos = NULL, cex = 1, ...) {
+  switch(as.character(pos %||% 0),
+         "1" = { xjust <- 0.5; yjust <- 1.0 },
+         "2" = { xjust <- 1.0; yjust <- 0.5 },
+         "3" = { xjust <- 0.5; yjust <- 0.0 },
+         "4" = { xjust <- 0.0; yjust <- 0.5 },
+         { xjust <- 0.5; yjust <- 0.5 })
+  legend(x, y, label, col = col, bg = bg, box.col = NA, cex = cex,
+         xjust = xjust, yjust = yjust, x.intersp = -0.5, y.intersp = -0.15, ...)
+}
+
 #' Retrieve graphical parameters
 #'
 #' @return

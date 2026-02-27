@@ -225,15 +225,15 @@ plot_RLum(mam)
 
 # Plot the dose distribution in an abanico plot and draw a line
 # at the minimum dose estimate
-plot_AbanicoPlot(data = ExampleData.DeValues$CA1,
+plot_AbanicoPlot(data = mam,
                  main = "3-parameter Minimum Age Model",
-                 line = mam,polygon.col = "none",
+                 polygon.col = "none",
                  hist = TRUE,
                  rug = TRUE,
                  summary = c("n", "mean", "mean.weighted", "median", "in.ci"),
                  centrality = res$de,
-                 line.col = "red",
                  grid.col = "none",
+                 line.col = "red",
                  line.label = paste0(round(res$de, 1), "\U00B1",
                                      round(res$de_err, 1), " Gy"),
                  bw = 0.1,
