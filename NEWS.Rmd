@@ -270,9 +270,9 @@ range is outside of the wavelength range of the `RLum.Data.Spectrum` object
 
 ### `calc_AverageDose()`
 
-* The `RLum.Results` returned now contains a `@data` slot, and the `$summary`
-data frame contains column labelled `de` and `de_err`  for consistency with
-similar functions (#1455).
+* The `RLum.Results` returned now contains a `$data` field to store the input
+data for consistency with similar functions, and two columns have been
+appended to the end of the `$summary` field for internal use (#1455).
 
 ### `calc_CobbleDoseRate()`
 

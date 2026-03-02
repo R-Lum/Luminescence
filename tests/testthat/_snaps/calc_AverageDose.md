@@ -19,7 +19,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["de", "de_err", "SIGMA_D", "SIGMA_D.SE", "IC_AVERAGE_DOSE.LEVEL", "IC_AVERAGE_DOSE.LOWER", "IC_AVERAGE_DOSE.UPPER", "IC_SIGMA_D.LEVEL", "IC_SIGMA_D.LOWER", "IC_SIGMA_D.UPPER", "L_MAX", "AVERAGE_DOSE", "AVERAGE_DOSE.SE"]
+                  "value": ["AVERAGE_DOSE", "AVERAGE_DOSE.SE", "SIGMA_D", "SIGMA_D.SE", "IC_AVERAGE_DOSE.LEVEL", "IC_AVERAGE_DOSE.LOWER", "IC_AVERAGE_DOSE.UPPER", "IC_SIGMA_D.LEVEL", "IC_SIGMA_D.LOWER", "IC_SIGMA_D.UPPER", "L_MAX", "de", "de_err"]
                 },
                 "class": {
                   "type": "character",

@@ -63,8 +63,8 @@
 #' The `$summary` data.frame contains the following columns:
 #' \tabular{lll}{
 #'  **Column** \tab **Type** \tab **Description**\cr
-#'  de \tab [numeric] \tab the obtained average dose\cr
-#'  de_err \tab [numeric] \tab the average dose error \cr
+#'  AVERAGE_DOSE \tab [numeric] \tab the obtained average dose\cr
+#'  AVERAGE_DOSE.SE \tab [numeric] \tab the average dose error \cr
 #'  SIGMA_D \tab [numeric]\tab sigma \cr
 #'  SIGMA_D.SE \tab [numeric]\tab standard error of the sigma  \cr
 #'  IC_AVERAGE_DOSE.LEVEL  \tab [character]\tab confidence level average dose\cr
@@ -74,8 +74,8 @@
 #'  IC_SIGMA_D.LOWER \tab [character]\tab lower sigma quantile\cr
 #'  IC_SIGMA_D.UPPER \tab [character]\tab upper sigma quantile\cr
 #'  L_MAX \tab [character]\tab maximum likelihood value \cr
-#'  AVERAGE_DOSE \tab [numeric] \tab same as `de` (backward compatibility)\cr
-#'  AVERAGE_DOSE.SE \tab [numeric] \tab same as `de_err` (backward compatibility)\cr
+#'  de \tab [numeric] \tab same as `AVERAGE_DOSE` (internal use)\cr
+#'  de_err \tab [numeric] \tab same as `AVERAGE_DOSE.SE` (internal use)\cr
 #' }
 #'
 #' The function returns two different plot panels.
@@ -375,8 +375,8 @@ calc_AverageDose <- function(
 
   ##compile final results data frame
   results_df <- data.frame(
-    de = delta,
-    de_err = sedelta,
+    AVERAGE_DOSE = delta,
+    AVERAGE_DOSE.SE = sedelta,
     SIGMA_D = sigma_d,
     SIGMA_D.SE = sesigma_d,
     IC_AVERAGE_DOSE.LEVEL = IC_delta[1],
@@ -386,8 +386,8 @@ calc_AverageDose <- function(
     IC_SIGMA_D.LOWER = IC_sigma_d[2],
     IC_SIGMA_D.UPPER = IC_sigma_d[3],
     L_MAX = llik,
-    AVERAGE_DOSE = delta,
-    AVERAGE_DOSE.SE = sedelta,
+    de = delta,
+    de_err = sedelta,
     row.names = NULL
   )
 
