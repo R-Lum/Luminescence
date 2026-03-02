@@ -47,6 +47,7 @@ expect_snapshot_RLum <- function(object, ...) {
     if ("test_parameters" %in% names(object@data))
       object@data$test_parameters$UID <- NULL
     if (object@originator %in% c("calc_MinDose", "calc_MaxDose")) {
+      object@data$call <- NULL
       object@data$mle <- NULL
       object@data$profile <- NULL
       object@data$bootstrap$poly.fits <- NULL
