@@ -60,6 +60,9 @@ expect_snapshot_RLum <- function(object, ...) {
     if ("file" %in% names(object@info)) {
       object@info$file <- NULL
     }
+    if ("info" %in% names(object@info) && is.call(object@info$info)) {
+      object@info[names(object@info) == "info"] <- NULL # may be multiple "info"
+    }
   }
   if ("records" %in% slotNames(object)) {
     for (idx in seq_along(object@records)) {
