@@ -9,7 +9,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["summary", "data", "args", "call", "BIC", "confint", "bootstrap"]
+              "value": ["summary", "data", "args", "BIC", "confint", "bootstrap"]
             }
           },
           "value": [
@@ -212,34 +212,6 @@
               ]
             },
             {
-              "type": "language",
-              "attributes": {
-                "srcref": {
-                  "type": "integer",
-                  "attributes": {
-                    "srcfile": {
-                      "type": "environment",
-                      "attributes": {
-                        "class": {
-                          "type": "character",
-                          "attributes": {},
-                          "value": ["srcfilecopy", "srcfile"]
-                        }
-                      },
-                      "value": {}
-                    },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["srcref"]
-                    }
-                  },
-                  "value": [3, 1, 6, 34, 1, 34, 3, 6]
-                }
-              },
-              "value": ["calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.1, verbose = FALSE, ", "    plot = FALSE)"]
-            },
-            {
               "type": "double",
               "attributes": {},
               "value": [106.44050638]
@@ -343,7 +315,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["summary", "data", "args", "call", "BIC", "confint", "bootstrap"]
+              "value": ["summary", "data", "args", "BIC", "confint", "bootstrap"]
             }
           },
           "value": [
@@ -546,11 +518,6 @@
               ]
             },
             {
-              "type": "language",
-              "attributes": {},
-              "value": ["calc_MinDose(data = ExampleData.DeValues$CA1/100, sigmab = 0.2, ", "    gamma.upper = 4, par = 4, log.output = TRUE, plot = FALSE)"]
-            },
-            {
               "type": "double",
               "attributes": {},
               "value": [58.97126306]
@@ -654,7 +621,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["summary", "data", "args", "call", "BIC", "confint", "bootstrap"]
+              "value": ["summary", "data", "args", "BIC", "confint", "bootstrap"]
             }
           },
           "value": [
@@ -857,11 +824,6 @@
               ]
             },
             {
-              "type": "language",
-              "attributes": {},
-              "value": ["calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.2, log = FALSE, ", "    verbose = FALSE, plot = FALSE)"]
-            },
-            {
               "type": "double",
               "attributes": {},
               "value": [603.36852975]
@@ -965,7 +927,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["summary", "data", "args", "call", "BIC", "confint", "bootstrap"]
+              "value": ["summary", "data", "args", "BIC", "confint", "bootstrap"]
             }
           },
           "value": [
@@ -1168,11 +1130,6 @@
               ]
             },
             {
-              "type": "language",
-              "attributes": {},
-              "value": ["calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1, bootstrap = TRUE, ", "    bs.M = 10, bs.N = 5, verbose = FALSE, plot = FALSE)"]
-            },
-            {
               "type": "double",
               "attributes": {},
               "value": [106.44050638]
@@ -1298,7 +1255,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["summary", "data", "args", "call", "BIC", "confint", "bootstrap"]
+              "value": ["summary", "data", "args", "BIC", "confint", "bootstrap"]
             }
           },
           "value": [
@@ -1501,11 +1458,6 @@
               ]
             },
             {
-              "type": "language",
-              "attributes": {},
-              "value": ["calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.2, invert = TRUE, ", "    bootstrap = TRUE, bs.M = 20, bs.N = 5, bs.h = 10, verbose = FALSE, ", "    plot = FALSE)"]
-            },
-            {
               "type": "double",
               "attributes": {},
               "value": [58.86602666]
@@ -1631,7 +1583,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["summary", "data", "args", "call", "BIC", "confint", "bootstrap"]
+              "value": ["summary", "data", "args", "BIC", "confint", "bootstrap"]
             }
           },
           "value": [
@@ -1832,11 +1784,6 @@
                   "value": [0.04]
                 }
               ]
-            },
-            {
-              "type": "language",
-              "attributes": {},
-              "value": ["calc_MinDose(ExampleData.DeValues$CA1, sigmab = 2.1, bootstrap = TRUE, ", "    log = FALSE, par = 4, bs.M = 20, bs.N = 5, bs.h = 10, verbose = FALSE, ", "    plot = FALSE)"]
             },
             {
               "type": "double",

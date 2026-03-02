@@ -9,7 +9,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["summary", "data", "dose_rates", "tables", "args", "call"]
+              "value": ["summary", "data", "dose_rates", "tables", "args"]
             }
           },
           "value": [
@@ -672,34 +672,6 @@
                   "value": [true]
                 }
               ]
-            },
-            {
-              "type": "language",
-              "attributes": {
-                "srcref": {
-                  "type": "integer",
-                  "attributes": {
-                    "srcfile": {
-                      "type": "environment",
-                      "attributes": {
-                        "class": {
-                          "type": "character",
-                          "attributes": {},
-                          "value": ["srcfilecopy", "srcfile"]
-                        }
-                      },
-                      "value": {}
-                    },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["srcref"]
-                    }
-                  },
-                  "value": [7, 3, 7, 30, 3, 30, 7, 7]
-                }
-              },
-              "value": ["scale_GammaDose(data = ExampleData.ScaleGammaDose, conversion_factors = \"Liritzisetal2013\", ", "    fractional_gamma_dose = \"Aitken1985\", plot = TRUE, plot_singlePanels = TRUE, ", "    verbose = TRUE)"]
             }
           ]
         },
@@ -741,7 +713,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["summary", "data", "dose_rates", "tables", "args", "call"]
+              "value": ["summary", "data", "dose_rates", "tables", "args"]
             }
           },
           "value": [
@@ -1399,34 +1371,6 @@
                   "value": [false]
                 }
               ]
-            },
-            {
-              "type": "language",
-              "attributes": {
-                "srcref": {
-                  "type": "integer",
-                  "attributes": {
-                    "srcfile": {
-                      "type": "environment",
-                      "attributes": {
-                        "class": {
-                          "type": "character",
-                          "attributes": {},
-                          "value": ["srcfilecopy", "srcfile"]
-                        }
-                      },
-                      "value": {}
-                    },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["srcref"]
-                    }
-                  },
-                  "value": [7, 3, 7, 30, 3, 30, 7, 7]
-                }
-              },
-              "value": ["scale_GammaDose(data = ExampleData.ScaleGammaDose, conversion_factors = \"Guerinetal2011\", ", "    fractional_gamma_dose = \"Aitken1985\", plot = TRUE, verbose = FALSE)"]
             }
           ]
         },
@@ -1468,7 +1412,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["summary", "data", "dose_rates", "tables", "args", "call"]
+              "value": ["summary", "data", "dose_rates", "tables", "args"]
             }
           },
           "value": [
@@ -2126,34 +2070,6 @@
                   "value": [false]
                 }
               ]
-            },
-            {
-              "type": "language",
-              "attributes": {
-                "srcref": {
-                  "type": "integer",
-                  "attributes": {
-                    "srcfile": {
-                      "type": "environment",
-                      "attributes": {
-                        "class": {
-                          "type": "character",
-                          "attributes": {},
-                          "value": ["srcfilecopy", "srcfile"]
-                        }
-                      },
-                      "value": {}
-                    },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["srcref"]
-                    }
-                  },
-                  "value": [7, 3, 7, 30, 3, 30, 7, 7]
-                }
-              },
-              "value": ["scale_GammaDose(data = ExampleData.ScaleGammaDose, conversion_factors = \"AdamiecAitken1998\", ", "    fractional_gamma_dose = \"Aitken1985\", plot = FALSE, verbose = FALSE)"]
             }
           ]
         },

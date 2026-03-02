@@ -125,6 +125,10 @@ test_that("check plot stuff", {
                                 plot = FALSE,
                                 verbose = FALSE)
   res1@info <- res2@info <- list() # remove $call
+  res1@.uid <- res1@.pid <- res2@.uid <- res2@.pid <- NA_character_
+  res1@data$data$UID <- res2@data$data$UID <- NULL
+  res1@data$LnLxTnTx.table$UID <- res2@data$LnLxTnTx.table$UID <- NULL
+  res1@data$rejection.criteria$UID <- res2@data$rejection.criteria$UID <- NULL
   expect_equal(res1, res2)
 
   ## deprecated arguments

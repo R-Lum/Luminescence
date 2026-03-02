@@ -49,17 +49,17 @@
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <polygon points='115.20,249.98 360.00,249.98 360.00,76.03 115.20,76.03 ' style='stroke-width: 0.75; fill: none;' />
 <text x='360.00' y='29.95' text-anchor='middle' style='font-size: 24.00px; font-weight: bold; font-family: sans;' textLength='216.09px' lengthAdjust='spacingAndGlyphs'>Finite Mixture Model</text>
-<text x='278.52' y='55.33' style='font-size: 21.60px; font-family: sans;' textLength='11.47px' lengthAdjust='spacingAndGlyphs'>σ</text>
-<text x='289.99' y='59.33' style='font-size: 15.12px; font-style: italic; font-family: sans;' textLength='8.41px' lengthAdjust='spacingAndGlyphs'>b</text>
-<text x='305.04' y='55.33' style='font-size: 21.60px; font-family: sans;' textLength='16.77px' lengthAdjust='spacingAndGlyphs'>=</text>
-<text x='326.81' y='55.33' style='font-size: 21.60px; font-family: sans;' textLength='30.03px' lengthAdjust='spacingAndGlyphs'>0.2</text>
-<text x='356.84' y='55.33' style='font-size: 21.60px; font-family: sans;' textLength='5.40px' lengthAdjust='spacingAndGlyphs'> </text>
-<text x='362.25' y='55.33' style='font-size: 21.60px; font-family: sans;' textLength='5.61px' lengthAdjust='spacingAndGlyphs'>|</text>
-<text x='367.86' y='55.33' style='font-size: 21.60px; font-family: sans;' textLength='5.40px' lengthAdjust='spacingAndGlyphs'> </text>
-<text x='373.26' y='55.33' style='font-size: 21.60px; font-family: sans;' textLength='12.01px' lengthAdjust='spacingAndGlyphs'>n</text>
-<text x='390.28' y='55.33' style='font-size: 21.60px; font-family: sans;' textLength='16.77px' lengthAdjust='spacingAndGlyphs'>=</text>
-<text x='412.05' y='55.33' style='font-size: 21.60px; font-family: sans;' textLength='24.03px' lengthAdjust='spacingAndGlyphs'>62</text>
-<text x='436.08' y='55.33' style='font-size: 21.60px; font-family: sans;' textLength='5.40px' lengthAdjust='spacingAndGlyphs'> </text>
+<text x='278.52' y='55.19' style='font-size: 21.60px; font-family: sans;' textLength='11.47px' lengthAdjust='spacingAndGlyphs'>σ</text>
+<text x='289.99' y='59.76' style='font-size: 15.12px; font-style: italic; font-family: sans;' textLength='8.41px' lengthAdjust='spacingAndGlyphs'>b</text>
+<text x='305.04' y='55.19' style='font-size: 21.60px; font-family: sans;' textLength='16.77px' lengthAdjust='spacingAndGlyphs'>=</text>
+<text x='326.81' y='55.19' style='font-size: 21.60px; font-family: sans;' textLength='30.03px' lengthAdjust='spacingAndGlyphs'>0.2</text>
+<text x='356.84' y='55.19' style='font-size: 21.60px; font-family: sans;' textLength='5.40px' lengthAdjust='spacingAndGlyphs'> </text>
+<text x='362.25' y='55.19' style='font-size: 21.60px; font-family: sans;' textLength='5.61px' lengthAdjust='spacingAndGlyphs'>|</text>
+<text x='367.86' y='55.19' style='font-size: 21.60px; font-family: sans;' textLength='5.40px' lengthAdjust='spacingAndGlyphs'> </text>
+<text x='373.26' y='55.19' style='font-size: 21.60px; font-family: sans;' textLength='12.01px' lengthAdjust='spacingAndGlyphs'>n</text>
+<text x='390.28' y='55.19' style='font-size: 21.60px; font-family: sans;' textLength='16.77px' lengthAdjust='spacingAndGlyphs'>=</text>
+<text x='412.05' y='55.19' style='font-size: 21.60px; font-family: sans;' textLength='24.03px' lengthAdjust='spacingAndGlyphs'>62</text>
+<text x='436.08' y='55.19' style='font-size: 21.60px; font-family: sans;' textLength='5.40px' lengthAdjust='spacingAndGlyphs'> </text>
 <text x='115.20' y='71.42' style='font-size: 19.20px; font-weight: bold; font-family: sans;' textLength='169.68px' lengthAdjust='spacingAndGlyphs'>Normal distributions</text>
 <text x='360.00' y='302.98' text-anchor='middle' style='font-size: 24.00px; font-family: sans;' textLength='140.08px' lengthAdjust='spacingAndGlyphs'>Density [a.u.]</text>
 <line x1='115.20' y1='233.78' x2='115.20' y2='90.46' style='stroke-width: 0.75;' />

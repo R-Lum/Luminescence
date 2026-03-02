@@ -15,6 +15,12 @@ expect_snapshot_RLum <- function(object, ...) {
   if ("data" %in% slotNames(object)) {
     if ("fit" %in% names(object@data))
       object@data$fit <- NULL
+    if ("call" %in% names(object@data))
+      object@data$call <- NULL
+    if ("info" %in% names(object@data)) {
+      if ("call" %in% names(object@data$info))
+        object@data$info$call <- NULL
+    }
     if ("fits" %in% names(object@data)) { # calc_Huntley2006()
       if ("simulated" %in% names(object@data$fits)) {
         object@data$fits$simulated$m <- NULL
@@ -47,6 +53,7 @@ expect_snapshot_RLum <- function(object, ...) {
     if ("test_parameters" %in% names(object@data))
       object@data$test_parameters$UID <- NULL
     if (object@originator %in% c("calc_MinDose", "calc_MaxDose")) {
+      object@data$call <- NULL
       object@data$mle <- NULL
       object@data$profile <- NULL
       object@data$bootstrap$poly.fits <- NULL
@@ -59,6 +66,9 @@ expect_snapshot_RLum <- function(object, ...) {
     }
     if ("file" %in% names(object@info)) {
       object@info$file <- NULL
+    }
+    if ("info" %in% names(object@info) && is.call(object@info$info)) {
+      object@info[names(object@info) == "info"] <- NULL # may be multiple "info"
     }
   }
   if ("records" %in% slotNames(object)) {

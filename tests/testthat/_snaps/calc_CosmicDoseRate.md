@@ -9,7 +9,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["summary", "args", "call"]
+              "value": ["summary", "args"]
             }
           },
           "value": [
@@ -136,34 +136,6 @@
                   "value": [10]
                 }
               ]
-            },
-            {
-              "type": "language",
-              "attributes": {
-                "srcref": {
-                  "type": "integer",
-                  "attributes": {
-                    "srcfile": {
-                      "type": "environment",
-                      "attributes": {
-                        "class": {
-                          "type": "character",
-                          "attributes": {},
-                          "value": ["srcfilecopy", "srcfile"]
-                        }
-                      },
-                      "value": {}
-                    },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["srcref"]
-                    }
-                  },
-                  "value": [7, 3, 7, 30, 3, 30, 7, 7]
-                }
-              },
-              "value": ["calc_CosmicDoseRate(depth = 2.78, density = 1.7, latitude = 38.06451, ", "    longitude = 1.49646, altitude = 364, error = 10)"]
             }
           ]
         },
@@ -205,7 +177,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["summary", "args", "call"]
+              "value": ["summary", "args"]
             }
           },
           "value": [
@@ -332,34 +304,6 @@
                   "value": [10]
                 }
               ]
-            },
-            {
-              "type": "language",
-              "attributes": {
-                "srcref": {
-                  "type": "integer",
-                  "attributes": {
-                    "srcfile": {
-                      "type": "environment",
-                      "attributes": {
-                        "class": {
-                          "type": "character",
-                          "attributes": {},
-                          "value": ["srcfilecopy", "srcfile"]
-                        }
-                      },
-                      "value": {}
-                    },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["srcref"]
-                    }
-                  },
-                  "value": [7, 3, 7, 30, 3, 30, 7, 7]
-                }
-              },
-              "value": ["calc_CosmicDoseRate(depth = c(2.78, 3.12), density = 1.7, corr.fieldChanges = TRUE, ", "    est.age = 20, latitude = 28.06451, longitude = 1.49646, altitude = 364, ", "    half.depth = TRUE)"]
             }
           ]
         },
@@ -401,7 +345,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["summary", "args", "call"]
+              "value": ["summary", "args"]
             }
           },
           "value": [
@@ -538,34 +482,6 @@
                   "value": [10]
                 }
               ]
-            },
-            {
-              "type": "language",
-              "attributes": {
-                "srcref": {
-                  "type": "integer",
-                  "attributes": {
-                    "srcfile": {
-                      "type": "environment",
-                      "attributes": {
-                        "class": {
-                          "type": "character",
-                          "attributes": {},
-                          "value": ["srcfilecopy", "srcfile"]
-                        }
-                      },
-                      "value": {}
-                    },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["srcref"]
-                    }
-                  },
-                  "value": [7, 3, 7, 30, 3, 30, 7, 7]
-                }
-              },
-              "value": ["calc_CosmicDoseRate(depth = c(1.78, 0.12), density = c(0.7, 0.2), ", "    latitude = 120, longitude = 30, altitude = 1200)"]
             }
           ]
         },
@@ -607,7 +523,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["summary", "args", "call"]
+              "value": ["summary", "args"]
             }
           },
           "value": [
@@ -744,34 +660,6 @@
                   "value": [10]
                 }
               ]
-            },
-            {
-              "type": "language",
-              "attributes": {
-                "srcref": {
-                  "type": "integer",
-                  "attributes": {
-                    "srcfile": {
-                      "type": "environment",
-                      "attributes": {
-                        "class": {
-                          "type": "character",
-                          "attributes": {},
-                          "value": ["srcfilecopy", "srcfile"]
-                        }
-                      },
-                      "value": {}
-                    },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["srcref"]
-                    }
-                  },
-                  "value": [7, 3, 7, 30, 3, 30, 7, 7]
-                }
-              },
-              "value": ["calc_CosmicDoseRate(depth = c(1.78, 0.12), density = c(0.2, 0.2), ", "    latitude = 30, longitude = 120, altitude = 120)"]
             }
           ]
         },

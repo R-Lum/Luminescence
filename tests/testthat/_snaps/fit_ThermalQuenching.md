@@ -56,7 +56,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.97494511]
+                  "value": [0.97494545]
                 },
                 {
                   "type": "double",
@@ -138,15 +138,15 @@
                   "attributes": {},
                   "value": ["A", "A_X", "C", "C_X", "W", "W_X", "c", "c_X", "n.MC"]
                 },
-                "row.names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["A"]
-                },
                 "class": {
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "row.names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["A"]
                 }
               },
               "value": [
@@ -173,7 +173,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.9743445]
+                  "value": [0.97434483]
                 },
                 {
                   "type": "double",
@@ -255,15 +255,15 @@
                   "attributes": {},
                   "value": ["A", "A_X", "C", "C_X", "W", "W_X", "c", "c_X", "n.MC"]
                 },
-                "row.names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["A"]
-                },
                 "class": {
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "row.names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["A"]
                 }
               },
               "value": [
@@ -290,7 +290,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.97494511]
+                  "value": [0.97494545]
                 },
                 {
                   "type": "double",

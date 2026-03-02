@@ -9,7 +9,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["summary", "data", "args", "call", "tables"]
+              "value": ["summary", "data", "args", "tables"]
             }
           },
           "value": [
@@ -120,34 +120,6 @@
               ]
             },
             {
-              "type": "language",
-              "attributes": {
-                "srcref": {
-                  "type": "integer",
-                  "attributes": {
-                    "srcfile": {
-                      "type": "environment",
-                      "attributes": {
-                        "class": {
-                          "type": "character",
-                          "attributes": {},
-                          "value": ["srcfilecopy", "srcfile"]
-                        }
-                      },
-                      "value": {}
-                    },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["srcref"]
-                    }
-                  },
-                  "value": [7, 3, 7, 30, 3, 30, 7, 7]
-                }
-              },
-              "value": ["calc_IEU(ExampleData.DeValues$CA1, a = 0.25, b = 1.29, interval = 1, ", "    verbose = FALSE, plot = FALSE)"]
-            },
-            {
               "type": "list",
               "attributes": {
                 "names": {
@@ -165,15 +137,15 @@
                       "attributes": {},
                       "value": ["Rank.number", "De", "De.Error", "Z", "EXT.top", "EXT", "INT", "R", "R.Error"]
                     },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["data.frame"]
-                    },
                     "row.names": {
                       "type": "integer",
                       "attributes": {},
                       "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["data.frame"]
                     }
                   },
                   "value": [
@@ -385,7 +357,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["summary", "data", "args", "call", "tables"]
+              "value": ["summary", "data", "args", "tables"]
             }
           },
           "value": [
@@ -496,34 +468,6 @@
               ]
             },
             {
-              "type": "language",
-              "attributes": {
-                "srcref": {
-                  "type": "integer",
-                  "attributes": {
-                    "srcfile": {
-                      "type": "environment",
-                      "attributes": {
-                        "class": {
-                          "type": "character",
-                          "attributes": {},
-                          "value": ["srcfilecopy", "srcfile"]
-                        }
-                      },
-                      "value": {}
-                    },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["srcref"]
-                    }
-                  },
-                  "value": [7, 3, 7, 30, 3, 30, 7, 7]
-                }
-              },
-              "value": ["calc_IEU(set_RLum(class = \"RLum.Results\", data = list(test = ExampleData.DeValues$CA1)), ", "    a = 0.12, b = 2.14, interval = 0.9, verbose = FALSE, plot = FALSE)"]
-            },
-            {
               "type": "list",
               "attributes": {
                 "names": {
@@ -541,15 +485,15 @@
                       "attributes": {},
                       "value": ["Rank.number", "De", "De.Error", "Z", "EXT.top", "EXT", "INT", "R", "R.Error"]
                     },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["data.frame"]
-                    },
                     "row.names": {
                       "type": "integer",
                       "attributes": {},
                       "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62]
+                    },
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["data.frame"]
                     }
                   },
                   "value": [

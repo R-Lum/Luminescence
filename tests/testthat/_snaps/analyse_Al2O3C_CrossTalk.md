@@ -16,25 +16,25 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
+                "row.names": {
+                  "type": "integer",
                   "attributes": {},
-                  "value": ["POSITION", "AD", "AD_ERROR"]
+                  "value": [1, 2]
                 },
                 "class": {
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
                 },
-                "row.names": {
-                  "type": "integer",
+                "names": {
+                  "type": "character",
                   "attributes": {},
-                  "value": [1, 2]
+                  "value": ["POSITION", "AD", "AD_ERROR"]
                 }
               },
               "value": [
                 {
-                  "type": "double",
+                  "type": "integer",
                   "attributes": {},
                   "value": [1, 2]
                 },
@@ -175,25 +175,25 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
+                "row.names": {
+                  "type": "integer",
                   "attributes": {},
-                  "value": ["POSITION", "AD", "AD_ERROR"]
+                  "value": [1, 2]
                 },
                 "class": {
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
                 },
-                "row.names": {
-                  "type": "integer",
+                "names": {
+                  "type": "character",
                   "attributes": {},
-                  "value": [1, 2]
+                  "value": ["POSITION", "AD", "AD_ERROR"]
                 }
               },
               "value": [
                 {
-                  "type": "double",
+                  "type": "integer",
                   "attributes": {},
                   "value": [1, 2]
                 },
@@ -334,25 +334,25 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
+                "row.names": {
+                  "type": "integer",
                   "attributes": {},
-                  "value": ["POSITION", "AD", "AD_ERROR"]
+                  "value": [1, 2]
                 },
                 "class": {
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
                 },
-                "row.names": {
-                  "type": "integer",
+                "names": {
+                  "type": "character",
                   "attributes": {},
-                  "value": [1, 2]
+                  "value": ["POSITION", "AD", "AD_ERROR"]
                 }
               },
               "value": [
                 {
-                  "type": "double",
+                  "type": "integer",
                   "attributes": {},
                   "value": [1, 2]
                 },
@@ -493,25 +493,25 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
+                "row.names": {
+                  "type": "integer",
                   "attributes": {},
-                  "value": ["POSITION", "AD", "AD_ERROR"]
+                  "value": [1, 2]
                 },
                 "class": {
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
                 },
-                "row.names": {
-                  "type": "integer",
+                "names": {
+                  "type": "character",
                   "attributes": {},
-                  "value": [1, 2]
+                  "value": ["POSITION", "AD", "AD_ERROR"]
                 }
               },
               "value": [
                 {
-                  "type": "double",
+                  "type": "integer",
                   "attributes": {},
                   "value": [1, 2]
                 },

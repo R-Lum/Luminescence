@@ -202,67 +202,10 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["info", "info"]
+              "value": []
             }
           },
-          "value": [
-            {
-              "type": "language",
-              "attributes": {
-                "srcref": {
-                  "type": "integer",
-                  "attributes": {
-                    "srcfile": {
-                      "type": "environment",
-                      "attributes": {
-                        "class": {
-                          "type": "character",
-                          "attributes": {},
-                          "value": ["srcfilecopy", "srcfile"]
-                        }
-                      },
-                      "value": {}
-                    },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["srcref"]
-                    }
-                  },
-                  "value": [137, 7, 147, 7, 7, 7, 137, 147]
-                }
-              },
-              "value": ["analyse_SAR.TL(object = o, object.background = object.background, ", "    signal_integral = signal_integral, integral_input = integral_input, ", "    sequence.structure = sequence.structure, rejection.criteria = rejection.criteria, ", "    dose.points = dose.points, log = log, ...)"]
-            },
-            {
-              "type": "language",
-              "attributes": {
-                "srcref": {
-                  "type": "integer",
-                  "attributes": {
-                    "srcfile": {
-                      "type": "environment",
-                      "attributes": {
-                        "class": {
-                          "type": "character",
-                          "attributes": {},
-                          "value": ["srcfilecopy", "srcfile"]
-                        }
-                      },
-                      "value": {}
-                    },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["srcref"]
-                    }
-                  },
-                  "value": [137, 7, 147, 7, 7, 7, 137, 147]
-                }
-              },
-              "value": ["analyse_SAR.TL(object = o, object.background = object.background, ", "    signal_integral = signal_integral, integral_input = integral_input, ", "    sequence.structure = sequence.structure, rejection.criteria = rejection.criteria, ", "    dose.points = dose.points, log = log, ...)"]
-            }
-          ]
+          "value": []
         },
         ".uid": {
           "type": "character",
@@ -485,39 +428,10 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["info"]
+              "value": []
             }
           },
-          "value": [
-            {
-              "type": "language",
-              "attributes": {
-                "srcref": {
-                  "type": "integer",
-                  "attributes": {
-                    "srcfile": {
-                      "type": "environment",
-                      "attributes": {
-                        "class": {
-                          "type": "character",
-                          "attributes": {},
-                          "value": ["srcfilecopy", "srcfile"]
-                        }
-                      },
-                      "value": {}
-                    },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["srcref"]
-                    }
-                  },
-                  "value": [137, 7, 147, 7, 7, 7, 137, 147]
-                }
-              },
-              "value": ["analyse_SAR.TL(object = o, object.background = object.background, ", "    signal_integral = signal_integral, integral_input = integral_input, ", "    sequence.structure = sequence.structure, rejection.criteria = rejection.criteria, ", "    dose.points = dose.points, log = log, ...)"]
-            }
-          ]
+          "value": []
         },
         ".uid": {
           "type": "character",
@@ -740,16 +654,10 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["info"]
+              "value": []
             }
           },
-          "value": [
-            {
-              "type": "language",
-              "attributes": {},
-              "value": ["analyse_SAR.TL(object, signal_integral = 2:3, sequence.structure = c(\"SIGNAL\", ", "    \"EXCLUDE\"))"]
-            }
-          ]
+          "value": []
         },
         ".uid": {
           "type": "character",
@@ -972,16 +880,10 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["info"]
+              "value": []
             }
           },
-          "value": [
-            {
-              "type": "language",
-              "attributes": {},
-              "value": ["analyse_SAR.TL(object, sequence.structure = c(\"SIGNAL\", \"BACKGROUND\"), ", "    signal_integral = 2:3)"]
-            }
-          ]
+          "value": []
         },
         ".uid": {
           "type": "character",
@@ -1199,16 +1101,10 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["info"]
+              "value": []
             }
           },
-          "value": [
-            {
-              "type": "language",
-              "attributes": {},
-              "value": ["analyse_SAR.TL(object, dose.points = 2, signal_integral = 210:220, ", "    sequence.structure = c(\"SIGNAL\", \"BACKGROUND\"))"]
-            }
-          ]
+          "value": []
         },
         ".uid": {
           "type": "character",
