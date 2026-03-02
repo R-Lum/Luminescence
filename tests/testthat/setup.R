@@ -17,6 +17,10 @@ expect_snapshot_RLum <- function(object, ...) {
       object@data$fit <- NULL
     if ("call" %in% names(object@data))
       object@data$call <- NULL
+    if ("info" %in% names(object@data)) {
+      if ("call" %in% names(object@data$info))
+        object@data$info$call <- NULL
+    }
     if ("fits" %in% names(object@data)) { # calc_Huntley2006()
       if ("simulated" %in% names(object@data$fits)) {
         object@data$fits$simulated$m <- NULL

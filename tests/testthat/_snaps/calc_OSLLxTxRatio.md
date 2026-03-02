@@ -1694,16 +1694,10 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["call"]
+                  "value": []
                 }
               },
-              "value": [
-                {
-                  "type": "language",
-                  "attributes": {},
-                  "value": ["calc_OSLLxTxRatio(Lx.data = Lx.data, Tx.data = Tx.data, signal_integral = NA, ", "    background_integral = NA)"]
-                }
-              ]
+              "value": []
             }
           ]
         },
