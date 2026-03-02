@@ -57,8 +57,8 @@ elements is returned:
 The \verb{$summary} data.frame contains the following columns:
 \tabular{lll}{
 \strong{Column} \tab \strong{Type} \tab \strong{Description}\cr
-de \tab \link{numeric} \tab the obtained average dose\cr
-de_err \tab \link{numeric} \tab the average dose error \cr
+AVERAGE_DOSE \tab \link{numeric} \tab the obtained average dose\cr
+AVERAGE_DOSE.SE \tab \link{numeric} \tab the average dose error \cr
 SIGMA_D \tab \link{numeric}\tab sigma \cr
 SIGMA_D.SE \tab \link{numeric}\tab standard error of the sigma  \cr
 IC_AVERAGE_DOSE.LEVEL  \tab \link{character}\tab confidence level average dose\cr
@@ -68,8 +68,8 @@ IC_SIGMA_D.LEVEL \tab \link{integer}\tab confidence level sigma\cr
 IC_SIGMA_D.LOWER \tab \link{character}\tab lower sigma quantile\cr
 IC_SIGMA_D.UPPER \tab \link{character}\tab upper sigma quantile\cr
 L_MAX \tab \link{character}\tab maximum likelihood value \cr
-AVERAGE_DOSE \tab \link{numeric} \tab same as \code{de} (backward compatibility)\cr
-AVERAGE_DOSE.SE \tab \link{numeric} \tab same as \code{de_err} (backward compatibility)\cr
+de \tab \link{numeric} \tab same as \code{AVERAGE_DOSE} (internal use)\cr
+de_err \tab \link{numeric} \tab same as \code{AVERAGE_DOSE.SE} (internal use)\cr
 }
 
 The function returns two different plot panels.
@@ -107,7 +107,7 @@ data(ExampleData.DeValues, envir = environment())
 AD <- calc_AverageDose(ExampleData.DeValues$CA1[1:56, ], sigma_m = 0.1)
 
 ## plot De and set Average dose as central value
-plot_AbanicoPlot(ExampleData.DeValues$CA1[1:56, ], z.0 = AD$summary$de)
+plot_AbanicoPlot(AD, z.0 = AD$summary$de)
 
 }
 \references{
