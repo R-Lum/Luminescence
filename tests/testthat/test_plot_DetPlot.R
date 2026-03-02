@@ -180,6 +180,7 @@ test_that("plot_DetPlot", {
                        n.channels = 3,
                        plot = FALSE)
   res1@info <- res2@info <- list() # remove $call
+  res1@.uid <- res2@.uid <- NA_character_
   expect_equal(res1, res2)
 
   ## deprecated argument
