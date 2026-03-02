@@ -9,7 +9,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["dose.rate", "parameters", "call"]
+              "value": ["dose.rate", "parameters"]
             }
           },
           "value": [
@@ -44,7 +44,7 @@
                   "value": [0.00203656, 0.00203643, 0.0020363, 0.00203616, 0.00203603, 0.00203589, 0.00203576, 0.00203563, 0.00203549, 0.00203536]
                 },
                 {
-                  "type": "double",
+                  "type": "integer",
                   "attributes": {
                     "class": {
                       "type": "character",
@@ -82,34 +82,6 @@
                   "value": ["Gy/s"]
                 }
               ]
-            },
-            {
-              "type": "language",
-              "attributes": {
-                "srcref": {
-                  "type": "integer",
-                  "attributes": {
-                    "srcfile": {
-                      "type": "environment",
-                      "attributes": {
-                        "class": {
-                          "type": "character",
-                          "attributes": {},
-                          "value": ["srcfilecopy", "srcfile"]
-                        }
-                      },
-                      "value": {}
-                    },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["srcref"]
-                    }
-                  },
-                  "value": [7, 3, 7, 30, 3, 30, 7, 7]
-                }
-              },
-              "value": ["calc_SourceDoseRate(measurement.date = \"2012-01-27\", calib.date = \"2014-12-19\", ", "    calib.dose.rate = 0.0438, calib.error = 0.0019, predict = 10)"]
             }
           ]
         },

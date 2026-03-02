@@ -9,7 +9,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["summary", "data", "args", "call"]
+              "value": ["summary", "data", "args"]
             }
           },
           "value": [
@@ -98,34 +98,6 @@
                   "value": [0.75]
                 }
               ]
-            },
-            {
-              "type": "language",
-              "attributes": {
-                "srcref": {
-                  "type": "integer",
-                  "attributes": {
-                    "srcfile": {
-                      "type": "environment",
-                      "attributes": {
-                        "class": {
-                          "type": "character",
-                          "attributes": {},
-                          "value": ["srcfilecopy", "srcfile"]
-                        }
-                      },
-                      "value": {}
-                    },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["srcref"]
-                    }
-                  },
-                  "value": [7, 3, 7, 30, 3, 30, 7, 7]
-                }
-              },
-              "value": ["calc_CommonDose(ExampleData.DeValues$CA1, sigmab = 0.75, plot = FALSE, ", "    verbose = FALSE)"]
             }
           ]
         },
@@ -167,7 +139,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["summary", "data", "args", "call"]
+              "value": ["summary", "data", "args"]
             }
           },
           "value": [
@@ -256,34 +228,6 @@
                   "value": [0.25]
                 }
               ]
-            },
-            {
-              "type": "language",
-              "attributes": {
-                "srcref": {
-                  "type": "integer",
-                  "attributes": {
-                    "srcfile": {
-                      "type": "environment",
-                      "attributes": {
-                        "class": {
-                          "type": "character",
-                          "attributes": {},
-                          "value": ["srcfilecopy", "srcfile"]
-                        }
-                      },
-                      "value": {}
-                    },
-                    "class": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["srcref"]
-                    }
-                  },
-                  "value": [7, 3, 7, 30, 3, 30, 7, 7]
-                }
-              },
-              "value": ["calc_CommonDose(ExampleData.DeValues$CA1, sigmab = 0.25, log = FALSE, ", "    plot = FALSE, verbose = FALSE)"]
             }
           ]
         },
@@ -325,7 +269,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["summary", "data", "args", "call"]
+              "value": ["summary", "data", "args"]
             }
           },
           "value": [
@@ -414,11 +358,6 @@
                   "value": [1.25]
                 }
               ]
-            },
-            {
-              "type": "language",
-              "attributes": {},
-              "value": ["calc_CommonDose(ExampleData.DeValues$CA1, sigmab = 1.25, log = FALSE, ", "    plot = FALSE, verbose = FALSE)"]
             }
           ]
         },
