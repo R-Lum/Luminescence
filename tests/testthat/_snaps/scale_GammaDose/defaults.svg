@@ -443,6 +443,13 @@
 <line x1='651.56' y1='246.83' x2='651.56' y2='241.60' style='stroke-width: 0.75;' />
 </g>
 <defs>
+  <clipPath id='cpMjkxLjQxfDY1OC41MXwyOTkuMDl8NTI0LjU5'>
+    <rect x='291.41' y='299.09' width='367.10' height='225.50' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjkxLjQxfDY1OC41MXwyOTkuMDl8NTI0LjU5)'>
+</g>
+<defs>
   <clipPath id='cpMjQwLjAwfDcyMC4wMHwyODguMDB8NTc2LjAw'>
     <rect x='240.00' y='288.00' width='480.00' height='288.00' />
   </clipPath>

@@ -56,8 +56,8 @@
 <text x='44.64' y='67.09' text-anchor='end' style='font-size: 14.40px; font-family: sans;' textLength='8.01px' lengthAdjust='spacingAndGlyphs'>0</text>
 <polygon points='59.04,516.96 704.16,516.96 704.16,44.64 59.04,44.64 ' style='stroke-width: 0.75; fill: none;' />
 <text x='358.01' y='568.69' style='font-size: 14.40px; font-family: sans;' textLength='7.65px' lengthAdjust='spacingAndGlyphs'>σ</text>
-<text x='365.66' y='571.35' style='font-size: 10.08px; font-family: sans;' textLength='7.84px' lengthAdjust='spacingAndGlyphs'>O</text>
-<text x='373.50' y='571.35' style='font-size: 10.08px; font-family: sans;' textLength='7.28px' lengthAdjust='spacingAndGlyphs'>D</text>
+<text x='365.66' y='571.47' style='font-size: 10.08px; font-family: sans;' textLength='7.84px' lengthAdjust='spacingAndGlyphs'>O</text>
+<text x='373.50' y='571.47' style='font-size: 10.08px; font-family: sans;' textLength='7.28px' lengthAdjust='spacingAndGlyphs'>D</text>
 <text x='380.78' y='568.69' style='font-size: 14.40px; font-family: sans;' textLength='3.60px' lengthAdjust='spacingAndGlyphs'> </text>
 <text x='384.39' y='568.69' style='font-size: 14.40px; font-family: sans;' textLength='20.81px' lengthAdjust='spacingAndGlyphs'>[%]</text>
 <text transform='translate(12.96,280.80) rotate(-90)' text-anchor='middle' style='font-size: 14.40px; font-family: sans;' textLength='88.07px' lengthAdjust='spacingAndGlyphs'>Log likelihood</text>
@@ -70,8 +70,8 @@
 <text x='293.97' y='26.04' style='font-size: 14.40px; font-family: sans;' textLength='148.88px' lengthAdjust='spacingAndGlyphs'>Profile log likelihood for</text>
 <text x='442.85' y='26.04' style='font-size: 14.40px; font-family: sans;' textLength='3.60px' lengthAdjust='spacingAndGlyphs'> </text>
 <text x='446.45' y='26.04' style='font-size: 14.40px; font-family: sans;' textLength='7.65px' lengthAdjust='spacingAndGlyphs'>σ</text>
-<text x='454.10' y='28.71' style='font-size: 10.08px; font-family: sans;' textLength='7.84px' lengthAdjust='spacingAndGlyphs'>O</text>
-<text x='461.94' y='28.71' style='font-size: 10.08px; font-family: sans;' textLength='7.28px' lengthAdjust='spacingAndGlyphs'>D</text>
+<text x='454.10' y='28.82' style='font-size: 10.08px; font-family: sans;' textLength='7.84px' lengthAdjust='spacingAndGlyphs'>O</text>
+<text x='461.94' y='28.82' style='font-size: 10.08px; font-family: sans;' textLength='7.28px' lengthAdjust='spacingAndGlyphs'>D</text>
 </g>
 <g clip-path='url(#cpNTkuMDR8NzA0LjE2fDQ0LjY0fDUxNi45Ng==)'>
 <line x1='208.37' y1='516.96' x2='208.37' y2='44.64' style='stroke-width: 0.75;' />

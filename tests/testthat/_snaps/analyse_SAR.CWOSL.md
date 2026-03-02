@@ -36,22 +36,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1668.25051561]
+                  "value": [1668.25051542]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [47.42715954]
+                  "value": [47.42715956]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1982.75657222]
+                  "value": [1982.75657443]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [93.51781672]
+                  "value": [93.51781052]
                 },
                 {
                   "type": "logical",
@@ -91,7 +91,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1674.83051119]
+                  "value": [1674.83051081]
                 },
                 {
                   "type": "character",
@@ -106,32 +106,32 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1622.73102589]
+                  "value": [1622.73102616]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1726.35369744]
+                  "value": [1726.35369929]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1580.77337975]
+                  "value": [1580.77337937]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1770.85423123]
+                  "value": [1770.85423376]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1668.25051561]
+                  "value": [1668.25051542]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1668.25051561]
+                  "value": [1668.25051542]
                 },
                 {
                   "type": "character",
@@ -305,7 +305,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.0501, 0.00376529, 0.01474165, 338.95506912, 0.02843, 1668.25051561]
+                  "value": [1.0501, 0.00376529, 0.01474165, 338.95506912, 0.02843, 1668.25051542]
                 },
                 {
                   "type": "double",
