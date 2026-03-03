@@ -102,10 +102,7 @@ calc_OSLLxTxDecomposed <- function(
   # get component index from component name
   if (is.character(OSL.component)) {
     if (tolower(OSL.component) %in% tolower(Lx.data$name)) {
-      ## FIXME(mcol): this seems unreachable, as Lx.data doesn't store the
-      ## component names
-      component_index <- which(tolower(OSL.component) == tolower(Lx.data$name)) # nocov
-
+      component_index <- which(tolower(OSL.component) == tolower(Lx.data$name))
     } else {
       .throw_error("Invalid OSL component name, valid names are: ",
                    .collapse(Lx.data$name))

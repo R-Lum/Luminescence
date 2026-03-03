@@ -1,4 +1,4 @@
-# check class and length of output
+# snapshot tests
 
     {
       "type": "S4",
@@ -296,6 +296,118 @@
                   "type": "double",
                   "attributes": {},
                   "value": [39450.31]
+                }
+              ]
+            }
+          ]
+        },
+        "originator": {
+          "type": "character",
+          "attributes": {},
+          "value": ["calc_OSLLxTxDecomposed"]
+        },
+        "info": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": []
+            }
+          },
+          "value": []
+        },
+        ".uid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        ".pid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        }
+      },
+      "value": {
+        "class": "RLum.Results",
+        "package": "Luminescence"
+      }
+    }
+
+---
+
+    {
+      "type": "S4",
+      "attributes": {
+        "data": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["LxTx.table"]
+            }
+          },
+          "value": [
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
+                },
+                "row.names": {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1]
+                }
+              },
+              "value": [
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [4899.3]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [77.28]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [4899.3]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [77.28]
                 }
               ]
             }

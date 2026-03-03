@@ -744,7 +744,7 @@ analyse_SAR.CWOSL<- function(
                    "The original error was: ",
                    ## return the first part of message coming from get_RLum(),
                    ## as it makes the error too long and confusing
-                   gsub(".*:", "", attr(LnLxTnTx, "condition")$message))
+                   gsub("^.*\\[", "[", attr(LnLxTnTx, "condition")$message))
     return(NULL)
   }
 
