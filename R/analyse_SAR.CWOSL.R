@@ -102,8 +102,10 @@
 #'
 #' @param object [Luminescence::RLum.Analysis-class] (**required**):
 #' input object containing data for analysis, alternatively a [list] of
-#' [Luminescence::RLum.Analysis-class] objects can be provided. The object should **only**
-#' contain curves considered part of the SAR protocol (see Details).
+#' [Luminescence::RLum.Analysis-class] objects can be provided. The object
+#' should **only** contain curves considered part of the SAR protocol (see
+#' Details). When `OSL.component` is set, the input object must have been
+#' processed by `OSLdecomposition::RLum.OSL_decomposition()`.
 #'
 #' @param signal_integral [integer] (**required**):
 #' vector of channels for the signal integral. It can be a [list] of integers,
@@ -692,6 +694,10 @@ analyse_SAR.CWOSL<- function(
 # Calculate LnLxTnTx values  --------------------------------------------------
   ##calculate LxTx values using external function
   if (length(OSL.component) > 0) {
+    if (is.null(object@records[[OSL.Curves.ID[1]]]@info$COMPONENTS)) {
+      .throw_warning("'object' does not appear to have been processed by ",
+                     "OSLdecomposition::RLum.OSL_decomposition()")
+    }
     LnLxTnTx <- try(lapply(seq(1, length(OSL.Curves.ID), by = 2), function(x) {
       temp.LnLxTnTx <- get_RLum(
           calc_OSLLxTxDecomposed(

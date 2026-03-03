@@ -252,6 +252,10 @@ to either `"channel"` (default) and `"measurement"`. When the latter is used,
 the integrals can be specified in terms of seconds, in which case the function
 performs an automatic conversion to channels (#1396).
 
+* When `OSL.component` is specified, the function now checks that the input
+object was actually processed by `OSLdecomposed::RLum.OSL_decomposition()`,
+in order to return a warning message when that is not the case (#1464).
+
 ### `analyse_SAR.TL()`
 
 * Argument `signal.integral` has been renamed to `signal_integral`. The older

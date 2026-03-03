@@ -298,7 +298,7 @@ test_that("check functionality", {
 
   ## check stop for OSL.components ... failing
   SW({
-  expect_message(expect_null(
+  expect_warning(expect_message(expect_null(
       analyse_SAR.CWOSL(
        object = object[[1]],
        signal_integral = 1:2,
@@ -306,7 +306,8 @@ test_that("check functionality", {
        OSL.component = 1,
        verbose = FALSE
       )),
-      "Failed to generate the LxTx table, NULL returned")
+      "Failed to generate the LxTx table, NULL returned"),
+      "'object' does not appear to have been processed by OSLdecomposition")
   })
 
    expect_error(analyse_SAR.CWOSL(
