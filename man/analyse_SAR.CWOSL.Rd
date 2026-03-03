@@ -28,8 +28,10 @@ analyse_SAR.CWOSL(
 \arguments{
 \item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
 input object containing data for analysis, alternatively a \link{list} of
-\linkS4class{RLum.Analysis} objects can be provided. The object should \strong{only}
-contain curves considered part of the SAR protocol (see Details).}
+\linkS4class{RLum.Analysis} objects can be provided. The object
+should \strong{only} contain curves considered part of the SAR protocol (see
+Details). When \code{OSL.component} is set, the input object must have been
+processed by \code{OSLdecomposition::RLum.OSL_decomposition()}.}
 
 \item{signal_integral}{\link{integer} (\strong{required}):
 vector of channels for the signal integral. It can be a \link{list} of integers,
