@@ -22,6 +22,7 @@ analyse_SAR.CWOSL(
   plot_onePage = FALSE,
   plot_singlePanels = FALSE,
   onlyLxTxTable = FALSE,
+  method_control = list(),
   ...
 )
 }
@@ -141,6 +142,12 @@ If \code{TRUE} the dose response curve fitting and plotting is skipped, and the
 \code{palaeodose.error} and \code{exceed.max.regpoint} criteria are not computed.
 This allows to get hands on the \code{Lx/Tx} table for large datasets
 without the need for a curve fitting.}
+
+\item{method_control}{\link{list} (\emph{optional}):
+options to control the function behaviour. Currently only the
+'auto_curve_removal' (logical) option is supported, which controls whether
+curves with \code{recordType} starting with \verb{_} should be automatically removed
+(\code{TRUE} by default).}
 
 \item{...}{further arguments that will be passed to
 \link{fit_DoseResponseCurve}, \link{plot_DoseResponseCurve}
@@ -268,7 +275,7 @@ function does \strong{not} overwrite values preset in \code{IRR_TIME}.
 }
 }
 \section{Function version}{
- 0.13.7
+ 0.13.8
 }
 
 \examples{

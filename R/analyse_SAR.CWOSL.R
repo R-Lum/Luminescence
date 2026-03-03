@@ -214,6 +214,12 @@
 #' This allows to get hands on the `Lx/Tx` table for large datasets
 #' without the need for a curve fitting.
 #'
+#' @param method_control [list] (*optional*):
+#' options to control the function behaviour. Currently only the
+#' 'auto_curve_removal' (logical) option is supported, which controls whether
+#' curves with `recordType` starting with `_` should be automatically removed
+#' (`TRUE` by default).
+#'
 #' @param ... further arguments that will be passed to
 #' [Luminescence::fit_DoseResponseCurve], [Luminescence::plot_DoseResponseCurve]
 #' or [Luminescence::calc_OSLLxTxRatio] (supported:
@@ -240,7 +246,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.13.7
+#' @section Function version: 0.13.8
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
@@ -334,6 +340,7 @@ analyse_SAR.CWOSL<- function(
   plot_onePage = FALSE,
   plot_singlePanels = FALSE,
   onlyLxTxTable = FALSE,
+  method_control = list(),
   ...
 ) {
   .set_function_name("analyse_SAR.CWOSL")
@@ -397,6 +404,7 @@ analyse_SAR.CWOSL<- function(
       plot_onePage = parm$plot_onePage[[x]],
       onlyLxTxTable = parm$onlyLxTxTable[[x]],
       main = main[[x]],
+      method_control = method_control,
 
       ## deprecated arguments
       signal.integral.min = extraArgs$signal.integral.min[[x]],
@@ -431,6 +439,9 @@ analyse_SAR.CWOSL<- function(
   .validate_logical_scalar(onlyLxTxTable)
   .validate_class(rejection.criteria, "list", null.ok = TRUE)
   .validate_scalar(dose_rate_source, null.ok = TRUE)
+  .validate_class(method_control, "list")
+  method_control <- modifyList(x = list(auto_curve_removal = TRUE),
+                               val = method_control)
 
   ## Protocol integrity checks ----------------------------------------------
 
@@ -443,6 +454,11 @@ analyse_SAR.CWOSL<- function(
 
     ## trim
     object <- trim_RLum.Data(object, recordType = tmp_names)
+  }
+
+  ## remove curves starting with _
+  if (isTRUE(method_control[["auto_curve_removal"]])) {
+    object <- remove_RLum(object, recordType = "^_")
   }
 
   ## extract the correct curves for the sequence based on allowed curve types

@@ -270,6 +270,12 @@ More information on these changes are available at
   `OSLdecomposed::RLum.OSL_decomposition()`, in order to return a
   warning message when that is not the case (#1464).
 
+- Curves with `recordType` starting with `_` are automatically removed.
+  This allows to analyse an XSYG file directly without (in many cases)
+  any manual intervention required. This behaviour can be changed by
+  setting argument `method_control = list(auto_curve_removal = FALSE)`
+  (#1468).
+
 ### `analyse_SAR.TL()`
 
 - Argument `signal.integral` has been renamed to `signal_integral`. The
