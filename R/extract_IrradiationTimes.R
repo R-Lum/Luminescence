@@ -311,16 +311,16 @@ extract_IrradiationTimes <- function(
   if(exists("file.XSYG")){
     POSITION <- rep(temp.sequence.position, each = length_RLum(temp.sequence))
 
-  }else if(!inherits(try(
-    suppressWarnings(get_RLum(
-      get_RLum(temp.sequence, record.id = 1), info.object = "position")),
-    silent = TRUE), "try-error")){
-
-    ##POSITION of each STEP
-    POSITION <- vapply(temp.sequence, function(x){
-      suppressWarnings(get_RLum(x, info.object = "position")) %||%
-        get_RLum(x, info.object = "POSITION")
-    }, numeric(1))
+  } else {
+    ## check that @records[[1]]@info$position is present
+    check <- suppressWarnings(get_RLum(get_RLum(temp.sequence, record.id = 1),
+                                       info.object = "position"))
+    if (!is.null(check)) {
+      ## POSITION of each STEP
+      POSITION <- vapply(temp.sequence, function(x) {
+        suppressWarnings(get_RLum(x, info.object = "position")) %||%
+                         get_RLum(x, info.object = "POSITION")}, numeric(1))
+    }
   }
 
   ##Combine the results

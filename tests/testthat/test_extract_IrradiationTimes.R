@@ -101,4 +101,10 @@ test_that("regression tests", {
   ## issue 1273
   expect_error(extract_IrradiationTimes(iris, file.BINX = NA),
                "'object' should be of class 'character', 'RLum.Analysis' or")
+
+  ## issue 1466
+  tmp <- read_XSYG2R(xsyg, verbose = FALSE, fastForward = TRUE)[[1]]
+  tmp@records[[1]]@info$position <- NULL
+  expect_s4_class(extract_IrradiationTimes(tmp),
+                  "RLum.Results")
 })
