@@ -492,6 +492,20 @@ test_that("check functionality", {
      fixed = TRUE)
   )
 
+  ## automatic curve removal
+  data(ExampleData.XSYG, envir = environment())
+  expect_s4_class(analyse_SAR.CWOSL(OSL.SARMeasurement$Sequence.Object,
+                                    signal_integral = 1:4,
+                                    background_integral = 400:500,
+                                    plot = FALSE, verbose = FALSE),
+                  "RLum.Results")
+  expect_message(analyse_SAR.CWOSL(OSL.SARMeasurement$Sequence.Object,
+                                   signal_integral = 1:4,
+                                   background_integral = 400:500,
+                                   method_control = list(auto_curve_removal = FALSE),
+                                   plot = FALSE, verbose = FALSE),
+                 "Error: Failed to generate the LxTx table, NULL returned")
+
   ## consider.uncertainties
   res <- analyse_SAR.CWOSL(
       object = object[[1]],
