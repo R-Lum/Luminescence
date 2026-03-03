@@ -440,6 +440,11 @@ More information on these changes are available at
 - The function now exits cleanly instead of crashing if more than one
   input filenames are provided (#1446).
 
+### `extract_IrradiationTimes()`
+
+- The function no longer crashes if the input object contains no
+  `position` field in its info object (#1466).
+
 ### `fit_CWCurve()`
 
 - Argument `values` has been renamed to `object`. The older name will
