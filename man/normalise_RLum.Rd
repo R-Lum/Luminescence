@@ -90,7 +90,8 @@ of a curve.
 \item \code{normalise_RLum(RLum.Data.Curve)}: Normalise \linkS4class{RLum.Data.Curve} objects to value set via
 the argument \code{norm}
 
-\item \code{normalise_RLum(RLum.Data.Image)}: 
+\item \code{normalise_RLum(RLum.Data.Image)}: Normalise \linkS4class{RLum.Data.Image} objects to value set via
+the argument \code{norm}.
 
 \item \code{normalise_RLum(RLum.Data.Spectrum)}: Normalise \linkS4class{RLum.Data.Spectrum} objects to value set via
 the argument \code{norm}

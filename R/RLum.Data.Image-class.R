@@ -295,6 +295,8 @@ setMethod(
 
 ## normalise_RLum() --------------------------------------------------------------
 #' @describeIn normalise_RLum
+#' Normalise [Luminescence::RLum.Data.Image-class] objects to value set via
+#' the argument `norm`.
 #'
 #' @param global [logical] (*with default): this defines whether the normalisation
 #' is applied globally (same to all) or locally, in which case each frame has its
