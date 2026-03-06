@@ -433,9 +433,9 @@ analyse_SAR.CWOSL<- function(
   .validate_class(object, "RLum.Analysis")
   integral_input <- .validate_args(integral_input, c("channel", "measurement"))
   .validate_class(plot_singlePanels, c("logical", "integer", "numeric"))
-  .validate_logical_scalar(trim_channels)
-  .validate_logical_scalar(plot)
   .validate_logical_scalar(plot_onePage)
+
+  ## welcome to git!
   .validate_logical_scalar(onlyLxTxTable)
   .validate_class(rejection.criteria, "list", null.ok = TRUE)
   .validate_scalar(dose_rate_source, null.ok = TRUE)
