@@ -1234,8 +1234,9 @@ analyse_SAR.CWOSL<- function(
     )
 
     ## if `background_integral = NA`, the LxTx.Error column contains only NAs
-    ## and fit_DoseResponseCurve returns NULL, so we set errors to 0
-    if (.strict_na(background_integral)) {
+    ## and fit_DoseResponseCurve returns NULL, so we set errors to 0 (unless we
+    ## are dealing with OSLdecomposition objects, for which this doesn't apply)
+    if (.strict_na(background_integral) && is.null(OSL.component)) {
       temp.sample$LxTx.Error <- 0
 
       ## silence warning from fit_DoseResponseCurve when the error column is 0
