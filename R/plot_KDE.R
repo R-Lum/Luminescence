@@ -745,16 +745,14 @@ plot_KDE <- function(
     ## optionally add rug
     if (rug) {
       for(i in 1:length(data)) {
-        for(j in 1:nrow(data[[i]])) {
           suppressWarnings( # some values will be clipped
-          rug(data[[i]][j, 1],
+          rug(data[[i]][, 1],
               ticksize = 0.01 * l_height,
               side = 3,
               pos = 0,
               lwd = 1,
               col = col.value.rug[i])
           )
-        }
       }
     }
 
