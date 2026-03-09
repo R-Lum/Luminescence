@@ -2,6 +2,7 @@
 set.seed(1)
 data(ExampleData.BINfileData, envir = environment())
 object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1:2)
+decomposed <- readRDS(test_path("_data/OSLdecomposed_1.2.0.rds"))
 
 ##generate different datasets removing TL curves
 object_CH_TL <- get_RLum(object, record.id = -seq(1,30,4), drop = FALSE)
@@ -152,6 +153,16 @@ test_that("snapshot tests", {
 
   ## check if a different point was selected
   expect_equal(round(t$rejection.criteria$Value[2],2), expected = 0.01)
+
+  ## object from OSLdecomposition
+  expect_snapshot_RLum(
+    analyse_SAR.CWOSL(
+        decomposed,
+        OSL.component = 1,
+        plot = FALSE,
+        verbose = FALSE
+    ), tolerance = snapshot.tolerance
+  )
 })
 
 test_that("check functionality", {
