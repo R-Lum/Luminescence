@@ -74,7 +74,7 @@
         })
     )
   })
-  names(records) <- basename(tools::file_path_sans_ext(as.character(file)))
+  names(records) <- basename(tools::file_path_sans_ext(file))
 
   # Create output -----------------------------------------------------------
   if (output_type == "RLum.Results") {
