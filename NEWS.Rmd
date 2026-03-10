@@ -538,6 +538,11 @@ was closed; fixed (#c27a656).
 * Argument `sample` has been renamed to `object`. The older name will still
 work but generates a deprecation warning (#1434).
 
+### `plot_KDE()`
+
+* The length of the ticks for the rugs is now scaled by the size of dataset,
+so that visually the rug appears identical any dataset size (#1470).
+
 ### `plot_RadialPlot()`
 
 * If the error column contains zero values, they are reset to the smallest
