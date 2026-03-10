@@ -91,7 +91,7 @@
 #' The plot output is no 'probability density' plot (cf. the discussion
 #' of Berger and Galbraith in Ancient TL; see references)!
 #'
-#' @section Function version: 3.6.0
+#' @section Function version: 3.6.1
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -678,7 +678,7 @@ plot_KDE <- function(
         boxplot.data[[i]] <- boxplot.i
       }
 
-      ## get new line hights
+      ## get new line heights
       l_height <- par()$cxy[2]
 
       for(i in 1:length(data)) {
@@ -747,7 +747,7 @@ plot_KDE <- function(
       for(i in 1:length(data)) {
           suppressWarnings( # some values will be clipped
           rug(data[[i]][, 1],
-              ticksize = 0.01 * l_height,
+              ticksize = l_height / (nrow(data[[i]]) * 4),
               side = 3,
               pos = 0,
               lwd = 1,
