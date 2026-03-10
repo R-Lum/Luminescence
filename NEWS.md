@@ -187,15 +187,15 @@ More information on these changes are available at
 
 ### `analyse_SAR.CWOSL()`
 
-- No automated resetting of the dose value anymore, if
-  `mode = "alternate"`. If the first dose point was \> 0, the function
-  detected a dose-recovery test and automatically reset this dose point
-  to 0. While this is likely convenient in 9 out of 10 cases, it caused
+- If `mode = "alternate"`, the dose value is no longer reset
+  automatically. If the first dose point was \> 0, the function detected
+  a dose-recovery test and automatically reset this dose point to 0.
+  While this is likely convenient in 9 out of 10 cases, it caused
   trouble if the `mode = "alternate"` (passed on to
   `fit_DoseResponseCurve()`) because it modified the first dose point
   and this required additional handling afterwards. Please keep in mind
   that you have to redefine the recuperation reference in such a case:
-  this is wanted and not a bug (#9ff29bfd).
+  this is wanted and not a bug (fixed in commit 9ff29bf).
 
 - The order of columns in the `rejection.criteria` data frame that is
   output by the function has been changed so that the `UID` column
@@ -204,14 +204,15 @@ More information on these changes are available at
   random-looking alphanumeric values, they can identify univocally an
   aliquot also after merge operations (#1172).
 
-- Add new argument, `dose_rate_source`, that allows users to specify a
-  value for the source dose rate and display values in Gy, rather than
-  seconds. Previously, this was possible by using a factor with the
-  `dose.points` argument. However, setting it manually was particularly
-  inconvenient if the dose points were already extracted automatically,
-  as it required users to manually insert dose values regardless of the
-  automated extraction. This argument is also available in other
-  functions that wrap around `analyse_SAR.CWOSL()` (#4fc985d).
+- A new argument, `dose_rate_source`, was added to allow users to
+  specify a value for the source dose rate and display values in Gy,
+  rather than seconds. Previously, this was only possible by using a
+  factor with the `dose.points` argument. However, setting it manually
+  was particularly inconvenient if the dose points were already
+  extracted automatically, as it required users to insert dose values
+  manually regardless of the automated extraction. This argument is also
+  available in other functions that wrap around `analyse_SAR.CWOSL()`
+  (fixed in commit 4fc985d).
 
 - The function warns if the most common curve type (which is the one
   used in the analysis) matches multiple record types, as this may be a
@@ -239,7 +240,7 @@ More information on these changes are available at
 
 - The rejection criteria for the highest dose points was not considered
   correctly, and in most cases validated to `"FAILED"` even for
-  thresholds set to `NA` or `Inf` (3562bcab).
+  thresholds set to `NA` or `Inf` (fixed in commit 3562bca).
 
 - It is now possible to consider value uncertainties in the computation
   of some rejection criteria (currently only `recycling.ratio`,
@@ -257,7 +258,7 @@ More information on these changes are available at
   processed.
 
 - Add support to control the legend size and the legend symbols via
-  `legend.cex` and `legend.pch` (9ec687d).
+  `legend.cex` and `legend.pch` (fixed in commit 9ec687d).
 
 - The function now supports the `integral_input` argument, which can be
   set to either `"channel"` (default) and `"measurement"`. When the
@@ -411,12 +412,13 @@ More information on these changes are available at
 
 ### `correct_PMTLinerarity()`
 
-- The function introduced with the last release, unintentionally came
-  with a major flaw: It did nothing on a single `RLum.Data.Curve()`
-  object; fixed (#1d978cf).
+- The function, introduced in v1.1.2, unintentionally came with a major
+  flaw, in that it did nothing on a single `RLum.Data.Curve()` object
+  (fixed in commit 1d978cf).
+
 - If the channel resolution was not changing, the function produced
-  `NaN` values even in cases where dead time was not corrected; fixed
-  (#1d978cf).
+  `NaN` values even in cases where dead time was not corrected (fixed in
+  commit 1d978cf).
 
 ### `convert_Concentration2DoseRate()`
 
@@ -468,7 +470,8 @@ More information on these changes are available at
   object returned by the function (#1362).
 
 - The function now consistently returns the material specific parameter
-  `R` for `OTOR` and `OTORX` and its uncertainty (9b4d6bd).
+  `R` for `OTOR` and `OTORX` and its uncertainty (fixed in commit
+  9b4d6bd).
 
 ### `fit_LMCurve()`
 
@@ -559,10 +562,10 @@ More information on these changes are available at
 ### `plot_FilterCombinations()`
 
 - The interactive mode did not accept all plotting options from the
-  non-interactive mode (the default); fixed (#c27a656).
+  default (non-interactive) mode (fixed in commit c27a656).
 
-- If the functions was used on a shiny server, the plot showed only
-  after the app was closed; fixed (#c27a656).
+- If the function was used on a shiny server, the plot showed only after
+  the app was closed (fixed in commit c27a656).
 
 ### `plot_GrowthCurve()`
 
@@ -573,7 +576,7 @@ More information on these changes are available at
 
 - The length of the ticks for the rugs is now scaled by the size of
   dataset, so that visually the rug appears identical any dataset size
-  (#1470).
+  (#1470; thanks to @feldsparlover for reporting).
 
 ### `plot_RadialPlot()`
 
@@ -675,7 +678,7 @@ More information on these changes are available at
   (#1254).
 
 - The show method for an `RLum.Analysis-class` object would fail if the
-  record slot contained `NULL` elements (f1846c5c).
+  record slot contained `NULL` elements (fixed in commit f1846c5c).
 
 - The package has now reached 100% coverage! The test-coverage workflow
   action has been updated so that any decrease in coverage will be
