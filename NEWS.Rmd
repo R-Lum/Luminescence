@@ -10,10 +10,9 @@ header-includes:
 
 # Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
 
-## Breaking changes
+See also the [write-up for this release on the REPLAY website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/03/luminescence-release-1.2.0/).
 
-More information on these changes are available at
-https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/01/upcoming-breaking-changes-in-luminescence/.
+## Breaking changes
 
 * All import functions will now always append the detector used to the
 `recordType` slot of the `RLum.Data.Curve` object generated, for consistency
@@ -50,6 +49,9 @@ from the newly-added `recordName` (#1239, #1387).
 code that relies on column indices instead of column names (#1281, #1330,
 #1436).
 
+See [this post on the REPLAY website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/01/upcoming-breaking-changes-in-luminescence/)
+for more information and advice on how to deal with these changes.
+
 ## New functions
 
 * `normalise_RLum()`: This function enables a fast normalisation of
@@ -64,9 +66,9 @@ normalisation via keywords, such as `"max"`, `"min"`, `"first"`, `"last"`,
 `"huot"`, `"intensity"`. Additionally, the function supports normalisation to
 a positive number (#1250 by @RLumSK, #1300).
 
-* `read_BINXLOG2R()`: This function enables you to salvage log files created
-by a Risø reader into R as `RLum.Analysis-class`. The function also allows the 
-export of these files into a BIN/BINX format. While the function has been
+* `read_BINXLOG2R()`: This function enables the salvaging of log files created
+by a Risø reader into R as `RLum.Analysis-class`. It also allows for exporting
+these files into a BIN/BINX format. While the function has been
 tested on a few examples, it is important to note that log files are not a
 well-defined data format. This function is intended for use in cases where you
 have a corrupted BIN/BINX file but a complete log file is still available.
