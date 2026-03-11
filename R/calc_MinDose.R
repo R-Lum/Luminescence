@@ -767,6 +767,39 @@ calc_MinDose <- function(
       cbind(theta, likelihood)
     }
 
+    ## Function to produce smoothed polynomial fits
+    ## USS: unshared systematic error (3.5% in the paper)
+    # nocov start
+    get_polyfit <- function(pairs, degree, USS = 0.035) {
+      x <- pairs[, 1]
+      pairs[, 1] <- suppressWarnings(rnorm(length(x), mean = x, sd = USS * x))
+      pairs_sorted <- pairs[order(pairs[, 1]), ]
+      x <- pairs_sorted[, 1]
+      y <- pairs_sorted[, 2]
+
+      ## remove non-positive values as we are applying the log
+      ypos <- y > 0
+      x <- x[ypos]
+      y <- y[ypos]
+
+      ## fit polynomial to log(y), then exponentiate back
+      fit <- stats::lm(log(y) ~ poly(x, degree, raw = TRUE), na.action = na.exclude)
+      f <- exp(predict(fit, newdata = data.frame(x)))
+
+      ## vector of points to interpolate fit
+      xi <- seq(min(x, na.rm = TRUE), max(x, na.rm = TRUE), length.out = 100)
+      yi <- approx(x, f, xout = xi)$y
+
+      ind1 <- which(yi > 0)
+      yi[!is.finite(yi)] <- 0
+
+      list(xycurve = cbind(xi[min(ind1):max(ind1)],
+                           yi[min(ind1):max(ind1)]),
+           pairsUSS = pairs,
+           fit = fit)
+    }
+    # nocov end
+
     ## START BOOTSTRAP ----
     msg <- sprintf(paste("\n [calc_MinDose] \n\nRecycled Bootstrap",
                          "\n\nParameters:",

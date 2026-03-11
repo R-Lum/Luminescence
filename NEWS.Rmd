@@ -322,7 +322,7 @@ the log scale (#1345).
 * The function now stores the bootstrap results in the `summary` slot when
 `bootstrap = TRUE`. Moreover, summary results are printed to the terminal also
 when using bootstrap (#1336; thanks to @feldsparlover and Arindam Biswas for
-reporting).
+reporting and to Marijn van der Meij for checking the implementation).
 
 * The function crashed when bootstrapping with `bs.N = 1`. Now the `bs.N`
 parameter is silently reset to 2 in that case, although such low values are
