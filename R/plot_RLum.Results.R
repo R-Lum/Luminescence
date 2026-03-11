@@ -175,16 +175,19 @@ plot_RLum.Results<- function(
       pairs<- object@data$bootstrap$pairs$gamma
 
       # get polynomial fit objects
-      poly.lines<- list(poly.three=object@data$bootstrap$poly.fits$poly.three,
-                        poly.four=object@data$bootstrap$poly.fits$poly.four,
-                        poly.five=object@data$bootstrap$poly.fits$poly.five,
-                        poly.six=object@data$bootstrap$poly.fits$poly.six)
+      poly.fits <- list(three = object@data$bootstrap$poly.fits$poly.three,
+                        four = object@data$bootstrap$poly.fits$poly.four,
+                        five = object@data$bootstrap$poly.fits$poly.five,
+                        six = object@data$bootstrap$poly.fits$poly.six)
 
       # define polynomial curve functions for plotting
-      poly.curves<- list(poly.three.curve=function(x) { poly.lines$poly.three$coefficient[4]*x^3 + poly.lines$poly.three$coefficient[3]*x^2 + poly.lines$poly.three$coefficient[2]*x + poly.lines$poly.three$coefficient[1] },
-                         poly.four.curve=function(x) { poly.lines$poly.four$coefficient[5]*x^4 + poly.lines$poly.four$coefficient[4]*x^3 + poly.lines$poly.four$coefficient[3]*x^2 + poly.lines$poly.four$coefficient[2]*x + poly.lines$poly.four$coefficient[1] },
-                         poly.five.curve=function(x) { poly.lines$poly.five$coefficient[6]*x^5 + poly.lines$poly.five$coefficient[5]*x^4 + poly.lines$poly.five$coefficient[4]*x^3 + poly.lines$poly.five$coefficient[3]*x^2 + poly.lines$poly.five$coefficient[2]*x + poly.lines$poly.five$coefficient[1] },
-                         poly.six.curve=function(x) { poly.lines$poly.six$coefficient[7]*x^6 + poly.lines$poly.six$coefficient[6]*x^5 + poly.lines$poly.six$coefficient[5]*x^4 + poly.lines$poly.six$coefficient[4]*x^3 + poly.lines$poly.six$coefficient[3]*x^2 + poly.lines$poly.six$coefficient[2]*x + poly.lines$poly.six$coefficient[1] })
+      ## these are equivalent to
+      ## coefficient[1] + coefficient[2]*x + coefficient[3]*x^2 +  ...
+      poly.curves <- list(
+          three = function(x) colSums(poly.fits$three$coefficient * t(outer(x, 0:3, "^"))),
+          four = function(x) colSums(poly.fits$four$coefficient * t(outer(x, 0:4, "^"))),
+          five = function(x) colSums(poly.fits$five$coefficient * t(outer(x, 0:5, "^"))),
+          six = function(x) colSums(poly.fits$six$coefficient * t(outer(x, 0:6, "^"))))
 
       ## --------- PLOT "RECYCLE" BOOTSTRAP RESULTS ------------ ##
 
@@ -196,7 +199,7 @@ plot_RLum.Results<- function(
         par(cex = 0.8)
       }
 
-      for(i in 1:4) {
+      for (i in 1:length(poly.fits)) {
         ## ----- LIKELIHOODS
 
         # set margins (bottom, left, top, right)
@@ -259,9 +262,9 @@ plot_RLum.Results<- function(
         par(mar=c(5,5,0,3))
 
         plot(x = pairs[,1],
-             y = residuals(poly.lines[[i]]),
-             ylim = c(min(residuals(poly.lines[[i]]))*1.2,
-                      as.double(quantile(residuals(poly.lines[[i]]),probs=0.99))),
+             y = residuals(poly.fits[[i]]),
+             ylim = c(min(residuals(poly.fits[[i]])) * 1.2,
+                      as.double(quantile(residuals(poly.fits[[i]]), probs = 0.99))),
              xlim=range(pretty(pairs[,1])),
              xaxt = "n",
              bty = "l",
@@ -276,7 +279,7 @@ plot_RLum.Results<- function(
         abline(h = 0, lty=2)
 
         # calculate residual sum of squares (RSS) and add to plot
-        rss<- sum(residuals(poly.lines[[i]])^2)
+        rss<- sum(residuals(poly.fits[[i]])^2)
         mtext(text = paste("RSS =",round(rss,3)), adj = 1,
               side = 3, line = -2,
               cex = if(single){0.6}else{0.8})
