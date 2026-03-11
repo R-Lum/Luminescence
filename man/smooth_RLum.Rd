@@ -100,7 +100,12 @@ curve <-
 plot_RLum(curve)
 plot_RLum(smooth_RLum(curve))
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., 2026. smooth_RLum(): Smoothing of data for RLum-class objects. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Carter, J., Cresswell, A.J., Kinnaird, T.C., Carmichael, L.A., Murphy, S. &
 Sanderson, D.C.W., 2018. Non-Poisson variations in photomultipliers and
@@ -112,5 +117,5 @@ implications for luminescence dating. Radiation Measurements 120, 267-273.
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
-}
+, RLum Developer Team}
 \keyword{utilities}

@@ -90,7 +90,12 @@ input$WaterContent_SE <- 5
 ## convert
 convert_Concentration2DoseRate(input)
 
+} 
+
+\section{How to cite}{
+Riedesel, S., Autzen, M., 2026. convert_Concentration2DoseRate(): Dose-rate conversion function. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Adamiec, G., Aitken, M.J., 1998. Dose-rate conversion factors: update. Ancient TL 16, 37-46.
 
@@ -111,5 +116,5 @@ Archaeology and Archaeometry 13, 1-15.
 \author{
 Svenja Riedesel, Aberystwyth University (United Kingdom) \cr
 Martin Autzen, DTU NUTECH Center for Nuclear Technologies (Denmark)
-}
+, RLum Developer Team}
 \keyword{datagen}

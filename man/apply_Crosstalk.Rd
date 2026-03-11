@@ -47,7 +47,12 @@ hist(get_RLum(object = observations))
 observations_with_simulated_crosstalk <- apply_Crosstalk(observations)
 hist(observations_with_simulated_crosstalk)
 
+} 
+
+\section{How to cite}{
+Boer, A.d., Steinbuch, L., 2026. apply_Crosstalk(): Apply crosstalk. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
 A novel method to assess crosstalk in single-grain luminescence detection.
@@ -56,5 +61,5 @@ Radiation Measurements 186, 107459. \doi{10.1016/j.radmeas.2025.107459}
 \author{
 Anna-Maartje de Boer, Wageningen University & Research (The Netherlands)\cr
 Luc Steinbuch, Wageningen University & Research (The Netherlands)\cr
-}
+, RLum Developer Team}
 \keyword{manip}

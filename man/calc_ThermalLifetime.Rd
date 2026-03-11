@@ -149,7 +149,12 @@ calc_ThermalLifetime(
   output_unit = "Ma"
 )
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., 2026. calc_ThermalLifetime(): Calculates the Thermal Lifetime using the Arrhenius equation. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Furetta, C., 2010. Handbook of Thermoluminescence, Second Edition. World Scientific.
 }
@@ -158,5 +163,5 @@ Furetta, C., 2010. Handbook of Thermoluminescence, Second Edition. World Scienti
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
-}
+, RLum Developer Team}
 \keyword{datagen}

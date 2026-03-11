@@ -84,7 +84,12 @@ ExampleData.DeValues <- convert_Second2Gray(ExampleData.DeValues$BT998,
 ## create plot straightforward
 plot_ViolinPlot(data = ExampleData.DeValues)
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., 2026. plot_ViolinPlot(): Create a violin plot. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Daniel Adler (2025). vioplot: violin plot.
 R package version 0.5.1 http://CRAN.R-project.org/package=vioplot
@@ -99,4 +104,4 @@ Wickham. H (2009). ggplot2: elegant graphics for data analysis. Springer New Yor
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
-}
+, RLum Developer Team}

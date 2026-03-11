@@ -151,7 +151,12 @@ results_corr <- calc_Lamothe2003(
   fit.method = "EXP")
 
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., Mercier, N., 2026. calc_Lamothe2003(): Apply fading correction after Lamothe et al., 2003. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading in K-feldspars and the measurement
 and correction for it in optical dating. Canadian Journal of Earth Sciences 38, 1093-1106.
@@ -170,5 +175,5 @@ Towards a prediction of long-term anomalous fading of feldspar IRSL. Radiation M
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)
-}
+, RLum Developer Team}
 \keyword{datagen}
