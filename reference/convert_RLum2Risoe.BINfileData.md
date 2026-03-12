@@ -59,19 +59,19 @@ definition.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## How to cite
 
-Kreutzer, S., 2025. convert_RLum2Risoe.BINfileData(): Converts
+Kreutzer, S., 2026. convert_RLum2Risoe.BINfileData(): Converts
 RLum.Analysis and RLum.Data.Curve objects to RLum2Risoe.BINfileData
 objects. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze,
 M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N.,
 Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J.,
-Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A.,
+2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
+package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
@@ -83,7 +83,7 @@ convert_RLum2Risoe.BINfileData(IRSAR.RF.Data)
 #> [Risoe.BINfileData object]
 #> 
 #>  BIN/BINX version:     0
-#>  Object date:          20251212
+#>  Object date:          20260312
 #>  User:                 0
 #>  System ID:            0 (unknown)
 #>  Overall records:      2

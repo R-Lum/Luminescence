@@ -6,6 +6,92 @@ radioactivity. The function scales user inputs of uranium, thorium and
 potassium based on input parameters for sediment density, water content
 and given layer thicknesses and distances to the sample.
 
+**User Input**
+
+To calculate the gamma dose which is deposited in a sample, the user
+needs to provide information on those samples influencing the
+luminescence sample. As a rule of thumb, all sediment layers within at
+least 30 cm radius from the luminescence sample taken should be taken
+into account when calculating the gamma dose rate. However, the actual
+range of gamma radiation might be different, depending on the emitting
+radioelement, the water content and the sediment density of each layer
+(Aitken, 1985). Therefore the user is advised to provide as much detail
+as possible and physically sensible.
+
+The function requires a
+[data.frame](https://rdrr.io/r/base/data.frame.html) that is to be
+structured in columns and rows, with samples listed in rows. The first
+column contains information on the layer/sample ID, the second on the
+thickness (in cm) of each layer, whilst column 3 should contain `NA` for
+all layers that are not sampled for OSL/TL. For the layer the OSL/TL
+sample was taken from a numerical value must be provided, which is the
+distance (in cm) measured from **bottom** of the layer of interest. If
+the whole layer was sampled insert `0`. If the sample was taken from
+*within* the layer, insert a numerical value `>0`, which describes the
+distance from the middle of the sample to the bottom of the layer in cm.
+Columns 4 to 9 should contain radionuclide concentrations and their
+standard errors for potassium (in %), thorium (in ppm) and uranium (in
+ppm). Columns 10 and 11 give information on the water content and its
+uncertainty (standard error) in %. The layer density (in g/cm3) should
+be given in column 12. No cell should be left blank. Please ensure to
+keep the column titles as given in the example dataset
+(`data('ExampleData.ScaleGammaDose')`, see examples).
+
+The user can decide which dose rate conversion factors should be used to
+calculate the gamma dose rates. The options are:
+
+- `"Cresswelletal2018"` (Cresswell et al., 2018)
+
+- `"Liritzisetal2013"` (Liritzis et al., 2013)
+
+- `"Guerinetal2011"` (Guérin et al., 2011)
+
+- `"AdamiecAitken1998"` (Adamiec and Aitken, 1998)
+
+**Water content**
+
+The water content provided by the user should be calculated according
+to:
+
+\$\$ ( Wet weight \[g\] - Dry weight \[g\] ) / Dry weight \[g\] \* 100
+\$\$
+
+**Calculations**
+
+After converting the radionuclide concentrations into dose rates, the
+function will scale the dose rates based on the thickness of the layers,
+the distances to the sample, the water content and the density of the
+sediment. The calculations are based on Aitken (1985, Appendix H). As an
+example (equivalent to Aitken, 1985), assuming three layers of sediment,
+where **L** is inert and positioned in between the infinite thick and
+equally active layers **A** and **B**, the dose in **L** and **B** due
+to **A** is given by
+
+\$\$ {1-f(x)}D_A \$\$
+
+Where `x` is the distance into the inert medium, so `f(x)` is the
+weighted average fractional dose at `x` and `D_A` denotes that the dose
+is delivered by **A**. `f(x)` is derived from table H1 (Aitken, 1985),
+when setting `z = x`. Consequently, the dose in **A** and **L** due to
+**B** is given by
+
+\$\$ {1 - f(t-x)}D_B \$\$
+
+Here `t` is the thickness of **L** and the other parameters are denoted
+as above, just for the dose being delivered by B. `f(t-x)` is derived
+from table H1 (Aitken, 1985), when setting `z` equal to `t-x`. Following
+this, the dose in **L** delivered by **A** and **B** is given by
+
+\$\$ {2 - f(x) - f(t-x)}D\_{AB} \$\$
+
+Since **A** and **B** are equally active `D_{AB} = D_A = D_B`.
+
+The function uses the value of the fractional dose rate at the layer
+boundary to start the calculation for the next layer. This way, the
+function is able to scale the gamma dose rate accurately for distant
+layers when the density and water content is not constant for the entire
+section.
+
 ## Usage
 
 ``` r
@@ -36,8 +122,8 @@ scale_GammaDose(
     vertical extent of each layer in cm
 
   - `sample_offset` ([logical](https://rdrr.io/r/base/logical.html)):
-    distance of the sample in cm, **measured from the BOTTOM OF THE
-    TARGET LAYER**. Except for the target layer all values must be `NA`.
+    distance of the sample in cm, **measured from the bottom of the
+    target layer**. Except for the target layer all values must be `NA`.
 
   - `K` ([numeric](https://rdrr.io/r/base/numeric.html)): K nuclide
     content in %
@@ -165,94 +251,6 @@ Three plots are produced:
 - A barplot visualising the contribution of each layer to the total dose
   rate received by the sample in the target layer.
 
-## Details
-
-**User Input**
-
-To calculate the gamma dose which is deposited in a sample, the user
-needs to provide information on those samples influencing the
-luminescence sample. As a rule of thumb, all sediment layers within at
-least 30 cm radius from the luminescence sample taken should be taken
-into account when calculating the gamma dose rate. However, the actual
-range of gamma radiation might be different, depending on the emitting
-radioelement, the water content and the sediment density of each layer
-(Aitken, 1985). Therefore the user is advised to provide as much detail
-as possible and physically sensible.
-
-The function requires a
-[data.frame](https://rdrr.io/r/base/data.frame.html) that is to be
-structured in columns and rows, with samples listed in rows. The first
-column contains information on the layer/sample ID, the second on the
-thickness (in cm) of each layer, whilst column 3 should contain `NA` for
-all layers that are not sampled for OSL/TL. For the layer the OSL/TL
-sample was taken from a numerical value must be provided, which is the
-distance (in cm) measured from **bottom** of the layer of interest. If
-the whole layer was sampled insert `0`. If the sample was taken from
-*within* the layer, insert a numerical value `>0`, which describes the
-distance from the middle of the sample to the bottom of the layer in cm.
-Columns 4 to 9 should contain radionuclide concentrations and their
-standard errors for potassium (in %), thorium (in ppm) and uranium (in
-ppm). Columns 10 and 11 give information on the water content and its
-uncertainty (standard error) in %. The layer density (in g/cm3) should
-be given in column 12. No cell should be left blank. Please ensure to
-keep the column titles as given in the example dataset
-(`data('ExampleData.ScaleGammaDose')`, see examples).
-
-The user can decide which dose rate conversion factors should be used to
-calculate the gamma dose rates. The options are:
-
-- `"Cresswelletal2018"` (Cresswell et al., 2018)
-
-- `"Liritzisetal2013"` (Liritzis et al., 2013)
-
-- `"Guerinetal2011"` (Guérin et al., 2011)
-
-- `"AdamiecAitken1998"` (Adamiec and Aitken, 1998)
-
-**Water content**
-
-The water content provided by the user should be calculated according
-to:
-
-\$\$ ( Wet weight \[g\] - Dry weight \[g\] ) / Dry weight \[g\] \* 100
-\$\$
-
-**Calculations**
-
-After converting the radionuclide concentrations into dose rates, the
-function will scale the dose rates based on the thickness of the layers,
-the distances to the sample, the water content and the density of the
-sediment. The calculations are based on Aitken (1985, Appendix H). As an
-example (equivalent to Aitken, 1985), assuming three layers of sediment,
-where **L** is inert and positioned in between the infinite thick and
-equally active layers **A** and **B**, the dose in **L** and **B** due
-to **A** is given by
-
-\$\$ {1-f(x)}D_A \$\$
-
-Where `x` is the distance into the inert medium, so `f(x)` is the
-weighted average fractional dose at `x` and `D_A` denotes that the dose
-is delivered by **A**. `f(x)` is derived from table H1 (Aitken, 1985),
-when setting `z = x`. Consequently, the dose in **A** and **L** due to
-**B** is given by
-
-\$\$ {1 - f(t-x)}D_B \$\$
-
-Here `t` is the thickness of **L** and the other parameters are denoted
-as above, just for the dose being delivered by B. `f(t-x)` is derived
-from table H1 (Aitken, 1985), when setting `z` equal to `t-x`. Following
-this, the dose in **L** delivered by **A** and **B** is given by
-
-\$\$ {2 - f(x) - f(t-x)}D\_{AB} \$\$
-
-Since **A** and **B** are equally active `D_{AB} = D_A = D_B`.
-
-The function uses the value of the fractional dose rate at the layer
-boundary to start the calculation for the next layer. This way, the
-function is able to scale the gamma dose rate accurately for distant
-layers when the density and water content is not constant for the entire
-section.
-
 ## Note
 
 **This function has BETA status. If possible, results should be**
@@ -269,15 +267,15 @@ has been very helpful when writing this function.
 
 ## How to cite
 
-Riedesel, S., Autzen, M., Burow, C., 2025. scale_GammaDose(): Calculate
+Riedesel, S., Autzen, M., Burow, C., 2026. scale_GammaDose(): Calculate
 the gamma dose deposited within a sample taking layer-to-layer
 variations in radioactivity into account (according to Aitken, 1985).
 Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
-J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence:
-Comprehensive Luminescence Dating Data Analysis. R package version
-1.1.2. https://r-lum.github.io/Luminescence/
+J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
+Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
+version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -285,13 +283,16 @@ Aitken, M.J., 1985. Thermoluminescence Dating. Academic Press, London.
 
 Adamiec, G., Aitken, M.J., 1998. Dose-rate conversion factors: update.
 Ancient TL 16, 37-46.
+[doi:10.26034/la.atl.1998.292](https://doi.org/10.26034/la.atl.1998.292)
 
 Cresswell., A.J., Carter, J., Sanderson, D.C.W., 2018. Dose rate
 conversion parameters: Assessment of nuclear data. Radiation
 Measurements 120, 195-201.
+[doi:10.1016/j.radmeas.2018.02.007](https://doi.org/10.1016/j.radmeas.2018.02.007)
 
 Guérin, G., Mercier, N., Adamiec, G., 2011. Dose-rate conversion
-factors: update. Ancient TL, 29, 5-8.
+factors: update. Ancient TL 29, 5-8.
+[doi:10.26034/la.atl.2011.443](https://doi.org/10.26034/la.atl.2011.443)
 
 Liritzis, I., Stamoulis, K., Papachristodoulou, C., Ioannides, K., 2013.
 A re-evaluation of radiation dose-rate conversion factors. Mediterranean

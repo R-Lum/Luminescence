@@ -141,13 +141,13 @@ tested, i.e., if the function crashes your input was probably wrong.
 
 ## How to cite
 
-Kreutzer, S., Colombo, M., 2025. fit_ThermalQuenching(): Fitting Thermal
+Kreutzer, S., Colombo, M., 2026. fit_ThermalQuenching(): Fitting Thermal
 Quenching Data. Function version 0.2. In: Kreutzer, S., Burow, C.,
 Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -160,8 +160,8 @@ Geophys. J. R. astr. Soc. 41, 107–113.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
 Marco Colombo, Institute of Geography, Heidelberg University (Germany) ,
 RLum Developer Team
 

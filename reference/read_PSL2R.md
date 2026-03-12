@@ -26,11 +26,9 @@ read_PSL2R(
 - file:
 
   [character](https://rdrr.io/r/base/character.html) (**required**):
-  path and file name of the PSL file. If input is a `vector` it should
-  comprise only `character`s representing valid paths and PSL file
-  names. Alternatively, the input character can be just a directory
-  (path), in which case the function tries to detect and import all PSL
-  files found in the directory.
+  name of one or multiple PSL files (URLs are supported); it can be the
+  path to a directory, in which case the function tries to detect and
+  import all PSL files found in the directory.
 
 - drop_bg:
 
@@ -54,8 +52,9 @@ read_PSL2R(
 - merge:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  `TRUE` to merge all `RLum.Analysis` objects. Only applicable if
-  multiple files are imported.
+  `TRUE` to merge all
+  [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
+  objects. Only applicable if multiple files are imported.
 
 - pattern:
 
@@ -79,7 +78,8 @@ Returns an S4
 [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
 object containing
 [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)
-objects for each curve.
+objects for each curve. Results are returned as a list when multiple
+files are processed or `file` is a list.
 
 ## Note
 
@@ -90,7 +90,7 @@ so the function can be updated.
 
 ## Function version
 
-0.1.1
+0.1.2
 
 ## See also
 
@@ -100,19 +100,20 @@ so the function can be updated.
 
 ## Author
 
-Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
-Institut of Geography, Heidelberg University (Germany) , RLum Developer
-Team
+Christoph Burow, University of Cologne (Germany)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
+, RLum Developer Team
 
 ## How to cite
 
-Burow, C., Kreutzer, S., 2025. read_PSL2R(): Import SUERC portable OSL
-Reader PSL files into R. Function version 0.1.1. In: Kreutzer, S.,
+Burow, C., Kreutzer, S., 2026. read_PSL2R(): Import SUERC portable OSL
+Reader PSL files into R. Function version 0.1.2. In: Kreutzer, S.,
 Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
 J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
 D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
-2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
-package version 1.1.2. https://r-lum.github.io/Luminescence/
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
@@ -150,9 +151,8 @@ print(str(psl, max.level = 3))
 #>   .. ..$ Date                 : Date[1:1], format: "2016-05-19"
 #>   .. ..$ Time                 : chr "4:45:12"
 #>   .. ..$ Sample               : chr "L11"
-#>   .. ..$ Sequence             :Classes ‘data.table’ and 'data.frame':    5 obs. of  5 variables:
-#>   .. .. ..- attr(*, ".internal.selfref")=<externalptr> 
-#>   ..@ .uid      : chr "cebde8a2d3e4ff2c"
+#>   .. ..$ Sequence             :'data.frame': 5 obs. of  5 variables:
+#>   ..@ .uid      : chr "b838ad3164a775d1"
 #>   ..@ .pid      : chr NA
 #> NULL
 plot(psl, combine = TRUE)

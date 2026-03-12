@@ -96,13 +96,14 @@ RLum Developer Team
 
 ## How to cite
 
-Colombo, M., 2025. sort_RLum(): Sort data for RLum-class and
+Colombo, M., 2026. sort_RLum(): Sort data for RLum-class and
 Risoe.BINfileData-class objects. Function version 0.1.0. In: Kreutzer,
 S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M.,
 Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/
+Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.2.0.
+https://r-lum.github.io/Luminescence/
 
 ## Examples
 
@@ -119,8 +120,10 @@ sort_RLum(obj, slot = "recordType")
 #>   additional info elements:  0
 #>   number of records: 9
 #>   .. : RLum.Data.Curve : 9
-#>   .. .. : #1 OSL (NA) <> #2 OSL (NA) <> #3 OSL (NA) <> #4 OSL (NA) <> #5 OSL (UVVIS) 
-#>   .. .. : #6 TL (NA) <> #7 TL (NA) <> #8 TL (UVVIS)
+#>   .. .. : #1 OSL (UVVIS) 
+#>   .. .. : #2 TL (UVVIS) 
+#>   .. .. : #3 _OSL (NA) <> #4 _OSL (NA) <> #5 _OSL (NA) <> #6 _OSL (NA) 
+#>   .. .. : #7 _TL (NA) <> #8 _TL (NA)
 #>   .. .. : #9 irradiation (NA)
 sort_RLum(obj, info_element = "curveDescripter")
 #> 
@@ -130,10 +133,10 @@ sort_RLum(obj, info_element = "curveDescripter")
 #>   additional info elements:  0
 #>   number of records: 9
 #>   .. : RLum.Data.Curve : 9
-#>   .. .. : #1 TL (NA) <> #2 TL (NA) 
-#>   .. .. : #3 OSL (NA) <> #4 OSL (NA) 
+#>   .. .. : #1 _TL (NA) <> #2 _TL (NA) 
+#>   .. .. : #3 _OSL (NA) <> #4 _OSL (NA) 
 #>   .. .. : #5 TL (UVVIS) 
-#>   .. .. : #6 OSL (UVVIS) <> #7 OSL (NA) <> #8 OSL (NA)
+#>   .. .. : #6 OSL (UVVIS) <> #7 _OSL (NA) <> #8 _OSL (NA)
 #>   .. .. : #9 irradiation (NA)
 
 data(ExampleData.XSYG, envir = environment())
@@ -146,6 +149,6 @@ sort_RLum(sar, solt = "recordType", info_element = c("startDate"))
 #>   additional info elements:  0
 #>   number of records: 5
 #>   .. : RLum.Data.Curve : 5
-#>   .. .. : #1 TL (UVVIS) <> #2 TL (NA) <> #3 TL (NA) 
-#>   .. .. : #4 OSL (UVVIS) <> #5 OSL (NA)
+#>   .. .. : #1 TL (UVVIS) <> #2 _TL (NA) <> #3 _TL (NA) 
+#>   .. .. : #4 OSL (UVVIS) <> #5 _OSL (NA)
 ```

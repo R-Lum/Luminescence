@@ -45,15 +45,20 @@ resolution.
 This function is an adaptation of core from the R package
 'OSLdecomposition'.
 
+## Function version
+
+0.1.1
+
 ## How to cite
 
-Kreutzer, S., Mittelstrass, D., 2025. correct_PMTLinearity(): Dead-time
-(linearity) Correction for Photomultiplier tubes (PMT). In: Kreutzer,
-S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M.,
-Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
-Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/
+Kreutzer, S., Mittelstrass, D., 2026. correct_PMTLinearity(): Dead-time
+(linearity) Correction for Photomultiplier tubes (PMT). Function version
+0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
+C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
+Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
+Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
+Comprehensive Luminescence Dating Data Analysis. R package version
+1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -66,10 +71,10 @@ Signal component analysis for optically stimulated luminescence.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany)  
-Dirk Mittelstrass, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
+Dirk Mittelstrass, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 

@@ -15,7 +15,7 @@ plot_SingleGrainDisc(
   show_positioning_holes = TRUE,
   df_neighbours = NULL,
   ignore_borders = FALSE,
-  str_transform = "sqrt",
+  str_transform = c("sqrt", "lin", "log"),
   ...
 )
 ```
@@ -95,24 +95,27 @@ the base plot function, one can also choose to add elements manually.
 
 ## How to cite
 
-Boer, A.d., Steinbuch, L., 2025. plot_SingleGrainDisc(): Plot a disc
+Boer, A.d., Steinbuch, L., 2026. plot_SingleGrainDisc(): Plot a disc
 with its values. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C.,
 Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A.,
 Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J.,
-Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence:
+Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
 Comprehensive Luminescence Dating Data Analysis. R package version
-1.1.2. https://r-lum.github.io/Luminescence/
+1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
 de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025. A
-novel tool to assess crosstalk in single-grain luminescence detection.
-Submitted.
+novel method to assess crosstalk in single-grain luminescence detection.
+Radiation Measurements 186, 107459.
+[doi:10.1016/j.radmeas.2025.107459](https://doi.org/10.1016/j.radmeas.2025.107459)
 
 ## Author
 
-Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research,
-2025 , RLum Developer Team
+Anna-Maartje de Boer, Wageningen University & Research (The
+Netherlands)  
+Luc Steinbuch, Wageningen University & Research (The Netherlands)  
+, RLum Developer Team
 
 ## Examples
 

@@ -9,7 +9,7 @@ regenerative or additive protocol as implemented in fit_DoseResponseCurve."></he
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ regenerative or additive protocol as implemented in fit_DoseResponseCurve."></he
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Plot a dose-response curve for luminescence data (Lx/Tx against dose)</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/plot_DoseResponseCurve.R" class="external-link"><code>R/plot_DoseResponseCurve.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/plot_DoseResponseCurve.R" class="external-link"><code>R/plot_DoseResponseCurve.R</code></a></small>
       <div class="d-none name"><code>plot_DoseResponseCurve.Rd</code></div>
     </div>
 
@@ -80,10 +80,11 @@ enable/disable output to the terminal.</p></dd>
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Further graphical parameters to be passed (supported:
-<code>main</code>, <code>mtext</code>, <code>xlim</code>, <code>ylim</code>, <code>xlab</code>, <code>ylab</code>, <code>log</code> (not valid for objects
-fitted with <code>mode = "extrapolation"</code>), <code>legend</code> (<code>TRUE/FALSE</code>), <code>leged.pos</code>,
-<code>reg_points_pch</code>, <code>density_polygon</code> (<code>TRUE/FALSE</code>), <code>density_polygon_col</code>,
-<code>density_rug</code> (<code>TRUE</code>/<code>FALSE</code>), <code>box</code> (<code>TRUE</code>/<code>FALSE</code>).</p></dd>
+<code>main</code>, <code>mtext</code>, <code>xlim</code>, <code>ylim</code>, <code>xlab</code>, <code>ylab</code>, <code>log</code>
+(not valid for objects fitted with <code>mode = "extrapolation"</code>), <code>legend</code> (<code>TRUE/FALSE</code>),
+<code>legend.pos</code>, <code>reg_points_pch</code>, <code>density_polygon</code> (<code>TRUE/FALSE</code>),
+<code>density_polygon_col</code>, <code>density_rug</code> (<code>TRUE</code>/<code>FALSE</code>),
+<code>box</code> (<code>TRUE</code>/<code>FALSE</code>).</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -96,7 +97,7 @@ fitted with <code>mode = "extrapolation"</code>), <code>legend</code> (<code>TRU
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Dietze, M., Colombo, M., 2025. plot_DoseResponseCurve(): Plot a dose-response curve for luminescence data (Lx/Tx against dose). Function version 1.0.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Dietze, M., Colombo, M., 2026. plot_DoseResponseCurve(): Plot a dose-response curve for luminescence data (Lx/Tx against dose). Function version 1.0.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -113,7 +114,7 @@ based on the Lambert W function. Journal of Luminescence 225, 117333. <a href="h
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br>
+    <p>Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)<br>
 Michael Dietze, GFZ Potsdam (Germany) <br>
 Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team</p>
@@ -161,7 +162,7 @@ Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

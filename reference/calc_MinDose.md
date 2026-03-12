@@ -19,16 +19,16 @@ If `par=3` (default) the 3-parameter minimum age model is applied, where
 
 **(Un-)logged model**
 
-In the original version of the minimum dose model, the basic data are
-the natural logarithms of the De estimates and relative standard errors
-of the De estimates. The value for `sigmab` must be provided as a ratio
-(e.g, 0.2 for 20 %). This model will be applied if `log = TRUE`.
+In the original version of the minimum dose model, which is applied if
+`log = TRUE` (default), the basic data are the natural logarithms of the
+De estimates and relative standard errors of the De estimates. The value
+for `sigmab` must be provided as a ratio (e.g, 0.2 for 20 %).
 
 If `log=FALSE`, the modified un-logged model will be applied instead.
-This has essentially the same form as the original version. `gamma` and
-`sigma` are in Gy and `gamma` becomes the minimum true dose in the
-population. **Note** that the un-logged model requires `sigmab` to be in
-the same absolute unit as the provided De values (seconds or Gray).
+This has essentially the same form as the original version, but `gamma`
+and `sigma` are in Gy and `gamma` becomes the minimum true dose in the
+population. **Note:** the un-logged model requires `sigmab` to be in the
+same absolute unit as the provided De values (seconds or Gray).
 
 While the original (logged) version of the minimum dose model may be
 appropriate for most samples (i.e. De distributions), the modified
@@ -36,7 +36,7 @@ appropriate for most samples (i.e. De distributions), the modified
 samples containing negative, zero or near-zero De estimates (Arnold et
 al. 2009, p. 323).
 
-**Initial values & boundaries**
+**Initial values and boundaries**
 
 The log-likelihood calculations use the
 [nlminb](https://rdrr.io/r/stats/nlminb.html) function for
@@ -47,37 +47,36 @@ estimated from the input data. If the final estimates of *gamma*, *mu*,
 *sigma* and *p0* are totally off target, consider providing custom
 starting values via `init.values`.
 
-The boundaries for the individual model parameters are not required to
-be explicitly specified. If you want to override the default boundary
-values, use arguments `gamma.lower`, `gamma.upper`, `sigma.lower`,
-`sigma.upper`, `p0.lower`, `p0.upper`, `mu.lower` and `mu.upper`.
+The boundaries for individual model parameters need not be specified
+explicitly. To override the default boundary values, provide arguments
+`gamma.lower`, `gamma.upper`, `sigma.lower`, `sigma.upper`, `p0.lower`,
+`p0.upper`, `mu.lower` and `mu.upper`.
 
 **Bootstrap**
 
 When `bootstrap=TRUE` the function applies the bootstrapping method as
-described in Cunningham & Wallinga (2012). By default, the minimum age
-model produces 1000 first level and 3000 second level bootstrap
-replicates. The uncertainty on `sigmab` is 0.04 by default. These values
-can be changed by using the arguments `bs.M` (first level replicates),
-`bs.N` (second level replicates) and `sigmab.sd` (error on `sigmab`).
-The bandwidth of the kernel density estimate can be specified with
-`bs.h`. By default, this is calculated as:
+described in Cunningham & Wallinga (2012). The minimum age model
+produces `bs.M` first-level bootstrap replicates (1000 by default) and
+`bs.N` second-level replicates (`3 * bs.M` by default), with an
+uncertainty `sigma.sd` on the overdispersion parameter (0.04 by
+default). These values can be changed by using arguments `bs.M`, `bs.N`
+and `sigmab.sd`, respectively. The bandwidth of the kernel density
+estimate can be specified with `bs.h`. By default, this is calculated
+as:
 
 \$\$h = (2\*\sigma\_{DE})/\sqrt{n}\$\$
 
 **Multicore support**
 
-Parallel computations can be activated by setting `multicore=TRUE`. By
-default, the number of available logical CPU cores is determined
-automatically, but can be changed with `cores`. The multicore support is
-only available when `bootstrap=TRUE` and spawns `n` R instances for each
-core to get MAM estimates for each of the N and M bootstrap replicates.
-Note that this option is highly experimental and may or may not work for
-your machine. The performance gain increases for larger number of
-bootstrap replicates. However, note that with each additional core (and
-hence R instance) the memory usage can significantly increase, depending
-on the number of bootstrap replicates. When insufficient memory is
-available, there will be a massive performance hit.
+Parallel processing can be enabled by setting `multicore = TRUE`. By
+default, the number of logical CPU cores is detected automatically, but
+it can be overridden with the `cores` argument. Multicore processing is
+supported only when `bootstrap = TRUE`, and spawns one R process per
+core to compute MAM estimates for each of the `N * M` bootstrap
+replicates. Note that this feature is experimental and may not work on
+all systems. Performance gains grow with the number of bootstrap
+replicates, but each additional core (R process) increases memory usage.
+When memory is insufficient, overall performance can degrade severely.
 
 **Likelihood profiles**
 
@@ -119,15 +118,15 @@ calc_MinDose(
   [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
   or [data.frame](https://rdrr.io/r/base/data.frame.html)
   (**required**): for
-  [data.frame](https://rdrr.io/r/base/data.frame.html): two columns for
-  De and De error.
+  [data.frame](https://rdrr.io/r/base/data.frame.html): two columns with
+  `(data[, 1])` and De error `(data[, 2])`.
 
 - sigmab:
 
   [numeric](https://rdrr.io/r/base/numeric.html) (**required**):
   additional spread in De values, representing the expected
   overdispersion in the data should the sample be well-bleached
-  (Cunningham & Wallinga 2012, p. 100). **NOTE**: For the logged model
+  (Cunningham & Wallinga 2012, p. 100). **Note:** For the logged model
   (`log = TRUE`) this value must be a fraction, e.g. 0.2 (= 20 %). If
   the un-logged model is used (`log = FALSE`), `sigmab` must be provided
   in the same absolute units of the De values (seconds or Gray). See
@@ -136,7 +135,8 @@ calc_MinDose(
 - log:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  whether the logged minimum dose model should be fit to De data.
+  whether the logged minimum dose model should be fit to De data (`TRUE`
+  by default).
 
 - par:
 
@@ -154,7 +154,7 @@ calc_MinDose(
   [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): a named
   list with starting values for `gamma`, `sigma`, `p0` and `mu` (e.g.
   `list(gamma=100, sigma=1.5, p0=0.1, mu=100)`). If no values are
-  provided, reasonable values will be estimated from the data. **NOTE**:
+  provided, reasonable values will be estimated from the data. **Note:**
   the initial values must always be given in the absolute units. If a
   logged model is applied (`log = TRUE`), the provided `init.values` are
   automatically log-transformed.
@@ -180,9 +180,9 @@ calc_MinDose(
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
   parallelize the computation of the bootstrap by creating a multicore
   cluster (only considered if `bootstrap = TRUE`). By default, it uses
-  all available logical CPU cores, but this can be changed with option
-  `cores`. Note that this option is highly experimental and may not work
-  on all machines.
+  all available logical CPU cores, but this can be changed with the
+  `cores` argument. Note that this feature is experimental and may not
+  work on all systems.
 
 - ...:
 
@@ -227,7 +227,8 @@ object is returned containing the following elements:
 
 - \$BIC:
 
-  [numeric](https://rdrr.io/r/base/numeric.html) BIC score
+  [numeric](https://rdrr.io/r/base/numeric.html) BIC score from the
+  non-bootstrapped model
 
 - \$confint:
 
@@ -259,17 +260,18 @@ internal warning messages.
 
 ## Function version
 
-0.4.6
+0.5.0
 
 ## How to cite
 
-Burow, C., 2025. calc_MinDose(): (Un-)logged minimum age model (MAM)
-after Galbraith et al. (1999). Function version 0.4.6. In: Kreutzer, S.,
-Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
-J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
-D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
-2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
-package version 1.1.2. https://r-lum.github.io/Luminescence/
+Burow, C., Colombo, M., 2026. calc_MinDose(): (Un-)logged minimum age
+model (MAM) after Galbraith et al. (1999). Function version 0.5.0. In:
+Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
+M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
+Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
+Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.2.0.
+https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -334,11 +336,11 @@ a reproducible distribution?. Ancient TL 26, 3-10.
 ## Author
 
 Christoph Burow, University of Cologne (Germany)  
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)  
 Based on a rewritten S script of Rex Galbraith, 2010  
-The bootstrap approach is based on a rewritten MATLAB script of Alastair
-Cunningham.  
-Alastair Cunningham is thanked for his help in implementing and
-cross-checking the code. , RLum Developer Team
+The bootstrap approach is based on a MATLAB script by Alastair
+Cunningham, who helped with implementation and cross-checking. , RLum
+Developer Team
 
 ## Examples
 
@@ -350,15 +352,15 @@ data(ExampleData.DeValues, envir = environment())
 # By default, this will apply the un-logged 3-parameter MAM.
 calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.1)
 #> 
-#> ----------- meta data -----------
+#> ----------- Meta data -----------
 #>   n par sigmab logged      Lmax      BIC
 #>  62   3    0.1   TRUE -43.57969 106.4405
 #> 
-#> --- final parameter estimates ---
-#>  gamma sigma   p0 mu
-#>  34.32  2.07 0.01  0
+#> --- Final parameter estimates ---
+#>          gamma sigma   p0
+#> Estimate 34.32  2.07 0.01
 #> 
-#> ------ confidence intervals -----
+#> ------ Confidence intervals -----
 #>       2.5 % 97.5 %
 #> gamma 29.38  39.38
 #> sigma  1.76   2.57
@@ -408,15 +410,15 @@ plot_RLum(mam)
 
 # Plot the dose distribution in an abanico plot and draw a line
 # at the minimum dose estimate
-plot_AbanicoPlot(data = ExampleData.DeValues$CA1,
+plot_AbanicoPlot(data = mam,
                  main = "3-parameter Minimum Age Model",
-                 line = mam,polygon.col = "none",
+                 polygon.col = "none",
                  hist = TRUE,
                  rug = TRUE,
                  summary = c("n", "mean", "mean.weighted", "median", "in.ci"),
                  centrality = res$de,
-                 line.col = "red",
                  grid.col = "none",
+                 line.col = "red",
                  line.label = paste0(round(res$de, 1), "\U00B1",
                                      round(res$de_err, 1), " Gy"),
                  bw = 0.1,
@@ -427,8 +429,6 @@ plot_AbanicoPlot(data = ExampleData.DeValues$CA1,
                                   gamma == .(round(log(res$de), 1)) ~ ", " ~
                                   sigma == .(round(res$sig, 1)) ~ ", " ~
                                   rho == .(round(res$p0, 2))))
-
-
 
 # (3) Run the minimum age model with bootstrap
 # NOTE: Bootstrapping is computationally intensive

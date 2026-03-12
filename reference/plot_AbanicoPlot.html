@@ -11,7 +11,7 @@ kernel density estimate, histogram and/or dot plot of the dose values."></head><
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ kernel density estimate, histogram and/or dot plot of the dose values."></head><
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Function to create an Abanico Plot.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/plot_AbanicoPlot.R" class="external-link"><code>R/plot_AbanicoPlot.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/plot_AbanicoPlot.R" class="external-link"><code>R/plot_AbanicoPlot.R</code></a></small>
       <div class="d-none name"><code>plot_AbanicoPlot.Rd</code></div>
     </div>
 
@@ -48,14 +48,14 @@ kernel density estimate, histogram and/or dot plot of the dose values.</p>
 <span>  <span class="va">data</span>,</span>
 <span>  na.rm <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  log.z <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  z.0 <span class="op">=</span> <span class="st">"mean.weighted"</span>,</span>
-<span>  dispersion <span class="op">=</span> <span class="st">"qr"</span>,</span>
+<span>  z.0 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"mean.weighted"</span>, <span class="st">"mean.weighted"</span>, <span class="st">"median"</span><span class="op">)</span>,</span>
+<span>  dispersion <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"qr"</span>, <span class="st">"sd"</span>, <span class="st">"2sd"</span><span class="op">)</span>,</span>
 <span>  plot.ratio <span class="op">=</span> <span class="fl">0.75</span>,</span>
 <span>  rotate <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  mtext <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  summary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"in.2s"</span><span class="op">)</span>,</span>
 <span>  summary.pos <span class="op">=</span> <span class="st">"sub"</span>,</span>
-<span>  summary.method <span class="op">=</span> <span class="st">"MCM"</span>,</span>
+<span>  summary.method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"MCM"</span>, <span class="st">"weighted"</span>, <span class="st">"unweighted"</span><span class="op">)</span>,</span>
 <span>  legend <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  legend.pos <span class="op">=</span> <span class="st">"topleft"</span>,</span>
 <span>  stats <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -89,12 +89,21 @@ kernel density estimate, histogram and/or dot plot of the dose values.</p>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> or <a href="RLum.Results-class.html">RLum.Results</a> object (<strong>required</strong>):
 for <code>data.frame</code> two columns: De (<code>data[,1]</code>) and De error (<code>data[,2]</code>).
 To plot several data sets in one plot the data sets must be provided as
-<code>list</code>, e.g. <code>list(data.1, data.2)</code>.</p></dd>
+<code>list</code>, e.g. <code>list(data.1, data.2)</code>.<br>
+For some <a href="RLum.Results-class.html">RLum.Results</a> objects, one or more lines (and
+corresponding labels) are drawn automatically:</p><ul><li><p><a href="calc_AverageDose.html">calc_AverageDose</a> (ADM)</p></li>
+<li><p><a href="calc_CentralDose.html">calc_CentralDose</a> (CDM)</p></li>
+<li><p><a href="calc_MaxDose.html">calc_MaxDose</a> (MDM)</p></li>
+<li><p><a href="calc_MinDose.html">calc_MinDose</a> (MAM)</p></li>
+<li><p><a href="calc_FiniteMixture.html">calc_FiniteMixture</a>
+Alternative labels can be set via the <code>line.label</code> option. This behaviour
+can be suppressed altogether by setting <code>line = NA</code>.</p></li>
+</ul></dd>
 
 
 <dt id="arg-na-rm">na.rm<a class="anchor" aria-label="anchor" href="#arg-na-rm"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-exclude NA values from the data set prior to any further operations.</p></dd>
+exclude <code>NA</code> values from the data set prior to any further operations.</p></dd>
 
 
 <dt id="arg-log-z">log.z<a class="anchor" aria-label="anchor" href="#arg-log-z"></a></dt>
@@ -125,7 +134,7 @@ centre the polygon.</p></dd>
 <dt id="arg-plot-ratio">plot.ratio<a class="anchor" aria-label="anchor" href="#arg-plot-ratio"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
 Relative space, given to the radial versus the cartesian plot part,
-default is <code>0.75</code>.</p></dd>
+default is 0.75.</p></dd>
 
 
 <dt id="arg-rotate">rotate<a class="anchor" aria-label="anchor" href="#arg-rotate"></a></dt>
@@ -156,10 +165,8 @@ option in only possible if <code>mtext</code> is not used.</p></dd>
 <dt id="arg-summary-method">summary.method<a class="anchor" aria-label="anchor" href="#arg-summary-method"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 keyword indicating the method used to calculate the statistic summary.
-One out of</p><ul><li><p><code>"unweighted"</code>,</p></li>
-<li><p><code>"weighted"</code> and</p></li>
-<li><p><code>"MCM"</code>.</p></li>
-</ul><p>See <a href="calc_Statistics.html">calc_Statistics</a> for details.</p></dd>
+One of <code>"MCM"</code> (default), <code>"weighted"</code> or <code>"unweighted"</code>.
+See <a href="calc_Statistics.html">calc_Statistics</a> for details.</p></dd>
 
 
 <dt id="arg-legend">legend<a class="anchor" aria-label="anchor" href="#arg-legend"></a></dt>
@@ -243,7 +250,8 @@ polygon may be omitted for clarity. To disable it use <code>FALSE</code> or
 
 <dt id="arg-line">line<a class="anchor" aria-label="anchor" href="#arg-line"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> or <a href="RLum.Results-class.html">RLum.Results</a>:
-numeric values of the additional lines to be added.</p></dd>
+numeric values of the additional lines to be added. This can be set to <code>NA</code>
+to suppress the line added automatically by some <code>RLum.Results</code> objects.</p></dd>
 
 
 <dt id="arg-line-col">line.col<a class="anchor" aria-label="anchor" href="#arg-line-col"></a></dt>
@@ -300,8 +308,8 @@ a vector of length two, specifying the upper and lower x-axis labels.</p></dd>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>The Abanico Plot is a combination of the classic Radial Plot
-(<code>plot_RadialPlot</code>) and a kernel density estimate plot (e.g
-<code>plot_KDE</code>). It allows straightforward visualisation of data precision,
+<a href="plot_RadialPlot.html">plot_RadialPlot</a> and a kernel density estimate plot (e.g
+<a href="plot_KDE.html">plot_KDE</a>. It allows straightforward visualisation of data precision,
 error scatter around a user-defined central value and the combined
 distribution of the values, on the actual scale of the measured data (e.g.
 seconds, equivalent dose, years). The principle of the plot is shown in
@@ -343,11 +351,11 @@ one or more of the following keywords:</p><ul><li><p><code>"n"</code> (number of
 <li><p><code>"in.2s"</code> (percent of samples in 2-sigma range)</p></li>
 <li><p><code>"kurtosis"</code> (kurtosis)</p></li>
 <li><p><code>"skewness"</code> (skewness)</p></li>
-</ul><p><strong>Note</strong> that the input data for the statistic summary is sent to the function
-<code><a href="calc_Statistics.html">calc_Statistics()</a></code> depending on the log-option for the z-scale. If
+</ul><p><strong>Note:</strong> the input data for the statistic summary is sent to the function
+<a href="calc_Statistics.html">calc_Statistics</a> depending on the log-option for the z-scale. If
 <code>"log.z = TRUE"</code>, the summary is based on the logarithms of the input
 data. If <code>"log.z = FALSE"</code> the linearly scaled data is used.</p>
-<p><strong>Note</strong> as well, that <code>"calc_Statistics()"</code> calculates these statistic
+<p><strong>Note:</strong> <a href="calc_Statistics.html">calc_Statistics</a> calculates these statistic
 measures in three different ways: <code>unweighted</code>, <code>weighted</code> and
 <code>MCM-based</code> (i.e., based on Monte Carlo Methods). By default, the
 MCM-based version is used. If you wish to use another method, indicate this
@@ -356,8 +364,8 @@ with the appropriate keyword using the argument <code>summary.method</code>.</p>
 the entire plot. Each element of the plot can be addressed and its properties
 can be defined. This includes font type, size and decoration, colours and
 sizes of all plot items. To infer the definition of a specific layout style
-cf. <code><a href="get_Layout.html">get_Layout()</a></code> or type e.g., for the layout type <code>"journal"</code>
-<code>get_Layout("journal")</code>. A layout type can be modified by the user by
+cf. <a href="get_Layout.html">get_Layout</a> or type, e.g. for the layout type <code>"journal"</code>.
+A layout type can be modified by the user by
 assigning new values to the list object.</p>
 <p>It is possible for the z-scale to specify where ticks are to be drawn
 by using the parameter <code>at</code>, e.g. <code>at = seq(80, 200, 20)</code>, cf. function
@@ -366,17 +374,17 @@ documentation of <code>axis</code>. Specifying tick positions manually overrides
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.1.20</p>
+    <p>0.1.21</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Dietze, M., Kreutzer, S., 2025. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.20. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Dietze, M., Kreutzer, S., Colombo, M., 2026. plot_AbanicoPlot(): Function to create an Abanico Plot.. Function version 0.1.21. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Galbraith, R. &amp; Green, P., 1990. Estimating the component ages
 in a finite mixture. International Journal of Radiation Applications and
-Instrumentation. Part D. Nuclear Tracks and Radiation Measurements, 17 (3),
+Instrumentation. Part D. Nuclear Tracks and Radiation Measurements 17 (3),
 197-206.</p>
 <p>Dietze, M., Kreutzer, S., Burow, C., Fuchs, M.C., Fischer, M., Schmidt, C., 2015.
 The abanico plot: visualising chronometric data with individual standard errors.
@@ -384,12 +392,14 @@ Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><a href="plot_RadialPlot.html">plot_RadialPlot</a>, <a href="plot_KDE.html">plot_KDE</a>, <a href="plot_Histogram.html">plot_Histogram</a>, <a href="plot_ViolinPlot.html">plot_ViolinPlot</a></p></div>
+    <div class="dont-index"><p><a href="plot_RadialPlot.html">plot_RadialPlot</a>, <a href="plot_KDE.html">plot_KDE</a>,
+<a href="plot_Histogram.html">plot_Histogram</a>, <a href="plot_ViolinPlot.html">plot_ViolinPlot</a></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Michael Dietze, GFZ Potsdam (Germany)<br>
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br>
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)<br>
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)<br>
 Inspired by a plot introduced by Galbraith &amp; Green (1990)
 , RLum Developer Team</p>
     </div>
@@ -593,11 +603,8 @@ Inspired by a plot introduced by Galbraith &amp; Green (1990)
 <span class="r-out co"><span class="r-pr">#&gt;</span>  SE [%]:                  3.46</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">plot_AbanicoPlot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ExampleData.DeValues</span>,</span></span>
-<span class="r-in"><span>                 line <span class="op">=</span> <span class="va">CAM</span>,</span></span>
-<span class="r-in"><span>                 line.col <span class="op">=</span> <span class="st">"darkgreen"</span>,</span></span>
-<span class="r-in"><span>                 line.label <span class="op">=</span> <span class="st">"CAM"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot_AbanicoPlot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">CAM</span>,</span></span>
+<span class="r-in"><span>                 line.col <span class="op">=</span> <span class="st">"darkseagreen"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_AbanicoPlot-15.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## now create plot with legend, colour, different points and smaller scale</span></span></span>
@@ -725,7 +732,7 @@ Inspired by a plot introduced by Galbraith &amp; Green (1990)
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

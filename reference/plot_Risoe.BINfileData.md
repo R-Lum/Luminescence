@@ -13,7 +13,7 @@ plot_Risoe.BINfileData(
   position = NULL,
   run = NULL,
   set = NULL,
-  sorter = "POSITION",
+  sorter = c("POSITION", "RUN", "SET"),
   ltype = c("IRSL", "OSL", "TL", "RIR", "RBR", "RL"),
   curve.transformation = "None",
   dose_rate = NULL,
@@ -128,14 +128,14 @@ output version 3 and 4.
 
 ## How to cite
 
-Kreutzer, S., Dietze, M., Colombo, M., 2025. plot_Risoe.BINfileData():
+Kreutzer, S., Dietze, M., Colombo, M., 2026. plot_Risoe.BINfileData():
 Plot Single Luminescence Curves from a Risoe.BINfileData-class object.
 Function version 0.4.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
-J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence:
-Comprehensive Luminescence Dating Data Analysis. R package version
-1.1.2. https://r-lum.github.io/Luminescence/
+J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
+Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
+version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -152,8 +152,8 @@ Duller, G., 2007. Analyst. pp. 1-45.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
 Michael Dietze, GFZ Potsdam (Germany)  
 Marco Colombo, Institute of Geography, Heidelberg University (Germany) ,
 RLum Developer Team

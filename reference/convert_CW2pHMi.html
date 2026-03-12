@@ -13,7 +13,7 @@ Wallinga (2012)."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@ Wallinga (2012)."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Transform a CW-OSL curve into a pHM-OSL curve via interpolation under hyperbolic modulation conditions</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/convert_CW2pHMi.R" class="external-link"><code>R/convert_CW2pHMi.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/convert_CW2pHMi.R" class="external-link"><code>R/convert_CW2pHMi.R</code></a></small>
       <div class="d-none name"><code>convert_CW2pHMi.Rd</code></div>
     </div>
 
@@ -47,17 +47,18 @@ Wallinga (2012).</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">convert_CW2pHMi</span><span class="op">(</span><span class="va">values</span>, <span class="va">delta</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">convert_CW2pHMi</span><span class="op">(</span><span class="va">object</span>, delta <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-values">values<a class="anchor" aria-label="anchor" href="#arg-values"></a></dt>
+<dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
 <dd><p><a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a> or <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<strong>required</strong>):
-<a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a> or <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with measured curve data of type
-stimulation time (t) (<code>values[,1]</code>) and measured counts (cts) (<code>values[,2]</code>).</p></dd>
+<a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a> object or a <code>data.frame</code> with measured
+curve data of type stimulation time (t) (<code>object[, 1]</code>) and measured counts
+(cts) (<code>object[, 2]</code>).</p></dd>
 
 
 <dt id="arg-delta">delta<a class="anchor" aria-label="anchor" href="#arg-delta"></a></dt>
@@ -66,6 +67,10 @@ stimulation rate parameter, if no value is given, the optimal value is
 estimated automatically (see details). Smaller values of delta produce more
 points in the rising tail of
 the curve.</p></dd>
+
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>currently not used.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -103,7 +108,7 @@ $$pHM(t) = (\delta*t/(1+\delta*t))*c*CW(t')$$
 $$c = (1+\delta*P)/\delta*P$$
 $$P = length(stimulation~period)$$</p>
 <p>(7) Combine all values and truncate all values for t' &gt; <code>max(t)</code></p>
-<p><strong>NOTE:</strong>
+<p><strong>Note:</strong>
 The number of values for t' &lt; <code>min(t)</code> depends on the stimulation rate
 parameter <code>delta</code>. To avoid the production of too many artificial data
 at the raising tail of the determined pHM curve, it is recommended to use
@@ -116,30 +121,30 @@ the automatic estimation routine for <code>delta</code>, i.e. provide no value f
 should be limited to avoid artificial intensity data. If <code>delta</code> is
 provided manually and more than two points are extrapolated, a warning
 message is returned.</p>
-<p>The function <a href="https://rdrr.io/r/stats/approxfun.html" class="external-link">approx</a> may produce some <code>Inf</code> and <code>NaN</code> data.
-The function tries to manually interpolate these values by calculating
-the <code>mean</code> using the adjacent channels. If two invalid values are succeeding,
+<p>The function <a href="https://rdrr.io/r/stats/approxfun.html" class="external-link">approx</a> may produce some <code>Inf</code> and <code>NaN</code> data, in which case
+the function tries to interpolate these values by calculating the mean of
+the adjacent channels. If two invalid values are succeeding,
 the values are removed and no further interpolation is attempted.
 In every case a warning message is shown.</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.2.3</p>
+    <p>0.2.5</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2025. convert_CW2pHMi(): Transform a CW-OSL curve into a pHM-OSL curve via interpolation under hyperbolic modulation conditions. Function version 0.2.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Colombo, M., 2026. convert_CW2pHMi(): Transform a CW-OSL curve into a pHM-OSL curve via interpolation under hyperbolic modulation conditions. Function version 0.2.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Bos, A.J.J. &amp; Wallinga, J., 2012. How to visualize quartz OSL
-signal components. Radiation Measurements, 47, 752-758.<br></p>
+signal components. Radiation Measurements 47, 752-758.<br></p>
 <p><strong>Further Reading</strong></p>
 <p>Bulur, E., 1996. An Alternative Technique For
-Optically Stimulated Luminescence (OSL) Experiment. Radiation Measurements,
+Optically Stimulated Luminescence (OSL) Experiment. Radiation Measurements
 26, 701-709.</p>
 <p>Bulur, E., 2000. A simple transformation for converting CW-OSL curves to
-LM-OSL curves. Radiation Measurements, 32, 141-145.</p>
+LM-OSL curves. Radiation Measurements 32, 141-145.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -148,8 +153,9 @@ LM-OSL curves. Radiation Measurements, 32, 141-145.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br>
-Based on comments and suggestions from:<br>
+    <p>Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)<br>
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)<br>
+Based on comments and suggestions from:
 Adrie J.J. Bos, Delft University of Technology, The Netherlands
 , RLum Developer Team</p>
     </div>
@@ -187,20 +193,16 @@ Adrie J.J. Bos, Delft University of Technology, The Netherlands
 <span class="r-in"><span>                                       ,<span class="st">"NPOINTS"</span><span class="op">]</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##combine curve to data set</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">curve</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="va">curve.HIGH</span><span class="op">/</span><span class="va">curve.NPOINTS</span>,<span class="va">curve.HIGH</span>,</span></span>
 <span class="r-in"><span>                          by <span class="op">=</span> <span class="va">curve.HIGH</span><span class="op">/</span><span class="va">curve.NPOINTS</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                  y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">CWOSL.SAR.Data</span><span class="op">@</span><span class="va">DATA</span><span class="op">[</span><span class="va">curve.ID</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##transform values</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">curve.transformed</span> <span class="op">&lt;-</span> <span class="fu">convert_CW2pHMi</span><span class="op">(</span><span class="va">curve</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##plot curve</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">curve.transformed</span><span class="op">$</span><span class="va">x</span>, <span class="va">curve.transformed</span><span class="op">$</span><span class="va">y.t</span>, log <span class="op">=</span> <span class="st">"x"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="convert_CW2pHMi-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(3) - produce Fig. 4 from Bos &amp; Wallinga (2012)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -223,13 +225,13 @@ Adrie J.J. Bos, Delft University of Technology, The Netherlands
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="fl">0.03</span>,<span class="fl">4500</span>,<span class="st">"LM"</span>, col<span class="op">=</span><span class="st">"red"</span> ,cex<span class="op">=</span><span class="fl">.8</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">values.t</span> <span class="op">&lt;-</span> <span class="fu">convert_CW2pHMi</span><span class="op">(</span><span class="va">values</span>, delta <span class="op">=</span> <span class="fl">40</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[convert_CW2pHMi()] 56 invalid values have been found and replaced by the mean of the nearest values</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[convert_CW2pHMi()] 56 invalid values found, replaced by the mean of the nearest values</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">values</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">values.t</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="fl">1</span><span class="op">]</span>, <span class="va">values.t</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span>      col<span class="op">=</span><span class="st">"black"</span>, lwd<span class="op">=</span><span class="fl">1.3</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="fl">0.005</span>,<span class="fl">3000</span>,<span class="st">"HM"</span>, cex<span class="op">=</span><span class="fl">.8</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">values.t</span> <span class="op">&lt;-</span> <span class="fu"><a href="convert_CW2pPMi.html">convert_CW2pPMi</a></span><span class="op">(</span><span class="va">values</span>, P <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">10</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[convert_CW2pPMi()] t' is beyond the time resolution: only two data points have been extrapolated, the first 3 points were set to 0</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>[convert_CW2pPMi()] t' is beyond the time resolution and more than two data points have been extrapolated</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">values</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">values.t</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span><span class="op">)</span>, <span class="fl">1</span><span class="op">]</span>, <span class="va">values.t</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span>      col<span class="op">=</span><span class="st">"blue"</span>, lwd<span class="op">=</span><span class="fl">1.3</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/text.html" class="external-link">text</a></span><span class="op">(</span><span class="fl">0.5</span>,<span class="fl">6500</span>,<span class="st">"PM"</span>, col<span class="op">=</span><span class="st">"blue"</span> ,cex<span class="op">=</span><span class="fl">.8</span><span class="op">)</span></span></span>
@@ -242,7 +244,7 @@ Adrie J.J. Bos, Delft University of Technology, The Netherlands
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

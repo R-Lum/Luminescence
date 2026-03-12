@@ -11,7 +11,7 @@ the corresponding function will be selected."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ the corresponding function will be selected."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Sort data for RLum-class and Risoe.BINfileData-class objects</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/Luminescence-generics.R" class="external-link"><code>R/Luminescence-generics.R</code></a>, <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/RLum.Analysis-class.R" class="external-link"><code>R/RLum.Analysis-class.R</code></a>, <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/Risoe.BINfileData-class.R" class="external-link"><code>R/Risoe.BINfileData-class.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/Luminescence-generics.R" class="external-link"><code>R/Luminescence-generics.R</code></a>, <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/RLum.Analysis-class.R" class="external-link"><code>R/RLum.Analysis-class.R</code></a>, <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/Risoe.BINfileData-class.R" class="external-link"><code>R/Risoe.BINfileData-class.R</code></a></small>
       <div class="d-none name"><code>sort_RLum.Rd</code></div>
     </div>
 
@@ -61,7 +61,8 @@ the corresponding function will be selected.</p>
 
 
 <dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
-<dd><p><a href="RLum-class.html">RLum</a> or <a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> (<strong>required</strong>):
+<dd><p><a href="RLum-class.html">RLum</a> or
+<a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> (<strong>required</strong>):
 S4 object of class <code>RLum.Analysis</code> or <code>Risoe.BINfileData</code>.</p></dd>
 
 
@@ -120,7 +121,7 @@ lead to the impression that the sorting did not work.</p></li>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Colombo, M., 2025. sort_RLum(): Sort data for RLum-class and Risoe.BINfileData-class objects. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Colombo, M., 2026. sort_RLum(): Sort data for RLum-class and Risoe.BINfileData-class objects. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">
@@ -138,8 +139,10 @@ lead to the impression that the sorting did not work.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 number of records: 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. : RLum.Data.Curve : 9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #1 OSL (NA) &lt;&gt; #2 OSL (NA) &lt;&gt; #3 OSL (NA) &lt;&gt; #4 OSL (NA) &lt;&gt; #5 OSL (UVVIS) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #6 TL (NA) &lt;&gt; #7 TL (NA) &lt;&gt; #8 TL (UVVIS)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #1 OSL (UVVIS) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #2 TL (UVVIS) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #3 _OSL (NA) &lt;&gt; #4 _OSL (NA) &lt;&gt; #5 _OSL (NA) &lt;&gt; #6 _OSL (NA) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #7 _TL (NA) &lt;&gt; #8 _TL (NA)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #9 irradiation (NA)</span>
 <span class="r-in"><span><span class="fu">sort_RLum</span><span class="op">(</span><span class="va">obj</span>, info_element <span class="op">=</span> <span class="st">"curveDescripter"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -149,10 +152,10 @@ lead to the impression that the sorting did not work.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 number of records: 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. : RLum.Data.Curve : 9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #1 TL (NA) &lt;&gt; #2 TL (NA) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #3 OSL (NA) &lt;&gt; #4 OSL (NA) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #1 _TL (NA) &lt;&gt; #2 _TL (NA) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #3 _OSL (NA) &lt;&gt; #4 _OSL (NA) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #5 TL (UVVIS) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #6 OSL (UVVIS) &lt;&gt; #7 OSL (NA) &lt;&gt; #8 OSL (NA)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #6 OSL (UVVIS) &lt;&gt; #7 _OSL (NA) &lt;&gt; #8 _OSL (NA)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #9 irradiation (NA)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.XSYG</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -165,8 +168,8 @@ lead to the impression that the sorting did not work.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 number of records: 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. : RLum.Data.Curve : 5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #1 TL (UVVIS) &lt;&gt; #2 TL (NA) &lt;&gt; #3 TL (NA) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #4 OSL (UVVIS) &lt;&gt; #5 OSL (NA)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #1 TL (UVVIS) &lt;&gt; #2 _TL (NA) &lt;&gt; #3 _TL (NA) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #4 OSL (UVVIS) &lt;&gt; #5 _OSL (NA)</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -175,7 +178,7 @@ lead to the impression that the sorting did not work.</p></li>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

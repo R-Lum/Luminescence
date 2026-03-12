@@ -12,9 +12,10 @@ after Kars et al. (2008).
 analyse_FadingMeasurement(
   object,
   structure = c("Lx", "Tx"),
-  signal.integral = NULL,
-  background.integral = NULL,
-  t_star = "half",
+  signal_integral = NULL,
+  background_integral = NULL,
+  integral_input = c("channel", "measurement"),
+  t_star = c("half", "half_complex", "end"),
   n.MC = 100,
   verbose = TRUE,
   plot = TRUE,
@@ -40,16 +41,16 @@ analyse_FadingMeasurement(
   columns divisible by 3 and where each triplet has the before mentioned
   column structure.
 
-  **Please note: The input object should solely consists of the curve
-  needed for the data analysis, i.e. only IRSL curves representing Lx
-  (and Tx). If the object originated from an XSYG file, also the
-  irradiation steps must be preserved in the input object.**
+  **Note:** The input object should solely consists of the curve needed
+  for the data analysis, i.e. only IRSL curves representing Lx (and Tx).
+  If the object originated from an XSYG file, also the irradiation steps
+  must be preserved in the input object.
 
-  If data from multiple aliquots are provided please **see the details
-  below** with regard to Lx/Tx normalisation. **The function assumes
-  that all your measurements are related to one (comparable) sample. If
-  you have to treat independent samples, you have use this function in a
-  loop.**
+  If data from multiple aliquots are provided, please see the details
+  below with regard to Lx/Tx normalisation. **Note:** The function
+  assumes that all your measurements are related to one (comparable)
+  sample. If you have to treat independent samples, you have use this
+  function in a loop.
 
 - structure:
 
@@ -57,17 +58,24 @@ analyse_FadingMeasurement(
   the structure of the measurement data, one of `'Lx'` or
   `c('Lx','Tx')`.
 
-- signal.integral:
+- signal_integral:
 
   [vector](https://rdrr.io/r/base/vector.html) (**required**): vector
   with channels for the signal integral (e.g., `1:10`). It is not
   required if a `data.frame` with `LxTx` values is provided.
 
-- background.integral:
+- background_integral:
 
   [vector](https://rdrr.io/r/base/vector.html) (**required**): vector
   with channels for the background integral (e.g., `90:100`). It is not
   required if a `data.frame` with `LxTx` values is provided.
+
+- integral_input:
+
+  [character](https://rdrr.io/r/base/character.html) (*with default*):
+  input type for `signal_integral`, one of `"channel"` (default) or
+  `"measurement"`. If set to `"measurement"`, the best matching channels
+  corresponding to the given time range (in seconds) are selected.
 
 - t_star:
 
@@ -214,18 +222,18 @@ times are taken into consideration for the analysis.
 
 ## Function version
 
-0.1.25
+0.1.27
 
 ## How to cite
 
-Kreutzer, S., Burow, C., 2025. analyse_FadingMeasurement(): Analyse
+Kreutzer, S., Burow, C., 2026. analyse_FadingMeasurement(): Analyse
 fading measurements and returns the fading rate per decade (g-value).
-Function version 0.1.25. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
+Function version 0.1.27. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
-J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence:
-Comprehensive Luminescence Dating Data Analysis. R package version
-1.1.2. https://r-lum.github.io/Luminescence/
+J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
+Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
+version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -256,8 +264,8 @@ field saturation. Radiation Measurements 43, 786-790.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
 Christoph Burow, University of Cologne (Germany) , RLum Developer Team
 
 ## Examples
@@ -284,11 +292,11 @@ n.MC = 10)
 #> ---------------------------------------------------
 #> T_0.5 interpolated:   NA
 #> T_0.5 predicted:  4e+11
-#> g-value:      5.18 ± 0.57 (%/decade)
-#> g-value (norm. 2 days):   6.01 ± 0.58 (%/decade)
+#> g-value:      5.18 ± 1.1 (%/decade)
+#> g-value (norm. 2 days):   6.01 ± 1.13 (%/decade)
 #> ---------------------------------------------------
-#> rho':             3.9e-06 ± 7.54e-07
-#> log10(rho'):      -5.41 ± 0.08
+#> rho':             3.75e-06 ± 5.43e-07
+#> log10(rho'):      -5.43 ± 0.06
 #> ---------------------------------------------------
 
 ##(3) this can be further used in the function
@@ -303,15 +311,15 @@ n.MC = 10)
 #> 
 #>  >> Fading correction according to Huntley & Lamothe (2001)
 #> 
-#>  .. used g-value:    5.182 ± 0.568 %/decade
+#>  .. used g-value:    5.182 ± 1.099 %/decade
 #>  .. used tc:     1.198e-08 ka
-#>  .. used kappa:      0.0225 ± 0.0025
+#>  .. used kappa:      0.0225 ± 0.0048
 #>  ----------------------------------------------
 #>  seed:            NA
 #>  n.MC:           10
 #>  observations:       10
 #>  ----------------------------------------------
 #>  Age (faded):        100 ka ± 2 ka
-#>  Age (corr.):        203.0812 ka ± 18.328 ka
+#>  Age (corr.):        203.0812 ka ± 56.8557 ka
 #>  ---------------------------------------------- 
 ```

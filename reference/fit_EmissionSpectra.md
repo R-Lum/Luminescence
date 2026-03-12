@@ -135,8 +135,8 @@ deviation from 0 (means no residual).
 The emission spectra (on an energy scale) can be best described as the
 sum of multiple Gaussian components:
 
-'\$\$ y = \Sigma Ci \* 1/(\sigma\_{i} \* \sqrt(2 \* \pi)) \* exp(-1/2 \*
-((x - \mu\_{i})/\sigma\_{i}))^2) \$\$
+\$\$ y = \sum_i \frac{C_i}{\sigma\_{i} \sqrt{2 \pi}} exp(-1/2 ((x -
+\mu\_{i})/\sigma\_{i})^2) \$\$
 
 with the parameters \\\sigma\\ (peak width) and \\\mu\\ (peak centre)
 and \\C\\ (scaling factor).
@@ -152,11 +152,11 @@ The spectrum deconvolution consists of the following steps:
 3.  Fitting via
     [minpack.lm::nls.lm](https://rdrr.io/pkg/minpack.lm/man/nls.lm.html)  
 
-The peak finding is realised by an approach (re-)suggested by Petr Pikal
-via the R-help mailing list
-(`https://stat.ethz.ch/pipermail/r-help/2005-November/thread.html`) in
-November 2005. This goes back to even earlier discussion in 2001 based
-on Prof Brian Ripley's idea. It smartly uses the functions
+The peak finding is based on an approach (re-)suggested by Petr Pikal in
+November 2005 in the R-help mailing list
+(https://stat.ethz.ch/pipermail/r-help/2005-November/thread.html). This
+goes back to even earlier discussion in 2001 based on Prof Brian
+Ripley's idea. It smartly uses the functions
 [stats::embed](https://rdrr.io/r/stats/embed.html) and
 [max.col](https://rdrr.io/r/base/maxCol.html) to identify peaks
 positions. For the use in this context, the algorithm has been further
@@ -197,20 +197,21 @@ then fix the number of components and run at least 10,000 iterations
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
 Marco Colombo, Institute of Geography, Heidelberg University (Germany) ,
 RLum Developer Team
 
 ## How to cite
 
-Kreutzer, S., Colombo, M., 2025. fit_EmissionSpectra(): Luminescence
+Kreutzer, S., Colombo, M., 2026. fit_EmissionSpectra(): Luminescence
 Emission Spectra Deconvolution. Function version 0.1.3. In: Kreutzer,
 S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M.,
 Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/
+Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.2.0.
+https://r-lum.github.io/Luminescence/
 
 ## Examples
 
@@ -232,14 +233,16 @@ results <- fit_EmissionSpectra(
 #> >> Treating dataset >> 5 <<
 #> >> Wavelength scale detected ...
 #> >> Wavelength to energy scale conversion ...   [OK]
-#> >> Searching components ...            [-]>> Searching components ...            [\]>> Searching components ...            [-]>> Searching components ...            [-]>> Searching components ...            [/]>> Searching components ...            [-]>> Searching components ...            [/]>> Searching components ...            [-]>> Searching components ...            [\]>> Searching components ...            [-]>> Searching components ...             [OK]
+#> >> Searching components ...            [-]>> Searching components ...            [-]>> Searching components ...            [/]>> Searching components ...            [-]>> Searching components ...            [/]>> Searching components ...            [-]>> Searching components ...            [-]>> Searching components ...            [-]>> Searching components ...            [-]>> Searching components ...            [/]>> Searching components ...             [OK]
 #> 
-#> >> Fitting results (1 component model):
+#> >> Fitting results (3 component model):
 #> -------------------------------------------------------------------------
-#>            mu      SE(mu)     sigma   SE(sigma)         C     SE(C)
-#> [1,] 2.578403 0.006164002 0.3748351 0.005834795 0.7750779 0.0108509
+#>            mu      SE(mu)      sigma   SE(sigma)          C       SE(C)
+#> [1,] 2.167089 0.002648088 0.05967535 0.003529950 0.05488346 0.011627649
+#> [2,] 2.296782 0.008115817 0.10243860 0.005019236 0.16338915 0.014156724
+#> [3,] 2.770252 0.003037348 0.31994834 0.002807038 0.56341011 0.004735947
 #> -------------------------------------------------------------------------
-#> SE: standard error | SSR: 2.164e+01| R^2: 0.807 | R^2_adj: 0.1938
+#> SE: standard error | SSR: 7.787e-01| R^2: 0.993 | R^2_adj: 0.007
 #> (use the output in $fit for a more detailed analysis)
 #> 
 

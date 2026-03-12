@@ -11,7 +11,7 @@ and illustrates the measured or calculated values per grain location."></head><b
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ and illustrates the measured or calculated values per grain location."></head><b
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Plot a disc with its values</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/plot_SingleGrainDisc.R" class="external-link"><code>R/plot_SingleGrainDisc.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/plot_SingleGrainDisc.R" class="external-link"><code>R/plot_SingleGrainDisc.R</code></a></small>
       <div class="d-none name"><code>plot_SingleGrainDisc.Rd</code></div>
     </div>
 
@@ -52,7 +52,7 @@ and illustrates the measured or calculated values per grain location.</p>
 <span>  show_positioning_holes <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  df_neighbours <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  ignore_borders <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  str_transform <span class="op">=</span> <span class="st">"sqrt"</span>,</span>
+<span>  str_transform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"sqrt"</span>, <span class="st">"lin"</span>, <span class="st">"log"</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -62,8 +62,8 @@ and illustrates the measured or calculated values per grain location.</p>
 
 
 <dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
-<dd><p><a href="RLum.Results-class.html">RLum.Results</a> or <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>): the values
-to show, should have length 100.</p></dd>
+<dd><p><a href="RLum.Results-class.html">RLum.Results</a> or <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
+the values to show, should have length 100.</p></dd>
 
 
 <dt id="arg-show-coordinates">show_coordinates<a class="anchor" aria-label="anchor" href="#arg-show-coordinates"></a></dt>
@@ -77,7 +77,7 @@ grain location (1..100). Defaults to <code>FALSE</code>.</p></dd>
 
 
 <dt id="arg-show-neighbours">show_neighbours<a class="anchor" aria-label="anchor" href="#arg-show-neighbours"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>  (<em>with default</em>): Show which
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): Show which
 neighbour connections are taken into account if calculating Moran's I.
 This makes sense when there are <code>NA</code> observations, or when a non-standard
 neighbour setting is defined.</p></dd>
@@ -127,17 +127,18 @@ manually.</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Boer, A.d., Steinbuch, L., 2025. plot_SingleGrainDisc(): Plot a disc with its values. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Boer, A.d., Steinbuch, L., 2026. plot_SingleGrainDisc(): Plot a disc with its values. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025.
-A novel tool to assess crosstalk in single-grain luminescence detection.
-Submitted.</p>
+A novel method to assess crosstalk in single-grain luminescence detection.
+Radiation Measurements 186, 107459. <a href="https://doi.org/10.1016/j.radmeas.2025.107459" class="external-link">doi:10.1016/j.radmeas.2025.107459</a></p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Anna-Maartje de Boer, Luc Steinbuch, Wageningen University &amp; Research, 2025
+    <p>Anna-Maartje de Boer, Wageningen University &amp; Research (The Netherlands)<br>
+Luc Steinbuch, Wageningen University &amp; Research (The Netherlands)<br>
 , RLum Developer Team</p>
     </div>
 
@@ -154,7 +155,7 @@ Submitted.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

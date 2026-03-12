@@ -9,7 +9,7 @@ with the use_DRAC function"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ with the use_DRAC function"></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Create a DRAC input data template (v1.2)</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/template_DRAC.R" class="external-link"><code>R/template_DRAC.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/template_DRAC.R" class="external-link"><code>R/template_DRAC.R</code></a></small>
       <div class="d-none name"><code>template_DRAC.Rd</code></div>
     </div>
 
@@ -58,8 +58,8 @@ sets you want to submit).</p></dd>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
 By default, all values of the template are set to <code>NA</code>, which means that
 the user needs to fill in <strong>all</strong> data first before submitting to DRAC
-using <code><a href="use_DRAC.html">use_DRAC()</a></code>. To reduce the number of values that need to be
-provided, <code>preset</code> can be used to create a template with at least
+using <a href="use_DRAC.html">use_DRAC</a>. To reduce the number of values that need to
+be provided, <code>preset</code> can be used to create a template with at least
 a minimum of reasonable preset values.</p>
 <p><code>preset</code> can be one of the following:</p><ul><li><p><code>quartz_coarse</code></p></li>
 <li><p><code>quartz_fine</code></p></li>
@@ -73,14 +73,15 @@ with values directly taken from the official DRAC input <code>.csv</code> file.<
 
 
 <dt id="arg-file-input">file_input<a class="anchor" aria-label="anchor" href="#arg-file-input"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> file connection to a DRAC <code>.csv</code> file, the file
-will be imported and translated to the template that can be used by <a href="use_DRAC.html">use_DRAC</a>.
-Please note that there is not check on validity of the <code>.csv</code> file.</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
+file connection to a DRAC <code>.csv</code> file. The file will be imported and
+translated to a template usable by <a href="use_DRAC.html">use_DRAC</a>.
+Please note that there is no check on the validity of the <code>.csv</code> file.</p></dd>
 
 
 <dt id="arg-notification">notification<a class="anchor" aria-label="anchor" href="#arg-notification"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-show or hide the notification</p></dd>
+show or hide the notification.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -93,7 +94,7 @@ show or hide the notification</p></dd>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Burow, C., Kreutzer, S., 2025. template_DRAC(): Create a DRAC input data template (v1.2). Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Burow, C., Kreutzer, S., 2026. template_DRAC(): Create a DRAC input data template (v1.2). Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -106,7 +107,8 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+    <p>Christoph Burow, University of Cologne (Germany)<br>
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)<br>
 , RLum Developer Team</p>
     </div>
 
@@ -692,7 +694,7 @@ Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -36,11 +36,11 @@ Data frame with 1000 observations on the following 2 variables:
 
 Baartman, J.E.M., Veldkamp, A., Schoorl, J.M., Wallinga, J., Cammeraat,
 L.H., 2011. Unravelling Late Pleistocene and Holocene landscape
-dynamics: The Upper Guadalentin Basin, SE Spain. Geomorphology, 125,
+dynamics: The Upper Guadalentin Basin, SE Spain. Geomorphology 125,
 172-185.
 
 Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL signal
-components. Radiation Measurements, 47, 752-758.
+components. Radiation Measurements 47, 752-758.
 
 ## Examples
 

@@ -38,7 +38,7 @@ option `export = FALSE` a list comprising objects of type
 
 ## Function version
 
-0.1.0
+0.1.1
 
 ## See also
 
@@ -51,18 +51,18 @@ option `export = FALSE` a list comprising objects of type
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## How to cite
 
-Kreutzer, S., 2025. convert_XSYG2CSV(): Export XSYG-file(s) to
-CSV-files. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze,
+Kreutzer, S., 2026. convert_XSYG2CSV(): Export XSYG-file(s) to
+CSV-files. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze,
 M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N.,
 Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J.,
-Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A.,
+2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
+package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
@@ -1253,7 +1253,7 @@ convert_XSYG2CSV(OSL.SARMeasurement$Sequence.Object[1:10], export = FALSE)
 #> [1179,] 117.9   33
 #> [1180,] 118.0   27
 #> 
-#> $`2_TL (NA)`
+#> $`2__TL (NA)`
 #>      [,1] [,2]
 #> [1,]    0   25
 #> [2,]  118  260
@@ -1261,7 +1261,7 @@ convert_XSYG2CSV(OSL.SARMeasurement$Sequence.Object[1:10], export = FALSE)
 #> [4,]  148   60
 #> [5,]  268   60
 #> 
-#> $`3_TL (NA)`
+#> $`3__TL (NA)`
 #>          [,1] [,2]
 #>    [1,]   0.0   26
 #>    [2,]   0.1   27
@@ -3507,7 +3507,7 @@ convert_XSYG2CSV(OSL.SARMeasurement$Sequence.Object[1:10], export = FALSE)
 #> [499,] 49.9   19
 #> [500,] 50.0   16
 #> 
-#> $`5_OSL (NA)`
+#> $`5__OSL (NA)`
 #>      [,1] [,2]
 #> [1,]    0   25
 #> [2,]   20  125
@@ -3515,7 +3515,7 @@ convert_XSYG2CSV(OSL.SARMeasurement$Sequence.Object[1:10], export = FALSE)
 #> [4,]   96   60
 #> [5,]  216   60
 #> 
-#> $`6_OSL (NA)`
+#> $`6__OSL (NA)`
 #>          [,1] [,2]
 #>    [1,]   0.0   50
 #>    [2,]   0.1   49
@@ -4668,12 +4668,12 @@ convert_XSYG2CSV(OSL.SARMeasurement$Sequence.Object[1:10], export = FALSE)
 #> [1149,] 114.8   59
 #> [1150,] 114.9   59
 #> 
-#> $`7_OSL (NA)`
+#> $`7__OSL (NA)`
 #>      [,1] [,2]
 #> [1,]    0   40
 #> [2,]   50   40
 #> 
-#> $`8_OSL (NA)`
+#> $`8__OSL (NA)`
 #>          [,1] [,2]
 #>   [1,]  0.497 39.8
 #>   [2,]  0.997 39.8

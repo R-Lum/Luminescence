@@ -27,11 +27,11 @@ one or more of the following keywords:
 "skewness" (skewness)
 
 
-Note that the input data for the statistic summary is sent to function
+Note: the input data for the statistic summary is sent to function
 calc_Statistics depending on the log-option for the z-scale. If
 "log.z = TRUE", the summary is based on the logarithms of the input
 data. If "log.z = FALSE" the linearly-scaled data is used.
-Note as well, that "calc_Statistics()" calculates these statistic
+Note: calc_Statistics calculates these statistic
 measures in three different ways: unweighted, weighted and
 MCM-based (i.e., based on Monte Carlo Methods). By default, the
 MCM-based version is used. This can be controlled via the summary.method
@@ -63,11 +63,11 @@ one or more of the following keywords:
 "skewness" (skewness)
 
 
-Note that the input data for the statistic summary is sent to function
+Note: the input data for the statistic summary is sent to function
 calc_Statistics depending on the log-option for the z-scale. If
 "log.z = TRUE", the summary is based on the logarithms of the input
 data. If "log.z = FALSE" the linearly-scaled data is used.
-Note as well, that "calc_Statistics()" calculates these statistic
+Note: calc_Statistics calculates these statistic
 measures in three different ways: unweighted, weighted and
 MCM-based (i.e., based on Monte Carlo Methods). By default, the
 MCM-based version is used. This can be controlled via the summary.method
@@ -79,7 +79,7 @@ argument.'></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -100,7 +100,7 @@ argument.'></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Plot kernel density estimate with statistics</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/plot_KDE.R" class="external-link"><code>R/plot_KDE.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/plot_KDE.R" class="external-link"><code>R/plot_KDE.R</code></a></small>
       <div class="d-none name"><code>plot_KDE.Rd</code></div>
     </div>
 
@@ -130,11 +130,11 @@ one or more of the following keywords:</p><ul><li><p><code>"n"</code> (number of
 <li><p><code>"in.2s"</code> (percent of samples in 2-sigma range)</p></li>
 <li><p><code>"kurtosis"</code> (kurtosis)</p></li>
 <li><p><code>"skewness"</code> (skewness)</p></li>
-</ul><p><strong>Note</strong> that the input data for the statistic summary is sent to function
+</ul><p><strong>Note:</strong> the input data for the statistic summary is sent to function
 <a href="calc_Statistics.html">calc_Statistics</a> depending on the log-option for the z-scale. If
 <code>"log.z = TRUE"</code>, the summary is based on the logarithms of the input
 data. If <code>"log.z = FALSE"</code> the linearly-scaled data is used.</p>
-<p><strong>Note</strong> as well, that <code>"calc_Statistics()"</code> calculates these statistic
+<p><strong>Note:</strong> <a href="calc_Statistics.html">calc_Statistics</a> calculates these statistic
 measures in three different ways: <code>unweighted</code>, <code>weighted</code> and
 <code>MCM-based</code> (i.e., based on Monte Carlo Methods). By default, the
 MCM-based version is used. This can be controlled via the <code>summary.method</code>
@@ -152,7 +152,7 @@ argument.</p>
 <span>  rug <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  summary <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  summary.pos <span class="op">=</span> <span class="st">"sub"</span>,</span>
-<span>  summary.method <span class="op">=</span> <span class="st">"MCM"</span>,</span>
+<span>  summary.method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"MCM"</span>, <span class="st">"weighted"</span>, <span class="st">"unweighted"</span><span class="op">)</span>,</span>
 <span>  bw <span class="op">=</span> <span class="st">"nrd0"</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -174,7 +174,7 @@ For plotting multiple data sets, these must be provided as
 
 <dt id="arg-na-rm">na.rm<a class="anchor" aria-label="anchor" href="#arg-na-rm"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-exclude NA values from the data set prior to any further operation.</p></dd>
+exclude <code>NA</code> values from the data set prior to any further operation.</p></dd>
 
 
 <dt id="arg-values-cumulative">values.cumulative<a class="anchor" aria-label="anchor" href="#arg-values-cumulative"></a></dt>
@@ -217,7 +217,7 @@ specification, y-coordinate refers to the right y-axis.</p></dd>
 <dt id="arg-summary-method">summary.method<a class="anchor" aria-label="anchor" href="#arg-summary-method"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 keyword indicating the method used to calculate the statistic summary.
-One out of <code>"MCM"</code> (default), <code>"weighted"</code> or <code>"unweighted"</code>.
+One of <code>"MCM"</code> (default), <code>"weighted"</code> or <code>"unweighted"</code>.
 See <a href="calc_Statistics.html">calc_Statistics</a> for details.</p></dd>
 
 
@@ -237,7 +237,7 @@ of Berger and Galbraith in Ancient TL; see references)!</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>3.6.0</p>
+    <p>3.6.1</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -246,12 +246,12 @@ of Berger and Galbraith in Ancient TL; see references)!</p>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Michael Dietze, GFZ Potsdam (Germany)<br>
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 , RLum Developer Team</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Dietze, M., Kreutzer, S., 2025. plot_KDE(): Plot kernel density estimate with statistics. Function version 3.6.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Dietze, M., Kreutzer, S., 2026. plot_KDE(): Plot kernel density estimate with statistics. Function version 3.6.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">
@@ -324,7 +324,7 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

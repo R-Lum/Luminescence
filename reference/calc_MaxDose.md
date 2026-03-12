@@ -28,29 +28,30 @@ calc_MaxDose(
   or [data.frame](https://rdrr.io/r/base/data.frame.html)
   (**required**): for
   [data.frame](https://rdrr.io/r/base/data.frame.html): two columns with
-  De `(data[ ,1])` and De error `(data[ ,2])`.
+  `(data[, 1])` and De error `(data[, 2])`.
 
 - sigmab:
 
   [numeric](https://rdrr.io/r/base/numeric.html) (**required**):
   additional spread in De values, representing the expected
   overdispersion in the data should the sample be well-bleached
-  (Cunningham & Wallinga 2012, p. 100). **NOTE**: For the logged model
+  (Cunningham & Wallinga 2012, p. 100). **Note:** For the logged model
   (`log = TRUE`) this value must be a fraction, e.g. 0.2 (= 20 %). If
-  the un-logged model is used (`log = FALSE`), sigmab must be provided
+  the un-logged model is used (`log = FALSE`), `sigmab` must be provided
   in the same absolute units of the De values (seconds or Gray). See
-  details
-  ([calc_MinDose](https://r-lum.github.io/Luminescence/reference/calc_MinDose.md).
+  details.
 
 - log:
 
-  [logical](https://rdrr.io/r/base/logical.html) (*with default*): fit
-  the (un-)logged three parameter minimum dose model to De data
+  [logical](https://rdrr.io/r/base/logical.html) (*with default*):
+  whether the logged minimum dose model should be fit to De data (`TRUE`
+  by default).
 
 - par:
 
-  [numeric](https://rdrr.io/r/base/numeric.html) (*with default*): apply
-  the 3- or 4-parameter minimum age model (`par=3` or `par=4`).
+  [numeric](https://rdrr.io/r/base/numeric.html) (*with default*):
+  number of parameters in the minimum age model, either 3 (default) or
+  4.
 
 - bootstrap:
 
@@ -59,10 +60,13 @@ calc_MaxDose(
 
 - init.values:
 
-  [numeric](https://rdrr.io/r/base/numeric.html) (*with default*):
-  starting values for gamma, sigma, p0 and mu. Custom values need to be
-  provided in a vector of length three in the form of
-  `c(gamma, sigma, p0)`.
+  [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): a named
+  list with starting values for `gamma`, `sigma`, `p0` and `mu` (e.g.
+  `list(gamma=100, sigma=1.5, p0=0.1, mu=100)`). If no values are
+  provided, reasonable values will be estimated from the data. **Note:**
+  the initial values must always be given in the absolute units. If a
+  logged model is applied (`log = TRUE`), the provided `init.values` are
+  automatically log-transformed.
 
 - plot:
 
@@ -119,13 +123,13 @@ Please see
 
 ## How to cite
 
-Burow, C., 2025. calc_MaxDose(): Apply the maximum age model to a given
+Burow, C., 2026. calc_MaxDose(): Apply the maximum age model to a given
 De distribution. Function version 0.3.2. In: Kreutzer, S., Burow, C.,
 Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -197,15 +201,15 @@ data(ExampleData.DeValues, envir = environment())
 # apply the maximum dose model
 calc_MaxDose(ExampleData.DeValues$CA1, sigmab = 0.2, par = 3)
 #> 
-#> ----------- meta data -----------
+#> ----------- Meta data -----------
 #>   n par sigmab logged      Lmax      BIC
 #>  62   3    0.2   TRUE -19.79245 58.86603
 #> 
-#> --- final parameter estimates ---
-#>  gamma sigma   p0 mu
-#>  76.58  1.71 0.65  0
+#> --- Final parameter estimates ---
+#>          gamma sigma   p0
+#> Estimate 76.58  1.71 0.65
 #> 
-#> ------ confidence intervals -----
+#> ------ Confidence intervals -----
 #>       2.5 % 97.5 %
 #> gamma 69.65  99.33
 #> sigma  1.43   2.61

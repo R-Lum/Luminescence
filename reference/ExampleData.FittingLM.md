@@ -21,7 +21,7 @@ Two objects (data.frames) with two columns (time and counts).
 
 Fuchs, M., Kreutzer, S., Fischer, M., Sauer, D., Soerensen, R., 2012.
 OSL and IRSL dating of raised beach sand deposits along the
-south-eastern coast of Norway. Quaternary Geochronology, 10, 195-200.
+south-eastern coast of Norway. Quaternary Geochronology 10, 195-200.
 
 ## Examples
 

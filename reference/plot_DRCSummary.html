@@ -21,7 +21,7 @@ points in Gy (better axis scaling)."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,7 +42,7 @@ points in Gy (better axis scaling)."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Create a Dose-Response Curve Summary Plot</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/plot_DRCSummary.R" class="external-link"><code>R/plot_DRCSummary.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/plot_DRCSummary.R" class="external-link"><code>R/plot_DRCSummary.R</code></a></small>
       <div class="d-none name"><code>plot_DRCSummary.Rd</code></div>
     </div>
 
@@ -109,7 +109,8 @@ usually not needed.</p></dd>
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Further arguments and graphical parameters to be passed.
-In particular: <code>main</code>, <code>xlab</code>, <code>ylab</code>, <code>xlim</code>, <code>ylim</code>, <code>lty</code>, <code>lwd</code>, <code>pch</code>, <code>col.pch</code>, <code>col.lty</code>, <code>mtext</code></p></dd>
+In particular: <code>main</code>, <code>xlab</code>, <code>ylab</code>, <code>xlim</code>, <code>ylim</code>, <code>lty</code>, <code>lwd</code>, <code>pch</code>,
+<code>col.pch</code>, <code>col.lty</code>, <code>mtext</code></p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -129,13 +130,13 @@ In particular: <code>main</code>, <code>xlab</code>, <code>ylab</code>, <code>xl
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) <br>
+    <p>Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) <br>
 Christoph Burow, University of Cologne (Germany)
 , RLum Developer Team</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Burow, C., 2025. plot_DRCSummary(): Create a Dose-Response Curve Summary Plot. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Burow, C., 2026. plot_DRCSummary(): Create a Dose-Response Curve Summary Plot. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">
@@ -147,15 +148,14 @@ Christoph Burow, University of Cologne (Germany)
 <span class="r-in"><span><span class="co">#transform the values from the first position in a RLum.Analysis object</span></span></span>
 <span class="r-in"><span><span class="va">object</span> <span class="op">&lt;-</span> <span class="fu"><a href="Risoe.BINfileData2RLum.Analysis.html">Risoe.BINfileData2RLum.Analysis</a></span><span class="op">(</span><span class="va">CWOSL.SAR.Data</span>, pos<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## perform SAR analysis</span></span></span>
 <span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="analyse_SAR.CWOSL.html">analyse_SAR.CWOSL</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  object <span class="op">=</span> <span class="va">object</span>,</span></span>
-<span class="r-in"><span>  signal.integral.min <span class="op">=</span> <span class="fl">1</span>,</span></span>
-<span class="r-in"><span>  signal.integral.max <span class="op">=</span> <span class="fl">2</span>,</span></span>
-<span class="r-in"><span>   background.integral.min <span class="op">=</span> <span class="fl">900</span>,</span></span>
-<span class="r-in"><span>   background.integral.max <span class="op">=</span> <span class="fl">1000</span>,</span></span>
-<span class="r-in"><span>   plot <span class="op">=</span> <span class="cn">FALSE</span></span></span>
-<span class="r-in"><span> <span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [fit_DoseResponseCurve()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76</span>
+<span class="r-in"><span>    <span class="va">object</span>,</span></span>
+<span class="r-in"><span>    signal_integral <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>    background_integral <span class="op">=</span> <span class="fl">900</span><span class="op">:</span><span class="fl">1000</span>,</span></span>
+<span class="r-in"><span>    plot <span class="op">=</span> <span class="cn">FALSE</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [analyse_SAR.CWOSL()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##plot only DRC</span></span></span>
 <span class="r-in"><span><span class="fu">plot_DRCSummary</span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
@@ -175,7 +175,7 @@ Christoph Burow, University of Cologne (Germany)
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -1,8 +1,8 @@
 # Simple Subsetting of Single Grain Data from Risø BIN/BINX files
 
-Most measured single grains do not exhibit light and it makes usually
+Most measured single grains do not exhibit light and it usually makes
 sense to subset single grain datasets using a table of position and
-grain pairs
+grain pairs.
 
 ## Usage
 
@@ -15,13 +15,13 @@ subset_SingleGrainData(object, selection)
 - object:
 
   [Risoe.BINfileData](https://r-lum.github.io/Luminescence/reference/Risoe.BINfileData-class.md)
-  (**required**): input object with the data to subset
+  (**required**): input object with the data to subset.
 
 - selection:
 
-  [data.frame](https://rdrr.io/r/base/data.frame.html) (**required**):
-  selection table with two columns for position (1st column) and grain
-  (2nd column) (columns names do not matter)
+  [data.frame](https://rdrr.io/r/base/data.frame.html),
+  [matrix](https://rdrr.io/r/base/matrix.html) (**required**): selection
+  table with two columns for position and grain, respectively.
 
 ## Value
 
@@ -31,7 +31,7 @@ object
 
 ## Function version
 
-0.1.0
+0.1.1
 
 ## See also
 
@@ -41,18 +41,19 @@ object
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## How to cite
 
-Kreutzer, S., 2025. subset_SingleGrainData(): Simple Subsetting of
-Single Grain Data from Risø BIN/BINX files. Function version 0.1.0. In:
+Kreutzer, S., 2026. subset_SingleGrainData(): Simple Subsetting of
+Single Grain Data from Risø BIN/BINX files. Function version 0.1.1. In:
 Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/
+Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.2.0.
+https://r-lum.github.io/Luminescence/
 
 ## Examples
 

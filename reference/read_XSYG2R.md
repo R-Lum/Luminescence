@@ -24,12 +24,10 @@ read_XSYG2R(
 - file:
 
   [character](https://rdrr.io/r/base/character.html) or
-  [list](https://rdrr.io/r/base/list.html) (**required**): path and file
-  name of the XSYG file. If input is a `list` it should comprise only
-  `character`s representing each valid path and XSYG-file names.
-  Alternatively, the input character can be just a directory (path), in
-  which case the function tries to detect and import all XSYG-files
-  found in the directory.
+  [list](https://rdrr.io/r/base/list.html) (**required**): name of one
+  or multiple XSYG files (URLs are supported); it can be the path to a
+  directory, in which case the function tries to detect and import all
+  XSYG files found recursively from the given directory.
 
 - recalculate.TL.curves:
 
@@ -216,17 +214,17 @@ Corresponding values in the XSXG file are skipped.
 
 ## Function version
 
-0.7.1
+0.8.2
 
 ## How to cite
 
-Kreutzer, S., Colombo, M., 2025. read_XSYG2R(): Import XSYG files into
-R. Function version 0.7.1. In: Kreutzer, S., Burow, C., Dietze, M.,
+Kreutzer, S., Colombo, M., 2026. read_XSYG2R(): Import XSYG files into
+R. Function version 0.8.2. In: Kreutzer, S., Burow, C., Dietze, M.,
 Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N.,
 Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J.,
-Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A.,
+2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
+package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -247,8 +245,8 @@ XML: <https://en.wikipedia.org/wiki/XML>
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
 Marco Colombo, Institute of Geography, Heidelberg University (Germany) ,
 RLum Developer Team
 
@@ -280,129 +278,129 @@ OSLcurve <- get_RLum(OSL.SARMeasurement$Sequence.Object, recordType="OSL")[[1]]
 structure_RLum(OSL.SARMeasurement$Sequence.Object)
 #>      id       recordType  curveType protocol.step n.channels x.min   x.max
 #> 1     1       TL (UVVIS)   measured          <NA>       1180 0.100 118.000
-#> 2     2          TL (NA) predefined          <NA>          5 0.000 268.000
-#> 3     3          TL (NA)   measured          <NA>       1740 0.000 173.900
+#> 2     2         _TL (NA) predefined          <NA>          5 0.000 268.000
+#> 3     3         _TL (NA)   measured          <NA>       1740 0.000 173.900
 #> 4     4      OSL (UVVIS)   measured          <NA>        500 0.100  50.000
-#> 5     5         OSL (NA) predefined          <NA>          5 0.000 216.000
-#> 6     6         OSL (NA)   measured          <NA>       1150 0.000 114.900
-#> 7     7         OSL (NA) predefined          <NA>          2 0.000  50.000
-#> 8     8         OSL (NA)   measured          <NA>        150 0.497  74.997
+#> 5     5        _OSL (NA) predefined          <NA>          5 0.000 216.000
+#> 6     6        _OSL (NA)   measured          <NA>       1150 0.000 114.900
+#> 7     7        _OSL (NA) predefined          <NA>          2 0.000  50.000
+#> 8     8        _OSL (NA)   measured          <NA>        150 0.497  74.997
 #> 9     9 irradiation (NA) predefined          <NA>          2 0.000  15.000
 #> 10   10       TL (UVVIS)   measured          <NA>        680 0.100  68.000
-#> 11   11          TL (NA) predefined          <NA>          4 0.000 198.000
-#> 12   12          TL (NA)   measured          <NA>        990 0.000  98.900
+#> 11   11         _TL (NA) predefined          <NA>          4 0.000 198.000
+#> 12   12         _TL (NA)   measured          <NA>        990 0.000  98.900
 #> 13   13      OSL (UVVIS)   measured          <NA>        500 0.100  50.000
-#> 14   14         OSL (NA) predefined          <NA>          5 0.000 216.000
-#> 15   15         OSL (NA)   measured          <NA>       1150 0.000 114.900
-#> 16   16         OSL (NA) predefined          <NA>          2 0.000  50.000
-#> 17   17         OSL (NA)   measured          <NA>        151 0.012  75.012
+#> 14   14        _OSL (NA) predefined          <NA>          5 0.000 216.000
+#> 15   15        _OSL (NA)   measured          <NA>       1150 0.000 114.900
+#> 16   16        _OSL (NA) predefined          <NA>          2 0.000  50.000
+#> 17   17        _OSL (NA)   measured          <NA>        151 0.012  75.012
 #> 18   18 irradiation (NA) predefined          <NA>          2 0.000  60.000
 #> 19   19       TL (UVVIS)   measured          <NA>       1180 0.100 118.000
-#> 20   20          TL (NA) predefined          <NA>          5 0.000 268.000
-#> 21   21          TL (NA)   measured          <NA>       1730 0.000 172.900
+#> 20   20         _TL (NA) predefined          <NA>          5 0.000 268.000
+#> 21   21         _TL (NA)   measured          <NA>       1730 0.000 172.900
 #> 22   22      OSL (UVVIS)   measured          <NA>        500 0.100  50.000
-#> 23   23         OSL (NA) predefined          <NA>          5 0.000 216.000
-#> 24   24         OSL (NA)   measured          <NA>       1160 0.000 115.900
-#> 25   25         OSL (NA) predefined          <NA>          2 0.000  50.000
-#> 26   26         OSL (NA)   measured          <NA>        153 0.012  76.012
+#> 23   23        _OSL (NA) predefined          <NA>          5 0.000 216.000
+#> 24   24        _OSL (NA)   measured          <NA>       1160 0.000 115.900
+#> 25   25        _OSL (NA) predefined          <NA>          2 0.000  50.000
+#> 26   26        _OSL (NA)   measured          <NA>        153 0.012  76.012
 #> 27   27 irradiation (NA) predefined          <NA>          2 0.000  15.000
 #> 28   28       TL (UVVIS)   measured          <NA>        680 0.100  68.000
-#> 29   29          TL (NA) predefined          <NA>          4 0.000 198.000
-#> 30   30          TL (NA)   measured          <NA>       1000 0.000  99.900
+#> 29   29         _TL (NA) predefined          <NA>          4 0.000 198.000
+#> 30   30         _TL (NA)   measured          <NA>       1000 0.000  99.900
 #> 31   31      OSL (UVVIS)   measured          <NA>        500 0.100  50.000
-#> 32   32         OSL (NA) predefined          <NA>          5 0.000 216.000
-#> 33   33         OSL (NA)   measured          <NA>       1150 0.000 114.900
-#> 34   34         OSL (NA) predefined          <NA>          2 0.000  50.000
-#> 35   35         OSL (NA)   measured          <NA>        151 0.014  75.014
+#> 32   32        _OSL (NA) predefined          <NA>          5 0.000 216.000
+#> 33   33        _OSL (NA)   measured          <NA>       1150 0.000 114.900
+#> 34   34        _OSL (NA) predefined          <NA>          2 0.000  50.000
+#> 35   35        _OSL (NA)   measured          <NA>        151 0.014  75.014
 #> 36   36 irradiation (NA) predefined          <NA>          2 0.000 130.000
 #> 37   37       TL (UVVIS)   measured          <NA>       1180 0.100 118.000
-#> 38   38          TL (NA) predefined          <NA>          5 0.000 268.000
-#> 39   39          TL (NA)   measured          <NA>       1740 0.000 173.900
+#> 38   38         _TL (NA) predefined          <NA>          5 0.000 268.000
+#> 39   39         _TL (NA)   measured          <NA>       1740 0.000 173.900
 #> 40   40      OSL (UVVIS)   measured          <NA>        500 0.100  50.000
-#> 41   41         OSL (NA) predefined          <NA>          5 0.000 216.000
-#> 42   42         OSL (NA)   measured          <NA>       1150 0.000 114.900
-#> 43   43         OSL (NA) predefined          <NA>          2 0.000  50.000
-#> 44   44         OSL (NA)   measured          <NA>        151 0.012  75.012
+#> 41   41        _OSL (NA) predefined          <NA>          5 0.000 216.000
+#> 42   42        _OSL (NA)   measured          <NA>       1150 0.000 114.900
+#> 43   43        _OSL (NA) predefined          <NA>          2 0.000  50.000
+#> 44   44        _OSL (NA)   measured          <NA>        151 0.012  75.012
 #> 45   45 irradiation (NA) predefined          <NA>          2 0.000  15.000
 #> 46   46       TL (UVVIS)   measured          <NA>        680 0.100  68.000
-#> 47   47          TL (NA) predefined          <NA>          4 0.000 198.000
-#> 48   48          TL (NA)   measured          <NA>        990 0.000  98.900
+#> 47   47         _TL (NA) predefined          <NA>          4 0.000 198.000
+#> 48   48         _TL (NA)   measured          <NA>        990 0.000  98.900
 #> 49   49      OSL (UVVIS)   measured          <NA>        500 0.100  50.000
-#> 50   50         OSL (NA) predefined          <NA>          5 0.000 216.000
-#> 51   51         OSL (NA)   measured          <NA>       1130 0.000 112.900
-#> 52   52         OSL (NA) predefined          <NA>          2 0.000  50.000
-#> 53   53         OSL (NA)   measured          <NA>        147 0.012  73.012
+#> 50   50        _OSL (NA) predefined          <NA>          5 0.000 216.000
+#> 51   51        _OSL (NA)   measured          <NA>       1130 0.000 112.900
+#> 52   52        _OSL (NA) predefined          <NA>          2 0.000  50.000
+#> 53   53        _OSL (NA)   measured          <NA>        147 0.012  73.012
 #> 54   54 irradiation (NA) predefined          <NA>          2 0.000 230.000
 #> 55   55       TL (UVVIS)   measured          <NA>       1180 0.100 118.000
-#> 56   56          TL (NA) predefined          <NA>          5 0.000 268.000
-#> 57   57          TL (NA)   measured          <NA>       1740 0.000 173.900
+#> 56   56         _TL (NA) predefined          <NA>          5 0.000 268.000
+#> 57   57         _TL (NA)   measured          <NA>       1740 0.000 173.900
 #> 58   58      OSL (UVVIS)   measured          <NA>        500 0.100  50.000
-#> 59   59         OSL (NA) predefined          <NA>          5 0.000 216.000
-#> 60   60         OSL (NA)   measured          <NA>       1150 0.000 114.900
-#> 61   61         OSL (NA) predefined          <NA>          2 0.000  50.000
-#> 62   62         OSL (NA)   measured          <NA>        151 0.012  75.012
+#> 59   59        _OSL (NA) predefined          <NA>          5 0.000 216.000
+#> 60   60        _OSL (NA)   measured          <NA>       1150 0.000 114.900
+#> 61   61        _OSL (NA) predefined          <NA>          2 0.000  50.000
+#> 62   62        _OSL (NA)   measured          <NA>        151 0.012  75.012
 #> 63   63 irradiation (NA) predefined          <NA>          2 0.000  15.000
 #> 64   64       TL (UVVIS)   measured          <NA>        680 0.100  68.000
-#> 65   65          TL (NA) predefined          <NA>          4 0.000 198.000
-#> 66   66          TL (NA)   measured          <NA>        990 0.000  98.900
+#> 65   65         _TL (NA) predefined          <NA>          4 0.000 198.000
+#> 66   66         _TL (NA)   measured          <NA>        990 0.000  98.900
 #> 67   67      OSL (UVVIS)   measured          <NA>        500 0.100  50.000
-#> 68   68         OSL (NA) predefined          <NA>          5 0.000 216.000
-#> 69   69         OSL (NA)   measured          <NA>       1150 0.000 114.900
-#> 70   70         OSL (NA) predefined          <NA>          2 0.000  50.000
-#> 71   71         OSL (NA)   measured          <NA>        151 0.012  75.012
+#> 68   68        _OSL (NA) predefined          <NA>          5 0.000 216.000
+#> 69   69        _OSL (NA)   measured          <NA>       1150 0.000 114.900
+#> 70   70        _OSL (NA) predefined          <NA>          2 0.000  50.000
+#> 71   71        _OSL (NA)   measured          <NA>        151 0.012  75.012
 #> 72   72 irradiation (NA) predefined          <NA>          2 0.000 300.000
 #> 73   73       TL (UVVIS)   measured          <NA>       1180 0.100 118.000
-#> 74   74          TL (NA) predefined          <NA>          5 0.000 268.000
-#> 75   75          TL (NA)   measured          <NA>       1750 0.000 174.900
+#> 74   74         _TL (NA) predefined          <NA>          5 0.000 268.000
+#> 75   75         _TL (NA)   measured          <NA>       1750 0.000 174.900
 #> 76   76      OSL (UVVIS)   measured          <NA>        500 0.100  50.000
-#> 77   77         OSL (NA) predefined          <NA>          5 0.000 216.000
-#> 78   78         OSL (NA)   measured          <NA>       1160 0.000 115.900
-#> 79   79         OSL (NA) predefined          <NA>          2 0.000  50.000
-#> 80   80         OSL (NA)   measured          <NA>        152 0.481  75.981
+#> 77   77        _OSL (NA) predefined          <NA>          5 0.000 216.000
+#> 78   78        _OSL (NA)   measured          <NA>       1160 0.000 115.900
+#> 79   79        _OSL (NA) predefined          <NA>          2 0.000  50.000
+#> 80   80        _OSL (NA)   measured          <NA>        152 0.481  75.981
 #> 81   81 irradiation (NA) predefined          <NA>          2 0.000  15.000
 #> 82   82       TL (UVVIS)   measured          <NA>        680 0.100  68.000
-#> 83   83          TL (NA) predefined          <NA>          4 0.000 198.000
-#> 84   84          TL (NA)   measured          <NA>        990 0.000  98.900
+#> 83   83         _TL (NA) predefined          <NA>          4 0.000 198.000
+#> 84   84         _TL (NA)   measured          <NA>        990 0.000  98.900
 #> 85   85      OSL (UVVIS)   measured          <NA>        500 0.100  50.000
-#> 86   86         OSL (NA) predefined          <NA>          5 0.000 216.000
-#> 87   87         OSL (NA)   measured          <NA>       1130 0.000 112.900
-#> 88   88         OSL (NA) predefined          <NA>          2 0.000  50.000
-#> 89   89         OSL (NA)   measured          <NA>        147 0.012  73.012
+#> 86   86        _OSL (NA) predefined          <NA>          5 0.000 216.000
+#> 87   87        _OSL (NA)   measured          <NA>       1130 0.000 112.900
+#> 88   88        _OSL (NA) predefined          <NA>          2 0.000  50.000
+#> 89   89        _OSL (NA)   measured          <NA>        147 0.012  73.012
 #> 90   90       TL (UVVIS)   measured          <NA>       1180 0.100 118.000
-#> 91   91          TL (NA) predefined          <NA>          5 0.000 268.000
-#> 92   92          TL (NA)   measured          <NA>       1740 0.000 173.900
+#> 91   91         _TL (NA) predefined          <NA>          5 0.000 268.000
+#> 92   92         _TL (NA)   measured          <NA>       1740 0.000 173.900
 #> 93   93      OSL (UVVIS)   measured          <NA>        500 0.100  50.000
-#> 94   94         OSL (NA) predefined          <NA>          5 0.000 216.000
-#> 95   95         OSL (NA)   measured          <NA>       1140 0.000 113.900
-#> 96   96         OSL (NA) predefined          <NA>          2 0.000  50.000
-#> 97   97         OSL (NA)   measured          <NA>        149 0.012  74.012
+#> 94   94        _OSL (NA) predefined          <NA>          5 0.000 216.000
+#> 95   95        _OSL (NA)   measured          <NA>       1140 0.000 113.900
+#> 96   96        _OSL (NA) predefined          <NA>          2 0.000  50.000
+#> 97   97        _OSL (NA)   measured          <NA>        149 0.012  74.012
 #> 98   98 irradiation (NA) predefined          <NA>          2 0.000  15.000
 #> 99   99       TL (UVVIS)   measured          <NA>        680 0.100  68.000
-#> 100 100          TL (NA) predefined          <NA>          4 0.000 198.000
-#> 101 101          TL (NA)   measured          <NA>        990 0.000  98.900
+#> 100 100         _TL (NA) predefined          <NA>          4 0.000 198.000
+#> 101 101         _TL (NA)   measured          <NA>        990 0.000  98.900
 #> 102 102      OSL (UVVIS)   measured          <NA>        500 0.100  50.000
-#> 103 103         OSL (NA) predefined          <NA>          5 0.000 216.000
-#> 104 104         OSL (NA)   measured          <NA>       1150 0.000 114.900
-#> 105 105         OSL (NA) predefined          <NA>          2 0.000  50.000
-#> 106 106         OSL (NA)   measured          <NA>        151 0.012  75.012
+#> 103 103        _OSL (NA) predefined          <NA>          5 0.000 216.000
+#> 104 104        _OSL (NA)   measured          <NA>       1150 0.000 114.900
+#> 105 105        _OSL (NA) predefined          <NA>          2 0.000  50.000
+#> 106 106        _OSL (NA)   measured          <NA>        151 0.012  75.012
 #> 107 107 irradiation (NA) predefined          <NA>          2 0.000  60.000
 #> 108 108       TL (UVVIS)   measured          <NA>       1180 0.100 118.000
-#> 109 109          TL (NA) predefined          <NA>          5 0.000 268.000
-#> 110 110          TL (NA)   measured          <NA>       1740 0.000 173.900
+#> 109 109         _TL (NA) predefined          <NA>          5 0.000 268.000
+#> 110 110         _TL (NA)   measured          <NA>       1740 0.000 173.900
 #> 111 111      OSL (UVVIS)   measured          <NA>        500 0.100  50.000
-#> 112 112         OSL (NA) predefined          <NA>          5 0.000 216.000
-#> 113 113         OSL (NA)   measured          <NA>       1150 0.000 114.900
-#> 114 114         OSL (NA) predefined          <NA>          2 0.000  50.000
-#> 115 115         OSL (NA)   measured          <NA>        151 0.020  75.020
+#> 112 112        _OSL (NA) predefined          <NA>          5 0.000 216.000
+#> 113 113        _OSL (NA)   measured          <NA>       1150 0.000 114.900
+#> 114 114        _OSL (NA) predefined          <NA>          2 0.000  50.000
+#> 115 115        _OSL (NA)   measured          <NA>        151 0.020  75.020
 #> 116 116 irradiation (NA) predefined          <NA>          2 0.000  15.000
 #> 117 117       TL (UVVIS)   measured          <NA>        680 0.100  68.000
-#> 118 118          TL (NA) predefined          <NA>          4 0.000 198.000
-#> 119 119          TL (NA)   measured          <NA>        980 0.000  97.900
+#> 118 118         _TL (NA) predefined          <NA>          4 0.000 198.000
+#> 119 119         _TL (NA)   measured          <NA>        980 0.000  97.900
 #> 120 120      OSL (UVVIS)   measured          <NA>        500 0.100  50.000
-#> 121 121         OSL (NA) predefined          <NA>          5 0.000 216.000
-#> 122 122         OSL (NA)   measured          <NA>       1140 0.000 113.900
-#> 123 123         OSL (NA) predefined          <NA>          2 0.000  50.000
-#> 124 124         OSL (NA)   measured          <NA>        149 0.012  74.012
+#> 121 121        _OSL (NA) predefined          <NA>          5 0.000 216.000
+#> 122 122        _OSL (NA)   measured          <NA>       1140 0.000 113.900
+#> 123 123        _OSL (NA) predefined          <NA>          2 0.000  50.000
+#> 124 124        _OSL (NA)   measured          <NA>        149 0.012  74.012
 #>     y.min  y.max    originator                                 .uid
 #> 1       0   82.0 read_XSYG2R()   2016-01-30-10:54.0.226260372670367
 #> 2      25  260.0 read_XSYG2R()    2016-01-30-10:54.0.77414278825745

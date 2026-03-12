@@ -10,8 +10,9 @@ calc_TLLxTxRatio(
   Lx.data.background = NULL,
   Tx.data.signal = NULL,
   Tx.data.background = NULL,
-  signal.integral.min = NULL,
-  signal.integral.max = NULL
+  signal_integral = NULL,
+  integral_input = c("channel", "measurement"),
+  ...
 )
 ```
 
@@ -44,17 +45,21 @@ calc_TLLxTxRatio(
   TL data (x = temperature, y = counts). If no data are provided no
   background subtraction is performed.
 
-- signal.integral.min:
+- signal_integral:
 
-  [integer](https://rdrr.io/r/base/integer.html) (**required**): channel
-  number for the lower signal integral bound (e.g.
-  `signal.integral.min = 100`).
+  [integer](https://rdrr.io/r/base/integer.html) (**required**): vector
+  of channels for the signal integral.
 
-- signal.integral.max:
+- integral_input:
 
-  [integer](https://rdrr.io/r/base/integer.html) (**required**): channel
-  number for the upper signal integral bound (e.g.
-  `signal.integral.max = 200`).
+  [character](https://rdrr.io/r/base/character.html) (*with default*):
+  input type for `signal_integral`, one of `"channel"` (default) or
+  `"measurement"`. If set to `"measurement"`, the best matching channels
+  corresponding to the given temperature range are selected.
+
+- ...:
+
+  currently not used.
 
 ## Value
 
@@ -70,6 +75,10 @@ following structure:
     .. $ TnTx.BG
     .. $ Net_LnLx
     .. $ Net_LnLx.Error
+    .. $ SN_RATIO_LnLx
+    .. $ SN_RATIO_TnTx
+    .. $ LxTx
+    .. $ LxTx.Error
 
 ## Details
 
@@ -93,7 +102,7 @@ therefore set to `NA`.
 
 ## Function version
 
-0.3.4
+0.3.7
 
 ## See also
 
@@ -102,21 +111,21 @@ therefore set to `NA`.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
 Christoph Schmidt, University of Bayreuth (Germany) , RLum Developer
 Team
 
 ## How to cite
 
-Kreutzer, S., Schmidt, C., 2025. calc_TLLxTxRatio(): Calculate the Lx/Tx
+Kreutzer, S., Schmidt, C., 2026. calc_TLLxTxRatio(): Calculate the Lx/Tx
 ratio for a given set of TL curves -beta version-. Function version
-0.3.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
+0.3.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
 C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
 Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
-Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive
-Luminescence Dating Data Analysis. R package version 1.1.2.
-https://r-lum.github.io/Luminescence/
+Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
+Comprehensive Luminescence Dating Data Analysis. R package version
+1.2.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
@@ -131,19 +140,17 @@ Lx.data.signal <- get_RLum(temp, record.id=1)
 Lx.data.background <- get_RLum(temp, record.id=2)
 Tx.data.signal <- get_RLum(temp, record.id=3)
 Tx.data.background <- get_RLum(temp, record.id=4)
-signal.integral.min <- 210
-signal.integral.max <- 230
+signal_integral <- 210:230
 
 output <- calc_TLLxTxRatio(
  Lx.data.signal,
  Lx.data.background,
  Tx.data.signal,
  Tx.data.background,
- signal.integral.min,
- signal.integral.max)
+ signal_integral)
 get_RLum(output)
 #>     LnLx LnLx.BG  TnTx TnTx.BG net_LnLx net_LnLx.Error net_TnTx net_TnTx.Error
 #> 1 257042    4068 82298    2943   252974       49468.92    79355       21449.72
-#>       LxTx LxTx.Error
-#> 1 3.187877   1.485073
+#>   SN_RATIO_LnLx SN_RATIO_TnTx     LxTx LxTx.Error
+#> 1      63.18633      27.96398 3.187877   1.485073
 ```

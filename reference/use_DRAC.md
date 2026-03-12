@@ -61,8 +61,8 @@ use_DRAC(
   - `password` [character](https://rdrr.io/r/base/character.html):
     password for secured site, only works jointly with `user`
 
-  - `verbose` [logical](https://rdrr.io/r/base/logical.html): show or
-    hide console output
+  - `verbose` [logical](https://rdrr.io/r/base/logical.html):
+    enable/disable output to the terminal
 
 ## Value
 
@@ -108,19 +108,20 @@ The output should be accessed using the function
 
 ## How to cite
 
-Kreutzer, S., Dietze, M., Burow, C., 2025. use_DRAC(): Use DRAC to
+Kreutzer, S., Dietze, M., Burow, C., 2026. use_DRAC(): Use DRAC to
 calculate dose rate data. Function version 0.17. In: Kreutzer, S.,
 Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
 J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
 D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
-2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
-package version 1.1.2. https://r-lum.github.io/Luminescence/
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
 Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age
 Calculator for trapped charge dating. Quaternary Geochronology 28,
-54-61. doi:10.1016/j.quageo.2015.03.012
+54-61.
+[doi:10.1016/j.quageo.2015.03.012](https://doi.org/10.1016/j.quageo.2015.03.012)
 
 ## See also
 
@@ -129,8 +130,8 @@ Calculator for trapped charge dating. Quaternary Geochronology 28,
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
 Michael Dietze, GFZ Potsdam (Germany)  
 Christoph Burow, University of Cologne (Germany) , RLum Developer Team
 

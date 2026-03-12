@@ -65,10 +65,10 @@ IR50_fading.res <- analyse_FadingMeasurement(IR50_fading)
 #> ---------------------------------------------------
 #> T_0.5 interpolated:   NA
 #> T_0.5 predicted:  4e+11
-#> g-value:      5.18 ± 0.79 (%/decade)
-#> g-value (norm. 2 days):   6.01 ± 0.8 (%/decade)
+#> g-value:      5.18 ± 0.72 (%/decade)
+#> g-value (norm. 2 days):   6.01 ± 0.73 (%/decade)
 #> ---------------------------------------------------
-#> rho':             3.91e-06 ± 5.96e-07
+#> rho':             3.91e-06 ± 6.03e-07
 #> log10(rho'):      -5.41 ± 0.07
 #> ---------------------------------------------------
 
@@ -77,19 +77,19 @@ gval <- get_RLum(IR50_fading.res)
 rhop <- get_RLum(IR50_fading.res, "rho_prime")
 
 gval
-#>                    FIT     MEAN        SD  Q_0.025   Q_0.16   Q_0.84  Q_0.975
-#> G_VALUE_2DAYS 5.182106 5.083589 0.7855371 3.389336 4.360077 5.876208 6.381322
+#>                    FIT     MEAN        SD  Q_0.025  Q_0.16   Q_0.84  Q_0.975
+#> G_VALUE_2DAYS 5.182106 5.083861 0.7178726 3.629961 4.43232 5.785543 6.606997
 #>                TC G_VALUE_2DAYS G_VALUE_2DAYS.ERROR T_0.5_INTERPOLATED
-#> G_VALUE_2DAYS 378      6.010655           0.8023017                 NA
+#> G_VALUE_2DAYS 378      6.010655           0.7318478                 NA
 #>               T_0.5_PREDICTED T_0.5_PREDICTED.LOWER T_0.5_PREDICTED.UPPER
 #> G_VALUE_2DAYS    395648134315           18339400088           18339400088
 #>                            UID
-#> G_VALUE_2DAYS 8c8759b488004fa0
+#> G_VALUE_2DAYS a5184a8783cb280a
 rhop
 #>            FIT         MEAN           SD      Q_0.025       Q_0.16       Q_0.84
-#> 1 3.911342e-06 3.911342e-06 5.964428e-07 2.809934e-06 3.361524e-06 4.507872e-06
+#> 1 3.912967e-06 3.912967e-06 6.027167e-07 2.757662e-06 3.236705e-06 4.522956e-06
 #>        Q_0.975
-#> 1 5.101797e-06
+#> 1 4.884235e-06
 
 ## Get LxTx values of the IR50 DE measurement
 IR50_De.LxTx <- ExampleData.Fading$equivalentDose.data$IR50
@@ -113,15 +113,15 @@ IR50_Age.corr <- calc_FadingCorr(IR50_Age, g_value = IR50_fading.res)
 #> 
 #>  >> Fading correction according to Huntley & Lamothe (2001)
 #> 
-#>  .. used g-value:    5.182 ± 0.786 %/decade
+#>  .. used g-value:    5.182 ± 0.718 %/decade
 #>  .. used tc:     1.198e-08 ka
-#>  .. used kappa:      0.0225 ± 0.0034
+#>  .. used kappa:      0.0225 ± 0.0031
 #>  ----------------------------------------------
 #>  seed:            NA
 #>  n.MC:           10000
 #>  observations:       10000
 #>  ----------------------------------------------
-#>  Age (faded):        139.6261 ka ± 14.7635 ka
-#>  Age (corr.):        288.1629 ka ± 67.2483 ka
+#>  Age (faded):        139.6261 ka ± 14.6489 ka
+#>  Age (corr.):        288.1629 ka ± 61.3833 ka
 #>  ---------------------------------------------- 
 ```

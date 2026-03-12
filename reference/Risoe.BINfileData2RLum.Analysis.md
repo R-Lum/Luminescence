@@ -42,10 +42,11 @@ Risoe.BINfileData2RLum.Analysis(
 
   [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): position
   number of the `Risoe.BINfileData` object for which the curves are
-  stored in the `RLum.Analysis` object. If `length(pos) > 1`, a list of
-  `RLum.Analysis` objects is returned. If nothing is provided every
-  position will be converted. If the position is not valid `NULL` is
-  returned.
+  stored in the
+  [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
+  object. If `length(pos) > 1`, a list of `RLum.Analysis` objects is
+  returned. If nothing is provided every position will be converted. If
+  the position is not valid `NULL` is returned.
 
 - grain:
 
@@ -127,19 +128,19 @@ object is set to 'unknown' if not stated otherwise.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## How to cite
 
-Kreutzer, S., 2025. Risoe.BINfileData2RLum.Analysis(): Convert
+Kreutzer, S., 2026. Risoe.BINfileData2RLum.Analysis(): Convert
 Risoe.BINfileData object to an RLum.Analysis object. Function version
 0.4.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
 C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
 Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
-Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive
-Luminescence Dating Data Analysis. R package version 1.1.2.
-https://r-lum.github.io/Luminescence/
+Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
+Comprehensive Luminescence Dating Data Analysis. R package version
+1.2.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 

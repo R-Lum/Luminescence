@@ -9,7 +9,7 @@ S4 class object"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ S4 class object"></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Plot function for an RLum.Results S4 class object</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/plot_RLum.Results.R" class="external-link"><code>R/plot_RLum.Results.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/plot_RLum.Results.R" class="external-link"><code>R/plot_RLum.Results.R</code></a></small>
       <div class="d-none name"><code>plot_RLum.Results.Rd</code></div>
     </div>
 
@@ -89,12 +89,12 @@ Only plotting of <code>RLum.Results</code> objects are supported.</p>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Christoph Burow, University of Cologne (Germany) <br>
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 , RLum Developer Team</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Burow, C., Kreutzer, S., 2025. plot_RLum.Results(): Plot function for an RLum.Results S4 class object. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Burow, C., Kreutzer, S., 2026. plot_RLum.Results(): Plot function for an RLum.Results S4 class object. Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">
@@ -107,15 +107,15 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 <span class="r-in"><span><span class="co"># apply the un-logged minimum age model</span></span></span>
 <span class="r-in"><span><span class="va">mam</span> <span class="op">&lt;-</span> <span class="fu"><a href="calc_MinDose.html">calc_MinDose</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">CA1</span>, sigmab <span class="op">=</span> <span class="fl">0.2</span>, log <span class="op">=</span> <span class="cn">TRUE</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------- meta data -----------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------- Meta data -----------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   n par sigmab logged      Lmax      BIC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  62   3    0.2   TRUE -32.43138 84.14389</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> --- final parameter estimates ---</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  gamma sigma   p0 mu</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  45.64  1.56 0.02  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> --- Final parameter estimates ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          gamma sigma   p0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimate 45.64  1.56 0.02</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------ confidence intervals -----</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ------ Confidence intervals -----</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       2.5 % 97.5 %</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gamma 38.61  53.65</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sigma  1.33   1.89</span>
@@ -148,8 +148,8 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span>  number of iterations (n)     : 100</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  median                       : 41</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  mean                         : 48</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  standard deviation (mean)    : 26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  standard error (mean)        : 2.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  standard deviation (mean)    : 25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  standard error (mean)        : 2.5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  95% CI from t-test (mean)    : 43 - 53</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  standard error from CI (mean): 2.6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ---------------------------------------------------------</span>
@@ -166,7 +166,7 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

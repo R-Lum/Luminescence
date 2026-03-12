@@ -52,7 +52,7 @@ calc_Huntley2006(
        ... |    ...  |  ... |     ...    |
       [x, ]|  Rx     | LxTx | LxTx error |
 
-  **NOTE:** The function assumes the first row of the data to be the
+  **Note:** The function assumes the first row of the data to be the
   `Ln/Tn`-value. If you want to provide more than one `Ln/Tn`-values,
   consider using argument `LnTn`.
 
@@ -75,7 +75,7 @@ calc_Huntley2006(
   error is preferred, this value must be calculated beforehand and used
   in the first row in the data frame for argument `data`.
 
-  **NOTE:** This argument should **only** be used to provide more than
+  **Note:** This argument should **only** be used to provide more than
   one `Ln/Tn`-value. If you provide `LnTn`-values with this argument,
   the data frame for the `data`-argument **must not** contain any
   `LnTn`-values.
@@ -166,8 +166,8 @@ calc_Huntley2006(
     iteration limits for nls fitting
 
   - `trace` [logical](https://rdrr.io/r/base/logical.html):
-    Enable/disable value tracing the terminal during fitting **Note**
-    that it is generally advised to have a large number of Monte Carlo
+    Enable/disable value tracing the terminal during fitting **Note:**
+    it is generally advised to have a large number of Monte Carlo
     iterations for the results to converge. Decreasing the number of
     iterations will often result in unstable estimates.
 
@@ -303,14 +303,14 @@ Please verify your results carefully.
 
 ## How to cite
 
-King, G.E., Burow, C., Kreutzer, S., Colombo, M., 2025.
+King, G.E., Burow, C., Kreutzer, S., Colombo, M., 2026.
 calc_Huntley2006(): Apply the Huntley (2006) model. Function version
 0.4.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
 C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
 Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
-Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive
-Luminescence Dating Data Analysis. R package version 1.1.2.
-https://r-lum.github.io/Luminescence/
+Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
+Comprehensive Luminescence Dating Data Analysis. R package version
+1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -342,8 +342,8 @@ rocks. Geochronometria 38(3), 223-230.
 
 Georgina E. King, University of Lausanne (Switzerland)  
 Christoph Burow, University of Cologne (Germany)  
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
 Marco Colombo, Institute of Geography, Heidelberg University (Germany) ,
 RLum Developer Team
 
@@ -386,21 +386,21 @@ kars <- calc_Huntley2006(
 #> 
 #>  -------------------------------
 #>  (n/N) [-]:   0.15 ± 0.02
-#>  (n/N)_SS [-]:    0.38 ± 0.06
+#>  (n/N)_SS [-]:    0.35 ± 0.05
 #> 
 #>  ---------- Measured -----------
-#>  DE [Gy]:     130.97 ± 13.52
-#>  D0 [Gy]:     539.01 ± 17.91
-#>  Age [ka]:    18.71 ± 2.15
+#>  DE [Gy]:     130.97 ± 12.96
+#>  D0 [Gy]:     539.01 ± 18.56
+#>  Age [ka]:    18.71 ± 2.07
 #> 
 #>  ---------- Un-faded -----------
-#>  D0 [Gy]:     637.39 ± 13.36
+#>  D0 [Gy]:     638.66 ± 13.39
 #> 
 #>  ---------- Simulated ----------
-#>  DE [Gy]:     247.4 ± 37.84
-#>  D0 [Gy]:     609.17 ± 5.4
-#>  Age [ka]:    35.34 ± 5.69
-#>  Age @2D0 [ka]:   174.05 ± 8.84
+#>  DE [Gy]:     246.52 ± 37.34
+#>  D0 [Gy]:     612.28 ± 5.63
+#>  Age [ka]:    35.22 ± 5.62
+#>  Age @2D0 [ka]:   174.94 ± 8.89
 #>  -------------------------------
 #> 
 

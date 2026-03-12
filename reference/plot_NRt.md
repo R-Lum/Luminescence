@@ -19,7 +19,7 @@ contains the counts of each curve.
 ``` r
 plot_NRt(
   data,
-  log = FALSE,
+  log = "",
   smooth = c("none", "spline", "rmean"),
   k = 3,
   legend = TRUE,
@@ -41,8 +41,9 @@ plot_NRt(
 
 - log:
 
-  [character](https://rdrr.io/r/base/character.html) (*optional*):
-  logarithmic axes (`c("x", "y", "xy")`).
+  [character](https://rdrr.io/r/base/character.html) (*with default*):
+  logarithmic axes (`"x"`, `"y"`, `"xy"`) or `""` (default) for linear
+  axes.
 
 - smooth:
 
@@ -50,7 +51,7 @@ plot_NRt(
   apply data smoothing. If `"none"` (default), no data smoothing is
   applied. Use `"rmean"` to calculate the rolling mean, where `k`
   determines the width of the rolling window (see
-  [data.table::frollmean](https://rdatatable.gitlab.io/data.table/reference/froll.html)).
+  [data.table::frollmean](https://rdrr.io/pkg/data.table/man/froll.html)).
   `"spline"` applies a smoothing spline to each curve (see
   [stats::smooth.spline](https://rdrr.io/r/stats/smooth.spline.html))
 
@@ -84,13 +85,13 @@ object.
 
 ## How to cite
 
-Burow, C., 2025. plot_NRt(): Visualise natural/regenerated signal
+Burow, C., 2026. plot_NRt(): Visualise natural/regenerated signal
 ratios. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
 C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
 Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
-Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive
-Luminescence Dating Data Analysis. R package version 1.1.2.
-https://r-lum.github.io/Luminescence/
+Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
+Comprehensive Luminescence Dating Data Analysis. R package version
+1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -208,5 +209,4 @@ for (i in 1:length(aliquot)) {
 
 # reset graphical parameters
 par(mfrow = c(1, 1))
-
 ```

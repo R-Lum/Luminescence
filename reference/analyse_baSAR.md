@@ -16,22 +16,22 @@ analyse_baSAR(
   CSV_file = NULL,
   aliquot_range = NULL,
   source_doserate = NULL,
-  signal.integral,
-  signal.integral.Tx = NULL,
-  background.integral,
-  background.integral.Tx = NULL,
+  signal_integral = NULL,
+  background_integral = NULL,
+  signal_integral_Tx = NULL,
+  background_integral_Tx = NULL,
   irradiation_times = NULL,
   sigmab = 0,
   sig0 = 0.025,
   distribution = "cauchy",
   baSAR_model = NULL,
   n.MCMC = 1e+05,
-  fit.method = "EXP",
+  fit.method = c("EXP", "EXP+LIN", "LIN"),
   fit.force_through_origin = TRUE,
   fit.includingRepeatedRegPoints = TRUE,
   method_control = list(),
   digits = 3L,
-  distribution_plot = "kde",
+  distribution_plot = c("kde", "abanico"),
   plot = TRUE,
   plot_reduced = TRUE,
   plot_singlePanels = FALSE,
@@ -83,45 +83,46 @@ analyse_baSAR(
   [numeric](https://rdrr.io/r/base/numeric.html) (**required**): source
   dose rate of beta-source used for the measurement and its uncertainty
   in Gy/s, e.g., `source_doserate = c(0.12, 0.04)`. Parameter can be
-  provided as `list`, for the case that more than one BIN-file is
+  provided as a list, for the case that more than one BIN-file is
   provided, e.g.,
   `source_doserate = list(c(0.04, 0.004), c(0.05, 0.004))`.
 
-- signal.integral:
+- signal_integral:
 
   [vector](https://rdrr.io/r/base/vector.html) (**required**): vector
   with the limits for the signal integral used for the calculation,
-  e.g., `signal.integral = c(1:5)`. Ignored if `object` is an
+  e.g., `signal_integral = 1:5`. It is ignored if `object` is an
   [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
-  object. The parameter can be provided as `list`, see
+  object. The parameter can be provided as a list, see
   `source_doserate`.
 
-- signal.integral.Tx:
-
-  [vector](https://rdrr.io/r/base/vector.html) (*optional*): vector with
-  the limits for the signal integral for the Tx curve. I f nothing is
-  provided the value from `signal.integral` is used and it is ignored if
-  `object` is an
-  [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
-  object. The parameter can be provided as `list`, see
-  `source_doserate`.
-
-- background.integral:
+- background_integral:
 
   [vector](https://rdrr.io/r/base/vector.html) (**required**): vector
-  with the bounds for the background integral. Ignored if `object` is an
+  with the limits for the background integral. It is ignored if `object`
+  is an
   [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
-  object. The parameter can be provided as `list`, see
+  object. The parameter can be provided as a list, see
   `source_doserate`.
 
-- background.integral.Tx:
+- signal_integral_Tx:
+
+  [vector](https://rdrr.io/r/base/vector.html) (*optional*): vector with
+  the limits for the signal integral for the Tx curve. If nothing is
+  provided, the value from `signal_integral` is used. It is ignored if
+  `object` is an
+  [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
+  object. The parameter can be provided as a list, see
+  `source_doserate`.
+
+- background_integral_Tx:
 
   [vector](https://rdrr.io/r/base/vector.html) (*optional*): vector with
   the limits for the background integral for the Tx curve. If nothing is
-  provided the value from `background.integral` is used. Ignored if
-  `object` is an
+  provided, the value from `background_integral` is used. It is ignored
+  if `object` is an
   [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
-  object. The parameter can be provided as `list`, see
+  object. The parameter can be provided as a list, see
   `source_doserate`.
 
 - irradiation_times:
@@ -152,16 +153,17 @@ analyse_baSAR(
 - distribution:
 
   [character](https://rdrr.io/r/base/character.html) (*with default*):
-  type of distribution that is used during Bayesian calculations for
-  determining the Central dose and overdispersion values. Allowed inputs
-  are `"cauchy"`, `"normal"` and `"log_normal"`.
+  type of distribution used during Bayesian calculations to determine
+  the Central dose and overdispersion values (one of `"cauchy"`,
+  `"normal"`, `"log_normal"` and `"user_defined"`). If set to
+  `"user_defined"`, argument `baSAR_model` must be provided.
 
 - baSAR_model:
 
   [character](https://rdrr.io/r/base/character.html) (*optional*):
   option to provide an own modified or new model for the Bayesian
-  calculation (see details). If an own model is provided the argument
-  `distribution` is ignored and set to `'user_defined'`
+  calculation (see details). If provided, argument `distribution` is
+  automatically set to `"user_defined"`.
 
 - n.MCMC:
 
@@ -172,11 +174,11 @@ analyse_baSAR(
 - fit.method:
 
   [character](https://rdrr.io/r/base/character.html) (*with default*):
-  equation used for the fitting of the dose-response curve using the
+  equation used both for the fitting of the dose-response curve using
   function
-  [plot_GrowthCurve](https://r-lum.github.io/Luminescence/reference/plot_GrowthCurve.md)
-  and then for the Bayesian modelling. Here supported methods: `EXP`,
-  `EXP+LIN` and `LIN`
+  [fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)
+  and then for the Bayesian modelling. Supported methods: `EXP`,
+  `EXP+LIN` and `LIN`.
 
 - fit.force_through_origin:
 
@@ -234,7 +236,7 @@ analyse_baSAR(
   parameters that can be passed to the function
   [calc_OSLLxTxRatio](https://r-lum.github.io/Luminescence/reference/calc_OSLLxTxRatio.md)
   (almost full support),
-  [data.table::fread](https://rdatatable.gitlab.io/data.table/reference/fread.html)
+  [data.table::fread](https://rdrr.io/pkg/data.table/man/fread.html)
   (`skip`),
   [read_BIN2R](https://r-lum.github.io/Luminescence/reference/read_BIN2R.md)
   (`n.records`, `position`, `duplicated.rm`), see details.
@@ -351,7 +353,7 @@ function runs an automatic process that consists of the following steps:
     [calc_OSLLxTxRatio](https://r-lum.github.io/Luminescence/reference/calc_OSLLxTxRatio.md)
 
 3.  Calculate De values using the function
-    [plot_GrowthCurve](https://r-lum.github.io/Luminescence/reference/plot_GrowthCurve.md)
+    [fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)
 
 These proceeded data are subsequently used in for the Bayesian analysis
 
@@ -364,7 +366,7 @@ information) the pre-processing phase consists of the following steps:
     [calc_OSLLxTxRatio](https://r-lum.github.io/Luminescence/reference/calc_OSLLxTxRatio.md)
 
 2.  Calculate De values using the function
-    [plot_GrowthCurve](https://r-lum.github.io/Luminescence/reference/plot_GrowthCurve.md)
+    [fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)
 
 The CSV file should contain the BIN-file names and the aliquots selected
 for the further analysis. This allows a manual selection of input data,
@@ -448,19 +450,19 @@ internally used functions.
 
 |                                 |                                                                                                    |                                   |                                                  |
 |---------------------------------|----------------------------------------------------------------------------------------------------|-----------------------------------|--------------------------------------------------|
-| **Supported argument**          | **Corresponding function**                                                                         | **Default**                       | \*\*Short description \*\*                       |
+| **Supported argument**          | **Corresponding function**                                                                         | **Default**                       | **Short description**                            |
 | `threshold`                     | [verify_SingleGrainData](https://r-lum.github.io/Luminescence/reference/verify_SingleGrainData.md) | `30`                              | change rejection threshold for curve selection   |
-| `skip`                          | [data.table::fread](https://rdatatable.gitlab.io/data.table/reference/fread.html)                  | `0`                               | number of rows to be skipped during import       |
+| `skip`                          | [data.table::fread](https://rdrr.io/pkg/data.table/man/fread.html)                                 | `0`                               | number of rows to be skipped during import       |
 | `n.records`                     | [read_BIN2R](https://r-lum.github.io/Luminescence/reference/read_BIN2R.md)                         | `NULL`                            | limit records during BIN-file import             |
 | `duplicated.rm`                 | [read_BIN2R](https://r-lum.github.io/Luminescence/reference/read_BIN2R.md)                         | `TRUE`                            | remove duplicated records in the BIN-file        |
 | `pattern`                       | [read_BIN2R](https://r-lum.github.io/Luminescence/reference/read_BIN2R.md)                         | `TRUE`                            | select BIN-file by name pattern                  |
 | `position`                      | [read_BIN2R](https://r-lum.github.io/Luminescence/reference/read_BIN2R.md)                         | `NULL`                            | limit import to a specific position              |
 | `background.count.distribution` | [calc_OSLLxTxRatio](https://r-lum.github.io/Luminescence/reference/calc_OSLLxTxRatio.md)           | `"non-poisson"`                   | set assumed count distribution                   |
-| `fit.weights`                   | [plot_GrowthCurve](https://r-lum.github.io/Luminescence/reference/plot_GrowthCurve.md)             | `TRUE`                            | enable/disable fit weights                       |
-| `fit.bounds`                    | [plot_GrowthCurve](https://r-lum.github.io/Luminescence/reference/plot_GrowthCurve.md)             | `TRUE`                            | enable/disable fit bounds                        |
-| `n.MC`                          | [plot_GrowthCurve](https://r-lum.github.io/Luminescence/reference/plot_GrowthCurve.md)             | `100`                             | number of MC runs for error calculation          |
-| `output.plot`                   | [plot_GrowthCurve](https://r-lum.github.io/Luminescence/reference/plot_GrowthCurve.md)             | `TRUE`                            | enable/disable dose response curve plot          |
-| `output.plotExtended`           | [plot_GrowthCurve](https://r-lum.github.io/Luminescence/reference/plot_GrowthCurve.md)             | `TRUE`                            | enable/disable extended dose response curve plot |
+| `fit.weights`                   | [fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)   | `TRUE`                            | enable/disable fit weights                       |
+| `fit.bounds`                    | [fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)   | `TRUE`                            | enable/disable fit bounds                        |
+| `n.MC`                          | [fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)   | `100`                             | number of MC runs for error calculation          |
+| `plot_drc`                      | [plot_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/plot_DoseResponseCurve.md) | `TRUE`                            | enable/disable dose response curve plot          |
+| `plot_extended`                 | [plot_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/plot_DoseResponseCurve.md) | `TRUE`                            | enable/disable extended dose response curve plot |
 | `recordType`                    | [get_RLum](https://r-lum.github.io/Luminescence/reference/get_RLum.md)                             | `c(OSL (UVVIS), irradiation (NA)` | helps for the curve selection                    |
 
 ## Note
@@ -469,8 +471,8 @@ internally used functions.
 recommended to provide a `list` with the same number of elements for the
 following parameters:
 
-`source_doserate`, `signal.integral`, `signal.integral.Tx`,
-`background.integral`, `background.integral.Tx`, `sigmab`, `sig0`.
+`source_doserate`, `signal_integral`, `signal_integral_Tx`,
+`background_integral`, `background_integral_Tx`, `sigmab`, `sig0`.
 
 Example for two BIN-files:
 `source_doserate = list(c(0.04, 0.006), c(0.05, 0.006))`
@@ -480,17 +482,18 @@ BIN-files only!**
 
 ## Function version
 
-0.1.37
+0.1.41
 
 ## How to cite
 
-Mercier, N., Kreutzer, S., 2025. analyse_baSAR(): Bayesian models
-(baSAR) applied on luminescence data. Function version 0.1.37. In:
+Mercier, N., Kreutzer, S., 2026. analyse_baSAR(): Bayesian models
+(baSAR) applied on luminescence data. Function version 0.1.41. In:
 Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/
+Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.2.0.
+https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -520,8 +523,9 @@ Plummer, M., 2017. JAGS Version 4.3.0 user manual.
 
 [read_BIN2R](https://r-lum.github.io/Luminescence/reference/read_BIN2R.md),
 [calc_OSLLxTxRatio](https://r-lum.github.io/Luminescence/reference/calc_OSLLxTxRatio.md),
-[plot_GrowthCurve](https://r-lum.github.io/Luminescence/reference/plot_GrowthCurve.md),
-[data.table::fread](https://rdatatable.gitlab.io/data.table/reference/fread.html),
+[fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md),
+[plot_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/plot_DoseResponseCurve.md),
+[data.table::fread](https://rdrr.io/pkg/data.table/man/fread.html),
 [verify_SingleGrainData](https://r-lum.github.io/Luminescence/reference/verify_SingleGrainData.md),
 [rjags::jags.model](https://rdrr.io/pkg/rjags/man/jags.model.html),
 [rjags::coda.samples](https://rdrr.io/pkg/rjags/man/coda.samples.html),
@@ -531,8 +535,8 @@ Plummer, M., 2017. JAGS Version 4.3.0 user manual.
 
 Norbert Mercier, Archéosciences Bordeaux, CNRS-Université Bordeaux
 Montaigne (France)  
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
 The underlying Bayesian model based on a contribution by Combès et al.,
 2015. , RLum Developer Team
 
@@ -549,20 +553,19 @@ CWOSL.SAR.Data <- subset(
 
 if (FALSE) { # \dontrun{
 ##(3) run analysis
-##please not that the here selected parameters are
-##choosen for performance, not for reliability
+## please note that the parameters used here are
+## chosen for performance, not for reliability
 results <- analyse_baSAR(
   object = CWOSL.SAR.Data,
   source_doserate = c(0.04, 0.001),
-  signal.integral = c(1:2),
-  background.integral = c(80:100),
+  signal_integral = 1:2,
+  background_integral = 80:100,
   fit.method = "LIN",
   plot = FALSE,
   n.MCMC = 200
 )
 
 print(results)
-
 
 ##CSV_file template
 ##copy and paste this the code below in the terminal
@@ -576,8 +579,6 @@ list(
  GRAIN = NA_real_),
    .Names = c("BIN_FILE", "DISC", "GRAIN"),
    class = "data.frame",
-   row.names = 1L
-)
-
+   row.names = 1L)
 } # }
 ```

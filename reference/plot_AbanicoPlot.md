@@ -12,14 +12,14 @@ plot_AbanicoPlot(
   data,
   na.rm = TRUE,
   log.z = TRUE,
-  z.0 = "mean.weighted",
-  dispersion = "qr",
+  z.0 = c("mean.weighted", "mean.weighted", "median"),
+  dispersion = c("qr", "sd", "2sd"),
   plot.ratio = 0.75,
   rotate = FALSE,
   mtext = "",
   summary = c("n", "in.2s"),
   summary.pos = "sub",
-  summary.method = "MCM",
+  summary.method = c("MCM", "weighted", "unweighted"),
   legend = NULL,
   legend.pos = "topleft",
   stats = NULL,
@@ -53,12 +53,32 @@ plot_AbanicoPlot(
   [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
   object (**required**): for `data.frame` two columns: De (`data[,1]`)
   and De error (`data[,2]`). To plot several data sets in one plot the
-  data sets must be provided as `list`, e.g. `list(data.1, data.2)`.
+  data sets must be provided as `list`, e.g. `list(data.1, data.2)`.  
+  For some
+  [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
+  objects, one or more lines (and corresponding labels) are drawn
+  automatically:
+
+  - [calc_AverageDose](https://r-lum.github.io/Luminescence/reference/calc_AverageDose.md)
+    (ADM)
+
+  - [calc_CentralDose](https://r-lum.github.io/Luminescence/reference/calc_CentralDose.md)
+    (CDM)
+
+  - [calc_MaxDose](https://r-lum.github.io/Luminescence/reference/calc_MaxDose.md)
+    (MDM)
+
+  - [calc_MinDose](https://r-lum.github.io/Luminescence/reference/calc_MinDose.md)
+    (MAM)
+
+  - [calc_FiniteMixture](https://r-lum.github.io/Luminescence/reference/calc_FiniteMixture.md)
+    Alternative labels can be set via the `line.label` option. This
+    behaviour can be suppressed altogether by setting `line = NA`.
 
 - na.rm:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  exclude NA values from the data set prior to any further operations.
+  exclude `NA` values from the data set prior to any further operations.
 
 - log.z:
 
@@ -97,7 +117,7 @@ plot_AbanicoPlot(
 
   [numeric](https://rdrr.io/r/base/numeric.html) (*with default*):
   Relative space, given to the radial versus the cartesian plot part,
-  default is `0.75`.
+  default is 0.75.
 
 - rotate:
 
@@ -130,15 +150,7 @@ plot_AbanicoPlot(
 
   [character](https://rdrr.io/r/base/character.html) (*with default*):
   keyword indicating the method used to calculate the statistic summary.
-  One out of
-
-  - `"unweighted"`,
-
-  - `"weighted"` and
-
-  - `"MCM"`.
-
-  See
+  One of `"MCM"` (default), `"weighted"` or `"unweighted"`. See
   [calc_Statistics](https://r-lum.github.io/Luminescence/reference/calc_Statistics.md)
   for details.
 
@@ -233,7 +245,9 @@ plot_AbanicoPlot(
 
   [numeric](https://rdrr.io/r/base/numeric.html) or
   [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md):
-  numeric values of the additional lines to be added.
+  numeric values of the additional lines to be added. This can be set to
+  `NA` to suppress the line added automatically by some `RLum.Results`
+  objects.
 
 - line.col:
 
@@ -298,7 +312,9 @@ Returns a plot object and, optionally, a list with plot calculus data.
 ## Details
 
 The Abanico Plot is a combination of the classic Radial Plot
-(`plot_RadialPlot`) and a kernel density estimate plot (e.g `plot_KDE`).
+[plot_RadialPlot](https://r-lum.github.io/Luminescence/reference/plot_RadialPlot.md)
+and a kernel density estimate plot (e.g
+[plot_KDE](https://r-lum.github.io/Luminescence/reference/plot_KDE.md).
 It allows straightforward visualisation of data precision, error scatter
 around a user-defined central value and the combined distribution of the
 values, on the actual scale of the measured data (e.g. seconds,
@@ -358,28 +374,29 @@ specifying one or more of the following keywords:
 
 - `"skewness"` (skewness)
 
-**Note** that the input data for the statistic summary is sent to the
+**Note:** the input data for the statistic summary is sent to the
 function
-[`calc_Statistics()`](https://r-lum.github.io/Luminescence/reference/calc_Statistics.md)
+[calc_Statistics](https://r-lum.github.io/Luminescence/reference/calc_Statistics.md)
 depending on the log-option for the z-scale. If `"log.z = TRUE"`, the
 summary is based on the logarithms of the input data. If
 `"log.z = FALSE"` the linearly scaled data is used.
 
-**Note** as well, that `"calc_Statistics()"` calculates these statistic
-measures in three different ways: `unweighted`, `weighted` and
-`MCM-based` (i.e., based on Monte Carlo Methods). By default, the
-MCM-based version is used. If you wish to use another method, indicate
-this with the appropriate keyword using the argument `summary.method`.
+**Note:**
+[calc_Statistics](https://r-lum.github.io/Luminescence/reference/calc_Statistics.md)
+calculates these statistic measures in three different ways:
+`unweighted`, `weighted` and `MCM-based` (i.e., based on Monte Carlo
+Methods). By default, the MCM-based version is used. If you wish to use
+another method, indicate this with the appropriate keyword using the
+argument `summary.method`.
 
 The optional parameter `layout` allows more sophisticated ways to modify
 the entire plot. Each element of the plot can be addressed and its
 properties can be defined. This includes font type, size and decoration,
 colours and sizes of all plot items. To infer the definition of a
 specific layout style cf.
-[`get_Layout()`](https://r-lum.github.io/Luminescence/reference/get_Layout.md)
-or type e.g., for the layout type `"journal"` `get_Layout("journal")`. A
-layout type can be modified by the user by assigning new values to the
-list object.
+[get_Layout](https://r-lum.github.io/Luminescence/reference/get_Layout.md)
+or type, e.g. for the layout type `"journal"`. A layout type can be
+modified by the user by assigning new values to the list object.
 
 It is possible for the z-scale to specify where ticks are to be drawn by
 using the parameter `at`, e.g. `at = seq(80, 200, 20)`, cf. function
@@ -388,23 +405,24 @@ documentation of `axis`. Specifying tick positions manually overrides a
 
 ## Function version
 
-0.1.20
+0.1.21
 
 ## How to cite
 
-Dietze, M., Kreutzer, S., 2025. plot_AbanicoPlot(): Function to create
-an Abanico Plot.. Function version 0.1.20. In: Kreutzer, S., Burow, C.,
-Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
-Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Dietze, M., Kreutzer, S., Colombo, M., 2026. plot_AbanicoPlot():
+Function to create an Abanico Plot.. Function version 0.1.21. In:
+Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
+M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
+Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
+Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.2.0.
+https://r-lum.github.io/Luminescence/
 
 ## References
 
 Galbraith, R. & Green, P., 1990. Estimating the component ages in a
 finite mixture. International Journal of Radiation Applications and
-Instrumentation. Part D. Nuclear Tracks and Radiation Measurements, 17
+Instrumentation. Part D. Nuclear Tracks and Radiation Measurements 17
 (3), 197-206.
 
 Dietze, M., Kreutzer, S., Burow, C., Fuchs, M.C., Fischer, M., Schmidt,
@@ -422,8 +440,9 @@ doi:10.1016/j.quageo.2015.09.003
 ## Author
 
 Michael Dietze, GFZ Potsdam (Germany)  
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)  
 Inspired by a plot introduced by Galbraith & Green (1990) , RLum
 Developer Team
 
@@ -626,11 +645,8 @@ CAM <- calc_CentralDose(ExampleData.DeValues,
 #>  SE [%]:                  3.46
 #> -------------------------------------
 #> 
-
-plot_AbanicoPlot(data = ExampleData.DeValues,
-                 line = CAM,
-                 line.col = "darkgreen",
-                 line.label = "CAM")
+plot_AbanicoPlot(data = CAM,
+                 line.col = "darkseagreen")
 
 
 ## now create plot with legend, colour, different points and smaller scale

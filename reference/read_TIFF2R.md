@@ -3,7 +3,7 @@
 Simple wrapper around
 [tiff::readTIFF](https://rdrr.io/pkg/tiff/man/readTIFF.html) to import
 TIFF images and TIFF image stacks to be further processed within the
-package `'Luminescence'`
+'Luminescence' package.
 
 ## Usage
 
@@ -16,8 +16,7 @@ read_TIFF2R(file, merge2stack = FALSE, verbose = TRUE, ...)
 - file:
 
   [character](https://rdrr.io/r/base/character.html) (**required**):
-  file name, can be of type [list](https://rdrr.io/r/base/list.html) for
-  automated processing of many images
+  name of the TIFF file to read (URLs are supported).
 
 - merge2stack:
 
@@ -29,7 +28,7 @@ read_TIFF2R(file, merge2stack = FALSE, verbose = TRUE, ...)
 - verbose:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  enable/disable output to the terminal
+  enable/disable output to the terminal.
 
 - ...:
 
@@ -37,12 +36,14 @@ read_TIFF2R(file, merge2stack = FALSE, verbose = TRUE, ...)
 
 ## Value
 
+Returns an
 [RLum.Data.Image](https://r-lum.github.io/Luminescence/reference/RLum.Data.Image-class.md)
-object
+object. Results are returned as a list when multiple files are processed
+or `file` is a list.
 
 ## Function version
 
-0.2.0
+0.2.1
 
 ## See also
 
@@ -51,18 +52,18 @@ object
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## How to cite
 
-Kreutzer, S., 2025. read_TIFF2R(): Import TIFF Image Data into R.
-Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
+Kreutzer, S., 2026. read_TIFF2R(): Import TIFF Image Data into R.
+Function version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
-J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence:
-Comprehensive Luminescence Dating Data Analysis. R package version
-1.1.2. https://r-lum.github.io/Luminescence/
+J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
+Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
+version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 

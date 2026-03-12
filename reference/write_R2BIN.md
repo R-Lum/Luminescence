@@ -1,7 +1,9 @@
 # Export Risoe.BINfileData into Risø BIN/BINX-file
 
-Exports a `Risoe.BINfileData` object in a `*.bin` or `*.binx` file that
-can be opened by the Analyst software or other Risø software.
+Exports a
+[Risoe.BINfileData](https://r-lum.github.io/Luminescence/reference/Risoe.BINfileData-class.md)
+object in a `*.bin` or `*.binx` file that can be opened by the Analyst
+software or other Risø software.
 
 ## Usage
 
@@ -104,13 +106,13 @@ There are furthermore ignored by the function
 
 ## How to cite
 
-Kreutzer, S., 2025. write_R2BIN(): Export Risoe.BINfileData into Risø
+Kreutzer, S., 2026. write_R2BIN(): Export Risoe.BINfileData into Risø
 BIN/BINX-file. Function version 0.5.4. In: Kreutzer, S., Burow, C.,
 Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -125,8 +127,8 @@ DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 
@@ -150,8 +152,8 @@ temp_file <- tempfile(pattern = "output", fileext = ".binx")
 write_R2BIN(temp, file = temp_file)
 #> 
 #> [write_R2BIN()] Exporting ...
-#>  path:  /tmp/RtmpJnfeVf
-#>  file:  output19697d1d775f.binx
+#>  path:  /tmp/RtmpqtF2TG
+#>  file:  output1bbc5af230eb.binx
 #>  n_rec: 2
 #>   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
 #>   >> 2 records written successfully

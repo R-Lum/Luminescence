@@ -20,10 +20,10 @@ apply_Crosstalk(object, n_crosstalk = 0.2)
 - object:
 
   [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
-  or [numeric](https://rdrr.io/r/base/numeric.html) (**required**):
-  containing a numerical vector of length 100, representing one or more
-  measurement discs ("positions") in a reader. Each element in the
-  vector represents one grain hole location on a disc.
+  or [numeric](https://rdrr.io/r/base/numeric.html) (**required**): a
+  numerical vector of length 100, representing one or more measurement
+  discs ("positions") in a reader. Each element in the vector represents
+  one grain hole location on a disc.
 
 - n_crosstalk:
 
@@ -44,23 +44,27 @@ not be added.
 
 ## How to cite
 
-Boer, A.d., Steinbuch, L., 2025. apply_Crosstalk(): Apply crosstalk. In:
+Boer, A.d., Steinbuch, L., 2026. apply_Crosstalk(): Apply crosstalk. In:
 Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/
+Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.2.0.
+https://r-lum.github.io/Luminescence/
 
 ## References
 
 de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025. A
-novel tool to assess crosstalk in single-grain luminescence detection.
-Submitted.
+novel method to assess crosstalk in single-grain luminescence detection.
+Radiation Measurements 186, 107459.
+[doi:10.1016/j.radmeas.2025.107459](https://doi.org/10.1016/j.radmeas.2025.107459)
 
 ## Author
 
-Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research,
-2025 , RLum Developer Team
+Anna-Maartje de Boer, Wageningen University & Research (The
+Netherlands)  
+Luc Steinbuch, Wageningen University & Research (The Netherlands)  
+, RLum Developer Team
 
 ## Examples
 

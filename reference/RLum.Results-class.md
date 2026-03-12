@@ -14,7 +14,8 @@ Object class contains results data from functions (e.g.,
 
 The class is intended to store results from functions to be used by
 other functions. The data in the object should always be accessed by the
-method `get_RLum`.
+method
+[get_RLum](https://r-lum.github.io/Luminescence/reference/get_RLum.md).
 
 ## Objects from the Class
 
@@ -32,8 +33,8 @@ Objects can be created by calls of the form `new("RLum.Results", ...)`.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 

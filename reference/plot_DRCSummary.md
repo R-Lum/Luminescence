@@ -109,19 +109,19 @@ objects is returned.*
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
 Christoph Burow, University of Cologne (Germany) , RLum Developer Team
 
 ## How to cite
 
-Kreutzer, S., Burow, C., 2025. plot_DRCSummary(): Create a Dose-Response
+Kreutzer, S., Burow, C., 2026. plot_DRCSummary(): Create a Dose-Response
 Curve Summary Plot. Function version 0.2.4. In: Kreutzer, S., Burow, C.,
 Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
@@ -132,15 +132,14 @@ data(ExampleData.BINfileData, envir = environment())
 #transform the values from the first position in a RLum.Analysis object
 object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 
+## perform SAR analysis
 results <- analyse_SAR.CWOSL(
-  object = object,
-  signal.integral.min = 1,
-  signal.integral.max = 2,
-   background.integral.min = 900,
-   background.integral.max = 1000,
-   plot = FALSE
- )
-#> [fit_DoseResponseCurve()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76
+    object,
+    signal_integral = 1:2,
+    background_integral = 900:1000,
+    plot = FALSE
+)
+#> [analyse_SAR.CWOSL()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76
 
 ##plot only DRC
 plot_DRCSummary(results)

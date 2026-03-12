@@ -1,10 +1,10 @@
 # Moran Scatter Plot: Visualizing Spatial Dependency
 
-Scatter plot, with on the x axis the original grain signal and on the y
-axis the weighted mean of the neighbour grain signals. The plot area is
-divided into four quadrants, and also a least square line (which slopes
-indicates, but not exactly represents, Moran's I) and an 1:1 line (which
-indicates a Moran's I of around 1).
+The function produces a scatter plot, with on the x axis the original
+grain signal and on the y axis the weighted mean of the neighbour grain
+signals. The plot area is divided into four quadrants, and also a least
+square line (which slopes indicates, but not exactly represents, Moran's
+I) and an 1:1 line (which indicates a Moran's I of around 1).
 
 ## Usage
 
@@ -12,7 +12,7 @@ indicates a Moran's I of around 1).
 plot_MoranScatterplot(
   object,
   df_neighbours = NULL,
-  str_y_def = "mean_neighbours",
+  str_y_def = c("mean_neighbours", "weighted_sum"),
   ...
 )
 ```
@@ -29,7 +29,7 @@ plot_MoranScatterplot(
 
 - df_neighbours:
 
-  [data.frame](https://rdrr.io/r/base/data.frame.html) (*with default*)
+  [data.frame](https://rdrr.io/r/base/data.frame.html) (*with default*):
   Data frame indicating which borders to consider, and their respective
   weights (see the description provided for
   [calc_MoransI](https://r-lum.github.io/Luminescence/reference/calc_MoransI.md)).
@@ -38,7 +38,7 @@ plot_MoranScatterplot(
 
 - str_y_def:
 
-  [character](https://rdrr.io/r/base/character.html) (*with default*)
+  [character](https://rdrr.io/r/base/character.html) (*with default*):
   Calculation of y position. Defaults to `"mean_neighbours"` which is
   the plain mean of all neighbour values and the most illustrative. The
   other option is `"weighted_sum"`, which means the sum of the border
@@ -55,9 +55,9 @@ plot_MoranScatterplot(
   negative values and logarithmic plotting, values are increased so the
   smallest value to plot is 1. Summary elements such as means, least
   square line etc. will still be based on the linear case. `pch` accepts
-  options
-  "show_location_ids"`(plots grain location id's),`"show_n_neighbours"`(indicates numbers of neighbours) and the normal base plot`pch\`
-  options.
+  options `"show_location_ids"` (plots grain location id's),
+  `"show_n_neighbours"` (indicates numbers of neighbours) and the normal
+  base plot `pch` options.
 
 ## Value
 
@@ -79,24 +79,27 @@ influence Moran's I calculations.
 
 ## How to cite
 
-Boer, A.d., Steinbuch, L., 2025. plot_MoranScatterplot(): Moran Scatter
+Boer, A.d., Steinbuch, L., 2026. plot_MoranScatterplot(): Moran Scatter
 Plot: Visualizing Spatial Dependency. In: Kreutzer, S., Burow, C.,
 Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
 de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025. A
-novel tool to assess crosstalk in single-grain luminescence detection.
-Submitted.
+novel method to assess crosstalk in single-grain luminescence detection.
+Radiation Measurements 186, 107459.
+[doi:10.1016/j.radmeas.2025.107459](https://doi.org/10.1016/j.radmeas.2025.107459)
 
 ## Author
 
-Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research,
-2025 , RLum Developer Team
+Anna-Maartje de Boer, Wageningen University & Research (The
+Netherlands)  
+Luc Steinbuch, Wageningen University & Research (The Netherlands)  
+, RLum Developer Team
 
 ## Examples
 

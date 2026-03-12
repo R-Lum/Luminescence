@@ -1,25 +1,24 @@
 # Luminescence ![](reference/figures/Luminescence_logo.png)
 
-The R package `'Luminescence'` by the R-Luminescence Group provides a
-collection of various R functions for luminescence dating data analysis.
-
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![CRAN](https://www.r-pkg.org/badges/version/Luminescence)](https://CRAN.R-project.org/package=Luminescence)
+[![R-CMD-check](https://github.com/R-Lum/Luminescence/actions/workflows/R-CMD-check.yml/badge.svg)](https://github.com/R-Lum/Luminescence/actions)
+[![Coverage
+Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https://app.codecov.io/github/R-Lum/Luminescence?branch=master)
+
 [![CRAN
 DOI](https://img.shields.io/badge/DOI-10.32614/CRAN.package.Luminescence-1f57b6?style=flat&link=https://doi.org/10.32614/CRAN.package.Luminescence)](https://doi.org/10.32614/CRAN.package.Luminescence)
-[![ZENODO
-DOI](https://zenodo.org/badge/23153315.svg)](https://zenodo.org/badge/latestdoi/23153315)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.596252.svg)](https://doi.org/10.5281/zenodo.596252)
 
 [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
 [![Downloads](https://cranlogs.r-pkg.org/badges/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
 [![Downloads](https://cranlogs.r-pkg.org/badges/last-week/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
 [![Downloads](https://cranlogs.r-pkg.org/badges/last-day/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
 
-[![R-CMD-check](https://github.com/R-Lum/Luminescence/actions/workflows/R-CMD-check.yml/badge.svg)](https://github.com/R-Lum/Luminescence/actions)
-[![Coverage
-Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https://app.codecov.io/github/R-Lum/Luminescence?branch=master)
+The R package `'Luminescence'` by the R-Luminescence Group provides a
+collection of various R functions for luminescence dating data analysis.
 
 ## Social media and other resources
 
@@ -45,41 +44,39 @@ add-in
 
 ![](reference/figures/README-Screenshot_AddIn.png)
 
-##### The plain **R** way
+Alternatively, to install the latest development builds directly from
+GitHub, run:
 
-To install the stable version from CRAN, simply run the following from
-an R console:
+``` r
+if (!require("pak"))
+  install.packages("pak")
+pak::pkg_install("R-Lum/Luminescence")
+```
+
+Please note that the version on the GitHub `master` branch is a
+development version and may change day by day. To install the stable
+version from CRAN, simply run the following from an R console:
 
 ``` r
 install.packages("Luminescence")
 ```
 
-To install the latest development builds directly from GitHub, run
-
-``` r
-if(!require("devtools"))
-  install.packages("devtools")
-devtools::install_github("R-Lum/Luminescence@<wanted branch>")
-```
+For stable branches please visit the [Luminescence package page on
+CRAN](https://CRAN.R-project.org/package=Luminescence).
 
 ## Contribute
 
-The R luminescence project is based on and evolves from ideas,
-contributions and constructive criticism of its users. Help us to
-maintain and develop the package, to find bugs and create new functions
-as well as a user-friendly design. Try
-<https://github.com/R-Lum/Luminescence/issues> or write us an
-[e-mail](mailto:developers@r-luminescence.org) if anything crosses your
-mind or if you want your new self-written function to be to implemented.
+The R-Luminescence project is based on and evolves from ideas,
+contributions and constructive criticism of its users. Help us maintain
+and improve the package by reporting bugs, requesting features,
+suggesting design improvements or contributing new functions.
+
+Open an [issue](https://github.com/R-Lum/Luminescence/issues) or write
+us an [e-mail](mailto:developers@r-luminescence.org) if anything crosses
+your mind or if you want your new self-written function to be to
+included in the package.
+
 You are kindly invited to bring forward the package with us!
-
-## Note
-
-**The package comes without any guarantee!**
-
-Please further note that this version is a development version and may
-change day by day. For stable branches please visit the package on [CRAN
-Luminescence](https://CRAN.R-project.org/package=Luminescence).
 
 ## License
 
@@ -127,8 +124,10 @@ more details.
   supported through the DFG programme “REPLAY: REProducible Luminescence
   Data AnalYses” [No
   528704761](https://gepris.dfg.de/gepris/projekt/528704761?language=en)
-  led by Dr Sebastian Kreutzer (PI at Heidelberg University, DE) and Dr
-  Thomas Kolb (PI at Justus-Liebig-University Giessen, DE).
+  led by Dr Sebastian Kreutzer (PI at Heidelberg University, DE (until
+  2025), LIAG - Institute for Applied Geophysics, Hannover, DE (from
+  2026)) and Dr Thomas Kolb (PI at Justus-Liebig-University Giessen,
+  DE).
 
 - All other authors gratefully received additional funding from various
   public funding bodies.
@@ -137,7 +136,6 @@ more details.
 
 - [RLumModel](https://github.com/R-Lum/RLumModel)
 - [RLumShiny](https://github.com/R-Lum/RLumShiny)
-- [RLumDocker](https://github.com/R-Lum/RLumDocker)
 - [BayLum](https://github.com/crp2a/BayLum)
 - [RCarb](https://github.com/R-Lum/RCarb)
 - [RLumCarlo](https://github.com/R-Lum/RLumCarlo)

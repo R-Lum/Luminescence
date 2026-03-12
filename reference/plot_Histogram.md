@@ -164,18 +164,18 @@ The input data is not restricted to a special type.
 ## Author
 
 Michael Dietze, GFZ Potsdam (Germany)  
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## How to cite
 
-Dietze, M., Kreutzer, S., 2025. plot_Histogram(): Plot a histogram with
+Dietze, M., Kreutzer, S., 2026. plot_Histogram(): Plot a histogram with
 separate error plot. Function version 0.4.5. In: Kreutzer, S., Burow,
 C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
@@ -204,6 +204,5 @@ plot_Histogram(ExampleData.DeValues,
                         "Standard error"),
                xlim = c(100, 250),
                ylim = c(0, 0.1, 5, 20))
-
 
 ```

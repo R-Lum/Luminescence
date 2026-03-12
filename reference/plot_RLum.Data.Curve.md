@@ -1,7 +1,8 @@
 # Plot function for an RLum.Data.Curve S4 class object
 
 The function provides a standardised plot output for curve data of an
-`RLum.Data.Curve` S4-class object.
+[RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)
+S4-class object.
 
 ## Usage
 
@@ -22,7 +23,8 @@ plot_RLum.Data.Curve(
 - object:
 
   [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)
-  (**required**): S4 object of class `RLum.Data.Curve`
+  (**required**): S4 object of class
+  [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)
 
 - par.local:
 
@@ -80,6 +82,12 @@ options are supported:
 `norm = TRUE` or `norm = "max"`: Curve values are normalised to the
 highest count value in the curve
 
+`norm = "min"`: Curve values are normalised to the smallest count value
+in the curve
+
+`norm = "first"`: Curve values are normalised to the very first count
+value
+
 `norm = "last"`: Curve values are normalised to the last count value
 (this can be useful in particular for radiofluorescence curves)
 
@@ -89,6 +97,11 @@ Huot via GitHub: \$\$ y = (observed - median(background)) /
 
 The background of the curve is defined as the last 20% of the count
 values of a curve.
+
+`norm = "intensity"`: Curve values are normalised to the channel length.
+
+`norm = 2.2`: Curve values are normalised to a positive number (e.g.,
+2.2).
 
 ## Note
 
@@ -106,18 +119,19 @@ Not all arguments of
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## How to cite
 
-Kreutzer, S., 2025. plot_RLum.Data.Curve(): Plot function for an
+Kreutzer, S., 2026. plot_RLum.Data.Curve(): Plot function for an
 RLum.Data.Curve S4 class object. Function version 0.4.0. In: Kreutzer,
 S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M.,
 Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/
+Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.2.0.
+https://r-lum.github.io/Luminescence/
 
 ## Examples
 

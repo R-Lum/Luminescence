@@ -10,8 +10,7 @@ object including growth curve fitting.
 analyse_SAR.TL(
   object,
   object.background,
-  signal.integral.min,
-  signal.integral.max,
+  signal_integral,
   integral_input = "channel",
   sequence.structure = c("PREHEAT", "SIGNAL", "BACKGROUND"),
   rejection.criteria = list(recycling.ratio = 10, recuperation.rate = 10),
@@ -33,25 +32,17 @@ analyse_SAR.TL(
 
   currently not used
 
-- signal.integral.min:
+- signal_integral:
 
-  [integer](https://rdrr.io/r/base/integer.html) (**required**):
-  requires the channel number for the lower signal integral bound (e.g.
-  `signal.integral.min = 100`)
-
-- signal.integral.max:
-
-  [integer](https://rdrr.io/r/base/integer.html) (**required**):
-  requires the channel number for the upper signal integral bound (e.g.
-  `signal.integral.max = 200`)
+  [integer](https://rdrr.io/r/base/integer.html) (**required**): vector
+  of inputs (as defined by `integral_input`) for the signal integral.
 
 - integral_input:
 
   [character](https://rdrr.io/r/base/character.html) (*with default*):
-  defines the input for the arguments `signal.integral.min` and
-  `signal.integral.max`. These limits can be either provided `'channel'`
-  number (the default) or `'temperature'`. If `'temperature'` is chosen,
-  the best matching channel is selected.
+  input type for `signal_integral`, one of `"channel"` (default) or
+  `"measurement"`. If set to `"measurement"`, the best matching channels
+  corresponding to the given temperature range are selected.
 
 - sequence.structure:
 
@@ -105,7 +96,7 @@ object is returned containing the following elements:
 - rejection.criteria:
 
   [data.frame](https://rdrr.io/r/base/data.frame.html) with values that
-  might by used as rejection criteria. NA is produced if no R0 dose
+  might by used as rejection criteria. `NA` is produced if no R0 dose
   point exists.
 
 The output should be accessed using the function
@@ -138,17 +129,17 @@ warning.
 
 ## Function version
 
-0.3.1
+0.3.3
 
 ## How to cite
 
-Kreutzer, S., 2025. analyse_SAR.TL(): Analyse SAR TL measurements.
-Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
+Kreutzer, S., 2026. analyse_SAR.TL(): Analyse SAR TL measurements.
+Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
-J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence:
-Comprehensive Luminescence Dating Data Analysis. R package version
-1.1.2. https://r-lum.github.io/Luminescence/
+J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
+Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
+version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -169,8 +160,8 @@ Measurements 32, 57-73.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 
@@ -184,12 +175,11 @@ object <- Risoe.BINfileData2RLum.Analysis(TL.SAR.Data, pos=3)
 ##perform analysis
 analyse_SAR.TL(
  object = object,
- signal.integral.min = 210,
- signal.integral.max = 220,
+ signal_integral = 210:220,
  fit.method = "EXP OR LIN",
  sequence.structure = c("SIGNAL", "BACKGROUND"))
 
-#> [fit_DoseResponseCurve()] Fit: EXP OR LIN (interpolation) | De = 415.66 | D01 = 3685556.6
+#> [fit_DoseResponseCurve()] Fit: EXP OR LIN (interpolation) | De = 415.65 | D01 = 11207248.85
 #> 
 #>  [RLum.Results-class]
 #>   originator: analyse_SAR.TL()

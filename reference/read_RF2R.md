@@ -16,8 +16,9 @@ read_RF2R(file, verbose = TRUE, ...)
 - file:
 
   [character](https://rdrr.io/r/base/character.html) (**required**):
-  path and file name of the RF file. Alternatively a list of file names
-  can be provided.
+  name of one or multiple RF files (URLs are supported); it can be the
+  path to a directory, in which case the function tries to detect and
+  import all RF files found in the directory.
 
 - verbose:
 
@@ -34,7 +35,8 @@ Returns an S4
 [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
 object containing
 [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)
-objects for each curve.
+objects for each curve. Results are returned as a list when multiple
+files are processed or `file` is a list.
 
 ## Details
 
@@ -46,17 +48,17 @@ easy import to process the data seamlessly with the R package
 
 ## Function version
 
-0.1.1
+0.1.2
 
 ## How to cite
 
-Kreutzer, S., 2025. read_RF2R(): Import RF-files to R. Function version
-0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
+Kreutzer, S., 2026. read_RF2R(): Import RF-files to R. Function version
+0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
 C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
 Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
-Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive
-Luminescence Dating Data Analysis. R package version 1.1.2.
-https://r-lum.github.io/Luminescence/
+Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
+Comprehensive Luminescence Dating Data Analysis. R package version
+1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -73,8 +75,8 @@ Geochronology 3, 299–319.
 
 ## Author
 
-Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University
-(United Kingdom) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 

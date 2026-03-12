@@ -9,6 +9,7 @@ lexsyg SMART reader using Al2O3:C chips.
 analyse_Al2O3C_CrossTalk(
   object,
   signal_integral = NULL,
+  integral_input = c("channel", "measurement"),
   dose_points = c(0, 4),
   recordType = "OSL (UVVIS)",
   irradiation_time_correction = NULL,
@@ -31,6 +32,13 @@ analyse_Al2O3C_CrossTalk(
   [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): signal
   integral, used for the signal and the background. If nothing is
   provided, the full range is used.
+
+- integral_input:
+
+  [character](https://rdrr.io/r/base/character.html) (*with default*):
+  input type for `signal_integral`, one of `"channel"` (default) or
+  `"measurement"`. If set to `"measurement"`, the best matching channels
+  corresponding to the given time range (in seconds) are selected.
 
 - dose_points:
 
@@ -100,17 +108,17 @@ The original function call
 
 ## Function version
 
-0.1.3
+0.1.4
 
 ## How to cite
 
-Kreutzer, S., 2025. analyse_Al2O3C_CrossTalk(): Al2O3:C Reader
-Cross-Talk Analysis. Function version 0.1.3. In: Kreutzer, S., Burow,
+Kreutzer, S., 2026. analyse_Al2O3C_CrossTalk(): Al2O3:C Reader
+Cross-Talk Analysis. Function version 0.1.4. In: Kreutzer, S., Burow,
 C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -125,8 +133,8 @@ Geochronometria 45, 56-67. doi: 10.1515/geochr-2015-0086
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 

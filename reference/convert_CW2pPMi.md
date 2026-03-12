@@ -8,26 +8,30 @@ conditions using the interpolation procedure described by Bos & Wallinga
 ## Usage
 
 ``` r
-convert_CW2pPMi(values, P)
+convert_CW2pPMi(object, P = NULL, ...)
 ```
 
 ## Arguments
 
-- values:
+- object:
 
   [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)
   or [data.frame](https://rdrr.io/r/base/data.frame.html)
   (**required**):
   [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)
-  or `data.frame` with measured curve data of type stimulation time (t)
-  (`values[,1]`) and measured counts (cts) (`values[,2]`)
+  object or a `data.frame` with measured curve data of type stimulation
+  time (t) (`object[, 1]`) and measured counts (cts) (`object[, 2]`).
 
 - P:
 
-  [vector](https://rdrr.io/r/base/vector.html) (*optional*): stimulation
-  period in seconds. If no value is given, the optimal value is
+  [numeric](https://rdrr.io/r/base/numeric.html) (*optional*):
+  stimulation time in seconds. If set to `NULL`, the optimal value is
   estimated automatically (see details). Greater values of P produce
   more points in the rising tail of the curve.
+
+- ...:
+
+  currently not used.
 
 ## Value
 
@@ -86,7 +90,7 @@ Other values at the beginning of the transformed curve are set to 0.
 
 \(7\) Combine all values and truncate all values for t' \> `max(t)`
 
-**NOTE:** The number of values for t' \< `min(t)` depends on the
+**Note:** The number of values for t' \< `min(t)` depends on the
 stimulation period `P`. To avoid the production of too many artificial
 data at the raising tail of the determined pPM curve, it is recommended
 to use the automatic estimation routine for `P`, i.e. provide no value
@@ -100,31 +104,31 @@ manually, not more than two points are extrapolated.
 
 ## Function version
 
-0.2.2
+0.2.4
 
 ## How to cite
 
-Kreutzer, S., 2025. convert_CW2pPMi(): Transform a CW-OSL curve into a
-pPM-OSL curve via interpolation under parabolic modulation conditions.
-Function version 0.2.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
-M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
-A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
-J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence:
-Comprehensive Luminescence Dating Data Analysis. R package version
-1.1.2. https://r-lum.github.io/Luminescence/
+Kreutzer, S., Colombo, M., 2026. convert_CW2pPMi(): Transform a CW-OSL
+curve into a pPM-OSL curve via interpolation under parabolic modulation
+conditions. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze,
+M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N.,
+Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J.,
+Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A.,
+2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
+package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
 Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL signal
-components. Radiation Measurements, 47, 752-758.
+components. Radiation Measurements 47, 752-758.
 
 **Further Reading**
 
 Bulur, E., 1996. An Alternative Technique For Optically Stimulated
-Luminescence (OSL) Experiment. Radiation Measurements, 26, 701-709.
+Luminescence (OSL) Experiment. Radiation Measurements 26, 701-709.
 
 Bulur, E., 2000. A simple transformation for converting CW-OSL curves to
-LM-OSL curves. Radiation Measurements, 32, 141-145.
+LM-OSL curves. Radiation Measurements 32, 141-145.
 
 ## See also
 
@@ -136,24 +140,21 @@ LM-OSL curves. Radiation Measurements, 32, 141-145.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany)
-
-Based on comments and suggestions from:  
-Adrie J.J. Bos, Delft University of Technology, The Netherlands , RLum
-Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)  
+Based on comments and suggestions from: Adrie J.J. Bos, Delft University
+of Technology, The Netherlands , RLum Developer Team
 
 ## Examples
 
 ``` r
-
 ##(1)
 ##load CW-OSL curve data
 data(ExampleData.CW_OSL_Curve, envir = environment())
 
 ##transform values
 values.transformed <- convert_CW2pPMi(ExampleData.CW_OSL_Curve)
-#> Warning: [convert_CW2pPMi()] t' is beyond the time resolution: only two data points have been extrapolated, the first 0 points were set to 0
 
 ##plot
 plot(values.transformed$x,values.transformed$y.t, log = "x")
@@ -180,13 +181,13 @@ lines(values[1:length(values.t[, 1]), 1], values.t[, 2],
 text(0.03,4500,"LM", col = "red", cex = .8)
 
 values.t <- convert_CW2pHMi(values, delta = 40)
-#> Warning: [convert_CW2pHMi()] 56 invalid values have been found and replaced by the mean of the nearest values
+#> Warning: [convert_CW2pHMi()] 56 invalid values found, replaced by the mean of the nearest values
 lines(values[1:length(values.t[, 1]), 1], values.t[, 2],
       col = "black", lwd = 1.3)
 text(0.005,3000,"HM", cex = .8)
 
 values.t <- convert_CW2pPMi(values, P = 1/10)
-#> Warning: [convert_CW2pPMi()] t' is beyond the time resolution: only two data points have been extrapolated, the first 3 points were set to 0
+#> Warning: [convert_CW2pPMi()] t' is beyond the time resolution and more than two data points have been extrapolated
 lines(values[1:length(values.t[, 1]), 1], values.t[, 2],
       col = "blue", lwd = 1.3)
 text(0.5,6500,"PM", col = "blue", cex = .8)

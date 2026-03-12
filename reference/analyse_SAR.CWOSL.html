@@ -9,7 +9,7 @@ object, including growth curve fitting."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ object, including growth curve fitting."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Analyse SAR CW-OSL Measurements</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/analyse_SAR.CWOSL.R" class="external-link"><code>R/analyse_SAR.CWOSL.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/analyse_SAR.CWOSL.R" class="external-link"><code>R/analyse_SAR.CWOSL.R</code></a></small>
       <div class="d-none name"><code>analyse_SAR.CWOSL.Rd</code></div>
     </div>
 
@@ -43,20 +43,23 @@ object, including growth curve fitting.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">analyse_SAR.CWOSL</span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
-<span>  signal.integral.min <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>  signal.integral.max <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>  background.integral.min <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>  background.integral.max <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  signal_integral <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  background_integral <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  signal_integral_Tx <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  background_integral_Tx <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  integral_input <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"channel"</span>, <span class="st">"measurement"</span><span class="op">)</span>,</span>
 <span>  OSL.component <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  rejection.criteria <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  dose.points <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  dose.points.test <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  dose_rate_source <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  trim_channels <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  mtext.outer <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  plot_onePage <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  plot_singlePanels <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  onlyLxTxTable <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  method_control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -68,42 +71,46 @@ object, including growth curve fitting.</p>
 <dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
 <dd><p><a href="RLum.Analysis-class.html">RLum.Analysis</a> (<strong>required</strong>):
 input object containing data for analysis, alternatively a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of
-<a href="RLum.Analysis-class.html">RLum.Analysis</a> objects can be provided. The object should <strong>only</strong>
-contain curves considered part of the SAR protocol (see Details).</p></dd>
+<a href="RLum.Analysis-class.html">RLum.Analysis</a> objects can be provided. The object
+should <strong>only</strong> contain curves considered part of the SAR protocol (see
+Details). When <code>OSL.component</code> is set, the input object must have been
+processed by <code>OSLdecomposition::RLum.OSL_decomposition()</code>.</p></dd>
 
 
-<dt id="arg-signal-integral-min">signal.integral.min<a class="anchor" aria-label="anchor" href="#arg-signal-integral-min"></a></dt>
+<dt id="arg-signal-integral">signal_integral<a class="anchor" aria-label="anchor" href="#arg-signal-integral"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<strong>required</strong>):
-lower bound of the signal integral. It can be a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of integers, if
-<code>object</code> is a list. If the input is a vector (e.g., <code>c(1,2)</code>), the second
-value will be interpreted as the minimum signal integral for the <code>Tx</code> curve.
-It can be set to <code>NA</code>, in which case no integrals are taken into account.</p></dd>
+vector of channels for the signal integral. It can be a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of integers,
+if <code>object</code> is a list. If set to <code>NA</code>, no integrals are taken into account
+and their settings are ignored.</p></dd>
 
 
-<dt id="arg-signal-integral-max">signal.integral.max<a class="anchor" aria-label="anchor" href="#arg-signal-integral-max"></a></dt>
+<dt id="arg-background-integral">background_integral<a class="anchor" aria-label="anchor" href="#arg-background-integral"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<strong>required</strong>):
-upper bound of the signal integral. It can be a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of integers if
-<code>object</code> is a list. If the input is a vector (e.g., <code>c(1,2)</code>), the second
-value will be interpreted as the maximum signal integral for the <code>Tx</code> curve.
-It can be set to <code>NA</code>, in which case no integrals are taken into account.</p></dd>
+vector of channels for the background integral. It can be a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of
+integers, if <code>object</code> is a list. If set to <code>NA</code>, no background integral is
+subtracted.</p></dd>
 
 
-<dt id="arg-background-integral-min">background.integral.min<a class="anchor" aria-label="anchor" href="#arg-background-integral-min"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<strong>required</strong>):
-lower bound of the background integral. It can be a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of integers if
-<code>object</code> is a list. If the input is a vector (e.g., <code>c(1,2)</code>), the second
-value will be interpreted as the minimum background integral for the <code>Tx</code>
-curve. It can be set to <code>NA</code>, in which case no integrals are taken into
-account.</p></dd>
+<dt id="arg-signal-integral-tx">signal_integral_Tx<a class="anchor" aria-label="anchor" href="#arg-signal-integral-tx"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>optional</em>):
+vector of channels for the signal integral for the <code>Tx</code> curve. It can be a
+<a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of integers, if <code>object</code> is a list. If <code>NULL</code>, the <code>signal_integral</code>
+vector is used also for the <code>Tx</code> curve.</p></dd>
 
 
-<dt id="arg-background-integral-max">background.integral.max<a class="anchor" aria-label="anchor" href="#arg-background-integral-max"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<strong>required</strong>):
-upper bound of the background integral. It can be a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of integers if
-<code>object</code> is a list. If the input is a vector (e.g., <code>c(1,2)</code>), the second
-value will be interpreted as the maximum background integral for the <code>Tx</code>
-curve. It can be set to <code>NA</code>, in which case no integrals are taken into
-account.</p></dd>
+<dt id="arg-background-integral-tx">background_integral_Tx<a class="anchor" aria-label="anchor" href="#arg-background-integral-tx"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>optional</em>):
+vector of channels for the background integral for the <code>Tx</code> curve. It can
+be a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of integers, if <code>object</code> is a list. If <code>NULL</code>, the
+<code>background_integral</code> vector is used. If set to <code>NA</code>, no background integral
+for the <code>Tx</code> curve is subtracted.</p></dd>
+
+
+<dt id="arg-integral-input">integral_input<a class="anchor" aria-label="anchor" href="#arg-integral-input"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
+input type for <code>signal_integral</code>, one of <code>"channel"</code> (default) or
+<code>"measurement"</code>. If set to <code>"measurement"</code>, the best matching channels
+corresponding to the given time range (in seconds) are selected.</p></dd>
 
 
 <dt id="arg-osl-component">OSL.component<a class="anchor" aria-label="anchor" href="#arg-osl-component"></a></dt>
@@ -122,16 +129,26 @@ aliquot with component <code>1</code> and the second aliquot with component <cod
 
 <dt id="arg-rejection-criteria">rejection.criteria<a class="anchor" aria-label="anchor" href="#arg-rejection-criteria"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<em>with default</em>):
-provide a <em>named</em> list and set rejection criteria in <strong>percentage</strong>
-for further calculation. Can be a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> in a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>, if <code>object</code> is of type <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>.
-Note: If an <em>unnamed</em> <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> is provided the new settings are ignored!</p>
-<p>Allowed arguments are <code>recycling.ratio</code>, <code>recuperation.rate</code>,
-<code>palaeodose.error</code>, <code>testdose.error</code>, <code>exceed.max.regpoint = TRUE/FALSE</code>,
-<code>recuperation_reference</code> ("Natural" or any other dose point, e.g., <code>"R1"</code>).
-Example: <code>rejection.criteria = list(recycling.ratio = 10)</code>.
-By default, all numerical values are set to 10, <code>exceed.max.regpoint = TRUE</code>.
-Every criterion can be set to <code>NA</code>, in which case values are calculated, but
-they are not considered, i.e. their corresponding RC.Status is always <code>'OK'</code>.</p></dd>
+provide a <em>named</em> list and set rejection criteria in <strong>percentage</strong>. It can
+be a nested <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>, if <code>object</code> is of type <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>.
+Note: <em>unnamed</em> list elements are ignored.</p>
+<p>Allowed options:</p><ul><li><p><code>recycling.ratio</code> <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (default: <code>10</code>)</p></li>
+<li><p><code>recuperation.rate</code> <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (default: <code>10</code>)</p></li>
+<li><p><code>palaeodose.error</code> <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (default: <code>10</code>)</p></li>
+<li><p><code>testdose.error</code> <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (default: <code>10</code>)</p></li>
+<li><p><code>sn.ratio</code> <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (default: <code>NA</code>)</p></li>
+<li><p><code>exceed.max.regpoint</code> <a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (default: <code>FALSE</code>)</p></li>
+<li><p><code>consider.uncertainties</code> <a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (default: <code>FALSE</code>)</p></li>
+<li><p><code>recuperation_reference</code> <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (default: <code>"Natural"</code>; set to, e.g.,
+<code>"R1"</code> for other point)</p></li>
+<li><p><code>sn_reference</code> <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (default: <code>"Natural"</code>).</p></li>
+</ul><p>Example: <code>rejection.criteria = list(recycling.ratio = 10)</code>.</p>
+<p>All numerical criteria can be set to <code>NA</code>, in which case values are
+calculated, but they are not considered, and their corresponding RC.Status
+is always <code>"OK"</code>. In the "Checks" plot, they are shown with a grey circle
+and only their value is reported (without showing <code>&lt;= NA</code> or <code>&gt;= NA</code>).</p>
+<p>If <code>onlyLxTxTable = TRUE</code>, the <code>palaeodose.error</code> and <code>exceed.max.regpoint</code>
+criteria are not computed.</p></dd>
 
 
 <dt id="arg-dose-points">dose.points<a class="anchor" aria-label="anchor" href="#arg-dose-points"></a></dt>
@@ -146,6 +163,11 @@ overwrites dose point values extracted from other data. Can be a <a href="https:
 a numeric vector containing the test dose in the same units as <code>dose.points</code>.
 If length = 1, the values will be recycled. It has only an effect for
 <code>fit.method = 'OTORX'</code>.</p></dd>
+
+
+<dt id="arg-dose-rate-source">dose_rate_source<a class="anchor" aria-label="anchor" href="#arg-dose-rate-source"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): a numerical value for the source dose rate,
+typically Gy/s. If set, the x-axis default for the dose-response curve changes to <code>Dose [Gy]</code>.</p></dd>
 
 
 <dt id="arg-trim-channels">trim_channels<a class="anchor" aria-label="anchor" href="#arg-trim-channels"></a></dt>
@@ -182,18 +204,30 @@ growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
 
 
 <dt id="arg-onlylxtxtable">onlyLxTxTable<a class="anchor" aria-label="anchor" href="#arg-onlylxtxtable"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>): If <code>TRUE</code> the dose response
-curve fitting and plotting is skipped.
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
+If <code>TRUE</code> the dose response curve fitting and plotting is skipped, and the
+<code>palaeodose.error</code> and <code>exceed.max.regpoint</code> criteria are not computed.
 This allows to get hands on the <code>Lx/Tx</code> table for large datasets
 without the need for a curve fitting.</p></dd>
 
 
+<dt id="arg-method-control">method_control<a class="anchor" aria-label="anchor" href="#arg-method-control"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> (<em>optional</em>):
+options to control the function behaviour. Currently only the
+'auto_curve_removal' (logical) option is supported, which controls whether
+curves with <code>recordType</code> starting with <code>_</code> should be automatically removed
+(<code>TRUE</code> by default).</p></dd>
+
+
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>further arguments that will be passed to the functions
-<a href="fit_DoseResponseCurve.html">fit_DoseResponseCurve</a>, <a href="plot_DoseResponseCurve.html">plot_DoseResponseCurve</a> or <a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a>
-(supported: <code>background.count.distribution</code>, <code>sigmab</code>, <code>sig0</code>).
-<strong>Please note</strong> that if you consider to use the early light subtraction
-method you should provide your own <code>sigmab</code> value!</p></dd>
+<dd><p>further arguments that will be passed to
+<a href="fit_DoseResponseCurve.html">fit_DoseResponseCurve</a>, <a href="plot_DoseResponseCurve.html">plot_DoseResponseCurve</a>
+or <a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a> (supported:
+<code>background.count.distribution</code>, <code>sigmab</code>, <code>sig0</code>).
+<strong>Note:</strong> if you consider to use the early light subtraction method,
+<code>sigmab</code> should be provided.</p>
+<p>Additionally, supported are <code>legend.cex</code> and <code>legend.pch</code> to modify the
+the legend symbols.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -275,6 +309,17 @@ default should not exceed 10%. The test dose error is calculated as
 in <a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a>.</p>
 <p><code>[palaeodose.error]</code>: set the allowed error for the De value, which per
 default should not exceed 10%.</p>
+<p><code>[sn.ratio]</code>: set the allowed signal/noise ratio, which by default should
+be at least 50. By default it uses the value from the natural curve, but
+this can be changed by specifying the <code>sn_reference</code> option.</p>
+<p>By default, the computed values are compared directly to the corresponding
+thresholds to establish their result status ("OK" or "FAILED"). By setting
+the option <code>consider.uncertainties = TRUE</code> in the <code>rejection.criteria</code>
+list, quantified uncertainties are considered into the computation of the
+test value prior before comparing it to the threshold(currently supported
+only for <code>recycling.ratio</code>, <code>recuperation.rate</code> and <code>exceed.max.regpoint</code>).
+This reduces tests being marked as "FAILED" when the deviation from the
+threshold is smaller than the uncertainty margin.</p>
 <p><strong>Irradiation times</strong></p>
 <p>The function makes two attempts to extra irradiation data (dose points)
 automatically from the input object, if the argument <code>dose.points</code> is not
@@ -286,18 +331,18 @@ function does <strong>not</strong> overwrite values preset in <code>IRR_TIME</co
 </ol></div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.11.1</p>
+    <p>0.13.8</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2025. analyse_SAR.CWOSL(): Analyse SAR CW-OSL Measurements. Function version 0.11.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Colombo, M., 2026. analyse_SAR.CWOSL(): Analyse SAR CW-OSL Measurements. Function version 0.13.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 after bleaching. Quaternary Science Reviews 7, 387-393.</p>
 <p>Duller, G., 2003. Distinguishing quartz and feldspar in single grain
-luminescence measurements. Radiation Measurements, 37 (2), 161-165.</p>
+luminescence measurements. Radiation Measurements 37 (2), 161-165.</p>
 <p>Murray, A.S. and Wintle, A.G., 2000. Luminescence dating of quartz using an
 improved single-aliquot regenerative-dose protocol. Radiation Measurements
 32, 57-73.</p>
@@ -309,11 +354,13 @@ doi:10.1016/j.radmeas.2008.06.002</p>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a>, <a href="fit_DoseResponseCurve.html">fit_DoseResponseCurve</a>,
-<a href="plot_DoseResponseCurve.html">plot_DoseResponseCurve</a>, <a href="RLum.Analysis-class.html">RLum.Analysis</a>, <a href="RLum.Results-class.html">RLum.Results</a></p></div>
+<a href="plot_DoseResponseCurve.html">plot_DoseResponseCurve</a>, <a href="RLum.Analysis-class.html">RLum.Analysis</a>,
+<a href="RLum.Results-class.html">RLum.Results</a></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+    <p>Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) <br>
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team</p>
     </div>
 
@@ -331,10 +378,8 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 <span class="r-in"><span><span class="co">##perform SAR analysis and set rejection criteria</span></span></span>
 <span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">analyse_SAR.CWOSL</span><span class="op">(</span></span></span>
 <span class="r-in"><span>object <span class="op">=</span> <span class="va">object</span>,</span></span>
-<span class="r-in"><span>signal.integral.min <span class="op">=</span> <span class="fl">1</span>,</span></span>
-<span class="r-in"><span>signal.integral.max <span class="op">=</span> <span class="fl">2</span>,</span></span>
-<span class="r-in"><span>background.integral.min <span class="op">=</span> <span class="fl">900</span>,</span></span>
-<span class="r-in"><span>background.integral.max <span class="op">=</span> <span class="fl">1000</span>,</span></span>
+<span class="r-in"><span>signal_integral <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>background_integral <span class="op">=</span> <span class="fl">900</span><span class="op">:</span><span class="fl">1000</span>,</span></span>
 <span class="r-in"><span>log <span class="op">=</span> <span class="st">"x"</span>,</span></span>
 <span class="r-in"><span>fit.method <span class="op">=</span> <span class="st">"EXP"</span>,</span></span>
 <span class="r-in"><span>plot_onePage <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
@@ -344,21 +389,23 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 <span class="r-in"><span>  testdose.error <span class="op">=</span> <span class="fl">10</span>,</span></span>
 <span class="r-in"><span>  palaeodose.error <span class="op">=</span> <span class="fl">10</span>,</span></span>
 <span class="r-in"><span>  recuperation_reference <span class="op">=</span> <span class="st">"Natural"</span>,</span></span>
+<span class="r-in"><span>  sn.ratio <span class="op">=</span> <span class="fl">50</span>,</span></span>
+<span class="r-in"><span>  sn_reference <span class="op">=</span> <span class="st">"Natural"</span>,</span></span>
 <span class="r-in"><span>  exceed.max.regpoint <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [fit_DoseResponseCurve()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [analyse_SAR.CWOSL()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76</span>
 <span class="r-plt img"><img src="analyse_SAR.CWOSL-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##show De results</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         De De.Error      D01 D01.ERROR D02 D02.ERROR Dc D63       n_N    De.MC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1668.251 46.78683 1982.757  107.7542  NA        NA NA  NA 0.4854696 1664.089</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Fit          Mode HPDI68_L HPDI68_U HPDI95_L HPDI95_U .De.plot  .De.raw</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 EXP interpolation 1611.046  1708.69 1570.575 1763.294 1668.251 1668.251</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   RC.Status signal.range background.range signal.range.Tx background.range.Tx</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        OK          1:2         900:1000           NA:NA               NA:NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ALQ POS GRAIN              UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1   1     0 5708d0a6ba7b4f22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         De De.Error      D01 D01.ERROR D02 D02.ERROR  R R.ERROR Dc D63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1668.251  51.7209 1982.757  101.9548  NA        NA NA      NA NA  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         n_N    De.MC Fit          Mode HPDI68_L HPDI68_U HPDI95_L HPDI95_U</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.4854696 1671.492 EXP interpolation 1615.335 1720.752 1563.816 1766.723</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .De.plot  .De.raw RC.Status signal.range background.range signal.range.Tx</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1668.251 1668.251        OK          1:2         900:1000           NA:NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   background.range.Tx ALQ POS GRAIN              UID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1               NA:NA   1   1     0 fd22cd21c679f884</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##show LnTnLxTx table</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span>, data.object <span class="op">=</span> <span class="st">"LnLxTnTx.table"</span><span class="op">)</span></span></span>
@@ -370,33 +417,31 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5      R4    FALSE 2550 31094 155.92079 5715 145.84158 30938.07921</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6      R5     TRUE  450  9376 122.37624 5860 127.60396  9253.62376</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7      R0    FALSE    0   192  94.39604 6107 117.64356    97.60396</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Net_LnLx.Error Net_TnTx Net_TnTx.Error       LxTx  LxTx.Error Test_Dose</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      143.03415 4697.495       69.24882 4.32801767 0.070695494        -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       87.39498 4895.436       71.06916 1.53720681 0.028578369        -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      123.18402 4858.079       71.66840 3.09871888 0.052275097        -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      154.46828 4942.931       72.07168 4.77075371 0.076258410        -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      176.39564 5569.158       75.88226 5.55525214 0.082052531        -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6       97.54912 5732.396       77.37976 1.61426805 0.027647946        -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7       14.86509 5989.356       78.87190 0.01629624 0.002491179        -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 5708d0a6ba7b4f22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 5708d0a6ba7b4f22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 5708d0a6ba7b4f22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 5708d0a6ba7b4f22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 5708d0a6ba7b4f22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 5708d0a6ba7b4f22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 5708d0a6ba7b4f22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Net_LnLx.Error Net_TnTx Net_TnTx.Error SN_RATIO_LnLx SN_RATIO_TnTx       LxTx</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      143.03415 4697.495       69.24882    338.955069      64.90719 4.32801767</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       87.39498 4895.436       71.06916    115.535112      61.01930 1.53720681</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      123.18402 4858.079       71.66840    157.520074      48.66524 3.09871888</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      154.46828 4942.931       72.07168    200.008356      41.82728 4.77075371</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      176.39564 5569.158       75.88226    199.421768      39.18635 5.55525214</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       97.54912 5732.396       77.37976     76.616181      45.92334 1.61426805</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7       14.86509 5989.356       78.87190      2.033984      51.91104 0.01629624</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    LxTx.Error Test_Dose              UID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.070695494        -1 fd22cd21c679f884</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.028578369        -1 fd22cd21c679f884</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.052275097        -1 fd22cd21c679f884</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.076258410        -1 fd22cd21c679f884</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.082052531        -1 fd22cd21c679f884</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.027647946        -1 fd22cd21c679f884</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 0.002491179        -1 fd22cd21c679f884</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Run example with special case for</span></span></span>
 <span class="r-in"><span><span class="co">## the OTORX fit</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">analyse_SAR.CWOSL</span><span class="op">(</span></span></span>
 <span class="r-in"><span> object <span class="op">=</span> <span class="va">object</span>,</span></span>
-<span class="r-in"><span> signal.integral.min <span class="op">=</span> <span class="fl">1</span>,</span></span>
-<span class="r-in"><span> signal.integral.max <span class="op">=</span> <span class="fl">2</span>,</span></span>
+<span class="r-in"><span> signal_integral <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span> background_integral <span class="op">=</span> <span class="fl">900</span><span class="op">:</span><span class="fl">1000</span>,</span></span>
 <span class="r-in"><span> dose.points.test <span class="op">=</span> <span class="fl">15</span>,</span></span>
-<span class="r-in"><span> background.integral.min <span class="op">=</span> <span class="fl">900</span>,</span></span>
-<span class="r-in"><span> background.integral.max <span class="op">=</span> <span class="fl">1000</span>,</span></span>
 <span class="r-in"><span> n.MC <span class="op">=</span> <span class="fl">10</span>,</span></span>
 <span class="r-in"><span> fit.method <span class="op">=</span> <span class="st">"OTORX"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
@@ -408,7 +453,7 @@ doi:10.1016/j.radmeas.2008.06.002</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

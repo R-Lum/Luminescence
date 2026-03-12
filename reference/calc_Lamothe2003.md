@@ -4,7 +4,7 @@ This function applies the fading correction for the prediction of
 long-term fading as suggested by Lamothe et al., 2003. The function
 basically adjusts the \$L_n/T_n\$ values and fits a new dose-response
 curve using function
-[plot_GrowthCurve](https://r-lum.github.io/Luminescence/reference/plot_GrowthCurve.md).
+[fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md).
 
 ## Usage
 
@@ -92,15 +92,15 @@ calc_Lamothe2003(
 
 - ...:
 
-  further arguments passed to function
-  [plot_GrowthCurve](https://r-lum.github.io/Luminescence/reference/plot_GrowthCurve.md).
+  further arguments passed to
+  [plot_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/plot_DoseResponseCurve.md).
 
 ## Value
 
 The function returns an
 [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
 object and the graphical output produced by
-[plot_GrowthCurve](https://r-lum.github.io/Luminescence/reference/plot_GrowthCurve.md).
+[plot_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/plot_DoseResponseCurve.md).
 
 ———————————–  
 `[ NUMERICAL OUTPUT ]`  
@@ -155,17 +155,18 @@ because the function will internally recalculate values to an identical
 
 ## Function version
 
-0.1.0
+0.1.1
 
 ## How to cite
 
-Kreutzer, S., Mercier, N., 2025. calc_Lamothe2003(): Apply fading
-correction after Lamothe et al., 2003. Function version 0.1.0. In:
+Kreutzer, S., Mercier, N., 2026. calc_Lamothe2003(): Apply fading
+correction after Lamothe et al., 2003. Function version 0.1.1. In:
 Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/
+Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.2.0.
+https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -182,16 +183,18 @@ Measurements 37, 493-498.
 
 ## See also
 
-[plot_GrowthCurve](https://r-lum.github.io/Luminescence/reference/plot_GrowthCurve.md),
+[fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md),
+[plot_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/plot_DoseResponseCurve.md),
 [calc_FadingCorr](https://r-lum.github.io/Luminescence/reference/calc_FadingCorr.md),
 [analyse_SAR.CWOSL](https://r-lum.github.io/Luminescence/reference/analyse_SAR.CWOSL.md),
 [analyse_pIRIRSequence](https://r-lum.github.io/Luminescence/reference/analyse_pIRIRSequence.md)
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany), Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne
-(France) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
+Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France) ,
+RLum Developer Team
 
 ## Examples
 
@@ -207,14 +210,13 @@ object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 ##perform SAR analysis and set rejection criteria
 results <- analyse_SAR.CWOSL(
 object = object,
-signal.integral.min = 1,
-signal.integral.max = 2,
-background.integral.min = 900,
-background.integral.max = 1000,
+signal_integral = 1:2,
+background_integral = 900:900,
 verbose = FALSE,
 plot = FALSE,
 onlyLxTxTable = TRUE
 )
+#> Warning: [analyse_SAR.CWOSL()] Background integral should contain at least two values, reset to 875:900
 
 ##run fading correction
 results_corr <- calc_Lamothe2003(
@@ -231,10 +233,10 @@ results_corr <- calc_Lamothe2003(
 #>  Used g_value:        2.36  ±  0.6 %/decade 
 #> 
 #>  Fading_C:        0.785  ±  0.055 
-#>  Corrected Ln/Tn:     5.513  ±  0.39 
-#>  Corrected De:        471.3  ±  65.76  Gy 
+#>  Corrected Ln/Tn:     5.515  ±  0.391 
+#>  Corrected De:        472.48  ±  65.36  Gy 
 #> --------------------------------------------------------
-#>  Corrected Age:       281.2  ±  49.51  ka 
+#>  Corrected Age:       281.91  ±  49.37  ka 
 #> --------------------------------------------------------
 
 ```

@@ -15,7 +15,7 @@ become the output folder."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@ become the output folder."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Export PSL-file(s) to CSV-files</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/convert_PSL2CSV.R" class="external-link"><code>R/convert_PSL2CSV.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/convert_PSL2CSV.R" class="external-link"><code>R/convert_PSL2CSV.R</code></a></small>
       <div class="d-none name"><code>convert_PSL2CSV.Rd</code></div>
     </div>
 
@@ -82,8 +82,8 @@ objects. Each curve will be represented by two columns for time and counts</p></
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The function returns either a CSV-file (or many of them) or for the option
-<code>export = FALSE</code> a list comprising objects of type <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> and <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></p>
+    <p>The function returns either a CSV-file (or many of them) or, when
+<code>export = FALSE</code>, a list of <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> and <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> objects.</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
@@ -96,12 +96,12 @@ objects. Each curve will be represented by two columns for time and counts</p></
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+    <p>Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 , RLum Developer Team</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2025. convert_PSL2CSV(): Export PSL-file(s) to CSV-files. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2026. convert_PSL2CSV(): Export PSL-file(s) to CSV-files. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">
@@ -115,210 +115,310 @@ objects. Each curve will be represented by two columns for time and counts</p></
 <span class="r-out co"><span class="r-pr">#&gt;</span>  path:  /home/runner/work/_temp/Library/Luminescence/extdata</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  file:  DorNie_0016.psl</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $conv_ALU0016_psl</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1_USER_t 1_USER_cts 2_IRSL_t 2_IRSL_cts 3_USER_t 3_USER_cts 4_OSL_t</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1          0        1      16660        1          4       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2          2         -2        2      16129        2         10       2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3          3         14        3      15860        3         -5       3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4          4          7        4      15773        4         -1       4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5          5          6        5      13509        5         -8       5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6          6         -7        6      15171        6         -6       6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7          7         -1        7      15025        7         13       7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8          8          6        8      14753        8          5       8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9          9         -8        9      14438        9        -24       9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10        10          3       10      14205       10         11      10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11        11         -2       11      14048       11          9      11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12        12          6       12      13886       12          7      12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13        13          0       13      13769       13         -8      13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14        14          6       14      13619       14        -12      14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15        15         -3       15      13365       15         -7      15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16        NA         NA       16      12847       NA         NA      16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17        NA         NA       17      12967       NA         NA      17</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18        NA         NA       18      12693       NA         NA      18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19        NA         NA       19      12726       NA         NA      19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20        NA         NA       20      12663       NA         NA      20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21        NA         NA       21      12740       NA         NA      21</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22        NA         NA       22      12394       NA         NA      22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23        NA         NA       23      12142       NA         NA      23</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24        NA         NA       24      12139       NA         NA      24</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25        NA         NA       25      11967       NA         NA      25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26        NA         NA       26      11870       NA         NA      26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27        NA         NA       27      11836       NA         NA      27</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28        NA         NA       28      11673       NA         NA      28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29        NA         NA       29      11539       NA         NA      29</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30        NA         NA       30      11513       NA         NA      30</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31        NA         NA       31      11443       NA         NA      31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32        NA         NA       32      11391       NA         NA      32</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33        NA         NA       33      11263       NA         NA      33</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34        NA         NA       34      11128       NA         NA      34</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35        NA         NA       35      11026       NA         NA      35</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36        NA         NA       36      10991       NA         NA      36</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37        NA         NA       37      10798       NA         NA      37</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38        NA         NA       38      10781       NA         NA      38</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39        NA         NA       39      10754       NA         NA      39</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40        NA         NA       40      10455       NA         NA      40</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41        NA         NA       41      10705       NA         NA      41</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42        NA         NA       42      10457       NA         NA      42</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43        NA         NA       43      10358       NA         NA      43</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44        NA         NA       44      10578       NA         NA      44</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45        NA         NA       45      10543       NA         NA      45</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46        NA         NA       46      10260       NA         NA      46</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47        NA         NA       47      10263       NA         NA      47</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48        NA         NA       48      10209       NA         NA      48</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49        NA         NA       49       9936       NA         NA      49</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50        NA         NA       50       9943       NA         NA      50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51        NA         NA       51       9782       NA         NA      51</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52        NA         NA       52       9836       NA         NA      52</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53        NA         NA       53       9876       NA         NA      53</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54        NA         NA       54       8814       NA         NA      54</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55        NA         NA       55       9854       NA         NA      55</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56        NA         NA       56       9571       NA         NA      56</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57        NA         NA       57       9581       NA         NA      57</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58        NA         NA       58       9433       NA         NA      58</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59        NA         NA       59       9568       NA         NA      59</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60        NA         NA       60       9466       NA         NA      60</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61        NA         NA       61       9362       NA         NA      61</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62        NA         NA       62       9267       NA         NA      62</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63        NA         NA       63       9240       NA         NA      63</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64        NA         NA       64       9425       NA         NA      64</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65        NA         NA       65       9129       NA         NA      65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66        NA         NA       66       9132       NA         NA      66</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67        NA         NA       67       9036       NA         NA      67</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68        NA         NA       68       9166       NA         NA      68</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69        NA         NA       69       8859       NA         NA      69</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70        NA         NA       70       8973       NA         NA      70</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71        NA         NA       71       8914       NA         NA      71</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72        NA         NA       72       8921       NA         NA      72</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 73        NA         NA       73       8819       NA         NA      73</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 74        NA         NA       74       8935       NA         NA      74</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 75        NA         NA       75       8711       NA         NA      75</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 76        NA         NA       76       8862       NA         NA      76</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 77        NA         NA       77       8847       NA         NA      77</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 78        NA         NA       78       8611       NA         NA      78</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 79        NA         NA       79       8785       NA         NA      79</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 80        NA         NA       80       8583       NA         NA      80</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 81        NA         NA       81       8340       NA         NA      81</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 82        NA         NA       82       8481       NA         NA      82</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 83        NA         NA       83       8525       NA         NA      83</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 84        NA         NA       84       8286       NA         NA      84</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 85        NA         NA       85       8547       NA         NA      85</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 86        NA         NA       86       8292       NA         NA      86</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 87        NA         NA       87       8415       NA         NA      87</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 88        NA         NA       88       8231       NA         NA      88</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 89        NA         NA       89       8054       NA         NA      89</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 90        NA         NA       90       8489       NA         NA      90</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 91        NA         NA       91       8075       NA         NA      91</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 92        NA         NA       92       8076       NA         NA      92</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 93        NA         NA       93       8048       NA         NA      93</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 94        NA         NA       94       7913       NA         NA      94</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 95        NA         NA       95       7952       NA         NA      95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 96        NA         NA       96       7993       NA         NA      96</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 97        NA         NA       97       7914       NA         NA      97</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 98        NA         NA       98       7909       NA         NA      98</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 99        NA         NA       99       7863       NA         NA      99</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 100       NA         NA      100       7966       NA         NA     100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4_OSL_cts 5_USER_t 5_USER_cts</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       88023        1        -22</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       85585        2         -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       83394        3         25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4       80840        4          0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5       78826        5         12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6       76523        6          4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7       74442        7         12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8       72370        8        -13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9       70429        9         26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10      69502       10        -16</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11      67389       11        -26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12      65571       12        -12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13      64550       13         28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14      62602       14         -8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15      61530       15        -10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16      59973       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17      58776       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18      56702       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19      56463       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20      55544       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21      54560       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22      53655       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23      51510       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24      51533       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25      50612       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26      49634       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27      48865       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28      47477       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29      47611       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30      46493       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31      46228       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32      45406       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33      44412       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34      43986       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35      42660       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 36      42668       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 37      42134       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38      41714       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39      41122       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 40      40480       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41      39864       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42      39509       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43      38667       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44      34400       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 45      37490       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 46      37932       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47      37080       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48      36770       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 49      35939       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50      35905       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51      35136       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52      34799       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53      34099       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 54      33965       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 55      33632       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56      33346       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57      32733       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 58      32818       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59      31939       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60      31811       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61      31846       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62      31014       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 63      31358       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 64      30640       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65      30371       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66      30182       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 67      29531       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68      29751       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69      29212       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70      28599       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71      28182       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 72      28644       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 73      28154       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 74      27587       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 75      27537       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 76      27275       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 77      27064       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 78      27142       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 79      26655       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 80      26503       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 81      26296       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 82      25213       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 83      25774       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 84      24724       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 85      25337       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 86      25361       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 87      24962       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 88      24411       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 89      24427       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 90      24599       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 91      24128       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 92      23943       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 93      21914       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 94      23812       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 95      23516       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 96      23346       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 97      22965       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 98      22955       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 99      22828       NA         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 100     22552       NA         NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1_USER (PMT)_t 1_USER (PMT)_cts 2_IRSL (PMT)_t 2_IRSL (PMT)_cts</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                1                0              1            16660</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                2               -2              2            16129</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                3               14              3            15860</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                4                7              4            15773</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                5                6              5            13509</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                6               -7              6            15171</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                7               -1              7            15025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                8                6              8            14753</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                9               -8              9            14438</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10              10                3             10            14205</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11              11               -2             11            14048</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12              12                6             12            13886</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13              13                0             13            13769</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14              14                6             14            13619</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15              15               -3             15            13365</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16              NA               NA             16            12847</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17              NA               NA             17            12967</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18              NA               NA             18            12693</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19              NA               NA             19            12726</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20              NA               NA             20            12663</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21              NA               NA             21            12740</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22              NA               NA             22            12394</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23              NA               NA             23            12142</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24              NA               NA             24            12139</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25              NA               NA             25            11967</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26              NA               NA             26            11870</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27              NA               NA             27            11836</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28              NA               NA             28            11673</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29              NA               NA             29            11539</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30              NA               NA             30            11513</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31              NA               NA             31            11443</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32              NA               NA             32            11391</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33              NA               NA             33            11263</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34              NA               NA             34            11128</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35              NA               NA             35            11026</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36              NA               NA             36            10991</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37              NA               NA             37            10798</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38              NA               NA             38            10781</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39              NA               NA             39            10754</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40              NA               NA             40            10455</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41              NA               NA             41            10705</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42              NA               NA             42            10457</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43              NA               NA             43            10358</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44              NA               NA             44            10578</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45              NA               NA             45            10543</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46              NA               NA             46            10260</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47              NA               NA             47            10263</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48              NA               NA             48            10209</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49              NA               NA             49             9936</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50              NA               NA             50             9943</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51              NA               NA             51             9782</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52              NA               NA             52             9836</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53              NA               NA             53             9876</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54              NA               NA             54             8814</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55              NA               NA             55             9854</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56              NA               NA             56             9571</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57              NA               NA             57             9581</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58              NA               NA             58             9433</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59              NA               NA             59             9568</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60              NA               NA             60             9466</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61              NA               NA             61             9362</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62              NA               NA             62             9267</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63              NA               NA             63             9240</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64              NA               NA             64             9425</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65              NA               NA             65             9129</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66              NA               NA             66             9132</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67              NA               NA             67             9036</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68              NA               NA             68             9166</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69              NA               NA             69             8859</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70              NA               NA             70             8973</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71              NA               NA             71             8914</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72              NA               NA             72             8921</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73              NA               NA             73             8819</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74              NA               NA             74             8935</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75              NA               NA             75             8711</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76              NA               NA             76             8862</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77              NA               NA             77             8847</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78              NA               NA             78             8611</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79              NA               NA             79             8785</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80              NA               NA             80             8583</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81              NA               NA             81             8340</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82              NA               NA             82             8481</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83              NA               NA             83             8525</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84              NA               NA             84             8286</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 85              NA               NA             85             8547</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86              NA               NA             86             8292</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 87              NA               NA             87             8415</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88              NA               NA             88             8231</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89              NA               NA             89             8054</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90              NA               NA             90             8489</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 91              NA               NA             91             8075</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 92              NA               NA             92             8076</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 93              NA               NA             93             8048</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 94              NA               NA             94             7913</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 95              NA               NA             95             7952</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 96              NA               NA             96             7993</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 97              NA               NA             97             7914</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 98              NA               NA             98             7909</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 99              NA               NA             99             7863</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100             NA               NA            100             7966</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3_USER (PMT)_t 3_USER (PMT)_cts 4_OSL (PMT)_t 4_OSL (PMT)_cts</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                1                4             1           88023</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                2               10             2           85585</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                3               -5             3           83394</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                4               -1             4           80840</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                5               -8             5           78826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                6               -6             6           76523</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                7               13             7           74442</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                8                5             8           72370</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                9              -24             9           70429</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10              10               11            10           69502</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11              11                9            11           67389</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12              12                7            12           65571</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13              13               -8            13           64550</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14              14              -12            14           62602</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15              15               -7            15           61530</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16              NA               NA            16           59973</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17              NA               NA            17           58776</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18              NA               NA            18           56702</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19              NA               NA            19           56463</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20              NA               NA            20           55544</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21              NA               NA            21           54560</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22              NA               NA            22           53655</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23              NA               NA            23           51510</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24              NA               NA            24           51533</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25              NA               NA            25           50612</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26              NA               NA            26           49634</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27              NA               NA            27           48865</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28              NA               NA            28           47477</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29              NA               NA            29           47611</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30              NA               NA            30           46493</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31              NA               NA            31           46228</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32              NA               NA            32           45406</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33              NA               NA            33           44412</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34              NA               NA            34           43986</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35              NA               NA            35           42660</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36              NA               NA            36           42668</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37              NA               NA            37           42134</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38              NA               NA            38           41714</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39              NA               NA            39           41122</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40              NA               NA            40           40480</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41              NA               NA            41           39864</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42              NA               NA            42           39509</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43              NA               NA            43           38667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44              NA               NA            44           34400</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45              NA               NA            45           37490</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46              NA               NA            46           37932</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47              NA               NA            47           37080</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48              NA               NA            48           36770</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49              NA               NA            49           35939</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50              NA               NA            50           35905</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51              NA               NA            51           35136</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52              NA               NA            52           34799</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53              NA               NA            53           34099</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54              NA               NA            54           33965</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55              NA               NA            55           33632</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56              NA               NA            56           33346</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57              NA               NA            57           32733</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58              NA               NA            58           32818</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59              NA               NA            59           31939</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60              NA               NA            60           31811</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61              NA               NA            61           31846</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62              NA               NA            62           31014</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63              NA               NA            63           31358</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64              NA               NA            64           30640</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65              NA               NA            65           30371</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66              NA               NA            66           30182</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67              NA               NA            67           29531</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68              NA               NA            68           29751</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69              NA               NA            69           29212</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70              NA               NA            70           28599</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71              NA               NA            71           28182</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72              NA               NA            72           28644</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73              NA               NA            73           28154</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74              NA               NA            74           27587</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75              NA               NA            75           27537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76              NA               NA            76           27275</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77              NA               NA            77           27064</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78              NA               NA            78           27142</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79              NA               NA            79           26655</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80              NA               NA            80           26503</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81              NA               NA            81           26296</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82              NA               NA            82           25213</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83              NA               NA            83           25774</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84              NA               NA            84           24724</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 85              NA               NA            85           25337</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86              NA               NA            86           25361</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 87              NA               NA            87           24962</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88              NA               NA            88           24411</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89              NA               NA            89           24427</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90              NA               NA            90           24599</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 91              NA               NA            91           24128</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 92              NA               NA            92           23943</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 93              NA               NA            93           21914</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 94              NA               NA            94           23812</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 95              NA               NA            95           23516</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 96              NA               NA            96           23346</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 97              NA               NA            97           22965</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 98              NA               NA            98           22955</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 99              NA               NA            99           22828</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100             NA               NA           100           22552</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5_USER (PMT)_t 5_USER (PMT)_cts</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                1              -22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                2               -1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                3               25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                4                0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                5               12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                6                4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                7               12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                8              -13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                9               26</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10              10              -16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11              11              -26</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12              12              -12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13              13               28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14              14               -8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15              15              -10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 45              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 46              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 49              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 54              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 55              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 58              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 63              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 64              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 67              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 72              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 73              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 76              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 81              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 82              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 85              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 87              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 90              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 91              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 92              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 93              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 94              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 95              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 96              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 97              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 98              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 99              NA               NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100             NA               NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="co">##select your BIN-file</span></span></span>
@@ -326,7 +426,6 @@ objects. Each curve will be represented by two columns for time and counts</p></
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##convert</span></span></span>
 <span class="r-in"><span><span class="fu">convert_PSL2CSV</span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -336,7 +435,7 @@ objects. Each curve will be represented by two columns for time and counts</p></
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

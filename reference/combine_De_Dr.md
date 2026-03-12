@@ -28,8 +28,8 @@ combine_De_Dr(
 
 - De:
 
-  [numeric](https://rdrr.io/r/base/numeric.html) (**required**): a
-  equivalent dose sample
+  [numeric](https://rdrr.io/r/base/numeric.html) (**required**): an
+  equivalent dose sample.
 
 - s:
 
@@ -49,10 +49,10 @@ combine_De_Dr(
 
 - Age_range:
 
-  [numeric](https://rdrr.io/r/base/numeric.html) (*with default*): the
-  age range to be investigated by the algorithm, the larger the value
-  the more iterations are needed and the longer it takes. Should not be
-  set too narrow, cut the algorithm some slack.
+  [numeric](https://rdrr.io/r/base/numeric.html) (*with default*): age
+  range to be investigated by the algorithm. The larger the value, the
+  more iterations are needed and the longer it takes. It should not be
+  set too narrow to cut the algorithm some slack.
 
 - outlier_threshold:
 
@@ -65,8 +65,8 @@ combine_De_Dr(
 - outlier_method:
 
   [character](https://rdrr.io/r/base/character.html) (*with default*):
-  select the outlier detection method, either `"default"` or
-  `"RousseeuwCroux1993"`. See details for further information.
+  outlier detection method, either `"default"` or
+  `"RousseeuwCroux1993"`. See details.
 
 - outlier_analysis_plot:
 
@@ -189,26 +189,28 @@ models. Note: `method_control` expects a **named** list of parameters
 
 ## How to cite
 
-Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2025.
+Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2026.
 combine_De_Dr(): Combine Dose Rate and Equivalent Dose Distribution.
 Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
-J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence:
-Comprehensive Luminescence Dating Data Analysis. R package version
-1.1.2. https://r-lum.github.io/Luminescence/
+J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
+Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
+version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
 Mercier, N., Galharret, J.-M., Tribolo, C., Kreutzer, S., Philippe, A.,
-preprint. Luminescence age calculation through Bayesian convolution of
+(2022). Luminescence age calculation through Bayesian convolution of
 equivalent dose and dose-rate distributions: the De_Dr model.
-Geochronology, 1-22.
+Geochronology 4, 297-310.
+[doi:10.5194/gchron-4-297-2022](https://doi.org/10.5194/gchron-4-297-2022)
 
-Galharret, J-M., Philippe, A., Mercier, N., preprint. Detection of
-outliers with a Bayesian hierarchical model: application to the
-single-grain luminescence dating method. Electronic Journal of Applied
-Statistics
+Galharret, J-M., Philippe, A., Mercier, N. (2021). Detection of outliers
+with a Bayesian hierarchical model: application to the single-grain
+luminescence dating method. Electronic Journal of Applied Statistics 14
+(2), 318-338.
+[doi:10.1285/i20705948v14n2p318](https://doi.org/10.1285/i20705948v14n2p318)
 
 **Further reading**
 
@@ -231,8 +233,9 @@ Chemistry 36, 221–242.
 
 Anne Philippe, Université de Nantes (France), Jean-Michel Galharret,
 Université de Nantes (France), Norbert Mercier, IRAMAT-CRP2A, Université
-Bordeaux Montaigne (France), Sebastian Kreutzer, Institute of Geography,
-Heidelberg University (Germany) , RLum Developer Team
+Bordeaux Montaigne (France), Sebastian Kreutzer, F2.1 Geophysical
+Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics
+(Germany) , RLum Developer Team
 
 ## Examples
 

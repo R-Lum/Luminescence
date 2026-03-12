@@ -39,18 +39,18 @@ specifying one or more of the following keywords:
 
 - `"skewness"` (skewness)
 
-**Note** that the input data for the statistic summary is sent to
-function
+**Note:** the input data for the statistic summary is sent to function
 [calc_Statistics](https://r-lum.github.io/Luminescence/reference/calc_Statistics.md)
 depending on the log-option for the z-scale. If `"log.z = TRUE"`, the
 summary is based on the logarithms of the input data. If
 `"log.z = FALSE"` the linearly-scaled data is used.
 
-**Note** as well, that `"calc_Statistics()"` calculates these statistic
-measures in three different ways: `unweighted`, `weighted` and
-`MCM-based` (i.e., based on Monte Carlo Methods). By default, the
-MCM-based version is used. This can be controlled via the
-`summary.method` argument.
+**Note:**
+[calc_Statistics](https://r-lum.github.io/Luminescence/reference/calc_Statistics.md)
+calculates these statistic measures in three different ways:
+`unweighted`, `weighted` and `MCM-based` (i.e., based on Monte Carlo
+Methods). By default, the MCM-based version is used. This can be
+controlled via the `summary.method` argument.
 
 ## Usage
 
@@ -64,7 +64,7 @@ plot_KDE(
   rug = TRUE,
   summary = "",
   summary.pos = "sub",
-  summary.method = "MCM",
+  summary.method = c("MCM", "weighted", "unweighted"),
   bw = "nrd0",
   ...
 )
@@ -87,7 +87,7 @@ plot_KDE(
 - na.rm:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  exclude NA values from the data set prior to any further operation.
+  exclude `NA` values from the data set prior to any further operation.
 
 - values.cumulative:
 
@@ -132,7 +132,7 @@ plot_KDE(
 
   [character](https://rdrr.io/r/base/character.html) (*with default*):
   keyword indicating the method used to calculate the statistic summary.
-  One out of `"MCM"` (default), `"weighted"` or `"unweighted"`. See
+  One of `"MCM"` (default), `"weighted"` or `"unweighted"`. See
   [calc_Statistics](https://r-lum.github.io/Luminescence/reference/calc_Statistics.md)
   for details.
 
@@ -154,7 +154,7 @@ Berger and Galbraith in Ancient TL; see references)!
 
 ## Function version
 
-3.6.0
+3.6.1
 
 ## See also
 
@@ -164,18 +164,18 @@ Berger and Galbraith in Ancient TL; see references)!
 ## Author
 
 Michael Dietze, GFZ Potsdam (Germany)  
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## How to cite
 
-Dietze, M., Kreutzer, S., 2025. plot_KDE(): Plot kernel density estimate
-with statistics. Function version 3.6.0. In: Kreutzer, S., Burow, C.,
+Dietze, M., Kreutzer, S., 2026. plot_KDE(): Plot kernel density estimate
+with statistics. Function version 3.6.1. In: Kreutzer, S., Burow, C.,
 Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 

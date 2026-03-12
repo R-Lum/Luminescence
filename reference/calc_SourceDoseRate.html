@@ -5,13 +5,14 @@ error. The function returns a data.frame that provides the input argument
 dose_rate for the function convert_Second2Gray.
 Calculation of the source dose rate based on the time elapsed since the last
 calibration of the irradiation source. Decay parameters assume a Sr-90 beta
-source. $$dose.rate = D0 * exp(-log(2) / T.1/2 * t)$$  with: D0 &amp;lt;-
-calibration dose rate T.1/2 &amp;lt;- half-life of the source nuclide (here in
-days) t &amp;lt;- time since source calibration (in days) log(2) / T.1/2 equals the
-decay constant lambda
+source.
+$$dose.rate = D0 \exp(-\frac{\log(2)}{T.1/2} t)$$
+where D0 is the calibration dose rate, \(T.1/2\) is the half-life of the
+source nuclide (in days), t is the time since source calibration (in days),
+and \(\log(2) / T.1/2\) equals the decay constant lambda.
 Information on the date of measurements may be taken from the data's
-original .BIN file (using e.g., BINfile &amp;lt;- readBIN2R() and the slot
-BINfile@METADATA$DATE)
+original .BIN file (using e.g., BINfile &amp;lt;- Luminescence::read_BIN2R() and the slot
+BINfile@METADATA$DATE).
 Allowed source types and related values
 
 #Source typeT.1/2Reference
@@ -27,13 +28,14 @@ error. The function returns a data.frame that provides the input argument
 dose_rate for the function convert_Second2Gray.
 Calculation of the source dose rate based on the time elapsed since the last
 calibration of the irradiation source. Decay parameters assume a Sr-90 beta
-source. $$dose.rate = D0 * exp(-log(2) / T.1/2 * t)$$  with: D0 &amp;lt;-
-calibration dose rate T.1/2 &amp;lt;- half-life of the source nuclide (here in
-days) t &amp;lt;- time since source calibration (in days) log(2) / T.1/2 equals the
-decay constant lambda
+source.
+$$dose.rate = D0 \exp(-\frac{\log(2)}{T.1/2} t)$$
+where D0 is the calibration dose rate, \(T.1/2\) is the half-life of the
+source nuclide (in days), t is the time since source calibration (in days),
+and \(\log(2) / T.1/2\) equals the decay constant lambda.
 Information on the date of measurements may be taken from the data's
-original .BIN file (using e.g., BINfile &amp;lt;- readBIN2R() and the slot
-BINfile@METADATA$DATE)
+original .BIN file (using e.g., BINfile &amp;lt;- Luminescence::read_BIN2R() and the slot
+BINfile@METADATA$DATE).
 Allowed source types and related values
 
 #Source typeT.1/2Reference
@@ -51,7 +53,7 @@ Allowed source types and related values
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,7 +74,7 @@ Allowed source types and related values
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Calculation of the source dose rate via the date of measurement</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/calc_SourceDoseRate.R" class="external-link"><code>R/calc_SourceDoseRate.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/calc_SourceDoseRate.R" class="external-link"><code>R/calc_SourceDoseRate.R</code></a></small>
       <div class="d-none name"><code>calc_SourceDoseRate.Rd</code></div>
     </div>
 
@@ -83,13 +85,14 @@ error. The function returns a data.frame that provides the input argument
 dose_rate for the function <a href="convert_Second2Gray.html">convert_Second2Gray</a>.</p>
 <p>Calculation of the source dose rate based on the time elapsed since the last
 calibration of the irradiation source. Decay parameters assume a Sr-90 beta
-source. $$dose.rate = D0 * exp(-log(2) / T.1/2 * t)$$ <br> with: D0 &lt;-
-calibration dose rate T.1/2 &lt;- half-life of the source nuclide (here in
-days) t &lt;- time since source calibration (in days) log(2) / T.1/2 equals the
-decay constant lambda</p>
+source.
+$$dose.rate = D0 \exp(-\frac{\log(2)}{T.1/2} t)$$</p>
+<p>where <code>D0</code> is the calibration dose rate, \(T.1/2\) is the half-life of the
+source nuclide (in days), <code>t</code> is the time since source calibration (in days),
+and \(\log(2) / T.1/2\) equals the decay constant lambda.</p>
 <p>Information on the date of measurements may be taken from the data's
-original .BIN file (using e.g., <code>BINfile &lt;- readBIN2R()</code> and the slot
-<code>BINfile@METADATA$DATE</code>)</p>
+original .BIN file (using e.g., <code>BINfile &lt;- Luminescence::read_BIN2R()</code> and the slot
+<code>BINfile@METADATA$DATE</code>).</p>
 <p><strong>Allowed source types and related values</strong></p>
 <table class="table table"><tr><td><strong>#</strong></td><td><strong>Source type</strong></td><td><strong>T.1/2</strong></td><td><strong>Reference</strong></td></tr><tr><td><code>[1]</code></td><td>Sr-90</td><td>28.90 y</td><td>NNDC, Brookhaven National Laboratory</td></tr><tr><td><code>[2]</code></td><td>Am-214</td><td>432.6 y</td><td>NNDC, Brookhaven National Laboratory</td></tr><tr><td><code>[3]</code></td><td>Co-60</td><td>5.274 y</td><td>NNDC, Brookhaven National Laboratory</td></tr><tr><td><code>[4]</code></td><td>Cs-137</td><td>30.08 y</td><td>NNDC, Brookhaven National Laboratory</td></tr></table></div>
 
@@ -100,8 +103,8 @@ original .BIN file (using e.g., <code>BINfile &lt;- readBIN2R()</code> and the s
 <span>  <span class="va">calib.date</span>,</span>
 <span>  <span class="va">calib.dose.rate</span>,</span>
 <span>  <span class="va">calib.error</span>,</span>
-<span>  source.type <span class="op">=</span> <span class="st">"Sr-90"</span>,</span>
-<span>  dose.rate.unit <span class="op">=</span> <span class="st">"Gy/s"</span>,</span>
+<span>  source.type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sr-90"</span>, <span class="st">"Am-214"</span>, <span class="st">"Co-60"</span>, <span class="st">"Cs-137"</span><span class="op">)</span>,</span>
+<span>  dose.rate.unit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Gy/s"</span>, <span class="st">"Gy/min"</span><span class="op">)</span>,</span>
 <span>  predict <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -184,7 +187,7 @@ when multiple calibration dates (<code>calib.date</code>) are provided.</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Fuchs, M.C., Kreutzer, S., 2025. calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Fuchs, M.C., Kreutzer, S., 2026. calc_SourceDoseRate(): Calculation of the source dose rate via the date of measurement. Function version 0.3.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -197,7 +200,7 @@ when multiple calibration dates (<code>calib.date</code>) are provided.</p>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany) <br>
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 , RLum Developer Team</p>
     </div>
 
@@ -271,7 +274,7 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

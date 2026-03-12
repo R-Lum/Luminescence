@@ -51,7 +51,7 @@ calc_AverageDose(
 - na.rm:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  exclude NA values from the data set prior to any further operation.
+  exclude `NA` values from the data set prior to any further operation.
 
 - plot:
 
@@ -79,43 +79,48 @@ calc_AverageDose(
 
 ## Value
 
-The function returns numerical output and an (*optional*) plot.
+The function produces numerical output and an optional plot. In
+addition, an
+[RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
+object containing the following elements is returned:
 
-———————————–  
-`[ NUMERICAL OUTPUT ]`  
-———————————–  
-**`RLum.Results`**-object  
+- \$summary:
 
-**slot:** **`@data`**  
+  [data.frame](https://rdrr.io/r/base/data.frame.html) summary of all
+  relevant model results.
 
-`[.. $summary : data.frame]`  
+- \$data:
 
-|                       |                                                    |                                |
-|-----------------------|----------------------------------------------------|--------------------------------|
-| **Column**            | **Type**                                           | **Description**                |
-| AVERAGE_DOSE          | [numeric](https://rdrr.io/r/base/numeric.html)     | the obtained average dose      |
-| AVERAGE_DOSE.SE       | [numeric](https://rdrr.io/r/base/numeric.html)     | the average dose error         |
-| SIGMA_D               | [numeric](https://rdrr.io/r/base/numeric.html)     | sigma                          |
-| SIGMA_D.SE            | [numeric](https://rdrr.io/r/base/numeric.html)     | standard error of the sigma    |
-| IC_AVERAGE_DOSE.LEVEL | [character](https://rdrr.io/r/base/character.html) | confidence level average dose  |
-| IC_AVERAGE_DOSE.LOWER | [character](https://rdrr.io/r/base/character.html) | lower quantile of average dose |
-| IC_AVERAGE_DOSE.UPPER | [character](https://rdrr.io/r/base/character.html) | upper quantile of average dose |
-| IC_SIGMA_D.LEVEL      | [integer](https://rdrr.io/r/base/integer.html)     | confidence level sigma         |
-| IC_SIGMA_D.LOWER      | [character](https://rdrr.io/r/base/character.html) | lower sigma quantile           |
-| IC_SIGMA_D.UPPER      | [character](https://rdrr.io/r/base/character.html) | upper sigma quantile           |
-| L_MAX                 | [character](https://rdrr.io/r/base/character.html) | maximum likelihood value       |
+  [data.frame](https://rdrr.io/r/base/data.frame.html) with original
+  input data.
 
-`[.. $dstar : matrix]`  
+- \$dstar:
 
-Matrix with bootstrap values  
+  [matrix](https://rdrr.io/r/base/matrix.html) with bootstrap values.
 
-`[.. $hist : list]`  
+- \$hist:
 
-Object as produced by the function histogram
+  [list](https://rdrr.io/r/base/list.html) object as produced by the
+  [hist](https://rdrr.io/r/graphics/hist.html) function.
 
-————————  
-`[ PLOT OUTPUT ]`  
-————————  
+The `$summary` data.frame contains the following columns:
+
+|                       |                                                    |                                          |
+|-----------------------|----------------------------------------------------|------------------------------------------|
+| **Column**            | **Type**                                           | **Description**                          |
+| AVERAGE_DOSE          | [numeric](https://rdrr.io/r/base/numeric.html)     | the obtained average dose                |
+| AVERAGE_DOSE.SE       | [numeric](https://rdrr.io/r/base/numeric.html)     | the average dose error                   |
+| SIGMA_D               | [numeric](https://rdrr.io/r/base/numeric.html)     | sigma                                    |
+| SIGMA_D.SE            | [numeric](https://rdrr.io/r/base/numeric.html)     | standard error of the sigma              |
+| IC_AVERAGE_DOSE.LEVEL | [character](https://rdrr.io/r/base/character.html) | confidence level average dose            |
+| IC_AVERAGE_DOSE.LOWER | [character](https://rdrr.io/r/base/character.html) | lower quantile of average dose           |
+| IC_AVERAGE_DOSE.UPPER | [character](https://rdrr.io/r/base/character.html) | upper quantile of average dose           |
+| IC_SIGMA_D.LEVEL      | [integer](https://rdrr.io/r/base/integer.html)     | confidence level sigma                   |
+| IC_SIGMA_D.LOWER      | [character](https://rdrr.io/r/base/character.html) | lower sigma quantile                     |
+| IC_SIGMA_D.UPPER      | [character](https://rdrr.io/r/base/character.html) | upper sigma quantile                     |
+| L_MAX                 | [character](https://rdrr.io/r/base/character.html) | maximum likelihood value                 |
+| de                    | [numeric](https://rdrr.io/r/base/numeric.html)     | same as `AVERAGE_DOSE` (internal use)    |
+| de_err                | [numeric](https://rdrr.io/r/base/numeric.html)     | same as `AVERAGE_DOSE.SE` (internal use) |
 
 The function returns two different plot panels.
 
@@ -130,18 +135,18 @@ This function has beta status!
 
 ## Function version
 
-0.1.6
+0.1.7
 
 ## How to cite
 
-Christophe, C., Philippe, A., Guérin, G., Kreutzer, S., 2025.
+Christophe, C., Philippe, A., Guérin, G., Kreutzer, S., 2026.
 calc_AverageDose(): Calculate the Average Dose and the dose rate
-dispersion. Function version 0.1.6. In: Kreutzer, S., Burow, C., Dietze,
+dispersion. Function version 0.1.7. In: Kreutzer, S., Burow, C., Dietze,
 M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N.,
 Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J.,
-Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A.,
+2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
+package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -165,22 +170,21 @@ Statistical Science 1, 54-75.
 
 ## Author
 
-Claire Christophe, IRAMAT-CRP2A, Université de Nantes (France), Anne
-Philippe, Université de Nantes, (France), Guillaume Guérin,
-IRAMAT-CRP2A, Université Bordeaux Montaigne, (France), Sebastian
-Kreutzer, Institute of Geography, Heidelberg University (Germany) , RLum
-Developer Team
+Claire Christophe, IRAMAT-CRP2A, Université de Nantes (France)  
+Anne Philippe, Université de Nantes, (France)  
+Guillaume Guérin, IRAMAT-CRP2A, Université Bordeaux Montaigne,
+(France)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 
 ``` r
-##Example 01 using package example data
-##load example data
+## load example data
 data(ExampleData.DeValues, envir = environment())
 
-##calculate Average dose
-##(use only the first 56 values here)
-AD <- calc_AverageDose(ExampleData.DeValues$CA1[1:56,], sigma_m = 0.1)
+## calculate Average dose (using only the first 56 values here)
+AD <- calc_AverageDose(ExampleData.DeValues$CA1[1:56, ], sigma_m = 0.1)
 #> 
 #> [calc_AverageDose()]
 #> 
@@ -197,20 +201,18 @@ AD <- calc_AverageDose(ExampleData.DeValues$CA1[1:56,], sigma_m = 0.1)
 #> --------------------------------------------------
 #>                          IC_delta      IC_sigma_d
 #> level                        0.95          0.9500
-#> CredibleIntervalInf         60.40          0.2077
-#> CredibleIntervalSup         69.74          0.3860
+#> CredibleIntervalInf         60.39          0.2172
+#> CredibleIntervalSup         69.93          0.4029
 #> --------------------------------------------------
 #> 
 #> >> Results <<
 #> ----------------------------------------------------------
-#> Average dose:      65.3597   se(Aver. dose):  2.4669
-#> sigma_d:   0.3092    se(sigma_d):     0.0476
+#> Average dose:      65.3597   se(Aver. dose):  2.4517
+#> sigma_d:   0.3092    se(sigma_d):     0.0477
 #> ----------------------------------------------------------
 
 
-##plot De and set Average dose as central value
-plot_AbanicoPlot(
- data = ExampleData.DeValues$CA1[1:56,],
- z.0 = AD$summary$AVERAGE_DOSE)
+## plot De and set Average dose as central value
+plot_AbanicoPlot(AD, z.0 = AD$summary$de)
 
 ```

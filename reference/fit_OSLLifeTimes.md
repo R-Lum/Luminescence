@@ -197,13 +197,14 @@ weighted regression analysis. The default values is `TRUE`.
 
 ## How to cite
 
-Kreutzer, S., Schmidt, C., 2025. fit_OSLLifeTimes(): Fitting and
+Kreutzer, S., Schmidt, C., 2026. fit_OSLLifeTimes(): Fitting and
 Deconvolution of OSL Lifetime Components. Function version 0.1.5. In:
 Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/
+Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.2.0.
+https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -230,7 +231,8 @@ Journal of Global Optimization 11, 341–359.
 
 ## Author
 
-Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth University,
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
 Christoph Schmidt, University of Bayreuth (Germany) , RLum Developer
 Team
 
@@ -262,7 +264,7 @@ fit_OSLLifeTimes(
 #> -------------------------------------------------------------------------
 #>           Estimate   Std. Error   t value      Pr(>|t|)
 #> A.1   2.118737e+10 9.710554e+07 218.18915  0.000000e+00
-#> tau.1 8.791461e+01 3.167935e+00  27.75139 1.196538e-143
+#> tau.1 8.791461e+01 3.167935e+00  27.75139 1.196541e-143
 #> -------------------------------------------------------------------------
 #> 
 #> (3) Further information

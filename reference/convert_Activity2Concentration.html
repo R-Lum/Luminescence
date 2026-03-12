@@ -15,7 +15,7 @@ functions such as use_DRAC."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@ functions such as use_DRAC."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Convert Nuclide Activities to Abundance and Vice Versa</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/convert_Activity2Concentration.R" class="external-link"><code>R/convert_Activity2Concentration.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/convert_Activity2Concentration.R" class="external-link"><code>R/convert_Activity2Concentration.R</code></a></small>
       <div class="d-none name"><code>convert_Activity2Concentration.Rd</code></div>
     </div>
 
@@ -50,7 +50,11 @@ functions such as <a href="use_DRAC.html">use_DRAC</a>.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">convert_Activity2Concentration</span><span class="op">(</span><span class="va">data</span>, input_unit <span class="op">=</span> <span class="st">"activity"</span>, verbose <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">convert_Activity2Concentration</span><span class="op">(</span></span>
+<span>  <span class="va">data</span>,</span>
+<span>  input_unit <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"activity"</span>, <span class="st">"abundance"</span><span class="op">)</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -67,9 +71,9 @@ in the 3rd column its error value. Allowed nuclide data are
 
 <dt id="arg-input-unit">input_unit<a class="anchor" aria-label="anchor" href="#arg-input-unit"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
-specify unit of input data given in the dose rate data frame, choose between
-<code>"activity"</code> (considered as given Bq/kg) and <code>"abundance"</code> (considered as given in mug/g or mass. %).
-The default value is <code>"activity"</code></p></dd>
+specify unit of input data given in the dose rate data frame, one of
+<code>"activity"</code> (considered as given Bq/kg, the default) and <code>"abundance"</code>
+(considered as given in mug/g or mass. %).</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
@@ -93,12 +97,12 @@ specific activity of the respective nuclide.</p>
 all atomic weights and composition values from
 <code>https://www.nist.gov/pml/atomic-weights-and-isotopic-compositions-relative-atomic-masses</code>
 and the nuclide data from <code>https://www.iaea.org/resources/databases/livechart-of-nuclides-advanced-version</code></p>
-<p>The factors can be calculated using the equation:</p>
-<p>$$
+<p>The factors can be calculated using the equation:
+$$
 A = N_A \frac{N_{abund}}{N_{mol.mass}}  ln(2) / N.half.life
 $$</p>
-<p>to convert in µg/g we further use:</p>
-<p>$$
+<p>to convert in µg/g we further use:
+$$
 f = A / 10^6
 $$</p>
 <p>where:</p><ul><li><p><code>N_A</code> - Avogadro constant in 1/mol</p></li>
@@ -127,7 +131,7 @@ In other words, 1 µg/g of U means that this is the composition of 0.992 parts o
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Fuchs, M.C., 2025. convert_Activity2Concentration(): Convert Nuclide Activities to Abundance and Vice Versa. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Fuchs, M.C., 2026. convert_Activity2Concentration(): Convert Nuclide Activities to Abundance and Vice Versa. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -135,7 +139,7 @@ In other words, 1 µg/g of U means that this is the composition of 0.992 parts o
 Semiconductor Detectors, Elsevier Science Publishers, p.283</p>
 <p>Wiechen, A., Ruehle, H., Vogl, K., 2013. Bestimmung der massebezogenen
 Aktivitaet von Radionukliden. AEQUIVAL/MASSAKT, ISSN 1865-8725,
-<a href="https://www.bmuv.de/fileadmin/Daten_BMU/Download_PDF/Strahlenschutz/aequival-massakt_v2013-07_bf.pdf" class="external-link">https://www.bmuv.de/fileadmin/Daten_BMU/Download_PDF/Strahlenschutz/aequival-massakt_v2013-07_bf.pdf</a></p>
+<a href="https://www.bundesumweltministerium.de/fileadmin/Daten_BMU/Download_PDF/Strahlenschutz/aequival-massakt_v2013-07_bf.pdf" class="external-link">https://www.bundesumweltministerium.de/fileadmin/Daten_BMU/Download_PDF/Strahlenschutz/aequival-massakt_v2013-07_bf.pdf</a></p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -171,7 +175,7 @@ Aktivitaet von Radionukliden. AEQUIVAL/MASSAKT, ISSN 1865-8725,
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

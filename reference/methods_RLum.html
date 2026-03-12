@@ -15,7 +15,7 @@ by plot(object, ...), where object is the RLum.Data.Curve object."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@ by plot(object, ...), where object is the RLum.Data.Curve object."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>methods_RLum</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/methods_RLum.R" class="external-link"><code>R/methods_RLum.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/methods_RLum.R" class="external-link"><code>R/methods_RLum.R</code></a></small>
       <div class="d-none name"><code>methods_RLum.Rd</code></div>
     </div>
 
@@ -184,20 +184,6 @@ by <code>plot(object, ...)</code>, where <code>object</code> is the <code>RLum.D
 <span><span class="co"># S3 method for class 'RLum.Data.Image'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">is.RLum</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">is.RLum.Data</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">is.RLum.Data.Curve</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">is.RLum.Data.Spectrum</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">is.RLum.Data.Image</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">is.RLum.Analysis</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">is.RLum.Results</span><span class="op">(</span><span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
-<span></span>
 <span><span class="co"># S3 method for class 'RLum'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -326,17 +312,18 @@ keep object structure or drop it</p></dd>
 
 <dt id="arg-i">i<a class="anchor" aria-label="anchor" href="#arg-i"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
-name of the wanted record type or data object or row in the <code>RLum.Data.Curve</code> object</p></dd>
+name of the wanted record type or data object or row in the
+<a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a> object</p></dd>
 
 
 <dt id="arg-j">j<a class="anchor" aria-label="anchor" href="#arg-j"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>optional</em>):
-column of the data matrix in the <code>RLum.Data.Curve</code> object</p></dd>
+column of the data matrix in the <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a> object</p></dd>
 
 
 <dt id="arg-value">value<a class="anchor" aria-label="anchor" href="#arg-value"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
-numeric value which replace the value in the <code>RLum.Data.Curve</code> object</p></dd>
+numeric value which replace the value in the <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a> object</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -367,7 +354,7 @@ surrogates for existing functions in the package.</p>
 <span class="r-in"><span><span class="va">curve1</span> <span class="op">+</span> <span class="va">curve2</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Data.Curve-class]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 recordType: RF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 recordType: RF (NA)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 curveType: merged</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 measured values: 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of x-values: 0.1747448 6.311132</span>
@@ -376,7 +363,7 @@ surrogates for existing functions in the package.</p>
 <span class="r-in"><span><span class="va">curve1</span> <span class="op">-</span> <span class="va">curve2</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Data.Curve-class]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 recordType: RF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 recordType: RF (NA)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 curveType: merged</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 measured values: 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of x-values: 0.1747448 6.311132</span>
@@ -385,7 +372,7 @@ surrogates for existing functions in the package.</p>
 <span class="r-in"><span><span class="va">curve1</span> <span class="op">/</span> <span class="va">curve2</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Data.Curve-class]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 recordType: RF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 recordType: RF (NA)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 curveType: merged</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 measured values: 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of x-values: 0.1747448 6.311132</span>
@@ -394,7 +381,7 @@ surrogates for existing functions in the package.</p>
 <span class="r-in"><span><span class="va">curve1</span> <span class="op">*</span> <span class="va">curve2</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Data.Curve-class]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 recordType: RF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 recordType: RF (NA)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 curveType: merged</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 measured values: 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of x-values: 0.1747448 6.311132</span>
@@ -407,7 +394,7 @@ surrogates for existing functions in the package.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Data.Curve-class]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 recordType: RF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 recordType: RF (NA)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 curveType: NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 measured values: 5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of x-values: 0.1747448 6.311132</span>
@@ -417,7 +404,7 @@ surrogates for existing functions in the package.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Data.Curve-class]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 recordType: RF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 recordType: RF (NA)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 curveType: NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 measured values: 524</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. range of x-values: 0.3768403 715.4821</span>
@@ -432,7 +419,7 @@ surrogates for existing functions in the package.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

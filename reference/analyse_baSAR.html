@@ -19,7 +19,7 @@ refinement of the published code."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +40,7 @@ refinement of the published code."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Bayesian models (baSAR) applied on luminescence data</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/analyse_baSAR.R" class="external-link"><code>R/analyse_baSAR.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/analyse_baSAR.R" class="external-link"><code>R/analyse_baSAR.R</code></a></small>
       <div class="d-none name"><code>analyse_baSAR.Rd</code></div>
     </div>
 
@@ -61,22 +61,22 @@ refinement of the published code.</p>
 <span>  CSV_file <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  aliquot_range <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  source_doserate <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  <span class="va">signal.integral</span>,</span>
-<span>  signal.integral.Tx <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  <span class="va">background.integral</span>,</span>
-<span>  background.integral.Tx <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  signal_integral <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  background_integral <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  signal_integral_Tx <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  background_integral_Tx <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  irradiation_times <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  sigmab <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  sig0 <span class="op">=</span> <span class="fl">0.025</span>,</span>
 <span>  distribution <span class="op">=</span> <span class="st">"cauchy"</span>,</span>
 <span>  baSAR_model <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  n.MCMC <span class="op">=</span> <span class="fl">1e+05</span>,</span>
-<span>  fit.method <span class="op">=</span> <span class="st">"EXP"</span>,</span>
+<span>  fit.method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"EXP"</span>, <span class="st">"EXP+LIN"</span>, <span class="st">"LIN"</span><span class="op">)</span>,</span>
 <span>  fit.force_through_origin <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  fit.includingRepeatedRegPoints <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  method_control <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  digits <span class="op">=</span> <span class="fl">3L</span>,</span>
-<span>  distribution_plot <span class="op">=</span> <span class="st">"kde"</span>,</span>
+<span>  distribution_plot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"kde"</span>, <span class="st">"abanico"</span><span class="op">)</span>,</span>
 <span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  plot_reduced <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  plot_singlePanels <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -119,38 +119,39 @@ the new selection will add the aliquots to the removed aliquots table.</p></dd>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
 source dose rate of beta-source used for the measurement and its uncertainty
 in Gy/s, e.g., <code>source_doserate = c(0.12, 0.04)</code>. Parameter can be provided
-as <code>list</code>, for the case that more than one BIN-file is provided, e.g.,
+as a list, for the case that more than one BIN-file is provided, e.g.,
 <code>source_doserate = list(c(0.04, 0.004), c(0.05, 0.004))</code>.</p></dd>
 
 
-<dt id="arg-signal-integral">signal.integral<a class="anchor" aria-label="anchor" href="#arg-signal-integral"></a></dt>
+<dt id="arg-signal-integral">signal_integral<a class="anchor" aria-label="anchor" href="#arg-signal-integral"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<strong>required</strong>):
 vector with the limits for the signal integral used for the calculation,
-e.g., <code>signal.integral = c(1:5)</code>. Ignored if <code>object</code> is an <a href="RLum.Results-class.html">RLum.Results</a> object.
-The parameter can be provided as <code>list</code>, see <code>source_doserate</code>.</p></dd>
+e.g., <code>signal_integral = 1:5</code>. It is ignored if <code>object</code> is an
+<a href="RLum.Results-class.html">RLum.Results</a> object.
+The parameter can be provided as a list, see <code>source_doserate</code>.</p></dd>
 
 
-<dt id="arg-signal-integral-tx">signal.integral.Tx<a class="anchor" aria-label="anchor" href="#arg-signal-integral-tx"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<em>optional</em>):
-vector with the limits for the signal integral for the Tx curve. I
-f nothing is provided the value from <code>signal.integral</code> is used and it is ignored
-if <code>object</code> is an <a href="RLum.Results-class.html">RLum.Results</a> object.
-The parameter can be provided as <code>list</code>, see <code>source_doserate</code>.</p></dd>
-
-
-<dt id="arg-background-integral">background.integral<a class="anchor" aria-label="anchor" href="#arg-background-integral"></a></dt>
+<dt id="arg-background-integral">background_integral<a class="anchor" aria-label="anchor" href="#arg-background-integral"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<strong>required</strong>):
-vector with the bounds for the background integral.
-Ignored if <code>object</code> is an <a href="RLum.Results-class.html">RLum.Results</a> object.
-The parameter can be provided as <code>list</code>, see <code>source_doserate</code>.</p></dd>
+vector with the limits for the background integral. It is ignored if
+<code>object</code> is an <a href="RLum.Results-class.html">RLum.Results</a> object.
+The parameter can be provided as a list, see <code>source_doserate</code>.</p></dd>
 
 
-<dt id="arg-background-integral-tx">background.integral.Tx<a class="anchor" aria-label="anchor" href="#arg-background-integral-tx"></a></dt>
+<dt id="arg-signal-integral-tx">signal_integral_Tx<a class="anchor" aria-label="anchor" href="#arg-signal-integral-tx"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<em>optional</em>):
+vector with the limits for the signal integral for the Tx curve. If nothing
+is provided, the value from <code>signal_integral</code> is used. It is ignored
+if <code>object</code> is an <a href="RLum.Results-class.html">RLum.Results</a> object.
+The parameter can be provided as a list, see <code>source_doserate</code>.</p></dd>
+
+
+<dt id="arg-background-integral-tx">background_integral_Tx<a class="anchor" aria-label="anchor" href="#arg-background-integral-tx"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/vector.html" class="external-link">vector</a> (<em>optional</em>):
 vector with the limits for the background integral for the Tx curve.
-If nothing is provided the value from <code>background.integral</code> is used.
-Ignored if <code>object</code> is an <a href="RLum.Results-class.html">RLum.Results</a> object.
-The parameter can be provided as <code>list</code>, see <code>source_doserate</code>.</p></dd>
+If nothing is provided, the value from <code>background_integral</code> is used.
+It is ignored if <code>object</code> is an <a href="RLum.Results-class.html">RLum.Results</a> object.
+The parameter can be provided as a list, see <code>source_doserate</code>.</p></dd>
 
 
 <dt id="arg-irradiation-times">irradiation_times<a class="anchor" aria-label="anchor" href="#arg-irradiation-times"></a></dt>
@@ -177,16 +178,17 @@ The parameter can be provided as <code>list</code>, see <code>source_doserate</c
 
 <dt id="arg-distribution">distribution<a class="anchor" aria-label="anchor" href="#arg-distribution"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
-type of distribution that is used during Bayesian calculations for
-determining the Central dose and overdispersion values.
-Allowed inputs are <code>"cauchy"</code>, <code>"normal"</code> and <code>"log_normal"</code>.</p></dd>
+type of distribution used during Bayesian calculations to determine the
+Central dose and overdispersion values (one of <code>"cauchy"</code>, <code>"normal"</code>,
+<code>"log_normal"</code> and <code>"user_defined"</code>). If set to <code>"user_defined"</code>, argument
+<code>baSAR_model</code> must be provided.</p></dd>
 
 
 <dt id="arg-basar-model">baSAR_model<a class="anchor" aria-label="anchor" href="#arg-basar-model"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>optional</em>):
 option to provide an own modified or new model for the Bayesian calculation
-(see details). If an own model is provided the argument <code>distribution</code> is
-ignored and set to <code>'user_defined'</code></p></dd>
+(see details). If provided, argument <code>distribution</code> is automatically set to
+<code>"user_defined"</code>.</p></dd>
 
 
 <dt id="arg-n-mcmc">n.MCMC<a class="anchor" aria-label="anchor" href="#arg-n-mcmc"></a></dt>
@@ -196,8 +198,9 @@ number of iterations for the Markov chain Monte Carlo (MCMC) simulations</p></dd
 
 <dt id="arg-fit-method">fit.method<a class="anchor" aria-label="anchor" href="#arg-fit-method"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
-equation used for the fitting of the dose-response curve using the function
-<a href="plot_GrowthCurve.html">plot_GrowthCurve</a> and then for the Bayesian modelling. Here supported methods: <code>EXP</code>, <code>EXP+LIN</code> and <code>LIN</code></p></dd>
+equation used both for the fitting of the dose-response curve using function
+<a href="fit_DoseResponseCurve.html">fit_DoseResponseCurve</a> and then for the Bayesian modelling.
+Supported methods: <code>EXP</code>, <code>EXP+LIN</code> and <code>LIN</code>.</p></dd>
 
 
 <dt id="arg-fit-force-through-origin">fit.force_through_origin<a class="anchor" aria-label="anchor" href="#arg-fit-force-through-origin"></a></dt>
@@ -225,7 +228,8 @@ round output to the number of given digits</p></dd>
 <dt id="arg-distribution-plot">distribution_plot<a class="anchor" aria-label="anchor" href="#arg-distribution-plot"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>): sets the final distribution plot that
 shows equivalent doses obtained using the frequentist approach and sets in the central dose
-as comparison obtained using baSAR. Allowed input is <code>'abanico'</code> or <code>'kde'</code>. If set to <code>NULL</code> nothing is plotted.</p></dd>
+as comparison obtained using baSAR. Allowed input is <code>'abanico'</code> or <code>'kde'</code>.
+If set to <code>NULL</code> nothing is plotted.</p></dd>
 
 
 <dt id="arg-plot">plot<a class="anchor" aria-label="anchor" href="#arg-plot"></a></dt>
@@ -250,7 +254,7 @@ enable/disable output to the terminal.</p></dd>
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>parameters that can be passed to the function <a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a>
-(almost full support), <a href="https://rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">data.table::fread</a> (<code>skip</code>), <a href="read_BIN2R.html">read_BIN2R</a> (<code>n.records</code>,
+(almost full support), <a href="https://rdrr.io/pkg/data.table/man/fread.html" class="external-link">data.table::fread</a> (<code>skip</code>), <a href="read_BIN2R.html">read_BIN2R</a> (<code>n.records</code>,
 <code>position</code>, <code>duplicated.rm</code>), see details.</p></dd>
 
 </dl></div>
@@ -314,12 +318,12 @@ used for the analysis.</p>
 <p>If no CSV file (or data frame with the same format) is provided, the
 function runs an automatic process that consists of the following steps:</p><ol><li><p>Select all valid aliquots using the function <a href="verify_SingleGrainData.html">verify_SingleGrainData</a></p></li>
 <li><p>Calculate <code>Lx/Tx</code> values using the function <a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a></p></li>
-<li><p>Calculate De values using the function <a href="plot_GrowthCurve.html">plot_GrowthCurve</a></p></li>
+<li><p>Calculate De values using the function <a href="fit_DoseResponseCurve.html">fit_DoseResponseCurve</a></p></li>
 </ol><p>These proceeded data are subsequently used in for the Bayesian analysis</p>
 <p><code>[CSV_file != NULL]</code></p>
 <p>If a CSV file is provided (or a <code>data.frame</code> containing similar information)
 the pre-processing phase consists of the following steps:</p><ol><li><p>Calculate <code>Lx/Tx</code> values using the function <a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a></p></li>
-<li><p>Calculate De values using the function <a href="plot_GrowthCurve.html">plot_GrowthCurve</a></p></li>
+<li><p>Calculate De values using the function <a href="fit_DoseResponseCurve.html">fit_DoseResponseCurve</a></p></li>
 </ol><p>The CSV file should contain the BIN-file names and the aliquots selected
 for the further analysis. This allows a manual selection of input data, as
 the automatic selection by <a href="verify_SingleGrainData.html">verify_SingleGrainData</a> might not be sufficient.</p>
@@ -363,23 +367,23 @@ Example: <code>method_control = list(lower_centralD = 10))</code></p>
 <p><strong>Additional arguments support via the <code>...</code> argument</strong></p>
 <p>This list summarizes the additional arguments that can be passed to the internally used
 functions.</p>
-<table class="table table"><tr><td><strong>Supported argument</strong></td><td><strong>Corresponding function</strong></td><td><strong>Default</strong></td><td>**Short description **</td></tr><tr><td><code>threshold</code></td><td><a href="verify_SingleGrainData.html">verify_SingleGrainData</a></td><td><code>30</code></td><td>change rejection threshold for curve selection</td></tr><tr><td><code>skip</code></td><td><a href="https://rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">data.table::fread</a></td><td><code>0</code></td><td>number of rows to be skipped during import</td></tr><tr><td><code>n.records</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>NULL</code></td><td>limit records during BIN-file import</td></tr><tr><td><code>duplicated.rm</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>TRUE</code></td><td>remove duplicated records in the BIN-file</td></tr><tr><td><code>pattern</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>TRUE</code></td><td>select BIN-file by name pattern</td></tr><tr><td><code>position</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>NULL</code></td><td>limit import to a specific position</td></tr><tr><td><code>background.count.distribution</code></td><td><a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a></td><td><code>"non-poisson"</code></td><td>set assumed count distribution</td></tr><tr><td><code>fit.weights</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>TRUE</code></td><td>enable/disable fit weights</td></tr><tr><td><code>fit.bounds</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>TRUE</code></td><td>enable/disable fit bounds</td></tr><tr><td><code>n.MC</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>100</code></td><td>number of MC runs for error calculation</td></tr><tr><td><code>output.plot</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>TRUE</code></td><td>enable/disable dose response curve plot</td></tr><tr><td><code>output.plotExtended</code></td><td><a href="plot_GrowthCurve.html">plot_GrowthCurve</a></td><td><code>TRUE</code></td><td>enable/disable extended dose response curve plot</td></tr><tr><td><code>recordType</code></td><td><a href="get_RLum.html">get_RLum</a></td><td><code>c(OSL (UVVIS), irradiation (NA)</code></td><td>helps for the curve selection</td></tr></table></div>
+<table class="table table"><tr><td><strong>Supported argument</strong></td><td><strong>Corresponding function</strong></td><td><strong>Default</strong></td><td><strong>Short description</strong></td></tr><tr><td><code>threshold</code></td><td><a href="verify_SingleGrainData.html">verify_SingleGrainData</a></td><td><code>30</code></td><td>change rejection threshold for curve selection</td></tr><tr><td><code>skip</code></td><td><a href="https://rdrr.io/pkg/data.table/man/fread.html" class="external-link">data.table::fread</a></td><td><code>0</code></td><td>number of rows to be skipped during import</td></tr><tr><td><code>n.records</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>NULL</code></td><td>limit records during BIN-file import</td></tr><tr><td><code>duplicated.rm</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>TRUE</code></td><td>remove duplicated records in the BIN-file</td></tr><tr><td><code>pattern</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>TRUE</code></td><td>select BIN-file by name pattern</td></tr><tr><td><code>position</code></td><td><a href="read_BIN2R.html">read_BIN2R</a></td><td><code>NULL</code></td><td>limit import to a specific position</td></tr><tr><td><code>background.count.distribution</code></td><td><a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a></td><td><code>"non-poisson"</code></td><td>set assumed count distribution</td></tr><tr><td><code>fit.weights</code></td><td><a href="fit_DoseResponseCurve.html">fit_DoseResponseCurve</a></td><td><code>TRUE</code></td><td>enable/disable fit weights</td></tr><tr><td><code>fit.bounds</code></td><td><a href="fit_DoseResponseCurve.html">fit_DoseResponseCurve</a></td><td><code>TRUE</code></td><td>enable/disable fit bounds</td></tr><tr><td><code>n.MC</code></td><td><a href="fit_DoseResponseCurve.html">fit_DoseResponseCurve</a></td><td><code>100</code></td><td>number of MC runs for error calculation</td></tr><tr><td><code>plot_drc</code></td><td><a href="plot_DoseResponseCurve.html">plot_DoseResponseCurve</a></td><td><code>TRUE</code></td><td>enable/disable dose response curve plot</td></tr><tr><td><code>plot_extended</code></td><td><a href="plot_DoseResponseCurve.html">plot_DoseResponseCurve</a></td><td><code>TRUE</code></td><td>enable/disable extended dose response curve plot</td></tr><tr><td><code>recordType</code></td><td><a href="get_RLum.html">get_RLum</a></td><td><code>c(OSL (UVVIS), irradiation (NA)</code></td><td>helps for the curve selection</td></tr></table></div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
     <p><strong>If you provide more than one BIN-file</strong>, it is <strong>strongly</strong> recommended to provide
 a <code>list</code> with the same number of elements for the following parameters:</p>
-<p><code>source_doserate</code>, <code>signal.integral</code>, <code>signal.integral.Tx</code>, <code>background.integral</code>,
-<code>background.integral.Tx</code>, <code>sigmab</code>, <code>sig0</code>.</p>
+<p><code>source_doserate</code>, <code>signal_integral</code>, <code>signal_integral_Tx</code>, <code>background_integral</code>,
+<code>background_integral_Tx</code>, <code>sigmab</code>, <code>sig0</code>.</p>
 <p>Example for two BIN-files: <code>source_doserate = list(c(0.04, 0.006), c(0.05, 0.006))</code></p>
 <p><strong>The function is currently limited to work with standard Risoe BIN-files only!</strong></p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.1.37</p>
+    <p>0.1.41</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Mercier, N., Kreutzer, S., 2025. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.37. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Mercier, N., Kreutzer, S., 2026. analyse_baSAR(): Bayesian models (baSAR) applied on luminescence data. Function version 0.1.41. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -398,14 +402,15 @@ regenerative-dose protocol. Radiation Measurements 32, 57-73. doi:10.1016/S1350-
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><a href="read_BIN2R.html">read_BIN2R</a>, <a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a>, <a href="plot_GrowthCurve.html">plot_GrowthCurve</a>,
-<a href="https://rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">data.table::fread</a>, <a href="verify_SingleGrainData.html">verify_SingleGrainData</a>,
+    <div class="dont-index"><p><a href="read_BIN2R.html">read_BIN2R</a>, <a href="calc_OSLLxTxRatio.html">calc_OSLLxTxRatio</a>,
+<a href="fit_DoseResponseCurve.html">fit_DoseResponseCurve</a>, <a href="plot_DoseResponseCurve.html">plot_DoseResponseCurve</a>,
+<a href="https://rdrr.io/pkg/data.table/man/fread.html" class="external-link">data.table::fread</a>, <a href="verify_SingleGrainData.html">verify_SingleGrainData</a>,
 <a href="https://rdrr.io/pkg/rjags/man/jags.model.html" class="external-link">rjags::jags.model</a>, <a href="https://rdrr.io/pkg/rjags/man/coda.samples.html" class="external-link">rjags::coda.samples</a>, <a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot.default</a></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Norbert Mercier, Archéosciences Bordeaux, CNRS-Université Bordeaux Montaigne (France) <br>
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany) <br>
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) <br>
 The underlying Bayesian model based on a contribution by Combès et al., 2015.
 , RLum Developer Team</p>
     </div>
@@ -423,20 +428,19 @@ The underlying Bayesian model based on a contribution by Combès et al., 2015.
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="co">##(3) run analysis</span></span></span>
-<span class="r-in"><span><span class="co">##please not that the here selected parameters are</span></span></span>
-<span class="r-in"><span><span class="co">##choosen for performance, not for reliability</span></span></span>
+<span class="r-in"><span><span class="co">## please note that the parameters used here are</span></span></span>
+<span class="r-in"><span><span class="co">## chosen for performance, not for reliability</span></span></span>
 <span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">analyse_baSAR</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  object <span class="op">=</span> <span class="va">CWOSL.SAR.Data</span>,</span></span>
 <span class="r-in"><span>  source_doserate <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.04</span>, <span class="fl">0.001</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  signal.integral <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>  background.integral <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">80</span><span class="op">:</span><span class="fl">100</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  signal_integral <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,</span></span>
+<span class="r-in"><span>  background_integral <span class="op">=</span> <span class="fl">80</span><span class="op">:</span><span class="fl">100</span>,</span></span>
 <span class="r-in"><span>  fit.method <span class="op">=</span> <span class="st">"LIN"</span>,</span></span>
 <span class="r-in"><span>  plot <span class="op">=</span> <span class="cn">FALSE</span>,</span></span>
 <span class="r-in"><span>  n.MCMC <span class="op">=</span> <span class="fl">200</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##CSV_file template</span></span></span>
 <span class="r-in"><span><span class="co">##copy and paste this the code below in the terminal</span></span></span>
@@ -450,9 +454,7 @@ The underlying Bayesian model based on a contribution by Combès et al., 2015.
 <span class="r-in"><span> GRAIN <span class="op">=</span> <span class="cn">NA_real_</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>   .Names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"BIN_FILE"</span>, <span class="st">"DISC"</span>, <span class="st">"GRAIN"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>   class <span class="op">=</span> <span class="st">"data.frame"</span>,</span></span>
-<span class="r-in"><span>   row.names <span class="op">=</span> <span class="fl">1L</span></span></span>
-<span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
+<span class="r-in"><span>   row.names <span class="op">=</span> <span class="fl">1L</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -462,7 +464,7 @@ The underlying Bayesian model based on a contribution by Combès et al., 2015.
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

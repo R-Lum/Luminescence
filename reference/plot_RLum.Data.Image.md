@@ -29,7 +29,7 @@ plot_RLum.Data.Image(
   object,
   frames = NULL,
   par.local = TRUE,
-  plot.type = "plot.raster",
+  plot.type = c("plot.raster", "contour"),
   ...
 )
 ```
@@ -39,7 +39,8 @@ plot_RLum.Data.Image(
 - object:
 
   [RLum.Data.Image](https://r-lum.github.io/Luminescence/reference/RLum.Data.Image-class.md)
-  (**required**): S4 object of class `RLum.Data.Image`
+  (**required**): S4 object of class
+  [RLum.Data.Image](https://r-lum.github.io/Luminescence/reference/RLum.Data.Image-class.md)
 
 - frames:
 
@@ -94,18 +95,19 @@ maintain a particular value range over a series of images.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## How to cite
 
-Kreutzer, S., 2025. plot_RLum.Data.Image(): Plot function for an
+Kreutzer, S., 2026. plot_RLum.Data.Image(): Plot function for an
 RLum.Data.Image S4 class object. Function version 0.2.2. In: Kreutzer,
 S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M.,
 Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/
+Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.2.0.
+https://r-lum.github.io/Luminescence/
 
 ## Examples
 

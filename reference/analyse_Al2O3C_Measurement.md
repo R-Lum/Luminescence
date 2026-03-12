@@ -10,6 +10,7 @@ lexsyg SMART reader using Al2O3:C chips according to Kreutzer et al.,
 analyse_Al2O3C_Measurement(
   object,
   signal_integral = NULL,
+  integral_input = c("channel", "measurement"),
   dose_points = c(0, 4),
   recordType = c("OSL (UVVIS)", "TL (UVVIS)"),
   calculate_TL_dose = FALSE,
@@ -36,6 +37,13 @@ analyse_Al2O3C_Measurement(
   integral, used for the signal and the background. Example: `c(1:10)`
   for the first 10 channels. If nothing is provided the full range is
   used
+
+- integral_input:
+
+  [character](https://rdrr.io/r/base/character.html) (*with default*):
+  input type for `signal_integral`, one of `"channel"` (default) or
+  `"measurement"`. If set to `"measurement"`, the best matching channels
+  corresponding to the given time range (in seconds) are selected.
 
 - dose_points:
 
@@ -126,10 +134,10 @@ Function returns results numerically and graphically:
 | `test_parameters`  | `data.frame` | results with test parameters                                 |
 | `data_TDcorrected` | `data.frame` | travel dosimeter corrected results (only if TD was provided) |
 
-*Note: If correction the irradiation time and the cross-talk correction
-method is used, the De values in the table `data` table are already
-corrected, i.e. if you want to get an uncorrected value, you can use the
-column `CT_CORRECTION` remove the correction*
+**Note:** If correction the irradiation time and the cross-talk
+correction method is used, the De values in the table `data` table are
+already corrected, i.e. if you want to get an uncorrected value, you can
+use the column `CT_CORRECTION` remove the correction.
 
 **slot:** **`@info`**
 
@@ -182,17 +190,18 @@ threshold, a warning is returned.
 
 ## Function version
 
-0.2.6
+0.2.7
 
 ## How to cite
 
-Kreutzer, S., 2025. analyse_Al2O3C_Measurement(): Al2O3:C Passive
-Dosimeter Measurement Analysis. Function version 0.2.6. In: Kreutzer,
+Kreutzer, S., 2026. analyse_Al2O3C_Measurement(): Al2O3:C Passive
+Dosimeter Measurement Analysis. Function version 0.2.7. In: Kreutzer,
 S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M.,
 Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/
+Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.2.0.
+https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -207,8 +216,8 @@ Geochronometria 45, 56-67.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 

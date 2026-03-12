@@ -9,7 +9,7 @@ RLum.Analysis object including growth curve fitting."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ RLum.Analysis object including growth curve fitting."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Analyse SAR TL measurements</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/analyse_SAR.TL.R" class="external-link"><code>R/analyse_SAR.TL.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/analyse_SAR.TL.R" class="external-link"><code>R/analyse_SAR.TL.R</code></a></small>
       <div class="d-none name"><code>analyse_SAR.TL.Rd</code></div>
     </div>
 
@@ -44,8 +44,7 @@ RLum.Analysis object including growth curve fitting."></head><body>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">analyse_SAR.TL</span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
 <span>  <span class="va">object.background</span>,</span>
-<span>  <span class="va">signal.integral.min</span>,</span>
-<span>  <span class="va">signal.integral.max</span>,</span>
+<span>  <span class="va">signal_integral</span>,</span>
 <span>  integral_input <span class="op">=</span> <span class="st">"channel"</span>,</span>
 <span>  sequence.structure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"PREHEAT"</span>, <span class="st">"SIGNAL"</span>, <span class="st">"BACKGROUND"</span><span class="op">)</span>,</span>
 <span>  rejection.criteria <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>recycling.ratio <span class="op">=</span> <span class="fl">10</span>, recuperation.rate <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
@@ -68,24 +67,16 @@ input object containing data for analysis</p></dd>
 <dd><p>currently not used</p></dd>
 
 
-<dt id="arg-signal-integral-min">signal.integral.min<a class="anchor" aria-label="anchor" href="#arg-signal-integral-min"></a></dt>
+<dt id="arg-signal-integral">signal_integral<a class="anchor" aria-label="anchor" href="#arg-signal-integral"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<strong>required</strong>):
-requires the channel number for the lower signal integral bound
-(e.g. <code>signal.integral.min = 100</code>)</p></dd>
-
-
-<dt id="arg-signal-integral-max">signal.integral.max<a class="anchor" aria-label="anchor" href="#arg-signal-integral-max"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<strong>required</strong>):
-requires the channel number for the upper signal integral bound
-(e.g. <code>signal.integral.max = 200</code>)</p></dd>
+vector of inputs (as defined by <code>integral_input</code>) for the signal integral.</p></dd>
 
 
 <dt id="arg-integral-input">integral_input<a class="anchor" aria-label="anchor" href="#arg-integral-input"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
-defines the input for the arguments <code>signal.integral.min</code> and
-<code>signal.integral.max</code>. These limits can be either provided <code>'channel'</code>
-number (the default) or <code>'temperature'</code>. If <code>'temperature'</code> is chosen, the
-best matching channel is selected.</p></dd>
+input type for <code>signal_integral</code>, one of <code>"channel"</code> (default) or
+<code>"measurement"</code>. If set to <code>"measurement"</code>, the best matching channels
+corresponding to the given temperature range are selected.</p></dd>
 
 
 <dt id="arg-sequence-structure">sequence.structure<a class="anchor" aria-label="anchor" href="#arg-sequence-structure"></a></dt>
@@ -129,7 +120,7 @@ returned containing the following elements:</p>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> of all calculated <code>Lx/Tx</code> values including signal, background counts and the dose points.</p></dd>
 
 <dt>rejection.criteria</dt>
-<dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with values that might by used as rejection criteria. NA is produced if no R0 dose point exists.</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with values that might by used as rejection criteria. <code>NA</code> is produced if no R0 dose point exists.</p></dd>
 
 
 </dl><p>The output should be accessed using the function <a href="get_RLum.html">get_RLum</a>.</p>
@@ -154,11 +145,11 @@ background see Aitken and Smith (1988)</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.3.1</p>
+    <p>0.3.3</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2025. analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.3.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2026. analyse_SAR.TL(): Analyse SAR TL measurements. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -175,7 +166,7 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+    <p>Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 , RLum Developer Team</p>
     </div>
 
@@ -191,12 +182,11 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 <span class="r-in"><span><span class="co">##perform analysis</span></span></span>
 <span class="r-in"><span><span class="fu">analyse_SAR.TL</span><span class="op">(</span></span></span>
 <span class="r-in"><span> object <span class="op">=</span> <span class="va">object</span>,</span></span>
-<span class="r-in"><span> signal.integral.min <span class="op">=</span> <span class="fl">210</span>,</span></span>
-<span class="r-in"><span> signal.integral.max <span class="op">=</span> <span class="fl">220</span>,</span></span>
+<span class="r-in"><span> signal_integral <span class="op">=</span> <span class="fl">210</span><span class="op">:</span><span class="fl">220</span>,</span></span>
 <span class="r-in"><span> fit.method <span class="op">=</span> <span class="st">"EXP OR LIN"</span>,</span></span>
 <span class="r-in"><span> sequence.structure <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"SIGNAL"</span>, <span class="st">"BACKGROUND"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="analyse_SAR.TL-1.png" alt="" width="700" height="433"></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [fit_DoseResponseCurve()] Fit: EXP OR LIN (interpolation) | De = 415.66 | D01 = 3685556.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [fit_DoseResponseCurve()] Fit: EXP OR LIN (interpolation) | De = 415.65 | D01 = 11207248.85</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Results-class]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 originator: analyse_SAR.TL()</span>
@@ -213,7 +203,7 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

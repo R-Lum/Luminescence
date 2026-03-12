@@ -19,7 +19,7 @@ please check, e.g., package 'tgcd'."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +40,7 @@ please check, e.g., package 'tgcd'."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Luminescence Emission Spectra Deconvolution</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/fit_EmissionSpectra.R" class="external-link"><code>R/fit_EmissionSpectra.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/fit_EmissionSpectra.R" class="external-link"><code>R/fit_EmissionSpectra.R</code></a></small>
       <div class="d-none name"><code>fit_EmissionSpectra.Rd</code></div>
     </div>
 
@@ -156,8 +156,8 @@ parameter estimation. The grey band in the residual plot indicates the
     <p><strong>Used equation</strong></p>
 <p>The emission spectra (on an energy scale) can be best described as the sum of multiple
 Gaussian components:</p>
-<p>'$$
-y = \Sigma  Ci * 1/(\sigma_{i} * \sqrt(2 * \pi)) * exp(-1/2 * ((x - \mu_{i})/\sigma_{i}))^2)
+<p>$$
+y = \sum_i \frac{C_i}{\sigma_{i} \sqrt{2 \pi}} exp(-1/2 ((x - \mu_{i})/\sigma_{i})^2)
 $$</p>
 <p>with the parameters \(\sigma\) (peak width) and \(\mu\) (peak centre) and \(C\)
 (scaling factor).</p>
@@ -165,8 +165,8 @@ $$</p>
 <p>The spectrum deconvolution consists of the following steps:</p><ol><li><p>Peak finding <br></p></li>
 <li><p>Start parameter estimation <br></p></li>
 <li><p>Fitting via <a href="https://rdrr.io/pkg/minpack.lm/man/nls.lm.html" class="external-link">minpack.lm::nls.lm</a><br></p></li>
-</ol><p>The peak finding is realised by an approach (re-)suggested by Petr Pikal via the R-help
-mailing list (<code>https://stat.ethz.ch/pipermail/r-help/2005-November/thread.html</code>) in November 2005.
+</ol><p>The peak finding is based on an approach (re-)suggested by Petr Pikal in
+November 2005 in the R-help mailing list (https://stat.ethz.ch/pipermail/r-help/2005-November/thread.html).
 This goes back to even earlier discussion in 2001 based on Prof Brian Ripley's idea.
 It smartly uses the functions <a href="https://rdrr.io/r/stats/embed.html" class="external-link">stats::embed</a> and <a href="https://rdrr.io/r/base/maxCol.html" class="external-link">max.col</a> to identify peaks positions.
 For the use in this context, the algorithm has been further modified to scale on the
@@ -193,13 +193,13 @@ of the values of all curves in the plot for each frame analysed</td></tr><tr><td
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br>
+    <p>Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)<br>
 Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Colombo, M., 2025. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvolution. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Colombo, M., 2026. fit_EmissionSpectra(): Luminescence Emission Spectra Deconvolution. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">
@@ -222,14 +222,16 @@ Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; Treating dataset &gt;&gt; 5 &lt;&lt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; Wavelength scale detected ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; Wavelength to energy scale conversion ... 	[OK]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; Searching components ... 			[-]&gt;&gt; Searching components ... 			[\]&gt;&gt; Searching components ... 			[-]&gt;&gt; Searching components ... 			[-]&gt;&gt; Searching components ... 			[/]&gt;&gt; Searching components ... 			[-]&gt;&gt; Searching components ... 			[/]&gt;&gt; Searching components ... 			[-]&gt;&gt; Searching components ... 			[\]&gt;&gt; Searching components ... 			[-]&gt;&gt; Searching components ... 			 [OK]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; Searching components ... 			[-]&gt;&gt; Searching components ... 			[-]&gt;&gt; Searching components ... 			[/]&gt;&gt; Searching components ... 			[-]&gt;&gt; Searching components ... 			[/]&gt;&gt; Searching components ... 			[-]&gt;&gt; Searching components ... 			[-]&gt;&gt; Searching components ... 			[-]&gt;&gt; Searching components ... 			[-]&gt;&gt; Searching components ... 			[/]&gt;&gt; Searching components ... 			 [OK]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; Fitting results (1 component model):</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; Fitting results (3 component model):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            mu      SE(mu)     sigma   SE(sigma)         C     SE(C)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 2.578403 0.006164002 0.3748351 0.005834795 0.7750779 0.0108509</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            mu      SE(mu)      sigma   SE(sigma)          C       SE(C)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 2.167089 0.002648088 0.05967535 0.003529950 0.05488346 0.011627649</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 2.296782 0.008115817 0.10243860 0.005019236 0.16338915 0.014156724</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 2.770252 0.003037348 0.31994834 0.002807038 0.56341011 0.004735947</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SE: standard error | SSR: 2.164e+01| R^2: 0.807 | R^2_adj: 0.1938</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SE: standard error | SSR: 7.787e-01| R^2: 0.993 | R^2_adj: 0.007</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (use the output in $fit for a more detailed analysis)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-plt img"><img src="fit_EmissionSpectra-1.png" alt="" width="700" height="433"></span>
@@ -254,7 +256,7 @@ Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

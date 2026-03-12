@@ -109,13 +109,14 @@ to 310.
 plot_RLum.Data.Spectrum(
   object,
   par.local = TRUE,
-  plot.type = "contour",
+  plot.type = c("contour", "persp", "single", "multiple.lines", "image", "transect",
+    "interactive"),
   optical.wavelength.colours = TRUE,
   bg.spectrum = NULL,
   bg.channels = NULL,
   bin.rows = 1,
   bin.cols = 1,
-  norm = NULL,
+  norm = FALSE,
   rug = TRUE,
   limit_counts = NULL,
   xaxis.energy = FALSE,
@@ -131,8 +132,9 @@ plot_RLum.Data.Spectrum(
 
   [RLum.Data.Spectrum](https://r-lum.github.io/Luminescence/reference/RLum.Data.Spectrum-class.md)
   or [matrix](https://rdrr.io/r/base/matrix.html) (**required**): S4
-  object of class `RLum.Data.Spectrum` or a `matrix` containing count
-  values of the spectrum.  
+  object of class
+  [RLum.Data.Spectrum](https://r-lum.github.io/Luminescence/reference/RLum.Data.Spectrum-class.md)
+  or a `matrix` containing count values of the spectrum.  
   Please note that in case of a matrix row names and col names are set
   automatically if not provided.
 
@@ -200,10 +202,12 @@ plot_RLum.Data.Spectrum(
 
 - norm:
 
-  [character](https://rdrr.io/r/base/character.html) (*optional*):
-  Normalise data to the maximum (`norm = "max"`) or minimum
-  (`norm = "min"`) count values. The normalisation is applied after
-  binning.
+  [logical](https://rdrr.io/r/base/logical.html),
+  [character](https://rdrr.io/r/base/character.html) (*optional*): if
+  logical, whether curve normalisation should occur (`FALSE` by
+  default); alternatively, one of the values detailed in
+  [plot_RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/plot_RLum.Data.Curve.md).
+  The normalisation is applied after binning.
 
 - rug:
 
@@ -276,18 +280,19 @@ Not all additional arguments (`...`) will be passed similarly!
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## How to cite
 
-Kreutzer, S., 2025. plot_RLum.Data.Spectrum(): Plot function for an
+Kreutzer, S., 2026. plot_RLum.Data.Spectrum(): Plot function for an
 RLum.Data.Spectrum S4 class object. Function version 0.6.13. In:
 Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/
+Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.2.0.
+https://r-lum.github.io/Luminescence/
 
 ## Examples
 

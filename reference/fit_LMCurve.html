@@ -15,7 +15,7 @@ from package minpack.lm."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@ from package minpack.lm."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Non-linear Least Squares Fit for LM-OSL curves</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/fit_LMCurve.R" class="external-link"><code>R/fit_LMCurve.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/fit_LMCurve.R" class="external-link"><code>R/fit_LMCurve.R</code></a></small>
       <div class="d-none name"><code>fit_LMCurve.Rd</code></div>
     </div>
 
@@ -51,18 +51,18 @@ from package <code>minpack.lm</code>.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fit_LMCurve</span><span class="op">(</span></span>
-<span>  <span class="va">values</span>,</span>
-<span>  <span class="va">values.bg</span>,</span>
+<span>  <span class="va">object</span>,</span>
+<span>  <span class="va">object.bg</span>,</span>
 <span>  n.components <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>  start_values <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  input.dataType <span class="op">=</span> <span class="st">"LM"</span>,</span>
+<span>  input.dataType <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"LM"</span>, <span class="st">"pLM"</span><span class="op">)</span>,</span>
 <span>  sample_code <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  sample_ID <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  LED.power <span class="op">=</span> <span class="fl">36</span>,</span>
 <span>  LED.wavelength <span class="op">=</span> <span class="fl">470</span>,</span>
 <span>  fit.trace <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  fit.calcError <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  bg.subtraction <span class="op">=</span> <span class="st">"polynomial"</span>,</span>
+<span>  bg.subtraction <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"polynomial"</span>, <span class="st">"linear"</span>, <span class="st">"channel"</span>, <span class="st">"none"</span><span class="op">)</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  plot.BG <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -79,12 +79,12 @@ from package <code>minpack.lm</code>.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-values">values<a class="anchor" aria-label="anchor" href="#arg-values"></a></dt>
+<dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
 <dd><p><a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a> or <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<strong>required</strong>):
 x,y data of measured values (time and counts).</p></dd>
 
 
-<dt id="arg-values-bg">values.bg<a class="anchor" aria-label="anchor" href="#arg-values-bg"></a></dt>
+<dt id="arg-object-bg">object.bg<a class="anchor" aria-label="anchor" href="#arg-object-bg"></a></dt>
 <dd><p><a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a> or <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<em>optional</em>):
 x,y data of measured values (time and counts) for background subtraction.</p></dd>
 
@@ -145,7 +145,7 @@ calculate 1-sigma error range of components using <a href="https://rdrr.io/r/sta
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 specifies method for background subtraction (one of <code>"polynomial"</code>,
 <code>"linear"</code>, <code>"channel"</code>, or <code>"none"</code>, see Details). Only considered if
-<code>values.bg</code> is specified.</p></dd>
+<code>object.bg</code> is specified.</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
@@ -227,7 +227,7 @@ et al. (2008):</p>
 <p>$$xm_i=\sqrt{max(t)/b_i}$$
 $$Im_i=exp(-0.5)n0/xm_i$$</p>
 <p><strong>Background subtraction</strong></p>
-<p>When a background signal is provided with the <code>values.bg</code> argument, the
+<p>When a background signal is provided with the <code>object.bg</code> argument, the
 user can choose among three methods for background subtraction by setting
 the <code>bg.subtraction</code> argument to one of these:</p><ul><li><p><code>"polynomial"</code> (default): a polynomial function is fitted using <a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a>
 and the resulting function is used for background subtraction:
@@ -237,7 +237,7 @@ function is used for background subtraction:
 $$y = a*x + b$$</p></li>
 <li><p><code>"channel"</code>: the measured background signal is subtracted channel-wise
 from the measured signal.</p></li>
-<li><p><code>"none"</code>: this disables background subtraction even if <code>values.bg</code> is
+<li><p><code>"none"</code>: this disables background subtraction even if <code>object.bg</code> is
 provided.</p></li>
 </ul><p><strong>Start values</strong></p>
 <p>The choice of the initial parameters for the <code>nls</code>-fitting is a crucial
@@ -281,25 +281,25 @@ manual start values is highly recommended.</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.3.7</p>
+    <p>0.3.8</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2025. fit_LMCurve(): Non-linear Least Squares Fit for LM-OSL curves. Function version 0.3.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2026. fit_LMCurve(): Non-linear Least Squares Fit for LM-OSL curves. Function version 0.3.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
     <p>Bulur, E., 1996. An Alternative Technique For Optically
-Stimulated Luminescence (OSL) Experiment. Radiation Measurements, 26, 5,
+Stimulated Luminescence (OSL) Experiment. Radiation Measurements 26, 5,
 701-709.</p>
 <p>Jain, M., Murray, A.S., Boetter-Jensen, L., 2003. Characterisation of
 blue-light stimulated luminescence components in different quartz samples:
-implications for dose measurement. Radiation Measurements, 37 (4-5),
+implications for dose measurement. Radiation Measurements 37 (4-5),
 441-449.</p>
 <p>Kitis, G. &amp; Pagonis, V., 2008. Computerized curve deconvolution analysis for
-LM-OSL. Radiation Measurements, 43, 737-741.</p>
+LM-OSL. Radiation Measurements 43, 737-741.</p>
 <p>Lave, C.A.T., 1970. The Demand for Urban Mass Transportation. The Review of
-Economics and Statistics, 52 (3), 320-323.</p>
+Economics and Statistics 52 (3), 320-323.</p>
 <p>Ritz, C. &amp; Streibig, J.C., 2008. Nonlinear Regression with R. R. Gentleman,
 K. Hornik, &amp; G. Parmigiani, eds., Springer, p. 150.</p>
     </div>
@@ -309,7 +309,7 @@ K. Hornik, &amp; G. Parmigiani, eds., Springer, p. 150.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+    <p>Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 , RLum Developer Team</p>
     </div>
 
@@ -318,7 +318,7 @@ K. Hornik, &amp; G. Parmigiani, eds., Springer, p. 150.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(1) fit LM data without background subtraction</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.FittingLM</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">fit_LMCurve</span><span class="op">(</span>values <span class="op">=</span> <span class="va">values.curve</span>, n.components <span class="op">=</span> <span class="fl">3</span>, log <span class="op">=</span> <span class="st">"x"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">fit_LMCurve</span><span class="op">(</span><span class="va">values.curve</span>, n.components <span class="op">=</span> <span class="fl">3</span>, log <span class="op">=</span> <span class="st">"x"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [fit_LMCurve()]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -365,7 +365,7 @@ K. Hornik, &amp; G. Parmigiani, eds., Springer, p. 150.</p>
 <span class="r-in"><span><span class="co">##jpeg(file = "~/Desktop/Fit_Output\%03d.jpg", quality = 100,</span></span></span>
 <span class="r-in"><span><span class="co">## height = 3000, width = 3000, res = 300)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.FittingLM</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">fit_LMCurve</span><span class="op">(</span>values <span class="op">=</span> <span class="va">values.curve</span>, values.bg <span class="op">=</span> <span class="va">values.curveBG</span>,</span></span>
+<span class="r-in"><span><span class="fu">fit_LMCurve</span><span class="op">(</span><span class="va">values.curve</span>, object.bg <span class="op">=</span> <span class="va">values.curveBG</span>,</span></span>
 <span class="r-in"><span>            n.components <span class="op">=</span> <span class="fl">2</span>, log <span class="op">=</span> <span class="st">"x"</span>, plot.BG <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="fit_LMCurve-2.png" alt="" width="700" height="433"></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> [fit_LMCurve()] &gt;&gt; Background subtracted (method = 'polynomial')</span>
@@ -409,8 +409,8 @@ K. Hornik, &amp; G. Parmigiani, eds., Springer, p. 150.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(3) fit LM data with manual start parameters</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.FittingLM</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">fit_LMCurve</span><span class="op">(</span>values <span class="op">=</span> <span class="va">values.curve</span>,</span></span>
-<span class="r-in"><span>            values.bg <span class="op">=</span> <span class="va">values.curveBG</span>,</span></span>
+<span class="r-in"><span><span class="fu">fit_LMCurve</span><span class="op">(</span><span class="va">values.curve</span>,</span></span>
+<span class="r-in"><span>            object.bg <span class="op">=</span> <span class="va">values.curveBG</span>,</span></span>
 <span class="r-in"><span>            n.components <span class="op">=</span> <span class="fl">3</span>,</span></span>
 <span class="r-in"><span>            log <span class="op">=</span> <span class="st">"x"</span>,</span></span>
 <span class="r-in"><span>            start_values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Im <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">170</span>,<span class="fl">25</span>,<span class="fl">400</span><span class="op">)</span>, xm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">56</span>,<span class="fl">200</span>,<span class="fl">1500</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -463,7 +463,7 @@ K. Hornik, &amp; G. Parmigiani, eds., Springer, p. 150.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -11,7 +11,7 @@ Olley et al. (2006)."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ Olley et al. (2006)."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Apply the maximum age model to a given De distribution</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/calc_MaxDose.R" class="external-link"><code>R/calc_MaxDose.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/calc_MaxDose.R" class="external-link"><code>R/calc_MaxDose.R</code></a></small>
       <div class="d-none name"><code>calc_MaxDose.Rd</code></div>
     </div>
 
@@ -62,27 +62,28 @@ Olley et al. (2006).</p>
 
 <dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p><a href="RLum.Results-class.html">RLum.Results</a> or <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<strong>required</strong>):
-for <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a>: two columns with De <code>(data[ ,1])</code> and De error <code>(data[ ,2])</code>.</p></dd>
+for <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a>: two columns with <code>(data[, 1])</code> and De error <code>(data[, 2])</code>.</p></dd>
 
 
 <dt id="arg-sigmab">sigmab<a class="anchor" aria-label="anchor" href="#arg-sigmab"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
 additional spread in De values, representing the expected overdispersion in
 the data should the sample be well-bleached (Cunningham &amp; Wallinga 2012, p. 100).
-<strong>NOTE</strong>: For the logged model (<code>log = TRUE</code>) this value must be
+<strong>Note:</strong> For the logged model (<code>log = TRUE</code>) this value must be
 a fraction, e.g. 0.2 (= 20 %). If the un-logged model is used (<code>log = FALSE</code>),
-sigmab must be provided in the same absolute units of the De values (seconds or Gray).
-See details (<a href="calc_MinDose.html">calc_MinDose</a>.</p></dd>
+<code>sigmab</code> must be provided in the same absolute units of the De values (seconds or Gray).
+See details.</p></dd>
 
 
 <dt id="arg-log">log<a class="anchor" aria-label="anchor" href="#arg-log"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-fit the (un-)logged three parameter minimum dose model to De data</p></dd>
+whether the logged minimum dose model should be fit to De data (<code>TRUE</code> by
+default).</p></dd>
 
 
 <dt id="arg-par">par<a class="anchor" aria-label="anchor" href="#arg-par"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
-apply the 3- or 4-parameter minimum age model (<code>par=3</code> or <code>par=4</code>).</p></dd>
+number of parameters in the minimum age model, either 3 (default) or 4.</p></dd>
 
 
 <dt id="arg-bootstrap">bootstrap<a class="anchor" aria-label="anchor" href="#arg-bootstrap"></a></dt>
@@ -91,9 +92,13 @@ apply the recycled bootstrap approach of Cunningham &amp; Wallinga (2012).</p></
 
 
 <dt id="arg-init-values">init.values<a class="anchor" aria-label="anchor" href="#arg-init-values"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
-starting values for gamma, sigma, p0 and mu. Custom values need to be provided in a vector of
-length three in the form of <code>c(gamma, sigma, p0)</code>.</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>):
+a named list with starting values for <code>gamma</code>, <code>sigma</code>, <code>p0</code> and <code>mu</code>
+(e.g. <code>list(gamma=100, sigma=1.5, p0=0.1, mu=100)</code>). If no values are
+provided, reasonable values will be estimated from the data.
+<strong>Note:</strong> the initial values must always be given in the absolute units.
+If a logged model is applied (<code>log = TRUE</code>), the provided <code>init.values</code>
+are automatically log-transformed.</p></dd>
 
 
 <dt id="arg-plot">plot<a class="anchor" aria-label="anchor" href="#arg-plot"></a></dt>
@@ -133,7 +138,7 @@ with a relative error specified by <code>sigmab</code></p></li>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Burow, C., 2025. calc_MaxDose(): Apply the maximum age model to a given De distribution. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Burow, C., 2026. calc_MaxDose(): Apply the maximum age model to a given De distribution. Function version 0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -189,15 +194,15 @@ Based on a rewritten S script of Rex Galbraith, 2010
 <span class="r-in"><span><span class="co"># apply the maximum dose model</span></span></span>
 <span class="r-in"><span><span class="fu">calc_MaxDose</span><span class="op">(</span><span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">CA1</span>, sigmab <span class="op">=</span> <span class="fl">0.2</span>, par <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------- meta data -----------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------- Meta data -----------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   n par sigmab logged      Lmax      BIC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  62   3    0.2   TRUE -19.79245 58.86603</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> --- final parameter estimates ---</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  gamma sigma   p0 mu</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  76.58  1.71 0.65  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> --- Final parameter estimates ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          gamma sigma   p0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimate 76.58  1.71 0.65</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------ confidence intervals -----</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ------ Confidence intervals -----</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       2.5 % 97.5 %</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gamma 69.65  99.33</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sigma  1.43   2.61</span>
@@ -219,7 +224,7 @@ Based on a rewritten S script of Rex Galbraith, 2010
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

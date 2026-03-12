@@ -35,11 +35,6 @@
 - [`ExampleData.portableOSL`](https://r-lum.github.io/Luminescence/reference/ExampleData.portableOSL.md)
   : Example portable OSL curve data for the package Luminescence
 
-- [`github_commits()`](https://r-lum.github.io/Luminescence/reference/GitHub-API.md)
-  [`github_branches()`](https://r-lum.github.io/Luminescence/reference/GitHub-API.md)
-  [`github_issues()`](https://r-lum.github.io/Luminescence/reference/GitHub-API.md)
-  : GitHub API - Deprecated
-
 - [`Luminescence-package`](https://r-lum.github.io/Luminescence/reference/Luminescence-package.md)
   [`Luminescence`](https://r-lum.github.io/Luminescence/reference/Luminescence-package.md)
   :
@@ -124,8 +119,7 @@
   : Apply crosstalk
 
 - [`apply_EfficiencyCorrection()`](https://r-lum.github.io/Luminescence/reference/apply_EfficiencyCorrection.md)
-  : Function to apply spectral efficiency correction to
-  RLum.Data.Spectrum S4 class objects
+  : Apply spectral efficiency correction to RLum.Data.Spectrum objects
 
 - [`as`](https://r-lum.github.io/Luminescence/reference/as.md) : as() -
   RLum-object coercion
@@ -292,7 +286,7 @@
   an Image
 
 - [`fit_CWCurve()`](https://r-lum.github.io/Luminescence/reference/fit_CWCurve.md)
-  : Nonlinear Least Squares Fit for CW-OSL curves -beta version-
+  : Non-linear Least Squares Fit for CW-OSL curves -beta version-
 
 - [`fit_DoseResponseCurve()`](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)
   : Fit a dose-response curve for luminescence data (Lx/Tx against dose)
@@ -324,10 +318,6 @@
 - [`import_Data()`](https://r-lum.github.io/Luminescence/reference/import_Data.md)
   : Import Luminescence Data into R
 
-- [`install_DevelopmentVersion()`](https://r-lum.github.io/Luminescence/reference/install_DevelopmentVersion.md)
-  : Attempts to install the development version of the 'Luminescence'
-  package
-
 - [`length_RLum()`](https://r-lum.github.io/Luminescence/reference/length_RLum.md)
   : Length retrieval function for RLum-class objects
 
@@ -347,6 +337,9 @@
 
 - [`names_RLum()`](https://r-lum.github.io/Luminescence/reference/names_RLum.md)
   : Name retrieval function for RLum-class objects
+
+- [`normalise_RLum()`](https://r-lum.github.io/Luminescence/reference/normalise_RLum.md)
+  : Normalisation of RLum-class objects
 
 - [`plot_AbanicoPlot()`](https://r-lum.github.io/Luminescence/reference/plot_AbanicoPlot.md)
   : Function to create an Abanico Plot.
@@ -427,6 +420,9 @@
 
 - [`read_BIN2R()`](https://r-lum.github.io/Luminescence/reference/read_BIN2R.md)
   : Import Risø BIN/BINX-files into R
+
+- [`read_BINXLOG2R()`](https://r-lum.github.io/Luminescence/reference/read_BINXLOG2R.md)
+  : Import Risø BINX-data from the BINX Log File
 
 - [`read_Daybreak2R()`](https://r-lum.github.io/Luminescence/reference/read_Daybreak2R.md)
   : Import measurement data produced by a Daybreak TL/OSL reader into R

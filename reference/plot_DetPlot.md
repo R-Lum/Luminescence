@@ -12,13 +12,12 @@ legend position, `legend` for legend text.
 ``` r
 plot_DetPlot(
   object,
-  signal.integral.min,
-  signal.integral.max,
-  background.integral.min,
-  background.integral.max,
+  signal_integral,
+  background_integral,
   method = "shift",
   signal_integral.seq = NULL,
-  analyse_function = "analyse_SAR.CWOSL",
+  integral_input = c("channel", "measurement"),
+  analyse_function = c("analyse_SAR.CWOSL", "analyse_pIRIRSequence"),
   analyse_function.control = list(),
   n.channels = NULL,
   show_ShineDownCurve = TRUE,
@@ -39,26 +38,15 @@ plot_DetPlot(
   provided as a [list](https://rdrr.io/r/base/list.html) of such
   objects.
 
-- signal.integral.min:
+- signal_integral:
 
-  [integer](https://rdrr.io/r/base/integer.html) (**required**): lower
-  bound of the signal integral.
+  [integer](https://rdrr.io/r/base/integer.html) (**required**): vector
+  of channels for the signal integral.
 
-- signal.integral.max:
+- background_integral:
 
-  [integer](https://rdrr.io/r/base/integer.html) (**required**): upper
-  bound of the signal integral. Must be strictly greater than
-  `signal.integral.min`.
-
-- background.integral.min:
-
-  [integer](https://rdrr.io/r/base/integer.html) (**required**): lower
-  bound of the background integral.
-
-- background.integral.max:
-
-  [integer](https://rdrr.io/r/base/integer.html) (**required**): upper
-  bound of the background integral.
+  [integer](https://rdrr.io/r/base/integer.html) (**required**): vector
+  of channels for the background integral.
 
 - method:
 
@@ -76,6 +64,13 @@ plot_DetPlot(
   [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): argument
   to provide an own signal integral sequence for constructing the De(t)
   plot
+
+- integral_input:
+
+  [character](https://rdrr.io/r/base/character.html) (*with default*):
+  input type for `signal_integral`, one of `"channel"` (default) or
+  `"measurement"`. If set to `"measurement"`, the best matching channels
+  corresponding to the given time range (in seconds) are selected.
 
 - analyse_function:
 
@@ -199,17 +194,17 @@ hundreds of channels.
 
 ## Function version
 
-0.1.8
+0.1.10
 
 ## How to cite
 
-Kreutzer, S., 2025. plot_DetPlot(): Create De(t) plot. Function version
-0.1.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
+Kreutzer, S., 2026. plot_DetPlot(): Create De(t) plot. Function version
+0.1.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
 C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
 Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
-Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive
-Luminescence Dating Data Analysis. R package version 1.1.2.
-https://r-lum.github.io/Luminescence/
+Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
+Comprehensive Luminescence Dating Data Analysis. R package version
+1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -226,8 +221,8 @@ doi:10.1016/S1350-4487(03)00063-5
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Ruprecht-Karl University of
-Heidelberg (Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 
@@ -243,10 +238,8 @@ object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
 
 plot_DetPlot(
   object,
-  signal.integral.min = 1,
-  signal.integral.max = 3,
-  background.integral.min = 900,
-  background.integral.max = 1000,
+  signal_integral = 1:3,
+  background_integral = 900:1000,
   n.channels = 5)
 } # }
 ```

@@ -10,7 +10,11 @@ functions such as
 ## Usage
 
 ``` r
-convert_Activity2Concentration(data, input_unit = "activity", verbose = TRUE)
+convert_Activity2Concentration(
+  data,
+  input_unit = c("activity", "abundance"),
+  verbose = TRUE
+)
 ```
 
 ## Arguments
@@ -26,10 +30,9 @@ convert_Activity2Concentration(data, input_unit = "activity", verbose = TRUE)
 - input_unit:
 
   [character](https://rdrr.io/r/base/character.html) (*with default*):
-  specify unit of input data given in the dose rate data frame, choose
-  between `"activity"` (considered as given Bq/kg) and `"abundance"`
-  (considered as given in mug/g or mass. %). The default value is
-  `"activity"`
+  specify unit of input data given in the dose rate data frame, one of
+  `"activity"` (considered as given Bq/kg, the default) and
+  `"abundance"` (considered as given in mug/g or mass. %).
 
 - verbose:
 
@@ -58,13 +61,10 @@ composition values from
 and the nuclide data from
 `https://www.iaea.org/resources/databases/livechart-of-nuclides-advanced-version`
 
-The factors can be calculated using the equation:
+The factors can be calculated using the equation: \$\$ A = N_A
+\frac{N\_{abund}}{N\_{mol.mass}} ln(2) / N.half.life \$\$
 
-\$\$ A = N_A \frac{N\_{abund}}{N\_{mol.mass}} ln(2) / N.half.life \$\$
-
-to convert in µg/g we further use:
-
-\$\$ f = A / 10^6 \$\$
+to convert in µg/g we further use: \$\$ f = A / 10^6 \$\$
 
 where:
 
@@ -108,13 +108,14 @@ U-234, and 0.00072 parts of U-235.
 
 ## How to cite
 
-Fuchs, M.C., 2025. convert_Activity2Concentration(): Convert Nuclide
+Fuchs, M.C., 2026. convert_Activity2Concentration(): Convert Nuclide
 Activities to Abundance and Vice Versa. Function version 0.1.2. In:
 Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/
+Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.2.0.
+https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -123,7 +124,7 @@ Semiconductor Detectors, Elsevier Science Publishers, p.283
 
 Wiechen, A., Ruehle, H., Vogl, K., 2013. Bestimmung der massebezogenen
 Aktivitaet von Radionukliden. AEQUIVAL/MASSAKT, ISSN 1865-8725,
-<https://www.bmuv.de/fileadmin/Daten_BMU/Download_PDF/Strahlenschutz/aequival-massakt_v2013-07_bf.pdf>
+<https://www.bundesumweltministerium.de/fileadmin/Daten_BMU/Download_PDF/Strahlenschutz/aequival-massakt_v2013-07_bf.pdf>
 
 ## Author
 

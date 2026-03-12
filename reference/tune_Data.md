@@ -45,13 +45,13 @@ Michael Dietze, GFZ Potsdam (Germany) , RLum Developer Team
 
 ## How to cite
 
-Dietze, M., 2025. tune_Data(): Tune data for experimental purpose.
+Dietze, M., 2026. tune_Data(): Tune data for experimental purpose.
 Function version 0.5.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
-J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence:
-Comprehensive Luminescence Dating Data Analysis. R package version
-1.1.2. https://r-lum.github.io/Luminescence/
+J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
+Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
+version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
@@ -68,10 +68,10 @@ plot_AbanicoPlot(data = x,
 ## decrease error by 10 %
 plot_AbanicoPlot(data = tune_Data(x, decrease.error = 0.1),
                  summary = c("n", "mean"))
-#> Warning: [tune_Data()] Dear runner, these activities on your Linux machine have been tracked and will be submitted to the R.Lum data base. Cheating does not pay off! [2025-12-12 08:44:04.367648]
+#> Warning: [tune_Data()] Dear runner, these activities on your Linux machine have been tracked and will be submitted to the R.Lum data base. Cheating does not pay off! [2026-03-12 19:22:40.465484]
 
 
 ## increase sample size by 200 %
-#plot_AbanicoPlot(data = tune_Data(x, increase.data = 2) ,
+#plot_AbanicoPlot(data = tune_Data(x, increase.data = 2),
 #                summary = c("n", "mean"))
 ```

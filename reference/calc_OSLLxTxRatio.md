@@ -9,15 +9,17 @@ light background subtraction.
 calc_OSLLxTxRatio(
   Lx.data,
   Tx.data = NULL,
-  signal.integral = NULL,
-  signal.integral.Tx = NULL,
-  background.integral = NULL,
-  background.integral.Tx = NULL,
+  signal_integral = NULL,
+  background_integral = NULL,
+  signal_integral_Tx = NULL,
+  background_integral_Tx = NULL,
+  integral_input = c("channel", "measurement"),
   background.count.distribution = "non-poisson",
   use_previousBG = FALSE,
   sigmab = NULL,
   sig0 = 0,
-  digits = NULL
+  digits = NULL,
+  ...
 )
 ```
 
@@ -25,10 +27,11 @@ calc_OSLLxTxRatio(
 
 - Lx.data:
 
-  [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)
-  or [data.frame](https://rdrr.io/r/base/data.frame.html)
-  (**required**): requires a CW-OSL shine down curve (x = time, y =
-  counts)
+  [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md),
+  [data.frame](https://rdrr.io/r/base/data.frame.html),
+  [list](https://rdrr.io/r/base/list.html) (**required**): requires a
+  CW-OSL shine down curve (x = time, y = counts). Data can also be
+  provided as a list.
 
 - Tx.data:
 
@@ -36,31 +39,43 @@ calc_OSLLxTxRatio(
   or [data.frame](https://rdrr.io/r/base/data.frame.html) (*optional*):
   requires a CW-OSL shine down curve (x = time, y = counts). If no input
   is given the `Tx.data` will be treated as `NA` and no `Lx/Tx` ratio is
-  calculated.
+  calculated. When `Lx.data` is a list, it must be provided as a list of
+  the same length.
 
-- signal.integral:
+- signal_integral:
 
-  [numeric](https://rdrr.io/r/base/numeric.html) (**required**): vector
-  with the limits for the signal integral. If set to `NA`, no integrals
-  are considered and all other integrals are ignored.
+  [integer](https://rdrr.io/r/base/integer.html) (**required**): vector
+  of channels for the signal integral. If set to `NA` (alternate mode),
+  no integrals are taken into account and their settings are ignored.
 
-- signal.integral.Tx:
+- background_integral:
 
-  [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): vector
-  with the limits for the signal integral for the `Tx`-curve. If
-  missing, the value from `signal.integral` is used.
+  [integer](https://rdrr.io/r/base/integer.html) (**required**): vector
+  of channels for the background integral. If set to `NA`, no background
+  integral is subtracted; in this case, the error calculation and the
+  signal-to-noise ratio will report `NA` values.
 
-- background.integral:
+- signal_integral_Tx:
 
-  [numeric](https://rdrr.io/r/base/numeric.html) (**required**): vector
-  with the limits for the background integral. If set to `NA`, no
-  integrals are considered and all other integrals ignored.
+  [integer](https://rdrr.io/r/base/integer.html) (*optional*): vector of
+  channels for the signal integral for the `Tx` curve. If `NULL`, the
+  `signal_integral` vector is used.
 
-- background.integral.Tx:
+- background_integral_Tx:
 
-  [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): vector
-  with the limits for the background integral for the `Tx` curve. If
-  missing, the value from `background.integral` is used.
+  [integer](https://rdrr.io/r/base/integer.html) (*optional*): vector of
+  channels for the background integral for the `Tx` curve. If `NULL`,
+  the `background_integral` vector is used. If set to `NA`, no
+  background integral for the `Tx` curve is subtracted; in this case,
+  the error calculation and the signal-to-noise ratio will report `NA`
+  values.
+
+- integral_input:
+
+  [character](https://rdrr.io/r/base/character.html) (*with default*):
+  input type for `signal_integral`, one of `"channel"` (default) or
+  `"measurement"`. If set to `"measurement"`, the best matching channels
+  corresponding to the given time/temperature range are selected.
 
 - background.count.distribution:
 
@@ -96,6 +111,10 @@ calc_OSLLxTxRatio(
   [integer](https://rdrr.io/r/base/integer.html) (*with default*): round
   numbers to the specified digits. If set to `NULL` no rounding occurs.
 
+- ...:
+
+  currently not used.
+
 ## Value
 
 Returns an S4 object of type
@@ -115,6 +134,8 @@ following structure:
     .. $ Net_LnLx.Error
     .. $ Net_TnTx
     .. $ Net_TnTx.Error
+    .. $ SN_RATIO_LnLx,
+    .. $ SN_RATIO_TnTx,
     .. $ LxTx
     .. $ LxTx.Error
     $ calc.parameters (list)
@@ -128,9 +149,9 @@ following structure:
 
 ## Details
 
-The integrity of the chosen values for the signal and background
-integral is checked by the function; the signal integral limits have to
-be lower than the background integral limits. If a
+The function checks the integrity of the values chosen for the signal
+and background integrals; the signal integral limits have to be lower
+than the background integral limits. If a
 [vector](https://rdrr.io/r/base/vector.html) is given as input instead
 of a [data.frame](https://rdrr.io/r/base/data.frame.html), an artificial
 [data.frame](https://rdrr.io/r/base/data.frame.html) is produced. The
@@ -154,6 +175,13 @@ multiplied with the already calculated `LxTx` and the result is add up
 by:
 
 \$\$se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx \* sig0)^2)\$\$
+
+**`SN_RATIO_LnLx` and `SN_RATIO_TnTx`**
+
+For convenience, the function returns the signal-to-noise ratio
+(`SN_RATIO`) for the `LnLx` and the `TnTx` curves. This is simply the
+signal divided by the background signal counts normalised to the `k`
+value (see below).
 
 **`background.count.distribution`**
 
@@ -190,17 +218,17 @@ either provide your own `sigmab` value or use
 
 ## Function version
 
-0.8.2
+0.9.5
 
 ## How to cite
 
-Kreutzer, S., 2025. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for
-CW-OSL curves. Function version 0.8.2. In: Kreutzer, S., Burow, C.,
-Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
-Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Kreutzer, S., Colombo, M., 2026. calc_OSLLxTxRatio(): Calculate Lx/Tx
+ratio for CW-OSL curves. Function version 0.9.5. In: Kreutzer, S.,
+Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
+J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
+D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -223,8 +251,10 @@ background-corrected OSL count. Ancient TL, 31 (2), 1-3.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
+Marco Colombo, Institute of Geography, Heidelberg University (Germany) ,
+RLum Developer Team
 
 ## Examples
 
@@ -236,13 +266,13 @@ data(ExampleData.LxTxOSLData, envir = environment())
 results <- calc_OSLLxTxRatio(
  Lx.data = Lx.data,
  Tx.data = Tx.data,
- signal.integral = c(1:2),
- background.integral = c(85:100))
+ signal_integral = 1:2,
+ background_integral = 85:100)
 
 ##get results object
 get_RLum(results)
 #>    LnLx LnLx.BG TnTx TnTx.BG Net_LnLx Net_LnLx.Error Net_TnTx Net_TnTx.Error
 #> 1 81709     530 7403     513    81179       286.5461     6890       88.53581
-#>       LxTx LxTx.Error
-#> 1 11.78215  0.1570077
+#>   SN_RATIO_LnLx SN_RATIO_TnTx     LxTx LxTx.Error
+#> 1      154.1679       14.4308 11.78215  0.1570077
 ```

@@ -11,7 +11,7 @@ and plot_DoseResponseCurve"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ and plot_DoseResponseCurve"></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Fit and plot a dose-response curve for luminescence data (Lx/Tx against dose)</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/plot_GrowthCurve.R" class="external-link"><code>R/plot_GrowthCurve.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/plot_GrowthCurve.R" class="external-link"><code>R/plot_GrowthCurve.R</code></a></small>
       <div class="d-none name"><code>plot_GrowthCurve.Rd</code></div>
     </div>
 
@@ -45,7 +45,7 @@ and <a href="plot_DoseResponseCurve.html">plot_DoseResponseCurve</a></p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_GrowthCurve</span><span class="op">(</span></span>
-<span>  <span class="va">sample</span>,</span>
+<span>  <span class="va">object</span>,</span>
 <span>  mode <span class="op">=</span> <span class="st">"interpolation"</span>,</span>
 <span>  fit.method <span class="op">=</span> <span class="st">"EXP"</span>,</span>
 <span>  output.plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -61,20 +61,24 @@ and <a href="plot_DoseResponseCurve.html">plot_DoseResponseCurve</a></p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-sample">sample<a class="anchor" aria-label="anchor" href="#arg-sample"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<strong>required</strong>):
+<dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> or a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of such objects (<strong>required</strong>):
 data frame with columns for <code>Dose</code>, <code>LxTx</code>, <code>LxTx.Error</code> and <code>TnTx</code>.
 The column for the test dose response is optional, but requires <code>'TnTx'</code> as
 column name if used. For exponential fits at least three dose points
-(including the natural) should be provided. If <code>fit.method = "OTORX"</code> you have
-to provide the test dose in the same unit as the dose in a column called <code>Test_Dose</code>.
-The function searches explicitly for this column name.</p></dd>
+(including the natural) should be provided. If <code>object</code> is a list,
+the function is called on each of its elements.
+If <code>fit.method = "OTORX"</code> you have  to provide the test dose in the same unit
+as the dose in a column called <code>Test_Dose</code>. The function searches explicitly
+for this column name. Only the first value will be used assuming a constant
+test dose over the measurement cycle.</p></dd>
 
 
 <dt id="arg-mode">mode<a class="anchor" aria-label="anchor" href="#arg-mode"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 selects calculation mode of the function.</p><ul><li><p><code>"interpolation"</code> (default) calculates the De by interpolation,</p></li>
-<li><p><code>"extrapolation"</code> calculates the equivalent dose by extrapolation (useful for MAAD measurements) and</p></li>
+<li><p><code>"extrapolation"</code> calculates the equivalent dose by extrapolation
+(useful for MAAD measurements) and</p></li>
 <li><p><code>"alternate"</code> calculates no equivalent dose and just fits the data points.</p></li>
 </ul><p>Please note that for option <code>"interpolation"</code> the first point is considered
 as natural dose</p></dd>
@@ -82,16 +86,9 @@ as natural dose</p></dd>
 
 <dt id="arg-fit-method">fit.method<a class="anchor" aria-label="anchor" href="#arg-fit-method"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
-function used for fitting. Possible options are:</p><ul><li><p><code>LIN</code>,</p></li>
-<li><p><code>QDR</code>,</p></li>
-<li><p><code>EXP</code>,</p></li>
-<li><p><code>EXP OR LIN</code>,</p></li>
-<li><p><code>EXP+LIN</code>,</p></li>
-<li><p><code>EXP+EXP</code>,</p></li>
-<li><p><code>GOK</code>,</p></li>
-<li><p><code>OTOR</code>,</p></li>
-<li><p><code>OTORX</code></p></li>
-</ul><p>See details in <a href="fit_DoseResponseCurve.html">fit_DoseResponseCurve</a>.</p></dd>
+function used for fitting. Possible options are: <code>LIN</code>, <code>QDR</code>, <code>EXP</code>,
+<code>EXP OR LIN</code>, <code>EXP+LIN</code>, <code>EXP+EXP</code> (not defined for extrapolation), <code>GOK</code>,
+<code>OTOR</code> and <code>OTORX</code>. See details.</p></dd>
 
 
 <dt id="arg-output-plot">output.plot<a class="anchor" aria-label="anchor" href="#arg-output-plot"></a></dt>
@@ -101,7 +98,7 @@ enable/disable the plot output.</p></dd>
 
 <dt id="arg-output-plotextended">output.plotExtended<a class="anchor" aria-label="anchor" href="#arg-output-plotextended"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-If' <code>TRUE</code>, 3 plots on one plot area are provided:</p><ol><li><p>growth curve,</p></li>
+If <code>TRUE</code>, 3 plots on one plot area are provided:</p><ol><li><p>growth curve,</p></li>
 <li><p>histogram from Monte Carlo error simulation and</p></li>
 <li><p>a test dose response plot.</p></li>
 </ol><p>If <code>FALSE</code>, just the growth curve will be plotted.</p></dd>
@@ -110,7 +107,7 @@ If' <code>TRUE</code>, 3 plots on one plot area are provided:</p><ol><li><p>grow
 <dt id="arg-plot-singlepanels">plot_singlePanels<a class="anchor" aria-label="anchor" href="#arg-plot-singlepanels"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 single plot output (<code>TRUE/FALSE</code>) to allow for plotting the results in
-single plot windows. Requires <code>plotExtended = TRUE</code>.</p></dd>
+single plot windows. Requires <code>output.plotExtended = TRUE</code>.</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
@@ -133,16 +130,16 @@ number of MC runs for error calculation.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>Along with a plot (if wanted) the <code>RLum.Results</code> object produced by
+    <p>Along with a plot (if wanted) the <a href="RLum.Results-class.html">RLum.Results</a> object produced by
 <a href="fit_DoseResponseCurve.html">fit_DoseResponseCurve</a> is returned.</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>1.2.2</p>
+    <p>1.2.3</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Dietze, M., Colombo, M., 2025. plot_GrowthCurve(): Fit and plot a dose-response curve for luminescence data (Lx/Tx against dose). Function version 1.2.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Dietze, M., Colombo, M., 2026. plot_GrowthCurve(): Fit and plot a dose-response curve for luminescence data (Lx/Tx against dose). Function version 1.2.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -159,7 +156,7 @@ based on the Lambert W function. Journal of Luminescence 225, 117333. <a href="h
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br>
+    <p>Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)<br>
 Michael Dietze, GFZ Potsdam (Germany) <br>
 Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team</p>
@@ -216,11 +213,12 @@ Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $Fit : nls</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $Fit.Args : list</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $Formula : expression</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  2 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(6) plot using the 'alternate' mode</span></span></span>
 <span class="r-in"><span><span class="va">LxTxData</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.001</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">plot_GrowthCurve</span><span class="op">(</span><span class="va">LxTxData</span>, mode <span class="op">=</span> <span class="st">"alternate"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [fit_DoseResponseCurve()] Fit: EXP (alternate) | De = NA | D01 = 2624.06</span>
 <span class="r-plt img"><img src="plot_GrowthCurve-6.png" alt="" width="700" height="433"></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Results-class]</span>
@@ -231,7 +229,7 @@ Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $Fit : nls</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $Fit.Args : list</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $Formula : expression</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  2 </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -240,7 +238,7 @@ Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

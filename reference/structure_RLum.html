@@ -11,7 +11,7 @@ function will be selected."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ function will be selected."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>General structure function for RLum-class objects</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/Luminescence-generics.R" class="external-link"><code>R/Luminescence-generics.R</code></a>, <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/RLum.Analysis-class.R" class="external-link"><code>R/RLum.Analysis-class.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/Luminescence-generics.R" class="external-link"><code>R/Luminescence-generics.R</code></a>, <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/RLum.Analysis-class.R" class="external-link"><code>R/RLum.Analysis-class.R</code></a></small>
       <div class="d-none name"><code>structure_RLum.Rd</code></div>
     </div>
 
@@ -91,16 +91,17 @@ object in the input list.</p></li>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>, <a href="RLum.Data.Image-class.html">RLum.Data.Image</a>,
-<a href="RLum.Data.Spectrum-class.html">RLum.Data.Spectrum</a>, <a href="RLum.Analysis-class.html">RLum.Analysis</a>, <a href="RLum.Results-class.html">RLum.Results</a></p></div>
+<a href="RLum.Data.Spectrum-class.html">RLum.Data.Spectrum</a>, <a href="RLum.Analysis-class.html">RLum.Analysis</a>,
+<a href="RLum.Results-class.html">RLum.Results</a></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+    <p>Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 , RLum Developer Team</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2025. structure_RLum(): General structure function for RLum-class objects. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2026. structure_RLum(): General structure function for RLum-class objects. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">
@@ -113,129 +114,129 @@ object in the input list.</p></li>
 <span class="r-in"><span><span class="fu">structure_RLum</span><span class="op">(</span><span class="va">OSL.SARMeasurement</span><span class="op">$</span><span class="va">Sequence.Object</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      id       recordType  curveType protocol.step n.channels x.min   x.max</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     1       TL (UVVIS)   measured          &lt;NA&gt;       1180 0.100 118.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     2          TL (NA) predefined          &lt;NA&gt;          5 0.000 268.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     3          TL (NA)   measured          &lt;NA&gt;       1740 0.000 173.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     2         _TL (NA) predefined          &lt;NA&gt;          5 0.000 268.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     3         _TL (NA)   measured          &lt;NA&gt;       1740 0.000 173.900</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4     4      OSL (UVVIS)   measured          &lt;NA&gt;        500 0.100  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     5         OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     6         OSL (NA)   measured          &lt;NA&gt;       1150 0.000 114.900</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7     7         OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8     8         OSL (NA)   measured          &lt;NA&gt;        150 0.497  74.997</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     5        _OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     6        _OSL (NA)   measured          &lt;NA&gt;       1150 0.000 114.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7     7        _OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8     8        _OSL (NA)   measured          &lt;NA&gt;        150 0.497  74.997</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9     9 irradiation (NA) predefined          &lt;NA&gt;          2 0.000  15.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10   10       TL (UVVIS)   measured          &lt;NA&gt;        680 0.100  68.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11   11          TL (NA) predefined          &lt;NA&gt;          4 0.000 198.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12   12          TL (NA)   measured          &lt;NA&gt;        990 0.000  98.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11   11         _TL (NA) predefined          &lt;NA&gt;          4 0.000 198.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12   12         _TL (NA)   measured          &lt;NA&gt;        990 0.000  98.900</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 13   13      OSL (UVVIS)   measured          &lt;NA&gt;        500 0.100  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14   14         OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15   15         OSL (NA)   measured          &lt;NA&gt;       1150 0.000 114.900</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16   16         OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17   17         OSL (NA)   measured          &lt;NA&gt;        151 0.012  75.012</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14   14        _OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15   15        _OSL (NA)   measured          &lt;NA&gt;       1150 0.000 114.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16   16        _OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17   17        _OSL (NA)   measured          &lt;NA&gt;        151 0.012  75.012</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18   18 irradiation (NA) predefined          &lt;NA&gt;          2 0.000  60.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19   19       TL (UVVIS)   measured          &lt;NA&gt;       1180 0.100 118.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20   20          TL (NA) predefined          &lt;NA&gt;          5 0.000 268.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21   21          TL (NA)   measured          &lt;NA&gt;       1730 0.000 172.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20   20         _TL (NA) predefined          &lt;NA&gt;          5 0.000 268.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21   21         _TL (NA)   measured          &lt;NA&gt;       1730 0.000 172.900</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 22   22      OSL (UVVIS)   measured          &lt;NA&gt;        500 0.100  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23   23         OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24   24         OSL (NA)   measured          &lt;NA&gt;       1160 0.000 115.900</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25   25         OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26   26         OSL (NA)   measured          &lt;NA&gt;        153 0.012  76.012</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23   23        _OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24   24        _OSL (NA)   measured          &lt;NA&gt;       1160 0.000 115.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25   25        _OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26   26        _OSL (NA)   measured          &lt;NA&gt;        153 0.012  76.012</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 27   27 irradiation (NA) predefined          &lt;NA&gt;          2 0.000  15.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 28   28       TL (UVVIS)   measured          &lt;NA&gt;        680 0.100  68.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29   29          TL (NA) predefined          &lt;NA&gt;          4 0.000 198.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 30   30          TL (NA)   measured          &lt;NA&gt;       1000 0.000  99.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29   29         _TL (NA) predefined          &lt;NA&gt;          4 0.000 198.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30   30         _TL (NA)   measured          &lt;NA&gt;       1000 0.000  99.900</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31   31      OSL (UVVIS)   measured          &lt;NA&gt;        500 0.100  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 32   32         OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 33   33         OSL (NA)   measured          &lt;NA&gt;       1150 0.000 114.900</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 34   34         OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 35   35         OSL (NA)   measured          &lt;NA&gt;        151 0.014  75.014</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32   32        _OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33   33        _OSL (NA)   measured          &lt;NA&gt;       1150 0.000 114.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34   34        _OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35   35        _OSL (NA)   measured          &lt;NA&gt;        151 0.014  75.014</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 36   36 irradiation (NA) predefined          &lt;NA&gt;          2 0.000 130.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 37   37       TL (UVVIS)   measured          &lt;NA&gt;       1180 0.100 118.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 38   38          TL (NA) predefined          &lt;NA&gt;          5 0.000 268.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 39   39          TL (NA)   measured          &lt;NA&gt;       1740 0.000 173.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38   38         _TL (NA) predefined          &lt;NA&gt;          5 0.000 268.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39   39         _TL (NA)   measured          &lt;NA&gt;       1740 0.000 173.900</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 40   40      OSL (UVVIS)   measured          &lt;NA&gt;        500 0.100  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 41   41         OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 42   42         OSL (NA)   measured          &lt;NA&gt;       1150 0.000 114.900</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 43   43         OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 44   44         OSL (NA)   measured          &lt;NA&gt;        151 0.012  75.012</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41   41        _OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 42   42        _OSL (NA)   measured          &lt;NA&gt;       1150 0.000 114.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 43   43        _OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 44   44        _OSL (NA)   measured          &lt;NA&gt;        151 0.012  75.012</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 45   45 irradiation (NA) predefined          &lt;NA&gt;          2 0.000  15.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 46   46       TL (UVVIS)   measured          &lt;NA&gt;        680 0.100  68.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 47   47          TL (NA) predefined          &lt;NA&gt;          4 0.000 198.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 48   48          TL (NA)   measured          &lt;NA&gt;        990 0.000  98.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 47   47         _TL (NA) predefined          &lt;NA&gt;          4 0.000 198.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 48   48         _TL (NA)   measured          &lt;NA&gt;        990 0.000  98.900</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 49   49      OSL (UVVIS)   measured          &lt;NA&gt;        500 0.100  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 50   50         OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 51   51         OSL (NA)   measured          &lt;NA&gt;       1130 0.000 112.900</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 52   52         OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 53   53         OSL (NA)   measured          &lt;NA&gt;        147 0.012  73.012</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 50   50        _OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 51   51        _OSL (NA)   measured          &lt;NA&gt;       1130 0.000 112.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 52   52        _OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53   53        _OSL (NA)   measured          &lt;NA&gt;        147 0.012  73.012</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 54   54 irradiation (NA) predefined          &lt;NA&gt;          2 0.000 230.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 55   55       TL (UVVIS)   measured          &lt;NA&gt;       1180 0.100 118.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 56   56          TL (NA) predefined          &lt;NA&gt;          5 0.000 268.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 57   57          TL (NA)   measured          &lt;NA&gt;       1740 0.000 173.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 56   56         _TL (NA) predefined          &lt;NA&gt;          5 0.000 268.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 57   57         _TL (NA)   measured          &lt;NA&gt;       1740 0.000 173.900</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 58   58      OSL (UVVIS)   measured          &lt;NA&gt;        500 0.100  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 59   59         OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 60   60         OSL (NA)   measured          &lt;NA&gt;       1150 0.000 114.900</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 61   61         OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 62   62         OSL (NA)   measured          &lt;NA&gt;        151 0.012  75.012</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 59   59        _OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 60   60        _OSL (NA)   measured          &lt;NA&gt;       1150 0.000 114.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 61   61        _OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 62   62        _OSL (NA)   measured          &lt;NA&gt;        151 0.012  75.012</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 63   63 irradiation (NA) predefined          &lt;NA&gt;          2 0.000  15.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 64   64       TL (UVVIS)   measured          &lt;NA&gt;        680 0.100  68.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 65   65          TL (NA) predefined          &lt;NA&gt;          4 0.000 198.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 66   66          TL (NA)   measured          &lt;NA&gt;        990 0.000  98.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 65   65         _TL (NA) predefined          &lt;NA&gt;          4 0.000 198.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 66   66         _TL (NA)   measured          &lt;NA&gt;        990 0.000  98.900</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 67   67      OSL (UVVIS)   measured          &lt;NA&gt;        500 0.100  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 68   68         OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 69   69         OSL (NA)   measured          &lt;NA&gt;       1150 0.000 114.900</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 70   70         OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 71   71         OSL (NA)   measured          &lt;NA&gt;        151 0.012  75.012</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 68   68        _OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 69   69        _OSL (NA)   measured          &lt;NA&gt;       1150 0.000 114.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 70   70        _OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 71   71        _OSL (NA)   measured          &lt;NA&gt;        151 0.012  75.012</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 72   72 irradiation (NA) predefined          &lt;NA&gt;          2 0.000 300.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 73   73       TL (UVVIS)   measured          &lt;NA&gt;       1180 0.100 118.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 74   74          TL (NA) predefined          &lt;NA&gt;          5 0.000 268.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 75   75          TL (NA)   measured          &lt;NA&gt;       1750 0.000 174.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 74   74         _TL (NA) predefined          &lt;NA&gt;          5 0.000 268.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 75   75         _TL (NA)   measured          &lt;NA&gt;       1750 0.000 174.900</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 76   76      OSL (UVVIS)   measured          &lt;NA&gt;        500 0.100  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 77   77         OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 78   78         OSL (NA)   measured          &lt;NA&gt;       1160 0.000 115.900</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 79   79         OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 80   80         OSL (NA)   measured          &lt;NA&gt;        152 0.481  75.981</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 77   77        _OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 78   78        _OSL (NA)   measured          &lt;NA&gt;       1160 0.000 115.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79   79        _OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 80   80        _OSL (NA)   measured          &lt;NA&gt;        152 0.481  75.981</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 81   81 irradiation (NA) predefined          &lt;NA&gt;          2 0.000  15.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 82   82       TL (UVVIS)   measured          &lt;NA&gt;        680 0.100  68.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 83   83          TL (NA) predefined          &lt;NA&gt;          4 0.000 198.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 84   84          TL (NA)   measured          &lt;NA&gt;        990 0.000  98.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 83   83         _TL (NA) predefined          &lt;NA&gt;          4 0.000 198.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 84   84         _TL (NA)   measured          &lt;NA&gt;        990 0.000  98.900</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 85   85      OSL (UVVIS)   measured          &lt;NA&gt;        500 0.100  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 86   86         OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 87   87         OSL (NA)   measured          &lt;NA&gt;       1130 0.000 112.900</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 88   88         OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 89   89         OSL (NA)   measured          &lt;NA&gt;        147 0.012  73.012</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 86   86        _OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 87   87        _OSL (NA)   measured          &lt;NA&gt;       1130 0.000 112.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 88   88        _OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 89   89        _OSL (NA)   measured          &lt;NA&gt;        147 0.012  73.012</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 90   90       TL (UVVIS)   measured          &lt;NA&gt;       1180 0.100 118.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 91   91          TL (NA) predefined          &lt;NA&gt;          5 0.000 268.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 92   92          TL (NA)   measured          &lt;NA&gt;       1740 0.000 173.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 91   91         _TL (NA) predefined          &lt;NA&gt;          5 0.000 268.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 92   92         _TL (NA)   measured          &lt;NA&gt;       1740 0.000 173.900</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 93   93      OSL (UVVIS)   measured          &lt;NA&gt;        500 0.100  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 94   94         OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 95   95         OSL (NA)   measured          &lt;NA&gt;       1140 0.000 113.900</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 96   96         OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 97   97         OSL (NA)   measured          &lt;NA&gt;        149 0.012  74.012</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 94   94        _OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 95   95        _OSL (NA)   measured          &lt;NA&gt;       1140 0.000 113.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 96   96        _OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 97   97        _OSL (NA)   measured          &lt;NA&gt;        149 0.012  74.012</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 98   98 irradiation (NA) predefined          &lt;NA&gt;          2 0.000  15.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 99   99       TL (UVVIS)   measured          &lt;NA&gt;        680 0.100  68.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 100 100          TL (NA) predefined          &lt;NA&gt;          4 0.000 198.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 101 101          TL (NA)   measured          &lt;NA&gt;        990 0.000  98.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100 100         _TL (NA) predefined          &lt;NA&gt;          4 0.000 198.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 101 101         _TL (NA)   measured          &lt;NA&gt;        990 0.000  98.900</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 102 102      OSL (UVVIS)   measured          &lt;NA&gt;        500 0.100  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 103 103         OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 104 104         OSL (NA)   measured          &lt;NA&gt;       1150 0.000 114.900</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 105 105         OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 106 106         OSL (NA)   measured          &lt;NA&gt;        151 0.012  75.012</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 103 103        _OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 104 104        _OSL (NA)   measured          &lt;NA&gt;       1150 0.000 114.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 105 105        _OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 106 106        _OSL (NA)   measured          &lt;NA&gt;        151 0.012  75.012</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 107 107 irradiation (NA) predefined          &lt;NA&gt;          2 0.000  60.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 108 108       TL (UVVIS)   measured          &lt;NA&gt;       1180 0.100 118.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 109 109          TL (NA) predefined          &lt;NA&gt;          5 0.000 268.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 110 110          TL (NA)   measured          &lt;NA&gt;       1740 0.000 173.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 109 109         _TL (NA) predefined          &lt;NA&gt;          5 0.000 268.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 110 110         _TL (NA)   measured          &lt;NA&gt;       1740 0.000 173.900</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 111 111      OSL (UVVIS)   measured          &lt;NA&gt;        500 0.100  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 112 112         OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 113 113         OSL (NA)   measured          &lt;NA&gt;       1150 0.000 114.900</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 114 114         OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 115 115         OSL (NA)   measured          &lt;NA&gt;        151 0.020  75.020</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 112 112        _OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 113 113        _OSL (NA)   measured          &lt;NA&gt;       1150 0.000 114.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 114 114        _OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 115 115        _OSL (NA)   measured          &lt;NA&gt;        151 0.020  75.020</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 116 116 irradiation (NA) predefined          &lt;NA&gt;          2 0.000  15.000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 117 117       TL (UVVIS)   measured          &lt;NA&gt;        680 0.100  68.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 118 118          TL (NA) predefined          &lt;NA&gt;          4 0.000 198.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 119 119          TL (NA)   measured          &lt;NA&gt;        980 0.000  97.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 118 118         _TL (NA) predefined          &lt;NA&gt;          4 0.000 198.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 119 119         _TL (NA)   measured          &lt;NA&gt;        980 0.000  97.900</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 120 120      OSL (UVVIS)   measured          &lt;NA&gt;        500 0.100  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 121 121         OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 122 122         OSL (NA)   measured          &lt;NA&gt;       1140 0.000 113.900</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 123 123         OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 124 124         OSL (NA)   measured          &lt;NA&gt;        149 0.012  74.012</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 121 121        _OSL (NA) predefined          &lt;NA&gt;          5 0.000 216.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 122 122        _OSL (NA)   measured          &lt;NA&gt;       1140 0.000 113.900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 123 123        _OSL (NA) predefined          &lt;NA&gt;          2 0.000  50.000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 124 124        _OSL (NA)   measured          &lt;NA&gt;        149 0.012  74.012</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     y.min  y.max    originator                                 .uid</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       0   82.0 read_XSYG2R()   2016-01-30-10:54.0.226260372670367</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2      25  260.0 read_XSYG2R()    2016-01-30-10:54.0.77414278825745</span>
@@ -494,7 +495,7 @@ object in the input list.</p></li>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

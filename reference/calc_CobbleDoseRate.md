@@ -12,16 +12,16 @@ factors of Aitken (1985). Water content in the cobble is assumed to be
 ## Usage
 
 ``` r
-calc_CobbleDoseRate(input, conversion = "Guerinetal2011")
+calc_CobbleDoseRate(object, conversion = "Guerinetal2011", ...)
 ```
 
 ## Arguments
 
-- input:
+- object:
 
   [data.frame](https://rdrr.io/r/base/data.frame.html) (**required**): A
-  table containing all relevant information for each individual layer.
-  For the table layout see details.
+  data frame containing all relevant information for each individual
+  layer. For the table layout see details.
 
 - conversion:
 
@@ -29,6 +29,10 @@ calc_CobbleDoseRate(input, conversion = "Guerinetal2011")
   dose rate conversion factors to use, see
   [BaseDataSet.ConversionFactors](https://r-lum.github.io/Luminescence/reference/BaseDataSet.md)
   for the accepted values.
+
+- ...:
+
+  currently not used.
 
 ## Value
 
@@ -82,17 +86,18 @@ calculated according to:
 
 ## Function version
 
-0.1.0
+0.1.1
 
 ## How to cite
 
-Riedesel, S., Autzen, M., 2025. calc_CobbleDoseRate(): Calculate dose
-rate of slices in a spherical cobble. Function version 0.1.0. In:
+Riedesel, S., Autzen, M., 2026. calc_CobbleDoseRate(): Calculate dose
+rate of slices in a spherical cobble. Function version 0.1.1. In:
 Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/
+Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.2.0.
+https://r-lum.github.io/Luminescence/
 
 ## References
 

@@ -9,7 +9,7 @@ for OSL dating of sedimentary quartz.
 ``` r
 calc_gSGC(
   data,
-  gSGC.type = "0-250",
+  gSGC.type = c("0-250", "0-450"),
   gSGC.parameters = NULL,
   n.MC = 100,
   verbose = TRUE,
@@ -97,13 +97,13 @@ will significantly increase the computation time.
 
 ## How to cite
 
-Kreutzer, S., 2025. calc_gSGC(): Calculate De value based on the gSGC by
+Kreutzer, S., 2026. calc_gSGC(): Calculate De value based on the gSGC by
 Li et al., 2015. Function version 0.1.3. In: Kreutzer, S., Burow, C.,
 Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -120,8 +120,8 @@ doi:10.1016/j.quageo.2015.02.011
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 
@@ -141,10 +141,10 @@ Dr1 = 34.4))
 #>  f(D):        0.787 * (1 - exp(-D /73.9)) + c * D + 0.01791
 #>  n.MC:        100
 #>  ------------------------------ 
-#>  De:     28.43 ± 1.5
+#>  De:     28.43 ± 1.61
 #>  ------------------------------ 
 
 get_RLum(results, data.object = "De")
 #>         DE DE.ERROR       ETA
-#> 1 28.42881 1.495121 0.1325632
+#> 1 28.42881 1.613598 0.1325632
 ```

@@ -9,10 +9,11 @@ OSL/IRSL depletion ratios and the IRSL/OSL ratio.
 ``` r
 analyse_portableOSL(
   object,
-  signal.integral = NULL,
+  signal_integral = NULL,
+  integral_input = c("channel", "measurement"),
   invert = FALSE,
   normalise = FALSE,
-  mode = "profile",
+  mode = c("profile", "surface"),
   coord = NULL,
   plot = TRUE,
   ...
@@ -30,18 +31,26 @@ analyse_portableOSL(
   objects, in which case each input is treated as a separate sample and
   the results are merged.
 
-- signal.integral:
+- signal_integral:
 
-  [numeric](https://rdrr.io/r/base/numeric.html) (**required**): A
-  vector specifying the range of channels used to calculate the OSL/IRSL
+  [numeric](https://rdrr.io/r/base/numeric.html) (**required**): vector
+  specifying the range of channels used to calculate the OSL/IRSL
   signal. It can be provided as a vector of length 2 such as `c(1, 5)`,
   or as a sequence such as `1:5`, in which case the lowest and highest
   values define the range.
 
+- integral_input:
+
+  [character](https://rdrr.io/r/base/character.html) (*with default*):
+  input type for `signal_integral`, one of `"channel"` (default) or
+  `"measurement"`. If set to `"measurement"`, the best matching channels
+  corresponding to the given time range (in seconds) are selected.
+
 - invert:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  `TRUE` flip the plot the data in reverse order.
+  whether the data should be plotted in reverse order (`FALSE` by
+  default).
 
 - normalise:
 
@@ -114,24 +123,24 @@ objects produced by
 It further assumes (or rather requires) an equal amount of OSL and IRSL
 curves that are pairwise combined for calculating the IRSL/OSL ratio.
 For calculating the depletion ratios, the cumulative signal of the last
-*n* channels (same number of channels as specified by `signal.integral`)
+*n* channels (same number of channels as specified by `signal_integral`)
 is divided by cumulative signal of the first *n* channels
-(`signal.integral`).
+(`signal_integral`).
 
-**Note: The function assumes the following sequence pattern:
-`DARK COUNT`, `IRSL`, `DARK COUNT`, `BSL`, `DARK COUNT`.** Therefore,
-the total number of curves in the input object must be a multiple of 5,
-and there must be 3 `DARK_COUNT` records for each IRSL/BSL pair. If you
-have used a different sequence, the function will produce an error.
+**Note:** The function assumes the following sequence pattern:
+`DARK COUNT`, `IRSL`, `DARK COUNT`, `BSL`, `DARK COUNT`. Therefore, the
+total number of curves in the input object must be a multiple of 5, and
+there must be 3 `DARK_COUNT` records for each IRSL/BSL pair. If a
+different sequence was used, the function will produce an error.
 
 **Signal processing** The function processes the signals as follows:
 `BSL` and `IRSL` signals are extracted using the chosen signal integral,
 dark counts are taken in full.
 
 **Working with coordinates** Usually samples are taken from a profile
-with a certain stratigraphy. In the past the function calculated an
-index. With this newer version, you have two option of passing on
-xy-coordinates to the function:
+with a certain stratigraphy. In the past, the function calculated an
+index. Currently, you have two ways of passing on xy-coordinates to the
+function:
 
 - \(1\) Add coordinates to the sample name during measurement. The form
   is rather strict and has to follow the scheme
@@ -148,7 +157,7 @@ set to 0. Note that, in such case, a surface plot cannot be produced.
 
 ## Function version
 
-0.1.3
+0.1.5
 
 ## See also
 
@@ -159,20 +168,21 @@ set to 0. Note that, in such case, a surface plot cannot be produced.
 ## Author
 
 Christoph Burow, University of Cologne (Germany)  
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
 Marco Colombo, Institute of Geography, Heidelberg University (Germany) ,
 RLum Developer Team
 
 ## How to cite
 
-Burow, C., Kreutzer, S., Colombo, M., 2025. analyse_portableOSL():
-Analyse portable CW-OSL measurements. Function version 0.1.3. In:
+Burow, C., Kreutzer, S., Colombo, M., 2026. analyse_portableOSL():
+Analyse portable CW-OSL measurements. Function version 0.1.5. In:
 Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/
+Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.2.0.
+https://r-lum.github.io/Luminescence/
 
 ## Examples
 
@@ -188,7 +198,6 @@ plot_RLum(
  combine = TRUE,
  records_max = 5,
  legend.pos = "outside")
-
 merged
 #> 
 #>  [RLum.Analysis-class]
@@ -197,23 +206,24 @@ merged
 #>   additional info elements:  196
 #>   number of records: 70
 #>   .. : RLum.Data.Curve : 70
-#>   .. .. : #1 USER | #2 IRSL | #3 USER | #4 OSL | #5 USER | #6 USER | #7 IRSL
-#>   .. .. : #8 USER | #9 OSL | #10 USER | #11 USER | #12 IRSL | #13 USER | #14 OSL
-#>   .. .. : #15 USER | #16 USER | #17 IRSL | #18 USER | #19 OSL | #20 USER | #21 USER
-#>   .. .. : #22 IRSL | #23 USER | #24 OSL | #25 USER | #26 USER | #27 IRSL | #28 USER
-#>   .. .. : #29 OSL | #30 USER | #31 USER | #32 IRSL | #33 USER | #34 OSL | #35 USER
-#>   .. .. : #36 USER | #37 IRSL | #38 USER | #39 OSL | #40 USER | #41 USER | #42 IRSL
-#>   .. .. : #43 USER | #44 OSL | #45 USER | #46 USER | #47 IRSL | #48 USER | #49 OSL
-#>   .. .. : #50 USER | #51 USER | #52 IRSL | #53 USER | #54 OSL | #55 USER | #56 USER
-#>   .. .. : #57 IRSL | #58 USER | #59 OSL | #60 USER | #61 USER | #62 IRSL | #63 USER
-#>   .. .. : #64 OSL | #65 USER | #66 USER | #67 IRSL | #68 USER | #69 OSL | #70 USER
+#>   .. .. : #1 USER (PMT) | #2 IRSL (PMT) | #3 USER (PMT) | #4 OSL (PMT) | #5 USER (PMT) | #6 USER (PMT) | #7 IRSL (PMT)
+#>   .. .. : #8 USER (PMT) | #9 OSL (PMT) | #10 USER (PMT) | #11 USER (PMT) | #12 IRSL (PMT) | #13 USER (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 USER (PMT) | #16 USER (PMT) | #17 IRSL (PMT) | #18 USER (PMT) | #19 OSL (PMT) | #20 USER (PMT) | #21 USER (PMT)
+#>   .. .. : #22 IRSL (PMT) | #23 USER (PMT) | #24 OSL (PMT) | #25 USER (PMT) | #26 USER (PMT) | #27 IRSL (PMT) | #28 USER (PMT)
+#>   .. .. : #29 OSL (PMT) | #30 USER (PMT) | #31 USER (PMT) | #32 IRSL (PMT) | #33 USER (PMT) | #34 OSL (PMT) | #35 USER (PMT)
+#>   .. .. : #36 USER (PMT) | #37 IRSL (PMT) | #38 USER (PMT) | #39 OSL (PMT) | #40 USER (PMT) | #41 USER (PMT) | #42 IRSL (PMT)
+#>   .. .. : #43 USER (PMT) | #44 OSL (PMT) | #45 USER (PMT) | #46 USER (PMT) | #47 IRSL (PMT) | #48 USER (PMT) | #49 OSL (PMT)
+#>   .. .. : #50 USER (PMT) | #51 USER (PMT) | #52 IRSL (PMT) | #53 USER (PMT) | #54 OSL (PMT) | #55 USER (PMT) | #56 USER (PMT)
+#>   .. .. : #57 IRSL (PMT) | #58 USER (PMT) | #59 OSL (PMT) | #60 USER (PMT) | #61 USER (PMT) | #62 IRSL (PMT) | #63 USER (PMT)
+#>   .. .. : #64 OSL (PMT) | #65 USER (PMT) | #66 USER (PMT) | #67 IRSL (PMT) | #68 USER (PMT) | #69 OSL (PMT) | #70 USER (PMT)
 
 # (3) analyse and plot
 results <- analyse_portableOSL(
   merged,
-  signal.integral = 1:5,
+  signal_integral = 1:5,
   invert = FALSE,
   normalise = TRUE)
+
 
 get_RLum(results)
 #>    ID RUN        BSL    BSL_error       IRSL   IRSL_error BSL_depletion

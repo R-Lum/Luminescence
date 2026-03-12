@@ -52,7 +52,7 @@ plot_DoseResponseCurve(
 
   Further graphical parameters to be passed (supported: `main`, `mtext`,
   `xlim`, `ylim`, `xlab`, `ylab`, `log` (not valid for objects fitted
-  with `mode = "extrapolation"`), `legend` (`TRUE/FALSE`), `leged.pos`,
+  with `mode = "extrapolation"`), `legend` (`TRUE/FALSE`), `legend.pos`,
   `reg_points_pch`, `density_polygon` (`TRUE/FALSE`),
   `density_polygon_col`, `density_rug` (`TRUE`/`FALSE`), `box`
   (`TRUE`/`FALSE`).
@@ -67,14 +67,14 @@ A plot (or a series of plots) is produced.
 
 ## How to cite
 
-Kreutzer, S., Dietze, M., Colombo, M., 2025. plot_DoseResponseCurve():
+Kreutzer, S., Dietze, M., Colombo, M., 2026. plot_DoseResponseCurve():
 Plot a dose-response curve for luminescence data (Lx/Tx against dose).
 Function version 1.0.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
-J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence:
-Comprehensive Luminescence Dating Data Analysis. R package version
-1.1.2. https://r-lum.github.io/Luminescence/
+J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
+Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
+version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -97,8 +97,8 @@ function. Journal of Luminescence 225, 117333.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
 Michael Dietze, GFZ Potsdam (Germany)  
 Marco Colombo, Institute of Geography, Heidelberg University (Germany) ,
 RLum Developer Team

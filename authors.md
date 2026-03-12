@@ -65,25 +65,27 @@
 - **Anna-Maartje de Boer**. Author.
   [](https://orcid.org/0000-0002-7359-6939)
 
+- **Andrzej Bluszcz**. Author. [](https://orcid.org/0000-0002-8027-6941)
+
 - **Markus Fuchs**. Thesis advisor.
   [](https://orcid.org/0000-0003-4669-6528)
 
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/R-Lum/Luminescence/blob/v1.1.2/inst/CITATION)
+[`inst/CITATION`](https://github.com/R-Lum/Luminescence/blob/v1.2.0/inst/CITATION)
 
 Kreutzer S, Burow C, Dietze M, Fuchs M, Schmidt C, Fischer M, Friedrich
 J, Mercier N, Philippe A, Riedesel S, Autzen M, Mittelstrass D, Gray H,
-Galharret J, Colombo M, Steinbuch L, de Boer A (2025). *Luminescence:
-Comprehensive Luminescence Dating Data Analysis*. R package version
-1.1.2, <https://r-lum.github.io/Luminescence/>.
+Galharret J, Colombo M, Steinbuch L, de Boer A, Bluszcz A (2026).
+*Luminescence: Comprehensive Luminescence Dating Data Analysis*. R
+package version 1.2.0, <https://r-lum.github.io/Luminescence/>.
 
     @Manual{,
       title = {Luminescence: Comprehensive Luminescence Dating Data Analysis},
-      author = {Sebastian Kreutzer and Christoph Burow and Michael Dietze and Margret C. Fuchs and Christoph Schmidt and Manfred Fischer and Johannes Friedrich and Norbert Mercier and Anne Philippe and Svenja Riedesel and Martin Autzen and Dirk Mittelstrass and Harrison J. Gray and Jean-Michel Galharret and Marco Colombo and Luc Steinbuch and Anna-Maartje {de Boer}},
-      year = {2025},
-      note = {R package version 1.1.2},
+      author = {Sebastian Kreutzer and Christoph Burow and Michael Dietze and Margret C. Fuchs and Christoph Schmidt and Manfred Fischer and Johannes Friedrich and Norbert Mercier and Anne Philippe and Svenja Riedesel and Martin Autzen and Dirk Mittelstrass and Harrison J. Gray and Jean-Michel Galharret and Marco Colombo and Luc Steinbuch and Anna-Maartje {de Boer} and Andrzej Bluszcz},
+      year = {2026},
+      note = {R package version 1.2.0},
       url = {https://r-lum.github.io/Luminescence/},
     }
 

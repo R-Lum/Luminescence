@@ -25,7 +25,7 @@ template_DRAC(nrow = 1L, preset = NULL, file_input = NULL, notification = TRUE)
   default, all values of the template are set to `NA`, which means that
   the user needs to fill in **all** data first before submitting to DRAC
   using
-  [`use_DRAC()`](https://r-lum.github.io/Luminescence/reference/use_DRAC.md).
+  [use_DRAC](https://r-lum.github.io/Luminescence/reference/use_DRAC.md).
   To reduce the number of values that need to be provided, `preset` can
   be used to create a template with at least a minimum of reasonable
   preset values.
@@ -51,16 +51,16 @@ template_DRAC(nrow = 1L, preset = NULL, file_input = NULL, notification = TRUE)
 
 - file_input:
 
-  [character](https://rdrr.io/r/base/character.html) file connection to
-  a DRAC `.csv` file, the file will be imported and translated to the
-  template that can be used by
+  [character](https://rdrr.io/r/base/character.html) (*optional*): file
+  connection to a DRAC `.csv` file. The file will be imported and
+  translated to a template usable by
   [use_DRAC](https://r-lum.github.io/Luminescence/reference/use_DRAC.md).
-  Please note that there is not check on validity of the `.csv` file.
+  Please note that there is no check on the validity of the `.csv` file.
 
 - notification:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*): show
-  or hide the notification
+  or hide the notification.
 
 ## Value
 
@@ -72,13 +72,13 @@ A list of class `DRAC.list`.
 
 ## How to cite
 
-Burow, C., Kreutzer, S., 2025. template_DRAC(): Create a DRAC input data
+Burow, C., Kreutzer, S., 2026. template_DRAC(): Create a DRAC input data
 template (v1.2). Function version 0.1.1. In: Kreutzer, S., Burow, C.,
 Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -93,9 +93,10 @@ Calculator for trapped charge dating. Quaternary Geochronology 28,
 
 ## Author
 
-Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
-Institute of Geography, Heidelberg University (Germany) , RLum Developer
-Team
+Christoph Burow, University of Cologne (Germany)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
+, RLum Developer Team
 
 ## Examples
 

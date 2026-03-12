@@ -126,7 +126,7 @@ plot_FilterCombinations(
 
   further arguments that can be passed to control the plot output.
   Supported are `main`, `xlab`, `ylab`, `xlim`, `ylim`, `type`, `lty`,
-  `lwd`. For non common plotting parameters, see the details section.
+  `lwd`. For non-common plotting parameters, see the details section.
 
 ## Value
 
@@ -151,7 +151,7 @@ Returns an S4 object of type
 
 ## Function version
 
-0.3.2
+0.3.3
 
 ## See also
 
@@ -160,19 +160,19 @@ Returns an S4 object of type
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## How to cite
 
-Kreutzer, S., 2025. plot_FilterCombinations(): Plot filter combinations
+Kreutzer, S., 2026. plot_FilterCombinations(): Plot filter combinations
 along with the (optional) net transmission window. Function version
-0.3.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
+0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
 C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
 Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
-Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive
-Luminescence Dating Data Analysis. R package version 1.1.2.
-https://r-lum.github.io/Luminescence/
+Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
+Comprehensive Luminescence Dating Data Analysis. R package version
+1.2.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
@@ -210,6 +210,5 @@ if (FALSE) { # \dontrun{
 ##Example 4
 ##show the filters using the interactive mode
 plot_FilterCombinations(filters = list(filter1, filter2), interactive = TRUE)
-
 } # }
 ```

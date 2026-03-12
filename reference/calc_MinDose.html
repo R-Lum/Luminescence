@@ -13,22 +13,23 @@ p0:proportion of grains at gamma
 If par=3 (default) the 3-parameter minimum age model is applied,
 where gamma=mu. For par=4 the 4-parameter model is applied instead.
 (Un-)logged model
-In the original version of the minimum dose model, the basic data are the natural
+In the original version of the minimum dose model, which is applied if
+log = TRUE (default), the basic data are the natural
 logarithms of the De estimates and relative standard errors of the De
 estimates. The value for sigmab must be provided as a ratio
-(e.g, 0.2 for 20 %). This model will be applied if log = TRUE.
+(e.g, 0.2 for 20 %).
 If log=FALSE, the modified un-logged model will be applied instead. This
-has essentially the same form as the original version.  gamma and
+has essentially the same form as the original version, but  gamma and
 sigma are in Gy and gamma becomes the minimum true dose in the
 population.
-Note that the un-logged model requires sigmab to be in the same
+Note: the un-logged model requires sigmab to be in the same
 absolute unit as the provided De values (seconds or Gray).
 While the original (logged) version of the minimum dose
 model may be appropriate for most samples (i.e. De distributions), the
 modified (un-logged) version is specially designed for modern-age and young
 samples containing negative, zero or near-zero De estimates (Arnold et al.
 2009, p. 323).
-Initial values &amp;amp; boundaries
+Initial values and boundaries
 The log-likelihood calculations use the nlminb function for box-constrained
 optimisation using PORT routines.  Accordingly, initial values for the four
 parameters can be specified via init.values. If no values are
@@ -36,32 +37,30 @@ provided for init.values, reasonable starting values are estimated
 from the input data.  If the final estimates of gamma, mu,
 sigma and p0 are totally off target, consider providing custom
 starting values via init.values.
-The boundaries for the individual model parameters are not required to be
-explicitly specified. If you want to override the default boundary values,
-use arguments gamma.lower, gamma.upper, sigma.lower, sigma.upper,
+The boundaries for individual model parameters need not be specified
+explicitly. To override the default boundary values, provide arguments
+gamma.lower, gamma.upper, sigma.lower, sigma.upper,
 p0.lower, p0.upper, mu.lower and mu.upper.
 Bootstrap
 When bootstrap=TRUE the function applies the bootstrapping method as
-described in Cunningham &amp;amp; Wallinga (2012). By default, the minimum age model
-produces 1000 first level and 3000 second level bootstrap replicates. The
-uncertainty on sigmab is 0.04 by default. These values can be changed by
-using the arguments bs.M (first level replicates), bs.N
-(second level replicates) and sigmab.sd (error on sigmab). The bandwidth
-of the kernel density estimate can be specified with bs.h. By default,
-this is calculated as:
+described in Cunningham &amp;amp; Wallinga (2012). The minimum age model produces
+bs.M first-level bootstrap replicates (1000 by default) and bs.N
+second-level replicates (3 * bs.M by default), with an uncertainty
+sigma.sd on the overdispersion parameter (0.04 by default). These values
+can be changed by using arguments bs.M, bs.N and sigmab.sd,
+respectively. The bandwidth of the kernel density estimate can be specified
+with bs.h. By default, this is calculated as:
 $$h = (2*\sigma_{DE})/\sqrt{n}$$
 Multicore support
-Parallel computations can be activated by setting multicore=TRUE.
-By default, the number of available logical CPU cores is determined
-automatically, but can be changed with cores. The multicore support
-is only available when bootstrap=TRUE and spawns n R instances
-for each core to get MAM estimates for each of the N and M bootstrap
-replicates. Note that this option is highly experimental and may or may not
-work for your machine. The performance gain increases for larger number
-of bootstrap replicates. However, note that with each additional core (and
-hence R instance) the memory usage can significantly increase, depending
-on the number of bootstrap replicates. When insufficient memory is available,
-there will be a massive performance hit.
+Parallel processing can be enabled by setting multicore = TRUE. By default,
+the number of logical CPU cores is detected automatically, but it can be
+overridden with the cores argument. Multicore processing is supported
+only when bootstrap = TRUE, and spawns one R process per core to compute
+MAM estimates for each of the N * M bootstrap replicates. Note that this
+feature is experimental and may not work on all systems. Performance gains
+grow with the number of bootstrap replicates, but each additional core (R
+process) increases memory usage. When memory is insufficient, overall
+performance can degrade severely.
 Likelihood profiles
 The likelihood profiles are generated and plotted by the bbmle package.
 The profile likelihood plots look different to ordinary profile likelihood as
@@ -85,22 +84,23 @@ p0:proportion of grains at gamma
 If par=3 (default) the 3-parameter minimum age model is applied,
 where gamma=mu. For par=4 the 4-parameter model is applied instead.
 (Un-)logged model
-In the original version of the minimum dose model, the basic data are the natural
+In the original version of the minimum dose model, which is applied if
+log = TRUE (default), the basic data are the natural
 logarithms of the De estimates and relative standard errors of the De
 estimates. The value for sigmab must be provided as a ratio
-(e.g, 0.2 for 20 %). This model will be applied if log = TRUE.
+(e.g, 0.2 for 20 %).
 If log=FALSE, the modified un-logged model will be applied instead. This
-has essentially the same form as the original version.  gamma and
+has essentially the same form as the original version, but  gamma and
 sigma are in Gy and gamma becomes the minimum true dose in the
 population.
-Note that the un-logged model requires sigmab to be in the same
+Note: the un-logged model requires sigmab to be in the same
 absolute unit as the provided De values (seconds or Gray).
 While the original (logged) version of the minimum dose
 model may be appropriate for most samples (i.e. De distributions), the
 modified (un-logged) version is specially designed for modern-age and young
 samples containing negative, zero or near-zero De estimates (Arnold et al.
 2009, p. 323).
-Initial values &amp;amp; boundaries
+Initial values and boundaries
 The log-likelihood calculations use the nlminb function for box-constrained
 optimisation using PORT routines.  Accordingly, initial values for the four
 parameters can be specified via init.values. If no values are
@@ -108,32 +108,30 @@ provided for init.values, reasonable starting values are estimated
 from the input data.  If the final estimates of gamma, mu,
 sigma and p0 are totally off target, consider providing custom
 starting values via init.values.
-The boundaries for the individual model parameters are not required to be
-explicitly specified. If you want to override the default boundary values,
-use arguments gamma.lower, gamma.upper, sigma.lower, sigma.upper,
+The boundaries for individual model parameters need not be specified
+explicitly. To override the default boundary values, provide arguments
+gamma.lower, gamma.upper, sigma.lower, sigma.upper,
 p0.lower, p0.upper, mu.lower and mu.upper.
 Bootstrap
 When bootstrap=TRUE the function applies the bootstrapping method as
-described in Cunningham &amp;amp; Wallinga (2012). By default, the minimum age model
-produces 1000 first level and 3000 second level bootstrap replicates. The
-uncertainty on sigmab is 0.04 by default. These values can be changed by
-using the arguments bs.M (first level replicates), bs.N
-(second level replicates) and sigmab.sd (error on sigmab). The bandwidth
-of the kernel density estimate can be specified with bs.h. By default,
-this is calculated as:
+described in Cunningham &amp;amp; Wallinga (2012). The minimum age model produces
+bs.M first-level bootstrap replicates (1000 by default) and bs.N
+second-level replicates (3 * bs.M by default), with an uncertainty
+sigma.sd on the overdispersion parameter (0.04 by default). These values
+can be changed by using arguments bs.M, bs.N and sigmab.sd,
+respectively. The bandwidth of the kernel density estimate can be specified
+with bs.h. By default, this is calculated as:
 $$h = (2*\sigma_{DE})/\sqrt{n}$$
 Multicore support
-Parallel computations can be activated by setting multicore=TRUE.
-By default, the number of available logical CPU cores is determined
-automatically, but can be changed with cores. The multicore support
-is only available when bootstrap=TRUE and spawns n R instances
-for each core to get MAM estimates for each of the N and M bootstrap
-replicates. Note that this option is highly experimental and may or may not
-work for your machine. The performance gain increases for larger number
-of bootstrap replicates. However, note that with each additional core (and
-hence R instance) the memory usage can significantly increase, depending
-on the number of bootstrap replicates. When insufficient memory is available,
-there will be a massive performance hit.
+Parallel processing can be enabled by setting multicore = TRUE. By default,
+the number of logical CPU cores is detected automatically, but it can be
+overridden with the cores argument. Multicore processing is supported
+only when bootstrap = TRUE, and spawns one R process per core to compute
+MAM estimates for each of the N * M bootstrap replicates. Note that this
+feature is experimental and may not work on all systems. Performance gains
+grow with the number of bootstrap replicates, but each additional core (R
+process) increases memory usage. When memory is insufficient, overall
+performance can degrade severely.
 Likelihood profiles
 The likelihood profiles are generated and plotted by the bbmle package.
 The profile likelihood plots look different to ordinary profile likelihood as
@@ -151,7 +149,7 @@ calculations and plots please see the vignettes of the bbmle package
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -172,7 +170,7 @@ calculations and plots please see the vignettes of the bbmle package
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>(Un-)logged minimum age model (MAM) after Galbraith et al. (1999)</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/calc_MinDose.R" class="external-link"><code>R/calc_MinDose.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/calc_MinDose.R" class="external-link"><code>R/calc_MinDose.R</code></a></small>
       <div class="d-none name"><code>calc_MinDose.Rd</code></div>
     </div>
 
@@ -183,22 +181,23 @@ calculations and plots please see the vignettes of the bbmle package
 <p>This model has four parameters:</p><table class="table table"><tr><td><code>gamma</code>:</td><td>minimum dose on the log scale</td></tr><tr><td><code>mu</code>:</td><td>mean of the non-truncated normal distribution</td></tr><tr><td><code>sigma</code>:</td><td>spread in ages above the minimum</td></tr><tr><td><code>p0</code>:</td><td>proportion of grains at gamma</td></tr></table><p>If <code>par=3</code> (default) the 3-parameter minimum age model is applied,
 where <code>gamma=mu</code>. For <code>par=4</code> the 4-parameter model is applied instead.</p>
 <p><strong>(Un-)logged model</strong></p>
-<p>In the original version of the minimum dose model, the basic data are the natural
+<p>In the original version of the minimum dose model, which is applied if
+<code>log = TRUE</code> (default), the basic data are the natural
 logarithms of the De estimates and relative standard errors of the De
 estimates. The value for <code>sigmab</code> must be provided as a ratio
-(e.g, 0.2 for 20 %). This model will be applied if <code>log = TRUE</code>.</p>
+(e.g, 0.2 for 20 %).</p>
 <p>If <code>log=FALSE</code>, the modified un-logged model will be applied instead. This
-has essentially the same form as the original version.  <code>gamma</code> and
+has essentially the same form as the original version, but  <code>gamma</code> and
 <code>sigma</code> are in Gy and <code>gamma</code> becomes the minimum true dose in the
 population.
-<strong>Note</strong> that the un-logged model requires <code>sigmab</code> to be in the same
+<strong>Note:</strong> the un-logged model requires <code>sigmab</code> to be in the same
 absolute unit as the provided De values (seconds or Gray).</p>
 <p>While the original (logged) version of the minimum dose
 model may be appropriate for most samples (i.e. De distributions), the
 modified (un-logged) version is specially designed for modern-age and young
 samples containing negative, zero or near-zero De estimates (Arnold et al.
 2009, p. 323).</p>
-<p><strong>Initial values &amp; boundaries</strong></p>
+<p><strong>Initial values and boundaries</strong></p>
 <p>The log-likelihood calculations use the <a href="https://rdrr.io/r/stats/nlminb.html" class="external-link">nlminb</a> function for box-constrained
 optimisation using PORT routines.  Accordingly, initial values for the four
 parameters can be specified via <code>init.values</code>. If no values are
@@ -206,32 +205,30 @@ provided for <code>init.values</code>, reasonable starting values are estimated
 from the input data.  If the final estimates of <em>gamma</em>, <em>mu</em>,
 <em>sigma</em> and <em>p0</em> are totally off target, consider providing custom
 starting values via <code>init.values</code>.</p>
-<p>The boundaries for the individual model parameters are not required to be
-explicitly specified. If you want to override the default boundary values,
-use arguments <code>gamma.lower</code>, <code>gamma.upper</code>, <code>sigma.lower</code>, <code>sigma.upper</code>,
+<p>The boundaries for individual model parameters need not be specified
+explicitly. To override the default boundary values, provide arguments
+<code>gamma.lower</code>, <code>gamma.upper</code>, <code>sigma.lower</code>, <code>sigma.upper</code>,
 <code>p0.lower</code>, <code>p0.upper</code>, <code>mu.lower</code> and <code>mu.upper</code>.</p>
 <p><strong>Bootstrap</strong></p>
 <p>When <code>bootstrap=TRUE</code> the function applies the bootstrapping method as
-described in Cunningham &amp; Wallinga (2012). By default, the minimum age model
-produces 1000 first level and 3000 second level bootstrap replicates. The
-uncertainty on <code>sigmab</code> is 0.04 by default. These values can be changed by
-using the arguments <code>bs.M</code> (first level replicates), <code>bs.N</code>
-(second level replicates) and <code>sigmab.sd</code> (error on <code>sigmab</code>). The bandwidth
-of the kernel density estimate can be specified with <code>bs.h</code>. By default,
-this is calculated as:</p>
+described in Cunningham &amp; Wallinga (2012). The minimum age model produces
+<code>bs.M</code> first-level bootstrap replicates (1000 by default) and <code>bs.N</code>
+second-level replicates (<code>3 * bs.M</code> by default), with an uncertainty
+<code>sigma.sd</code> on the overdispersion parameter (0.04 by default). These values
+can be changed by using arguments <code>bs.M</code>, <code>bs.N</code> and <code>sigmab.sd</code>,
+respectively. The bandwidth of the kernel density estimate can be specified
+with <code>bs.h</code>. By default, this is calculated as:</p>
 <p>$$h = (2*\sigma_{DE})/\sqrt{n}$$</p>
 <p><strong>Multicore support</strong></p>
-<p>Parallel computations can be activated by setting <code>multicore=TRUE</code>.
-By default, the number of available logical CPU cores is determined
-automatically, but can be changed with <code>cores</code>. The multicore support
-is only available when <code>bootstrap=TRUE</code> and spawns <code>n</code> R instances
-for each core to get MAM estimates for each of the N and M bootstrap
-replicates. Note that this option is highly experimental and may or may not
-work for your machine. The performance gain increases for larger number
-of bootstrap replicates. However, note that with each additional core (and
-hence R instance) the memory usage can significantly increase, depending
-on the number of bootstrap replicates. When insufficient memory is available,
-there will be a massive performance hit.</p>
+<p>Parallel processing can be enabled by setting <code>multicore = TRUE</code>. By default,
+the number of logical CPU cores is detected automatically, but it can be
+overridden with the <code>cores</code> argument. Multicore processing is supported
+only when <code>bootstrap = TRUE</code>, and spawns one R process per core to compute
+MAM estimates for each of the <code>N * M</code> bootstrap replicates. Note that this
+feature is experimental and may not work on all systems. Performance gains
+grow with the number of bootstrap replicates, but each additional core (R
+process) increases memory usage. When memory is insufficient, overall
+performance can degrade severely.</p>
 <p><strong>Likelihood profiles</strong></p>
 <p>The likelihood profiles are generated and plotted by the <code>bbmle</code> package.
 The profile likelihood plots look different to ordinary profile likelihood as</p>
@@ -267,14 +264,14 @@ calculations and plots please see the vignettes of the <code>bbmle</code> packag
 
 <dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p><a href="RLum.Results-class.html">RLum.Results</a> or <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> (<strong>required</strong>):
-for <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a>: two columns for De and De error.</p></dd>
+for <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a>: two columns with <code>(data[, 1])</code> and De error <code>(data[, 2])</code>.</p></dd>
 
 
 <dt id="arg-sigmab">sigmab<a class="anchor" aria-label="anchor" href="#arg-sigmab"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<strong>required</strong>):
 additional spread in De values, representing the expected overdispersion in
 the data should the sample be well-bleached (Cunningham &amp; Wallinga 2012, p. 100).
-<strong>NOTE</strong>: For the logged model (<code>log = TRUE</code>) this value must be
+<strong>Note:</strong> For the logged model (<code>log = TRUE</code>) this value must be
 a fraction, e.g. 0.2 (= 20 %). If the un-logged model is used (<code>log = FALSE</code>),
 <code>sigmab</code> must be provided in the same absolute units of the De values (seconds or Gray).
 See details.</p></dd>
@@ -282,7 +279,8 @@ See details.</p></dd>
 
 <dt id="arg-log">log<a class="anchor" aria-label="anchor" href="#arg-log"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-whether the logged minimum dose model should be fit to De data.</p></dd>
+whether the logged minimum dose model should be fit to De data (<code>TRUE</code> by
+default).</p></dd>
 
 
 <dt id="arg-par">par<a class="anchor" aria-label="anchor" href="#arg-par"></a></dt>
@@ -300,7 +298,7 @@ apply the recycled bootstrap approach of Cunningham &amp; Wallinga (2012).</p></
 a named list with starting values for <code>gamma</code>, <code>sigma</code>, <code>p0</code> and <code>mu</code>
 (e.g. <code>list(gamma=100, sigma=1.5, p0=0.1, mu=100)</code>). If no values are
 provided, reasonable values will be estimated from the data.
-<strong>NOTE</strong>: the initial values must always be given in the absolute units.
+<strong>Note:</strong> the initial values must always be given in the absolute units.
 If a logged model is applied (<code>log = TRUE</code>), the provided <code>init.values</code>
 are automatically log-transformed.</p></dd>
 
@@ -325,8 +323,8 @@ enable/disable the plot output.</p></dd>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
 parallelize the computation of the bootstrap by creating a multicore cluster
 (only considered if <code>bootstrap = TRUE</code>). By default, it uses all available
-logical CPU cores, but this can be changed with option <code>cores</code>. Note that
-this option is highly experimental and may not work on all machines.</p></dd>
+logical CPU cores, but this can be changed with the <code>cores</code> argument. Note
+that this feature is experimental and may not work on all systems.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -359,7 +357,7 @@ following elements:</p>
 <dd><p><a href="https://rdrr.io/pkg/bbmle/man/mle2.html" class="external-link">bbmle::mle2</a> object containing the maximum log likelihood functions for all parameters</p></dd>
 
 <dt>$BIC</dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> BIC score</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> BIC score from the non-bootstrapped model</p></dd>
 
 <dt>$confint</dt>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> confidence intervals for all parameters</p></dd>
@@ -386,11 +384,11 @@ forwards all internal warning messages.</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.4.6</p>
+    <p>0.5.0</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Burow, C., 2025. calc_MinDose(): (Un-)logged minimum age model (MAM) after Galbraith et al. (1999). Function version 0.4.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Burow, C., Colombo, M., 2026. calc_MinDose(): (Un-)logged minimum age model (MAM) after Galbraith et al. (1999). Function version 0.5.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -436,9 +434,10 @@ obtain a reproducible distribution?. Ancient TL 26, 3-10.</p>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Christoph Burow, University of Cologne (Germany) <br>
+Marco Colombo, Institute of Geography, Heidelberg University (Germany) <br>
 Based on a rewritten S script of Rex Galbraith, 2010 <br>
-The bootstrap approach is based on a rewritten MATLAB script of Alastair Cunningham. <br>
-Alastair Cunningham is thanked for his help in implementing and cross-checking the code.
+The bootstrap approach is based on a MATLAB script by Alastair Cunningham,
+who helped with implementation and cross-checking.
 , RLum Developer Team</p>
     </div>
 
@@ -452,15 +451,15 @@ Alastair Cunningham is thanked for his help in implementing and cross-checking t
 <span class="r-in"><span><span class="co"># By default, this will apply the un-logged 3-parameter MAM.</span></span></span>
 <span class="r-in"><span><span class="fu">calc_MinDose</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">CA1</span>, sigmab <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ----------- meta data -----------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------- Meta data -----------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   n par sigmab logged      Lmax      BIC</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  62   3    0.1   TRUE -43.57969 106.4405</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> --- final parameter estimates ---</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  gamma sigma   p0 mu</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  34.32  2.07 0.01  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> --- Final parameter estimates ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          gamma sigma   p0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Estimate 34.32  2.07 0.01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ------ confidence intervals -----</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ------ Confidence intervals -----</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       2.5 % 97.5 %</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> gamma 29.38  39.38</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> sigma  1.76   2.57</span>
@@ -510,15 +509,15 @@ Alastair Cunningham is thanked for his help in implementing and cross-checking t
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot the dose distribution in an abanico plot and draw a line</span></span></span>
 <span class="r-in"><span><span class="co"># at the minimum dose estimate</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="plot_AbanicoPlot.html">plot_AbanicoPlot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">CA1</span>,</span></span>
+<span class="r-in"><span><span class="fu"><a href="plot_AbanicoPlot.html">plot_AbanicoPlot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">mam</span>,</span></span>
 <span class="r-in"><span>                 main <span class="op">=</span> <span class="st">"3-parameter Minimum Age Model"</span>,</span></span>
-<span class="r-in"><span>                 line <span class="op">=</span> <span class="va">mam</span>,polygon.col <span class="op">=</span> <span class="st">"none"</span>,</span></span>
+<span class="r-in"><span>                 polygon.col <span class="op">=</span> <span class="st">"none"</span>,</span></span>
 <span class="r-in"><span>                 hist <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>                 rug <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>                 summary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"mean"</span>, <span class="st">"mean.weighted"</span>, <span class="st">"median"</span>, <span class="st">"in.ci"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                 centrality <span class="op">=</span> <span class="va">res</span><span class="op">$</span><span class="va">de</span>,</span></span>
-<span class="r-in"><span>                 line.col <span class="op">=</span> <span class="st">"red"</span>,</span></span>
 <span class="r-in"><span>                 grid.col <span class="op">=</span> <span class="st">"none"</span>,</span></span>
+<span class="r-in"><span>                 line.col <span class="op">=</span> <span class="st">"red"</span>,</span></span>
 <span class="r-in"><span>                 line.label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">de</span>, <span class="fl">1</span><span class="op">)</span>, <span class="st">"\U00B1"</span>,</span></span>
 <span class="r-in"><span>                                     <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">de_err</span>, <span class="fl">1</span><span class="op">)</span>, <span class="st">" Gy"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                 bw <span class="op">=</span> <span class="fl">0.1</span>,</span></span>
@@ -529,8 +528,6 @@ Alastair Cunningham is thanked for his help in implementing and cross-checking t
 <span class="r-in"><span>                                  <span class="va">gamma</span> <span class="op">==</span> <span class="fu">.</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">de</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">~</span> <span class="st">", "</span> <span class="op">~</span></span></span>
 <span class="r-in"><span>                                  <span class="va">sigma</span> <span class="op">==</span> <span class="fu">.</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">sig</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">~</span> <span class="st">", "</span> <span class="op">~</span></span></span>
 <span class="r-in"><span>                                  <span class="va">rho</span> <span class="op">==</span> <span class="fu">.</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">res</span><span class="op">$</span><span class="va">p0</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># (3) Run the minimum age model with bootstrap</span></span></span>
 <span class="r-in"><span><span class="co"># NOTE: Bootstrapping is computationally intensive</span></span></span>
@@ -579,7 +576,7 @@ Alastair Cunningham is thanked for his help in implementing and cross-checking t
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

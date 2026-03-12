@@ -144,13 +144,14 @@ for given E and s parameters.
 
 ## How to cite
 
-Kreutzer, S., 2025. calc_ThermalLifetime(): Calculates the Thermal
+Kreutzer, S., 2026. calc_ThermalLifetime(): Calculates the Thermal
 Lifetime using the Arrhenius equation. Function version 0.1.0. In:
 Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/
+Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.2.0.
+https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -165,8 +166,8 @@ Scientific.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 
@@ -216,8 +217,8 @@ calc_ThermalLifetime(
 #> 
 #>  profiling = TRUE
 #>  --------------------------
-#>  mean:    1.020848e+01 Ma
-#>  sd:  1.215245e+00 Ma
+#>  mean:    1.021904e+01 Ma
+#>  sd:  1.217352e+00 Ma
 #>  min:     6.882699e+00 Ma
 #>  max:     1.511764e+01 Ma
 #>  --------------------------

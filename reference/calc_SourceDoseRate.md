@@ -8,14 +8,15 @@ argument dose_rate for the function
 
 Calculation of the source dose rate based on the time elapsed since the
 last calibration of the irradiation source. Decay parameters assume a
-Sr-90 beta source. \$\$dose.rate = D0 \* exp(-log(2) / T.1/2 \* t)\$\$  
-with: D0 \<- calibration dose rate T.1/2 \<- half-life of the source
-nuclide (here in days) t \<- time since source calibration (in days)
-log(2) / T.1/2 equals the decay constant lambda
+Sr-90 beta source. \$\$dose.rate = D0 \exp(-\frac{\log(2)}{T.1/2} t)\$\$
+
+where `D0` is the calibration dose rate, \\T.1/2\\ is the half-life of
+the source nuclide (in days), `t` is the time since source calibration
+(in days), and \\\log(2) / T.1/2\\ equals the decay constant lambda.
 
 Information on the date of measurements may be taken from the data's
-original .BIN file (using e.g., `BINfile <- readBIN2R()` and the slot
-`BINfile@METADATA$DATE`)
+original .BIN file (using e.g., `BINfile <- Luminescence::read_BIN2R()`
+and the slot `BINfile@METADATA$DATE`).
 
 **Allowed source types and related values**
 
@@ -35,8 +36,8 @@ calc_SourceDoseRate(
   calib.date,
   calib.dose.rate,
   calib.error,
-  source.type = "Sr-90",
-  dose.rate.unit = "Gy/s",
+  source.type = c("Sr-90", "Am-214", "Co-60", "Cs-137"),
+  dose.rate.unit = c("Gy/s", "Gy/min"),
   predict = NULL
 )
 ```
@@ -127,14 +128,14 @@ provided.
 
 ## How to cite
 
-Fuchs, M.C., Kreutzer, S., 2025. calc_SourceDoseRate(): Calculation of
+Fuchs, M.C., Kreutzer, S., 2026. calc_SourceDoseRate(): Calculation of
 the source dose rate via the date of measurement. Function version
 0.3.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
 C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
 Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
-Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive
-Luminescence Dating Data Analysis. R package version 1.1.2.
-https://r-lum.github.io/Luminescence/
+Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
+Comprehensive Luminescence Dating Data Analysis. R package version
+1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -150,8 +151,8 @@ NNDC, Brookhaven National Laboratory `http://www.nndc.bnl.gov/`
 
 Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource
 Technology (Germany)  
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 

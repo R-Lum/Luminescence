@@ -128,13 +128,13 @@ estimation of the parameters `kappa` and `sigma_distr`. If set to
 
 ## How to cite
 
-Guibert, P., Kreutzer, S., 2025. calc_EED_Model(): Modelling Exponential
+Guibert, P., Kreutzer, S., 2026. calc_EED_Model(): Modelling Exponential
 Exposure Distribution. Function version 0.1.1. In: Kreutzer, S., Burow,
 C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -155,8 +155,10 @@ dating of poorly bleached mortars. Radiation Measurements 107, 48–57.
 ## Author
 
 Pierre Guibert, IRAMAT-CRP2A, UMR 5060, Université Bordeaux Montaigne
-(France), Sebastian Kreutzer, Geography & Earth Sciences, Aberystwyth
-University (United Kingdom) , RLum Developer Team
+(France)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
+, RLum Developer Team
 
 ## Examples
 
@@ -173,7 +175,7 @@ calc_EED_Model(
 #> ------------------------------------ 
 #> 
 #>  Maximal Individual Equivalent Dose integrated:  20.93 Gy
-#>  Averaged Corrected Equivalent Dose:  11.42 ± 0.67 Gy
+#>  Averaged Corrected Equivalent Dose:  11.44 ± 0.65 Gy
 
 
 #> 

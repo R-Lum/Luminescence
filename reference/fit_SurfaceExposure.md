@@ -117,8 +117,8 @@ fit_SurfaceExposure(
   [plot](https://rdrr.io/r/graphics/plot.default.html). Custom
   parameters include:
 
-  - `verbose` ([logical](https://rdrr.io/r/base/logical.html)): show or
-    hide console output
+  - `verbose` ([logical](https://rdrr.io/r/base/logical.html)):
+    enable/disable output to the terminal
 
   - `line_col`: Colour of the fitted line
 
@@ -180,7 +180,7 @@ saturation) needs to be considered, numeric values for the dose rate
 Gy) must be provided. The function will then fit equation 12 in Sohbati
 et al. (2012b) to the data.
 
-**NOTE**: Currently, this function does **not** consider the variability
+**Note:** Currently, this function does **not** consider the variability
 of the dose rate with sample depth (`x`)! In the original equation the
 dose rate `D` is an arbitrary function of `x` (term `D(x)`), but here
 `D` is assumed constant.
@@ -189,7 +189,7 @@ dose rate `D` is an arbitrary function of `x` (term `D(x)`), but here
 of multiple `data.frame`s, each representing a separate sample, the
 function automatically performs a global fit to the data. This may be
 useful to better constrain the parameters `sigmaphi` or `mu` and
-**requires** that known ages for each sample is provided (e.g.,
+**requires** that a known age for each sample (e.g.,
 `age = c(100, 1000)` if `data` is a list with two samples).
 
 ## Note
@@ -203,13 +203,13 @@ useful to better constrain the parameters `sigmaphi` or `mu` and
 
 ## How to cite
 
-Burow, C., 2025. fit_SurfaceExposure(): Nonlinear Least Squares Fit for
+Burow, C., 2026. fit_SurfaceExposure(): Nonlinear Least Squares Fit for
 OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S.,
 Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
 J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
 D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
-2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
-package version 1.1.2. https://r-lum.github.io/Luminescence/
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -268,7 +268,6 @@ results <- fit_SurfaceExposure(
 get_RLum(results)
 #>        age age_error sigmaphi sigmaphi_error  mu mu_error
 #> 1 9892.927  369.0142    5e-10             NA 0.9       NA
-
 
 ## Example 2 - Single sample and considering dose rate
 # Known parameters: 10000 a, mu = 0.9, sigmaphi = 5e-10,
@@ -348,7 +347,6 @@ get_RLum(results)
 #> 2 1e+04        NA    5e-10             NA 0.9009494 0.001612274
 #> 3 1e+05        NA    5e-10             NA 0.9009494 0.001612274
 #> 4 1e+06        NA    5e-10             NA 0.9009494 0.001612274
-
 
 ## Example 4 - Multiple samples (global fit) and considering dose rate
 # Known parameters: ages = 1e2, 1e3, 1e4, 1e5, 1e6 a, mu = 0.9, sigmaphi = 5e-10,

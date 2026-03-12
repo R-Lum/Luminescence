@@ -12,7 +12,7 @@ analyse_IRSAR.RF(
   sequence_structure = c("NATURAL", "REGENERATED"),
   RF_nat.lim = NULL,
   RF_reg.lim = NULL,
-  method = "FIT",
+  method = c("FIT", "SLIDE", "VSLIDE", "NONE"),
   method_control = NULL,
   test_parameters = NULL,
   n.MC = 10,
@@ -323,7 +323,7 @@ parameters are:
 
 - `n.MC` ([integer](https://rdrr.io/r/base/integer.html), default:
   1000): number of Monte Carlo runs within the sliding (assessing the
-  possible minimum values). **Note**: This parameter is not the same as
+  possible minimum values). **Note:** This parameter is not the same as
   the function argument `n.MC`.
 
 - `vslide_range` ([numeric](https://rdrr.io/r/base/numeric.html) or
@@ -421,7 +421,7 @@ supported parameters are:
   `method = "SLIDE"` a rather rough estimation is made using the
   function
   [minpack.lm::nlsLM](https://rdrr.io/pkg/minpack.lm/man/nlsLM.html) and
-  the equation given above. Note: As this procedure requests more
+  the equation given above. **Note:** As this procedure requests more
   computation time, it is performed only if all three parameters are
   set.
 
@@ -437,13 +437,13 @@ the findings by Buylaert et al. (2012).
 
 ## How to cite
 
-Kreutzer, S., 2025. analyse_IRSAR.RF(): Analyse IRSAR RF measurements.
+Kreutzer, S., 2026. analyse_IRSAR.RF(): Analyse IRSAR RF measurements.
 Function version 0.7.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
-J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence:
-Comprehensive Luminescence Dating Data Analysis. R package version
-1.1.2. https://r-lum.github.io/Luminescence/
+J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
+Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
+version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -536,8 +536,8 @@ review. Quaternary Geochronology 64, 101155.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 
@@ -554,7 +554,7 @@ get_RLum(results, data.object = "data")
 #>       DE DE.ERROR DE.LOWER DE.UPPER DE.STATUS RF_NAT.LIM RF_REG.LIM POSITION
 #> 1 623.25       NA   600.63    635.8        OK        1:5      1:524       NA
 #>   DATE SEQUENCE_NAME              UID
-#> 1   NA            NA 60c54b4e1a98286b
+#> 1   NA            NA f246dad327fa01ca
 get_RLum(results, data.object = "test_parameters")
 #>   POSITION          PARAMETER THRESHOLD        VALUE STATUS SEQUENCE_NAME
 #> 1       NA       curves_ratio     1.001 6.845685e-01     OK            NA
@@ -566,14 +566,14 @@ get_RLum(results, data.object = "test_parameters")
 #> 7       NA               beta        NA 5.418718e-01     OK            NA
 #> 8       NA          delta.phi        NA 2.103400e+03     OK            NA
 #>                UID
-#> 1 60c54b4e1a98286b
-#> 2 60c54b4e1a98286b
-#> 3 60c54b4e1a98286b
-#> 4 60c54b4e1a98286b
-#> 5 60c54b4e1a98286b
-#> 6 60c54b4e1a98286b
-#> 7 60c54b4e1a98286b
-#> 8 60c54b4e1a98286b
+#> 1 f246dad327fa01ca
+#> 2 f246dad327fa01ca
+#> 3 f246dad327fa01ca
+#> 4 f246dad327fa01ca
+#> 5 f246dad327fa01ca
+#> 6 f246dad327fa01ca
+#> 7 f246dad327fa01ca
+#> 8 f246dad327fa01ca
 
 ##(2) perform analysis using the method 'SLIDE'
 data(ExampleData.RF70Curves, envir = environment())

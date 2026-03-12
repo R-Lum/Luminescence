@@ -41,33 +41,33 @@ smooth_RLum(
 
 - k:
 
-  `smooth_RLum`; [integer](https://rdrr.io/r/base/integer.html) (*with
+  smooth_RLum; [integer](https://rdrr.io/r/base/integer.html) (*with
   default*): window for the rolling mean or median. If `NULL`, this set
   automatically (ignored if `method = "Carter_etal_2018"`).
 
 - fill:
 
-  `smooth_RLum`; [numeric](https://rdrr.io/r/base/numeric.html) (*with
+  smooth_RLum; [numeric](https://rdrr.io/r/base/numeric.html) (*with
   default*): value used to pad the result so to have the same length as
   the input.
 
 - align:
 
-  `smooth_RLum`; [character](https://rdrr.io/r/base/character.html)
-  (*with default*): one of `"right"`, `"center"` or `"left"`, specifying
+  smooth_RLum; [character](https://rdrr.io/r/base/character.html) (*with
+  default*): one of `"right"`, `"center"` or `"left"`, specifying
   whether the index of the result should be right-aligned (default),
   centred, or left-aligned compared to the rolling window of
   observations (ignored if `method = "Carter_etal_2018"`).
 
 - method:
 
-  `smooth_RLum`; [character](https://rdrr.io/r/base/character.html)
-  (*with default*): smoothing method to be applied: one of `"mean"`,
-  `"median"` or `"Carter_etal_2018"`.
+  smooth_RLum; [character](https://rdrr.io/r/base/character.html) (*with
+  default*): smoothing method to be applied: one of `"mean"`, `"median"`
+  or `"Carter_etal_2018"`.
 
 - p_acceptance:
 
-  `smooth_RLum`; [numeric](https://rdrr.io/r/base/numeric.html) (*with
+  smooth_RLum; [numeric](https://rdrr.io/r/base/numeric.html) (*with
   default*): probability threshold of accepting a value to be a sample
   from a Poisson distribution (only used for
   `method = "Carter_etal_2018"`). Values that have a Poisson probability
@@ -106,13 +106,13 @@ Currently only `RLum` objects of class `RLum.Data.Curve` and
 
 ## How to cite
 
-Kreutzer, S., 2025. smooth_RLum(): Smoothing of data for RLum-class
+Kreutzer, S., 2026. smooth_RLum(): Smoothing of data for RLum-class
 objects. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze,
 M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N.,
 Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J.,
-Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A.,
+2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
+package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -129,8 +129,8 @@ and implications for luminescence dating. Radiation Measurements 120,
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 

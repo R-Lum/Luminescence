@@ -78,14 +78,14 @@ function call
 
 ## How to cite
 
-Gray, H.J., Kreutzer, S., 2025. calc_gSGC_feldspar(): Calculate Global
+Gray, H.J., Kreutzer, S., 2026. calc_gSGC_feldspar(): Calculate Global
 Standardised Growth Curve (gSGC) for Feldspar MET-pIRIR. Function
 version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C.,
 Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A.,
 Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J.,
-Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence:
+Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
 Comprehensive Luminescence Dating Data Analysis. R package version
-1.1.2. https://r-lum.github.io/Luminescence/
+1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -103,8 +103,9 @@ stimulated luminescence dating of K-feldspar 27, 119–130.
 
 ## Author
 
-Harrison Gray, USGS (United States), Sebastian Kreutzer, Institute of
-Geography, Heidelberg University (Germany) , RLum Developer Team
+Harrison Gray, USGS (United States), Sebastian Kreutzer, F2.1
+Geophysical Parametrisation/Regionalisation, LIAG - Institute for
+Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 

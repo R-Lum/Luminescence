@@ -1,7 +1,7 @@
 # Import Luminescence Data from Helios Luminescence Reader
 
-Straightforward import of files with the ending `.osl` produced by the
-zero rad Helios luminescence reader and conversion to
+Import of files with `.osl` extension produced by the zero rad Helios
+luminescence reader and conversion to
 [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
 objects.
 
@@ -15,9 +15,11 @@ read_HeliosOSL2R(file, verbose = TRUE, ...)
 
 - file:
 
-  [character](https://rdrr.io/r/base/character.html) (**required**):
-  path to file to be imported. Can be a
-  [list](https://rdrr.io/r/base/list.html) for further processing
+  [character](https://rdrr.io/r/base/character.html),
+  [list](https://rdrr.io/r/base/list.html) (**required**): name of one
+  or multiple `.osl` files (URLs are supported); it can be the path to a
+  directory, in which case the function tries to detect and import all
+  `.osl` files found in the directory.
 
 - verbose:
 
@@ -30,8 +32,10 @@ read_HeliosOSL2R(file, verbose = TRUE, ...)
 
 ## Value
 
+A
 [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
-object
+object. Results are returned as a list when multiple files are processed
+or `file` is a list.
 
 ## Note
 
@@ -39,7 +43,7 @@ Thanks to Krzysztof Maternicki for providing example data.
 
 ## Function version
 
-0.1.0
+0.1.1
 
 ## See also
 
@@ -48,18 +52,18 @@ Thanks to Krzysztof Maternicki for providing example data.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## How to cite
 
-Kreutzer, S., 2025. read_HeliosOSL2R(): Import Luminescence Data from
-Helios Luminescence Reader. Function version 0.1.0. In: Kreutzer, S.,
+Kreutzer, S., 2026. read_HeliosOSL2R(): Import Luminescence Data from
+Helios Luminescence Reader. Function version 0.1.1. In: Kreutzer, S.,
 Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
 J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
 D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
-2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
-package version 1.1.2. https://r-lum.github.io/Luminescence/
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 

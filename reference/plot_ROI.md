@@ -53,7 +53,7 @@ plot_ROI(
 
   [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): metric x
   and y for the recorded (chip) surface in µm. For instance
-  `c(8192,8192)`, if set additional x and y-axes are shown
+  `c(8192, 8192)`, if set additional x and y-axes are shown.
 
 - bg_image:
 
@@ -68,8 +68,9 @@ plot_ROI(
 
 - ...:
 
-  further parameters to manipulate the plot. On top of all arguments of
-  [graphics::plot.default](https://rdrr.io/r/graphics/plot.default.html)
+  further parameters to manipulate the plot. Besides the standard
+  arguments of
+  [graphics::plot.default](https://rdrr.io/r/graphics/plot.default.html),
   the following arguments are supported: `lwd.ROI`, `lty.ROI`,
   `col.ROI`, `col.pixel`, `text.labels`, `text.offset`, `grid`
   (`TRUE/FALSE`), `legend` (`TRUE/FALSE`), `legend.text`, `legend.pos`
@@ -93,18 +94,18 @@ the euclidean distance between the ROIs.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## How to cite
 
-Kreutzer, S., 2025. plot_ROI(): Create Regions of Interest (ROI)
+Kreutzer, S., 2026. plot_ROI(): Create Regions of Interest (ROI)
 Graphic. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze,
 M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N.,
 Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J.,
-Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A.,
+2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
+package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 

@@ -13,7 +13,7 @@ function .smoothing()."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@ function .smoothing()."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Smoothing of data for RLum-class objects</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/Luminescence-generics.R" class="external-link"><code>R/Luminescence-generics.R</code></a>, <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/RLum.Analysis-class.R" class="external-link"><code>R/RLum.Analysis-class.R</code></a>, <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/RLum.Data.Curve-class.R" class="external-link"><code>R/RLum.Data.Curve-class.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/Luminescence-generics.R" class="external-link"><code>R/Luminescence-generics.R</code></a>, <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/RLum.Analysis-class.R" class="external-link"><code>R/RLum.Analysis-class.R</code></a>, <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/RLum.Data.Curve-class.R" class="external-link"><code>R/RLum.Data.Curve-class.R</code></a></small>
       <div class="d-none name"><code>smooth_RLum.Rd</code></div>
     </div>
 
@@ -80,18 +80,18 @@ S4 object of class <code>RLum</code></p></dd>
 
 
 <dt id="arg-k">k<a class="anchor" aria-label="anchor" href="#arg-k"></a></dt>
-<dd><p><code>smooth_RLum</code>; <a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>):
+<dd><p>smooth_RLum; <a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>):
 window for the rolling mean or median. If <code>NULL</code>, this set automatically
 (ignored if <code>method = "Carter_etal_2018"</code>).</p></dd>
 
 
 <dt id="arg-fill">fill<a class="anchor" aria-label="anchor" href="#arg-fill"></a></dt>
-<dd><p><code>smooth_RLum</code>; <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
+<dd><p>smooth_RLum; <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
 value used to pad the result so to have the same length as the input.</p></dd>
 
 
 <dt id="arg-align">align<a class="anchor" aria-label="anchor" href="#arg-align"></a></dt>
-<dd><p><code>smooth_RLum</code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
+<dd><p>smooth_RLum; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 one of <code>"right"</code>, <code>"center"</code> or <code>"left"</code>, specifying whether the index
 of the result should be right-aligned (default), centred, or left-aligned
 compared to the rolling window of observations (ignored if
@@ -99,13 +99,13 @@ compared to the rolling window of observations (ignored if
 
 
 <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
-<dd><p><code>smooth_RLum</code>; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
+<dd><p>smooth_RLum; <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
 smoothing method to be applied: one of <code>"mean"</code>, <code>"median"</code> or
 <code>"Carter_etal_2018"</code>.</p></dd>
 
 
 <dt id="arg-p-acceptance">p_acceptance<a class="anchor" aria-label="anchor" href="#arg-p-acceptance"></a></dt>
-<dd><p><code>smooth_RLum</code>; <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
+<dd><p>smooth_RLum; <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
 probability threshold of accepting a value to be a sample from a Poisson
 distribution (only used for <code>method = "Carter_etal_2018"</code>). Values that
 have a Poisson probability below the threshold are replaced by the average
@@ -119,7 +119,8 @@ over the four neighbouring values.</p></dd>
     <div class="section level2">
     <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
 
-<ul><li><p><code>smooth_RLum(list)</code>: Returns a list of <a href="RLum-class.html">RLum</a> objects that had been passed to smooth_RLum</p></li>
+<ul><li><p><code>smooth_RLum(list)</code>: Returns a list of <a href="RLum-class.html">RLum</a> objects that had been passed to
+smooth_RLum</p></li>
 <li><p><code>smooth_RLum(RLum.Analysis)</code>: Smoothing of <code>RLum.Data</code> records contained in the input object.</p></li>
 <li><p><code>smooth_RLum(RLum.Data.Curve)</code>: Smoothing of <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a> objects using a rolling mean or median.
 For methods <code>"mean"</code> and <code>"median"</code>, smoothing is performed by rolling
@@ -138,7 +139,7 @@ photomultiplier tube.</p></li>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2025. smooth_RLum(): Smoothing of data for RLum-class objects. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2026. smooth_RLum(): Smoothing of data for RLum-class objects. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -153,7 +154,7 @@ implications for luminescence dating. Radiation Measurements 120, 267-273.
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+    <p>Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 , RLum Developer Team</p>
     </div>
 
@@ -184,7 +185,7 @@ implications for luminescence dating. Radiation Measurements 120, 267-273.
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

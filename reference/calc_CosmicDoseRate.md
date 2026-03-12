@@ -145,7 +145,8 @@ calc_CosmicDoseRate(
 
 - ...:
 
-  further arguments (`verbose` to disable/enable console output).
+  further arguments (`verbose` to disable/enable output to the
+  terminal).
 
 ## Value
 
@@ -210,13 +211,13 @@ author of this function at the time of writing.
 
 ## How to cite
 
-Burow, C., 2025. calc_CosmicDoseRate(): Calculate the cosmic dose rate.
+Burow, C., 2026. calc_CosmicDoseRate(): Calculate the cosmic dose rate.
 Function version 0.5.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
-J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence:
-Comprehensive Luminescence Dating Data Analysis. R package version
-1.1.2. https://r-lum.github.io/Luminescence/
+J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
+Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
+version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 

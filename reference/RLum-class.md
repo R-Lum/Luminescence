@@ -34,7 +34,7 @@ Abstract class for data in the package Luminescence Subclasses are:
 
   Object of class [character](https://rdrr.io/r/base/character.html) for
   a unique object identifier. This id is usually calculated using the
-  internal function `create_UID()` if the function
+  internal function `create_UID` if the function
   [set_RLum](https://r-lum.github.io/Luminescence/reference/set_RLum.md)
   is called.
 
@@ -68,8 +68,8 @@ A virtual Class: No objects can be created from it.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 

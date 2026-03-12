@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,17 +28,332 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.2.0" id="changes-in-version-120-2026-03-12">Changes in version 1.2.0 (2026-03-12)<a class="anchor" aria-label="anchor" href="#changes-in-version-120-2026-03-12"></a></h2>
+<p>See also the <a href="https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/03/luminescence-release-1.2.0/" class="external-link">write-up for this release on the REPLAY website</a>.</p>
+<div class="section level3">
+<h3 id="breaking-changes-1-2-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-1-2-0"></a></h3>
+<ul><li>
+<p>All import functions will now always append the detector used to the <code>recordType</code> slot of the <code>RLum.Data.Curve</code> object generated, for consistency with what has always been done by <code><a href="../reference/read_XSYG2R.html">read_XSYG2R()</a></code>. The following functions have been modified to support this new behaviour:</p>
+<ul><li><code><a href="../reference/read_Daybreak2R.html">read_Daybreak2R()</a></code></li>
+<li><code><a href="../reference/read_PSL2R.html">read_PSL2R()</a></code></li>
+<li><code><a href="../reference/read_RF2R.html">read_RF2R()</a></code></li>
+<li><code>read_SPE2()</code></li>
+<li>
+<code>Risoe.BINfileData2RLum.Data.Curve()</code> In most cases, this is the string “(PMT)” for BIN/BINX, PSL and Daybreak files; in the remaining cases the string “(NA)” is appended. The following example files have been updated to reflect these changes:</li>
+<li><code>ExampleData.RLum.Analysis</code></li>
+<li>
+<code>ExampleData.portableOSL</code> As a consequence of these changes, default titles for curve plots will now also contain the detector string. This may potentially disrupt code that uses strict equality (<code>==</code>) when selecting curves based on their <code>recordType</code> (<a href="https://github.com/R-Lum/Luminescence/issues/1275" class="external-link">#1275</a>, <a href="https://github.com/R-Lum/Luminescence/issues/1286" class="external-link">#1286</a>).</li>
+</ul></li>
+<li><p>Function <code><a href="../reference/read_XSYG2R.html">read_XSYG2R()</a></code> will now prepend an underscore to the <code>recordType</code> slot of the <code>RLum.Data.Curve</code> object generated from an XSYG file for all objects after the first curve in a record. This will allow an easier way to differentiate the curves to analyse (for example, “OSL (UVVIS”) from those that are not useful in the analysis (for example, “_OSL (NA)“) (<a href="https://github.com/R-Lum/Luminescence/issues/1276" class="external-link">#1276</a>).</p></li>
+<li><p>The <code>@info</code> slot returned by function <code><a href="../reference/read_XSYG2R.html">read_XSYG2R()</a></code> no longer contains a <code>name</code> field: this has been replaced by <code>sequenceName</code>, to differentiate it from the newly-added <code>recordName</code> (<a href="https://github.com/R-Lum/Luminescence/issues/1239" class="external-link">#1239</a>, <a href="https://github.com/R-Lum/Luminescence/issues/1387" class="external-link">#1387</a>).</p></li>
+<li><p>Functions <code><a href="../reference/calc_OSLLxTxRatio.html">calc_OSLLxTxRatio()</a></code>, <code><a href="../reference/calc_OSLLxTxDecomposed.html">calc_OSLLxTxDecomposed()</a></code>, <code><a href="../reference/calc_TLLxTxRatio.html">calc_TLLxTxRatio()</a></code> and <code><a href="../reference/analyse_SAR.TL.html">analyse_SAR.TL()</a></code> return two extra columns, <code>SN_RATIO_LnLx</code> and <code>SN_RATIO_TnTx</code>, in their result object. This may disrupt code that relies on column indices instead of column names (<a href="https://github.com/R-Lum/Luminescence/issues/1281" class="external-link">#1281</a>, <a href="https://github.com/R-Lum/Luminescence/issues/1330" class="external-link">#1330</a>, <a href="https://github.com/R-Lum/Luminescence/issues/1436" class="external-link">#1436</a>).</p></li>
+</ul><p>See <a href="https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/01/upcoming-breaking-changes-in-luminescence/" class="external-link">this post on the REPLAY website</a> for more information and advice on how to deal with these changes.</p>
+</div>
+<div class="section level3">
+<h3 id="new-functions-1-2-0">New functions<a class="anchor" aria-label="anchor" href="#new-functions-1-2-0"></a></h3>
+<ul><li><p><code><a href="../reference/normalise_RLum.html">normalise_RLum()</a></code>: This function enables a fast normalisation of <code>RLum.Data.Curve-class</code>, <code>RLum.Data.Spectrum-class</code>, <code>RLum.Data.Image-class</code> and their combination in <code>RLum.Analysis-class</code> objects. Normalisation was already possible for plotting (e.g., <code>plot_RLum.Data.Curve(…, norm = TRUE)</code>), which uses an internal function called <code>.normalise_curves()</code> to do the job. With <code><a href="../reference/normalise_RLum.html">normalise_RLum()</a></code> we expose this functionality to <code>RLum-class</code> objects and enable a convenient normalisation of values that might come in handy in same cases. Normalised values are only count values. Currently implemented is normalisation via keywords, such as <code>"max"</code>, <code>"min"</code>, <code>"first"</code>, <code>"last"</code>, <code>"huot"</code>, <code>"intensity"</code>. Additionally, the function supports normalisation to a positive number (<a href="https://github.com/R-Lum/Luminescence/issues/1250" class="external-link">#1250</a> by <a href="https://github.com/RLumSK" class="external-link">@RLumSK</a>, <a href="https://github.com/R-Lum/Luminescence/issues/1300" class="external-link">#1300</a>).</p></li>
+<li><p><code><a href="../reference/read_BINXLOG2R.html">read_BINXLOG2R()</a></code>: This function enables the salvaging of log files created by a Risø reader into R as <code>RLum.Analysis-class</code>. It also allows for exporting these files into a BIN/BINX format. While the function has been tested on a few examples, it is important to note that log files are not a well-defined data format. This function is intended for use in cases where you have a corrupted BIN/BINX file but a complete log file is still available. Supported log formats are TL, OSL, and IRSL curves. All other formats are ignored (<a href="https://github.com/R-Lum/Luminescence/issues/1241" class="external-link">#1241</a> by <a href="https://github.com/RLumSK" class="external-link">@RLumSK</a>; thanks to Michael Kenzler for bringing this to our attention).</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="removed-functions-and-deprecations-1-2-0">Removed functions and deprecations<a class="anchor" aria-label="anchor" href="#removed-functions-and-deprecations-1-2-0"></a></h3>
+<ul><li><p>Functions <code>github_branches()</code>, <code>github_commits()</code>, <code>github_issues()</code>, <code>is.RLum()</code>, <code>is.RLum.Analysis()</code>, <code>is.RLum.Data()</code>, <code>is.RLum.Data.Curve()</code>, <code>is.RLum.Data.Image()</code>, <code>is.RLum.Data.Spectrum()</code> and <code>is.RLum.Results()</code> (deprecated since 1.1.2) have been removed (<a href="https://github.com/R-Lum/Luminescence/issues/1242" class="external-link">#1242</a>).</p></li>
+<li><p>Function <code>install_DevelopmentVersion()</code> has been removed as it relied on the now deprecated <code><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">devtools::install_github()</a></code>. Equivalent functionality is available via <code>pak::pkg_install("R-Lum/Luminescence")</code> (<a href="https://github.com/R-Lum/Luminescence/issues/1453" class="external-link">#1453</a>).</p></li>
+</ul></div>
+<div class="section level3">
+<h3 id="bugfixes-and-changes-1-2-0">Bugfixes and changes<a class="anchor" aria-label="anchor" href="#bugfixes-and-changes-1-2-0"></a></h3>
+<div class="section level4">
+<h4 id="analyse_al2o3c_crosstalk-1-2-0"><code>analyse_Al2O3C_CrossTalk()</code><a class="anchor" aria-label="anchor" href="#analyse_al2o3c_crosstalk-1-2-0"></a></h4>
+<ul><li><p>The <code>signal_integral</code> argument was silently ignored (<a href="https://github.com/R-Lum/Luminescence/issues/1428" class="external-link">#1428</a>).</p></li>
+<li><p>The function now supports the <code>integral_input</code> argument, which can be set to either <code>"channel"</code> (default) and <code>"measurement"</code>. When the latter is used, the integrals can be specified in terms of seconds, in which case the function performs an automatic conversion to channels (<a href="https://github.com/R-Lum/Luminescence/issues/1396" class="external-link">#1396</a>).</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="analyse_al2o3c_itc-1-2-0"><code>analyse_Al2O3C_ITC()</code><a class="anchor" aria-label="anchor" href="#analyse_al2o3c_itc-1-2-0"></a></h4>
+<ul><li><p>The function used to output a suppressed error message instead of validating the input ahead of that (<a href="https://github.com/R-Lum/Luminescence/issues/1256" class="external-link">#1256</a>).</p></li>
+<li><p>The <code>signal_integral</code> argument was silently ignored (<a href="https://github.com/R-Lum/Luminescence/issues/1428" class="external-link">#1428</a>).</p></li>
+<li><p>The function now supports the <code>integral_input</code> argument, which can be set to either <code>"channel"</code> (default) and <code>"measurement"</code>. When the latter is used, the integrals can be specified in terms of seconds, in which case the function performs an automatic conversion to channels (<a href="https://github.com/R-Lum/Luminescence/issues/1396" class="external-link">#1396</a>).</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="analyse_al2o3c_measurement-1-2-0"><code>analyse_Al2O3C_Measurement()</code><a class="anchor" aria-label="anchor" href="#analyse_al2o3c_measurement-1-2-0"></a></h4>
+<ul><li>The function now supports the <code>integral_input</code> argument, which can be set to either <code>"channel"</code> (default) and <code>"measurement"</code>. When the latter is used, the integrals can be specified in terms of seconds, in which case the function performs an automatic conversion to channels (<a href="https://github.com/R-Lum/Luminescence/issues/1396" class="external-link">#1396</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="analyse_basar-1-2-0"><code>analyse_baSAR()</code><a class="anchor" aria-label="anchor" href="#analyse_basar-1-2-0"></a></h4>
+<ul><li><p>The function has been updated to use <code><a href="../reference/fit_DoseResponseCurve.html">fit_DoseResponseCurve()</a></code> and <code><a href="../reference/plot_DoseResponseCurve.html">plot_DoseResponseCurve()</a></code> instead of <code><a href="../reference/plot_GrowthCurve.html">plot_GrowthCurve()</a></code>. This should not have any visible difference other than the renaming of two arguments: <code>output.plot</code> has been renamed to <code>plot_drc</code>, while <code>output.plotExtended</code> has been renamed to <code>plot_extended</code>. The older names will still work but generate a deprecation warning (<a href="https://github.com/R-Lum/Luminescence/issues/1244" class="external-link">#1244</a>).</p></li>
+<li><p>Arguments <code>signal.integral</code>, <code>background.integral</code>, <code>signal.integral.Tx</code> and <code>background.integral.Tx</code> have been renamed to <code>signal_integral</code>, <code>background_integral</code>, <code>signal_integral_Tx</code> and <code>background_integral_Tx</code>, respectively. The older names will still work but generate a deprecation warning (<a href="https://github.com/R-Lum/Luminescence/issues/1290" class="external-link">#1290</a>).</p></li>
+<li><p>The function no longer crashes if <code>aliquot_range</code> specifies non-positive indices or if <code>source_doserate = 0</code> (<a href="https://github.com/R-Lum/Luminescence/issues/1424" class="external-link">#1424</a>, <a href="https://github.com/R-Lum/Luminescence/issues/1426" class="external-link">#1426</a>).</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="analyse_fadingmeasurement-1-2-0"><code>analyse_FadingMeasurement()</code><a class="anchor" aria-label="anchor" href="#analyse_fadingmeasurement-1-2-0"></a></h4>
+<ul><li><p>The plots were affected by a bug in <code><a href="../reference/plot_RLum.Analysis.html">plot_RLum.Analysis()</a></code>, so that the output was unnecessarily split over two pages (<a href="https://github.com/R-Lum/Luminescence/issues/1247" class="external-link">#1247</a>).</p></li>
+<li><p>Arguments <code>signal.integral</code> and <code>background.integral</code> have been renamed to <code>signal_integral</code>, <code>background_integral</code>, respectively. The older names will still work but generate a deprecation warning (<a href="https://github.com/R-Lum/Luminescence/issues/1290" class="external-link">#1290</a>).</p></li>
+<li><p>The function now supports the <code>integral_input</code> argument, which can be set to either <code>"channel"</code> (default) and <code>"measurement"</code>. When the latter is used, the integrals can be specified in terms of seconds, in which case the function performs an automatic conversion to channels (<a href="https://github.com/R-Lum/Luminescence/issues/1396" class="external-link">#1396</a>).</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="analyse_irsarrf-1-2-0"><code>analyse_IRSAR.RF()</code><a class="anchor" aria-label="anchor" href="#analyse_irsarrf-1-2-0"></a></h4>
+<ul><li>The <code>slide$squared_residuals</code> field of the <code>@data</code> slot in the <code>RLum.Results</code> object returned by the function is no longer a 1-column matrix, but a plain numeric vector (<a href="https://github.com/R-Lum/Luminescence/issues/1254" class="external-link">#1254</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="analyse_pirirsequence-1-2-0"><code>analyse_pIRIRSequence()</code><a class="anchor" aria-label="anchor" href="#analyse_pirirsequence-1-2-0"></a></h4>
+<ul><li><p>Arguments <code>signal.integral.min</code>, <code>signal.integral.max</code>, <code>background.integral.min</code> and <code>background.integral.max</code> have been replaced by <code>signal_integral</code> and <code>background_integral</code>: each of them now defines a vector of channels for the respective integrals. The older names will still work but generate a deprecation warning (<a href="https://github.com/R-Lum/Luminescence/issues/1290" class="external-link">#1290</a>).</p></li>
+<li><p>The function crashed if called on an empty list (<a href="https://github.com/R-Lum/Luminescence/issues/1372" class="external-link">#1372</a>).</p></li>
+<li><p>The function now supports the <code>integral_input</code> argument, which can be set to either <code>"channel"</code> (default) and <code>"measurement"</code>. When the latter is used, the integrals can be specified in terms of seconds, in which case the function performs an automatic conversion to channels (<a href="https://github.com/R-Lum/Luminescence/issues/1396" class="external-link">#1396</a>).</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="analyse_portableosl-1-2-0"><code>analyse_portableOSL()</code><a class="anchor" aria-label="anchor" href="#analyse_portableosl-1-2-0"></a></h4>
+<ul><li><p>Argument <code>signal.integral</code> has been renamed to <code>signal_integral</code>. The older name will still work but generates a deprecation warning (<a href="https://github.com/R-Lum/Luminescence/issues/1290" class="external-link">#1290</a>).</p></li>
+<li><p>The function now supports the <code>integral_input</code> argument, which can be set to either <code>"channel"</code> (default) and <code>"measurement"</code>. When the latter is used, the integrals can be specified in terms of seconds, in which case the function performs an automatic conversion to channels (<a href="https://github.com/R-Lum/Luminescence/issues/1396" class="external-link">#1396</a>).</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="analyse_sarcwosl-1-2-0"><code>analyse_SAR.CWOSL()</code><a class="anchor" aria-label="anchor" href="#analyse_sarcwosl-1-2-0"></a></h4>
+<ul><li><p>If <code>mode = "alternate"</code>, the dose value is no longer reset automatically. If the first dose point was &gt; 0, the function detected a dose-recovery test and automatically reset this dose point to 0. While this is likely convenient in 9 out of 10 cases, it caused trouble if the <code>mode = "alternate"</code> (passed on to <code><a href="../reference/fit_DoseResponseCurve.html">fit_DoseResponseCurve()</a></code>) because it modified the first dose point and this required additional handling afterwards. Please keep in mind that you have to redefine the recuperation reference in such a case: this is wanted and not a bug (fixed in commit 9ff29bf).</p></li>
+<li><p>The order of columns in the <code>rejection.criteria</code> data frame that is output by the function has been changed so that the <code>UID</code> column appears now first. This is meant to facilitate seeing visually to what aliquot each criteria belongs to. While the <code>UID</code> values are random-looking alphanumeric values, they can identify univocally an aliquot also after merge operations (<a href="https://github.com/R-Lum/Luminescence/issues/1172" class="external-link">#1172</a>).</p></li>
+<li><p>A new argument, <code>dose_rate_source</code>, was added to allow users to specify a value for the source dose rate and display values in Gy, rather than seconds. Previously, this was only possible by using a factor with the <code>dose.points</code> argument. However, setting it manually was particularly inconvenient if the dose points were already extracted automatically, as it required users to insert dose values manually regardless of the automated extraction. This argument is also available in other functions that wrap around <code><a href="../reference/analyse_SAR.CWOSL.html">analyse_SAR.CWOSL()</a></code> (fixed in commit 4fc985d).</p></li>
+<li><p>The function warns if the most common curve type (which is the one used in the analysis) matches multiple record types, as this may be a sign that the user has forgotten to select the correct set of curves to analyze (<a href="https://github.com/R-Lum/Luminescence/issues/1269" class="external-link">#1269</a>).</p></li>
+<li><p>A new signal-to-noise ratio rejection criterion has been added, with default threshold of 50 (controllable by setting the <code>sn.ratio</code> parameter in the <code>rejection.criteria</code> list to a different value). By default it uses the signal-to-noise value computed for the natural curve, but a different curve can be specified via the <code>sn_reference</code> parameter in the <code>rejection.criteria</code> list (<a href="https://github.com/R-Lum/Luminescence/issues/1284" class="external-link">#1284</a>).</p></li>
+<li><p>Arguments <code>signal.integral.min</code>, <code>signal.integral.max</code>, <code>background.integral.min</code> and <code>background.integral.max</code> have been replaced by <code>signal_integral</code>, <code>background_integral</code>, <code>signal_integral_Tx</code> and <code>background_integral_Tx</code>: each of them now defines a vector of channels for the respective integrals. The older names will still work but generate a deprecation warning (<a href="https://github.com/R-Lum/Luminescence/issues/1290" class="external-link">#1290</a>).</p></li>
+<li><p>When rejection criteria are set to <code>NA</code>, in the plot we now only show the value calculated (say, 1.1) instead of incorrectly showing <code>NA</code>s for both the sign and the threshold (as in <code>1.1 NA NA</code>) which would look ugly and confusing (<a href="https://github.com/R-Lum/Luminescence/issues/1318" class="external-link">#1318</a>).</p></li>
+<li><p>The rejection criteria for the highest dose points was not considered correctly, and in most cases validated to <code>"FAILED"</code> even for thresholds set to <code>NA</code> or <code>Inf</code> (fixed in commit 3562bca).</p></li>
+<li><p>It is now possible to consider value uncertainties in the computation of some rejection criteria (currently only <code>recycling.ratio</code>, <code>recuperation.rate</code> and <code>exceed.max.point</code>) by setting <code>consider.uncertainties = TRUE</code> in the <code>rejection.criteria</code> list. This is disabled by default to preserve existing behaviour (<a href="https://github.com/R-Lum/Luminescence/issues/1325" class="external-link">#1325</a>).</p></li>
+<li><p>The function now supports setting <code>background_integral = NA</code>, in which case no background integral is subtracted (<a href="https://github.com/R-Lum/Luminescence/issues/1385" class="external-link">#1385</a>; thanks to Annette Kadereit for reporting).</p></li>
+<li><p>If the function processes a list of objects, as is the typical scenario, the aliquot number (not the position number) is returned. The aliquot number represents the consecutive number of objects processed.</p></li>
+<li><p>Add support to control the legend size and the legend symbols via <code>legend.cex</code> and <code>legend.pch</code> (fixed in commit 9ec687d).</p></li>
+<li><p>The function now supports the <code>integral_input</code> argument, which can be set to either <code>"channel"</code> (default) and <code>"measurement"</code>. When the latter is used, the integrals can be specified in terms of seconds, in which case the function performs an automatic conversion to channels (<a href="https://github.com/R-Lum/Luminescence/issues/1396" class="external-link">#1396</a>).</p></li>
+<li><p>When <code>OSL.component</code> is specified, the function now checks that the input object was actually processed by <code>OSLdecomposed::RLum.OSL_decomposition()</code>, in order to return a warning message when that is not the case (<a href="https://github.com/R-Lum/Luminescence/issues/1464" class="external-link">#1464</a>).</p></li>
+<li><p>Curves with <code>recordType</code> starting with <code>_</code> are automatically removed. This allows to analyse an XSYG file directly without (in many cases) any manual intervention required. This behaviour can be changed by setting argument <code>method_control = list(auto_curve_removal = FALSE)</code> (<a href="https://github.com/R-Lum/Luminescence/issues/1468" class="external-link">#1468</a>).</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="analyse_sartl-1-2-0"><code>analyse_SAR.TL()</code><a class="anchor" aria-label="anchor" href="#analyse_sartl-1-2-0"></a></h4>
+<ul><li><p>Argument <code>signal.integral</code> has been renamed to <code>signal_integral</code>. The older name will still work but generate a deprecation warning (<a href="https://github.com/R-Lum/Luminescence/issues/1290" class="external-link">#1290</a>).</p></li>
+<li><p>The <code>integral_input</code> argument now accepts options “channel” (as before) and “measurement” (instead of “temperature”). This was done to uniform the choices accepted by the argument throughout the package. The older name will still work but generates a deprecation warning (<a href="https://github.com/R-Lum/Luminescence/issues/1396" class="external-link">#1396</a>).</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="apply_efficiencycorrection-1-2-0"><code>apply_EfficiencyCorrection()</code><a class="anchor" aria-label="anchor" href="#apply_efficiencycorrection-1-2-0"></a></h4>
+<ul><li>The function no longer produces an invalid object when the interpolation range is outside of the wavelength range of the <code>RLum.Data.Spectrum</code> object (<a href="https://github.com/R-Lum/Luminescence/issues/1402" class="external-link">#1402</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="calc_averagedose-1-2-0"><code>calc_AverageDose()</code><a class="anchor" aria-label="anchor" href="#calc_averagedose-1-2-0"></a></h4>
+<ul><li>The <code>RLum.Results</code> returned now contains a <code>$data</code> field to store the input data for consistency with similar functions, and two columns have been appended to the end of the <code>$summary</code> field for internal use (<a href="https://github.com/R-Lum/Luminescence/issues/1455" class="external-link">#1455</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="calc_cobbledoserate-1-2-0"><code>calc_CobbleDoseRate()</code><a class="anchor" aria-label="anchor" href="#calc_cobbledoserate-1-2-0"></a></h4>
+<ul><li>Argument <code>input</code> has been renamed to <code>object</code>. The older name will still work but generates a deprecation warning (<a href="https://github.com/R-Lum/Luminescence/issues/1434" class="external-link">#1434</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="calc_commondose-1-2-0"><code>calc_CommonDose()</code><a class="anchor" aria-label="anchor" href="#calc_commondose-1-2-0"></a></h4>
+<ul><li>The function incorrectly disallowed setting <code>sigmab &gt; 1</code> when <code>log = FALSE</code> due to excessively strict input validation (<a href="https://github.com/R-Lum/Luminescence/issues/1343" class="external-link">#1343</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="calc_finitemixture-1-2-0"><code>calc_FiniteMixture()</code><a class="anchor" aria-label="anchor" href="#calc_finitemixture-1-2-0"></a></h4>
+<ul><li>The function didn’t allow inputs such as <code>n.components = 1:3</code>, enforcing the usage of <code>n.components = 2:3</code> instead. This check, added in v1.1.0, was unnecessarily stringent and has been reverted (<a href="https://github.com/R-Lum/Luminescence/issues/1458" class="external-link">#1458</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="calc_gsgc-1-2-0"><code>calc_gSGC()</code><a class="anchor" aria-label="anchor" href="#calc_gsgc-1-2-0"></a></h4>
+<ul><li>The function no longer crashes in <code>n.MC</code> is set to 0 (<a href="https://github.com/R-Lum/Luminescence/issues/1327" class="external-link">#1327</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="calc_maxdose-1-2-0"><code>calc_MaxDose()</code><a class="anchor" aria-label="anchor" href="#calc_maxdose-1-2-0"></a></h4>
+<ul><li>The De estimates produced when <code>bootstrap = TRUE</code> were not transformed back to the original scale before being returned to the user (<a href="https://github.com/R-Lum/Luminescence/issues/1351" class="external-link">#1351</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="calc_mindose-1-2-0"><code>calc_MinDose()</code><a class="anchor" aria-label="anchor" href="#calc_mindose-1-2-0"></a></h4>
+<ul><li><p>The function now set non-positive De values to <code>NA</code> when <code>log = TRUE</code>, which used to lead to a crash when combined with <code>bootstrap = TRUE</code> (<a href="https://github.com/R-Lum/Luminescence/issues/1313" class="external-link">#1313</a>).</p></li>
+<li><p>The bootstrap results stored in the <code>@data$bootstrap$pairs$gamma</code> matrix are now correctly converted to the normal scale for log models. This fixes a regression introduced in v1.0.0, which caused those values to be stored in the log scale (<a href="https://github.com/R-Lum/Luminescence/issues/1345" class="external-link">#1345</a>).</p></li>
+<li><p>The function now stores the bootstrap results in the <code>summary</code> slot when <code>bootstrap = TRUE</code>. Moreover, summary results are printed to the terminal also when using bootstrap (<a href="https://github.com/R-Lum/Luminescence/issues/1336" class="external-link">#1336</a>; thanks to <a href="https://github.com/feldsparlover" class="external-link">@feldsparlover</a> and Arindam Biswas for reporting and to Marijn van der Meij for checking the implementation).</p></li>
+<li><p>The function crashed when bootstrapping with <code>bs.N = 1</code>. Now the <code>bs.N</code> parameter is silently reset to 2 in that case, although such low values are discouraged as they may trigger a warning during loess fitting (<a href="https://github.com/R-Lum/Luminescence/issues/1355" class="external-link">#1355</a>).</p></li>
+<li><p>The computation of frequencies of bootstrap replicates has been fixed to be sample-wise, while before it was mistakenly computed as a cumulative sum over all samples. In our tests, the difference in results produced by the two implementations appears to be minimal (<a href="https://github.com/R-Lum/Luminescence/issues/1374" class="external-link">#1374</a>).</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="calc_osllxtxdecomposed-1-2-0"><code>calc_OSLLxTxDecomposed()</code><a class="anchor" aria-label="anchor" href="#calc_osllxtxdecomposed-1-2-0"></a></h4>
+<ul><li>The data frame returned by the function now contains two additional columns, <code>SN_RATIO_LnLx</code> and <code>SN_RATIO_TnTx</code> (containing <code>NA</code>) for consistency with the output produced by <code><a href="../reference/calc_OSLLxTxRatio.html">calc_OSLLxTxRatio()</a></code> (<a href="https://github.com/R-Lum/Luminescence/issues/1330" class="external-link">#1330</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="calc_osllxtxratio-1-2-0"><code>calc_OSLLxTxRatio()</code><a class="anchor" aria-label="anchor" href="#calc_osllxtxratio-1-2-0"></a></h4>
+<ul><li><p>The data frame returned by the function now contains two additional columns, <code>SN_RATIO_LnLx</code> and <code>SN_RATIO_TnTx</code>. This is the signal-to-noise ratio for the respective shine-down curves for <code>Lx</code> and <code>Tx</code> (<a href="https://github.com/R-Lum/Luminescence/issues/1281" class="external-link">#1281</a>).</p></li>
+<li><p>Arguments <code>signal.integral</code>, <code>background.integral</code>, <code>signal.integral.Tx</code> and <code>background.integral.Tx</code> have been renamed to <code>signal_integral</code>, <code>background_integral</code>, <code>signal_integral_Tx</code> and <code>background_integral_Tx</code>, respectively. The older names will still work but generate a deprecation warning (<a href="https://github.com/R-Lum/Luminescence/issues/1290" class="external-link">#1290</a>).</p></li>
+<li><p>The function can now accept lists for its <code>Lx.data</code> and <code>Tx.data</code> arguments, in which case it will self-call. This can simplify using the function, as it’s no longer necessary to write a loop to process all records (<a href="https://github.com/R-Lum/Luminescence/issues/1299" class="external-link">#1299</a>).</p></li>
+<li><p>The function now supports setting <code>signal_integral</code> to a chosen set of channels while setting <code>background_integral = NA</code>. In this case, no background integral is subtracted and the error calculation and the signal-to-noise ratio will report <code>NA</code> values (<a href="https://github.com/R-Lum/Luminescence/issues/1375" class="external-link">#1375</a>).</p></li>
+<li><p>The function now supports the <code>integral_input</code> argument, which can be set to either <code>"channel"</code> (default) and <code>"measurement"</code>. When the latter is used, the integrals can be specified in terms of time or temperature, in which case the function performs an automatic conversion to channels (<a href="https://github.com/R-Lum/Luminescence/issues/1396" class="external-link">#1396</a>).</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="calc_tllxtxratio-1-2-0"><code>calc_TLLxTxRatio()</code><a class="anchor" aria-label="anchor" href="#calc_tllxtxratio-1-2-0"></a></h4>
+<ul><li><p>Argument <code>signal.integral</code> has been renamed to <code>signal_integral</code>. The older name will still work but generate a deprecation warning (<a href="https://github.com/R-Lum/Luminescence/issues/1290" class="external-link">#1290</a>).</p></li>
+<li><p>The function now supports the <code>integral_input</code> argument, which can be set to either <code>"channel"</code> (default) and <code>"measurement"</code>. When the latter is used, the integrals can be specified in terms of temperature, in which case the function performs an automatic conversion to channels (<a href="https://github.com/R-Lum/Luminescence/issues/1396" class="external-link">#1396</a>).</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="combine_de_dr-1-2-0"><code>combine_De_Dr()</code><a class="anchor" aria-label="anchor" href="#combine_de_dr-1-2-0"></a></h4>
+<ul><li>The function crashed if the <code>Age_range</code> argument contained missing values (<a href="https://github.com/R-Lum/Luminescence/issues/1378" class="external-link">#1378</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="convert_cw2phmi-and-convert_cw2ppmi-1-2-0">
+<code>convert_CW2pHMi()</code> and <code>convert_CW2pPMi()</code>
+<a class="anchor" aria-label="anchor" href="#convert_cw2phmi-and-convert_cw2ppmi-1-2-0"></a></h4>
+<ul><li>The function now checks if the results of the approximation step are not valid because all points lie outside of the computed interpolation range, which can happen if the input data is misspecified (<a href="https://github.com/R-Lum/Luminescence/issues/1295" class="external-link">#1295</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="correct_pmtlinerarity-1-2-0"><code>correct_PMTLinerarity()</code><a class="anchor" aria-label="anchor" href="#correct_pmtlinerarity-1-2-0"></a></h4>
+<ul><li><p>The function, introduced in v1.1.2, unintentionally came with a major flaw, in that it did nothing on a single <code>RLum.Data.Curve()</code> object (fixed in commit 1d978cf).</p></li>
+<li><p>If the channel resolution was not changing, the function produced <code>NaN</code> values even in cases where dead time was not corrected (fixed in commit 1d978cf).</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="convert_concentration2doserate-1-2-0"><code>convert_Concentration2DoseRate()</code><a class="anchor" aria-label="anchor" href="#convert_concentration2doserate-1-2-0"></a></h4>
+<ul><li><p>Argument <code>input</code> has been renamed to <code>object</code>. The older name will still work but generates a deprecation warning (<a href="https://github.com/R-Lum/Luminescence/issues/1434" class="external-link">#1434</a>).</p></li>
+<li><p>The interpolation of attenuation values has been corrected so that it will not unexpectedly fail if a non-integer value for the grain size is provided, as long as it’s in the valid range (<a href="https://github.com/R-Lum/Luminescence/issues/1444" class="external-link">#1444</a>; thanks to Christina Neudorf for reporting).</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="convert_cw2p-1-2-0"><code>convert_CW2p*()</code><a class="anchor" aria-label="anchor" href="#convert_cw2p-1-2-0"></a></h4>
+<ul><li>Argument <code>values</code> has been renamed to <code>object</code>. The older name will still work but generates a deprecation warning (<a href="https://github.com/R-Lum/Luminescence/issues/1434" class="external-link">#1434</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="convert_second2gray-1-2-0"><code>convert_Second2Gray()</code><a class="anchor" aria-label="anchor" href="#convert_second2gray-1-2-0"></a></h4>
+<ul><li>The <code>dose_rate</code> argument is now better validated (<a href="https://github.com/R-Lum/Luminescence/issues/1439" class="external-link">#1439</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="convert_sg2mg-1-2-0"><code>convert_SG2MG()</code><a class="anchor" aria-label="anchor" href="#convert_sg2mg-1-2-0"></a></h4>
+<ul><li><p>The function crashed if used on an object resulting from a subset operation, as it used the rownames (which may no longer correspond to row indices) to index into the <code>METADATA</code> slot (<a href="https://github.com/R-Lum/Luminescence/issues/1415" class="external-link">#1415</a>).</p></li>
+<li><p>The function now exits cleanly instead of crashing if more than one input filenames are provided (<a href="https://github.com/R-Lum/Luminescence/issues/1446" class="external-link">#1446</a>).</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="extract_irradiationtimes-1-2-0"><code>extract_IrradiationTimes()</code><a class="anchor" aria-label="anchor" href="#extract_irradiationtimes-1-2-0"></a></h4>
+<ul><li>The function no longer crashes if the input object contains no <code>position</code> field in its info object (<a href="https://github.com/R-Lum/Luminescence/issues/1466" class="external-link">#1466</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="fit_cwcurve-1-2-0"><code>fit_CWCurve()</code><a class="anchor" aria-label="anchor" href="#fit_cwcurve-1-2-0"></a></h4>
+<ul><li>Argument <code>values</code> has been renamed to <code>object</code>. The older name will still work but generates a deprecation warning (<a href="https://github.com/R-Lum/Luminescence/issues/1434" class="external-link">#1434</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="fit_doseresponsecurve-1-2-0"><code>fit_DoseResponseCurve()</code><a class="anchor" aria-label="anchor" href="#fit_doseresponsecurve-1-2-0"></a></h4>
+<ul><li><p>The C++ implementation of the GOK function has been tweaked to avoid some repeated computations in a loop. Given the different ordering of computations (although mathematically equivalent), there will be small differences in the numerical output when <code>fit.method = "GOK"</code> is used (<a href="https://github.com/R-Lum/Luminescence/issues/1277" class="external-link">#1277</a>).</p></li>
+<li><p>The fit message reported is now also stored in the <code>@info</code> slot of the object returned by the function (<a href="https://github.com/R-Lum/Luminescence/issues/1362" class="external-link">#1362</a>).</p></li>
+<li><p>The function now consistently returns the material specific parameter <code>R</code> for <code>OTOR</code> and <code>OTORX</code> and its uncertainty (fixed in commit 9b4d6bd).</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="fit_lmcurve-1-2-0"><code>fit_LMCurve()</code><a class="anchor" aria-label="anchor" href="#fit_lmcurve-1-2-0"></a></h4>
+<ul><li><p>Arguments <code>values</code> and <code>values.bg</code> have been renamed to <code>object</code> and <code>object.bg</code>, respectively. The older names will still work but generate a deprecation warning (<a href="https://github.com/R-Lum/Luminescence/issues/1434" class="external-link">#1434</a>).</p></li>
+<li><p>The function now checks that the number of data points provided is large enough to fit the requested number of components (<a href="https://github.com/R-Lum/Luminescence/issues/1448" class="external-link">#1448</a>).</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="get_rlum-1-2-0"><code>get_RLum()</code><a class="anchor" aria-label="anchor" href="#get_rlum-1-2-0"></a></h4>
+<ul><li>An internal optimization increased the performance of the function by over 50% in some particular cases, such as when merging a large number of <code>RLum.Analysis</code> object (<a href="https://github.com/R-Lum/Luminescence/issues/1271" class="external-link">#1271</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="merge_rlumrisoebinfiledata-1-2-0"><code>merge_RLum.Risoe.BINfileData()</code><a class="anchor" aria-label="anchor" href="#merge_rlumrisoebinfiledata-1-2-0"></a></h4>
+<ul><li>Argument <code>input.objects</code> has been renamed to <code>objects</code>. The older name will still work but generates a deprecation warning (<a href="https://github.com/R-Lum/Luminescence/issues/1434" class="external-link">#1434</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="merge_rlumdataspectrum-1-2-0"><code>merge_RLum.Data.Spectrum()</code><a class="anchor" aria-label="anchor" href="#merge_rlumdataspectrum-1-2-0"></a></h4>
+<ul><li>The function no longer warns unnecessarily if the RLum.Data.Spectrum object contains no column names (<a href="https://github.com/R-Lum/Luminescence/issues/1450" class="external-link">#1450</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="plot_abanicoplot-1-2-0"><code>plot_AbanicoPlot()</code><a class="anchor" aria-label="anchor" href="#plot_abanicoplot-1-2-0"></a></h4>
+<ul><li>When the input data is an <code>RLum.Results</code> object generated by <code><a href="../reference/calc_AverageDose.html">calc_AverageDose()</a></code>, <code><a href="../reference/calc_CentralDose.html">calc_CentralDose()</a></code>, <code><a href="../reference/calc_MaxDose.html">calc_MaxDose()</a></code>, <code><a href="../reference/calc_MinDose.html">calc_MinDose()</a></code> or <code><a href="../reference/calc_FiniteMixture.html">calc_FiniteMixture()</a></code>, one or more lines (and corresponding labels) for the relevant results will be automatically drawn, unless explicitly suppressed by setting <code>line = NA</code> (<a href="https://github.com/R-Lum/Luminescence/issues/1452" class="external-link">#1452</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="plot_detplot-1-2-0"><code>plot_DetPlot()</code><a class="anchor" aria-label="anchor" href="#plot_detplot-1-2-0"></a></h4>
+<ul><li><p>When operating on a list with the default setting of <code>multicore = TRUE</code>, the function limits the size of the parallel cluster to the number of list elements to process (<a href="https://github.com/R-Lum/Luminescence/issues/1258" class="external-link">#1258</a>).</p></li>
+<li><p>Arguments <code>signal.integral.min</code>, <code>signal.integral.max</code>, <code>background.integral.min</code> and <code>background.integral.max</code> have been replaced by <code>signal_integral</code>, <code>background_integral</code>, <code>signal_integral_Tx</code> and <code>background_integral_Tx</code>: each of them now defines a vector of channels for the respective integrals. The older names will still work but generate a deprecation warning (<a href="https://github.com/R-Lum/Luminescence/issues/1290" class="external-link">#1290</a>).</p></li>
+<li><p>The function now supports the <code>integral_input</code> argument, which can be set to either <code>"channel"</code> (default) and <code>"measurement"</code>. When the latter is used, the integrals can be specified in terms of seconds, in which case the function performs an automatic conversion to channels (<a href="https://github.com/R-Lum/Luminescence/issues/1396" class="external-link">#1396</a>).</p></li>
+</ul></div>
+</div>
+<div class="section level3">
+<h3 id="plot_drtresults-1-2-0"><code>plot_DRTResults()</code><a class="anchor" aria-label="anchor" href="#plot_drtresults-1-2-0"></a></h3>
+<ul><li>Argument <code>values</code> has been renamed to <code>object</code>. The older name will still work but generates a deprecation warning (<a href="https://github.com/R-Lum/Luminescence/issues/1434" class="external-link">#1434</a>).</li>
+</ul><div class="section level4">
+<h4 id="plot_rlumanalysis-1-2-0"><code>plot_RLum.Analysis()</code><a class="anchor" aria-label="anchor" href="#plot_rlumanalysis-1-2-0"></a></h4>
+<ul><li>The ability to combine multiple plots on a single page regressed in v1.1.2, causing plots intended to appear side-by-side to be rendered on separate pages (<a href="https://github.com/R-Lum/Luminescence/issues/1247" class="external-link">#1247</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="plot_rlumdatacurve-1-2-0"><code>plot_RLum.Data.Curve()</code><a class="anchor" aria-label="anchor" href="#plot_rlumdatacurve-1-2-0"></a></h4>
+<ul><li>The scaling of the subtitle by <code>cex</code> didn’t account of the <code>par.local</code> argument, thus affecting curve plots generated by <code><a href="../reference/plot_RLum.Analysis.html">plot_RLum.Analysis()</a></code> (<a href="https://github.com/R-Lum/Luminescence/issues/1347" class="external-link">#1347</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="plot_rlumdataspectrum-1-2-0"><code>plot_RLum.Data.Spectrum()</code><a class="anchor" aria-label="anchor" href="#plot_rlumdataspectrum-1-2-0"></a></h4>
+<ul><li><p>The <code>norm</code> argument is no longer limited to just <code>"min"</code> and <code>"max"</code> but now supports all options provided by <code><a href="../reference/normalise_RLum.html">normalise_RLum()</a></code> (<a href="https://github.com/R-Lum/Luminescence/issues/1303" class="external-link">#1303</a>).</p></li>
+<li><p>The function now returns <code>NULL</code> (instead of producing an empty plot or crashing) whenever the normalisation step replaces all values with zeroes, which can happen if the normalisation term used is 0, for example when the <code>bg.spectrum</code> argument is used and <code>norm = "min"</code> (<a href="https://github.com/R-Lum/Luminescence/issues/1305" class="external-link">#1305</a>).</p></li>
+<li><p>Setting <code>log = "z"</code> will produce a warning if the data contains non-positive values (for example after background subtraction or normalisation) before setting those values to <code>NA</code>. This avoids producing infinities or NaN values that would lead to crashes for some plot types (<a href="https://github.com/R-Lum/Luminescence/issues/1307" class="external-link">#1307</a>).</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="plot_filtercombinations-1-2-0"><code>plot_FilterCombinations()</code><a class="anchor" aria-label="anchor" href="#plot_filtercombinations-1-2-0"></a></h4>
+<ul><li><p>The interactive mode did not accept all plotting options from the default (non-interactive) mode (fixed in commit c27a656).</p></li>
+<li><p>If the function was used on a shiny server, the plot showed only after the app was closed (fixed in commit c27a656).</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="plot_growthcurve-1-2-0"><code>plot_GrowthCurve()</code><a class="anchor" aria-label="anchor" href="#plot_growthcurve-1-2-0"></a></h4>
+<ul><li>Argument <code>sample</code> has been renamed to <code>object</code>. The older name will still work but generates a deprecation warning (<a href="https://github.com/R-Lum/Luminescence/issues/1434" class="external-link">#1434</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="plot_kde-1-2-0"><code>plot_KDE()</code><a class="anchor" aria-label="anchor" href="#plot_kde-1-2-0"></a></h4>
+<ul><li>The length of the ticks for the rugs is now scaled by the size of dataset, so that visually the rug appears identical any dataset size (<a href="https://github.com/R-Lum/Luminescence/issues/1470" class="external-link">#1470</a>; thanks to <a href="https://github.com/feldsparlover" class="external-link">@feldsparlover</a> for reporting).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="plot_radialplot-1-2-0"><code>plot_RadialPlot()</code><a class="anchor" aria-label="anchor" href="#plot_radialplot-1-2-0"></a></h4>
+<ul><li><p>If the error column contains zero values, they are reset to the smallest between the non-zero errors in the dataset and 10-9. This avoids a crash when using the argument <code>centrality = "mean.weighted"</code>, which is the default for this function (<a href="https://github.com/R-Lum/Luminescence/issues/1314" class="external-link">#1314</a>).</p></li>
+<li><p>The weighted median used to compute the central values when <code>centrality = "median.weighted"</code> now uses the precision as weight (similarly to what is done for the weighted mean), while before it incorrectly used the error (<a href="https://github.com/R-Lum/Luminescence/issues/1323" class="external-link">#1323</a>).</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="read_bin2r-1-2-0"><code>read_BIN2R()</code><a class="anchor" aria-label="anchor" href="#read_bin2r-1-2-0"></a></h4>
+<ul><li><p>The function could crash if called with <code><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call()</a></code> and some particularly odd inputs (<a href="https://github.com/R-Lum/Luminescence/issues/1260" class="external-link">#1260</a>).</p></li>
+<li><p>The function now throws an error instead of returning <code>NULL</code> when a file with the wrong extension is read (<a href="https://github.com/R-Lum/Luminescence/issues/1393" class="external-link">#1393</a>).</p></li>
+<li><p>The function will now look for files recursively if the path to a directory is provided (<a href="https://github.com/R-Lum/Luminescence/issues/1393" class="external-link">#1393</a>).</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="read_daybreak2r-1-2-0"><code>read_Daybreak2R()</code><a class="anchor" aria-label="anchor" href="#read_daybreak2r-1-2-0"></a></h4>
+<ul><li><p>The function struggled with variable header lengths (<a href="https://github.com/R-Lum/Luminescence/issues/1262" class="external-link">#1262</a>; thanks to <a href="https://github.com/andrzejbluszcz" class="external-link">@andrzejbluszcz</a> for reporting).</p></li>
+<li><p>The function will no longer crash if the data point entries have more than four columns (thanks to <a href="https://github.com/andrzejbluszcz" class="external-link">@andrzejbluszcz</a> for reporting).</p></li>
+<li><p>The import of binary <code>.DAT</code> files has been overhauled and made more correct; moreover, the function accepts both <code>.DAT</code> and <code>.dat</code> extensions for binary inputs, and supports <code>DataType=Command</code> records in ASCII files (<a href="https://github.com/R-Lum/Luminescence/issues/1263" class="external-link">#1263</a>, <a href="https://github.com/R-Lum/Luminescence/issues/1266" class="external-link">#1266</a>; thanks to <a href="https://github.com/andrzejbluszcz" class="external-link">@andrzejbluszcz</a> for contributing code and datasets).</p></li>
+<li><p>Trying to import multiple files by specifying a directory name failed because the generated path missed a directory separator (<a href="https://github.com/R-Lum/Luminescence/issues/1264" class="external-link">#1264</a>).</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="read_psl2r-1-2-0"><code>read_PSL2R()</code><a class="anchor" aria-label="anchor" href="#read_psl2r-1-2-0"></a></h4>
+<ul><li>The function now returns <code>NULL</code> instead of throwing an error if a directory is provided and no PSL files are found within it (<a href="https://github.com/R-Lum/Luminescence/issues/1393" class="external-link">#1393</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="read_rf2r-1-2-0"><code>read_RF2R()</code><a class="anchor" aria-label="anchor" href="#read_rf2r-1-2-0"></a></h4>
+<ul><li>The function now throws an error instead of returning <code>NULL</code> if a list containing elements other than character strings is provided (<a href="https://github.com/R-Lum/Luminescence/issues/1393" class="external-link">#1393</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="read_spe2r-1-2-0"><code>read_SPE2R()</code><a class="anchor" aria-label="anchor" href="#read_spe2r-1-2-0"></a></h4>
+<ul><li>The function now throws an error instead of returning <code>NULL</code> if the filename provided does not exist (<a href="https://github.com/R-Lum/Luminescence/issues/1393" class="external-link">#1393</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="read_xsyg2r-1-2-0"><code>read_XSYG2R()</code><a class="anchor" aria-label="anchor" href="#read_xsyg2r-1-2-0"></a></h4>
+<ul><li><p>Attributes from the record level are now all included in the <code>@info</code> slot, as long as they do not duplicate the attributes from the curve level. Hence, those attributes are now available for filtering (<a href="https://github.com/R-Lum/Luminescence/issues/1239" class="external-link">#1239</a>; thanks to <a href="https://github.com/DirkMittelstrass" class="external-link">@DirkMittelstrass</a> for reporting).</p></li>
+<li><p>The function could crash if called with <code><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call()</a></code> and some particularly odd inputs (<a href="https://github.com/R-Lum/Luminescence/issues/1260" class="external-link">#1260</a>).</p></li>
+</ul></div>
+<div class="section level4">
+<h4 id="remove_rlum-1-2-0"><code>remove_RLum()</code><a class="anchor" aria-label="anchor" href="#remove_rlum-1-2-0"></a></h4>
+<ul><li>The function used to add spurious <code>NULL</code> records when an invalid <code>record.id</code> was specified, which in turn could cause a crash when displaying the object to the terminal (<a href="https://github.com/R-Lum/Luminescence/issues/1380" class="external-link">#1380</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="report_rlum-1-2-0"><code>report_RLum()</code><a class="anchor" aria-label="anchor" href="#report_rlum-1-2-0"></a></h4>
+<ul><li>The function could crash if called with <code><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call()</a></code> and some particularly odd inputs (<a href="https://github.com/R-Lum/Luminescence/issues/1260" class="external-link">#1260</a>).</li>
+</ul></div>
+<div class="section level4">
+<h4 id="subset_singlegraindata-1-2-0"><code>subset_SingleGrainData()</code><a class="anchor" aria-label="anchor" href="#subset_singlegraindata-1-2-0"></a></h4>
+<ul><li>The function reports an helpful error instead of crashing if the given grains and positions table produces an empty selection (<a href="https://github.com/R-Lum/Luminescence/issues/1412" class="external-link">#1412</a>).</li>
+</ul></div>
+</div>
+<div class="section level3">
+<h3 id="other-changes-1-2-0">Other changes<a class="anchor" aria-label="anchor" href="#other-changes-1-2-0"></a></h3>
+<ul><li><p>The internal function <code>.normalise_curve()</code> received support to normalise by the minimum value (<code>"min"</code>), the first value (<code>"first"</code>), the channel length (<code>"intensity"</code>) or a positive number (e.g, 2.2). These new settings are automatically available to <code><a href="../reference/plot_RLum.Analysis.html">plot_RLum.Analysis()</a></code> and the <code>plot_RLum.Data.*()</code> functions (<a href="https://github.com/R-Lum/Luminescence/issues/1250" class="external-link">#1250</a>, <a href="https://github.com/R-Lum/Luminescence/issues/1300" class="external-link">#1300</a>).</p></li>
+<li><p>All the <code>read_*()</code> functions now process and validate the <code>file</code> argument through the same internal helper function. This allows them to support single and multiple files, URLs and directory paths (<a href="https://github.com/R-Lum/Luminescence/issues/1393" class="external-link">#1393</a>).</p></li>
+<li><p>The package no longer depends on <code>RcppArmadillo</code>. This has no visible impact to the user other than a small reduction in the package size (<a href="https://github.com/R-Lum/Luminescence/issues/1254" class="external-link">#1254</a>).</p></li>
+<li><p>The show method for an <code>RLum.Analysis-class</code> object would fail if the record slot contained <code>NULL</code> elements (fixed in commit f1846c5c).</p></li>
+<li><p>The package has now reached 100% coverage! The test-coverage workflow action has been updated so that any decrease in coverage will be marked as a failure (<a href="https://github.com/R-Lum/Luminescence/issues/548" class="external-link">#548</a>).</p></li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.1.2" id="changes-in-version-112-2025-12-12">Changes in version 1.1.2 (2025-12-12)<a class="anchor" aria-label="anchor" href="#changes-in-version-112-2025-12-12"></a></h2><p class="text-muted">CRAN release: 2025-12-12</p>
+<p>See also the <a href="https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2025/12/luminescence-release-1.1.2/" class="external-link">write-up for this release on the REPLAY website</a>.</p>
 <p><strong>This package version requires R &gt;= 4.4</strong></p>
 <div class="section level3">
 <h3 id="removed-functions-and-deprecations-1-1-2">Removed functions and deprecations<a class="anchor" aria-label="anchor" href="#removed-functions-and-deprecations-1-1-2"></a></h3>
 <ul><li><p>The functions <code>CW2pHMi()</code>, <code>CW2pLM()</code>, <code>CW2pLMi()</code> and <code>CW2pPMi()</code> (deprecated since 1.0.0) have been removed, but their functionality remains in the corresponding <code>convert_CW2*()</code> functions (<a href="https://github.com/R-Lum/Luminescence/issues/992" class="external-link">#992</a>).</p></li>
-<li><p>Functions <code><a href="../reference/GitHub-API.html">github_commits()</a></code>, <code><a href="../reference/GitHub-API.html">github_branches()</a></code> and <code><a href="../reference/GitHub-API.html">github_issues()</a></code> are now deprecated and will be removed in a future release (<a href="https://github.com/R-Lum/Luminescence/issues/1026" class="external-link">#1026</a>).</p></li>
-<li><p>Functions <code><a href="../reference/methods_RLum.html">is.RLum()</a></code>, <code><a href="../reference/methods_RLum.html">is.RLum.Data()</a></code>, <code><a href="../reference/methods_RLum.html">is.RLum.Data.Curve()</a></code>, <code><a href="../reference/methods_RLum.html">is.RLum.Data.Spectrum()</a></code>, <code><a href="../reference/methods_RLum.html">is.RLum.Data.Image()</a></code>, <code><a href="../reference/methods_RLum.html">is.RLum.Analysis()</a></code> and <code><a href="../reference/methods_RLum.html">is.RLum.Results()</a></code>, and are now deprecated and will be removed in a future release. The best way of testing whether an object is of a given type is by using the <code><a href="https://rdrr.io/r/base/class.html" class="external-link">inherits()</a></code> function, as in <code>inherits(object, "RLum.Data.Curve")</code> (<a href="https://github.com/R-Lum/Luminescence/issues/1034" class="external-link">#1034</a>).</p></li>
+<li><p>Functions <code>github_commits()</code>, <code>github_branches()</code> and <code>github_issues()</code> are now deprecated and will be removed in a future release (<a href="https://github.com/R-Lum/Luminescence/issues/1026" class="external-link">#1026</a>).</p></li>
+<li><p>Functions <code>is.RLum()</code>, <code>is.RLum.Data()</code>, <code>is.RLum.Data.Curve()</code>, <code>is.RLum.Data.Spectrum()</code>, <code>is.RLum.Data.Image()</code>, <code>is.RLum.Analysis()</code> and <code>is.RLum.Results()</code>, and are now deprecated and will be removed in a future release. The best way of testing whether an object is of a given type is by using the <code><a href="https://rdrr.io/r/base/class.html" class="external-link">inherits()</a></code> function, as in <code>inherits(object, "RLum.Data.Curve")</code> (<a href="https://github.com/R-Lum/Luminescence/issues/1034" class="external-link">#1034</a>).</p></li>
 </ul></div>
 <div class="section level3">
 <h3 id="bugfixes-and-changes-1-1-2">Bugfixes and changes<a class="anchor" aria-label="anchor" href="#bugfixes-and-changes-1-1-2"></a></h3>
@@ -163,7 +478,7 @@
 </ul></div>
 <div class="section level4">
 <h4 id="install_developmentversion-1-1-2"><code>install_DevelopmentVersion()</code><a class="anchor" aria-label="anchor" href="#install_developmentversion-1-1-2"></a></h4>
-<ul><li>The function has been refactored so that it no longer depends on the deprecated <code><a href="../reference/GitHub-API.html">github_branches()</a></code> function (<a href="https://github.com/R-Lum/Luminescence/issues/1079" class="external-link">#1079</a>).</li>
+<ul><li>The function has been refactored so that it no longer depends on the deprecated <code>github_branches()</code> function (<a href="https://github.com/R-Lum/Luminescence/issues/1079" class="external-link">#1079</a>).</li>
 </ul></div>
 <div class="section level4">
 <h4 id="plot_abanicoplot-1-1-2"><code>plot_AbanicoPlot()</code><a class="anchor" aria-label="anchor" href="#plot_abanicoplot-1-1-2"></a></h4>
@@ -251,6 +566,7 @@
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.1.1" id="changes-in-version-111-2025-09-11">Changes in version 1.1.1 (2025-09-11)<a class="anchor" aria-label="anchor" href="#changes-in-version-111-2025-09-11"></a></h2><p class="text-muted">CRAN release: 2025-09-11</p>
+<p>See also the <a href="https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2025/09/luminescence-release-1.1.1/" class="external-link">write-up for this release on the REPLAY website</a>.</p>
 <div class="section level3">
 <h3 id="new-functions-1-1-1">New functions<a class="anchor" aria-label="anchor" href="#new-functions-1-1-1"></a></h3>
 <ul><li>
@@ -414,6 +730,7 @@
 </div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.1.0" id="changes-in-version-110-2025-06-11">Changes in version 1.1.0 (2025-06-11)<a class="anchor" aria-label="anchor" href="#changes-in-version-110-2025-06-11"></a></h2><p class="text-muted">CRAN release: 2025-06-11</p>
+<p>See also the <a href="https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2025/06/luminescence-release-1.1.0/" class="external-link">write-up for this release on the REPLAY website</a>.</p>
 <div class="section level3">
 <h3 id="new-functions-1-1-0">New functions<a class="anchor" aria-label="anchor" href="#new-functions-1-1-0"></a></h3>
 <ul><li><p><code><a href="../reference/remove_SignalBackground.html">remove_SignalBackground()</a></code>: A user-friendly method to subtract background signals from various curves in <code>RLum.Analysis</code> objects without resorting to <code><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply()</a></code> loops. Depending on the record type, the function identifies pairs of curves; for instance, if in a sequence, a <code>TL</code> curve is immediately followed by another <code>TL</code> curve, the second curve is recognised as the background signal, subtracted using <code><a href="../reference/merge_RLum.html">merge_RLum()</a></code> and subsequently removed from the object (if desired). Alternatively, a set of potential background curves can be specified.</p></li>
@@ -680,7 +997,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

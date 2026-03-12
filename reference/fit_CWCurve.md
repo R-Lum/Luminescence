@@ -1,4 +1,4 @@
-# Nonlinear Least Squares Fit for CW-OSL curves -beta version-
+# Non-linear Least Squares Fit for CW-OSL curves -beta version-
 
 The function determines the weighted least-squares estimates of the
 component parameters of a CW-OSL signal for a given maximum number of
@@ -51,10 +51,10 @@ internal R functions like
 
 ``` r
 fit_CWCurve(
-  values,
+  object,
   n.components.max = 7,
   fit.failure_threshold = 5,
-  fit.method = "port",
+  fit.method = c("port", "LM"),
   fit.trace = FALSE,
   fit.calcError = FALSE,
   LED.power = 36,
@@ -71,12 +71,11 @@ fit_CWCurve(
 
 ## Arguments
 
-- values:
+- object:
 
   [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)
   or [data.frame](https://rdrr.io/r/base/data.frame.html)
-  (**required**): x, y data of measured values (time and counts). See
-  examples.
+  (**required**): x, y data of measured values (time and counts).
 
 - n.components.max:
 
@@ -206,17 +205,17 @@ a global minimum rather than a local minimum!
 
 ## Function version
 
-0.5.5
+0.5.6
 
 ## How to cite
 
-Kreutzer, S., 2025. fit_CWCurve(): Nonlinear Least Squares Fit for
-CW-OSL curves -beta version-. Function version 0.5.5. In: Kreutzer, S.,
+Kreutzer, S., 2026. fit_CWCurve(): Non-linear Least Squares Fit for
+CW-OSL curves -beta version-. Function version 0.5.6. In: Kreutzer, S.,
 Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
 J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
 D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
-2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
-package version 1.1.2. https://r-lum.github.io/Luminescence/
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -240,8 +239,8 @@ Gentleman, K. Hornik, G. Parmigiani, eds., Springer, p. 150.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 
@@ -250,21 +249,22 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University
 data(ExampleData.CW_OSL_Curve, envir = environment())
 
 ##fit data
-fit <- fit_CWCurve(values = ExampleData.CW_OSL_Curve,
+fit <- fit_CWCurve(ExampleData.CW_OSL_Curve,
                    main = "CW Curve Fit",
                    n.components.max = 4,
                    log = "x")
 #> 
 #> [fit_CWCurve()]
 #> 
-#> Fitting was finally done using a 2-component function (max=4):
+#> Fitting was finally done using a 3-component function (max=4):
 #> ------------------------------------------------------------------------------
-#> y ~ I0.1 * lambda.1 * exp(-lambda.1 * x) + I0.2 * lambda.2 * exp(-lambda.2 * x)
+#> y ~ I0.1 * lambda.1 * exp(-lambda.1 * x) + I0.2 * lambda.2 * exp(-lambda.2 * x) + I0.3 * lambda.3 * exp(-lambda.3 * x)
 #> 
-#>          I0 I0.error     lambda lambda.error          cs cs.rel
-#> c1 3286.482       NA 3.83973077           NA 4.50793e-17 1.0000
-#> c2 2189.251       NA 0.03752296           NA 4.40528e-19 0.0098
+#>          I0 I0.error     lambda lambda.error           cs cs.rel
+#> c1 2387.620       NA 4.59053773           NA 5.389394e-17 1.0000
+#> c2 1053.489       NA 1.95936140           NA 2.300334e-17 0.4268
+#> c3 2816.631       NA 0.02054732           NA 2.412301e-19 0.0045
 #> ------------------------------------------------------------------------------
-#> pseudo-R^2 =  0.9987 
+#> pseudo-R^2 =  0.9995 
 
 ```

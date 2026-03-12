@@ -86,15 +86,15 @@ H (linear part, \\\lambda\\ \> 36 deg.):
 ## References
 
 Gruen, R., 2009. The "AGE" program for the calculation of luminescence
-age estimates. Ancient TL, 27, pp. 45-46.
+age estimates. Ancient TL 27, pp. 45-46.
 
 Prescott, J.R., Hutton, J.T., 1988. Cosmic ray and gamma ray dosimetry
-for TL and ESR. Nuclear Tracks and Radiation Measurements, 14, pp.
+for TL and ESR. Nuclear Tracks and Radiation Measurements 14, pp.
 223-227.
 
 Prescott, J.R., Hutton, J.T., 1994. Cosmic ray contributions to dose
 rates for luminescence and ESR dating: large depths and long-term time
-variations. Radiation Measurements, 23, pp. 497-500.
+variations. Radiation Measurements 23, pp. 497-500.
 
 ## Examples
 

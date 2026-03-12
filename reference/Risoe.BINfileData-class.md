@@ -260,13 +260,13 @@ Objects can be created by calls of the form
 
 ## How to cite
 
-Kreutzer, S., 2025. Risoe.BINfileData-class(): Class
+Kreutzer, S., 2026. Risoe.BINfileData-class(): Class
 'Risoe.BINfileData'. Function version 0.4.1. In: Kreutzer, S., Burow,
 C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -287,8 +287,8 @@ The Sequence Editor User Manual - February 2016
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
 based on information provided by Torben Lapp and Karsten Bracht Nielsen
 (Risø DTU, Denmark) , RLum Developer Team
 

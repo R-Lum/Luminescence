@@ -12,7 +12,7 @@ written by Carl Hall (see references).
 ``` r
 read_SPE2R(
   file,
-  output.object = "RLum.Data.Image",
+  output.object = c("RLum.Data.Image", "RLum.Data.Spectrum", "matrix"),
   frame.range = NULL,
   txtProgressBar = TRUE,
   verbose = TRUE,
@@ -25,25 +25,22 @@ read_SPE2R(
 - file:
 
   [character](https://rdrr.io/r/base/character.html) (**required**):
-  SPE-file name (including path), e.g.
-
-  - `[WIN]`: `read_SPE2R("C:/Desktop/test.spe")`
-
-  - `[MAC/LINUX]`: `read_SPE2R("/User/test/Desktop/test.spe")`.
-    Additionally, it can be a URL starting with `http://` or `https://`.
+  name of the SPE file to read (URLs are supported).
 
 - output.object:
 
   [character](https://rdrr.io/r/base/character.html) (*with default*):
-  set the output object type. Allowed types are `"RLum.Data.Spectrum"`,
-  `"RLum.Data.Image"` or `"matrix"`.
+  set the output object type. Allowed types are
+  [RLum.Data.Spectrum](https://r-lum.github.io/Luminescence/reference/RLum.Data.Spectrum-class.md),
+  [RLum.Data.Image](https://r-lum.github.io/Luminescence/reference/RLum.Data.Image-class.md)
+  or `"matrix"`.
 
 - frame.range:
 
   [vector](https://rdrr.io/r/base/vector.html),
   [integer](https://rdrr.io/r/base/integer.html) (*optional*): range of
   frames to read. For example, `frame.range = c(1, 10)` selects only the
-  first 10 frames. If not specifie, all available frames (up to a
+  first 10 frames. If not specified, all available frames (up to a
   maximum of 100 if `output.object = "RLum.Data.Image"`) are read.
 
 - txtProgressBar:
@@ -89,7 +86,11 @@ transformation the function
 is used, meaning that the same results can be obtained by using the
 function
 [get_RLum](https://r-lum.github.io/Luminescence/reference/get_RLum.md)
-on an `RLum.Data.Spectrum` or `RLum.Data.Image` object.
+on an
+[RLum.Data.Spectrum](https://r-lum.github.io/Luminescence/reference/RLum.Data.Spectrum-class.md)
+or
+[RLum.Data.Image](https://r-lum.github.io/Luminescence/reference/RLum.Data.Image-class.md)
+object.
 
 ## Note
 
@@ -103,17 +104,17 @@ supported.*
 
 ## Function version
 
-0.1.5
+0.1.6
 
 ## How to cite
 
-Kreutzer, S., 2025. read_SPE2R(): Import Princeton Instruments (TM)
-SPE-file into R. Function version 0.1.5. In: Kreutzer, S., Burow, C.,
+Kreutzer, S., 2026. read_SPE2R(): Import Princeton Instruments (TM)
+SPE-file into R. Function version 0.1.6. In: Kreutzer, S., Burow, C.,
 Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -131,8 +132,8 @@ Hall, C., 2012: readSPE.m.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 

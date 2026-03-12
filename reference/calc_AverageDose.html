@@ -21,7 +21,7 @@ will be that over and above sigma_m (and individual uncertainties sigma_wi)."></
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,7 +42,7 @@ will be that over and above sigma_m (and individual uncertainties sigma_wi)."></
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Calculate the Average Dose and the dose rate dispersion</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/calc_AverageDose.R" class="external-link"><code>R/calc_AverageDose.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/calc_AverageDose.R" class="external-link"><code>R/calc_AverageDose.R</code></a></small>
       <div class="d-none name"><code>calc_AverageDose.Rd</code></div>
     </div>
 
@@ -94,7 +94,7 @@ sample size used for the bootstrapping</p></dd>
 
 <dt id="arg-na-rm">na.rm<a class="anchor" aria-label="anchor" href="#arg-na-rm"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-exclude NA values from the data set prior to any further operation.</p></dd>
+exclude <code>NA</code> values from the data set prior to any further operation.</p></dd>
 
 
 <dt id="arg-plot">plot<a class="anchor" aria-label="anchor" href="#arg-plot"></a></dt>
@@ -118,18 +118,23 @@ supported, but the output of <code>hist</code> is returned and can be used of ow
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The function returns numerical output and an (<em>optional</em>) plot.</p>
-<p>———————————–<br><code>[ NUMERICAL OUTPUT ]</code> <br>
-———————————–<br><strong><code>RLum.Results</code></strong>-object<br></p>
-<p><strong>slot:</strong> <strong><code>@data</code></strong> <br></p>
-<p><code>[.. $summary : data.frame]</code><br></p>
-<table class="table table"><tr><td><strong>Column</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr><tr><td>AVERAGE_DOSE</td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>the obtained average dose</td></tr><tr><td>AVERAGE_DOSE.SE</td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>the average dose error</td></tr><tr><td>SIGMA_D</td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>sigma</td></tr><tr><td>SIGMA_D.SE</td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>standard error of the sigma</td></tr><tr><td>IC_AVERAGE_DOSE.LEVEL</td><td><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></td><td>confidence level average dose</td></tr><tr><td>IC_AVERAGE_DOSE.LOWER</td><td><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></td><td>lower quantile of average dose</td></tr><tr><td>IC_AVERAGE_DOSE.UPPER</td><td><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></td><td>upper quantile of average dose</td></tr><tr><td>IC_SIGMA_D.LEVEL</td><td><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></td><td>confidence level sigma</td></tr><tr><td>IC_SIGMA_D.LOWER</td><td><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></td><td>lower sigma quantile</td></tr><tr><td>IC_SIGMA_D.UPPER</td><td><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></td><td>upper sigma quantile</td></tr><tr><td>L_MAX</td><td><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></td><td>maximum likelihood value</td></tr></table><p><code>[.. $dstar : matrix]</code> <br></p>
-<p>Matrix with bootstrap values<br></p>
-<p><code>[.. $hist : list]</code><br></p>
-<p>Object as produced by the function histogram</p>
-<p>————————<br><code>[ PLOT OUTPUT ]</code><br>
-————————<br></p>
-<p>The function returns two different plot panels.</p>
+    <p>The function produces numerical output and an optional plot. In addition,
+an <a href="RLum.Results-class.html">RLum.Results</a> object containing the following
+elements is returned:</p>
+<dl><dt>$summary</dt>
+<dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> summary of all relevant model results.</p></dd>
+
+<dt>$data</dt>
+<dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with original input data.</p></dd>
+
+<dt>$dstar</dt>
+<dd><p><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> with bootstrap values.</p></dd>
+
+<dt>$hist</dt>
+<dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> object as produced by the <a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a> function.</p></dd>
+
+
+</dl><p>The <code>$summary</code> data.frame contains the following columns:</p><table class="table table"><tr><td><strong>Column</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr><tr><td>AVERAGE_DOSE</td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>the obtained average dose</td></tr><tr><td>AVERAGE_DOSE.SE</td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>the average dose error</td></tr><tr><td>SIGMA_D</td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>sigma</td></tr><tr><td>SIGMA_D.SE</td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>standard error of the sigma</td></tr><tr><td>IC_AVERAGE_DOSE.LEVEL</td><td><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></td><td>confidence level average dose</td></tr><tr><td>IC_AVERAGE_DOSE.LOWER</td><td><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></td><td>lower quantile of average dose</td></tr><tr><td>IC_AVERAGE_DOSE.UPPER</td><td><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></td><td>upper quantile of average dose</td></tr><tr><td>IC_SIGMA_D.LEVEL</td><td><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a></td><td>confidence level sigma</td></tr><tr><td>IC_SIGMA_D.LOWER</td><td><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></td><td>lower sigma quantile</td></tr><tr><td>IC_SIGMA_D.UPPER</td><td><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></td><td>upper sigma quantile</td></tr><tr><td>L_MAX</td><td><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></td><td>maximum likelihood value</td></tr><tr><td>de</td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>same as <code>AVERAGE_DOSE</code> (internal use)</td></tr><tr><td>de_err</td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>same as <code>AVERAGE_DOSE.SE</code> (internal use)</td></tr></table><p>The function returns two different plot panels.</p>
 <p>(1) An abanico plot with the dose values</p>
 <p>(2) A histogram panel comprising 3 histograms with the equivalent dose and the bootstrapped average
 dose and the sigma values.</p>
@@ -140,11 +145,11 @@ dose and the sigma values.</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.1.6</p>
+    <p>0.1.7</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Christophe, C., Philippe, A., Guérin, G., Kreutzer, S., 2025. calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Christophe, C., Philippe, A., Guérin, G., Kreutzer, S., 2026. calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -162,23 +167,21 @@ and Other Measures of Statistical Accuracy. Statistical Science 1, 54-75.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Claire Christophe, IRAMAT-CRP2A, Université de Nantes (France),
-Anne Philippe, Université de Nantes, (France),
-Guillaume Guérin, IRAMAT-CRP2A, Université Bordeaux Montaigne, (France),
-Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+    <p>Claire Christophe, IRAMAT-CRP2A, Université de Nantes (France)<br>
+Anne Philippe, Université de Nantes, (France)<br>
+Guillaume Guérin, IRAMAT-CRP2A, Université Bordeaux Montaigne, (France)<br>
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 , RLum Developer Team</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">##Example 01 using package example data</span></span></span>
-<span class="r-in"><span><span class="co">##load example data</span></span></span>
+<span class="r-in"><span><span class="co">## load example data</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.DeValues</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">##calculate Average dose</span></span></span>
-<span class="r-in"><span><span class="co">##(use only the first 56 values here)</span></span></span>
-<span class="r-in"><span><span class="va">AD</span> <span class="op">&lt;-</span> <span class="fu">calc_AverageDose</span><span class="op">(</span><span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">CA1</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">56</span>,<span class="op">]</span>, sigma_m <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## calculate Average dose (using only the first 56 values here)</span></span></span>
+<span class="r-in"><span><span class="va">AD</span> <span class="op">&lt;-</span> <span class="fu">calc_AverageDose</span><span class="op">(</span><span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">CA1</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">56</span>, <span class="op">]</span>, sigma_m <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [calc_AverageDose()]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -195,21 +198,19 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                          IC_delta      IC_sigma_d</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> level                        0.95          0.9500</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CredibleIntervalInf         60.40          0.2077</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CredibleIntervalSup         69.74          0.3860</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CredibleIntervalInf         60.39          0.2172</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CredibleIntervalSup         69.93          0.4029</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; Results &lt;&lt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Average dose:	  65.3597 	se(Aver. dose):	 2.4669</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sigma_d:	  0.3092 	se(sigma_d):	 0.0476</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Average dose:	  65.3597 	se(Aver. dose):	 2.4517</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> sigma_d:	  0.3092 	se(sigma_d):	 0.0477</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------------------------------------------</span>
 <span class="r-plt img"><img src="calc_AverageDose-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">##plot De and set Average dose as central value</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="plot_AbanicoPlot.html">plot_AbanicoPlot</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span> data <span class="op">=</span> <span class="va">ExampleData.DeValues</span><span class="op">$</span><span class="va">CA1</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">56</span>,<span class="op">]</span>,</span></span>
-<span class="r-in"><span> z.0 <span class="op">=</span> <span class="va">AD</span><span class="op">$</span><span class="va">summary</span><span class="op">$</span><span class="va">AVERAGE_DOSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">## plot De and set Average dose as central value</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="plot_AbanicoPlot.html">plot_AbanicoPlot</a></span><span class="op">(</span><span class="va">AD</span>, z.0 <span class="op">=</span> <span class="va">AD</span><span class="op">$</span><span class="va">summary</span><span class="op">$</span><span class="va">de</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="calc_AverageDose-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
@@ -219,7 +220,7 @@ Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -86,22 +86,23 @@ function but simplifies the selection of pairs and curves.
 
 [get_RLum](https://r-lum.github.io/Luminescence/reference/get_RLum.md),
 [merge_RLum](https://r-lum.github.io/Luminescence/reference/merge_RLum.md),
-[RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md),[RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)
+[RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md),
+[RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## How to cite
 
-Kreutzer, S., 2025. remove_SignalBackground(): Remove Signal Background
+Kreutzer, S., 2026. remove_SignalBackground(): Remove Signal Background
 from RLum.Data.Curve Objects. Function version 0.1.0. In: Kreutzer, S.,
 Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
 J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
 D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
-2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
-package version 1.1.2. https://r-lum.github.io/Luminescence/
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
@@ -125,10 +126,10 @@ recordType = "OSL (UVVIS)")
 #>   additional info elements:  1
 #>   number of records: 12
 #>   .. : RLum.Data.Curve : 12
-#>   .. .. : #1 TL (UVVIS) <> #2 TL (NA) <> #3 TL (NA) 
-#>   .. .. : #4 OSL (UVVIS) <> #5 OSL (NA) <> #6 OSL (NA) <> #7 OSL (NA) <> #8 OSL (NA)
+#>   .. .. : #1 TL (UVVIS) <> #2 _TL (NA) <> #3 _TL (NA) 
+#>   .. .. : #4 OSL (UVVIS) <> #5 _OSL (NA) <> #6 _OSL (NA) <> #7 _OSL (NA) <> #8 _OSL (NA)
 #>   .. .. : #9 irradiation (NA) 
-#>   .. .. : #10 TL (UVVIS) <> #11 TL (NA) <> #12 TL (NA)
+#>   .. .. : #10 TL (UVVIS) <> #11 _TL (NA) <> #12 _TL (NA)
 #> 
 
 ## use a more elaborate examples

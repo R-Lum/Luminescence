@@ -29,7 +29,6 @@
 <url><loc>https://r-lum.github.io/Luminescence/reference/ExampleData.XSYG.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/ExampleData.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/ExampleData.portableOSL.html</loc></url>
-<url><loc>https://r-lum.github.io/Luminescence/reference/GitHub-API.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/Luminescence-package.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/RLum-class.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.html</loc></url>
@@ -115,7 +114,6 @@
 <url><loc>https://r-lum.github.io/Luminescence/reference/get_rightAnswer.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/import_Data.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/index.html</loc></url>
-<url><loc>https://r-lum.github.io/Luminescence/reference/install_DevelopmentVersion.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/length_RLum.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/melt_RLum.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/merge_RLum.Analysis.html</loc></url>
@@ -127,6 +125,7 @@
 <url><loc>https://r-lum.github.io/Luminescence/reference/metadata.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/methods_RLum.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/names_RLum.html</loc></url>
+<url><loc>https://r-lum.github.io/Luminescence/reference/normalise_RLum.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/plot_AbanicoPlot.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/plot_DRCSummary.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/plot_DRTResults.html</loc></url>
@@ -151,6 +150,7 @@
 <url><loc>https://r-lum.github.io/Luminescence/reference/plot_SingleGrainDisc.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/plot_ViolinPlot.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/read_BIN2R.html</loc></url>
+<url><loc>https://r-lum.github.io/Luminescence/reference/read_BINXLOG2R.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/read_Daybreak2R.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/read_HeliosOSL2R.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/read_PSL2R.html</loc></url>

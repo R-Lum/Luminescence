@@ -49,10 +49,10 @@ convert_PSL2CSV(file, extract_raw_data = FALSE, single_table = FALSE, ...)
 
 ## Value
 
-The function returns either a CSV-file (or many of them) or for the
-option `export = FALSE` a list comprising objects of type
+The function returns either a CSV-file (or many of them) or, when
+`export = FALSE`, a list of
 [data.frame](https://rdrr.io/r/base/data.frame.html) and
-[matrix](https://rdrr.io/r/base/matrix.html)
+[matrix](https://rdrr.io/r/base/matrix.html) objects.
 
 ## Function version
 
@@ -69,18 +69,18 @@ option `export = FALSE` a list comprising objects of type
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## How to cite
 
-Kreutzer, S., 2025. convert_PSL2CSV(): Export PSL-file(s) to CSV-files.
+Kreutzer, S., 2026. convert_PSL2CSV(): Export PSL-file(s) to CSV-files.
 Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
-J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence:
-Comprehensive Luminescence Dating Data Analysis. R package version
-1.1.2. https://r-lum.github.io/Luminescence/
+J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
+Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
+version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
@@ -93,210 +93,310 @@ convert_PSL2CSV(file, export = FALSE, single_table = TRUE)
 #>  path:  /home/runner/work/_temp/Library/Luminescence/extdata
 #>  file:  DorNie_0016.psl
 #> $conv_ALU0016_psl
-#>     1_USER_t 1_USER_cts 2_IRSL_t 2_IRSL_cts 3_USER_t 3_USER_cts 4_OSL_t
-#> 1          1          0        1      16660        1          4       1
-#> 2          2         -2        2      16129        2         10       2
-#> 3          3         14        3      15860        3         -5       3
-#> 4          4          7        4      15773        4         -1       4
-#> 5          5          6        5      13509        5         -8       5
-#> 6          6         -7        6      15171        6         -6       6
-#> 7          7         -1        7      15025        7         13       7
-#> 8          8          6        8      14753        8          5       8
-#> 9          9         -8        9      14438        9        -24       9
-#> 10        10          3       10      14205       10         11      10
-#> 11        11         -2       11      14048       11          9      11
-#> 12        12          6       12      13886       12          7      12
-#> 13        13          0       13      13769       13         -8      13
-#> 14        14          6       14      13619       14        -12      14
-#> 15        15         -3       15      13365       15         -7      15
-#> 16        NA         NA       16      12847       NA         NA      16
-#> 17        NA         NA       17      12967       NA         NA      17
-#> 18        NA         NA       18      12693       NA         NA      18
-#> 19        NA         NA       19      12726       NA         NA      19
-#> 20        NA         NA       20      12663       NA         NA      20
-#> 21        NA         NA       21      12740       NA         NA      21
-#> 22        NA         NA       22      12394       NA         NA      22
-#> 23        NA         NA       23      12142       NA         NA      23
-#> 24        NA         NA       24      12139       NA         NA      24
-#> 25        NA         NA       25      11967       NA         NA      25
-#> 26        NA         NA       26      11870       NA         NA      26
-#> 27        NA         NA       27      11836       NA         NA      27
-#> 28        NA         NA       28      11673       NA         NA      28
-#> 29        NA         NA       29      11539       NA         NA      29
-#> 30        NA         NA       30      11513       NA         NA      30
-#> 31        NA         NA       31      11443       NA         NA      31
-#> 32        NA         NA       32      11391       NA         NA      32
-#> 33        NA         NA       33      11263       NA         NA      33
-#> 34        NA         NA       34      11128       NA         NA      34
-#> 35        NA         NA       35      11026       NA         NA      35
-#> 36        NA         NA       36      10991       NA         NA      36
-#> 37        NA         NA       37      10798       NA         NA      37
-#> 38        NA         NA       38      10781       NA         NA      38
-#> 39        NA         NA       39      10754       NA         NA      39
-#> 40        NA         NA       40      10455       NA         NA      40
-#> 41        NA         NA       41      10705       NA         NA      41
-#> 42        NA         NA       42      10457       NA         NA      42
-#> 43        NA         NA       43      10358       NA         NA      43
-#> 44        NA         NA       44      10578       NA         NA      44
-#> 45        NA         NA       45      10543       NA         NA      45
-#> 46        NA         NA       46      10260       NA         NA      46
-#> 47        NA         NA       47      10263       NA         NA      47
-#> 48        NA         NA       48      10209       NA         NA      48
-#> 49        NA         NA       49       9936       NA         NA      49
-#> 50        NA         NA       50       9943       NA         NA      50
-#> 51        NA         NA       51       9782       NA         NA      51
-#> 52        NA         NA       52       9836       NA         NA      52
-#> 53        NA         NA       53       9876       NA         NA      53
-#> 54        NA         NA       54       8814       NA         NA      54
-#> 55        NA         NA       55       9854       NA         NA      55
-#> 56        NA         NA       56       9571       NA         NA      56
-#> 57        NA         NA       57       9581       NA         NA      57
-#> 58        NA         NA       58       9433       NA         NA      58
-#> 59        NA         NA       59       9568       NA         NA      59
-#> 60        NA         NA       60       9466       NA         NA      60
-#> 61        NA         NA       61       9362       NA         NA      61
-#> 62        NA         NA       62       9267       NA         NA      62
-#> 63        NA         NA       63       9240       NA         NA      63
-#> 64        NA         NA       64       9425       NA         NA      64
-#> 65        NA         NA       65       9129       NA         NA      65
-#> 66        NA         NA       66       9132       NA         NA      66
-#> 67        NA         NA       67       9036       NA         NA      67
-#> 68        NA         NA       68       9166       NA         NA      68
-#> 69        NA         NA       69       8859       NA         NA      69
-#> 70        NA         NA       70       8973       NA         NA      70
-#> 71        NA         NA       71       8914       NA         NA      71
-#> 72        NA         NA       72       8921       NA         NA      72
-#> 73        NA         NA       73       8819       NA         NA      73
-#> 74        NA         NA       74       8935       NA         NA      74
-#> 75        NA         NA       75       8711       NA         NA      75
-#> 76        NA         NA       76       8862       NA         NA      76
-#> 77        NA         NA       77       8847       NA         NA      77
-#> 78        NA         NA       78       8611       NA         NA      78
-#> 79        NA         NA       79       8785       NA         NA      79
-#> 80        NA         NA       80       8583       NA         NA      80
-#> 81        NA         NA       81       8340       NA         NA      81
-#> 82        NA         NA       82       8481       NA         NA      82
-#> 83        NA         NA       83       8525       NA         NA      83
-#> 84        NA         NA       84       8286       NA         NA      84
-#> 85        NA         NA       85       8547       NA         NA      85
-#> 86        NA         NA       86       8292       NA         NA      86
-#> 87        NA         NA       87       8415       NA         NA      87
-#> 88        NA         NA       88       8231       NA         NA      88
-#> 89        NA         NA       89       8054       NA         NA      89
-#> 90        NA         NA       90       8489       NA         NA      90
-#> 91        NA         NA       91       8075       NA         NA      91
-#> 92        NA         NA       92       8076       NA         NA      92
-#> 93        NA         NA       93       8048       NA         NA      93
-#> 94        NA         NA       94       7913       NA         NA      94
-#> 95        NA         NA       95       7952       NA         NA      95
-#> 96        NA         NA       96       7993       NA         NA      96
-#> 97        NA         NA       97       7914       NA         NA      97
-#> 98        NA         NA       98       7909       NA         NA      98
-#> 99        NA         NA       99       7863       NA         NA      99
-#> 100       NA         NA      100       7966       NA         NA     100
-#>     4_OSL_cts 5_USER_t 5_USER_cts
-#> 1       88023        1        -22
-#> 2       85585        2         -1
-#> 3       83394        3         25
-#> 4       80840        4          0
-#> 5       78826        5         12
-#> 6       76523        6          4
-#> 7       74442        7         12
-#> 8       72370        8        -13
-#> 9       70429        9         26
-#> 10      69502       10        -16
-#> 11      67389       11        -26
-#> 12      65571       12        -12
-#> 13      64550       13         28
-#> 14      62602       14         -8
-#> 15      61530       15        -10
-#> 16      59973       NA         NA
-#> 17      58776       NA         NA
-#> 18      56702       NA         NA
-#> 19      56463       NA         NA
-#> 20      55544       NA         NA
-#> 21      54560       NA         NA
-#> 22      53655       NA         NA
-#> 23      51510       NA         NA
-#> 24      51533       NA         NA
-#> 25      50612       NA         NA
-#> 26      49634       NA         NA
-#> 27      48865       NA         NA
-#> 28      47477       NA         NA
-#> 29      47611       NA         NA
-#> 30      46493       NA         NA
-#> 31      46228       NA         NA
-#> 32      45406       NA         NA
-#> 33      44412       NA         NA
-#> 34      43986       NA         NA
-#> 35      42660       NA         NA
-#> 36      42668       NA         NA
-#> 37      42134       NA         NA
-#> 38      41714       NA         NA
-#> 39      41122       NA         NA
-#> 40      40480       NA         NA
-#> 41      39864       NA         NA
-#> 42      39509       NA         NA
-#> 43      38667       NA         NA
-#> 44      34400       NA         NA
-#> 45      37490       NA         NA
-#> 46      37932       NA         NA
-#> 47      37080       NA         NA
-#> 48      36770       NA         NA
-#> 49      35939       NA         NA
-#> 50      35905       NA         NA
-#> 51      35136       NA         NA
-#> 52      34799       NA         NA
-#> 53      34099       NA         NA
-#> 54      33965       NA         NA
-#> 55      33632       NA         NA
-#> 56      33346       NA         NA
-#> 57      32733       NA         NA
-#> 58      32818       NA         NA
-#> 59      31939       NA         NA
-#> 60      31811       NA         NA
-#> 61      31846       NA         NA
-#> 62      31014       NA         NA
-#> 63      31358       NA         NA
-#> 64      30640       NA         NA
-#> 65      30371       NA         NA
-#> 66      30182       NA         NA
-#> 67      29531       NA         NA
-#> 68      29751       NA         NA
-#> 69      29212       NA         NA
-#> 70      28599       NA         NA
-#> 71      28182       NA         NA
-#> 72      28644       NA         NA
-#> 73      28154       NA         NA
-#> 74      27587       NA         NA
-#> 75      27537       NA         NA
-#> 76      27275       NA         NA
-#> 77      27064       NA         NA
-#> 78      27142       NA         NA
-#> 79      26655       NA         NA
-#> 80      26503       NA         NA
-#> 81      26296       NA         NA
-#> 82      25213       NA         NA
-#> 83      25774       NA         NA
-#> 84      24724       NA         NA
-#> 85      25337       NA         NA
-#> 86      25361       NA         NA
-#> 87      24962       NA         NA
-#> 88      24411       NA         NA
-#> 89      24427       NA         NA
-#> 90      24599       NA         NA
-#> 91      24128       NA         NA
-#> 92      23943       NA         NA
-#> 93      21914       NA         NA
-#> 94      23812       NA         NA
-#> 95      23516       NA         NA
-#> 96      23346       NA         NA
-#> 97      22965       NA         NA
-#> 98      22955       NA         NA
-#> 99      22828       NA         NA
-#> 100     22552       NA         NA
+#>     1_USER (PMT)_t 1_USER (PMT)_cts 2_IRSL (PMT)_t 2_IRSL (PMT)_cts
+#> 1                1                0              1            16660
+#> 2                2               -2              2            16129
+#> 3                3               14              3            15860
+#> 4                4                7              4            15773
+#> 5                5                6              5            13509
+#> 6                6               -7              6            15171
+#> 7                7               -1              7            15025
+#> 8                8                6              8            14753
+#> 9                9               -8              9            14438
+#> 10              10                3             10            14205
+#> 11              11               -2             11            14048
+#> 12              12                6             12            13886
+#> 13              13                0             13            13769
+#> 14              14                6             14            13619
+#> 15              15               -3             15            13365
+#> 16              NA               NA             16            12847
+#> 17              NA               NA             17            12967
+#> 18              NA               NA             18            12693
+#> 19              NA               NA             19            12726
+#> 20              NA               NA             20            12663
+#> 21              NA               NA             21            12740
+#> 22              NA               NA             22            12394
+#> 23              NA               NA             23            12142
+#> 24              NA               NA             24            12139
+#> 25              NA               NA             25            11967
+#> 26              NA               NA             26            11870
+#> 27              NA               NA             27            11836
+#> 28              NA               NA             28            11673
+#> 29              NA               NA             29            11539
+#> 30              NA               NA             30            11513
+#> 31              NA               NA             31            11443
+#> 32              NA               NA             32            11391
+#> 33              NA               NA             33            11263
+#> 34              NA               NA             34            11128
+#> 35              NA               NA             35            11026
+#> 36              NA               NA             36            10991
+#> 37              NA               NA             37            10798
+#> 38              NA               NA             38            10781
+#> 39              NA               NA             39            10754
+#> 40              NA               NA             40            10455
+#> 41              NA               NA             41            10705
+#> 42              NA               NA             42            10457
+#> 43              NA               NA             43            10358
+#> 44              NA               NA             44            10578
+#> 45              NA               NA             45            10543
+#> 46              NA               NA             46            10260
+#> 47              NA               NA             47            10263
+#> 48              NA               NA             48            10209
+#> 49              NA               NA             49             9936
+#> 50              NA               NA             50             9943
+#> 51              NA               NA             51             9782
+#> 52              NA               NA             52             9836
+#> 53              NA               NA             53             9876
+#> 54              NA               NA             54             8814
+#> 55              NA               NA             55             9854
+#> 56              NA               NA             56             9571
+#> 57              NA               NA             57             9581
+#> 58              NA               NA             58             9433
+#> 59              NA               NA             59             9568
+#> 60              NA               NA             60             9466
+#> 61              NA               NA             61             9362
+#> 62              NA               NA             62             9267
+#> 63              NA               NA             63             9240
+#> 64              NA               NA             64             9425
+#> 65              NA               NA             65             9129
+#> 66              NA               NA             66             9132
+#> 67              NA               NA             67             9036
+#> 68              NA               NA             68             9166
+#> 69              NA               NA             69             8859
+#> 70              NA               NA             70             8973
+#> 71              NA               NA             71             8914
+#> 72              NA               NA             72             8921
+#> 73              NA               NA             73             8819
+#> 74              NA               NA             74             8935
+#> 75              NA               NA             75             8711
+#> 76              NA               NA             76             8862
+#> 77              NA               NA             77             8847
+#> 78              NA               NA             78             8611
+#> 79              NA               NA             79             8785
+#> 80              NA               NA             80             8583
+#> 81              NA               NA             81             8340
+#> 82              NA               NA             82             8481
+#> 83              NA               NA             83             8525
+#> 84              NA               NA             84             8286
+#> 85              NA               NA             85             8547
+#> 86              NA               NA             86             8292
+#> 87              NA               NA             87             8415
+#> 88              NA               NA             88             8231
+#> 89              NA               NA             89             8054
+#> 90              NA               NA             90             8489
+#> 91              NA               NA             91             8075
+#> 92              NA               NA             92             8076
+#> 93              NA               NA             93             8048
+#> 94              NA               NA             94             7913
+#> 95              NA               NA             95             7952
+#> 96              NA               NA             96             7993
+#> 97              NA               NA             97             7914
+#> 98              NA               NA             98             7909
+#> 99              NA               NA             99             7863
+#> 100             NA               NA            100             7966
+#>     3_USER (PMT)_t 3_USER (PMT)_cts 4_OSL (PMT)_t 4_OSL (PMT)_cts
+#> 1                1                4             1           88023
+#> 2                2               10             2           85585
+#> 3                3               -5             3           83394
+#> 4                4               -1             4           80840
+#> 5                5               -8             5           78826
+#> 6                6               -6             6           76523
+#> 7                7               13             7           74442
+#> 8                8                5             8           72370
+#> 9                9              -24             9           70429
+#> 10              10               11            10           69502
+#> 11              11                9            11           67389
+#> 12              12                7            12           65571
+#> 13              13               -8            13           64550
+#> 14              14              -12            14           62602
+#> 15              15               -7            15           61530
+#> 16              NA               NA            16           59973
+#> 17              NA               NA            17           58776
+#> 18              NA               NA            18           56702
+#> 19              NA               NA            19           56463
+#> 20              NA               NA            20           55544
+#> 21              NA               NA            21           54560
+#> 22              NA               NA            22           53655
+#> 23              NA               NA            23           51510
+#> 24              NA               NA            24           51533
+#> 25              NA               NA            25           50612
+#> 26              NA               NA            26           49634
+#> 27              NA               NA            27           48865
+#> 28              NA               NA            28           47477
+#> 29              NA               NA            29           47611
+#> 30              NA               NA            30           46493
+#> 31              NA               NA            31           46228
+#> 32              NA               NA            32           45406
+#> 33              NA               NA            33           44412
+#> 34              NA               NA            34           43986
+#> 35              NA               NA            35           42660
+#> 36              NA               NA            36           42668
+#> 37              NA               NA            37           42134
+#> 38              NA               NA            38           41714
+#> 39              NA               NA            39           41122
+#> 40              NA               NA            40           40480
+#> 41              NA               NA            41           39864
+#> 42              NA               NA            42           39509
+#> 43              NA               NA            43           38667
+#> 44              NA               NA            44           34400
+#> 45              NA               NA            45           37490
+#> 46              NA               NA            46           37932
+#> 47              NA               NA            47           37080
+#> 48              NA               NA            48           36770
+#> 49              NA               NA            49           35939
+#> 50              NA               NA            50           35905
+#> 51              NA               NA            51           35136
+#> 52              NA               NA            52           34799
+#> 53              NA               NA            53           34099
+#> 54              NA               NA            54           33965
+#> 55              NA               NA            55           33632
+#> 56              NA               NA            56           33346
+#> 57              NA               NA            57           32733
+#> 58              NA               NA            58           32818
+#> 59              NA               NA            59           31939
+#> 60              NA               NA            60           31811
+#> 61              NA               NA            61           31846
+#> 62              NA               NA            62           31014
+#> 63              NA               NA            63           31358
+#> 64              NA               NA            64           30640
+#> 65              NA               NA            65           30371
+#> 66              NA               NA            66           30182
+#> 67              NA               NA            67           29531
+#> 68              NA               NA            68           29751
+#> 69              NA               NA            69           29212
+#> 70              NA               NA            70           28599
+#> 71              NA               NA            71           28182
+#> 72              NA               NA            72           28644
+#> 73              NA               NA            73           28154
+#> 74              NA               NA            74           27587
+#> 75              NA               NA            75           27537
+#> 76              NA               NA            76           27275
+#> 77              NA               NA            77           27064
+#> 78              NA               NA            78           27142
+#> 79              NA               NA            79           26655
+#> 80              NA               NA            80           26503
+#> 81              NA               NA            81           26296
+#> 82              NA               NA            82           25213
+#> 83              NA               NA            83           25774
+#> 84              NA               NA            84           24724
+#> 85              NA               NA            85           25337
+#> 86              NA               NA            86           25361
+#> 87              NA               NA            87           24962
+#> 88              NA               NA            88           24411
+#> 89              NA               NA            89           24427
+#> 90              NA               NA            90           24599
+#> 91              NA               NA            91           24128
+#> 92              NA               NA            92           23943
+#> 93              NA               NA            93           21914
+#> 94              NA               NA            94           23812
+#> 95              NA               NA            95           23516
+#> 96              NA               NA            96           23346
+#> 97              NA               NA            97           22965
+#> 98              NA               NA            98           22955
+#> 99              NA               NA            99           22828
+#> 100             NA               NA           100           22552
+#>     5_USER (PMT)_t 5_USER (PMT)_cts
+#> 1                1              -22
+#> 2                2               -1
+#> 3                3               25
+#> 4                4                0
+#> 5                5               12
+#> 6                6                4
+#> 7                7               12
+#> 8                8              -13
+#> 9                9               26
+#> 10              10              -16
+#> 11              11              -26
+#> 12              12              -12
+#> 13              13               28
+#> 14              14               -8
+#> 15              15              -10
+#> 16              NA               NA
+#> 17              NA               NA
+#> 18              NA               NA
+#> 19              NA               NA
+#> 20              NA               NA
+#> 21              NA               NA
+#> 22              NA               NA
+#> 23              NA               NA
+#> 24              NA               NA
+#> 25              NA               NA
+#> 26              NA               NA
+#> 27              NA               NA
+#> 28              NA               NA
+#> 29              NA               NA
+#> 30              NA               NA
+#> 31              NA               NA
+#> 32              NA               NA
+#> 33              NA               NA
+#> 34              NA               NA
+#> 35              NA               NA
+#> 36              NA               NA
+#> 37              NA               NA
+#> 38              NA               NA
+#> 39              NA               NA
+#> 40              NA               NA
+#> 41              NA               NA
+#> 42              NA               NA
+#> 43              NA               NA
+#> 44              NA               NA
+#> 45              NA               NA
+#> 46              NA               NA
+#> 47              NA               NA
+#> 48              NA               NA
+#> 49              NA               NA
+#> 50              NA               NA
+#> 51              NA               NA
+#> 52              NA               NA
+#> 53              NA               NA
+#> 54              NA               NA
+#> 55              NA               NA
+#> 56              NA               NA
+#> 57              NA               NA
+#> 58              NA               NA
+#> 59              NA               NA
+#> 60              NA               NA
+#> 61              NA               NA
+#> 62              NA               NA
+#> 63              NA               NA
+#> 64              NA               NA
+#> 65              NA               NA
+#> 66              NA               NA
+#> 67              NA               NA
+#> 68              NA               NA
+#> 69              NA               NA
+#> 70              NA               NA
+#> 71              NA               NA
+#> 72              NA               NA
+#> 73              NA               NA
+#> 74              NA               NA
+#> 75              NA               NA
+#> 76              NA               NA
+#> 77              NA               NA
+#> 78              NA               NA
+#> 79              NA               NA
+#> 80              NA               NA
+#> 81              NA               NA
+#> 82              NA               NA
+#> 83              NA               NA
+#> 84              NA               NA
+#> 85              NA               NA
+#> 86              NA               NA
+#> 87              NA               NA
+#> 88              NA               NA
+#> 89              NA               NA
+#> 90              NA               NA
+#> 91              NA               NA
+#> 92              NA               NA
+#> 93              NA               NA
+#> 94              NA               NA
+#> 95              NA               NA
+#> 96              NA               NA
+#> 97              NA               NA
+#> 98              NA               NA
+#> 99              NA               NA
+#> 100             NA               NA
 #> 
-
 
 if (FALSE) { # \dontrun{
 ##select your BIN-file
@@ -304,6 +404,5 @@ file <- file.choose()
 
 ##convert
 convert_PSL2CSV(file)
-
 } # }
 ```

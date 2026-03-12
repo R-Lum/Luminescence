@@ -15,7 +15,7 @@ extract all relevant information. See note."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@ extract all relevant information. See note."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Import SUERC portable OSL Reader PSL files into R</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/read_PSL2R.R" class="external-link"><code>R/read_PSL2R.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/read_PSL2R.R" class="external-link"><code>R/read_PSL2R.R</code></a></small>
       <div class="d-none name"><code>read_PSL2R.Rd</code></div>
     </div>
 
@@ -68,11 +68,9 @@ extract all relevant information. See <strong>note</strong>.</p>
 
 <dl><dt id="arg-file">file<a class="anchor" aria-label="anchor" href="#arg-file"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<strong>required</strong>):
-path and file name of the PSL file. If input is a <code>vector</code> it should comprise
-only <code>character</code>s representing valid paths and PSL file names.
-Alternatively, the input character can be just a directory (path), in which
-case the function tries to detect and import all PSL files found in the
-directory.</p></dd>
+name of one or multiple PSL files (URLs are supported); it can be the path
+to a directory, in which case the function tries to detect and import all
+PSL files found in the directory.</p></dd>
 
 
 <dt id="arg-drop-bg">drop_bg<a class="anchor" aria-label="anchor" href="#arg-drop-bg"></a></dt>
@@ -95,7 +93,7 @@ to hardware errors.</p></dd>
 
 <dt id="arg-merge">merge<a class="anchor" aria-label="anchor" href="#arg-merge"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-<code>TRUE</code> to merge all <code>RLum.Analysis</code> objects. Only applicable if multiple
+<code>TRUE</code> to merge all <a href="RLum.Analysis-class.html">RLum.Analysis</a> objects. Only applicable if multiple
 files are imported.</p></dd>
 
 
@@ -117,7 +115,8 @@ enable/disable output to the terminal.</p></dd>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>Returns an S4 <a href="RLum.Analysis-class.html">RLum.Analysis</a> object containing
-<a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a> objects for each curve.</p>
+<a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a> objects for each curve. Results are
+returned as a list when multiple files are processed or <code>file</code> is a list.</p>
     </div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
@@ -128,21 +127,22 @@ function can be updated.</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.1.1</p>
+    <p>0.1.2</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><a href="RLum.Analysis-class.html">RLum.Analysis</a>, <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>, <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a></p></div>
+    <div class="dont-index"><p><a href="RLum.Analysis-class.html">RLum.Analysis</a>, <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>,
+<a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Christoph Burow, University of Cologne (Germany),
-Sebastian Kreutzer, Institut of Geography, Heidelberg University (Germany)
+    <p>Christoph Burow, University of Cologne (Germany)<br>
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)<br>
 , RLum Developer Team</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Burow, C., Kreutzer, S., 2025. read_PSL2R(): Import SUERC portable OSL Reader PSL files into R. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Burow, C., Kreutzer, S., 2026. read_PSL2R(): Import SUERC portable OSL Reader PSL files into R. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">
@@ -181,14 +181,13 @@ Sebastian Kreutzer, Institut of Geography, Heidelberg University (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ Date                 : Date[1:1], format: "2016-05-19"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ Time                 : chr "4:45:12"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ Sample               : chr "L11"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ Sequence             :Classes ‘data.table’ and 'data.frame':	5 obs. of  5 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..@ .uid      : chr "cebde8a2d3e4ff2c"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ Sequence             :'data.frame':	5 obs. of  5 variables:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..@ .uid      : chr "b838ad3164a775d1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   ..@ .pid      : chr NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">psl</span>, combine <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="read_PSL2R-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
+<span class="r-plt img"><img src="read_PSL2R-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
@@ -196,7 +195,7 @@ Sebastian Kreutzer, Institut of Geography, Heidelberg University (Germany)
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

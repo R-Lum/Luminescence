@@ -8,20 +8,19 @@ modulation conditions using the interpolation procedure described by Bos
 ## Usage
 
 ``` r
-convert_CW2pHMi(values, delta)
+convert_CW2pHMi(object, delta = NULL, ...)
 ```
 
 ## Arguments
 
-- values:
+- object:
 
   [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)
   or [data.frame](https://rdrr.io/r/base/data.frame.html)
   (**required**):
   [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)
-  or [data.frame](https://rdrr.io/r/base/data.frame.html) with measured
-  curve data of type stimulation time (t) (`values[,1]`) and measured
-  counts (cts) (`values[,2]`).
+  object or a `data.frame` with measured curve data of type stimulation
+  time (t) (`object[, 1]`) and measured counts (cts) (`object[, 2]`).
 
 - delta:
 
@@ -29,6 +28,10 @@ convert_CW2pHMi(values, delta)
   rate parameter, if no value is given, the optimal value is estimated
   automatically (see details). Smaller values of delta produce more
   points in the rising tail of the curve.
+
+- ...:
+
+  currently not used.
 
 ## Value
 
@@ -82,7 +85,7 @@ obtained fit parameters.
 
 \(7\) Combine all values and truncate all values for t' \> `max(t)`
 
-**NOTE:** The number of values for t' \< `min(t)` depends on the
+**Note:** The number of values for t' \< `min(t)` depends on the
 stimulation rate parameter `delta`. To avoid the production of too many
 artificial data at the raising tail of the determined pHM curve, it is
 recommended to use the automatic estimation routine for `delta`, i.e.
@@ -96,39 +99,39 @@ provided manually and more than two points are extrapolated, a warning
 message is returned.
 
 The function [approx](https://rdrr.io/r/stats/approxfun.html) may
-produce some `Inf` and `NaN` data. The function tries to manually
-interpolate these values by calculating the `mean` using the adjacent
+produce some `Inf` and `NaN` data, in which case the function tries to
+interpolate these values by calculating the mean of the adjacent
 channels. If two invalid values are succeeding, the values are removed
 and no further interpolation is attempted. In every case a warning
 message is shown.
 
 ## Function version
 
-0.2.3
+0.2.5
 
 ## How to cite
 
-Kreutzer, S., 2025. convert_CW2pHMi(): Transform a CW-OSL curve into a
-pHM-OSL curve via interpolation under hyperbolic modulation conditions.
-Function version 0.2.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
-M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
-A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
-J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence:
-Comprehensive Luminescence Dating Data Analysis. R package version
-1.1.2. https://r-lum.github.io/Luminescence/
+Kreutzer, S., Colombo, M., 2026. convert_CW2pHMi(): Transform a CW-OSL
+curve into a pHM-OSL curve via interpolation under hyperbolic modulation
+conditions. Function version 0.2.5. In: Kreutzer, S., Burow, C., Dietze,
+M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N.,
+Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J.,
+Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A.,
+2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
+package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
 Bos, A.J.J. & Wallinga, J., 2012. How to visualize quartz OSL signal
-components. Radiation Measurements, 47, 752-758.  
+components. Radiation Measurements 47, 752-758.  
 
 **Further Reading**
 
 Bulur, E., 1996. An Alternative Technique For Optically Stimulated
-Luminescence (OSL) Experiment. Radiation Measurements, 26, 701-709.
+Luminescence (OSL) Experiment. Radiation Measurements 26, 701-709.
 
 Bulur, E., 2000. A simple transformation for converting CW-OSL curves to
-LM-OSL curves. Radiation Measurements, 32, 141-145.
+LM-OSL curves. Radiation Measurements 32, 141-145.
 
 ## See also
 
@@ -141,11 +144,11 @@ LM-OSL curves. Radiation Measurements, 32, 141-145.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany)  
-Based on comments and suggestions from:  
-Adrie J.J. Bos, Delft University of Technology, The Netherlands , RLum
-Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)  
+Based on comments and suggestions from: Adrie J.J. Bos, Delft University
+of Technology, The Netherlands , RLum Developer Team
 
 ## Examples
 
@@ -180,19 +183,15 @@ curve.NPOINTS<-CWOSL.SAR.Data@METADATA[CWOSL.SAR.Data@METADATA[,"ID"]==curve.ID[
                                        ,"NPOINTS"]
 
 ##combine curve to data set
-
 curve<-data.frame(x = seq(curve.HIGH/curve.NPOINTS,curve.HIGH,
                           by = curve.HIGH/curve.NPOINTS),
                   y=unlist(CWOSL.SAR.Data@DATA[curve.ID[1]]))
 
-
 ##transform values
-
 curve.transformed <- convert_CW2pHMi(curve)
 
 ##plot curve
 plot(curve.transformed$x, curve.transformed$y.t, log = "x")
-
 
 
 ##(3) - produce Fig. 4 from Bos & Wallinga (2012)
@@ -216,13 +215,13 @@ lines(values[1:length(values.t[, 1]), 1], values.t[, 2],
 text(0.03,4500,"LM", col="red" ,cex=.8)
 
 values.t <- convert_CW2pHMi(values, delta = 40)
-#> Warning: [convert_CW2pHMi()] 56 invalid values have been found and replaced by the mean of the nearest values
+#> Warning: [convert_CW2pHMi()] 56 invalid values found, replaced by the mean of the nearest values
 lines(values[1:length(values.t[, 1]), 1], values.t[, 2],
       col="black", lwd=1.3)
 text(0.005,3000,"HM", cex=.8)
 
 values.t <- convert_CW2pPMi(values, P = 1/10)
-#> Warning: [convert_CW2pPMi()] t' is beyond the time resolution: only two data points have been extrapolated, the first 3 points were set to 0
+#> Warning: [convert_CW2pPMi()] t' is beyond the time resolution and more than two data points have been extrapolated
 lines(values[1:length(values.t[, 1]), 1], values.t[, 2],
       col="blue", lwd=1.3)
 text(0.5,6500,"PM", col="blue" ,cex=.8)

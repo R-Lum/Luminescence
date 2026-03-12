@@ -10,6 +10,7 @@ reader.
 analyse_Al2O3C_ITC(
   object,
   signal_integral = NULL,
+  integral_input = c("channel", "measurement"),
   dose_points = c(2, 4, 8, 12, 16),
   recordType = "OSL (UVVIS)",
   method_control = NULL,
@@ -35,6 +36,13 @@ analyse_Al2O3C_ITC(
   integral, used for the signal and the background. If nothing is
   provided the full range is used. Argument can be provided as
   [list](https://rdrr.io/r/base/list.html).
+
+- integral_input:
+
+  [character](https://rdrr.io/r/base/character.html) (*with default*):
+  input type for `signal_integral`, one of `"channel"` (default) or
+  `"measurement"`. If set to `"measurement"`, the best matching channels
+  corresponding to the given time range (in seconds) are selected.
 
 - dose_points:
 
@@ -120,25 +128,25 @@ default parameters and can be handled using the argument
 `method_control` only, e.g.,
 `method_control = list(fit.method = "LIN")`. Supported arguments are:
 
-|              |                         |                                                                                                                                               |
-|--------------|-------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
-| **ARGUMENT** | **FUNCTION**            | **DESCRIPTION**                                                                                                                               |
-| `mode`       | `fit_DoseResponseCurve` | as in [fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md); sets the mode used for fitting        |
-| `fit.method` | `fit_DoseResponseCurve` | as in [fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md); sets the function applied for fitting |
+|              |                         |                                       |
+|--------------|-------------------------|---------------------------------------|
+| **ARGUMENT** | **FUNCTION**            | **DESCRIPTION**                       |
+| `mode`       | `fit_DoseResponseCurve` | sets the mode used for fitting        |
+| `fit.method` | `fit_DoseResponseCurve` | sets the function applied for fitting |
 
 ## Function version
 
-0.1.1
+0.1.2
 
 ## How to cite
 
-Kreutzer, S., 2025. analyse_Al2O3C_ITC(): Al2O3 Irradiation Time
-Correction Analysis. Function version 0.1.1. In: Kreutzer, S., Burow,
+Kreutzer, S., 2026. analyse_Al2O3C_ITC(): Al2O3 Irradiation Time
+Correction Analysis. Function version 0.1.2. In: Kreutzer, S., Burow,
 C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -153,8 +161,8 @@ Geochronometria 45, 56-67. doi: 10.1515/geochr-2015-0086
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 
@@ -168,7 +176,7 @@ analyse_Al2O3C_ITC(data_ITC)
 #> [analyse_Al2O3C_ITC()]
 #> 
 #>  Used fit method:         EXP
-#>  Time correction value:   2.587 ± 0.038
+#>  Time correction value:   2.587 ± 0.034
 #> 
 
 #> 

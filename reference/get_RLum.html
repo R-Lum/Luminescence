@@ -11,7 +11,7 @@ function will be selected."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ function will be selected."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>General accessor function for RLum-class objects</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/Luminescence-generics.R" class="external-link"><code>R/Luminescence-generics.R</code></a>, <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/RLum.Analysis-class.R" class="external-link"><code>R/RLum.Analysis-class.R</code></a>, <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/RLum.Data.Curve-class.R" class="external-link"><code>R/RLum.Data.Curve-class.R</code></a>, and 3 more</small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/Luminescence-generics.R" class="external-link"><code>R/Luminescence-generics.R</code></a>, <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/RLum.Analysis-class.R" class="external-link"><code>R/RLum.Analysis-class.R</code></a>, <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/RLum.Data.Curve-class.R" class="external-link"><code>R/RLum.Data.Curve-class.R</code></a>, and 3 more</small>
       <div class="d-none name"><code>get_RLum.Rd</code></div>
     </div>
 
@@ -187,7 +187,8 @@ name or index of the data slot to be returned.</p></dd>
     <div class="section level2">
     <h2 id="functions">Functions<a class="anchor" aria-label="anchor" href="#functions"></a></h2>
 
-<ul><li><p><code>get_RLum(list)</code>: Returns a list of <a href="RLum-class.html">RLum</a> objects that had been passed to get_RLum</p></li>
+<ul><li><p><code>get_RLum(list)</code>: Returns a list of <a href="RLum-class.html">RLum</a> objects that had been passed to
+get_RLum</p></li>
 <li><p><code>get_RLum(`NULL`)</code>: Returns <code>NULL</code>.</p></li>
 <li><p><code>get_RLum(RLum.Analysis)</code>: Accessor method for RLum.Analysis objects.
 The optional arguments <code>record.id</code>, <code>recordType</code>, <code>curveType</code> and <code>RLum.type</code>
@@ -197,7 +198,8 @@ or <code>curveType ="measured"</code>), or object type.</p>
 <p>The selection of a specific RLum.type object superimposes the default selection.
 Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum</p>
 <p>Returns:</p><ol><li><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of <a href="RLum.Data-class.html">RLum.Data</a> objects or</p></li>
-<li><p>Single <a href="RLum.Data-class.html">RLum.Data</a> object, if only one object is contained and <code>recursive = FALSE</code> or</p></li>
+<li><p>Single <a href="RLum.Data-class.html">RLum.Data</a> object, if only one object
+is contained and <code>recursive = FALSE</code> or</p></li>
 <li><p><a href="RLum.Analysis-class.html">RLum.Analysis</a> objects for <code>drop = FALSE</code></p></li>
 </ol></li>
 <li><p><code>get_RLum(RLum.Data.Curve)</code>: Accessor method for <a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a> object.
@@ -231,16 +233,17 @@ originator slot in the receiving function if results are piped.</p>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>, <a href="RLum.Data.Image-class.html">RLum.Data.Image</a>,
-<a href="RLum.Data.Spectrum-class.html">RLum.Data.Spectrum</a>, <a href="RLum.Analysis-class.html">RLum.Analysis</a>, <a href="RLum.Results-class.html">RLum.Results</a></p></div>
+<a href="RLum.Data.Spectrum-class.html">RLum.Data.Spectrum</a>, <a href="RLum.Analysis-class.html">RLum.Analysis</a>,
+<a href="RLum.Results-class.html">RLum.Results</a></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+    <p>Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 , RLum Developer Team</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2025. get_RLum(): General accessor function for RLum-class objects. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2026. get_RLum(): General accessor function for RLum-class objects. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">
@@ -282,7 +285,7 @@ originator slot in the receiving function if results are piped.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

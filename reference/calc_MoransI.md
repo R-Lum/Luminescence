@@ -22,9 +22,9 @@ calc_MoransI(
 - object:
 
   [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
-  or [numeric](https://rdrr.io/r/base/numeric.html) (**required**)
-  containing the values of the grains of one. Should have length 100;
-  can contain `NA` values.
+  or [numeric](https://rdrr.io/r/base/numeric.html) (**required**):
+  values of the grains of one disc. Should have length 100; can contain
+  `NA` values.
 
 - df_neighbours:
 
@@ -110,24 +110,27 @@ observations.
 
 ## How to cite
 
-Boer, A.d., Steinbuch, L., 2025. calc_MoransI(): Calculate Moran's I.
+Boer, A.d., Steinbuch, L., 2026. calc_MoransI(): Calculate Moran's I.
 In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C.,
 Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
 Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
-Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive
-Luminescence Dating Data Analysis. R package version 1.1.2.
-https://r-lum.github.io/Luminescence/
+Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
+Comprehensive Luminescence Dating Data Analysis. R package version
+1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
 de Boer, A-M., Steinbuch, L., Heuvelink, G.B.M., Wallinga, J., 2025. A
-novel tool to assess crosstalk in single-grain luminescence detection.
-Submitted.
+novel method to assess crosstalk in single-grain luminescence detection.
+Radiation Measurements 186, 107459.
+[doi:10.1016/j.radmeas.2025.107459](https://doi.org/10.1016/j.radmeas.2025.107459)
 
 ## Author
 
-Anna-Maartje de Boer, Luc Steinbuch, Wageningen University & Research,
-2025 , RLum Developer Team
+Anna-Maartje de Boer, Wageningen University & Research (The
+Netherlands)  
+Luc Steinbuch, Wageningen University & Research (The Netherlands)  
+, RLum Developer Team
 
 ## Examples
 
@@ -139,9 +142,9 @@ calc_MoransI(object = c(1:100))
 ## Test some fictional samples without spatial correlation;
 ## note the randomness with each repetition
 calc_MoransI(object = rnorm(n = 100))
-#> [1] -0.05292131
+#> [1] -0.08025038
 calc_MoransI(object = rnorm(n = 100))
-#> [1] 0.003450826
+#> [1] 0.0160456
 calc_MoransI(object = rnorm(n = 100))
-#> [1] 0.01774666
+#> [1] 0.01742978
 ```

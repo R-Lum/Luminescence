@@ -54,18 +54,18 @@ Only plotting of `RLum.Results` objects are supported.
 ## Author
 
 Christoph Burow, University of Cologne (Germany)  
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## How to cite
 
-Burow, C., Kreutzer, S., 2025. plot_RLum.Results(): Plot function for an
+Burow, C., Kreutzer, S., 2026. plot_RLum.Results(): Plot function for an
 RLum.Results S4 class object. Function version 0.2.1. In: Kreutzer, S.,
 Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
 J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
 D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
-2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
-package version 1.1.2. https://r-lum.github.io/Luminescence/
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
@@ -77,15 +77,15 @@ data(ExampleData.DeValues, envir = environment())
 # apply the un-logged minimum age model
 mam <- calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.2, log = TRUE, plot = FALSE)
 #> 
-#> ----------- meta data -----------
+#> ----------- Meta data -----------
 #>   n par sigmab logged      Lmax      BIC
 #>  62   3    0.2   TRUE -32.43138 84.14389
 #> 
-#> --- final parameter estimates ---
-#>  gamma sigma   p0 mu
-#>  45.64  1.56 0.02  0
+#> --- Final parameter estimates ---
+#>          gamma sigma   p0
+#> Estimate 45.64  1.56 0.02
 #> 
-#> ------ confidence intervals -----
+#> ------ Confidence intervals -----
 #>       2.5 % 97.5 %
 #> gamma 38.61  53.65
 #> sigma  1.33   1.89
@@ -118,8 +118,8 @@ grains<- calc_AliquotSize(grain.size = c(100,150), sample.diameter = 1, plot = F
 #>  number of iterations (n)     : 100
 #>  median                       : 41
 #>  mean                         : 48
-#>  standard deviation (mean)    : 26
-#>  standard error (mean)        : 2.6
+#>  standard deviation (mean)    : 25
+#>  standard error (mean)        : 2.5
 #>  95% CI from t-test (mean)    : 43 - 53
 #>  standard error from CI (mean): 2.6
 #>  ---------------------------------------------------------

@@ -13,7 +13,7 @@ content to CSV-files. If nothing is set for the argument path
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@ content to CSV-files. If nothing is set for the argument path
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Export Risoe BIN-file(s) to CSV-files</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/convert_BIN2CSV.R" class="external-link"><code>R/convert_BIN2CSV.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/convert_BIN2CSV.R" class="external-link"><code>R/convert_BIN2CSV.R</code></a></small>
       <div class="d-none name"><code>convert_BIN2CSV.Rd</code></div>
     </div>
 
@@ -80,12 +80,12 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+    <p>Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 , RLum Developer Team</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2025. convert_BIN2CSV(): Export Risoe BIN-file(s) to CSV-files. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2026. convert_BIN2CSV(): Export Risoe BIN-file(s) to CSV-files. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">
@@ -94,7 +94,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-in"><span><span class="co">##transform Risoe.BINfileData values to a list</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ExampleData.BINfileData</span>, envir <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">environment</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">convert_BIN2CSV</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">CWOSL.SAR.Data</span>, <span class="va">POSITION</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span>, export <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`1_TL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`1_TL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1,]   0.884    2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [2,]   1.768    0</span>
@@ -347,7 +347,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span> [249,] 220.116  131</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [250,] 221.000   72</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`2_OSL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2_OSL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1]  [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [1,]  0.04 11111</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [2,]  0.08  9280</span>
@@ -1350,7 +1350,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [999,] 39.96    44</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1000,] 40.00    35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`3_TL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`3_TL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1,]   0.64    4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [2,]   1.28    8</span>
@@ -1603,7 +1603,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span> [249,] 159.36   56</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [250,] 160.00   65</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`4_OSL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`4_OSL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [1,]  0.04 2538</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [2,]  0.08 2233</span>
@@ -2606,7 +2606,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [999,] 39.96   31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1000,] 40.00   26</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`5_TL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`5_TL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1,]   0.884    2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [2,]   1.768    2</span>
@@ -2859,7 +2859,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span> [249,] 220.116  181</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [250,] 221.000   87</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`6_OSL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`6_OSL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [1,]  0.04 4129</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [2,]  0.08 3462</span>
@@ -3862,7 +3862,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [999,] 39.96   34</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1000,] 40.00   21</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`7_TL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`7_TL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1,]   0.64    5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [2,]   1.28    8</span>
@@ -4115,7 +4115,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span> [249,] 159.36   41</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [250,] 160.00   58</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`8_OSL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`8_OSL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [1,]  0.04 2726</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [2,]  0.08 2251</span>
@@ -5118,7 +5118,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [999,] 39.96   31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1000,] 40.00   48</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`9_TL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`9_TL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1,]   0.884   13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [2,]   1.768   98</span>
@@ -5371,7 +5371,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span> [249,] 220.116  364</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [250,] 221.000  105</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`10_OSL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`10_OSL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [1,]  0.04 8150</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [2,]  0.08 7000</span>
@@ -6374,7 +6374,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [999,] 39.96   36</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1000,] 40.00   60</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`11_TL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`11_TL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1,]   0.64    4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [2,]   1.28    9</span>
@@ -6627,7 +6627,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span> [249,] 159.36   60</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [250,] 160.00   64</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`12_OSL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`12_OSL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [1,]  0.04 2656</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [2,]  0.08 2304</span>
@@ -7630,7 +7630,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [999,] 39.96   49</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1000,] 40.00   51</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`13_TL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`13_TL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1,]   0.884   11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [2,]   1.768   11</span>
@@ -7883,7 +7883,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span> [249,] 220.116  628</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [250,] 221.000  213</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`14_OSL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`14_OSL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1]  [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [1,]  0.04 12801</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [2,]  0.08 10899</span>
@@ -8886,7 +8886,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [999,] 39.96    45</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1000,] 40.00    58</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`15_TL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`15_TL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1,]   0.64    2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [2,]   1.28    1</span>
@@ -9139,7 +9139,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span> [249,] 159.36   82</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [250,] 160.00   70</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`16_OSL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`16_OSL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [1,]  0.04 2660</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [2,]  0.08 2404</span>
@@ -10142,7 +10142,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [999,] 39.96   66</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1000,] 40.00   59</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`17_TL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`17_TL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1,]   0.884   20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [2,]   1.768    3</span>
@@ -10395,7 +10395,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span> [249,] 220.116  832</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [250,] 221.000  266</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`18_OSL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`18_OSL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1]  [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [1,]  0.04 16684</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [2,]  0.08 14410</span>
@@ -11398,7 +11398,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [999,] 39.96    75</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1000,] 40.00    63</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`19_TL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`19_TL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1,]   0.64    2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [2,]   1.28    8</span>
@@ -11651,7 +11651,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span> [249,] 159.36   75</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [250,] 160.00   74</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`20_OSL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`20_OSL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [1,]  0.04 3102</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [2,]  0.08 2613</span>
@@ -12654,7 +12654,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [999,] 39.96   67</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1000,] 40.00  102</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`21_TL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`21_TL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1,]   0.884    7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [2,]   1.768    4</span>
@@ -12907,7 +12907,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span> [249,] 220.116  310</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [250,] 221.000  148</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`22_OSL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`22_OSL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [1,]  0.04 4993</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [2,]  0.08 4383</span>
@@ -13910,7 +13910,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [999,] 39.96   46</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1000,] 40.00   45</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`23_TL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`23_TL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1,]   0.64   22</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [2,]   1.28    2</span>
@@ -14163,7 +14163,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span> [249,] 159.36   80</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [250,] 160.00   87</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`24_OSL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`24_OSL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [1,]  0.04 3179</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [2,]  0.08 2681</span>
@@ -15166,7 +15166,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [999,] 39.96   69</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1000,] 40.00   75</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`25_TL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`25_TL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1,]   0.884    1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [2,]   1.768    3</span>
@@ -15419,7 +15419,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span> [249,] 220.116  108</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [250,] 221.000  135</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`26_OSL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`26_OSL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [1,]  0.04   85</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [2,]  0.08  107</span>
@@ -16422,7 +16422,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [999,] 39.96   46</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1000,] 40.00   48</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`27_TL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`27_TL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1,]   0.64    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [2,]   1.28    5</span>
@@ -16675,7 +16675,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span> [249,] 159.36   91</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [250,] 160.00   68</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`28_OSL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`28_OSL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [1,]  0.04 3334</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [2,]  0.08 2773</span>
@@ -17678,7 +17678,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [999,] 39.96   60</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1000,] 40.00   59</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`29_TL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`29_TL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [1,]   0.884    4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   [2,]   1.768    4</span>
@@ -17931,7 +17931,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 <span class="r-out co"><span class="r-pr">#&gt;</span> [249,] 220.116  246</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [250,] 221.000  121</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`30_IRSL`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`30_IRSL (PMT)`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          [,1] [,2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [1,]  0.04   34</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    [2,]  0.08   42</span>
@@ -18951,7 +18951,7 @@ option <code>export == FALSE</code> a list comprising objects of type <a href="h
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -9,7 +9,7 @@ FI lexsyg SMART reader using Al2O3:C chips according to Kreutzer et al., 2018"><
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ FI lexsyg SMART reader using Al2O3:C chips according to Kreutzer et al., 2018"><
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Al2O3:C Passive Dosimeter Measurement Analysis</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/analyse_Al2O3C_Measurement.R" class="external-link"><code>R/analyse_Al2O3C_Measurement.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/analyse_Al2O3C_Measurement.R" class="external-link"><code>R/analyse_Al2O3C_Measurement.R</code></a></small>
       <div class="d-none name"><code>analyse_Al2O3C_Measurement.Rd</code></div>
     </div>
 
@@ -44,6 +44,7 @@ FI lexsyg SMART reader using Al2O3:C chips according to Kreutzer et al., 2018</p
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">analyse_Al2O3C_Measurement</span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
 <span>  signal_integral <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  integral_input <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"channel"</span>, <span class="st">"measurement"</span><span class="op">)</span>,</span>
 <span>  dose_points <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span><span class="op">)</span>,</span>
 <span>  recordType <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"OSL (UVVIS)"</span>, <span class="st">"TL (UVVIS)"</span><span class="op">)</span>,</span>
 <span>  calculate_TL_dose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -69,6 +70,13 @@ FI lexsyg SMART reader using Al2O3:C chips according to Kreutzer et al., 2018</p
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): signal integral, used for the signal
 and the background. Example: <code>c(1:10)</code> for the first 10 channels.
 If nothing is provided the full range is used</p></dd>
+
+
+<dt id="arg-integral-input">integral_input<a class="anchor" aria-label="anchor" href="#arg-integral-input"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
+input type for <code>signal_integral</code>, one of <code>"channel"</code> (default) or
+<code>"measurement"</code>. If set to <code>"measurement"</code>, the best matching channels
+corresponding to the given time range (in seconds) are selected.</p></dd>
 
 
 <dt id="arg-dose-points">dose_points<a class="anchor" aria-label="anchor" href="#arg-dose-points"></a></dt>
@@ -137,9 +145,10 @@ the plot output to certain aliquots.</p></dd>
 ———————————–<br></p>
 <p><strong><code>RLum.Results</code></strong>-object</p>
 <p><strong>slot:</strong> <strong><code>@data</code></strong></p>
-<table class="table table"><tr><td><strong>Element</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr><tr><td><code>$data</code></td><td><code>data.frame</code></td><td>the estimated equivalent dose</td></tr><tr><td><code>$data_table</code></td><td><code>data.frame</code></td><td>full dose and signal table</td></tr><tr><td><code>test_parameters</code></td><td><code>data.frame</code></td><td>results with test parameters</td></tr><tr><td><code>data_TDcorrected</code></td><td><code>data.frame</code></td><td>travel dosimeter corrected results (only if TD was provided)</td></tr></table><p><em>Note: If correction the irradiation time and the cross-talk correction method is used, the De
-values in the table <code>data</code> table are already corrected, i.e. if you want to get an uncorrected value,
-you can use the column <code>CT_CORRECTION</code> remove the correction</em></p>
+<table class="table table"><tr><td><strong>Element</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr><tr><td><code>$data</code></td><td><code>data.frame</code></td><td>the estimated equivalent dose</td></tr><tr><td><code>$data_table</code></td><td><code>data.frame</code></td><td>full dose and signal table</td></tr><tr><td><code>test_parameters</code></td><td><code>data.frame</code></td><td>results with test parameters</td></tr><tr><td><code>data_TDcorrected</code></td><td><code>data.frame</code></td><td>travel dosimeter corrected results (only if TD was provided)</td></tr></table><p><strong>Note:</strong> If correction the irradiation time and the cross-talk correction
+method is used, the De values in the table <code>data</code> table are already
+corrected, i.e. if you want to get an uncorrected value, you can use the
+column <code>CT_CORRECTION</code> remove the correction.</p>
 <p><strong>slot:</strong> <strong><code>@info</code></strong></p>
 <p>The original function call</p>
 <p>————————<br><code>[ PLOT OUTPUT ]</code><br>
@@ -171,11 +180,11 @@ unity than the defined by the threshold, a warning is returned.</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.2.6</p>
+    <p>0.2.7</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2025. analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.2.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2026. analyse_Al2O3C_Measurement(): Al2O3:C Passive Dosimeter Measurement Analysis. Function version 0.2.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -189,7 +198,7 @@ Geochronometria 45, 56-67.</p>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+    <p>Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 , RLum Developer Team</p>
     </div>
 
@@ -223,7 +232,7 @@ Geochronometria 45, 56-67.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

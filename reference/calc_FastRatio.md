@@ -159,13 +159,13 @@ the following elements:
 
 ## How to cite
 
-King, G.E., Durcan, J., Burow, C., 2025. calc_FastRatio(): Calculate the
+King, G.E., Durcan, J., Burow, C., 2026. calc_FastRatio(): Calculate the
 Fast Ratio for CW-OSL curves. Function version 0.1.1. In: Kreutzer, S.,
 Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
 J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
 D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
-2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
-package version 1.1.2. https://r-lum.github.io/Luminescence/
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 

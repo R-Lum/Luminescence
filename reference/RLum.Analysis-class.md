@@ -33,7 +33,7 @@ Objects can be created by calls of the form
 
 ## Class version
 
-0.4.18
+0.4.19
 
 ## See also
 
@@ -43,8 +43,8 @@ Objects can be created by calls of the form
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 
@@ -79,7 +79,7 @@ get_RLum(IRSAR.RF.Data)
 #> [[1]]
 #> 
 #>  [RLum.Data.Curve-class]
-#>   recordType: RF
+#>   recordType: RF (NA)
 #>   curveType: NA
 #>   measured values: 5
 #>   .. range of x-values: 0.1747448 6.311132
@@ -89,7 +89,7 @@ get_RLum(IRSAR.RF.Data)
 #> [[2]]
 #> 
 #>  [RLum.Data.Curve-class]
-#>   recordType: RF
+#>   recordType: RF (NA)
 #>   curveType: NA
 #>   measured values: 524
 #>   .. range of x-values: 0.3768403 715.4821
@@ -106,7 +106,7 @@ get_RLum(IRSAR.RF.Data, record.id = 1, drop = FALSE)
 #>   additional info elements:  0
 #>   number of records: 1
 #>   .. : RLum.Data.Curve : 1
-#>   .. .. : #1 RF
+#>   .. .. : #1 RF (NA)
 
 ## subsetting with SAR sample data
 data(ExampleData.BINfileData, envir = environment())
@@ -122,9 +122,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[2]]
 #> 
@@ -134,9 +134,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[3]]
 #> 
@@ -146,9 +146,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[4]]
 #> 
@@ -158,9 +158,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[5]]
 #> 
@@ -170,9 +170,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[6]]
 #> 
@@ -182,9 +182,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[7]]
 #> 
@@ -194,9 +194,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[8]]
 #> 
@@ -206,9 +206,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[9]]
 #> 
@@ -218,9 +218,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[10]]
 #> 
@@ -230,9 +230,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[11]]
 #> 
@@ -242,9 +242,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[12]]
 #> 
@@ -254,9 +254,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[13]]
 #> 
@@ -266,9 +266,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[14]]
 #> 
@@ -278,9 +278,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[15]]
 #> 
@@ -290,9 +290,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[16]]
 #> 
@@ -302,9 +302,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[17]]
 #> 
@@ -314,9 +314,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[18]]
 #> 
@@ -326,9 +326,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[19]]
 #> 
@@ -338,9 +338,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[20]]
 #> 
@@ -350,9 +350,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[21]]
 #> 
@@ -362,9 +362,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[22]]
 #> 
@@ -374,9 +374,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[23]]
 #> 
@@ -386,9 +386,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 #> [[24]]
 #> 
@@ -398,9 +398,9 @@ get_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 TL | #2 TL | #3 TL | #4 TL | #5 TL | #6 TL | #7 TL
-#>   .. .. : #8 TL | #9 TL | #10 TL | #11 TL | #12 TL | #13 TL | #14 TL
-#>   .. .. : #15 TL
+#>   .. .. : #1 TL (PMT) | #2 TL (PMT) | #3 TL (PMT) | #4 TL (PMT) | #5 TL (PMT) | #6 TL (PMT) | #7 TL (PMT)
+#>   .. .. : #8 TL (PMT) | #9 TL (PMT) | #10 TL (PMT) | #11 TL (PMT) | #12 TL (PMT) | #13 TL (PMT) | #14 TL (PMT)
+#>   .. .. : #15 TL (PMT)
 #> 
 
 ## remove
@@ -413,9 +413,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[2]]
 #> 
@@ -425,9 +425,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[3]]
 #> 
@@ -437,9 +437,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[4]]
 #> 
@@ -449,9 +449,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[5]]
 #> 
@@ -461,9 +461,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[6]]
 #> 
@@ -473,9 +473,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[7]]
 #> 
@@ -485,9 +485,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[8]]
 #> 
@@ -497,9 +497,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[9]]
 #> 
@@ -509,9 +509,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[10]]
 #> 
@@ -521,9 +521,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[11]]
 #> 
@@ -533,9 +533,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[12]]
 #> 
@@ -545,9 +545,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[13]]
 #> 
@@ -557,9 +557,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[14]]
 #> 
@@ -569,9 +569,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[15]]
 #> 
@@ -581,9 +581,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[16]]
 #> 
@@ -593,9 +593,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[17]]
 #> 
@@ -605,9 +605,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[18]]
 #> 
@@ -617,9 +617,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[19]]
 #> 
@@ -629,9 +629,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[20]]
 #> 
@@ -641,9 +641,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[21]]
 #> 
@@ -653,9 +653,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[22]]
 #> 
@@ -665,9 +665,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[23]]
 #> 
@@ -677,9 +677,9 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 #> [[24]]
 #> 
@@ -689,8 +689,8 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 #>   additional info elements:  0
 #>   number of records: 15
 #>   .. : RLum.Data.Curve : 15
-#>   .. .. : #1 OSL | #2 OSL | #3 OSL | #4 OSL | #5 OSL | #6 OSL | #7 OSL
-#>   .. .. : #8 OSL | #9 OSL | #10 OSL | #11 OSL | #12 OSL | #13 OSL | #14 OSL
-#>   .. .. : #15 IRSL
+#>   .. .. : #1 OSL (PMT) | #2 OSL (PMT) | #3 OSL (PMT) | #4 OSL (PMT) | #5 OSL (PMT) | #6 OSL (PMT) | #7 OSL (PMT)
+#>   .. .. : #8 OSL (PMT) | #9 OSL (PMT) | #10 OSL (PMT) | #11 OSL (PMT) | #12 OSL (PMT) | #13 OSL (PMT) | #14 OSL (PMT)
+#>   .. .. : #15 IRSL (PMT)
 #> 
 ```

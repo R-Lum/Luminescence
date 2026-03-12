@@ -10,18 +10,18 @@ in function `nlsLM` from package `minpack.lm`.
 
 ``` r
 fit_LMCurve(
-  values,
-  values.bg,
+  object,
+  object.bg,
   n.components = 3,
   start_values = NULL,
-  input.dataType = "LM",
+  input.dataType = c("LM", "pLM"),
   sample_code = "",
   sample_ID = "",
   LED.power = 36,
   LED.wavelength = 470,
   fit.trace = FALSE,
   fit.calcError = FALSE,
-  bg.subtraction = "polynomial",
+  bg.subtraction = c("polynomial", "linear", "channel", "none"),
   verbose = TRUE,
   plot = TRUE,
   plot.BG = FALSE,
@@ -36,13 +36,13 @@ fit_LMCurve(
 
 ## Arguments
 
-- values:
+- object:
 
   [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)
   or [data.frame](https://rdrr.io/r/base/data.frame.html)
   (**required**): x,y data of measured values (time and counts).
 
-- values.bg:
+- object.bg:
 
   [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)
   or [data.frame](https://rdrr.io/r/base/data.frame.html) (*optional*):
@@ -108,7 +108,7 @@ fit_LMCurve(
   [character](https://rdrr.io/r/base/character.html) (*with default*):
   specifies method for background subtraction (one of `"polynomial"`,
   `"linear"`, `"channel"`, or `"none"`, see Details). Only considered if
-  `values.bg` is specified.
+  `object.bg` is specified.
 
 - verbose:
 
@@ -206,7 +206,7 @@ taken from Kitis et al. (2008):
 
 **Background subtraction**
 
-When a background signal is provided with the `values.bg` argument, the
+When a background signal is provided with the `object.bg` argument, the
 user can choose among three methods for background subtraction by
 setting the `bg.subtraction` argument to one of these:
 
@@ -222,7 +222,7 @@ setting the `bg.subtraction` argument to one of these:
 - `"channel"`: the measured background signal is subtracted channel-wise
   from the measured signal.
 
-- `"none"`: this disables background subtraction even if `values.bg` is
+- `"none"`: this disables background subtraction even if `object.bg` is
   provided.
 
 **Start values**
@@ -280,33 +280,33 @@ use of manual start values is highly recommended.
 
 ## Function version
 
-0.3.7
+0.3.8
 
 ## How to cite
 
-Kreutzer, S., 2025. fit_LMCurve(): Non-linear Least Squares Fit for
-LM-OSL curves. Function version 0.3.7. In: Kreutzer, S., Burow, C.,
+Kreutzer, S., 2026. fit_LMCurve(): Non-linear Least Squares Fit for
+LM-OSL curves. Function version 0.3.8. In: Kreutzer, S., Burow, C.,
 Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
 Bulur, E., 1996. An Alternative Technique For Optically Stimulated
-Luminescence (OSL) Experiment. Radiation Measurements, 26, 5, 701-709.
+Luminescence (OSL) Experiment. Radiation Measurements 26, 5, 701-709.
 
 Jain, M., Murray, A.S., Boetter-Jensen, L., 2003. Characterisation of
 blue-light stimulated luminescence components in different quartz
-samples: implications for dose measurement. Radiation Measurements, 37
+samples: implications for dose measurement. Radiation Measurements 37
 (4-5), 441-449.
 
 Kitis, G. & Pagonis, V., 2008. Computerized curve deconvolution analysis
-for LM-OSL. Radiation Measurements, 43, 737-741.
+for LM-OSL. Radiation Measurements 43, 737-741.
 
 Lave, C.A.T., 1970. The Demand for Urban Mass Transportation. The Review
-of Economics and Statistics, 52 (3), 320-323.
+of Economics and Statistics 52 (3), 320-323.
 
 Ritz, C. & Streibig, J.C., 2008. Nonlinear Regression with R. R.
 Gentleman, K. Hornik, & G. Parmigiani, eds., Springer, p. 150.
@@ -321,15 +321,15 @@ Gentleman, K. Hornik, & G. Parmigiani, eds., Springer, p. 150.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 
 ``` r
 ##(1) fit LM data without background subtraction
 data(ExampleData.FittingLM, envir = environment())
-fit_LMCurve(values = values.curve, n.components = 3, log = "x")
+fit_LMCurve(values.curve, n.components = 3, log = "x")
 #> 
 #> [fit_LMCurve()]
 #> 
@@ -376,7 +376,7 @@ fit_LMCurve(values = values.curve, n.components = 3, log = "x")
 ##jpeg(file = "~/Desktop/Fit_Output\%03d.jpg", quality = 100,
 ## height = 3000, width = 3000, res = 300)
 data(ExampleData.FittingLM, envir = environment())
-fit_LMCurve(values = values.curve, values.bg = values.curveBG,
+fit_LMCurve(values.curve, object.bg = values.curveBG,
             n.components = 2, log = "x", plot.BG = TRUE)
 
 #> [fit_LMCurve()] >> Background subtracted (method = 'polynomial')
@@ -420,8 +420,8 @@ fit_LMCurve(values = values.curve, values.bg = values.curveBG,
 
 ##(3) fit LM data with manual start parameters
 data(ExampleData.FittingLM, envir = environment())
-fit_LMCurve(values = values.curve,
-            values.bg = values.curveBG,
+fit_LMCurve(values.curve,
+            object.bg = values.curveBG,
             n.components = 3,
             log = "x",
             start_values = data.frame(Im = c(170,25,400), xm = c(56,200,1500)))

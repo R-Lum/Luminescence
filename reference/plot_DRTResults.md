@@ -7,7 +7,7 @@ measurements.
 
 ``` r
 plot_DRTResults(
-  values,
+  object,
   given.dose = NULL,
   error.range = 10,
   preheat = NULL,
@@ -25,7 +25,7 @@ plot_DRTResults(
 
 ## Arguments
 
-- values:
+- object:
 
   [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
   or [data.frame](https://rdrr.io/r/base/data.frame.html)
@@ -38,7 +38,7 @@ plot_DRTResults(
   [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): given
   dose used for the dose recovery test to normalise data. If only one
   given dose is provided, this given dose is valid for all input data
-  sets (i.e., `values` is a list). Otherwise, a given dose for each
+  sets (i.e., `object` is a list). Otherwise, a given dose for each
   input data set has to be provided (e.g., `given.dose = c(100,200)`).
   If `given.dose` is `NULL` or 0, the values are plotted without
   normalisation (might be useful for preheat plateau tests). **Note:**
@@ -121,13 +121,13 @@ plot_DRTResults(
   local graphical parameters for plotting, e.g. the plot is shown in one
   column and one row. If `par.local = FALSE`, global parameters are
   inherited, i.e. parameters provided via
-  [`par()`](https://rdrr.io/r/graphics/par.html) work
+  [`par()`](https://rdrr.io/r/graphics/par.html) work.
 
 - na.rm:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  indicating whether `NA` values are removed before plotting from the
-  input data set
+  whether `NA` values should be removed from the input data before
+  plotting.
 
 - ...:
 
@@ -161,20 +161,20 @@ commands.
 
 ## How to cite
 
-Kreutzer, S., Dietze, M., 2025. plot_DRTResults(): Visualise dose
+Kreutzer, S., Dietze, M., 2026. plot_DRTResults(): Visualise dose
 recovery test results. Function version 0.1.17. In: Kreutzer, S., Burow,
 C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
 Wintle, A.G., Murray, A.S., 2006. A review of quartz optically
 stimulated luminescence characteristics and their relevance in
-single-aliquot regeneration dating protocols. Radiation Measurements,
-41, 369-391.
+single-aliquot regeneration dating protocols. Radiation Measurements 41,
+369-391.
 
 ## See also
 
@@ -182,8 +182,8 @@ single-aliquot regeneration dating protocols. Radiation Measurements,
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
 Michael Dietze, GFZ Potsdam (Germany) , RLum Developer Team
 
 ## Examples
@@ -194,14 +194,14 @@ data(ExampleData.DeValues, envir = environment())
 
 ## plot values
 plot_DRTResults(
-  values = ExampleData.DeValues$BT998[7:11,],
+  ExampleData.DeValues$BT998[7:11,],
   given.dose = 2800,
   mtext = "Example data")
 
 
 ## plot values with legend
 plot_DRTResults(
-  values = ExampleData.DeValues$BT998[7:11,],
+  ExampleData.DeValues$BT998[7:11,],
   given.dose = 2800,
   legend = "Test data set")
 
@@ -211,13 +211,13 @@ x.1 <- ExampleData.DeValues$BT998[7:11,]
 x.2 <- ExampleData.DeValues$BT998[7:11,] * c(runif(5, 0.9, 1.1), 1)
 
 plot_DRTResults(
-  values = list(x.1, x.2),
+  list(x.1, x.2),
   given.dose = 2800)
 
 
 ## some more user-defined plot parameters
 plot_DRTResults(
-  values = list(x.1, x.2),
+  list(x.1, x.2),
   given.dose = 2800,
   pch = c(2, 5),
   col = c("orange", "blue"),
@@ -228,14 +228,14 @@ plot_DRTResults(
 
 ## plot the data with user-defined statistical measures as legend
 plot_DRTResults(
-  values = list(x.1, x.2),
+  list(x.1, x.2),
   given.dose = 2800,
   summary = c("n", "weighted$mean", "sd.abs"))
 
 
 ## plot the data with user-defined statistical measures as sub-header
 plot_DRTResults(
-  values = list(x.1, x.2),
+  list(x.1, x.2),
   given.dose = 2800,
   summary = c("n", "weighted$mean", "sd.abs"),
   summary.pos = "sub")
@@ -243,7 +243,7 @@ plot_DRTResults(
 
 ## plot the data grouped by preheat temperatures
 plot_DRTResults(
-  values = ExampleData.DeValues$BT998[7:11,],
+  ExampleData.DeValues$BT998[7:11,],
   given.dose = 2800,
   preheat = c(200, 200, 200, 240, 240))
 
@@ -253,21 +253,21 @@ data(ExampleData.DeValues, envir = environment())
 
 ## plot values
 plot_DRTResults(
-  values = ExampleData.DeValues$BT998[7:11,],
+  ExampleData.DeValues$BT998[7:11,],
   given.dose = 2800,
   mtext = "Example data")
 
 
 ## plot two data sets grouped by preheat temperatures
 plot_DRTResults(
-  values = list(x.1, x.2),
+  list(x.1, x.2),
   given.dose = 2800,
   preheat = c(200, 200, 200, 240, 240))
 
 
 ## plot the data grouped by preheat temperatures as boxplots
 plot_DRTResults(
-  values = ExampleData.DeValues$BT998[7:11,],
+  ExampleData.DeValues$BT998[7:11,],
   given.dose = 2800,
   preheat = c(200, 200, 200, 240, 240),
   boxplot = TRUE)

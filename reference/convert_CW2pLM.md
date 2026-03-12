@@ -7,19 +7,23 @@ pseudo linearly modulated (pLM) curve using the equations given in Bulur
 ## Usage
 
 ``` r
-convert_CW2pLM(values)
+convert_CW2pLM(object, ...)
 ```
 
 ## Arguments
 
-- values:
+- object:
 
   [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)
   or [data.frame](https://rdrr.io/r/base/data.frame.html)
-  (**required**): `RLum.Data.Curve` data object. Alternatively, a
-  `data.frame` of the measured curve data of type stimulation time (t)
-  (`values[,1]`) and measured counts (cts) (`values[,2]`) can be
-  provided.
+  (**required**):
+  [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)
+  object or a `data.frame` with measured curve data of type stimulation
+  time (t) (`object[, 1]`) and measured counts (cts) (`object[, 2]`).
+
+- ...:
+
+  currently not used.
 
 ## Value
 
@@ -48,27 +52,27 @@ resolution of at least 0.05 s/channel.
 
 ## Function version
 
-0.4.2
+0.4.4
 
 ## How to cite
 
-Kreutzer, S., 2025. convert_CW2pLM(): Transform a CW-OSL curve into a
-pLM-OSL curve. Function version 0.4.2. In: Kreutzer, S., Burow, C.,
-Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
-Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Kreutzer, S., Colombo, M., 2026. convert_CW2pLM(): Transform a CW-OSL
+curve into a pLM-OSL curve. Function version 0.4.4. In: Kreutzer, S.,
+Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
+J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
+D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
 Bulur, E., 2000. A simple transformation for converting CW-OSL curves to
-LM-OSL curves. Radiation Measurements, 32, 141-145.
+LM-OSL curves. Radiation Measurements 32, 141-145.
 
 **Further Reading**
 
 Bulur, E., 1996. An Alternative Technique For Optically Stimulated
-Luminescence (OSL) Experiment. Radiation Measurements, 26, 701-709.
+Luminescence (OSL) Experiment. Radiation Measurements 26, 701-709.
 
 ## See also
 
@@ -81,8 +85,10 @@ Luminescence (OSL) Experiment. Radiation Measurements, 26, 701-709.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)  
+, RLum Developer Team
 
 ## Examples
 

@@ -61,13 +61,14 @@ The output should be accessed using the function
 
 ## How to cite
 
-Burow, C., Kreutzer, S., 2025. calc_HomogeneityTest(): Apply a simple
+Burow, C., Kreutzer, S., 2026. calc_HomogeneityTest(): Apply a simple
 homogeneity test after Galbraith (2003). Function version 0.3.0. In:
 Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/
+Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.2.0.
+https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -80,9 +81,10 @@ obtained using OSL. Ancient TL 21, 75-77.
 
 ## Author
 
-Christoph Burow, University of Cologne (Germany), Sebastian Kreutzer,
-IRAMAT-CRP2A, Université Bordeaux Montaigne (France) , RLum Developer
-Team
+Christoph Burow, University of Cologne (Germany)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
+, RLum Developer Team
 
 ## Examples
 

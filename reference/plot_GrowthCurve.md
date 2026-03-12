@@ -10,7 +10,7 @@ and
 
 ``` r
 plot_GrowthCurve(
-  sample,
+  object,
   mode = "interpolation",
   fit.method = "EXP",
   output.plot = TRUE,
@@ -24,16 +24,20 @@ plot_GrowthCurve(
 
 ## Arguments
 
-- sample:
+- object:
 
-  [data.frame](https://rdrr.io/r/base/data.frame.html) (**required**):
-  data frame with columns for `Dose`, `LxTx`, `LxTx.Error` and `TnTx`.
-  The column for the test dose response is optional, but requires
-  `'TnTx'` as column name if used. For exponential fits at least three
-  dose points (including the natural) should be provided. If
-  `fit.method = "OTORX"` you have to provide the test dose in the same
-  unit as the dose in a column called `Test_Dose`. The function searches
-  explicitly for this column name.
+  [data.frame](https://rdrr.io/r/base/data.frame.html) or a
+  [list](https://rdrr.io/r/base/list.html) of such objects
+  (**required**): data frame with columns for `Dose`, `LxTx`,
+  `LxTx.Error` and `TnTx`. The column for the test dose response is
+  optional, but requires `'TnTx'` as column name if used. For
+  exponential fits at least three dose points (including the natural)
+  should be provided. If `object` is a list, the function is called on
+  each of its elements. If `fit.method = "OTORX"` you have to provide
+  the test dose in the same unit as the dose in a column called
+  `Test_Dose`. The function searches explicitly for this column name.
+  Only the first value will be used assuming a constant test dose over
+  the measurement cycle.
 
 - mode:
 
@@ -54,28 +58,9 @@ plot_GrowthCurve(
 - fit.method:
 
   [character](https://rdrr.io/r/base/character.html) (*with default*):
-  function used for fitting. Possible options are:
-
-  - `LIN`,
-
-  - `QDR`,
-
-  - `EXP`,
-
-  - `EXP OR LIN`,
-
-  - `EXP+LIN`,
-
-  - `EXP+EXP`,
-
-  - `GOK`,
-
-  - `OTOR`,
-
-  - `OTORX`
-
-  See details in
-  [fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md).
+  function used for fitting. Possible options are: `LIN`, `QDR`, `EXP`,
+  `EXP OR LIN`, `EXP+LIN`, `EXP+EXP` (not defined for extrapolation),
+  `GOK`, `OTOR` and `OTORX`. See details.
 
 - output.plot:
 
@@ -84,7 +69,7 @@ plot_GrowthCurve(
 
 - output.plotExtended:
 
-  [logical](https://rdrr.io/r/base/logical.html) (*with default*): If'
+  [logical](https://rdrr.io/r/base/logical.html) (*with default*): If
   `TRUE`, 3 plots on one plot area are provided:
 
   1.  growth curve,
@@ -99,7 +84,7 @@ plot_GrowthCurve(
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
   single plot output (`TRUE/FALSE`) to allow for plotting the results in
-  single plot windows. Requires `plotExtended = TRUE`.
+  single plot windows. Requires `output.plotExtended = TRUE`.
 
 - verbose:
 
@@ -123,24 +108,26 @@ plot_GrowthCurve(
 
 ## Value
 
-Along with a plot (if wanted) the `RLum.Results` object produced by
+Along with a plot (if wanted) the
+[RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
+object produced by
 [fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)
 is returned.
 
 ## Function version
 
-1.2.2
+1.2.3
 
 ## How to cite
 
-Kreutzer, S., Dietze, M., Colombo, M., 2025. plot_GrowthCurve(): Fit and
+Kreutzer, S., Dietze, M., Colombo, M., 2026. plot_GrowthCurve(): Fit and
 plot a dose-response curve for luminescence data (Lx/Tx against dose).
-Function version 1.2.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
+Function version 1.2.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
-J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence:
-Comprehensive Luminescence Dating Data Analysis. R package version
-1.1.2. https://r-lum.github.io/Luminescence/
+J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
+Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
+version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -164,8 +151,8 @@ function. Journal of Luminescence 225, 117333.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
 Michael Dietze, GFZ Potsdam (Germany)  
 Marco Colombo, Institute of Geography, Heidelberg University (Germany) ,
 RLum Developer Team
@@ -221,11 +208,12 @@ print(plot_GrowthCurve(LxTxData, mode = "extrapolation"))
 #>   .. $Fit : nls
 #>   .. $Fit.Args : list
 #>   .. $Formula : expression
-#>   additional info elements:  1 
+#>   additional info elements:  2 
 
 ##(6) plot using the 'alternate' mode
 LxTxData[1,2:3] <- c(0.5, 0.001)
 print(plot_GrowthCurve(LxTxData, mode = "alternate"))
+#> [fit_DoseResponseCurve()] Fit: EXP (alternate) | De = NA | D01 = 2624.06
 
 #> 
 #>  [RLum.Results-class]
@@ -236,5 +224,5 @@ print(plot_GrowthCurve(LxTxData, mode = "alternate"))
 #>   .. $Fit : nls
 #>   .. $Fit.Args : list
 #>   .. $Formula : expression
-#>   additional info elements:  1 
+#>   additional info elements:  2 
 ```

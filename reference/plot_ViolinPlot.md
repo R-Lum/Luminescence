@@ -31,17 +31,17 @@ plot_ViolinPlot(
   (**required**): input data for plotting. Alternatively a
   [data.frame](https://rdrr.io/r/base/data.frame.html) or a
   [matrix](https://rdrr.io/r/base/matrix.html) can be provided, but only
-  the first column will be considered by the function
+  the first column will be considered by the function.
 
 - boxplot:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  enable/disable boxplot
+  enable/disable the boxplot.
 
 - rug:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  enable/disable rug
+  enable/disable the rug.
 
 - summary:
 
@@ -63,7 +63,7 @@ plot_ViolinPlot(
 - na.rm:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  exclude NA values from the data set prior to any further operations.
+  exclude `NA` values from the data set prior to any further operations.
 
 - ...:
 
@@ -83,7 +83,7 @@ The function is passing several arguments to the functions
 Supported arguments are: `xlim`, `main`, `xlab`, `ylab`, `col.violin`,
 `col.boxplot`, `mtext`, `cex`, `mtext`
 
-**`Valid summary keywords`**
+**Valid summary keywords**
 
 `'n'`, `'mean'`, `'median'`, `'sd.abs'`, `'sd.rel'`, `'se.abs'`,
 `'se.rel'`. `'skewness'`, `'kurtosis'`
@@ -102,13 +102,13 @@ details).
 
 ## How to cite
 
-Kreutzer, S., 2025. plot_ViolinPlot(): Create a violin plot. Function
+Kreutzer, S., 2026. plot_ViolinPlot(): Create a violin plot. Function
 version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C.,
 Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A.,
 Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J.,
-Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence:
+Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
 Comprehensive Luminescence Dating Data Analysis. R package version
-1.1.2. https://r-lum.github.io/Luminescence/
+1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -131,8 +131,8 @@ New York.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 

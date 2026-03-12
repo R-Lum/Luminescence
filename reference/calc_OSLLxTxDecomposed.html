@@ -9,7 +9,7 @@ CW-OSL curves decomposed by OSLdecomposition::RLum.OSL_decomposition."></head><b
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ CW-OSL curves decomposed by OSLdecomposition::RLum.OSL_decomposition."></head><b
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Calculate Lx/Tx ratio for decomposed CW-OSL signal components</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/calc_OSLLxTxDecomposed.R" class="external-link"><code>R/calc_OSLLxTxDecomposed.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/calc_OSLLxTxDecomposed.R" class="external-link"><code>R/calc_OSLLxTxDecomposed.R</code></a></small>
       <div class="d-none name"><code>calc_OSLLxTxDecomposed.Rd</code></div>
     </div>
 
@@ -93,23 +93,22 @@ If digits is set to <code>NULL</code> nothing is rounded.</p></dd>
 <p>Slot <code>data</code> contains a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> with the following structure:</p>
 <p><strong>@data</strong></p>
 <p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="sc">$</span><span class="fu">LxTx.table</span> (data.frame)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>.. <span class="sc">$</span> LnLx</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>.. <span class="sc">$</span> TnTx</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>.. <span class="sc">$</span> Net_LnLx</span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>.. <span class="sc">$</span> Net_LnLx.Error</span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>.. <span class="sc">$</span> Net_TnTx</span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>.. <span class="sc">$</span> Net_TnTx.Error</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>.. <span class="sc">$</span> Net_LnLx</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>.. <span class="sc">$</span> Net_LnLx.Error</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>.. <span class="sc">$</span> Net_TnTx</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>.. <span class="sc">$</span> Net_TnTx.Error</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>.. <span class="sc">$</span> SN_RATIO_LnLx <span class="ot">=</span> <span class="cn">NA</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>.. <span class="sc">$</span> SN_RATIO_TnTx <span class="ot">=</span> <span class="cn">NA</span></span>
 <span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>.. <span class="sc">$</span> LxTx</span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>.. <span class="sc">$</span> LxTx.relError</span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>.. <span class="sc">$</span> LxTx.Error</span></code></pre><p></p></div>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>.. <span class="sc">$</span> LxTx.Error</span></code></pre><p></p></div>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.1.0</p>
+    <p>0.1.1</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Mittelstrass, D., 2025. calc_OSLLxTxDecomposed(): Calculate Lx/Tx ratio for decomposed CW-OSL signal components. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Mittelstrass, D., 2026. calc_OSLLxTxDecomposed(): Calculate Lx/Tx ratio for decomposed CW-OSL signal components. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -120,7 +119,8 @@ talk presented at DLED 2019, Bingen, Germany
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>, <a href="fit_DoseResponseCurve.html">fit_DoseResponseCurve</a>, <a href="analyse_SAR.CWOSL.html">analyse_SAR.CWOSL</a></p></div>
+    <div class="dont-index"><p><a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a>, <a href="fit_DoseResponseCurve.html">fit_DoseResponseCurve</a>,
+<a href="analyse_SAR.CWOSL.html">analyse_SAR.CWOSL</a></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
@@ -133,7 +133,7 @@ talk presented at DLED 2019, Bingen, Germany
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

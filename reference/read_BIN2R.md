@@ -29,12 +29,10 @@ read_BIN2R(
 - file:
 
   [character](https://rdrr.io/r/base/character.html) or
-  [list](https://rdrr.io/r/base/list.html) (**required**): path and file
-  name of the BIN/BINX file (URLs are supported). If input is a `list`
-  it should comprise only `character`s representing valid path and
-  BIN/BINX-file names. Alternatively, the input character can be just a
-  directory (path), in which case the function tries to detect and
-  import all BIN/BINX files found in the directory.
+  [list](https://rdrr.io/r/base/list.html) (**required**): name of one
+  or multiple BIN/BINX files (URLs are supported); it can be the path to
+  a directory, in which case the function tries to detect and import all
+  BIN/BINX files found recursively from the given directory.
 
 - show.raw.values:
 
@@ -78,7 +76,8 @@ read_BIN2R(
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*): if
   `TRUE` for a more efficient data processing only a list of
-  `RLum.Analysis` objects is returned instead of a
+  [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
+  objects is returned instead of a
   [Risoe.BINfileData](https://r-lum.github.io/Luminescence/reference/Risoe.BINfileData-class.md)
   object. Can be provided as `list` if `file` is a `list`.
 
@@ -119,7 +118,7 @@ read_BIN2R(
   [character](https://rdrr.io/r/base/character.html) (*optional*):
   regular expression pattern passed to
   [list.files](https://rdrr.io/r/base/list.files.html) to construct a
-  list of files to read (used only when a path is provided).
+  list of files to read (used only when `file` specifies a path).
 
 - verbose:
 
@@ -150,10 +149,13 @@ object containing two slots:
   [vector](https://rdrr.io/r/base/vector.html) of the measured data. The
   ID corresponds to the record ID in METADATA.
 
-If `fastForward = TRUE` a list of
+If `fastForward = TRUE` an
 [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
-object is returned. The internal coercing is done using the function
-[Risoe.BINfileData2RLum.Analysis](https://r-lum.github.io/Luminescence/reference/Risoe.BINfileData2RLum.Analysis.md)
+object is returned (coerced by
+[Risoe.BINfileData2RLum.Analysis](https://r-lum.github.io/Luminescence/reference/Risoe.BINfileData2RLum.Analysis.md)).
+
+Results are returned as a list when multiple files are processed or
+`file` is a list.
 
 ## Details
 
@@ -170,17 +172,17 @@ The function works for BIN/BINX-format versions 03, 04, 05, 06, 07 and
 
 ## Function version
 
-0.18
+0.19
 
 ## How to cite
 
-Kreutzer, S., Fuchs, M.C., Colombo, M., 2025. read_BIN2R(): Import Risø
-BIN/BINX-files into R. Function version 0.18. In: Kreutzer, S., Burow,
+Kreutzer, S., Fuchs, M.C., Colombo, M., 2026. read_BIN2R(): Import Risø
+BIN/BINX-files into R. Function version 0.19. In: Kreutzer, S., Burow,
 C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -199,8 +201,8 @@ DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
 Margret C. Fuchs, HZDR Freiberg, (Germany)  
 Marco Colombo, Institute of Geography, Heidelberg University (Germany)  
 based on information provided by Torben Lapp and Karsten Bracht Nielsen

@@ -51,18 +51,18 @@ option `export == FALSE` a list comprising objects of type
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## How to cite
 
-Kreutzer, S., 2025. convert_BIN2CSV(): Export Risoe BIN-file(s) to
+Kreutzer, S., 2026. convert_BIN2CSV(): Export Risoe BIN-file(s) to
 CSV-files. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze,
 M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N.,
 Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J.,
-Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A.,
+2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
+package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
@@ -70,7 +70,7 @@ version 1.1.2. https://r-lum.github.io/Luminescence/
 ##transform Risoe.BINfileData values to a list
 data(ExampleData.BINfileData, envir = environment())
 convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
-#> $`1_TL`
+#> $`1_TL (PMT)`
 #>           [,1] [,2]
 #>   [1,]   0.884    2
 #>   [2,]   1.768    0
@@ -323,7 +323,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #> [249,] 220.116  131
 #> [250,] 221.000   72
 #> 
-#> $`2_OSL`
+#> $`2_OSL (PMT)`
 #>          [,1]  [,2]
 #>    [1,]  0.04 11111
 #>    [2,]  0.08  9280
@@ -1326,7 +1326,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #>  [999,] 39.96    44
 #> [1000,] 40.00    35
 #> 
-#> $`3_TL`
+#> $`3_TL (PMT)`
 #>          [,1] [,2]
 #>   [1,]   0.64    4
 #>   [2,]   1.28    8
@@ -1579,7 +1579,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #> [249,] 159.36   56
 #> [250,] 160.00   65
 #> 
-#> $`4_OSL`
+#> $`4_OSL (PMT)`
 #>          [,1] [,2]
 #>    [1,]  0.04 2538
 #>    [2,]  0.08 2233
@@ -2582,7 +2582,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #>  [999,] 39.96   31
 #> [1000,] 40.00   26
 #> 
-#> $`5_TL`
+#> $`5_TL (PMT)`
 #>           [,1] [,2]
 #>   [1,]   0.884    2
 #>   [2,]   1.768    2
@@ -2835,7 +2835,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #> [249,] 220.116  181
 #> [250,] 221.000   87
 #> 
-#> $`6_OSL`
+#> $`6_OSL (PMT)`
 #>          [,1] [,2]
 #>    [1,]  0.04 4129
 #>    [2,]  0.08 3462
@@ -3838,7 +3838,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #>  [999,] 39.96   34
 #> [1000,] 40.00   21
 #> 
-#> $`7_TL`
+#> $`7_TL (PMT)`
 #>          [,1] [,2]
 #>   [1,]   0.64    5
 #>   [2,]   1.28    8
@@ -4091,7 +4091,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #> [249,] 159.36   41
 #> [250,] 160.00   58
 #> 
-#> $`8_OSL`
+#> $`8_OSL (PMT)`
 #>          [,1] [,2]
 #>    [1,]  0.04 2726
 #>    [2,]  0.08 2251
@@ -5094,7 +5094,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #>  [999,] 39.96   31
 #> [1000,] 40.00   48
 #> 
-#> $`9_TL`
+#> $`9_TL (PMT)`
 #>           [,1] [,2]
 #>   [1,]   0.884   13
 #>   [2,]   1.768   98
@@ -5347,7 +5347,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #> [249,] 220.116  364
 #> [250,] 221.000  105
 #> 
-#> $`10_OSL`
+#> $`10_OSL (PMT)`
 #>          [,1] [,2]
 #>    [1,]  0.04 8150
 #>    [2,]  0.08 7000
@@ -6350,7 +6350,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #>  [999,] 39.96   36
 #> [1000,] 40.00   60
 #> 
-#> $`11_TL`
+#> $`11_TL (PMT)`
 #>          [,1] [,2]
 #>   [1,]   0.64    4
 #>   [2,]   1.28    9
@@ -6603,7 +6603,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #> [249,] 159.36   60
 #> [250,] 160.00   64
 #> 
-#> $`12_OSL`
+#> $`12_OSL (PMT)`
 #>          [,1] [,2]
 #>    [1,]  0.04 2656
 #>    [2,]  0.08 2304
@@ -7606,7 +7606,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #>  [999,] 39.96   49
 #> [1000,] 40.00   51
 #> 
-#> $`13_TL`
+#> $`13_TL (PMT)`
 #>           [,1] [,2]
 #>   [1,]   0.884   11
 #>   [2,]   1.768   11
@@ -7859,7 +7859,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #> [249,] 220.116  628
 #> [250,] 221.000  213
 #> 
-#> $`14_OSL`
+#> $`14_OSL (PMT)`
 #>          [,1]  [,2]
 #>    [1,]  0.04 12801
 #>    [2,]  0.08 10899
@@ -8862,7 +8862,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #>  [999,] 39.96    45
 #> [1000,] 40.00    58
 #> 
-#> $`15_TL`
+#> $`15_TL (PMT)`
 #>          [,1] [,2]
 #>   [1,]   0.64    2
 #>   [2,]   1.28    1
@@ -9115,7 +9115,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #> [249,] 159.36   82
 #> [250,] 160.00   70
 #> 
-#> $`16_OSL`
+#> $`16_OSL (PMT)`
 #>          [,1] [,2]
 #>    [1,]  0.04 2660
 #>    [2,]  0.08 2404
@@ -10118,7 +10118,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #>  [999,] 39.96   66
 #> [1000,] 40.00   59
 #> 
-#> $`17_TL`
+#> $`17_TL (PMT)`
 #>           [,1] [,2]
 #>   [1,]   0.884   20
 #>   [2,]   1.768    3
@@ -10371,7 +10371,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #> [249,] 220.116  832
 #> [250,] 221.000  266
 #> 
-#> $`18_OSL`
+#> $`18_OSL (PMT)`
 #>          [,1]  [,2]
 #>    [1,]  0.04 16684
 #>    [2,]  0.08 14410
@@ -11374,7 +11374,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #>  [999,] 39.96    75
 #> [1000,] 40.00    63
 #> 
-#> $`19_TL`
+#> $`19_TL (PMT)`
 #>          [,1] [,2]
 #>   [1,]   0.64    2
 #>   [2,]   1.28    8
@@ -11627,7 +11627,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #> [249,] 159.36   75
 #> [250,] 160.00   74
 #> 
-#> $`20_OSL`
+#> $`20_OSL (PMT)`
 #>          [,1] [,2]
 #>    [1,]  0.04 3102
 #>    [2,]  0.08 2613
@@ -12630,7 +12630,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #>  [999,] 39.96   67
 #> [1000,] 40.00  102
 #> 
-#> $`21_TL`
+#> $`21_TL (PMT)`
 #>           [,1] [,2]
 #>   [1,]   0.884    7
 #>   [2,]   1.768    4
@@ -12883,7 +12883,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #> [249,] 220.116  310
 #> [250,] 221.000  148
 #> 
-#> $`22_OSL`
+#> $`22_OSL (PMT)`
 #>          [,1] [,2]
 #>    [1,]  0.04 4993
 #>    [2,]  0.08 4383
@@ -13886,7 +13886,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #>  [999,] 39.96   46
 #> [1000,] 40.00   45
 #> 
-#> $`23_TL`
+#> $`23_TL (PMT)`
 #>          [,1] [,2]
 #>   [1,]   0.64   22
 #>   [2,]   1.28    2
@@ -14139,7 +14139,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #> [249,] 159.36   80
 #> [250,] 160.00   87
 #> 
-#> $`24_OSL`
+#> $`24_OSL (PMT)`
 #>          [,1] [,2]
 #>    [1,]  0.04 3179
 #>    [2,]  0.08 2681
@@ -15142,7 +15142,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #>  [999,] 39.96   69
 #> [1000,] 40.00   75
 #> 
-#> $`25_TL`
+#> $`25_TL (PMT)`
 #>           [,1] [,2]
 #>   [1,]   0.884    1
 #>   [2,]   1.768    3
@@ -15395,7 +15395,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #> [249,] 220.116  108
 #> [250,] 221.000  135
 #> 
-#> $`26_OSL`
+#> $`26_OSL (PMT)`
 #>          [,1] [,2]
 #>    [1,]  0.04   85
 #>    [2,]  0.08  107
@@ -16398,7 +16398,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #>  [999,] 39.96   46
 #> [1000,] 40.00   48
 #> 
-#> $`27_TL`
+#> $`27_TL (PMT)`
 #>          [,1] [,2]
 #>   [1,]   0.64    0
 #>   [2,]   1.28    5
@@ -16651,7 +16651,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #> [249,] 159.36   91
 #> [250,] 160.00   68
 #> 
-#> $`28_OSL`
+#> $`28_OSL (PMT)`
 #>          [,1] [,2]
 #>    [1,]  0.04 3334
 #>    [2,]  0.08 2773
@@ -17654,7 +17654,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #>  [999,] 39.96   60
 #> [1000,] 40.00   59
 #> 
-#> $`29_TL`
+#> $`29_TL (PMT)`
 #>           [,1] [,2]
 #>   [1,]   0.884    4
 #>   [2,]   1.768    4
@@ -17907,7 +17907,7 @@ convert_BIN2CSV(subset(CWOSL.SAR.Data, POSITION == 1), export = FALSE)
 #> [249,] 220.116  246
 #> [250,] 221.000  121
 #> 
-#> $`30_IRSL`
+#> $`30_IRSL (PMT)`
 #>          [,1] [,2]
 #>    [1,]  0.04   34
 #>    [2,]  0.08   42

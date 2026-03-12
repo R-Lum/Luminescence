@@ -144,20 +144,6 @@ as.matrix(x, ...)
 # S3 method for class 'RLum.Data.Image'
 as.matrix(x, ...)
 
-is.RLum(x, ...)
-
-is.RLum.Data(x, ...)
-
-is.RLum.Data.Curve(x, ...)
-
-is.RLum.Data.Spectrum(x, ...)
-
-is.RLum.Data.Image(x, ...)
-
-is.RLum.Analysis(x, ...)
-
-is.RLum.Results(x, ...)
-
 # S3 method for class 'RLum'
 merge(x, y, ...)
 
@@ -294,17 +280,22 @@ x$i
 
   [character](https://rdrr.io/r/base/character.html) (*optional*): name
   of the wanted record type or data object or row in the
-  `RLum.Data.Curve` object
+  [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)
+  object
 
 - j:
 
   [integer](https://rdrr.io/r/base/integer.html) (*optional*): column of
-  the data matrix in the `RLum.Data.Curve` object
+  the data matrix in the
+  [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)
+  object
 
 - value:
 
   [numeric](https://rdrr.io/r/base/numeric.html) (**required**): numeric
-  value which replace the value in the `RLum.Data.Curve` object
+  value which replace the value in the
+  [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)
+  object
 
 ## Details
 
@@ -334,7 +325,7 @@ curve2 <-  IRSAR.RF.Data[[1]]
 curve1 + curve2
 #> 
 #>  [RLum.Data.Curve-class]
-#>   recordType: RF
+#>   recordType: RF (NA)
 #>   curveType: merged
 #>   measured values: 5
 #>   .. range of x-values: 0.1747448 6.311132
@@ -343,7 +334,7 @@ curve1 + curve2
 curve1 - curve2
 #> 
 #>  [RLum.Data.Curve-class]
-#>   recordType: RF
+#>   recordType: RF (NA)
 #>   curveType: merged
 #>   measured values: 5
 #>   .. range of x-values: 0.1747448 6.311132
@@ -352,7 +343,7 @@ curve1 - curve2
 curve1 / curve2
 #> 
 #>  [RLum.Data.Curve-class]
-#>   recordType: RF
+#>   recordType: RF (NA)
 #>   curveType: merged
 #>   measured values: 5
 #>   .. range of x-values: 0.1747448 6.311132
@@ -361,7 +352,7 @@ curve1 / curve2
 curve1 * curve2
 #> 
 #>  [RLum.Data.Curve-class]
-#>   recordType: RF
+#>   recordType: RF (NA)
 #>   curveType: merged
 #>   measured values: 5
 #>   .. range of x-values: 0.1747448 6.311132
@@ -374,7 +365,7 @@ IRSAR.RF.Data$RF
 #> [[1]]
 #> 
 #>  [RLum.Data.Curve-class]
-#>   recordType: RF
+#>   recordType: RF (NA)
 #>   curveType: NA
 #>   measured values: 5
 #>   .. range of x-values: 0.1747448 6.311132
@@ -384,7 +375,7 @@ IRSAR.RF.Data$RF
 #> [[2]]
 #> 
 #>  [RLum.Data.Curve-class]
-#>   recordType: RF
+#>   recordType: RF (NA)
 #>   curveType: NA
 #>   measured values: 524
 #>   .. range of x-values: 0.3768403 715.4821

@@ -36,7 +36,7 @@ calc_CentralDose(data, sigmab = 0, log = TRUE, plot = TRUE, ...)
   [numeric](https://rdrr.io/r/base/numeric.html) (*with default*):
   additional spread in De values, representing the expected
   overdispersion in the data should the sample be well-bleached
-  (Cunningham & Wallinga 2012, p. 100). **NOTE**: For the logged model
+  (Cunningham & Wallinga 2012, p. 100). **Note:** For the logged model
   (`log = TRUE`) this value must be a fraction, e.g. 0.2 (= 20 %). If
   the un-logged model is used (`log = FALSE`), sigmab must be provided
   in the same absolute units of the De values (seconds or Gray).
@@ -94,14 +94,14 @@ The output should be accessed using the function
 
 ## How to cite
 
-Burow, C., 2025. calc_CentralDose(): Apply the central age model (CAM)
+Burow, C., 2026. calc_CentralDose(): Apply the central age model (CAM)
 after Galbraith et al. (1999) to a given De distribution. Function
 version 1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C.,
 Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A.,
 Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J.,
-Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence:
+Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
 Comprehensive Luminescence Dating Data Analysis. R package version
-1.1.2. https://r-lum.github.io/Luminescence/
+1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -133,7 +133,7 @@ fluvial archives using robust OSL chronologies. Quaternary Geochronology
 
 Rodnight, H., Duller, G.A.T., Wintle, A.G. & Tooth, S., 2006. Assessing
 the reproducibility and accuracy of optical dating of fluvial deposits.
-Quaternary Geochronology, 1 109-120.
+Quaternary Geochronology 1 109-120.
 
 Rodnight, H., 2008. How many equivalent dose values are needed to obtain
 a reproducible distribution?. Ancient TL 26, 3-10.

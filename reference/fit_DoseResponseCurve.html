@@ -11,7 +11,7 @@ extrapolation to calculate the equivalent dose."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ extrapolation to calculate the equivalent dose."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Fit a dose-response curve for luminescence data (Lx/Tx against dose)</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/fit_DoseResponseCurve.R" class="external-link"><code>R/fit_DoseResponseCurve.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/fit_DoseResponseCurve.R" class="external-link"><code>R/fit_DoseResponseCurve.R</code></a></small>
       <div class="d-none name"><code>fit_DoseResponseCurve.Rd</code></div>
     </div>
 
@@ -46,8 +46,9 @@ extrapolation to calculate the equivalent dose.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">fit_DoseResponseCurve</span><span class="op">(</span></span>
 <span>  <span class="va">object</span>,</span>
-<span>  mode <span class="op">=</span> <span class="st">"interpolation"</span>,</span>
-<span>  fit.method <span class="op">=</span> <span class="st">"EXP"</span>,</span>
+<span>  mode <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"interpolation"</span>, <span class="st">"extrapolation"</span>, <span class="st">"alternate"</span><span class="op">)</span>,</span>
+<span>  fit.method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"EXP"</span>, <span class="st">"LIN"</span>, <span class="st">"QDR"</span>, <span class="st">"EXP OR LIN"</span>, <span class="st">"EXP+LIN"</span>, <span class="st">"EXP+EXP"</span>, <span class="st">"GOK"</span>, <span class="st">"OTOR"</span>,</span>
+<span>    <span class="st">"OTORX"</span><span class="op">)</span>,</span>
 <span>  fit.force_through_origin <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  fit.weights <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  fit.includingRepeatedRegPoints <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -90,16 +91,9 @@ as natural dose</p></dd>
 
 <dt id="arg-fit-method">fit.method<a class="anchor" aria-label="anchor" href="#arg-fit-method"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (<em>with default</em>):
-function used for fitting. Possible options are:</p><ul><li><p><code>LIN</code>,</p></li>
-<li><p><code>QDR</code>,</p></li>
-<li><p><code>EXP</code>,</p></li>
-<li><p><code>EXP OR LIN</code>,</p></li>
-<li><p><code>EXP+LIN</code>,</p></li>
-<li><p><code>EXP+EXP</code> (not defined for extrapolation),</p></li>
-<li><p><code>GOK</code>,</p></li>
-<li><p><code>OTOR</code>,</p></li>
-<li><p><code>OTORX</code></p></li>
-</ul><p>See details.</p></dd>
+function used for fitting. Possible options are: <code>LIN</code>, <code>QDR</code>, <code>EXP</code>,
+<code>EXP OR LIN</code>, <code>EXP+LIN</code>, <code>EXP+EXP</code> (not defined for extrapolation), <code>GOK</code>,
+<code>OTOR</code> and <code>OTORX</code>. See details.</p></dd>
 
 
 <dt id="arg-fit-force-through-origin">fit.force_through_origin<a class="anchor" aria-label="anchor" href="#arg-fit-force-through-origin"></a></dt>
@@ -140,8 +134,8 @@ Argument to be inserted for experimental application only!</p></dd>
 
 
 <dt id="arg-n-mc">n.MC<a class="anchor" aria-label="anchor" href="#arg-n-mc"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>):  number of Monte Carlo simulations
-for error estimation, see details.</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>with default</em>):
+number of Monte Carlo simulations for error estimation, see details.</p></dd>
 
 
 <dt id="arg-txtprogressbar">txtProgressBar<a class="anchor" aria-label="anchor" href="#arg-txtprogressbar"></a></dt>
@@ -161,13 +155,15 @@ enable/disable output to the terminal.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An <code>RLum.Results</code> object is returned containing the slot <code>data</code> with the
+    <p>An <a href="RLum.Results-class.html">RLum.Results</a> object is returned
+containing the slot <code>data</code> with the
 following elements:</p>
 <p><strong>Overview elements</strong></p><table class="table table"><tr><td><strong>DATA.OBJECT</strong></td><td><strong>TYPE</strong></td><td><strong>DESCRIPTION</strong></td></tr><tr><td><code>..$De</code> :</td><td><code>data.frame</code></td><td>Table with De values</td></tr><tr><td><code>..$De.MC</code> :</td><td><code>numeric</code></td><td>Table with De values from MC runs</td></tr><tr><td><code>..$Fit</code> :</td><td><a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a> or <a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></td><td>object from the fitting for <code>EXP</code>, <code>EXP+LIN</code> and <code>EXP+EXP</code>.
-In case of a resulting  linear fit when using <code>LIN</code>, <code>QDR</code> or <code>EXP OR LIN</code></td></tr><tr><td><code>..Fit.Args</code> :</td><td><code>list</code></td><td>Arguments to the function</td></tr><tr><td><code>..$Formula</code> :</td><td><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></td><td>Fitting formula as R expression</td></tr><tr><td><code>..$call</code> :</td><td><code>call</code></td><td>The original function call</td></tr></table><p>If <code>object</code> is a list, then the function returns a list of <code>RLum.Results</code>
+In case of a resulting  linear fit when using <code>LIN</code>, <code>QDR</code> or <code>EXP OR LIN</code></td></tr><tr><td><code>..Fit.Args</code> :</td><td><code>list</code></td><td>Arguments to the function</td></tr><tr><td><code>..$Formula</code> :</td><td><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></td><td>Fitting formula as R expression</td></tr></table><p>The <code>@info</code> slot contains the following elements:</p><table class="table table"><tr><td><strong>DATA.OBJECT</strong></td><td><strong>TYPE</strong></td><td><strong>DESCRIPTION</strong></td></tr><tr><td><code>..$fit_messag</code>:</td><td><code>character</code></td><td>The fit message reported</td></tr><tr><td><code>..$call</code> :</td><td><code>call</code></td><td>The original function call</td></tr></table><p>If <code>object</code> is a list, then the function returns a list of
+<a href="RLum.Results-class.html">RLum.Results</a>
 objects as defined above.</p>
 <p><strong>Details - <code>DATA.OBJECT$De</code></strong>
-This object is a <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with the following columns</p><table class="table table"><tr><td><code>De</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>equivalent dose</td></tr><tr><td><code>De.Error</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>standard error the equivalent dose</td></tr><tr><td><code>D01</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>D-nought value, curvature parameter of the exponential</td></tr><tr><td><code>D01.ERROR</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>standard error of the D-nought value</td></tr><tr><td><code>D02</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>2nd D-nought value, only for <code>EXP+EXP</code></td></tr><tr><td><code>D02.ERROR</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>standard error for 2nd D-nought; only for <code>EXP+EXP</code></td></tr><tr><td><code>Dc</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>value indicating saturation level; only for <code>OTOR</code></td></tr><tr><td><code>D63</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>the specific saturation level; only for <code>OTORX</code></td></tr><tr><td><code>n_N</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (<code>N</code>) to the integral until <code>De</code> (<code>n</code>) (e.g.,  Guralnik et al., 2015)</td></tr><tr><td><code>De.MC</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>equivalent dose derived by Monte-Carlo simulation; ideally identical to <code>De</code></td></tr><tr><td><code>Fit</code></td><td><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></td><td>applied fit function</td></tr><tr><td><code>Mode</code></td><td><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></td><td>mode used in fitting</td></tr><tr><td><code>HPDI68_L</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>highest probability density of approximated equivalent dose probability curve representing the lower boundary of 68% probability</td></tr><tr><td><code>HPDI68_U</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>same as <code>HPDI68_L</code> for the upper bound</td></tr><tr><td><code>HPDI95_L</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>same as <code>HPDI68_L</code> but for 95% probability</td></tr><tr><td><code>HPDI95_U</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>same as <code>HPDI95_L</code> but for the upper bound</td></tr><tr><td><code>.De.plot</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>equivalent dose used internally for plotting</td></tr><tr><td><code>.De.raw</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>equivalent dose reported 'as is', that is containing infinities and negative values if they could be calculated. Bear in mind that negative values are meaningless and may be arbitrary.</td></tr></table></div>
+This object is a <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> with the following columns</p><table class="table table"><tr><td><code>De</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>equivalent dose</td></tr><tr><td><code>De.Error</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>standard error the equivalent dose</td></tr><tr><td><code>D01</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>\(D_0\) value, curvature parameter of the exponential</td></tr><tr><td><code>D01.ERROR</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>standard error of the \(D_0\) value</td></tr><tr><td><code>D02</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>2nd \(D_0\) value, only for <code>EXP+EXP</code></td></tr><tr><td><code>D02.ERROR</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>standard error for 2nd \(D_0\); only for <code>EXP+EXP</code></td></tr><tr><td><code>R</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>the material specific parameter \(R\)</td></tr><tr><td><code>R.ERROR</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>the uncertainty of R \(R\)</td></tr><tr><td><code>Dc</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>value indicating saturation level; only for <code>OTOR</code></td></tr><tr><td><code>D63</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>the specific saturation level; only for <code>OTORX</code></td></tr><tr><td><code>n_N</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (<code>N</code>) to the integral until <code>De</code> (<code>n</code>) (e.g.,  Guralnik et al., 2015)</td></tr><tr><td><code>De.MC</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>equivalent dose derived by Monte-Carlo simulation; ideally identical to <code>De</code></td></tr><tr><td><code>Fit</code></td><td><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></td><td>applied fit function</td></tr><tr><td><code>Mode</code></td><td><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></td><td>mode used in fitting</td></tr><tr><td><code>HPDI68_L</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>highest probability density of approximated equivalent dose probability curve representing the lower boundary of 68% probability</td></tr><tr><td><code>HPDI68_U</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>same as <code>HPDI68_L</code> for the upper bound</td></tr><tr><td><code>HPDI95_L</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>same as <code>HPDI68_L</code> but for 95% probability</td></tr><tr><td><code>HPDI95_U</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>same as <code>HPDI95_L</code> but for the upper bound</td></tr><tr><td><code>.De.plot</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>equivalent dose used internally for plotting</td></tr><tr><td><code>.De.raw</code></td><td><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></td><td>equivalent dose reported 'as is', that is containing infinities and negative values if they could be calculated. Bear in mind that negative values are meaningless and may be arbitrary.</td></tr></table></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
 
@@ -211,19 +207,21 @@ of the form</p>
 (not to be confused with <strong>c</strong> in <code>EXP</code> or <code>EXP+LIN</code>!).</p>
 <p><strong>Keyword: <code>OTOR</code></strong> (former <code>LambertW</code>)</p>
 <p>This tries to fit a dose-response curve based on the Lambert W function
-and the one trap one recombination centre (OTOR)
-model according to Pagonis et al. (2020). The function has the form</p>
+and the one trap one recombination centre (OTOR) model according to Pagonis
+et al. (2020). The function has the form:</p>
 <p>$$y = (1 + (\mathcal{W}((R - 1) * exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N$$</p>
-<p>with \(W\) the Lambert W function, calculated using the package <a href="https://rdrr.io/pkg/lamW/man/lamW-package.html" class="external-link">lamW::lambertW0</a>,
+<p>with \(W\) the Lambert W function (calculated using <a href="https://rdrr.io/pkg/lamW/man/lamW-package.html" class="external-link">lamW::lambertW0</a>),
 \(R\) the dimensionless retrapping ratio, \(N\) the total concentration
-of trappings states in cm\(^{-3}\) and \(D_{c} = N/R\) a constant. \(D_{int}\) is
-the offset on the x-axis. Please note that finding the root in <code>mode = "extrapolation"</code>
+of trappings states in cm\(^{-3}\), \(D_{c} = N/R\) a constant, and
+\(D_{int}\) is the offset on the x-axis. Note that \(R\) and \(D_{c}\)
+have a valid physical interpretation only when saturation is reached.
+Please note that finding the root in <code>mode = "extrapolation"</code>
 is a non-easy task due to the shape of the function and the results might be
 unexpected.</p>
 <p><strong>Keyword: <code>OTORX</code></strong></p>
-<p>This adapts extended OTOR (therefore: OTORX) model proposed by Lawless and Timar-Gabor (2024)
-accounting for retrapping. Mathematically, the implementation reads (the equation here
-as implemented, it is slightly differently written than in the original manuscript):</p>
+<p>This adapts extended OTOR (therefore: OTORX) model proposed by Lawless and
+Timar-Gabor (2024) accounting for retrapping (the equation implemented here
+is slightly differently written than in the original manuscript):</p>
 <p>$$F_{OTORX} = 1 + \left[\mathcal{W}(-Q * exp(-Q-(1-Q*(1-\frac{1}{exp(1)})) * \frac{(D + a)}{D_{63}}))\right] / Q$$</p>
 <p>with</p>
 <p>$$Q = \frac{A_m - A_n}{A_m}\frac{N}{N+N_D}$$</p>
@@ -238,6 +236,8 @@ as in the original publication.</p>
 the regeneration dose points. This value is essential and needs to provided
 along with the usual dose and \(\frac{L_x}{T_x}\) values (see <code>object</code> parameter input
 and the example section). For more details see Lawless and Timar-Gabor (2024).</p>
+<p>The fit also returns the parameter \(R\) know from <code>OTOR</code>, which is derived
+as \(R = 1 - Q\).</p>
 <p><em>Note: The offset adder \(a\) is not part of the formula in Timar-Gabor (2024) and can
 be set to zero with the option <code>fit.force_through_origin = TRUE</code></em></p>
 <p><strong>Fit weighting</strong></p>
@@ -262,11 +262,11 @@ Each error estimation is done with the function of the chosen fitting method.</p
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>1.4.3</p>
+    <p>1.4.5</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Dietze, M., Colombo, M., 2025. fit_DoseResponseCurve(): Fit a dose-response curve for luminescence data (Lx/Tx against dose). Function version 1.4.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Dietze, M., Colombo, M., 2026. fit_DoseResponseCurve(): Fit a dose-response curve for luminescence data (Lx/Tx against dose). Function version 1.4.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -280,12 +280,13 @@ based on the Lambert W function. Journal of Luminescence 225, 117333. <a href="h
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><a href="plot_GrowthCurve.html">plot_GrowthCurve</a>, <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a>, <a href="RLum.Results-class.html">RLum.Results</a>, <a href="get_RLum.html">get_RLum</a>,
+    <div class="dont-index"><p><a href="plot_DoseResponseCurve.html">plot_DoseResponseCurve</a>, <a href="https://rdrr.io/r/stats/nls.html" class="external-link">nls</a>,
+<a href="RLum.Results-class.html">RLum.Results</a>, <a href="get_RLum.html">get_RLum</a>,
 <a href="https://rdrr.io/pkg/minpack.lm/man/nlsLM.html" class="external-link">minpack.lm::nlsLM</a>, <a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a>, <a href="https://rdrr.io/r/stats/uniroot.html" class="external-link">uniroot</a>, <a href="https://rdrr.io/pkg/lamW/man/lamW-package.html" class="external-link">lamW::lambertW0</a></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)<br>
+    <p>Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)<br>
 Michael Dietze, GFZ Potsdam (Germany) <br>
 Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team</p>
@@ -299,10 +300,12 @@ Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 <span class="r-in"><span><span class="va">temp</span> <span class="op">&lt;-</span> <span class="fu">fit_DoseResponseCurve</span><span class="op">(</span><span class="va">LxTxData</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [fit_DoseResponseCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07</span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">temp</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         De De.Error      D01 D01.ERROR D02 D02.ERROR Dc D63       n_N    De.MC</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1737.881 62.66268 1766.074  92.70931  NA        NA NA  NA 0.5271352 1738.381</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Fit          Mode HPDI68_L HPDI68_U HPDI95_L HPDI95_U .De.plot  .De.raw</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 EXP interpolation 1670.985 1792.255 1604.373 1858.867 1737.881 1737.881</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         De De.Error      D01 D01.ERROR D02 D02.ERROR  R R.ERROR Dc D63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1737.881 57.33287 1766.074  89.83273  NA        NA NA      NA NA  NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         n_N    De.MC Fit          Mode HPDI68_L HPDI68_U HPDI95_L HPDI95_U</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.5271352 1732.322 EXP interpolation 1672.881 1790.875 1612.221 1846.549</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   .De.plot  .De.raw</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1737.881 1737.881</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(1b) to access the fitting value try</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">temp</span>, data.object <span class="op">=</span> <span class="st">"Fit"</span><span class="op">)</span></span></span>
@@ -329,11 +332,12 @@ Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $Fit : nls</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $Fit.Args : list</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $Formula : expression</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  2 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(3) fit using the 'alternate' mode</span></span></span>
 <span class="r-in"><span><span class="va">LxTxData</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.001</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">fit_DoseResponseCurve</span><span class="op">(</span><span class="va">LxTxData</span>, mode <span class="op">=</span> <span class="st">"alternate"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [fit_DoseResponseCurve()] Fit: EXP (alternate) | De = NA | D01 = 2624.06</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [RLum.Results-class]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 originator: fit_DoseResponseCurve()</span>
@@ -343,7 +347,7 @@ Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $Fit : nls</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $Fit.Args : list</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. $Formula : expression</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  2 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##(4) import and fit test data set by Berger &amp; Huntley 1989</span></span></span>
 <span class="r-in"><span><span class="va">QNL84_2_unbleached</span> <span class="op">&lt;-</span></span></span>
@@ -403,7 +407,7 @@ Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

@@ -10,10 +10,9 @@ objects.
 ``` r
 analyse_pIRIRSequence(
   object,
-  signal.integral.min,
-  signal.integral.max,
-  background.integral.min,
-  background.integral.max,
+  signal_integral,
+  background_integral,
+  integral_input = c("channel", "measurement"),
   dose.points = NULL,
   sequence.structure = c("TL", "IR50", "pIRIR225"),
   plot = TRUE,
@@ -33,29 +32,24 @@ analyse_pIRIRSequence(
   a [list](https://rdrr.io/r/base/list.html) is provided the functions
   tries to iterate over each element in the list.
 
-- signal.integral.min:
+- signal_integral:
 
-  [integer](https://rdrr.io/r/base/integer.html) (**required**): lower
-  bound of the signal integral. Provide this value as vector for
+  [integer](https://rdrr.io/r/base/integer.html) (**required**): vector
+  of channels for the signal integral. Provide this value as a list for
   different integration limits for the different IRSL curves.
 
-- signal.integral.max:
+- background_integral:
 
-  [integer](https://rdrr.io/r/base/integer.html) (**required**): upper
-  bound of the signal integral. Provide this value as vector for
-  different integration limits for the different IRSL curves.
+  [integer](https://rdrr.io/r/base/integer.html) (**required**): vector
+  of channels for the background integral. Provide this value as a list
+  for different integration limits for the different IRSL curves.
 
-- background.integral.min:
+- integral_input:
 
-  [integer](https://rdrr.io/r/base/integer.html) (**required**): lower
-  bound of the background integral. Provide this value as vector for
-  different integration limits for the different IRSL curves.
-
-- background.integral.max:
-
-  [integer](https://rdrr.io/r/base/integer.html) (**required**): upper
-  bound of the background integral. Provide this value as vector for
-  different integration limits for the different IRSL curves.
+  [character](https://rdrr.io/r/base/character.html) (*with default*):
+  input type for `signal_integral`, one of `"channel"` (default) or
+  `"measurement"`. If set to `"measurement"`, the best matching channels
+  corresponding to the given time range (in seconds) are selected.
 
 - dose.points:
 
@@ -154,17 +148,17 @@ the following options:
 
 ## Function version
 
-0.2.6
+0.2.8
 
 ## How to cite
 
-Kreutzer, S., 2025. analyse_pIRIRSequence(): Analyse post-IR IRSL
-measurement sequences. Function version 0.2.6. In: Kreutzer, S., Burow,
+Kreutzer, S., 2026. analyse_pIRIRSequence(): Analyse post-IR IRSL
+measurement sequences. Function version 0.2.8. In: Kreutzer, S., Burow,
 C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -182,15 +176,16 @@ feldspar-rich sediment extracts. Radiation Measurements 43, 1474-1486.
 
 [analyse_SAR.CWOSL](https://r-lum.github.io/Luminescence/reference/analyse_SAR.CWOSL.md),
 [calc_OSLLxTxRatio](https://r-lum.github.io/Luminescence/reference/calc_OSLLxTxRatio.md),
-[plot_GrowthCurve](https://r-lum.github.io/Luminescence/reference/plot_GrowthCurve.md),
+[plot_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/plot_DoseResponseCurve.md),
+[fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)
 [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md),
-[RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
+[RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md),
 [get_RLum](https://r-lum.github.io/Luminescence/reference/get_RLum.md)
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 
@@ -221,10 +216,8 @@ object <- set_RLum(class = "RLum.Analysis", records = object, protocol = "pIRIR"
 ##(2) Perform pIRIR analysis (for this example with quartz OSL data!)
 ## Note: output as single plots to avoid problems with this example
 results <- analyse_pIRIRSequence(object,
-     signal.integral.min = 1,
-     signal.integral.max = 2,
-     background.integral.min = 900,
-     background.integral.max = 1000,
+     signal_integral = 1:2,
+     background_integral = 900:1000,
      fit.method = "EXP",
      sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
      main = "Pseudo pIRIR data set based on quartz OSL",
@@ -234,14 +227,14 @@ results <- analyse_pIRIRSequence(object,
 
 
 
-#> [fit_DoseResponseCurve()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76
+#> [analyse_SAR.CWOSL()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76
 
 
 
 
 
 
-#> [fit_DoseResponseCurve()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76
+#> [analyse_SAR.CWOSL()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76
 
 
 
@@ -256,10 +249,8 @@ if (FALSE) { # \dontrun{
 tempfile <- tempfile(fileext = ".pdf")
 pdf(file = tempfile, height = 18, width = 18)
   results <- analyse_pIRIRSequence(object,
-         signal.integral.min = 1,
-         signal.integral.max = 2,
-         background.integral.min = 900,
-         background.integral.max = 1000,
+         signal_integral = 1:2,
+         background_integral = 900:1000,
          fit.method = "EXP",
          main = "Pseudo pIRIR data set based on quartz OSL")
 

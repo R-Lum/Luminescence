@@ -165,13 +165,13 @@ The output should be accessed using the function
 
 ## How to cite
 
-Burow, C., Colombo, M., 2025. calc_AliquotSize(): Estimate the amount of
+Burow, C., Colombo, M., 2026. calc_AliquotSize(): Estimate the amount of
 grains on an aliquot. Function version 0.33. In: Kreutzer, S., Burow,
 C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -217,11 +217,11 @@ calc_AliquotSize(grain.size = c(100,150), sample.diameter = 1, MC.iter = 100)
 #> 
 #>  --------------- Monte Carlo Estimates -------------------
 #>  number of iterations (n)     : 100
-#>  median                       : 38
+#>  median                       : 39
 #>  mean                         : 42
-#>  standard deviation (mean)    : 20
-#>  standard error (mean)        : 2
-#>  95% CI from t-test (mean)    : 38 - 46
+#>  standard deviation (mean)    : 19
+#>  standard error (mean)        : 1.9
+#>  95% CI from t-test (mean)    : 38 - 45
 #>  standard error from CI (mean): 2
 #>  ---------------------------------------------------------
 

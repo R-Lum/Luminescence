@@ -14,33 +14,37 @@ convert_SG2MG(object, write_file = FALSE, ...)
 
 - object:
 
-  [Risoe.BINfileData](https://r-lum.github.io/Luminescence/reference/Risoe.BINfileData-class.md)
+  [Risoe.BINfileData](https://r-lum.github.io/Luminescence/reference/Risoe.BINfileData-class.md),
   [character](https://rdrr.io/r/base/character.html) (**required**):
   [Risoe.BINfileData](https://r-lum.github.io/Luminescence/reference/Risoe.BINfileData-class.md)
-  object or BIN/BINX-file name
+  object or BIN/BINX-file name.
 
 - write_file:
 
-  [logical](https://rdrr.io/r/base/logical.html) (*with default*): if
-  the input was a path to a file, the output can be written to a file if
-  `TRUE`. The multiple grain file will be written into the same folder
-  and with extension `-SG` to the file name.
+  [logical](https://rdrr.io/r/base/logical.html) (*with default*):
+  whether the output should be written to a file (only considered if
+  `object` is of type character). The multiple grain file will be
+  written to a file of named after the original one with `-SG` appended
+  to it.
 
 - ...:
 
   further arguments passed down to
   [read_BIN2R](https://r-lum.github.io/Luminescence/reference/read_BIN2R.md)
-  if input is file path
+  and
+  [write_R2BIN](https://r-lum.github.io/Luminescence/reference/write_R2BIN.md)
+  if `object` is a path to a file.
 
 ## Value
 
+A
 [Risoe.BINfileData](https://r-lum.github.io/Luminescence/reference/Risoe.BINfileData-class.md)
-object and if `write_file = TRUE` and the input was a file path, a file
-is written to origin folder.
+object. If `write_file = TRUE` an the input was a file path, a file is
+also written out to origin folder.
 
 ## Function version
 
-0.1.0
+0.1.1
 
 ## See also
 
@@ -50,20 +54,20 @@ is written to origin folder.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
 Norbert Mercier, IRAMAT-CRP2A, UMR 5060, CNRS-Université Bordeaux
 Montaigne (France) , RLum Developer Team
 
 ## How to cite
 
-Kreutzer, S., Mercier, N., 2025. convert_SG2MG(): Converts Single-Grain
-Data to Multiple-Grain Data. Function version 0.1.0. In: Kreutzer, S.,
+Kreutzer, S., Mercier, N., 2026. convert_SG2MG(): Converts Single-Grain
+Data to Multiple-Grain Data. Function version 0.1.1. In: Kreutzer, S.,
 Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
 J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
 D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
-2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
-package version 1.1.2. https://r-lum.github.io/Luminescence/
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 

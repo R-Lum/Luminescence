@@ -9,8 +9,9 @@ and extrapolation to calculate the equivalent dose.
 ``` r
 fit_DoseResponseCurve(
   object,
-  mode = "interpolation",
-  fit.method = "EXP",
+  mode = c("interpolation", "extrapolation", "alternate"),
+  fit.method = c("EXP", "LIN", "QDR", "EXP OR LIN", "EXP+LIN", "EXP+EXP", "GOK", "OTOR",
+    "OTORX"),
   fit.force_through_origin = FALSE,
   fit.weights = TRUE,
   fit.includingRepeatedRegPoints = TRUE,
@@ -60,27 +61,9 @@ fit_DoseResponseCurve(
 - fit.method:
 
   [character](https://rdrr.io/r/base/character.html) (*with default*):
-  function used for fitting. Possible options are:
-
-  - `LIN`,
-
-  - `QDR`,
-
-  - `EXP`,
-
-  - `EXP OR LIN`,
-
-  - `EXP+LIN`,
-
-  - `EXP+EXP` (not defined for extrapolation),
-
-  - `GOK`,
-
-  - `OTOR`,
-
-  - `OTORX`
-
-  See details.
+  function used for fitting. Possible options are: `LIN`, `QDR`, `EXP`,
+  `EXP OR LIN`, `EXP+LIN`, `EXP+EXP` (not defined for extrapolation),
+  `GOK`, `OTOR` and `OTORX`. See details.
 
 - fit.force_through_origin:
 
@@ -142,8 +125,10 @@ fit_DoseResponseCurve(
 
 ## Value
 
-An `RLum.Results` object is returned containing the slot `data` with the
-following elements:
+An
+[RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
+object is returned containing the slot `data` with the following
+elements:
 
 **Overview elements**
 
@@ -155,10 +140,18 @@ following elements:
 | `..$Fit` :      | [nls](https://rdrr.io/r/stats/nls.html) or [lm](https://rdrr.io/r/stats/lm.html) | object from the fitting for `EXP`, `EXP+LIN` and `EXP+EXP`. In case of a resulting linear fit when using `LIN`, `QDR` or `EXP OR LIN` |
 | `..Fit.Args` :  | `list`                                                                           | Arguments to the function                                                                                                             |
 | `..$Formula` :  | [expression](https://rdrr.io/r/base/expression.html)                             | Fitting formula as R expression                                                                                                       |
-| `..$call` :     | `call`                                                                           | The original function call                                                                                                            |
+
+The `@info` slot contains the following elements:
+
+|                  |             |                            |
+|------------------|-------------|----------------------------|
+| **DATA.OBJECT**  | **TYPE**    | **DESCRIPTION**            |
+| `..$fit_messag`: | `character` | The fit message reported   |
+| `..$call` :      | `call`      | The original function call |
 
 If `object` is a list, then the function returns a list of
-`RLum.Results` objects as defined above.
+[RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
+objects as defined above.
 
 **Details - `DATA.OBJECT$De`** This object is a
 [data.frame](https://rdrr.io/r/base/data.frame.html) with the following
@@ -168,10 +161,12 @@ columns
 |-------------|----------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `De`        | [numeric](https://rdrr.io/r/base/numeric.html)     | equivalent dose                                                                                                                                                                                          |
 | `De.Error`  | [numeric](https://rdrr.io/r/base/numeric.html)     | standard error the equivalent dose                                                                                                                                                                       |
-| `D01`       | [numeric](https://rdrr.io/r/base/numeric.html)     | D-nought value, curvature parameter of the exponential                                                                                                                                                   |
-| `D01.ERROR` | [numeric](https://rdrr.io/r/base/numeric.html)     | standard error of the D-nought value                                                                                                                                                                     |
-| `D02`       | [numeric](https://rdrr.io/r/base/numeric.html)     | 2nd D-nought value, only for `EXP+EXP`                                                                                                                                                                   |
-| `D02.ERROR` | [numeric](https://rdrr.io/r/base/numeric.html)     | standard error for 2nd D-nought; only for `EXP+EXP`                                                                                                                                                      |
+| `D01`       | [numeric](https://rdrr.io/r/base/numeric.html)     | \\D_0\\ value, curvature parameter of the exponential                                                                                                                                                    |
+| `D01.ERROR` | [numeric](https://rdrr.io/r/base/numeric.html)     | standard error of the \\D_0\\ value                                                                                                                                                                      |
+| `D02`       | [numeric](https://rdrr.io/r/base/numeric.html)     | 2nd \\D_0\\ value, only for `EXP+EXP`                                                                                                                                                                    |
+| `D02.ERROR` | [numeric](https://rdrr.io/r/base/numeric.html)     | standard error for 2nd \\D_0\\; only for `EXP+EXP`                                                                                                                                                       |
+| `R`         | [numeric](https://rdrr.io/r/base/numeric.html)     | the material specific parameter \\R\\                                                                                                                                                                    |
+| `R.ERROR`   | [numeric](https://rdrr.io/r/base/numeric.html)     | the uncertainty of R \\R\\                                                                                                                                                                               |
 | `Dc`        | [numeric](https://rdrr.io/r/base/numeric.html)     | value indicating saturation level; only for `OTOR`                                                                                                                                                       |
 | `D63`       | [numeric](https://rdrr.io/r/base/numeric.html)     | the specific saturation level; only for `OTORX`                                                                                                                                                          |
 | `n_N`       | [numeric](https://rdrr.io/r/base/numeric.html)     | saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (`N`) to the integral until `De` (`n`) (e.g., Guralnik et al., 2015) |
@@ -255,25 +250,27 @@ where \\c \> 0\\ is a kinetic order modifier (not to be confused with
 
 This tries to fit a dose-response curve based on the Lambert W function
 and the one trap one recombination centre (OTOR) model according to
-Pagonis et al. (2020). The function has the form
+Pagonis et al. (2020). The function has the form:
 
 \$\$y = (1 + (\mathcal{W}((R - 1) \* exp(R - 1 - ((x + D\_{int}) /
 D\_{c}))) / (1 - R))) \* N\$\$
 
-with \\W\\ the Lambert W function, calculated using the package
-[lamW::lambertW0](https://rdrr.io/pkg/lamW/man/lamW-package.html), \\R\\
-the dimensionless retrapping ratio, \\N\\ the total concentration of
-trappings states in cm\\^{-3}\\ and \\D\_{c} = N/R\\ a constant.
-\\D\_{int}\\ is the offset on the x-axis. Please note that finding the
-root in `mode = "extrapolation"` is a non-easy task due to the shape of
-the function and the results might be unexpected.
+with \\W\\ the Lambert W function (calculated using
+[lamW::lambertW0](https://rdrr.io/pkg/lamW/man/lamW-package.html)),
+\\R\\ the dimensionless retrapping ratio, \\N\\ the total concentration
+of trappings states in cm\\^{-3}\\, \\D\_{c} = N/R\\ a constant, and
+\\D\_{int}\\ is the offset on the x-axis. Note that \\R\\ and \\D\_{c}\\
+have a valid physical interpretation only when saturation is reached.
+Please note that finding the root in `mode = "extrapolation"` is a
+non-easy task due to the shape of the function and the results might be
+unexpected.
 
 **Keyword: `OTORX`**
 
 This adapts extended OTOR (therefore: OTORX) model proposed by Lawless
-and Timar-Gabor (2024) accounting for retrapping. Mathematically, the
-implementation reads (the equation here as implemented, it is slightly
-differently written than in the original manuscript):
+and Timar-Gabor (2024) accounting for retrapping (the equation
+implemented here is slightly differently written than in the original
+manuscript):
 
 \$\$F\_{OTORX} = 1 + \left\[\mathcal{W}(-Q \*
 exp(-Q-(1-Q\*(1-\frac{1}{exp(1)})) \* \frac{(D + a)}{D\_{63}}))\right\]
@@ -299,6 +296,9 @@ Gy) as the regeneration dose points. This value is essential and needs
 to provided along with the usual dose and \\\frac{L_x}{T_x}\\ values
 (see `object` parameter input and the example section). For more details
 see Lawless and Timar-Gabor (2024).
+
+The fit also returns the parameter \\R\\ know from `OTOR`, which is
+derived as \\R = 1 - Q\\.
 
 *Note: The offset adder \\a\\ is not part of the formula in Timar-Gabor
 (2024) and can be set to zero with the option
@@ -333,18 +333,18 @@ method.
 
 ## Function version
 
-1.4.3
+1.4.5
 
 ## How to cite
 
-Kreutzer, S., Dietze, M., Colombo, M., 2025. fit_DoseResponseCurve():
+Kreutzer, S., Dietze, M., Colombo, M., 2026. fit_DoseResponseCurve():
 Fit a dose-response curve for luminescence data (Lx/Tx against dose).
-Function version 1.4.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
+Function version 1.4.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
-J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence:
-Comprehensive Luminescence Dating Data Analysis. R package version
-1.1.2. https://r-lum.github.io/Luminescence/
+J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
+Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
+version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -370,7 +370,7 @@ function. Journal of Luminescence 225, 117333.
 
 ## See also
 
-[plot_GrowthCurve](https://r-lum.github.io/Luminescence/reference/plot_GrowthCurve.md),
+[plot_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/plot_DoseResponseCurve.md),
 [nls](https://rdrr.io/r/stats/nls.html),
 [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md),
 [get_RLum](https://r-lum.github.io/Luminescence/reference/get_RLum.md),
@@ -381,8 +381,8 @@ function. Journal of Luminescence 225, 117333.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
 Michael Dietze, GFZ Potsdam (Germany)  
 Marco Colombo, Institute of Geography, Heidelberg University (Germany) ,
 RLum Developer Team
@@ -395,10 +395,12 @@ data(ExampleData.LxTxData, envir = environment())
 temp <- fit_DoseResponseCurve(LxTxData)
 #> [fit_DoseResponseCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07
 get_RLum(temp)
-#>         De De.Error      D01 D01.ERROR D02 D02.ERROR Dc D63       n_N    De.MC
-#> 1 1737.881 62.66268 1766.074  92.70931  NA        NA NA  NA 0.5271352 1738.381
-#>   Fit          Mode HPDI68_L HPDI68_U HPDI95_L HPDI95_U .De.plot  .De.raw
-#> 1 EXP interpolation 1670.985 1792.255 1604.373 1858.867 1737.881 1737.881
+#>         De De.Error      D01 D01.ERROR D02 D02.ERROR  R R.ERROR Dc D63
+#> 1 1737.881 57.33287 1766.074  89.83273  NA        NA NA      NA NA  NA
+#>         n_N    De.MC Fit          Mode HPDI68_L HPDI68_U HPDI95_L HPDI95_U
+#> 1 0.5271352 1732.322 EXP interpolation 1672.881 1790.875 1612.221 1846.549
+#>   .De.plot  .De.raw
+#> 1 1737.881 1737.881
 
 ##(1b) to access the fitting value try
 get_RLum(temp, data.object = "Fit")
@@ -425,11 +427,12 @@ print(fit_DoseResponseCurve(LxTxData, mode = "extrapolation"))
 #>   .. $Fit : nls
 #>   .. $Fit.Args : list
 #>   .. $Formula : expression
-#>   additional info elements:  1 
+#>   additional info elements:  2 
 
 ##(3) fit using the 'alternate' mode
 LxTxData[1,2:3] <- c(0.5, 0.001)
 print(fit_DoseResponseCurve(LxTxData, mode = "alternate"))
+#> [fit_DoseResponseCurve()] Fit: EXP (alternate) | De = NA | D01 = 2624.06
 #> 
 #>  [RLum.Results-class]
 #>   originator: fit_DoseResponseCurve()
@@ -439,7 +442,7 @@ print(fit_DoseResponseCurve(LxTxData, mode = "alternate"))
 #>   .. $Fit : nls
 #>   .. $Fit.Args : list
 #>   .. $Formula : expression
-#>   additional info elements:  1 
+#>   additional info elements:  2 
 
 ##(4) import and fit test data set by Berger & Huntley 1989
 QNL84_2_unbleached <-

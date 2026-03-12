@@ -64,21 +64,23 @@ The function is called automatically by
 
 ## Author
 
-Anne Philippe, Université de Nantes (France), Jean-Michel Galharret,
-Université de Nantes (France), Norbert Mercier, IRAMAT-CRP2A, Université
-Bordeaux Montaigne (France), Sebastian Kreutzer, Institute of Geography,
-Heidelberg University (Germany) , RLum Developer Team
+Anne Philippe, Université de Nantes (France)  
+Jean-Michel Galharret, Université de Nantes (France)  
+Norbert Mercier, IRAMAT-CRP2A, Université Bordeaux Montaigne (France)  
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany)  
+, RLum Developer Team
 
 ## How to cite
 
-Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2025.
+Philippe, A., Galharret, J., Mercier, N., Kreutzer, S., 2026.
 plot_OSLAgeSummary(): Plot Posterior OSL-Age Summary. Function version
 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
 C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
 Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
-Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive
-Luminescence Dating Data Analysis. R package version 1.1.2.
-https://r-lum.github.io/Luminescence/
+Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
+Comprehensive Luminescence Dating Data Analysis. R package version
+1.2.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 

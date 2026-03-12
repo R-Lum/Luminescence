@@ -10,7 +10,12 @@ image processing capacity. The function is limited to circular ROIs.
 ## Usage
 
 ``` r
-extract_ROI(object, roi, roi_summary = "mean", plot = FALSE)
+extract_ROI(
+  object,
+  roi,
+  roi_summary = c("mean", "median", "sd", "sum"),
+  plot = FALSE
+)
 ```
 
 ## Arguments
@@ -79,18 +84,19 @@ integer diameter of the circle in pixel.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## How to cite
 
-Kreutzer, S., 2025. extract_ROI(): Extract Pixel Values through Circular
+Kreutzer, S., 2026. extract_ROI(): Extract Pixel Values through Circular
 Region-of-Interests (ROI) from an Image. Function version 0.1.0. In:
 Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/
+Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.2.0.
+https://r-lum.github.io/Luminescence/
 
 ## Examples
 

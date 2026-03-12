@@ -67,29 +67,29 @@ following structure:
 **@data**
 
     $LxTx.table (data.frame)
-    .. $ LnLx
-    .. $ TnTx
     .. $ Net_LnLx
     .. $ Net_LnLx.Error
     .. $ Net_TnTx
     .. $ Net_TnTx.Error
+    .. $ SN_RATIO_LnLx = NA,
+    .. $ SN_RATIO_TnTx = NA
     .. $ LxTx
-    .. $ LxTx.relError
     .. $ LxTx.Error
 
 ## Function version
 
-0.1.0
+0.1.1
 
 ## How to cite
 
-Mittelstrass, D., 2025. calc_OSLLxTxDecomposed(): Calculate Lx/Tx ratio
-for decomposed CW-OSL signal components. Function version 0.1.0. In:
+Mittelstrass, D., 2026. calc_OSLLxTxDecomposed(): Calculate Lx/Tx ratio
+for decomposed CW-OSL signal components. Function version 0.1.1. In:
 Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/
+Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.2.0.
+https://r-lum.github.io/Luminescence/
 
 ## References
 

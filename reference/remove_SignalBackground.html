@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +28,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Remove Signal Background from <code>RLum.Data.Curve</code> Objects</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/remove_SignalBackground.R" class="external-link"><code>R/remove_SignalBackground.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/remove_SignalBackground.R" class="external-link"><code>R/remove_SignalBackground.R</code></a></small>
       <div class="d-none name"><code>remove_SignalBackground.Rd</code></div>
     </div>
 
@@ -96,16 +96,17 @@ utilises the <a href="merge_RLum.html">merge_RLum</a> function but simplifies th
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p><a href="get_RLum.html">get_RLum</a>, <a href="merge_RLum.html">merge_RLum</a>, <a href="RLum.Analysis-class.html">RLum.Analysis</a>,<a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a></p></div>
+    <div class="dont-index"><p><a href="get_RLum.html">get_RLum</a>, <a href="merge_RLum.html">merge_RLum</a>, <a href="RLum.Analysis-class.html">RLum.Analysis</a>,
+<a href="RLum.Data.Curve-class.html">RLum.Data.Curve</a></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
-    <p>Sebastian Kreutzer, Institute of Geography, Heidelberg University (Germany)
+    <p>Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 , RLum Developer Team</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2025. remove_SignalBackground(): Remove Signal Background from RLum.Data.Curve Objects. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2026. remove_SignalBackground(): Remove Signal Background from RLum.Data.Curve Objects. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">
@@ -130,10 +131,10 @@ utilises the <a href="merge_RLum.html">merge_RLum</a> function but simplifies th
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 additional info elements:  1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 number of records: 12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. : RLum.Data.Curve : 12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #1 TL (UVVIS) &lt;&gt; #2 TL (NA) &lt;&gt; #3 TL (NA) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #4 OSL (UVVIS) &lt;&gt; #5 OSL (NA) &lt;&gt; #6 OSL (NA) &lt;&gt; #7 OSL (NA) &lt;&gt; #8 OSL (NA)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #1 TL (UVVIS) &lt;&gt; #2 _TL (NA) &lt;&gt; #3 _TL (NA) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #4 OSL (UVVIS) &lt;&gt; #5 _OSL (NA) &lt;&gt; #6 _OSL (NA) &lt;&gt; #7 _OSL (NA) &lt;&gt; #8 _OSL (NA)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #9 irradiation (NA) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #10 TL (UVVIS) &lt;&gt; #11 TL (NA) &lt;&gt; #12 TL (NA)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 	 .. .. : #10 TL (UVVIS) &lt;&gt; #11 _TL (NA) &lt;&gt; #12 _TL (NA)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## use a more elaborate examples</span></span></span>
@@ -159,7 +160,7 @@ utilises the <a href="merge_RLum.html">merge_RLum</a> function but simplifies th
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

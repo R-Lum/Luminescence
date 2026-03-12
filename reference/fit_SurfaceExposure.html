@@ -11,7 +11,7 @@ Sohbati et al. (2012b) for a given OSL surface exposure data set (BETA)."></head
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ Sohbati et al. (2012b) for a given OSL surface exposure data set (BETA)."></head
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Nonlinear Least Squares Fit for OSL surface exposure data</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.1.2/R/fit_SurfaceExposure.R" class="external-link"><code>R/fit_SurfaceExposure.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/fit_SurfaceExposure.R" class="external-link"><code>R/fit_SurfaceExposure.R</code></a></small>
       <div class="d-none name"><code>fit_SurfaceExposure.Rd</code></div>
     </div>
 
@@ -144,7 +144,7 @@ Flip the coordinate system.</p></dd>
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Further parameters passed to <a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a>.
-Custom parameters include:</p><ul><li><p><code>verbose</code> (<a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>): show or hide console output</p></li>
+Custom parameters include:</p><ul><li><p><code>verbose</code> (<a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a>): enable/disable output to the terminal</p></li>
 <li><p><code>line_col</code>: Colour of the fitted line</p></li>
 <li><p><code>line_lty</code>: Type of the fitted line (see <code>lty</code> in <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">?par</a></code>)</p></li>
 <li><p><code>line_lwd</code>: Line width of the fitted line (see <code>lwd</code> in <code><a href="https://rdrr.io/r/graphics/par.html" class="external-link">?par</a></code>)</p></li>
@@ -181,7 +181,7 @@ the effect of dose rate (i.e., signal saturation) needs to be considered,
 numeric values for the dose rate (<code>Ddot</code>) (in Gy/ka) and the characteristic
 saturation dose (<code>D0</code>) (in Gy) must be provided. The function will then fit
 equation 12 in Sohbati et al. (2012b) to the data.</p>
-<p><strong>NOTE</strong>: Currently, this function does <strong>not</strong> consider the variability
+<p><strong>Note:</strong> Currently, this function does <strong>not</strong> consider the variability
 of the dose rate with sample depth (<code>x</code>)! In the original equation the dose
 rate <code>D</code> is an arbitrary function of <code>x</code> (term <code>D(x)</code>), but here <code>D</code> is assumed
 constant.</p>
@@ -189,7 +189,7 @@ constant.</p>
 If <code>data</code> is <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of multiple <code>data.frame</code>s, each representing a separate
 sample, the function automatically performs a global fit to the data. This
 may be useful to better constrain the parameters <code>sigmaphi</code> or <code>mu</code> and
-<strong>requires</strong> that known ages for each sample is provided
+<strong>requires</strong> that a known age for each sample
 (e.g., <code>age = c(100, 1000)</code> if <code>data</code> is a list with two samples).</p>
     </div>
     <div class="section level2">
@@ -203,7 +203,7 @@ may be useful to better constrain the parameters <code>sigmaphi</code> or <code>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Burow, C., 2025. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.1.2. https://r-lum.github.io/Luminescence/</p>
+    <p>Burow, C., 2026. fit_SurfaceExposure(): Nonlinear Least Squares Fit for OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -262,7 +262,6 @@ Icarus 221, 160-166.</p>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        age age_error sigmaphi sigmaphi_error  mu mu_error</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 9892.927  369.0142    5e-10             NA 0.9       NA</span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Example 2 - Single sample and considering dose rate</span></span></span>
 <span class="r-in"><span><span class="co"># Known parameters: 10000 a, mu = 0.9, sigmaphi = 5e-10,</span></span></span>
@@ -343,7 +342,6 @@ Icarus 221, 160-166.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 1e+05        NA    5e-10             NA 0.9009494 0.001612274</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 1e+06        NA    5e-10             NA 0.9009494 0.001612274</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Example 4 - Multiple samples (global fit) and considering dose rate</span></span></span>
 <span class="r-in"><span><span class="co"># Known parameters: ages = 1e2, 1e3, 1e4, 1e5, 1e6 a, mu = 0.9, sigmaphi = 5e-10,</span></span></span>
 <span class="r-in"><span><span class="co"># dose rate = 1.0 Ga/ka, D0 = 40 Gy</span></span></span>
@@ -402,7 +400,7 @@ Icarus 221, 160-166.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer.</p>
+  <p>Developed by Sebastian Kreutzer, Christoph Burow, Michael Dietze, Margret C. Fuchs, Christoph Schmidt, Manfred Fischer, Johannes Friedrich, Norbert Mercier, Anne Philippe, Svenja Riedesel, Martin Autzen, Dirk Mittelstrass, Harrison J. Gray, Jean-Michel Galharret, Marco Colombo, Luc Steinbuch, Anna-Maartje de Boer, Andrzej Bluszcz.</p>
 </div>
 
 <div class="pkgdown-footer-right">

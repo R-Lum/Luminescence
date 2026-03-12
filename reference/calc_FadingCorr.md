@@ -210,13 +210,13 @@ e-mail.
 
 ## How to cite
 
-Kreutzer, S., 2025. calc_FadingCorr(): Fading Correction after Huntley &
+Kreutzer, S., 2026. calc_FadingCorr(): Fading Correction after Huntley &
 Lamothe (2001). Function version 0.4.4. In: Kreutzer, S., Burow, C.,
 Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., 2025.
-Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.1.2. https://r-lum.github.io/Luminescence/
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
+Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -233,8 +233,8 @@ Canadian Journal of Earth Sciences, 38, 1093-1106.
 
 ## Author
 
-Sebastian Kreutzer, Institute of Geography, Heidelberg University
-(Germany) , RLum Developer Team
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
+LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 
 ## Examples
 
@@ -290,7 +290,7 @@ results <- calc_FadingCorr(
 #>  observations:       100
 #>  ----------------------------------------------
 #>  Age (faded):        1 ka ± 0 ka
-#>  Age (corr.):        1.2486 ka ± 0.0682 ka
+#>  Age (corr.):        1.2486 ka ± 0.0644 ka
 #>  ---------------------------------------------- 
 
 ##(3) faded age: 10.0 ka
@@ -316,13 +316,13 @@ results <- calc_FadingCorr(
 #>  observations:       100
 #>  ----------------------------------------------
 #>  Age (faded):        10 ka ± 0 ka
-#>  Age (corr.):        13.402 ka ± 0.9297 ka
+#>  Age (corr.):        13.402 ka ± 1.0204 ka
 #>  ---------------------------------------------- 
 
 ##access the last output
 get_RLum(results)
 #>      AGE AGE.ERROR AGE_FADED AGE_FADED.ERROR  G_VALUE G_VALUE.ERROR      KAPPA
-#> 1 13.402    0.9297        10               0 5.312393      1.011901 0.02307143
+#> 1 13.402    1.0204        10               0 5.312393      1.011901 0.02307143
 #>   KAPPA.ERROR           TC   TC.G_VALUE n.MC OBSERVATIONS SEED
 #> 1  0.00439463 8.213721e-05 5.475814e-06  100          100   NA
 ```
