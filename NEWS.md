@@ -70,7 +70,7 @@ for more information and advice on how to deal with these changes.
   that log files are not a well-defined data format. This function is
   intended for use in cases where you have a corrupted BIN/BINX file but
   a complete log file is still available. Supported log formats are TL,
-  OSL, and OSL curves. All other formats are ignored (#1241 by @RLumSK;
+  OSL, and IRSL curves. All other formats are ignored (#1241 by @RLumSK;
   thanks to Michael Kenzler for bringing this to our attention).
 
 ## Removed functions and deprecations
