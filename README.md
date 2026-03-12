@@ -76,8 +76,7 @@ suggesting design improvements or contributing new functions.
 Open an [issue](https://github.com/R-Lum/Luminescence/issues) or write
 us an [e-mail](mailto:developers@r-luminescence.org) if anything crosses
 your mind or if you want your new self-written function to be to
-included in the package. See also our [workflow for
-contributions](CONTRIBUTING.md).
+included in the package.
 
 You are kindly invited to bring forward the package with us!
 
