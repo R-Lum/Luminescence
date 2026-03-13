@@ -139,3 +139,12 @@ test_that("input validation", {
                "[convert_CW2pPMi()] recordType RF is not allowed for the transformation",
                fixed = TRUE)
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 1483
+  expect_warning(expect_s3_class(convert_CW2pHMi(values, numeric()),
+                                 "data.frame"),
+                 "56 invalid values found, replaced by the mean of the nearest")
+})

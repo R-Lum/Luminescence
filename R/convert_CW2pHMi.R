@@ -90,7 +90,7 @@
 #' the values are removed and no further interpolation is attempted.
 #' In every case a warning message is shown.
 #'
-#' @section Function version: 0.2.5
+#' @section Function version: 0.2.6
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -205,6 +205,8 @@ convert_CW2pHMi<- function(
   ## Integrity checks -------------------------------------------------------
   temp.values <- .prepare_CW2pX(object)
   .validate_class(delta, "numeric", null.ok = TRUE)
+  if (length(delta) == 0)
+    delta <- NULL
   if (anyNA(delta)) {
     .throw_error("'delta' cannot contain NA values")
   }
