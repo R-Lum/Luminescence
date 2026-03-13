@@ -15,4 +15,10 @@
   `valgrind` memory debugger run by CRAN, and triggered a request to
   resubmit the package (#1479).
 
+### `calc_WodaFuchs()`
+
+- The curvature was computed but never used. As its implementation
+  looked fragile, the line of code that computed it was commented out
+  (#223).
+
 ## Other changes
