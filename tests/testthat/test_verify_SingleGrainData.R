@@ -121,6 +121,11 @@ test_that("check functionality", {
   expect_length(res@records, 0)
   expect_equal(res@originator, "verify_SingleGrainData")
 
+  expect_s4_class(res <- verify_SingleGrainData(list(), cleanup = NA),
+                  "RLum.Results")
+  expect_length(res@data, 0)
+  expect_equal(res@originator, "verify_SingleGrainData")
+
   ## list
   expect_silent(suppressWarnings(verify_SingleGrainData(list(object))))
 })
