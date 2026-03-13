@@ -103,7 +103,7 @@ the values are removed and no further interpolation is attempted.
 In every case a warning message is shown.
 }
 \section{Function version}{
- 0.2.6
+ 0.2.7
 }
 
 \examples{

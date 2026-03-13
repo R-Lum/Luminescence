@@ -90,7 +90,7 @@
 #' the values are removed and no further interpolation is attempted.
 #' In every case a warning message is shown.
 #'
-#' @section Function version: 0.2.6
+#' @section Function version: 0.2.7
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -218,6 +218,9 @@ convert_CW2pHMi<- function(
 
   ##time transformation t >> t'
   t<-temp.values[,1]
+  if (anyDuplicated(t) > 0) {
+    .throw_error("'object' contains duplicated time values")
+  }
 
   ##set delta
   ##if no values for delta is set selected a delta value for a maximum of

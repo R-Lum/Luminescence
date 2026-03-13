@@ -1,7 +1,8 @@
 #' @title Transform a CW-OSL curve into a pLM-OSL curve via interpolation under linear
 #' modulation conditions
 #'
-#' @description Transforms a conventionally measured continuous-wave (CW) OSL-curve into a
+#' @description
+#' Transforms a conventionally measured continuous-wave (CW) OSL-curve into a
 #' pseudo linearly modulated (pLM) curve under linear modulation conditions
 #' using the interpolation procedure described by Bos & Wallinga (2012).
 #'
@@ -81,7 +82,7 @@
 #' provided manually and more than two points are extrapolated, a warning
 #' message is returned.
 #'
-#' @section Function version: 0.3.4
+#' @section Function version: 0.3.5
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -175,6 +176,9 @@ convert_CW2pLMi<- function(
 
   ##(b) time transformation t >> t'
   t<-temp.values[,1]
+  if (anyDuplicated(t) > 0) {
+    .throw_error("'object' contains duplicated time values")
+  }
 
   ##set P
   ##if no values for P is set selected a P value for a maximum of
