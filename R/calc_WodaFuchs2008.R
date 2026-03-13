@@ -139,9 +139,10 @@ calc_WodaFuchs2008 <- function(
   ## log counts
   counts_log <- log(H_c)
 
-  ## estimate curvature
-  curvature <- (counts_log[1] - counts_log[2]) /
-    (counts_log[1] - counts_log[3])
+  ## commented out for issue 223
+  ## ## estimate curvature
+  ## curvature <- (counts_log[1] - counts_log[2]) /
+  ##   (counts_log[1] - counts_log[3])
 
   ## do some other black magic
   class_center <- H$mids[H_c == max(H_c)]
