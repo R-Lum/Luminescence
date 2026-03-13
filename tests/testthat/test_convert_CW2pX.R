@@ -35,12 +35,10 @@ test_that("check functionality", {
                             tolerance = tol),
       "t' is beyond the time resolution and more than two data points")
 
-  expect_warning(expect_error(convert_CW2pLMi(iris),
-                              "All points are outside the interpolation range"),
-                 "collapsing to unique 'x' values")
-  expect_warning(expect_error(convert_CW2pPMi(iris),
-                              "All points are outside the interpolation range"),
-                 "collapsing to unique 'x' values")
+  expect_error(convert_CW2pLMi(iris[1:5, ]),
+               "All points are outside the interpolation range")
+  expect_error(convert_CW2pPMi(iris[1:5, ]),
+               "All points are outside the interpolation range")
 
   ## deprecated argument
   expect_warning(convert_CW2pHMi(values = object),
@@ -92,6 +90,8 @@ test_that("input validation", {
                "All interpolated values are Inf/NaN/NA, check your data")
   expect_error(convert_CW2pHMi(data.frame(a = 1:10, b = NA)),
                "'object' should have at least 2 non-missing values")
+  expect_error(convert_CW2pHMi(iris),
+               "'object' contains duplicated time values")
   expect_error(convert_CW2pHMi(values, iris),
                "'delta' should be of class 'numeric' or NULL")
   expect_error(convert_CW2pHMi(values, NA_real_),
@@ -105,6 +105,8 @@ test_that("input validation", {
                "'object' should have 2 columns")
   expect_error(convert_CW2pLMi(data.frame(a = 1:10, b = NA)),
                "'object' should have at least 2 non-missing values")
+  expect_error(convert_CW2pLMi(iris),
+               "'object' contains duplicated time values")
   expect_error(convert_CW2pLMi(object, iris),
                "'P' should be a single positive value")
 
@@ -123,6 +125,8 @@ test_that("input validation", {
                "'object' should have 2 columns")
   expect_error(convert_CW2pPMi(data.frame(a = 1:10, b = NA)),
                "'object' should have at least 2 non-missing values")
+  expect_error(convert_CW2pPMi(iris),
+               "'object' contains duplicated time values")
   expect_error(convert_CW2pPMi(values, iris),
                "'P' should be a single positive value or NULL")
 

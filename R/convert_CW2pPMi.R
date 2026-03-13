@@ -1,7 +1,8 @@
 #' @title Transform a CW-OSL curve into a pPM-OSL curve via interpolation under
 #' parabolic modulation conditions
 #'
-#' @description Transforms a conventionally measured continuous-wave (CW) OSL-curve into a
+#' @description
+#' Transforms a conventionally measured continuous-wave (CW) OSL-curve into a
 #' pseudo parabolic modulated (pPM) curve under parabolic modulation conditions
 #' using the interpolation procedure described by Bos & Wallinga (2012).
 #'
@@ -80,7 +81,7 @@
 #' should be limited to avoid artificial intensity data. If `P` is
 #' provided manually, not more than two points are extrapolated.
 #'
-#' @section Function version: 0.2.4
+#' @section Function version: 0.2.5
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -174,6 +175,9 @@ convert_CW2pPMi<- function(
 
   ##time transformation t >> t'
   t<-temp.values[,1]
+  if (anyDuplicated(t) > 0) {
+    .throw_error("'object' contains duplicated time values")
+  }
 
   ##set P
   ##if no values for P is set selected a P value for a maximum of

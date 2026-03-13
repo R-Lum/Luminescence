@@ -91,7 +91,7 @@ provided manually and more than two points are extrapolated, a warning
 message is returned.
 }
 \section{Function version}{
- 0.3.4
+ 0.3.5
 }
 
 \examples{
