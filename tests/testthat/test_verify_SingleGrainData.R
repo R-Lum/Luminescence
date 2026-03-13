@@ -9,13 +9,17 @@ test_that("input validation", {
   expect_error(verify_SingleGrainData("test"),
                "'object' should be of class 'Risoe.BINfileData', 'RLum.Analysis'")
   expect_error(verify_SingleGrainData(object, threshold = "error"),
-               "'threshold' should be of class 'numeric' or 'integer'")
+               "'threshold' should be a single positive value")
+  expect_error(verify_SingleGrainData(object, threshold = integer(0)),
+               "'threshold' should be a single positive value")
   expect_error(verify_SingleGrainData(object, use_fft = "error"),
                "'use_fft' should be a single logical value")
   expect_error(verify_SingleGrainData(object, cleanup = "error"),
                "'cleanup' should be a single logical value")
   expect_error(verify_SingleGrainData(object, cleanup_level = "error"),
                "'cleanup_level' should be one of 'aliquot' or 'curve'")
+  expect_error(verify_SingleGrainData(object, verbose = "error"),
+               "'verbose' should be a single logical value")
 
   object@originator <- "error"
   expect_error(verify_SingleGrainData(object),

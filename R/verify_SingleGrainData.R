@@ -27,12 +27,12 @@
 #' ratio was chosen as both terms can become 0 which would result in 0 or `Inf`,
 #' if the ratio is calculated.
 #'
-#' @param object [Luminescence::Risoe.BINfileData-class] or [Luminescence::RLum.Analysis-class]
-#'  (**required**):  input object. The function also accepts a list with objects of allowed type.
+#' @param object [Luminescence::Risoe.BINfileData-class] or [Luminescence::RLum.Analysis-class] (**required**):
+#' input object. The function also accepts a list with objects of allowed type.
 #'
 #' @param threshold [numeric] (*with default*):
 #' numeric threshold value for the allowed difference between the `mean` and
-#' the `var` of the count values (see details)
+#' the `var` of the count values (see details).
 #'
 #' @param use_fft [logical] (*with default*): applies an additional approach based on [stats::fft].
 #' The threshold is fixed and cannot be changed.
@@ -102,12 +102,10 @@
 #' strongly recommended to use the argument `cleanup = TRUE` carefully if
 #' the cleanup works only on curves.
 #'
-#' @section Function version: 0.2.6
-#'
+#' @section Function version: 0.2.7
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
-#'
 #'
 #' @seealso [Luminescence::Risoe.BINfileData-class], [Luminescence::RLum.Analysis-class],
 #' [Luminescence::write_R2BIN], [Luminescence::read_BIN2R]
@@ -165,9 +163,9 @@ verify_SingleGrainData <- function(
   # Self Call -----------------------------------------------------------------------------------
   if (inherits(object, "list")) {
     if (length(object) == 0)
-      return(set_RLum(class = if (cleanup) "RLum.Analysis" else "RLum.Results"))
+      return(set_RLum(class = if (isTRUE(cleanup)) "RLum.Analysis" else "RLum.Results"))
 
-    results <- .warningCatcher(lapply(1:length(object), function(x) {
+    results <- .warningCatcher(lapply(seq_along(object), function(x) {
       verify_SingleGrainData(
         object = object[[x]],
         threshold = threshold,
@@ -181,16 +179,14 @@ verify_SingleGrainData <- function(
     }))
 
     ##account for cleanup
-    if (cleanup) {
-      results <- .rm_NULL_elements(.rm_nonRLum(results))
-      if(length(results) == 0)
-        return(NULL)
-      else
-      return(results)
-
-    }else{
+    if (!cleanup)
       return(merge_RLum(results))
-    }
+
+    results <- .rm_NULL_elements(.rm_nonRLum(results))
+    if (length(results) == 0)
+      return(NULL)
+
+    return(results)
   }
 
   ## ------------------------------------------------------------------------
@@ -198,10 +194,12 @@ verify_SingleGrainData <- function(
 
   .validate_class(object, c("Risoe.BINfileData", "RLum.Analysis"),
                   extra = "a 'list' of such objects")
-  .validate_class(threshold, c("numeric", "integer"))
+  .validate_positive_scalar(threshold)
   .validate_logical_scalar(use_fft)
   .validate_logical_scalar(cleanup)
   cleanup_level <- .validate_args(cleanup_level, c("aliquot", "curve"))
+  .validate_logical_scalar(verbose)
+  .validate_logical_scalar(plot)
 
   ## implement Fourier Transform for Frequency Analysis
   ## inspired by ChatGPT (OpenAI, 2024)
