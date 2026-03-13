@@ -14,7 +14,9 @@ test_that("input validation", {
   expect_error(calc_IEU(df, a = 0.2, b = "error", interval = 1),
                "'b' should be of class 'numeric'")
   expect_error(calc_IEU(df, a = 0.2, b = 1.9, interval = "error"),
-               "'interval' should be of class 'numeric'")
+               "'interval' should be a single positive value")
+  expect_error(calc_IEU(df, a = 0.2, b = 1.9, interval = NA_real_),
+               "'interval' should be a single positive value")
   expect_error(calc_IEU(data.frame(), a = 0.2, b = 1.9, interval = 1),
                "'data' contains no data")
   expect_error(calc_IEU(iris[0, ], a = 0.2, b = 1.9, interval = 1),

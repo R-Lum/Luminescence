@@ -42,7 +42,7 @@
 #'
 #' The output should be accessed using the function [Luminescence::get_RLum].
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.3
 #'
 #' @author
 #' Rachel Smedley, Geography & Earth Sciences, Aberystwyth University (United Kingdom) \cr
@@ -100,7 +100,7 @@ calc_IEU <- function(
 
   .validate_class(a, "numeric")
   .validate_class(b, "numeric")
-  .validate_class(interval, "numeric")
+  .validate_positive_scalar(interval)
 
   ##==========================================================================##
   ## ... ARGUMENTS

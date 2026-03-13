@@ -65,7 +65,7 @@
 #'
 #' No TL curves will be removed from the input object without further warning.
 #'
-#' @section Function version: 0.3.3
+#' @section Function version: 0.3.4
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -120,6 +120,8 @@ analyse_SAR.TL <- function(
                 since = "1.2.0")
     signal_integral <- list(...)$signal.integral
   }
+  integral_input <- .validate_args(integral_input, c("channel", "temperature",
+                                                     "measurement"))
   if (integral_input == "temperature") {
     .deprecated(old = "integral_input = \"temperature\"",
                 new = "integral_input = \"measurement\"",

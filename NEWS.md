@@ -15,6 +15,11 @@
   `valgrind` memory debugger run by CRAN, and triggered a request to
   resubmit the package (#1479).
 
+### `analyse_SAR.TL()`
+
+- The `integral_input` argument was not sufficiently validated when
+  checking for deprecated arguments (#1483).
+
 ### `calc_WodaFuchs()`
 
 - The curvature was computed but never used. As its implementation
