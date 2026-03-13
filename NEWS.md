@@ -35,4 +35,8 @@
   better assess which should be kept or why there are duplicates at all
   (#1485).
 
+### `verify_SingleGrainData()`
+
+- The function better validates all its arguments (#1487).
+
 ## Other changes
