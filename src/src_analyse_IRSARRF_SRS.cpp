@@ -46,14 +46,12 @@ RcppExport SEXP analyse_IRSARRF_SRS(std::vector<double> values_regenerated_limit
   int v_length = vslide_range.size();
   int v_index = 0;
   std::vector<double> results(res_size);
-  double v_leftright[two_size]; // the virtual vector
-  double t_leftright[two_size]; // the test points
-  double c_leftright[two_size]; // the calculation
+  double t_leftright[two_size] = {}; // the test points
+  double c_leftright[two_size] = {}; // the calculation
 
   // initialise values: at the beginning, the virtual vector includes all
   // points in vslide_range
-  v_leftright[0] = 0;
-  v_leftright[1] = vslide_range.size() - 1;
+  double v_leftright[two_size] = {0.0, vslide_range.size() - 1.0};
 
   if (v_length > 1) {
     // select the test region to be the central third of the virtual vector

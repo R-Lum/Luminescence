@@ -19,5 +19,11 @@ header-includes:
 
 ## Bugfixes and changes
 
+### `analyse_IRSAR.RF()`
+
+* A work array in the C++ implementation of the sliding method was not
+correctly initialised when `n.MC = 1`. This was spotted by the `valgrind`
+memory debugger run by CRAN, and triggered a request to resubmit the
+package (#1479).
 
 ## Other changes
