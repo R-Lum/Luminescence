@@ -85,7 +85,7 @@ background see Aitken and Smith (1988)
 No TL curves will be removed from the input object without further warning.
 }
 \section{Function version}{
- 0.3.3
+ 0.3.4
 }
 
 \examples{
