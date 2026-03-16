@@ -105,6 +105,7 @@ convert_Activity2Concentration <- function(
   ## Integrity checks -------------------------------------------------------
   .validate_class(data, "data.frame")
   .validate_logical_scalar(verbose)
+  .validate_class(input_unit, "character")
 
   if(ncol(data)<3)
     .throw_error("'data' should have at least 3 columns")
