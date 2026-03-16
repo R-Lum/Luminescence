@@ -17,12 +17,12 @@ verify_SingleGrainData(
 )
 }
 \arguments{
-\item{object}{\linkS4class{Risoe.BINfileData} or \linkS4class{RLum.Analysis}
-(\strong{required}):  input object. The function also accepts a list with objects of allowed type.}
+\item{object}{\linkS4class{Risoe.BINfileData} or \linkS4class{RLum.Analysis} (\strong{required}):
+input object. The function also accepts a list with objects of allowed type.}
 
 \item{threshold}{\link{numeric} (\emph{with default}):
 numeric threshold value for the allowed difference between the \code{mean} and
-the \code{var} of the count values (see details)}
+the \code{var} of the count values (see details).}
 
 \item{use_fft}{\link{logical} (\emph{with default}): applies an additional approach based on \link[stats:fft]{stats::fft}.
 The threshold is fixed and cannot be changed.}
@@ -119,7 +119,7 @@ strongly recommended to use the argument \code{cleanup = TRUE} carefully if
 the cleanup works only on curves.
 }
 \section{Function version}{
- 0.2.6
+ 0.2.7
 }
 
 \examples{
