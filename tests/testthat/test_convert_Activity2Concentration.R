@@ -28,6 +28,11 @@ test_that("input validation", {
     object = convert_Activity2Concentration(data = data_activity, input_unit = "stop"),
     "'input_unit' should be one of 'activity' or 'abundance'")
 
+  expect_error(
+    object = convert_Activity2Concentration(data_activity,
+                                            input_unit = set_RLum("RLum.Data.Curve")),
+    "'input_unit' should be of class 'character'")
+
   expect_error(convert_Activity2Concentration(data_activity, verbose = NA),
     "'verbose' should be a single logical value")
 })
