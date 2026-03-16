@@ -40,6 +40,8 @@ test_that("input validation", {
     fit_DoseResponseCurve(LxTxData, mode = "error"),
     "[fit_DoseResponseCurve()] 'mode' should be one of 'interpolation'",
     fixed = TRUE)
+  expect_error(fit_DoseResponseCurve(LxTxData, mode = set_RLum("RLum.Results")),
+               "'mode' should be one of 'interpolation', 'extrapolation' or")
 
   ## fit.method
   expect_error(

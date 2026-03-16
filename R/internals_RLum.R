@@ -1221,7 +1221,7 @@ SW <- function(expr) {
   ## `arg` will have multiple values when the available choices are listed
   ## in the function's formal arguments: in that case all elements in `arg`
   ## are also in `choices` and we return the first one
-  if (length(arg) > 1L) {
+  if (length(arg) > 1L && inherits(arg, "character")) {
     if (all(arg %in% choices))
       return(arg[1L])
 
@@ -1237,7 +1237,8 @@ SW <- function(expr) {
   if (null.ok)
     choices.extra <- c(choices.extra, "NULL")
 
-  idx.match <- pmatch(arg, choices, nomatch = 0L, duplicates.ok = TRUE)
+  idx.match <- tryCatch(pmatch(arg, choices, nomatch = 0L, duplicates.ok = TRUE),
+                        error = function(e) 0L)
   if (all(idx.match == 0L))
     .throw_error(name %||% .first_argument(), " should be one of ",
                  .collapse(choices.extra, quote = FALSE, last_sep = " or "))
