@@ -27,6 +27,8 @@ test_that("input validation", {
   expect_error(normalise_RLum(temp, norm = c(1,1)), "'norm' should be of class 'logical', 'character' or 'numeric' and have length 1")
   expect_error(normalise_RLum(temp, norm = -3),
                "'norm' should be a single positive value or one of 'max', 'min'")
+  expect_error(normalise_RLum(temp, norm = NA),
+               "'norm' should be a single logical value or one of 'max', 'min'")
 })
 
 test_that("check functionality", {

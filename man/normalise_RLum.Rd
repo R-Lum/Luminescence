@@ -98,7 +98,7 @@ the argument \code{norm}
 
 }}
 \section{Function version}{
- 0.1.2
+ 0.1.3
 }
 
 \examples{
