@@ -177,7 +177,7 @@ test_that("regression tests", {
   ## issue 1332
   ## the seed was picked to get the smallest number of warnings and messages;
   ## this test relies on not using SW() to do its job
-  set.seed(3)
+  set.seed(6)
   expect_warning(expect_warning(expect_message(
       calc_MinDose(data = data.frame(De = c(rnorm(4) + 5, -1),
                                      De_Err = rnorm(5) + 1),
