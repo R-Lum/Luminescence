@@ -154,7 +154,7 @@
 #' **Caution:** If you are using early light subtraction (EBG), please either provide your
 #' own `sigmab` value or use `background.count.distribution = "poisson"`.
 #'
-#' @section Function version: 0.9.5
+#' @section Function version: 0.9.6
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
@@ -431,12 +431,10 @@ calc_OSLLxTxRatio <- function(
         min.bg.integral + len.sg.integral * (2 + 1) <= length(curve)) {
 
       ## note that m = n*k = multiple of background_integral from signal_integral
-      Y.i <- vapply(0:round(k, digits = 0), function(i) {
+      Y.i <- vapply(0:(floor(k) - 1), function(i) {
         sum(curve[min.bg.integral +
-                     (len.sg.integral * i):(len.sg.integral * (i + 1))])
+                  (len.sg.integral * i):(len.sg.integral * (i + 1) - 1)])
       }, FUN.VALUE = numeric(1))
-
-      Y.i <- na.exclude(Y.i)
       n <- 1
     } else {
       ## warn if m is < 25, as suggested by Rex Galbraith (low number of
