@@ -419,7 +419,7 @@ fit_OSLLifeTimes <- function(
   if(verbose){
       cat("\n[fit_OSLLifeTime()]\n")
       cat("\n(1) Start parameter and component adapation")
-      cat("\n---------------------(start adaption)------------------------------------")
+      cat("\n---------------------(start adaption)---------------------\n")
     }
 
     while(!is.na(suppressWarnings(stats::qf(method_control_setting$p, df1 = 2, df2 = length(df[[2]]) - 2 * m - 2))) && (
@@ -486,7 +486,7 @@ fit_OSLLifeTimes <- function(
 
         }else{
           cat(" >> [stop]\n")
-          cat("---------------------(end adaption)--------------------------------------\n\n")
+          cat("----------------------(end adaption)----------------------\n\n")
         }
       }
 
@@ -494,7 +494,7 @@ fit_OSLLifeTimes <- function(
       if(!is.null(n.components)){
         if(verbose){
          cat(" >> [forced stop]\n")
-         cat("---------------------(end adaption)--------------------------------------\n\n")
+         cat("----------------------(end adaption)----------------------\n\n")
         }
 
         start_parameters <- start$optim$bestmem
