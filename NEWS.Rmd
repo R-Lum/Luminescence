@@ -44,6 +44,11 @@ Previously this generated a warning but produced results according to whatever
 charge of removing duplicated values, so that they can better assess which
 should be kept or why there are duplicates at all (#1485).
 
+### `fit_OSLLifeTimes()`
+
+* The function will remove any `NA` or `NaN` values from `signal_range` before
+using it (#1497).
+
 ### `normalise_RLum()`
 
 * The function crashed if `norm = NA` was used (#1489; thanks to @JohannesFriedrich

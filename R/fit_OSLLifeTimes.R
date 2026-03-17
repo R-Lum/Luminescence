@@ -300,6 +300,10 @@ fit_OSLLifeTimes <- function(
   ##signal_range
   if(!is.null(signal_range)){
     .validate_class(signal_range, "numeric")
+    if (anyNA(signal_range)) {
+      .throw_warning("'signal_range' contains missing values, removed")
+      signal_range <- signal_range[!is.na(signal_range)]
+    }
     .validate_not_empty(signal_range)
 
     ## format the extremes of the signal range
