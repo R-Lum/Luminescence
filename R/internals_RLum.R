@@ -1242,7 +1242,7 @@ SW <- function(expr) {
   if (all(idx.match == 0L))
     .throw_error(name %||% .first_argument(), " should be one of ",
                  .collapse(choices.extra, quote = FALSE, last_sep = " or "))
-  idx <- idx.match[idx.match > 0L]
+  idx <- idx.match[idx.match > 0L][1]
   choices[idx]
 }
 
