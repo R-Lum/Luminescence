@@ -44,7 +44,7 @@
 
 ### `convert_CW2HMi()`, `convert_CW2LMi()`, `convert_CW2PMi()`
 
-- The functions stop early if the imput object contains duplicate times.
+- The functions stop early if the input object contains duplicate times.
   Previously this generated a warning but produced results according to
   whatever `approx()` decided to keep. We believe that instead the user
   should be in charge of removing duplicated values, so that they can
