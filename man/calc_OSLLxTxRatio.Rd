@@ -100,7 +100,7 @@ Slot \code{data} contains a \link{list} with the following structure:
 .. $ SN_RATIO_TnTx,
 .. $ LxTx
 .. $ LxTx.Error
-$ calc.parameters (list)
+$calc.parameters (list)
 .. $ sigmab.LnTx
 .. $ sigmab.TnTx
 .. $ k
@@ -176,7 +176,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.9.6
+ 0.9.7
 }
 
 \examples{
