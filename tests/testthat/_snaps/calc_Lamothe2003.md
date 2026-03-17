@@ -71,7 +71,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.07059232]
+                  "value": [0.07054823]
                 },
                 {
                   "type": "double",
@@ -81,7 +81,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.39045074]
+                  "value": [0.39044278]
                 },
                 {
                   "type": "double",
@@ -91,7 +91,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [73.04454836]
+                  "value": [73.04296967]
                 },
                 {
                   "type": "double",
@@ -101,7 +101,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [53.02487804]
+                  "value": [53.02410383]
                 },
                 {
                   "type": "logical",
@@ -218,7 +218,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.07059232]
+                  "value": [0.07054823]
                 },
                 {
                   "type": "double",
@@ -228,7 +228,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.38988511]
+                  "value": [0.38987713]
                 },
                 {
                   "type": "double",
@@ -238,7 +238,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [66.66899119]
+                  "value": [66.66751954]
                 },
                 {
                   "type": "double",
@@ -248,7 +248,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [49.92617104]
+                  "value": [49.92547144]
                 },
                 {
                   "type": "logical",

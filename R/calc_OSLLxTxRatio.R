@@ -136,7 +136,7 @@
 #' .. $ SN_RATIO_TnTx,
 #' .. $ LxTx
 #' .. $ LxTx.Error
-#' $ calc.parameters (list)
+#' $calc.parameters (list)
 #' .. $ sigmab.LnTx
 #' .. $ sigmab.TnTx
 #' .. $ k
@@ -154,7 +154,7 @@
 #' **Caution:** If you are using early light subtraction (EBG), please either provide your
 #' own `sigmab` value or use `background.count.distribution = "poisson"`.
 #'
-#' @section Function version: 0.9.6
+#' @section Function version: 0.9.7
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
@@ -448,8 +448,8 @@ calc_OSLLxTxRatio <- function(
       n <- len.sg.integral
     }
 
-    ## sigmab is denoted as sigma^2 = s.Y^2 - Y.mean, therefore abs() is used
-    abs(stats::var(Y.i) - mean(Y.i)) * n
+    ## sigmab is denoted as sigma^2 = s.Y^2 - Y.mean, provided it's positive
+    max(stats::var(Y.i) - mean(Y.i), 0) * n
   }
 
   ##account for a manually set sigmab value
