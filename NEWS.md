@@ -31,6 +31,11 @@
   as they call this function (#1495; thanks to @AndrzejBluszcz for
   reporting and fixing).
 
+### `calc_TLLxTxRatio()`
+
+- The function now checks that the input data frames contain 2 columns
+  instead of crashing if they are malformed (#1501).
+
 ### `calc_WodaFuchs()`
 
 - The curvature was computed but never used. As its implementation

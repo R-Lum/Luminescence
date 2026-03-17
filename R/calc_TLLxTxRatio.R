@@ -107,7 +107,11 @@ calc_TLLxTxRatio <- function(
 
   ## Integrity checks -------------------------------------------------------
   .validate_class(Lx.data.signal, c("data.frame", "RLum.Data.Curve"))
+  if (ncol(Lx.data.signal) < 2)
+    .throw_error("'Lx.data.signal' should have 2 columns")
   .validate_class(Tx.data.signal, c("data.frame", "RLum.Data.Curve"))
+  if (ncol(Tx.data.signal) < 2)
+    .throw_error("'Tx.data.signal' should have 2 columns")
 
   ##check DATA TYPE differences
    if(is(Lx.data.signal)[1] != is(Tx.data.signal)[1])
@@ -127,7 +131,7 @@ calc_TLLxTxRatio <- function(
   }
 
   ##(d) - check if Lx and Tx curves have the same channel length
-  if (length(Lx.data.signal[, 2]) != length(Tx.data.signal[, 2])) {
+  if (nrow(Lx.data.signal) != nrow(Tx.data.signal)) {
     .throw_error("Channel numbers differ for Lx and Tx data")
   }
 
@@ -156,12 +160,18 @@ calc_TLLxTxRatio <- function(
   signal.interval <- signal_integral
 
   ## Lx.data
-  if (!is.null(Lx.data.background))
+  if (!is.null(Lx.data.background)) {
+    if (ncol(Lx.data.background) < 2)
+      .throw_error("'Lx.data.background' should have 2 columns")
     LnLx.BG <- sum(Lx.data.background[signal.interval, 2])
+  }
 
   ## Tx.data
-  if (!is.null(Tx.data.background))
+  if (!is.null(Tx.data.background)) {
+    if (ncol(Tx.data.background) < 2)
+      .throw_error("'Tx.data.background' should have 2 columns")
     TnTx.BG <- sum(Tx.data.background[signal.interval, 2])
+  }
 
 # Calculate Lx/Tx values --------------------------------------------------
     ## preset variables

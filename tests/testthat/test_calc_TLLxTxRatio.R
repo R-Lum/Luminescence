@@ -57,6 +57,24 @@ test_that("input validation", {
       signal_integral),
       "[calc_TLLxTxRatio()] Channel numbers differ for Lx and Tx data",
       fixed = TRUE)
+
+  ## input sizes
+  expect_error(calc_TLLxTxRatio(Lx.data.signal = iris[, 1, drop = FALSE]),
+               "'Lx.data.signal' should have 2 columns")
+  expect_error(calc_TLLxTxRatio(Lx.data.signal = iris,
+                                Tx.data.signal = iris[, 1, drop = FALSE]),
+               "'Tx.data.signal' should have 2 columns")
+  expect_error(calc_TLLxTxRatio(Lx.data.signal = iris,
+                                Tx.data.signal = iris,
+                                Lx.data.background = iris[, 1, drop = FALSE],
+                                signal_integral = 1:5),
+               "'Lx.data.background' should have 2 columns")
+  expect_error(calc_TLLxTxRatio(Lx.data.signal = iris,
+                                Tx.data.signal = iris,
+                                Lx.data.background = iris,
+                                Tx.data.background = iris[, 1, drop = FALSE],
+                                signal_integral = 1:5),
+               "'Tx.data.background' should have 2 columns")
 })
 
 test_that("check functionality", {
