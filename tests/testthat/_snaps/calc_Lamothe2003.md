@@ -71,7 +71,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.07069549]
+                  "value": [0.07059232]
                 },
                 {
                   "type": "double",
@@ -81,27 +81,27 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.39046941]
+                  "value": [0.39045074]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [471.29942897]
+                  "value": [471.32222261]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [73.04714676]
+                  "value": [73.04454836]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [281.20490989]
+                  "value": [281.21850991]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [53.02532041]
+                  "value": [53.02487804]
                 },
                 {
                   "type": "logical",
@@ -218,7 +218,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.07069549]
+                  "value": [0.07059232]
                 },
                 {
                   "type": "double",
@@ -228,27 +228,27 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.38990381]
+                  "value": [0.38988511]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [470.80681631]
+                  "value": [470.82952891]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [66.66797113]
+                  "value": [66.66899119]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [280.91098825]
+                  "value": [280.92453992]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [49.92480659]
+                  "value": [49.92617104]
                 },
                 {
                   "type": "logical",
