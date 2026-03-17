@@ -181,6 +181,7 @@ test_that("plot_DetPlot", {
                        plot = FALSE)
   res1@info <- res2@info <- list() # remove $call
   res1@.uid <- res2@.uid <- NA_character_
+  res1@.pid <- res2@.pid <- NA_character_
   expect_equal(res1, res2)
 
   ## deprecated argument
