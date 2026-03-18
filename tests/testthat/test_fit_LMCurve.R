@@ -19,6 +19,8 @@ test_that("input validation", {
   expect_error(fit_LMCurve(set_RLum("RLum.Data.Curve", recordType = "LM-OSL"),
                            object.bg = values.curveBG),
                "'object' and 'object.bg' have different lengths")
+  expect_error(fit_LMCurve(values.curve, object.bg = values.curveBG[, 1, drop = FALSE]),
+               "'object.bg' should have 2 columns")
   expect_error(fit_LMCurve(values.curve, object.bg = values.curveBG,
                            bg.subtraction = "error"),
                "'bg.subtraction' should be one of 'polynomial', 'linear', 'channel'")

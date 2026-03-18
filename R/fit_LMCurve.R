@@ -317,6 +317,9 @@ fit_LMCurve<- function(
       .throw_error("'object' and 'object.bg' have different lengths")
 
     ## silently limit columns of object.bg to prevent problems
+    if (ncol(object.bg) < 2) {
+      .throw_error("'object.bg' should have 2 columns")
+    }
     object.bg <- object.bg[, 1:2]
   }
 
