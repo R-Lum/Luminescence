@@ -18,12 +18,14 @@ test_that("input validation", {
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, n.components = -1),
                "'n.components' should be a single positive integer value")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, signal_range = FALSE),
-               "'signal_range' should be of class 'numeric'")
+               "'signal_range' should be of class 'integer' or 'numeric'")
   expect_warning(expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, signal_range = NaN),
                               "'signal_range' cannot be an empty numeric"),
                  "'signal_range' contains missing values, removed")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, signal_range = numeric()),
-               "'signal_range' cannot be an empty numeric")
+               "'signal_range' should be of class 'integer' or 'numeric' and")
+  expect_error(fit_OSLLifeTimes(temp_mat, signal_range = 150:200),
+               "'signal_range' should be of class 'integer' or 'numeric' and have length 1 or 2")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, plot = NA),
                "'plot' should be a single logical value")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, verbose = NA),
@@ -45,9 +47,6 @@ test_that("input validation", {
                                   signal_range = c(1, 6), verbose = FALSE),
                  "For 2 components the dataset must have at least 7 signal points")
 
-  expect_warning(fit_OSLLifeTimes(temp_mat, n.components = 1,
-                                  signal_range = c(1, 150:200), verbose = FALSE),
-                 "'signal_range' has more than 2 elements")
   expect_warning(fit_OSLLifeTimes(temp_mat, n.components = 1,
                                   signal_range = -1, verbose = FALSE),
                  "'signal_range' accepts only positive values")
@@ -149,6 +148,13 @@ test_that("check functionality", {
       object = temp_mat[125:130, ],
       verbose = FALSE,
       plot = FALSE),
+      tolerance = 1.5e-5)
+  expect_snapshot_RLum(fit_OSLLifeTimes(
+      temp_mat,
+      n.components = 1,
+      signal_range = c(1, 150),
+      verbose = FALSE,
+      plot = TRUE),
       tolerance = 1.5e-5)
 
   expect_warning(fit_OSLLifeTimes(

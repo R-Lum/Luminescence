@@ -51,9 +51,11 @@
 #' the default value is 0. `tp` has the same unit as the measurement data, e.g., µs. Please set this parameter
 #' carefully, if it all, otherwise you may heavily bias your fit results.
 #'
-#' @param signal_range [numeric] (*optional*): allows to set a channel range, by default all channels are used, e.g.
-#' `signal_range = c(2,100)` considers only channels 2 to 100 and `signal_range = c(2)` considers only channels
-#' from channel 2 onwards.
+#' @param signal_range [numeric] (*optional*):
+#' set a channel range, either by specifying both extremes, e.g.
+#' `signal_range = c(2, 100)` considers only channels 2 to 100, or only the
+#' start of the range, e.g. `signal_range = 2` considers only channels from
+#' channel 2 onwards. If `NULL` (default) all channels are used.
 #'
 #' @param n.components [numeric] (*optional*): Fix the number of components. If set the algorithm will try
 #' to fit the number of predefined components. If nothing is set, the algorithm will try to find the best number
@@ -94,7 +96,6 @@
 #'  `$fit` \tab `nls` \tab the fit object returned by [minpack.lm::nls.lm] \cr
 #' }
 #'
-#'
 #'**slot:** **`@info`**
 #'
 #' The original function call
@@ -130,7 +131,7 @@
 #' A plot showing the original data and the fit so far possible. The lower plot shows the
 #' residuals of the fit.
 #'
-#' @section Function version: 0.1.5
+#' @section Function version: 0.1.6
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -299,7 +300,7 @@ fit_OSLLifeTimes <- function(
 
   ##signal_range
   if(!is.null(signal_range)){
-    .validate_class(signal_range, "numeric")
+    .validate_class(signal_range, c("integer", "numeric"), length = 1:2)
     if (anyNA(signal_range)) {
       .throw_warning("'signal_range' contains missing values, removed")
       signal_range <- signal_range[!is.na(signal_range)]
@@ -314,9 +315,6 @@ fit_OSLLifeTimes <- function(
     ##check lengths
     if(length(signal_range) == 1)
       signal_range <- c(signal_range, nrow(df))
-    else if (length(signal_range) > 2)
-      .throw_warning("'signal_range' has more than 2 elements, ",
-                     "only the first 2 will be used, ", reset_msg(signal_range))
 
     if (any(signal_range < 1)) {
       signal_range <- pmax(signal_range, 1)
