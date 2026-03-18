@@ -330,6 +330,8 @@ calc_Huntley2006 <- function(
   .validate_logical_scalar(plot)
 
   ## Check 'data'
+  if (ncol(data) < 2)
+    .throw_error("'data' should have at least 2 columns")
   if (ncol(data) == 2) {
       .throw_warning("'data' has only two columns: we assume that the errors ",
                      "on LxTx are missing and automatically add a 5% error.\n",
