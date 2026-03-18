@@ -46,10 +46,15 @@
 #' standard error is calculated as:
 #'
 #' - `poisson`
-#' \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2)/Y_{0} - Y_{1}/k}
+#' \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2) / (Y_{0} - Y_{1}/k) }
 #'
 #' - `non-poisson`
-#' \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2 + \sigma^2(1+1/k))/Y_{0} - Y_{1}/k}
+#' \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2 + \sigma^2(1+1/k)) / (Y_{0} - Y_{1}/k) }
+#'
+#' If `background_integral = NA`, then in both cases the relative standard
+#' error simplifies to:
+#'
+#' \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0}) / Y_{0}}
 #'
 #' **Please note** that when using the early background subtraction method in
 #' combination with the 'non-poisson' distribution argument, the corresponding `Lx/Tx` error
@@ -73,8 +78,8 @@
 #'
 #' @param background_integral [integer] (**required**):
 #' vector of channels for the background integral. If set to `NA`, no
-#' background integral is subtracted; in this case, the error calculation and
-#' the signal-to-noise ratio will report `NA` values.
+#' background integral is subtracted; in this case, `sigmab.LnLx` (unless
+#' manually set) and the signal-to-noise ratio for Ln/Lx` will be `NA`.
 #'
 #' @param signal_integral_Tx [integer] (*optional*):
 #' vector of channels for the signal integral for the `Tx` curve.
@@ -83,8 +88,9 @@
 #' @param background_integral_Tx [integer] (*optional*):
 #' vector of channels for the background integral for the `Tx` curve.
 #' If `NULL`, the `background_integral` vector is used. If set to `NA`, no
-#' background integral for the `Tx` curve is subtracted; in this case, the
-#' error calculation and the signal-to-noise ratio will report `NA` values.
+#' background integral for the `Tx` curve is subtracted; in this case,
+#' `sigmab.TxTx` (unless manually set) and the signal-to-noise ratio for
+#' `Tn/Tx` will be `NA`.
 #'
 #' @param integral_input [character] (*with default*):
 #' input type for `signal_integral`, one of `"channel"` (default) or
@@ -154,7 +160,7 @@
 #' **Caution:** If you are using early light subtraction (EBG), please either provide your
 #' own `sigmab` value or use `background.count.distribution = "poisson"`.
 #'
-#' @section Function version: 0.9.7
+#' @section Function version: 0.9.8
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
@@ -420,8 +426,8 @@ calc_OSLLxTxRatio <- function(
   ## Y.1 (total counts over m later channels)
   Y.0 <- Lx.signal
   Y.0_TnTx <- Tx.signal
-  Y.1 <- sum(Lx.curve[background_integral])
-  Y.1_TnTx <- sum(Tx.curve[background_integral_Tx])
+  Y.1 <- if (.strict_na(background_integral)) 0 else sum(Lx.curve[background_integral])
+  Y.1_TnTx <- if (.strict_na(background_integral_Tx)) 0 else sum(Tx.curve[background_integral_Tx])
 
   ##(b) estimate overdispersion (here called sigmab), see equation (4) in
   ## Galbraith (2002), Galbraith (2014)
@@ -475,6 +481,8 @@ calc_OSLLxTxRatio <- function(
 
   ## relative standard error from equation (6)
   ## when sigmab = 0, this reduces to equation (3), valid for poisson
+  ## when background_integral = NA, we have Y1 = 0 and sigmab = 0, and this
+  ## reduces to sqrt(Y0) / Y0
   rse <- function(Y0, Y1, k, sigmab) {
     sqrt(Y0 + Y1 / k^2 + sigmab * (1 + 1 / k)) / (Y0 - Y1 / k)
   }
@@ -486,8 +494,8 @@ calc_OSLLxTxRatio <- function(
       .throw_warning("Unknown method for 'background.count.distribution', ",
                      "a non-poisson distribution is assumed")
     }
-    used.sigmab.LnLx <- sigmab.LnLx
-    used.sigmab.TnTx <- sigmab.TnTx
+    used.sigmab.LnLx <- if (.strict_na(background_integral)) 0 else sigmab.LnLx
+    used.sigmab.TnTx <- if (.strict_na(background_integral_Tx)) 0 else sigmab.TnTx
   }
 
   LnLx.relError <- rse(Y.0, Y.1, k, used.sigmab.LnLx)

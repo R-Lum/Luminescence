@@ -376,7 +376,8 @@ test_that("snapshot tests", {
     signal_integral = 1:20,
     background_integral = NA,
     signal_integral_Tx = 1:10,
-    background_integral_Tx = NA))
+    background_integral_Tx = NA),
+    tolerance = snapshot.tolerance)
 
   expect_snapshot_RLum(calc_OSLLxTxRatio(
     Lx.data,
@@ -399,5 +400,6 @@ test_that("snapshot tests", {
       signal_integral = 1:20,
       background_integral = 70:100,
       signal_integral_Tx = 1:10,
-      background_integral_Tx = NA))
+      background_integral_Tx = NA),
+      tolerance = snapshot.tolerance)
 })
