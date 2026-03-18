@@ -187,6 +187,8 @@ test_that("input validation", {
                "'sig0' should be a single non-negative value")
   expect_error(calc_OSLLxTxRatio(Lx.data, Tx.data, digits = -1),
                "'digits' should be a single non-negative integer value or NULL")
+  expect_error(calc_OSLLxTxRatio(Lx.data, Tx.data, od_rates = 1),
+               "'od_rates' should be of class 'numeric' or NULL and have length 3")
 })
 
 test_that("create warnings", {
@@ -256,6 +258,17 @@ test_that("create warnings", {
     integral_input = "measurement"),
     "'background_integral' out of bounds, reset to be between 52 and 100"),
     "'background_integral_Tx' out of bounds, reset to be between 37 and 100")
+
+  expect_warning(calc_OSLLxTxRatio(
+    Lx.data,
+    Tx.data,
+    signal_integral = 1:20,
+    signal_integral_Tx = 2:20,
+    background_integral = 60:100,
+    background_integral_Tx = 40:100,
+    sigmab = 10,
+    od_rates = c(1, 2, 3)
+  ), "Both 'sigmab' and 'od_rates' provided, 'od_rates' set to NULL")
 })
 
 test_that("snapshot tests", {
@@ -401,5 +414,14 @@ test_that("snapshot tests", {
       background_integral = 70:100,
       signal_integral_Tx = 1:10,
       background_integral_Tx = NA),
+      tolerance = snapshot.tolerance)
+
+  ## od_rates
+  expect_snapshot_RLum(calc_OSLLxTxRatio(
+      Lx.data,
+      Tx.data,
+      signal_integral = 1:20,
+      background_integral = 70:100,
+      od_rates = c(1, 1, 1)),
       tolerance = snapshot.tolerance)
 })
