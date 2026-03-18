@@ -37,8 +37,8 @@ no integrals are taken into account and their settings are ignored.}
 
 \item{background_integral}{\link{integer} (\strong{required}):
 vector of channels for the background integral. If set to \code{NA}, no
-background integral is subtracted; in this case, the error calculation and
-the signal-to-noise ratio will report \code{NA} values.}
+background integral is subtracted; in this case, \code{sigmab.LnLx} (unless
+manually set) and the signal-to-noise ratio for Ln/Lx\verb{will be}NA`.}
 
 \item{signal_integral_Tx}{\link{integer} (\emph{optional}):
 vector of channels for the signal integral for the \code{Tx} curve.
@@ -47,8 +47,9 @@ If \code{NULL}, the \code{signal_integral} vector is used.}
 \item{background_integral_Tx}{\link{integer} (\emph{optional}):
 vector of channels for the background integral for the \code{Tx} curve.
 If \code{NULL}, the \code{background_integral} vector is used. If set to \code{NA}, no
-background integral for the \code{Tx} curve is subtracted; in this case, the
-error calculation and the signal-to-noise ratio will report \code{NA} values.}
+background integral for the \code{Tx} curve is subtracted; in this case,
+\code{sigmab.TxTx} (unless manually set) and the signal-to-noise ratio for
+\code{Tn/Tx} will be \code{NA}.}
 
 \item{integral_input}{\link{character} (\emph{with default}):
 input type for \code{signal_integral}, one of \code{"channel"} (default) or
@@ -157,10 +158,15 @@ normal case) it has to be accounted for the overdispersion by estimating
 standard error is calculated as:
 \itemize{
 \item \code{poisson}
-\deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2)/Y_{0} - Y_{1}/k}
+\deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2) / (Y_{0} - Y_{1}/k) }
 \item \code{non-poisson}
-\deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2 + \sigma^2(1+1/k))/Y_{0} - Y_{1}/k}
+\deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2 + \sigma^2(1+1/k)) / (Y_{0} - Y_{1}/k) }
 }
+
+If \code{background_integral = NA}, then in both cases the relative standard
+error simplifies to:
+
+\deqn{rse(\mu_{S}) \approx \sqrt(Y_{0}) / Y_{0}}
 
 \strong{Please note} that when using the early background subtraction method in
 combination with the 'non-poisson' distribution argument, the corresponding \code{Lx/Tx} error
@@ -176,7 +182,7 @@ The results of this function have been cross-checked with the Analyst
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.
 }
 \section{Function version}{
- 0.9.7
+ 0.9.8
 }
 
 \examples{
