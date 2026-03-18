@@ -40,6 +40,8 @@ test_that("input validation", {
                "'digits' should be a single positive integer value")
   expect_error(calc_Statistics(df, n.MCM = "error"),
                "'n.MCM' should be a single positive integer value")
+  expect_error(calc_Statistics(df, na.rm = iris),
+               "'na.rm' should be a single logical value")
 })
 
 test_that("snapshot tests", {

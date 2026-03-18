@@ -79,6 +79,7 @@ calc_Statistics <- function(
   }
 
   ##strip na values
+  .validate_logical_scalar(na.rm)
   if(na.rm){
     data <- na.exclude(data)
     if (nrow(data) == 0) {
