@@ -241,8 +241,11 @@ calc_OSLLxTxRatio <- function(
   .validate_class(Tx.data, valid.classes, null.ok = TRUE,
                   extra = "a list of such objects")
   integral_input <- .validate_args(integral_input, c("channel", "measurement"))
+  .validate_class(background.count.distribution, "character", length = 1)
+  .validate_logical_scalar(use_previousBG)
   .validate_class(sigmab, "numeric", null.ok = TRUE, length = 1:2)
   .validate_nonnegative_scalar(sig0)
+  .validate_nonnegative_scalar(digits, int = TRUE, null.ok = TRUE)
 
   .coerce <- function(data) {
     data <- switch(
