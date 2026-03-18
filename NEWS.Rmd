@@ -68,6 +68,11 @@ should be kept or why there are duplicates at all (#1485).
 * The function will remove any `NA` or `NaN` values from `signal_range` before
 using it (#1497).
 
+* The function wrongly rejected inputs such as `signal_range = 1:2` due to
+incorrect argument validation. Note, however, that now the function will check
+the number of values set in `signal_range`, and produce an error (instead of a
+warning) if more than 2 values are specified (#1506).
+
 ### `normalise_RLum()`
 
 * The function crashed if `norm = NA` was used (#1489; thanks to @JohannesFriedrich

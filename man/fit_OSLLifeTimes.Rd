@@ -26,9 +26,11 @@ set to a value greater than 1)}
 the default value is 0. \code{tp} has the same unit as the measurement data, e.g., µs. Please set this parameter
 carefully, if it all, otherwise you may heavily bias your fit results.}
 
-\item{signal_range}{\link{numeric} (\emph{optional}): allows to set a channel range, by default all channels are used, e.g.
-\code{signal_range = c(2,100)} considers only channels 2 to 100 and \code{signal_range = c(2)} considers only channels
-from channel 2 onwards.}
+\item{signal_range}{\link{numeric} (\emph{optional}):
+set a channel range, either by specifying both extremes, e.g.
+\code{signal_range = c(2, 100)} considers only channels 2 to 100, or only the
+start of the range, e.g. \code{signal_range = 2} considers only channels from
+channel 2 onwards. If \code{NULL} (default) all channels are used.}
 
 \item{n.components}{\link{numeric} (\emph{optional}): Fix the number of components. If set the algorithm will try
 to fit the number of predefined components. If nothing is set, the algorithm will try to find the best number
@@ -150,7 +152,7 @@ The default values is \code{TRUE} \cr
 }
 }
 \section{Function version}{
- 0.1.5
+ 0.1.6
 }
 
 \examples{
