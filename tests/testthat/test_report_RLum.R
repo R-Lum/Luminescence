@@ -1,6 +1,32 @@
 ## load data
 data(ExampleData.DeValues, envir = environment())
 data(ExampleData.RLum.Analysis, envir = environment())
+temp <- calc_CommonDose(ExampleData.DeValues$CA1, verbose = FALSE)
+
+test_that("input validation", {
+  testthat::skip_on_cran()
+
+  expect_error(report_RLum(temp, file = iris),
+               "'file' should be of class 'character' and have length 1")
+  expect_error(report_RLum(temp, title = iris),
+               "'title' should be of class 'character' and have length 1")
+  expect_error(report_RLum(temp, compact = NA),
+               "'compact' should be a single logical value")
+  expect_error(report_RLum(temp, timestamp = "error"),
+               "'timestamp' should be a single logical value")
+  expect_error(report_RLum(temp, show_report = iris),
+               "'show_report' should be a single logical value")
+  expect_error(report_RLum(temp, launch.browser = c(12, 13)),
+               "'launch.browser' should be a single logical value")
+  expect_error(report_RLum(temp, css.file = iris),
+               "'css.file' should be of class 'character' or NULL and have length 1")
+  expect_error(report_RLum(temp, css.file = "error"),
+               "Couldn't find the specified CSS file at 'error'")
+  expect_error(report_RLum(temp, quiet = letters),
+               "'quiet' should be a single logical value")
+  expect_error(report_RLum(temp, clean = c(FALSE, TRUE)),
+               "'clean' should be a single logical value")
+})
 
 test_that("test functionality", {
   testthat::skip_on_cran()
@@ -9,17 +35,6 @@ test_that("test functionality", {
   ## platform ... attempts to reproduce this failure failed. So
   ## we skip this platform for the test
   testthat::skip_on_os("windows")
-
-  SW({
-  temp <- calc_CommonDose(ExampleData.DeValues$CA1)
-  })
-
-  expect_error(report_RLum(temp, file = iris),
-               "'file' should be of class 'character' and have length 1")
-  expect_error(report_RLum(temp, css.file = iris),
-               "'css.file' should be of class 'character' or NULL and have length 1")
-  expect_error(report_RLum(temp, css.file = "error"),
-               "Couldn't find the specified CSS file")
 
   # create the standard HTML report
   testthat::expect_null(report_RLum(object = temp, timestamp = FALSE, show_report = FALSE))
