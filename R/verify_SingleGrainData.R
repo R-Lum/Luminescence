@@ -69,7 +69,7 @@
 #'
 #' **`RLum.Results`**-object
 #'
-#' **slot:****`@data`**
+#' **slot:** `@data`
 #'
 #' \tabular{lll}{
 #' **Element** \tab **Type** \tab **Description**\cr
@@ -78,7 +78,7 @@
 #'  `$selection_full` \tab `data.frame` \tab implemented models used in the baSAR-model core \cr
 #' }
 #'
-#' **slot:****`@info`**
+#' **slot:** `@info`
 #'
 #' The original function call
 #'

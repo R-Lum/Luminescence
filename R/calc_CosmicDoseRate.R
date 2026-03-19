@@ -16,12 +16,10 @@
 #'
 #' \deqn{absorber = depth_1*density_1 + depth_2*density_2 + ... + depth_n*density_n}
 #'
-#'
 #' (2)
 #' If `half.depth = TRUE`
 #'
 #' \deqn{absorber = absorber/2}
-#'
 #'
 #' (3)
 #' Calculate cosmic dose rate at sea-level and 55 deg. latitude
@@ -30,19 +28,17 @@
 #' apply equation given by Prescott & Hutton (1994) (c.f. Barbouti & Rastin
 #' 1983)
 #'
-#' \deqn{D0 = C/(((absorber+d)^\alpha+a)*(absober+H))*exp(-B*absorber)}
+#' \deqn{D0 = C/(((absorber+d)^\alpha+a)*(absober+H)) * \exp(-B*absorber)}
 #'
 #' b) If absorber is < 167 g/cm² (soft- and hard-component): derive D0 from
 #' Fig. 1 in Prescott & Hutton (1988).
-#'
 #'
 #' (4)
 #' Calculate geomagnetic latitude (Prescott & Stephan 1982, Prescott &
 #' Hutton 1994)
 #'
-#' \deqn{\lambda = arcsin(0.203*cos(latitude)*cos(longitude-291)+0.979*
-#' sin(latitude))}
-#'
+#' \deqn{\lambda = \arcsin(0.203\cos(latitude)\cos(longitude-291)
+#'               + 0.979\sin(latitude))}
 #'
 #' (5)
 #' Apply correction for geomagnetic latitude and altitude above sea-level.
@@ -50,8 +46,7 @@
 #' (1982) and fitted with 3-degree polynomials for lambda < 35 degree and a
 #' linear fit for lambda > 35 degree.
 #'
-#' \deqn{Dc = D0*(F+J*exp((altitude/1000)/H))}
-#'
+#' \deqn{Dc = D0*(F + J \exp((altitude / 1000) / H))}
 #'
 #' (6)
 #' Optional: Apply correction for geomagnetic field changes in the last
@@ -142,7 +137,7 @@
 #' as ~0.1 Gy/ka. In a previous article, Prescott & Hutton (1988) give another
 #' approximation of Barbouti & Rastin's equation in the form of
 #'
-#' \deqn{D = 0.21*exp(-0.070*absorber+0.0005*absorber^2)}
+#' \deqn{D = 0.21 * \exp(-0.070 * absorber + 0.0005 * absorber^2)}
 #'
 #' which is valid for depths between 150-5000 g/cm². For shallower depths (<
 #' 150 g/cm²) they provided a graph (Fig. 1) from which the dose rate can be

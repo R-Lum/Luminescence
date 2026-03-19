@@ -26,7 +26,7 @@ data frame containing values for parameters F, J
 and H (read from Fig. 2 in Prescott & Hutton 1994) used in the expression \cr
 }
 
-\deqn{Dc = D0*(F+J*exp((altitude/1000)/H))}
+\deqn{Dc = D0*(F + J \exp((altitude/1000)/H))}
 }
 \source{
 The following data were carefully read from figures in mentioned

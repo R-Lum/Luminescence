@@ -13,8 +13,8 @@
 #' The function for the fitting has the general
 #' form:
 #'
-#' \deqn{y = (exp(0.5) * Im_1 * x / xm_1) * exp(-x^2 / (2 * xm_1^2)) + \ldots +
-#'            exp(0.5) * Im_i * x / xm_i) * exp(-x^2 / (2 * xm_i^2))}
+#' \deqn{y = (\exp(0.5) * Im_1 * x / xm_1) * \exp(-x^2 / (2 * xm_1^2)) + \ldots +
+#'            \exp(0.5) * Im_i * x / xm_i) * \exp(-x^2 / (2 * xm_i^2))}
 #'
 #' where \eqn{1 < i < 8}
 #'
@@ -22,8 +22,8 @@
 #' and n0 (proportional to initially trapped charge) have been taken from Kitis
 #' et al. (2008):
 #'
-#' \deqn{xm_i=\sqrt{max(t)/b_i}}
-#' \deqn{Im_i=exp(-0.5)n0/xm_i}
+#' \deqn{xm_i=\sqrt{\max(t)/b_i}}
+#' \deqn{Im_i = \exp(-0.5) n0/xm_i}
 #'
 #' **Background subtraction**
 #'
@@ -33,11 +33,11 @@
 #'
 #' - `"polynomial"` (default): a polynomial function is fitted using [glm]
 #' and the resulting function is used for background subtraction:
-#' \deqn{y = a*x^4 + b*x^3 + c*x^2 + d*x + e}
+#' \deqn{y = a x^4 + b x^3 + c x^2 + d x + e}
 #'
 #' - `"linear"`: a linear function is fitted using [glm] and the resulting
 #' function is used for background subtraction:
-#' \deqn{y = a*x + b}
+#' \deqn{y = a x + b}
 #'
 #' - `"channel"`: the measured background signal is subtracted channel-wise
 #' from the measured signal.
@@ -73,8 +73,8 @@
 #'
 #' \deqn{pseudoR^2 = 1 - RSS/TSS}
 #'
-#' where \eqn{RSS = Residual~Sum~of~Squares}
-#' and \eqn{TSS = Total~Sum~of~Squares}
+#' where \eqn{RSS} is the Residual Sum of Squares, and \eqn{TSS} is the Total
+#' Sum of Squares.
 #'
 #' **Error of fitted component parameters**
 #'

@@ -115,11 +115,9 @@ components and returns various component parameters.
 
 The function for the CW-OSL fitting has the general form:
 
-\deqn{y = I0_{1}*\lambda_{1}*exp(-\lambda_1*x) + ,\ldots, + I0_{i}*\lambda_{i}*exp(-\lambda_i*x) }
+\deqn{y = I0_{1}\lambda_{1}\exp(-\lambda_1 x) + \ldots + I0_{i}\lambda_{i}\exp(-\lambda_i x) }
 
-where \eqn{0 < i < 8}
-
-and \eqn{\lambda} is the decay constant \cr
+where \eqn{0 < i < 8}, \eqn{\lambda} is the decay constant,
 and \eqn{I0} the initial number of trapped electrons.
 
 \emph{(for the used equation cf. Boetter-Jensen et al., 2003, Eq. 2.31)}
@@ -137,8 +135,8 @@ determination). According to Lave (1970), the value is calculated as:
 
 \deqn{pseudoR^2 = 1 - RSS/TSS}
 
-where \eqn{RSS = Residual~Sum~of~Squares} \cr
-and \eqn{TSS = Total~Sum~of~Squares}
+where \eqn{RSS} is the Residual Sum of Squares, and \eqn{TSS} is the Total
+Sum of Squares.
 
 \strong{Error of fitted component parameters}
 

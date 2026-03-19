@@ -8,13 +8,13 @@
 #'including the error for a given \eqn{g}-value according to Huntley & Lamothe (2001):
 #'
 #'\deqn{
-#'\frac{A_{f}}{A} = 1 - \kappa * \Big[ln(\frac{A}{t_c}) - 1\Big]
+#' \frac{A_{f}}{A} = 1 - \kappa * \Big[\ln(\frac{A}{t_c}) - 1\Big]
 #'}
 #'
 #'with \eqn{\kappa} defined as
 #'
 #'\deqn{
-#'\kappa = \frac{\frac{\mathrm{g\_value}}{ln(10)}}{100}
+#' \kappa = \frac{\frac{\mathrm{g\_value}}{\ln(10)}}{100}
 #'}
 #'
 #' \eqn{A} and \eqn{A_{f}} are given in ka. \eqn{t_c} is given in s, however, it
@@ -30,11 +30,11 @@
 #' to \eqn{t_{c}} of the measurement used for estimating the age applying the
 #' following equation:
 #'
-#' \deqn{\kappa_{tc} = \kappa_{tc.g} / (1 - \kappa_{tc.g} * ln(tc/tc.g))}
+#' \deqn{\kappa_{tc} = \kappa_{tc.g} / (1 - \kappa_{tc.g} * \ln(tc/tc.g))}
 #'
 #' where
 #'
-#' \deqn{\kappa_{tc.g} = g / 100 / ln(10)}
+#' \deqn{\kappa_{tc.g} = g / 100 / \ln(10)}
 #'
 #' The error of the fading-corrected age is determined using a Monte Carlo
 #' simulation approach. Solving of the equation is performed using

@@ -27,7 +27,7 @@
 #' error value. The input will be treated as factor that is multiplied with
 #' the already calculated `LxTx` and the result is add up by:
 #'
-#' \deqn{se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx * sig0)^2)}
+#' \deqn{se(LxTx) = \sqrt{se(LxTx)^2 + (LxTx * sig0)^2}}
 #'
 #' **`SN_RATIO_LnLx` and `SN_RATIO_TnTx`**
 #'
@@ -46,15 +46,15 @@
 #' standard error is calculated as:
 #'
 #' - `poisson`
-#' \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2) / (Y_{0} - Y_{1}/k) }
+#' \deqn{rse(\mu_{S}) \approx \sqrt{Y_{0} + Y_{1}/k^2) / (Y_{0} - Y_{1}/k)} }
 #'
 #' - `non-poisson`
-#' \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2 + \sigma^2(1+1/k)) / (Y_{0} - Y_{1}/k) }
+#' \deqn{rse(\mu_{S}) \approx \sqrt{Y_{0} + Y_{1}/k^2 + \sigma^2(1+1/k)) / (Y_{0} - Y_{1}/k)} }
 #'
 #' If `background_integral = NA`, then in both cases the relative standard
 #' error simplifies to:
 #'
-#' \deqn{rse(\mu_{S}) \approx \sqrt(Y_{0}) / Y_{0}}
+#' \deqn{rse(\mu_{S}) \approx \sqrt{Y_{0}} / Y_{0}}
 #'
 #' **Please note** that when using the early background subtraction method in
 #' combination with the 'non-poisson' distribution argument, the corresponding `Lx/Tx` error

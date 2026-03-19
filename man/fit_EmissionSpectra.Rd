@@ -109,7 +109,7 @@ The emission spectra (on an energy scale) can be best described as the sum of mu
 Gaussian components:
 
 \deqn{
-y = \sum_i \frac{C_i}{\sigma_{i} \sqrt{2 \pi}} exp(-1/2 ((x - \mu_{i})/\sigma_{i})^2)
+y = \sum_i \frac{C_i}{\sigma_{i} \sqrt{2 \pi}} \exp(-1/2 ((x - \mu_{i})/\sigma_{i})^2)
 }
 
 with the parameters \eqn{\sigma} (peak width) and \eqn{\mu} (peak centre) and \eqn{C}

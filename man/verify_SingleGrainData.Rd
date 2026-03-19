@@ -60,7 +60,7 @@ The function returns
 
 \strong{\code{RLum.Results}}-object
 
-\strong{slot:****\verb{@data}}
+\strong{slot:} \verb{@data}
 
 \tabular{lll}{
 \strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
@@ -69,7 +69,7 @@ The function returns
 \verb{$selection_full} \tab \code{data.frame} \tab implemented models used in the baSAR-model core \cr
 }
 
-\strong{slot:****\verb{@info}}
+\strong{slot:} \verb{@info}
 
 The original function call
 

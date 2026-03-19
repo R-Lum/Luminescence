@@ -23,7 +23,7 @@
 #'
 #' **Used equation (Arrhenius equation)**
 #'
-#' \deqn{\tau = 1/s exp(E/kT)}
+#' \deqn{\tau = \frac{1}{s} \exp(E/kT)}
 #' where:
 #' \eqn{\tau} in s as the mean time an electron spends in the trap for a given \eqn{T},
 #' \eqn{E} trap depth in eV,

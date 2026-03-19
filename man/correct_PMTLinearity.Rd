@@ -25,7 +25,7 @@ We correct for count linearity using a well-known formula that can be
 found for example in the Hamamatsu Photomultiplier handbook
 (Hamamatsu Photonics K.K., 2017):
 
-\deqn{N = \frac{M}{1 - M*t}}
+\deqn{N = \frac{M}{1 - Mt}}
 
 where \eqn{N} (in s\eqn{^{-1}}) is the true count rate, \eqn{M} (in s\eqn{^{-1}}) the measured count rate,
 and \eqn{t} (in s) the pulse pair resolution.

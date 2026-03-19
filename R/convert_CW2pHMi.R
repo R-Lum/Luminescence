@@ -18,7 +18,7 @@
 #'
 #' (2)
 #' Calculate t' which is the transformed time:
-#' \deqn{t' = t-(1/\delta)*log(1+\delta*t)}
+#' \deqn{t' = t-(1/\delta) * \log(1 + \delta t)}
 #'
 #' (3)
 #' Interpolate CW(t'), i.e. use the log(CW(t)) to obtain the count values
@@ -37,8 +37,8 @@
 #'
 #' (6)
 #' Transform values using
-#' \deqn{pHM(t) = (\delta*t/(1+\delta*t))*c*CW(t')}
-#' \deqn{c = (1+\delta*P)/\delta*P}
+#' \deqn{pHM(t) = (\delta t / (1 + \delta t))*c*CW(t')}
+#' \deqn{c = (1 + \delta P)/\delta*P}
 #' \deqn{P = length(stimulation~period)}
 #'
 #' (7) Combine all values and truncate all values for t' > `max(t)`

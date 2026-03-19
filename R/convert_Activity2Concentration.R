@@ -17,7 +17,7 @@
 #'
 #' The factors can be calculated using the equation:
 #' \deqn{
-#' A = N_A \frac{N_{abund}}{N_{mol.mass}}  ln(2) / N.half.life
+#' A = N_A \frac{N_{abund}}{N_{mol.mass}} \ln(2) / N.half.life
 #' }
 #'
 #' to convert in µg/g we further use:
@@ -38,7 +38,7 @@
 #'  * `m_U_238` = 0.23802891 (kg/mol)
 #'  * `U_abund` = 0.992745 (unitless)
 #'
-#' \deqn{A_{U} = N_{A} * U_{abund} / m_{U_238} * ln(2) / T_{1/2} = 2347046} (Bq/kg)
+#' \deqn{A_{U} = N_{A} * U_{abund} / m_{U_238} * \ln(2) / T_{1/2} = 2347046} (Bq/kg)
 #'
 #' \deqn{f.U = A_{U} / 10^6}
 #'

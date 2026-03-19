@@ -18,7 +18,7 @@
 #'
 #' The function to be optimized has the form:
 #'
-#' \deqn{\chi^2 = \sum(w * (n_i/c - \sum(A_i * exp(-x/(tau_i + t_p))))^2)}
+#' \deqn{\chi^2 = \sum(w * (n_i/c - \sum(A_i * \exp(-x/(tau_i + t_p))))^2)}
 #'
 #' with \eqn{w = 1} for unweighted regression analysis (`method_control = list(weights = FALSE)`) or
 #' \eqn{w = c^2/n_i} for weighted regression analysis. The default values is `TRUE`.

@@ -27,7 +27,7 @@ pseudo linearly modulated (pLM) curve using the equations given in Bulur
 According to Bulur (2000) the curve data are transformed by introducing two
 new parameters \code{P} (stimulation period) and \code{u} (transformed time):
 
-\deqn{P=2*max(t)} \deqn{u=\sqrt{(2*t*P)}}
+\deqn{P=2\max(t)} \deqn{u=\sqrt{(2t*P)}}
 
 The new count values are then calculated by
 \deqn{ctsNEW = cts(u/P)}

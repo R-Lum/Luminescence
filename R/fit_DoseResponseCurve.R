@@ -29,7 +29,7 @@
 #' **Keyword: `EXP`**
 #'
 #' Adapts a function of the form
-#' \deqn{y = a(1 - exp(-\frac{(x+c)}{b}))}
+#' \deqn{y = a(1 - \exp(-\frac{(x+c)}{b}))}
 #'
 #' Parameters b and c are approximated by a linear fit using [lm]. Note: \eqn{b = D0}
 #'
@@ -42,7 +42,7 @@
 #'
 #' Tries to fit an exponential plus linear function of the form:
 #'
-#' \deqn{y = a(1-exp(-\frac{x+c}{b}) + (gx))}
+#' \deqn{y = a(1 - \exp(-\frac{x + c}{b}) + (gx))}
 #' The \eqn{D_e} is calculated by iteration.
 #'
 #' **Note:** In the context of luminescence dating, this function has no physical meaning.
@@ -52,7 +52,7 @@
 #'
 #' Tries to fit a double exponential function of the form
 #'
-#' \deqn{y = (a_1 (1-exp(-\frac{x}{b_1}))) + (a_2 (1 - exp(-\frac{x}{b_2})))}
+#' \deqn{y = (a_1 (1 - \exp(-\frac{x}{b_1}))) + (a_2 (1 - \exp(-\frac{x}{b_2})))}
 #'
 #' *This fitting procedure is not really robust against wrong start parameters.*
 #'
@@ -72,7 +72,7 @@
 #' and the one trap one recombination centre (OTOR) model according to Pagonis
 #' et al. (2020). The function has the form:
 #'
-#' \deqn{y = (1 + (\mathcal{W}((R - 1) * exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
+#' \deqn{y = (1 + (\mathcal{W}((R - 1) * \exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
 #'
 #' with \eqn{W} the Lambert W function (calculated using [lamW::lambertW0]),
 #' \eqn{R} the dimensionless retrapping ratio, \eqn{N} the total concentration
@@ -87,9 +87,9 @@
 #'
 #' This adapts extended OTOR (therefore: OTORX) model proposed by Lawless and
 #' Timar-Gabor (2024) accounting for retrapping (the equation implemented here
-#' is slightly differently written than in the original manuscript):
+#' is written slightly differently than in the original manuscript):
 #'
-#' \deqn{F_{OTORX} = 1 + \left[\mathcal{W}(-Q * exp(-Q-(1-Q*(1-\frac{1}{exp(1)})) * \frac{(D + a)}{D_{63}}))\right] / Q}
+#' \deqn{F_{OTORX} = 1 + \left[\mathcal{W}\left(-Q * \exp\left(-Q-(1-Q(1-\frac{1}{\exp(1)})) \frac{(D + a)}{D_{63}}\right)\right)\right] / Q}
 #'
 #' with
 #'

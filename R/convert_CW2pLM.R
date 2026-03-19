@@ -8,7 +8,7 @@
 #' According to Bulur (2000) the curve data are transformed by introducing two
 #' new parameters `P` (stimulation period) and `u` (transformed time):
 #'
-#' \deqn{P=2*max(t)} \deqn{u=\sqrt{(2*t*P)}}
+#' \deqn{P=2\max(t)} \deqn{u=\sqrt{(2t*P)}}
 #'
 #' The new count values are then calculated by
 #' \deqn{ctsNEW = cts(u/P)}

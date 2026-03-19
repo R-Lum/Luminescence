@@ -68,7 +68,7 @@ in the curve
 \code{norm = "huot"}: Curve values are normalised as suggested by Sébastien Huot
 via GitHub:
 \deqn{
-y = (observed - median(background)) / (max(observed) - median(background))
+y = (observed - median(background)) / (\max(observed) - median(background))
 }
 
 The background of the curve is defined as the last 20\% of the count values

@@ -139,7 +139,7 @@ This argument allows to add an extra component of error to the final \code{Lx/Tx
 error value. The input will be treated as factor that is multiplied with
 the already calculated \code{LxTx} and the result is add up by:
 
-\deqn{se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx * sig0)^2)}
+\deqn{se(LxTx) = \sqrt{se(LxTx)^2 + (LxTx * sig0)^2}}
 
 \strong{\code{SN_RATIO_LnLx} and \code{SN_RATIO_TnTx}}
 
@@ -158,15 +158,15 @@ normal case) it has to be accounted for the overdispersion by estimating
 standard error is calculated as:
 \itemize{
 \item \code{poisson}
-\deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2) / (Y_{0} - Y_{1}/k) }
+\deqn{rse(\mu_{S}) \approx \sqrt{Y_{0} + Y_{1}/k^2) / (Y_{0} - Y_{1}/k)} }
 \item \code{non-poisson}
-\deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2 + \sigma^2(1+1/k)) / (Y_{0} - Y_{1}/k) }
+\deqn{rse(\mu_{S}) \approx \sqrt{Y_{0} + Y_{1}/k^2 + \sigma^2(1+1/k)) / (Y_{0} - Y_{1}/k)} }
 }
 
 If \code{background_integral = NA}, then in both cases the relative standard
 error simplifies to:
 
-\deqn{rse(\mu_{S}) \approx \sqrt(Y_{0}) / Y_{0}}
+\deqn{rse(\mu_{S}) \approx \sqrt{Y_{0}} / Y_{0}}
 
 \strong{Please note} that when using the early background subtraction method in
 combination with the 'non-poisson' distribution argument, the corresponding \code{Lx/Tx} error

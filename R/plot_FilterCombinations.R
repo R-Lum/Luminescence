@@ -16,7 +16,7 @@
 #'
 #' **Optical density**
 #'
-#' \deqn{OD = -log10(T)}
+#' \deqn{OD = -\log10(T)}
 #'
 #' **Total optical density**
 #'
@@ -44,7 +44,7 @@
 #' The given filter data are always considered as standard input and the filter
 #' thickness value is taken into account by
 #'
-#' \deqn{Transmission = Transmission^(d)}
+#' \deqn{Transmission = Transmission^d}
 #'
 #' with d given in the same dimension as the original filter data.
 #'
@@ -54,7 +54,7 @@
 #' `list(filter1 = list(filter_matrix, d = 2, P = 0.9))`.
 #' The final transmission becomes:
 #'
-#' \deqn{Transmission = Transmission^(d) * P}
+#' \deqn{Transmission = Transmission^d * P}
 #'
 #' **Advanced plotting parameters**
 #'
