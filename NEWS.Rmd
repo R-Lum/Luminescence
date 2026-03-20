@@ -87,6 +87,12 @@ warning) if more than 2 values are specified (#1506).
 * The function crashed if `norm = NA` was used (#1489; thanks to @JohannesFriedrich
 for reporting).
 
+### `plot_KDE()`
+
+* A regression introduced in v1.2.0 caused the rug to have uneven tick lengths
+if a list of datasets of different size was provided, which could lead to very
+long rug lines for the smaller dataset (#1508).
+
 ### `verify_SingleGrainData()`
 
 * The function better validates all its arguments (#1487).
