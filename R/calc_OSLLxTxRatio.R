@@ -563,10 +563,29 @@ calc_OSLLxTxRatio <- function(
       sqrt(k_p^2 * signal + (k_DC^2 - k_p^2) * B_DC * time)
     }
 
-    time.Lx <- diff(Lx.data[range(signal_integral), 1])
-    time.Tx <- diff(Tx.data[range(signal_integral_Tx), 1])
-    LnLx.Error <- .calc_se_bluszcz(Lx.signal, time.Lx, B_DC, k_DC, k_p)
-    TnTx.Error <- .calc_se_bluszcz(Tx.signal, time.Tx, B_DC, k_DC, k_p)
+    ## time.Lx <- diff(Lx.data[range(signal_integral), 1])
+    time.Lx <- Lx.data[range(signal_integral)[2], 1] -
+      ifelse(range(signal_integral)[1] == 1, 0, Lx.data[range(signal_integral)[1] - 1, 1])
+    time.Lx.bg <- Lx.data[range(background_integral)[2], 1] -
+      ifelse(range(background_integral)[1] == 1, 0, Lx.data[range(background_integral)[1] - 1, 1])
+    ## time.Tx <- diff(Tx.data[range(signal_integral_Tx), 1])
+    time.Tx <- Tx.data[range(signal_integral_Tx)[2], 1] -
+      ifelse(range(signal_integral_Tx)[1] == 1, 0, Tx.data[range(signal_integral_Tx)[1] - 1, 1])
+    time.Tx.bg <- Tx.data[range(background_integral_Tx)[2], 1] -
+      ifelse(range(background_integral_Tx)[1] == 1, 0, Tx.data[range(background_integral_Tx)[1] - 1, 1])
+
+    Lx.signal.Error <- .calc_se_bluszcz(Lx.signal, time.Lx, B_DC, k_DC, k_p)
+    Lx.background.Error <- .calc_se_bluszcz(Lx.background, time.Lx.bg, B_DC, k_DC, k_p)
+    Tx.signal.Error <- .calc_se_bluszcz(Tx.signal, time.Tx, B_DC, k_DC, k_p)
+    Tx.background.Error <- .calc_se_bluszcz(Tx.background, time.Tx.bg, B_DC, k_DC, k_p)
+
+    Lx.background <- Lx.background * time.Lx / time.Lx.bg
+    Tx.background <- Tx.background * time.Tx / time.Tx.bg
+
+    LnLx <- Lx.signal - Lx.background
+    LnLx.Error <- sqrt(Lx.signal.Error^2 + (Lx.background.Error * time.Lx/time.Lx.bg)^2)
+    TnTx <- Tx.signal - Tx.background
+    TnTx.Error <- sqrt(Tx.signal.Error^2 + (Tx.background.Error * time.Tx/time.Tx.bg)^2)
   }
 
     ##we do not want to have NaN values, as they are mathematically correct, but make

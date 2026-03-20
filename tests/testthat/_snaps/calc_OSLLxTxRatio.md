@@ -2965,7 +2965,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [5551.61290323]
+                  "value": [3402.60145682]
                 },
                 {
                   "type": "integer",
@@ -2975,27 +2975,27 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [5178.06451613]
+                  "value": [3173.65244537]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [124815.38709677]
+                  "value": [126964.39854318]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [361.06370629]
+                  "value": [363.94019482]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [11225.93548387]
+                  "value": [13230.34755463]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [128.07810117]
+                  "value": [135.45900421]
                 },
                 {
                   "type": "double",
@@ -3010,12 +3010,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [11.11848427]
+                  "value": [9.59645225]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.13086618]
+                  "value": [0.10203141]
                 }
               ]
             },
