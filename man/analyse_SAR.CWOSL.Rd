@@ -152,7 +152,7 @@ curves with \code{recordType} starting with \verb{_} should be automatically rem
 \item{...}{further arguments that will be passed to
 \link{fit_DoseResponseCurve}, \link{plot_DoseResponseCurve}
 or \link{calc_OSLLxTxRatio} (supported:
-\code{background.count.distribution}, \code{sigmab}, \code{sig0}).
+\code{background.count.distribution}, \code{sigmab}, \code{sig0}, \code{od_rates}).
 \strong{Note:} if you consider to use the early light subtraction method,
 \code{sigmab} should be provided.
 
