@@ -37,10 +37,11 @@
 #'
 #' The dark count rate (or background count rate) \eqn{B_{DC}} and the
 #' background count overdispersion \eqn{k_{DC}} can be obtained by direct
-#' experiments, while the photon count overdispersion \eqn{p} needs a photon
+#' experiments, while the photon count overdispersion \eqn{k_p} needs a photon
 #' source with a constant photon emission rate and independent photon
 #' emissions (so the number of photons emitted in a fixed time is a Poisson
-#' variable).
+#' variable). Note that \eqn{B_{DC}} must be non-negative, while \eqn{k_{DC}}
+#' and \eqn{k_p} must be positive.
 #'
 #' Under the assumption of statistically independent background (\eqn{N_{DC}})
 #' and photon counts (\eqn{N_p}), the total number of counts (say, a certain
@@ -510,7 +511,7 @@ calc_OSLLxTxRatio <- function(
     sigmab.TnTx <- sigmab[length(sigmab)]
   } else if (!is.null(od_rates)) {
     ## validate each of the od_rates values
-    .validate_positive_scalar(B_DC <- od_rates[1], name = "'od_rates[1]'")
+    .validate_nonnegative_scalar(B_DC <- od_rates[1], name = "'od_rates[1]'")
     .validate_positive_scalar(k_DC <- od_rates[2], name = "'od_rates[2]'")
     .validate_positive_scalar(k_p  <- od_rates[3], name = "'od_rates[3]'")
     sigmab.LnLx <- sigmab.TnTx <- NA
