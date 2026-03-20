@@ -29,6 +29,34 @@
 #'
 #' \deqn{se(LxTx) = \sqrt{se(LxTx)^2 + (LxTx * sig0)^2}}
 #'
+#' **`od_rates`**
+#'
+#' Setting this argument activates an alternative path for the overdispersion
+#' calculation proposed by Andrzej Bluszcz. The argument expects a 3-element
+#' vector, whose values should be experimentally established in advance.
+#'
+#' The dark count rate (or background count rate) \eqn{B_{DC}} and the
+#' background count overdispersion \eqn{k_{DC}} can be obtained by direct
+#' experiments, while the photon count overdispersion \eqn{k_p} needs a photon
+#' source with a constant photon emission rate and independent photon
+#' emissions (so the number of photons emitted in a fixed time is a Poisson
+#' variable). Note that \eqn{B_{DC}} must be non-negative, while \eqn{k_{DC}}
+#' and \eqn{k_p} must be positive.
+#'
+#' Under the assumption of statistically independent background (\eqn{N_{DC}})
+#' and photon counts (\eqn{N_p}), the total number of counts (say, a certain
+#' integral \eqn{N} of the OSL curve over time \eqn{t}) is:
+#'
+#' \deqn{N = N_p + N_{DC}}
+#'
+#' and has the following variance:
+#'
+#' \deqn{ s^2(N) = k_p^2 N_p + K_{DC}^2 N_{DC}
+#'               = k_p^2 (N - B_{DC} t) + k_{DC}^2 B_{DC} t
+#'               = k_p^2 N + (k_{DC}^2 + k_p^2) B_{DC} t }
+#'
+#' The `LnLx.Error` and `TnTx.Error` are computed as \eqn{\sqrt{s^2(N)}}.
+#'
 #' **`SN_RATIO_LnLx` and `SN_RATIO_TnTx`**
 #'
 #' For convenience, the function returns the signal-to-noise ratio (`SN_RATIO`)
@@ -117,6 +145,12 @@
 #' allow adding an extra component of error to the final `Lx/Tx` error value
 #' (e.g., instrumental error, see details).
 #'
+#' @param od_rates [numeric] (*optional*):
+#' a vector of three elements: the dark count rate (or background count rate),
+#' the background count overdispersion, and the photon count overdispersion.
+#' If set, an alternative way of computing the overdispersion will be used
+#' (see details). It is ignored if `sigmab` is provided.
+#'
 #' @param digits [integer] (*with default*):
 #' round numbers to the specified digits. If set to `NULL` no rounding occurs.
 #'
@@ -146,6 +180,9 @@
 #' .. $ sigmab.LnTx
 #' .. $ sigmab.TnTx
 #' .. $ k
+#' .. $ B_DC
+#' .. $ k_DC
+#' .. $ k_p
 #' ```
 #'
 #' **@info**
@@ -164,12 +201,14 @@
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
-#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
+#' Andrzej Bluszcz, Silesian University of Technology, Gliwice (Poland)\cr
 #'
 #' @seealso [Luminescence::RLum.Data.Curve-class], [Luminescence::fit_DoseResponseCurve],
 #' [Luminescence::analyse_SAR.CWOSL]
 #'
-#' @references Duller, G., 2018. Analyst v4.57 - User Manual.
+#' @references
+#' Duller, G., 2018. Analyst v4.57 - User Manual.
 #' `https://users.aber.ac.uk/ggd`\cr
 #'
 #' Galbraith, R.F., 2002. A note on the variance of a background-corrected OSL
@@ -208,6 +247,7 @@ calc_OSLLxTxRatio <- function(
   use_previousBG = FALSE,
   sigmab = NULL,
   sig0 = 0,
+  od_rates = NULL,
   digits = NULL,
   ...
 ) {
@@ -252,6 +292,7 @@ calc_OSLLxTxRatio <- function(
   .validate_class(sigmab, "numeric", null.ok = TRUE, length = 1:2)
   .validate_nonnegative_scalar(sig0)
   .validate_nonnegative_scalar(digits, int = TRUE, null.ok = TRUE)
+  .validate_class(od_rates, "numeric", null.ok = TRUE, length = 3)
 
   .coerce <- function(data) {
     data <- switch(
@@ -461,10 +502,19 @@ calc_OSLLxTxRatio <- function(
     max(stats::var(Y.i) - mean(Y.i), 0) * n
   }
 
-  ##account for a manually set sigmab value
+  ## account for when sigmab or od_rates is provided
+  B_DC <- k_DC <- k_p <- NA
   if (!is.null(sigmab)) {
+    if (!is.null(od_rates))
+      .throw_warning("Both 'sigmab' and 'od_rates' provided, 'od_rates' set to NULL")
     sigmab.LnLx <- sigmab[1]
     sigmab.TnTx <- sigmab[length(sigmab)]
+  } else if (!is.null(od_rates)) {
+    ## validate each of the od_rates values
+    .validate_nonnegative_scalar(B_DC <- od_rates[1], name = "'od_rates[1]'")
+    .validate_positive_scalar(k_DC <- od_rates[2], name = "'od_rates[2]'")
+    .validate_positive_scalar(k_p  <- od_rates[3], name = "'od_rates[3]'")
+    sigmab.LnLx <- sigmab.TnTx <- NA
   } else {
     sigmab.LnLx <- .calc_sigmab(Lx.curve, signal_integral, background_integral,
                                 m, k, "Lx")
@@ -506,6 +556,38 @@ calc_OSLLxTxRatio <- function(
   LnLx.Error <- abs(LnLx*LnLx.relError)
   TnTx.Error <- abs(TnTx*TnTx.relError)
 
+  if (!is.null(od_rates)) {
+    ## calculate standard error of the raw number of counts in a channel
+    ## (according to communication of Bluszcz via e-mail)
+    .calc_se_bluszcz <- function(signal, time, B_DC, k_DC, k_p) {
+      sqrt(k_p^2 * signal + (k_DC^2 - k_p^2) * B_DC * time)
+    }
+
+    ## time.Lx <- diff(Lx.data[range(signal_integral), 1])
+    time.Lx <- Lx.data[range(signal_integral)[2], 1] -
+      ifelse(range(signal_integral)[1] == 1, 0, Lx.data[range(signal_integral)[1] - 1, 1])
+    time.Lx.bg <- Lx.data[range(background_integral)[2], 1] -
+      ifelse(range(background_integral)[1] == 1, 0, Lx.data[range(background_integral)[1] - 1, 1])
+    ## time.Tx <- diff(Tx.data[range(signal_integral_Tx), 1])
+    time.Tx <- Tx.data[range(signal_integral_Tx)[2], 1] -
+      ifelse(range(signal_integral_Tx)[1] == 1, 0, Tx.data[range(signal_integral_Tx)[1] - 1, 1])
+    time.Tx.bg <- Tx.data[range(background_integral_Tx)[2], 1] -
+      ifelse(range(background_integral_Tx)[1] == 1, 0, Tx.data[range(background_integral_Tx)[1] - 1, 1])
+
+    Lx.signal.Error <- .calc_se_bluszcz(Lx.signal, time.Lx, B_DC, k_DC, k_p)
+    Lx.background.Error <- .calc_se_bluszcz(Lx.background, time.Lx.bg, B_DC, k_DC, k_p)
+    Tx.signal.Error <- .calc_se_bluszcz(Tx.signal, time.Tx, B_DC, k_DC, k_p)
+    Tx.background.Error <- .calc_se_bluszcz(Tx.background, time.Tx.bg, B_DC, k_DC, k_p)
+
+    Lx.background <- Lx.background * time.Lx / time.Lx.bg
+    Tx.background <- Tx.background * time.Tx / time.Tx.bg
+
+    LnLx <- Lx.signal - Lx.background
+    LnLx.Error <- sqrt(Lx.signal.Error^2 + (Lx.background.Error * time.Lx/time.Lx.bg)^2)
+    TnTx <- Tx.signal - Tx.background
+    TnTx.Error <- sqrt(Tx.signal.Error^2 + (Tx.background.Error * time.Tx/time.Tx.bg)^2)
+  }
+
     ##we do not want to have NaN values, as they are mathematically correct, but make
     ##no sense and would result in aliquots that become rejected later
     if(is.nan(LnLx.Error)) LnLx.Error <- 0
@@ -531,7 +613,10 @@ calc_OSLLxTxRatio <- function(
   calc.parameters <- list(
     sigmab.LnLx = sigmab.LnLx,
     sigmab.TnTx = sigmab.TnTx,
-    k = k)
+    k = k,
+    B_DC = B_DC,
+    k_DC = k_DC,
+    k_p = k_p)
 
   ##set results object
   set_RLum(

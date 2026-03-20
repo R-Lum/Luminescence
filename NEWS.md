@@ -45,6 +45,10 @@
   Galbraith’s method of computing it cannot be applied (#1504; thanks to
   Annette Kadereit for reporting).
 
+- The new `od_rates` argument activates an alternative approach to
+  Galbraith’s for error estimation of Lx/Tx ratios (#1390; thanks to
+  @andrzejbluszcz for providing the mathematical description).
+
 ### `calc_TLLxTxRatio()`
 
 - The function now checks that the input data frames contain 2 columns

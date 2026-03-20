@@ -101,7 +101,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -119,6 +119,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [8]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -260,7 +275,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -278,6 +293,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [8]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -419,7 +449,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -437,6 +467,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [8]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -578,7 +623,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -596,6 +641,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [8]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -737,7 +797,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -755,6 +815,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [8]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -896,7 +971,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -914,6 +989,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [8]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -1055,7 +1145,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -1073,6 +1163,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [8]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -1214,7 +1319,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -1232,6 +1337,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [8]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -1373,7 +1493,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -1391,6 +1511,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [8]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -1532,7 +1667,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -1550,6 +1685,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [8]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -1831,7 +1981,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -1849,6 +1999,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [0.5]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -1990,7 +2155,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -2008,6 +2173,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [0.5]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -2149,7 +2329,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -2167,6 +2347,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [0.05]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -2308,7 +2503,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -2326,6 +2521,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [0.05]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -2467,7 +2677,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -2485,6 +2695,21 @@
                   "type": "double",
                   "attributes": {},
                   "value": [0.5]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
                 }
               ]
             }
@@ -2626,7 +2851,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
                 }
               },
               "value": [
@@ -2644,6 +2869,195 @@
                   "type": "double",
                   "attributes": {},
                   "value": [1.55]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                }
+              ]
+            }
+          ]
+        },
+        "originator": {
+          "type": "character",
+          "attributes": {},
+          "value": ["calc_OSLLxTxRatio"]
+        },
+        "info": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": []
+            }
+          },
+          "value": []
+        },
+        ".uid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        ".pid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        }
+      },
+      "value": {
+        "class": "RLum.Results",
+        "package": "Luminescence"
+      }
+    }
+
+---
+
+    {
+      "type": "S4",
+      "attributes": {
+        "data": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["LxTx.table", "calc.parameters"]
+            }
+          },
+          "value": [
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
+                },
+                "row.names": {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1]
+                }
+              },
+              "value": [
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [130367]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [3402.60145682]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [16404]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [3173.65244537]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [126964.39854318]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [363.94019482]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [13230.34755463]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [135.45900421]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [23.48272516]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [3.16797907]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [9.59645225]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.10203141]
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
+                }
+              },
+              "value": [
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1.55]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1]
                 }
               ]
             }

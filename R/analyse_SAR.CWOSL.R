@@ -223,7 +223,7 @@
 #' @param ... further arguments that will be passed to
 #' [Luminescence::fit_DoseResponseCurve], [Luminescence::plot_DoseResponseCurve]
 #' or [Luminescence::calc_OSLLxTxRatio] (supported:
-#' `background.count.distribution`, `sigmab`, `sig0`).
+#' `background.count.distribution`, `sigmab`, `sig0`, `od_rates`).
 
 #' **Note:** if you consider to use the early light subtraction method,
 #' `sigmab` should be provided.
@@ -681,6 +681,7 @@ analyse_SAR.CWOSL<- function(
       extraArgs$background.count.distribution %||% "non-poisson"
   sigmab <- extraArgs$sigmab
   sig0 <- extraArgs$sig0 %||% 0
+  od_rates <- extraArgs$od_rates
 
   ## deprecated argument
   if ("plot.single" %in% names(extraArgs)) {
@@ -734,7 +735,8 @@ analyse_SAR.CWOSL<- function(
             background_integral_Tx = background_integral_Tx,
             background.count.distribution = background.count.distribution,
             sigmab = sigmab,
-            sig0 = sig0)
+            sig0 = sig0,
+            od_rates = od_rates)
     ), silent = TRUE)
   }
 
