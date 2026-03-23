@@ -30,7 +30,7 @@ test_that("input validation", {
                                      merge.method = "error"),
                "'merge.method' should be one of 'mean', 'median', 'sum', 'sd'")
   expect_error(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3_types)),
-               "Only similar record types are supported")
+               "Objects cannot be merged, different record types found")
 
   ## different curve lengths
   expect_warning(res <- merge_RLum.Data.Curve(list(TL.curve.1,
@@ -40,7 +40,7 @@ test_that("input validation", {
 
   ## different resolution
   expect_warning(expect_warning(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3_resol)),
-               "The objects do not seem to have the same channel resolution"))
+               "The curves do not seem to have the same channel resolution"))
 
 })
 

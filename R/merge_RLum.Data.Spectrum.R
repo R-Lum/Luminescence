@@ -141,7 +141,7 @@ merge_RLum.Data.Spectrum <- function(
   ## check for similar record types
   record.types <- unique(temp.recordType.test)
   if (length(record.types) > 1) {
-    .throw_error("Only similar record types are supported; you are trying to merge: ",
+    .throw_error("Objects cannot be merged, different record types found: ",
                  .collapse(record.types))
   }
 

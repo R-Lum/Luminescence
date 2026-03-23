@@ -86,7 +86,8 @@ merge_RLum<- function(
 
   ## objects must be consistent, unless there's an RLum.Analysis object
   if (length(temp.class.test) > 1 && !"RLum.Analysis" %in% temp.class.test) {
-    .throw_error("Only similar input objects in the list are supported")
+    .throw_error("Objects cannot be merged, different classes found: ",
+                 .collapse(temp.class.test))
   }
 
   ## determine the output class

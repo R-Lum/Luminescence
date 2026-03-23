@@ -136,7 +136,7 @@ merge_RLum.Data.Curve<- function(
   ##(2) Check for similar record types
   record.types <- unique(temp.recordType.test)
   if (length(record.types) > 1) {
-    .throw_error("Only similar record types are supported; you are trying to merge: ",
+    .throw_error("Objects cannot be merged, different record types found: ",
                  .collapse(record.types))
   }
 
@@ -164,7 +164,7 @@ merge_RLum.Data.Curve<- function(
   temp.matrix <- sapply(object, function(x) {
     ## check the resolution (roughly)
     if (round(diff(x@data[, 1]), 1)[1] != step)
-      .throw_warning("The objects do not seem to have the same channel resolution!")
+      .throw_warning("The curves do not seem to have the same channel resolution")
     ## limit all objects to the shortest one
     x@data[1:num.rows, 2]
   })
