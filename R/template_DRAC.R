@@ -146,12 +146,12 @@ template_DRAC <- function(
                    "\t take any responsibility and we are not liable for any ",
                    "\t mistakes or unforeseen misbehaviour.",
                    "\t Note that this template is only compatible with DRAC",
-                   "\t version 1.1. Before using this template make sure that",
+                   "\t version 1.3. Before using this template make sure that",
                    "\t this is the correct version, otherwise expect unspecified",
                    "\t errors.\n",
                    "\t Please ensure you cite the use of DRAC in your work,",
                    "\t published or otherwise. Please cite the website name and",
-                   "\t version (e.g. DRAC v1.1) and the accompanying journal",
+                   "\t version (e.g. DRAC v1.3) and the accompanying journal",
                    "\t article:",
                    "\t Durcan, J.A., King, G.E., Duller, G.A.T., 2015.",
                    "\t DRAC: Dose rate and age calculation for trapped charge",
@@ -177,7 +177,7 @@ template_DRAC <- function(
                 description = "The mineral used for dating: quartz, feldspar or polymineral. Input must be 'Q', 'F' or 'PM'."), #
 
     `Conversion factors` =
-      structure(factor(rep(NA_character_, nrow), c("AdamiecAitken1998", "Guerinetal2011", "Liritzisetal2013", "Cresswelletal2018", "X")), required = FALSE, allowsX = TRUE,  default_class = "factor", key = "TI:4",
+      structure(factor(rep(NA_character_, nrow), c("AdamiecAitken1998", "Guerinetal2011", "Liritzisetal2013", "Cresswelletal2018")), required = FALSE, allowsX = TRUE,  default_class = "factor", key = "TI:4",
                 description = "The conversion factors required to calculate dose rates from radionuclide concentrations. Users have the option of datasets from Adamiec and Aitken (1998), Guerin et al. (2011), Liritzis et al. (2013) or Cresswell et al. (2018). Input must be 'AdamiecAitken1998', 'Guerinetal2011', 'Liritzisetal2013', 'Cresswelletal2018', or 'X' if conversion factors are not required."), #
 
     `External U (ppm)` =
@@ -254,27 +254,27 @@ template_DRAC <- function(
 
     `User external alphadoserate (Gy.ka-1)` =
       structure(rep(NA_real_, nrow), required = FALSE, allowsX = TRUE,  default_class = "numeric", key = "TI:23",
-                description = "Users may input directly measured values for external alpha, beta and gamma dose rates (in Gy.ka-1). Any positive inputs in these fields will override dose rates calculated from radionuclide concentrations. Inputs should be 0 or positive and should not be left blank"), #
+                description = "Users may input directly measured values for external alpha, beta and gamma dose rates (in Gy.ka-1). Any positive inputs in these fields will override dose rates calculated from radionuclide concentrations. Inputs should be 0 or positive and should not be left blank."), #
 
     `errUser external alphadoserate (Gy.ka-1)` =
       structure(rep(NA_real_, nrow), required = FALSE, allowsX = TRUE, default_class = "numeric", key = "TI:24",
-                description = "Users may input directly measured values for external alpha, beta and gamma dose rates (in Gy.ka-1). Any positive inputs in these fields will override dose rates calculated from radionuclide concentrations. Inputs should be 0 or positive and should not be left blank"), #
+                description = "Users may input directly measured values for external alpha, beta and gamma dose rates (in Gy.ka-1). Any positive inputs in these fields will override dose rates calculated from radionuclide concentrations. Inputs should be 0 or positive and should not be left blank."), #
 
     `User external betadoserate (Gy.ka-1)` =
       structure(rep(NA_real_, nrow), required = FALSE, allowsX = TRUE, default_class = "numeric", key = "TI:25",
-                description = "Users may input directly measured values for external alpha, beta and gamma dose rates (in Gy.ka-1). Any positive inputs in these fields will override dose rates calculated from radionuclide concentrations. Inputs should be 0 or positive and should not be left blank"), #
+                description = "Users may input directly measured values for external alpha, beta and gamma dose rates (in Gy.ka-1). Any positive inputs in these fields will override dose rates calculated from radionuclide concentrations. Inputs should be 0 or positive and should not be left blank."), #
 
     `errUser external betadoserate (Gy.ka-1)` =
       structure(rep(NA_real_, nrow), required = FALSE, allowsX = TRUE, default_class = "numeric", key = "TI:26",
-                description = "Users may input directly measured values for external alpha, beta and gamma dose rates (in Gy.ka-1). Any positive inputs in these fields will override dose rates calculated from radionuclide concentrations. Inputs should be 0 or positive and should not be left blank"), #
+                description = "Users may input directly measured values for external alpha, beta and gamma dose rates (in Gy.ka-1). Any positive inputs in these fields will override dose rates calculated from radionuclide concentrations. Inputs should be 0 or positive and should not be left blank."), #
 
     `User external gamma doserate (Gy.ka-1)` =
       structure(rep(NA_real_, nrow), required = FALSE, allowsX = TRUE, default_class = "numeric", key = "TI:27",
-                description = "Users may input directly measured values for external alpha, beta and gamma dose rates (in Gy.ka-1). Any positive inputs in these fields will override dose rates calculated from radionuclide concentrations. Inputs should be 0 or positive and should not be left blank"), #
+                description = "Users may input directly measured values for external alpha, beta and gamma dose rates (in Gy.ka-1). Any positive inputs in these fields will override dose rates calculated from radionuclide concentrations. Inputs should be 0 or positive and should not be left blank."), #
 
     `errUser external gammadoserate (Gy.ka-1)` =
       structure(rep(NA_real_, nrow), required = FALSE, allowsX = TRUE, default_class = "numeric", key = "TI:28",
-                description = "Users may input directly measured values for external alpha, beta and gamma dose rates (in Gy.ka-1). Any positive inputs in these fields will override dose rates calculated from radionuclide concentrations. Inputs should be 0 or positive and should not be left blank"), #
+                description = "Users may input directly measured values for external alpha, beta and gamma dose rates (in Gy.ka-1). Any positive inputs in these fields will override dose rates calculated from radionuclide concentrations. Inputs should be 0 or positive and should not be left blank."), #
 
     `User internal doserate (Gy.ka-1)` =
       structure(rep(NA_real_, nrow), required = FALSE, allowsX = TRUE, default_class = "numeric", key = "TI:29",
@@ -297,12 +297,12 @@ template_DRAC <- function(
                 description = "The grain size range analysed. DRAC can be used for the grain size ranges between 1 and 1000 microns. Inputs should range between 1 and 1000 and not be left blank."), #
 
     `alpha-Grain size attenuation` =
-      structure(factor(rep(NA_character_, nrow), c("Bell1980", "Brennanetal1991")), required = TRUE, allowsX = FALSE,  default_class = "factor", key = "TI:34",
-                description = "The grain size attenuation factors for the alpha dose rate. Users have the option of datasets from Bell (1980) and Brennan et al. (1991). Input must be 'Bell1980' or 'Brennanetal1991'."), #
+      structure(factor(rep(NA_character_, nrow), c("Bell1980", "Brennanetal1991", "Martinetal2014")), required = TRUE, allowsX = FALSE,  default_class = "factor", key = "TI:34",
+                description = "The grain size attenuation factors for the alpha dose rate. Users have the option of datasets from Bell (1980), Brennan et al. (1991), or Martin et al. (2014). Valid inputs are 'Bell1980' (between 1 and 1000 microns), 'Brennanetal1991' (between 1 and 1000 microns) or 'Martinetal2014' (between 1 and 10000 microns)."), #
 
     `beta-Grain size attenuation ` =
       structure(factor(rep(NA_character_, nrow), c("Mejdahl1979", "Brennan2003", "Guerinetal2012-Q", "Guerinetal2012-F")), required = TRUE, allowsX = FALSE,  default_class = "factor", key = "TI:35",
-                description = "The grain size attenuation factors for the beta dose rate. Users have the option of datasets from Mejdahl (1979), Brennan (2003) and Guerin et al. (2012) for quartz or feldspar. Input must be 'Mejdahl1979', 'Brennan2003', 'Guerinetal2012-Q' or 'Guerinetal2012-F' ."), #
+                description = "The grain size attenuation factors for the beta dose rate. Users have the option of datasets from Mejdahl (1979), Brennan (2003) and Guerin et al. (2012) for quartz or feldspar. Valid inputs are 'Mejdahl1979' (between 1 and 10000 microns), 'Brennan2003' (between 1 and 10000 microns), 'Guerinetal2012-Q' (between 1 and 1000 microns) or 'Guerinetal2012-F' (between 1 and 1000 microns)."), #
 
     `Etch depth min (microns)` =
       structure(rep(NA_integer_, nrow), required = TRUE, allowsX = FALSE,  default_class = "integer", key = "TI:36",
@@ -313,7 +313,7 @@ template_DRAC <- function(
                 description = "The user defined etch depth range (microns). Inputs should range between 0 and 30 and not be left blank."), #
 
     `beta-Etch depth attenuation factor` =
-      structure(factor(rep(NA_character_, nrow), c("Bell1979", "Brennan2003", "X")), required = FALSE, allowsX = TRUE, default_class = "factor", key = "TI:38",
+      structure(factor(rep(NA_character_, nrow), c("Bell1979", "Brennan2003")), required = FALSE, allowsX = TRUE, default_class = "factor", key = "TI:38",
                 description = "The etch depth attenuation factors for the beta dose rate. Users have the option of datasets from Bell (1979) and Brennan (2003). Input must be 'Bell1979' or 'Brennan2003'. Note: only the dataset of Bell (1980) is provided for attenuation of the alpha dose rate by etching."), #
 
     `a-value` =
@@ -418,8 +418,8 @@ template_DRAC <- function(
                               "X", "X", "N", "X", "X", "X", "X", "X", "X", "X", "X", "Y", 4L, 11L,
                               "Brennanetal1991", "Guerinetal2012-F", 0L, 0L, "Bell1979", 0.08, 0.01,
                               0, 0, 0, 0, 1.8, 0.1, "X", "X", 0, "X", "X", "X", "X"),
-      `DRAC-example_quartz` = list("DRAC-example", "Quartz", "Q", "Guerinetal2011", 3.4, 0.51, 14.47, 1.69, 1.2, 0.14, 0, 0, "N", "X", "X", "X", "X", "X", "X", "X", "X", "N", "X", "X", "X", "X", "X", "X", "X", "X", "N", 90L, 125L, "Brennanetal1991", "Guerinetal2012-Q", 8L, 10L, "Bell1979", 0, 0, 5, 2, 2.22, 0.05, 1.8, 0.1, 30, 70, 150, "X", "X", 20, 0.2),
-      `DRAC-example_feldspar` = list("DRAC-example", "Feldspar", "F", "AdamiecAitken1998", 2, 0.2, 8,  0.4, 1.75, 0.05, 0, 0, "Y", "X", "X", "X", "X", 12.5, 0.5, "X", "X", "N", "X", "X", "X", "X", "X", "X", "X", "X", "Y", 180L, 212L, "Bell1980", "Mejdahl1979", 0L, 0L, "Bell1979", 0.15, 0.05, 10, 3, 0.15, 0.02, 1.8, 0.1, 60, 100, 200, "X", "X", 15, 1.5),
+      `DRAC-example_quartz` = list("DRAC-example", "Quartz", "Q", "Cresswelletal2018", 3.4, 0.51, 14.47, 1.69, 1.2, 0.14, 0, 0, "N", "X", "X", "X", "X", "X", "X", "X", "X", "N", "X", "X", "X", "X", "X", "X", "X", "X", "N", 90L, 125L, "Brennanetal1991", "Guerinetal2012-Q", 8L, 10L, "Bell1979", 0, 0, 5, 2, 2.22, 0.05, 1.8, 0.1, 30, 70, 150, "X", "X", 20, 0.2),
+      `DRAC-example_feldspar` = list("DRAC-example", "Feldspar", "F", "AdamiecAitken1998", 2, 0.2, 8,  0.4, 1.75, 0.05, 0, 0, "Y", "X", "X", "X", "X", 12.5, 0.5, "X", "X", "N", "X", "X", "X", "X", "X", "X", "X", "X", "Y", 180L, 212L, "Martinetal2014", "Mejdahl1979", 0L, 0L, "Bell1979", 0.15, 0.05, 10, 3, 0.15, 0.02, 1.8, 0.1, 60, 100, 200, "X", "X", 15, 1.5),
       `DRAC-example_polymineral` = list("DRAC-example", "Polymineral", "PM", "AdamiecAitken1998", 4, 0.4, 12, 0.12, 0.83, 0.08, 0, 0, "Y", "X", "X", "X", "X", 12.5, 0.5, "X", "X", "N", "X", "X", 2.5, 0.15, "X", "X", "X", "X", "Y", 4L, 11L, "Bell1980", "Mejdahl1979", 0L, 0L, "Bell1979", 0.086, 0.0038, 10, 5, 0.2, 0.02, 1.8, 0.1, 46, 118, 200, 0.2, 0.1, 204.47, 2.69)
   )
 

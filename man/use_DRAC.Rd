@@ -14,7 +14,7 @@ use_DRAC(
 }
 \arguments{
 \item{file}{\link{character} (\strong{required}):
-name of a CSV file (formatted according to the DRAC v1.2 CSV template) to
+name of a CSV file (formatted according to the DRAC v1.3 CSV template) to
 be sent to the DRAC website for calculation. It can also be a DRAC template
 object obtained from \code{\link[=template_DRAC]{template_DRAC()}}, which supports also import from
 CSV-files.}
@@ -68,7 +68,7 @@ The function provides an interface from R to DRAC. An R-object or a
 CSV file is passed to the DRAC website and results are re-imported into R.
 }
 \section{Function version}{
- 0.17
+ 0.18
 }
 
 \examples{
