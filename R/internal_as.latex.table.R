@@ -62,10 +62,17 @@
     split = NULL,
     tabular_only = FALSE,
 ...) {
+  .set_function_name(".as.latex.table")
+  on.exit(.unset_function_name(), add = TRUE)
 
   ## TODO:
   # - Improve by using RegEx to dynamically find error fields, e.g. ( "([ ]err)|(^err)" )
   # -
+
+  .validate_logical_scalar(comments)
+  .validate_logical_scalar(rm.zero)
+  .validate_class(select, "character", null.ok = TRUE)
+  .validate_logical_scalar(tabular_only)
 
   args <- list(
     x = x,
@@ -190,10 +197,11 @@
 
   ## Subset data frame ----
   if (!is.null(select)) {
+    .validate_not_empty(select)
     is.name <- select %in% names(x)
     if (!all(is.name))
-      .throw_error("Undefined columns selected. Please check provided ",
-                   "column names in 'select'.")
+      .throw_error("Invalid 'select' column name, valid column names are: ",
+                   .collapse(names(x)))
     x <- subset(x, select = select)
   }
 
