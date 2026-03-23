@@ -207,15 +207,17 @@ plot_DRTResults <- function(
 
   ## Integrity checks -------------------------------------------------------
   .validate_not_empty(object)
-  .validate_class(given.dose, "numeric", null.ok = TRUE)
+  .validate_class(given.dose, c("numeric", "integer"), null.ok = TRUE)
   if (anyNA(given.dose))
     .throw_error("'given.dose' cannot contain NA values")
+  .validate_class(preheat, c("numeric", "integer"), null.ok = TRUE)
   .validate_logical_scalar(boxplot)
   if (boxplot && is.null(preheat)) {
     boxplot <- FALSE
     .throw_warning("'boxplot' requires a value in 'preheat', reset to FALSE")
   }
 
+  .validate_class(mtext, "character", length = 1)
   valid.pos <- c("left", "center", "right", "topleft", "top", "topright",
                  "bottomleft", "bottom", "bottomright")
   .validate_class(summary, "character")
@@ -232,6 +234,8 @@ plot_DRTResults <- function(
   else {
     legend.pos <- .validate_args(legend.pos, valid.pos)
   }
+  .validate_logical_scalar(par.local)
+  .validate_logical_scalar(na.rm)
 
   ## Homogenise and check input data
   values <- object
