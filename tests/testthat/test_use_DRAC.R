@@ -66,10 +66,7 @@ test_that("check functionality", {
  input$`External K (%)` <- 1.2
  input$`errExternal K (%)` <- 0.14
  input$`Calculate external Rb from K conc?` <- "Y"
- ## TODO(mcol): temporarily disabled due to issue 919
- if (FALSE) {
  input$`Calculate internal Rb from K conc?` <- "Y"
- }
  input$`Scale gammadoserate at shallow depths?` <- "Y"
  input$`Grain size min (microns)` <- 90L
  input$`Grain size max (microns)` <- 125L
