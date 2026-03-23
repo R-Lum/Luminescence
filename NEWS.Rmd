@@ -93,6 +93,12 @@ for reporting).
 if a list of datasets of different size was provided, which could lead to very
 long rug lines for the smaller dataset (#1508).
 
+### `use_DRAC()`
+
+* The function has been updated to accept the DRAC v1.3 input template. This
+doesn't appear to be different from the v1.2 template apart from the updated
+version number in the header row (#1311).
+
 ### `verify_SingleGrainData()`
 
 * The function better validates all its arguments (#1487).

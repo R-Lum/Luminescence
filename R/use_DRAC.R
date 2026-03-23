@@ -4,7 +4,7 @@
 #' CSV file is passed to the DRAC website and results are re-imported into R.
 #'
 #' @param file [character] (**required**):
-#' name of a CSV file (formatted according to the DRAC v1.2 CSV template) to
+#' name of a CSV file (formatted according to the DRAC v1.3 CSV template) to
 #' be sent to the DRAC website for calculation. It can also be a DRAC template
 #' object obtained from [Luminescence::template_DRAC()], which supports also import from
 #' CSV-files.
@@ -53,7 +53,7 @@
 #'
 #' @seealso [Luminescence::template_DRAC], [Luminescence::.as.latex.table]
 #'
-#' @section Function version: 0.17
+#' @section Function version: 0.18
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -163,10 +163,11 @@ use_DRAC <- function(
     ## only meta data
 
     ## DRAC v1.2 - CSV sheet
-    if (read.csv(file, nrows = 1, header = FALSE)[1] != "DRAC v.1.2 Inputs" &
+    if (!read.csv(file, nrows = 1, header = FALSE)[1] %in%
+        c("DRAC v.1.2 Inputs", "DRAC v.1.3 Inputs") &
         !settings$ignore_version)
       .throw_error("It looks like that you are not using the original ",
-                   "DRAC v1.2 CSV template, this is currently not supported")
+                   "DRAC v1.2 or v1.3 CSV template, this is currently not supported")
 
     input.raw <- read.csv(file, skip = 8, check.names = FALSE, header = TRUE,
                           stringsAsFactors = FALSE)[-1, ]
@@ -382,10 +383,10 @@ use_DRAC <- function(
                    "\t We, the authors of the R package 'Luminescence', do not take any responsibility and we are not liable for any ",
                    "\t mistakes or unforeseen misbehaviour. All calculations are done by DRAC and it is outside our reference to",
                    "\t verify the input and output. \n",
-                   "\t Note that this function is only compatible with DRAC version 1.2. Before using this function make sure that",
+                   "\t Note that this function is only compatible with DRAC version 1.3. Before using this function make sure that",
                    "\t this is the correct version, otherwise expect unspecified errors.\n",
                    "\t Please ensure you cite the use of DRAC in your work, published or otherwise. Please cite the website name and",
-                   "\t version (e.g. DRAC v1.2) and the accompanying journal article:",
+                   "\t version (e.g. DRAC v1.3) and the accompanying journal article:",
                    "\t Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose rate and age calculation for trapped charge",
                    "\t dating. Quaternary Geochronology 28, 54-61. \n",
                    "\t Use 'verbose = FALSE' to hide this message. \n")
