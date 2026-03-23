@@ -76,6 +76,13 @@
   error (instead of a warning) if more than 2 values are specified
   (#1506).
 
+### `fit_ThermalQuenching()`
+
+- The function now checks that the input dataset contains at least 4
+  points, and stops with an error if that is not the case. This avoids
+  possibly wrong fit results and the corresponding warnings from
+  `nlsLM()` (#1512).
+
 ### `normalise_RLum()`
 
 - The function crashed if `norm = NA` was used (#1489; thanks to

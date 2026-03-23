@@ -173,6 +173,9 @@ fit_ThermalQuenching <- function(
     if (nrow(data) == 0)
       .throw_error("After NA removal, nothing is left from the data set")
   }
+  if (nrow(data) < 4) {
+    .throw_error("Insufficient number of data points to fit the model")
+  }
 
   .validate_class(start_param, "list")
   .validate_class(method_control, "list")
