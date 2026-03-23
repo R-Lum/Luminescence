@@ -76,6 +76,9 @@
   error (instead of a warning) if more than 2 values are specified
   (#1506).
 
+- The function no longer crashes if arguments of length 0 (such as
+  `NULL`) are passed via `...` (#1514).
+
 ### `fit_ThermalQuenching()`
 
 - The function now checks that the input dataset contains at least 4
