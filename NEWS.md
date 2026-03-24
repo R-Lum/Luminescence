@@ -98,6 +98,9 @@
   contained a number of points equal to the total number of datasets in
   the input list (#1516).
 
+- When a list of datasets was provided, x-axis ticks were drawn only up
+  to the size of the first dataset (#1518).
+
 ### `plot_KDE()`
 
 - A regression introduced in v1.2.0 caused the rug to have uneven tick

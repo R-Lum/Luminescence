@@ -355,7 +355,7 @@ plot_DRTResults <- function(
     modes.plot <- rep(modes, each = length(values))
     xlim <- c(min(modes.plot) * 0.9, max(modes.plot) * 1.1)
   } else {
-    modes.plot <- 1 + 0:nrow(values[[1]])
+    modes.plot <- 1 + 0:max(sapply(values, nrow))
   }
 
   if (boxplot)
