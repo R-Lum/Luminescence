@@ -121,6 +121,9 @@ test_that("graphical snapshot tests", {
                               plot_DRTResults(df.list,
                                               summary.pos = "bottomright",
                                               summary = c("n", "mean", "sd.abs")))
+  vdiffr::expect_doppelganger("list size 2",
+                              plot_DRTResults(list(df, df[1:2, ] * 1.1),
+                                              summary = c("mean", "sd.rel")))
   })
 })
 

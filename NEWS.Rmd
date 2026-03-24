@@ -96,6 +96,13 @@ fit results and the corresponding warnings from `nlsLM()` (#1512).
 * The function crashed if `norm = NA` was used (#1489; thanks to @JohannesFriedrich
 for reporting).
 
+### `plot_DRT()`
+
+* A regression introduced in v1.2.0 caused the summary text to appear in black
+instead of colour for the very specific case of a dataset that contained a
+number of points equal to the total number of datasets in the input list
+(#1516).
+
 ### `plot_KDE()`
 
 * A regression introduced in v1.2.0 caused the rug to have uneven tick lengths

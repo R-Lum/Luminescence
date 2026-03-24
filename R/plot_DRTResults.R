@@ -596,7 +596,9 @@ plot_DRTResults <- function(
 
 .add_summary <- function(summary.pos, summary.pos_is_bottom, summary.adj,
                          label.text, mtext, i, cex, values, col) {
-  col <- if (nrow(values[[i]]) == length(col)) "black" else col[i]
+  oneinput <- length(values) == 1
+  multicol <- oneinput && nrow(values[[1]] == length(col))
+  col <- if (multicol) "black" else col[i]
   if (summary.pos[1] != "sub") {
     vadj <- 0
     if (summary.pos_is_bottom) {
