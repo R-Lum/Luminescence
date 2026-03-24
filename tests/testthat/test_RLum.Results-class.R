@@ -71,7 +71,7 @@ test_that("snapshot tests", {
 
   ## show()
   SW({
-  expect_snapshot(show(obj))
-  expect_snapshot(show(empty))
+  expect_snapshot_output(show(obj))
+  expect_snapshot_output(show(empty))
   })
 })
