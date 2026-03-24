@@ -51,6 +51,8 @@ test_that("input validation", {
                "'object' cannot be an empty list")
   expect_error(plot_DRTResults(data.frame()),
                "'object' cannot be an empty data.frame")
+  expect_error(plot_DRTResults(data.frame(NA, 1:4)),
+                     "No valid records in 'object'")
   expect_error(plot_DRTResults(list(empty, empty)),
                      "No valid records in 'object'")
 })
@@ -142,4 +144,9 @@ test_that("regression tests", {
   expect_silent(plot_DRTResults(list(df, df), given.dose = c(10, 10000)))
   expect_silent(plot_DRTResults(list(df, df), given.dose = c(10, 10000),
                                 preheat = rep(200, 5)))
+
+  ## issue 1522
+  expect_silent(plot_DRTResults(list(data.frame(5, 1), data.frame(2, 3))))
+  expect_silent(plot_DRTResults(list(data.frame(de = 5, err = 1),
+                                     data.frame(de = 2, err = 3, other = 4))))
 })

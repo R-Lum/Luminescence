@@ -107,6 +107,9 @@
   values. Moreover, the function no longer crashes if all errors are
   `NA` and `na.rm = FALSE` (#1520).
 
+- The function no longer crashes if the input data frames don’t have
+  names or if they contain a different number of columns (#1522).
+
 ### `plot_KDE()`
 
 - A regression introduced in v1.2.0 caused the rug to have uneven tick
