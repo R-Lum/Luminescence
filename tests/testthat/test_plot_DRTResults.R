@@ -13,7 +13,7 @@ test_that("input validation", {
                "'object' should be of class 'data.frame' or 'RLum.Results'")
   expect_error(plot_DRTResults(iris[, 1, drop = FALSE]),
                "'object' should have 2 columns")
-  expect_error(plot_DRTResults(data.frame(1:5, NA)),
+  expect_error(plot_DRTResults(data.frame(1:5, NA), na.rm = TRUE),
                "No valid data remains after removing NA values")
   expect_error(plot_DRTResults(df, preheat = c(200, 240, 240)),
                "'preheat' should have length equal to the number of De values")
@@ -126,6 +126,8 @@ test_that("graphical snapshot tests", {
                                               summary = c("mean", "sd.rel")))
   vdiffr::expect_doppelganger("list ticks",
                               plot_DRTResults(list(df, rbind(df, df) * 1.05)))
+  vdiffr::expect_doppelganger("errors NA",
+                              plot_DRTResults(data.frame(1:5, NA)))
   })
 })
 

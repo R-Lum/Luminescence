@@ -270,7 +270,7 @@ plot_DRTResults <- function(
   for (i in seq_along(values)) {
 
     ##remove NA values; yes Micha, it is not that simple
-    if (!na.rm) {
+    if (na.rm) {
       ##currently we assume that all input data sets comprise a similar of data
       if (!is.null(preheat) && i == length(values)) {
         ## remove preheat entries corresponding to NA values
@@ -339,8 +339,11 @@ plot_DRTResults <- function(
        min(sapply(values, function(x) min(x[, 1], na.rm = TRUE))) < 0.75) &&
        (!"ylim" %in% names(extraArgs))) {
     ylim <- c(
-      min(sapply(values, function(x) min(x[, 1], na.rm = TRUE) - max(x[, 2], na.rm = TRUE))),
-      max(sapply(values, function(x) max(x[, 1], na.rm = TRUE) + max(x[, 2], na.rm = TRUE))))
+        ## append a 0 element to the errors to avoid crashing if all errors are NA
+        min(sapply(values, function(x) min(x[, 1], na.rm = TRUE) -
+                                       max(c(x[, 2], 0), na.rm = TRUE))),
+        max(sapply(values, function(x) max(x[, 1], na.rm = TRUE) +
+                                       max(c(x[, 2], 0), na.rm = TRUE))))
   }
 
   ## optionally group data by preheat temperature
