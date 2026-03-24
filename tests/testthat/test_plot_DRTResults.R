@@ -52,7 +52,7 @@ test_that("input validation", {
   expect_error(plot_DRTResults(data.frame()),
                "'object' cannot be an empty data.frame")
   expect_error(plot_DRTResults(list(empty, empty)),
-                     "No valid records in 'values'")
+                     "No valid records in 'object'")
 })
 
 test_that("check functionality", {

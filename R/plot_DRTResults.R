@@ -256,7 +256,7 @@ plot_DRTResults <- function(
   ## remove invalid records
   values[is.na(values)] <- NULL
   if (length(values) == 0) {
-    .throw_error("No valid records in 'values'")
+    .throw_error("No valid records in 'object'")
   }
 
   ## check for preheat temperature values
