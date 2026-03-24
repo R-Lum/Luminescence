@@ -132,12 +132,18 @@ test_that("check functionality", {
 test_that("snapshot tests", {
   testthat::skip_on_cran()
 
+  set.seed(1)
+
   SW({
   expect_snapshot_output(use_DRAC(template_v1.3))
   })
 
-  ## communicate with insufficient input
+  ## test print.DRAC.highlight()
   t <- template_DRAC(preset = "DRAC-example_quartz", notification = FALSE)
+  res <- use_DRAC(t, verbose = FALSE)
+  expect_snapshot_output(print(res$DRAC$highlights))
+
+  ## communicate with insufficient input
   t[52] <- 0.0
   local_mocked_bindings(readline = function(prompt) "Y")
   set.seed(1)

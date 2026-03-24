@@ -32,6 +32,134 @@
 
 ---
 
+    TI:1 = Project ID:
+      DRAC-example
+    TI:2 = Sample ID:
+      Quartz
+    TI:3 = Mineral:
+      Q
+    TO:FQ = Water corrected alphadoserate (Gy.ka-1):
+      0
+    TO:FR = Water corrected erralphadoserate (Gy.ka-1):
+      0
+    TO:FS = Water corrected betadoserate (Gy.ka-1):
+      1.593
+    TO:FT = Water corrected errbetadoserate (Gy.ka-1):
+      0.132
+    TO:FU = Water corrected gammadoserate (Gy.ka-1):
+      1.311
+    TO:FV = Water corrected errgammadoserate (Gy.ka-1):
+      0.105
+    TO:FW = Internal Dry alphadoserate (Gy.ka-1):
+      0
+    TO:FX = Internal Dry erralphadoserate (Gy.ka-1):
+      0
+    TO:FY = Internal Dry betadoserate (Gy.ka-1):
+      0
+    TO:FZ = Internal Dry errbetadoserate (Gy.ka-1):
+      0
+    TO:GG = Cosmicdoserate (Gy.ka-1):
+      0.154
+    TO:GH = errCosmicdoserate (Gy.ka-1):
+      0.015
+    TO:GI = External doserate (Gy.ka-1):
+      3.058
+    TO:GJ = External errdoserate (Gy.ka-1):
+      0.169
+    TO:GK = Internal doserate (Gy.ka-1):
+      0
+    TO:GL = Internal errdoserate (Gy.ka-1):
+      0
+    TO:GM = Environmental Dose Rate (Gy.ka-1):
+      3.058
+    TO:GN = errEnvironmental Dose Rate (Gy.ka-1):
+      0.169
+    TI:52 = De (Gy):
+      20
+    TI:53 = errDe (Gy):
+      0.2
+    TO:GO = Age (ka):
+      6.54
+    TO:GP = errAge (ka):
+      0.368
+    $`Project ID`
+    NULL
+    
+    $`Sample ID`
+    NULL
+    
+    $Mineral
+    NULL
+    
+    $`Water corrected alphadoserate (Gy.ka-1)`
+    NULL
+    
+    $`Water corrected erralphadoserate (Gy.ka-1)`
+    NULL
+    
+    $`Water corrected betadoserate (Gy.ka-1)`
+    NULL
+    
+    $`Water corrected errbetadoserate (Gy.ka-1)`
+    NULL
+    
+    $`Water corrected gammadoserate (Gy.ka-1)`
+    NULL
+    
+    $`Water corrected errgammadoserate (Gy.ka-1)`
+    NULL
+    
+    $`Internal Dry alphadoserate (Gy.ka-1)`
+    NULL
+    
+    $`Internal Dry erralphadoserate (Gy.ka-1)`
+    NULL
+    
+    $`Internal Dry betadoserate (Gy.ka-1)`
+    NULL
+    
+    $`Internal Dry errbetadoserate (Gy.ka-1)`
+    NULL
+    
+    $`Cosmicdoserate (Gy.ka-1)`
+    NULL
+    
+    $`errCosmicdoserate (Gy.ka-1)`
+    NULL
+    
+    $`External doserate (Gy.ka-1)`
+    NULL
+    
+    $`External errdoserate (Gy.ka-1)`
+    NULL
+    
+    $`Internal doserate (Gy.ka-1)`
+    NULL
+    
+    $`Internal errdoserate (Gy.ka-1)`
+    NULL
+    
+    $`Environmental Dose Rate (Gy.ka-1)`
+    NULL
+    
+    $`errEnvironmental Dose Rate (Gy.ka-1)`
+    NULL
+    
+    $`De (Gy)`
+    NULL
+    
+    $`errDe (Gy)`
+    NULL
+    
+    $`Age (ka)`
+    NULL
+    
+    $`errAge (ka)`
+    NULL
+    
+
+---
+
     
     ERROR: Some fields were invalid.
     Row 2, Column 52 (TI:52 De (Gy)) Found "0": Sample De and uncertainty (in Gy). Inputs should be positive or “X” if not required, and not left blank.
