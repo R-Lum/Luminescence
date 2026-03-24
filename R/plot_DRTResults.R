@@ -250,6 +250,10 @@ plot_DRTResults <- function(
       values[[i]] <- val
     } else if (ncol(values[[i]]) < 2) {
       .throw_error("'object' should have 2 columns")
+    } else {
+      ## mark for removal if all De values are missing
+      if (all(is.na(values[[i]][, 1])))
+        values[[i]] <- NA
     }
   }
 
@@ -268,6 +272,10 @@ plot_DRTResults <- function(
 
   ## Check input arguments ----------------------------------------------------
   for (i in seq_along(values)) {
+
+    ## keep only the required columns and assign names
+    values[[i]] <- values[[i]][, 1:2]
+    colnames(values[[i]]) <- c("De", "De.error")
 
     ##remove NA values; yes Micha, it is not that simple
     if (na.rm) {
