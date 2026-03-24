@@ -124,6 +124,8 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("list size 2",
                               plot_DRTResults(list(df, df[1:2, ] * 1.1),
                                               summary = c("mean", "sd.rel")))
+  vdiffr::expect_doppelganger("list ticks",
+                              plot_DRTResults(list(df, rbind(df, df) * 1.05)))
   })
 })
 
