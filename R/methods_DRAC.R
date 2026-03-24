@@ -30,11 +30,10 @@ as.data.frame.DRAC.list <- function(x, row.names = NULL, optional = FALSE, ...) 
 
 #' @export
 print.DRAC.highlights <- function(x, ...) {
-  x <- as.list(x)
-  names <- names(x)
   mapply(function(el, name) {
-    cat(paste0(attributes(el)$key, " = ", name,":\n  ", paste(el, collapse = ",\n  "), "\n"))
-    }, x, names)
+    cat(attributes(el)$key, " = ", name, ":\n  ",
+        paste(el, collapse = ",\n  "), "\n", sep = "")
+  }, x, names(x))
 }
 
 #' @export
