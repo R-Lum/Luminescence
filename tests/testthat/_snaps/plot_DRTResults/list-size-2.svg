@@ -89,10 +89,10 @@
 <line x1='262.53' y1='48.00' x2='262.53' y2='188.13' style='stroke-width: 0.75; stroke: #DF536B;' />
 <polyline points='267.93,48.00 262.53,48.00 257.13,48.00 ' style='stroke-width: 0.75; stroke: #DF536B;' />
 <polyline points='257.13,188.13 262.53,188.13 267.93,188.13 ' style='stroke-width: 0.75; stroke: #DF536B;' />
-<text x='89.33' y='54.61' style='font-size: 9.60px; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
-<text x='89.33' y='66.13' style='font-size: 9.60px; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
-<text x='89.33' y='77.65' style='font-size: 9.60px; font-family: sans;' textLength='72.33px' lengthAdjust='spacingAndGlyphs'>mean = 3148.25 </text>
-<text x='89.33' y='89.17' style='font-size: 9.60px; font-family: sans;' textLength='53.11px' lengthAdjust='spacingAndGlyphs'>sd.rel = 1.93</text>
+<text x='89.33' y='54.61' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
+<text x='89.33' y='66.13' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
+<text x='89.33' y='77.65' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='72.33px' lengthAdjust='spacingAndGlyphs'>mean = 3148.25 </text>
+<text x='89.33' y='89.17' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='53.11px' lengthAdjust='spacingAndGlyphs'>sd.rel = 1.93</text>
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 </g>
