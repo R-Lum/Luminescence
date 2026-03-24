@@ -106,6 +106,11 @@ number of points equal to the total number of datasets in the input list
 * When a list of datasets was provided, x-axis ticks were drawn only up to
 the size of the first dataset (#1518).
 
+* A regression introduced in v1.1.2 caused the `na.rm` argument to behave in
+the opposite way as expected. This has been corrected so that the default
+setting of `na.rm = FALSE` will not remove the `NA` values. Moreover, the
+function no longer crashes if all errors are `NA` and `na.rm = FALSE` (#1520).
+
 ### `plot_KDE()`
 
 * A regression introduced in v1.2.0 caused the rug to have uneven tick lengths
