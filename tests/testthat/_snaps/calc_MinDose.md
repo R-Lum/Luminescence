@@ -1900,3 +1900,155 @@
       }
     }
 
+# output snapshot tests
+
+    
+    ----------- Meta data -----------
+      n par sigmab logged      Lmax      BIC
+     62   3    0.1   TRUE -43.57969 106.4405
+    
+    --- Final parameter estimates ---
+             gamma sigma   p0
+    Estimate 34.32  2.07 0.01
+    
+    ------ Confidence intervals -----
+          2.5 % 97.5 %
+    gamma 29.38  39.38
+    sigma  1.76   2.57
+    p0       NA   0.11
+    
+    ------ De (asymmetric error) -----
+        De lower upper
+     34.32 29.38 39.38
+    
+    ------ De (symmetric error) -----
+        De error
+     34.32  2.55
+
+---
+
+    
+    ----------- Meta data -----------
+      n par sigmab logged      Lmax      BIC
+     62   3    0.1   TRUE -19.68678 58.65469
+    
+    --- Final parameter estimates ---
+             gamma sigma   p0
+    Estimate 90.48  1.68 0.22
+    
+    ------ Confidence intervals -----
+          2.5 % 97.5 %
+    gamma 80.90 110.49
+    sigma  1.51   1.98
+    p0       NA   0.55
+    
+    ------ De (asymmetric error) -----
+        De lower  upper
+     90.48  80.9 110.49
+    
+    ------ De (symmetric error) -----
+        De error
+     90.48  7.55
+
+---
+
+    
+    ----------- Meta data -----------
+      n par sigmab logged      Lmax      BIC
+     62   4    0.2   TRUE -19.84507 58.97126
+    
+    --- Final parameter estimates ---
+             gamma sigma  p0   mu
+    Estimate  0.31  1.12 0.1 0.72
+    
+    ------ Confidence intervals -----
+          2.5 % 97.5 %    2.5 %   97.5 %
+                       (logged) (logged)
+    gamma  0.23   0.39    -1.47    -0.94
+    sigma  <NA>   1.27     <NA>     0.24
+    p0     0.03   0.21        -        -
+    mu     0.66   0.77    -0.42    -0.26
+    
+    ------ De (asymmetric error) -----
+       De lower upper
+     0.31  0.23  0.39
+    
+    ------ De (symmetric error) -----
+       De error
+     0.31  0.04
+
+---
+
+    
+    ----------- Meta data -----------
+      n par sigmab logged      Lmax      BIC
+     62   3    0.2  FALSE -292.0437 603.3685
+    
+    --- Final parameter estimates ---
+             gamma sigma p0
+    Estimate 23.71 49.67  0
+    
+    ------ Confidence intervals -----
+          2.5 % 97.5 %
+    gamma 19.07  27.59
+    sigma 41.01  61.20
+    p0       NA   0.07
+    
+    ------ De (asymmetric error) -----
+        De lower upper
+     23.71 19.07 27.59
+    
+    ------ De (symmetric error) -----
+        De error
+     23.71  2.17
+
+---
+
+    
+    ----------- Meta data -----------
+      n par sigmab logged      Lmax      BIC
+     62   3    0.1   TRUE -43.57969 106.4405
+    
+    --- Final parameter estimates (bootstrap) ---
+             gamma sigma   p0
+    Estimate 34.67  2.08 0.01
+    
+    ------ Confidence intervals (bootstrap) -----
+          2.5 % 97.5 %
+    gamma 27.24  39.87
+    sigma  1.80   2.61
+    p0     0.01   0.02
+    
+    ------ De (asymmetric error) (bootstrap) -----
+        De lower upper
+     34.67 27.24 39.87
+    
+    ------ De (symmetric error) (bootstrap) -----
+        De error
+     34.67  4.53
+
+---
+
+    
+    ----------- Meta data -----------
+      n par sigmab logged      Lmax      BIC
+     62   3    0.2   TRUE -19.79245 58.86603
+    
+    --- Final parameter estimates (bootstrap) ---
+             gamma sigma   p0
+    Estimate 78.22  1.69 0.57
+    
+    ------ Confidence intervals (bootstrap) -----
+          2.5 % 97.5 %
+    gamma 68.45  88.59
+    sigma  1.49   2.29
+    p0     0.20   0.93
+    
+    ------ De (asymmetric error) (bootstrap) -----
+        De lower upper
+     78.22 68.45 88.59
+    
+    ------ De (symmetric error) (bootstrap) -----
+        De error
+     78.22  5.91
+
