@@ -259,14 +259,15 @@ plot_DRTResults <- function(
     .throw_error("No valid records in 'values'")
   }
 
+  ## check for preheat temperature values
+  num.de.values <- max(sapply(values, nrow))
+  if (!is.null(preheat) && length(preheat) < num.de.values) {
+    .throw_error("'preheat' should have length equal to the number of ",
+                 "De values (", num.de.values, ")")
+  }
+
   ## Check input arguments ----------------------------------------------------
   for (i in seq_along(values)) {
-
-    ##check for preheat temperature values
-    if (!missing(preheat) && length(preheat) < nrow(values[[i]])) {
-        .throw_error("'preheat' should have length equal to the number ",
-                     "of De values")
-    }
 
     ##remove NA values; yes Micha, it is not that simple
     if (!na.rm) {
