@@ -206,7 +206,7 @@ test_that("sort_RLum", {
   ## present a list of those objects
   expect_type(sort_RLum(list(sar, sar), info_element = "X_MIN"), "list")
   expect_type(sort_RLum(list(iris, mtcars), info_element = "X_MIN"), "list")
-  expect_snapshot(sort_RLum(list(sar, sar), info_element = "X_MIN"))
+  expect_snapshot_RLum(sort_RLum(list(sar, sar), info_element = "X_MIN"))
 
   ## sort after three columns
   expect_s4_class(sort_RLum(sar, info_element = c("XY_LENGTH", "NCOL", "X_MIN")), "RLum.Analysis")
