@@ -200,7 +200,12 @@ results <- calc_OSLLxTxRatio(
 ##get results object
 get_RLum(results)
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., Colombo, M., 2026. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.9.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Duller, G., 2018. Analyst v4.57 - User Manual.
 \verb{https://users.aber.ac.uk/ggd}\cr
@@ -218,5 +223,5 @@ background-corrected OSL count. Ancient TL, 31 (2), 1-3. \doi{10.26034/la.atl.20
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 Marco Colombo, Institute of Geography, Heidelberg University (Germany)
-}
+, RLum Developer Team}
 \keyword{datagen}

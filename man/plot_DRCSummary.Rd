@@ -102,4 +102,9 @@ plot_DRCSummary(results)
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 Christoph Burow, University of Cologne (Germany)
+, RLum Developer Team} 
+
+\section{How to cite}{
+Kreutzer, S., Burow, C., 2026. plot_DRCSummary(): Create a Dose-Response Curve Summary Plot. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 }
+

@@ -48,7 +48,12 @@ results <- calc_WodaFuchs2008(
    xlab = expression(paste(D[e], " [Gy]"))
  )
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., Dietze, M., 2026. calc_WodaFuchs2008(): Obtain the equivalent dose using the approach by Woda and Fuchs 2008. Function version 0.2.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Woda, C., Fuchs, M., 2008. On the applicability of the leading edge method to
 obtain equivalent doses in OSL dating and dosimetry. Radiation Measurements 43, 26-37.
@@ -59,4 +64,4 @@ obtain equivalent doses in OSL dating and dosimetry. Radiation Measurements 43, 
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 Michael Dietze, GFZ Potsdam (Germany)
-}
+, RLum Developer Team}

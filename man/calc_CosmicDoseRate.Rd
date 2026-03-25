@@ -218,7 +218,12 @@ results<- calc_CosmicDoseRate(depth = c(0.1, 0.5 , 2.1, 2.7, 4.2, 6.3),
 #export results to .csv file - uncomment for usage
 #write.csv(results, file = "c:/users/public/results_profile.csv")
 
+} 
+
+\section{How to cite}{
+Burow, C., 2026. calc_CosmicDoseRate(): Calculate the cosmic dose rate. Function version 0.5.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Allkofer, O.C., Carstensen, K., Dau, W.D., Jokisch, H., 1975.
 Letter to the editor. The absolute cosmic ray flux at sea level. Journal of
@@ -250,4 +255,4 @@ thermoluminescence dating. Latitude, altitude and depth dependences. PACT 6, 17-
 }
 \author{
 Christoph Burow, University of Cologne (Germany)
-}
+, RLum Developer Team}

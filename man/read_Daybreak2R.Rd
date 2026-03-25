@@ -62,5 +62,10 @@ Antoine Zink, C2RMF, Palais du Louvre, Paris (France)
 
 The ASCII-file import is based on a suggestion by William Amidon and
 Andrew Louis Gorin.
+, RLum Developer Team} 
+
+\section{How to cite}{
+Kreutzer, S., Bluszcz, A., Zink, A., 2026. read_Daybreak2R(): Import measurement data produced by a Daybreak TL/OSL reader into R. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 }
+
 \keyword{IO}

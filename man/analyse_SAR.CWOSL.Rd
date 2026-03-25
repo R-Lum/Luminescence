@@ -325,7 +325,12 @@ results <- analyse_SAR.CWOSL(
  fit.method = "OTORX")
 }
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., Colombo, M., 2026. analyse_SAR.CWOSL(): Analyse SAR CW-OSL Measurements. Function version 0.13.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Aitken, M.J. and Smith, B.W., 1988. Optical dating: recuperation
 after bleaching. Quaternary Science Reviews 7, 387-393.
@@ -350,6 +355,6 @@ doi:10.1016/j.radmeas.2008.06.002
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 Marco Colombo, Institute of Geography, Heidelberg University (Germany)
-}
+, RLum Developer Team}
 \keyword{datagen}
 \keyword{plot}

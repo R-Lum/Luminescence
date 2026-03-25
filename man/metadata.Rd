@@ -124,5 +124,10 @@ CWOSL.SAR.Data
 }
 \author{
 Marco Colombo, Institute of Geography, Heidelberg University (Germany)
+, RLum Developer Team} 
+
+\section{How to cite}{
+Colombo, M., 2026. add_metadata<-(): Safe manipulation of object metadata. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 }
+
 \keyword{utilities}

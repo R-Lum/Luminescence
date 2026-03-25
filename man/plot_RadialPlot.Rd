@@ -264,7 +264,12 @@ plot_RadialPlot(
   summary.pos = "sub",
   legend = c("Sample 1", "Sample 2"))
 
+} 
+
+\section{How to cite}{
+Dietze, M., Kreutzer, S., 2026. plot_RadialPlot(): Function to create a Radial Plot. Function version 0.5.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Galbraith, R.F., 1988. Graphical Display of Estimates Having
 Differing Standard Errors. Technometrics 30 (3), 271-281.
@@ -298,4 +303,4 @@ recommendations. Quaternary Geochronology 11, 1-27.
 Michael Dietze, GFZ Potsdam (Germany)\cr
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 Based on a rewritten S script of Rex Galbraith, 2010
-}
+, RLum Developer Team}

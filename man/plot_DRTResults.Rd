@@ -192,7 +192,12 @@ plot_DRTResults(
   preheat = c(200, 200, 200, 240, 240),
   boxplot = TRUE)
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., Dietze, M., 2026. plot_DRTResults(): Visualise dose recovery test results. Function version 0.1.17. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Wintle, A.G., Murray, A.S., 2006. A review of quartz optically
 stimulated luminescence characteristics and their relevance in
@@ -205,5 +210,5 @@ single-aliquot regeneration dating protocols. Radiation Measurements 41,
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 Michael Dietze, GFZ Potsdam (Germany)
-}
+, RLum Developer Team}
 \keyword{dplot}

@@ -114,7 +114,12 @@ data(ExampleData.BINfileData, envir = environment())
 #mtext(side = 4, BINfile, outer = TRUE, col = "blue", cex = .7)
 #dev.off()
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., Dietze, M., Colombo, M., 2026. plot_Risoe.BINfileData(): Plot Single Luminescence Curves from a Risoe.BINfileData-class object. Function version 0.4.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Duller, G., 2007. Analyst. pp. 1-45.
 }
@@ -127,5 +132,5 @@ Duller, G., 2007. Analyst. pp. 1-45.
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 Michael Dietze, GFZ Potsdam (Germany)\cr
 Marco Colombo, Institute of Geography, Heidelberg University (Germany)
-}
+, RLum Developer Team}
 \keyword{dplot}

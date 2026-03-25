@@ -240,7 +240,12 @@ The representation in R is a nested \link{list}.
 
 showClass("Risoe.BINfileData")
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., 2026. Risoe.BINfileData-class(): Class 'Risoe.BINfileData'. Function version 0.4.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Risø DTU, 2013. The Sequence Editor User Manual - Feb 2013 and Risø DTU, 2016.
 
@@ -256,5 +261,5 @@ The Sequence Editor User Manual - February 2016
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 based on information provided by Torben Lapp and Karsten Bracht Nielsen (Risø DTU, Denmark)
-}
+, RLum Developer Team}
 \keyword{classes}

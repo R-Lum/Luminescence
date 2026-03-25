@@ -345,7 +345,12 @@ print(
  verbose = FALSE)$Fit)
  }
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., Dietze, M., Colombo, M., 2026. fit_DoseResponseCurve(): Fit a dose-response curve for luminescence data (Lx/Tx against dose). Function version 1.4.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46. \doi{10.26034/la.atl.1989.150}
 
@@ -367,4 +372,4 @@ based on the Lambert W function. Journal of Luminescence 225, 117333. \doi{10.10
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 Michael Dietze, GFZ Potsdam (Germany) \cr
 Marco Colombo, Institute of Geography, Heidelberg University (Germany)
-}
+, RLum Developer Team}

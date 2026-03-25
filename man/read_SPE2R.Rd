@@ -102,7 +102,12 @@ The function has been successfully tested for SPE format versions 2.x.
 #             file = "[your path and filename]",
 #             sep = ";", row.names = FALSE)
 
+} 
+
+\section{How to cite}{
+Kreutzer, S., 2026. read_SPE2R(): Import Princeton Instruments (TM) SPE-file into R. Function version 0.1.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Princeton Instruments, 2014. Princeton Instruments SPE 3.0 File
 Format Specification, Version 1.A (for document URL please use an internet search machine)
@@ -115,5 +120,5 @@ Hall, C., 2012: readSPE.m.
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
-}
+, RLum Developer Team}
 \keyword{IO}

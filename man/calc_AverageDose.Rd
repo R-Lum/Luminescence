@@ -109,7 +109,12 @@ AD <- calc_AverageDose(ExampleData.DeValues$CA1[1:56, ], sigma_m = 0.1)
 ## plot De and set Average dose as central value
 plot_AbanicoPlot(AD, z.0 = AD$summary$de)
 
+} 
+
+\section{How to cite}{
+Christophe, C., Philippe, A., Guérin, G., Kreutzer, S., 2026. calc_AverageDose(): Calculate the Average Dose and the dose rate dispersion. Function version 0.1.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Guérin, G., Christophe, C., Philippe, A., Murray, A.S., Thomsen, K.J., Tribolo, C., Urbanova, P.,
 Jain, M., Guibert, P., Mercier, N., Kreutzer, S., Lahaye, C., 2017. Absorbed dose, equivalent dose,
@@ -129,5 +134,5 @@ Claire Christophe, IRAMAT-CRP2A, Université de Nantes (France)\cr
 Anne Philippe, Université de Nantes, (France)\cr
 Guillaume Guérin, IRAMAT-CRP2A, Université Bordeaux Montaigne, (France)\cr
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
-}
+, RLum Developer Team}
 \keyword{datagen}
