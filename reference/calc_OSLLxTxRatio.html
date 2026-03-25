@@ -9,7 +9,7 @@ background subtraction."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ background subtraction."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Calculate <code>Lx/Tx</code> ratio for CW-OSL curves</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/calc_OSLLxTxRatio.R" class="external-link"><code>R/calc_OSLLxTxRatio.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.1/R/calc_OSLLxTxRatio.R" class="external-link"><code>R/calc_OSLLxTxRatio.R</code></a></small>
       <div class="d-none name"><code>calc_OSLLxTxRatio.Rd</code></div>
     </div>
 
@@ -85,8 +85,8 @@ no integrals are taken into account and their settings are ignored.</p></dd>
 <dt id="arg-background-integral">background_integral<a class="anchor" aria-label="anchor" href="#arg-background-integral"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<strong>required</strong>):
 vector of channels for the background integral. If set to <code>NA</code>, no
-background integral is subtracted; in this case, the error calculation and
-the signal-to-noise ratio will report <code>NA</code> values.</p></dd>
+background integral is subtracted; in this case, <code>sigmab.LnLx</code> (unless
+manually set) and the signal-to-noise ratio for Ln/Lx<code>will be</code>NA`.</p></dd>
 
 
 <dt id="arg-signal-integral-tx">signal_integral_Tx<a class="anchor" aria-label="anchor" href="#arg-signal-integral-tx"></a></dt>
@@ -99,8 +99,9 @@ If <code>NULL</code>, the <code>signal_integral</code> vector is used.</p></dd>
 <dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> (<em>optional</em>):
 vector of channels for the background integral for the <code>Tx</code> curve.
 If <code>NULL</code>, the <code>background_integral</code> vector is used. If set to <code>NA</code>, no
-background integral for the <code>Tx</code> curve is subtracted; in this case, the
-error calculation and the signal-to-noise ratio will report <code>NA</code> values.</p></dd>
+background integral for the <code>Tx</code> curve is subtracted; in this case,
+<code>sigmab.TxTx</code> (unless manually set) and the signal-to-noise ratio for
+<code>Tn/Tx</code> will be <code>NA</code>.</p></dd>
 
 
 <dt id="arg-integral-input">integral_input<a class="anchor" aria-label="anchor" href="#arg-integral-input"></a></dt>
@@ -165,7 +166,7 @@ round numbers to the specified digits. If set to <code>NULL</code> no rounding o
 <span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>.. <span class="sc">$</span> SN_RATIO_TnTx,</span>
 <span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>.. <span class="sc">$</span> LxTx</span>
 <span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>.. <span class="sc">$</span> LxTx.Error</span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="sc">$</span> <span class="fu">calc.parameters</span> (list)</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="sc">$</span><span class="fu">calc.parameters</span> (list)</span>
 <span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>.. <span class="sc">$</span> sigmab.LnTx</span>
 <span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>.. <span class="sc">$</span> sigmab.TnTx</span>
 <span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>.. <span class="sc">$</span> k</span></code></pre><p></p></div>
@@ -190,7 +191,7 @@ e.g., as observed for the early light subtraction method.</p>
 <p>This argument allows to add an extra component of error to the final <code>Lx/Tx</code>
 error value. The input will be treated as factor that is multiplied with
 the already calculated <code>LxTx</code> and the result is add up by:</p>
-<p>$$se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx * sig0)^2)$$</p>
+<p>$$se(LxTx) = \sqrt{se(LxTx)^2 + (LxTx * sig0)^2}$$</p>
 <p><strong><code>SN_RATIO_LnLx</code> and <code>SN_RATIO_TnTx</code></strong></p>
 <p>For convenience, the function returns the signal-to-noise ratio (<code>SN_RATIO</code>)
 for the <code>LnLx</code> and the <code>TnTx</code> curves. This is simply the signal divided
@@ -203,10 +204,13 @@ which is assumed for the photomultiplier counts). In that case (might be the
 normal case) it has to be accounted for the overdispersion by estimating
 \(\sigma^2\) (i.e. the overdispersion value). Therefore the relative
 standard error is calculated as:</p><ul><li><p><code>poisson</code>
-$$rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2)/Y_{0} - Y_{1}/k$$</p></li>
+$$rse(\mu_{S}) \approx \sqrt{Y_{0} + Y_{1}/k^2) / (Y_{0} - Y_{1}/k)} $$</p></li>
 <li><p><code>non-poisson</code>
-$$rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2 + \sigma^2(1+1/k))/Y_{0} - Y_{1}/k$$</p></li>
-</ul><p><strong>Please note</strong> that when using the early background subtraction method in
+$$rse(\mu_{S}) \approx \sqrt{Y_{0} + Y_{1}/k^2 + \sigma^2(1+1/k)) / (Y_{0} - Y_{1}/k)} $$</p></li>
+</ul><p>If <code>background_integral = NA</code>, then in both cases the relative standard
+error simplifies to:</p>
+<p>$$rse(\mu_{S}) \approx \sqrt{Y_{0}} / Y_{0}$$</p>
+<p><strong>Please note</strong> that when using the early background subtraction method in
 combination with the 'non-poisson' distribution argument, the corresponding <code>Lx/Tx</code> error
 may considerably increase due to a high <code>sigmab</code> value.
 Please check whether this is valid for your data set and if necessary
@@ -221,11 +225,11 @@ own <code>sigmab</code> value or use <code>background.count.distribution = "pois
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.9.5</p>
+    <p>0.9.8</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Colombo, M., 2026. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.9.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Colombo, M., 2026. calc_OSLLxTxRatio(): Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.9.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -264,9 +268,9 @@ Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 <span class="r-in"><span><span class="co">##get results object</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    LnLx LnLx.BG TnTx TnTx.BG Net_LnLx Net_LnLx.Error Net_TnTx Net_TnTx.Error</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 81709     530 7403     513    81179       286.5461     6890       88.53581</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 81709     530 7403     513    81179       285.9637     6890       86.91786</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   SN_RATIO_LnLx SN_RATIO_TnTx     LxTx LxTx.Error</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      154.1679       14.4308 11.78215  0.1570077</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      154.1679       14.4308 11.78215  0.1543187</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

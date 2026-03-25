@@ -17,7 +17,7 @@ discs have a regular grid of 10x10 grain locations.
 
 ``` r
 library(Luminescence)
-#> Welcome to the R package Luminescence version 1.2.0 [Built: 2026-03-12 19:20:26 UTC]
+#> Welcome to the R package Luminescence version 1.2.1 [Built: 2026-03-25 11:14:22 UTC]
 #> Luminescence data to Bayesian process: 'Don't you ever touch me again.'
 ```
 

@@ -241,7 +241,7 @@ Erfurt et al., 2003. For the fitting, the mean count value of the
 
 Function used for the fitting (according to Erfurt et al. (2003)):
 
-\$\$\phi(D) = \phi\_{0}-\Delta\phi(1-exp(-\lambda\*D))^\beta\$\$
+\$\$\phi(D) = \phi\_{0} - \Delta\phi(1 - \exp(-\lambda D))^\beta\$\$
 
 with \\\phi(D)\\ the dose dependent IR-RF flux, \\\phi\_{0}\\ the
 initial IR-RF flux, \\\Delta\phi\\ the dose dependent change of the
@@ -250,8 +250,8 @@ IR-RF flux, \\\lambda\\ the exponential parameter, \\D\\ the dose and
 
 To obtain the palaeodose \\D\_{e}\\ the function is changed to:
 
-\$\$D\_{e} = ln(-(\phi(D) -
-\phi\_{0})/(-\lambda\*\phi)^{1/\beta}+1)/-\lambda\$\$
+\$\$D\_{e} = \ln(-(\phi(D) -
+\phi\_{0})/(-\lambda\phi)^{1/\beta}+1)/-\lambda\$\$
 
 The fitting is done using the `port` algorithm of the
 [nls](https://rdrr.io/r/stats/nls.html) function.
@@ -403,7 +403,7 @@ supported parameters are:
   parameter is calculated but not evaluated.
 
 - `curves_bounds` ([numeric](https://rdrr.io/r/base/numeric.html),
-  default: \\max(RF\_{reg_counts})\\): this measure uses the maximum
+  default: \\\max(RF\_{reg_counts})\\): this measure uses the maximum
   time (x) value of the regenerated curve. The maximum time (x) value of
   the natural curve cannot be larger than this value. However, although
   this is not recommended the value can be changed or disabled.
@@ -443,7 +443,7 @@ M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
 J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
 Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.2.0. https://r-lum.github.io/Luminescence/
+version 1.2.1. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -554,7 +554,7 @@ get_RLum(results, data.object = "data")
 #>       DE DE.ERROR DE.LOWER DE.UPPER DE.STATUS RF_NAT.LIM RF_REG.LIM POSITION
 #> 1 623.25       NA   600.63    635.8        OK        1:5      1:524       NA
 #>   DATE SEQUENCE_NAME              UID
-#> 1   NA            NA f246dad327fa01ca
+#> 1   NA            NA 93e8ace04c18defe
 get_RLum(results, data.object = "test_parameters")
 #>   POSITION          PARAMETER THRESHOLD        VALUE STATUS SEQUENCE_NAME
 #> 1       NA       curves_ratio     1.001 6.845685e-01     OK            NA
@@ -566,14 +566,14 @@ get_RLum(results, data.object = "test_parameters")
 #> 7       NA               beta        NA 5.418718e-01     OK            NA
 #> 8       NA          delta.phi        NA 2.103400e+03     OK            NA
 #>                UID
-#> 1 f246dad327fa01ca
-#> 2 f246dad327fa01ca
-#> 3 f246dad327fa01ca
-#> 4 f246dad327fa01ca
-#> 5 f246dad327fa01ca
-#> 6 f246dad327fa01ca
-#> 7 f246dad327fa01ca
-#> 8 f246dad327fa01ca
+#> 1 93e8ace04c18defe
+#> 2 93e8ace04c18defe
+#> 3 93e8ace04c18defe
+#> 4 93e8ace04c18defe
+#> 5 93e8ace04c18defe
+#> 6 93e8ace04c18defe
+#> 7 93e8ace04c18defe
+#> 8 93e8ace04c18defe
 
 ##(2) perform analysis using the method 'SLIDE'
 data(ExampleData.RF70Curves, envir = environment())

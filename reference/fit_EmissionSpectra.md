@@ -135,7 +135,7 @@ deviation from 0 (means no residual).
 The emission spectra (on an energy scale) can be best described as the
 sum of multiple Gaussian components:
 
-\$\$ y = \sum_i \frac{C_i}{\sigma\_{i} \sqrt{2 \pi}} exp(-1/2 ((x -
+\$\$ y = \sum_i \frac{C_i}{\sigma\_{i} \sqrt{2 \pi}} \exp(-1/2 ((x -
 \mu\_{i})/\sigma\_{i})^2) \$\$
 
 with the parameters \\\sigma\\ (peak width) and \\\mu\\ (peak centre)
@@ -210,7 +210,7 @@ S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M.,
 Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
 Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
-Dating Data Analysis. R package version 1.2.0.
+Dating Data Analysis. R package version 1.2.1.
 https://r-lum.github.io/Luminescence/
 
 ## Examples

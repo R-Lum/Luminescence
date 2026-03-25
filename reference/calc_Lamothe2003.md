@@ -165,7 +165,7 @@ Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
 Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
-Dating Data Analysis. R package version 1.2.0.
+Dating Data Analysis. R package version 1.2.1.
 https://r-lum.github.io/Luminescence/
 
 ## References
@@ -234,9 +234,9 @@ results_corr <- calc_Lamothe2003(
 #> 
 #>  Fading_C:        0.785  ±  0.055 
 #>  Corrected Ln/Tn:     5.515  ±  0.391 
-#>  Corrected De:        472.48  ±  65.36  Gy 
+#>  Corrected De:        472.55  ±  65.38  Gy 
 #> --------------------------------------------------------
-#>  Corrected Age:       281.91  ±  49.37  ka 
+#>  Corrected Age:       281.95  ±  49.38  ka 
 #> --------------------------------------------------------
 
 ```

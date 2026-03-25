@@ -91,7 +91,7 @@ C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
 Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
 Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
 Comprehensive Luminescence Dating Data Analysis. R package version
-1.2.0. https://r-lum.github.io/Luminescence/
+1.2.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

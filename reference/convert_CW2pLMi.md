@@ -95,18 +95,18 @@ returned.
 
 ## Function version
 
-0.3.4
+0.3.5
 
 ## How to cite
 
 Kreutzer, S., Colombo, M., 2026. convert_CW2pLMi(): Transform a CW-OSL
 curve into a pLM-OSL curve via interpolation under linear modulation
-conditions. Function version 0.3.4. In: Kreutzer, S., Burow, C., Dietze,
+conditions. Function version 0.3.5. In: Kreutzer, S., Burow, C., Dietze,
 M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N.,
 Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J.,
 Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A.,
 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
-package version 1.2.0. https://r-lum.github.io/Luminescence/
+package version 1.2.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

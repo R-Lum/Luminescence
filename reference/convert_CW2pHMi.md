@@ -64,8 +64,8 @@ Wallinga (2012). The input `data.frame` consists of two columns: time
 
 \(1\) log(CW-OSL) values
 
-\(2\) Calculate t' which is the transformed time: \$\$t' =
-t-(1/\delta)\*log(1+\delta\*t)\$\$
+\(2\) Calculate t' which is the transformed time: \$\$t' = t-(1/\delta)
+\* \log(1 + \delta t)\$\$
 
 \(3\) Interpolate CW(t'), i.e. use the log(CW(t)) to obtain the count
 values for the transformed time (t'). Values beyond `min(t)` and
@@ -79,9 +79,9 @@ which contain no `NA` values and use these values for a linear fit using
 \(5\) Extrapolate values for t' \< `min(t)` based on the previously
 obtained fit parameters.
 
-\(6\) Transform values using \$\$pHM(t) =
-(\delta\*t/(1+\delta\*t))\*c\*CW(t')\$\$ \$\$c =
-(1+\delta\*P)/\delta\*P\$\$ \$\$P = length(stimulation~period)\$\$
+\(6\) Transform values using \$\$pHM(t) = (\delta t / (1 + \delta
+t))\*c\*CW(t')\$\$ \$\$c = (1 + \delta P)/\delta\*P\$\$ \$\$P =
+length(stimulation~period)\$\$
 
 \(7\) Combine all values and truncate all values for t' \> `max(t)`
 
@@ -107,18 +107,18 @@ message is shown.
 
 ## Function version
 
-0.2.5
+0.2.7
 
 ## How to cite
 
 Kreutzer, S., Colombo, M., 2026. convert_CW2pHMi(): Transform a CW-OSL
 curve into a pHM-OSL curve via interpolation under hyperbolic modulation
-conditions. Function version 0.2.5. In: Kreutzer, S., Burow, C., Dietze,
+conditions. Function version 0.2.7. In: Kreutzer, S., Burow, C., Dietze,
 M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N.,
 Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J.,
 Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A.,
 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
-package version 1.2.0. https://r-lum.github.io/Luminescence/
+package version 1.2.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

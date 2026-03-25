@@ -102,10 +102,10 @@ to deg. C for the plot.
 
 The equation used for the fitting is
 
-\$\$y = A / (1 + C \* exp(-W / (kB \* x))) + c\$\$
+\$\$y = A / (1 + C \* \exp(-W / (k_B x))) + c\$\$
 
 *W* is the energy depth in eV, *C* is a dimensionless constant, *A* and
-*c* are used to adjust the curve for the given signal, *kB* is the
+*c* are used to adjust the curve for the given signal, \\k_B\\ is the
 Boltzmann constant in eV/K and *x* is the absolute temperature in K.
 
 **Error estimation**  
@@ -147,7 +147,7 @@ Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
 Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

@@ -104,18 +104,18 @@ manually, not more than two points are extrapolated.
 
 ## Function version
 
-0.2.4
+0.2.5
 
 ## How to cite
 
 Kreutzer, S., Colombo, M., 2026. convert_CW2pPMi(): Transform a CW-OSL
 curve into a pPM-OSL curve via interpolation under parabolic modulation
-conditions. Function version 0.2.4. In: Kreutzer, S., Burow, C., Dietze,
+conditions. Function version 0.2.5. In: Kreutzer, S., Burow, C., Dietze,
 M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N.,
 Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J.,
 Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A.,
 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
-package version 1.2.0. https://r-lum.github.io/Luminescence/
+package version 1.2.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

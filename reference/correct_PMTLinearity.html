@@ -9,7 +9,7 @@ on pulse-pair-resolution of individual PMTs."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ on pulse-pair-resolution of individual PMTs."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Dead-time (linearity) Correction for Photomultiplier tubes (PMT)</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/correct_PMTLinearity.R" class="external-link"><code>R/correct_PMTLinearity.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.1/R/correct_PMTLinearity.R" class="external-link"><code>R/correct_PMTLinearity.R</code></a></small>
       <div class="d-none name"><code>correct_PMTLinearity.Rd</code></div>
     </div>
 
@@ -67,7 +67,7 @@ in ns. Values can be found on the PMT datasheets. If <code>NULL</code> nothing i
     <p>We correct for count linearity using a well-known formula that can be
 found for example in the Hamamatsu Photomultiplier handbook
 (Hamamatsu Photonics K.K., 2017):</p>
-<p>$$N = \frac{M}{1 - M*t}$$</p>
+<p>$$N = \frac{M}{1 - Mt}$$</p>
 <p>where \(N\) (in s\(^{-1}\)) is the true count rate, \(M\) (in s\(^{-1}\)) the measured count rate,
 and \(t\) (in s) the pulse pair resolution.</p>
     </div>
@@ -82,7 +82,7 @@ and \(t\) (in s) the pulse pair resolution.</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Mittelstrass, D., 2026. correct_PMTLinearity(): Dead-time (linearity) Correction for Photomultiplier tubes (PMT). Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Mittelstrass, D., 2026. correct_PMTLinearity(): Dead-time (linearity) Correction for Photomultiplier tubes (PMT). Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

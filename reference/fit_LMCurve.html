@@ -15,7 +15,7 @@ from package minpack.lm."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@ from package minpack.lm."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Non-linear Least Squares Fit for LM-OSL curves</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/fit_LMCurve.R" class="external-link"><code>R/fit_LMCurve.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.1/R/fit_LMCurve.R" class="external-link"><code>R/fit_LMCurve.R</code></a></small>
       <div class="d-none name"><code>fit_LMCurve.Rd</code></div>
     </div>
 
@@ -218,23 +218,23 @@ sum for this values.</p>
     <p><strong>Fitting function</strong></p>
 <p>The function for the fitting has the general
 form:</p>
-<p>$$y = (exp(0.5) * Im_1 * x / xm_1) * exp(-x^2 / (2 * xm_1^2)) + \ldots +
-           exp(0.5) * Im_i * x / xm_i) * exp(-x^2 / (2 * xm_i^2))$$</p>
+<p>$$y = (\exp(0.5) * Im_1 * x / xm_1) * \exp(-x^2 / (2 * xm_1^2)) + \ldots +
+           \exp(0.5) * Im_i * x / xm_i) * \exp(-x^2 / (2 * xm_i^2))$$</p>
 <p>where \(1 &lt; i &lt; 8\)</p>
 <p>This function and the equations for the conversion to b (detrapping probability)
 and n0 (proportional to initially trapped charge) have been taken from Kitis
 et al. (2008):</p>
-<p>$$xm_i=\sqrt{max(t)/b_i}$$
-$$Im_i=exp(-0.5)n0/xm_i$$</p>
+<p>$$xm_i=\sqrt{\max(t)/b_i}$$
+$$Im_i = \exp(-0.5) n0/xm_i$$</p>
 <p><strong>Background subtraction</strong></p>
 <p>When a background signal is provided with the <code>object.bg</code> argument, the
 user can choose among three methods for background subtraction by setting
 the <code>bg.subtraction</code> argument to one of these:</p><ul><li><p><code>"polynomial"</code> (default): a polynomial function is fitted using <a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a>
 and the resulting function is used for background subtraction:
-$$y = a*x^4 + b*x^3 + c*x^2 + d*x + e$$</p></li>
+$$y = a x^4 + b x^3 + c x^2 + d x + e$$</p></li>
 <li><p><code>"linear"</code>: a linear function is fitted using <a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a> and the resulting
 function is used for background subtraction:
-$$y = a*x + b$$</p></li>
+$$y = a x + b$$</p></li>
 <li><p><code>"channel"</code>: the measured background signal is subtracted channel-wise
 from the measured signal.</p></li>
 <li><p><code>"none"</code>: this disables background subtraction even if <code>object.bg</code> is
@@ -260,8 +260,8 @@ fitting approach.</p>
 <p>The goodness of the fit is given by a pseudo-R² value (pseudo coefficient of
 determination). According to Lave (1970), the value is calculated as:</p>
 <p>$$pseudoR^2 = 1 - RSS/TSS$$</p>
-<p>where \(RSS = Residual~Sum~of~Squares\)
-and \(TSS = Total~Sum~of~Squares\)</p>
+<p>where \(RSS\) is the Residual Sum of Squares, and \(TSS\) is the Total
+Sum of Squares.</p>
 <p><strong>Error of fitted component parameters</strong></p>
 <p>The 1-sigma error for the components is calculated using
 the function <a href="https://rdrr.io/r/stats/confint.html" class="external-link">stats::confint</a>. Due to considerable calculation time, this
@@ -285,7 +285,7 @@ manual start values is highly recommended.</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2026. fit_LMCurve(): Non-linear Least Squares Fit for LM-OSL curves. Function version 0.3.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2026. fit_LMCurve(): Non-linear Least Squares Fit for LM-OSL curves. Function version 0.3.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

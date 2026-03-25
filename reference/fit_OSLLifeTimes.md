@@ -42,10 +42,12 @@ fit_OSLLifeTimes(
 
 - signal_range:
 
-  [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): allows to
-  set a channel range, by default all channels are used, e.g.
-  `signal_range = c(2,100)` considers only channels 2 to 100 and
-  `signal_range = c(2)` considers only channels from channel 2 onwards.
+  [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): set a
+  channel range, either by specifying both extremes, e.g.
+  `signal_range = c(2, 100)` considers only channels 2 to 100, or only
+  the start of the range, e.g. `signal_range = 2` considers only
+  channels from channel 2 onwards. If `NULL` (default) all channels are
+  used.
 
 - n.components:
 
@@ -166,7 +168,7 @@ work, for the optimisation by differential evolution here the package
 
 The function to be optimized has the form:
 
-\$\$\chi^2 = \sum(w \* (n_i/c - \sum(A_i \* exp(-x/(tau_i +
+\$\$\chi^2 = \sum(w \* (n_i/c - \sum(A_i \* \exp(-x/(tau_i +
 t_p))))^2)\$\$
 
 with \\w = 1\\ for unweighted regression analysis
@@ -193,17 +195,17 @@ weighted regression analysis. The default values is `TRUE`.
 
 ## Function version
 
-0.1.5
+0.1.6
 
 ## How to cite
 
 Kreutzer, S., Schmidt, C., 2026. fit_OSLLifeTimes(): Fitting and
-Deconvolution of OSL Lifetime Components. Function version 0.1.5. In:
+Deconvolution of OSL Lifetime Components. Function version 0.1.6. In:
 Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
 Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
-Dating Data Analysis. R package version 1.2.0.
+Dating Data Analysis. R package version 1.2.1.
 https://r-lum.github.io/Luminescence/
 
 ## References
@@ -250,9 +252,10 @@ fit_OSLLifeTimes(
 #> [fit_OSLLifeTime()]
 #> 
 #> (1) Start parameter and component adapation
-#> ---------------------(start adaption)------------------------------------
+#> ---------------------(start adaption)---------------------
+#> 
 #> >> + adaption for 1 comp. :  Inf (calc.) <>  3 (ref.) >> [add comp.] >> [forced stop]
-#> ---------------------(end adaption)--------------------------------------
+#> ----------------------(end adaption)----------------------
 #> 
 #> 
 #> >> Applied component matrix

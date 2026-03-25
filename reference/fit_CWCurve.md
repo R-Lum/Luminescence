@@ -8,13 +8,11 @@ components and returns various component parameters.
 
 The function for the CW-OSL fitting has the general form:
 
-\$\$y = I0\_{1}\*\lambda\_{1}\*exp(-\lambda_1\*x) + ,\ldots, +
-I0\_{i}\*\lambda\_{i}\*exp(-\lambda_i\*x) \$\$
+\$\$y = I0\_{1}\lambda\_{1}\exp(-\lambda_1 x) + \ldots +
+I0\_{i}\lambda\_{i}\exp(-\lambda_i x) \$\$
 
-where \\0 \< i \< 8\\
-
-and \\\lambda\\ is the decay constant  
-and \\I0\\ the initial number of trapped electrons.
+where \\0 \< i \< 8\\, \\\lambda\\ is the decay constant, and \\I0\\ the
+initial number of trapped electrons.
 
 *(for the used equation cf. Boetter-Jensen et al., 2003, Eq. 2.31)*
 
@@ -31,8 +29,8 @@ of determination). According to Lave (1970), the value is calculated as:
 
 \$\$pseudoR^2 = 1 - RSS/TSS\$\$
 
-where \\RSS = Residual~Sum~of~Squares\\  
-and \\TSS = Total~Sum~of~Squares\\
+where \\RSS\\ is the Residual Sum of Squares, and \\TSS\\ is the Total
+Sum of Squares.
 
 **Error of fitted component parameters**
 
@@ -215,7 +213,7 @@ Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
 J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
 D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

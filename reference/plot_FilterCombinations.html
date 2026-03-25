@@ -8,7 +8,7 @@ Net transmission window
 The net transmission window of two filters is approximated by
 $$T_{final} = T_{1} * T_{2}$$
 Optical density
-$$OD = -log10(T)$$
+$$OD = -\log10(T)$$
 Total optical density
 $$OD_{total} = OD_{1} +  OD_{2}$$
 Please consider using your own calculations for more precise values.
@@ -26,13 +26,13 @@ data.frame and additional information on the thickness of the filter, e.g.,
 list(filter1 = list(filter_matrix, d = 2)).
 The given filter data are always considered as standard input and the filter
 thickness value is taken into account by
-$$Transmission = Transmission^(d)$$
+$$Transmission = Transmission^d$$
 with d given in the same dimension as the original filter data.
 CASE 3
 Same as CASE 2 but additionally a reflection factor P is provided, e.g.,
 list(filter1 = list(filter_matrix, d = 2, P = 0.9)).
 The final transmission becomes:
-$$Transmission = Transmission^(d) * P$$
+$$Transmission = Transmission^d * P$$
 Advanced plotting parameters
 The following further non-common plotting parameters can be passed to the function:
 
@@ -58,7 +58,7 @@ Net transmission window
 The net transmission window of two filters is approximated by
 $$T_{final} = T_{1} * T_{2}$$
 Optical density
-$$OD = -log10(T)$$
+$$OD = -\log10(T)$$
 Total optical density
 $$OD_{total} = OD_{1} +  OD_{2}$$
 Please consider using your own calculations for more precise values.
@@ -76,13 +76,13 @@ data.frame and additional information on the thickness of the filter, e.g.,
 list(filter1 = list(filter_matrix, d = 2)).
 The given filter data are always considered as standard input and the filter
 thickness value is taken into account by
-$$Transmission = Transmission^(d)$$
+$$Transmission = Transmission^d$$
 with d given in the same dimension as the original filter data.
 CASE 3
 Same as CASE 2 but additionally a reflection factor P is provided, e.g.,
 list(filter1 = list(filter_matrix, d = 2, P = 0.9)).
 The final transmission becomes:
-$$Transmission = Transmission^(d) * P$$
+$$Transmission = Transmission^d * P$$
 Advanced plotting parameters
 The following further non-common plotting parameters can be passed to the function:
 
@@ -107,7 +107,7 @@ and using the function graphics::legend instead."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -128,7 +128,7 @@ and using the function graphics::legend instead."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Plot filter combinations along with the (optional) net transmission window</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/plot_FilterCombinations.R" class="external-link"><code>R/plot_FilterCombinations.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.1/R/plot_FilterCombinations.R" class="external-link"><code>R/plot_FilterCombinations.R</code></a></small>
       <div class="d-none name"><code>plot_FilterCombinations.Rd</code></div>
     </div>
 
@@ -142,7 +142,7 @@ output is reached and a net transmission window can be shown.</p>
 <p>The net transmission window of two filters is approximated by</p>
 <p>$$T_{final} = T_{1} * T_{2}$$</p>
 <p><strong>Optical density</strong></p>
-<p>$$OD = -log10(T)$$</p>
+<p>$$OD = -\log10(T)$$</p>
 <p><strong>Total optical density</strong></p>
 <p>$$OD_{total} = OD_{1} +  OD_{2}$$</p>
 <p>Please consider using your own calculations for more precise values.</p>
@@ -160,13 +160,13 @@ filter thickness and reflection factor are not considered.</p>
 <code>list(filter1 = list(filter_matrix, d = 2))</code>.
 The given filter data are always considered as standard input and the filter
 thickness value is taken into account by</p>
-<p>$$Transmission = Transmission^(d)$$</p>
+<p>$$Transmission = Transmission^d$$</p>
 <p>with d given in the same dimension as the original filter data.</p>
 <p><em>CASE 3</em></p>
 <p>Same as CASE 2 but additionally a reflection factor P is provided, e.g.,
 <code>list(filter1 = list(filter_matrix, d = 2, P = 0.9))</code>.
 The final transmission becomes:</p>
-<p>$$Transmission = Transmission^(d) * P$$</p>
+<p>$$Transmission = Transmission^d * P$$</p>
 <p><strong>Advanced plotting parameters</strong></p>
 <p>The following further non-common plotting parameters can be passed to the function:</p>
 <table class="table table"><tr><td><strong><code>Argument</code></strong></td><td><strong><code>Datatype</code></strong></td><td><strong><code>Description</code></strong></td></tr><tr><td><code>legend</code></td><td><code>logical</code></td><td>enable/disable legend</td></tr><tr><td><code>legend.pos</code></td><td><code>character</code></td><td>change legend position (<a href="https://rdrr.io/r/graphics/legend.html" class="external-link">graphics::legend</a>)</td></tr><tr><td><code>legend.text</code></td><td><code>character</code></td><td>same as the argument <code>legend</code> in (<a href="https://rdrr.io/r/graphics/legend.html" class="external-link">graphics::legend</a>)</td></tr><tr><td><code>net_transmission.col</code></td><td><code>col</code></td><td>colour of net transmission window polygon</td></tr><tr><td><code>net_transmission.col_lines</code></td><td><code>col</code></td><td>colour of net transmission window polygon lines</td></tr><tr><td><code>net_transmission.density</code></td><td><code>numeric</code></td><td>specify line density in the transmission polygon</td></tr><tr><td><code>grid</code></td><td><code>list</code></td><td>full list of arguments that can be passed to the function <a href="https://rdrr.io/r/graphics/grid.html" class="external-link">graphics::grid</a></td></tr></table><p>For further modifications standard additional R plot functions are recommend,
@@ -244,7 +244,7 @@ For non-common plotting parameters, see the details section.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2026. plot_FilterCombinations(): Plot filter combinations along with the (optional) net transmission window. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2026. plot_FilterCombinations(): Plot filter combinations along with the (optional) net transmission window. Function version 0.3.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">

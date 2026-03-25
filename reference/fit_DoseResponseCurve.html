@@ -11,7 +11,7 @@ extrapolation to calculate the equivalent dose."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ extrapolation to calculate the equivalent dose."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Fit a dose-response curve for luminescence data (Lx/Tx against dose)</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/fit_DoseResponseCurve.R" class="external-link"><code>R/fit_DoseResponseCurve.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.1/R/fit_DoseResponseCurve.R" class="external-link"><code>R/fit_DoseResponseCurve.R</code></a></small>
       <div class="d-none name"><code>fit_DoseResponseCurve.Rd</code></div>
     </div>
 
@@ -184,20 +184,20 @@ $$y = mx + n$$</p>
 $$y = a + bx + cx^2$$</p>
 <p><strong>Keyword: <code>EXP</code></strong></p>
 <p>Adapts a function of the form
-$$y = a(1 - exp(-\frac{(x+c)}{b}))$$</p>
+$$y = a(1 - \exp(-\frac{(x+c)}{b}))$$</p>
 <p>Parameters b and c are approximated by a linear fit using <a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a>. Note: \(b = D0\)</p>
 <p><strong>Keyword: <code>EXP OR LIN</code></strong></p>
 <p>Works for some cases where an <code>EXP</code> fit fails. If the <code>EXP</code> fit fails,
 a <code>LIN</code> fit is done instead, which always works.</p>
 <p><strong>Keyword: <code>EXP+LIN</code></strong></p>
 <p>Tries to fit an exponential plus linear function of the form:</p>
-<p>$$y = a(1-exp(-\frac{x+c}{b}) + (gx))$$
+<p>$$y = a(1 - \exp(-\frac{x + c}{b}) + (gx))$$
 The \(D_e\) is calculated by iteration.</p>
 <p><strong>Note:</strong> In the context of luminescence dating, this function has no physical meaning.
 Therefore, no \(D_0\) value is returned.</p>
 <p><strong>Keyword: <code>EXP+EXP</code></strong></p>
 <p>Tries to fit a double exponential function of the form</p>
-<p>$$y = (a_1 (1-exp(-\frac{x}{b_1}))) + (a_2 (1 - exp(-\frac{x}{b_2})))$$</p>
+<p>$$y = (a_1 (1 - \exp(-\frac{x}{b_1}))) + (a_2 (1 - \exp(-\frac{x}{b_2})))$$</p>
 <p><em>This fitting procedure is not really robust against wrong start parameters.</em></p>
 <p><strong>Keyword: <code>GOK</code></strong></p>
 <p>Tries to fit the general-order kinetics function following Guralnik et al. (2015)
@@ -209,7 +209,7 @@ of the form</p>
 <p>This tries to fit a dose-response curve based on the Lambert W function
 and the one trap one recombination centre (OTOR) model according to Pagonis
 et al. (2020). The function has the form:</p>
-<p>$$y = (1 + (\mathcal{W}((R - 1) * exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N$$</p>
+<p>$$y = (1 + (\mathcal{W}((R - 1) * \exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N$$</p>
 <p>with \(W\) the Lambert W function (calculated using <a href="https://rdrr.io/pkg/lamW/man/lamW-package.html" class="external-link">lamW::lambertW0</a>),
 \(R\) the dimensionless retrapping ratio, \(N\) the total concentration
 of trappings states in cm\(^{-3}\), \(D_{c} = N/R\) a constant, and
@@ -221,8 +221,8 @@ unexpected.</p>
 <p><strong>Keyword: <code>OTORX</code></strong></p>
 <p>This adapts extended OTOR (therefore: OTORX) model proposed by Lawless and
 Timar-Gabor (2024) accounting for retrapping (the equation implemented here
-is slightly differently written than in the original manuscript):</p>
-<p>$$F_{OTORX} = 1 + \left[\mathcal{W}(-Q * exp(-Q-(1-Q*(1-\frac{1}{exp(1)})) * \frac{(D + a)}{D_{63}}))\right] / Q$$</p>
+is written slightly differently than in the original manuscript):</p>
+<p>$$F_{OTORX} = 1 + \left[\mathcal{W}\left(-Q * \exp\left(-Q-(1-Q(1-\frac{1}{\exp(1)})) \frac{(D + a)}{D_{63}}\right)\right)\right] / Q$$</p>
 <p>with</p>
 <p>$$Q = \frac{A_m - A_n}{A_m}\frac{N}{N+N_D}$$</p>
 <p>where \(A_m\) and \(A_n\) are rate constants for the recombination and
@@ -266,7 +266,7 @@ Each error estimation is done with the function of the chosen fitting method.</p
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Dietze, M., Colombo, M., 2026. fit_DoseResponseCurve(): Fit a dose-response curve for luminescence data (Lx/Tx against dose). Function version 1.4.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Dietze, M., Colombo, M., 2026. fit_DoseResponseCurve(): Fit a dose-response curve for luminescence data (Lx/Tx against dose). Function version 1.4.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

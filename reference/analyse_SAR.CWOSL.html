@@ -9,7 +9,7 @@ object, including growth curve fitting."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ object, including growth curve fitting."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Analyse SAR CW-OSL Measurements</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/analyse_SAR.CWOSL.R" class="external-link"><code>R/analyse_SAR.CWOSL.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.1/R/analyse_SAR.CWOSL.R" class="external-link"><code>R/analyse_SAR.CWOSL.R</code></a></small>
       <div class="d-none name"><code>analyse_SAR.CWOSL.Rd</code></div>
     </div>
 
@@ -335,7 +335,7 @@ function does <strong>not</strong> overwrite values preset in <code>IRR_TIME</co
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Colombo, M., 2026. analyse_SAR.CWOSL(): Analyse SAR CW-OSL Measurements. Function version 0.13.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Colombo, M., 2026. analyse_SAR.CWOSL(): Analyse SAR CW-OSL Measurements. Function version 0.13.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -393,19 +393,19 @@ Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 <span class="r-in"><span>  sn_reference <span class="op">=</span> <span class="st">"Natural"</span>,</span></span>
 <span class="r-in"><span>  exceed.max.regpoint <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> [analyse_SAR.CWOSL()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> [analyse_SAR.CWOSL()] Fit: EXP (interpolation) | De = 1668.28 | D01 = 1982.52</span>
 <span class="r-plt img"><img src="analyse_SAR.CWOSL-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##show De results</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         De De.Error      D01 D01.ERROR D02 D02.ERROR  R R.ERROR Dc D63</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1668.251  51.7209 1982.757  101.9548  NA        NA NA      NA NA  NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         n_N    De.MC Fit          Mode HPDI68_L HPDI68_U HPDI95_L HPDI95_U</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.4854696 1671.492 EXP interpolation 1615.335 1720.752 1563.816 1766.723</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .De.plot  .De.raw RC.Status signal.range background.range signal.range.Tx</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1668.251 1668.251        OK          1:2         900:1000           NA:NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         De De.Error     D01 D01.ERROR D02 D02.ERROR  R R.ERROR Dc D63       n_N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1668.277 51.59927 1982.52  101.5512  NA        NA NA      NA NA  NA 0.4854792</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      De.MC Fit          Mode HPDI68_L HPDI68_U HPDI95_L HPDI95_U .De.plot</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1671.506 EXP interpolation 1615.436  1720.59 1564.044 1766.447 1668.277</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    .De.raw RC.Status signal.range background.range signal.range.Tx</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1668.277        OK          1:2         900:1000           NA:NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background.range.Tx ALQ POS GRAIN              UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1               NA:NA   1   1     0 fd22cd21c679f884</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1               NA:NA   1   1     0 fed5ee3ed2f4c890</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##show LnTnLxTx table</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span>, data.object <span class="op">=</span> <span class="st">"LnLxTnTx.table"</span><span class="op">)</span></span></span>
@@ -418,21 +418,21 @@ Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6      R5     TRUE  450  9376 122.37624 5860 127.60396  9253.62376</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7      R0    FALSE    0   192  94.39604 6107 117.64356    97.60396</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Net_LnLx.Error Net_TnTx Net_TnTx.Error SN_RATIO_LnLx SN_RATIO_TnTx       LxTx</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      143.03415 4697.495       69.24882    338.955069      64.90719 4.32801767</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       87.39498 4895.436       71.06916    115.535112      61.01930 1.53720681</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      123.18402 4858.079       71.66840    157.520074      48.66524 3.09871888</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4      154.46828 4942.931       72.07168    200.008356      41.82728 4.77075371</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5      176.39564 5569.158       75.88226    199.421768      39.18635 5.55525214</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6       97.54912 5732.396       77.37976     76.616181      45.92334 1.61426805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7       14.86509 5989.356       78.87190      2.033984      51.91104 0.01629624</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      142.93204 4697.495       69.08296    338.955069      64.90719 4.32801767</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       87.30344 4895.436       70.70731    115.535112      61.01930 1.53720681</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      123.20020 4858.079       71.20294    157.520074      48.66524 3.09871888</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      154.32596 4942.931       71.59969    200.008356      41.82728 4.77075371</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      176.39781 5569.158       75.69208    199.421768      39.18635 5.55525214</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       97.30345 5732.396       77.06892     76.616181      45.92334 1.61426805</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7       14.03621 5989.356       78.55995      2.033984      51.91104 0.01629624</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    LxTx.Error Test_Dose              UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.070695494        -1 fd22cd21c679f884</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.028578369        -1 fd22cd21c679f884</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.052275097        -1 fd22cd21c679f884</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.076258410        -1 fd22cd21c679f884</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.082052531        -1 fd22cd21c679f884</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.027647946        -1 fd22cd21c679f884</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 0.002491179        -1 fd22cd21c679f884</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.070548235        -1 fed5ee3ed2f4c890</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.028478016        -1 fed5ee3ed2f4c890</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.052017292        -1 fed5ee3ed2f4c890</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.075831244        -1 fed5ee3ed2f4c890</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.081877711        -1 fed5ee3ed2f4c890</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.027552588        -1 fed5ee3ed2f4c890</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 0.002353254        -1 fed5ee3ed2f4c890</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Run example with special case for</span></span></span>
 <span class="r-in"><span><span class="co">## the OTORX fit</span></span></span>

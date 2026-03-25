@@ -62,7 +62,7 @@ and the nuclide data from
 `https://www.iaea.org/resources/databases/livechart-of-nuclides-advanced-version`
 
 The factors can be calculated using the equation: \$\$ A = N_A
-\frac{N\_{abund}}{N\_{mol.mass}} ln(2) / N.half.life \$\$
+\frac{N\_{abund}}{N\_{mol.mass}} \ln(2) / N.half.life \$\$
 
 to convert in µg/g we further use: \$\$ f = A / 10^6 \$\$
 
@@ -88,7 +88,7 @@ example for calculating the activity of the radionuclide U-238:
 
 - `U_abund` = 0.992745 (unitless)
 
-\$\$A\_{U} = N\_{A} \* U\_{abund} / m\_{U_238} \* ln(2) / T\_{1/2} =
+\$\$A\_{U} = N\_{A} \* U\_{abund} / m\_{U_238} \* \ln(2) / T\_{1/2} =
 2347046\$\$ (Bq/kg)
 
 \$\$f.U = A\_{U} / 10^6\$\$
@@ -114,7 +114,7 @@ Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
 Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
-Dating Data Analysis. R package version 1.2.0.
+Dating Data Analysis. R package version 1.2.1.
 https://r-lum.github.io/Luminescence/
 
 ## References

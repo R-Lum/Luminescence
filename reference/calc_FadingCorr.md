@@ -116,12 +116,12 @@ This function solves the equation used for correcting the fading
 affected age including the error for a given \\g\\-value according to
 Huntley & Lamothe (2001):
 
-\$\$ \frac{A\_{f}}{A} = 1 - \kappa \* \Big\[ln(\frac{A}{t_c}) - 1\Big\]
+\$\$ \frac{A\_{f}}{A} = 1 - \kappa \* \Big\[\ln(\frac{A}{t_c}) - 1\Big\]
 \$\$
 
 with \\\kappa\\ defined as
 
-\$\$ \kappa = \frac{\frac{\mathrm{g\\value}}{ln(10)}}{100} \$\$
+\$\$ \kappa = \frac{\frac{\mathrm{g\\value}}{\ln(10)}}{100} \$\$
 
 \\A\\ and \\A\_{f}\\ are given in ka. \\t_c\\ is given in s, however, it
 is internally recalculated to ka.
@@ -136,11 +136,11 @@ the measurement used for estimating the age applying the following
 equation:
 
 \$\$\kappa\_{tc} = \kappa\_{tc.g} / (1 - \kappa\_{tc.g} \*
-ln(tc/tc.g))\$\$
+\ln(tc/tc.g))\$\$
 
 where
 
-\$\$\kappa\_{tc.g} = g / 100 / ln(10)\$\$
+\$\$\kappa\_{tc.g} = g / 100 / \ln(10)\$\$
 
 The error of the fading-corrected age is determined using a Monte Carlo
 simulation approach. Solving of the equation is performed using
@@ -216,7 +216,7 @@ Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
 Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

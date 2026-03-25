@@ -176,10 +176,10 @@ standard deviation.
 - `t_star = "half_complex"` This option applies the complex function
   shown in Auclair et al. (2003), which is derived from Aitken (1985)
   appendix F, equations 9 and 11. It reads \$\$t\_{star} = t0 \*
-  10^\[(t_2 log(t_2/t_0) - t_1 log(t_1/t_0) - 0.43(t_2 - t_1))/(t_2 -
-  t_1)\]\$\$ where 0.43 = \\1/ln(10)\\. t0, which is an arbitrary
+  10^\[(t_2 \log(t_2/t_0) - t_1 \log(t_1/t_0) - 0.43(t_2 - t_1))/(t_2 -
+  t_1)\]\$\$ where 0.43 = \\1/\ln(10)\\. t0, which is an arbitrary
   constant, is set to 1. Please note that the equation in Auclair et
-  al. (2003) is incorrect insofar that it reads \\10exp(...)\\, where
+  al. (2003) is incorrect insofar that it reads \\10\exp(...)\\, where
   the base should be 10 and not the Euler's number. Here we use the
   correct version (base 10).
 
@@ -233,7 +233,7 @@ M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
 J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
 Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.2.0. https://r-lum.github.io/Luminescence/
+version 1.2.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

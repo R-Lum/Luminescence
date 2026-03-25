@@ -112,7 +112,7 @@ Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
 Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -152,8 +152,8 @@ temp_file <- tempfile(pattern = "output", fileext = ".binx")
 write_R2BIN(temp, file = temp_file)
 #> 
 #> [write_R2BIN()] Exporting ...
-#>  path:  /tmp/RtmpqtF2TG
-#>  file:  output1bbc5af230eb.binx
+#>  path:  /tmp/RtmpY5udHB
+#>  file:  output1e05798fab72.binx
 #>  n_rec: 2
 #>   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
 #>   >> 2 records written successfully

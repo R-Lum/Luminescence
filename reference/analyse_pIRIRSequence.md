@@ -158,7 +158,7 @@ C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
 Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -227,14 +227,14 @@ results <- analyse_pIRIRSequence(object,
 
 
 
-#> [analyse_SAR.CWOSL()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76
+#> [analyse_SAR.CWOSL()] Fit: EXP (interpolation) | De = 1668.28 | D01 = 1982.52
 
 
 
 
 
 
-#> [analyse_SAR.CWOSL()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76
+#> [analyse_SAR.CWOSL()] Fit: EXP (interpolation) | De = 1668.28 | D01 = 1982.52
 
 
 

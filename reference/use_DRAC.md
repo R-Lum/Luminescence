@@ -20,7 +20,7 @@ use_DRAC(
 - file:
 
   [character](https://rdrr.io/r/base/character.html) (**required**):
-  name of a CSV file (formatted according to the DRAC v1.2 CSV template)
+  name of a CSV file (formatted according to the DRAC v1.3 CSV template)
   to be sent to the DRAC website for calculation. It can also be a DRAC
   template object obtained from
   [`template_DRAC()`](https://r-lum.github.io/Luminescence/reference/template_DRAC.md),
@@ -104,17 +104,17 @@ The output should be accessed using the function
 
 ## Function version
 
-0.17
+0.18
 
 ## How to cite
 
 Kreutzer, S., Dietze, M., Burow, C., 2026. use_DRAC(): Use DRAC to
-calculate dose rate data. Function version 0.17. In: Kreutzer, S.,
+calculate dose rate data. Function version 0.18. In: Kreutzer, S.,
 Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
 J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
 D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -158,12 +158,12 @@ input <- template_DRAC(preset = "DRAC-example_quartz")
 #>   take any responsibility and we are not liable for any 
 #>   mistakes or unforeseen misbehaviour.
 #>   Note that this template is only compatible with DRAC
-#>   version 1.1. Before using this template make sure that
+#>   version 1.3. Before using this template make sure that
 #>   this is the correct version, otherwise expect unspecified
 #>   errors.
 #>   Please ensure you cite the use of DRAC in your work,
 #>   published or otherwise. Please cite the website name and
-#>   version (e.g. DRAC v1.1) and the accompanying journal
+#>   version (e.g. DRAC v1.3) and the accompanying journal
 #>   article:
 #>   Durcan, J.A., King, G.E., Duller, G.A.T., 2015.
 #>   DRAC: Dose rate and age calculation for trapped charge

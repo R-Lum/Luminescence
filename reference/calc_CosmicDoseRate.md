@@ -26,7 +26,8 @@ a\) If absorber is \> 167 g/cm² (only hard-component; Allkofer et al.
 1975): apply equation given by Prescott & Hutton (1994) (c.f. Barbouti &
 Rastin 1983)
 
-\$\$D0 = C/(((absorber+d)^\alpha+a)\*(absober+H))\*exp(-B\*absorber)\$\$
+\$\$D0 = C/(((absorber+d)^\alpha+a)\*(absober+H)) \*
+\exp(-B\*absorber)\$\$
 
 b\) If absorber is \< 167 g/cm² (soft- and hard-component): derive D0
 from Fig. 1 in Prescott & Hutton (1988).
@@ -34,15 +35,15 @@ from Fig. 1 in Prescott & Hutton (1988).
 \(4\) Calculate geomagnetic latitude (Prescott & Stephan 1982, Prescott
 & Hutton 1994)
 
-\$\$\lambda = arcsin(0.203\*cos(latitude)\*cos(longitude-291)+0.979\*
-sin(latitude))\$\$
+\$\$\lambda = \arcsin(0.203\cos(latitude)\cos(longitude-291) +
+0.979\sin(latitude))\$\$
 
 \(5\) Apply correction for geomagnetic latitude and altitude above
 sea-level. Values for F, J and H were read from Fig. 3 shown in Prescott
 & Stephan (1982) and fitted with 3-degree polynomials for lambda \< 35
 degree and a linear fit for lambda \> 35 degree.
 
-\$\$Dc = D0\*(F+J\*exp((altitude/1000)/H))\$\$
+\$\$Dc = D0\*(F + J \exp((altitude / 1000) / H))\$\$
 
 \(6\) Optional: Apply correction for geomagnetic field changes in the
 last 0-80 ka (Prescott & Hutton 1994). Correction and altitude factors
@@ -187,7 +188,7 @@ underestimation can be as large as ~0.1 Gy/ka. In a previous article,
 Prescott & Hutton (1988) give another approximation of Barbouti &
 Rastin's equation in the form of
 
-\$\$D = 0.21\*exp(-0.070\*absorber+0.0005\*absorber^2)\$\$
+\$\$D = 0.21 \* \exp(-0.070 \* absorber + 0.0005 \* absorber^2)\$\$
 
 which is valid for depths between 150-5000 g/cm². For shallower depths
 (\< 150 g/cm²) they provided a graph (Fig. 1) from which the dose rate
@@ -217,7 +218,7 @@ M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
 J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
 Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.2.0. https://r-lum.github.io/Luminescence/
+version 1.2.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

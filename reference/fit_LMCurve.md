@@ -193,8 +193,9 @@ row sum for this values.
 
 The function for the fitting has the general form:
 
-\$\$y = (exp(0.5) \* Im_1 \* x / xm_1) \* exp(-x^2 / (2 \* xm_1^2)) +
-\ldots + exp(0.5) \* Im_i \* x / xm_i) \* exp(-x^2 / (2 \* xm_i^2))\$\$
+\$\$y = (\exp(0.5) \* Im_1 \* x / xm_1) \* \exp(-x^2 / (2 \* xm_1^2)) +
+\ldots + \exp(0.5) \* Im_i \* x / xm_i) \* \exp(-x^2 / (2 \*
+xm_i^2))\$\$
 
 where \\1 \< i \< 8\\
 
@@ -202,7 +203,7 @@ This function and the equations for the conversion to b (detrapping
 probability) and n0 (proportional to initially trapped charge) have been
 taken from Kitis et al. (2008):
 
-\$\$xm_i=\sqrt{max(t)/b_i}\$\$ \$\$Im_i=exp(-0.5)n0/xm_i\$\$
+\$\$xm_i=\sqrt{\max(t)/b_i}\$\$ \$\$Im_i = \exp(-0.5) n0/xm_i\$\$
 
 **Background subtraction**
 
@@ -212,12 +213,12 @@ setting the `bg.subtraction` argument to one of these:
 
 - `"polynomial"` (default): a polynomial function is fitted using
   [glm](https://rdrr.io/r/stats/glm.html) and the resulting function is
-  used for background subtraction: \$\$y = a\*x^4 + b\*x^3 + c\*x^2 +
-  d\*x + e\$\$
+  used for background subtraction: \$\$y = a x^4 + b x^3 + c x^2 + d x +
+  e\$\$
 
 - `"linear"`: a linear function is fitted using
   [glm](https://rdrr.io/r/stats/glm.html) and the resulting function is
-  used for background subtraction: \$\$y = a\*x + b\$\$
+  used for background subtraction: \$\$y = a x + b\$\$
 
 - `"channel"`: the measured background signal is subtracted channel-wise
   from the measured signal.
@@ -252,8 +253,8 @@ calculated as:
 
 \$\$pseudoR^2 = 1 - RSS/TSS\$\$
 
-where \\RSS = Residual~Sum~of~Squares\\ and \\TSS =
-Total~Sum~of~Squares\\
+where \\RSS\\ is the Residual Sum of Squares, and \\TSS\\ is the Total
+Sum of Squares.
 
 **Error of fitted component parameters**
 
@@ -290,7 +291,7 @@ Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
 Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

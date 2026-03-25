@@ -206,7 +206,7 @@ Fits a linear function with a quadratic term to the data using
 
 **Keyword: `EXP`**
 
-Adapts a function of the form \$\$y = a(1 - exp(-\frac{(x+c)}{b}))\$\$
+Adapts a function of the form \$\$y = a(1 - \exp(-\frac{(x+c)}{b}))\$\$
 
 Parameters b and c are approximated by a linear fit using
 [lm](https://rdrr.io/r/stats/lm.html). Note: \\b = D0\\
@@ -220,8 +220,8 @@ Works for some cases where an `EXP` fit fails. If the `EXP` fit fails, a
 
 Tries to fit an exponential plus linear function of the form:
 
-\$\$y = a(1-exp(-\frac{x+c}{b}) + (gx))\$\$ The \\D_e\\ is calculated by
-iteration.
+\$\$y = a(1 - \exp(-\frac{x + c}{b}) + (gx))\$\$ The \\D_e\\ is
+calculated by iteration.
 
 **Note:** In the context of luminescence dating, this function has no
 physical meaning. Therefore, no \\D_0\\ value is returned.
@@ -230,8 +230,8 @@ physical meaning. Therefore, no \\D_0\\ value is returned.
 
 Tries to fit a double exponential function of the form
 
-\$\$y = (a_1 (1-exp(-\frac{x}{b_1}))) + (a_2 (1 -
-exp(-\frac{x}{b_2})))\$\$
+\$\$y = (a_1 (1 - \exp(-\frac{x}{b_1}))) + (a_2 (1 -
+\exp(-\frac{x}{b_2})))\$\$
 
 *This fitting procedure is not really robust against wrong start
 parameters.*
@@ -252,7 +252,7 @@ This tries to fit a dose-response curve based on the Lambert W function
 and the one trap one recombination centre (OTOR) model according to
 Pagonis et al. (2020). The function has the form:
 
-\$\$y = (1 + (\mathcal{W}((R - 1) \* exp(R - 1 - ((x + D\_{int}) /
+\$\$y = (1 + (\mathcal{W}((R - 1) \* \exp(R - 1 - ((x + D\_{int}) /
 D\_{c}))) / (1 - R))) \* N\$\$
 
 with \\W\\ the Lambert W function (calculated using
@@ -269,12 +269,12 @@ unexpected.
 
 This adapts extended OTOR (therefore: OTORX) model proposed by Lawless
 and Timar-Gabor (2024) accounting for retrapping (the equation
-implemented here is slightly differently written than in the original
+implemented here is written slightly differently than in the original
 manuscript):
 
-\$\$F\_{OTORX} = 1 + \left\[\mathcal{W}(-Q \*
-exp(-Q-(1-Q\*(1-\frac{1}{exp(1)})) \* \frac{(D + a)}{D\_{63}}))\right\]
-/ Q\$\$
+\$\$F\_{OTORX} = 1 + \left\[\mathcal{W}\left(-Q \*
+\exp\left(-Q-(1-Q(1-\frac{1}{\exp(1)})) \frac{(D +
+a)}{D\_{63}}\right)\right)\right\] / Q\$\$
 
 with
 
@@ -344,7 +344,7 @@ M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
 J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
 Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.2.0. https://r-lum.github.io/Luminescence/
+version 1.2.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

@@ -11,7 +11,7 @@ calculation
 | `values.factor.Altitude`: | data frame containing altitude factors for adjusting geomagnetic field-change factors. Values were read from Fig. 1 in Prescott & Hutton (1994).                                                                                       |
 | `values.par.FJH`:         | data frame containing values for parameters F, J and H (read from Fig. 2 in Prescott & Hutton 1994) used in the expression                                                                                                             |
 
-\$\$Dc = D0\*(F+J\*exp((altitude/1000)/H))\$\$
+\$\$Dc = D0\*(F + J \exp((altitude/1000)/H))\$\$
 
 ## Source
 

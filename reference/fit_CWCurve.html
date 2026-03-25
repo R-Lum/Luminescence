@@ -4,9 +4,8 @@ component parameters of a CW-OSL signal for a given maximum number of
 components and returns various component parameters.
 Fitting function
 The function for the CW-OSL fitting has the general form:
-$$y = I0_{1}*\lambda_{1}*exp(-\lambda_1*x) + ,\ldots, + I0_{i}*\lambda_{i}*exp(-\lambda_i*x) $$
-where \(0 &amp;lt; i &amp;lt; 8\)
-and \(\lambda\) is the decay constant
+$$y = I0_{1}\lambda_{1}\exp(-\lambda_1 x) + \ldots + I0_{i}\lambda_{i}\exp(-\lambda_i x) $$
+where \(0 &amp;lt; i &amp;lt; 8\), \(\lambda\) is the decay constant,
 and \(I0\) the initial number of trapped electrons.
 (for the used equation cf. Boetter-Jensen et al., 2003, Eq. 2.31)
 Start values
@@ -17,8 +16,8 @@ Goodness of fit
 The goodness of the fit is given as pseudoR² value (pseudo coefficient of
 determination). According to Lave (1970), the value is calculated as:
 $$pseudoR^2 = 1 - RSS/TSS$$
-where \(RSS = Residual~Sum~of~Squares\)
-and \(TSS = Total~Sum~of~Squares\)
+where \(RSS\) is the Residual Sum of Squares, and \(TSS\) is the Total
+Sum of Squares.
 Error of fitted component parameters
 The 1-sigma error for the
 components is calculated using the function stats::confint. Due to
@@ -31,9 +30,8 @@ component parameters of a CW-OSL signal for a given maximum number of
 components and returns various component parameters.
 Fitting function
 The function for the CW-OSL fitting has the general form:
-$$y = I0_{1}*\lambda_{1}*exp(-\lambda_1*x) + ,\ldots, + I0_{i}*\lambda_{i}*exp(-\lambda_i*x) $$
-where \(0 &amp;lt; i &amp;lt; 8\)
-and \(\lambda\) is the decay constant
+$$y = I0_{1}\lambda_{1}\exp(-\lambda_1 x) + \ldots + I0_{i}\lambda_{i}\exp(-\lambda_i x) $$
+where \(0 &amp;lt; i &amp;lt; 8\), \(\lambda\) is the decay constant,
 and \(I0\) the initial number of trapped electrons.
 (for the used equation cf. Boetter-Jensen et al., 2003, Eq. 2.31)
 Start values
@@ -44,8 +42,8 @@ Goodness of fit
 The goodness of the fit is given as pseudoR² value (pseudo coefficient of
 determination). According to Lave (1970), the value is calculated as:
 $$pseudoR^2 = 1 - RSS/TSS$$
-where \(RSS = Residual~Sum~of~Squares\)
-and \(TSS = Total~Sum~of~Squares\)
+where \(RSS\) is the Residual Sum of Squares, and \(TSS\) is the Total
+Sum of Squares.
 Error of fitted component parameters
 The 1-sigma error for the
 components is calculated using the function stats::confint. Due to
@@ -61,7 +59,7 @@ For details on the nonlinear regression in R, see Ritz &amp;amp; Streibig (2008)
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -82,7 +80,7 @@ For details on the nonlinear regression in R, see Ritz &amp;amp; Streibig (2008)
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Non-linear Least Squares Fit for CW-OSL curves -beta version-</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/fit_CWCurve.R" class="external-link"><code>R/fit_CWCurve.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.1/R/fit_CWCurve.R" class="external-link"><code>R/fit_CWCurve.R</code></a></small>
       <div class="d-none name"><code>fit_CWCurve.Rd</code></div>
     </div>
 
@@ -92,9 +90,8 @@ component parameters of a CW-OSL signal for a given maximum number of
 components and returns various component parameters.</p>
 <p><strong>Fitting function</strong></p>
 <p>The function for the CW-OSL fitting has the general form:</p>
-<p>$$y = I0_{1}*\lambda_{1}*exp(-\lambda_1*x) + ,\ldots, + I0_{i}*\lambda_{i}*exp(-\lambda_i*x) $$</p>
-<p>where \(0 &lt; i &lt; 8\)</p>
-<p>and \(\lambda\) is the decay constant <br>
+<p>$$y = I0_{1}\lambda_{1}\exp(-\lambda_1 x) + \ldots + I0_{i}\lambda_{i}\exp(-\lambda_i x) $$</p>
+<p>where \(0 &lt; i &lt; 8\), \(\lambda\) is the decay constant,
 and \(I0\) the initial number of trapped electrons.</p>
 <p><em>(for the used equation cf. Boetter-Jensen et al., 2003, Eq. 2.31)</em></p>
 <p><strong>Start values</strong></p>
@@ -105,8 +102,8 @@ provide start parameters.</p>
 <p>The goodness of the fit is given as pseudoR² value (pseudo coefficient of
 determination). According to Lave (1970), the value is calculated as:</p>
 <p>$$pseudoR^2 = 1 - RSS/TSS$$</p>
-<p>where \(RSS = Residual~Sum~of~Squares\) <br>
-and \(TSS = Total~Sum~of~Squares\)</p>
+<p>where \(RSS\) is the Residual Sum of Squares, and \(TSS\) is the Total
+Sum of Squares.</p>
 <p><strong>Error of fitted component parameters</strong></p>
 <p>The 1-sigma error for the
 components is calculated using the function <a href="https://rdrr.io/r/stats/confint.html" class="external-link">stats::confint</a>. Due to
@@ -265,7 +262,7 @@ global minimum rather than a local minimum!</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2026. fit_CWCurve(): Non-linear Least Squares Fit for CW-OSL curves -beta version-. Function version 0.5.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2026. fit_CWCurve(): Non-linear Least Squares Fit for CW-OSL curves -beta version-. Function version 0.5.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,7 +28,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Fitting and Deconvolution of OSL Lifetime Components</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/fit_OSLLifeTimes.R" class="external-link"><code>R/fit_OSLLifeTimes.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.1/R/fit_OSLLifeTimes.R" class="external-link"><code>R/fit_OSLLifeTimes.R</code></a></small>
       <div class="d-none name"><code>fit_OSLLifeTimes.Rd</code></div>
     </div>
 
@@ -69,9 +69,11 @@ carefully, if it all, otherwise you may heavily bias your fit results.</p></dd>
 
 
 <dt id="arg-signal-range">signal_range<a class="anchor" aria-label="anchor" href="#arg-signal-range"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>): allows to set a channel range, by default all channels are used, e.g.
-<code>signal_range = c(2,100)</code> considers only channels 2 to 100 and <code>signal_range = c(2)</code> considers only channels
-from channel 2 onwards.</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>optional</em>):
+set a channel range, either by specifying both extremes, e.g.
+<code>signal_range = c(2, 100)</code> considers only channels 2 to 100, or only the
+start of the range, e.g. <code>signal_range = 2</code> considers only channels from
+channel 2 onwards. If <code>NULL</code> (default) all channels are used.</p></dd>
 
 
 <dt id="arg-n-components">n.components<a class="anchor" aria-label="anchor" href="#arg-n-components"></a></dt>
@@ -148,7 +150,7 @@ following the approach by Bluszcz &amp; Adamiec (2006).</p>
 number of signal components following roughly the approach suggested by Bluszcz &amp; Adamiec (2006). In
 contrast to their work, for the optimisation by differential evolution here the package <code>'DEoptim'</code> is used.</p>
 <p>The function to be optimized has the form:</p>
-<p>$$\chi^2 = \sum(w * (n_i/c - \sum(A_i * exp(-x/(tau_i + t_p))))^2)$$</p>
+<p>$$\chi^2 = \sum(w * (n_i/c - \sum(A_i * \exp(-x/(tau_i + t_p))))^2)$$</p>
 <p>with \(w = 1\) for unweighted regression analysis (<code>method_control = list(weights = FALSE)</code>) or
 \(w = c^2/n_i\) for weighted regression analysis. The default values is <code>TRUE</code>.</p>
 <p>$$F = (\Delta\chi^2 / 2) / (\chi^2/(N - 2*m - 2))$$</p>
@@ -158,11 +160,11 @@ contrast to their work, for the optimisation by differential evolution here the 
 The default values is <code>TRUE</code></td></tr><tr><td><code>nlsLM.trace</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></td><td>enable/disable trace mode for the nls fitting (<a href="https://rdrr.io/pkg/minpack.lm/man/nlsLM.html" class="external-link">minpack.lm::nlsLM</a>), can be used to identify convergence problems, default is <code>FALSE</code></td></tr><tr><td><code>nlsLM.upper</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></td><td>enable/disable upper parameter boundary, default is <code>TRUE</code></td></tr><tr><td><code>nlsLM.lower</code></td><td><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a></td><td>enable/disable lower parameter boundary, default is <code>TRUE</code></td></tr></table></div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.1.5</p>
+    <p>0.1.6</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Schmidt, C., 2026. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Schmidt, C., 2026. fit_OSLLifeTimes(): Fitting and Deconvolution of OSL Lifetime Components. Function version 0.1.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -202,9 +204,10 @@ Christoph Schmidt, University of Bayreuth (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span> [fit_OSLLifeTime()]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (1) Start parameter and component adapation</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------(start adaption)------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------(start adaption)---------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; + adaption for 1 comp. :  Inf (calc.) &lt;&gt;  3 (ref.) &gt;&gt; [add comp.] &gt;&gt; [forced stop]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ---------------------(end adaption)--------------------------------------</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ----------------------(end adaption)----------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &gt;&gt; Applied component matrix</span>

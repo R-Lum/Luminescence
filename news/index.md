@@ -1,8 +1,161 @@
 # Changelog
 
-## Changes in version 1.2.0 (2026-03-12)
+## Changes in version 1.2.1 (2026-03-25)
 
-See also the [write-up for this release on the REPLAY
+See also the [write-up for Luminescence v1.2.1 on the REPLAY
+website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/03/luminescence-release-1.2.1/).
+
+### Bugfixes and changes
+
+#### `analyse_IRSAR.RF()`
+
+- A work array in the C++ implementation of the sliding method was not
+  correctly initialised when `n.MC = 1`. This was spotted by the
+  `valgrind` memory debugger run by CRAN, and triggered a request to
+  resubmit the package
+  ([\#1479](https://github.com/R-Lum/Luminescence/issues/1479)).
+
+#### `analyse_SAR.TL()`
+
+- The `integral_input` argument was not sufficiently validated when
+  checking for deprecated arguments
+  ([\#1483](https://github.com/R-Lum/Luminescence/issues/1483)).
+
+#### `calc_OSLLxTxRatio()`
+
+- The computation of `sigmab` was overaccounting the contribution of the
+  background integral as it generated sub-intervals that overlapped by
+  one element (the last value in an interval with the first of the
+  next). It was also mistakenly computing `abs(var(Y.i) - mean(Y.i))`
+  when instead it should have truncated negative values to zero, as in
+  `max(var(Y.i) - mean(Y.i), 0)`: this means that if the data follows a
+  Poisson distribution, `sigmab` will be computed to be 0, instead of a
+  possibly large positive value. These changes affect results generated
+  by
+  [`analyse_baSAR()`](https://r-lum.github.io/Luminescence/reference/analyse_baSAR.md),
+  [`analyse_FadingMeasurement()`](https://r-lum.github.io/Luminescence/reference/analyse_FadingMeasurement.md),
+  [`analyse_SAR.CWOSL()`](https://r-lum.github.io/Luminescence/reference/analyse_SAR.CWOSL.md),
+  [`analyse_pIRIRSequence()`](https://r-lum.github.io/Luminescence/reference/analyse_pIRIRSequence.md)
+  and
+  [`plot_DetPlot()`](https://r-lum.github.io/Luminescence/reference/plot_DetPlot.md)
+  as they call this function
+  ([\#1491](https://github.com/R-Lum/Luminescence/issues/1491),
+  [\#1495](https://github.com/R-Lum/Luminescence/issues/1495); thanks to
+  [@AndrzejBluszcz](https://github.com/AndrzejBluszcz) for reporting and
+  fixing).
+
+- Errors are now computed also when `background_integral = NA`. When
+  this feature was first introduced in v1.2.0, errors were set to `NA`,
+  which in turn led to miscomputing the `De.error` as 0. Now, instead,
+  the error calculation simplifies to the error component coming from
+  the signal integral, so that downstream uses (for example, in
+  [`analyse_SAR.CWOSL()`](https://r-lum.github.io/Luminescence/reference/analyse_SAR.CWOSL.md))
+  can produce a correct `De.error`. Note that when
+  `background_integral = NA`, `sigmab` is returned as `NA`, as
+  Galbraith’s method of computing it cannot be applied
+  ([\#1504](https://github.com/R-Lum/Luminescence/issues/1504); thanks
+  to Annette Kadereit for reporting).
+
+#### `calc_TLLxTxRatio()`
+
+- The function now checks that the input data frames contain 2 columns
+  instead of crashing if they are malformed
+  ([\#1501](https://github.com/R-Lum/Luminescence/issues/1501)).
+
+#### `calc_WodaFuchs()`
+
+- The curvature was computed but never used. As its implementation
+  looked fragile, the line of code that computed it was commented out
+  ([\#223](https://github.com/R-Lum/Luminescence/issues/223)).
+
+#### `convert_CW2HMi()`, `convert_CW2LMi()`, `convert_CW2PMi()`
+
+- The functions stop early if the input object contains duplicate times.
+  Previously this generated a warning but produced results according to
+  whatever [`approx()`](https://rdrr.io/r/stats/approxfun.html) decided
+  to keep. We believe that instead the user should be in charge of
+  removing duplicated values, so that they can better assess which
+  should be kept or why there are duplicates at all
+  ([\#1485](https://github.com/R-Lum/Luminescence/issues/1485)).
+
+#### `fit_OSLLifeTimes()`
+
+- The function will remove any `NA` or `NaN` values from `signal_range`
+  before using it
+  ([\#1497](https://github.com/R-Lum/Luminescence/issues/1497)).
+
+- The function wrongly rejected inputs such as `signal_range = 1:2` due
+  to incorrect argument validation. Note, however, that now the function
+  will check the number of values set in `signal_range`, and produce an
+  error (instead of a warning) if more than 2 values are specified
+  ([\#1506](https://github.com/R-Lum/Luminescence/issues/1506)).
+
+- The function no longer crashes if arguments of length 0 (such as
+  `NULL`) are passed via `...`
+  ([\#1514](https://github.com/R-Lum/Luminescence/issues/1514)).
+
+#### `fit_ThermalQuenching()`
+
+- The function now checks that the input dataset contains at least 4
+  points, and stops with an error if that is not the case. This avoids
+  possibly wrong fit results and the corresponding warnings from
+  `nlsLM()`
+  ([\#1512](https://github.com/R-Lum/Luminescence/issues/1512)).
+
+#### `normalise_RLum()`
+
+- The function crashed if `norm = NA` was used
+  ([\#1489](https://github.com/R-Lum/Luminescence/issues/1489); thanks
+  to [@JohannesFriedrich](https://github.com/JohannesFriedrich) for
+  reporting).
+
+#### `plot_DRT()`
+
+- A regression introduced in v1.2.0 caused the summary text to appear in
+  black instead of colour for the very specific case of a dataset that
+  contained a number of points equal to the total number of datasets in
+  the input list
+  ([\#1516](https://github.com/R-Lum/Luminescence/issues/1516)).
+
+- When a list of datasets was provided, x-axis ticks were drawn only up
+  to the size of the first dataset
+  ([\#1518](https://github.com/R-Lum/Luminescence/issues/1518)).
+
+- A regression introduced in v1.1.2 caused the `na.rm` argument to
+  behave in the opposite way as expected. This has been corrected so
+  that the default setting of `na.rm = FALSE` will not remove the `NA`
+  values. Moreover, the function no longer crashes if all errors are
+  `NA` and `na.rm = FALSE`
+  ([\#1520](https://github.com/R-Lum/Luminescence/issues/1520)).
+
+- The function no longer crashes if the input data frames don’t have
+  names or if they contain a different number of columns
+  ([\#1522](https://github.com/R-Lum/Luminescence/issues/1522)).
+
+#### `plot_KDE()`
+
+- A regression introduced in v1.2.0 caused the rug to have uneven tick
+  lengths if a list of datasets of different size was provided, which
+  could lead to very long rug lines for the smaller dataset
+  ([\#1508](https://github.com/R-Lum/Luminescence/issues/1508)).
+
+#### `use_DRAC()`
+
+- The function has been updated to accept the DRAC v1.3 input template.
+  This doesn’t appear to be different from the v1.2 template apart from
+  the updated version number in the header row
+  ([\#1311](https://github.com/R-Lum/Luminescence/issues/1311)).
+
+#### `verify_SingleGrainData()`
+
+- The function better validates all its arguments
+  ([\#1487](https://github.com/R-Lum/Luminescence/issues/1487)).
+
+------------------------------------------------------------------------
+
+## Changes in version 1.2.1 (2026-03-12)
+
+See also the [write-up for Luminescence v1.2.0 on the REPLAY
 website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/03/luminescence-release-1.2.0/).
 
 ### Breaking changes
@@ -107,7 +260,7 @@ for more information and advice on how to deal with these changes.
 
 - Function `install_DevelopmentVersion()` has been removed as it relied
   on the now deprecated
-  [`devtools::install_github()`](https://remotes.r-lib.org/reference/install_github.html).
+  [`devtools::install_github()`](https://devtools.r-lib.org/reference/install-deprecated.html).
   Equivalent functionality is available via
   `pak::pkg_install("R-Lum/Luminescence")`
   ([\#1453](https://github.com/R-Lum/Luminescence/issues/1453)).
@@ -378,7 +531,7 @@ for more information and advice on how to deal with these changes.
 
 #### `calc_gSGC()`
 
-- The function no longer crashes in `n.MC` is set to 0
+- The function no longer crashes if `n.MC` is set to 0
   ([\#1327](https://github.com/R-Lum/Luminescence/issues/1327)).
 
 #### `calc_MaxDose()`
@@ -622,7 +775,7 @@ for more information and advice on how to deal with these changes.
   which case the function performs an automatic conversion to channels
   ([\#1396](https://github.com/R-Lum/Luminescence/issues/1396)).
 
-### `plot_DRTResults()`
+#### `plot_DRTResults()`
 
 - Argument `values` has been renamed to `object`. The older name will
   still work but generates a deprecation warning
@@ -816,11 +969,13 @@ for more information and advice on how to deal with these changes.
   marked as a failure
   ([\#548](https://github.com/R-Lum/Luminescence/issues/548)).
 
+------------------------------------------------------------------------
+
 ## Changes in version 1.1.2 (2025-12-12)
 
 CRAN release: 2025-12-12
 
-See also the [write-up for this release on the REPLAY
+See also the [write-up for Luminescence v1.1.2 on the REPLAY
 website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2025/12/luminescence-release-1.1.2/).
 
 **This package version requires R \>= 4.4**
@@ -1303,7 +1458,7 @@ website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2025/12/lumin
 
 CRAN release: 2025-09-11
 
-See also the [write-up for this release on the REPLAY
+See also the [write-up for Luminescence v1.1.1 on the REPLAY
 website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2025/09/luminescence-release-1.1.1/).
 
 ### New functions
@@ -1626,7 +1781,7 @@ website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2025/09/lumin
 
 CRAN release: 2025-06-11
 
-See also the [write-up for this release on the REPLAY
+See also the [write-up for Luminescence v1.1.0 on the REPLAY
 website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2025/06/luminescence-release-1.1.0/).
 
 ### New functions

@@ -51,7 +51,7 @@ M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
 J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
 Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.2.0. https://r-lum.github.io/Luminescence/
+version 1.2.1. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
@@ -68,7 +68,7 @@ plot_AbanicoPlot(data = x,
 ## decrease error by 10 %
 plot_AbanicoPlot(data = tune_Data(x, decrease.error = 0.1),
                  summary = c("n", "mean"))
-#> Warning: [tune_Data()] Dear runner, these activities on your Linux machine have been tracked and will be submitted to the R.Lum data base. Cheating does not pay off! [2026-03-12 19:22:40.465484]
+#> Warning: [tune_Data()] Dear runner, these activities on your Linux machine have been tracked and will be submitted to the R.Lum data base. Cheating does not pay off! [2026-03-25 11:16:42.244727]
 
 
 ## increase sample size by 200 %

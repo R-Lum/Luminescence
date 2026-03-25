@@ -71,7 +71,7 @@ M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N.,
 Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J.,
 Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A.,
 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
-package version 1.2.0. https://r-lum.github.io/Luminescence/
+package version 1.2.1. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
@@ -83,7 +83,7 @@ convert_RLum2Risoe.BINfileData(IRSAR.RF.Data)
 #> [Risoe.BINfileData object]
 #> 
 #>  BIN/BINX version:     0
-#>  Object date:          20260312
+#>  Object date:          20260325
 #>  User:                 0
 #>  System ID:            0 (unknown)
 #>  Overall records:      2

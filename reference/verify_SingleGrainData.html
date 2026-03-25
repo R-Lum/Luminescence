@@ -9,7 +9,7 @@ from single grain data measurements."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ from single grain data measurements."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Verify single grain data sets and check for invalid grains, i.e. zero-light level grains</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/verify_SingleGrainData.R" class="external-link"><code>R/verify_SingleGrainData.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.1/R/verify_SingleGrainData.R" class="external-link"><code>R/verify_SingleGrainData.R</code></a></small>
       <div class="d-none name"><code>verify_SingleGrainData.Rd</code></div>
     </div>
 
@@ -58,14 +58,14 @@ from single grain data measurements.</p>
 
 
 <dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
-<dd><p><a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> or <a href="RLum.Analysis-class.html">RLum.Analysis</a>
-(<strong>required</strong>):  input object. The function also accepts a list with objects of allowed type.</p></dd>
+<dd><p><a href="Risoe.BINfileData-class.html">Risoe.BINfileData</a> or <a href="RLum.Analysis-class.html">RLum.Analysis</a> (<strong>required</strong>):
+input object. The function also accepts a list with objects of allowed type.</p></dd>
 
 
 <dt id="arg-threshold">threshold<a class="anchor" aria-label="anchor" href="#arg-threshold"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
 numeric threshold value for the allowed difference between the <code>mean</code> and
-the <code>var</code> of the count values (see details)</p></dd>
+the <code>var</code> of the count values (see details).</p></dd>
 
 
 <dt id="arg-use-fft">use_fft<a class="anchor" aria-label="anchor" href="#arg-use-fft"></a></dt>
@@ -111,8 +111,8 @@ Supported arguments <code>main</code>, <code>ylim</code></p></dd>
 <p>———————————–<br><code>[ NUMERICAL OUTPUT ]</code><br>
 ———————————–<br></p>
 <p><strong><code>RLum.Results</code></strong>-object</p>
-<p><strong>slot:****<code>@data</code></strong></p>
-<table class="table table"><tr><td><strong>Element</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr><tr><td><code>$unique_pairs</code></td><td><code>data.frame</code></td><td>the unique position and grain pairs</td></tr><tr><td><code>$selection_id</code></td><td><code>numeric</code></td><td>the selection as record ID</td></tr><tr><td><code>$selection_full</code></td><td><code>data.frame</code></td><td>implemented models used in the baSAR-model core</td></tr></table><p><strong>slot:****<code>@info</code></strong></p>
+<p><strong>slot:</strong> <code>@data</code></p>
+<table class="table table"><tr><td><strong>Element</strong></td><td><strong>Type</strong></td><td><strong>Description</strong></td></tr><tr><td><code>$unique_pairs</code></td><td><code>data.frame</code></td><td>the unique position and grain pairs</td></tr><tr><td><code>$selection_id</code></td><td><code>numeric</code></td><td>the selection as record ID</td></tr><tr><td><code>$selection_full</code></td><td><code>data.frame</code></td><td>implemented models used in the baSAR-model core</td></tr></table><p><strong>slot:</strong> <code>@info</code></p>
 <p>The original function call</p>
 <p><strong>Output variation</strong></p>
 <p>For <code>cleanup = TRUE</code> the same object as the input is returned, but cleaned up
@@ -151,7 +151,7 @@ the cleanup works only on curves.</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.2.6</p>
+    <p>0.2.7</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -165,7 +165,7 @@ the cleanup works only on curves.</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2026. verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2026. verify_SingleGrainData(): Verify single grain data sets and check for invalid grains, i.e. zero-light level grains. Function version 0.2.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">

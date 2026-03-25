@@ -52,8 +52,8 @@ calc_OSLLxTxRatio(
 
   [integer](https://rdrr.io/r/base/integer.html) (**required**): vector
   of channels for the background integral. If set to `NA`, no background
-  integral is subtracted; in this case, the error calculation and the
-  signal-to-noise ratio will report `NA` values.
+  integral is subtracted; in this case, `sigmab.LnLx` (unless manually
+  set) and the signal-to-noise ratio for Ln/Lx`will be`NA\`.
 
 - signal_integral_Tx:
 
@@ -67,8 +67,8 @@ calc_OSLLxTxRatio(
   channels for the background integral for the `Tx` curve. If `NULL`,
   the `background_integral` vector is used. If set to `NA`, no
   background integral for the `Tx` curve is subtracted; in this case,
-  the error calculation and the signal-to-noise ratio will report `NA`
-  values.
+  `sigmab.TxTx` (unless manually set) and the signal-to-noise ratio for
+  `Tn/Tx` will be `NA`.
 
 - integral_input:
 
@@ -138,7 +138,7 @@ following structure:
     .. $ SN_RATIO_TnTx,
     .. $ LxTx
     .. $ LxTx.Error
-    $ calc.parameters (list)
+    $calc.parameters (list)
     .. $ sigmab.LnTx
     .. $ sigmab.TnTx
     .. $ k
@@ -174,7 +174,7 @@ This argument allows to add an extra component of error to the final
 multiplied with the already calculated `LxTx` and the result is add up
 by:
 
-\$\$se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx \* sig0)^2)\$\$
+\$\$se(LxTx) = \sqrt{se(LxTx)^2 + (LxTx \* sig0)^2}\$\$
 
 **`SN_RATIO_LnLx` and `SN_RATIO_TnTx`**
 
@@ -193,11 +193,16 @@ case (might be the normal case) it has to be accounted for the
 overdispersion by estimating \\\sigma^2\\ (i.e. the overdispersion
 value). Therefore the relative standard error is calculated as:
 
-- `poisson` \$\$rse(\mu\_{S}) \approx \sqrt(Y\_{0} +
-  Y\_{1}/k^2)/Y\_{0} - Y\_{1}/k\$\$
+- `poisson` \$\$rse(\mu\_{S}) \approx \sqrt{Y\_{0} + Y\_{1}/k^2) /
+  (Y\_{0} - Y\_{1}/k)} \$\$
 
-- `non-poisson` \$\$rse(\mu\_{S}) \approx \sqrt(Y\_{0} + Y\_{1}/k^2 +
-  \sigma^2(1+1/k))/Y\_{0} - Y\_{1}/k\$\$
+- `non-poisson` \$\$rse(\mu\_{S}) \approx \sqrt{Y\_{0} + Y\_{1}/k^2 +
+  \sigma^2(1+1/k)) / (Y\_{0} - Y\_{1}/k)} \$\$
+
+If `background_integral = NA`, then in both cases the relative standard
+error simplifies to:
+
+\$\$rse(\mu\_{S}) \approx \sqrt{Y\_{0}} / Y\_{0}\$\$
 
 **Please note** that when using the early background subtraction method
 in combination with the 'non-poisson' distribution argument, the
@@ -218,17 +223,17 @@ either provide your own `sigmab` value or use
 
 ## Function version
 
-0.9.5
+0.9.8
 
 ## How to cite
 
 Kreutzer, S., Colombo, M., 2026. calc_OSLLxTxRatio(): Calculate Lx/Tx
-ratio for CW-OSL curves. Function version 0.9.5. In: Kreutzer, S.,
+ratio for CW-OSL curves. Function version 0.9.8. In: Kreutzer, S.,
 Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
 J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
 D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -272,7 +277,7 @@ results <- calc_OSLLxTxRatio(
 ##get results object
 get_RLum(results)
 #>    LnLx LnLx.BG TnTx TnTx.BG Net_LnLx Net_LnLx.Error Net_TnTx Net_TnTx.Error
-#> 1 81709     530 7403     513    81179       286.5461     6890       88.53581
+#> 1 81709     530 7403     513    81179       285.9637     6890       86.91786
 #>   SN_RATIO_LnLx SN_RATIO_TnTx     LxTx LxTx.Error
-#> 1      154.1679       14.4308 11.78215  0.1570077
+#> 1      154.1679       14.4308 11.78215  0.1543187
 ```

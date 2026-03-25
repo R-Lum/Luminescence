@@ -78,7 +78,7 @@ Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
 Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -111,12 +111,12 @@ input <- template_DRAC(preset = "DRAC-example_quartz")
 #>   take any responsibility and we are not liable for any 
 #>   mistakes or unforeseen misbehaviour.
 #>   Note that this template is only compatible with DRAC
-#>   version 1.1. Before using this template make sure that
+#>   version 1.3. Before using this template make sure that
 #>   this is the correct version, otherwise expect unspecified
 #>   errors.
 #>   Please ensure you cite the use of DRAC in your work,
 #>   published or otherwise. Please cite the website name and
-#>   version (e.g. DRAC v1.1) and the accompanying journal
+#>   version (e.g. DRAC v1.3) and the accompanying journal
 #>   article:
 #>   Durcan, J.A., King, G.E., Duller, G.A.T., 2015.
 #>   DRAC: Dose rate and age calculation for trapped charge
@@ -153,7 +153,7 @@ print(input)
 #>       OPTIONS =  Q, F, PM 
 #> 
 #> TI:4 => Conversion factors 
-#>       VALUES = Guerinetal2011 
+#>       VALUES = Cresswelletal2018 
 #>       ALLOWS 'X' =  TRUE 
 #>       REQUIRED = FALSE 
 #>       DESCRIPTION =  The conversion factors required to calculate dose rates from radionuclide conce 
@@ -162,7 +162,7 @@ print(input)
 #>          be 'AdamiecAitken1998', 'Guerinetal2011', 'Liritzisetal2013', 'Cresswelletal201 
 #>          8', or 'X' if conversion factors are not required. 
 #>           
-#>       OPTIONS =  AdamiecAitken1998, Guerinetal2011, Liritzisetal2013, Cresswelletal2018, X 
+#>       OPTIONS =  AdamiecAitken1998, Guerinetal2011, Liritzisetal2013, Cresswelletal2018 
 #> 
 #> TI:5 => External U (ppm) 
 #>       VALUES = 3.4 
@@ -333,7 +333,7 @@ print(input)
 #>       DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos 
 #>          e rates (in Gy.ka-1). Any positive inputs in these fields will override dose rat 
 #>          es calculated from radionuclide concentrations. Inputs should be 0 or positive a 
-#>          nd should not be left blank 
+#>          nd should not be left blank. 
 #>           
 #>  
 #> TI:24 => errUser external alphadoserate (Gy.ka-1) 
@@ -343,7 +343,7 @@ print(input)
 #>       DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos 
 #>          e rates (in Gy.ka-1). Any positive inputs in these fields will override dose rat 
 #>          es calculated from radionuclide concentrations. Inputs should be 0 or positive a 
-#>          nd should not be left blank 
+#>          nd should not be left blank. 
 #>           
 #>  
 #> TI:25 => User external betadoserate (Gy.ka-1) 
@@ -353,7 +353,7 @@ print(input)
 #>       DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos 
 #>          e rates (in Gy.ka-1). Any positive inputs in these fields will override dose rat 
 #>          es calculated from radionuclide concentrations. Inputs should be 0 or positive a 
-#>          nd should not be left blank 
+#>          nd should not be left blank. 
 #>           
 #>  
 #> TI:26 => errUser external betadoserate (Gy.ka-1) 
@@ -363,7 +363,7 @@ print(input)
 #>       DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos 
 #>          e rates (in Gy.ka-1). Any positive inputs in these fields will override dose rat 
 #>          es calculated from radionuclide concentrations. Inputs should be 0 or positive a 
-#>          nd should not be left blank 
+#>          nd should not be left blank. 
 #>           
 #>  
 #> TI:27 => User external gamma doserate (Gy.ka-1) 
@@ -373,7 +373,7 @@ print(input)
 #>       DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos 
 #>          e rates (in Gy.ka-1). Any positive inputs in these fields will override dose rat 
 #>          es calculated from radionuclide concentrations. Inputs should be 0 or positive a 
-#>          nd should not be left blank 
+#>          nd should not be left blank. 
 #>           
 #>  
 #> TI:28 => errUser external gammadoserate (Gy.ka-1) 
@@ -383,7 +383,7 @@ print(input)
 #>       DESCRIPTION =  Users may input directly measured values for external alpha, beta and gamma dos 
 #>          e rates (in Gy.ka-1). Any positive inputs in these fields will override dose rat 
 #>          es calculated from radionuclide concentrations. Inputs should be 0 or positive a 
-#>          nd should not be left blank 
+#>          nd should not be left blank. 
 #>           
 #>  
 #> TI:29 => User internal doserate (Gy.ka-1) 
@@ -439,10 +439,11 @@ print(input)
 #>       ALLOWS 'X' =  FALSE 
 #>       REQUIRED = TRUE 
 #>       DESCRIPTION =  The grain size attenuation factors for the alpha dose rate. Users have the opti 
-#>          on of datasets from Bell (1980) and Brennan et al. (1991). Input must be 'Bell19 
-#>          80' or 'Brennanetal1991'. 
+#>          on of datasets from Bell (1980), Brennan et al. (1991), or Martin et al. (2014). 
+#>          Valid inputs are 'Bell1980' (between 1 and 1000 microns), 'Brennanetal1991' (be 
+#>          tween 1 and 1000 microns) or 'Martinetal2014' (between 1 and 10000 microns). 
 #>           
-#>       OPTIONS =  Bell1980, Brennanetal1991 
+#>       OPTIONS =  Bell1980, Brennanetal1991, Martinetal2014 
 #> 
 #> TI:35 => beta-Grain size attenuation  
 #>       VALUES = Guerinetal2012-Q 
@@ -450,8 +451,9 @@ print(input)
 #>       REQUIRED = TRUE 
 #>       DESCRIPTION =  The grain size attenuation factors for the beta dose rate. Users have the optio 
 #>          n of datasets from Mejdahl (1979), Brennan (2003) and Guerin et al. (2012) for q 
-#>          uartz or feldspar. Input must be 'Mejdahl1979', 'Brennan2003', 'Guerinetal2012-Q 
-#>          ' or 'Guerinetal2012-F' . 
+#>          uartz or feldspar. Valid inputs are 'Mejdahl1979' (between 1 and 10000 microns), 
+#>          'Brennan2003' (between 1 and 10000 microns), 'Guerinetal2012-Q' (between 1 and  
+#>          1000 microns) or 'Guerinetal2012-F' (between 1 and 1000 microns). 
 #>           
 #>       OPTIONS =  Mejdahl1979, Brennan2003, Guerinetal2012-Q, Guerinetal2012-F 
 #> 
@@ -480,7 +482,7 @@ print(input)
 #>          Brennan2003'. Note: only the dataset of Bell (1980) is provided for attenuation  
 #>          of the alpha dose rate by etching. 
 #>           
-#>       OPTIONS =  Bell1979, Brennan2003, X 
+#>       OPTIONS =  Bell1979, Brennan2003 
 #> 
 #> TI:39 => a-value 
 #>       VALUES = 0 
@@ -623,7 +625,7 @@ print(input$`Project ID`)
 #> attr(,"description")
 #> [1] "Inputs can be alphabetic, numeric or selected symbols (/ - () [] _). Spaces are not permitted."
 print(input[[4]])
-#> [1] Guerinetal2011
+#> [1] Cresswelletal2018
 #> attr(,"required")
 #> [1] FALSE
 #> attr(,"allowsX")
@@ -634,7 +636,7 @@ print(input[[4]])
 #> [1] TI:4
 #> attr(,"description")
 #> [1] The conversion factors required to calculate dose rates from radionuclide concentrations. Users have the option of datasets from Adamiec and Aitken (1998), Guerin et al. (2011), Liritzis et al. (2013) or Cresswell et al. (2018). Input must be 'AdamiecAitken1998', 'Guerinetal2011', 'Liritzisetal2013', 'Cresswelletal2018', or 'X' if conversion factors are not required.
-#> 5 Levels: AdamiecAitken1998 Guerinetal2011 ... X
+#> 4 Levels: AdamiecAitken1998 Guerinetal2011 ... Cresswelletal2018
 
 
 ## Example: DRAC Quartz example

@@ -11,7 +11,7 @@ pseudo linearly modulated (pLM) curve using the equations given in Bulur
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ pseudo linearly modulated (pLM) curve using the equations given in Bulur
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Transform a CW-OSL curve into a pLM-OSL curve</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/convert_CW2pLM.R" class="external-link"><code>R/convert_CW2pLM.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.1/R/convert_CW2pLM.R" class="external-link"><code>R/convert_CW2pLM.R</code></a></small>
       <div class="d-none name"><code>convert_CW2pLM.Rd</code></div>
     </div>
 
@@ -71,7 +71,7 @@ the transformed curve values (<a href="https://rdrr.io/r/base/data.frame.html" c
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>According to Bulur (2000) the curve data are transformed by introducing two
 new parameters <code>P</code> (stimulation period) and <code>u</code> (transformed time):</p>
-<p>$$P=2*max(t)$$ $$u=\sqrt{(2*t*P)}$$</p>
+<p>$$P=2\max(t)$$ $$u=\sqrt{(2t*P)}$$</p>
 <p>The new count values are then calculated by
 $$ctsNEW = cts(u/P)$$</p>
 <p>and the returned <code>data.frame</code> is produced by: <code>data.frame(u,ctsNEW)</code></p>
@@ -88,7 +88,7 @@ resolution of at least 0.05 s/channel.</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Colombo, M., 2026. convert_CW2pLM(): Transform a CW-OSL curve into a pLM-OSL curve. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Colombo, M., 2026. convert_CW2pLM(): Transform a CW-OSL curve into a pLM-OSL curve. Function version 0.4.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

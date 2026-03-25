@@ -13,7 +13,7 @@ Wallinga (2012)."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@ Wallinga (2012)."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Transform a CW-OSL curve into a pHM-OSL curve via interpolation under hyperbolic modulation conditions</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.0/R/convert_CW2pHMi.R" class="external-link"><code>R/convert_CW2pHMi.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.2.1/R/convert_CW2pHMi.R" class="external-link"><code>R/convert_CW2pHMi.R</code></a></small>
       <div class="d-none name"><code>convert_CW2pHMi.Rd</code></div>
     </div>
 
@@ -89,7 +89,7 @@ count values (CW(t))</p>
 <p>(1) log(CW-OSL) values</p>
 <p>(2)
 Calculate t' which is the transformed time:
-$$t' = t-(1/\delta)*log(1+\delta*t)$$</p>
+$$t' = t-(1/\delta) * \log(1 + \delta t)$$</p>
 <p>(3)
 Interpolate CW(t'), i.e. use the log(CW(t)) to obtain the count values
 for the transformed time (t'). Values beyond <code>min(t)</code> and <code>max(t)</code>
@@ -104,8 +104,8 @@ Extrapolate values for t' &lt; <code>min(t)</code> based on the previously
 obtained fit parameters.</p>
 <p>(6)
 Transform values using
-$$pHM(t) = (\delta*t/(1+\delta*t))*c*CW(t')$$
-$$c = (1+\delta*P)/\delta*P$$
+$$pHM(t) = (\delta t / (1 + \delta t))*c*CW(t')$$
+$$c = (1 + \delta P)/\delta*P$$
 $$P = length(stimulation~period)$$</p>
 <p>(7) Combine all values and truncate all values for t' &gt; <code>max(t)</code></p>
 <p><strong>Note:</strong>
@@ -129,11 +129,11 @@ In every case a warning message is shown.</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.2.5</p>
+    <p>0.2.7</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Colombo, M., 2026. convert_CW2pHMi(): Transform a CW-OSL curve into a pHM-OSL curve via interpolation under hyperbolic modulation conditions. Function version 0.2.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Colombo, M., 2026. convert_CW2pHMi(): Transform a CW-OSL curve into a pHM-OSL curve via interpolation under hyperbolic modulation conditions. Function version 0.2.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

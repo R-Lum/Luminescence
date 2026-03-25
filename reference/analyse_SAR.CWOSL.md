@@ -397,7 +397,7 @@ Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
 Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -460,19 +460,19 @@ rejection.criteria = list(
   sn_reference = "Natural",
   exceed.max.regpoint = TRUE)
 )
-#> [analyse_SAR.CWOSL()] Fit: EXP (interpolation) | De = 1668.25 | D01 = 1982.76
+#> [analyse_SAR.CWOSL()] Fit: EXP (interpolation) | De = 1668.28 | D01 = 1982.52
 
 
 ##show De results
 get_RLum(results)
-#>         De De.Error      D01 D01.ERROR D02 D02.ERROR  R R.ERROR Dc D63
-#> 1 1668.251  51.7209 1982.757  101.9548  NA        NA NA      NA NA  NA
-#>         n_N    De.MC Fit          Mode HPDI68_L HPDI68_U HPDI95_L HPDI95_U
-#> 1 0.4854696 1671.492 EXP interpolation 1615.335 1720.752 1563.816 1766.723
-#>   .De.plot  .De.raw RC.Status signal.range background.range signal.range.Tx
-#> 1 1668.251 1668.251        OK          1:2         900:1000           NA:NA
+#>         De De.Error     D01 D01.ERROR D02 D02.ERROR  R R.ERROR Dc D63       n_N
+#> 1 1668.277 51.59927 1982.52  101.5512  NA        NA NA      NA NA  NA 0.4854792
+#>      De.MC Fit          Mode HPDI68_L HPDI68_U HPDI95_L HPDI95_U .De.plot
+#> 1 1671.506 EXP interpolation 1615.436  1720.59 1564.044 1766.447 1668.277
+#>    .De.raw RC.Status signal.range background.range signal.range.Tx
+#> 1 1668.277        OK          1:2         900:1000           NA:NA
 #>   background.range.Tx ALQ POS GRAIN              UID
-#> 1               NA:NA   1   1     0 fd22cd21c679f884
+#> 1               NA:NA   1   1     0 fed5ee3ed2f4c890
 
 ##show LnTnLxTx table
 get_RLum(results, data.object = "LnLxTnTx.table")
@@ -485,21 +485,21 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 #> 6      R5     TRUE  450  9376 122.37624 5860 127.60396  9253.62376
 #> 7      R0    FALSE    0   192  94.39604 6107 117.64356    97.60396
 #>   Net_LnLx.Error Net_TnTx Net_TnTx.Error SN_RATIO_LnLx SN_RATIO_TnTx       LxTx
-#> 1      143.03415 4697.495       69.24882    338.955069      64.90719 4.32801767
-#> 2       87.39498 4895.436       71.06916    115.535112      61.01930 1.53720681
-#> 3      123.18402 4858.079       71.66840    157.520074      48.66524 3.09871888
-#> 4      154.46828 4942.931       72.07168    200.008356      41.82728 4.77075371
-#> 5      176.39564 5569.158       75.88226    199.421768      39.18635 5.55525214
-#> 6       97.54912 5732.396       77.37976     76.616181      45.92334 1.61426805
-#> 7       14.86509 5989.356       78.87190      2.033984      51.91104 0.01629624
+#> 1      142.93204 4697.495       69.08296    338.955069      64.90719 4.32801767
+#> 2       87.30344 4895.436       70.70731    115.535112      61.01930 1.53720681
+#> 3      123.20020 4858.079       71.20294    157.520074      48.66524 3.09871888
+#> 4      154.32596 4942.931       71.59969    200.008356      41.82728 4.77075371
+#> 5      176.39781 5569.158       75.69208    199.421768      39.18635 5.55525214
+#> 6       97.30345 5732.396       77.06892     76.616181      45.92334 1.61426805
+#> 7       14.03621 5989.356       78.55995      2.033984      51.91104 0.01629624
 #>    LxTx.Error Test_Dose              UID
-#> 1 0.070695494        -1 fd22cd21c679f884
-#> 2 0.028578369        -1 fd22cd21c679f884
-#> 3 0.052275097        -1 fd22cd21c679f884
-#> 4 0.076258410        -1 fd22cd21c679f884
-#> 5 0.082052531        -1 fd22cd21c679f884
-#> 6 0.027647946        -1 fd22cd21c679f884
-#> 7 0.002491179        -1 fd22cd21c679f884
+#> 1 0.070548235        -1 fed5ee3ed2f4c890
+#> 2 0.028478016        -1 fed5ee3ed2f4c890
+#> 3 0.052017292        -1 fed5ee3ed2f4c890
+#> 4 0.075831244        -1 fed5ee3ed2f4c890
+#> 5 0.081877711        -1 fed5ee3ed2f4c890
+#> 6 0.027552588        -1 fed5ee3ed2f4c890
+#> 7 0.002353254        -1 fed5ee3ed2f4c890
 
 ## Run example with special case for
 ## the OTORX fit

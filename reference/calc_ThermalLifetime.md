@@ -127,10 +127,10 @@ from a normal distribution (for E and s).
 
 **Used equation (Arrhenius equation)**
 
-\$\$\tau = 1/s exp(E/kT)\$\$ where: \\\tau\\ in s as the mean time an
-electron spends in the trap for a given \\T\\, \\E\\ trap depth in eV,
-\\s\\ the frequency factor in 1/s, \\T\\ the temperature in K and \\k\\
-the Boltzmann constant in eV/K (cf. Furetta, 2010).
+\$\$\tau = \frac{1}{s} \exp(E/kT)\$\$ where: \\\tau\\ in s as the mean
+time an electron spends in the trap for a given \\T\\, \\E\\ trap depth
+in eV, \\s\\ the frequency factor in 1/s, \\T\\ the temperature in K and
+\\k\\ the Boltzmann constant in eV/K (cf. Furetta, 2010).
 
 ## Note
 
@@ -150,7 +150,7 @@ Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
 Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
-Dating Data Analysis. R package version 1.2.0.
+Dating Data Analysis. R package version 1.2.1.
 https://r-lum.github.io/Luminescence/
 
 ## References
