@@ -685,12 +685,6 @@ analyse_IRSAR.RF<- function(
     cores = NULL
   )
 
-  ## deprecated argument
-  if ("method.control" %in% names(extraArgs)) {
-    method_control <- extraArgs$method.control
-    .deprecated("method.control", "method_control", since = "1.0.0")
-  }
-
   ##modify list if necessary
   if (!is.null(method_control)) {
 

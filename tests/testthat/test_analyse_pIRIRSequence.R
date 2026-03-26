@@ -95,18 +95,6 @@ test_that("check plot stuff", {
     plot_singlePanels = TRUE,
     verbose = FALSE))
 
-  suppressWarnings( # duplicated plot.single warnings from sanalyse_SAR.CWOSL()
-  expect_warning(analyse_pIRIRSequence(
-    object,
-    signal_integral = 1:2,
-    background_integral = 900:1000,
-    fit.method = "EXP",
-    plot = TRUE,
-    plot.single = TRUE,
-    verbose = FALSE),
-    "'plot.single' was deprecated in v1.0.0, use 'plot_singlePanels' instead")
-  )
-
   ## integral_input
   set.seed(1)
   res1 <- analyse_pIRIRSequence(object,

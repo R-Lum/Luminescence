@@ -111,11 +111,6 @@ test_that("input validation", {
                                   method_control = list(cores = "4")),
                  "Invalid value for control argument 'cores'")
   })
-
-  ## deprecated option
-  expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, verbose = FALSE,
-                                  method.control = list(cores = 1)),
-                 "'method.control' was deprecated in v1.0.0, use 'method_control'")
 })
 
 test_that("snapshot tests", {

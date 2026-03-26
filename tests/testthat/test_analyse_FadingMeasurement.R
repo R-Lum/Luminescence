@@ -106,12 +106,6 @@ test_that("check functionality", {
       verbose = FALSE,
       n.MC = 10))), "RLum.Results")
 
-  expect_warning(analyse_FadingMeasurement(fading_data,
-                                           plot = TRUE, plot.single = TRUE,
-                                           verbose = FALSE,
-                                           n.MC = 10),
-                 "'plot.single' was deprecated in v1.0.0, use 'plot_singlePanels'")
-
   ## more coverage
   data.inf <- fading_data
   data.inf$LxTx[24] <- Inf

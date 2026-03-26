@@ -588,14 +588,6 @@ test_that("advance tests run", {
                         log = "xy", verbose = FALSE),
       "Too many curves, only the first 21 curves are plotted"),
       "Multiple IRSL curves detected")
-
-  expect_warning(
-      analyse_SAR.CWOSL(object = object[[1]],
-                        signal_integral = 1:2,
-                        background_integral = 900:1000,
-                        plot.single = TRUE,
-                        verbose = FALSE),
-      "'plot.single' was deprecated in v1.0.0, use 'plot_singlePanels' instead")
   })
 
   ##test failed recycling ratio

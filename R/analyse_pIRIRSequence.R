@@ -267,12 +267,6 @@ analyse_pIRIRSequence <- function(
     .throw_error(invalid.terms, " not allowed in 'sequence.structure'")
   }
 
-  ## deprecated argument
-  if ("plot.single" %in% ...names()) {
-    plot_singlePanels <- list(...)$plot.single
-    .deprecated("plot.single", "plot_singlePanels", since = "1.0.0")
-  }
-
   ## Deal with extra arguments
   extraArgs <- list(...)
   main <- extraArgs$main %||% "MEASUREMENT INFO"

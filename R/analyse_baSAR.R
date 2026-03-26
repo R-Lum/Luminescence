@@ -1748,13 +1748,6 @@ analyse_baSAR <- function(
 
   # Plotting ------------------------------------------------------------------------------------
   if(plot){
-
-    ## deprecated argument
-    if ("plot.single" %in% ...names()) {
-      plot_singlePanels <- list(...)$plot.single
-      .deprecated("plot.single", "plot_singlePanels", since = "1.0.0")
-    }
-
     ##get colours from the package Luminescence
     col <- get("col", pos = .LuminescenceEnv)
 

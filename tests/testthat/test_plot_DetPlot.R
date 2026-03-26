@@ -133,15 +133,6 @@ test_that("plot_DetPlot", {
       respect_RC.Status = TRUE,
       n.channels = 2)
 
-  expect_warning(plot_DetPlot(
-      tmp,
-      method = "expansion",
-      signal_integral = 1:2,
-      background_integral = 900:1000,
-      plot.single = TRUE,
-      n.channels = 2),
-      "'plot.single' was deprecated in v1.0.0, use 'plot_singlePanels' instead")
-
   ## analyse_pIRIRSequence on an inconsistent object
   suppressWarnings( # ignore additional warnings from fit_DoseResponseCurve()
   expect_error(

@@ -682,12 +682,6 @@ analyse_SAR.CWOSL<- function(
   sigmab <- extraArgs$sigmab
   sig0 <- extraArgs$sig0 %||% 0
 
-  ## deprecated argument
-  if ("plot.single" %in% names(extraArgs)) {
-    plot_singlePanels <- extraArgs$plot.single
-    .deprecated("plot.single", "plot_singlePanels", since = "1.0.0")
-  }
-
   # Grep Curves -------------------------------------------------------------
   ## extract relevant curves from RLum.Analysis object
   OSL.Curves.ID <- get_RLum(object, recordType = CWcurve.type, get.index = TRUE)
