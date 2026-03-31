@@ -1,8 +1,8 @@
 Package: Luminescence
 Type: Package
 Title: Comprehensive Luminescence Dating Data Analysis
-Version: 1.2.1.9000
-Date: 2026-03-25
+Version: 1.2.1.9000-4
+Date: 2026-03-31
 Authors@R: c(
     person("Sebastian", "Kreutzer", role = c("aut", "trl", "cre", "dtc"), email = "maintainer_luminescence@r-luminescence.org", comment = c(ORCID = "0000-0002-0734-2199")),
     person("Christoph", "Burow", role = c("aut", "trl", "dtc"), comment = c(ORCID = "0000-0002-5023-4046")),
@@ -43,35 +43,35 @@ Depends:
     R (>= 4.4),
     utils
 LinkingTo:
-    Rcpp (>= 1.1.0)
+    Rcpp (>= 1.1.1)
 Imports:
     bbmle (>= 1.0.25.1),
     data.table (>= 1.18.2.1),
     DEoptim (>= 2.2-8),
-    httr (>= 1.4.7),
+    httr (>= 1.4.8),
     interp (>= 1.1-6),
-    lamW (>= 2.2.3),
-    matrixStats (>= 1.3.0),
+    lamW (>= 2.2.7),
+    matrixStats (>= 1.5.0),
     methods,
     minpack.lm (>= 1.2-4),
-    mclust (>= 6.1),
-    Rcpp (>= 1.0.12),
+    mclust (>= 6.1.2),
+    Rcpp (>= 1.1.1),
     shape (>= 1.4.6),
     parallel,
-    XML (>= 3.99-0.16),
+    XML (>= 3.99-0.23),
 Suggests:
-    spelling (>= 2.3.0),
-    plotly (>= 4.10.4),
-    rmarkdown (>= 2.27),
-    rstudioapi (>= 0.16.0),
-    rjags (>= 4-15),
+    spelling (>= 2.3.2),
+    plotly (>= 4.12.0),
+    rmarkdown (>= 2.31),
+    rstudioapi (>= 0.18.0),
+    rjags (>= 4-17),
     coda (>= 0.19-4),
     knitr,
-    pander (>= 0.6.5),
-    testthat (>= 3.2.1),
-    vdiffr (>= 1.0.0),
+    pander (>= 0.6.6),
+    testthat (>= 3.3.2),
+    vdiffr (>= 1.0.9),
     tiff (>= 0.1-12),
-    devtools (>= 2.4.5),
+    devtools (>= 2.5.0),
     R.rsp (>= 0.46.0)
 VignetteBuilder: R.rsp, knitr
 Encoding: UTF-8
