@@ -19,5 +19,10 @@ header-includes:
 
 ## Bugfixes and changes
 
+### `plot_DoseResponseCurve()`
+
+* The error bars had been missing for `extrapolation` and `alternate` mode. 
+This error was introduced with commit #cf299831 and remained unnoticed due 
+to incorrect graphical snapshots. 
 
 ## Other changes

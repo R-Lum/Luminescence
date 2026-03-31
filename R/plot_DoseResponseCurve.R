@@ -33,7 +33,7 @@
 #' @return
 #' A plot (or a series of plots) is produced.
 #'
-#' @section Function version: 1.0.8
+#' @section Function version: 1.0.9
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -245,6 +245,9 @@ plot_DoseResponseCurve <- function(
 
       lines(x, eval(object$Formula))
     }
+    
+    ## y-error bar
+    segments(xy$x, xy$y - y.Error, xy$x, xy$y + y.Error)
 
     ## natural value
     if (mode == "interpolation") {
@@ -348,9 +351,6 @@ plot_DoseResponseCurve <- function(
         pch = plot_settings$reg_points_pch[2],
         cex = 1.5)
 
-      ## y-error bar
-      segments(xy$x, xy$y - y.Error, xy$x, xy$y + y.Error)
-
       if(plot_settings$density_rug[1])
         suppressWarnings(graphics::rug(x = x.natural, side = 3))
 
@@ -358,6 +358,7 @@ plot_DoseResponseCurve <- function(
         abline(v = De, lty = 2, col = col[2])
         lines(x = c(0,De), y = c(0,0), lty = 2, col = col[2])
     }
+
 
     ## insert fit and result
     try(mtext(side = 3,
