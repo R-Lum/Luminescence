@@ -132,10 +132,13 @@ test_that("get_RLum", {
   expect_equal(get_RLum(tmp, record.id = c(1, 10, 20), get.index = TRUE),
                1:3)
   expect_message(expect_null(get_RLum(obj, record.id = 99)),
-                 "[get_RLum()] Error: At least one 'record.id' is invalid",
+                 "[get_RLum()] Error: At least one 'record.id' (99) is invalid",
+                 fixed = TRUE)
+  expect_message(expect_null(get_RLum(obj, record.id = 100:110)),
+                 "[get_RLum()] Error: At least one 'record.id' (100, 101, 102, 103, \u2026) is invalid",
                  fixed = TRUE)
   expect_message(expect_null(get_RLum(obj, record.id = 99, get.index = TRUE)),
-                 "[get_RLum()] Error: At least one 'record.id' is invalid",
+                 "[get_RLum()] Error: At least one 'record.id' (99) is invalid",
                  fixed = TRUE)
 
   expect_warning(res <- get_RLum(obj, RLum.type = "error"),

@@ -416,9 +416,14 @@ setMethod("get_RLum",
               }
 
               ##check if record.id exists
-              if (!all(abs(record.id) %in% (1:length(object@records)))) {
-                .throw_message("At least one 'record.id' is invalid, ",
-                               "NULL returned")
+              invalid.ids <- setdiff(abs(record.id), seq_along(object@records))
+              if (length(invalid.ids) > 0) {
+                ## don't show more than 5 invalid ids (or 4 with ellipsis)
+                if (length(invalid.ids) > 5)
+                  invalid.ids <- c(invalid.ids[1:4], "\u2026") # "..."
+                .throw_message("At least one 'record.id' (",
+                               .collapse(invalid.ids, quote = FALSE),
+                               ") is invalid, NULL returned")
                 return(NULL)
               }
 
