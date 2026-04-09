@@ -163,7 +163,8 @@ experiments, while the photon count overdispersion \eqn{k_p} needs a photon
 source with a constant photon emission rate and independent photon
 emissions (so the number of photons emitted in a fixed time is a Poisson
 variable). Note that \eqn{B_{DC}} must be non-negative, while \eqn{k_{DC}}
-and \eqn{k_p} must be positive.
+and \eqn{k_p} must be positive (for readers with no pulse divider, they
+should be greater or equal to 1).
 
 Under the assumption of statistically independent background (\eqn{N_{DC}})
 and photon counts (\eqn{N_p}), the total number of counts (say, a certain
