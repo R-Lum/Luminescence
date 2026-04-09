@@ -1545,7 +1545,7 @@ analyse_SAR.CWOSL<- function(
 
   ## if we want to apply a log-transform on x and the first time point
   ## is 0, we shift the curves by one channel
-  if (set_log == "x" || set_log == "xy") {
+  if (set_log %in% c("x", "xy")) {
     for(i in curve_ids) {
       x.vals <- record_list[[i]]@data[, 1]
       if (x.vals[1] == 0) {
