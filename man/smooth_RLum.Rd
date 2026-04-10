@@ -24,7 +24,7 @@ smooth_RLum(object, ...)
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum} (\strong{required}):
+\item{object}{\link[=RLum-class]{RLum} (\strong{required}):
 S4 object of class \code{RLum}}
 
 \item{...}{further arguments passed to the specific class method}
@@ -57,18 +57,18 @@ An object of the same type as the input object provided.
 }
 \description{
 The function provides a generalised access point for specific
-\linkS4class{RLum} objects. Depending on the input object, the corresponding
+\link[=RLum-class]{RLum} objects. Depending on the input object, the corresponding
 function will be selected. The smoothing is performed in the internal
 function \code{.smoothing()}.
 }
 \section{Functions}{
 \itemize{
-\item \code{smooth_RLum(list)}: Returns a list of \linkS4class{RLum} objects that had been passed to
+\item \code{smooth_RLum(list)}: Returns a list of \link[=RLum-class]{RLum} objects that had been passed to
 \link{smooth_RLum}
 
 \item \code{smooth_RLum(RLum.Analysis)}: Smoothing of \code{RLum.Data} records contained in the input object.
 
-\item \code{smooth_RLum(RLum.Data.Curve)}: Smoothing of \linkS4class{RLum.Data.Curve} objects using a rolling mean or median.
+\item \code{smooth_RLum(RLum.Data.Curve)}: Smoothing of \link[=RLum.Data.Curve-class]{RLum.Data.Curve} objects using a rolling mean or median.
 For methods \code{"mean"} and \code{"median"}, smoothing is performed by rolling
 mean and rolling median with window of size \code{k}. Method \code{"Carter_etal_2018"}
 implements a Poisson smoother for dark-background signals measured by a
@@ -108,7 +108,7 @@ implications for luminescence dating. Radiation Measurements 120, 267-273.
 \doi{10.1016/j.radmeas.2018.05.010}
 }
 \seealso{
-\linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Analysis}
+\link[=RLum.Data.Curve-class]{RLum.Data.Curve}, \link[=RLum.Analysis-class]{RLum.Analysis}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

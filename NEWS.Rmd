@@ -19,6 +19,16 @@ header-includes:
 
 ## Bugfixes and changes
 
+### `analyse_SAR.CWOSL()`
+
+* The default value for the `background_integral` argument has changed from
+`NA` to `NULL`. In v1.2.0 `NA` acquired the distinct meaning "do not subtract
+the background integral", so using it as the implicit default changed
+user-facing behaviour. Switching the default to `NULL `restores the behaviour
+present up to v1.1.2, where integrals are applied only when both signal and
+background integrals are provided, and specifying only the signal integral
+results in no integrals being applied (#1526).
+
 ### `plot_DoseResponseCurve()`
 
 * The error bars had been missing for `extrapolation` and `alternate` mode. 

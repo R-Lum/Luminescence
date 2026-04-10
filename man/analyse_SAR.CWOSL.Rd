@@ -6,8 +6,8 @@
 \usage{
 analyse_SAR.CWOSL(
   object,
-  signal_integral = NA,
-  background_integral = NA,
+  signal_integral = NULL,
+  background_integral = NULL,
   signal_integral_Tx = NULL,
   background_integral_Tx = NULL,
   integral_input = c("channel", "measurement"),
@@ -36,13 +36,14 @@ processed by \code{OSLdecomposition::RLum.OSL_decomposition()}.}
 
 \item{signal_integral}{\link{integer} (\strong{required}):
 vector of channels for the signal integral. It can be a \link{list} of integers,
-if \code{object} is a list. If set to \code{NA}, no integrals are taken into account
-and their settings are ignored.}
+if \code{object} is a list. If set to \code{NULL} (default) or \code{NA}, no integrals are
+taken into account and their settings are ignored.}
 
 \item{background_integral}{\link{integer} (\strong{required}):
 vector of channels for the background integral. It can be a \link{list} of
-integers, if \code{object} is a list. If set to \code{NA}, no background integral is
-subtracted.}
+integers, if \code{object} is a list. If set to \code{NULL} (default), no integrals
+are taken into account and their settings are ignored. If set to \code{NA}, no
+background integral is subtracted.}
 
 \item{signal_integral_Tx}{\link{integer} (\emph{optional}):
 vector of channels for the signal integral for the \code{Tx} curve. It can be a
@@ -275,7 +276,7 @@ function does \strong{not} overwrite values preset in \code{IRR_TIME}.
 }
 }
 \section{Function version}{
- 0.13.8
+ 0.13.9
 }
 
 \examples{
