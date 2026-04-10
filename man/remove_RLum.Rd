@@ -17,8 +17,12 @@ remove_RLum(object, ...)
 \item{object}{\linkS4class{RLum} (\strong{required}):
 object with records to be removed.}
 
-\item{...}{parameters to be passed to \link{get_RLum}. The arguments \code{get.index} and
-\code{drop} are preset and have no effect when provided}
+\item{...}{parameters to be passed to \link{get_RLum}. Only the
+following named arguments are supported: \code{record.id}, \code{recordType},
+\code{curveType}, \code{RLum.type}, \code{protocol}, \code{info.object} and \code{subset}.
+Arguments \code{get.index} and \code{drop} are preset to \code{TRUE} and \code{FALSE},
+respectively, and cannot be overridden. Other named arguments are ignored,
+while unnamed arguments are not supported.}
 }
 \value{
 An object of the same type as the input provided with records removed; it

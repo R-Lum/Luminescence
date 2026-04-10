@@ -322,6 +322,11 @@ test_that("structure_RLum", {
 test_that("remove_RLum", {
   testthat::skip_on_cran()
 
+  expect_error(remove_RLum(sar, 2),
+               "Unnamed arguments are not supported")
+  expect_error(remove_RLum(sar, recordType = "OSL", 2),
+               "Unnamed arguments are not supported")
+
   ## remove all OSL curves
   t <- expect_s4_class(remove_RLum(sar, recordType = "OSL"), "RLum.Analysis")
   expect_length(t@records, n = 4)
