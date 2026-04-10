@@ -25,4 +25,8 @@
   mode. This error was introduced with commit \#cf299831 and remained
   unnoticed due to incorrect graphical snapshots.
 
+### `remove_RLum()`
+
+- The function no longer accepts unnamed arguments (#1529).
+
 ## Other changes
