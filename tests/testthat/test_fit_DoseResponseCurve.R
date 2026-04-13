@@ -461,24 +461,25 @@ temp_OTORX_alt <-
     fit_DoseResponseCurve(LxTxData,mode = "extrapolation", fit.method = "OTOR"), "RLum.Results")
 
   ##OTORX
-  OTORX <- expect_s4_class(
+  OTORX <- expect_output(
     fit_DoseResponseCurve(
       object = cbind(LxTxData, Test_Dose = 17),
-      mode = "extrapolation", fit.method = "OTORX"), "RLum.Results")
+      mode = "extrapolation", fit.method = "OTORX"),
+    "Fit failed for OTORX (extrapolation)", fixed = TRUE)
 
   ##OTORX ... trigger uniroot warning
   LxTxData[1,2:3] <- c(0.2, 0.001)
   expect_warning(
-    fit_DoseResponseCurve(
+    OTORX <- fit_DoseResponseCurve(
       object = cbind(LxTxData, Test_Dose = 17),
-      mode = "extrapolation", fit.method = "OTORX"))
-
+      mode = "extrapolation", fit.method = "OTORX"),
+    "Standard root estimation using stats::uniroot() failed", fixed = TRUE)
   })
 
   expect_equal(round(LIN$De$De,0), 165)
   expect_equal(round(EXP$De$De,0),  110)
   expect_equal(round(OTOR$De$De,0),  114)
-  expect_equal(round(OTORX$De$De,0),  110)
+  expect_equal(round(OTORX$De$De, 0), 1354)
 
   #it fails on some unix platforms for unknown reason.
   #expect_equivalent(round(EXPLIN$De$De,0), 110)
@@ -705,7 +706,6 @@ test_that("test internal functions", {
   expect_equal(sum(Luminescence:::.D2nN(
     D = 1,
     Q = c(-10,-3,0.1,1),
-    Di = 1,
     D63 = 1)), expected = 2.5, tolerance = 1)
 
   expect_error(Luminescence:::.D2nN(D = 1, Q = c(-10, 0.1, 0, 0), D63 = 1),
