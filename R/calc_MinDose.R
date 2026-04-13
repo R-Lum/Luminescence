@@ -359,8 +359,8 @@ calc_MinDose <- function(
     exp.names <- c("gamma", "sigma", "p0", "mu")
     mis.names <- setdiff(exp.names, names(init.values))
     if (length(init.values) < length(exp.names) || length(mis.names) > 0) {
-      .throw_error("Please provide initial values for all model parameters. ",
-                   "\nMissing parameters: ",
+      .throw_error("Please provide named values for all model parameters ",
+                   "in 'init.values'. Missing parameters: ",
                    toString(mis.names))
     }
   }
@@ -473,7 +473,7 @@ calc_MinDose <- function(
                               mean(data[ ,1])))
   } else {
     start <- list(gamma = ifelse(log, log(init.values$gamma), init.values$gamma),
-                  sigma = ifelse(log, log(init.values$sigma), init.values$sigma),
+                  sigma = ifelse(log, init.values$sigma / init.values$mu, init.values$sigma),
                   p0 = init.values$p0,
                   mu = ifelse(log, log(init.values$mu), init.values$mu))
   }

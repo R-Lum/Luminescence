@@ -22,7 +22,7 @@ test_that("input validation", {
                "'init.values' should be of class 'list'")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                             init.values = list(1, 2, 3)),
-               "Please provide initial values for all model parameters")
+               "Please provide named values for all model parameters in 'init.values'")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                             init.values = list(p0 = 0, p1 = 1, p2 = 2, mu = 3)),
                "Missing parameters: gamma, sigma")
@@ -167,6 +167,10 @@ test_that("output snapshot tests", {
                                              invert = TRUE, bootstrap = TRUE,
                                              bs.M = 20, bs.N = 5, bs.h = 10,
                                              plot = FALSE))
+  expect_snapshot_output(res <- calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.2,
+                                             init.values = list(mu = 30, p0 = 0.01,
+                                                                sigma = 0.5, gamma = 30),
+                                             log = TRUE, plot = FALSE))
   })
 })
 

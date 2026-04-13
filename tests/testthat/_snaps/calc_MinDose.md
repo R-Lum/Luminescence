@@ -2052,3 +2052,28 @@
         De error
      78.22  5.91
 
+---
+
+    
+    ----------- Meta data -----------
+      n par sigmab logged      Lmax      BIC
+     62   3    0.2   TRUE -32.43138 84.14389
+    
+    --- Final parameter estimates ---
+             gamma sigma   p0
+    Estimate 45.64  1.56 0.02
+    
+    ------ Confidence intervals -----
+          2.5 % 97.5 %
+    gamma 38.61  53.65
+    sigma  1.33   1.89
+    p0       NA   0.28
+    
+    ------ De (asymmetric error) -----
+        De lower upper
+     45.64 38.61 53.65
+    
+    ------ De (symmetric error) -----
+        De error
+     45.64  3.84
+
