@@ -467,7 +467,7 @@ temp_OTORX_alt <-
       mode = "extrapolation", fit.method = "OTORX"), "RLum.Results")
 
   ##OTORX ... trigger uniroot warning
-  LxTxData[1,2:3] <- c(5, 0.001)
+  LxTxData[1,2:3] <- c(0.2, 0.001)
   expect_warning(
     fit_DoseResponseCurve(
       object = cbind(LxTxData, Test_Dose = 17),
@@ -678,7 +678,8 @@ test_that("regression tests", {
   ## issue 723
   set.seed(1)
   df <- data.frame(DOSE = c(0, 5, 10, 20, 25),
-                   LxTx = c(40, -10, 30, -5, -20), LxTx_X = c(2, 2, 1, 2, 1))
+                   LxTx = c(40, -10, 30, -5, -20), 
+                   LxTx_X = c(2, 2, 1, 2, 1))
   SW({
   expect_s4_class(fit_DoseResponseCurve(df, fit.method = "EXP"),
                   "RLum.Results")
@@ -704,7 +705,6 @@ test_that("test internal functions", {
   expect_equal(sum(Luminescence:::.D2nN(
     D = 1,
     Q = c(-10,-3,0.1,1),
-    a = 0,
     D63 = 1)), expected = 2.5, tolerance = 1)
 
   expect_error(Luminescence:::.D2nN(D = 1, Q = c(-10, 0.1, 0, 0), D63 = 1),

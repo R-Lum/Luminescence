@@ -29,6 +29,10 @@ present up to v1.1.2, where integrals are applied only when both signal and
 background integrals are provided, and specifying only the signal integral
 results in no integrals being applied (#1526).
 
+### `fit_DoseResponseCurve()`
+
+* For `fit.method = "OTORX"` parameter `a` was renamed to `Di` for consistency. 
+
 ### `plot_DoseResponseCurve()`
 
 * The error bars had been missing for `extrapolation` and `alternate` mode. 
