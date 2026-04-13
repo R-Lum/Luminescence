@@ -563,7 +563,7 @@ fit_DoseResponseCurve <- function(
   fit.functionOTOR <- function(R, Dc, N, Dint, x) (1 + (lamW::lambertW0((R - 1) * exp(R - 1 - ((x + Dint) / Dc ))) / (1 - R))) * N
 
   ### OTORX -------------
-  fit.functionOTORX <- function(x, Q, D63, c, Di) .D2nN(x, Q, D63, Di) * c / .D2nN(TEST_DOSE, Q, D63, Di)
+  fit.functionOTORX <- function(x, Q, D63, c, Di) .D2nN(x + Di, Q, D63) * c / .D2nN(TEST_DOSE + Di, Q, D63)
 
   ## input data for fitting; exclude repeated RegPoints
   if (!fit.includingRepeatedRegPoints[1]) {
@@ -1947,18 +1947,16 @@ fit_DoseResponseCurve <- function(
 #'
 #'@param D63 [numeric] (**required**): characteristic dose
 #'
-#'@param Di [numeric] (**required**): offset parameter
-#'
 #'@references https://github.com/jll2/LumDRC/blob/main/otorx.py
 #'
 #'@noRd
-.D2nN <- function(D, Q, D63, Di) {
+.D2nN <- function(D, Q, D63) {
   if(all(abs(Q) < 1e-06))
     r <- 1 - exp(-D/D63)
   else if (any(abs(Q) < 1e-06))
     .throw_error("Unsupported zero and non-zero Q in .D2nN()")
   else
-    r <- 1 + (lamW::lambertW0(-Q * exp(-Q-(1-Q*(1-1/exp(1))) * (D + Di) / D63))) / Q
+    r <- 1 + (lamW::lambertW0(-Q * exp(-Q-(1-Q*(1-1/exp(1))) * D / D63))) / Q
 
   return(r)
 }
