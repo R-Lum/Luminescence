@@ -1652,7 +1652,7 @@ fit_DoseResponseCurve <- function(
           # calculate x.natural for error calculation
           if(mode == "interpolation"){
             try <- try(
-              {suppressWarnings(stats::uniroot(
+              suppressWarnings(stats::uniroot(
                 f = function(x, Q, D63, c, Di, LnTn) {
                   fit.functionOTORX(x, Q, D63, c, Di) - LnTn},
                 interval = c(0, max(object[[1]]) * 1.2),
@@ -1660,8 +1660,8 @@ fit_DoseResponseCurve <- function(
                 D63 = var.D63[i],
                 c = var.c,
                 Di = var.Di,
-                LnTn = data.MC.De[i])$root)
-              }, silent = TRUE)
+                LnTn = data.MC.De[i])$root),
+              silent = TRUE)
 
           }else if(mode == "extrapolation"){
             try <- try(
