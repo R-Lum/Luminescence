@@ -29,6 +29,15 @@ present up to v1.1.2, where integrals are applied only when both signal and
 background integrals are provided, and specifying only the signal integral
 results in no integrals being applied (#1526).
 
+### `calc_MinDose()`
+
+* If `init.values` is provided and `log = TRUE`, the `sigma` parameter is now
+initialised as `sigma / mu` instead of `log(sigma)`. The previous approach
+failed silently when `sigma < 1`, as the logarithm produced out-of-bounds
+parameter values, with the effect of leaving all parameters at their initial
+values (#1527; thanks to @MarijnvanderMeij for reporting and suggesting a
+fix).
+
 ### `fit_DoseResponseCurve()`
 
 * For `fit.method = "OTORX"` parameter `a` was renamed to `Di` for consistency. 
