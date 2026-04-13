@@ -225,6 +225,7 @@ test_that("test BIN file while fading data", {
   res1@info <- res2@info <- list() # remove $call
   res1@.uid <- res2@.uid <- NA_character_
   res1@data$fit <- res2@data$fit <- NULL
+  res1@data$LxTx_table$UID <- res2@data$LxTx_table$UID <- NULL
   expect_equal(res1, res2)
 
   ## more coverage
