@@ -532,7 +532,7 @@ fit_DoseResponseCurve <- function(
   x.natural <- rep(NA_real_, n.MC)
 
   ##1.4 set initialise variables
-  De <- De.Error <- D01 <- R <- R.ERROR <- Dc <- D63 <- N <- TEST_DOSE <- NA_real_
+  De <- De.Error <- D01 <- R <- R.ERROR <- Dc <- D63 <- Di <- N <- TEST_DOSE <- NA_real_
 
   ##1.5 create bindings (we generate this with an internal function klate)
   var.g <- d <- Dint <- Q <- NA_real_
@@ -563,7 +563,7 @@ fit_DoseResponseCurve <- function(
   fit.functionOTOR <- function(R, Dc, N, Dint, x) (1 + (lamW::lambertW0((R - 1) * exp(R - 1 - ((x + Dint) / Dc ))) / (1 - R))) * N
 
   ### OTORX -------------
-  fit.functionOTORX <- function(x, Q, D63, c, Di) .D2nN(x + Di, Q, D63) * c / .D2nN(TEST_DOSE + Di, Q, D63)
+  fit.functionOTORX <- function(x, Q, D63, c, Di) .D2nN(x, Q, D63, Di) * c / .D2nN(TEST_DOSE, Q, D63, Di)
 
   ## input data for fitting; exclude repeated RegPoints
   if (!fit.includingRepeatedRegPoints[1]) {
@@ -1544,7 +1544,7 @@ fit_DoseResponseCurve <- function(
     ## set boundaries
     lower <- if (fit.bounds) c(0, 0, 0, 0) else rep(-Inf, 4)
     upper <- c(Inf, Inf, Inf, Inf)
-    
+
       ## correct boundaries for origin forced through zero
       if (fit.force_through_origin[1] & mode == "interpolation")
         lower[4] <- upper[4] <- 0
@@ -1947,18 +1947,18 @@ fit_DoseResponseCurve <- function(
 #'
 #'@param D63 [numeric] (**required**): characteristic dose
 #'
-#'@param a [numeric] (**required**): offset parameter
+#'@param Di [numeric] (**required**): offset parameter
 #'
 #'@references https://github.com/jll2/LumDRC/blob/main/otorx.py
 #'
 #'@noRd
-.D2nN <- function(D, Q, D63) {
+.D2nN <- function(D, Q, D63, Di) {
   if(all(abs(Q) < 1e-06))
     r <- 1 - exp(-D/D63)
   else if (any(abs(Q) < 1e-06))
     .throw_error("Unsupported zero and non-zero Q in .D2nN()")
   else
-    r <- 1 + (lamW::lambertW0(-Q * exp(-Q-(1-Q*(1-1/exp(1))) * (D/D63)))) / Q
+    r <- 1 + (lamW::lambertW0(-Q * exp(-Q-(1-Q*(1-1/exp(1))) * (D + Di) / D63))) / Q
 
   return(r)
 }
