@@ -567,7 +567,7 @@ calc_MinDose <- function(
 
   ## Function to extract the estimate of gamma from mle2 objects and converting
   ## it back to the 'normal' scale
-  save_Gamma <- function(ests) {
+  save_Gamma <- function(ests, log) {
     m <- bbmle::coef(ests)[["gamma"]]
     if (invert)
       m <- -1 * (m - x.offset)
@@ -587,8 +587,8 @@ calc_MinDose <- function(
 
   ## Collect the parameter estimates from mle2 objects, converting back
   ## log-transformed values to the normal scale
-  extract_estimates <- function(ests) {
-    res <- data.frame(gamma = save_Gamma(ests),
+  extract_estimates <- function(ests, log) {
+    res <- data.frame(gamma = save_Gamma(ests, log),
                       sigma = bbmle::coef(ests)[["sigma"]],
                       p0 = bbmle::coef(ests)[["p0"]],
                       mu = if (par == 4) bbmle::coef(ests)[["mu"]] else NA,
@@ -728,7 +728,7 @@ calc_MinDose <- function(
   gamma_err <- (conf["gamma", 2] - conf["gamma", 1]) / 3.92
 
   ## retrieve results from mle2 object
-  res <- extract_estimates(ests)
+  res <- extract_estimates(ests, log)
 
   ##============================================================================##
   ## BOOTSTRAP
@@ -843,9 +843,11 @@ calc_MinDose <- function(
     # Final bootstrap calculations
     if (verbose)
       message("Calculating likelihoods...")
-    # Save 2nd- and 1st-level bootstrap results (i.e. estimates of gamma)
-    b2mam <- sapply(mle[1:N], save_Gamma)
-    theta <- sapply(mle[c(N+1):c(N+M)], save_Gamma)
+
+    ## Save 2nd- and 1st-level bootstrap results (i.e. estimates of gamma) in
+    ## the normal scale
+    b2mam <- sapply(mle[1:N], save_Gamma, log = log)
+    theta <- sapply(mle[c(N+1):c(N+M)], save_Gamma, log = log)
 
     # Calculate the probability/pseudo-likelihood
     Pmat <- lapply(replicates[c(N+1):c(N+M)], get_KDE)
@@ -894,7 +896,7 @@ calc_MinDose <- function(
     }
 
     ## extract the parameters from the bootstrap replicates
-    mle <- rbindlist(lapply(mle[N + 1:M], extract_estimates))
+    mle <- rbindlist(lapply(mle[N + 1:M], extract_estimates, log = log))
 
     ## compute the mean of each parameter
     res <- data.frame(apply(mle, 2, mean, simplify = FALSE))
