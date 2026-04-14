@@ -63,7 +63,7 @@
 #' respectively. The bandwidth of the kernel density estimate can be specified
 #' with `bs.h`. By default, this is calculated as:
 #'
-#' \deqn{h = (2*\sigma_{DE})/\sqrt{n}}
+#' \deqn{h = 2\sigma_{DE} / \sqrt{n}}
 #'
 #' **Multicore support**
 #'
@@ -89,7 +89,7 @@
 #'
 #' For more details on the profile likelihood
 #' calculations and plots please see the vignettes of the `bbmle` package
-#' (also available here: [https://CRAN.R-project.org/package=bbmle]().
+#' (also available at [https://CRAN.R-project.org/package=bbmle]()).
 #'
 #' @param data [Luminescence::RLum.Results-class] or [data.frame] (**required**):
 #' for [data.frame]: two columns with `(data[, 1])` and De error `(data[, 2])`.
@@ -110,7 +110,8 @@
 #' number of parameters in the minimum age model, either 3 (default) or 4.
 #'
 #' @param bootstrap [logical] (*with default*):
-#' apply the recycled bootstrap approach of Cunningham & Wallinga (2012).
+#' apply the recycled bootstrap approach of Cunningham & Wallinga 2012. See
+#' details for default values and options to modify them.
 #'
 #' @param init.values [numeric] (*optional*):
 #' a named list with starting values for `gamma`, `sigma`, `p0` and `mu`

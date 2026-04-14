@@ -35,7 +35,8 @@ default).}
 number of parameters in the minimum age model, either 3 (default) or 4.}
 
 \item{bootstrap}{\link{logical} (\emph{with default}):
-apply the recycled bootstrap approach of Cunningham & Wallinga (2012).}
+apply the recycled bootstrap approach of Cunningham & Wallinga 2012. See
+details for default values and options to modify them.}
 
 \item{init.values}{\link{numeric} (\emph{optional}):
 a named list with starting values for \code{gamma}, \code{sigma}, \code{p0} and \code{mu}

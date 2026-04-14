@@ -38,7 +38,8 @@ default).}
 number of parameters in the minimum age model, either 3 (default) or 4.}
 
 \item{bootstrap}{\link{logical} (\emph{with default}):
-apply the recycled bootstrap approach of Cunningham & Wallinga (2012).}
+apply the recycled bootstrap approach of Cunningham & Wallinga 2012. See
+details for default values and options to modify them.}
 
 \item{init.values}{\link{numeric} (\emph{optional}):
 a named list with starting values for \code{gamma}, \code{sigma}, \code{p0} and \code{mu}
@@ -153,7 +154,7 @@ can be changed by using arguments \code{bs.M}, \code{bs.N} and \code{sigmab.sd},
 respectively. The bandwidth of the kernel density estimate can be specified
 with \code{bs.h}. By default, this is calculated as:
 
-\deqn{h = (2*\sigma_{DE})/\sqrt{n}}
+\deqn{h = 2\sigma_{DE} / \sqrt{n}}
 
 \strong{Multicore support}
 
@@ -179,7 +180,7 @@ works well \verb{[...]}." (Bolker 2016).
 
 For more details on the profile likelihood
 calculations and plots please see the vignettes of the \code{bbmle} package
-(also available here: \url{https://CRAN.R-project.org/package=bbmle}.
+(also available at \url{https://CRAN.R-project.org/package=bbmle}).
 }
 \note{
 The default starting values for \emph{gamma}, \emph{mu}, \emph{sigma}
