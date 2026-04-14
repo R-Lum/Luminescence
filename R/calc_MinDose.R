@@ -717,9 +717,6 @@ calc_MinDose <- function(
   if (invert) {
     conf <- undo_invert(conf)
   }
-
-  ## keep a copy of the original conf object to be returned at the end
-  conf.orig <- conf
   if (log) {
     logged.rows <- row.names(conf) != "p0"
     conf[logged.rows, ] <- exp(conf[logged.rows, ])
@@ -908,14 +905,6 @@ calc_MinDose <- function(
                                na.rm = TRUE, probs = prob)))
     colnames(conf) <- paste(prob * 100, "%")
 
-    ## keep a copy of the conf object in the scale in which the models were
-    ## fitted
-    conf.orig <- conf
-    if (log) {
-      logged.rows <- row.names(conf.orig) != "p0"
-      conf.orig[logged.rows, ] <- log(conf.orig[logged.rows, ])
-    }
-
     ## standard deviation over the De values from the bootstrap replicates
     gamma_err <- sd(pairs[, "theta"])
 
@@ -1026,7 +1015,7 @@ calc_MinDose <- function(
                 call = call,
                 mle = ests,
                 BIC = BIC,
-                confint = conf.orig,
+                confint = conf,
                 profile = prof,
                 bootstrap = list(
                   pairs = list(gamma=pairs),

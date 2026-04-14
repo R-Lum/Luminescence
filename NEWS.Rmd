@@ -38,6 +38,10 @@ parameter values, with the effect of leaving all parameters at their initial
 values (#1527; thanks to @MarijnvanderMeij for reporting and suggesting a
 fix).
 
+* The confidence intervals stored in the `RLum.Results` object are now always
+in the natural units, independently of the `log` argument (#1533; thanks to
+@MarijnvanderMeij for reporting).
+
 ### `fit_DoseResponseCurve()`
 
 * For `fit.method = "OTORX"` parameter `a` was renamed to `Di` for consistency. 
