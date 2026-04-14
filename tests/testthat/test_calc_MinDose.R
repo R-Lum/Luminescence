@@ -19,7 +19,7 @@ test_that("input validation", {
   expect_error(calc_MinDose(ExampleData.DeValues$CA1),
                "'sigmab' should be a single positive value")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 1, init.values = 1:4),
-               "'init.values' should be of class 'list'")
+               "'init.values' should be of class 'list' or NULL")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                             init.values = list(1, 2, 3)),
                "Please provide named values for all model parameters in 'init.values'")

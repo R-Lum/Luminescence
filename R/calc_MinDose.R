@@ -355,8 +355,8 @@ calc_MinDose <- function(
   }
 
   .validate_positive_scalar(sigmab)
+  .validate_class(init.values, "list", null.ok = TRUE)
   if (!is.null(init.values)) {
-    .validate_class(init.values, "list")
     exp.names <- c("gamma", "sigma", "p0", "mu")
     mis.names <- setdiff(exp.names, names(init.values))
     if (length(init.values) < length(exp.names) || length(mis.names) > 0) {
