@@ -813,11 +813,11 @@ calc_MinDose <- function(
     if (verbose)
       message(msg)
 
-    n <- length(data[ ,1])
     # Draw N+M samples from a normally distributed sigmab
     sigmab.bs <- rnorm(N + M, sigmab, sigmab.sd)
 
     ## Draw N+M random indices of size n
+    n <- length(data[, 1])
     indices <- matrix(sample(n, size = n * (N + M), replace = TRUE),
                       nrow = N + M, ncol = n, byrow = TRUE)
 
@@ -867,10 +867,10 @@ calc_MinDose <- function(
     is.inf <- is.infinite(pairs[, 2])
     if (any(is.inf)) {
       # nocov start
-      .throw_warning("Inf values produced by bootstrapping removed for loess ",
+      .throw_warning("Inf values produced by bootstrapping removed for polynomial ",
                      "fitting (", round(sum(is.inf) / nrow(pairs) * 100, 2),
-                     "% of the total dataset). This message usually indicates ",
-                     "that your values are close to 0.")
+                     "% of the total samples). This message usually indicates ",
+                     "that your inputs are close to 0.")
       pairs <- pairs[!is.inf, ]
       # nocov end
     }
