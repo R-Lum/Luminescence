@@ -50,7 +50,7 @@ in the natural units, independently of the `log` argument (#1533; thanks to
 more control over the fitting process and enables better comparison with other
 software, such as Python’s SciPy. The `numeric` vector must be of the same
 length as the number of data points to be fit. This is typical the number of
-`LxTx` points. 
+`LxTx` points (#1536)
 
 ### `plot_DoseResponseCurve()`
 
