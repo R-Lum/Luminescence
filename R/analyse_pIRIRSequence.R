@@ -237,13 +237,8 @@ analyse_pIRIRSequence <- function(
                         ...)
     }))
 
-    ##combine everything to one RLum.Results object as this as what was written ... only
-    ##one object
-
     ##merge results and check if the output became NULL
     results <- merge_RLum(temp)
-
-    ##DO NOT use invisible here, this will stop the function from stopping
     if(length(results) == 0)
       return(NULL)
     return(results)
@@ -284,7 +279,7 @@ analyse_pIRIRSequence <- function(
     msg <- paste0("Argument 'plot' reset to 'FALSE': the smallest plot ",
                   "size required is IN x IN in (at cex = ", cex, "). ",
                   "Consider plotting via `pdf(..., width = IN, height = IN)` ",
-                  "or setting `plot_singlePanels = TRUE`. ")
+                  "or setting `plot_singlePanels = TRUE`.")
     .throw_warning(gsub(x = msg, "IN", min.size))
   }
 
@@ -313,12 +308,15 @@ analyse_pIRIRSequence <- function(
   ##(2) Apply user sequence structure
   temp.sequence.structure  <- structure_RLum(object)
 
-    ##try to account for a very common mistake
-    if(any(grepl(sequence.structure, pattern = "TL", fixed = TRUE)) && !any(grepl(temp.sequence.structure[["recordType"]], pattern = "TL", fixed = TRUE))){
-      .throw_warning("Your sequence does not contain 'TL' curves, trying ",
-                     "to adapt 'sequence.structure' for you ...")
-      sequence.structure <- sequence.structure[!grepl(sequence.structure, pattern = "TL", fixed = TRUE)]
-    }
+  ## try to account for a very common mistake
+  idx.TL <- grepl("TL", sequence.structure, fixed = TRUE)
+  if (length(idx.TL) > 0 &&
+      !any(grepl("TL", temp.sequence.structure$recordType, fixed = TRUE))) {
+    sequence.structure <- sequence.structure[-idx.TL]
+    .throw_warning("'sequence.structure' contains 'TL' but your sequence does ",
+                   "not contain 'TL' curves, 'sequence.structure' changed to c(",
+                   .collapse(sequence.structure), ")")
+  }
 
   ##set values to structure data.frame
   ##but check first
@@ -610,10 +608,7 @@ if(plot){
 
     ##calculate normalised values
     for(j in 1:length(pIRIR.curve.names)){
-      temp.curve.TnTx.sel <- temp.curve.TnTx[
-        temp.curve.TnTx[,"Signal"] == pIRIR.curve.names[j]
-        , "TnTx"]
-
+      temp.curve.TnTx.sel <- temp.curve.TnTx$TnTx[temp.curve.TnTx$Signal == pIRIR.curve.names[j]]
       temp.curve.TnTx.matrix[,j] <- temp.curve.TnTx.sel/temp.curve.TnTx.sel[1]
     }
 

@@ -195,7 +195,8 @@ test_that("input validation", {
                                        signal_integral = 1:2,
                                        background_integral = 900:1000,
                                        plot = FALSE),
-                 "Your sequence does not contain 'TL' curves")
+                 "'sequence.structure' changed to c('IR50', 'pIRIR225')",
+                 fixed = TRUE)
   })
 })
 
