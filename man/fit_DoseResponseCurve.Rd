@@ -55,8 +55,10 @@ allow to force the fitted function through the origin.
 For \code{method = "EXP+EXP"} the function will be fixed through
 the origin in either case, so this option will have no effect.}
 
-\item{fit.weights}{\link{logical} (\emph{with default}):
-option whether the fitting is done with or without weights. See details.}
+\item{fit.weights}{\link{logical} \link{numeric} (\emph{with default}):
+option whether the fitting is done with or without weights \code{TRUE/FALSE}.
+If the input is a \link{numeric} vector, is must of the same length as the
+number of data points to fit (usually the \code{LxTx} values). See details.}
 
 \item{fit.includingRepeatedRegPoints}{\link{logical} (\emph{with default}):
 includes repeated points for fitting (\code{TRUE}/\code{FALSE}).}
@@ -260,6 +262,11 @@ If the option \code{fit.weights =  TRUE} is chosen, weights are calculated using
 provided signal errors (\eqn{\frac{L_x}{T_x}} error):
 \deqn{fit.weights = \frac{\frac{1}{error}}{\Sigma{\frac{1}{error}}}}
 
+If \code{fit.weights} is a \link{numeric} vector of correct length (same number of rows
+such as the input \code{LxTx}), then those fit weights are used. This comes in
+handy if you want to compare different fitting algorithms that have
+implemented fit weights differently.
+
 \strong{Error estimation using Monte Carlo simulation}
 
 Error estimation is done using a parametric bootstrapping approach. A set of
@@ -279,7 +286,7 @@ Each error estimation is done with the function of the chosen fitting method.
 }
 }
 \section{Function version}{
- 1.4.5
+ 1.4.6
 }
 
 \examples{
