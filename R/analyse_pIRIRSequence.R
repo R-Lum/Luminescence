@@ -318,18 +318,15 @@ analyse_pIRIRSequence <- function(
                    .collapse(sequence.structure), ")")
   }
 
-  ##set values to structure data.frame
-  ##but check first
-  if(2 * length(
-    rep(sequence.structure, nrow(temp.sequence.structure)/2/length(sequence.structure))) == length(temp.sequence.structure[["protocol.step"]])){
-    temp.sequence.structure[["protocol.step"]] <- rep(
-      sequence.structure, nrow(temp.sequence.structure)/2/length(sequence.structure))
+  num.protocol.steps <- length(temp.sequence.structure$protocol.step)
+  num.cycles <- num.protocol.steps / 2 / length(sequence.structure)
 
-  }else{
+  if (2 * length(rep(sequence.structure, num.cycles)) != num.protocol.steps) {
     .throw_message("The number of records is not a multiple of the defined ",
                    "sequence structure, NULL returned")
     return(NULL)
   }
+  temp.sequence.structure$protocol.step <- rep(sequence.structure, num.cycles)
 
   ##remove values that have been excluded
   rm.id <- temp.sequence.structure$id[temp.sequence.structure$protocol.step == "EXCLUDE"]
@@ -342,10 +339,9 @@ analyse_pIRIRSequence <- function(
     sequence.structure  <- sequence.structure[sequence.structure != "EXCLUDE"]
 
     ##set new structure
-    temp.sequence.structure  <- structure_RLum(object)
-
-    temp.sequence.structure[, "protocol.step"] <- rep(
-      sequence.structure, nrow(temp.sequence.structure)/2/length(temp.sequence.structure))
+    temp.sequence.structure <- structure_RLum(object)
+    num.cycles <- nrow(temp.sequence.structure) / 2 / length(sequence.structure)
+    temp.sequence.structure$protocol.step <- rep(sequence.structure, num.cycles)
 
     .throw_warning(length(rm.id), " records have been removed due to EXCLUDE")
   }
@@ -368,8 +364,7 @@ analyse_pIRIRSequence <- function(
     grepl("IR", temp.sequence.structure[,"protocol.step"]),"id"]
 
   ##grep information on the names of the IR curves, we need them later on
-  pIRIR.curve.names  <- unique(temp.sequence.structure[
-    temp.sequence.structure[IRSL.curves.id,"id"],"protocol.step"])
+  pIRIR.curve.names <- unique(temp.sequence.structure[IRSL.curves.id, "protocol.step"])
 
   ## Integrals checks -------------------------------------------------------
 
@@ -447,6 +442,7 @@ analyse_pIRIRSequence <- function(
   }
 
   ##(2) set loop
+  temp.results.final <- NULL
   for(i in 1:n.loops){
     ##compile record ids
     temp.id.sel <-
@@ -527,10 +523,10 @@ analyse_pIRIRSequence <- function(
       )
 
       ##merge results
-      if (exists("temp.results.final")) {
-        temp.results.final <- merge_RLum(list(temp.results.final, temp.results))
-      } else{
+      if (is.null(temp.results.final)) {
         temp.results.final <- temp.results
+      } else {
+        temp.results.final <- merge_RLum(list(temp.results.final, temp.results))
       }
   }
 
