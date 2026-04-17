@@ -505,7 +505,7 @@ fit_DoseResponseCurve <- function(
       fit.weights <- rep(1, length(y.Error))
       .throw_warning("Error column invalid or 0, 'fit.weights' ignored")
     }
-  }else if (inherits(fit.weights[1], "logical") && !fit.weights[1]) {
+  } else {
     fit.weights <- rep(1, length(y.Error))
 
   }
