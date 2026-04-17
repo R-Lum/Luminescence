@@ -405,7 +405,7 @@ fit_DoseResponseCurve <- function(
                             "EXP+LIN", "EXP+EXP", "GOK", "OTOR", "OTORX")
   fit.method <- .validate_args(fit.method, fit.method_supported)
   .validate_logical_scalar(fit.force_through_origin)
-  .validate_class(fit.weights, c("logical", "numeric"), null.ok = FALSE)
+  .validate_class(fit.weights, c("logical", "numeric"))
     if(inherits(fit.weights, "numeric"))
       .validate_length(fit.weights, exp.length = nrow(object))
   .validate_logical_scalar(fit.includingRepeatedRegPoints)
