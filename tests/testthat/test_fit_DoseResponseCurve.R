@@ -56,7 +56,7 @@ test_that("input validation", {
   expect_error(fit_DoseResponseCurve(LxTxData, fit.weights = "error"),
                "fit.weights' should be of class 'logical' or 'numeric'")
   expect_error(fit_DoseResponseCurve(LxTxData, fit.weights = c(1,2)),
-               "'fit.weights' should have length 7")
+               "'fit.weights' should have length 6")
   expect_error(fit_DoseResponseCurve(LxTxData,
                                      fit.includingRepeatedRegPoints = "error"),
                "'fit.includingRepeatedRegPoints' should be a single logical")
