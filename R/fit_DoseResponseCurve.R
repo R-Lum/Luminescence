@@ -179,7 +179,8 @@
 #' @param fit.weights [logical] [numeric] (*with default*):
 #' option whether the fitting is done with or without weights `TRUE/FALSE`.
 #' If the input is a [numeric] vector, is must of the same length as the
-#' number of data points to fit (usually the `LxTx` values). See details.
+#' number of data points to fit (usually the `LxTx` values). If the number differs,
+#' they are recycled or reduced. See details.
 #'
 #' @param fit.includingRepeatedRegPoints [logical] (*with default*):
 #' includes repeated points for fitting (`TRUE`/`FALSE`).
@@ -497,7 +498,15 @@ fit_DoseResponseCurve <- function(
   ##1.1.1 produce weights for weighted fitting; if not do nothing
   ##or hope that the user has provided own weights
   if (inherits(fit.weights, "numeric")) {
-    .validate_length(fit.weights, exp.length = length(first.idx:last.idx))
+     ## we automatically expand by throw a warning
+    .validate_length(
+      fit.weights,
+      exp.length = length(y.Error),
+      throw.error = FALSE)
+
+    ## recycle fit weights ... so we get only the warning
+    fit.weights <- rep(fit.weights, length.out = length(y.Error))
+
   } else if (fit.weights[1]) {
     fit.weights <- 1 / abs(y.Error) / sum(1 / abs(y.Error))
 
