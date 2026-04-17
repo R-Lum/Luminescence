@@ -54,7 +54,11 @@ test_that("input validation", {
                                      fit.force_through_origin = "error"),
                "'fit.force_through_origin' should be a single logical value")
   expect_error(fit_DoseResponseCurve(LxTxData, fit.weights = "error"),
-               "'fit.weights' should be a single logical value")
+               "fit.weights' should be of class 'logical' or 'numeric'")
+  SW({
+  expect_warning(fit_DoseResponseCurve(LxTxData, fit.weights = c(1,2)),
+               "'fit.weights' should have length 6")
+  })
   expect_error(fit_DoseResponseCurve(LxTxData,
                                      fit.includingRepeatedRegPoints = "error"),
                "'fit.includingRepeatedRegPoints' should be a single logical")
@@ -172,6 +176,22 @@ test_that("snapshot tests", {
       verbose = FALSE,
       n.MC = 10
     ), tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(fit_DoseResponseCurve(
+      LxTxData,
+      fit.method = "EXP",
+      fit.weights = FALSE,
+      verbose = FALSE,
+      n.MC = 10
+  ), tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(fit_DoseResponseCurve(
+    LxTxData,
+    fit.method = "EXP",
+    fit.weights = 1/LxTxData[[3]][-1]^2,
+    verbose = FALSE,
+    n.MC = 10
+  ), tolerance = snapshot.tolerance)
 
   expect_snapshot_RLum(fit_DoseResponseCurve(
       LxTxData,
@@ -542,6 +562,18 @@ temp_OTORX_alt <-
     "RLum.Results"
   )
 
+  ### check fit.weight option ------------
+  expect_s4_class(
+    fit_DoseResponseCurve(
+      LxTxData,
+      mode = "alternate",
+      fit.method = "EXP",
+      fit.weights = 1/LxTxData[[3]]^2,
+      verbose = FALSE
+    ),
+    "RLum.Results"
+  )
+
   ## trigger OTOR related warning for
   ## extrapolation mode
   tmp <- structure(list(
@@ -656,6 +688,8 @@ temp_OTORX_alt <-
       verbose = TRUE,
       n.MC = 10),
       "Fit failed for OTORX")
+
+
 })
 
 test_that("regression tests", {
@@ -679,7 +713,7 @@ test_that("regression tests", {
   ## issue 723
   set.seed(1)
   df <- data.frame(DOSE = c(0, 5, 10, 20, 25),
-                   LxTx = c(40, -10, 30, -5, -20), 
+                   LxTx = c(40, -10, 30, -5, -20),
                    LxTx_X = c(2, 2, 1, 2, 1))
   SW({
   expect_s4_class(fit_DoseResponseCurve(df, fit.method = "EXP"),

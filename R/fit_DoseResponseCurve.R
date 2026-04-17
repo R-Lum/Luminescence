@@ -122,6 +122,11 @@
 #' provided signal errors (\eqn{\frac{L_x}{T_x}} error):
 #' \deqn{fit.weights = \frac{\frac{1}{error}}{\Sigma{\frac{1}{error}}}}
 #'
+#' If `fit.weights` is a [numeric] vector of correct length (same number of rows
+#' such as the input `LxTx`), then those fit weights are used. This comes in
+#' handy if you want to compare different fitting algorithms that have
+#' implemented fit weights differently.
+#'
 #' **Error estimation using Monte Carlo simulation**
 #'
 #' Error estimation is done using a parametric bootstrapping approach. A set of
@@ -171,8 +176,11 @@
 #' For `method = "EXP+EXP"` the function will be fixed through
 #' the origin in either case, so this option will have no effect.
 #'
-#' @param fit.weights [logical] (*with default*):
-#' option whether the fitting is done with or without weights. See details.
+#' @param fit.weights [logical] [numeric] (*with default*):
+#' option whether the fitting is done with or without weights `TRUE/FALSE`.
+#' If the input is a [numeric] vector, is must of the same length as the
+#' number of data points to fit (usually the `LxTx` values). If the number differs,
+#' they are recycled or reduced. See details.
 #'
 #' @param fit.includingRepeatedRegPoints [logical] (*with default*):
 #' includes repeated points for fitting (`TRUE`/`FALSE`).
@@ -255,7 +263,7 @@
 #' `.De.raw` \tab [numeric] \tab equivalent dose reported 'as is', that is containing infinities and negative values if they could be calculated. Bear in mind that negative values are meaningless and may be arbitrary.\cr
 #' }
 #'
-#' @section Function version: 1.4.5
+#' @section Function version: 1.4.6
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -398,7 +406,7 @@ fit_DoseResponseCurve <- function(
                             "EXP+LIN", "EXP+EXP", "GOK", "OTOR", "OTORX")
   fit.method <- .validate_args(fit.method, fit.method_supported)
   .validate_logical_scalar(fit.force_through_origin)
-  .validate_logical_scalar(fit.weights)
+  .validate_class(fit.weights, c("logical", "numeric"))
   .validate_logical_scalar(fit.includingRepeatedRegPoints)
   .validate_logical_scalar(fit.bounds)
   .validate_positive_scalar(fit.NumberRegPoints, int = TRUE, null.ok = TRUE)
@@ -487,15 +495,26 @@ fit_DoseResponseCurve <- function(
   colnames(xy) <- c("x", "y")
   y.Error <- object[first.idx:last.idx, 3]
 
-  ##1.1.1 produce weights for weighted fitting
-  if(fit.weights){
+  ##1.1.1 produce weights for weighted fitting; if not do nothing
+  ##or hope that the user has provided own weights
+  if (inherits(fit.weights, "numeric")) {
+     ## we automatically expand by throw a warning
+    .validate_length(
+      fit.weights,
+      exp.length = length(y.Error),
+      throw.error = FALSE)
+
+    ## recycle fit weights ... so we get only the warning
+    fit.weights <- rep(fit.weights, length.out = length(y.Error))
+
+  } else if (fit.weights[1]) {
     fit.weights <- 1 / abs(y.Error) / sum(1 / abs(y.Error))
 
     if (anyNA(fit.weights)) { # FIXME(mcol): infinities?
       fit.weights <- rep(1, length(y.Error))
       .throw_warning("Error column invalid or 0, 'fit.weights' ignored")
     }
-  }else{
+  } else {
     fit.weights <- rep(1, length(y.Error))
   }
 
