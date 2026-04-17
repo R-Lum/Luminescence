@@ -497,7 +497,7 @@ fit_DoseResponseCurve <- function(
   ##1.1.1 produce weights for weighted fitting; if not do nothing
   ##or hope that the user has provided own weights
   if (inherits(fit.weights, "numeric")) {
-    .validate_length(fit.weights, exp.length = length(y.Error))
+    .validate_length(fit.weights, exp.length = length(first.idx:last.idx))
   } else if (fit.weights[1]) {
     fit.weights <- 1 / abs(y.Error) / sum(1 / abs(y.Error))
 
