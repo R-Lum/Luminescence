@@ -496,7 +496,9 @@ fit_DoseResponseCurve <- function(
 
   ##1.1.1 produce weights for weighted fitting; if not do nothing
   ##or hope that the user has provided own weights
-  if(inherits(fit.weights[1], "logical") && fit.weights[1]){
+  if (inherits(fit.weights, "numeric")) {
+    .validate_length(fit.weights, exp.length = nrow(object))
+  } else if (fit.weights[1]) {
     fit.weights <- 1 / abs(y.Error) / sum(1 / abs(y.Error))
 
     if (anyNA(fit.weights)) { # FIXME(mcol): infinities?
