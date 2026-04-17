@@ -406,8 +406,6 @@ fit_DoseResponseCurve <- function(
   fit.method <- .validate_args(fit.method, fit.method_supported)
   .validate_logical_scalar(fit.force_through_origin)
   .validate_class(fit.weights, c("logical", "numeric"))
-    if(inherits(fit.weights, "numeric"))
-      .validate_length(fit.weights, exp.length = nrow(object))
   .validate_logical_scalar(fit.includingRepeatedRegPoints)
   .validate_logical_scalar(fit.bounds)
   .validate_positive_scalar(fit.NumberRegPoints, int = TRUE, null.ok = TRUE)
