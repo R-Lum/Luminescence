@@ -42,6 +42,10 @@ fix).
 in the natural units, independently of the `log` argument (#1533; thanks to
 @MarijnvanderMeij for reporting).
 
+### `convert_Second2Gray()`
+
+* Input validation was strengthened to avoid two possible crashes (#1537).
+
 ### `fit_DoseResponseCurve()`
 
 * For `fit.method = "OTORX"` parameter `a` was renamed to `Di` for consistency. 

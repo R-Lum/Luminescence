@@ -102,6 +102,10 @@ convert_Second2Gray <- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(data, "data.frame")
+  if (ncol(data) < 2) {
+    .throw_error("'data' should have 2 columns")
+  }
+
   .validate_class(dose.rate, c("RLum.Results", "data.frame", "numeric"))
 
   if (is.data.frame(dose.rate)) {
@@ -114,9 +118,12 @@ convert_Second2Gray <- function(
   }
   .validate_not_empty(dose.rate)
 
+  if (is.numeric(dose.rate) && length(dose.rate) < 2) {
+    .throw_error("'dose.rate' should have 2 elements (value and error)")
+  }
+
   error.propagation <- .validate_args(error.propagation,
                                       c("omit", "gaussian", "absolute"))
-
 
   ## Calculation ------------------------------------------------------------
 
