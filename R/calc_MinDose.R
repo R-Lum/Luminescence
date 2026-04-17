@@ -656,47 +656,35 @@ calc_MinDose <- function(
   prof.upper <- c(gamma = Inf, sigma = Inf, p0 = 1, mu = Inf)
 
   # calculate profile log likelihoods
-  prof <- suppressWarnings(
+  .fit_profile <- function(maxsteps) {
     bbmle::profile(ests,
                    which = which,
                    std.err = as.vector(coef_err),
                    #try_harder = TRUE,
                    quietly = TRUE,
+                   maxsteps = maxsteps,
                    tol.newmin = Inf,
                    skiperrs = TRUE,
                    prof.lower = prof.lower,
                    prof.upper = prof.upper)
-  )
-  # Fallback when profile() returns a 'better' fit
-  maxsteps <- 100
-  cnt <- 1
-  while (!inherits(prof, "profile.mle2")) {
-    if (maxsteps == 0L)
-      .throw_error("Couldn't find a converging fit for the profile log-likelihood")
-    if (verbose)
-      message("## Trying to find a better fit (", cnt, "/10) ##")
-    prof <- suppressWarnings(
-      bbmle::profile(ests,
-                     which = which,
-                     std.err = as.vector(coef_err),
-                     # try_harder = TRUE,
-                     quietly = TRUE,
-                     maxsteps = maxsteps,
-                     tol.newmin = Inf,
-                     skiperrs = TRUE,
-                     prof.lower = prof.lower,
-                     prof.upper = prof.upper)
-    )
-    maxsteps <- maxsteps - 10
-    cnt <- cnt + 1
+  }
+
+  prof <- suppressWarnings(.fit_profile(maxsteps = 100))
+  if (!inherits(prof, "profile.mle2")) {
+    cnt <- 1
+    while (!inherits(prof, "profile.mle2")) {
+      if (cnt > 10)
+        .throw_error("Couldn't find a converging fit for the profile log-likelihood")
+      if (verbose)
+        message("## Trying to find a better fit (", cnt, "/10) ##")
+      prof <- suppressWarnings(.fit_profile(maxsteps = 100 - (cnt - 1) * 10))
+      cnt <- cnt + 1
+    }
   }
 
   ## delete rows where z = -Inf/Inf or NaN
-  prof@profile$gamma <- prof@profile$gamma[is.finite(prof@profile$gamma$z), ]
-  prof@profile$sigma <- prof@profile$sigma[is.finite(prof@profile$sigma$z), ]
-  prof@profile$p0 <- prof@profile$p0[is.finite(prof@profile$p0$z), ]
-  if (par == 4) {
-    prof@profile$mu <- prof@profile$mu[is.finite(prof@profile$mu$z), ]
+  for (p in c("gamma", "sigma", "p0", if (par == 4) "mu")) {
+    prof@profile[[p]] <- prof@profile[[p]][is.finite(prof@profile[[p]]$z), ]
   }
 
   ## calculate Bayesian Information Criterion (BIC)
