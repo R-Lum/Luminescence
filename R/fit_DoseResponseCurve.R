@@ -507,7 +507,6 @@ fit_DoseResponseCurve <- function(
     }
   } else {
     fit.weights <- rep(1, length(y.Error))
-
   }
 
   #1.2 Prepare data sets regeneration points for MC Simulation
