@@ -41,8 +41,8 @@
 #' are required.
 #'
 #' @param dose.rate [Luminescence::RLum.Results-class], [data.frame] or [numeric] (**required**):
-#' `RLum.Results` needs to be originated from the function [Luminescence::calc_SourceDoseRate],
-#' for `vector` dose rate in Gy/s and dose rate error in Gy/s.
+#' for `RLum.Results`, it needs to be originated from [Luminescence::calc_SourceDoseRate];
+#' for `vector`, dose rate and dose rate error (in Gy/s).
 #'
 #' @param error.propagation [character] (*with default*):
 #' error propagation method used for error calculation (`omit`, `gaussian` or
@@ -71,13 +71,12 @@
 #' @keywords manip
 #'
 #' @examples
+#' ## load De data from the example data help file
+#' data(ExampleData.DeValues, envir = environment())
 #'
 #' ##(A) for known source dose rate at date of measurement
-#' ## - load De data from the example data help file
-#' data(ExampleData.DeValues, envir = environment())
 #' ## - convert De(s) to De(Gy)
-#' convert_Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
-#'
+#' convert_Second2Gray(ExampleData.DeValues$BT998, c(0.0438, 0.0019))
 #'
 #' ##(B) for source dose rate calibration data
 #' ## - calculate source dose rate first
