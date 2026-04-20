@@ -728,20 +728,6 @@ calc_MinDose <- function(
       mapply(function(x, y) combine_Errors(x, y), d, e, SIMPLIFY = FALSE)
     }
 
-    # Function that takes each of the N replicates and produces a kernel density
-    # estimate of length n.
-    get_KDE <- function(d) {
-      f <- approx(density(x = d[, 1], kernel = "gaussian", bw = h, na.rm = TRUE),
-                  xout = d[, 1])
-      pStarTheta <- as.vector(f$y / sum(f$y))
-      pStarTheta / (1 / n)
-    }
-
-    # Function that calculates the product term of the recycled bootstrap
-    get_ProductTerm <- function(Pmat, freq) {
-      apply(Pmat^freq, 1, prod)
-    }
-
     # Function that calculates the pseudo likelihoods for M replicates and
     # returns the dose-likelihood pairs
     make_Pairs <- function(theta, b2mam, prodterm) {
@@ -835,9 +821,14 @@ calc_MinDose <- function(
     theta <- sapply(mle[c(N+1):c(N+M)], save_Gamma, log = log)
 
     # Calculate the probability/pseudo-likelihood
-    Pmat <- lapply(replicates[c(N+1):c(N+M)], get_KDE)
+    Pmat <- lapply(replicates[(N + 1):(N + M)], function(d) {
+      f <- approx(density(x = d[, 1], kernel = "gaussian", bw = h, na.rm = TRUE),
+                  xout = d[, 1])
+      pStarTheta <- as.vector(f$y / sum(f$y))
+      pStarTheta / (1 / n)
+    })
     freq <- t(apply(indices[1:N, ], 1, tabulate, n))
-    prodterm <- vapply(Pmat, get_ProductTerm, freq, FUN.VALUE = numeric(N))
+    prodterm <- vapply(Pmat, function(P) apply(P^freq, 1, prod), FUN.VALUE = numeric(N))
 
     # Save the bootstrap results as dose-likelihood pairs
     pairs <- make_Pairs(theta, b2mam, prodterm)
