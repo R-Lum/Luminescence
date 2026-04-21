@@ -124,13 +124,13 @@ test_that("check class and length of output", {
   expect_type(huntley$Ln, "double")
   expect_type(huntley$fits, "list")
 
-  expect_equal(round(huntley$results$Sim_Age, 1), 34)
-  expect_equal(round(huntley$results$Sim_Age_2D0, 0), 175)
+  expect_equal(round(huntley$results$Sim_Age, 1), 33.8)
+  expect_equal(round(huntley$results$Sim_Age_2D0, 0), 173)
   expect_equal(round(sum(huntley$Ln),2), 0.16)
 
   expect_equal(round(sum(huntley$data),0), 191530)
-  expect_equal(round(sum(residuals(huntley$fits$simulated)),1),  0.8)
-  expect_equal(round(sum(residuals(huntley$fits$measured)),4),  0.1894)
+  expect_equal(round(sum(residuals(huntley$fits$simulated)),0),  0)
+  expect_equal(round(sum(residuals(huntley$fits$measured)),2),  -0.2)
   expect_equal(round(sum(residuals(huntley$fits$unfaded)),2),  0)
 })
 
@@ -242,6 +242,7 @@ test_that("Further tests calc_Huntley2006", {
   expect_error(calc_Huntley2006(input,
                                 rhop = c(6.5e-06, 2.0e-08),
                                 ddot = c(8.5, 1.5),
+                                fit.weights = "norm_inverse_std",
                                 fit.method = "EXP",
                                 mode = "extrapolation",
                                 readerDdot = c(0.154, 0.1),

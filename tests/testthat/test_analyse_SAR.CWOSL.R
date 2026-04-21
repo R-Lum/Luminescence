@@ -188,7 +188,7 @@ test_that("check functionality", {
         background_integral = 900:1000,
         plot = FALSE,
         verbose = FALSE,
-        fit.weights = FALSE),
+        fit.weights = NULL),
     "No signal or background integral applied as 'signal_integral = NULL'")
 
   expect_warning(
@@ -201,7 +201,7 @@ test_that("check functionality", {
       fit.method = "EXP",
       plot = FALSE,
       verbose = FALSE,
-      fit.weights = FALSE
+      fit.weights = NULL
     ),
     "[analyse_SAR.CWOSL()] No signal or background integral applied",
     fixed = TRUE)
@@ -214,7 +214,7 @@ test_that("check functionality", {
       fit.method = "EXP",
       plot = FALSE,
       verbose = FALSE,
-      fit.weights = FALSE
+      fit.weights = NULL
     ),
     "No signal or background integral applied as 'signal_integral = NULL' (or NA)",
     fixed = TRUE)
@@ -237,7 +237,7 @@ test_that("check functionality", {
       fit.method = "OTORX",
       plot = FALSE,
       verbose = FALSE,
-      fit.weights = FALSE
+      fit.weights = NULL
     ),
     "Column 'Test_Dose' missing but mandatory for 'OTORX' fitting!",
     fixed = TRUE)

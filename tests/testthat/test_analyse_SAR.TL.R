@@ -106,7 +106,7 @@ test_that("snapshot tests", {
     analyse_SAR.TL(object, signal_integral = 2:3,
                    sequence.structure = c("SIGNAL", "EXCLUDE"))
     ),
-  "Error column invalid or 0, 'fit.weights' ignored")
+  "Error column invalid, infinite, or 0, 'fit.weights' ignored")
   })
 })
 

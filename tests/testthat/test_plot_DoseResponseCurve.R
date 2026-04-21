@@ -72,4 +72,50 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("De.NA",
                               plot_DoseResponseCurve(fit_DoseResponseCurve(df)))
   })
+  
+  ## graphicl snapshots that also check numerical correctness
+  data(ExampleData.LxTxData, envir = environment())
+  LxTxData$LxTx.Error[[5]] <- 0.8
+  LxTxData$LxTx.Error[[4]] <- 0.4
+  fit_method = "EXP"
+  
+  set.seed(1234)
+  SW({
+  vdiffr::expect_doppelganger("NULL",fit_DoseResponseCurve(
+    object = LxTxData, 
+    fit.method = fit_method,
+    fit.weights = NULL) |>
+    plot_DoseResponseCurve(plot_extended = FALSE, 
+                           main = "NULL",
+                           plot_singlePanels = TRUE)
+  )
+  vdiffr::expect_doppelganger("inverse_var", fit_DoseResponseCurve(
+    object = LxTxData, 
+    fit.method = fit_method,
+    fit.weights = "inverse_var") |>
+    plot_DoseResponseCurve(plot_extended = FALSE, 
+                           main = "inverse_var",
+                           plot_singlePanels = TRUE)
+  )
+  
+  vdiffr::expect_doppelganger("inverse_std", fit_DoseResponseCurve(
+    object = LxTxData, 
+    fit.method = fit_method,
+    fit.weights = "inverse_std") |>
+    plot_DoseResponseCurve(plot_extended = FALSE, 
+                           main = "inverse_std",
+                           plot_singlePanels = TRUE)
+  )
+  
+  vdiffr::expect_doppelganger("norm_inverse_std", fit_DoseResponseCurve(
+    object = LxTxData, 
+    fit.method = fit_method,
+    fit.weights = "norm_inverse_std") |>
+    plot_DoseResponseCurve(plot_extended = FALSE, 
+                           main = "norm_inverse_std",
+                           plot_singlePanels = TRUE)
+  )
+  })
+  
+  
 })
