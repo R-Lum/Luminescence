@@ -28,7 +28,7 @@
     following functions: `fit_DoseResponseCurve()`,
     `analyse_SAR.CWOSL()`, `analyse_SAR.TL()`, `analyse_baSAR()`,
     `analyse_pIRIRSequence()`, `calc_Lamothe2003()`,
-    `calc_Huntley2006()`
+    `calc_Huntley2006()`, `plot_DRCSummary()`, `plot_DetPlot()`
 
 Although the change in the numerical output may be inconvenient, we
 strongly advise updating regardless. The old results can still be

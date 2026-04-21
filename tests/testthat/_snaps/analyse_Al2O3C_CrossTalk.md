@@ -359,7 +359,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-0.00035292, 0.00120418]
+                  "value": [-0.00035351, 0.00120614]
                 },
                 {
                   "type": "double",
@@ -371,11 +371,6 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["POSITION", "DOSE", "DOSE_ERROR", "STEP", "INTEGRAL", "BACKGROUND", "NET_INTEGRAL", "AD", "AD_ERROR"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -385,6 +380,11 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["POSITION", "DOSE", "DOSE_ERROR", "STEP", "INTEGRAL", "BACKGROUND", "NET_INTEGRAL", "AD", "AD_ERROR"]
                 }
               },
               "value": [
@@ -396,12 +396,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0, 6.58729246, 0, 6.58729246]
+                  "value": [0, 6.598144, 0, 6.598144]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0, 0.04882244, 0, 0.04882244]
+                  "value": [0, 0.04533531, 0, 0.04533531]
                 },
                 {
                   "type": "character",
@@ -426,12 +426,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-0.00035292, -0.00035292, 0.00120418, 0.00120418]
+                  "value": [-0.00035351, -0.00035351, 0.00120614, 0.00120614]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [2.6535148e-06, 2.6535148e-06, 8.81151012e-06, 8.81151012e-06]
+                  "value": [2.46398814e-06, 2.46398814e-06, 8.18215011e-06, 8.18215011e-06]
                 }
               ]
             },
@@ -518,7 +518,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-0.00035297, 0.00120385]
+                  "value": [-0.00035355, 0.00120583]
                 },
                 {
                   "type": "double",
@@ -530,11 +530,6 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["POSITION", "DOSE", "DOSE_ERROR", "STEP", "INTEGRAL", "BACKGROUND", "NET_INTEGRAL", "AD", "AD_ERROR"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -544,6 +539,11 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["POSITION", "DOSE", "DOSE_ERROR", "STEP", "INTEGRAL", "BACKGROUND", "NET_INTEGRAL", "AD", "AD_ERROR"]
                 }
               },
               "value": [
@@ -555,7 +555,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0, 6.58729246, 0, 6.58729246]
+                  "value": [0, 6.598144, 0, 6.598144]
                 },
                 {
                   "type": "double",
@@ -585,7 +585,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-0.00035297, -0.00035297, 0.00120385, 0.00120385]
+                  "value": [-0.00035355, -0.00035355, 0.00120583, 0.00120583]
                 },
                 {
                   "type": "double",
