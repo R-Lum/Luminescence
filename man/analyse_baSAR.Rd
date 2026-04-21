@@ -350,7 +350,7 @@ functions.
 \code{pattern} \tab \link{read_BIN2R} \tab \code{TRUE} \tab select BIN-file by name pattern\cr
 \code{position} \tab \link{read_BIN2R} \tab \code{NULL} \tab limit import to a specific position\cr
 \code{background.count.distribution} \tab \link{calc_OSLLxTxRatio} \tab \code{"non-poisson"} \tab set assumed count distribution\cr
-\code{fit.weights} \tab \link{fit_DoseResponseCurve} \tab \code{TRUE} \tab enable/disable fit weights\cr
+\code{fit.weights} \tab \link{fit_DoseResponseCurve} \tab \code{NULL} \tab enable/disable fit weights\cr
 \code{fit.bounds} \tab \link{fit_DoseResponseCurve} \tab \code{TRUE} \tab enable/disable fit bounds\cr
 \code{n.MC} \tab \link{fit_DoseResponseCurve} \tab \code{100} \tab number of MC runs for error calculation\cr
 \code{plot_drc} \tab \link{plot_DoseResponseCurve} \tab \code{TRUE} \tab enable/disable dose response curve plot\cr
