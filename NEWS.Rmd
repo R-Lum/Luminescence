@@ -30,13 +30,12 @@ These changes affect the numerical output of the following functions:
 
 Although the change in the numerical output may be inconvenient, we strongly advise updating regardless. 
 The old results can still be reproduced using the option `fit.weights = "norm_inverse_std"` 
-in the affected functions.
+in the affected functions. 
 
 ## New functions
 
 
 ## Removed functions and deprecations
-
 
 ## Bugfixes and changes
 
@@ -76,6 +75,11 @@ more control over the fitting process and enables better comparison with other
 software, such as Python’s SciPy. The `numeric` vector must be of the same
 length as the number of data points to be fit. This is typical the number of
 `LxTx` points (#1536)
+
+* Re-implement the argument `fit.weights`, now supporting keywords as input, 
+selecting different approaches for fit weights. `NULL` disables weights and 
+`numeric` input enables the definition of own weights. The new standard
+approach is `1/sigma^2` (#1539).
 
 ### `plot_DoseResponseCurve()`
 
