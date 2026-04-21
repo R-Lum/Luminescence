@@ -132,16 +132,16 @@ setMethod("set_RLum",
                    info = list()) {
 
             ##create new class
-            newRLumReuslts <- new("RLum.Results")
+            newRLumResults <- new("RLum.Results")
 
             ##fill object
-            newRLumReuslts@originator <- originator
-            newRLumReuslts@data <- data
-            newRLumReuslts@info <- info
-            newRLumReuslts@.uid <- .uid
-            newRLumReuslts@.pid <- .pid
+            newRLumResults@originator <- originator
+            newRLumResults@data <- data
+            newRLumResults@info <- info
+            newRLumResults@.uid <- .uid
+            newRLumResults@.pid <- .pid
 
-            return(newRLumReuslts)
+            return(newRLumResults)
           })
 
 
