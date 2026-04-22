@@ -79,8 +79,8 @@ test_that("graphical snapshot tests", {
   LxTxData$LxTx.Error[[4]] <- 0.4
   fit_method = "EXP"
   
-  set.seed(1234)
   SW({
+  set.seed(1234)
   vdiffr::expect_doppelganger("NULL",fit_DoseResponseCurve(
     object = LxTxData, 
     fit.method = fit_method,
