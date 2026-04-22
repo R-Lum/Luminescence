@@ -53,8 +53,6 @@ test_that("input validation", {
   expect_error(fit_DoseResponseCurve(LxTxData,
                                      fit.force_through_origin = "error"),
                "'fit.force_through_origin' should be a single logical value")
-  expect_error(fit_DoseResponseCurve(LxTxData, fit.weights = TRUE),
-               "'fit.weights' should be of class 'numeric', 'character' or NULL")
   expect_error(fit_DoseResponseCurve(LxTxData, fit.weights = "error"),
                "'fit.weights' should be one of 'inverse_var', 'inverse_std' or 'norm_inverse_std'")
   SW({
@@ -93,6 +91,13 @@ test_that("input validation", {
     "Mode 'extrapolation' for fitting method 'EXP+EXP' not supported",
     fixed = TRUE)
 
+  ## deprecated option
+  SW({
+  expect_warning(fit_DoseResponseCurve(LxTxData, fit.weights = FALSE),
+                 "'fit.weight' no longer accepts a logical value, reset automatically to NULL")
+  expect_warning(fit_DoseResponseCurve(LxTxData, fit.weights = TRUE),
+                 "'fit.weight' no longer accepts a logical value, reset automatically to inverse_var")
+  })
 })
 
 test_that("weird LxTx values", {

@@ -381,6 +381,13 @@ fit_DoseResponseCurve <- function(
   .set_function_name("fit_DoseResponseCurve")
   on.exit(.unset_function_name(), add = TRUE)
 
+  ## deprecated argument
+  if (is.logical(fit.weights)) {
+    fit.weights <- if (isTRUE(fit.weights[1])) "inverse_var" else NULL
+    .throw_warning("'fit.weight' no longer accepts a logical value, ",
+                   "reset automatically to ", fit.weights %||% "NULL")
+  }
+
   ## Self-call --------------------------------------------------------------
   if (inherits(object, "list")) {
     lapply(object,
