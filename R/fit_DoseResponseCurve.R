@@ -518,31 +518,28 @@ fit_DoseResponseCurve <- function(
   ## reminder: we have already validated the class above
 
   ## this should prevent problems
-  if (anyNA(y.Error) || any(is.infinite(y.Error)) || any(y.Error == 0)) {
+  if (!is.null(fit.weights) &&
+      (anyNA(y.Error) || any(is.infinite(y.Error)) || any(y.Error == 0))) {
     fit.weights <- NULL
-    .throw_warning("Error column invalid, infinite, or 0, 'fit.weights' ignored")
+    .throw_warning("Error column invalid, infinite, or contains 0, 'fit.weights' reset to NULL")
   }
 
-  if(is.null(fit.weights)) {
+  if (is.null(fit.weights)) {
     fit.weights <- rep(1, length(y.Error))
 
-  ## numeric case
   } else if (inherits(fit.weights, "numeric")) {
-     ## we automatically expand but throw a warning
-    .validate_length(
-      fit.weights,
-      exp.length = length(y.Error),
-      throw.error = FALSE)
+    ## numeric case
+    ## we automatically expand but throw a warning
+    .validate_length(fit.weights, length(y.Error), throw.error = FALSE)
 
     ## recycle fit weights ... so we get only the warning
     fit.weights <- rep(fit.weights, length.out = length(y.Error))
 
-  ## the character case
   } else {
+    ## the character case
     .validate_args(
       arg = fit.weights,
-      choices = c(
-        "inverse_var", "inverse_std", "norm_inverse_std"))
+      choices = c("inverse_var", "inverse_std", "norm_inverse_std"))
     fit.weights <- switch(
       fit.weights[1],
       "inverse_std" = 1 / abs(y.Error),
@@ -1672,7 +1669,7 @@ fit_DoseResponseCurve <- function(
 
       if (inherits(De, "try-error")) De <- NA # nocov
 
-      ## report terminalline
+      ## report terminal line
       .report_fit(De, " | R = ", round(1-Q, 2), " | D63 = ", round(D63, 2))
 
       #OTORX MC -----
