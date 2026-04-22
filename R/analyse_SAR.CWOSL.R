@@ -1237,7 +1237,7 @@ analyse_SAR.CWOSL<- function(
     extraArgs$verbose <- NULL
     temp.GC <- do.call(fit_DoseResponseCurve,
                        modifyList(list(object = temp.sample, verbose = FALSE),
-                                  extraArgs))
+                                  extraArgs, keep.null = TRUE))
     if (verbose && !is.null(temp.GC)) {
       .throw_message(extraArgs$.aliquot_number, temp.GC@info$fit_message,
                      error = FALSE)
