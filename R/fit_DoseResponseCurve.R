@@ -784,7 +784,6 @@ fit_DoseResponseCurve <- function(
 
       ## prepare what we can outside the loop
       a.start <-  b.start <- c.start <- numeric(length(a.MC))
-      fitted <- list()
 
       lower_bounds <- c(a = 0, b = 1e-6, c = 0)
       control_settings <-  minpack.lm::nls.lm.control(
@@ -812,7 +811,6 @@ fit_DoseResponseCurve <- function(
           a.start[i] <- as.vector(parameters["a"])
           b.start[i] <- as.vector(parameters["b"])
           c.start[i] <- as.vector(parameters["c"])
-          fitted[[i]] <-  fit.initial$m$fitted()
         }
       }
 
