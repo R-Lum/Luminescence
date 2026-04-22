@@ -55,6 +55,8 @@ test_that("input validation", {
                "'fit.force_through_origin' should be a single logical value")
   expect_error(fit_DoseResponseCurve(LxTxData, fit.weights = "error"),
                "'fit.weights' should be one of 'inverse_var', 'inverse_std' or 'norm_inverse_std'")
+  expect_error(fit_DoseResponseCurve(LxTxData, fit.weights = iris),
+               "'fit.weights' should be of class 'character', 'numeric' or NULL")
   SW({
   expect_warning(fit_DoseResponseCurve(LxTxData, fit.weights = c(1,2)),
                "'fit.weights' should have length 6")
@@ -309,7 +311,7 @@ test_that("snapshot tests", {
       verbose = FALSE,
       n.MC = 10
   ), tolerance = 4.0e-2)
-  
+
   ## weights
   expect_snapshot_RLum(fit_DoseResponseCurve(
     LxTxData,
@@ -318,7 +320,7 @@ test_that("snapshot tests", {
     verbose = FALSE,
     n.MC = 10
   ), tolerance = 4.0e-2)
-  
+
   expect_snapshot_RLum(fit_DoseResponseCurve(
     LxTxData,
     mode = "interpolation",
@@ -326,7 +328,7 @@ test_that("snapshot tests", {
     verbose = FALSE,
     n.MC = 10
   ), tolerance = 4.0e-2)
-  
+
   expect_snapshot_RLum(fit_DoseResponseCurve(
     LxTxData,
     mode = "interpolation",
@@ -334,7 +336,7 @@ test_that("snapshot tests", {
     verbose = FALSE,
     n.MC = 10
   ), tolerance = 4.0e-2)
-  
+
   expect_snapshot_RLum(fit_DoseResponseCurve(
     LxTxData,
     mode = "interpolation",
@@ -737,50 +739,6 @@ temp_OTORX_alt <-
 test_that("regression tests", {
   testthat::skip_on_cran()
 
-  # Test Berger's reference data --------------------------------------------
-  ## they are in the example but not checked for regression
-  QNL84_2_unbleached <-
-    read.table(system.file("extdata/QNL84_2_unbleached.txt", package = "Luminescence"))
-  QNL84_2_bleached <-
-  read.table(system.file("extdata/QNL84_2_bleached.txt", package = "Luminescence"))
-  STRB87_1_unbleached <-
-  read.table(system.file("extdata/STRB87_1_unbleached.txt", package = "Luminescence"))
-  STRB87_1_bleached <-
-  read.table(system.file("extdata/STRB87_1_bleached.txt", package = "Luminescence"))
-  
-   ## add uncertainties of 2% to counts
-   QNL84_2_bleached <- cbind(QNL84_2_bleached, QNL84_2_bleached[[2]] * 0.02)
-   QNL84_2_unbleached <- cbind(QNL84_2_unbleached, QNL84_2_unbleached[[2]] * 0.02)
-   STRB87_1_bleached <- cbind(STRB87_1_bleached, STRB87_1_bleached[[2]] * 0.02)
-   STRB87_1_unbleached <- cbind(STRB87_1_unbleached, STRB87_1_unbleached[[2]] * 0.02)
-  
-  set.seed(1234)
-  t_QNL84_2_bleached <- suppressWarnings(fit_DoseResponseCurve(
-     QNL84_2_bleached,
-     mode = "extrapolation",
-     verbose = FALSE)) 
-  t_QNL84_2_unbleached <- suppressWarnings(fit_DoseResponseCurve(
-    QNL84_2_unbleached,
-    mode = "extrapolation",
-    verbose = FALSE))
-  t_STRB87_1_bleached <- suppressWarnings(fit_DoseResponseCurve(
-    STRB87_1_bleached,
-    mode = "extrapolation",
-    verbose = FALSE))
-  t_STRB87_1_unbleached <- suppressWarnings(fit_DoseResponseCurve(
-    STRB87_1_unbleached,
-    mode = "extrapolation",
-    verbose = FALSE))
-  
-    ## check for regression, values are double-checked with
-    ## Hayes, R.B., Haskell, E.H., Kenner, G.H., 1998. An assessment 
-    ## of the Levenberg-Marquardt fitting algorithm on saturating exponential 
-    ## data sets. Ancient TL 16, 57–62. https://doi.org/10.26034/la.atl.1998.294
-    expect_equal(sum(t_QNL84_2_bleached$De[,c(1:2)]), expected = 204, tolerance = 0.01)
-    expect_equal(sum(t_QNL84_2_unbleached$De[,c(1:2)]), expected = 126, tolerance = 0.01)
-    expect_equal(sum(t_STRB87_1_bleached$De[,c(1:2)]), expected = 0.7, tolerance = 0.01)
-    expect_equal(sum(t_STRB87_1_unbleached$De[,c(1:2)]), expected = 0.6, tolerance = 0.01)
-  
   ## issue 374 --------------------------------------------------------------
 
   ## odd data that cause NaN but must not fail
@@ -805,6 +763,50 @@ test_that("regression tests", {
   expect_s4_class(fit_DoseResponseCurve(df, fit.method = "EXP"),
                   "RLum.Results")
   })
+
+  ## issue 1539: test Berger's reference data -------------------------------
+
+  QNL84_2_bleached <-
+    read.table(system.file("extdata/QNL84_2_bleached.txt", package = "Luminescence"))
+  QNL84_2_unbleached <-
+    read.table(system.file("extdata/QNL84_2_unbleached.txt", package = "Luminescence"))
+  STRB87_1_bleached <-
+    read.table(system.file("extdata/STRB87_1_bleached.txt", package = "Luminescence"))
+  STRB87_1_unbleached <-
+    read.table(system.file("extdata/STRB87_1_unbleached.txt", package = "Luminescence"))
+
+  ## add uncertainties of 2% to counts
+  QNL84_2_bleached <- cbind(QNL84_2_bleached, QNL84_2_bleached[[2]] * 0.02)
+  QNL84_2_unbleached <- cbind(QNL84_2_unbleached, QNL84_2_unbleached[[2]] * 0.02)
+  STRB87_1_bleached <- cbind(STRB87_1_bleached, STRB87_1_bleached[[2]] * 0.02)
+  STRB87_1_unbleached <- cbind(STRB87_1_unbleached, STRB87_1_unbleached[[2]] * 0.02)
+
+  set.seed(1234)
+  t_QNL84_2_bleached <- suppressWarnings(fit_DoseResponseCurve(
+      QNL84_2_bleached,
+      mode = "extrapolation",
+      verbose = FALSE))
+  t_QNL84_2_unbleached <- suppressWarnings(fit_DoseResponseCurve(
+      QNL84_2_unbleached,
+      mode = "extrapolation",
+      verbose = FALSE))
+  t_STRB87_1_bleached <- suppressWarnings(fit_DoseResponseCurve(
+      STRB87_1_bleached,
+      mode = "extrapolation",
+      verbose = FALSE))
+  t_STRB87_1_unbleached <- suppressWarnings(fit_DoseResponseCurve(
+      STRB87_1_unbleached,
+      mode = "extrapolation",
+      verbose = FALSE))
+
+  ## values are double-checked with
+  ## Hayes, R.B., Haskell, E.H., Kenner, G.H., 1998. An assessment
+  ## of the Levenberg-Marquardt fitting algorithm on saturating exponential
+  ## data sets. Ancient TL 16, 57–62. https://doi.org/10.26034/la.atl.1998.294
+  expect_equal(sum(t_QNL84_2_bleached$De[,c(1:2)]), expected = 204, tolerance = 0.01)
+  expect_equal(sum(t_QNL84_2_unbleached$De[,c(1:2)]), expected = 126, tolerance = 0.01)
+  expect_equal(sum(t_STRB87_1_bleached$De[,c(1:2)]), expected = 0.7, tolerance = 0.01)
+  expect_equal(sum(t_STRB87_1_unbleached$De[,c(1:2)]), expected = 0.6, tolerance = 0.01)
 })
 
 test_that("test internal functions", {

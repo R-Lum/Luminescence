@@ -55,12 +55,13 @@ allow to force the fitted function through the origin.
 For \code{method = "EXP+EXP"} the function will be fixed through
 the origin in either case, so this option will have no effect.}
 
-\item{fit.weights}{\link{character} \link{numeric} (\emph{with default}): weighting approach to
-be used for the fitting. Options are \code{inverse_var} (the default), \code{inverse_std},
-\code{norm_inverse_std}, a \verb{[numeric]} vector or \code{NULL} (no weighting).
-If the input is a \link{numeric} vector, is must of the same length as the
+\item{fit.weights}{\link{character} \link{numeric} (\emph{with default}):
+weighting approach to be used for the fitting. Options are \code{inverse_var}
+(default), \code{inverse_std}, \code{norm_inverse_std}, a \link{numeric} vector, or \code{NULL}
+(no weighting).
+If the input is a numeric vector, is must of the same length as the
 number of data points to fit (usually the \code{LxTx} values). If the number differs,
-they are recycled or reduced to the desired lengtt with a warning. See details.}
+they are recycled or reduced to the desired length with a warning. See details.}
 
 \item{fit.includingRepeatedRegPoints}{\link{logical} (\emph{with default}):
 includes repeated points for fitting (\code{TRUE}/\code{FALSE}).}
@@ -260,18 +261,18 @@ be set to zero with the option \code{fit.force_through_origin = TRUE}}
 
 \strong{Fit weighting}
 \itemize{
-\item \code{"inverse_var"} (inverse variance weighting - the default)
+\item \code{"inverse_var"} (inverse variance weighting - current default)
 \deqn{w_i = \frac{1}{\sigma_i^2}}
 \item \code{"inverse_std"} (inverse standard error)
 \deqn{w_i = \frac{1}{\sigma_i}}
-\item \code{"norm_inverse_std"} (normalised inverse standard error weighting - old default)
+\item \code{"norm_inverse_std"} (normalised inverse standard error weighting - default up to v1.2.1)
 \deqn{w_i = \frac{\frac{1}{\sigma_i}}{\Sigma{\frac{1}{\sigma_i}}}}
-\emph{Although used until Luminescence v1.2.1, this method is not recommended anymore,
-because it does not align with the mathematical approach used in the common nls fitting
-methods.}
+\emph{Although used until Luminescence v1.2.1, this method is no longer
+recommended, as it does not align with the mathematical approach used in
+common nls fitting methods.}
 }
 
-If the option \code{fit.weights =  NULL} all weights are set to \code{1}, which disables
+If the option \code{fit.weights =  NULL} all weights are set to 1, which disables
 weighting all along. If \code{fit.weights} is a \link{numeric} vector of correct length (same number of rows
 such as the input \code{LxTx}), then those fit weights are used. This comes in
 handy if you want to compare different fitting algorithms that have

@@ -117,21 +117,20 @@
 #' be set to zero with the option `fit.force_through_origin = TRUE`*
 #'
 #' **Fit weighting**
-#' 
-#' * `"inverse_var"` (inverse variance weighting - the default)
+#'
+#' * `"inverse_var"` (inverse variance weighting - current default)
 #'  \deqn{w_i = \frac{1}{\sigma_i^2}}
-#' 
+#'
 #' * `"inverse_std"` (inverse standard error)
 #' \deqn{w_i = \frac{1}{\sigma_i}}
-#' 
-#' * `"norm_inverse_std"` (normalised inverse standard error weighting - old default)
+#'
+#' * `"norm_inverse_std"` (normalised inverse standard error weighting - default up to v1.2.1)
 #'  \deqn{w_i = \frac{\frac{1}{\sigma_i}}{\Sigma{\frac{1}{\sigma_i}}}}
-#' *Although used until Luminescence v1.2.1, this method is not recommended anymore, 
-#' because it does not align with the mathematical approach used in the common nls fitting 
-#' methods.*
-#' 
-#' 
-#' If the option `fit.weights =  NULL` all weights are set to `1`, which disables
+#' *Although used until Luminescence v1.2.1, this method is no longer
+#' recommended, as it does not align with the mathematical approach used in
+#' common nls fitting methods.*
+#'
+#' If the option `fit.weights =  NULL` all weights are set to 1, which disables
 #' weighting all along. If `fit.weights` is a [numeric] vector of correct length (same number of rows
 #' such as the input `LxTx`), then those fit weights are used. This comes in
 #' handy if you want to compare different fitting algorithms that have
@@ -186,12 +185,13 @@
 #' For `method = "EXP+EXP"` the function will be fixed through
 #' the origin in either case, so this option will have no effect.
 #'
-#' @param fit.weights [character] [numeric] (*with default*): weighting approach to 
-#' be used for the fitting. Options are `inverse_var` (the default), `inverse_std`,
-#' `norm_inverse_std`, a `[numeric]` vector or `NULL` (no weighting). 
-#' If the input is a [numeric] vector, is must of the same length as the
+#' @param fit.weights [character] [numeric] (*with default*):
+#' weighting approach to be used for the fitting. Options are `inverse_var`
+#' (default), `inverse_std`, `norm_inverse_std`, a [numeric] vector, or `NULL`
+#' (no weighting).
+#' If the input is a numeric vector, is must of the same length as the
 #' number of data points to fit (usually the `LxTx` values). If the number differs,
-#' they are recycled or reduced to the desired lengtt with a warning. See details.
+#' they are recycled or reduced to the desired length with a warning. See details.
 #'
 #' @param fit.includingRepeatedRegPoints [logical] (*with default*):
 #' includes repeated points for fitting (`TRUE`/`FALSE`).
@@ -424,7 +424,7 @@ fit_DoseResponseCurve <- function(
                             "EXP+LIN", "EXP+EXP", "GOK", "OTOR", "OTORX")
   fit.method <- .validate_args(fit.method, fit.method_supported)
   .validate_logical_scalar(fit.force_through_origin)
-  .validate_class(fit.weights, c("numeric", "character"), null.ok = TRUE)
+  .validate_class(fit.weights, c("character", "numeric"), null.ok = TRUE)
   .validate_logical_scalar(fit.includingRepeatedRegPoints)
   .validate_logical_scalar(fit.bounds)
   .validate_positive_scalar(fit.NumberRegPoints, int = TRUE, null.ok = TRUE)
@@ -516,17 +516,17 @@ fit_DoseResponseCurve <- function(
   ##1.1.1 produce weights for weighted fitting; if not do nothing
   ##or hope that the user has provided own weights
   ## reminder: we have already validated the class above
-  
+
   ## this should prevent problems
   if (anyNA(y.Error) || any(is.infinite(y.Error)) || any(y.Error == 0)) {
     fit.weights <- NULL
     .throw_warning("Error column invalid, infinite, or 0, 'fit.weights' ignored")
   }
-  
+
   if(is.null(fit.weights)) {
     fit.weights <- rep(1, length(y.Error))
 
-  ## numeric case 
+  ## numeric case
   } else if (inherits(fit.weights, "numeric")) {
      ## we automatically expand but throw a warning
     .validate_length(
@@ -549,8 +549,7 @@ fit_DoseResponseCurve <- function(
       "norm_inverse_std" = 1 / abs(y.Error) / sum(1 / abs(y.Error)),
       1 / y.Error^2
     )
-    
-  } 
+  }
 
   #1.2 Prepare data sets regeneration points for MC Simulation
   ## for interpolation the first point is considered as natural dose
@@ -789,7 +788,7 @@ fit_DoseResponseCurve <- function(
       ## prepare what we can outside the loop
       a.start <-  b.start <- c.start <- numeric(length(a.MC))
       fitted <- list()
-      
+
       lower_bounds <- c(a = 0, b = 1e-6, c = 0)
       control_settings <-  minpack.lm::nls.lm.control(
         maxiter = 500)
@@ -819,7 +818,7 @@ fit_DoseResponseCurve <- function(
           fitted[[i]] <-  fit.initial$m$fitted()
         }
       }
-      
+
       ##used median as start parameters for the final fitting
       a <- median(a.start, na.rm = TRUE)
       b <- median(b.start, na.rm = TRUE)
@@ -831,7 +830,7 @@ fit_DoseResponseCurve <- function(
       ## set boundaries
       lower <- if (fit.bounds) c(0, 0, 0) else c(-Inf, -Inf, -Inf)
       upper <- if (fit.force_through_origin) c(Inf, Inf, 0) else c(Inf, Inf, Inf)
-      
+
       #FINAL Fit curve on given values
       fit <- try(minpack.lm::nlsLM(
         formula = y ~ fit_functionEXP_cpp(a, b, c, x),
@@ -1495,7 +1494,7 @@ fit_DoseResponseCurve <- function(
           }
 
           if (inherits(De, "try-error")) De <- NA # nocov
-    
+
           ## report terminal line
           .report_fit(De, " | R = ", round(R, 2), " | Dc = ", round(Dc, 2))
 
@@ -2018,6 +2017,3 @@ fit_DoseResponseCurve <- function(
 
   return(r)
 }
-
-
-
