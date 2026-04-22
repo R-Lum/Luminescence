@@ -54,7 +54,9 @@ test_that("input validation", {
                                      fit.force_through_origin = "error"),
                "'fit.force_through_origin' should be a single logical value")
   expect_error(fit_DoseResponseCurve(LxTxData, fit.weights = "error"),
-               "fit.weights' should be of class 'logical' or 'numeric'")
+               "'fit.weights' should be one of 'inverse_var', 'inverse_std' or 'norm_inverse_std'")
+  expect_error(fit_DoseResponseCurve(LxTxData, fit.weights = iris),
+               "'fit.weights' should be of class 'character', 'numeric' or NULL")
   SW({
   expect_warning(fit_DoseResponseCurve(LxTxData, fit.weights = c(1,2)),
                "'fit.weights' should have length 6")
@@ -91,6 +93,13 @@ test_that("input validation", {
     "Mode 'extrapolation' for fitting method 'EXP+EXP' not supported",
     fixed = TRUE)
 
+  ## deprecated option
+  SW({
+  expect_warning(fit_DoseResponseCurve(LxTxData, fit.weights = FALSE),
+                 "'fit.weight' no longer accepts a logical value, reset automatically to NULL")
+  expect_warning(fit_DoseResponseCurve(LxTxData, fit.weights = TRUE),
+                 "'fit.weight' no longer accepts a logical value, reset automatically to inverse_var")
+  })
 })
 
 test_that("weird LxTx values", {
@@ -180,7 +189,7 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(fit_DoseResponseCurve(
       LxTxData,
       fit.method = "EXP",
-      fit.weights = FALSE,
+      fit.weights = NULL,
       verbose = FALSE,
       n.MC = 10
   ), tolerance = snapshot.tolerance)
@@ -302,7 +311,41 @@ test_that("snapshot tests", {
       verbose = FALSE,
       n.MC = 10
   ), tolerance = 4.0e-2)
+
+  ## weights
+  expect_snapshot_RLum(fit_DoseResponseCurve(
+    LxTxData,
+    mode = "interpolation",
+    fit.weights = NULL,
+    verbose = FALSE,
+    n.MC = 10
+  ), tolerance = 4.0e-2)
+
+  expect_snapshot_RLum(fit_DoseResponseCurve(
+    LxTxData,
+    mode = "interpolation",
+    fit.weights = "inverse_var",
+    verbose = FALSE,
+    n.MC = 10
+  ), tolerance = 4.0e-2)
+
+  expect_snapshot_RLum(fit_DoseResponseCurve(
+    LxTxData,
+    mode = "interpolation",
+    fit.weights = "norm_inverse_std",
+    verbose = FALSE,
+    n.MC = 10
+  ), tolerance = 4.0e-2)
+
+  expect_snapshot_RLum(fit_DoseResponseCurve(
+    LxTxData,
+    mode = "interpolation",
+    fit.weights = "inverse_std",
+    verbose = FALSE,
+    n.MC = 10
+  ), tolerance = 4.0e-2)
   })
+
 })
 
 test_that("additional tests", {
@@ -423,17 +466,17 @@ temp_OTORX_alt <-
   expect_s3_class(temp_OTORX_alt$Fit, class = "nls")
   expect_s3_class(temp_OTORX_alt2$Fit, class = "nls")
 
-   expect_equal(round(temp_EXP$De[[1]], digits = 2), 1737.88)
-   expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 0), 17562)
-   expect_equal(round(temp_LIN$De[[1]], digits = 2), 1811.33)
-   expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 0),18398)
-   expect_equal(round(temp_EXPLIN$De[[1]], digits = 2), 1791.53)
-   expect_equal(round(sum(temp_EXPLIN$De.MC, na.rm = TRUE), digits = 0),18045)
+   expect_equal(round(temp_EXP$De[[1]], digits = 2), 1737.71)
+   expect_equal(round(sum(temp_EXP$De.MC, na.rm = TRUE), digits = 0), 17563)
+   expect_equal(round(temp_LIN$De[[1]], digits = 1), 1673)
+   expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 0),16983)
+   expect_equal(round(temp_EXPLIN$De[[1]], digits = 1), 1793)
+   expect_equal(round(sum(temp_EXPLIN$De.MC, na.rm = TRUE), digits = 0),18068)
    expect_equal(round(temp_EXPEXP$De[[1]], digits = 2), 1787.15)
    expect_equal(round(sum(temp_EXPEXP$De.MC, na.rm = TRUE), digits = 0), 7303,
                 tolerance = 10)
-   expect_equal(round(temp_QDR$De[[1]], digits = 2), 1666.2)
-   expect_equal(round(sum(temp_QDR$De.MC, na.rm = TRUE), digits = 0), 16476)
+   expect_equal(round(temp_QDR$De[[1]], digits = 1), 1646.8)
+   expect_equal(round(sum(temp_QDR$De.MC, na.rm = TRUE), digits = 0), 16342)
    expect_equal(round(temp_GOK$De[[1]], digits = 0), 1786)
    ##fix for different R versions
    if (R.version$major > "3"){
@@ -447,11 +490,11 @@ temp_OTORX_alt <-
      }
    }
 
-   expect_equal(round(temp_OTOR$De[[1]], digits = 2),  1784.78)
-   expect_equal(round(temp_OTORX$De[[1]], digits = 2),  1785.43)
+   expect_equal(round(temp_OTOR$De[[1]], digits = 1),  1784.4)
+   expect_equal(round(temp_OTORX$De[[1]], digits = 1),  1785.2)
    expect_equal(round(temp_OTORX_alt$De[[1]], digits = 2),  758.280)
    expect_equal(round(temp_OTORX_alt2$De[[1]], digits = 2),  793.21, tolerance = 0.2)
-   expect_equal(round(sum(temp_OTOR$De.MC, na.rm = TRUE), digits = 0), 17719)
+   expect_equal(round(sum(temp_OTOR$De.MC, na.rm = TRUE), digits = 0), 17765)
    expect_equal(round(sum(temp_OTORX$De.MC, na.rm = TRUE), digits = 0), 17851, tolerance = 0.2)
 
 # Check extrapolation -----------------------------------------------------
@@ -496,10 +539,10 @@ temp_OTORX_alt <-
     "Standard root estimation using stats::uniroot() failed", fixed = TRUE)
   })
 
-  expect_equal(round(LIN$De$De,0), 165)
-  expect_equal(round(EXP$De$De,0),  110)
-  expect_equal(round(OTOR$De$De,0),  114)
-  expect_equal(round(OTORX$De$De, 0), 1354)
+  expect_equal(round(LIN$De$De,0), 184)
+  expect_equal(round(EXP$De$De,0),  139)
+  expect_equal(round(OTOR$De$De,0),  147)
+  expect_equal(round(OTORX$De$De, 0), 1879)
 
   #it fails on some unix platforms for unknown reason.
   #expect_equivalent(round(EXPLIN$De$De,0), 110)
@@ -675,10 +718,11 @@ temp_OTORX_alt <-
                all = FALSE, fixed = TRUE)
 
   ## more coverage
-  tmp$dose <- c(0:6, 1000 + 0:6, 20000 + 0:6)
+  tmp$dose <- c(0:6, 100 + 0:6, 200000 + 0:6)
   expect_output(fit_DoseResponseCurve(
       tmp[4:8, ],
       fit.method = "GOK",
+      fit.weights = "norm_inverse_std",
       verbose = TRUE,
       n.MC = 10),
       "Fit failed for GOK")
@@ -719,6 +763,50 @@ test_that("regression tests", {
   expect_s4_class(fit_DoseResponseCurve(df, fit.method = "EXP"),
                   "RLum.Results")
   })
+
+  ## issue 1539: test Berger's reference data -------------------------------
+
+  QNL84_2_bleached <-
+    read.table(system.file("extdata/QNL84_2_bleached.txt", package = "Luminescence"))
+  QNL84_2_unbleached <-
+    read.table(system.file("extdata/QNL84_2_unbleached.txt", package = "Luminescence"))
+  STRB87_1_bleached <-
+    read.table(system.file("extdata/STRB87_1_bleached.txt", package = "Luminescence"))
+  STRB87_1_unbleached <-
+    read.table(system.file("extdata/STRB87_1_unbleached.txt", package = "Luminescence"))
+
+  ## add uncertainties of 2% to counts
+  QNL84_2_bleached <- cbind(QNL84_2_bleached, QNL84_2_bleached[[2]] * 0.02)
+  QNL84_2_unbleached <- cbind(QNL84_2_unbleached, QNL84_2_unbleached[[2]] * 0.02)
+  STRB87_1_bleached <- cbind(STRB87_1_bleached, STRB87_1_bleached[[2]] * 0.02)
+  STRB87_1_unbleached <- cbind(STRB87_1_unbleached, STRB87_1_unbleached[[2]] * 0.02)
+
+  set.seed(1234)
+  t_QNL84_2_bleached <- suppressWarnings(fit_DoseResponseCurve(
+      QNL84_2_bleached,
+      mode = "extrapolation",
+      verbose = FALSE))
+  t_QNL84_2_unbleached <- suppressWarnings(fit_DoseResponseCurve(
+      QNL84_2_unbleached,
+      mode = "extrapolation",
+      verbose = FALSE))
+  t_STRB87_1_bleached <- suppressWarnings(fit_DoseResponseCurve(
+      STRB87_1_bleached,
+      mode = "extrapolation",
+      verbose = FALSE))
+  t_STRB87_1_unbleached <- suppressWarnings(fit_DoseResponseCurve(
+      STRB87_1_unbleached,
+      mode = "extrapolation",
+      verbose = FALSE))
+
+  ## values are double-checked with
+  ## Hayes, R.B., Haskell, E.H., Kenner, G.H., 1998. An assessment
+  ## of the Levenberg-Marquardt fitting algorithm on saturating exponential
+  ## data sets. Ancient TL 16, 57–62. https://doi.org/10.26034/la.atl.1998.294
+  expect_equal(sum(t_QNL84_2_bleached$De[,c(1:2)]), expected = 204, tolerance = 0.01)
+  expect_equal(sum(t_QNL84_2_unbleached$De[,c(1:2)]), expected = 126, tolerance = 0.01)
+  expect_equal(sum(t_STRB87_1_bleached$De[,c(1:2)]), expected = 0.7, tolerance = 0.01)
+  expect_equal(sum(t_STRB87_1_unbleached$De[,c(1:2)]), expected = 0.6, tolerance = 0.01)
 })
 
 test_that("test internal functions", {

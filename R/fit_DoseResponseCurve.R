@@ -118,11 +118,20 @@
 #'
 #' **Fit weighting**
 #'
-#' If the option `fit.weights =  TRUE` is chosen, weights are calculated using
-#' provided signal errors (\eqn{\frac{L_x}{T_x}} error):
-#' \deqn{fit.weights = \frac{\frac{1}{error}}{\Sigma{\frac{1}{error}}}}
+#' * `"inverse_var"` (inverse variance weighting - current default)
+#'  \deqn{w_i = \frac{1}{\sigma_i^2}}
 #'
-#' If `fit.weights` is a [numeric] vector of correct length (same number of rows
+#' * `"inverse_std"` (inverse standard error)
+#' \deqn{w_i = \frac{1}{\sigma_i}}
+#'
+#' * `"norm_inverse_std"` (normalised inverse standard error weighting - default up to v1.2.1)
+#'  \deqn{w_i = \frac{\frac{1}{\sigma_i}}{\Sigma{\frac{1}{\sigma_i}}}}
+#' *Although used until Luminescence v1.2.1, this method is no longer
+#' recommended, as it does not align with the mathematical approach used in
+#' common nls fitting methods.*
+#'
+#' If the option `fit.weights =  NULL` all weights are set to 1, which disables
+#' weighting all along. If `fit.weights` is a [numeric] vector of correct length (same number of rows
 #' such as the input `LxTx`), then those fit weights are used. This comes in
 #' handy if you want to compare different fitting algorithms that have
 #' implemented fit weights differently.
@@ -176,11 +185,13 @@
 #' For `method = "EXP+EXP"` the function will be fixed through
 #' the origin in either case, so this option will have no effect.
 #'
-#' @param fit.weights [logical] [numeric] (*with default*):
-#' option whether the fitting is done with or without weights `TRUE/FALSE`.
-#' If the input is a [numeric] vector, is must of the same length as the
+#' @param fit.weights [character] [numeric] (*with default*):
+#' weighting approach to be used for the fitting. Options are `inverse_var`
+#' (default), `inverse_std`, `norm_inverse_std`, a [numeric] vector, or `NULL`
+#' (no weighting).
+#' If the input is a numeric vector, is must of the same length as the
 #' number of data points to fit (usually the `LxTx` values). If the number differs,
-#' they are recycled or reduced. See details.
+#' they are recycled or reduced to the desired length with a warning. See details.
 #'
 #' @param fit.includingRepeatedRegPoints [logical] (*with default*):
 #' includes repeated points for fitting (`TRUE`/`FALSE`).
@@ -263,11 +274,11 @@
 #' `.De.raw` \tab [numeric] \tab equivalent dose reported 'as is', that is containing infinities and negative values if they could be calculated. Bear in mind that negative values are meaningless and may be arbitrary.\cr
 #' }
 #'
-#' @section Function version: 1.4.6
+#' @section Function version: 1.5.0
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
-#' Michael Dietze, GFZ Potsdam (Germany) \cr
+#' Michael Dietze, RWTH Aachen (Germany) \cr
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @references
@@ -357,7 +368,7 @@ fit_DoseResponseCurve <- function(
   fit.method = c("EXP", "LIN", "QDR", "EXP OR LIN", "EXP+LIN", "EXP+EXP",
                  "GOK", "OTOR", "OTORX"),
   fit.force_through_origin = FALSE,
-  fit.weights = TRUE,
+  fit.weights = c("inverse_var", "inverse_std", "norm_inverse_std"),
   fit.includingRepeatedRegPoints = TRUE,
   fit.NumberRegPoints = NULL,
   fit.NumberRegPointsReal = NULL,
@@ -369,6 +380,13 @@ fit_DoseResponseCurve <- function(
 ) {
   .set_function_name("fit_DoseResponseCurve")
   on.exit(.unset_function_name(), add = TRUE)
+
+  ## deprecated argument
+  if (is.logical(fit.weights)) {
+    fit.weights <- if (isTRUE(fit.weights[1])) "inverse_var" else NULL
+    .throw_warning("'fit.weight' no longer accepts a logical value, ",
+                   "reset automatically to ", fit.weights %||% "NULL")
+  }
 
   ## Self-call --------------------------------------------------------------
   if (inherits(object, "list")) {
@@ -406,7 +424,7 @@ fit_DoseResponseCurve <- function(
                             "EXP+LIN", "EXP+EXP", "GOK", "OTOR", "OTORX")
   fit.method <- .validate_args(fit.method, fit.method_supported)
   .validate_logical_scalar(fit.force_through_origin)
-  .validate_class(fit.weights, c("logical", "numeric"))
+  .validate_class(fit.weights, c("character", "numeric"), null.ok = TRUE)
   .validate_logical_scalar(fit.includingRepeatedRegPoints)
   .validate_logical_scalar(fit.bounds)
   .validate_positive_scalar(fit.NumberRegPoints, int = TRUE, null.ok = TRUE)
@@ -497,25 +515,37 @@ fit_DoseResponseCurve <- function(
 
   ##1.1.1 produce weights for weighted fitting; if not do nothing
   ##or hope that the user has provided own weights
-  if (inherits(fit.weights, "numeric")) {
-     ## we automatically expand by throw a warning
-    .validate_length(
-      fit.weights,
-      exp.length = length(y.Error),
-      throw.error = FALSE)
+  ## reminder: we have already validated the class above
+
+  ## this should prevent problems
+  if (!is.null(fit.weights) &&
+      (anyNA(y.Error) || any(is.infinite(y.Error)) || any(y.Error == 0))) {
+    fit.weights <- NULL
+    .throw_warning("Error column invalid, infinite, or contains 0, 'fit.weights' reset to NULL")
+  }
+
+  if (is.null(fit.weights)) {
+    fit.weights <- rep(1, length(y.Error))
+
+  } else if (inherits(fit.weights, "numeric")) {
+    ## numeric case
+    ## we automatically expand but throw a warning
+    .validate_length(fit.weights, length(y.Error), throw.error = FALSE)
 
     ## recycle fit weights ... so we get only the warning
     fit.weights <- rep(fit.weights, length.out = length(y.Error))
 
-  } else if (fit.weights[1]) {
-    fit.weights <- 1 / abs(y.Error) / sum(1 / abs(y.Error))
-
-    if (anyNA(fit.weights)) { # FIXME(mcol): infinities?
-      fit.weights <- rep(1, length(y.Error))
-      .throw_warning("Error column invalid or 0, 'fit.weights' ignored")
-    }
   } else {
-    fit.weights <- rep(1, length(y.Error))
+    ## the character case
+    .validate_args(
+      arg = fit.weights,
+      choices = c("inverse_var", "inverse_std", "norm_inverse_std"))
+    fit.weights <- switch(
+      fit.weights[1],
+      "inverse_std" = 1 / abs(y.Error),
+      "norm_inverse_std" = 1 / abs(y.Error) / sum(1 / abs(y.Error)),
+      1 / y.Error^2
+    )
   }
 
   #1.2 Prepare data sets regeneration points for MC Simulation
@@ -754,6 +784,7 @@ fit_DoseResponseCurve <- function(
 
       ## prepare what we can outside the loop
       a.start <-  b.start <- c.start <- numeric(length(a.MC))
+
       lower_bounds <- c(a = 0, b = 1e-6, c = 0)
       control_settings <-  minpack.lm::nls.lm.control(
         maxiter = 500)
@@ -1459,6 +1490,7 @@ fit_DoseResponseCurve <- function(
 
           if (inherits(De, "try-error")) De <- NA # nocov
 
+          ## report terminal line
           .report_fit(De, " | R = ", round(R, 2), " | Dc = ", round(Dc, 2))
 
           #OTOR MC -----
@@ -1589,7 +1621,7 @@ fit_DoseResponseCurve <- function(
       .get_coef(fit)
 
       ## get also R, this is not part of the fit
-      R <- 1-Q
+      R <- 1 - Q
 
       #calculate De
       De <- NA
@@ -1635,6 +1667,7 @@ fit_DoseResponseCurve <- function(
 
       if (inherits(De, "try-error")) De <- NA # nocov
 
+      ## report terminal line
       .report_fit(De, " | R = ", round(1-Q, 2), " | D63 = ", round(D63, 2))
 
       #OTORX MC -----
@@ -1686,7 +1719,7 @@ fit_DoseResponseCurve <- function(
             try <- try(
               suppressWarnings(stats::uniroot(
                 f = function(x, Q, D63, c, Di, LnTn) {
-                  fit.functionOTORX(x, Q, D63, c, Di, x)},
+                  fit.functionOTORX(x, Q, D63, c, Di)},
                 interval = c(-max(object[[1]]), 0),
                 Q = var.Q[i],
                 D63 = var.D63[i],

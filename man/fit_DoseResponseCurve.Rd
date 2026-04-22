@@ -10,7 +10,7 @@ fit_DoseResponseCurve(
   fit.method = c("EXP", "LIN", "QDR", "EXP OR LIN", "EXP+LIN", "EXP+EXP", "GOK", "OTOR",
     "OTORX"),
   fit.force_through_origin = FALSE,
-  fit.weights = TRUE,
+  fit.weights = c("inverse_var", "inverse_std", "norm_inverse_std"),
   fit.includingRepeatedRegPoints = TRUE,
   fit.NumberRegPoints = NULL,
   fit.NumberRegPointsReal = NULL,
@@ -55,10 +55,13 @@ allow to force the fitted function through the origin.
 For \code{method = "EXP+EXP"} the function will be fixed through
 the origin in either case, so this option will have no effect.}
 
-\item{fit.weights}{\link{logical} \link{numeric} (\emph{with default}):
-option whether the fitting is done with or without weights \code{TRUE/FALSE}.
-If the input is a \link{numeric} vector, is must of the same length as the
-number of data points to fit (usually the \code{LxTx} values). See details.}
+\item{fit.weights}{\link{character} \link{numeric} (\emph{with default}):
+weighting approach to be used for the fitting. Options are \code{inverse_var}
+(default), \code{inverse_std}, \code{norm_inverse_std}, a \link{numeric} vector, or \code{NULL}
+(no weighting).
+If the input is a numeric vector, is must of the same length as the
+number of data points to fit (usually the \code{LxTx} values). If the number differs,
+they are recycled or reduced to the desired length with a warning. See details.}
 
 \item{fit.includingRepeatedRegPoints}{\link{logical} (\emph{with default}):
 includes repeated points for fitting (\code{TRUE}/\code{FALSE}).}
@@ -257,12 +260,20 @@ as \eqn{R = 1 - Q}.
 be set to zero with the option \code{fit.force_through_origin = TRUE}}
 
 \strong{Fit weighting}
+\itemize{
+\item \code{"inverse_var"} (inverse variance weighting - current default)
+\deqn{w_i = \frac{1}{\sigma_i^2}}
+\item \code{"inverse_std"} (inverse standard error)
+\deqn{w_i = \frac{1}{\sigma_i}}
+\item \code{"norm_inverse_std"} (normalised inverse standard error weighting - default up to v1.2.1)
+\deqn{w_i = \frac{\frac{1}{\sigma_i}}{\Sigma{\frac{1}{\sigma_i}}}}
+\emph{Although used until Luminescence v1.2.1, this method is no longer
+recommended, as it does not align with the mathematical approach used in
+common nls fitting methods.}
+}
 
-If the option \code{fit.weights =  TRUE} is chosen, weights are calculated using
-provided signal errors (\eqn{\frac{L_x}{T_x}} error):
-\deqn{fit.weights = \frac{\frac{1}{error}}{\Sigma{\frac{1}{error}}}}
-
-If \code{fit.weights} is a \link{numeric} vector of correct length (same number of rows
+If the option \code{fit.weights =  NULL} all weights are set to 1, which disables
+weighting all along. If \code{fit.weights} is a \link{numeric} vector of correct length (same number of rows
 such as the input \code{LxTx}), then those fit weights are used. This comes in
 handy if you want to compare different fitting algorithms that have
 implemented fit weights differently.
@@ -286,7 +297,7 @@ Each error estimation is done with the function of the chosen fitting method.
 }
 }
 \section{Function version}{
- 1.4.6
+ 1.5.0
 }
 
 \examples{
@@ -372,6 +383,6 @@ based on the Lambert W function. Journal of Luminescence 225, 117333. \doi{10.10
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
-Michael Dietze, GFZ Potsdam (Germany) \cr
+Michael Dietze, RWTH Aachen (Germany) \cr
 Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 }

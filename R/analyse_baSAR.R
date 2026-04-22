@@ -155,7 +155,7 @@
 #' `pattern` \tab [Luminescence::read_BIN2R] \tab `TRUE` \tab select BIN-file by name pattern\cr
 #' `position` \tab [Luminescence::read_BIN2R] \tab `NULL` \tab limit import to a specific position\cr
 #' `background.count.distribution` \tab [Luminescence::calc_OSLLxTxRatio] \tab `"non-poisson"` \tab set assumed count distribution\cr
-#' `fit.weights` \tab [Luminescence::fit_DoseResponseCurve] \tab `TRUE` \tab enable/disable fit weights\cr
+#' `fit.weights` \tab [Luminescence::fit_DoseResponseCurve] \tab `NULL` \tab enable/disable fit weights\cr
 #' `fit.bounds` \tab [Luminescence::fit_DoseResponseCurve] \tab `TRUE` \tab enable/disable fit bounds\cr
 #' `n.MC` \tab [Luminescence::fit_DoseResponseCurve] \tab `100` \tab number of MC runs for error calculation\cr
 #' `plot_drc` \tab [Luminescence::plot_DoseResponseCurve] \tab `TRUE` \tab enable/disable dose response curve plot\cr
@@ -777,7 +777,7 @@ analyse_baSAR <- function(
     pattern = NULL,
 
     ## fit_DoseResponseCurve()
-    fit.weights = TRUE,
+    fit.weights = NULL,
     fit.bounds = TRUE,
     n.MC = 100,
 

@@ -49,7 +49,7 @@ test_that("input validation", {
   ## only two columns
   expect_warning(
       plot_GrowthCurve(LxTxData[, 1:2], verbose = FALSE),
-      "Error column invalid or 0, 'fit.weights' ignored")
+      "Error column invalid, infinite, or contains 0, 'fit.weights' reset to NULL")
 
   ## test case with all NA
   tmp_LxTx <- LxTxData
