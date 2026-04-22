@@ -131,9 +131,9 @@
 #' common nls fitting methods.*
 #'
 #' If the option `fit.weights =  NULL` all weights are set to 1, which disables
-#' weighting all along. If `fit.weights` is a [numeric] vector of correct length (same number of rows
-#' such as the input `LxTx`), then those fit weights are used. This comes in
-#' handy if you want to compare different fitting algorithms that have
+#' weighting all along. If `fit.weights` is a [numeric] vector of correct length
+#' (same number of rows as the input `LxTx`), then those fit weights are used.
+#' This may be helpful to compare different fitting algorithms that have
 #' implemented fit weights differently.
 #'
 #' **Error estimation using Monte Carlo simulation**
@@ -188,10 +188,8 @@
 #' @param fit.weights [character] [numeric] (*with default*):
 #' weighting approach to be used for the fitting. Options are `inverse_var`
 #' (default), `inverse_std`, `norm_inverse_std`, a [numeric] vector, or `NULL`
-#' (no weighting).
-#' If the input is a numeric vector, is must of the same length as the
-#' number of data points to fit (usually the `LxTx` values). If the number differs,
-#' they are recycled or reduced to the desired length with a warning. See details.
+#' (no weighting). If the input is a numeric vector, it must have length equal
+#' to the number of data points to fit (usually the `LxTx` values). See details.
 #'
 #' @param fit.includingRepeatedRegPoints [logical] (*with default*):
 #' includes repeated points for fitting (`TRUE`/`FALSE`).
@@ -528,12 +526,15 @@ fit_DoseResponseCurve <- function(
     fit.weights <- rep(1, length(y.Error))
 
   } else if (inherits(fit.weights, "numeric")) {
-    ## numeric case
-    ## we automatically expand but throw a warning
-    .validate_length(fit.weights, length(y.Error), throw.error = FALSE)
-
-    ## recycle fit weights ... so we get only the warning
-    fit.weights <- rep(fit.weights, length.out = length(y.Error))
+    ## if only a scalar is provided, we recycle it
+    if (length(fit.weights) == 1) {
+      fit.weights <- rep(fit.weights, length(y.Error))
+    } else {
+      ## we ask the user to provide weights of length corresponding to the
+      ## size of the input, but we keep only those we actually need
+      .validate_length(fit.weights, nrow(object))
+      fit.weights <- fit.weights[first.idx:last.idx]
+    }
 
   } else {
     ## the character case

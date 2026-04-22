@@ -58,10 +58,8 @@ the origin in either case, so this option will have no effect.}
 \item{fit.weights}{\link{character} \link{numeric} (\emph{with default}):
 weighting approach to be used for the fitting. Options are \code{inverse_var}
 (default), \code{inverse_std}, \code{norm_inverse_std}, a \link{numeric} vector, or \code{NULL}
-(no weighting).
-If the input is a numeric vector, is must of the same length as the
-number of data points to fit (usually the \code{LxTx} values). If the number differs,
-they are recycled or reduced to the desired length with a warning. See details.}
+(no weighting). If the input is a numeric vector, it must have length equal
+to the number of data points to fit (usually the \code{LxTx} values). See details.}
 
 \item{fit.includingRepeatedRegPoints}{\link{logical} (\emph{with default}):
 includes repeated points for fitting (\code{TRUE}/\code{FALSE}).}
@@ -273,9 +271,9 @@ common nls fitting methods.}
 }
 
 If the option \code{fit.weights =  NULL} all weights are set to 1, which disables
-weighting all along. If \code{fit.weights} is a \link{numeric} vector of correct length (same number of rows
-such as the input \code{LxTx}), then those fit weights are used. This comes in
-handy if you want to compare different fitting algorithms that have
+weighting all along. If \code{fit.weights} is a \link{numeric} vector of correct length
+(same number of rows as the input \code{LxTx}), then those fit weights are used.
+This may be helpful to compare different fitting algorithms that have
 implemented fit weights differently.
 
 \strong{Error estimation using Monte Carlo simulation}

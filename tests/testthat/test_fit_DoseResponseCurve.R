@@ -57,10 +57,8 @@ test_that("input validation", {
                "'fit.weights' should be one of 'inverse_var', 'inverse_std' or 'norm_inverse_std'")
   expect_error(fit_DoseResponseCurve(LxTxData, fit.weights = iris),
                "'fit.weights' should be of class 'character', 'numeric' or NULL")
-  SW({
-  expect_warning(fit_DoseResponseCurve(LxTxData, fit.weights = c(1,2)),
-               "'fit.weights' should have length 6")
-  })
+  expect_error(fit_DoseResponseCurve(LxTxData, fit.weights = c(1, 2)),
+               "'fit.weights' should have length 7")
   expect_error(fit_DoseResponseCurve(LxTxData,
                                      fit.includingRepeatedRegPoints = "error"),
                "'fit.includingRepeatedRegPoints' should be a single logical")
@@ -197,7 +195,7 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(fit_DoseResponseCurve(
     LxTxData,
     fit.method = "EXP",
-    fit.weights = 1/LxTxData[[3]][-1]^2,
+    fit.weights = 1 / LxTxData[[3]]^2,
     verbose = FALSE,
     n.MC = 10
   ), tolerance = snapshot.tolerance)
@@ -611,7 +609,7 @@ temp_OTORX_alt <-
       LxTxData,
       mode = "alternate",
       fit.method = "EXP",
-      fit.weights = 1/LxTxData[[3]]^2,
+      fit.weights = 1,
       verbose = FALSE
     ),
     "RLum.Results"
