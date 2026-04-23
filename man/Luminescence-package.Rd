@@ -62,7 +62,7 @@ Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2018)
 \item 05/2014-12/2019: The work of Sebastian Kreutzer as maintainer of the package was supported
 by LabEx LaScArBx (ANR - n. ANR-10-LABX-52).
 \item 01/2020-04/2022: Sebastian Kreutzer as maintainer of the package has received funding
-from the European Union’s Horizon 2020 research and innovation programme under
+from the European Union's Horizon 2020 research and innovation programme under
 the Marie Skłodowska-Curie grant agreement No 844457 (CREDit), and could continue
 maintaining the package.
 \item since 03/2023: Sebastian Kreutzer as maintainer of the package receives funding from the
