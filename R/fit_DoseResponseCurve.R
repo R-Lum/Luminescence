@@ -716,10 +716,8 @@ fit_DoseResponseCurve <- function(
 
     if (mode == "interpolation") {
       y <- object[1, 2]
-      lower <- 0
     } else if (mode == "extrapolation") {
       y <- 0
-      lower <- -1e06
     }
     upper <- max(object[, 1]) * 1.5
 
@@ -732,6 +730,20 @@ fit_DoseResponseCurve <- function(
         De.fs <- function(fit, x, y) {
           predict(fit, newdata = data.frame(x)) - y
         }
+
+        ## for uniroot() to work, the values at the endpoints (lower and upper)
+        ## must have opposite sign: therefore we check if the value at lower
+        ## is negative, and if not we decrease it until we find a negative
+        ## value or we see that the function not decreasing
+        lower <- 0
+        value.lower <- De.fs(fit, lower, y)
+        while (value.lower > 0 && lower > -1000) {
+          lower <- lower - 10
+          temp <- De.fs(fit, lower, y)
+          if (temp > value.lower) break
+          value.lower <- temp
+        }
+
         De.uniroot <- try(uniroot(De.fs, fit = fit, y = y,
                                   lower = lower, upper = upper),
                           silent = TRUE)
@@ -750,7 +762,7 @@ fit_DoseResponseCurve <- function(
     if (res$success)
       .report_fit(De)
     else
-      .report_fit_failure(fit.method, mode)
+      .report_fit_failure(fit.method, mode) # nocov
 
     ##set progressbar
     if(txtProgressBar){
