@@ -726,8 +726,6 @@ temp_OTORX_alt <-
       verbose = TRUE,
       n.MC = 10),
       "Fit failed for OTORX")
-
-
 })
 
 test_that("regression tests", {
@@ -805,6 +803,12 @@ test_that("regression tests", {
   ## issue 1541
   expect_output(fit_DoseResponseCurve(df_odd, fit.method = "QDR"),
                 "Fit: QDR (interpolation) | De = 35.08", fixed = TRUE)
+
+  ## issue 1543
+  expect_output(fit_DoseResponseCurve(LxTxData, fit.method = "LIN", n.MC = 1),
+                "Fit: LIN (interpolation) | De = 1673.02", fixed = TRUE)
+  expect_output(fit_DoseResponseCurve(LxTxData, fit.method = "QDR", n.MC = 1),
+                "Fit: QDR (interpolation) | De = 1646.83", fixed = TRUE)
 })
 
 test_that("test internal functions", {
