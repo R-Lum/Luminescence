@@ -160,10 +160,6 @@ test_that("weird LxTx values", {
       verbose = FALSE,
       fit.includingRepeatedRegPoints = FALSE),
     class = "RLum.Results")
-
-  ## issue 961
-  expect_output(fit_DoseResponseCurve(df_odd, fit.method = "QDR"),
-                "Fit failed for QDR (interpolation)", fixed = TRUE)
 })
 
 test_that("snapshot tests", {
@@ -805,6 +801,10 @@ test_that("regression tests", {
   expect_equal(sum(t_QNL84_2_unbleached$De[,c(1:2)]), expected = 126, tolerance = 0.01)
   expect_equal(sum(t_STRB87_1_bleached$De[,c(1:2)]), expected = 0.7, tolerance = 0.01)
   expect_equal(sum(t_STRB87_1_unbleached$De[,c(1:2)]), expected = 0.6, tolerance = 0.01)
+
+  ## issue 1541
+  expect_output(fit_DoseResponseCurve(df_odd, fit.method = "QDR"),
+                "Fit: QDR (interpolation) | De = 35.08", fixed = TRUE)
 })
 
 test_that("test internal functions", {

@@ -84,6 +84,9 @@ selecting different approaches for fit weights. `NULL` disables weights and
 `numeric` input enables the definition of own weights. The new standard
 approach is `1/sigma^2` (#1539).
 
+* The `"QDR"` fit method is now less likely to fail due to an invalid choice
+of the starting point for the `uniroot()` function (#1541).
+
 ### `plot_DoseResponseCurve()`
 
 * The error bars had been missing for `extrapolation` and `alternate` mode. 
