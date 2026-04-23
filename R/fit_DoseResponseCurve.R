@@ -554,7 +554,7 @@ fit_DoseResponseCurve <- function(
   first.idx <- ifelse(mode == "interpolation", 2, 1)
   last.idx <- fit.NumberRegPoints + 1
 
-  data.MC <- t(vapply(
+  data.MC <- t(matrix(vapply(
       X = first.idx:last.idx,
       FUN = function(x) {
         sample(rnorm(
@@ -566,7 +566,7 @@ fit_DoseResponseCurve <- function(
         replace = TRUE)
       },
       FUN.VALUE = numeric(n.MC)
-    ))
+    ), nrow = n.MC))
 
   if (mode == "interpolation") {
     #1.3 Do the same for the natural signal
