@@ -1431,13 +1431,14 @@ fit_DoseResponseCurve <- function(
     fit <- try(minpack.lm::nlsLM(
           formula = .toFormula(fit.functionOTOR, env = currn_env),
           data = data,
-          start = list(R = 0, Dc = b, N = b, Dint = 0),
+          start = list(R = 0, Dc = b, N = b, Dint = 0.1),
           weights = fit.weights,
           trace = FALSE,
           algorithm = "LM",
           lower = lower,
           upper = upper,
-          control = minpack.lm::nls.lm.control(maxiter = 500)
+          control = minpack.lm::nls.lm.control(
+            maxiter = 500)
         ), silent = TRUE)
 
     if (inherits(fit, "try-error")) {
