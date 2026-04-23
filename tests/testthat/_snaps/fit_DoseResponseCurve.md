@@ -2574,12 +2574,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1784.44249594]
+                  "value": [1784.44250169]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [55.26524217]
+                  "value": [55.26508636]
                 },
                 {
                   "type": "logical",
@@ -2604,17 +2604,17 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.35911494]
+                  "value": [0.35911486]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.36740004]
+                  "value": [0.36739887]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [6923.0218117]
+                  "value": [6923.0240645]
                 },
                 {
                   "type": "double",
