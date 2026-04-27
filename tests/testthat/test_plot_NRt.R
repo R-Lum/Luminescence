@@ -46,9 +46,11 @@ test_that("input validation", {
 
   data("ExampleData.RLum.Analysis", envir = environment())
   expect_error(plot_NRt(IRSAR.RF.Data),
-               "The time values for the natural signal don't match those for")
+               "The size of the regenerated signals (524) doesn't match that",
+               fixed = TRUE)
   expect_error(plot_NRt(merge_RLum.Analysis(list(obj, IRSAR.RF.Data))),
-               "The time values for the natural signal don't match those for")
+               "The size of the regenerated signals (1000, 5, 524) doesn't match",
+               fixed = TRUE)
 
   data(ExampleData.CW_OSL_Curve, envir = environment())
   expect_error(plot_NRt(ExampleData.CW_OSL_Curve),
