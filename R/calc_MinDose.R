@@ -606,16 +606,16 @@ calc_MinDose <- function(
   ##============================================================================##
 
   ## adds the sigmab error to each individual De error
-  combine_Errors <- function(data, err) {
+  combine_Errors <- function(data, sigmab) {
     if (log) {
       lcd  <- log(data[, 1]) * ifelse(invert, -1, 1)
       if (invert) {
         lcd <- lcd + x.offset
       }
-      lse <- sqrt((data[, 2] / data[, 1])^2 + err^2)
+      lse <- sqrt((data[, 2] / data[, 1])^2 + sigmab^2)
     } else {
       lcd <- data[, 1]
-      lse <- sqrt(data[, 2]^2 + err^2)
+      lse <- sqrt(data[, 2]^2 + sigmab^2)
     }
     cbind(lcd, lse)
   }
