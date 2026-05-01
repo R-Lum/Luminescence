@@ -15,7 +15,7 @@ convert_Second2Gray(
 input values, structure: data (\code{values[,1]}) and data error (\code{values [,2]})
 are required.}
 
-\item{dose.rate}{\linkS4class{RLum.Results}, \link{data.frame} or \link{numeric} (\strong{required}):
+\item{dose.rate}{\link[=RLum.Results-class]{RLum.Results}, \link{data.frame} or \link{numeric} (\strong{required}):
 for \code{RLum.Results}, it needs to be originated from \link{calc_SourceDoseRate};
 for \code{vector}, dose rate and dose rate error (in Gy/s).}
 

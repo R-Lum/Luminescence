@@ -14,7 +14,7 @@ write_RLum2CSV(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum} or a \link{list} of \code{RLum} objects (\strong{required}):
+\item{object}{\link[=RLum-class]{RLum} or a \link{list} of \code{RLum} objects (\strong{required}):
 objects to be written. Can be a \link{data.frame} if needed internally.}
 
 \item{path}{\link{character} (\emph{optional}):
@@ -33,7 +33,7 @@ is returned instead.}
 \item{compact}{\link{logical} (\emph{with default}): if \code{TRUE} (default) the output
 will be simpler but less comprehensive, that is not all elements in the
 objects will be fully broken down. This is in particular useful for writing
-\linkS4class{RLum.Results} objects to CSV files, as such objects can be rather complex
+\link[=RLum.Results-class]{RLum.Results} objects to CSV files, as such objects can be rather complex
 and not all information are needed in a CSV file or can be meaningfully
 translated to CSV format.}
 
@@ -45,8 +45,8 @@ The function returns either a CSV-file (or many of them) or for the
 option \code{export == FALSE} a list comprising objects of type \link{data.frame} and \link{matrix}
 }
 \description{
-This function exports \linkS4class{RLum}-objects to CSV-files using the R function
-\link[utils:write.table]{utils::write.table}. All \linkS4class{RLum}-objects are supported, but the
+This function exports \link[=RLum-class]{RLum}-objects to CSV-files using the R function
+\link[utils:write.table]{utils::write.table}. All \link[=RLum-class]{RLum}-objects are supported, but the
 export is lossy, i.e. the pure numerical values are exported only. Information
 that cannot be coerced to a \link{data.frame} or a \link{matrix} are discarded as well as
 metadata.
@@ -83,7 +83,7 @@ write_RLum2CSV(object)
 
 }
 \seealso{
-\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data}, \linkS4class{RLum.Results},
+\link[=RLum.Analysis-class]{RLum.Analysis}, \link[=RLum.Data-class]{RLum.Data}, \link[=RLum.Results-class]{RLum.Results},
 \link[utils:write.table]{utils::write.table}
 }
 \author{

@@ -19,9 +19,9 @@ analyse_FadingMeasurement(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis}, \link{data.frame} or \link{list} (\strong{required}):
+\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis}, \link{data.frame} or \link{list} (\strong{required}):
 input object with the measurement data. Alternatively, a \link{list} containing
-\linkS4class{RLum.Analysis} objects or a \link{data.frame} with three columns
+\link[=RLum.Analysis-class]{RLum.Analysis} objects or a \link{data.frame} with three columns
 (x = LxTx, y = LxTx error, z = time since irradiation) can be provided.
 Can also be a wide table, i.e. a \link{data.frame} with a number of columns
 divisible by 3 and where each triplet has the before mentioned column
@@ -86,7 +86,7 @@ the fading curve plot. For further plot customization please use the
 numerical output of the functions for own plots.}
 }
 \value{
-An \linkS4class{RLum.Results} object is returned:
+An \link[=RLum.Results-class]{RLum.Results} object is returned:
 
 Slot: \strong{@data}
 

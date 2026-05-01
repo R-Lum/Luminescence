@@ -7,7 +7,7 @@
 trim_RLum.Data(object, recordType = NULL, trim_range = NULL)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data} \linkS4class{RLum.Analysis} (\strong{required}): input object,
+\item{object}{\link[=RLum.Data-class]{RLum.Data} \link[=RLum.Analysis-class]{RLum.Analysis} (\strong{required}): input object,
 can be a \link{list} of objects. Please note that in the latter case the function works
 only isolated on each element of the \link{list}.}
 
@@ -25,16 +25,16 @@ is set (default), then all curves are trimmed to the same maximum length.}
 A trimmed object or \link{list} of such objects similar to the input objects
 }
 \description{
-Trim off the number of channels of \linkS4class{RLum.Data} objects of similar record type
+Trim off the number of channels of \link[=RLum.Data-class]{RLum.Data} objects of similar record type
 on the time domain. This function is useful in cases where objects have different lengths (short/longer
 measurement time) but should be analysed jointly by other functions.
 }
 \details{
 The function has two modes of operation:
 \enumerate{
-\item Single \linkS4class{RLum.Data} objects or a \link{list} of such objects:
+\item Single \link[=RLum.Data-class]{RLum.Data} objects or a \link{list} of such objects:
 the function is applied separately over each object.
-\item Multiple curves via \linkS4class{RLum.Analysis} or a \link{list} of such objects:
+\item Multiple curves via \link[=RLum.Analysis-class]{RLum.Analysis} or a \link{list} of such objects:
 in this mode, the function first determines the minimum number of channels
 for each category of records and then jointly processes them. For instance,
 if the object contains one TL curve with 100 channels and two OSL curves
@@ -74,7 +74,7 @@ nrow(c@records[[4]]@data)
 
 }
 \seealso{
-\linkS4class{RLum.Data}, \linkS4class{RLum.Analysis}
+\link[=RLum.Data-class]{RLum.Data}, \link[=RLum.Analysis-class]{RLum.Analysis}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

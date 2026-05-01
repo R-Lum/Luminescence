@@ -7,22 +7,22 @@
 convert_PSL2Risoe.BINfileData(object, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
+\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} (\strong{required}):
 \code{RLum.Analysis} object produced by \link{read_PSL2R}}
 
 \item{...}{currently not used.}
 }
 \value{
-Returns an S4 \linkS4class{Risoe.BINfileData} object that can be used to write a
+Returns an S4 \link[=Risoe.BINfileData-class]{Risoe.BINfileData} object that can be used to write a
 BIN file using \link{write_R2BIN}.
 }
 \description{
-Converts an \linkS4class{RLum.Analysis} object produced by the function \link{read_PSL2R} to
-a \linkS4class{Risoe.BINfileData} object \strong{(BETA)}.
+Converts an \link[=RLum.Analysis-class]{RLum.Analysis} object produced by the function \link{read_PSL2R} to
+a \link[=Risoe.BINfileData-class]{Risoe.BINfileData} object \strong{(BETA)}.
 
-This function converts an \linkS4class{RLum.Analysis} object that was produced
-by the \link{read_PSL2R} function to a \linkS4class{Risoe.BINfileData}.
-The \linkS4class{Risoe.BINfileData} can be used to write a Risø BIN file via
+This function converts an \link[=RLum.Analysis-class]{RLum.Analysis} object that was produced
+by the \link{read_PSL2R} function to a \link[=Risoe.BINfileData-class]{Risoe.BINfileData}.
+The \link[=Risoe.BINfileData-class]{Risoe.BINfileData} can be used to write a Risø BIN file via
 \link{write_R2BIN}.
 }
 \section{Function version}{
@@ -50,8 +50,8 @@ write_R2BIN(bin, "~/portableOSL.binx")
 
 }
 \seealso{
-\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve},
-\linkS4class{Risoe.BINfileData}
+\link[=RLum.Analysis-class]{RLum.Analysis}, \link[=RLum.Data.Curve-class]{RLum.Data.Curve},
+\link[=Risoe.BINfileData-class]{Risoe.BINfileData}
 }
 \author{
 Christoph Burow, University of Cologne (Germany)

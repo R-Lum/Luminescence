@@ -15,17 +15,17 @@ calc_TLLxTxRatio(
 )
 }
 \arguments{
-\item{Lx.data.signal}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
+\item{Lx.data.signal}{\link[=RLum.Data.Curve-class]{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
 TL data (x = temperature, y = counts) (TL signal).}
 
-\item{Lx.data.background}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\emph{optional}):
+\item{Lx.data.background}{\link[=RLum.Data.Curve-class]{RLum.Data.Curve} or \link{data.frame} (\emph{optional}):
 TL data (x = temperature, y = counts).
 If no data are provided no background subtraction is performed.}
 
-\item{Tx.data.signal}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
+\item{Tx.data.signal}{\link[=RLum.Data.Curve-class]{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
 TL data (x = temperature, y = counts) (TL test signal).}
 
-\item{Tx.data.background}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\emph{optional}):
+\item{Tx.data.background}{\link[=RLum.Data.Curve-class]{RLum.Data.Curve} or \link{data.frame} (\emph{optional}):
 TL data (x = temperature, y = counts).
 If no data are provided no background subtraction is performed.}
 
@@ -40,7 +40,7 @@ corresponding to the given temperature range are selected.}
 \item{...}{currently not used.}
 }
 \value{
-Returns an S4 object of type \linkS4class{RLum.Results}.
+Returns an S4 object of type \link[=RLum.Results-class]{RLum.Results}.
 Slot \code{data} contains a \link{list} with the following structure:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{$ LxTx.table
@@ -102,7 +102,7 @@ get_RLum(output)
 
 }
 \seealso{
-\linkS4class{RLum.Results}, \link{analyse_SAR.TL}
+\link[=RLum.Results-class]{RLum.Results}, \link{analyse_SAR.TL}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr

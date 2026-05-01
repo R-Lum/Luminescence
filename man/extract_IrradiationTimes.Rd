@@ -14,12 +14,12 @@ extract_IrradiationTimes(
 )
 }
 \arguments{
-\item{object}{\link{character}, \linkS4class{RLum.Analysis} or \link{list} (\strong{required}):
-path and file name of the XSYG file or an \linkS4class{RLum.Analysis}
+\item{object}{\link{character}, \link[=RLum.Analysis-class]{RLum.Analysis} or \link{list} (\strong{required}):
+path and file name of the XSYG file or an \link[=RLum.Analysis-class]{RLum.Analysis}
 produced by the function \link{read_XSYG2R};
-alternatively, a \code{list} of \linkS4class{RLum.Analysis} can be provided.
+alternatively, a \code{list} of \link[=RLum.Analysis-class]{RLum.Analysis} can be provided.
 
-\strong{Note:} If an \linkS4class{RLum.Analysis} is used, any input for
+\strong{Note:} If an \link[=RLum.Analysis-class]{RLum.Analysis} is used, any input for
 the arguments \code{file.BINX} and \code{recordType} will be ignored!}
 
 \item{file.BINX}{\link{character} (\emph{optional}):
@@ -31,7 +31,7 @@ folder as the original BINX-file.
 same measurement!}
 
 \item{recordType}{\link{character} (\emph{with default}):
-select relevant curves types from the XSYG file or \linkS4class{RLum.Analysis}
+select relevant curves types from the XSYG file or \link[=RLum.Analysis-class]{RLum.Analysis}
 object. As the XSYG-file format comprises much more information than usually
 needed for routine data analysis and allowed in the BINX-file format, only
 the relevant curves are selected by using the function
@@ -42,9 +42,9 @@ described for this function.
 argument only if you have reasons to do so.}
 
 \item{return_same_as_input}{\link{logical} (\emph{with default}):
-if set to \code{TRUE}, an updated \linkS4class{RLum.Analysis} object (or a \link{list} of
+if set to \code{TRUE}, an updated \link[=RLum.Analysis-class]{RLum.Analysis} object (or a \link{list} of
 it) is returned, with each record having gained two new info element fields:
-\code{IRR_TIME} and \code{TIMESCINCEIRR}. This makes the \linkS4class{RLum.Analysis} object
+\code{IRR_TIME} and \code{TIMESCINCEIRR}. This makes the \link[=RLum.Analysis-class]{RLum.Analysis} object
 compatible with external functions that search explicitly for \code{IRR_TIME}
 and \code{TIMESCINCEIRR}.}
 
@@ -56,13 +56,13 @@ whether all position values should be reset to a maximum value of 48 (see
 enable/disable the progress bar during import and export.}
 }
 \value{
-An \linkS4class{RLum.Results} object is returned with the
+An \link[=RLum.Results-class]{RLum.Results} object is returned with the
 following structure:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{.. $irr.times (data.frame)
 }\if{html}{\out{</div>}}
 
-If \code{return_same_as_input = TRUE} an \linkS4class{RLum.Analysis} or a \link{list} of it, but
+If \code{return_same_as_input = TRUE} an \link[=RLum.Analysis-class]{RLum.Analysis} or a \link{list} of it, but
 we updated info elements including irradiation times.
 
 If a BINX-file path and name is set, the output will be additionally
@@ -71,8 +71,8 @@ in the folder of the input BINX-file. Note that this will
 not work if the input object is a file path to an XSYG-file, instead of a
 link to only one file. In this case the argument input for \code{file.BINX} is ignored.
 
-In the self call mode (input is a \code{list} of \linkS4class{RLum.Analysis} objects
-a list of \linkS4class{RLum.Results} is returned.
+In the self call mode (input is a \code{list} of \link[=RLum.Analysis-class]{RLum.Analysis} objects
+a list of \link[=RLum.Results-class]{RLum.Results} is returned.
 }
 \description{
 Extracts irradiation times, dose and times since last irradiation, from a
@@ -103,7 +103,7 @@ except for \code{TL}, where the function tries to extract meta information about
 }
 \note{
 The function can be also used to extract irradiation times from
-\linkS4class{RLum.Analysis} objects imported via \link{read_BIN2R} with option
+\link[=RLum.Analysis-class]{RLum.Analysis} objects imported via \link{read_BIN2R} with option
 \code{fastForward = TRUE}, or in combination with
 \link{Risoe.BINfileData2RLum.Analysis}.
 Unfortunately the timestamp might not be very precise (or even invalid),
@@ -180,8 +180,8 @@ Duller, G.A.T., 2015. The Analyst software package for luminescence data: overvi
 recent improvements. Ancient TL 33, 35-42. \doi{10.26034/la.atl.2015.489}
 }
 \seealso{
-\linkS4class{RLum.Analysis}, \linkS4class{RLum.Results},
-\linkS4class{Risoe.BINfileData},
+\link[=RLum.Analysis-class]{RLum.Analysis}, \link[=RLum.Results-class]{RLum.Results},
+\link[=Risoe.BINfileData-class]{Risoe.BINfileData},
 \link{read_XSYG2R}, \link{read_BIN2R}, \link{write_R2BIN}
 }
 \author{

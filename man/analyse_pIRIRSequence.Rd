@@ -17,8 +17,8 @@ analyse_pIRIRSequence(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} or \link{list} of
-\linkS4class{RLum.Analysis} objects (\strong{required}):
+\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} or \link{list} of
+\link[=RLum.Analysis-class]{RLum.Analysis} objects (\strong{required}):
 input object containing data for analysis.
 If a \link{list} is provided the functions tries to iterate over each element
 in the list.}
@@ -61,7 +61,7 @@ the size) and \code{mtext.outer} (additional text on the plot area) can be passe
 is a list, \code{main} can be passed as \link{vector} or \link{list}.}
 }
 \value{
-Plots (\emph{optional}) and an \linkS4class{RLum.Results} object is
+Plots (\emph{optional}) and an \link[=RLum.Results-class]{RLum.Results} object is
 returned containing the following elements:
 
 \tabular{lll}{
@@ -77,7 +77,7 @@ The output should be accessed using the function \link{get_RLum}.
 }
 \description{
 The function performs an analysis of post-IR IRSL sequences including curve
-fitting on \linkS4class{RLum.Analysis} objects.
+fitting on \link[=RLum.Analysis-class]{RLum.Analysis} objects.
 }
 \details{
 To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement
@@ -98,7 +98,7 @@ additional hotbleach) such curves must be removed before using the function.
 
 \strong{If the input is a \code{list}}
 
-If the input is a list of \linkS4class{RLum.Analysis} objects, every argument
+If the input is a list of \link[=RLum.Analysis-class]{RLum.Analysis} objects, every argument
 can be provided as list to allow
 for different sets of parameters for every single input element.
 For further information see \link{analyse_SAR.CWOSL}.
@@ -177,7 +177,7 @@ extracts. Radiation Measurements 43, 1474-1486.
 \seealso{
 \link{analyse_SAR.CWOSL}, \link{calc_OSLLxTxRatio},
 \link{plot_DoseResponseCurve}, \link{fit_DoseResponseCurve}
-\linkS4class{RLum.Analysis}, \linkS4class{RLum.Results},
+\link[=RLum.Analysis-class]{RLum.Analysis}, \link[=RLum.Results-class]{RLum.Results},
 \link{get_RLum}
 }
 \author{

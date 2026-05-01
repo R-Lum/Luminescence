@@ -16,7 +16,7 @@ calc_MaxDose(
 )
 }
 \arguments{
-\item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
+\item{data}{\link[=RLum.Results-class]{RLum.Results} or \link{data.frame} (\strong{required}):
 for \link{data.frame}: two columns with \code{(data[, 1])} and De error \code{(data[, 2])}.}
 
 \item{sigmab}{\link{numeric} (\strong{required}):

@@ -7,26 +7,26 @@
 merge_RLum.Analysis(objects)
 }
 \arguments{
-\item{objects}{\link{list} of \linkS4class{RLum.Analysis} (\strong{required}):
+\item{objects}{\link{list} of \link[=RLum.Analysis-class]{RLum.Analysis} (\strong{required}):
 list of S4 objects of class \code{RLum.Analysis}. Furthermore other objects of
-class \linkS4class{RLum} can be added, see details.}
+class \link[=RLum-class]{RLum} can be added, see details.}
 }
 \value{
-Returns an \linkS4class{RLum.Analysis} object ordered according to the order
+Returns an \link[=RLum.Analysis-class]{RLum.Analysis} object ordered according to the order
 provided with the input list.
 }
 \description{
-This function simply allows to merge \linkS4class{RLum.Analysis}
-objects. Moreover, other \linkS4class{RLum.Data} objects can be added
-to an existing \linkS4class{RLum.Analysis} object. Supported objects
-to be added are: \linkS4class{RLum.Data.Curve},
-\linkS4class{RLum.Data.Spectrum} and
-\linkS4class{RLum.Data.Image}.
+This function simply allows to merge \link[=RLum.Analysis-class]{RLum.Analysis}
+objects. Moreover, other \link[=RLum.Data-class]{RLum.Data} objects can be added
+to an existing \link[=RLum.Analysis-class]{RLum.Analysis} object. Supported objects
+to be added are: \link[=RLum.Data.Curve-class]{RLum.Data.Curve},
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} and
+\link[=RLum.Data.Image-class]{RLum.Data.Image}.
 }
 \note{
 The information for the slot 'protocol' is taken from the first
-\linkS4class{RLum.Analysis} object in the input list. Therefore at
-least one object of type \linkS4class{RLum.Analysis} has to be provided.
+\link[=RLum.Analysis-class]{RLum.Analysis} object in the input list. Therefore at
+least one object of type \link[=RLum.Analysis-class]{RLum.Analysis} has to be provided.
 }
 \section{Function version}{
  0.2.1
@@ -45,10 +45,10 @@ temp.merged <- merge_RLum.Analysis(list(curve, IRSAR.RF.Data, IRSAR.RF.Data))
 
 }
 \seealso{
-\link{merge_RLum}, \linkS4class{RLum.Analysis},
-\linkS4class{RLum.Data.Curve},
-\linkS4class{RLum.Data.Spectrum},
-\linkS4class{RLum.Data.Image}, \linkS4class{RLum}
+\link{merge_RLum}, \link[=RLum.Analysis-class]{RLum.Analysis},
+\link[=RLum.Data.Curve-class]{RLum.Data.Curve},
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum},
+\link[=RLum.Data.Image-class]{RLum.Data.Image}, \link[=RLum-class]{RLum}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

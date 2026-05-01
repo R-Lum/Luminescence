@@ -21,7 +21,7 @@ plot_DRTResults(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
+\item{object}{\link[=RLum.Results-class]{RLum.Results} or \link{data.frame} (\strong{required}):
 input values containing at least De and De error. To plot
 more than one data set in one figure, a \code{list} of the individual data
 sets must be provided (e.g. \code{list(dataset.1, dataset.2)}).}

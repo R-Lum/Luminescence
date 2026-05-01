@@ -3,9 +3,9 @@
 \name{ExampleData.RF70Curves}
 \alias{ExampleData.RF70Curves}
 \alias{RF70Curves}
-\title{RF70 Example data as \linkS4class{RLum.Analysis} objects}
+\title{RF70 Example data as \link[=RLum.Analysis-class]{RLum.Analysis} objects}
 \format{
-\code{BDX16648}: \linkS4class{RLum.Analysis} with two IR-RF curves as \linkS4class{RLum.Data.Curve} objects
+\code{BDX16648}: \link[=RLum.Analysis-class]{RLum.Analysis} with two IR-RF curves as \link[=RLum.Data.Curve-class]{RLum.Data.Curve} objects
 }
 \source{
 \strong{RF70Curves}
@@ -20,7 +20,7 @@ Reference: \tab Kreutzer et al. (2018)
 }
 \description{
 Collection two curves from Kreutzer et al. (2018) measured using the RF70 protocol
-(Frouin et al., 2017) as \linkS4class{RLum.Analysis} objects.
+(Frouin et al., 2017) as \link[=RLum.Analysis-class]{RLum.Analysis} objects.
 }
 \section{Version}{
  0.1.0

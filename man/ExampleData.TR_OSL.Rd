@@ -4,10 +4,10 @@
 \alias{ExampleData.TR_OSL}
 \title{Example TR-OSL data}
 \format{
-One \linkS4class{RLum.Data.Curve} dataset imported using the function \link{read_XSYG2R}
+One \link[=RLum.Data.Curve-class]{RLum.Data.Curve} dataset imported using the function \link{read_XSYG2R}
 
 \describe{
-\code{ExampleData.TR_OSL}: A single \linkS4class{RLum.Data.Curve} object with the TR-OSL data
+\code{ExampleData.TR_OSL}: A single \link[=RLum.Data.Curve-class]{RLum.Data.Curve} object with the TR-OSL data
 }
 }
 \description{

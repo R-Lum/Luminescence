@@ -18,21 +18,21 @@ set_Risoe.BINfileData(
 \item{.RESERVED}{x}
 }
 \value{
-A \linkS4class{Risoe.BINfileData} object.
+A \link[=Risoe.BINfileData-class]{Risoe.BINfileData} object.
 }
 \description{
 The function provides a generalised access point for specific
-\linkS4class{Risoe.BINfileData} objects. Depending on the input object, the
+\link[=Risoe.BINfileData-class]{Risoe.BINfileData} objects. Depending on the input object, the
 corresponding function will be selected.
 Allowed arguments can be found in the documentations of the corresponding
-\linkS4class{Risoe.BINfileData} class.
+\link[=Risoe.BINfileData-class]{Risoe.BINfileData} class.
 }
 \section{Function version}{
  0.1
 }
 
 \seealso{
-\linkS4class{Risoe.BINfileData}
+\link[=Risoe.BINfileData-class]{Risoe.BINfileData}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

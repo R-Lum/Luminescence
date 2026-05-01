@@ -8,8 +8,8 @@ hyperbolic modulation conditions}
 convert_CW2pHMi(object, delta = NULL, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
-\linkS4class{RLum.Data.Curve} object or a \code{data.frame} with measured
+\item{object}{\link[=RLum.Data.Curve-class]{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
+\link[=RLum.Data.Curve-class]{RLum.Data.Curve} object or a \code{data.frame} with measured
 curve data of type stimulation time (t) (\code{object[, 1]}) and measured counts
 (cts) (\code{object[, 2]}).}
 
@@ -193,7 +193,7 @@ LM-OSL curves. Radiation Measurements 32, 141-145.
 }
 \seealso{
 \link{convert_CW2pLM}, \link{convert_CW2pLMi}, \link{convert_CW2pPMi},
-\link{fit_LMCurve}, \link{lm}, \linkS4class{RLum.Data.Curve}
+\link{fit_LMCurve}, \link{lm}, \link[=RLum.Data.Curve-class]{RLum.Data.Curve}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr

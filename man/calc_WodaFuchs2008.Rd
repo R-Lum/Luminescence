@@ -7,7 +7,7 @@
 calc_WodaFuchs2008(data, breaks = NULL, plot = TRUE, ...)
 }
 \arguments{
-\item{data}{\link{data.frame} \link{vector}, or \linkS4class{RLum.Results} object (\strong{required}):
+\item{data}{\link{data.frame} \link{vector}, or \link[=RLum.Results-class]{RLum.Results} object (\strong{required}):
 for \link{data.frame}: either two columns: De (\code{values[,1]}) and De error
 (\code{values[,2]}), or one: De (\code{values[,1]}). If a numeric vector or a
 single-column data frame is provided, De error is set to \code{NA}.

@@ -6,7 +6,7 @@
 \alias{as}
 \title{as() - RLum-object coercion}
 \arguments{
-\item{from}{\linkS4class{RLum}, \link{list}, \link{data.frame}, \link{matrix} (\strong{required}):
+\item{from}{\link[=RLum-class]{RLum}, \link{list}, \link{data.frame}, \link{matrix} (\strong{required}):
 object to be coerced from}
 
 \item{to}{\link{character} (\strong{required}):
@@ -24,16 +24,16 @@ for \verb{[RLum.Data.Spectrum-class]}
 for \verb{[RLum.Results-class]}
 }
 \details{
-\strong{\linkS4class{RLum.Analysis}}
+\strong{\link[=RLum.Analysis-class]{RLum.Analysis}}
 
 \tabular{ll}{
 \strong{from} \tab \strong{to}\cr
 \code{list} \tab \code{list}\cr
 }
 
-Given that the \link{list} consists of \linkS4class{RLum.Analysis} objects.
+Given that the \link{list} consists of \link[=RLum.Analysis-class]{RLum.Analysis} objects.
 
-\strong{\linkS4class{RLum.Data.Curve}}
+\strong{\link[=RLum.Data.Curve-class]{RLum.Data.Curve}}
 
 \tabular{ll}{
 \strong{from} \tab \strong{to}\cr
@@ -42,7 +42,7 @@ Given that the \link{list} consists of \linkS4class{RLum.Analysis} objects.
 \code{matrix} \tab \code{matrix}
 }
 
-\strong{\linkS4class{RLum.Data.Image}}
+\strong{\link[=RLum.Data.Image-class]{RLum.Data.Image}}
 
 \tabular{ll}{
 \strong{from} \tab \strong{to}\cr
@@ -50,7 +50,7 @@ Given that the \link{list} consists of \linkS4class{RLum.Analysis} objects.
 \code{matrix} \tab \code{matrix}
 }
 
-\strong{\linkS4class{RLum.Data.Spectrum}}
+\strong{\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum}}
 
 \tabular{ll}{
 \strong{from} \tab \strong{to}\cr
@@ -59,14 +59,14 @@ Given that the \link{list} consists of \linkS4class{RLum.Analysis} objects.
 \code{list} \tab \code{list}
 }
 
-\strong{\linkS4class{RLum.Results}}
+\strong{\link[=RLum.Results-class]{RLum.Results}}
 
 \tabular{ll}{
 \strong{from} \tab \strong{to}\cr
 \code{list} \tab \code{list}\cr
 }
 
-Given that the \link{list} consists of \linkS4class{RLum.Results} objects.
+Given that the \link{list} consists of \link[=RLum.Results-class]{RLum.Results} objects.
 }
 \note{
 Due to the complex structure of the \code{RLum} objects itself a coercing to standard

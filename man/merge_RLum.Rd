@@ -7,33 +7,33 @@
 merge_RLum(objects, ...)
 }
 \arguments{
-\item{objects}{\link{list} of \linkS4class{RLum} (\strong{required}):
+\item{objects}{\link{list} of \link[=RLum-class]{RLum} (\strong{required}):
 list of S4 object of class \code{RLum}.}
 
 \item{...}{further arguments that one might want to pass to the specific merge function}
 }
 \value{
-Returns an \linkS4class{RLum.Analysis} object of class if any of the inputs is
+Returns an \link[=RLum.Analysis-class]{RLum.Analysis} object of class if any of the inputs is
 of that class. Otherwise, it returns an object of the same type as the
 input.
 }
 \description{
 The function provides a generalised access point for merging specific
-\linkS4class{RLum} objects. Depending on the input object, the
+\link[=RLum-class]{RLum} objects. Depending on the input object, the
 corresponding merge function will be selected.  Allowed arguments can be
 found in the documentation of each merge function.
 Empty list elements (\code{NULL}) are automatically removed from the input list.
 
 \tabular{lll}{
 \strong{object} \tab \tab \strong{corresponding merge function} \cr
-\linkS4class{RLum.Data.Curve} \tab -> \tab \link{merge_RLum.Data.Curve} \cr
-\linkS4class{RLum.Data.Spectrum} \tab -> \tab \link{merge_RLum.Data.Spectrum} \cr
-\linkS4class{RLum.Analysis} \tab -> \tab \link{merge_RLum.Analysis} \cr
-\linkS4class{RLum.Results} \tab -> \tab \link{merge_RLum.Results}
+\link[=RLum.Data.Curve-class]{RLum.Data.Curve} \tab -> \tab \link{merge_RLum.Data.Curve} \cr
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} \tab -> \tab \link{merge_RLum.Data.Spectrum} \cr
+\link[=RLum.Analysis-class]{RLum.Analysis} \tab -> \tab \link{merge_RLum.Analysis} \cr
+\link[=RLum.Results-class]{RLum.Results} \tab -> \tab \link{merge_RLum.Results}
 }
 }
 \note{
-So far merging of \linkS4class{RLum.Data.Image} objects is not supported.
+So far merging of \link[=RLum.Data.Image-class]{RLum.Data.Image} objects is not supported.
 }
 \section{Function version}{
  0.1.3
@@ -57,9 +57,9 @@ temp.merged <- get_RLum(merge_RLum(objects = list(temp1, temp2)))
 
 }
 \seealso{
-\linkS4class{RLum.Data.Curve},
-\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis},
-\linkS4class{RLum.Results}
+\link[=RLum.Data.Curve-class]{RLum.Data.Curve},
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum}, \link[=RLum.Analysis-class]{RLum.Analysis},
+\link[=RLum.Results-class]{RLum.Results}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

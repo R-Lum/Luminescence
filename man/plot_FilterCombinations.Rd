@@ -36,7 +36,7 @@ Supported are \code{main}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \
 For non-common plotting parameters, see the details section.}
 }
 \value{
-Returns an S4 object of type \linkS4class{RLum.Results}.
+Returns an S4 object of type \link[=RLum.Results-class]{RLum.Results}.
 
 \strong{@data}
 
@@ -161,7 +161,7 @@ plot_FilterCombinations(filters = list(filter1, filter2), interactive = TRUE)
 
 }
 \seealso{
-\linkS4class{RLum.Results}, \link{approx}
+\link[=RLum.Results-class]{RLum.Results}, \link{approx}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

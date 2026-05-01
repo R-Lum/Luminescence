@@ -12,7 +12,7 @@ plot_MoranScatterplot(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Results} or \link{numeric} (\strong{required}):
+\item{object}{\link[=RLum.Results-class]{RLum.Results} or \link{numeric} (\strong{required}):
 containing a numerical vector of length 100,
 representing one or more measurement discs ("positions") in a reader.
 Each element in the vector represents one grain hole location on a disc.}

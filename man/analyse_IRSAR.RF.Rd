@@ -20,9 +20,9 @@ analyse_IRSAR.RF(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} or a \link{list} of \linkS4class{RLum.Analysis}-objects (\strong{required}):
+\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} or a \link{list} of \link[=RLum.Analysis-class]{RLum.Analysis}-objects (\strong{required}):
 input object containing data for protocol analysis. The function expects to
-find at least two curves in the \linkS4class{RLum.Analysis} object: (1) \code{RF_nat}, (2) \code{RF_reg}.
+find at least two curves in the \link[=RLum.Analysis-class]{RLum.Analysis} object: (1) \code{RF_nat}, (2) \code{RF_reg}.
 If a \code{list} is provided as input all other parameters can be provided as
 \code{list} as well to gain full control.}
 
@@ -158,7 +158,7 @@ vertical sliding range. It can be added as systematic error to the final De erro
 
 \strong{slot:} \strong{\verb{@info}}
 
-The original function call (\link[methods:LanguageClasses]{methods::language}-object)
+The original function call (\link[methods:language-class]{methods::language}-object)
 
 The output (\code{data}) should be accessed using the function \link{get_RLum}.
 
@@ -456,7 +456,7 @@ Infrared radiofluorescence (IR-RF) dating: A review. Quaternary Geochronology 64
 101155. \doi{10.1016/j.quageo.2021.101155}
 }
 \seealso{
-\linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}, \link{get_RLum},
+\link[=RLum.Analysis-class]{RLum.Analysis}, \link[=RLum.Results-class]{RLum.Results}, \link{get_RLum},
 \link{nls}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}, \link[parallel:mclapply]{parallel::mclapply}, \link{ExampleData.RF70Curves}
 }
 \author{

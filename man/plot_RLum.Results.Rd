@@ -7,7 +7,7 @@
 plot_RLum.Results(object, single = TRUE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Results} (\strong{required}):
+\item{object}{\link[=RLum.Results-class]{RLum.Results} (\strong{required}):
 S4 object of class \code{RLum.Results}}
 
 \item{single}{\link{logical} (\emph{with default}):

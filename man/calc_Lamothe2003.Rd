@@ -17,10 +17,10 @@ calc_Lamothe2003(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Results} \link{data.frame} (\strong{required}):
+\item{object}{\link[=RLum.Results-class]{RLum.Results} \link{data.frame} (\strong{required}):
 Input data for applying the fading correction, can be (1) a \link{data.frame}
 with three columns (\code{dose}, \code{LxTx}, \verb{LxTx error}; see details), or (2) an
-\linkS4class{RLum.Results} object created by \link{analyse_SAR.CWOSL} or
+\link[=RLum.Results-class]{RLum.Results} object created by \link{analyse_SAR.CWOSL} or
 \link{analyse_pIRIRSequence}.}
 
 \item{dose_rate.envir}{\link{numeric} vector of length 2 (\strong{required}):
@@ -60,7 +60,7 @@ terminal.}
 \item{...}{further arguments passed to \link{plot_DoseResponseCurve}.}
 }
 \value{
-The function returns an \linkS4class{RLum.Results} object and the graphical
+The function returns an \link[=RLum.Results-class]{RLum.Results} object and the graphical
 output produced by \link{plot_DoseResponseCurve}.
 
 -----------------------------------\cr

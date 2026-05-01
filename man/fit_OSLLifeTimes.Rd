@@ -17,7 +17,7 @@ fit_OSLLifeTimes(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Analysis}, \link{data.frame} or \link{matrix} (\strong{required}):
+\item{object}{\link[=RLum.Data.Curve-class]{RLum.Data.Curve}, \link[=RLum.Analysis-class]{RLum.Analysis}, \link{data.frame} or \link{matrix} (\strong{required}):
 Input object containing the data to be analysed. All objects can be provided also as list for an automated
 processing. Please note: \code{NA} values are automatically removed and the dataset should comprise at least 5 data points (possibly more if \code{n.components} is
 set to a value greater than 1)}
@@ -51,7 +51,7 @@ terminal.}
 
 \item{...}{parameters passed to \link{plot.default} to control the plot output, supported are:
 \code{main}, \code{xlab}, \code{ylab}, \code{log}, \code{xlim}, \code{ylim}, \code{col}, \code{lty}, \code{legend.pos}, \code{legend.text}. If the input
-object is of type \linkS4class{RLum.Analysis} this arguments can be provided as a \link{list}.}
+object is of type \link[=RLum.Analysis-class]{RLum.Analysis} this arguments can be provided as a \link{list}.}
 }
 \value{
 -----------------------------------\cr
@@ -140,7 +140,7 @@ with \eqn{w = 1} for unweighted regression analysis (\code{method_control = list
 
 \tabular{lll}{
 \strong{Parameter} \tab \strong{Type} \tab \strong{Description}\cr
-\code{p} \tab \link{numeric} \tab controls the probability for the F statistic reference values. For a significance level of 5 \% a value of 0.95 (the default) should be added, for 1 \%, a value of 0.99 is sufficient: 1 > p > 0 (cf. \link[stats:Fdist]{stats::FDist})\cr
+\code{p} \tab \link{numeric} \tab controls the probability for the F statistic reference values. For a significance level of 5 \% a value of 0.95 (the default) should be added, for 1 \%, a value of 0.99 is sufficient: 1 > p > 0 (cf. \link[stats:FDist]{stats::FDist})\cr
 \code{seed} \tab \link{numeric} \tab set the seed for the random number generator, provide a value here to get reproducible results \cr
 \code{DEoptim.trace} \tab \link{logical} \tab enable/disable the tracing of the differential evolution (cf. \link[DEoptim:DEoptim.control]{DEoptim::DEoptim.control}) \cr
 \code{DEoptim.itermax} \tab \link{logical} \tab control the number of the allowed generations (cf. \link[DEoptim:DEoptim.control]{DEoptim::DEoptim.control}) \cr

@@ -41,8 +41,8 @@ replace_metadata(object, ...) <- value
 \S4method{replace_metadata}{Risoe.BINfileData}(object, info_element, subset = NULL) <- value
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis},
-\linkS4class{Risoe.BINfileData} (\strong{required}):
+\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis},
+\link[=Risoe.BINfileData-class]{Risoe.BINfileData} (\strong{required}):
 object of class \code{RLum.Analysis} or \code{Risoe.BINfileData} to manipulate.}
 
 \item{...}{further arguments passed to the specific class method}
@@ -63,28 +63,28 @@ of elements.}
 enable/disable output to the terminal.}
 }
 \description{
-Generic functions for manipulation of metadata in \linkS4class{Risoe.BINfileData},
-\linkS4class{RLum.Analysis} and \linkS4class{RLum.Data} objects.
+Generic functions for manipulation of metadata in \link[=Risoe.BINfileData-class]{Risoe.BINfileData},
+\link[=RLum.Analysis-class]{RLum.Analysis} and \link[=RLum.Data-class]{RLum.Data} objects.
 }
 \section{Functions}{
 \itemize{
-\item \code{add_metadata(RLum.Analysis) <- value}: Adds metadata to \linkS4class{RLum.Analysis} objects.
+\item \code{add_metadata(RLum.Analysis) <- value}: Adds metadata to \link[=RLum.Analysis-class]{RLum.Analysis} objects.
 
-\item \code{rename_metadata(RLum.Analysis) <- value}: Renames a metadata entry of \linkS4class{RLum.Analysis} objects.
+\item \code{rename_metadata(RLum.Analysis) <- value}: Renames a metadata entry of \link[=RLum.Analysis-class]{RLum.Analysis} objects.
 
-\item \code{replace_metadata(RLum.Analysis) <- value}: Replaces or removes metadata of \linkS4class{RLum.Analysis} objects.
+\item \code{replace_metadata(RLum.Analysis) <- value}: Replaces or removes metadata of \link[=RLum.Analysis-class]{RLum.Analysis} objects.
 
-\item \code{add_metadata(RLum.Data) <- value}: Add metadata entries to \linkS4class{RLum.Data} objects.
+\item \code{add_metadata(RLum.Data) <- value}: Add metadata entries to \link[=RLum.Data-class]{RLum.Data} objects.
 
-\item \code{rename_metadata(RLum.Data) <- value}: Rename a metadata entry of \linkS4class{RLum.Data} objects.
+\item \code{rename_metadata(RLum.Data) <- value}: Rename a metadata entry of \link[=RLum.Data-class]{RLum.Data} objects.
 
-\item \code{replace_metadata(RLum.Data) <- value}: Replaces or removes metadata of \linkS4class{RLum.Data} objects.
+\item \code{replace_metadata(RLum.Data) <- value}: Replaces or removes metadata of \link[=RLum.Data-class]{RLum.Data} objects.
 
-\item \code{add_metadata(Risoe.BINfileData) <- value}: Adds metadata to \linkS4class{Risoe.BINfileData} objects.
+\item \code{add_metadata(Risoe.BINfileData) <- value}: Adds metadata to \link[=Risoe.BINfileData-class]{Risoe.BINfileData} objects.
 
-\item \code{rename_metadata(Risoe.BINfileData) <- value}: Renames a metadata entry of \linkS4class{Risoe.BINfileData} objects.
+\item \code{rename_metadata(Risoe.BINfileData) <- value}: Renames a metadata entry of \link[=Risoe.BINfileData-class]{Risoe.BINfileData} objects.
 
-\item \code{replace_metadata(Risoe.BINfileData) <- value}: Replaces or removes metadata of \linkS4class{Risoe.BINfileData} objects.
+\item \code{replace_metadata(Risoe.BINfileData) <- value}: Replaces or removes metadata of \link[=Risoe.BINfileData-class]{Risoe.BINfileData} objects.
 
 }}
 \examples{
@@ -119,8 +119,8 @@ CWOSL.SAR.Data
 
 }
 \seealso{
-\linkS4class{RLum.Data}, \linkS4class{RLum.Analysis},
-\linkS4class{Risoe.BINfileData}
+\link[=RLum.Data-class]{RLum.Data}, \link[=RLum.Analysis-class]{RLum.Analysis},
+\link[=Risoe.BINfileData-class]{Risoe.BINfileData}
 }
 \author{
 Marco Colombo, Institute of Geography, Heidelberg University (Germany)

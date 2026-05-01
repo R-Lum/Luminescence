@@ -26,7 +26,7 @@
 \S4method{show}{Risoe.BINfileData}(object)
 }
 \arguments{
-\item{object}{\linkS4class{RLum}, \linkS4class{Risoe.BINfileData} (\strong{required}):
+\item{object}{\link[=RLum-class]{RLum}, \link[=Risoe.BINfileData-class]{Risoe.BINfileData} (\strong{required}):
 object of class \code{RLum} or \code{Risoe.BINfileData}.}
 }
 \description{

@@ -20,7 +20,7 @@ enable/disable output to the terminal.}
 \item{...}{not in use, for compatibility reasons only}
 }
 \value{
-Returns an \linkS4class{RLum.Data.Image} object. Results are
+Returns an \link[=RLum.Data.Image-class]{RLum.Data.Image} object. Results are
 returned as a list when multiple files are processed or \code{file} is a list.
 }
 \description{
@@ -41,7 +41,7 @@ image <- read_TIFF2R(file)
 
 }
 \seealso{
-\link[tiff:readTIFF]{tiff::readTIFF}, \linkS4class{RLum.Data.Image}
+\link[tiff:readTIFF]{tiff::readTIFF}, \link[=RLum.Data.Image-class]{RLum.Data.Image}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

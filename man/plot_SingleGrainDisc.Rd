@@ -17,7 +17,7 @@ plot_SingleGrainDisc(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Results} or \link{numeric} (\strong{required}):
+\item{object}{\link[=RLum.Results-class]{RLum.Results} or \link{numeric} (\strong{required}):
 the values to show, should have length 100.}
 
 \item{show_coordinates}{\link{logical} (\emph{with default}): Show coordinates (1..10)

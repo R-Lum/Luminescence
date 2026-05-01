@@ -135,7 +135,7 @@ particular \code{mode} for the De calculation mode, \code{fit.force_through_orig
 and \code{fit.bounds}).}
 }
 \value{
-An \linkS4class{RLum.Results} object is returned:
+An \link[=RLum.Results-class]{RLum.Results} object is returned:
 
 Slot: \strong{@data}\cr
 

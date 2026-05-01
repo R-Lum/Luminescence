@@ -21,7 +21,7 @@ analyse_Al2O3C_Measurement(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} (\strong{required}):  measurement input}
+\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} (\strong{required}):  measurement input}
 
 \item{signal_integral}{\link{numeric} (\emph{optional}): signal integral, used for the signal
 and the background. Example: \code{c(1:10)} for the first 10 channels.
@@ -44,11 +44,11 @@ function \link{get_RLum}. To deactivate the automatic selection set the argument
 enables/disable experimental dose estimation based on the TL curves.
 It is computed as the ratio of the peak sums of each curves +/- 5 channels.}
 
-\item{irradiation_time_correction}{\link{numeric} or \linkS4class{RLum.Results} (\emph{optional}):
+\item{irradiation_time_correction}{\link{numeric} or \link[=RLum.Results-class]{RLum.Results} (\emph{optional}):
 information on the used irradiation time correction obtained by another experiments.
 If a \code{numeric} is provided it has to be of length two: mean, standard error}
 
-\item{cross_talk_correction}{\link{numeric} or \linkS4class{RLum.Results} (\emph{optional}):
+\item{cross_talk_correction}{\link{numeric} or \link[=RLum.Results-class]{RLum.Results} (\emph{optional}):
 information on the used irradiation time correction obtained by another experiments.
 If a \code{numeric} vector is provided it has to be of length three:
 mean, 2.5 \% quantile, 97.5 \% quantile.}

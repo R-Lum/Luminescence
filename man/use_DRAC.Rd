@@ -42,7 +42,7 @@ if the version has changed, but not the column order
 }}
 }
 \value{
-Returns an \linkS4class{RLum.Results} object containing the following elements:
+Returns an \link[=RLum.Results-class]{RLum.Results} object containing the following elements:
 
 \item{DRAC}{\link{list}: a named list containing the following elements in slot \verb{@data}:
 

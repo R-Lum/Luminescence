@@ -122,6 +122,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Sebastian Kreutzer \email{maintainer_luminescence@r-luminescence.org} (\href{https://orcid.org/0000-0002-0734-2199}{ORCID}) [translator, data contributor]
   \item Christoph Burow (\href{https://orcid.org/0000-0002-5023-4046}{ORCID}) [translator, data contributor]
   \item Michael Dietze (\href{https://orcid.org/0000-0001-6063-1726}{ORCID})
   \item Margret C. Fuchs (\href{https://orcid.org/0000-0001-7210-1132}{ORCID})

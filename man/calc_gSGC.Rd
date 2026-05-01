@@ -43,7 +43,7 @@ enable/disable the plot output.}
 \item{...}{parameters will be passed to the plot output}
 }
 \value{
-Returns an S4 object of type \linkS4class{RLum.Results}.
+Returns an S4 object of type \link[=RLum.Results-class]{RLum.Results}.
 
 \strong{\verb{@data}}\cr
 \verb{$ De.value} (\link{data.frame}) \cr
@@ -86,7 +86,7 @@ a 'global standardised growth curve' (gSGC) for optical dating of quartz from se
 Quaternary Geochronology 27, 94-104. doi:10.1016/j.quageo.2015.02.011
 }
 \seealso{
-\linkS4class{RLum.Results}, \link{get_RLum}, \link{uniroot}
+\link[=RLum.Results-class]{RLum.Results}, \link{get_RLum}, \link{uniroot}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

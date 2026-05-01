@@ -15,7 +15,7 @@ plot_ROI(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis}, \linkS4class{RLum.Results} or a \link{list} of such objects (\strong{required}):
+\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis}, \link[=RLum.Results-class]{RLum.Results} or a \link{list} of such objects (\strong{required}):
 input data created either by \link{read_RF2R} or \link{extract_ROI}.}
 
 \item{exclude_ROI}{\link{numeric} (\emph{with default}):
@@ -34,7 +34,7 @@ ROIs or grain radius.}
 metric x and y for the recorded (chip) surface in µm. For instance
 \code{c(8192, 8192)}, if set additional x and y-axes are shown.}
 
-\item{bg_image}{\linkS4class{RLum.Data.Image} (\emph{optional}):
+\item{bg_image}{\link[=RLum.Data.Image-class]{RLum.Data.Image} (\emph{optional}):
 background image object (please note that dimensions are not checked).}
 
 \item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.}
@@ -46,7 +46,7 @@ supported: \code{lwd.ROI}, \code{lty.ROI}, \code{col.ROI}, \code{col.pixel}, \co
 \code{legend.text}, \code{legend.pos}}
 }
 \value{
-An ROI plot and an \linkS4class{RLum.Results} object with a matrix
+An ROI plot and an \link[=RLum.Results-class]{RLum.Results} object with a matrix
 containing the extracted ROI data and a object produced by \link[stats:dist]{stats::dist}
 containing the euclidean distance between the ROIs.
 }

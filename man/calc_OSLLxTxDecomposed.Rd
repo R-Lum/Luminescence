@@ -37,7 +37,7 @@ to the final \code{Lx/Tx} error value (e.g., instrumental error).}
 If digits is set to \code{NULL} nothing is rounded.}
 }
 \value{
-Returns an S4 object of type \linkS4class{RLum.Results}.
+Returns an S4 object of type \link[=RLum.Results-class]{RLum.Results}.
 
 Slot \code{data} contains a \link{list} with the following structure:
 
@@ -69,7 +69,7 @@ talk presented at DLED 2019, Bingen, Germany
 \url{http://luminescence.de/OSLdecomp_talk.pdf}\cr
 }
 \seealso{
-\linkS4class{RLum.Data.Curve}, \link{fit_DoseResponseCurve},
+\link[=RLum.Data.Curve-class]{RLum.Data.Curve}, \link{fit_DoseResponseCurve},
 \link{analyse_SAR.CWOSL}
 }
 \author{

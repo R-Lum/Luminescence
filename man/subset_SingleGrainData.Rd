@@ -7,14 +7,14 @@
 subset_SingleGrainData(object, selection)
 }
 \arguments{
-\item{object}{\linkS4class{Risoe.BINfileData} (\strong{required}):
+\item{object}{\link[=Risoe.BINfileData-class]{Risoe.BINfileData} (\strong{required}):
 input object with the data to subset.}
 
 \item{selection}{\link{data.frame}, \link{matrix} (\strong{required}):
 selection table with two columns for position and grain, respectively.}
 }
 \value{
-A subset \linkS4class{Risoe.BINfileData} object
+A subset \link[=Risoe.BINfileData-class]{Risoe.BINfileData} object
 }
 \description{
 Most measured single grains do not exhibit light and it usually makes sense
@@ -37,7 +37,7 @@ subset_SingleGrainData(object = CWOSL.SAR.Data, selection = selection)
 
 }
 \seealso{
-\linkS4class{Risoe.BINfileData}, \link{read_BIN2R},
+\link[=Risoe.BINfileData-class]{Risoe.BINfileData}, \link{read_BIN2R},
 \link{verify_SingleGrainData}
 }
 \author{

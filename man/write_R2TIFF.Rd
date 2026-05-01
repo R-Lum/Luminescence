@@ -7,7 +7,7 @@
 write_R2TIFF(object, file = tempfile(), norm = 65535, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Image} or \linkS4class{RLum.Data.Spectrum} object (\strong{required}):
+\item{object}{\link[=RLum.Data.Image-class]{RLum.Data.Image} or \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} object (\strong{required}):
 input object, can be a \link{list} of such objects.}
 
 \item{file}{\link{character} (\strong{required}):
@@ -26,7 +26,7 @@ normalised.}
 A TIFF file
 }
 \description{
-Simple wrapper around \link[tiff:writeTIFF]{tiff::writeTIFF} to export suitable \linkS4class{RLum}
+Simple wrapper around \link[tiff:writeTIFF]{tiff::writeTIFF} to export suitable \link[=RLum-class]{RLum}
 objects to TIFF images. Per default 16-bit TIFF files are exported.
 }
 \section{Function version}{
@@ -39,8 +39,8 @@ write_R2TIFF(ExampleData.RLum.Data.Image, file = tempfile(fileext = ".tiff"))
 
 }
 \seealso{
-\link[tiff:writeTIFF]{tiff::writeTIFF}, \linkS4class{RLum.Data.Image},
-\linkS4class{RLum.Data.Spectrum}
+\link[tiff:writeTIFF]{tiff::writeTIFF}, \link[=RLum.Data.Image-class]{RLum.Data.Image},
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

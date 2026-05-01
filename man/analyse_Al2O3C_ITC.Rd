@@ -17,9 +17,9 @@ analyse_Al2O3C_ITC(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} or \link{list} (\strong{required}):
+\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} or \link{list} (\strong{required}):
 results obtained from the measurement.
-Alternatively a list of \linkS4class{RLum.Analysis} objects can be provided to allow an automatic analysis}
+Alternatively a list of \link[=RLum.Analysis-class]{RLum.Analysis} objects can be provided to allow an automatic analysis}
 
 \item{signal_integral}{\link{numeric} (\emph{optional}):
 signal integral, used for the signal and the background.

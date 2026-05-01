@@ -14,12 +14,12 @@ by e.g. \link{read_XSYG2R}, \link{read_Daybreak2R}
 \describe{
 \item{\code{protocol}}{Object of class \link{character} describing the applied measurement protocol}
 
-\item{\code{records}}{Object of class \link{list} containing objects of class \linkS4class{RLum.Data}}
+\item{\code{records}}{Object of class \link{list} containing objects of class \link[=RLum.Data-class]{RLum.Data}}
 }}
 
 \note{
 The method \link{structure_RLum} is currently just available for objects
-containing \linkS4class{RLum.Data.Curve}.
+containing \link[=RLum.Data.Curve-class]{RLum.Data.Curve}.
 }
 \section{Objects from the Class}{
 
@@ -61,7 +61,7 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 }
 \seealso{
 \link{Risoe.BINfileData2RLum.Analysis},
-\linkS4class{Risoe.BINfileData}, \linkS4class{RLum}
+\link[=Risoe.BINfileData-class]{Risoe.BINfileData}, \link[=RLum-class]{RLum}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

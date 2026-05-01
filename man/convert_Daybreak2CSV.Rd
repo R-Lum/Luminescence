@@ -39,7 +39,7 @@ convert_Daybreak2CSV(file)
 
 }
 \seealso{
-\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data}, \linkS4class{RLum.Results},
+\link[=RLum.Analysis-class]{RLum.Analysis}, \link[=RLum.Data-class]{RLum.Data}, \link[=RLum.Results-class]{RLum.Results},
 \link[utils:write.table]{utils::write.table}, \link{write_RLum2CSV}, \link{read_Daybreak2R}
 }
 \author{

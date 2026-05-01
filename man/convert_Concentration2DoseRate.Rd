@@ -20,7 +20,7 @@ For accepted values see \link{BaseDataSet.ConversionFactors}.}
 \item{...}{currently not used.}
 }
 \value{
-The function returns an \linkS4class{RLum.Results} object for which
+The function returns an \link[=RLum.Results-class]{RLum.Results} object for which
 the first element is a \link{matrix} with the converted values. If no input is
 provided, the function returns a template \link{data.frame} that can be used as
 input.

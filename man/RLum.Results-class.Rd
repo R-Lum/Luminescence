@@ -57,7 +57,7 @@ dose.rate$parameters
 
 }
 \seealso{
-\linkS4class{RLum}, \link{plot_RLum}, \link{merge_RLum}
+\link[=RLum-class]{RLum}, \link{plot_RLum}, \link{merge_RLum}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

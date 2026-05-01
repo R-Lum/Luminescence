@@ -18,8 +18,8 @@ plot_RLum.Analysis(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
-S4 object of class \linkS4class{RLum.Analysis}}
+\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} (\strong{required}):
+S4 object of class \link[=RLum.Analysis-class]{RLum.Analysis}}
 
 \item{subset}{named \link{list} (\emph{optional}):
 subsets elements for plotting. The arguments in the named \link{list} will be
@@ -42,7 +42,7 @@ plots. In contrast \verb{list(v = c(10), v = c(100)} adds a vertical at 10 to
 the first and a vertical line at 100 to the 2nd plot.}
 
 \item{combine}{\link{logical} (\emph{with default}):
-allows to combine all \linkS4class{RLum.Data.Curve} objects in one single plot.}
+allows to combine all \link[=RLum.Data.Curve-class]{RLum.Data.Curve} objects in one single plot.}
 
 \item{records_max}{\link{integer} (\emph{optional}):
 limits number of records shown when \code{combine = TRUE} is used. The first and
@@ -76,7 +76,7 @@ Returns multiple plots.
 }
 \description{
 The function provides a standardised plot output for curve data of an
-\linkS4class{RLum.Analysis} object.
+\link[=RLum.Analysis-class]{RLum.Analysis} object.
 
 The function produces a multiple plot output. A file output is recommended
 (e.g., \link{pdf}).

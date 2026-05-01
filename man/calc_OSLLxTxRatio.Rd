@@ -21,11 +21,11 @@ calc_OSLLxTxRatio(
 )
 }
 \arguments{
-\item{Lx.data}{\linkS4class{RLum.Data.Curve}, \link{data.frame}, \link{list} (\strong{required}):
+\item{Lx.data}{\link[=RLum.Data.Curve-class]{RLum.Data.Curve}, \link{data.frame}, \link{list} (\strong{required}):
 requires a CW-OSL shine down curve (x = time, y = counts). Data can also be
 provided as a list.}
 
-\item{Tx.data}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\emph{optional}):
+\item{Tx.data}{\link[=RLum.Data.Curve-class]{RLum.Data.Curve} or \link{data.frame} (\emph{optional}):
 requires a CW-OSL shine down curve (x = time, y = counts). If no
 input is given the \code{Tx.data} will be treated as \code{NA} and no \code{Lx/Tx} ratio
 is calculated. When \code{Lx.data} is a list, it must be provided as a list of
@@ -82,7 +82,7 @@ round numbers to the specified digits. If set to \code{NULL} no rounding occurs.
 \item{...}{currently not used.}
 }
 \value{
-Returns an S4 object of type \linkS4class{RLum.Results}.
+Returns an S4 object of type \link[=RLum.Results-class]{RLum.Results}.
 
 Slot \code{data} contains a \link{list} with the following structure:
 
@@ -212,7 +212,7 @@ Galbraith, R.F., 2014. A further note on the variance of a
 background-corrected OSL count. Ancient TL, 31 (2), 1-3. \doi{10.26034/la.atl.2014.477}
 }
 \seealso{
-\linkS4class{RLum.Data.Curve}, \link{fit_DoseResponseCurve},
+\link[=RLum.Data.Curve-class]{RLum.Data.Curve}, \link{fit_DoseResponseCurve},
 \link{analyse_SAR.CWOSL}
 }
 \author{

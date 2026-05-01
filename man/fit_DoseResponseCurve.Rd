@@ -91,7 +91,7 @@ enable/disable output to the terminal.}
 \item{...}{Further arguments to be passed (currently ignored).}
 }
 \value{
-An \linkS4class{RLum.Results} object is returned
+An \link[=RLum.Results-class]{RLum.Results} object is returned
 containing the slot \code{data} with the
 following elements:
 
@@ -114,7 +114,7 @@ The \verb{@info} slot contains the following elements:
 }
 
 If \code{object} is a list, then the function returns a list of
-\linkS4class{RLum.Results}
+\link[=RLum.Results-class]{RLum.Results}
 objects as defined above.
 
 \strong{Details - \code{DATA.OBJECT$De}}
@@ -215,7 +215,7 @@ et al. (2020). The function has the form:
 
 \deqn{y = (1 + (\mathcal{W}((R - 1) * \exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
 
-with \eqn{W} the Lambert W function (calculated using \link[lamW:lamW]{lamW::lambertW0}),
+with \eqn{W} the Lambert W function (calculated using \link[lamW:lambertW0]{lamW::lambertW0}),
 \eqn{R} the dimensionless retrapping ratio, \eqn{N} the total concentration
 of trappings states in cm\eqn{^{-3}}, \eqn{D_{c} = N/R} a constant, and
 \eqn{D_{int}} is the offset on the x-axis. Note that \eqn{R} and \eqn{D_{c}}
@@ -376,8 +376,8 @@ based on the Lambert W function. Journal of Luminescence 225, 117333. \doi{10.10
 }
 \seealso{
 \link{plot_DoseResponseCurve}, \link{nls},
-\linkS4class{RLum.Results}, \link{get_RLum},
-\link[minpack.lm:nlsLM]{minpack.lm::nlsLM}, \link{lm}, \link{uniroot}, \link[lamW:lamW]{lamW::lambertW0}
+\link[=RLum.Results-class]{RLum.Results}, \link{get_RLum},
+\link[minpack.lm:nlsLM]{minpack.lm::nlsLM}, \link{lm}, \link{uniroot}, \link[lamW:lambertW0]{lamW::lambertW0}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr

@@ -17,8 +17,8 @@ sort_RLum(object, ...)
 \S4method{sort_RLum}{Risoe.BINfileData}(object, info_element, decreasing = FALSE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum} or
-\linkS4class{Risoe.BINfileData} (\strong{required}):
+\item{object}{\link[=RLum-class]{RLum} or
+\link[=Risoe.BINfileData-class]{Risoe.BINfileData} (\strong{required}):
 S4 object of class \code{RLum.Analysis} or \code{Risoe.BINfileData}.}
 
 \item{...}{further arguments passed to the specific class method}
@@ -39,13 +39,13 @@ the ordering sequence for each sorting element.}
 An object of the same type as the input object provided.
 }
 \description{
-The function provides a generalised access point for specific \linkS4class{RLum}
-and \linkS4class{Risoe.BINfileData} objects. Depending on the input object,
+The function provides a generalised access point for specific \link[=RLum-class]{RLum}
+and \link[=Risoe.BINfileData-class]{Risoe.BINfileData} objects. Depending on the input object,
 the corresponding function will be selected.
 }
 \section{Functions}{
 \itemize{
-\item \code{sort_RLum(list)}: Returns a list of sorted \linkS4class{RLum} objects.
+\item \code{sort_RLum(list)}: Returns a list of sorted \link[=RLum-class]{RLum} objects.
 
 \item \code{sort_RLum(RLum.Analysis)}: Sorting of \code{RLum.Data} objects contained in this \code{RLum.Analysis} object.
 At least one of \code{slot} and \code{info_element} must be provided. If both are
@@ -56,7 +56,7 @@ first is taken.
 Please note that the \code{show()} method does some structuring, which may
 lead to the impression that the sorting did not work.
 
-\item \code{sort_RLum(Risoe.BINfileData)}: Sort method for \linkS4class{Risoe.BINfileData} objects.
+\item \code{sort_RLum(Risoe.BINfileData)}: Sort method for \link[=Risoe.BINfileData-class]{Risoe.BINfileData} objects.
 
 }}
 \section{Function version}{
@@ -78,7 +78,7 @@ sort_RLum(sar, solt = "recordType", info_element = c("startDate"))
 
 }
 \seealso{
-\linkS4class{RLum.Analysis}, \linkS4class{Risoe.BINfileData}
+\link[=RLum.Analysis-class]{RLum.Analysis}, \link[=Risoe.BINfileData-class]{Risoe.BINfileData}
 }
 \author{
 Marco Colombo, Institute of Geography, Heidelberg University (Germany)

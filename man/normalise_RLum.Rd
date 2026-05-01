@@ -24,7 +24,7 @@ normalise_RLum(object, norm = TRUE, ...)
 \S4method{normalise_RLum}{RLum.Data.Spectrum}(object, norm = TRUE)
 }
 \arguments{
-\item{object}{\linkS4class{RLum} (\strong{required}):
+\item{object}{\link[=RLum-class]{RLum} (\strong{required}):
 S4 object of class \code{RLum}}
 
 \item{norm}{\link{logical} \link{character} (\strong{required}):
@@ -40,7 +40,7 @@ own normalisation. If \code{global = TRUE} the arguments for \code{norm  = 'firs
 \code{norm = 'last'} work as expected and consider either the first or the last
 frame for the normalisation.
 
-Normalise \linkS4class{RLum.Data.Image} objects to value set via
+Normalise \link[=RLum.Data.Image-class]{RLum.Data.Image} objects to value set via
 the argument \code{norm}}
 }
 \value{
@@ -48,7 +48,7 @@ An object of the same type as the input object provided.
 }
 \description{
 The function provides a generalised access point for specific
-\linkS4class{RLum} objects. Depending on the input object, the corresponding
+\link[=RLum-class]{RLum} objects. Depending on the input object, the corresponding
 function will be selected. The normalisation is performed in the internal
 function \code{.normalise_curve()}.
 }
@@ -82,18 +82,18 @@ of a curve.
 }
 \section{Functions}{
 \itemize{
-\item \code{normalise_RLum(list)}: Returns a list of \linkS4class{RLum.Data} objects that had been passed to
+\item \code{normalise_RLum(list)}: Returns a list of \link[=RLum.Data-class]{RLum.Data} objects that had been passed to
 \link{normalise_RLum}
 
 \item \code{normalise_RLum(RLum.Analysis)}: Normalisation of \code{RLum.Data} records contained in the input object.
 
-\item \code{normalise_RLum(RLum.Data.Curve)}: Normalise \linkS4class{RLum.Data.Curve} objects to value set via
+\item \code{normalise_RLum(RLum.Data.Curve)}: Normalise \link[=RLum.Data.Curve-class]{RLum.Data.Curve} objects to value set via
 the argument \code{norm}
 
-\item \code{normalise_RLum(RLum.Data.Image)}: Normalise \linkS4class{RLum.Data.Image} objects to value set via
+\item \code{normalise_RLum(RLum.Data.Image)}: Normalise \link[=RLum.Data.Image-class]{RLum.Data.Image} objects to value set via
 the argument \code{norm}.
 
-\item \code{normalise_RLum(RLum.Data.Spectrum)}: Normalise \linkS4class{RLum.Data.Spectrum} objects to value set via
+\item \code{normalise_RLum(RLum.Data.Spectrum)}: Normalise \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} objects to value set via
 the argument \code{norm}
 
 }}
@@ -120,8 +120,8 @@ plot_RLum(normalise_RLum(curve))
 
 }
 \seealso{
-\linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Analysis},
-\linkS4class{RLum.Data.Spectrum},  \linkS4class{RLum.Data.Image}
+\link[=RLum.Data.Curve-class]{RLum.Data.Curve}, \link[=RLum.Analysis-class]{RLum.Analysis},
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum},  \link[=RLum.Data.Image-class]{RLum.Data.Image}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

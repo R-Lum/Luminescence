@@ -12,7 +12,7 @@ extract_ROI(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Image}, \link{array} or \link{matrix} (\strong{required}): input image data}
+\item{object}{\link[=RLum.Data.Image-class]{RLum.Data.Image}, \link{array} or \link{matrix} (\strong{required}): input image data}
 
 \item{roi}{\link{matrix} (\strong{required}): matrix with three columns containing the centre coordinates
 of the ROI (first two columns) and the diameter of the circular ROI. All numbers must by of type \link{integer}
@@ -27,7 +27,7 @@ Pixel values are conveniently summarised using the above defined keyword.}
 the first image frame is shown.}
 }
 \value{
-\linkS4class{RLum.Results} object with the following elements:
+\link[=RLum.Results-class]{RLum.Results} object with the following elements:
 \code{..$roi_signals}: a named \link{list} with all ROI values and their coordinates
 \code{..$roi_summary}: a \link{matrix} where rows are frames from the image, and columns are different ROI
 The element has two attributes: \code{summary} (the method used to summarise pixels) and \code{area} (the pixel area)
@@ -37,7 +37,7 @@ If \code{plot = TRUE} a control plot is returned.
 }
 \description{
 Light-weighted function to extract pixel values from pre-defined regions-of-interest (ROI) from
-\linkS4class{RLum.Data.Image}, \link{array} or \link{matrix} objects and provide simple image processing
+\link[=RLum.Data.Image-class]{RLum.Data.Image}, \link{array} or \link{matrix} objects and provide simple image processing
 capacity. The function is limited to circular ROIs.
 }
 \details{
@@ -62,7 +62,7 @@ extract_ROI(object = m, roi = roi, plot = TRUE)
 
 }
 \seealso{
-\linkS4class{RLum.Data.Image}
+\link[=RLum.Data.Image-class]{RLum.Data.Image}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

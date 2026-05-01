@@ -29,10 +29,10 @@ fit_LMCurve(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
+\item{object}{\link[=RLum.Data.Curve-class]{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
 x,y data of measured values (time and counts).}
 
-\item{object.bg}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\emph{optional}):
+\item{object.bg}{\link[=RLum.Data.Curve-class]{RLum.Data.Curve} or \link{data.frame} (\emph{optional}):
 x,y data of measured values (time and counts) for background subtraction.}
 
 \item{n.components}{\link{integer} (\emph{with default}):

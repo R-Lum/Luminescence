@@ -27,9 +27,9 @@ analyse_SAR.CWOSL(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
+\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} (\strong{required}):
 input object containing data for analysis, alternatively a \link{list} of
-\linkS4class{RLum.Analysis} objects can be provided. The object
+\link[=RLum.Analysis-class]{RLum.Analysis} objects can be provided. The object
 should \strong{only} contain curves considered part of the SAR protocol (see
 Details). When \code{OSL.component} is set, the input object must have been
 processed by \code{OSLdecomposition::RLum.OSL_decomposition()}.}
@@ -161,7 +161,7 @@ Additionally, supported are \code{legend.cex} and \code{legend.pch} to modify th
 the legend symbols.}
 }
 \value{
-A plot (\emph{optional}) and an \linkS4class{RLum.Results} object is
+A plot (\emph{optional}) and an \link[=RLum.Results-class]{RLum.Results} object is
 returned containing the following elements:
 
 \item{data}{\link{data.frame} containing De-values, De-error and further parameters}
@@ -176,7 +176,7 @@ The output should be accessed using the function \link{get_RLum}.
 \strong{The function currently does support only 'OSL', 'IRSL' and 'POSL' data!}
 }
 \description{
-The function performs a SAR CW-OSL analysis on an \linkS4class{RLum.Analysis}
+The function performs a SAR CW-OSL analysis on an \link[=RLum.Analysis-class]{RLum.Analysis}
 object, including growth curve fitting.
 }
 \details{
@@ -203,14 +203,14 @@ e.g., as part of XSYG files.
 \strong{Argument \code{object} is of type \code{list}}
 
 If the argument \code{object} is of type \link{list} containing \strong{only}
-\linkS4class{RLum.Analysis} objects, the function re-calls itself on each element
+\link[=RLum.Analysis-class]{RLum.Analysis} objects, the function re-calls itself on each element
 in the list. This is useful if to analyse an entire measurement without
 writing separate for-loops. To gain in full control of the parameters (e.g., \code{dose.points}) for
-every aliquot (corresponding to one \linkS4class{RLum.Analysis} object in the list), in
+every aliquot (corresponding to one \link[=RLum.Analysis-class]{RLum.Analysis} object in the list), in
 this case the arguments can be provided as \link{list}. This \code{list} should
 be of similar length as the \code{list} provided with the argument \code{object},
 otherwise the function will create an own list of the requested length.
-Function output will be just one single \linkS4class{RLum.Results} object.
+Function output will be just one single \link[=RLum.Results-class]{RLum.Results} object.
 
 Please be careful when using this option. While it may allow for a fast and
 efficient data analysis, the function may break with an unclear error
@@ -345,8 +345,8 @@ doi:10.1016/j.radmeas.2008.06.002
 }
 \seealso{
 \link{calc_OSLLxTxRatio}, \link{fit_DoseResponseCurve},
-\link{plot_DoseResponseCurve}, \linkS4class{RLum.Analysis},
-\linkS4class{RLum.Results}
+\link{plot_DoseResponseCurve}, \link[=RLum.Analysis-class]{RLum.Analysis},
+\link[=RLum.Results-class]{RLum.Results}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr

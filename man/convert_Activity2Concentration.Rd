@@ -26,7 +26,7 @@ specify unit of input data given in the dose rate data frame, one of
 enable/disable output to the terminal.}
 }
 \value{
-Returns an \linkS4class{RLum.Results} object with a \link{data.frame} containing
+Returns an \link[=RLum.Results-class]{RLum.Results} object with a \link{data.frame} containing
 input and newly calculated values. Please not that in the column header µg/g
 is written as \code{mug/g} due to the R requirement to maintain packages portable using
 ASCII characters only.

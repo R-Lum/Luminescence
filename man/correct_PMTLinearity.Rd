@@ -7,7 +7,7 @@
 correct_PMTLinearity(object, PMT_pulse_pair_resolution = NULL)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} \linkS4class{RLum.Data.Curve} (\strong{required}):
+\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} \link[=RLum.Data.Curve-class]{RLum.Data.Curve} (\strong{required}):
 object with records to correct; can be a \link{list} of such objects}
 
 \item{PMT_pulse_pair_resolution}{\link{numeric} (\emph{with default}): pulse-pair resolution

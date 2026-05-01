@@ -22,8 +22,8 @@ showClass("RLum.Data")
 
 }
 \seealso{
-\linkS4class{RLum}, \linkS4class{RLum.Data.Curve},
-\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Data.Image}
+\link[=RLum-class]{RLum}, \link[=RLum.Data.Curve-class]{RLum.Data.Curve},
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum}, \link[=RLum.Data.Image-class]{RLum.Data.Image}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

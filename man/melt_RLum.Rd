@@ -17,7 +17,7 @@ melt_RLum(object, ...)
 \S4method{melt_RLum}{RLum.Data.Curve}(object)
 }
 \arguments{
-\item{object}{\linkS4class{RLum} (\strong{required}):
+\item{object}{\link[=RLum-class]{RLum} (\strong{required}):
 S4 object of class \code{RLum}}
 
 \item{...}{further arguments passed to the specific class method}
@@ -30,14 +30,14 @@ Melt RLum-class objects into a flat data.frame
 }
 \section{Functions}{
 \itemize{
-\item \code{melt_RLum(list)}: Returns a list of melted \linkS4class{RLum} objects; non-RLum objects are silently
+\item \code{melt_RLum(list)}: Returns a list of melted \link[=RLum-class]{RLum} objects; non-RLum objects are silently
 removed.
 
-\item \code{melt_RLum(RLum.Analysis)}: Melts \linkS4class{RLum.Analysis} objects into a flat data.frame with columns
+\item \code{melt_RLum(RLum.Analysis)}: Melts \link[=RLum.Analysis-class]{RLum.Analysis} objects into a flat data.frame with columns
 \code{X}, \code{Y}, \code{TYPE}, \code{UID}, to be used in combination with other packages
 such as \code{ggplot2}.
 
-\item \code{melt_RLum(RLum.Data.Curve)}: Melts \linkS4class{RLum.Data.Curve} objects into a flat data.frame with columns
+\item \code{melt_RLum(RLum.Data.Curve)}: Melts \link[=RLum.Data.Curve-class]{RLum.Data.Curve} objects into a flat data.frame with columns
 \code{X}, \code{Y}, \code{TYPE}, \code{UID}, to be used in combination with other packages
 such as \code{ggplot2}.
 
@@ -52,7 +52,7 @@ melt_RLum(OSL.SARMeasurement[[2]][[1]])
 
 }
 \seealso{
-\linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Analysis}
+\link[=RLum.Data.Curve-class]{RLum.Data.Curve}, \link[=RLum.Analysis-class]{RLum.Analysis}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

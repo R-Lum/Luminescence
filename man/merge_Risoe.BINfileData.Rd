@@ -14,13 +14,13 @@ merge_Risoe.BINfileData(
 )
 }
 \arguments{
-\item{objects}{\link{character} or \linkS4class{Risoe.BINfileData} (\strong{required}):
+\item{objects}{\link{character} or \link[=Risoe.BINfileData-class]{Risoe.BINfileData} (\strong{required}):
 Character vector with path and files names with ".bin" or ".binx" extension
 (e.g. \code{input.objects = c("path/file1.bin", "path/file2.bin")} or a list of
-\linkS4class{Risoe.BINfileData} objects (e.g. \code{input.objects = c(object1, object2)}).}
+\link[=Risoe.BINfileData-class]{Risoe.BINfileData} objects (e.g. \code{input.objects = c(object1, object2)}).}
 
 \item{output.file}{\link{character} (\emph{optional}):
-File output path and name. If no value is given, a \linkS4class{Risoe.BINfileData}
+File output path and name. If no value is given, a \link[=Risoe.BINfileData-class]{Risoe.BINfileData}
 object returned instead of a file.}
 
 \item{keep.position.number}{\link{logical} (\emph{with default}):
@@ -38,11 +38,11 @@ enable/disable output to the terminal.}
 \item{...}{currently not used.}
 }
 \value{
-Returns a \linkS4class{Risoe.BINfileData} object or writes to the BIN-file
+Returns a \link[=Risoe.BINfileData-class]{Risoe.BINfileData} object or writes to the BIN-file
 specified by \code{output.file}.
 }
 \description{
-The function allows merging Risoe BIN/BINX files or \linkS4class{Risoe.BINfileData}
+The function allows merging Risoe BIN/BINX files or \link[=Risoe.BINfileData-class]{Risoe.BINfileData}
 objects.
 }
 \details{
@@ -93,7 +93,7 @@ object.new <- merge_Risoe.BINfileData(c(object1, object2))
 Duller, G.A.T., 2007. Analyst (Version 3.24) (manual). Aberystwyth University, Aberystwyth.
 }
 \seealso{
-\linkS4class{Risoe.BINfileData}, \link{read_BIN2R}, \link{write_R2BIN}
+\link[=Risoe.BINfileData-class]{Risoe.BINfileData}, \link{read_BIN2R}, \link{write_R2BIN}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

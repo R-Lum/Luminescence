@@ -16,7 +16,7 @@ calc_MoransI(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Results} or \link{numeric} (\strong{required}):
+\item{object}{\link[=RLum.Results-class]{RLum.Results} or \link{numeric} (\strong{required}):
 values of the grains of one disc. Should have length 100; can contain \code{NA}
 values.}
 

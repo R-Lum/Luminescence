@@ -23,7 +23,7 @@ fit_CWCurve(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
+\item{object}{\link[=RLum.Data.Curve-class]{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
 x, y data of measured values (time and counts).}
 
 \item{n.components.max}{\link{vector} (\emph{optional}):
@@ -83,7 +83,7 @@ the fitted CW-OSL curves are returned as plot.
 
 \strong{RLum.Results object}
 
-Beside the plot and table output options, an \linkS4class{RLum.Results} object is
+Beside the plot and table output options, an \link[=RLum.Results-class]{RLum.Results} object is
 returned.
 
 \code{fit}:
@@ -187,8 +187,8 @@ Ritz, C. & Streibig, J.C., 2008. Nonlinear Regression with R. In: R.
 Gentleman, K. Hornik, G. Parmigiani, eds., Springer, p. 150.
 }
 \seealso{
-\link{fit_LMCurve}, \link{plot},\link{nls}, \linkS4class{RLum.Data.Curve},
-\linkS4class{RLum.Results}, \link{get_RLum}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}
+\link{fit_LMCurve}, \link{plot},\link{nls}, \link[=RLum.Data.Curve-class]{RLum.Data.Curve},
+\link[=RLum.Results-class]{RLum.Results}, \link{get_RLum}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

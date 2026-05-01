@@ -23,7 +23,7 @@ calc_FastRatio(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
+\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis}, \link[=RLum.Data.Curve-class]{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
 x, y data of measured values (time and counts).}
 
 \item{stimulation.power}{\link{numeric} (\emph{with default}):
@@ -77,12 +77,12 @@ enable/disable the plot output.}
 Further arguments passed to \link{fit_CWCurve}.}
 }
 \value{
-Returns a plot (\emph{optional}) and an S4 object of type \linkS4class{RLum.Results}.
+Returns a plot (\emph{optional}) and an S4 object of type \link[=RLum.Results-class]{RLum.Results}.
 The slot \code{data} contains a \link{list} with the following elements:
 
 \item{summary}{\link{data.frame} summary of all relevant results}
 \item{data}{the original input data}
-\item{fit}{\linkS4class{RLum.Results} object if either \code{fitCW.sigma} or \code{fitCW.curve} is \code{TRUE}}
+\item{fit}{\link[=RLum.Results-class]{RLum.Results} object if either \code{fitCW.sigma} or \code{fitCW.curve} is \code{TRUE}}
 \item{args}{\link{list} of used arguments}
 \item{call}{\link{call} the function call}
 }
@@ -125,8 +125,8 @@ Steffen, D., Preusser, F. & Schlunegger, 2009. OSL quartz age underestimation
 due to unstable signal components. Quaternary Geochronology 4, 353-362.
 }
 \seealso{
-\link{fit_CWCurve}, \link{get_RLum}, \linkS4class{RLum.Analysis},
-\linkS4class{RLum.Results}, \linkS4class{RLum.Data.Curve}
+\link{fit_CWCurve}, \link{get_RLum}, \link[=RLum.Analysis-class]{RLum.Analysis},
+\link[=RLum.Results-class]{RLum.Results}, \link[=RLum.Data.Curve-class]{RLum.Data.Curve}
 }
 \author{
 Georgina E. King, University of Bern (Switzerland) \cr

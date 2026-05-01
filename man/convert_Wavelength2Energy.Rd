@@ -7,7 +7,7 @@
 convert_Wavelength2Energy(object, digits = 3L, order = FALSE)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Spectrum}, \link{data.frame}, \link{matrix} (\strong{required}):
+\item{object}{\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum}, \link{data.frame}, \link{matrix} (\strong{required}):
 input object to be converted. If the input is not an \code{RLum.Data.Spectrum}
 object, the first column is always treated as the wavelength
 column. The function supports a list of allowed input objects.}
@@ -25,7 +25,7 @@ The same object class as provided as input is returned.
 }
 \description{
 The function provides a convenient and fast way to convert emission spectra
-wavelength to energy scales. The function works on \linkS4class{RLum.Data.Spectrum},
+wavelength to energy scales. The function works on \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum},
 \link{data.frame} and \link{matrix} and a \link{list} of such objects. The function was
 written to smooth the workflow while analysing emission spectra data. This
 is in particular useful if you want to further treat your data and apply,
@@ -128,7 +128,7 @@ Wang, Y., Townsend, P.D., 2013. Potential problems in collection and data proces
 luminescence signals. Journal of Luminescence 142, 202–211. \doi{10.1016/j.jlumin.2013.03.052}
 }
 \seealso{
-\linkS4class{RLum.Data.Spectrum}, \link{plot_RLum}
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum}, \link{plot_RLum}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

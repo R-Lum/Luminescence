@@ -37,13 +37,13 @@ If started from RStudio, it uses the RStudio viewer.
 }
 \section{Functions}{
 \itemize{
-\item \code{view(RLum.Analysis)}: View method for \linkS4class{RLum.Analysis} objects.
+\item \code{view(RLum.Analysis)}: View method for \link[=RLum.Analysis-class]{RLum.Analysis} objects.
 
-\item \code{view(RLum.Data)}: View method for \linkS4class{RLum.Data} objects.
+\item \code{view(RLum.Data)}: View method for \link[=RLum.Data-class]{RLum.Data} objects.
 
-\item \code{view(RLum.Results)}: View method for \linkS4class{RLum.Results} objects.
+\item \code{view(RLum.Results)}: View method for \link[=RLum.Results-class]{RLum.Results} objects.
 
-\item \code{view(Risoe.BINfileData)}: View method for \linkS4class{Risoe.BINfileData} objects.
+\item \code{view(Risoe.BINfileData)}: View method for \link[=Risoe.BINfileData-class]{Risoe.BINfileData} objects.
 
 }}
 \seealso{

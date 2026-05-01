@@ -18,7 +18,7 @@ fit_EmissionSpectra(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Spectrum}, \link{matrix} (\strong{required}): input
+\item{object}{\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum}, \link{matrix} (\strong{required}): input
 object. Please note that an energy spectrum is expected}
 
 \item{frame}{\link{integer} (\emph{optional}): number of the frame to be analysed. If
@@ -95,7 +95,7 @@ parameter estimation. The grey band in the residual plot indicates the
 }
 \description{
 This function performs a luminescence spectra deconvolution on
-\linkS4class{RLum.Data.Spectrum} and \link{matrix} objects on an \strong{energy scale}.
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} and \link{matrix} objects on an \strong{energy scale}.
 The function is optimised for emission spectra typically obtained in the
 context of TL, OSL and RF  measurements detected between 200 and 1000 nm.
 The function is not designed to deconvolve TL curves (counts against
@@ -186,7 +186,7 @@ results <- fit_EmissionSpectra(
 
 }
 \seealso{
-\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Results}, \link{plot_RLum},
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum}, \link[=RLum.Results-class]{RLum.Results}, \link{plot_RLum},
 \link{convert_Wavelength2Energy}, \link[minpack.lm:nls.lm]{minpack.lm::nls.lm}
 }
 \author{

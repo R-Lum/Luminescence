@@ -77,6 +77,6 @@ VignetteBuilder: R.rsp, knitr
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Config/testthat/edition: 3
 Config/testthat/parallel: TRUE
+Config/roxygen2/version: 8.0.0

@@ -7,7 +7,7 @@
 calc_HomogeneityTest(data, log = TRUE, ...)
 }
 \arguments{
-\item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
+\item{data}{\link[=RLum.Results-class]{RLum.Results} or \link{data.frame} (\strong{required}):
 for \link{data.frame}: two columns with De \code{(data[,1])} and De error \code{(values[,2])}}
 
 \item{log}{\link{logical} (\emph{with default}):
@@ -17,7 +17,7 @@ perform the homogeneity test with (un-)logged data}
 }
 \value{
 Returns a terminal output. In addition an
-\linkS4class{RLum.Results}-object is returned containing the
+\link[=RLum.Results-class]{RLum.Results}-object is returned containing the
 following elements:
 
 \item{summary}{\link{data.frame} summary of all relevant model results.}
@@ -58,7 +58,7 @@ Galbraith, R.F., 2003. A simple homogeneity test for estimates
 of dose obtained using OSL. Ancient TL 21, 75-77.
 }
 \seealso{
-\link[stats:Chisquare]{stats::pchisq}
+\link[stats:pchisq]{stats::pchisq}
 }
 \author{
 Christoph Burow, University of Cologne (Germany)\cr

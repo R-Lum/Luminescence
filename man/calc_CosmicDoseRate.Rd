@@ -55,7 +55,7 @@ terminal).}
 }
 \value{
 Returns a terminal output. In addition an
-\linkS4class{RLum.Results} object is returned containing the
+\link[=RLum.Results-class]{RLum.Results} object is returned containing the
 following element:
 
 \item{summary}{\link{data.frame} summary of all relevant calculation results.}

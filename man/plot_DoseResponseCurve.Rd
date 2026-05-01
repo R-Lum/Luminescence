@@ -13,7 +13,7 @@ plot_DoseResponseCurve(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Results} (\strong{required}):
+\item{object}{\link[=RLum.Results-class]{RLum.Results} (\strong{required}):
 An object produced by \link{fit_DoseResponseCurve}.}
 
 \item{plot_extended}{\link{logical} (\emph{with default}):

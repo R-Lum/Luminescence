@@ -142,9 +142,7 @@
 #' @keywords datasets
 #'
 #' @aliases
-#' BaseDataSet.ConversionFactors
-#' BaseDataSet.GrainSizeAttenuation
-#' BaseDataSet.FractionalGammaDose
+#' BaseDataSet.ConversionFactors BaseDataSet.GrainSizeAttenuation BaseDataSet.FractionalGammaDose
 #'
 #' @name BaseDataSet
 NULL

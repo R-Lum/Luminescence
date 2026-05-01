@@ -8,7 +8,7 @@ De distribution}
 calc_CentralDose(data, sigmab = 0, log = TRUE, plot = TRUE, ...)
 }
 \arguments{
-\item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
+\item{data}{\link[=RLum.Results-class]{RLum.Results} or \link{data.frame} (\strong{required}):
 for \link{data.frame}: two columns with De \code{(data[,1])} and De error \code{(data[,2])}.
 Records containing missing values will be removed.}
 
@@ -30,7 +30,7 @@ enable/disable the plot output.}
 }
 \value{
 Returns a plot (\emph{optional}) and terminal output. In addition an
-\linkS4class{RLum.Results} object is returned containing the following elements:
+\link[=RLum.Results-class]{RLum.Results} object is returned containing the following elements:
 
 \item{.$summary}{\link{data.frame} summary of all relevant model results.}
 \item{.$data}{\link{data.frame} original input data}
