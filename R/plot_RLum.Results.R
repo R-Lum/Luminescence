@@ -380,7 +380,8 @@ plot_RLum.Results<- function(
         x<- seq(mean-5*sd, mean+5*sd, 0.001)
         y<- dnorm(seq(mean-5*sd, mean+5*sd, 0.001), mean, sd)
         # normalise y-values
-        y<- y/max(y)
+        if (max(y) != 0)
+          y <- y / max(y)
 
         points(x, y,
                type="l",
@@ -397,7 +398,8 @@ plot_RLum.Results<- function(
         # now invert the data by shifting
         y<- -y
         y<- y-min(y)
-        y<- y/max(y)
+        if (max(y) != 0)
+          y <- y / max(y)
 
         # fit a smoothing spline
         l<- stats::spline(x = x, y = y, method = "n", n = 1000)
