@@ -150,10 +150,12 @@ plot_RLum.Results<- function(
         title(xlab = i, line = 1.2)
 
         if (i %in% c("gamma", "sigma", "mu") && object@data$args$log && object@data$args$log.output) {
+          # nocov start  # FIXME(mcol): added in issue 1547 due to R-devel changes
           axis(1, at = axTicks(1),
                labels = format(round(log(axTicks(1)), 2), nsmall = 2),
                line = 2.5, mgp = c(3, 0.5, 0))
           title(xlab = paste0("log(", i, ")"), line = 4)
+          # nocov end
         }
 
       }, error = function(e)  {
