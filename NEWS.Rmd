@@ -89,9 +89,9 @@ of the starting point for the `uniroot()` function (#1541).
 
 ### `plot_DoseResponseCurve()`
 
-* The error bars had been missing for `extrapolation` and `alternate` mode. 
-This error was introduced with commit #cf299831 and remained unnoticed due 
-to incorrect graphical snapshots. 
+* The error bars had been missing for `extrapolation` and `alternate` mode
+since v1.1.0. This error was introduced with commit cf299831 and remained
+unnoticed due to lack of graphical snapshots (a3ed7744).
 
 ### `remove_RLum()`
 
