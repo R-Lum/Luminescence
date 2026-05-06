@@ -3925,7 +3925,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: GOK (extrapolation) | De = 5.00 | D01 = 23388.4 | c = 22.48"]
+              "value": ["Fit: GOK (extrapolation) | De = 5.00 | D01 = 23388.40 | c = 22.48"]
             }
           ]
         },
