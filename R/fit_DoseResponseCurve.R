@@ -1136,10 +1136,6 @@ fit_DoseResponseCurve <- function(
         if (!inherits(fit.MC, "try-error")) {
           .get_coef(fit.MC, pre = "var.")
 
-          min.val <- 0
-          if (mode == "extrapolation")
-            min.val <- -1e6
-
           #problem: analytically it is not easy to calculate x,
           #use uniroot to solve this problem
           temp.De.MC <- try(uniroot(
