@@ -878,7 +878,7 @@ fit_DoseResponseCurve <- function(
         #print D01 value
         D01 <- b
 
-        .report_fit(De, " | D01 = ", round(D01, 2))
+        .report_fit(De, sprintf(" | D01 = %.2f", D01))
 
         #EXP MC -----
         ##Monte Carlo Simulation
@@ -1133,10 +1133,6 @@ fit_DoseResponseCurve <- function(
         if (!inherits(fit.MC, "try-error")) {
           .get_coef(fit.MC, pre = "var.")
 
-          min.val <- 0
-          if (mode == "extrapolation")
-            min.val <- -1e6
-
           #problem: analytically it is not easy to calculate x,
           #use uniroot to solve this problem
           temp.De.MC <- try(uniroot(
@@ -1264,7 +1260,7 @@ fit_DoseResponseCurve <- function(
       }
 
       #print D0 and De value values
-      .report_fit(De, " | D01 = ", D01, " | D02 = ", D02)
+      .report_fit(De, sprintf(" | D01 = %.2f | D02 = %.2f", D01, D02))
 
       ##Monte Carlo Simulation for error estimation
       #	--Fit many curves and calculate a new De +/- De_Error
@@ -1376,7 +1372,7 @@ fit_DoseResponseCurve <- function(
       #print D01 value
       D01 <- b
 
-      .report_fit(De, " | D01 = ", round(D01, 2), " | c = ", round(c, 2))
+      .report_fit(De, sprintf(" | D01 = %.2f | c = %.2f", D01, c))
 
       #EXP MC -----
       ##Monte Carlo Simulation
@@ -1502,7 +1498,7 @@ fit_DoseResponseCurve <- function(
           if (inherits(De, "try-error")) De <- NA # nocov
 
           ## report terminal line
-          .report_fit(De, " | R = ", round(R, 2), " | Dc = ", round(Dc, 2))
+          .report_fit(De, sprintf(" | R = %.2f | Dc = %.2f", R, Dc))
 
           #OTOR MC -----
           ##Monte Carlo Simulation
@@ -1679,7 +1675,7 @@ fit_DoseResponseCurve <- function(
       if (inherits(De, "try-error")) De <- NA # nocov
 
       ## report terminal line
-      .report_fit(De, " | R = ", round(1-Q, 2), " | D63 = ", round(D63, 2))
+      .report_fit(De, sprintf(" | R = %.2f | D63 = %.2f", 1 - Q, D63))
 
       #OTORX MC -----
       ##Monte Carlo Simulation
