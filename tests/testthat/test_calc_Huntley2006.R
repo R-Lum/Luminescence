@@ -91,11 +91,10 @@ test_that("input validation", {
                  "'data' has only two columns: we assume that the errors")
   })
 
-  expect_warning(expect_error(
+  expect_warning(
       calc_Huntley2006(data = data[1:20, ], rhop = rhop, ddot = ddot,
                        readerDdot = c(0.002, 0.003), n.MC = 2,
                        plot = FALSE, verbose = FALSE),
-      "Simulated D0 is NA"),
       "Ln/Tn is smaller than the minimum computed LxTx value")
 
   expect_error(calc_Huntley2006(data = data[1:20, ], LnTn = data[1, c(2, 3)],
@@ -295,7 +294,7 @@ test_that("Further tests calc_Huntley2006", {
   expect_warning(expect_error(
     calc_Huntley2006(
       data = data,
-      rhop = c(4e-5, 5e-7), ddot = c(8, 0.04), readerDdot = c(0.1, 0.006),
+      rhop = c(4e-5, 5e-7), ddot = c(8, 0.04), readerDdot = c(0.0001, 0.006),
       n.MC = 2, mode = "extrapolation", plot = FALSE, verbose = FALSE),
     "Simulated D0 is NA: either your input values are unsuitable"),
     "Ln is >10 % larger than the maximum computed LxTx value")
