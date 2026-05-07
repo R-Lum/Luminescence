@@ -70,8 +70,10 @@ signal integral limits for the \code{Tx}-signal are not allowed and will be rese
 \item{sigmab}{\link{numeric} (\emph{optional}):
 option to set a manual value for the overdispersion (for \code{LnTx} and \code{TnTx}),
 used for the \code{Lx/Tx} error calculation. The value should be provided as
-absolute squared count values, e.g. \code{sigmab = c(300,300)}.
-\strong{Note:} If only one value is provided this value is taken for both (\code{LnTx} and \code{TnTx}) signals.}
+absolute squared count values, e.g. \code{sigmab = c(300,300)}. Despite its name
+it is an additional variance (above Poisson variance), not a dispersion.
+\strong{Note:} If only one value is provided this value is taken for both
+(\code{LnTx} and \code{TnTx}) signals.}
 
 \item{sig0}{\link{numeric} (\emph{with default}):
 allow adding an extra component of error to the final \code{Lx/Tx} error value
@@ -249,6 +251,11 @@ count. Ancient TL, 20 (2), 49-51. \doi{10.26034/la.atl.2002.348}
 
 Galbraith, R.F., 2014. A further note on the variance of a
 background-corrected OSL count. Ancient TL, 31 (2), 1-3. \doi{10.26034/la.atl.2014.477}
+
+Bluszcz, A., Adamiec, G., Herr, A., 2015. Estimation of equivalent dose and
+its uncertainty in the OSL SAR protocol when count numbers do not follow a
+Poisson distribution. Radiation Measurements 81, 46-54.
+\doi{10.1016/j.radmeas.2015.01.004}
 }
 \seealso{
 \link[=RLum.Data.Curve-class]{RLum.Data.Curve}, \link{fit_DoseResponseCurve},

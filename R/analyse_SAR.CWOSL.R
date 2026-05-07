@@ -231,6 +231,10 @@
 #' **Note:** If you consider using the early light subtraction method,
 #' `sigmab` should be provided.
 #'
+#' **Note:** `od_rates` can be used to treat uncertainties in Lx/Tx according
+#' to Bluszcz et al. (2015) instead of the standard approach of Galbraith
+#' (2002, 2014). See [Luminescence::calc_OSLLxTxRatio] for details.
+#'
 #' @return
 #' A plot (*optional*) and an [Luminescence::RLum.Results-class] object is
 #' returned containing the following elements:
@@ -271,6 +275,11 @@
 #' fading rates of various luminescence signals from feldspar-rich sediment
 #' extracts. Radiation Measurements 43, 1474-1486.
 #' doi:10.1016/j.radmeas.2008.06.002
+#'
+#' Bluszcz, A., Adamiec, G., Herr, A., 2015. Estimation of equivalent dose and
+#' its uncertainty in the OSL SAR protocol when count numbers do not follow a
+#' Poisson distribution. Radiation Measurements 81, 46-54.
+#' doi:10.1016/j.radmeas.2015.01.004
 #'
 #' @keywords datagen plot
 #'

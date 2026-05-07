@@ -139,8 +139,10 @@
 #' @param sigmab [numeric] (*optional*):
 #' option to set a manual value for the overdispersion (for `LnTx` and `TnTx`),
 #' used for the `Lx/Tx` error calculation. The value should be provided as
-#' absolute squared count values, e.g. `sigmab = c(300,300)`.
-#' **Note:** If only one value is provided this value is taken for both (`LnTx` and `TnTx`) signals.
+#' absolute squared count values, e.g. `sigmab = c(300,300)`. Despite its name
+#' it is an additional variance (above Poisson variance), not a dispersion.
+#' **Note:** If only one value is provided this value is taken for both
+#' (`LnTx` and `TnTx`) signals.
 #'
 #' @param sig0 [numeric] (*with default*):
 #' allow adding an extra component of error to the final `Lx/Tx` error value
@@ -217,6 +219,11 @@
 #'
 #' Galbraith, R.F., 2014. A further note on the variance of a
 #' background-corrected OSL count. Ancient TL, 31 (2), 1-3. \doi{10.26034/la.atl.2014.477}
+#'
+#' Bluszcz, A., Adamiec, G., Herr, A., 2015. Estimation of equivalent dose and
+#' its uncertainty in the OSL SAR protocol when count numbers do not follow a
+#' Poisson distribution. Radiation Measurements 81, 46-54.
+#' \doi{10.1016/j.radmeas.2015.01.004}
 #'
 #' @keywords datagen
 #'
