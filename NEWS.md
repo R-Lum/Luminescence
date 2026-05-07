@@ -66,6 +66,13 @@ affected functions.
   always in the natural units, independently of the `log` argument
   (#1533; thanks to @MarijnvanderMeij for reporting).
 
+### `calc_OSLLxTxRatio()`
+
+- The `SN_RATIO_TnTx` value was wrongly returned as `Inf` if
+  `use_previousBG` was set to `TRUE` and `background_integral = NA`. Now
+  the function will return `NA` in this case, as stated in the function
+  documentation (#1554).
+
 ### `convert_Second2Gray()`
 
 - Input validation was strengthened to avoid two possible crashes
