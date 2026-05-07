@@ -29,6 +29,13 @@ strongly advise updating regardless. The old results can still be
 reproduced using option `fit.weights = "norm_inverse_std"` in the
 affected functions.
 
+- In function `calc_MinDose()` we changed how the `sigmab` argument
+  should be expressed in the `log = FALSE` case. Up to v1.2.1, it was
+  required to be specified in the same absolute units used for the De
+  values. From now on, it must be expressed in relative units as a ratio
+  (e.g. 0.2 for 20 %). This makes the interpretation of the argument
+  consistent between logged and unlogged models (#1548).
+
 ## New functions
 
 ## Removed functions and deprecations
