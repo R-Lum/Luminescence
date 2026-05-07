@@ -726,6 +726,13 @@ temp_OTORX_alt <-
       verbose = TRUE,
       n.MC = 10),
       "Fit failed for OTORX")
+
+  set.seed(1)
+  df <- data.frame(DOSE = c(0, 5, 10, 20, 25),
+                   LxTx = c(40, -10, 30, -5, -20),
+                   LxTx_X = c(2, 0.01, 1, 2, 1))
+  expect_output(fit_DoseResponseCurve(df, fit.method = "EXP"),
+                "De = NaN")
 })
 
 test_that("regression tests", {
