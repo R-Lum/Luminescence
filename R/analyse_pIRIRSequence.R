@@ -5,7 +5,7 @@
 #' fitting on [Luminescence::RLum.Analysis-class] objects.
 #'
 #' @details To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement
-#' analyses, this function has been written as extended wrapper for function
+#' analyses, this function has been written as an extended wrapper for
 #' [Luminescence::analyse_SAR.CWOSL], thus facilitating an entire sequence analysis in
 #' one run. With this, its functionality is strictly limited by the
 #' functionality provided by  [Luminescence::analyse_SAR.CWOSL].
@@ -30,7 +30,7 @@
 #' @param object [Luminescence::RLum.Analysis-class] or [list] of
 #' [Luminescence::RLum.Analysis-class] objects (**required**):
 #' input object containing data for analysis.
-#' If a [list] is provided the functions tries to iterate over each element
+#' If a [list] is provided the function tries to iterate over each element
 #' in the list.
 #'
 #' @param signal_integral [integer] (**required**):
@@ -47,8 +47,8 @@
 #' corresponding to the given time range (in seconds) are selected.
 #'
 #' @param dose.points [numeric] (*optional*):
-#' a numeric vector containing the dose points values. Using this argument overwrites dose point
-#' values in the signal curves.
+#' a numeric vector containing the dose point values. Using this argument
+#' overwrites dose point values in the signal curves.
 #'
 #' @param sequence.structure [vector] [character] (*with default*):
 #' specifies the general sequence structure. Allowed values are `"TL"` and
@@ -61,7 +61,7 @@
 #' enable/disable the plot output.
 #'
 #' @param plot_singlePanels [logical] (*with default*):
-#' enable/disable plotting of the results in a single windows for each plot.
+#' enable/disable plotting of the results in a single window for each plot.
 #' Ignored if `plot = FALSE`.
 #'
 #' @param ... further arguments that will be passed to

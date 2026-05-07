@@ -49,7 +49,7 @@ dose.rate
 ##get results
 get_RLum(dose.rate)
 
-##get parameters used for the calcualtion from the same object
+## get parameters used for the calculation from the same object
 get_RLum(dose.rate, data.object = "parameters")
 
 ##alternatively objects can be accessed using S3 generics, such as

@@ -97,9 +97,9 @@
 #'
 #' where \eqn{A_m} and \eqn{A_n} are rate constants for the recombination and
 #' the trapping of electrons (\eqn{N}), respectively. \eqn{D_{63}} corresponds to
-#' the value at which the trap occupation corresponds to the 63% of the saturation value.
-#' \eqn{D_i} is in an offset. If set to zero, the curve will be forced through the origin
-#' as in the original publication.
+#' the value at which the trap occupation corresponds to 63% of the saturation
+#' value. \eqn{D_i} is an offset: if set to zero, the curve will be forced
+#' through the origin as in the original publication.
 #'
 #' For the implementation the calculation reads further
 #'
@@ -131,7 +131,7 @@
 #' common nls fitting methods.*
 #'
 #' If the option `fit.weights =  NULL` all weights are set to 1, which disables
-#' weighting all along. If `fit.weights` is a [numeric] vector of correct length
+#' weighting altogether. If `fit.weights` is a [numeric] vector of correct length
 #' (same number of rows as the input `LxTx`), then those fit weights are used.
 #' This may be helpful to compare different fitting algorithms that have
 #' implemented fit weights differently.
@@ -204,7 +204,7 @@
 #' has to be inserted.
 #'
 #' @param fit.bounds [logical] (*with default*):
-#' set lower fit bounds for all fitting parameters to 0. Limited for the use
+#' set lower fit bounds for all fitting parameters to 0. Limited to use
 #' with the fit methods `EXP`, `EXP+LIN`, `EXP OR LIN`, `GOK`, `OTOR`, `OTORX`
 #' Argument to be inserted for experimental application only!
 #'
@@ -239,7 +239,7 @@
 #' The `@info` slot contains the following elements:
 #' \tabular{lll}{
 #' **DATA.OBJECT** \tab **TYPE** \tab **DESCRIPTION** \cr
-#' `..$fit_messag`: \tab `character` \tab The fit message reported \cr
+#' `..$fit_message`: \tab `character` \tab The fit message reported \cr
 #' `..$call` : \tab `call` \tab The original function call \cr
 #' }
 #'
@@ -257,19 +257,19 @@
 #' `D02` \tab [numeric] \tab 2nd \eqn{D_0} value, only for `EXP+EXP`\cr
 #' `D02.ERROR` \tab [numeric] \tab standard error for 2nd \eqn{D_0}; only for `EXP+EXP`\cr
 #' `R` \tab [numeric] \tab the material specific parameter \eqn{R}\cr
-#' `R.ERROR` \tab [numeric] \tab the uncertainty of R \eqn{R}\cr
+#' `R.ERROR` \tab [numeric] \tab the uncertainty of \eqn{R}\cr
 #' `Dc` \tab [numeric] \tab value indicating saturation level; only for `OTOR` \cr
 #' `D63` \tab [numeric] \tab the specific saturation level; only for `OTORX` \cr
 #' `n_N` \tab [numeric] \tab saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (`N`) to the integral until `De` (`n`) (e.g.,  Guralnik et al., 2015)\cr
 #' `De.MC` \tab [numeric] \tab equivalent dose derived by Monte-Carlo simulation; ideally identical to `De`\cr
 #' `Fit` \tab [character] \tab applied fit function \cr
 #' `Mode` \tab [character] \tab mode used in fitting \cr
-#' `HPDI68_L` \tab [numeric] \tab highest probability density of approximated equivalent dose probability curve representing the lower boundary of 68% probability \cr
+#' `HPDI68_L` \tab [numeric] \tab highest probability density of the approximated equivalent dose probability curve representing the lower boundary of 68% probability \cr
 #' `HPDI68_U` \tab [numeric] \tab same as `HPDI68_L` for the upper bound \cr
 #' `HPDI95_L` \tab [numeric] \tab same as `HPDI68_L` but for 95% probability \cr
 #' `HPDI95_U` \tab [numeric] \tab same as `HPDI95_L` but for the upper bound \cr
 #' `.De.plot` \tab [numeric] \tab equivalent dose used internally for plotting \cr
-#' `.De.raw` \tab [numeric] \tab equivalent dose reported 'as is', that is containing infinities and negative values if they could be calculated. Bear in mind that negative values are meaningless and may be arbitrary.\cr
+#' `.De.raw` \tab [numeric] \tab equivalent dose reported 'as is', that is, containing infinities and negative values if they could be calculated. Bear in mind that negative values are meaningless and may be arbitrary.\cr
 #' }
 #'
 #' @section Function version: 1.5.0

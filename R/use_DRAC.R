@@ -350,7 +350,7 @@ use_DRAC <- function(
   DRAC.content.input <- DRAC.content[ ,grep("TI:", names(DRAC.content))]
   DRAC.content.output <- DRAC.content[ ,grep("TO:", names(DRAC.content))]
 
-  ## The DRAC ouput also contains a highlight table, which results in
+  ## The DRAC output also contains a highlight table, which results in
   ## duplicate columns. When creating the data.frame duplicate columns
   ## are automatically appended '.1' in their names, so we can identify
   ## and remove them easily
