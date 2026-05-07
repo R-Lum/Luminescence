@@ -571,16 +571,10 @@ calc_OSLLxTxRatio <- function(
       sqrt(k_p^2 * signal + (k_DC^2 - k_p^2) * B_DC * time)
     }
 
-    ## time.Lx <- diff(Lx.data[range(signal_integral), 1])
-    time.Lx <- Lx.data[range(signal_integral)[2], 1] -
-      ifelse(range(signal_integral)[1] == 1, 0, Lx.data[range(signal_integral)[1] - 1, 1])
-    time.Lx.bg <- Lx.data[range(background_integral)[2], 1] -
-      ifelse(range(background_integral)[1] == 1, 0, Lx.data[range(background_integral)[1] - 1, 1])
-    ## time.Tx <- diff(Tx.data[range(signal_integral_Tx), 1])
-    time.Tx <- Tx.data[range(signal_integral_Tx)[2], 1] -
-      ifelse(range(signal_integral_Tx)[1] == 1, 0, Tx.data[range(signal_integral_Tx)[1] - 1, 1])
-    time.Tx.bg <- Tx.data[range(background_integral_Tx)[2], 1] -
-      ifelse(range(background_integral_Tx)[1] == 1, 0, Tx.data[range(background_integral_Tx)[1] - 1, 1])
+    time.Lx <- diff(Lx.data[range(signal_integral), 1])
+    time.Lx.bg <- diff(Lx.data[range(background_integral), 1])
+    time.Tx <- diff(Tx.data[range(signal_integral_Tx), 1])
+    time.Tx.bg <- diff(Tx.data[range(background_integral_Tx), 1])
 
     Lx.signal.Error <- .calc_se_bluszcz(Lx.signal, time.Lx, B_DC, k_DC, k_p)
     Lx.background.Error <- .calc_se_bluszcz(Lx.background, time.Lx.bg, B_DC, k_DC, k_p)
