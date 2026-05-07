@@ -2447,7 +2447,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": ["Inf"]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",

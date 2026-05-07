@@ -406,7 +406,7 @@ calc_OSLLxTxRatio <- function(
 
   ##use previous BG
   if(use_previousBG)
-    Tx.background <- Lx.background
+    Tx.background <- if (.strict_na(background_integral_Tx)) NA else Lx.background
   else
     Tx.background <- sum(Tx.curve[background_integral_Tx]) / k.Tx
   SN.ratio.TnTx <- Tx.signal / Tx.background
