@@ -17,7 +17,7 @@ analyse_SAR.TL(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} or a \link{list} of such objects (\strong{required}) :
+\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} or a \link{list} of such objects (\strong{required}) :
 input object containing data for analysis}
 
 \item{object.background}{currently not used}
@@ -51,7 +51,7 @@ are to be logarithmic. See
 \item{...}{further arguments that will be passed to the function \link{fit_DoseResponseCurve}}
 }
 \value{
-A plot (\emph{optional}) and an \linkS4class{RLum.Results} object is
+A plot (\emph{optional}) and an \link[=RLum.Results-class]{RLum.Results} object is
 returned containing the following elements:
 
 \item{De.values}{\link{data.frame} containing De-values and further parameters}
@@ -62,7 +62,7 @@ The output should be accessed using the function \link{get_RLum}.
 }
 \description{
 The function performs a SAR TL analysis on a
-\linkS4class{RLum.Analysis} object including growth curve fitting.
+\link[=RLum.Analysis-class]{RLum.Analysis} object including growth curve fitting.
 }
 \details{
 This function performs a SAR TL analysis on a set of curves. The SAR
@@ -113,8 +113,8 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 32, 57-73.
 }
 \seealso{
-\link{calc_TLLxTxRatio}, \link{fit_DoseResponseCurve}, \linkS4class{RLum.Analysis},
-\linkS4class{RLum.Results}, \link{get_RLum}
+\link{calc_TLLxTxRatio}, \link{fit_DoseResponseCurve}, \link[=RLum.Analysis-class]{RLum.Analysis},
+\link[=RLum.Results-class]{RLum.Results}, \link{get_RLum}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

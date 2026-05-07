@@ -13,20 +13,24 @@ test_that("input validation", {
                "'object' should be of class 'data.frame' or 'RLum.Results'")
   expect_error(plot_DRTResults(iris[, 1, drop = FALSE]),
                "'object' should have 2 columns")
-  expect_error(plot_DRTResults(data.frame(1:5, NA)),
+  expect_error(plot_DRTResults(data.frame(1:5, NA), na.rm = TRUE),
                "No valid data remains after removing NA values")
   expect_error(plot_DRTResults(df, preheat = c(200, 240, 240)),
                "'preheat' should have length equal to the number of De values")
   expect_error(plot_DRTResults(df, given.dose = "error"),
-               "'given.dose' should be of class 'numeric'")
+               "'given.dose' should be of class 'numeric', 'integer' or NULL")
   expect_error(plot_DRTResults(df, given.dose = numeric(0)),
                "'given.dose' cannot be an empty numeric")
   expect_error(plot_DRTResults(df, given.dose = NA_real_),
                "'given.dose' cannot contain NA values")
   expect_error(plot_DRTResults(df, given.dose = c(2800, 3000)),
                "'given.dose' should have length equal to the number of input")
+  expect_error(plot_DRTResults(df, preheat = iris),
+               "'preheat' should be of class 'numeric', 'integer' or NULL")
   expect_warning(plot_DRTResults(df, boxplot = TRUE),
                  "'boxplot' requires a value in 'preheat', reset to FALSE")
+  expect_error(plot_DRTResults(df, mtext = c("a", "b")),
+               "'mtext' should be of class 'character' and have length 1")
   expect_error(plot_DRTResults(df, summary = 5),
                "'summary' should be of class 'character'")
   expect_error(plot_DRTResults(df, summary.pos = 5),
@@ -35,6 +39,10 @@ test_that("input validation", {
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
   expect_error(plot_DRTResults(df, summary.pos = "error"),
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
+  expect_error(plot_DRTResults(df, par.local = NA),
+               "'par.local' should be a single logical value")
+  expect_error(plot_DRTResults(df, na.rm = 2),
+               "'na.rm' should be a single logical value")
 
   empty <- set_RLum("RLum.Results")
   expect_error(plot_DRTResults(empty),
@@ -43,8 +51,10 @@ test_that("input validation", {
                "'object' cannot be an empty list")
   expect_error(plot_DRTResults(data.frame()),
                "'object' cannot be an empty data.frame")
+  expect_error(plot_DRTResults(data.frame(NA, 1:4)),
+                     "No valid records in 'object'")
   expect_error(plot_DRTResults(list(empty, empty)),
-                     "No valid records in 'values'")
+                     "No valid records in 'object'")
 })
 
 test_that("check functionality", {
@@ -113,6 +123,13 @@ test_that("graphical snapshot tests", {
                               plot_DRTResults(df.list,
                                               summary.pos = "bottomright",
                                               summary = c("n", "mean", "sd.abs")))
+  vdiffr::expect_doppelganger("list size 2",
+                              plot_DRTResults(list(df, df[1:2, ] * 1.1),
+                                              summary = c("mean", "sd.rel")))
+  vdiffr::expect_doppelganger("list ticks",
+                              plot_DRTResults(list(df, rbind(df, df) * 1.05)))
+  vdiffr::expect_doppelganger("errors NA",
+                              plot_DRTResults(data.frame(1:5, NA)))
   })
 })
 
@@ -127,4 +144,9 @@ test_that("regression tests", {
   expect_silent(plot_DRTResults(list(df, df), given.dose = c(10, 10000)))
   expect_silent(plot_DRTResults(list(df, df), given.dose = c(10, 10000),
                                 preheat = rep(200, 5)))
+
+  ## issue 1522
+  expect_silent(plot_DRTResults(list(data.frame(5, 1), data.frame(2, 3))))
+  expect_silent(plot_DRTResults(list(data.frame(de = 5, err = 1),
+                                     data.frame(de = 2, err = 3, other = 4))))
 })

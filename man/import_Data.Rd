@@ -12,14 +12,14 @@ import_Data(file, ..., fastForward = TRUE, verbose = FALSE)
 \item{...}{arguments to be further passed down to supported functions (please check the functions
 to determine the correct arguments)}
 
-\item{fastForward}{\link{logical} (\emph{with default}): option to create \linkS4class{RLum} objects
+\item{fastForward}{\link{logical} (\emph{with default}): option to create \link[=RLum-class]{RLum} objects
 during import or a \link{list} of such objects}
 
 \item{verbose}{\link{logical} (\emph{with default}): enable/disable output to the
 terminal.}
 }
 \value{
-Always returns a \link{list}; empty or filled with \linkS4class{RLum.Analysis} objects
+Always returns a \link{list}; empty or filled with \link[=RLum.Analysis-class]{RLum.Analysis} objects
 }
 \description{
 Convenience wrapper function to provide a quicker and more standardised way of

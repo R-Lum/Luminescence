@@ -20,7 +20,7 @@ plot_Histogram(
 )
 }
 \arguments{
-\item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):
+\item{data}{\link{data.frame} or \link[=RLum.Results-class]{RLum.Results} object (\strong{required}):
 for \code{data.frame}: two columns: De (\code{data[,1]}) and De error (\code{data[,2]}).
 If the error column is missing or only contains \code{NA} values, then the error
 at each measurement is assumed to be 10^-9.}

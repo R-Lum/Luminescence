@@ -10,7 +10,7 @@ fit_DoseResponseCurve(
   fit.method = c("EXP", "LIN", "QDR", "EXP OR LIN", "EXP+LIN", "EXP+EXP", "GOK", "OTOR",
     "OTORX"),
   fit.force_through_origin = FALSE,
-  fit.weights = TRUE,
+  fit.weights = c("inverse_var", "inverse_std", "norm_inverse_std"),
   fit.includingRepeatedRegPoints = TRUE,
   fit.NumberRegPoints = NULL,
   fit.NumberRegPointsReal = NULL,
@@ -55,8 +55,11 @@ allow to force the fitted function through the origin.
 For \code{method = "EXP+EXP"} the function will be fixed through
 the origin in either case, so this option will have no effect.}
 
-\item{fit.weights}{\link{logical} (\emph{with default}):
-option whether the fitting is done with or without weights. See details.}
+\item{fit.weights}{\link{character} \link{numeric} (\emph{with default}):
+weighting approach to be used for the fitting. Options are \code{inverse_var}
+(default), \code{inverse_std}, \code{norm_inverse_std}, a \link{numeric} vector, or \code{NULL}
+(no weighting). If the input is a numeric vector, it must have length equal
+to the number of data points to fit (usually the \code{LxTx} values). See details.}
 
 \item{fit.includingRepeatedRegPoints}{\link{logical} (\emph{with default}):
 includes repeated points for fitting (\code{TRUE}/\code{FALSE}).}
@@ -88,7 +91,7 @@ enable/disable output to the terminal.}
 \item{...}{Further arguments to be passed (currently ignored).}
 }
 \value{
-An \linkS4class{RLum.Results} object is returned
+An \link[=RLum.Results-class]{RLum.Results} object is returned
 containing the slot \code{data} with the
 following elements:
 
@@ -111,7 +114,7 @@ The \verb{@info} slot contains the following elements:
 }
 
 If \code{object} is a list, then the function returns a list of
-\linkS4class{RLum.Results}
+\link[=RLum.Results-class]{RLum.Results}
 objects as defined above.
 
 \strong{Details - \code{DATA.OBJECT$De}}
@@ -167,7 +170,7 @@ Fits a linear function with a quadratic term to the data using  \link{lm}:
 \strong{Keyword: \code{EXP}}
 
 Adapts a function of the form
-\deqn{y = a(1 - exp(-\frac{(x+c)}{b}))}
+\deqn{y = a(1 - \exp(-\frac{(x+c)}{b}))}
 
 Parameters b and c are approximated by a linear fit using \link{lm}. Note: \eqn{b = D0}
 
@@ -180,7 +183,7 @@ a \code{LIN} fit is done instead, which always works.
 
 Tries to fit an exponential plus linear function of the form:
 
-\deqn{y = a(1-exp(-\frac{x+c}{b}) + (gx))}
+\deqn{y = a(1 - \exp(-\frac{x + c}{b}) + (gx))}
 The \eqn{D_e} is calculated by iteration.
 
 \strong{Note:} In the context of luminescence dating, this function has no physical meaning.
@@ -190,7 +193,7 @@ Therefore, no \eqn{D_0} value is returned.
 
 Tries to fit a double exponential function of the form
 
-\deqn{y = (a_1 (1-exp(-\frac{x}{b_1}))) + (a_2 (1 - exp(-\frac{x}{b_2})))}
+\deqn{y = (a_1 (1 - \exp(-\frac{x}{b_1}))) + (a_2 (1 - \exp(-\frac{x}{b_2})))}
 
 \emph{This fitting procedure is not really robust against wrong start parameters.}
 
@@ -210,9 +213,9 @@ This tries to fit a dose-response curve based on the Lambert W function
 and the one trap one recombination centre (OTOR) model according to Pagonis
 et al. (2020). The function has the form:
 
-\deqn{y = (1 + (\mathcal{W}((R - 1) * exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
+\deqn{y = (1 + (\mathcal{W}((R - 1) * \exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
 
-with \eqn{W} the Lambert W function (calculated using \link[lamW:lamW]{lamW::lambertW0}),
+with \eqn{W} the Lambert W function (calculated using \link[lamW:lambertW0]{lamW::lambertW0}),
 \eqn{R} the dimensionless retrapping ratio, \eqn{N} the total concentration
 of trappings states in cm\eqn{^{-3}}, \eqn{D_{c} = N/R} a constant, and
 \eqn{D_{int}} is the offset on the x-axis. Note that \eqn{R} and \eqn{D_{c}}
@@ -225,9 +228,9 @@ unexpected.
 
 This adapts extended OTOR (therefore: OTORX) model proposed by Lawless and
 Timar-Gabor (2024) accounting for retrapping (the equation implemented here
-is slightly differently written than in the original manuscript):
+is written slightly differently than in the original manuscript):
 
-\deqn{F_{OTORX} = 1 + \left[\mathcal{W}(-Q * exp(-Q-(1-Q*(1-\frac{1}{exp(1)})) * \frac{(D + a)}{D_{63}}))\right] / Q}
+\deqn{F_{OTORX} = 1 + \left[\mathcal{W}\left(-Q * \exp\left(-Q-(1-Q(1-\frac{1}{\exp(1)})) \frac{(D + D_i)}{D_{63}}\right)\right)\right] / Q}
 
 with
 
@@ -236,12 +239,12 @@ with
 where \eqn{A_m} and \eqn{A_n} are rate constants for the recombination and
 the trapping of electrons (\eqn{N}), respectively. \eqn{D_{63}} corresponds to
 the value at which the trap occupation corresponds to the 63\% of the saturation value.
-\eqn{a} is in an offset. If set to zero, the curve will be forced through the origin
+\eqn{D_i} is in an offset. If set to zero, the curve will be forced through the origin
 as in the original publication.
 
 For the implementation the calculation reads further
 
-\deqn{y = \frac{F_{OTORX}(((D + a)/D_{63}), Q)}{F_{OTORX}((D_{test} + a)/D_{63}, Q)}}
+\deqn{y = \frac{F_{OTORX}(((D + D_i)/D_{63}), Q)}{F_{OTORX}((D_{test} + D_i)/D_{63}, Q)}}
 
 with \eqn{D_{test}} being the test dose in the same unit (usually s or Gy) as
 the regeneration dose points. This value is essential and needs to provided
@@ -251,14 +254,27 @@ and the example section). For more details see Lawless and Timar-Gabor (2024).
 The fit also returns the parameter \eqn{R} know from \code{OTOR}, which is derived
 as \eqn{R = 1 - Q}.
 
-\emph{Note: The offset adder \eqn{a} is not part of the formula in Timar-Gabor (2024) and can
+\emph{Note: The offset adder \eqn{D_i} is not part of the formula in Timar-Gabor (2024) and can
 be set to zero with the option \code{fit.force_through_origin = TRUE}}
 
 \strong{Fit weighting}
+\itemize{
+\item \code{"inverse_var"} (inverse variance weighting - current default)
+\deqn{w_i = \frac{1}{\sigma_i^2}}
+\item \code{"inverse_std"} (inverse standard error)
+\deqn{w_i = \frac{1}{\sigma_i}}
+\item \code{"norm_inverse_std"} (normalised inverse standard error weighting - default up to v1.2.1)
+\deqn{w_i = \frac{\frac{1}{\sigma_i}}{\Sigma{\frac{1}{\sigma_i}}}}
+\emph{Although used until Luminescence v1.2.1, this method is no longer
+recommended, as it does not align with the mathematical approach used in
+common nls fitting methods.}
+}
 
-If the option \code{fit.weights =  TRUE} is chosen, weights are calculated using
-provided signal errors (\eqn{\frac{L_x}{T_x}} error):
-\deqn{fit.weights = \frac{\frac{1}{error}}{\Sigma{\frac{1}{error}}}}
+If the option \code{fit.weights =  NULL} all weights are set to 1, which disables
+weighting all along. If \code{fit.weights} is a \link{numeric} vector of correct length
+(same number of rows as the input \code{LxTx}), then those fit weights are used.
+This may be helpful to compare different fitting algorithms that have
+implemented fit weights differently.
 
 \strong{Error estimation using Monte Carlo simulation}
 
@@ -279,7 +295,7 @@ Each error estimation is done with the function of the chosen fitting method.
 }
 }
 \section{Function version}{
- 1.4.5
+ 1.5.0
 }
 
 \examples{
@@ -360,11 +376,11 @@ based on the Lambert W function. Journal of Luminescence 225, 117333. \doi{10.10
 }
 \seealso{
 \link{plot_DoseResponseCurve}, \link{nls},
-\linkS4class{RLum.Results}, \link{get_RLum},
-\link[minpack.lm:nlsLM]{minpack.lm::nlsLM}, \link{lm}, \link{uniroot}, \link[lamW:lamW]{lamW::lambertW0}
+\link[=RLum.Results-class]{RLum.Results}, \link{get_RLum},
+\link[minpack.lm:nlsLM]{minpack.lm::nlsLM}, \link{lm}, \link{uniroot}, \link[lamW:lambertW0]{lamW::lambertW0}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
-Michael Dietze, GFZ Potsdam (Germany) \cr
+Michael Dietze, RWTH Aachen (Germany) \cr
 Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 }

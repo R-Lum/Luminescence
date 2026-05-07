@@ -203,7 +203,7 @@ bin(x, ...)
 \method{$}{RLum.Results}(x, i)
 }
 \arguments{
-\item{x}{\linkS4class{RLum} or \linkS4class{Risoe.BINfileData} (\strong{required}):
+\item{x}{\link[=RLum-class]{RLum} or \link[=Risoe.BINfileData-class]{Risoe.BINfileData} (\strong{required}):
 input object}
 
 \item{y}{\link{integer} (\emph{optional}):
@@ -211,13 +211,13 @@ the row index of the matrix, data.frame}
 
 \item{...}{further arguments that can be passed to the method}
 
-\item{object}{\linkS4class{RLum} (\strong{required}):
+\item{object}{\link[=RLum-class]{RLum} (\strong{required}):
 input object}
 
 \item{subset}{\verb{[subset]} \link{expression} (\strong{required}):
 logical expression indicating elements or rows to keep, this function works
-in \linkS4class{Risoe.BINfileData} objects like \link{subset.data.frame}, but takes care
-of the object structure. Works also on \linkS4class{RLum.Analysis} objects.}
+in \link[=Risoe.BINfileData-class]{Risoe.BINfileData} objects like \link{subset.data.frame}, but takes care
+of the object structure. Works also on \link[=RLum.Analysis-class]{RLum.Analysis} objects.}
 
 \item{records.rm}{\link{subset} \link{logical} (\emph{with default}):
 whether records should be removed from the data set. If \code{FALSE}, the \code{SEL}
@@ -241,13 +241,13 @@ keep object structure or drop it}
 
 \item{i}{\link{character} (\emph{optional}):
 name of the wanted record type or data object or row in the
-\linkS4class{RLum.Data.Curve} object}
+\link[=RLum.Data.Curve-class]{RLum.Data.Curve} object}
 
 \item{j}{\link{integer} (\emph{optional}):
-column of the data matrix in the \linkS4class{RLum.Data.Curve} object}
+column of the data matrix in the \link[=RLum.Data.Curve-class]{RLum.Data.Curve} object}
 
 \item{value}{\link{numeric} (\strong{required}):
-numeric value which replace the value in the \linkS4class{RLum.Data.Curve} object}
+numeric value which replace the value in the \link[=RLum.Data.Curve-class]{RLum.Data.Curve} object}
 }
 \description{
 Methods for S3-generics implemented for the package 'Luminescence'.

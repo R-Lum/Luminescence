@@ -34,7 +34,7 @@ object in this example).}
 The class should only contain data for a single curve. For additional
 elements the slot \code{info} can be used (e.g. providing additional heating
 ramp curve). Objects from the class \code{RLum.Data.Curve} are produced by other
-functions (partly within \linkS4class{RLum.Analysis} objects),
+functions (partly within \link[=RLum.Analysis-class]{RLum.Analysis} objects),
 namely: \link{Risoe.BINfileData2RLum.Analysis}, \link{read_XSYG2R}
 }
 \section{Create objects from this Class}{
@@ -56,7 +56,7 @@ set_RLum(class = "RLum.Data.Curve")
 
 }
 \seealso{
-\linkS4class{RLum}, \linkS4class{RLum.Data},
+\link[=RLum-class]{RLum}, \link[=RLum.Data-class]{RLum.Data},
 \link{plot_RLum}, \link{merge_RLum}
 }
 \author{

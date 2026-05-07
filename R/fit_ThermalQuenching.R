@@ -8,10 +8,10 @@
 #'
 #' The equation used for the fitting is
 #'
-#' \deqn{y = A / (1 + C * exp(-W / (kB * x))) + c}
+#' \deqn{y = A / (1 + C * \exp(-W / (k_B x))) + c}
 #'
 #' *W* is the energy depth in eV, *C* is a dimensionless constant, *A* and *c*
-#' are used to adjust the curve for the given signal, *kB* is the Boltzmann
+#' are used to adjust the curve for the given signal, \eqn{k_B} is the Boltzmann
 #' constant in eV/K and *x* is the absolute temperature in K.
 #'
 #' **Error estimation**\cr
@@ -172,6 +172,9 @@ fit_ThermalQuenching <- function(
     data <- na.exclude(data)
     if (nrow(data) == 0)
       .throw_error("After NA removal, nothing is left from the data set")
+  }
+  if (nrow(data) < 4) {
+    .throw_error("Insufficient number of data points to fit the model")
   }
 
   .validate_class(start_param, "list")

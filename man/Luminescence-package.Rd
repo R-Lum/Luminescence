@@ -62,7 +62,7 @@ Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R" (2014-2018)
 \item 05/2014-12/2019: The work of Sebastian Kreutzer as maintainer of the package was supported
 by LabEx LaScArBx (ANR - n. ANR-10-LABX-52).
 \item 01/2020-04/2022: Sebastian Kreutzer as maintainer of the package has received funding
-from the European Union’s Horizon 2020 research and innovation programme under
+from the European Union's Horizon 2020 research and innovation programme under
 the Marie Skłodowska-Curie grant agreement No 844457 (CREDit), and could continue
 maintaining the package.
 \item since 03/2023: Sebastian Kreutzer as maintainer of the package receives funding from the
@@ -122,6 +122,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Sebastian Kreutzer \email{maintainer_luminescence@r-luminescence.org} (\href{https://orcid.org/0000-0002-0734-2199}{ORCID}) [translator, data contributor]
   \item Christoph Burow (\href{https://orcid.org/0000-0002-5023-4046}{ORCID}) [translator, data contributor]
   \item Michael Dietze (\href{https://orcid.org/0000-0001-6063-1726}{ORCID})
   \item Margret C. Fuchs (\href{https://orcid.org/0000-0001-7210-1132}{ORCID})

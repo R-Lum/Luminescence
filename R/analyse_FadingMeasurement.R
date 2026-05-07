@@ -28,10 +28,10 @@
 #'  \deqn{t_{star} := t_1 + (t_2 - t_1)/2}
 #'  \item `t_star = "half_complex"` This option applies the complex function shown in Auclair et al. (2003),
 #'  which is derived from Aitken (1985) appendix F, equations 9 and 11.
-#'  It reads \deqn{t_{star} = t0 * 10^[(t_2 log(t_2/t_0) - t_1 log(t_1/t_0) - 0.43(t_2 - t_1))/(t_2 - t_1)]}
-#'  where 0.43 = \eqn{1/ln(10)}. t0, which is an arbitrary constant, is set to 1.
+#'  It reads \deqn{t_{star} = t0 * 10^[(t_2 \log(t_2/t_0) - t_1 \log(t_1/t_0) - 0.43(t_2 - t_1))/(t_2 - t_1)]}
+#'  where 0.43 = \eqn{1/\ln(10)}. t0, which is an arbitrary constant, is set to 1.
 #'  Please note that the equation in Auclair et al. (2003) is incorrect
-#'  insofar that it reads \eqn{10exp(...)}, where the base should be 10 and not the Euler's number.
+#'  insofar that it reads \eqn{10\exp(...)}, where the base should be 10 and not the Euler's number.
 #'  Here we use the correct version (base 10).
 #'  \item `t_star = "end"` This option uses the simplest possible form for `t_star` which is the time since
 #'  irradiation without taking into account any addition parameter and it equals t1 in Auclair et al. (2003)
@@ -655,12 +655,6 @@ analyse_FadingMeasurement <- function(
 
   ## Plotting ---------------------------------------------------------------
   if(plot) {
-    ## deprecated argument
-    if ("plot.single" %in% ...names()) {
-      plot_singlePanels <- list(...)$plot.single
-      .deprecated("plot.single", "plot_singlePanels", since = "1.0.0")
-    }
-
     ## split the plot area into 4 regions if plot_singlePanels = FALSE (default)
     if (is.logical(plot_singlePanels) && !plot_singlePanels[1]) {
       par.default <- .par_defaults()
@@ -772,14 +766,6 @@ analyse_FadingMeasurement <- function(
 
     ## plot fading ----
     if (3 %in% plot_singlePanels) {
-
-      if(all(is.na(LxTx_table[["LxTx_NORM"]]))){
-        ## FIXME(mcol): this block seems unreachable since 5f63c1f1
-        # nocov start
-          shape::emptyplot()
-          text(x = 0.5, y = 0.5, labels = "All NA values!")
-        # nocov end
-      }else{
         plot(
           NA,
           NA,
@@ -910,7 +896,6 @@ analyse_FadingMeasurement <- function(
           bty = "n",
           horiz = TRUE
         )
-      }#end if a
     }#
 
     if (4 %in% plot_singlePanels) {

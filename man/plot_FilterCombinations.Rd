@@ -36,7 +36,7 @@ Supported are \code{main}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \
 For non-common plotting parameters, see the details section.}
 }
 \value{
-Returns an S4 object of type \linkS4class{RLum.Results}.
+Returns an S4 object of type \link[=RLum.Results-class]{RLum.Results}.
 
 \strong{@data}
 
@@ -70,7 +70,7 @@ The net transmission window of two filters is approximated by
 
 \strong{Optical density}
 
-\deqn{OD = -log10(T)}
+\deqn{OD = -\log10(T)}
 
 \strong{Total optical density}
 
@@ -98,7 +98,7 @@ The filter data itself are provided as list element containing a \code{matrix} o
 The given filter data are always considered as standard input and the filter
 thickness value is taken into account by
 
-\deqn{Transmission = Transmission^(d)}
+\deqn{Transmission = Transmission^d}
 
 with d given in the same dimension as the original filter data.
 
@@ -108,7 +108,7 @@ Same as CASE 2 but additionally a reflection factor P is provided, e.g.,
 \code{list(filter1 = list(filter_matrix, d = 2, P = 0.9))}.
 The final transmission becomes:
 
-\deqn{Transmission = Transmission^(d) * P}
+\deqn{Transmission = Transmission^d * P}
 
 \strong{Advanced plotting parameters}
 
@@ -161,7 +161,7 @@ plot_FilterCombinations(filters = list(filter1, filter2), interactive = TRUE)
 
 }
 \seealso{
-\linkS4class{RLum.Results}, \link{approx}
+\link[=RLum.Results-class]{RLum.Results}, \link{approx}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

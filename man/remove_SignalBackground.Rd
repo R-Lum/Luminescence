@@ -12,14 +12,14 @@ remove_SignalBackground(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} (\strong{required}): A non-empty \linkS4class{RLum.Analysis} object
+\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} (\strong{required}): A non-empty \link[=RLum.Analysis-class]{RLum.Analysis} object
 with, e.g., OSL/IRSL/TL curves or a \link{list} of such object. If a list is provided
 non-conform list elements are silently removed from the \link{list}}
 
-\item{object_bg}{\linkS4class{RLum.Data.Curve}, a \link{list} of such objects, a \link{matrix} or \link{numeric} (\emph{optional}):
+\item{object_bg}{\link[=RLum.Data.Curve-class]{RLum.Data.Curve}, a \link{list} of such objects, a \link{matrix} or \link{numeric} (\emph{optional}):
 Sets the background as a curve that is subtracted from the record types set with \code{recordType}.
-If you provide a \link{matrix} or \link{numeric} internally, everything is coerced to a \linkS4class{RLum.Data.Curve} object.
-If you desire full freedom, you can construct a \link{list} of \linkS4class{RLum.Data.Curve} objects.}
+If you provide a \link{matrix} or \link{numeric} internally, everything is coerced to a \link[=RLum.Data.Curve-class]{RLum.Data.Curve} object.
+If you desire full freedom, you can construct a \link{list} of \link[=RLum.Data.Curve-class]{RLum.Data.Curve} objects.}
 
 \item{recordType}{\link{character} (\emph{optional}): provide the \code{recordType} subject to the
 background subtraction. Subsequent curve selection uses \link{get_RLum}.
@@ -30,7 +30,7 @@ after background subtraction. If \code{object_bg} is set, nothing is removed fro
 the input object as the background is already stored separately.}
 }
 \value{
-Returns an \linkS4class{RLum.Analysis} object or a \link{list} of such objects.
+Returns an \link[=RLum.Analysis-class]{RLum.Analysis} object or a \link{list} of such objects.
 }
 \description{
 Convenient (background) of luminescence curves using \link{merge_RLum}
@@ -81,8 +81,8 @@ o <- remove_SignalBackground(
 
 }
 \seealso{
-\link{get_RLum}, \link{merge_RLum}, \linkS4class{RLum.Analysis},
-\linkS4class{RLum.Data.Curve}
+\link{get_RLum}, \link{merge_RLum}, \link[=RLum.Analysis-class]{RLum.Analysis},
+\link[=RLum.Data.Curve-class]{RLum.Data.Curve}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

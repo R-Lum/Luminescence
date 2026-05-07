@@ -24,8 +24,8 @@ plot_RLum.Data.Spectrum(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Spectrum} or \link{matrix} (\strong{required}):
-S4 object of class \linkS4class{RLum.Data.Spectrum} or a \code{matrix} containing count
+\item{object}{\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} or \link{matrix} (\strong{required}):
+S4 object of class \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} or a \code{matrix} containing count
 values of the spectrum.\cr
 Please note that in case of a matrix row names and col names are set
 automatically if not provided.}
@@ -45,7 +45,7 @@ limited: \code{c(350,750)}. Own colours can be set with the argument \code{col}.
 you provide already binned spectra, the colour assignment is likely to be
 wrong, since the colour gradients are calculated using the bin number.}
 
-\item{bg.spectrum}{\linkS4class{RLum.Data.Spectrum} or \link{matrix} (\emph{optional}):
+\item{bg.spectrum}{\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} or \link{matrix} (\emph{optional}):
 spectrum used for the background subtraction. The background spectrum should
 be measured using the same setting as the signal spectrum. The argument
 \code{bg.channels} controls how the subtraction is performed: if \code{bg.channels}
@@ -113,12 +113,12 @@ useful attributes such as \code{colour} and \code{pmat} (the transpose matrix fr
 }
 \description{
 The function provides a standardised plot output for spectrum data of an
-\linkS4class{RLum.Data.Spectrum} class object. The purpose of this function is to
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} class object. The purpose of this function is to
 provide easy and straightforward spectra plotting, not a fully customised
 access to all plot parameters. If this is wanted, standard R plot
 functionality should be used instead.
 
-\strong{Matrix structure} \cr (cf. \linkS4class{RLum.Data.Spectrum})
+\strong{Matrix structure} \cr (cf. \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum})
 \itemize{
 \item \code{rows} (x-values): wavelengths/channels (\code{xlim}, \code{xlab})
 \item \code{columns} (y-values): time/temperature (\code{ylim}, \code{ylab})
@@ -271,7 +271,7 @@ plot_RLum.Data.Spectrum(
 
 }
 \seealso{
-\linkS4class{RLum.Data.Spectrum},
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum},
 \link{convert_Wavelength2Energy}, \link{plot_RLum},
 \link[graphics:persp]{graphics::persp}, \link[plotly:plot_ly]{plotly::plot_ly}, \link[graphics:contour]{graphics::contour}, \link[graphics:image]{graphics::image}
 }

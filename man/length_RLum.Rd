@@ -17,7 +17,7 @@ length_RLum(object)
 \S4method{length_RLum}{RLum.Results}(object)
 }
 \arguments{
-\item{object}{\linkS4class{RLum} (\strong{required}):
+\item{object}{\link[=RLum-class]{RLum} (\strong{required}):
 S4 object of class \code{RLum}}
 }
 \value{
@@ -25,7 +25,7 @@ An \link{integer} indicating the length of the object.
 }
 \description{
 The function provides a generalised access point for specific
-\linkS4class{RLum} objects. Depending on the input object, the corresponding
+\link[=RLum-class]{RLum} objects. Depending on the input object, the corresponding
 function will be selected.
 }
 \section{Functions}{
@@ -43,11 +43,11 @@ time/temperature of the curve (corresponding to the stimulation length).
 }
 
 \seealso{
-\linkS4class{RLum.Data.Curve},
-\linkS4class{RLum.Data.Image},
-\linkS4class{RLum.Data.Spectrum},
-\linkS4class{RLum.Analysis},
-\linkS4class{RLum.Results}
+\link[=RLum.Data.Curve-class]{RLum.Data.Curve},
+\link[=RLum.Data.Image-class]{RLum.Data.Image},
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum},
+\link[=RLum.Analysis-class]{RLum.Analysis},
+\link[=RLum.Results-class]{RLum.Results}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

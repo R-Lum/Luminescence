@@ -7,8 +7,8 @@
 plot_RLum.Results(object, single = TRUE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Results} (\strong{required}):
-S4 object of class \code{RLum.Results}}
+\item{object}{\link[=RLum.Results-class]{RLum.Results} (\strong{required}):
+S4 object of class \code{RLum.Results}.}
 
 \item{single}{\link{logical} (\emph{with default}):
 single plot output (\code{TRUE/FALSE}) to allow for plotting the results in as
@@ -21,23 +21,22 @@ the \code{plot} function.}
 Returns multiple plots.
 }
 \description{
-The function provides a standardised plot output for data of an RLum.Results
-S4 class object
+The function provides a standardised plot output for data of an \code{RLum.Results}
+S4 class object, redirecting to specialised functions if necessary.
 }
 \details{
-The function produces a multiple plot output.  A file output is recommended
-(e.g., \link{pdf}).
+The function may produce multiple plots, in which case a file output is
+recommended (e.g., \link{pdf}).
 }
 \note{
 Not all arguments available for \link{plot} will be passed!
 Only plotting of \code{RLum.Results} objects are supported.
 }
 \section{Function version}{
- 0.2.1
+ 0.2.2
 }
 
 \examples{
-
 
 ###load data
 data(ExampleData.DeValues, envir = environment())
@@ -53,7 +52,6 @@ grains<- calc_AliquotSize(grain.size = c(100,150), sample.diameter = 1, plot = F
 
 ##plot
 plot_RLum.Results(grains)
-
 
 }
 \seealso{

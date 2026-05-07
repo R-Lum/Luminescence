@@ -15,7 +15,7 @@ plot_DRCSummary(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Results} (\strong{required}): input object created by
+\item{object}{\link[=RLum.Results-class]{RLum.Results} (\strong{required}): input object created by
 \link{analyse_SAR.CWOSL}. The input object can be provided as \link{list}.}
 
 \item{source_dose_rate}{\link{numeric} (\emph{optional}): allows to modify the axis
@@ -41,14 +41,14 @@ In particular: \code{main}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, 
 \code{col.pch}, \code{col.lty}, \code{mtext}}
 }
 \value{
-An \linkS4class{RLum.Results} object is returned:
+An \link[=RLum.Results-class]{RLum.Results} object is returned:
 
 Slot: \strong{@data}\cr
 
 \tabular{lll}{
 \strong{OBJECT} \tab \strong{TYPE} \tab \strong{COMMENT}\cr
 \code{results} \tab \link{data.frame} \tab with dose and LxTx values \cr
-\code{data} \tab \linkS4class{RLum.Results} \tab original input data \cr
+\code{data} \tab \link[=RLum.Results-class]{RLum.Results} \tab original input data \cr
 }
 
 Slot: \strong{@info}\cr
@@ -59,13 +59,13 @@ Slot: \strong{@info}\cr
 \code{args} \tab \code{list} \tab arguments of the original function call \cr
 }
 
-\emph{Note: If the input object is a \link{list} a list of \linkS4class{RLum.Results} objects is returned.}
+\emph{Note: If the input object is a \link{list} a list of \link[=RLum.Results-class]{RLum.Results} objects is returned.}
 }
 \description{
 While analysing OSL SAR or pIRIR-data the view on the data is usually
 limited to one dose-response curve (DRC) at the time for one aliquot. This
 function overcomes this limitation by plotting all DRCs from an
-\linkS4class{RLum.Results} object created by \link{analyse_SAR.CWOSL} in one single
+\link[=RLum.Results-class]{RLum.Results} object created by \link{analyse_SAR.CWOSL} in one single
 plot.
 
 If you want plot your DRC on an energy scale (dose in Gy), you can either
@@ -97,7 +97,7 @@ plot_DRCSummary(results)
 
 }
 \seealso{
-\linkS4class{RLum.Results}, \link{analyse_SAR.CWOSL}
+\link[=RLum.Results-class]{RLum.Results}, \link{analyse_SAR.CWOSL}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr

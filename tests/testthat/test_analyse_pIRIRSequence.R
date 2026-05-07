@@ -95,18 +95,6 @@ test_that("check plot stuff", {
     plot_singlePanels = TRUE,
     verbose = FALSE))
 
-  suppressWarnings( # duplicated plot.single warnings from sanalyse_SAR.CWOSL()
-  expect_warning(analyse_pIRIRSequence(
-    object,
-    signal_integral = 1:2,
-    background_integral = 900:1000,
-    fit.method = "EXP",
-    plot = TRUE,
-    plot.single = TRUE,
-    verbose = FALSE),
-    "'plot.single' was deprecated in v1.0.0, use 'plot_singlePanels' instead")
-  )
-
   ## integral_input
   set.seed(1)
   res1 <- analyse_pIRIRSequence(object,
@@ -207,7 +195,8 @@ test_that("input validation", {
                                        signal_integral = 1:2,
                                        background_integral = 900:1000,
                                        plot = FALSE),
-                 "Your sequence does not contain 'TL' curves")
+                 "'sequence.structure' changed to c('IR50', 'pIRIR225')",
+                 fixed = TRUE)
   })
 })
 
@@ -219,8 +208,8 @@ test_that("check class and length of output", {
     expect_s3_class(results$LnLxTnTx.table, "data.frame")
     expect_s3_class(results$rejection.criteria, "data.frame")
 
-   expect_equal(round(sum(results$data[1:2, 1:4]), 0), 7583)
-   expect_equal(round(sum(results$rejection.criteria$Value), 2), 4016.66)
+   expect_equal(round(sum(results$data[1:2, 1:4]), 0), 7473)
+   expect_equal(round(sum(results$rejection.criteria$Value), 0), 4012)
 })
 
 test_that("regression tests", {

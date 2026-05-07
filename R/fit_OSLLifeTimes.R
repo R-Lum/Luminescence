@@ -18,7 +18,7 @@
 #'
 #' The function to be optimized has the form:
 #'
-#' \deqn{\chi^2 = \sum(w * (n_i/c - \sum(A_i * exp(-x/(tau_i + t_p))))^2)}
+#' \deqn{\chi^2 = \sum(w * (n_i/c - \sum(A_i * \exp(-x/(tau_i + t_p))))^2)}
 #'
 #' with \eqn{w = 1} for unweighted regression analysis (`method_control = list(weights = FALSE)`) or
 #' \eqn{w = c^2/n_i} for weighted regression analysis. The default values is `TRUE`.
@@ -210,7 +210,7 @@ fit_OSLLifeTimes <- function(
   arg_list <- NULL
   if(!is.null(arg_names)){
     arg_list <- lapply(arg_names , function(x){
-      unlist(rep_len(list(...)[[x]], length(object)))
+      .listify(list(...)[[x]], length(object))
     })
 
     ## make sure we organise this list (not nice but it works)

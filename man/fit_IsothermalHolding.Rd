@@ -20,8 +20,8 @@ fit_IsothermalHolding(
 \item{data}{\link{character} or \link{data.frame} (\strong{required}): file path or data
 frame with 5 columns named "SAMPLE", "TEMP", "TIME", "LxTx", "LxTx_ERROR".}
 
-\item{rhop}{\link{numeric} or \linkS4class{RLum.Results} (\emph{with default}):
-a vector of rho prime values (one for each sample) or an \linkS4class{RLum.Results}
+\item{rhop}{\link{numeric} or \link[=RLum.Results-class]{RLum.Results} (\emph{with default}):
+a vector of rho prime values (one for each sample) or an \link[=RLum.Results-class]{RLum.Results}
 object produced by \link{analyse_FadingMeasurement}.}
 
 \item{ITL_model}{\link{character} (\emph{with default}): model to be fitted, either
@@ -46,7 +46,7 @@ the nls fitting (\link[minpack.lm:nlsLM]{minpack.lm::nlsLM}).}
 to the \code{plot} function.}
 }
 \value{
-The function returns an \linkS4class{RLum.Results} object and an \emph{optional} plot.
+The function returns an \link[=RLum.Results-class]{RLum.Results} object and an \emph{optional} plot.
 The object returned contains the following elements:
 
 \item{fit}{\link{list} with the fitted models}

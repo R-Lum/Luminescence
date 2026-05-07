@@ -29,7 +29,7 @@ enable/disable output to the terminal.}
 \item{...}{further parameters passed to \link{fit_IsothermalHolding}}
 }
 \value{
-An \linkS4class{RLum.Results} object is returned:
+An \link[=RLum.Results-class]{RLum.Results} object is returned:
 
 Slot: \strong{@data}
 

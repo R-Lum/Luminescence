@@ -33,12 +33,12 @@ analyse_baSAR(
 )
 }
 \arguments{
-\item{object}{\linkS4class{Risoe.BINfileData}, \linkS4class{RLum.Results}, \link{list} of \linkS4class{RLum.Analysis},
+\item{object}{\link[=Risoe.BINfileData-class]{Risoe.BINfileData}, \link[=RLum.Results-class]{RLum.Results}, \link{list} of \link[=RLum.Analysis-class]{RLum.Analysis},
 \link{character} or \link{list} (\strong{required}):
 input object used for the Bayesian analysis. If a \code{character} is provided the function
 assumes a file connection and tries to import a BIN/BINX-file using the provided path. If a \code{list} is
 provided the list can only contain either \code{Risoe.BINfileData} objects or \code{character}s
-providing a file connection. Mixing of both types is not allowed. If an \linkS4class{RLum.Results}
+providing a file connection. Mixing of both types is not allowed. If an \link[=RLum.Results-class]{RLum.Results}
 is provided the function directly starts with the Bayesian Analysis (see details)}
 
 \item{CSV_file}{\link{character} or \link{data.frame} (\emph{optional}):
@@ -50,7 +50,7 @@ the name of the file, the disc position and the grain position
 \item{aliquot_range}{\link{numeric} (\emph{optional}):
 allows to limit the range of the aliquots used for the analysis.
 This argument has only an effect if the argument \code{CSV_file} is used or
-\code{object} is a previous output (i.e. is \linkS4class{RLum.Results}). In this case,
+\code{object} is a previous output (i.e. is \link[=RLum.Results-class]{RLum.Results}). In this case,
 the new selection will add the aliquots to the removed aliquots table.}
 
 \item{source_doserate}{\link{numeric} (\strong{required}):
@@ -62,24 +62,24 @@ as a list, for the case that more than one BIN-file is provided, e.g.,
 \item{signal_integral}{\link{vector} (\strong{required}):
 vector with the limits for the signal integral used for the calculation,
 e.g., \code{signal_integral = 1:5}. It is ignored if \code{object} is an
-\linkS4class{RLum.Results} object.
+\link[=RLum.Results-class]{RLum.Results} object.
 The parameter can be provided as a list, see \code{source_doserate}.}
 
 \item{background_integral}{\link{vector} (\strong{required}):
 vector with the limits for the background integral. It is ignored if
-\code{object} is an \linkS4class{RLum.Results} object.
+\code{object} is an \link[=RLum.Results-class]{RLum.Results} object.
 The parameter can be provided as a list, see \code{source_doserate}.}
 
 \item{signal_integral_Tx}{\link{vector} (\emph{optional}):
 vector with the limits for the signal integral for the Tx curve. If nothing
 is provided, the value from \code{signal_integral} is used. It is ignored
-if \code{object} is an \linkS4class{RLum.Results} object.
+if \code{object} is an \link[=RLum.Results-class]{RLum.Results} object.
 The parameter can be provided as a list, see \code{source_doserate}.}
 
 \item{background_integral_Tx}{\link{vector} (\emph{optional}):
 vector with the limits for the background integral for the Tx curve.
 If nothing is provided, the value from \code{background_integral} is used.
-It is ignored if \code{object} is an \linkS4class{RLum.Results} object.
+It is ignored if \code{object} is an \link[=RLum.Results-class]{RLum.Results} object.
 The parameter can be provided as a list, see \code{source_doserate}.}
 
 \item{irradiation_times}{\link{numeric} (\emph{optional}): if set this vector replaces all irradiation
@@ -240,7 +240,7 @@ Available scenarios:
 
 It does not matter how the information of the BIN/BINX file are provided.
 The function supports \strong{(a)} either a path to a file or directory or a
-\code{list} of file names or paths or  \strong{(b)} a \linkS4class{Risoe.BINfileData} object
+\code{list} of file names or paths or  \strong{(b)} a \link[=Risoe.BINfileData-class]{Risoe.BINfileData} object
 or a list of these objects. The latter one can be produced by using function
 \link{read_BIN2R}, but this function is called automatically if only a file name
 and/or a path is provided. In both cases it will become the data that can be
@@ -273,7 +273,7 @@ the automatic selection by \link{verify_SingleGrainData} might not be sufficient
 
 \strong{(2) - \code{object} \verb{RLum.Results object}}
 
-If an \linkS4class{RLum.Results} object is provided as input and(!) this object was
+If an \link[=RLum.Results-class]{RLum.Results} object is provided as input and(!) this object was
 previously created by the function \code{analyse_baSAR()} itself, the pre-processing part
 is skipped and the function starts directly with the Bayesian analysis. This option is very powerful
 as it allows to change parameters for the Bayesian analysis without the need to repeat
@@ -350,7 +350,7 @@ functions.
 \code{pattern} \tab \link{read_BIN2R} \tab \code{TRUE} \tab select BIN-file by name pattern\cr
 \code{position} \tab \link{read_BIN2R} \tab \code{NULL} \tab limit import to a specific position\cr
 \code{background.count.distribution} \tab \link{calc_OSLLxTxRatio} \tab \code{"non-poisson"} \tab set assumed count distribution\cr
-\code{fit.weights} \tab \link{fit_DoseResponseCurve} \tab \code{TRUE} \tab enable/disable fit weights\cr
+\code{fit.weights} \tab \link{fit_DoseResponseCurve} \tab \code{NULL} \tab enable/disable fit weights\cr
 \code{fit.bounds} \tab \link{fit_DoseResponseCurve} \tab \code{TRUE} \tab enable/disable fit bounds\cr
 \code{n.MC} \tab \link{fit_DoseResponseCurve} \tab \code{100} \tab number of MC runs for error calculation\cr
 \code{plot_drc} \tab \link{plot_DoseResponseCurve} \tab \code{TRUE} \tab enable/disable dose response curve plot\cr

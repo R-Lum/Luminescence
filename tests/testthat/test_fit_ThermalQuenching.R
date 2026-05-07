@@ -15,6 +15,11 @@ test_that("input validation", {
     data = data[,1:2],
     n.MC = NULL),
     "'data' is empty or has fewer than three columns")
+  expect_error(fit_ThermalQuenching(data = data[1:3, ]),
+               "Insufficient number of data points to fit the model")
+  expect_warning(expect_error(fit_ThermalQuenching(data = data_NA[1:4, ]),
+                              "Insufficient number of data points to fit the model"),
+                 "NA values in 'data' automatically removed")
   expect_warning(expect_error(
       fit_ThermalQuenching(data.frame(1:10, NA, 1:10)),
       "After NA removal, nothing is left from the data set"),

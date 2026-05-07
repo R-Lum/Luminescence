@@ -11,12 +11,12 @@ reader}
 
 The data contain two elements: (a) \verb{$Sequence.Header} is a
 \link{data.frame} with metadata from the measurement,(b)
-\code{Sequence.Object} contains an \linkS4class{RLum.Analysis} object
+\code{Sequence.Object} contains an \link[=RLum.Analysis-class]{RLum.Analysis} object
 for further analysis.
 
 \code{TL.Spectrum}: TL spectrum data
 
-\linkS4class{RLum.Data.Spectrum} object for further analysis. The
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} object for further analysis. The
 spectrum was cleaned from cosmic-rays using the function
 
 \code{apply_CosmicRayRemoval}. Note that no quantum efficiency calibration
@@ -98,8 +98,8 @@ of Dolni Vestonice, Czech Republic: A new OSL-based chronology of the Last
 Climatic Cycle. Boreas, 42, 664--677.
 }
 \seealso{
-\link{read_XSYG2R}, \linkS4class{RLum.Analysis},
-\linkS4class{RLum.Data.Spectrum},
+\link{read_XSYG2R}, \link[=RLum.Analysis-class]{RLum.Analysis},
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum},
 \link{plot_RLum}, \link{plot_RLum.Analysis}, \link{plot_RLum.Data.Spectrum}
 }
 \keyword{datasets}

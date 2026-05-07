@@ -17,7 +17,7 @@ analyse_portableOSL(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} (\strong{required}):
+\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} (\strong{required}):
 object produced by \link{read_PSL2R}. The input can be a \link{list} of such objects,
 in which case each input is treated as a separate sample and the results
 are merged.}
@@ -68,11 +68,11 @@ Additional parameters for \code{mode = "surface"} are \code{surface_value}
 \code{labcex} (scaling of the contour labels), \code{zlim}.}
 }
 \value{
-Returns an S4 \linkS4class{RLum.Results} object with the following elements:
+Returns an S4 \link[=RLum.Results-class]{RLum.Results} object with the following elements:
 
 \verb{$data}\cr
 \code{.. $summary}: \link{data.frame} with the results\cr
-\code{.. $data}: \link{list} with the \linkS4class{RLum.Analysis} objects\cr
+\code{.. $data}: \link{list} with the \link[=RLum.Analysis-class]{RLum.Analysis} objects\cr
 \code{.. $args}: \link{list} the input arguments
 }
 \description{
@@ -81,7 +81,7 @@ produces a combined plot of OSL/IRSL signal intensities, OSL/IRSL depletion rati
 and the IRSL/OSL ratio.
 }
 \details{
-This function only works with \linkS4class{RLum.Analysis} objects produced by \link{read_PSL2R}.
+This function only works with \link[=RLum.Analysis-class]{RLum.Analysis} objects produced by \link{read_PSL2R}.
 It further assumes (or rather requires) an equal amount of OSL and IRSL curves that
 are pairwise combined for calculating the IRSL/OSL ratio.
 For calculating the depletion ratios, the cumulative signal of the last \emph{n}
@@ -143,7 +143,7 @@ get_RLum(results)
 
 }
 \seealso{
-\linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve}, \link{read_PSL2R}
+\link[=RLum.Analysis-class]{RLum.Analysis}, \link[=RLum.Data.Curve-class]{RLum.Data.Curve}, \link{read_PSL2R}
 }
 \author{
 Christoph Burow, University of Cologne (Germany) \cr

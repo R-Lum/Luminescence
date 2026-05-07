@@ -17,7 +17,7 @@ verify_SingleGrainData(
 )
 }
 \arguments{
-\item{object}{\linkS4class{Risoe.BINfileData} or \linkS4class{RLum.Analysis} (\strong{required}):
+\item{object}{\link[=Risoe.BINfileData-class]{Risoe.BINfileData} or \link[=RLum.Analysis-class]{RLum.Analysis} (\strong{required}):
 input object. The function also accepts a list with objects of allowed type.}
 
 \item{threshold}{\link{numeric} (\emph{with default}):
@@ -30,7 +30,7 @@ The threshold is fixed and cannot be changed.}
 \item{cleanup}{\link{logical} (\emph{with default}):
 if set to \code{TRUE}, curves/aliquots identified as zero light level curves/aliquots are
 automatically removed. Output is an object as same type as the input, i.e.
-either \linkS4class{Risoe.BINfileData} or \linkS4class{RLum.Analysis}}
+either \link[=Risoe.BINfileData-class]{Risoe.BINfileData} or \link[=RLum.Analysis-class]{RLum.Analysis}}
 
 \item{cleanup_level}{\link{character} (\emph{with default}):
 selects the level for the clean-up of the input data sets.
@@ -60,7 +60,7 @@ The function returns
 
 \strong{\code{RLum.Results}}-object
 
-\strong{slot:****\verb{@data}}
+\strong{slot:} \verb{@data}
 
 \tabular{lll}{
 \strong{Element} \tab \strong{Type} \tab \strong{Description}\cr
@@ -69,16 +69,16 @@ The function returns
 \verb{$selection_full} \tab \code{data.frame} \tab implemented models used in the baSAR-model core \cr
 }
 
-\strong{slot:****\verb{@info}}
+\strong{slot:} \verb{@info}
 
 The original function call
 
 \strong{Output variation}
 
 For \code{cleanup = TRUE} the same object as the input is returned, but cleaned up
-(invalid curves were removed). This means: Either a \linkS4class{Risoe.BINfileData}
-or an \linkS4class{RLum.Analysis} object is returned in such cases.
-A \linkS4class{Risoe.BINfileData} object can be exported to a BINX-file by
+(invalid curves were removed). This means: Either a \link[=Risoe.BINfileData-class]{Risoe.BINfileData}
+or an \link[=RLum.Analysis-class]{RLum.Analysis} object is returned in such cases.
+A \link[=Risoe.BINfileData-class]{Risoe.BINfileData} object can be exported to a BINX-file by
 using the function \link{write_R2BIN}.
 }
 \description{
@@ -107,11 +107,11 @@ ratio was chosen as both terms can become 0 which would result in 0 or \code{Inf
 if the ratio is calculated.
 }
 \note{
-This function can work with \linkS4class{Risoe.BINfileData} objects or
-\linkS4class{RLum.Analysis} objects (or a list of it). However, the function is
-highly optimised for \linkS4class{Risoe.BINfileData} objects as it make sense to
+This function can work with \link[=Risoe.BINfileData-class]{Risoe.BINfileData} objects or
+\link[=RLum.Analysis-class]{RLum.Analysis} objects (or a list of it). However, the function is
+highly optimised for \link[=Risoe.BINfileData-class]{Risoe.BINfileData} objects as it make sense to
 remove identify invalid grains before the conversion to an
-\linkS4class{RLum.Analysis} object.
+\link[=RLum.Analysis-class]{RLum.Analysis} object.
 
 The function checking for invalid curves works rather robust and it is likely
 that Reg0 curves within a SAR cycle are removed as well. Therefore it is
@@ -153,7 +153,7 @@ write_R2BIN(object, paste0(dirname(file),"/", basename(file), "_CLEANED.BIN"))
 
 }
 \seealso{
-\linkS4class{Risoe.BINfileData}, \linkS4class{RLum.Analysis},
+\link[=Risoe.BINfileData-class]{Risoe.BINfileData}, \link[=RLum.Analysis-class]{RLum.Analysis},
 \link{write_R2BIN}, \link{read_BIN2R}
 }
 \author{

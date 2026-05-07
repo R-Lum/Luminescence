@@ -17,7 +17,7 @@ to use, see \link{BaseDataSet.ConversionFactors} for the accepted values.}
 \item{...}{currently not used.}
 }
 \value{
-The function returns an \linkS4class{RLum.Results} object for which
+The function returns an \link[=RLum.Results-class]{RLum.Results} object for which
 the first element is a \link{matrix} (\code{DataIndividual}) that gives the dose rate
 results for each slice for each decay chain individually, for both, the
 cobble dose rate and the sediment dose rate. The second element is also a

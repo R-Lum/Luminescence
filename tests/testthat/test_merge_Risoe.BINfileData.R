@@ -1,7 +1,7 @@
 ## load data
 data(ExampleData.BINfileData, envir = environment())
-o1 <- CWOSL.SAR.Data
-o2 <- CWOSL.SAR.Data
+o1 <- subset(CWOSL.SAR.Data, LTYPE == c("IRSL", "TL"))
+o2 <- subset(CWOSL.SAR.Data, LTYPE == "OSL" & POSITION < 3)
 
 test_that("input validation", {
   testthat::skip_on_cran()
@@ -42,5 +42,5 @@ test_that("check functionality", {
 test_that("snapshot tests", {
   testthat::skip_on_cran()
 
-  expect_snapshot(merge_Risoe.BINfileData(c(o1, o2)))
+  expect_snapshot_Risoe(merge_Risoe.BINfileData(c(o1, o2)))
 })

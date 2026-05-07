@@ -3,7 +3,7 @@
 \name{ExampleData.RLum.Analysis}
 \alias{ExampleData.RLum.Analysis}
 \alias{IRSAR.RF.Data}
-\title{Example data as \linkS4class{RLum.Analysis} objects}
+\title{Example data as \link[=RLum.Analysis-class]{RLum.Analysis} objects}
 \format{
 \code{IRSAR.RF.Data}: IRSAR.RF.Data on coarse grain feldspar
 
@@ -23,7 +23,7 @@ Reference: \tab Kreutzer et al. (2014)
 }
 }
 \description{
-Collection of different \linkS4class{RLum.Analysis} objects for
+Collection of different \link[=RLum.Analysis-class]{RLum.Analysis} objects for
 protocol analysis.
 }
 \section{Version}{

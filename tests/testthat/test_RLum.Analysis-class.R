@@ -132,10 +132,13 @@ test_that("get_RLum", {
   expect_equal(get_RLum(tmp, record.id = c(1, 10, 20), get.index = TRUE),
                1:3)
   expect_message(expect_null(get_RLum(obj, record.id = 99)),
-                 "[get_RLum()] Error: At least one 'record.id' is invalid",
+                 "[get_RLum()] Error: At least one 'record.id' (99) is invalid",
+                 fixed = TRUE)
+  expect_message(expect_null(get_RLum(obj, record.id = 100:110)),
+                 "[get_RLum()] Error: At least one 'record.id' (100, 101, 102, 103, \u2026) is invalid",
                  fixed = TRUE)
   expect_message(expect_null(get_RLum(obj, record.id = 99, get.index = TRUE)),
-                 "[get_RLum()] Error: At least one 'record.id' is invalid",
+                 "[get_RLum()] Error: At least one 'record.id' (99) is invalid",
                  fixed = TRUE)
 
   expect_warning(res <- get_RLum(obj, RLum.type = "error"),
@@ -206,7 +209,7 @@ test_that("sort_RLum", {
   ## present a list of those objects
   expect_type(sort_RLum(list(sar, sar), info_element = "X_MIN"), "list")
   expect_type(sort_RLum(list(iris, mtcars), info_element = "X_MIN"), "list")
-  expect_snapshot(sort_RLum(list(sar, sar), info_element = "X_MIN"))
+  expect_snapshot_RLum(sort_RLum(list(sar, sar), info_element = "X_MIN"))
 
   ## sort after three columns
   expect_s4_class(sort_RLum(sar, info_element = c("XY_LENGTH", "NCOL", "X_MIN")), "RLum.Analysis")
@@ -318,6 +321,11 @@ test_that("structure_RLum", {
 
 test_that("remove_RLum", {
   testthat::skip_on_cran()
+
+  expect_error(remove_RLum(sar, 2),
+               "Unnamed arguments are not supported")
+  expect_error(remove_RLum(sar, recordType = "OSL", 2),
+               "Unnamed arguments are not supported")
 
   ## remove all OSL curves
   t <- expect_s4_class(remove_RLum(sar, recordType = "OSL"), "RLum.Analysis")

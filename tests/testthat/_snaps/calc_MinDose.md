@@ -36,12 +36,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [34.31833755]
+                  "value": [34.31830953]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [2.55096356]
+                  "value": [2.55096346]
                 },
                 {
                   "type": "double",
@@ -51,12 +51,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [29.37525703]
+                  "value": [29.37525655]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [39.37503417]
+                  "value": [39.37503332]
                 },
                 {
                   "type": "double",
@@ -66,12 +66,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [2.07245215]
+                  "value": [2.07245283]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.01053938]
+                  "value": [0.01054103]
                 },
                 {
                   "type": "double",
@@ -170,12 +170,12 @@
                     {
                       "type": "double",
                       "attributes": {},
-                      "value": [1.2]
+                      "value": [0.31480709]
                     },
                     {
                       "type": "double",
                       "attributes": {},
-                      "value": [0.01]
+                      "value": [0.5]
                     },
                     {
                       "type": "double",
@@ -239,12 +239,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [3.38015272, 0.56507147, "NA"]
+                  "value": [29.37525655, 1.75957356, "NA"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [3.67313197, 0.94489014, 0.11385176]
+                  "value": [39.37503332, 2.57253074, 0.11385166]
                 }
               ]
             },
@@ -342,12 +342,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.30584905]
+                  "value": [0.30584856]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.04058545]
+                  "value": [0.04058543]
                 },
                 {
                   "type": "double",
@@ -357,7 +357,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.23065017]
+                  "value": [0.23065025]
                 },
                 {
                   "type": "double",
@@ -372,17 +372,17 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.12148384]
+                  "value": [1.12148598]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.09810429]
+                  "value": [0.09810311]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.71565576]
+                  "value": [0.71565589]
                 },
                 {
                   "type": "double",
@@ -476,12 +476,12 @@
                     {
                       "type": "double",
                       "attributes": {},
-                      "value": [1.2]
+                      "value": [0.31480709]
                     },
                     {
                       "type": "double",
                       "attributes": {},
-                      "value": [0.01]
+                      "value": [0.5]
                     },
                     {
                       "type": "double",
@@ -545,12 +545,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-1.46685312, "NA", 0.02649076, -0.41660348]
+                  "value": [0.23065025, "NA", 0.02649076, 0.65928229]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-0.94226223, 0.23763842, 0.21427862, -0.26121764]
+                  "value": [0.38974514, 1.26825062, 0.21427864, 0.77011328]
                 }
               ]
             },
@@ -648,12 +648,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [23.70614892]
+                  "value": [23.70614957]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [2.17436197]
+                  "value": [2.17436198]
                 },
                 {
                   "type": "double",
@@ -663,12 +663,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [19.06874043]
+                  "value": [19.06874044]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [27.59223937]
+                  "value": [27.59223939]
                 },
                 {
                   "type": "double",
@@ -678,7 +678,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [49.66536511]
+                  "value": [49.66536106]
                 },
                 {
                   "type": "double",
@@ -782,12 +782,12 @@
                     {
                       "type": "double",
                       "attributes": {},
-                      "value": [1.2]
+                      "value": [22.0130887]
                     },
                     {
                       "type": "double",
                       "attributes": {},
-                      "value": [0.01]
+                      "value": [0.5]
                     },
                     {
                       "type": "double",
@@ -851,12 +851,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [19.06874043, 41.00684789, "NA"]
+                  "value": [19.06874044, 41.00684779, "NA"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [27.59223937, 61.19987141, 0.06678974]
+                  "value": [27.59223939, 61.19987146, 0.06678974]
                 }
               ]
             },
@@ -954,12 +954,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [35.1261536]
+                  "value": [35.12615542]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [6.22603029]
+                  "value": [6.22603138]
                 },
                 {
                   "type": "double",
@@ -969,12 +969,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [27.22093984]
+                  "value": [27.22094123]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [43.74527786]
+                  "value": [43.74528405]
                 },
                 {
                   "type": "double",
@@ -984,12 +984,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [2.07964502]
+                  "value": [2.07964476]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.01221935]
+                  "value": [0.01221930]
                 },
                 {
                   "type": "double",
@@ -1088,12 +1088,12 @@
                     {
                       "type": "double",
                       "attributes": {},
-                      "value": [1.2]
+                      "value": [0.31480709]
                     },
                     {
                       "type": "double",
                       "attributes": {},
-                      "value": [0.01]
+                      "value": [0.5]
                     },
                     {
                       "type": "double",
@@ -1142,27 +1142,27 @@
                   "attributes": {},
                   "value": ["2.5 %", "97.5 %"]
                 },
-                "row.names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["gamma", "sigma", "p0"]
-                },
                 "class": {
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "row.names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["gamma", "sigma", "p0"]
                 }
               },
               "value": [
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [3.30398652, 0.51772756, 0.00626278]
+                  "value": [27.22094123, 1.67820886, 0.00626266]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [3.77838367, 0.96627826, 0.01698235]
+                  "value": [43.74528405, 2.62814489, 0.01698233]
                 }
               ]
             },
@@ -1209,7 +1209,7 @@
                           ]
                         }
                       },
-                      "value": [38.18941376, 39.64585686, 44.6392535, 27.72489783, 40.66602842, 36.31603044, 27.54036598, 27.12820322, 37.85306304, 31.55842298, 0.05288713, 0.04609871, 0.02784633, 0.02718193, 0.04352537, 0.05435746, 0.02719, 0.02535763, 0.05289831, 0.04658111]
+                      "value": [38.18941423, 39.64585514, 44.63926197, 27.72489838, 40.66602676, 36.31604469, 27.5403645, 27.12820545, 37.85305979, 31.55842327, 0.05288739, 0.04609897, 0.02784633, 0.02718188, 0.04352563, 0.05435764, 0.02718994, 0.02535759, 0.05289857, 0.0465811]
                     }
                   ]
                 }
@@ -1282,12 +1282,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [77.99604104]
+                  "value": [77.99603983]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [6.17248199]
+                  "value": [6.17248344]
                 },
                 {
                   "type": "double",
@@ -1297,12 +1297,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [68.993929]
+                  "value": [68.99392756]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [88.88813204]
+                  "value": [88.88813036]
                 },
                 {
                   "type": "double",
@@ -1312,12 +1312,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.67192316]
+                  "value": [1.6719233]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.57088679]
+                  "value": [0.57088688]
                 },
                 {
                   "type": "double",
@@ -1416,12 +1416,12 @@
                     {
                       "type": "double",
                       "attributes": {},
-                      "value": [1.2]
+                      "value": [0.31480709]
                     },
                     {
                       "type": "double",
                       "attributes": {},
-                      "value": [0.01]
+                      "value": [0.5]
                     },
                     {
                       "type": "double",
@@ -1470,27 +1470,27 @@
                   "attributes": {},
                   "value": ["2.5 %", "97.5 %"]
                 },
-                "row.names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["gamma", "sigma", "p0"]
-                },
                 "class": {
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "row.names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["gamma", "sigma", "p0"]
                 }
               },
               "value": [
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [4.23401852, 0.38826832, 0.17025588]
+                  "value": [68.99392756, 1.4744255, 0.17025597]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [4.48737864, 0.82615561, 0.84330658]
+                  "value": [88.88813036, 2.2845203, 0.8433067]
                 }
               ]
             },
@@ -1537,7 +1537,7 @@
                           ]
                         }
                       },
-                      "value": [69.18045847, 90.51233913, 74.51866773, 81.87109171, 74.17175205, 71.91298331, 73.16752795, 87.03569391, 82.78102421, 77.37999174, 72.74625166, 75.30141819, 83.13081732, 87.09295579, 73.22536377, 68.82516425, 82.84928515, 75.88752769, 78.48069688, 79.84980987, 0.01864786, 0.02673407, 0.02602263, 0.0321917, 0.0255834, 0.0223929, 0.02424377, 0.03055842, 0.03204458, 0.02919687, 0.02376733, 0.02697983, 0.0320836, 0.0304175, 0.02452153, 0.01811729, 0.0321661, 0.02765342, 0.03003537, 0.03122894]
+                      "value": [69.18045852, 90.51234426, 74.51866673, 81.87109246, 74.17175101, 71.91297488, 73.16753023, 87.03569763, 82.78102534, 77.37998338, 72.74624332, 75.30141543, 83.1308179, 87.09294657, 73.22536415, 68.82516146, 82.84928898, 75.88752786, 78.48069735, 79.84980916, 0.01864786, 0.02673406, 0.02602263, 0.0321917, 0.02558339, 0.02239289, 0.02424378, 0.03055842, 0.03204458, 0.02919686, 0.02376732, 0.02697982, 0.0320836, 0.03041751, 0.02452153, 0.01811728, 0.03216609, 0.02765342, 0.03003537, 0.03122894]
                     }
                   ]
                 }
@@ -1610,12 +1610,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [26.4599162]
+                  "value": [26.45990865]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [5.70100862]
+                  "value": [5.70101685]
                 },
                 {
                   "type": "double",
@@ -1625,12 +1625,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [19.71121989]
+                  "value": [19.71120527]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [34.75421205]
+                  "value": [34.75420809]
                 },
                 {
                   "type": "double",
@@ -1640,17 +1640,17 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [17.2946164]
+                  "value": [17.29462606]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.04399467]
+                  "value": [0.04399458]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [69.15431816]
+                  "value": [69.15431576]
                 },
                 {
                   "type": "double",
@@ -1660,7 +1660,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [576.14490906]
+                  "value": [576.14490907]
                 }
               ]
             },
@@ -1744,12 +1744,12 @@
                     {
                       "type": "double",
                       "attributes": {},
-                      "value": [1.2]
+                      "value": [22.0130887]
                     },
                     {
                       "type": "double",
                       "attributes": {},
-                      "value": [0.01]
+                      "value": [0.5]
                     },
                     {
                       "type": "double",
@@ -1788,7 +1788,7 @@
             {
               "type": "double",
               "attributes": {},
-              "value": [576.14490906]
+              "value": [576.14490907]
             },
             {
               "type": "list",
@@ -1813,12 +1813,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [19.71121989, 13.83131049, 0.01249814, 64.30091521]
+                  "value": [19.71120527, 13.83131136, 0.01249787, 64.30092056]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [34.75421205, 21.66321617, 0.11628449, 73.28156377]
+                  "value": [34.75420809, 21.66322029, 0.11628438, 73.28151977]
                 }
               ]
             },
@@ -1865,7 +1865,7 @@
                           ]
                         }
                       },
-                      "value": [27.00656052, 20.52638921, 28.77903743, 32.88518379, 34.83359748, 21.61508577, 26.98803759, 30.18009558, 19.71995549, 31.75864374, 31.66089021, 21.06913251, 34.66647025, 20.75113437, 31.53798736, 31.96704758, 19.7256217, 19.71411476, 24.10473795, 19.70860072, 0.0340554, 0.00726563, 0.00197847, 0.00018025, 0.0111404, 0.00995553, 0.00954259, 0.00005011, 0.00012633, 0.01846197, 0.00015641, 0.0170579, 0.00274817, 0.00004091, 0.000578, 0.00266474, 0.00073823, 0.00003685, 0.00329954, 0.00936193]
+                      "value": [27.0065763, 20.52635806, 28.77906113, 32.88518748, 34.8335934, 21.61514335, 26.98799958, 30.18009835, 19.71984356, 31.75864192, 31.66087938, 21.06914291, 34.66646644, 20.75110855, 31.53798207, 31.96704757, 19.72561819, 19.71409817, 24.10473878, 19.70858788, 0.03405545, 0.00726561, 0.00197847, 0.00018025, 0.0111404, 0.00995558, 0.00954264, 0.00005011, 0.00012633, 0.01846195, 0.00015641, 0.01705792, 0.00274819, 0.00004091, 0.000578, 0.00266474, 0.00073823, 0.00003685, 0.00329955, 0.0093619]
                     }
                   ]
                 }
@@ -1899,4 +1899,181 @@
         "package": "Luminescence"
       }
     }
+
+# output snapshot tests
+
+    
+    ----------- Meta data -----------
+      n par sigmab logged      Lmax      BIC
+     62   3    0.1   TRUE -43.57969 106.4405
+    
+    --- Final parameter estimates ---
+             gamma sigma   p0
+    Estimate 34.32  2.07 0.01
+    
+    ------ Confidence intervals -----
+          2.5 % 97.5 %
+    gamma 29.38  39.38
+    sigma  1.76   2.57
+    p0       NA   0.11
+    
+    ------ De (asymmetric error) -----
+        De lower upper
+     34.32 29.38 39.38
+    
+    ------ De (symmetric error) -----
+        De error
+     34.32  2.55
+
+---
+
+    
+    ----------- Meta data -----------
+      n par sigmab logged      Lmax      BIC
+     62   3    0.1   TRUE -19.68678 58.65469
+    
+    --- Final parameter estimates ---
+             gamma sigma   p0
+    Estimate 90.48  1.68 0.22
+    
+    ------ Confidence intervals -----
+          2.5 % 97.5 %
+    gamma 80.90 110.49
+    sigma  1.51   1.98
+    p0       NA   0.55
+    
+    ------ De (asymmetric error) -----
+        De lower  upper
+     90.48  80.9 110.49
+    
+    ------ De (symmetric error) -----
+        De error
+     90.48  7.55
+
+---
+
+    
+    ----------- Meta data -----------
+      n par sigmab logged      Lmax      BIC
+     62   4    0.2   TRUE -19.84507 58.97126
+    
+    --- Final parameter estimates ---
+             gamma sigma  p0   mu
+    Estimate  0.31  1.12 0.1 0.72
+    
+    ------ Confidence intervals -----
+          2.5 % 97.5 %    2.5 %   97.5 %
+                       (logged) (logged)
+    gamma  0.23   0.39    -1.47    -0.94
+    sigma  <NA>   1.27     <NA>     0.24
+    p0     0.03   0.21        -        -
+    mu     0.66   0.77    -0.42    -0.26
+    
+    ------ De (asymmetric error) -----
+       De lower upper
+     0.31  0.23  0.39
+    
+    ------ De (symmetric error) -----
+       De error
+     0.31  0.04
+
+---
+
+    
+    ----------- Meta data -----------
+      n par sigmab logged      Lmax      BIC
+     62   3    0.2  FALSE -292.0437 603.3685
+    
+    --- Final parameter estimates ---
+             gamma sigma p0
+    Estimate 23.71 49.67  0
+    
+    ------ Confidence intervals -----
+          2.5 % 97.5 %
+    gamma 19.07  27.59
+    sigma 41.01  61.20
+    p0       NA   0.07
+    
+    ------ De (asymmetric error) -----
+        De lower upper
+     23.71 19.07 27.59
+    
+    ------ De (symmetric error) -----
+        De error
+     23.71  2.17
+
+---
+
+    
+    ----------- Meta data -----------
+      n par sigmab logged      Lmax      BIC
+     62   3    0.1   TRUE -43.57969 106.4405
+    
+    --- Final parameter estimates (bootstrap) ---
+             gamma sigma   p0
+    Estimate 34.67  2.08 0.01
+    
+    ------ Confidence intervals (bootstrap) -----
+          2.5 % 97.5 %
+    gamma 27.24  39.87
+    sigma  1.80   2.61
+    p0     0.01   0.02
+    
+    ------ De (asymmetric error) (bootstrap) -----
+        De lower upper
+     34.67 27.24 39.87
+    
+    ------ De (symmetric error) (bootstrap) -----
+        De error
+     34.67  4.53
+
+---
+
+    
+    ----------- Meta data -----------
+      n par sigmab logged      Lmax      BIC
+     62   3    0.2   TRUE -19.79245 58.86603
+    
+    --- Final parameter estimates (bootstrap) ---
+             gamma sigma   p0
+    Estimate 78.22  1.69 0.57
+    
+    ------ Confidence intervals (bootstrap) -----
+          2.5 % 97.5 %
+    gamma 68.45  88.59
+    sigma  1.49   2.29
+    p0     0.20   0.93
+    
+    ------ De (asymmetric error) (bootstrap) -----
+        De lower upper
+     78.22 68.45 88.59
+    
+    ------ De (symmetric error) (bootstrap) -----
+        De error
+     78.22  5.91
+
+---
+
+    
+    ----------- Meta data -----------
+      n par sigmab logged      Lmax      BIC
+     62   3    0.2   TRUE -32.43138 84.14389
+    
+    --- Final parameter estimates ---
+             gamma sigma   p0
+    Estimate 45.64  1.56 0.02
+    
+    ------ Confidence intervals -----
+          2.5 % 97.5 %
+    gamma 38.61  53.65
+    sigma  1.33   1.89
+    p0       NA   0.28
+    
+    ------ De (asymmetric error) -----
+        De lower upper
+     45.64 38.61 53.65
+    
+    ------ De (symmetric error) -----
+        De error
+     45.64  3.84
 

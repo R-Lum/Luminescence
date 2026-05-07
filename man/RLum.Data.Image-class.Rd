@@ -44,7 +44,7 @@ set_RLum(class = "RLum.Data.Image")
 
 }
 \seealso{
-\linkS4class{RLum}, \linkS4class{RLum.Data}, \link{plot_RLum},
+\link[=RLum-class]{RLum}, \link[=RLum.Data-class]{RLum.Data}, \link{plot_RLum},
 \link{read_SPE2R}, \link{read_TIFF2R}
 }
 \author{

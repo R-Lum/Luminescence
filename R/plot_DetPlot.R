@@ -206,10 +206,6 @@ plot_DetPlot <- function(
                                      c("analyse_SAR.CWOSL", "analyse_pIRIRSequence"))
 
   ## deprecated arguments
-  if ("plot.single" %in% ...names()) {
-    plot_singlePanels <- list(...)$plot.single
-    .deprecated("plot.single", "plot_singlePanels", since = "1.0.0")
-  }
   if (any(grepl("[signal|background]\\.integral\\.[min|max]", ...names()))) {
     extraArgs <- list(...)
     .deprecated(old = c("signal.integral.min", "signal.integral.max",

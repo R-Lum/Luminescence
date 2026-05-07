@@ -27,7 +27,7 @@ of the function \link{read_BIN2R}.
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{set_Risoe.BINfileData(ANY)}: A \linkS4class{Risoe.BINfileData} object is normally produced as output of the
+\item \code{set_Risoe.BINfileData(ANY)}: A \link[=Risoe.BINfileData-class]{Risoe.BINfileData} object is normally produced as output of the
 function \link{read_BIN2R}. This construction method is intended for internal
 usage only.
 

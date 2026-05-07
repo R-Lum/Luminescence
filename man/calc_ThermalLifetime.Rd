@@ -61,7 +61,7 @@ enable/disable the plot output, currently only in combination with
 Standard plot parameters are supported (\link{plot.default})}
 }
 \value{
-A \linkS4class{RLum.Results} object is returned a along with a plot (for
+A \link[=RLum.Results-class]{RLum.Results} object is returned a along with a plot (for
 \code{profiling = TRUE}). The output object contain the following slots:
 
 \strong{\verb{@data}}
@@ -101,7 +101,7 @@ distribution (for E and s).
 
 \strong{Used equation (Arrhenius equation)}
 
-\deqn{\tau = 1/s exp(E/kT)}
+\deqn{\tau = \frac{1}{s} \exp(E/kT)}
 where:
 \eqn{\tau} in s as the mean time an electron spends in the trap for a given \eqn{T},
 \eqn{E} trap depth in eV,

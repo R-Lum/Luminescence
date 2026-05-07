@@ -22,11 +22,11 @@ calc_OSLLxTxRatio(
 )
 }
 \arguments{
-\item{Lx.data}{\linkS4class{RLum.Data.Curve}, \link{data.frame}, \link{list} (\strong{required}):
+\item{Lx.data}{\link[=RLum.Data.Curve-class]{RLum.Data.Curve}, \link{data.frame}, \link{list} (\strong{required}):
 requires a CW-OSL shine down curve (x = time, y = counts). Data can also be
 provided as a list.}
 
-\item{Tx.data}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\emph{optional}):
+\item{Tx.data}{\link[=RLum.Data.Curve-class]{RLum.Data.Curve} or \link{data.frame} (\emph{optional}):
 requires a CW-OSL shine down curve (x = time, y = counts). If no
 input is given the \code{Tx.data} will be treated as \code{NA} and no \code{Lx/Tx} ratio
 is calculated. When \code{Lx.data} is a list, it must be provided as a list of
@@ -89,7 +89,7 @@ round numbers to the specified digits. If set to \code{NULL} no rounding occurs.
 \item{...}{currently not used.}
 }
 \value{
-Returns an S4 object of type \linkS4class{RLum.Results}.
+Returns an S4 object of type \link[=RLum.Results-class]{RLum.Results}.
 
 Slot \code{data} contains a \link{list} with the following structure:
 
@@ -149,7 +149,7 @@ This argument allows to add an extra component of error to the final \code{Lx/Tx
 error value. The input will be treated as factor that is multiplied with
 the already calculated \code{LxTx} and the result is add up by:
 
-\deqn{se(LxTx) = \sqrt(se(LxTx)^2 + (LxTx * sig0)^2)}
+\deqn{se(LxTx) = \sqrt{se(LxTx)^2 + (LxTx * sig0)^2}}
 
 \strong{\code{od_rates}}
 
@@ -197,15 +197,15 @@ normal case) it has to be accounted for the overdispersion by estimating
 standard error is calculated as:
 \itemize{
 \item \code{poisson}
-\deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2) / (Y_{0} - Y_{1}/k) }
+\deqn{rse(\mu_{S}) \approx \sqrt{Y_{0} + Y_{1}/k^2) / (Y_{0} - Y_{1}/k)} }
 \item \code{non-poisson}
-\deqn{rse(\mu_{S}) \approx \sqrt(Y_{0} + Y_{1}/k^2 + \sigma^2(1+1/k)) / (Y_{0} - Y_{1}/k) }
+\deqn{rse(\mu_{S}) \approx \sqrt{Y_{0} + Y_{1}/k^2 + \sigma^2(1+1/k)) / (Y_{0} - Y_{1}/k)} }
 }
 
 If \code{background_integral = NA}, then in both cases the relative standard
 error simplifies to:
 
-\deqn{rse(\mu_{S}) \approx \sqrt(Y_{0}) / Y_{0}}
+\deqn{rse(\mu_{S}) \approx \sqrt{Y_{0}} / Y_{0}}
 
 \strong{Please note} that when using the early background subtraction method in
 combination with the 'non-poisson' distribution argument, the corresponding \code{Lx/Tx} error
@@ -251,7 +251,7 @@ Galbraith, R.F., 2014. A further note on the variance of a
 background-corrected OSL count. Ancient TL, 31 (2), 1-3. \doi{10.26034/la.atl.2014.477}
 }
 \seealso{
-\linkS4class{RLum.Data.Curve}, \link{fit_DoseResponseCurve},
+\link[=RLum.Data.Curve-class]{RLum.Data.Curve}, \link{fit_DoseResponseCurve},
 \link{analyse_SAR.CWOSL}
 }
 \author{

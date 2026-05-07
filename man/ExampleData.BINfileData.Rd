@@ -42,7 +42,7 @@ Remarks: \tab dataset limited to one position
 \description{
 Example data from a SAR OSL and TL measurement for package Luminescence
 directly extracted from a Risoe BIN-file and provided in an object of type
-\linkS4class{Risoe.BINfileData}
+\link[=Risoe.BINfileData-class]{Risoe.BINfileData}
 }
 \note{
 Please note that this example data cannot be exported to a BIN-file using the function

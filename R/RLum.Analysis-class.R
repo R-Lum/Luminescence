@@ -416,9 +416,14 @@ setMethod("get_RLum",
               }
 
               ##check if record.id exists
-              if (!all(abs(record.id) %in% (1:length(object@records)))) {
-                .throw_message("At least one 'record.id' is invalid, ",
-                               "NULL returned")
+              invalid.ids <- setdiff(abs(record.id), seq_along(object@records))
+              if (length(invalid.ids) > 0) {
+                ## don't show more than 5 invalid ids (or 4 with ellipsis)
+                if (length(invalid.ids) > 5)
+                  invalid.ids <- c(invalid.ids[1:4], "\u2026") # "..."
+                .throw_message("At least one 'record.id' (",
+                               .collapse(invalid.ids, quote = FALSE),
+                               ") is invalid, NULL returned")
                 return(NULL)
               }
 
@@ -512,8 +517,12 @@ setMethod("get_RLum",
 #' @describeIn remove_RLum
 #' Method to remove records from an [Luminescence::RLum.Analysis-class] object.
 #'
-#' @param ... parameters to be passed to [Luminescence::get_RLum]. The arguments `get.index` and
-#' `drop` are preset and have no effect when provided
+#' @param ... parameters to be passed to [Luminescence::get_RLum]. Only the
+#' following named arguments are supported: `record.id`, `recordType`,
+#' `curveType`, `RLum.type`, `protocol`, `info.object` and `subset`.
+#' Arguments `get.index` and `drop` are preset to `TRUE` and `FALSE`,
+#' respectively, and cannot be overridden. Other named arguments are ignored,
+#' while unnamed arguments are not supported.
 #'
 #' @export
 setMethod("remove_RLum",
@@ -528,8 +537,12 @@ setMethod("remove_RLum",
     get.index = TRUE,
     drop = FALSE
   )
+
   ## we do not support all arguments; therefore we make a positive list
   args <- list(...)
+  if (is.null(names(args)) || any(names(args) == "")) {
+    .throw_error("Unnamed arguments are not supported")
+  }
   args[!names(args) %in% c(
     "record.id",
     "recordType",

@@ -28,7 +28,7 @@
 #'
 #' Function used for the fitting (according to Erfurt et al. (2003)):
 #'
-#' \deqn{\phi(D) = \phi_{0}-\Delta\phi(1-exp(-\lambda*D))^\beta}
+#' \deqn{\phi(D) = \phi_{0} - \Delta\phi(1 - \exp(-\lambda D))^\beta}
 #'
 #' with
 #' \eqn{\phi(D)} the dose dependent IR-RF flux,
@@ -40,7 +40,7 @@
 #' To obtain the palaeodose
 #' \eqn{D_{e}} the function is changed to:
 #'
-#' \deqn{D_{e} = ln(-(\phi(D) - \phi_{0})/(-\lambda*\phi)^{1/\beta}+1)/-\lambda}
+#' \deqn{D_{e} = \ln(-(\phi(D) - \phi_{0})/(-\lambda\phi)^{1/\beta}+1)/-\lambda}
 #'
 #' The fitting is done using the `port` algorithm of the [nls] function.
 #'
@@ -160,7 +160,7 @@
 #' and the method cannot be applied at all.
 #' By default, the value of this parameter is calculated but not evaluated.
 #'
-#' - `curves_bounds` ([numeric], default: \eqn{max(RF_{reg_counts})}):
+#' - `curves_bounds` ([numeric], default: \eqn{\max(RF_{reg_counts})}):
 #' this measure uses the maximum time (x) value of the regenerated curve.
 #' The maximum time (x) value of the natural curve cannot be larger than this
 #' value. However, although this is not recommended the value can be changed
@@ -684,12 +684,6 @@ analyse_IRSAR.RF<- function(
     num_slide_windows = 3,
     cores = NULL
   )
-
-  ## deprecated argument
-  if ("method.control" %in% names(extraArgs)) {
-    method_control <- extraArgs$method.control
-    .deprecated("method.control", "method_control", since = "1.0.0")
-  }
 
   ##modify list if necessary
   if (!is.null(method_control)) {

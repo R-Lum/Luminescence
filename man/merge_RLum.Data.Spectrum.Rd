@@ -13,7 +13,7 @@ merge_RLum.Data.Spectrum(
 )
 }
 \arguments{
-\item{object}{\link{list} of \linkS4class{RLum.Data.Spectrum} (\strong{required}):
+\item{object}{\link{list} of \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} (\strong{required}):
 list of objects to be merged.}
 
 \item{merge.method}{\link{character} (\strong{required}):
@@ -34,10 +34,10 @@ be merged: when differences exceed this threshold value, the merging
 occurs but a warning is raised.}
 }
 \value{
-Returns an \linkS4class{RLum.Data.Spectrum} object.
+Returns an \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} object.
 }
 \description{
-This function allows to merge \linkS4class{RLum.Data.Spectrum} objects in
+This function allows to merge \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} objects in
 different ways without modifying the original objects.
 }
 \details{
@@ -77,7 +77,7 @@ The min values from the cell values is chosen using the function
 The max values from the cell values is chosen using the function
 \link[matrixStats:rowRanges]{matrixStats::rowMins}.
 
-\code{"append"} (only for \linkS4class{RLum.Data.Curve})
+\code{"append"} (only for \link[=RLum.Data.Curve-class]{RLum.Data.Curve})
 
 Appends cell values of all curves to one combined data curve. The channel width
 is automatically re-calculated, but requires a constant channel width of the
@@ -126,7 +126,7 @@ plot_RLum(merged)
 
 }
 \seealso{
-\link{merge_RLum}, \linkS4class{RLum.Data.Spectrum}
+\link{merge_RLum}, \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum}
 }
 \author{
 Marco Colombo, Institute of Geography, Heidelberg University (Germany)

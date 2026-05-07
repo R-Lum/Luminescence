@@ -109,13 +109,14 @@
 #'
 #' @param signal_integral [integer] (**required**):
 #' vector of channels for the signal integral. It can be a [list] of integers,
-#' if `object` is a list. If set to `NA`, no integrals are taken into account
-#' and their settings are ignored.
+#' if `object` is a list. If set to `NULL` (default) or `NA`, no integrals are
+#' taken into account and their settings are ignored.
 #'
 #' @param background_integral [integer] (**required**):
 #' vector of channels for the background integral. It can be a [list] of
-#' integers, if `object` is a list. If set to `NA`, no background integral is
-#' subtracted.
+#' integers, if `object` is a list. If set to `NULL` (default), no integrals
+#' are taken into account and their settings are ignored. If set to `NA`, no
+#' background integral is subtracted.
 #'
 #' @param signal_integral_Tx [integer] (*optional*):
 #' vector of channels for the signal integral for the `Tx` curve. It can be a
@@ -246,7 +247,7 @@
 #'
 #' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.13.8
+#' @section Function version: 0.13.9
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
@@ -324,8 +325,8 @@
 #' @export
 analyse_SAR.CWOSL<- function(
   object,
-  signal_integral = NA,
-  background_integral = NA,
+  signal_integral = NULL,
+  background_integral = NULL,
   signal_integral_Tx = NULL,
   background_integral_Tx = NULL,
   integral_input = c("channel", "measurement"),
@@ -351,7 +352,8 @@ analyse_SAR.CWOSL<- function(
   if (any(grepl("[signal|background]\\.integral\\.[min|max]", names(extraArgs))) &&
       !is.null(c(extraArgs$signal.integral.min, extraArgs$signal.integral.max,
                  extraArgs$background.integral.min, extraArgs$background.integral.max)) &&
-      (!anyNA(signal_integral) || !anyNA(background_integral))) {
+      (!(is.null(signal_integral) || anyNA(signal_integral)) ||
+       !(is.null(background_integral) || anyNA(background_integral)))) {
     .throw_error("Convert all integral arguments to the new names, ",
                  "'signal_integral' and 'background_integral'")
   }
@@ -577,12 +579,14 @@ analyse_SAR.CWOSL<- function(
     }
   }
 
-  if (.strict_na(signal_integral)) {
+  if (is.null(signal_integral) || .strict_na(signal_integral) ||
+      is.null(background_integral)) {
     signal_integral <- background_integral <- NA
     signal_integral_Tx <- background_integral_Tx <- NULL
     if (is.null(OSL.component)) {
       .throw_warning("No signal or background integral applied as ",
-                     "'signal_integral = NA' (and 'OSL.component' was not specified)")
+                     "'signal_integral = NULL' (or NA) or 'background_integral = NULL' ",
+                     "(and 'OSL.component' was not specified)")
     }
   } else {
     ## convert integrals to channels
@@ -600,8 +604,9 @@ analyse_SAR.CWOSL<- function(
     }
 
     signal_integral <- .validate_integral(signal_integral, max = channel.length,
-                                          na.ok = TRUE)
-    background_integral <- .validate_integral(background_integral, na.ok = TRUE,
+                                          null.ok = TRUE, na.ok = TRUE)
+    background_integral <- .validate_integral(background_integral,
+                                              null.ok = TRUE, na.ok = TRUE,
                                               min = max(signal_integral) + 1,
                                               max = channel.length)
 
@@ -682,12 +687,6 @@ analyse_SAR.CWOSL<- function(
   sigmab <- extraArgs$sigmab
   sig0 <- extraArgs$sig0 %||% 0
   od_rates <- extraArgs$od_rates
-
-  ## deprecated argument
-  if ("plot.single" %in% names(extraArgs)) {
-    plot_singlePanels <- extraArgs$plot.single
-    .deprecated("plot.single", "plot_singlePanels", since = "1.0.0")
-  }
 
   # Grep Curves -------------------------------------------------------------
   ## extract relevant curves from RLum.Analysis object
@@ -1240,7 +1239,7 @@ analyse_SAR.CWOSL<- function(
     extraArgs$verbose <- NULL
     temp.GC <- do.call(fit_DoseResponseCurve,
                        modifyList(list(object = temp.sample, verbose = FALSE),
-                                  extraArgs))
+                                  extraArgs, keep.null = TRUE))
     if (verbose && !is.null(temp.GC)) {
       .throw_message(extraArgs$.aliquot_number, temp.GC@info$fit_message,
                      error = FALSE)
@@ -1553,7 +1552,7 @@ analyse_SAR.CWOSL<- function(
 
   ## if we want to apply a log-transform on x and the first time point
   ## is 0, we shift the curves by one channel
-  if (set_log == "x" || set_log == "xy") {
+  if (set_log %in% c("x", "xy")) {
     for(i in curve_ids) {
       x.vals <- record_list[[i]]@data[, 1]
       if (x.vals[1] == 0) {

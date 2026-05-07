@@ -21,6 +21,13 @@ test_that("check functionality", {
   expect_silent(plot_RLum.Results(d1, main = "Title"))
   expect_silent(plot_RLum.Results(d1, single = FALSE, log = "", lty = 1,
                                   type = "l", col = 2))
+  SW({
+  ## issue 1545
+  out <- capture_output(calc_MinDose(ExampleData.DeValues$CA1 / 100, sigmab = 0.1,
+                                     gamma.lower = 4, bootstrap = TRUE,
+                                     bs.M = 10, bs.N = 5, verbose = FALSE))
+  expect_false(grepl("zero non-NA points", out))
+  })
 
   ## calc_CentralDose
   d2 <-calc_CentralDose(ExampleData.DeValues$CA1,

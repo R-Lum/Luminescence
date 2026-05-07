@@ -54,8 +54,8 @@ Can be provided as \code{list} if \code{file} is a \code{list}.}
 
 \item{fastForward}{\link{logical} (\emph{with default}):
 if \code{TRUE} for a more efficient data processing only a list of
-\linkS4class{RLum.Analysis}
-objects is returned instead of a \linkS4class{Risoe.BINfileData} object.
+\link[=RLum.Analysis-class]{RLum.Analysis}
+objects is returned instead of a \link[=Risoe.BINfileData-class]{Risoe.BINfileData} object.
 Can be provided as \code{list} if \code{file} is a \code{list}.}
 
 \item{show.record.number}{\link{logical} (\emph{with default}):
@@ -91,14 +91,14 @@ enable/disable output to the terminal.}
 automatically sets \code{fastForward = TRUE}}
 }
 \value{
-Returns an S4 \linkS4class{Risoe.BINfileData} object containing two
+Returns an S4 \link[=Risoe.BINfileData-class]{Risoe.BINfileData} object containing two
 slots:
 
 \item{METADATA}{A \link{data.frame} containing all variables stored in the BIN-file.}
 \item{DATA}{A \link{list} containing a numeric \link{vector} of the measured data.
 The ID corresponds to the record ID in METADATA.}
 
-If \code{fastForward = TRUE} an \linkS4class{RLum.Analysis} object is
+If \code{fastForward = TRUE} an \link[=RLum.Analysis-class]{RLum.Analysis} object is
 returned (coerced by \link{Risoe.BINfileData2RLum.Analysis}).
 
 Results are returned as a list when multiple files are processed or \code{file}
@@ -135,8 +135,8 @@ DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
 \url{https://www.fysik.dtu.dk}
 }
 \seealso{
-\link{write_R2BIN}, \linkS4class{Risoe.BINfileData},
-\link[base:readBin]{base::readBin}, \link{merge_Risoe.BINfileData}, \linkS4class{RLum.Analysis}
+\link{write_R2BIN}, \link[=Risoe.BINfileData-class]{Risoe.BINfileData},
+\link[base:readBin]{base::readBin}, \link{merge_Risoe.BINfileData}, \link[=RLum.Analysis-class]{RLum.Analysis}
 \link[utils:txtProgressBar]{utils::txtProgressBar}, \link{list.files}
 }
 \author{

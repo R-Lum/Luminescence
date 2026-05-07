@@ -7,8 +7,8 @@
 convert_SG2MG(object, write_file = FALSE, ...)
 }
 \arguments{
-\item{object}{\linkS4class{Risoe.BINfileData}, \link{character} (\strong{required}):
-\linkS4class{Risoe.BINfileData} object or BIN/BINX-file name.}
+\item{object}{\link[=Risoe.BINfileData-class]{Risoe.BINfileData}, \link{character} (\strong{required}):
+\link[=Risoe.BINfileData-class]{Risoe.BINfileData} object or BIN/BINX-file name.}
 
 \item{write_file}{\link{logical} (\emph{with default}):
 whether the output should be written to a file (only considered if \code{object}
@@ -19,7 +19,7 @@ of named after the original one with \code{-SG} appended to it.}
 \link{write_R2BIN} if \code{object} is a path to a file.}
 }
 \value{
-A \linkS4class{Risoe.BINfileData} object. If \code{write_file = TRUE} an
+A \link[=Risoe.BINfileData-class]{Risoe.BINfileData} object. If \code{write_file = TRUE} an
 the input was a file path, a file is also written out to origin folder.
 }
 \description{
@@ -38,7 +38,7 @@ convert_SG2MG(CWOSL.SAR.Data)
 
 }
 \seealso{
-\linkS4class{Risoe.BINfileData}, \link{read_BIN2R},
+\link[=Risoe.BINfileData-class]{Risoe.BINfileData}, \link{read_BIN2R},
 \link{write_R2BIN}
 }
 \author{

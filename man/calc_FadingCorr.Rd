@@ -21,15 +21,15 @@ calc_FadingCorr(
 vector of length 2 containing the uncorrected age and the error in ka
 (see example).}
 
-\item{g_value}{\link{vector} or \linkS4class{RLum.Results} (\strong{required}):
+\item{g_value}{\link{vector} or \link[=RLum.Results-class]{RLum.Results} (\strong{required}):
 either a vector of length 2 containing the g-value and error obtained from
-separate fading measurements (see example), or an \linkS4class{RLum.Results}
+separate fading measurements (see example), or an \link[=RLum.Results-class]{RLum.Results}
 object produced by \link{analyse_FadingMeasurement}. If the latter, the \code{tc}
 argument is set automatically.}
 
 \item{tc}{\link{numeric} (\strong{required}):
 time in seconds between irradiation and the prompt measurement (cf. Huntley & Lamothe 2001).
-The argument is ignored when \code{g_value} is an \linkS4class{RLum.Results} object.}
+The argument is ignored when \code{g_value} is an \link[=RLum.Results-class]{RLum.Results} object.}
 
 \item{tc.g_value}{\link{numeric} (\emph{with default}):
 time in seconds between irradiation and the prompt measurement used in the
@@ -59,7 +59,7 @@ enable/disable the progress bar.}
 enable/disable output to the terminal.}
 }
 \value{
-Returns an S4 object of type \linkS4class{RLum.Results}.\cr
+Returns an S4 object of type \link[=RLum.Results-class]{RLum.Results}.\cr
 
 Slot: \strong{\verb{@data}}\cr
 \tabular{lll}{
@@ -84,13 +84,13 @@ This function solves the equation used for correcting the fading affected age
 including the error for a given \eqn{g}-value according to Huntley & Lamothe (2001):
 
 \deqn{
-\frac{A_{f}}{A} = 1 - \kappa * \Big[ln(\frac{A}{t_c}) - 1\Big]
+\frac{A_{f}}{A} = 1 - \kappa * \Big[\ln(\frac{A}{t_c}) - 1\Big]
 }
 
 with \eqn{\kappa} defined as
 
 \deqn{
-\kappa = \frac{\frac{\mathrm{g\_value}}{ln(10)}}{100}
+\kappa = \frac{\frac{\mathrm{g\_value}}{\ln(10)}}{100}
 }
 
 \eqn{A} and \eqn{A_{f}} are given in ka. \eqn{t_c} is given in s, however, it
@@ -106,11 +106,11 @@ and then the \eqn{g}-value is recalculated
 to \eqn{t_{c}} of the measurement used for estimating the age applying the
 following equation:
 
-\deqn{\kappa_{tc} = \kappa_{tc.g} / (1 - \kappa_{tc.g} * ln(tc/tc.g))}
+\deqn{\kappa_{tc} = \kappa_{tc.g} / (1 - \kappa_{tc.g} * \ln(tc/tc.g))}
 
 where
 
-\deqn{\kappa_{tc.g} = g / 100 / ln(10)}
+\deqn{\kappa_{tc.g} = g / 100 / \ln(10)}
 
 The error of the fading-corrected age is determined using a Monte Carlo
 simulation approach. Solving of the equation is performed using
@@ -211,7 +211,7 @@ in K-feldspars and the measurement and correction for it in optical dating.
 Canadian Journal of Earth Sciences, 38, 1093-1106.
 }
 \seealso{
-\linkS4class{RLum.Results}, \link{analyse_FadingMeasurement},
+\link[=RLum.Results-class]{RLum.Results}, \link{analyse_FadingMeasurement},
 \link{get_RLum}, \link{uniroot}
 }
 \author{

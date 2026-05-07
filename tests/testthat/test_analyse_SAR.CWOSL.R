@@ -26,11 +26,6 @@ test_that("input validation", {
                                  background_integral = 900:1000,
                                  plot_singlePanels = list()),
                "'plot_singlePanels' should be of class 'logical', 'integer' or 'numeric'")
-
-  expect_error(analyse_SAR.CWOSL(object[[1]],
-                                 signal_integral = NULL,
-                                 background_integral = 900:1000),
-               "'signal_integral' should be of class 'integer', 'numeric' or NA")
   expect_error(analyse_SAR.CWOSL(object[[1]],
                                  signal_integral = -9:0,
                                  background_integral = 900:1000),
@@ -40,10 +35,6 @@ test_that("input validation", {
                                  background_integral = 900:1000),
                "'signal_integral' should be a vector of integers")
 
-  expect_error(analyse_SAR.CWOSL(object[[1]],
-                                 signal_integral = 1:2,
-                                 background_integral = NULL),
-               "'background_integral' should be of class 'integer', 'numeric' or NA")
   expect_error(analyse_SAR.CWOSL(object[[1]],
                                  signal_integral = 1:2,
                                  background_integral = 900:1000,
@@ -189,7 +180,17 @@ test_that("check functionality", {
 
   expect_type(t@data$data$POS, "logical")
 
-  ##signal integral set to NA
+  ## signal integral set to NULL or NA
+  expect_warning(
+    analyse_SAR.CWOSL(
+        object[[1]],
+        signal_integral = NULL,
+        background_integral = 900:1000,
+        plot = FALSE,
+        verbose = FALSE,
+        fit.weights = NULL),
+    "No signal or background integral applied as 'signal_integral = NULL'")
+
   expect_warning(
     analyse_SAR.CWOSL(
       object = object[1],
@@ -200,7 +201,7 @@ test_that("check functionality", {
       fit.method = "EXP",
       plot = FALSE,
       verbose = FALSE,
-      fit.weights = FALSE
+      fit.weights = NULL
     ),
     "[analyse_SAR.CWOSL()] No signal or background integral applied",
     fixed = TRUE)
@@ -213,9 +214,20 @@ test_that("check functionality", {
       fit.method = "EXP",
       plot = FALSE,
       verbose = FALSE,
-      fit.weights = FALSE
+      fit.weights = NULL
     ),
-    "No signal or background integral applied as 'signal_integral = NA'")
+    "No signal or background integral applied as 'signal_integral = NULL' (or NA)",
+    fixed = TRUE)
+
+  ## background_integral = NULL
+  expect_warning(
+    analyse_SAR.CWOSL(
+        object[1],
+        signal_integral = 1:2,
+        background_integral = NULL,
+        plot = FALSE,
+        verbose = FALSE),
+    "No signal or background integral applied")
 
   expect_error(
     analyse_SAR.CWOSL(
@@ -225,7 +237,7 @@ test_that("check functionality", {
       fit.method = "OTORX",
       plot = FALSE,
       verbose = FALSE,
-      fit.weights = FALSE
+      fit.weights = NULL
     ),
     "Column 'Test_Dose' missing but mandatory for 'OTORX' fitting!",
     fixed = TRUE)
@@ -588,14 +600,6 @@ test_that("advance tests run", {
                         log = "xy", verbose = FALSE),
       "Too many curves, only the first 21 curves are plotted"),
       "Multiple IRSL curves detected")
-
-  expect_warning(
-      analyse_SAR.CWOSL(object = object[[1]],
-                        signal_integral = 1:2,
-                        background_integral = 900:1000,
-                        plot.single = TRUE,
-                        verbose = FALSE),
-      "'plot.single' was deprecated in v1.0.0, use 'plot_singlePanels' instead")
   })
 
   ##test failed recycling ratio

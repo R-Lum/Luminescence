@@ -187,9 +187,11 @@ plot_NRt <- function(data, log = "", smooth = c("none", "spline", "rmean"), k = 
     .throw_error("'data' contains missing values in the regenerated signal, ",
                  "check your data")
   }
-  if (any(sapply(regCurves, nrow) != nrow(natural))) {
-    .throw_error("The time values for the natural signal don't match ",
-                 "those for the regenerated signal")
+  nrow.regCurves <- unique(sapply(regCurves, nrow))
+  if (any(nrow.regCurves != nrow(natural))) {
+    .throw_error("The size of the regenerated signals (",
+                 .collapse(nrow.regCurves, quote = FALSE),
+                 ") doesn't match that of the natural signal (", nrow(natural), ")")
   }
 
   ## DATA TRANSFORMATION -----

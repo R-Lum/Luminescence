@@ -8,8 +8,8 @@ hyperbolic modulation conditions}
 convert_CW2pHMi(object, delta = NULL, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
-\linkS4class{RLum.Data.Curve} object or a \code{data.frame} with measured
+\item{object}{\link[=RLum.Data.Curve-class]{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
+\link[=RLum.Data.Curve-class]{RLum.Data.Curve} object or a \code{data.frame} with measured
 curve data of type stimulation time (t) (\code{object[, 1]}) and measured counts
 (cts) (\code{object[, 2]}).}
 
@@ -58,7 +58,7 @@ count values (CW(t))
 
 (2)
 Calculate t' which is the transformed time:
-\deqn{t' = t-(1/\delta)*log(1+\delta*t)}
+\deqn{t' = t-(1/\delta) * \log(1 + \delta t)}
 
 (3)
 Interpolate CW(t'), i.e. use the log(CW(t)) to obtain the count values
@@ -77,8 +77,8 @@ obtained fit parameters.
 
 (6)
 Transform values using
-\deqn{pHM(t) = (\delta*t/(1+\delta*t))*c*CW(t')}
-\deqn{c = (1+\delta*P)/\delta*P}
+\deqn{pHM(t) = (\delta t / (1 + \delta t))*c*CW(t')}
+\deqn{c = (1 + \delta P)/\delta*P}
 \deqn{P = length(stimulation~period)}
 
 (7) Combine all values and truncate all values for t' > \code{max(t)}
@@ -193,7 +193,7 @@ LM-OSL curves. Radiation Measurements 32, 141-145.
 }
 \seealso{
 \link{convert_CW2pLM}, \link{convert_CW2pLMi}, \link{convert_CW2pPMi},
-\link{fit_LMCurve}, \link{lm}, \linkS4class{RLum.Data.Curve}
+\link{fit_LMCurve}, \link{lm}, \link[=RLum.Data.Curve-class]{RLum.Data.Curve}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr

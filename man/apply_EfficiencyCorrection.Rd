@@ -7,7 +7,7 @@
 apply_EfficiencyCorrection(object, spectral.efficiency)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Spectrum} or \linkS4class{RLum.Analysis} (\strong{required}):
+\item{object}{\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} or \link[=RLum.Analysis-class]{RLum.Analysis} (\strong{required}):
 object of class \code{RLum.Data.Spectrum}, \code{RLum.Analysis}or a \link{list} of such
 objects. Other objects in the list are skipped.}
 
@@ -21,13 +21,13 @@ Returns same object as provided as input
 }
 \description{
 The function applies spectral efficiency correction to
-\linkS4class{RLum.Data.Spectrum} objects.
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} objects.
 }
 \details{
 The efficiency correction is based on a spectral response dataset provided
 by the user. Usually the data set for the quantum efficiency is of lower
 resolution and values are interpolated for the required spectral resolution using
-function \link[stats:approxfun]{stats::approx}.
+function \link[stats:approx]{stats::approx}.
 
 If the energy calibration differs for both data set \code{NA} values are produces that
 will be removed from the matrix.
@@ -50,7 +50,7 @@ sufficiently correct for spectral efficiency of the entire optical system
 
 }
 \seealso{
-\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis}
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum}, \link[=RLum.Analysis-class]{RLum.Analysis}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr

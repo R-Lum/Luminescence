@@ -16,11 +16,6 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["g_value", "g_value.ERROR", "tc", "tc.g_value", "FADING_C", "FADING_C.ERROR", "LnTn_BEFORE", "LnTn_BEFORE.ERROR", "LnTn_AFTER", "LnTn_AFTER.ERROR", "DE", "DE.ERROR", "AGE", "AGE.ERROR", "SIGNAL"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -30,6 +25,11 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["g_value", "g_value.ERROR", "tc", "tc.g_value", "FADING_C", "FADING_C.ERROR", "LnTn_BEFORE", "LnTn_BEFORE.ERROR", "LnTn_AFTER", "LnTn_AFTER.ERROR", "DE", "DE.ERROR", "AGE", "AGE.ERROR", "SIGNAL"]
                 }
               },
               "value": [
@@ -86,22 +86,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [471.32222261]
+                  "value": [473.7171905]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [73.04296967]
+                  "value": [75.28404286]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [281.21850991]
+                  "value": [282.64748836]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [53.02410383]
+                  "value": [54.21428409]
                 },
                 {
                   "type": "logical",
@@ -163,11 +163,6 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["g_value", "g_value.ERROR", "tc", "tc.g_value", "FADING_C", "FADING_C.ERROR", "LnTn_BEFORE", "LnTn_BEFORE.ERROR", "LnTn_AFTER", "LnTn_AFTER.ERROR", "DE", "DE.ERROR", "AGE", "AGE.ERROR", "SIGNAL"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -177,6 +172,11 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["g_value", "g_value.ERROR", "tc", "tc.g_value", "FADING_C", "FADING_C.ERROR", "LnTn_BEFORE", "LnTn_BEFORE.ERROR", "LnTn_AFTER", "LnTn_AFTER.ERROR", "DE", "DE.ERROR", "AGE", "AGE.ERROR", "SIGNAL"]
                 }
               },
               "value": [
@@ -233,22 +233,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [470.82952891]
+                  "value": [473.21116516]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [66.66751954]
+                  "value": [69.18829953]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [280.92453992]
+                  "value": [282.34556394]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [49.92547144]
+                  "value": [51.22208859]
                 },
                 {
                   "type": "logical",

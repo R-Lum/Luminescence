@@ -8,7 +8,7 @@ given De distribution}
 calc_CommonDose(data, sigmab = 0, log = TRUE, ...)
 }
 \arguments{
-\item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
+\item{data}{\link[=RLum.Results-class]{RLum.Results} or \link{data.frame} (\strong{required}):
 for \link{data.frame}: two columns with De \code{(data[,1])} and De error \code{(data[,2])}}
 
 \item{sigmab}{\link{numeric} (\emph{with default}):
@@ -26,7 +26,7 @@ fit the (un-)logged central age model to De data}
 }
 \value{
 Returns a terminal output. In addition an
-\linkS4class{RLum.Results} object is returned containing the
+\link[=RLum.Results-class]{RLum.Results} object is returned containing the
 following element:
 
 \item{$summary}{\link{data.frame} summary of all relevant model results.}

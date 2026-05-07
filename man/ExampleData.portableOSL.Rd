@@ -16,8 +16,8 @@ Reference: \tab unpublished data
 }
 }
 \description{
-A \code{list} of \linkS4class{RLum.Analysis} objects, each containing
-the same number of \linkS4class{RLum.Data.Curve} objects representing
+A \code{list} of \link[=RLum.Analysis-class]{RLum.Analysis} objects, each containing
+the same number of \link[=RLum.Data.Curve-class]{RLum.Data.Curve} objects representing
 individual OSL, IRSL and dark count measurements of a sample.
 }
 \examples{

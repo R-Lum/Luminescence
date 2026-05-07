@@ -23,7 +23,7 @@ plot_DetPlot(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} (\strong{required}): input object containing data for analysis
+\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} (\strong{required}): input object containing data for analysis
 Can be provided as a \link{list} of such objects.}
 
 \item{signal_integral}{\link{integer} (\strong{required}):
@@ -70,7 +70,7 @@ remove De values with 'FAILED' RC.Status from the plot (cf. \link{analyse_SAR.CW
 and \link{analyse_pIRIRSequence}).}
 
 \item{multicore}{\link{logical} (\emph{with default}) : enable/disable multi core
-calculation if \code{object} is a \link{list} of \linkS4class{RLum.Analysis} objects. Can be an
+calculation if \code{object} is a \link{list} of \link[=RLum.Analysis-class]{RLum.Analysis} objects. Can be an
 \link{integer} specifying the number of cores}
 
 \item{verbose}{\link{logical} (\emph{with default}):
@@ -86,7 +86,7 @@ Plot control parameters are: \code{ylim}, \code{xlim}, \code{ylab}, \code{xlab},
 \code{legend.text}, \code{legend.pos}}
 }
 \value{
-A plot and an \linkS4class{RLum.Results} object with the produced \eqn{D_e} values
+A plot and an \link[=RLum.Results-class]{RLum.Results} object with the produced \eqn{D_e} values
 
 \verb{@data}:
 

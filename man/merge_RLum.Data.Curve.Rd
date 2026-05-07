@@ -12,7 +12,7 @@ merge_RLum.Data.Curve(
 )
 }
 \arguments{
-\item{object}{\link{list} of \linkS4class{RLum.Data.Curve} (\strong{required}):
+\item{object}{\link{list} of \link[=RLum.Data.Curve-class]{RLum.Data.Curve} (\strong{required}):
 list of objects to be merged.}
 
 \item{merge.method}{\link{character} (\strong{required}):
@@ -28,10 +28,10 @@ e.g. \code{1} means that just the elements from the first object are kept,
 If set to \code{NULL}, all elements are combined.}
 }
 \value{
-Returns an \linkS4class{RLum.Data.Curve} object.
+Returns an \link[=RLum.Data.Curve-class]{RLum.Data.Curve} object.
 }
 \description{
-This function allows to merge \linkS4class{RLum.Data.Curve} objects in different
+This function allows to merge \link[=RLum.Data.Curve-class]{RLum.Data.Curve} objects in different
 ways without modifying the original objects. Merging is always applied on
 the 2nd column of the object's data matrix.
 
@@ -125,7 +125,7 @@ plot_RLum(TL.curve.merged)
 
 }
 \seealso{
-\link{merge_RLum}, \linkS4class{RLum.Data.Curve}
+\link{merge_RLum}, \link[=RLum.Data.Curve-class]{RLum.Data.Curve}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

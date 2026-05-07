@@ -1,6 +1,8 @@
 ## load data
 data(ExampleData.TR_OSL, envir = environment())
 temp_mat <- get_RLum(ExampleData.TR_OSL)[1:200, ]
+temp_list <- list(ExampleData.TR_OSL, ExampleData.TR_OSL)
+temp_analysis <- set_RLum("RLum.Analysis", records = temp_list)
 
 test_that("input validation", {
   testthat::skip_on_cran()
@@ -99,7 +101,6 @@ test_that("check functionality", {
     tolerance = snapshot.tolerance)
 
   ##simple list
-  temp_list <- list(ExampleData.TR_OSL, ExampleData.TR_OSL)
   expect_snapshot_RLum(fit_OSLLifeTimes(
     object = temp_list,
     log = "x",
@@ -109,7 +110,6 @@ test_that("check functionality", {
   })
 
   ## RLum.Analysis
-  temp_analysis <- set_RLum("RLum.Analysis", records = temp_list)
   expect_s4_class(object = fit_OSLLifeTimes(
     object = temp_analysis,
     verbose = FALSE,
@@ -194,4 +194,18 @@ test_that("graphical snapshot tests", {
       "log-scale requires y-values > 0, set min ylim to 1.69e+10",
       fixed = TRUE)
   })
+})
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 1514
+  expect_s4_class(fit_OSLLifeTimes(temp_analysis, select = NULL,
+                                   n.components = 1,
+                                   verbose = FALSE, plot = FALSE),
+                  "RLum.Results")
+  expect_s4_class(fit_OSLLifeTimes(temp_analysis, select = iris[0, ],
+                                   n.components = 1,
+                                   verbose = FALSE, plot = FALSE),
+                  "RLum.Results")
 })

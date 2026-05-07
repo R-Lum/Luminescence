@@ -15,7 +15,7 @@ plot_ViolinPlot(
 )
 }
 \arguments{
-\item{data}{\link{numeric} or \linkS4class{RLum.Results} (\strong{required}):
+\item{data}{\link{numeric} or \link[=RLum.Results-class]{RLum.Results} (\strong{required}):
 input data for plotting. Alternatively a \link{data.frame} or a \link{matrix} can
 be provided, but only the first column will be considered by the
 function.}

@@ -17,7 +17,7 @@ analyse_Al2O3C_CrossTalk(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} or \link{list} (\strong{required}):
+\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} or \link{list} (\strong{required}):
 measurement input}
 
 \item{signal_integral}{\link{numeric} (\emph{optional}):
@@ -38,7 +38,7 @@ made by Kreutzer et al., 2018.}
 input curve selection, which is passed to \link{get_RLum}. To deactivate the
 automatic selection set the argument to \code{NULL}.}
 
-\item{irradiation_time_correction}{\link{numeric} or \linkS4class{RLum.Results} (\emph{optional}):
+\item{irradiation_time_correction}{\link{numeric} or \link[=RLum.Results-class]{RLum.Results} (\emph{optional}):
 information on the used irradiation time correction obtained by another
 experiment.}
 

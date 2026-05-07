@@ -26,7 +26,7 @@ specify unit of input data given in the dose rate data frame, one of
 enable/disable output to the terminal.}
 }
 \value{
-Returns an \linkS4class{RLum.Results} object with a \link{data.frame} containing
+Returns an \link[=RLum.Results-class]{RLum.Results} object with a \link{data.frame} containing
 input and newly calculated values. Please not that in the column header µg/g
 is written as \code{mug/g} due to the R requirement to maintain packages portable using
 ASCII characters only.
@@ -50,7 +50,7 @@ and the nuclide data from \verb{https://www.iaea.org/resources/databases/livecha
 
 The factors can be calculated using the equation:
 \deqn{
-A = N_A \frac{N_{abund}}{N_{mol.mass}}  ln(2) / N.half.life
+A = N_A \frac{N_{abund}}{N_{mol.mass}} \ln(2) / N.half.life
 }
 
 to convert in µg/g we further use:
@@ -75,7 +75,7 @@ example for calculating the activity of the radionuclide U-238:
 \item \code{U_abund} = 0.992745 (unitless)
 }
 
-\deqn{A_{U} = N_{A} * U_{abund} / m_{U_238} * ln(2) / T_{1/2} = 2347046} (Bq/kg)
+\deqn{A_{U} = N_{A} * U_{abund} / m_{U_238} * \ln(2) / T_{1/2} = 2347046} (Bq/kg)
 
 \deqn{f.U = A_{U} / 10^6}
 }

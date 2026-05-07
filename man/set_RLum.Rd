@@ -61,7 +61,7 @@ set_RLum(class, originator, .uid = create_UID(), .pid = NA_character_, ...)
 }
 \arguments{
 \item{class}{\link{character} (\strong{required}):
-name of the S4 class to create, must correspond to one of the \linkS4class{RLum}
+name of the S4 class to create, must correspond to one of the \link[=RLum-class]{RLum}
 classes.}
 
 \item{originator}{\link{character} (\emph{automatic}):
@@ -81,7 +81,7 @@ option to provide a parent id for nesting at will.}
 sets protocol type for analysis object. Value may be used by subsequent analysis functions.}
 
 \item{records}{\link{list} (\emph{optional}):
-list of \linkS4class{RLum.Analysis} objects}
+list of \link[=RLum.Analysis-class]{RLum.Analysis} objects}
 
 \item{info}{\link{list} (\emph{optional}):
 a list containing additional info data for the object.}
@@ -94,30 +94,30 @@ curve type (e.g., "predefined" or "measured")}
 
 \item{data}{\link{matrix} or \link{list} (\emph{with default}):
 a matrix containing raw curve data or a list containing the data to be
-stored in the object (for \linkS4class{RLum.Results} objects) . If \code{data} itself
+stored in the object (for \link[=RLum.Results-class]{RLum.Results} objects) . If \code{data} itself
 is a \code{RLum.Data.Curve}-object this can be used to re-construct the object,
 i.e. modified parameters except \code{.uid}, \code{.pid} and \code{originator}. The rest
 will be subject to copy and paste unless provided.}
 }
 \value{
-An object of the specified \linkS4class{RLum} class.
+An object of the specified \link[=RLum-class]{RLum} class.
 }
 \description{
 The function provides a generalised access point for specific
-\linkS4class{RLum} objects. Depending on the given class, the corresponding
+\link[=RLum-class]{RLum} objects. Depending on the given class, the corresponding
 method to create an object from this class will be selected.
 }
 \section{Functions}{
 \itemize{
-\item \code{set_RLum(RLum.Analysis)}: Construction method for \linkS4class{RLum.Analysis} objects.
+\item \code{set_RLum(RLum.Analysis)}: Construction method for \link[=RLum.Analysis-class]{RLum.Analysis} objects.
 
-\item \code{set_RLum(RLum.Data.Curve)}: Construction method for \linkS4class{RLum.Data.Curve} objects.
+\item \code{set_RLum(RLum.Data.Curve)}: Construction method for \link[=RLum.Data.Curve-class]{RLum.Data.Curve} objects.
 
-\item \code{set_RLum(RLum.Data.Image)}: Construction method for \linkS4class{RLum.Data.Image} objects.
+\item \code{set_RLum(RLum.Data.Image)}: Construction method for \link[=RLum.Data.Image-class]{RLum.Data.Image} objects.
 
-\item \code{set_RLum(RLum.Data.Spectrum)}: Construction method for \linkS4class{RLum.Data.Spectrum} objects.
+\item \code{set_RLum(RLum.Data.Spectrum)}: Construction method for \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} objects.
 
-\item \code{set_RLum(RLum.Results)}: Construction method for \linkS4class{RLum.Results} objects.
+\item \code{set_RLum(RLum.Results)}: Construction method for \link[=RLum.Results-class]{RLum.Results} objects.
 
 }}
 \section{Function version}{
@@ -145,9 +145,9 @@ plot_RLum(object)
 
 }
 \seealso{
-\linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Data.Image},
-\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis},
-\linkS4class{RLum.Results}
+\link[=RLum.Data.Curve-class]{RLum.Data.Curve}, \link[=RLum.Data.Image-class]{RLum.Data.Image},
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum}, \link[=RLum.Analysis-class]{RLum.Analysis},
+\link[=RLum.Results-class]{RLum.Results}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

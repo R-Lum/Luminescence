@@ -7,7 +7,7 @@
 calc_FuchsLang2001(data, cvThreshold = 5, startDeValue = 1, plot = TRUE, ...)
 }
 \arguments{
-\item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
+\item{data}{\link[=RLum.Results-class]{RLum.Results} or \link{data.frame} (\strong{required}):
 for \link{data.frame}: two columns with De \code{(data[,1])} and De error \code{(values[,2])}}
 
 \item{cvThreshold}{\link{numeric} (\emph{with default}):
@@ -25,7 +25,7 @@ enable/disable the plot output.}
 }
 \value{
 Returns a plot (\emph{optional}) and terminal output. In addition an
-\linkS4class{RLum.Results} object is returned containing the
+\link[=RLum.Results-class]{RLum.Results} object is returned containing the
 following elements:
 
 \item{summary}{\link{data.frame} summary of all relevant model results.}
@@ -82,7 +82,7 @@ Quaternary Science Reviews 22, 1161-1167.
 }
 \seealso{
 \link{plot}, \link{calc_MinDose}, \link{calc_FiniteMixture},
-\link{calc_CentralDose}, \link{calc_CommonDose}, \linkS4class{RLum.Results}
+\link{calc_CentralDose}, \link{calc_CommonDose}, \link[=RLum.Results-class]{RLum.Results}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr

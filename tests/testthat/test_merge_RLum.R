@@ -17,7 +17,7 @@ test_that("input validation", {
   expect_error(merge_RLum(list(o1, o2, "test")),
                "All elements of 'objects' should be of class 'RLum'")
   expect_error(merge_RLum(list(r1, c1)),
-               "Only similar input objects in the list are supported")
+               "Objects cannot be merged, different classes found: 'RLum.Results'")
   expect_error(merge_RLum(list(ExampleData.RLum.Data.Image)),
                "Merging of 'RLum.Data.Image' objects is currently not supported")
 

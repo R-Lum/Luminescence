@@ -7,8 +7,8 @@
 plot_RLum(object, ...)
 }
 \arguments{
-\item{object}{\linkS4class{RLum} (\strong{required}):
-object of class \linkS4class{RLum} or a list of such objects. If a
+\item{object}{\link[=RLum-class]{RLum} (\strong{required}):
+object of class \link[=RLum-class]{RLum} or a list of such objects. If a
 list is provided, the function tries to plot every object in the list
 according to its \code{RLum} class, after removing non-RLum objects.}
 
@@ -26,17 +26,17 @@ The function calls object specific plot functions for RLum S4 class objects.
 }
 \details{
 The function provides a generalised access point for plotting various
-\linkS4class{RLum} objects. Depending on the input object, the
+\link[=RLum-class]{RLum} objects. Depending on the input object, the
 corresponding plot function will be selected. Allowed arguments can be
 found in the documentations of each plot function.
 
 \tabular{lll}{
 \strong{object} \tab \strong{corresponding plot function} \cr
-\linkS4class{RLum.Data.Curve} \tab \link{plot_RLum.Data.Curve} \cr
-\linkS4class{RLum.Data.Spectrum} \tab \link{plot_RLum.Data.Spectrum}\cr
-\linkS4class{RLum.Data.Image} \tab \link{plot_RLum.Data.Image}\cr
-\linkS4class{RLum.Analysis} \tab \link{plot_RLum.Analysis}\cr
-\linkS4class{RLum.Results} \tab \link{plot_RLum.Results}
+\link[=RLum.Data.Curve-class]{RLum.Data.Curve} \tab \link{plot_RLum.Data.Curve} \cr
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} \tab \link{plot_RLum.Data.Spectrum}\cr
+\link[=RLum.Data.Image-class]{RLum.Data.Image} \tab \link{plot_RLum.Data.Image}\cr
+\link[=RLum.Analysis-class]{RLum.Analysis} \tab \link{plot_RLum.Analysis}\cr
+\link[=RLum.Results-class]{RLum.Results} \tab \link{plot_RLum.Results}
 }
 }
 \section{Function version}{

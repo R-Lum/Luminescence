@@ -15,7 +15,7 @@ calc_AverageDose(
 )
 }
 \arguments{
-\item{data}{\linkS4class{RLum.Results} or \link{data.frame} (\strong{required}):
+\item{data}{\link[=RLum.Results-class]{RLum.Results} or \link{data.frame} (\strong{required}):
 for \link{data.frame}: two columns with \code{De} \code{(data[,1])} and \verb{De error} \code{(values[,2])}}
 
 \item{sigma_m}{\link{numeric} (\strong{required}):
@@ -46,7 +46,7 @@ Further supported arguments: \code{mtext} (\link{character}), \code{rug} (\code{
 }
 \value{
 The function produces numerical output and an optional plot. In addition,
-an \linkS4class{RLum.Results} object containing the following
+an \link[=RLum.Results-class]{RLum.Results} object containing the following
 elements is returned:
 
 \item{$summary}{\link{data.frame} summary of all relevant model results.}

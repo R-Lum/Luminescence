@@ -11,12 +11,12 @@ Subclasses are:
 \details{
 \strong{RLum-class}\cr
 |\cr
-|----\linkS4class{RLum.Data}\cr
-|----|-- \linkS4class{RLum.Data.Curve}\cr
-|----|-- \linkS4class{RLum.Data.Spectrum}\cr
-|----|-- \linkS4class{RLum.Data.Image}\cr
-|----\linkS4class{RLum.Analysis}\cr
-|----\linkS4class{RLum.Results}
+|----\link[=RLum.Data-class]{RLum.Data}\cr
+|----|-- \link[=RLum.Data.Curve-class]{RLum.Data.Curve}\cr
+|----|-- \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum}\cr
+|----|-- \link[=RLum.Data.Image-class]{RLum.Data.Image}\cr
+|----\link[=RLum.Analysis-class]{RLum.Analysis}\cr
+|----\link[=RLum.Results-class]{RLum.Results}
 }
 \section{Slots}{
 
@@ -52,9 +52,9 @@ showClass("RLum")
 
 }
 \seealso{
-\linkS4class{RLum.Data}, \linkS4class{RLum.Data.Curve},
-\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Data.Image},
-\linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}, \link{methods_RLum}
+\link[=RLum.Data-class]{RLum.Data}, \link[=RLum.Data.Curve-class]{RLum.Data.Curve},
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum}, \link[=RLum.Data.Image-class]{RLum.Data.Image},
+\link[=RLum.Analysis-class]{RLum.Analysis}, \link[=RLum.Results-class]{RLum.Results}, \link{methods_RLum}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

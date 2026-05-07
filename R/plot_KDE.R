@@ -744,10 +744,11 @@ plot_KDE <- function(
 
     ## optionally add rug
     if (rug) {
+      ticksize <- l_height / max(sapply(data, nrow) * 4)
       for(i in 1:length(data)) {
           suppressWarnings( # some values will be clipped
           rug(data[[i]][, 1],
-              ticksize = l_height / (nrow(data[[i]]) * 4),
+              ticksize = ticksize,
               side = 3,
               pos = 0,
               lwd = 1,

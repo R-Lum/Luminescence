@@ -74,7 +74,7 @@ enable/disable the plot output.}
 \code{cdf_ADr_quantiles} (\code{TRUE}/\code{FALSE}), \code{legend.pos}, \code{legend} (\code{TRUE}/\code{FALSE})}
 }
 \value{
-The function returns a plot if \code{plot = TRUE} and an \linkS4class{RLum.Results}
+The function returns a plot if \code{plot = TRUE} and an \link[=RLum.Results-class]{RLum.Results}
 object with the following slots:
 
 \verb{@data}\cr
@@ -116,7 +116,7 @@ using the absolute median distance.
 \strong{Parameters available for \code{method_control}}
 
 The parameters listed below are used to granular control Bayesian modelling using
-\link[rjags:rjags-package]{rjags::rjags}. Internally the functions \code{.calc_IndividualAgeModel()} and
+\link[rjags:rjags]{rjags::rjags}. Internally the functions \code{.calc_IndividualAgeModel()} and
 \code{.calc_BayesianCentraAgelModel()}. The parameter settings affect both models.
 Note: \code{method_control} expects a \strong{named} list of parameters
 
@@ -184,7 +184,7 @@ Rousseeuw, P.J., Debruyne, M., Engelen, S., Hubert, M., 2006. Robustness and out
 Critical Reviews in Analytical Chemistry 36, 221–242. \doi{10.1080/10408340600969403}
 }
 \seealso{
-\link{plot_OSLAgeSummary}, \link[rjags:rjags-package]{rjags::rjags}, \link[mclust:mclust-package]{mclust::mclust-package}
+\link{plot_OSLAgeSummary}, \link[rjags:rjags]{rjags::rjags}, \link[mclust:mclust-package]{mclust::mclust-package}
 }
 \author{
 Anne Philippe, Université de Nantes (France),

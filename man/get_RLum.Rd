@@ -44,16 +44,16 @@ get_RLum(object, ...)
 \S4method{get_RLum}{RLum.Results}(object, data.object, info.object = NULL, drop = TRUE)
 }
 \arguments{
-\item{object}{\linkS4class{RLum} (\strong{required}):
+\item{object}{\link[=RLum-class]{RLum} (\strong{required}):
 S4 object of class \code{RLum} or an object of type \link{list} containing only objects
-of type \linkS4class{RLum}}
+of type \link[=RLum-class]{RLum}}
 
 \item{...}{further arguments passed to the specific class method.}
 
 \item{class}{\link{character} (\emph{optional}):
 define which class gets selected if applied to a list, e.g., if a list
-consists of different type of \linkS4class{RLum} objects, this arguments allows
-to make a selection. If nothing is provided, all \linkS4class{RLum} objects are
+consists of different type of \link[=RLum-class]{RLum} objects, this arguments allows
+to make a selection. If nothing is provided, all \link[=RLum-class]{RLum} objects are
 treated.}
 
 \item{null.rm}{\link{logical} (\emph{with default}):
@@ -81,8 +81,8 @@ return a numeric vector with the index of each element in the RLum.Analysis
 object (\code{FALSE} by default).}
 
 \item{drop}{\link{logical} (\emph{with default}):
-coerce to the next possible layer (which are \linkS4class{RLum.Data} objects if
-\code{object} is an \linkS4class{RLum.Analysis} object). If \code{drop = FALSE}, an object
+coerce to the next possible layer (which are \link[=RLum.Data-class]{RLum.Data} objects if
+\code{object} is an \link[=RLum.Analysis-class]{RLum.Analysis} object). If \code{drop = FALSE}, an object
 of the same type as the input is returned.}
 
 \item{recursive}{\link{logical} (\emph{with default}):
@@ -112,12 +112,12 @@ An object of the same type as the input object provided.
 }
 \description{
 The function provides a generalised access point for specific
-\linkS4class{RLum} objects. Depending on the input object, the corresponding
+\link[=RLum-class]{RLum} objects. Depending on the input object, the corresponding
 function will be selected.
 }
 \section{Functions}{
 \itemize{
-\item \code{get_RLum(list)}: Returns a list of \linkS4class{RLum} objects that had been passed to
+\item \code{get_RLum(list)}: Returns a list of \link[=RLum-class]{RLum} objects that had been passed to
 \link{get_RLum}
 
 \item \code{get_RLum(`NULL`)}: Returns \code{NULL}.
@@ -133,28 +133,28 @@ Currently supported objects are: RLum.Data.Curve and RLum.Data.Spectrum
 
 Returns:
 \enumerate{
-\item \link{list} of \linkS4class{RLum.Data} objects or
-\item Single \linkS4class{RLum.Data} object, if only one object
+\item \link{list} of \link[=RLum.Data-class]{RLum.Data} objects or
+\item Single \link[=RLum.Data-class]{RLum.Data} object, if only one object
 is contained and \code{recursive = FALSE} or
-\item \linkS4class{RLum.Analysis} objects for \code{drop = FALSE}
+\item \link[=RLum.Analysis-class]{RLum.Analysis} objects for \code{drop = FALSE}
 }
 
-\item \code{get_RLum(RLum.Data.Curve)}: Accessor method for \linkS4class{RLum.Data.Curve} object.
+\item \code{get_RLum(RLum.Data.Curve)}: Accessor method for \link[=RLum.Data.Curve-class]{RLum.Data.Curve} object.
 The argument \code{info.object} is optional to directly access the info elements.
 If no info element name is provided, the raw curve data (matrix) will be
 returned.
 
-\item \code{get_RLum(RLum.Data.Image)}: Accessor method for \linkS4class{RLum.Data.Image} objects.
+\item \code{get_RLum(RLum.Data.Image)}: Accessor method for \link[=RLum.Data.Image-class]{RLum.Data.Image} objects.
 The argument \code{info.object} is optional to directly access the info elements.
 If no info element name is provided, the raw image data (\code{array}) will be
 returned.
 
-\item \code{get_RLum(RLum.Data.Spectrum)}: Accessor method for \linkS4class{RLum.Data.Spectrum} objects.
+\item \code{get_RLum(RLum.Data.Spectrum)}: Accessor method for \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} objects.
 The argument \code{info.object} is optional to directly access the info elements.
 If no info element name is provided, the raw curve data (matrix) will be
 returned.
 
-\item \code{get_RLum(RLum.Results)}: Accessor method for \linkS4class{RLum.Results} object.
+\item \code{get_RLum(RLum.Results)}: Accessor method for \link[=RLum.Results-class]{RLum.Results} object.
 The argument \code{data.object} allows to access directly objects stored
 within the slot data. The default return object depends on the object
 originator (e.g., \code{fit_LMCurve}). If nothing is specified always the first
@@ -167,7 +167,7 @@ Returns:
 \enumerate{
 \item Data object from the specified slot
 \item \link{list} of data objects from the slots if 'data.object' is vector or
-\item an \linkS4class{RLum.Results} for \code{drop = FALSE}.
+\item an \link[=RLum.Results-class]{RLum.Results} for \code{drop = FALSE}.
 }
 
 }}
@@ -190,9 +190,9 @@ temp.get <- get_RLum(object = temp1)
 
 }
 \seealso{
-\linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Data.Image},
-\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis},
-\linkS4class{RLum.Results}
+\link[=RLum.Data.Curve-class]{RLum.Data.Curve}, \link[=RLum.Data.Image-class]{RLum.Data.Image},
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum}, \link[=RLum.Analysis-class]{RLum.Analysis},
+\link[=RLum.Results-class]{RLum.Results}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

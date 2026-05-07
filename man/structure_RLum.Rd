@@ -14,7 +14,7 @@ structure_RLum(object, ...)
 \S4method{structure_RLum}{RLum.Analysis}(object, fullExtent = FALSE)
 }
 \arguments{
-\item{object}{\linkS4class{RLum} (\strong{required}):
+\item{object}{\link[=RLum-class]{RLum} (\strong{required}):
 S4 object of class \code{RLum}}
 
 \item{...}{further arguments passed to the specific class method}
@@ -29,15 +29,15 @@ Returns a \link{data.frame} with structure of the object.
 }
 \description{
 The function provides a generalised access point for specific
-\linkS4class{RLum} objects. Depending on the input object, the corresponding
+\link[=RLum-class]{RLum} objects. Depending on the input object, the corresponding
 function will be selected.
 }
 \section{Functions}{
 \itemize{
-\item \code{structure_RLum(list)}: Returns a list of data frames containing the structure of each \linkS4class{RLum}
+\item \code{structure_RLum(list)}: Returns a list of data frames containing the structure of each \link[=RLum-class]{RLum}
 object in the input list.
 
-\item \code{structure_RLum(RLum.Analysis)}: Returns the structure of an \linkS4class{RLum.Analysis} object.
+\item \code{structure_RLum(RLum.Analysis)}: Returns the structure of an \link[=RLum.Analysis-class]{RLum.Analysis} object.
 
 }}
 \section{Function version}{
@@ -54,9 +54,9 @@ structure_RLum(OSL.SARMeasurement$Sequence.Object)
 
 }
 \seealso{
-\linkS4class{RLum.Data.Curve}, \linkS4class{RLum.Data.Image},
-\linkS4class{RLum.Data.Spectrum}, \linkS4class{RLum.Analysis},
-\linkS4class{RLum.Results}
+\link[=RLum.Data.Curve-class]{RLum.Data.Curve}, \link[=RLum.Data.Image-class]{RLum.Data.Image},
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum}, \link[=RLum.Analysis-class]{RLum.Analysis},
+\link[=RLum.Results-class]{RLum.Results}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

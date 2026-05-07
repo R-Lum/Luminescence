@@ -110,6 +110,8 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("not values.cumulative",
                               plot_KDE(data = df,
                                        values.cumulative = FALSE))
+  vdiffr::expect_doppelganger("rug",
+                              plot_KDE(data = list(df, data.frame(c(23, 24), c(3, 3)))))
   vdiffr::expect_doppelganger("rug many points",
                               plot_KDE(data = rbind(df, df, df, df)))
   })

@@ -389,7 +389,7 @@ read_XSYG2R <- function(
                                      stringsAsFactors = FALSE)
 
     ## account for non set value
-    if (length(sequence.header) != 0)
+    if (length(sequence.header) > 0)
         colnames(sequence.header) <- ""
 
     ###----------------------------------------------------------------------

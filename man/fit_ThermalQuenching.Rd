@@ -80,10 +80,10 @@ Applying a nls-fitting to thermal quenching data.
 
 The equation used for the fitting is
 
-\deqn{y = A / (1 + C * exp(-W / (kB * x))) + c}
+\deqn{y = A / (1 + C * \exp(-W / (k_B x))) + c}
 
 \emph{W} is the energy depth in eV, \emph{C} is a dimensionless constant, \emph{A} and \emph{c}
-are used to adjust the curve for the given signal, \emph{kB} is the Boltzmann
+are used to adjust the curve for the given signal, \eqn{k_B} is the Boltzmann
 constant in eV/K and \emph{x} is the absolute temperature in K.
 
 \strong{Error estimation}\cr

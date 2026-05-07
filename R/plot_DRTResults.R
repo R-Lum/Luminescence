@@ -207,15 +207,17 @@ plot_DRTResults <- function(
 
   ## Integrity checks -------------------------------------------------------
   .validate_not_empty(object)
-  .validate_class(given.dose, "numeric", null.ok = TRUE)
+  .validate_class(given.dose, c("numeric", "integer"), null.ok = TRUE)
   if (anyNA(given.dose))
     .throw_error("'given.dose' cannot contain NA values")
+  .validate_class(preheat, c("numeric", "integer"), null.ok = TRUE)
   .validate_logical_scalar(boxplot)
   if (boxplot && is.null(preheat)) {
     boxplot <- FALSE
     .throw_warning("'boxplot' requires a value in 'preheat', reset to FALSE")
   }
 
+  .validate_class(mtext, "character", length = 1)
   valid.pos <- c("left", "center", "right", "topleft", "top", "topright",
                  "bottomleft", "bottom", "bottomright")
   .validate_class(summary, "character")
@@ -232,6 +234,8 @@ plot_DRTResults <- function(
   else {
     legend.pos <- .validate_args(legend.pos, valid.pos)
   }
+  .validate_logical_scalar(par.local)
+  .validate_logical_scalar(na.rm)
 
   ## Homogenise and check input data
   values <- object
@@ -246,26 +250,35 @@ plot_DRTResults <- function(
       values[[i]] <- val
     } else if (ncol(values[[i]]) < 2) {
       .throw_error("'object' should have 2 columns")
+    } else {
+      ## mark for removal if all De values are missing
+      if (all(is.na(values[[i]][, 1])))
+        values[[i]] <- NA
     }
   }
 
   ## remove invalid records
   values[is.na(values)] <- NULL
   if (length(values) == 0) {
-    .throw_error("No valid records in 'values'")
+    .throw_error("No valid records in 'object'")
+  }
+
+  ## check for preheat temperature values
+  num.de.values <- max(sapply(values, nrow))
+  if (!is.null(preheat) && length(preheat) < num.de.values) {
+    .throw_error("'preheat' should have length equal to the number of ",
+                 "De values (", num.de.values, ")")
   }
 
   ## Check input arguments ----------------------------------------------------
   for (i in seq_along(values)) {
 
-    ##check for preheat temperature values
-    if (!missing(preheat) && length(preheat) < nrow(values[[i]])) {
-        .throw_error("'preheat' should have length equal to the number ",
-                     "of De values")
-    }
+    ## keep only the required columns and assign names
+    values[[i]] <- values[[i]][, 1:2]
+    colnames(values[[i]]) <- c("De", "De.error")
 
     ##remove NA values; yes Micha, it is not that simple
-    if (!na.rm) {
+    if (na.rm) {
       ##currently we assume that all input data sets comprise a similar of data
       if (!is.null(preheat) && i == length(values)) {
         ## remove preheat entries corresponding to NA values
@@ -334,8 +347,11 @@ plot_DRTResults <- function(
        min(sapply(values, function(x) min(x[, 1], na.rm = TRUE))) < 0.75) &&
        (!"ylim" %in% names(extraArgs))) {
     ylim <- c(
-      min(sapply(values, function(x) min(x[, 1], na.rm = TRUE) - max(x[, 2], na.rm = TRUE))),
-      max(sapply(values, function(x) max(x[, 1], na.rm = TRUE) + max(x[, 2], na.rm = TRUE))))
+        ## append a 0 element to the errors to avoid crashing if all errors are NA
+        min(sapply(values, function(x) min(x[, 1], na.rm = TRUE) -
+                                       max(c(x[, 2], 0), na.rm = TRUE))),
+        max(sapply(values, function(x) max(x[, 1], na.rm = TRUE) +
+                                       max(c(x[, 2], 0), na.rm = TRUE))))
   }
 
   ## optionally group data by preheat temperature
@@ -351,7 +367,7 @@ plot_DRTResults <- function(
     modes.plot <- rep(modes, each = length(values))
     xlim <- c(min(modes.plot) * 0.9, max(modes.plot) * 1.1)
   } else {
-    modes.plot <- 1 + 0:nrow(values[[1]])
+    modes.plot <- 1 + 0:max(sapply(values, nrow))
   }
 
   if (boxplot)
@@ -592,7 +608,9 @@ plot_DRTResults <- function(
 
 .add_summary <- function(summary.pos, summary.pos_is_bottom, summary.adj,
                          label.text, mtext, i, cex, values, col) {
-  col <- if (nrow(values[[i]]) == length(col)) "black" else col[i]
+  oneinput <- length(values) == 1
+  multicol <- oneinput && nrow(values[[1]] == length(col))
+  col <- if (multicol) "black" else col[i]
   if (summary.pos[1] != "sub") {
     vadj <- 0
     if (summary.pos_is_bottom) {

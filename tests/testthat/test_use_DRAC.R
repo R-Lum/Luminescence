@@ -1,3 +1,6 @@
+template_v1.2 <- test_path("_data/DRAC_Input_Template_v1.2.csv")
+template_v1.3 <- test_path("_data/DRAC_Input_Template_v1.3.csv")
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -17,14 +20,14 @@ test_that("input validation", {
                "File extension 'xls' is not supported, only 'csv' is valid")
 
   ## CSV file with the wrong header
-  fake <- data.table::fread(test_path("_data/DRAC_Input_Template.csv"))
+  fake <- data.table::fread(template_v1.2)
   fake[1, 1] <- "error"
   fake.csv <- tempfile(fileext = ".csv")
   data.table::fwrite(fake, file = fake.csv)
   expect_error(use_DRAC(fake.csv),
-               "you are not using the original DRAC v1.2 CSV template")
+               "you are not using the original DRAC v1.2 or v1.3 CSV template")
 
-  expect_error(use_DRAC(test_path("_data/DRAC_Input_Template.csv"), NA),
+  expect_error(use_DRAC(template_v1.2, NA),
                "'name' should be of class 'character' or NULL")
 
   ## exceed allowed limit
@@ -66,10 +69,7 @@ test_that("check functionality", {
  input$`External K (%)` <- 1.2
  input$`errExternal K (%)` <- 0.14
  input$`Calculate external Rb from K conc?` <- "Y"
- ## TODO(mcol): temporarily disabled due to issue 919
- if (FALSE) {
  input$`Calculate internal Rb from K conc?` <- "Y"
- }
  input$`Scale gammadoserate at shallow depths?` <- "Y"
  input$`Grain size min (microns)` <- 90L
  input$`Grain size max (microns)` <- 125L
@@ -102,7 +102,7 @@ test_that("check functionality", {
   SW({
   ## CSV input
   expect_message(expect_s4_class(
-      use_DRAC(test_path("_data/DRAC_Input_Template.csv"),
+      use_DRAC(template_v1.2,
                verbose = TRUE),
       "RLum.Results"),
       "Reference for")
@@ -132,8 +132,18 @@ test_that("check functionality", {
 test_that("snapshot tests", {
   testthat::skip_on_cran()
 
-  ## communicate with insufficient input
+  set.seed(1)
+
+  SW({
+  expect_snapshot_output(use_DRAC(template_v1.3))
+  })
+
+  ## test print.DRAC.highlight()
   t <- template_DRAC(preset = "DRAC-example_quartz", notification = FALSE)
+  res <- use_DRAC(t, verbose = FALSE)
+  expect_snapshot_output(print(res$DRAC$highlights))
+
+  ## communicate with insufficient input
   t[52] <- 0.0
   local_mocked_bindings(readline = function(prompt) "Y")
   set.seed(1)

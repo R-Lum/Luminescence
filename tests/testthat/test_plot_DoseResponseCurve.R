@@ -64,6 +64,8 @@ test_that("graphical snapshot tests", {
                               plot_DoseResponseCurve(fit, legend = FALSE,
                                                      density_polygon_col = "azure",
                                                      cex = 2))
+  vdiffr::expect_doppelganger("rlum.results",
+                              plot_RLum.Results(fit, main = "plot_RLum.Results"))
 
   ## De is NA
   df <- data.frame(DOSE = c(0, 5, 10, 20, 30),
@@ -71,5 +73,49 @@ test_that("graphical snapshot tests", {
                    LxTx_X = c(1, 1, 1, 1, 1))
   vdiffr::expect_doppelganger("De.NA",
                               plot_DoseResponseCurve(fit_DoseResponseCurve(df)))
+  })
+
+  ## graphicl snapshots that also check numerical correctness
+  data(ExampleData.LxTxData, envir = environment())
+  LxTxData$LxTx.Error[[5]] <- 0.8
+  LxTxData$LxTx.Error[[4]] <- 0.4
+  fit_method = "EXP"
+
+  SW({
+  set.seed(1234)
+  vdiffr::expect_doppelganger("NULL",fit_DoseResponseCurve(
+    object = LxTxData,
+    fit.method = fit_method,
+    fit.weights = NULL) |>
+    plot_DoseResponseCurve(plot_extended = FALSE,
+                           main = "NULL",
+                           plot_singlePanels = TRUE)
+  )
+  vdiffr::expect_doppelganger("inverse_var", fit_DoseResponseCurve(
+    object = LxTxData,
+    fit.method = fit_method,
+    fit.weights = "inverse_var") |>
+    plot_DoseResponseCurve(plot_extended = FALSE,
+                           main = "inverse_var",
+                           plot_singlePanels = TRUE)
+  )
+
+  vdiffr::expect_doppelganger("inverse_std", fit_DoseResponseCurve(
+    object = LxTxData,
+    fit.method = fit_method,
+    fit.weights = "inverse_std") |>
+    plot_DoseResponseCurve(plot_extended = FALSE,
+                           main = "inverse_std",
+                           plot_singlePanels = TRUE)
+  )
+
+  vdiffr::expect_doppelganger("norm_inverse_std", fit_DoseResponseCurve(
+    object = LxTxData,
+    fit.method = fit_method,
+    fit.weights = "norm_inverse_std") |>
+    plot_DoseResponseCurve(plot_extended = FALSE,
+                           main = "norm_inverse_std",
+                           plot_singlePanels = TRUE)
+  )
   })
 })

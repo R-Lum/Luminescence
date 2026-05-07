@@ -13,8 +13,8 @@ plot_RLum.Data.Image(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Image} (\strong{required}): S4
-object of class \linkS4class{RLum.Data.Image}}
+\item{object}{\link[=RLum.Data.Image-class]{RLum.Data.Image} (\strong{required}): S4
+object of class \link[=RLum.Data.Image-class]{RLum.Data.Image}}
 
 \item{frames}{\link{numeric} (\emph{optional}): sets the frames to be set, by default all
 frames are plotted. Can be sequence of numbers, as long as the frame number is valid.}
@@ -37,7 +37,7 @@ Returns a plot
 }
 \description{
 The function provides very basic plot functionality for image data of an
-\linkS4class{RLum.Data.Image} object. For more sophisticated plotting it is recommended
+\link[=RLum.Data.Image-class]{RLum.Data.Image} object. For more sophisticated plotting it is recommended
 to use other very powerful packages for image processing.
 
 \strong{Details on the plot functions}
@@ -76,7 +76,7 @@ plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
 
 }
 \seealso{
-\linkS4class{RLum.Data.Image}, \link{plot}, \link{plot_RLum},
+\link[=RLum.Data.Image-class]{RLum.Data.Image}, \link{plot}, \link{plot_RLum},
 \link[graphics:image]{graphics::image}, \link[graphics:contour]{graphics::contour}
 }
 \author{

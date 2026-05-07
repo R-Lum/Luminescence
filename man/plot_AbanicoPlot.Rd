@@ -41,11 +41,11 @@ plot_AbanicoPlot(
 )
 }
 \arguments{
-\item{data}{\link{data.frame} or \linkS4class{RLum.Results} object (\strong{required}):
+\item{data}{\link{data.frame} or \link[=RLum.Results-class]{RLum.Results} object (\strong{required}):
 for \code{data.frame} two columns: De (\code{data[,1]}) and De error (\code{data[,2]}).
 To plot several data sets in one plot the data sets must be provided as
 \code{list}, e.g. \code{list(data.1, data.2)}.\cr
-For some \linkS4class{RLum.Results} objects, one or more lines (and
+For some \link[=RLum.Results-class]{RLum.Results} objects, one or more lines (and
 corresponding labels) are drawn automatically:
 \itemize{
 \item \link{calc_AverageDose} (ADM)
@@ -164,7 +164,7 @@ colour of the polygon showing the data scatter. Sometimes this
 polygon may be omitted for clarity. To disable it use \code{FALSE} or
 \code{polygon = FALSE}. Default is \code{"grey80"}.}
 
-\item{line}{\link{numeric} or \linkS4class{RLum.Results}:
+\item{line}{\link{numeric} or \link[=RLum.Results-class]{RLum.Results}:
 numeric values of the additional lines to be added. This can be set to \code{NA}
 to suppress the line added automatically by some \code{RLum.Results} objects.}
 

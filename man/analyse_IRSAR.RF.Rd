@@ -20,9 +20,9 @@ analyse_IRSAR.RF(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} or a \link{list} of \linkS4class{RLum.Analysis}-objects (\strong{required}):
+\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} or a \link{list} of \link[=RLum.Analysis-class]{RLum.Analysis}-objects (\strong{required}):
 input object containing data for protocol analysis. The function expects to
-find at least two curves in the \linkS4class{RLum.Analysis} object: (1) \code{RF_nat}, (2) \code{RF_reg}.
+find at least two curves in the \link[=RLum.Analysis-class]{RLum.Analysis} object: (1) \code{RF_nat}, (2) \code{RF_reg}.
 If a \code{list} is provided as input all other parameters can be provided as
 \code{list} as well to gain full control.}
 
@@ -158,7 +158,7 @@ vertical sliding range. It can be added as systematic error to the final De erro
 
 \strong{slot:} \strong{\verb{@info}}
 
-The original function call (\link[methods:LanguageClasses]{methods::language}-object)
+The original function call (\link[methods:language-class]{methods::language}-object)
 
 The output (\code{data}) should be accessed using the function \link{get_RLum}.
 
@@ -198,7 +198,7 @@ curve is used.
 
 Function used for the fitting (according to Erfurt et al. (2003)):
 
-\deqn{\phi(D) = \phi_{0}-\Delta\phi(1-exp(-\lambda*D))^\beta}
+\deqn{\phi(D) = \phi_{0} - \Delta\phi(1 - \exp(-\lambda D))^\beta}
 
 with
 \eqn{\phi(D)} the dose dependent IR-RF flux,
@@ -210,7 +210,7 @@ with
 To obtain the palaeodose
 \eqn{D_{e}} the function is changed to:
 
-\deqn{D_{e} = ln(-(\phi(D) - \phi_{0})/(-\lambda*\phi)^{1/\beta}+1)/-\lambda}
+\deqn{D_{e} = \ln(-(\phi(D) - \phi_{0})/(-\lambda\phi)^{1/\beta}+1)/-\lambda}
 
 The fitting is done using the \code{port} algorithm of the \link{nls} function.
 
@@ -330,7 +330,7 @@ The corresponding slope can be used to discard values as a high (positive,
 negative) slope may indicate that both curves are fundamentally different
 and the method cannot be applied at all.
 By default, the value of this parameter is calculated but not evaluated.
-\item \code{curves_bounds} (\link{numeric}, default: \eqn{max(RF_{reg_counts})}):
+\item \code{curves_bounds} (\link{numeric}, default: \eqn{\max(RF_{reg_counts})}):
 this measure uses the maximum time (x) value of the regenerated curve.
 The maximum time (x) value of the natural curve cannot be larger than this
 value. However, although this is not recommended the value can be changed
@@ -456,7 +456,7 @@ Infrared radiofluorescence (IR-RF) dating: A review. Quaternary Geochronology 64
 101155. \doi{10.1016/j.quageo.2021.101155}
 }
 \seealso{
-\linkS4class{RLum.Analysis}, \linkS4class{RLum.Results}, \link{get_RLum},
+\link[=RLum.Analysis-class]{RLum.Analysis}, \link[=RLum.Results-class]{RLum.Results}, \link{get_RLum},
 \link{nls}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}, \link[parallel:mclapply]{parallel::mclapply}, \link{ExampleData.RF70Curves}
 }
 \author{

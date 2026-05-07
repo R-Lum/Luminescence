@@ -18,8 +18,8 @@ read_SPE2R(
 name of the SPE file to read (URLs are supported).}
 
 \item{output.object}{\link{character} (\emph{with default}):
-set the output object type. Allowed types are \linkS4class{RLum.Data.Spectrum},
-\linkS4class{RLum.Data.Image} or \code{"matrix"}.}
+set the output object type. Allowed types are \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum},
+\link[=RLum.Data.Image-class]{RLum.Data.Image} or \code{"matrix"}.}
 
 \item{frame.range}{\link{vector}, \link{integer} (\emph{optional}):
 range of frames to read. For example, \code{frame.range = c(1, 10)} selects only
@@ -42,12 +42,12 @@ type of objects:
 
 \code{RLum.Data.Spectrum}
 
-An object of type \linkS4class{RLum.Data.Spectrum} is returned.  Row
+An object of type \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} is returned.  Row
 sums are used to integrate all counts over one channel.
 
 \code{RLum.Data.Image}
 
-An object of type \linkS4class{RLum.Data.Image} is returned.  Due to
+An object of type \link[=RLum.Data.Image-class]{RLum.Data.Image} is returned.  Due to
 performance reasons the import is aborted for files containing more than 100
 frames. This limitation can be overwritten manually by using the argument
 \code{frame.range}.
@@ -57,12 +57,12 @@ frames. This limitation can be overwritten manually by using the argument
 Returns a matrix of the form: Rows = Channels, columns = Frames. For the
 transformation the function \link{get_RLum} is used,
 meaning that the same results can be obtained by using the function
-\link{get_RLum} on an \linkS4class{RLum.Data.Spectrum} or
-\linkS4class{RLum.Data.Image} object.
+\link{get_RLum} on an \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} or
+\link[=RLum.Data.Image-class]{RLum.Data.Image} object.
 }
 \description{
 The function imports Princeton Instruments (TM) SPE-files into R and
-provides \linkS4class{RLum.Data.Image} objects as output. The import
+provides \link[=RLum.Data.Image-class]{RLum.Data.Image} objects as output. The import
 functionality is based on the file format description provided by
 Princeton Instruments and a MatLab script written by Carl Hall (see
 references).
@@ -111,7 +111,7 @@ Hall, C., 2012: readSPE.m.
 \verb{https://www.mathworks.com/matlabcentral/fileexchange/35940-readspe}
 }
 \seealso{
-\link{readBin}, \linkS4class{RLum.Data.Spectrum}
+\link{readBin}, \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

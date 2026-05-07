@@ -11,6 +11,8 @@ test_that("input validation", {
 
   expect_error(convert_Second2Gray("test"),
                "'data' should be of class 'data.frame'")
+  expect_error(convert_Second2Gray(iris[, 1, drop = FALSE]),
+               "'data' should have 2 columns")
   expect_error(convert_Second2Gray(ExampleData.DeValues$BT998, dose.rate = FALSE),
                "'dose.rate' should be of class 'RLum.Results', 'data.frame' or")
   expect_error(convert_Second2Gray(ExampleData.DeValues$BT998, dose.rate = numeric(0)),
@@ -18,6 +20,9 @@ test_that("input validation", {
   expect_error(convert_Second2Gray(ExampleData.DeValues$BT998,
                            dose.rate = results[1:5, ]),
                "'data' and 'dose.rate' must have the same length")
+  expect_error(convert_Second2Gray(iris, dose.rate = 0.01,
+                                   error.propagation = "absolute"),
+               "'dose.rate' should have 2 elements")
   expect_error(convert_Second2Gray(ExampleData.DeValues$BT998,
                            dose.rate = results,
                            error.propagation = "test"),

@@ -19,7 +19,7 @@ enable/disable output to the terminal.}
 \item{...}{further arguments that will be passed to the function (currently not used)}
 }
 \value{
-Returns an S4 \linkS4class{RLum.Analysis} object. Results are
+Returns an S4 \link[=RLum.Analysis-class]{RLum.Analysis} object. Results are
 returned as a list when multiple files are processed or \code{file} is a list.
 }
 \description{
@@ -64,8 +64,8 @@ object <- convert_RLum2Risoe.BINfileData(object)
 
 }
 \seealso{
-\link{read_BIN2R}, \link{write_R2BIN}, \linkS4class{Risoe.BINfileData},
-\link[base:readLines]{base::readLines}, \linkS4class{RLum.Analysis}, \link{list.files}
+\link{read_BIN2R}, \link{write_R2BIN}, \link[=Risoe.BINfileData-class]{Risoe.BINfileData},
+\link[base:readLines]{base::readLines}, \link[=RLum.Analysis-class]{RLum.Analysis}, \link{list.files}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

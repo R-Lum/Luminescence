@@ -34,7 +34,7 @@ all records.}
 
 \item{fastForward}{\link{logical} (\emph{with default}):
 if \code{TRUE} for a more efficient data processing only a list of
-\linkS4class{RLum.Analysis} objects is returned.}
+\link[=RLum.Analysis-class]{RLum.Analysis} objects is returned.}
 
 \item{import}{\link{logical} (\emph{with default}):
 if set to \code{FALSE}, only the XSYG file structure is shown.}
@@ -67,7 +67,7 @@ A list consisting of two elements is shown:
 
 A list is provided, the list elements
 contain: \item{Sequence.Header}{\link{data.frame} with information on the
-sequence.} \item{Sequence.Object}{\linkS4class{RLum.Analysis}
+sequence.} \item{Sequence.Object}{\link[=RLum.Analysis-class]{RLum.Analysis}
 containing the curves.}
 }
 \description{
@@ -77,7 +77,7 @@ Imports XSYG-files produced by a Freiberg Instruments lexsyg reader into R.
 \strong{How does the import function work?}
 
 The function uses the \code{'XML'} package to parse the file structure. Each
-sequence is subsequently translated into an \linkS4class{RLum.Analysis} object.
+sequence is subsequently translated into an \link[=RLum.Analysis-class]{RLum.Analysis} object.
 
 \strong{General structure XSYG format}
 
@@ -215,7 +215,7 @@ XSYG file format. Unpublished Technical Note. Freiberg, Germany
 XML: \url{https://en.wikipedia.org/wiki/XML}
 }
 \seealso{
-\code{'XML'}, \linkS4class{RLum.Analysis}, \linkS4class{RLum.Data.Curve},
+\code{'XML'}, \link[=RLum.Analysis-class]{RLum.Analysis}, \link[=RLum.Data.Curve-class]{RLum.Data.Curve},
 \link{approx}, \link{correct_PMTLinearity}
 }
 \author{

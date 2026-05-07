@@ -7,7 +7,7 @@
 correct_PMTLinearity(object, PMT_pulse_pair_resolution = NULL)
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Analysis} \linkS4class{RLum.Data.Curve} (\strong{required}):
+\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} \link[=RLum.Data.Curve-class]{RLum.Data.Curve} (\strong{required}):
 object with records to correct; can be a \link{list} of such objects}
 
 \item{PMT_pulse_pair_resolution}{\link{numeric} (\emph{with default}): pulse-pair resolution
@@ -25,7 +25,7 @@ We correct for count linearity using a well-known formula that can be
 found for example in the Hamamatsu Photomultiplier handbook
 (Hamamatsu Photonics K.K., 2017):
 
-\deqn{N = \frac{M}{1 - M*t}}
+\deqn{N = \frac{M}{1 - Mt}}
 
 where \eqn{N} (in s\eqn{^{-1}}) is the true count rate, \eqn{M} (in s\eqn{^{-1}}) the measured count rate,
 and \eqn{t} (in s) the pulse pair resolution.

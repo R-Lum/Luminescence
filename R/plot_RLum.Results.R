@@ -1,13 +1,13 @@
 #' Plot function for an RLum.Results S4 class object
 #'
-#' The function provides a standardised plot output for data of an RLum.Results
-#' S4 class object
+#' The function provides a standardised plot output for data of an `RLum.Results`
+#' S4 class object, redirecting to specialised functions if necessary.
 #'
-#' The function produces a multiple plot output.  A file output is recommended
-#' (e.g., [pdf]).
+#' The function may produce multiple plots, in which case a file output is
+#' recommended (e.g., [pdf]).
 #'
 #' @param object [Luminescence::RLum.Results-class] (**required**):
-#' S4 object of class `RLum.Results`
+#' S4 object of class `RLum.Results`.
 #'
 #' @param single [logical] (*with default*):
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in as
@@ -22,7 +22,7 @@
 #' Not all arguments available for [plot] will be passed!
 #' Only plotting of `RLum.Results` objects are supported.
 #'
-#' @section Function version: 0.2.1
+#' @section Function version: 0.2.2
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
@@ -33,7 +33,6 @@
 #' @keywords aplot
 #'
 #' @examples
-#'
 #'
 #' ###load data
 #' data(ExampleData.DeValues, envir = environment())
@@ -49,7 +48,6 @@
 #'
 #' ##plot
 #' plot_RLum.Results(grains)
-#'
 #'
 #' @export
 plot_RLum.Results<- function(
@@ -76,11 +74,14 @@ plot_RLum.Results<- function(
                                    "calc_FuchsLang2001",
                                    "calc_MinDose",
                                    "calc_MaxDose",
-                                   "calc_SourceDoseRate"))
+                                   "calc_SourceDoseRate",
+                                   "fit_DoseResponseCurve",
+                                   NULL
+                                   ))
   }
 
   ##============================================================================##
-  ## SAFE AND RESTORE PLOT PARAMETERS ON EXIT
+  ## SAVE THE PLOT PARAMETERS AND RESTORE THEM ON EXIT
   ##============================================================================##
   par.default <- .par_defaults()
   on.exit(suppressWarnings(par(par.default)), add = TRUE)
@@ -112,6 +113,7 @@ plot_RLum.Results<- function(
       analyse_pIRIRSequence = plot_AbanicoPlot(object),
       analyse_IRSAR.RF = plot_AbanicoPlot(object),
       calc_FiniteMixture = do.call(calc_FiniteMixture, c(object, extraArgs)),
+      fit_DoseResponseCurve = do.call(plot_DoseResponseCurve, c(object, extraArgs)),
     NULL
     )
 
@@ -150,10 +152,12 @@ plot_RLum.Results<- function(
         title(xlab = i, line = 1.2)
 
         if (i %in% c("gamma", "sigma", "mu") && object@data$args$log && object@data$args$log.output) {
+          # nocov start  # FIXME(mcol): added in issue 1547 due to R-devel changes
           axis(1, at = axTicks(1),
                labels = format(round(log(axTicks(1)), 2), nsmall = 2),
                line = 2.5, mgp = c(3, 0.5, 0))
           title(xlab = paste0("log(", i, ")"), line = 4)
+          # nocov end
         }
 
       }, error = function(e)  {
@@ -380,7 +384,8 @@ plot_RLum.Results<- function(
         x<- seq(mean-5*sd, mean+5*sd, 0.001)
         y<- dnorm(seq(mean-5*sd, mean+5*sd, 0.001), mean, sd)
         # normalise y-values
-        y<- y/max(y)
+        if (max(y) != 0)
+          y <- y / max(y)
 
         points(x, y,
                type="l",
@@ -397,7 +402,8 @@ plot_RLum.Results<- function(
         # now invert the data by shifting
         y<- -y
         y<- y-min(y)
-        y<- y/max(y)
+        if (max(y) != 0)
+          y <- y / max(y)
 
         # fit a smoothing spline
         l<- stats::spline(x = x, y = y, method = "n", n = 1000)

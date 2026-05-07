@@ -194,12 +194,6 @@ plot_RLum.Analysis <- function(
 
   plot.settings <- modifyList(x = plot.settings, val = extraArgs, keep.null = TRUE)
 
-  ## deprecated argument
-  if ("plot.single" %in% names(extraArgs)) {
-    plot_singlePanels <- extraArgs$plot.single
-    .deprecated("plot.single", "plot_singlePanels", since = "1.0.0")
-  }
-
   ##try to find optimal parameters, this is however, a little bit stupid, but
   ##better than without any presetting
   if (combine) {

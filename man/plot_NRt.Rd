@@ -15,7 +15,7 @@ plot_NRt(
 )
 }
 \arguments{
-\item{data}{\link{list}, \link{data.frame}, \link{matrix} or \linkS4class{RLum.Analysis} (\strong{required}):
+\item{data}{\link{list}, \link{data.frame}, \link{matrix} or \link[=RLum.Analysis-class]{RLum.Analysis} (\strong{required}):
 X,Y data of measured values (time and counts). See details on individual data structure.}
 
 \item{log}{\link{character} (\emph{with default}):
@@ -24,7 +24,7 @@ logarithmic axes (\code{"x"}, \code{"y"}, \code{"xy"}) or \code{""} (default) fo
 \item{smooth}{\link{character} (\emph{with default}):
 apply data smoothing. If \code{"none"} (default), no data smoothing is applied.
 Use \code{"rmean"} to calculate the rolling mean, where \code{k} determines the
-width of the rolling window (see \link[data.table:froll]{data.table::frollmean}). \code{"spline"}
+width of the rolling window (see \link[data.table:frollmean]{data.table::frollmean}). \code{"spline"}
 applies a smoothing spline to each curve (see \link[stats:smooth.spline]{stats::smooth.spline})}
 
 \item{k}{\link{integer} (\emph{with default}):
@@ -39,7 +39,7 @@ keyword specifying the position of the legend (see \link{legend}).}
 \item{...}{further parameters passed to \link{plot} (also see \link{par}).}
 }
 \value{
-Returns a plot and \linkS4class{RLum.Analysis} object.
+Returns a plot and \link[=RLum.Analysis-class]{RLum.Analysis} object.
 }
 \description{
 This function creates a Natural/Regenerated signal vs. time (NR(t)) plot
@@ -49,7 +49,7 @@ This function accepts the individual curve data in many different formats. If
 \code{data} is a \code{list}, each element of the list must contain a two
 column \code{data.frame} or \code{matrix} containing the \code{XY} data of the curves
 (time and counts). Alternatively, the elements can be objects of class
-\linkS4class{RLum.Data.Curve}.
+\link[=RLum.Data.Curve-class]{RLum.Data.Curve}.
 
 Input values can also be provided as a \code{data.frame} or \code{matrix} where
 the first column contains the time values and each following column contains

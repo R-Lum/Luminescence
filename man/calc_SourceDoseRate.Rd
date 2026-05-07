@@ -43,7 +43,7 @@ set by the provided value. Starting date is the value set with
 the source dose rate for the next 100 days.}
 }
 \value{
-Returns an S4 object of type \linkS4class{RLum.Results}.
+Returns an S4 object of type \link[=RLum.Results-class]{RLum.Results}.
 Slot \code{data} contains a \link{list} with the following structure:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{$ dose.rate (data.frame)

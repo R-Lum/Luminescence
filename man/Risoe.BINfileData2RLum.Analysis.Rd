@@ -18,11 +18,11 @@ Risoe.BINfileData2RLum.Analysis(
 )
 }
 \arguments{
-\item{object}{\linkS4class{Risoe.BINfileData} (\strong{required}):
+\item{object}{\link[=Risoe.BINfileData-class]{Risoe.BINfileData} (\strong{required}):
 object to convert.}
 
 \item{pos}{\link{numeric} (\emph{optional}): position number of the \code{Risoe.BINfileData}
-object for which the curves are stored in the \linkS4class{RLum.Analysis} object.
+object for which the curves are stored in the \link[=RLum.Analysis-class]{RLum.Analysis} object.
 If \code{length(pos) > 1}, a list of \code{RLum.Analysis} objects is returned.
 If nothing is provided every position will be converted.
 If the position is not valid \code{NULL} is returned.}
@@ -44,11 +44,11 @@ set number from the measurement to limit the converted data set
 \item{ltype}{\link{vector}, \link{character} (\emph{optional}):
 curve type to limit the converted data. Commonly allowed values are:
 \code{IRSL}, \code{OSL}, \code{TL}, \code{RIR}, \code{RBR} and \code{USER}
-(see also \linkS4class{Risoe.BINfileData}).}
+(see also \link[=Risoe.BINfileData-class]{Risoe.BINfileData}).}
 
 \item{dtype}{\link{vector}, \link{character} (\emph{optional}):
 data type to limit the converted data. Commonly allowed values are
-listed in \linkS4class{Risoe.BINfileData}.}
+listed in \link[=Risoe.BINfileData-class]{Risoe.BINfileData}.}
 
 \item{protocol}{\link{character} (\emph{optional}):
 sets protocol type for analysis object. Value may be used by subsequent
@@ -62,19 +62,19 @@ not contain any records. Set to \code{FALSE} to discard all empty objects.}
 enable/disable the progress bar.}
 }
 \value{
-Returns an \linkS4class{RLum.Analysis} object.
+Returns an \link[=RLum.Analysis-class]{RLum.Analysis} object.
 }
 \description{
-Converts values from one specific position of a \linkS4class{Risoe.BINfileData}
-object to an \linkS4class{RLum.Analysis} object.
+Converts values from one specific position of a \link[=Risoe.BINfileData-class]{Risoe.BINfileData}
+object to an \link[=RLum.Analysis-class]{RLum.Analysis} object.
 
-The \linkS4class{RLum.Analysis} object requires a set of curves for
-specific further protocol analyses. However, the \linkS4class{Risoe.BINfileData}
+The \link[=RLum.Analysis-class]{RLum.Analysis} object requires a set of curves for
+specific further protocol analyses. However, the \link[=Risoe.BINfileData-class]{Risoe.BINfileData}
 usually contains a set of curves for different aliquots and different
 protocol types that may be mixed up. Therefore, a conversion is needed.
 }
 \note{
-The \code{protocol} argument of the \linkS4class{RLum.Analysis}
+The \code{protocol} argument of the \link[=RLum.Analysis-class]{RLum.Analysis}
 object is set to 'unknown' if not stated otherwise.
 }
 \section{Function version}{
@@ -91,7 +91,7 @@ Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
 
 }
 \seealso{
-\linkS4class{Risoe.BINfileData}, \linkS4class{RLum.Analysis},
+\link[=Risoe.BINfileData-class]{Risoe.BINfileData}, \link[=RLum.Analysis-class]{RLum.Analysis},
 \link{read_BIN2R}
 }
 \author{

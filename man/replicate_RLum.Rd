@@ -10,8 +10,8 @@ replicate_RLum(object, times = 1)
 \S4method{replicate_RLum}{RLum}(object, times = 1)
 }
 \arguments{
-\item{object}{\linkS4class{RLum} (\strong{required}):
-an \linkS4class{RLum} object}
+\item{object}{\link[=RLum-class]{RLum} (\strong{required}):
+an \link[=RLum-class]{RLum} object}
 
 \item{times}{\link{integer} (\emph{optional}):
 number for times each element should be repeated.}
@@ -20,12 +20,12 @@ number for times each element should be repeated.}
 A \link{list} with the object repeated.
 }
 \description{
-The function replicates \linkS4class{RLum} objects and returns a list of such
+The function replicates \link[=RLum-class]{RLum} objects and returns a list of such
 objects.
 }
 \section{Functions}{
 \itemize{
-\item \code{replicate_RLum(RLum)}: Replication method for \linkS4class{RLum} objects.
+\item \code{replicate_RLum(RLum)}: Replication method for \link[=RLum-class]{RLum} objects.
 
 }}
 \section{Function version}{
@@ -33,7 +33,7 @@ objects.
 }
 
 \seealso{
-\linkS4class{RLum}
+\link[=RLum-class]{RLum}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

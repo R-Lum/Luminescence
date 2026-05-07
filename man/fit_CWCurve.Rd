@@ -23,7 +23,7 @@ fit_CWCurve(
 )
 }
 \arguments{
-\item{object}{\linkS4class{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
+\item{object}{\link[=RLum.Data.Curve-class]{RLum.Data.Curve} or \link{data.frame} (\strong{required}):
 x, y data of measured values (time and counts).}
 
 \item{n.components.max}{\link{vector} (\emph{optional}):
@@ -83,7 +83,7 @@ the fitted CW-OSL curves are returned as plot.
 
 \strong{RLum.Results object}
 
-Beside the plot and table output options, an \linkS4class{RLum.Results} object is
+Beside the plot and table output options, an \link[=RLum.Results-class]{RLum.Results} object is
 returned.
 
 \code{fit}:
@@ -115,11 +115,9 @@ components and returns various component parameters.
 
 The function for the CW-OSL fitting has the general form:
 
-\deqn{y = I0_{1}*\lambda_{1}*exp(-\lambda_1*x) + ,\ldots, + I0_{i}*\lambda_{i}*exp(-\lambda_i*x) }
+\deqn{y = I0_{1}\lambda_{1}\exp(-\lambda_1 x) + \ldots + I0_{i}\lambda_{i}\exp(-\lambda_i x) }
 
-where \eqn{0 < i < 8}
-
-and \eqn{\lambda} is the decay constant \cr
+where \eqn{0 < i < 8}, \eqn{\lambda} is the decay constant,
 and \eqn{I0} the initial number of trapped electrons.
 
 \emph{(for the used equation cf. Boetter-Jensen et al., 2003, Eq. 2.31)}
@@ -137,8 +135,8 @@ determination). According to Lave (1970), the value is calculated as:
 
 \deqn{pseudoR^2 = 1 - RSS/TSS}
 
-where \eqn{RSS = Residual~Sum~of~Squares} \cr
-and \eqn{TSS = Total~Sum~of~Squares}
+where \eqn{RSS} is the Residual Sum of Squares, and \eqn{TSS} is the Total
+Sum of Squares.
 
 \strong{Error of fitted component parameters}
 
@@ -189,8 +187,8 @@ Ritz, C. & Streibig, J.C., 2008. Nonlinear Regression with R. In: R.
 Gentleman, K. Hornik, G. Parmigiani, eds., Springer, p. 150.
 }
 \seealso{
-\link{fit_LMCurve}, \link{plot},\link{nls}, \linkS4class{RLum.Data.Curve},
-\linkS4class{RLum.Results}, \link{get_RLum}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}
+\link{fit_LMCurve}, \link{plot},\link{nls}, \link[=RLum.Data.Curve-class]{RLum.Data.Curve},
+\link[=RLum.Results-class]{RLum.Results}, \link{get_RLum}, \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)

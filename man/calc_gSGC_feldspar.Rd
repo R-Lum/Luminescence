@@ -32,7 +32,7 @@ error calculation}
 \item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.}
 }
 \value{
-Returns an S4 object of type \linkS4class{RLum.Results}.
+Returns an S4 object of type \link[=RLum.Results-class]{RLum.Results}.
 
 \strong{\verb{@data}}\cr
 \verb{$ df} (\link{data.frame}) \cr
@@ -79,7 +79,7 @@ Construction of a “global standardised growth curve” (gSGC) for infrared
 stimulated luminescence dating of K-feldspar 27, 119–130. \doi{10.1016/j.quageo.2015.02.010}
 }
 \seealso{
-\linkS4class{RLum.Results}, \link{get_RLum}, \link{uniroot}, \link{calc_gSGC}
+\link[=RLum.Results-class]{RLum.Results}, \link{get_RLum}, \link{uniroot}, \link{calc_gSGC}
 }
 \author{
 Harrison Gray, USGS (United States),

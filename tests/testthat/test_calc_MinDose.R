@@ -19,10 +19,10 @@ test_that("input validation", {
   expect_error(calc_MinDose(ExampleData.DeValues$CA1),
                "'sigmab' should be a single positive value")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 1, init.values = 1:4),
-               "'init.values' should be of class 'list'")
+               "'init.values' should be of class 'list' or NULL")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                             init.values = list(1, 2, 3)),
-               "Please provide initial values for all model parameters")
+               "Please provide named values for all model parameters in 'init.values'")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                             init.values = list(p0 = 0, p1 = 1, p2 = 2, mu = 3)),
                "Missing parameters: gamma, sigma")
@@ -86,17 +86,17 @@ test_that("check functionality", {
 
   ## no converging fit
   skip_on_os("windows")
-  set.seed(7)
-  data.nofit <- data.frame(rep(4, 5), rnorm(5, 5))
   SW({
-  expect_error(calc_MinDose(data.nofit, sigmab = 0.9, par=4),
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1 / 100, sigmab = 0.1,
+                            par = 4, gamma.lower = 2,
+                            bootstrap = TRUE, bs.M = 10, bs.N = 5),
                "Couldn't find a converging fit for the profile log-likelihood")
   })
 
   ## more coverage
   SW({
   expect_warning(calc_MinDose(ExampleData.DeValues$CA1 / 100, sigmab = 0.1,
-                              par = 4, gamma.lower = 2, log.output = TRUE,
+                              par = 4, gamma.lower = 4, log.output = TRUE,
                               bootstrap = TRUE, bs.M = 10, bs.N = 5, bs.h=100),
                  "Gamma is larger than mu, consider running the model with new")
   expect_warning(calc_MinDose(ExampleData.DeValues$CA1[1:9, ], sigmab = 0.8,
@@ -143,6 +143,37 @@ test_that("snapshot tests", {
                        tolerance = snapshot.tolerance)
 })
 
+test_that("output snapshot tests", {
+  testthat::skip_on_cran()
+
+  set.seed(1)
+  SW({
+  expect_snapshot_output(res <- calc_MinDose(ExampleData.DeValues$CA1,
+                                             sigmab = 0.1))
+  expect_snapshot_output(res <- calc_MinDose(ExampleData.DeValues$CA1,
+                                             sigmab = 0.1, invert = TRUE))
+  expect_snapshot_output(res <- calc_MinDose(data = ExampleData.DeValues$CA1 / 100,
+                                             sigmab = 0.2, gamma.upper = 4, par = 4,
+                                             log.output = TRUE, plot = FALSE))
+  expect_snapshot_output(res <- calc_MinDose(data = ExampleData.DeValues$CA1,
+                                             sigmab = 0.2, log = FALSE,
+                                             plot = FALSE))
+  suppressWarnings( # Not enough bootstrap replicates for loess fitting
+  expect_snapshot_output(res <- calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                                             bootstrap = TRUE, bs.M = 10, bs.N = 5,
+                                             plot = FALSE))
+  )
+  expect_snapshot_output(res <- calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.2,
+                                             invert = TRUE, bootstrap = TRUE,
+                                             bs.M = 20, bs.N = 5, bs.h = 10,
+                                             plot = FALSE))
+  expect_snapshot_output(res <- calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.2,
+                                             init.values = list(mu = 30, p0 = 0.01,
+                                                                sigma = 0.5, gamma = 30),
+                                             log = TRUE, plot = FALSE))
+  })
+})
+
 test_that("graphical snapshot tests", {
   testthat::skip_on_cran()
   testthat::skip_if_not_installed("vdiffr")
@@ -177,7 +208,7 @@ test_that("regression tests", {
   ## issue 1332
   ## the seed was picked to get the smallest number of warnings and messages;
   ## this test relies on not using SW() to do its job
-  set.seed(6)
+  set.seed(9)
   expect_warning(expect_warning(expect_message(
       calc_MinDose(data = data.frame(De = c(rnorm(4) + 5, -1),
                                      De_Err = rnorm(5) + 1),
