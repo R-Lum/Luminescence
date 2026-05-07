@@ -443,7 +443,6 @@ calc_OSLLxTxRatio <- function(
   Lx.curve <- Lx.data[,2]
   Lx.signal <- sum(Lx.curve[signal_integral])                #Y.0
   Lx.background <- sum(Lx.curve[background_integral]) / k    #Y.1, mu.B
-  SN.ratio.LnLx <- Lx.signal / Lx.background
   if (.strict_na(background_integral))
     Lx.background <- 0
 
@@ -458,7 +457,6 @@ calc_OSLLxTxRatio <- function(
     Tx.background <- if (.strict_na(background_integral_Tx)) NA else Lx.background
   else
     Tx.background <- sum(Tx.curve[background_integral_Tx]) / k.Tx
-  SN.ratio.TnTx <- Tx.signal / Tx.background
   if (.strict_na(background_integral_Tx))
     Tx.background <- 0
 
@@ -497,7 +495,7 @@ calc_OSLLxTxRatio <- function(
     } else {
       ## warn if m is < 25, as suggested by Rex Galbraith (low number of
       ## degrees of freedom)
-      if (m < 25 && !.strict_na(background_integral)) {
+      if (m < 25 && !.strict_na(background_integral)) { # shouldn't be it k? - dof = k - 1
         .throw_warning("Number of background channels for ", what, " < 25, ",
                        "error estimation might not be reliable")
       }
@@ -576,18 +574,21 @@ calc_OSLLxTxRatio <- function(
     time.Tx <- diff(Tx.data[range(signal_integral_Tx), 1])
     time.Tx.bg <- diff(Tx.data[range(background_integral_Tx), 1])
 
-    Lx.signal.Error <- .calc_se_bluszcz(Lx.signal, time.Lx, B_DC, k_DC, k_p)
-    Lx.background.Error <- .calc_se_bluszcz(Lx.background, time.Lx.bg, B_DC, k_DC, k_p)
-    Tx.signal.Error <- .calc_se_bluszcz(Tx.signal, time.Tx, B_DC, k_DC, k_p)
-    Tx.background.Error <- .calc_se_bluszcz(Tx.background, time.Tx.bg, B_DC, k_DC, k_p)
-
     Lx.background <- Lx.background * time.Lx / time.Lx.bg
     Tx.background <- Tx.background * time.Tx / time.Tx.bg
 
+    Lx.signal.Error <- .calc_se_bluszcz(Lx.signal, time.Lx, B_DC, k_DC, k_p)
+    Lx.background.Error <- .calc_se_bluszcz(Lx.background, time.Lx.bg, B_DC, k_DC, k_p)
+    Lx.background.Error <- Lx.background.Error * time.Lx / time.Lx.bg
+
+    Tx.signal.Error <- .calc_se_bluszcz(Tx.signal, time.Tx, B_DC, k_DC, k_p)
+    Tx.background.Error <- .calc_se_bluszcz(Tx.background, time.Tx.bg, B_DC, k_DC, k_p)
+    Tx.background.Error <- Tx.background.Error * time.Tx / time.Tx.bg
+
     LnLx <- Lx.signal - Lx.background
-    LnLx.Error <- sqrt(Lx.signal.Error^2 + (Lx.background.Error * time.Lx/time.Lx.bg)^2)
+    LnLx.Error <- sqrt(Lx.signal.Error^2 + Lx.background.Error^2)
     TnTx <- Tx.signal - Tx.background
-    TnTx.Error <- sqrt(Tx.signal.Error^2 + (Tx.background.Error * time.Tx/time.Tx.bg)^2)
+    TnTx.Error <- sqrt(Tx.signal.Error^2 + Tx.background.Error^2)
   }
 
     ##we do not want to have NaN values, as they are mathematically correct, but make
@@ -605,8 +606,8 @@ calc_OSLLxTxRatio <- function(
     Net_LnLx.Error = LnLx.Error,
     Net_TnTx = TnTx,
     Net_TnTx.Error = TnTx.Error,
-    SN_RATIO_LnLx = SN.ratio.LnLx,
-    SN_RATIO_TnTx = SN.ratio.TnTx)
+    SN_RATIO_LnLx = if (.strict_na(background_integral)) NA_real_ else Lx.signal / Lx.background,
+    SN_RATIO_TnTx = if (.strict_na(background_integral_Tx)) NA_real_ else Tx.signal / Tx.background)
 
   ## ------------------------------------------------------------------------
   ## (4) Calculate LxTx error according Galbraith (2014)

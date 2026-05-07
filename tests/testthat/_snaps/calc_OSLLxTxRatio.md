@@ -2985,7 +2985,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [364.13433458]
+                  "value": [363.01145339]
                 },
                 {
                   "type": "double",
@@ -2995,17 +2995,17 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [135.9447653]
+                  "value": [133.11431241]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [23.48272516]
+                  "value": [37.07798709]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [3.16797907]
+                  "value": [5.00207221]
                 },
                 {
                   "type": "double",
@@ -3015,7 +3015,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.10388553]
+                  "value": [0.1018551]
                 }
               ]
             },
