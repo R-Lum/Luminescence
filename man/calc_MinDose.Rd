@@ -25,10 +25,13 @@ for \link{data.frame}: two columns with \code{(data[, 1])} and De error \code{(d
 \item{sigmab}{\link{numeric} (\strong{required}):
 additional spread in De values, representing the expected overdispersion in
 the data should the sample be well-bleached (Cunningham & Wallinga 2012, p. 100).
-\strong{Note:} For the logged model (\code{log = TRUE}) this value must be
-a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
-\code{sigmab} must be provided in the same absolute units of the De values (seconds or Gray).
-See details.}
+This value must be expressed as a ratio, e.g. 0.2 (for 20 \%), independently
+of the \code{log} argument.
+
+\strong{Note:} Up to v1.2.1, it was required that the unlogged model specified
+\code{sigmab} in the same absolute units of the De values (seconds or Gray). This
+is no longer the case, and an error will be thrown if values of \code{sigmab}
+greater than 1 are assigned.}
 
 \item{log}{\link{logical} (\emph{with default}):
 whether the logged minimum dose model should be fit to De data (\code{TRUE} by
@@ -112,15 +115,15 @@ where \code{gamma=mu}. For \code{par=4} the 4-parameter model is applied instead
 In the original version of the minimum dose model, which is applied if
 \code{log = TRUE} (default), the basic data are the natural
 logarithms of the De estimates and relative standard errors of the De
-estimates. The value for \code{sigmab} must be provided as a ratio
-(e.g, 0.2 for 20 \%).
+estimates.
 
 If \code{log=FALSE}, the modified un-logged model will be applied instead. This
 has essentially the same form as the original version, but  \code{gamma} and
 \code{sigma} are in Gy and \code{gamma} becomes the minimum true dose in the
 population.
-\strong{Note:} the un-logged model requires \code{sigmab} to be in the same
-absolute unit as the provided De values (seconds or Gray).
+
+In either case, the value for \code{sigmab} must be provided as a ratio
+(e.g, 0.2 for 20 \%).
 
 While the original (logged) version of the minimum dose
 model may be appropriate for most samples (i.e. De distributions), the
@@ -193,7 +196,7 @@ model with \code{debug=TRUE} which provides extended console output and
 forwards all internal warning messages.
 }
 \section{Function version}{
- 0.5.0
+ 0.6.0
 }
 
 \examples{

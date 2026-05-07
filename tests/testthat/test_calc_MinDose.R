@@ -18,6 +18,11 @@ test_that("input validation", {
                "'data' should have 2 columns")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1),
                "'sigmab' should be a single positive value")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 2),
+               "'sigmab' should be expressed as a ratio")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 2, log = FALSE),
+               "'sigmab' should be expressed as a ratio (e.g. 0.2 for 20 %) also if",
+               fixed = TRUE)
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 1, init.values = 1:4),
                "'init.values' should be of class 'list' or NULL")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
@@ -120,7 +125,7 @@ test_that("snapshot tests", {
                        tolerance = snapshot.tolerance)
   })
   expect_snapshot_RLum(calc_MinDose(data = ExampleData.DeValues$CA1,
-                                    sigmab = 0.2, log = FALSE,
+                                    sigmab = 0.0103, log = FALSE,
                                     verbose = FALSE, plot = FALSE),
                        tolerance = snapshot.tolerance)
 
@@ -136,7 +141,7 @@ test_that("snapshot tests", {
                                     bs.M = 20, bs.N = 5, bs.h = 10,
                                     verbose = FALSE, plot = FALSE),
                        tolerance = snapshot.tolerance)
-  expect_snapshot_RLum(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 2.1,
+  expect_snapshot_RLum(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.09,
                                     bootstrap = TRUE, log = FALSE, par = 4,
                                     bs.M = 20, bs.N = 5, bs.h = 10,
                                     verbose = FALSE, plot = FALSE),
@@ -156,7 +161,7 @@ test_that("output snapshot tests", {
                                              sigmab = 0.2, gamma.upper = 4, par = 4,
                                              log.output = TRUE, plot = FALSE))
   expect_snapshot_output(res <- calc_MinDose(data = ExampleData.DeValues$CA1,
-                                             sigmab = 0.2, log = FALSE,
+                                             sigmab = 0.0103, log = FALSE,
                                              plot = FALSE))
   suppressWarnings( # Not enough bootstrap replicates for loess fitting
   expect_snapshot_output(res <- calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,

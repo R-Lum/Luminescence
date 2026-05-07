@@ -22,10 +22,13 @@ for \link{data.frame}: two columns with \code{(data[, 1])} and De error \code{(d
 \item{sigmab}{\link{numeric} (\strong{required}):
 additional spread in De values, representing the expected overdispersion in
 the data should the sample be well-bleached (Cunningham & Wallinga 2012, p. 100).
-\strong{Note:} For the logged model (\code{log = TRUE}) this value must be
-a fraction, e.g. 0.2 (= 20 \%). If the un-logged model is used (\code{log = FALSE}),
-\code{sigmab} must be provided in the same absolute units of the De values (seconds or Gray).
-See details.}
+This value must be expressed as a ratio, e.g. 0.2 (for 20 \%), independently
+of the \code{log} argument.
+
+\strong{Note:} Up to v1.2.1, it was required that the unlogged model specified
+\code{sigmab} in the same absolute units of the De values (seconds or Gray). This
+is no longer the case, and an error will be thrown if values of \code{sigmab}
+greater than 1 are assigned.}
 
 \item{log}{\link{logical} (\emph{with default}):
 whether the logged minimum dose model should be fit to De data (\code{TRUE} by

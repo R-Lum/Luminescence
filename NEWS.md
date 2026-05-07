@@ -29,6 +29,13 @@ strongly advise updating regardless. The old results can still be
 reproduced using option `fit.weights = "norm_inverse_std"` in the
 affected functions.
 
+- In function `calc_MinDose()` we changed how the `sigmab` argument
+  should be expressed in the `log = FALSE` case. Up to v1.2.1, it was
+  required to be specified in the same absolute units used for the De
+  values. From now on, it must be expressed in relative units as a ratio
+  (e.g. 0.2 for 20 %). This makes the interpretation of the argument
+  consistent between logged and unlogged models (#1548).
+
 ## New functions
 
 ## Removed functions and deprecations
@@ -59,7 +66,12 @@ affected functions.
   always in the natural units, independently of the `log` argument
   (#1533; thanks to @MarijnvanderMeij for reporting).
 
-### `calc_TLLxTxRatio()`
+### `calc_OSLLxTxRatio()`
+
+- The `SN_RATIO_TnTx` value was wrongly returned as `Inf` if
+  `use_previousBG` was set to `TRUE` and `background_integral = NA`. Now
+  the function will return `NA` in this case, as stated in the function
+  documentation (#1554).
 
 - The new `od_rates` argument activates an alternative approach to
   Galbraith’s for error estimation of Lx/Tx ratios (#1390; thanks to
@@ -88,6 +100,13 @@ affected functions.
 
 - The `"QDR"` fit method is now less likely to fail due to an invalid
   choice of the starting point for the `uniroot()` function (#1541).
+
+- The starting value of one of the parameters of the `EXP` model has
+  been tweaked to remove a dependency of the results from the random
+  values used during the Monte Carlo steps. This should make the results
+  more stable, in particular for `mode = "extrapolation"`. This change
+  may introduce some minor differences to the result of this function
+  and of other functions that depend on it (#1550).
 
 ### `plot_DoseResponseCurve()`
 

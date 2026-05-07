@@ -21,15 +21,15 @@
 #' In the original version of the minimum dose model, which is applied if
 #' `log = TRUE` (default), the basic data are the natural
 #' logarithms of the De estimates and relative standard errors of the De
-#' estimates. The value for `sigmab` must be provided as a ratio
-#' (e.g, 0.2 for 20 %).
+#' estimates.
 #'
 #' If `log=FALSE`, the modified un-logged model will be applied instead. This
 #' has essentially the same form as the original version, but  `gamma` and
 #' `sigma` are in Gy and `gamma` becomes the minimum true dose in the
 #' population.
-#' **Note:** the un-logged model requires `sigmab` to be in the same
-#' absolute unit as the provided De values (seconds or Gray).
+#'
+#' In either case, the value for `sigmab` must be provided as a ratio
+#' (e.g, 0.2 for 20 %).
 #'
 #' While the original (logged) version of the minimum dose
 #' model may be appropriate for most samples (i.e. De distributions), the
@@ -97,10 +97,13 @@
 #' @param sigmab [numeric] (**required**):
 #' additional spread in De values, representing the expected overdispersion in
 #' the data should the sample be well-bleached (Cunningham & Wallinga 2012, p. 100).
-#' **Note:** For the logged model (`log = TRUE`) this value must be
-#' a fraction, e.g. 0.2 (= 20 %). If the un-logged model is used (`log = FALSE`),
-#' `sigmab` must be provided in the same absolute units of the De values (seconds or Gray).
-#' See details.
+#' This value must be expressed as a ratio, e.g. 0.2 (for 20 %), independently
+#' of the `log` argument.
+#'
+#' **Note:** Up to v1.2.1, it was required that the unlogged model specified
+#' `sigmab` in the same absolute units of the De values (seconds or Gray). This
+#' is no longer the case, and an error will be thrown if values of `sigmab`
+#' greater than 1 are assigned.
 #'
 #' @param log [logical] (*with default*):
 #' whether the logged minimum dose model should be fit to De data (`TRUE` by
@@ -170,7 +173,7 @@
 #' model with `debug=TRUE` which provides extended console output and
 #' forwards all internal warning messages.
 #'
-#' @section Function version: 0.5.0
+#' @section Function version: 0.6.0
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
@@ -355,6 +358,11 @@ calc_MinDose <- function(
   }
 
   .validate_positive_scalar(sigmab)
+  .validate_logical_scalar(log)
+  if (sigmab > 1) {
+    .throw_error("'sigmab' should be expressed as a ratio (e.g. 0.2 for 20 %)",
+                 if (!log) " also if 'log = FALSE'")
+  }
   .validate_class(init.values, "list", null.ok = TRUE)
   if (!is.null(init.values)) {
     exp.names <- c("gamma", "sigma", "p0", "mu")
@@ -373,7 +381,6 @@ calc_MinDose <- function(
   }
 
   .validate_positive_scalar(level)
-  .validate_logical_scalar(log)
   .validate_logical_scalar(bootstrap)
   .validate_logical_scalar(log.output)
   .validate_logical_scalar(plot)
@@ -616,7 +623,7 @@ calc_MinDose <- function(
       lse <- sqrt((data[, 2] / data[, 1])^2 + sigmab^2)
     } else {
       lcd <- data[, 1]
-      lse <- sqrt(data[, 2]^2 + sigmab^2)
+      lse <- abs(lcd * sqrt((data[, 2] / data[, 1])^2 + sigmab^2))
     }
     cbind(lcd, lse)
   }

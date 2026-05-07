@@ -5,7 +5,7 @@
 #' object, including growth curve fitting.
 #'
 #' @details
-#' The function performs an analysis for a standard SAR protocol measurements
+#' The function performs an analysis for standard SAR protocol measurements
 #' introduced by Murray and Wintle (2000) with CW-OSL curves. For the
 #' calculation of the `Lx/Tx` value the function [Luminescence::calc_OSLLxTxRatio] is
 #' used. To **change the way the Lx/Tx error is calculated** use arguments
@@ -14,14 +14,14 @@
 #'
 #' **What is part of a SAR sequence?**
 #'
-#' The function is rather picky when it comes down to accepted curve input
+#' The function is rather picky when it comes to accepted curve input
 #' (OSL, IRSL,...) and structure. A SAR sequence is basically a set of
 #' \eqn{L_{x}/T_{x}} curves. Hence, every second curve is considered a
 #' shine-down curve related to the test dose. It also means that the number of
 #' curves for \eqn{L_{x}} has to be equal to the number of \eqn{T_{x}} curves,
-#' and that hot-bleach curves **do not** belong into a SAR sequence; at least
+#' and that hot-bleach curves **do not** belong in a SAR sequence; at least
 #' not for the analysis. Other curves allowed and processed are preheat curves,
-#' or preheat curves measured as TL, and irradiation curves. The later one
+#' or preheat curves measured as TL, and irradiation curves. The latter
 #' indicates the duration of the irradiation, the dose and test dose points,
 #' e.g., as part of XSYG files.
 #'
@@ -29,8 +29,8 @@
 #'
 #' If the argument `object` is of type [list] containing **only**
 #' [Luminescence::RLum.Analysis-class] objects, the function re-calls itself on each element
-#' in the list. This is useful if to analyse an entire measurement without
-#' writing separate for-loops. To gain in full control of the parameters (e.g., `dose.points`) for
+#' in the list. This is useful for analysing an entire measurement without
+#' writing separate for-loops. To gain full control of the parameters (e.g., `dose.points`) for
 #' every aliquot (corresponding to one [Luminescence::RLum.Analysis-class] object in the list), in
 #' this case the arguments can be provided as [list]. This `list` should
 #' be of similar length as the `list` provided with the argument `object`,
@@ -46,7 +46,7 @@
 #' The function was originally designed to work just for 'OSL' curves,
 #' following the principles of the SAR protocol. An IRSL measurement protocol
 #' may follow this procedure, e.g., post-IR IRSL protocol (Thomsen et al.,
-#' 2008). Therefore this functions has been enhanced to work with IRSL data,
+#' 2008). Therefore this function has been enhanced to work with IRSL data,
 #' however, the function is only capable of analysing curves that follow the
 #' SAR protocol structure, i.e., to analyse a post-IR IRSL protocol, curve data
 #' have to be pre-selected by the user to fit the standards of the SAR
@@ -71,7 +71,7 @@
 #' `Tx_net.error/Tx_net`. The calculation of the \eqn{T_{n}} error is detailed
 #' in [Luminescence::calc_OSLLxTxRatio].
 #'
-#' `[palaeodose.error]`: set the allowed error for the De value, which per
+#' `[palaeodose.error]`: set the allowed error for the De value, which by
 #' default should not exceed 10%.
 #'
 #' `[sn.ratio]`: set the allowed signal/noise ratio, which by default should
@@ -81,15 +81,15 @@
 #' By default, the computed values are compared directly to the corresponding
 #' thresholds to establish their result status ("OK" or "FAILED"). By setting
 #' the option `consider.uncertainties = TRUE` in the `rejection.criteria`
-#' list, quantified uncertainties are considered into the computation of the
-#' test value prior before comparing it to the threshold(currently supported
+#' list, quantified uncertainties are considered in the computation of the
+#' test value before comparing it to the threshold(currently supported
 #' only for `recycling.ratio`, `recuperation.rate` and `exceed.max.regpoint`).
 #' This reduces tests being marked as "FAILED" when the deviation from the
 #' threshold is smaller than the uncertainty margin.
 #'
 #' **Irradiation times**
 #'
-#' The function makes two attempts to extra irradiation data (dose points)
+#' The function makes two attempts to extract irradiation data (dose points)
 #' automatically from the input object, if the argument `dose.points` is not
 #' set (aka set to `NULL`).
 #'
@@ -138,7 +138,7 @@
 #' single index or a [character] defining the signal component to be evaluated.
 #' It requires that the object was processed by `OSLdecomposition::RLum.OSL_decomposition`.
 #' This argument can either be the name of the OSL component assigned by
-#' `OSLdecomposition::RLum.OSL_global_fitting` or the index in the descending
+#' `OSLdecomposition::RLum.OSL_global_fitting` or the index in descending
 #' order of decay rates. Then `"1"` selects the fastest decaying component, `"2"`
 #' the second fastest and so on. Can be a [list] of [integer]s or strings (or mixed)
 #' If object is a [list] and this parameter is provided as [list] it alternates over
@@ -160,7 +160,7 @@
 #' * `exceed.max.regpoint` [logical] (default: `FALSE`)
 #' * `consider.uncertainties` [logical] (default: `FALSE`)
 #' * `recuperation_reference` [character] (default: `"Natural"`; set to, e.g.,
-#'   `"R1"` for other point)
+#'   `"R1"` for another point)
 #' * `sn_reference` [character] (default: `"Natural"`).
 #'
 #' Example: `rejection.criteria = list(recycling.ratio = 10)`.
@@ -174,7 +174,7 @@
 #' criteria are not computed.
 #'
 #' @param dose.points [numeric] (*optional*):
-#' a numeric vector containing the dose points values. Using this argument
+#' a numeric vector containing the dose point values. Using this argument
 #' overwrites dose point values extracted from other data. Can be a [list] of
 #' [numeric] vectors, if `object` is of type [list].
 #'
@@ -225,13 +225,12 @@
 #' [Luminescence::fit_DoseResponseCurve], [Luminescence::plot_DoseResponseCurve]
 #' or [Luminescence::calc_OSLLxTxRatio] (supported:
 #' `background.count.distribution`, `sigmab`, `sig0`, `od_rates`).
-
-#' **Note:** if you consider to use the early light subtraction method,
+#' Additionally, supported are `legend.cex` and `legend.pch` to modify the
+#' legend symbols.
+#
+#' **Note:** If you consider using the early light subtraction method,
 #' `sigmab` should be provided.
 #'
-#' Additionally, supported are `legend.cex` and `legend.pch` to modify the
-#' the legend symbols.
-#
 #' @return
 #' A plot (*optional*) and an [Luminescence::RLum.Results-class] object is
 #' returned containing the following elements:
@@ -245,7 +244,7 @@
 #'
 #' The output should be accessed using the function [Luminescence::get_RLum].
 #'
-#' **The function currently does support only 'OSL', 'IRSL' and 'POSL' data!**
+#' **The function currently supports only 'OSL', 'IRSL' and 'POSL' data!**
 #'
 #' @section Function version: 0.13.9
 #'

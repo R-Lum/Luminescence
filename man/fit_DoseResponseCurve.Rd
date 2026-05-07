@@ -74,7 +74,7 @@ real, regeneration points = all points (repeated points) including reg 0,
 has to be inserted.}
 
 \item{fit.bounds}{\link{logical} (\emph{with default}):
-set lower fit bounds for all fitting parameters to 0. Limited for the use
+set lower fit bounds for all fitting parameters to 0. Limited to use
 with the fit methods \code{EXP}, \code{EXP+LIN}, \verb{EXP OR LIN}, \code{GOK}, \code{OTOR}, \code{OTORX}
 Argument to be inserted for experimental application only!}
 
@@ -109,7 +109,7 @@ In case of a resulting  linear fit when using \code{LIN}, \code{QDR} or \verb{EX
 The \verb{@info} slot contains the following elements:
 \tabular{lll}{
 \strong{DATA.OBJECT} \tab \strong{TYPE} \tab \strong{DESCRIPTION} \cr
-\code{..$fit_messag}: \tab \code{character} \tab The fit message reported \cr
+\code{..$fit_message}: \tab \code{character} \tab The fit message reported \cr
 \code{..$call} : \tab \code{call} \tab The original function call \cr
 }
 
@@ -127,19 +127,19 @@ This object is a \link{data.frame} with the following columns
 \code{D02} \tab \link{numeric} \tab 2nd \eqn{D_0} value, only for \code{EXP+EXP}\cr
 \code{D02.ERROR} \tab \link{numeric} \tab standard error for 2nd \eqn{D_0}; only for \code{EXP+EXP}\cr
 \code{R} \tab \link{numeric} \tab the material specific parameter \eqn{R}\cr
-\code{R.ERROR} \tab \link{numeric} \tab the uncertainty of R \eqn{R}\cr
+\code{R.ERROR} \tab \link{numeric} \tab the uncertainty of \eqn{R}\cr
 \code{Dc} \tab \link{numeric} \tab value indicating saturation level; only for \code{OTOR} \cr
 \code{D63} \tab \link{numeric} \tab the specific saturation level; only for \code{OTORX} \cr
 \code{n_N} \tab \link{numeric} \tab saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (\code{N}) to the integral until \code{De} (\code{n}) (e.g.,  Guralnik et al., 2015)\cr
 \code{De.MC} \tab \link{numeric} \tab equivalent dose derived by Monte-Carlo simulation; ideally identical to \code{De}\cr
 \code{Fit} \tab \link{character} \tab applied fit function \cr
 \code{Mode} \tab \link{character} \tab mode used in fitting \cr
-\code{HPDI68_L} \tab \link{numeric} \tab highest probability density of approximated equivalent dose probability curve representing the lower boundary of 68\% probability \cr
+\code{HPDI68_L} \tab \link{numeric} \tab highest probability density of the approximated equivalent dose probability curve representing the lower boundary of 68\% probability \cr
 \code{HPDI68_U} \tab \link{numeric} \tab same as \code{HPDI68_L} for the upper bound \cr
 \code{HPDI95_L} \tab \link{numeric} \tab same as \code{HPDI68_L} but for 95\% probability \cr
 \code{HPDI95_U} \tab \link{numeric} \tab same as \code{HPDI95_L} but for the upper bound \cr
 \code{.De.plot} \tab \link{numeric} \tab equivalent dose used internally for plotting \cr
-\code{.De.raw} \tab \link{numeric} \tab equivalent dose reported 'as is', that is containing infinities and negative values if they could be calculated. Bear in mind that negative values are meaningless and may be arbitrary.\cr
+\code{.De.raw} \tab \link{numeric} \tab equivalent dose reported 'as is', that is, containing infinities and negative values if they could be calculated. Bear in mind that negative values are meaningless and may be arbitrary.\cr
 }
 }
 \description{
@@ -238,9 +238,9 @@ with
 
 where \eqn{A_m} and \eqn{A_n} are rate constants for the recombination and
 the trapping of electrons (\eqn{N}), respectively. \eqn{D_{63}} corresponds to
-the value at which the trap occupation corresponds to the 63\% of the saturation value.
-\eqn{D_i} is in an offset. If set to zero, the curve will be forced through the origin
-as in the original publication.
+the value at which the trap occupation corresponds to 63\% of the saturation
+value. \eqn{D_i} is an offset: if set to zero, the curve will be forced
+through the origin as in the original publication.
 
 For the implementation the calculation reads further
 
@@ -271,7 +271,7 @@ common nls fitting methods.}
 }
 
 If the option \code{fit.weights =  NULL} all weights are set to 1, which disables
-weighting all along. If \code{fit.weights} is a \link{numeric} vector of correct length
+weighting altogether. If \code{fit.weights} is a \link{numeric} vector of correct length
 (same number of rows as the input \code{LxTx}), then those fit weights are used.
 This may be helpful to compare different fitting algorithms that have
 implemented fit weights differently.

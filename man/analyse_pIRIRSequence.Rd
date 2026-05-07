@@ -20,7 +20,7 @@ analyse_pIRIRSequence(
 \item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} or \link{list} of
 \link[=RLum.Analysis-class]{RLum.Analysis} objects (\strong{required}):
 input object containing data for analysis.
-If a \link{list} is provided the functions tries to iterate over each element
+If a \link{list} is provided the function tries to iterate over each element
 in the list.}
 
 \item{signal_integral}{\link{integer} (\strong{required}):
@@ -37,8 +37,8 @@ input type for \code{signal_integral}, one of \code{"channel"} (default) or
 corresponding to the given time range (in seconds) are selected.}
 
 \item{dose.points}{\link{numeric} (\emph{optional}):
-a numeric vector containing the dose points values. Using this argument overwrites dose point
-values in the signal curves.}
+a numeric vector containing the dose point values. Using this argument
+overwrites dose point values in the signal curves.}
 
 \item{sequence.structure}{\link{vector} \link{character} (\emph{with default}):
 specifies the general sequence structure. Allowed values are \code{"TL"} and
@@ -51,7 +51,7 @@ preheat as none TL, remove the TL step.)}
 enable/disable the plot output.}
 
 \item{plot_singlePanels}{\link{logical} (\emph{with default}):
-enable/disable plotting of the results in a single windows for each plot.
+enable/disable plotting of the results in a single window for each plot.
 Ignored if \code{plot = FALSE}.}
 
 \item{...}{further arguments that will be passed to
@@ -81,7 +81,7 @@ fitting on \link[=RLum.Analysis-class]{RLum.Analysis} objects.
 }
 \details{
 To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement
-analyses, this function has been written as extended wrapper for function
+analyses, this function has been written as an extended wrapper for
 \link{analyse_SAR.CWOSL}, thus facilitating an entire sequence analysis in
 one run. With this, its functionality is strictly limited by the
 functionality provided by  \link{analyse_SAR.CWOSL}.

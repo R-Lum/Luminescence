@@ -18,14 +18,14 @@
 #' **`sigmab`**
 #'
 #' The default value of `sigmab` is calculated assuming the background is
-#' constant and **would not** applicable when the background varies as,
+#' constant and **would not** be applicable when the background varies,
 #' e.g., as observed for the early light subtraction method.
 #'
 #' **`sig0`**
 #'
-#' This argument allows to add an extra component of error to the final `Lx/Tx`
-#' error value. The input will be treated as factor that is multiplied with
-#' the already calculated `LxTx` and the result is add up by:
+#' This argument allows adding an extra component of error to the final `Lx/Tx`
+#' error value. The input will be treated as a factor that is multiplied by
+#' the already calculated `LxTx` and the result is added according to:
 #'
 #' \deqn{se(LxTx) = \sqrt{se(LxTx)^2 + (LxTx * sig0)^2}}
 #'
@@ -70,7 +70,7 @@
 #' the error calculation. According to Galbraith (2002, 2014) the background
 #' counts may be overdispersed (i.e. do not follow a Poisson distribution,
 #' which is assumed for the photomultiplier counts). In that case (might be the
-#' normal case) it has to be accounted for the overdispersion by estimating
+#' normal case) the overdispersion  has to be accounted for by estimating
 #' \eqn{\sigma^2} (i.e. the overdispersion value). Therefore the relative
 #' standard error is calculated as:
 #'
@@ -85,11 +85,11 @@
 #'
 #' \deqn{rse(\mu_{S}) \approx \sqrt{Y_{0}} / Y_{0}}
 #'
-#' **Please note** that when using the early background subtraction method in
-#' combination with the 'non-poisson' distribution argument, the corresponding `Lx/Tx` error
+#' **Note:** When using the early background subtraction method in combination
+#' with the 'non-poisson' distribution argument, the corresponding `Lx/Tx` error
 #' may considerably increase due to a high `sigmab` value.
-#' Please check whether this is valid for your data set and if necessary
-#' consider to provide an own `sigmab` value using the corresponding argument `sigmab`.
+#' Please check whether this is valid for your data set; if necessary, consider
+#' providing a custom value using the `sigmab` argument.
 #'
 #' @param Lx.data [Luminescence::RLum.Data.Curve-class], [data.frame], [list] (**required**):
 #' requires a CW-OSL shine down curve (x = time, y = counts). Data can also be
@@ -108,7 +108,7 @@
 #' @param background_integral [integer] (**required**):
 #' vector of channels for the background integral. If set to `NA`, no
 #' background integral is subtracted; in this case, `sigmab.LnLx` (unless
-#' manually set) and the signal-to-noise ratio for Ln/Lx` will be `NA`.
+#' manually set) and the signal-to-noise ratio for `Ln/Lx` will be `NA`.
 #'
 #' @param signal_integral_Tx [integer] (*optional*):
 #' vector of channels for the signal integral for the `Tx` curve.
@@ -193,7 +193,7 @@
 #'
 #' @note
 #' The results of this function have been cross-checked with the Analyst
-#' (version 3.24b). Access to the results object via [Luminescence::get_RLum].
+#' (version 3.24b).
 #'
 #' **Caution:** If you are using early light subtraction (EBG), please either provide your
 #' own `sigmab` value or use `background.count.distribution = "poisson"`.
@@ -448,7 +448,7 @@ calc_OSLLxTxRatio <- function(
 
   ##use previous BG
   if(use_previousBG)
-    Tx.background <- Lx.background
+    Tx.background <- if (.strict_na(background_integral_Tx)) NA else Lx.background
   else
     Tx.background <- sum(Tx.curve[background_integral_Tx]) / k.Tx
   SN.ratio.TnTx <- Tx.signal / Tx.background

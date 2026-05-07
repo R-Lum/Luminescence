@@ -172,7 +172,7 @@
 #'   data = ExampleData.DeValues,
 #'   log.z = FALSE)
 #'
-#' ## store the the plot parameters
+#' ## store the plot parameters
 #' plot1 <- plot_RadialPlot(
 #'   data = ExampleData.DeValues,
 #'   log.z = FALSE)

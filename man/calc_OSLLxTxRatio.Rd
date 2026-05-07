@@ -39,7 +39,7 @@ no integrals are taken into account and their settings are ignored.}
 \item{background_integral}{\link{integer} (\strong{required}):
 vector of channels for the background integral. If set to \code{NA}, no
 background integral is subtracted; in this case, \code{sigmab.LnLx} (unless
-manually set) and the signal-to-noise ratio for Ln/Lx\verb{will be}NA`.}
+manually set) and the signal-to-noise ratio for \code{Ln/Lx} will be \code{NA}.}
 
 \item{signal_integral_Tx}{\link{integer} (\emph{optional}):
 vector of channels for the signal integral for the \code{Tx} curve.
@@ -140,14 +140,14 @@ values are replaced by 0.
 \strong{\code{sigmab}}
 
 The default value of \code{sigmab} is calculated assuming the background is
-constant and \strong{would not} applicable when the background varies as,
+constant and \strong{would not} be applicable when the background varies,
 e.g., as observed for the early light subtraction method.
 
 \strong{\code{sig0}}
 
-This argument allows to add an extra component of error to the final \code{Lx/Tx}
-error value. The input will be treated as factor that is multiplied with
-the already calculated \code{LxTx} and the result is add up by:
+This argument allows adding an extra component of error to the final \code{Lx/Tx}
+error value. The input will be treated as a factor that is multiplied by
+the already calculated \code{LxTx} and the result is added according to:
 
 \deqn{se(LxTx) = \sqrt{se(LxTx)^2 + (LxTx * sig0)^2}}
 
@@ -192,7 +192,7 @@ This argument allows selecting the distribution assumption that is used for
 the error calculation. According to Galbraith (2002, 2014) the background
 counts may be overdispersed (i.e. do not follow a Poisson distribution,
 which is assumed for the photomultiplier counts). In that case (might be the
-normal case) it has to be accounted for the overdispersion by estimating
+normal case) the overdispersion  has to be accounted for by estimating
 \eqn{\sigma^2} (i.e. the overdispersion value). Therefore the relative
 standard error is calculated as:
 \itemize{
@@ -207,15 +207,15 @@ error simplifies to:
 
 \deqn{rse(\mu_{S}) \approx \sqrt{Y_{0}} / Y_{0}}
 
-\strong{Please note} that when using the early background subtraction method in
-combination with the 'non-poisson' distribution argument, the corresponding \code{Lx/Tx} error
+\strong{Note:} When using the early background subtraction method in combination
+with the 'non-poisson' distribution argument, the corresponding \code{Lx/Tx} error
 may considerably increase due to a high \code{sigmab} value.
-Please check whether this is valid for your data set and if necessary
-consider to provide an own \code{sigmab} value using the corresponding argument \code{sigmab}.
+Please check whether this is valid for your data set; if necessary, consider
+providing a custom value using the \code{sigmab} argument.
 }
 \note{
 The results of this function have been cross-checked with the Analyst
-(version 3.24b). Access to the results object via \link{get_RLum}.
+(version 3.24b).
 
 \strong{Caution:} If you are using early light subtraction (EBG), please either provide your
 own \code{sigmab} value or use \code{background.count.distribution = "poisson"}.

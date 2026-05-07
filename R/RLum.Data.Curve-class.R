@@ -342,8 +342,8 @@ setMethod(f = "bin_RLum.Data",
               bin_matrix <-
                 matrix(bin_vector, ncol = length(stepping))
 
-              ##calcuate column sums and replace matrix
-              ##this is much faster than anly apply loop
+              ## calculate column sums and replace matrix
+              ## this is much faster than only apply loop
               object@data <-
                 matrix(c(object@data[stepping], colSums(bin_matrix, na.rm = TRUE)), ncol = 2)
 
