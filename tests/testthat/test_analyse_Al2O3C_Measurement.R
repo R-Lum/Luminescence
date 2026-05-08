@@ -43,7 +43,7 @@ test_that("input validation", {
                "'cross_talk_correction' has an unsupported originator")
 
   expect_error(analyse_Al2O3C_Measurement(osl, signal_integral = 1000),
-               "'signal_integral' is of length 0 after removing values smaller")
+               "'signal_integral' contains no elements between 1 and 99")
   })
 
   data(ExampleData.RF70Curves, envir = environment())

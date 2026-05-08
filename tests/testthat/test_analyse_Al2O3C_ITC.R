@@ -31,7 +31,7 @@ test_that("input validation", {
   expect_error(analyse_Al2O3C_ITC(data_ITC, dose_points = list(NA)),
                "All elements of 'dose_points' should be of class 'numeric'")
   expect_error(analyse_Al2O3C_ITC(data_ITC, signal_integral = 0),
-               "'signal_integral' is of length 0 after removing values smaller")
+               "'signal_integral' contains no elements between 1 and 99")
 })
 
 test_that("check functionality", {

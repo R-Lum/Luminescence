@@ -1615,7 +1615,7 @@ SW <- function(expr) {
 #'
 #' @return
 #' A vector with negative elements and `NA` values removed, sorted and without
-#' duplicates, unless the validation failed with an error thrown. If `max.value`
+#' duplicates, unless the validation failed with an error thrown. If `max`
 #' is not `NULL`, then the integral is capped to the value specified.
 #'
 #' @noRd
@@ -1637,11 +1637,10 @@ SW <- function(expr) {
                  ", but the maximum allowed is ", max)
   integral <- integral[!is.na(integral) & between(integral, min, max)]
   if (length(integral) == 0)
-    .throw_error(name, " is of length 0 after removing values smaller than ",
-                 min, if (!is.infinite(max)) paste(" and greater than", max))
+    .throw_error(name, " contains no elements between ", min, " and ", max)
   else if (length(integral) != orig.length)
-    .throw_warning(name, " out of bounds, reset to be between ", min(integral),
-                   " and ", max(integral))
+    .throw_warning(name, " contains out of bounds elements, reset to be between ",
+                   min(integral), " and ", max(integral))
   if (int && any(integral != as.integer(integral)))
     .throw_error(name, " should be a vector of integers")
   if (length(integral) == 2 && diff(integral) > 1 && int)
