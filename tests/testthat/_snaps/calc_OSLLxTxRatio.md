@@ -2965,7 +2965,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [3516.02150538]
+                  "value": [3402.60145682]
                 },
                 {
                   "type": "integer",
@@ -2975,47 +2975,47 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [3279.44086022]
+                  "value": [3173.65244537]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [126850.97849462]
+                  "value": [126964.39854318]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [363.01145339]
+                  "value": [362.82942063]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [13124.55913978]
+                  "value": [13230.34755463]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [133.11431241]
+                  "value": [132.6506076]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [37.07798709]
+                  "value": [38.31392]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [5.00207221]
+                  "value": [5.16880795]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [9.6651611]
+                  "value": [9.59645225]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.1018551]
+                  "value": [0.10004827]
                 }
               ]
             },

@@ -569,10 +569,16 @@ calc_OSLLxTxRatio <- function(
       sqrt(k_p^2 * signal + (k_DC^2 - k_p^2) * B_DC * time)
     }
 
-    time.Lx <- diff(Lx.data[range(signal_integral), 1])
-    time.Lx.bg <- diff(Lx.data[range(background_integral), 1])
-    time.Tx <- diff(Tx.data[range(signal_integral_Tx), 1])
-    time.Tx.bg <- diff(Tx.data[range(background_integral_Tx), 1])
+    ## compute times including the time for the first channel in the integral
+    compute.time.inclusive <- function(times, integral) {
+      ## return 0 instead of numeric(0) when a vector is indexed at 0
+      safe0 <- function(x) if (length(x)) x else 0
+      times[max(integral)] - safe0(times[min(integral) - 1])
+    }
+    time.Lx <- compute.time.inclusive(Lx.data[, 1], signal_integral)
+    time.Lx.bg <- compute.time.inclusive(Lx.data[, 1], background_integral)
+    time.Tx <- compute.time.inclusive(Tx.data[, 1], signal_integral_Tx)
+    time.Tx.bg <- compute.time.inclusive(Tx.data[, 1], background_integral_Tx)
 
     Lx.background <- Lx.background * time.Lx / time.Lx.bg
     Tx.background <- Tx.background * time.Tx / time.Tx.bg
