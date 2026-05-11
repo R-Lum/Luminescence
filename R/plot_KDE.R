@@ -485,7 +485,6 @@ plot_KDE <- function(
 
   ## extract original plot parameters
   par(mar = c(5, 5.5, 2.5 + toplines, 4.5),
-      bg = layout$kde$colour$background,
       xpd = FALSE,
       cex = cex)
 
