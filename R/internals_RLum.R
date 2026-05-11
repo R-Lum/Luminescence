@@ -5,8 +5,8 @@
 #' Set unique id of the RLum.Analysis object as parent id for each RLum.Data
 #' object in the record list
 #'
-#' This function only applies on RLum.Analysis objects and was written for performance not
-#' usability, means the functions runs without any checks and is for internal usage only.
+#' This function only applies to RLum.Analysis objects and was written for
+#' performance not usability.
 #'
 #' @param [Luminescence::RLum.Analysis-class] (**required**):
 #' input object where the function should be applied on
@@ -385,10 +385,11 @@ fancy_scientific <- function(l) {
 
 #'Add fancy log axis with minor ticks the fancy axis labelling
 #'
-#'@param side [numeric] (**required**): the side where to plot the axis
+#' @param side [numeric] (**required**):
+#' side of the plot where the axis is to be drawn.
 #'
-#'@param ... extra arguments to be passed to [graphics::axis], `side`, `at`and `labels`
-#'are pre-defined and cannot be modified
+#' @param ... extra arguments to be passed to [graphics::axis]. `at` and
+#' `labels` are pre-defined and cannot be modified.
 #'
 #'@return
 #'Returns fancy log axis
@@ -403,7 +404,7 @@ fancy_scientific <- function(l) {
 #'
 #'@noRd
 .add_fancy_log_axis <- function(side, ...){
-  ## do just nothing if it would cause an error
+  ## do nothing if it would cause an error
   if(!(par()$xlog && any(c(1,3) %in% side[1])) && !(par()$ylog && any(c(2,4) %in% side[1])))
     return(NULL)
 
@@ -543,30 +544,31 @@ fancy_scientific <- function(l) {
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #' Create Statistical Summary Character Vector for Plot functions
 #'
-#' This function automatically generates the statistical summary for the plot functions within
-#' the package. This should unify the approach how such things are created and support, theoretically
-#' all keywords for all plot functions in a similar way.
+#' This function automatically generates the statistical summary text for the
+#' plot functions within the package.
 #'
 #' @param summary [data.frame] (**required**):
 #' output from function `calc_Statistics()`.
 #'
-#' @param keywords[character] (*with default*): keywords supported by function
-#' `calc_Statistics()`.
+#' @param keywords [character] (*with default*):
+#' keywords supported by function `calc_Statistics()`.
 #'
-#' @param digits [numeric] (*with default*): modifiy the digits independently
-#' for the plot output.
+#' @param digits [numeric] (*with default*):
+#' number of digits used in rounding the results.
 #'
-#' @param sep [character] (*with default*): separator used for the creation of
-#' the output of the plot.
+#' @param sep [character] (*with default*):
+#' separator used between each keyword found.
 #'
-#'@param prefix [character] (*with default*): prefix to add to the string
+#' @param prefix [character] (*with default*):
+#' prefix to add to the string.
 #'
-#'@param suffix [character] (*with default*): suffix to add to the string
+#' @param suffix [character] (*with default*):
+#' suffix to add to the string.
 #'
-#'@author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+#' @author
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 #'
-#'@section Version: 0.1.0
-#'
+#' @section Function version: 0.1.0
 #'
 #'@noRd
 .create_StatisticalSummaryText <- function(
@@ -816,8 +818,8 @@ fancy_scientific <- function(l) {
 #' repeated in every function using the self-call. This functions
 #' does it once and for all similar in all functions.
 #'
-#' **Note:** the first argument is never extended due to performance reasons,
-#' it might be a very large object
+#' **Note:** the first argument is never extended for performance reasons, as
+#' it might be a very large object.
 #'
 #' @param len [numeric] (**required**): length of the parameter expansion
 #'
@@ -873,10 +875,10 @@ fancy_scientific <- function(l) {
   ##expand all arguments
   ##we have two conditions and three cases
   ##1:  the argument is a list AND the list itself is not named
-  ##    ... the case when the user what to use different values for the objects
+  ##    ... the case when the user wants to use different values for the objects
   ##2:  the argument is no list ...
   ##    ... the standard automated expansion
-  ##    ... OR it is a list with names (e.g., rejection.criteria = list(recycling.ration = 10))
+  ##    ... OR it is a list with names (e.g., rejection.criteria = list(recycling.ratio = 10))
   for(i in 1:length(args)){
     if(inherits(args[[i]], "list") & is.null(names(args[[i]]))){
       args[[i]] <- rep(args[[i]], length = len[1])
@@ -898,7 +900,7 @@ fancy_scientific <- function(l) {
 #' method to calculate the highest probability density intervals for
 #' sets of data. This function might be exported later
 #' Currently it follows roughly the idea of what is implemented
-#' in `code` and `hdrcde`. If the results has more than one peak,
+#' in `coda` and `hdrcde`. If the result has more than one peak,
 #' also this is shown, therefore the output is a matrix
 #'
 #' @param object [numeric] (**required**): numeric object with input data
@@ -965,7 +967,7 @@ fancy_scientific <- function(l) {
 #'
 #' @description
 #' For file imports using function commencing with `read_` the file download
-#' was little consistent and surprisingly error-prone. This function should
+#' was inconsistent and surprisingly error-prone. This function should
 #' keep the callers more consistent.
 #'
 #' @param url [character] (**required**):
@@ -978,7 +980,7 @@ fancy_scientific <- function(l) {
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
 #'
-#' @returns
+#' @return
 #' Returns the file path of the downloaded file, or `NULL` if `url` is not
 #' valid, or `NA` in case of failure during download.
 #'
@@ -1186,7 +1188,7 @@ SW <- function(expr) {
 #' @title Validate a character argument from a list of choices
 #'
 #' @description
-#' This is inspired by [base::match.arg], but is has a more user-friendly
+#' This is inspired by [base::match.arg], but it has a more user-friendly
 #' error message as it reports the exact name of the argument that is being
 #' validated. This function always requires the choices to be specified: this
 #' better fits with the current state of the Luminescence package, which only
@@ -1294,7 +1296,7 @@ SW <- function(expr) {
 #'
 #' @param what [character] (**required**): the type of the variable, used
 #'        only in the message reported; if not specified it's inferred from
-#'        they type of the variable tested.
+#'        the type of the variable tested.
 #' @param throw.error [logical] (*with default*): whether an error should be
 #'        thrown in case of failed validation (`TRUE` by default). If `FALSE`,
 #'        the function raises a warning and proceeds.
@@ -1439,7 +1441,7 @@ SW <- function(expr) {
 #' found. It is considered only when `file` is a path to a directory.
 #'
 #' @param scan.dir [logical] (*with default*):
-#' Whether directories should be scanned for filed (`TRUE` by default).
+#' Whether directories should be scanned for files (`TRUE` by default).
 #'
 #' @param recursive [logical] (*with default*):
 #' Whether the scan of a path for files should be done recursively (`FALSE`
@@ -1744,7 +1746,7 @@ SW <- function(expr) {
 
 #' Check that a given object is exactly `NA`
 #'
-#' @param x (**required): The object to check.
+#' @param x (**required**): The object to check.
 #'
 #' @return
 #' Whether the object is exactly `NA`.
@@ -1852,7 +1854,8 @@ SW <- function(expr) {
 #'
 #'@param range_new [numeric] (*required*): new scale limits
 #'
-#'@returns rescaled values values
+#' @return
+#' Rescaled values.
 #'
 #'@examples
 #'
