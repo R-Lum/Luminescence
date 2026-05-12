@@ -962,26 +962,30 @@ analyse_SAR.CWOSL<- function(
       }
 
     ## Plotting - old way config --------------------------------------------
-
-    ## 1 -> TL previous LnLx
-    ## 2 -> LnLx
-    ## 3 -> TL previous TnTx
-    ## 4 -> TnTx
-    ## 5 -> Legend
-    ## 6 -> Dose-response curve
-    ## 7 -> Rejection criteria
-    ## 8 -> IRSL curve/Single grain
-    plot.single.sel <- 1:8
-
     if (!plot_singlePanels[1]) {
         graphics::layout(layout.matrix[, 1:4])
         par(
           oma = c(0,0,0,0), mar = c(4,4,3,3), cex = cex * 0.6
         )
-    } else if (!is.logical(plot_singlePanels)) {
+
+        ## 1 -> TL previous LnLx
+        ## 2 -> LnLx
+        ## 3 -> TL previous TnTx
+        ## 4 -> TnTx
+        ## 5 -> Legend
+
+        ## set selected curves to allow plotting of all curves
+        plot.single.sel <- c(1,2,3,4,5,6,7,8)
+
+      } else {
+        plot.single.sel <- 1:8
+
+        ## check for values in the single output of the function and convert
+        if (!is.logical(plot_singlePanels)) {
           ## this is used when called from analyse_pIRIRSequence()
           par(mar = c(4, 3, 3, 1))
           plot.single.sel <- plot_singlePanels
+        }
       }
 
       ##warning if number of curves exceed colour values
@@ -1181,7 +1185,7 @@ analyse_SAR.CWOSL<- function(
 
   ## (6) Plot Dose-Response Curve --------------------------------------------
   ## overall plot option selection for plot.single.sel
-  plot.drc <- plot && 6 %in% plot.single.sel
+  plot <- plot && 6 %in% plot.single.sel
 
   ## if we don't compute the dose-response curve, we'll insert empty subplots
   insert.emptyDRCPlots <- onlyLxTxTable
@@ -1243,7 +1247,7 @@ analyse_SAR.CWOSL<- function(
       temp.GC.fit.Formula <- NA
       insert.emptyDRCPlots <- TRUE
     } else {
-      if (plot.drc) {
+          if(plot) {
             do.call(plot_DoseResponseCurve, args = modifyList(
               list(
                 object = temp.GC,
@@ -1305,7 +1309,7 @@ analyse_SAR.CWOSL<- function(
   }
 
   ## insert empty plots, otherwise the ordering may get messed up
-  if (plot.drc && insert.emptyDRCPlots) {
+  if (plot && insert.emptyDRCPlots) {
     shape::emptyplot()
     if (extraArgs$plot_extended %||% TRUE) {
       shape::emptyplot()
