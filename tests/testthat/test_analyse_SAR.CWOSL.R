@@ -753,17 +753,6 @@ test_that("advance tests run", {
       verbose = FALSE),
       "Curves shifted by one channel for log-plot")
   })
-
-  ## simulate single grain
-  sg <- get_RLum(object, recordType = "OSL", drop = FALSE)
-  replace_metadata(sg[[1]], info_element = "GRAIN") <- 1
-  replace_metadata(sg[[2]], info_element = "GRAIN") <- 2
-  expect_s4_class(analyse_SAR.CWOSL(
-    object = sg,
-    signal_integral = 1:2,
-    background_integral = 900:975,
-    plot_onePage = TRUE,
-    verbose = FALSE), "RLum.Results")
 })
 
 test_that("integral_input = 'measurement'", {
@@ -808,8 +797,8 @@ test_that("graphical snapshot tests", {
                                   background_integral = 900:1000,
                                   plot_onePage = TRUE))
 
-    vdiffr::expect_doppelganger("legend_mod",
-                                analyse_SAR.CWOSL(
+  vdiffr::expect_doppelganger("legend_mod",
+                              analyse_SAR.CWOSL(
                                   object = object[[1]],
                                   signal_integral = 1:2,
                                   legend.cex = 2,
@@ -887,6 +876,18 @@ test_that("graphical snapshot tests", {
                                   signal_integral = 1:5,
                                   background_integral = 900:1000,
                                   plot_singlePanels = 7))
+
+  ## simulate single grain
+  sg <- get_RLum(object, recordType = "OSL", drop = FALSE)
+  replace_metadata(sg[[1]], info_element = "GRAIN") <- 1
+  replace_metadata(sg[[2]], info_element = "GRAIN") <- 2
+  vdiffr::expect_doppelganger("single grain",
+                              analyse_SAR.CWOSL(
+                                  object = sg[[2]],
+                                  signal_integral = 1:2,
+                                  background_integral = 900:975,
+                                  plot_onePage = TRUE,
+                                  verbose = FALSE))
   })
 })
 
