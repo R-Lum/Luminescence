@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' data-engine-version='2.0' width='720.00pt' height='576.00pt' viewBox='0 0 720.00 576.00'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA='>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+<line x1='100.65' y1='502.56' x2='648.15' y2='502.56' style='stroke-width: 0.75;' />
+<line x1='100.65' y1='502.56' x2='100.65' y2='509.76' style='stroke-width: 0.75;' />
+<line x1='191.90' y1='502.56' x2='191.90' y2='509.76' style='stroke-width: 0.75;' />
+<line x1='283.15' y1='502.56' x2='283.15' y2='509.76' style='stroke-width: 0.75;' />
+<line x1='374.40' y1='502.56' x2='374.40' y2='509.76' style='stroke-width: 0.75;' />
+<line x1='465.65' y1='502.56' x2='465.65' y2='509.76' style='stroke-width: 0.75;' />
+<line x1='556.90' y1='502.56' x2='556.90' y2='509.76' style='stroke-width: 0.75;' />
+<line x1='648.15' y1='502.56' x2='648.15' y2='509.76' style='stroke-width: 0.75;' />
+<text x='100.65' y='528.48' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='23.36px' lengthAdjust='spacingAndGlyphs'>0.05</text>
+<text x='191.90' y='528.48' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='23.36px' lengthAdjust='spacingAndGlyphs'>0.10</text>
+<text x='283.15' y='528.48' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='23.36px' lengthAdjust='spacingAndGlyphs'>0.15</text>
+<text x='374.40' y='528.48' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='23.36px' lengthAdjust='spacingAndGlyphs'>0.20</text>
+<text x='465.65' y='528.48' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='23.36px' lengthAdjust='spacingAndGlyphs'>0.25</text>
+<text x='556.90' y='528.48' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='23.36px' lengthAdjust='spacingAndGlyphs'>0.30</text>
+<text x='648.15' y='528.48' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='23.36px' lengthAdjust='spacingAndGlyphs'>0.35</text>
+<line x1='59.04' y1='453.22' x2='59.04' y2='127.02' style='stroke-width: 0.75;' />
+<line x1='59.04' y1='453.22' x2='51.84' y2='453.22' style='stroke-width: 0.75;' />
+<line x1='59.04' y1='344.48' x2='51.84' y2='344.48' style='stroke-width: 0.75;' />
+<line x1='59.04' y1='235.75' x2='51.84' y2='235.75' style='stroke-width: 0.75;' />
+<line x1='59.04' y1='127.02' x2='51.84' y2='127.02' style='stroke-width: 0.75;' />
+<text transform='translate(41.76,453.22) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='26.70px' lengthAdjust='spacingAndGlyphs'>6000</text>
+<text transform='translate(41.76,344.48) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='26.70px' lengthAdjust='spacingAndGlyphs'>6500</text>
+<text transform='translate(41.76,235.75) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='26.70px' lengthAdjust='spacingAndGlyphs'>7000</text>
+<text transform='translate(41.76,127.02) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='26.70px' lengthAdjust='spacingAndGlyphs'>7500</text>
+<polygon points='59.04,502.56 689.76,502.56 689.76,59.04 59.04,59.04 ' style='stroke-width: 0.75; fill: none;' />
+<text x='374.40' y='34.48' text-anchor='middle' style='font-size: 14.40px; font-weight: bold; font-family: sans;' textLength='59.22px' lengthAdjust='spacingAndGlyphs'>De(t) plot</text>
+<text x='374.40' y='557.28' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='101.38px' lengthAdjust='spacingAndGlyphs'>Stimulation time [s]</text>
+<text transform='translate(10.47,333.51) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='8.67px' lengthAdjust='spacingAndGlyphs'>D</text>
+<text transform='translate(12.69,324.84) rotate(-90)' style='font-size: 8.40px; font-family: sans;' textLength='4.67px' lengthAdjust='spacingAndGlyphs'>e</text>
+<text transform='translate(10.47,320.17) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='3.00px' lengthAdjust='spacingAndGlyphs'> </text>
+<text transform='translate(10.47,317.16) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='22.01px' lengthAdjust='spacingAndGlyphs'>[Gy]</text>
+<text transform='translate(10.47,295.15) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='3.00px' lengthAdjust='spacingAndGlyphs'> </text>
+<text transform='translate(10.47,292.15) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='20.02px' lengthAdjust='spacingAndGlyphs'>and</text>
+<text transform='translate(10.47,272.13) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='3.00px' lengthAdjust='spacingAndGlyphs'> </text>
+<text transform='translate(10.47,269.13) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>L</text>
+<text transform='translate(12.69,262.45) rotate(-90)' style='font-size: 8.40px; font-family: sans;' textLength='4.67px' lengthAdjust='spacingAndGlyphs'>n</text>
+<text transform='translate(10.47,257.78) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='3.00px' lengthAdjust='spacingAndGlyphs'> </text>
+<text transform='translate(10.47,254.78) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='26.68px' lengthAdjust='spacingAndGlyphs'>[a.u.]</text>
+</g>
+<defs>
+  <clipPath id='cpNTkuMDR8Njg5Ljc2fDU5LjA0fDUwMi41Ng=='>
+    <rect x='59.04' y='59.04' width='630.72' height='443.52' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTkuMDR8Njg5Ljc2fDU5LjA0fDUwMi41Ng==)'>
+<line x1='86.80' y1='81.17' x2='151.00' y2='164.45' style='stroke-width: 0.75;' />
+<line x1='161.15' y1='174.48' x2='222.65' y2='220.75' style='stroke-width: 0.75;' />
+<line x1='233.47' y1='230.19' x2='296.33' y2='293.61' style='stroke-width: 0.75;' />
+<line x1='307.18' y1='303.02' x2='368.62' y2='348.77' style='stroke-width: 0.75;' />
+<line x1='380.86' y1='356.24' x2='440.94' y2='385.74' style='stroke-width: 0.75;' />
+<line x1='453.48' y1='392.76' x2='514.32' y2='431.29' style='stroke-width: 0.75;' />
+<line x1='527.32' y1='437.13' x2='586.48' y2='454.15' style='stroke-width: 0.75;' />
+<line x1='600.06' y1='458.88' x2='659.74' y2='483.40' style='stroke-width: 0.75;' />
+<circle cx='82.40' cy='75.47' r='1.80' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='155.40' cy='170.16' r='1.80' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='228.40' cy='225.08' r='1.80' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='301.40' cy='298.72' r='1.80' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='374.40' cy='353.07' r='1.80' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='447.40' cy='388.91' r='1.80' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='520.40' cy='435.14' r='1.80' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='593.40' cy='456.14' r='1.80' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='666.40' cy='486.13' r='1.80' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='228.40' cy='233.43' r='2.70' style='stroke-width: 0.75;' />
+<circle cx='374.40' cy='130.29' r='2.70' style='stroke-width: 0.75;' />
+<circle cx='520.40' cy='318.19' r='2.70' style='stroke-width: 0.75;' />
+<circle cx='666.40' cy='442.29' r='2.70' style='stroke-width: 0.75;' />
+<line x1='228.40' y1='193.43' x2='228.40' y2='273.43' style='stroke-width: 0.75;' />
+<line x1='374.40' y1='75.84' x2='374.40' y2='184.74' style='stroke-width: 0.75;' />
+<line x1='520.40' y1='263.37' x2='520.40' y2='373.02' style='stroke-width: 0.75;' />
+<line x1='666.40' y1='398.45' x2='666.40' y2='486.13' style='stroke-width: 0.75;' />
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
+</g>
+<g clip-path='url(#cpNTkuMDR8Njg5Ljc2fDU5LjA0fDUwMi41Ng==)'>
+<circle cx='69.84' cy='473.76' r='2.70' style='stroke-width: 0.75;' />
+<circle cx='69.84' cy='488.16' r='1.80' style='stroke-width: 0.75; fill: #000000;' />
+<text x='80.64' y='476.74' style='font-size: 12.00px; font-family: sans;' textLength='8.67px' lengthAdjust='spacingAndGlyphs'>D</text>
+<text x='89.31' y='478.96' style='font-size: 8.40px; font-family: sans;' textLength='4.67px' lengthAdjust='spacingAndGlyphs'>e</text>
+<text x='80.64' y='491.26' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>L</text>
+<text x='87.31' y='493.48' style='font-size: 8.40px; font-family: sans;' textLength='4.67px' lengthAdjust='spacingAndGlyphs'>n</text>
+<text x='94.21' y='491.26' style='font-size: 12.00px; font-family: sans;' textLength='9.32px' lengthAdjust='spacingAndGlyphs'>−</text>
+<text x='105.76' y='491.26' style='font-size: 12.00px; font-family: sans;' textLength='6.00px' lengthAdjust='spacingAndGlyphs'>s</text>
+<text x='111.76' y='491.26' style='font-size: 12.00px; font-family: sans;' textLength='2.66px' lengthAdjust='spacingAndGlyphs'>i</text>
+<text x='114.42' y='491.26' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>g</text>
+<text x='121.10' y='491.26' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>n</text>
+<text x='127.77' y='491.26' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>a</text>
+<text x='134.45' y='491.26' style='font-size: 12.00px; font-family: sans;' textLength='2.66px' lengthAdjust='spacingAndGlyphs'>l</text>
+</g>
+</svg>
