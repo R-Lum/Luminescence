@@ -112,8 +112,9 @@ a numeric vector containing the test dose in the same units as \code{dose.points
 If length = 1, the values will be recycled. It has only an effect for
 \code{fit.method = 'OTORX'}.}
 
-\item{dose_rate_source}{\link{numeric} (\emph{optional}): a numerical value for the source dose rate,
-typically Gy/s. If set, the x-axis default for the dose-response curve changes to \code{Dose [Gy]}.}
+\item{dose_rate_source}{\link{numeric} (\emph{optional}):
+numerical value for the source dose rate, typically in Gy/s. If set, the
+x-axis default for the dose-response curve changes to \code{Dose [Gy]}.}
 
 \item{trim_channels}{\link{logical} (\emph{with default}):
 trim channels per record category to the lowest number of channels in the
@@ -127,16 +128,17 @@ if \code{object} is of type \link{list}}
 
 \item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.}
 
-\item{plot_onePage}{\link{logical} (\emph{with default}): enable/disable one page
-plot output.}
+\item{plot_onePage}{\link{logical} (\emph{with default}):
+enable/disable plotting all subplots on one page.}
 
 \item{plot_singlePanels}{\link{logical} (\emph{with default}) or \link{numeric} (\emph{optional}):
-single plot output (\code{TRUE/FALSE}) to allow for plotting the results in single plot windows.
-If a \link{numeric} vector is provided the plots can be selected individually, i.e.
-\code{plot_singlePanels = c(1,2,3,4)} will plot the TL and Lx, Tx curves but
-not the legend (5) or the
-growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
-\code{plot = TRUE}.}
+control the plotting of subplots in single windows (one subplot per page).
+Using a \link{numeric} vector allows to select the subplots individually;
+setting it to \code{TRUE} corresponds to \code{plot_singlePanels = 1:8}. For example,
+\code{plot_singlePanels = c(1,2,3,4)} will plot the TL and Lx, Tx curves;
+\code{plot_singlePanels = c(5,6,7,8)} will plot the legend (5), the dose-response
+curve (6), the rejection criteria (7), and either the IRSL curve or the
+single grain (8). It is ignored if \code{plot = FALSE} or \code{plot_onePage = TRUE}.}
 
 \item{onlyLxTxTable}{\link{logical} (\emph{with default}):
 If \code{TRUE} the dose response curve fitting and plotting is skipped, and the

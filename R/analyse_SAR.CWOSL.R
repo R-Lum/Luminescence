@@ -183,8 +183,9 @@
 #' If length = 1, the values will be recycled. It has only an effect for
 #' `fit.method = 'OTORX'`.
 #'
-#' @param dose_rate_source [numeric] (*optional*): a numerical value for the source dose rate,
-#' typically Gy/s. If set, the x-axis default for the dose-response curve changes to `Dose [Gy]`.
+#' @param dose_rate_source [numeric] (*optional*):
+#' numerical value for the source dose rate, typically in Gy/s. If set, the
+#' x-axis default for the dose-response curve changes to `Dose [Gy]`.
 #'
 #' @param trim_channels [logical] (*with default*):
 #' trim channels per record category to the lowest number of channels in the
@@ -198,16 +199,17 @@
 #'
 #' @param plot [logical] (*with default*): enable/disable the plot output.
 #'
-#' @param plot_onePage [logical] (*with default*): enable/disable one page
-#' plot output.
+#' @param plot_onePage [logical] (*with default*):
+#' enable/disable plotting all subplots on one page.
 #'
 #' @param plot_singlePanels [logical] (*with default*) or [numeric] (*optional*):
-#' single plot output (`TRUE/FALSE`) to allow for plotting the results in single plot windows.
-#' If a [numeric] vector is provided the plots can be selected individually, i.e.
-#' `plot_singlePanels = c(1,2,3,4)` will plot the TL and Lx, Tx curves but
-#' not the legend (5) or the
-#' growth curve (6), (7) and (8) belong to rejection criteria plots. Requires
-#' `plot = TRUE`.
+#' control the plotting of subplots in single windows (one subplot per page).
+#' Using a [numeric] vector allows to select the subplots individually;
+#' setting it to `TRUE` corresponds to `plot_singlePanels = 1:8`. For example,
+#' `plot_singlePanels = c(1,2,3,4)` will plot the TL and Lx, Tx curves;
+#' `plot_singlePanels = c(5,6,7,8)` will plot the legend (5), the dose-response
+#' curve (6), the rejection criteria (7), and either the IRSL curve or the
+#' single grain (8). It is ignored if `plot = FALSE` or `plot_onePage = TRUE`.
 #'
 #' @param onlyLxTxTable [logical] (*with default*):
 #' If `TRUE` the dose response curve fitting and plotting is skipped, and the
