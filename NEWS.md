@@ -107,6 +107,12 @@ affected functions.
   may introduce some minor differences to the result of this function
   and of other functions that depend on it (#1550).
 
+### `plot_DetPlot()`
+
+- The function now allows passing the `dose_rate_source` argument to the
+  analysis function via the `analyse_function.control` argument, as in
+  `analyse_function.control = list(dose_rate_source = 4.07)` (#1561).
+
 ### `plot_DoseResponseCurve()`
 
 - The error bars had been missing for `extrapolation` and `alternate`
@@ -118,7 +124,8 @@ affected functions.
 - The default background colour was incorrectly set to `NA`, which in
   some cases, such as when plotting to a png file or in RStudio (at
   least on MacOS), corresponds to a transparent background. This could
-  cause the KDE plot to appear to be drawn over an existing plot (#1556).
+  cause the KDE plot to appear to be drawn over an existing plot
+  (#1556).
 
 ### `plot_RLum.Results()`
 

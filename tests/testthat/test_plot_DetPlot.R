@@ -225,5 +225,14 @@ test_that("graphical snapshot tests", {
                                            analyse_function.control = list(
                                                fit.method = "LIN"),
                                            n.channels = 2))
+  vdiffr::expect_doppelganger("dose rate source",
+                              plot_DetPlot(object,
+                                           method = "shift",
+                                           signal_integral = 1:3,
+                                           background_integral = 900:1000,
+                                           analyse_function.control = list(
+                                               dose_rate_source = 4.07
+                                           ),
+                                           n.channels = 4))
   })
 })

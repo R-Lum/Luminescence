@@ -110,6 +110,12 @@ particular for `mode = "extrapolation"`. This change may introduce some minor
 differences to the result of this function and of other functions that depend
 on it (#1550).
 
+### `plot_DetPlot()`
+
+* The function now allows passing the `dose_rate_source` argument to the
+analysis function via the `analyse_function.control` argument, as in
+`analyse_function.control = list(dose_rate_source = 4.07)` (#1561).
+
 ### `plot_DoseResponseCurve()`
 
 * The error bars had been missing for `extrapolation` and `alternate` mode

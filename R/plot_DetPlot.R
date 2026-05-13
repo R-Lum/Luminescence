@@ -20,8 +20,9 @@
 #' **analyse_function.control**
 #'
 #' The argument `analyse_function.control` currently supports the following arguments:
-#' `sequence.structure`, `dose.points`, `mtext.outer`, `fit.method`,
-#' `fit.force_through_origin`, `plot`, `plot_singlePanels`
+#' `sequence.structure`, `dose.points`, `dose_rate_source`, `mtext.outer`,
+#' `fit.method`, `fit.force_through_origin`, `trim_channels`, `plot` and
+#' `plot_singlePanels`.
 #'
 #' @param object [Luminescence::RLum.Analysis-class] (**required**): input object containing data for analysis
 #' Can be provided as a [list] of such objects.
@@ -252,6 +253,7 @@ plot_DetPlot <- function(
   analyse_function.settings <- list(
      sequence.structure = c("TL", "IR50", "pIRIR225"),
      dose.points = NULL,
+     dose_rate_source = NULL,
      mtext.outer = "",
      fit.method = "EXP",
      fit.force_through_origin = FALSE,
@@ -278,6 +280,7 @@ plot_DetPlot <- function(
         signal_integral = integral,
         background_integral = background_integral,
         dose.points = analyse_function.settings$dose.points,
+        dose_rate_source = analyse_function.settings$dose_rate_source,
         mtext.outer = analyse_function.settings$mtext.outer,
         fit.force_through_origin = analyse_function.settings$fit.force_through_origin,
         fit.method = analyse_function.settings$fit.method,
@@ -295,6 +298,7 @@ plot_DetPlot <- function(
         signal_integral = integral,
         background_integral = background_integral,
         dose.points = analyse_function.settings$dose.points,
+        dose_rate_source = analyse_function.settings$dose_rate_source,
         mtext.outer = analyse_function.settings$mtext.outer,
         plot = analyse_function.settings$plot,
         plot_singlePanels = analyse_function.settings$plot_singlePanels,
@@ -347,14 +351,15 @@ plot_DetPlot <- function(
       OSL_curve[, 2] <- m * OSL_curve[, 2] + n
       rm(n, m)
 
-        ##set plot setting
-        plot.settings <- modifyList(list(
+      ## plot settings
+      unit <- if (is.null(analyse_function.settings$dose_rate_source)) "[s]" else "[Gy]"
+      plot.settings <- modifyList(list(
           ylim = c(min.de, max.de),
           xlim = c(min(OSL_curve[, 1]), max(OSL_curve[, 1])),
           ylab = if(show_ShineDownCurve[1])
-                  expression(paste(D[e], " [s] and ", L[n], " [a.u.]"))
-                else
-                  expression(paste(D[e], " [s]")),
+                   bquote(D[e] ~ .(unit) ~ "and" ~ L[n] ~ "[a.u.]")
+                 else
+                   bquote(D[e] ~ .(unit)),
           xlab = "Stimulation time [s]",
           main = "De(t) plot",
           pch = 1,

@@ -123,8 +123,9 @@ of the function output.
 \strong{analyse_function.control}
 
 The argument \code{analyse_function.control} currently supports the following arguments:
-\code{sequence.structure}, \code{dose.points}, \code{mtext.outer}, \code{fit.method},
-\code{fit.force_through_origin}, \code{plot}, \code{plot_singlePanels}
+\code{sequence.structure}, \code{dose.points}, \code{dose_rate_source}, \code{mtext.outer},
+\code{fit.method}, \code{fit.force_through_origin}, \code{trim_channels}, \code{plot} and
+\code{plot_singlePanels}.
 }
 \note{
 The entire analysis is based on the used analysis functions, namely
