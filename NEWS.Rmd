@@ -121,7 +121,7 @@ unnoticed due to lack of graphical snapshots (a3ed7744).
 * The default background colour was incorrectly set to `NA`, which in some
 cases, such as when plotting to a png file or in RStudio (at least on MacOS),
 corresponds to a transparent background. This could cause the KDE plot to
-appear to be drawn over an exising plot (#1556).
+appear to be drawn over an existing plot (#1556).
 
 ### `plot_RLum.Results()`
 

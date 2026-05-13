@@ -118,7 +118,7 @@ affected functions.
 - The default background colour was incorrectly set to `NA`, which in
   some cases, such as when plotting to a png file or in RStudio (at
   least on MacOS), corresponds to a transparent background. This could
-  cause the KDE plot to appear to be drawn over an exising plot (#1556).
+  cause the KDE plot to appear to be drawn over an existing plot (#1556).
 
 ### `plot_RLum.Results()`
 
