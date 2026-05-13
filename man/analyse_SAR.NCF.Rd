@@ -4,7 +4,7 @@
 \alias{analyse_SAR.NCF}
 \title{Compute SAR paleodoses using natural sensitivity correction (NCF)}
 \usage{
-analyse_SAR.NCF(object, integration_range = 15, method_control = NULL, ...)
+analyse_SAR.NCF(object, TL_peak_range = 15, method_control = NULL, ...)
 }
 \arguments{
 \item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} or \link{list} of
@@ -13,14 +13,20 @@ input object containing data for analysis.
 If a \link{list} is provided the functions tries to iterate over each element
 in the list.}
 
-\item{integration_range}{\link{integer} (\strong{with default}):
+\item{TL_peak_range}{\link{integer} (\strong{with default}):
 integration range in degrees C around the identified peak.}
 
 \item{method_control}{\link{list} (\emph{optional}):
 parameters to control the peak-finding step.}
 
-\item{...}{further arguments to \link{analyse_SAR.CWOSL} and
-\link{plot_DoseResponseCurve}.}
+\item{...}{further arguments that will be passed to
+\link{fit_DoseResponseCurve}, \link{plot_DoseResponseCurve}
+or \link{calc_OSLLxTxRatio} (supported:
+\code{background.count.distribution}, \code{sigmab}, \code{sig0}).
+Additionally, supported are \code{legend.cex} and \code{legend.pch} to modify the
+legend symbols.
+\strong{Note:} If you consider using the early light subtraction method,
+\code{sigmab} should be provided.}
 }
 \value{
 Plots (\emph{optional}) and an \link[=RLum.Results-class]{RLum.Results} object is
@@ -75,10 +81,11 @@ This function is a beta version.
 file <- system.file("extdata/NCF.binx", package = "Luminescence")
 ncf <- read_BIN2R(file, fastForward = TRUE)[[1]]
 
-results <- analyse_SAR.NCF(ncf,
-                           signal_integral = 1:2,
-                           background_integral = 100:250,
-                           dose_rate_source = 4.702)
+results <- analyse_SAR.NCF(
+ object = ncf,
+ signal_integral = 1:2,
+ background_integral = 100:250,
+ dose_rate_source = 4.702)
 
 }
 \references{

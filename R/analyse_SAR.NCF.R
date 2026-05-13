@@ -30,14 +30,13 @@
 #' If a [list] is provided the functions tries to iterate over each element
 #' in the list.
 #'
-#' @param integration_range [integer] (**with default**):
+#' @param TL_peak_range [integer] (**with default**):
 #' integration range in degrees C around the identified peak.
 #'
 #' @param method_control [list] (*optional*):
 #' parameters to control the peak-finding step.
-#'
-#' @param ... further arguments to [Luminescence::analyse_SAR.CWOSL] and
-#' [Luminescence::plot_DoseResponseCurve].
+#' 
+#' @inheritParams analyse_SAR.CWOSL
 #'
 #' @return
 #' Plots (*optional*) and an [Luminescence::RLum.Results-class] object is
@@ -82,15 +81,16 @@
 #' file <- system.file("extdata/NCF.binx", package = "Luminescence")
 #' ncf <- read_BIN2R(file, fastForward = TRUE)[[1]]
 #'
-#' results <- analyse_SAR.NCF(ncf,
-#'                            signal_integral = 1:2,
-#'                            background_integral = 100:250,
-#'                            dose_rate_source = 4.702)
+#' results <- analyse_SAR.NCF(
+#'  object = ncf,
+#'  signal_integral = 1:2,
+#'  background_integral = 100:250,
+#'  dose_rate_source = 4.702)
 #'
 #' @export
 analyse_SAR.NCF <- function(
   object,
-  integration_range = 15,
+  TL_peak_range = 15,
   method_control = NULL,
   ...
 ) {
@@ -101,7 +101,7 @@ analyse_SAR.NCF <- function(
   if (inherits(object, "list")) {
     results <- lapply(seq_along(object), function(x) {
       analyse_SAR.NCF(object[[x]],
-                      integration_range = integration_range,
+                      TL_peak_range = TL_peak_range,
                       method_control = method_control,
                       ...)
     })
@@ -109,7 +109,7 @@ analyse_SAR.NCF <- function(
     return(results)
   }
 
-  .validate_positive_scalar(integration_range)
+  .validate_positive_scalar(TL_peak_range)
   .validate_class(method_control, "list", null.ok = TRUE)
 
   ## there should be an additional dose recorded for NCF
@@ -132,7 +132,6 @@ analyse_SAR.NCF <- function(
 
   ## ------------------------------------------------------------------------
   ## Main analysis
-
   cwosl <- analyse_SAR.CWOSL(object, ..., .NCF_mode = TRUE)
   if (is.null(cwosl)) {
     .throw_message("CWOSL analysis skipped: check your sequence, NULL returned")
@@ -146,8 +145,8 @@ analyse_SAR.NCF <- function(
   TL2 <- object[[max(tl.idx[tl.idx < osl.idx[2]])]] # use max() to skip cut heat if present
 
   ## compute the natural correction factor
-  res1 <- .compute.integrated.counts(TL1, integration_range, method_control)
-  res2 <- .compute.integrated.counts(TL2, integration_range, method_control)
+  res1 <- .compute.integrated.counts(TL1, TL_peak_range, method_control)
+  res2 <- .compute.integrated.counts(TL2, TL_peak_range, method_control)
   icnt1 <- res1$counts
   icnt2 <- res2$counts
   NCF <- icnt2 / icnt1
@@ -194,7 +193,7 @@ analyse_SAR.NCF <- function(
 
   ## plot the TL peaks
   if (is.null(extraArgs$plot) || isTRUE(extraArgs$plot)) {
-    .plot_TL_peaks(TL1, TL2, res1, res2, integration_range)
+    .plot_TL_peaks(TL1, TL2, res1, res2, TL_peak_range)
   }
 
   ## we return the object from analyse_SAR.CWOSL() and append to it the fields
@@ -209,7 +208,7 @@ analyse_SAR.NCF <- function(
   results
 }
 
-.compute.integrated.counts <- function(curve, integration_range, method_control) {
+.compute.integrated.counts <- function(curve, TL_peak_range, method_control) {
   ## smooth the counts
   data <- curve@data
   data[, 2] <- .smoothing(data[, 2], k = 5, align = "center")
@@ -223,7 +222,7 @@ analyse_SAR.NCF <- function(
   }
 
   ## find the ranges of temperatures to integrate
-  range.tem <- peak.temperature + c(-1, 1) * integration_range
+  range.tem <- peak.temperature + c(-1, 1) * TL_peak_range
   range.idx <- between(data[, 1], range.tem[1], range.tem[2])
 
   ## return the integrated counts using the original data
@@ -232,10 +231,10 @@ analyse_SAR.NCF <- function(
        range.idx = which(range.idx))
 }
 
-.plot_TL_peaks <- function(TL1, TL2, res1, res2, integration_range) {
+.plot_TL_peaks <- function(TL1, TL2, res1, res2, TL_peak_range) {
   ## first TL
   plot(TL1, type = "l", col = 1,
-       main = sprintf("TL Peaks (integration range = %g \u00B0C)", integration_range))
+       main = sprintf("TL Peaks (integration range = %g \u00B0C)", TL_peak_range))
   abline(v = c(res1$peak.temperature, TL1@data[range(res1$range.idx), 1]),
          lty = c(2, 3, 3), col = 1)
   polygon(x = c(TL1@data[res1$range.idx, 1], rev(TL1@data[res1$range.idx, 1])),
