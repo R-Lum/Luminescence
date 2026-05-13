@@ -1181,7 +1181,7 @@ analyse_SAR.CWOSL<- function(
 
   ## (6) Plot Dose-Response Curve --------------------------------------------
   ## overall plot option selection for plot.single.sel
-  plot <- plot && 6 %in% plot.single.sel
+  plot.drc <- plot && 6 %in% plot.single.sel
 
   ## if we don't compute the dose-response curve, we'll insert empty subplots
   insert.emptyDRCPlots <- onlyLxTxTable
@@ -1243,7 +1243,7 @@ analyse_SAR.CWOSL<- function(
       temp.GC.fit.Formula <- NA
       insert.emptyDRCPlots <- TRUE
     } else {
-          if(plot) {
+      if (plot.drc) {
             do.call(plot_DoseResponseCurve, args = modifyList(
               list(
                 object = temp.GC,
@@ -1305,7 +1305,7 @@ analyse_SAR.CWOSL<- function(
   }
 
   ## insert empty plots, otherwise the ordering may get messed up
-  if (plot && insert.emptyDRCPlots) {
+  if (plot.drc && insert.emptyDRCPlots) {
     shape::emptyplot()
     if (extraArgs$plot_extended %||% TRUE) {
       shape::emptyplot()
