@@ -23,8 +23,9 @@ plot_DetPlot(
 )
 }
 \arguments{
-\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} (\strong{required}): input object containing data for analysis
-Can be provided as a \link{list} of such objects.}
+\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} (\strong{required}):
+input object containing data for analysis. Can be provided as a \link{list} of
+such objects.}
 
 \item{signal_integral}{\link{integer} (\strong{required}):
 vector of channels for the signal integral.}
@@ -53,9 +54,10 @@ name of the analyse function to be called. Supported functions are:
 
 \item{analyse_function.control}{\link{list} (\emph{optional}):
 selected arguments to be passed to the supported analyse functions
-(\link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence}). The arguments must be provided
-as named \link{list}, e.g., \verb{list(dose.points = c(0,10,20,30,0,10)} will set the
-regeneration dose points.}
+(\link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence}).
+The arguments must be provided as named \link{list}, e.g.,
+\verb{list(dose.points = c(0, 10, 20, 30, 0, 10)} will set the regeneration dose
+points.}
 
 \item{n.channels}{\link{integer} (\emph{optional}):
 number of channels used for the De(t) plot. If nothing is provided all
@@ -69,14 +71,16 @@ enable/disable shine down curve in the plot output.}
 remove De values with 'FAILED' RC.Status from the plot (cf. \link{analyse_SAR.CWOSL}
 and \link{analyse_pIRIRSequence}).}
 
-\item{multicore}{\link{logical} (\emph{with default}) : enable/disable multi core
-calculation if \code{object} is a \link{list} of \link[=RLum.Analysis-class]{RLum.Analysis} objects. Can be an
-\link{integer} specifying the number of cores}
+\item{multicore}{\link{logical} (\emph{with default}):
+enable/disable multi core calculation if \code{object} is a \link{list} of
+\link[=RLum.Analysis-class]{RLum.Analysis} objects. Can be an \link{integer} specifying
+the number of cores to use.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enable/disable output to the terminal.}
 
-\item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output.
+\item{plot}{\link{logical} (\emph{with default}):
+enable/disable the plot output.
 Disabling the plot is useful in cases where the output need to be processed
 differently.}
 
@@ -110,15 +114,15 @@ to the function \link{plot} and the used analysis functions and runs it in a loo
 Example: \code{legend.pos} for legend position, \code{legend} for legend text.
 }
 \details{
-\strong{method}
+The original method presented by Bailey et al. (2003) shifts the signal
+integrals and slightly extends them to account for changes in counting
+statistics, producing sequences such as \code{c(1:3, 3:5, 5:7)}.
+Here we provide an additional method that expands the signal integral
+consecutively by its chosen length, producing sequences like
+\code{c(1:3, 1:5, 1:7)} instead.
 
-The original method presented by Bailey et al., 2003 shifted the signal integrals and slightly
-extended them accounting for changes in the counting statistics. Example: \code{c(1:3, 3:5, 5:7)}.
-However, here also another method is provided allowing to expand the signal integral by
-consecutively expanding the integral by its chosen length. Example: \code{c(1:3, 1:5, 1:7)}
-
-Note that in both cases the integral limits are overlap. The finally applied limits are part
-of the function output.
+Note that in both cases the integral limits overlap. The finally applied
+limits are part of the function output.
 
 \strong{analyse_function.control}
 
@@ -128,14 +132,14 @@ The argument \code{analyse_function.control} currently supports the following ar
 \code{plot_singlePanels}.
 }
 \note{
-The entire analysis is based on the used analysis functions, namely
-\link{analyse_SAR.CWOSL} and \link{analyse_pIRIRSequence}. However, the integrity
-checks of this function are not that thoughtful as in these functions itself.
-It means, that every sequence should be checked carefully before running long
-calculations using several hundreds of channels.
+The entire analysis relies on the functions \link{analyse_SAR.CWOSL}
+and \link{analyse_pIRIRSequence}. However, the integrity checks
+here are less rigorous than in those functions: therefore, every sequence
+should be checked carefully before running long calculations over hundreds
+of channels.
 }
 \section{Function version}{
- 0.1.10
+ 0.1.11
 }
 
 \examples{

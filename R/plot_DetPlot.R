@@ -1,21 +1,22 @@
 #' @title Create De(t) plot
 #'
-#' @description Plots the equivalent dose (\eqn{D_e}) in dependency of the chosen signal integral
+#' @description
+#' Plots the equivalent dose (\eqn{D_e}) in dependency of the chosen signal integral
 #' (cf. Bailey et al., 2003). The function is simply passing several arguments
 #' to the function [plot] and the used analysis functions and runs it in a loop.
 #' Example: `legend.pos` for legend position, `legend` for legend text.
 #'
 #' @details
 #'
-#' **method**
+#' The original method presented by Bailey et al. (2003) shifts the signal
+#' integrals and slightly extends them to account for changes in counting
+#' statistics, producing sequences such as `c(1:3, 3:5, 5:7)`.
+#' Here we provide an additional method that expands the signal integral
+#' consecutively by its chosen length, producing sequences like
+#' `c(1:3, 1:5, 1:7)` instead.
 #'
-#' The original method presented by Bailey et al., 2003 shifted the signal integrals and slightly
-#' extended them accounting for changes in the counting statistics. Example: `c(1:3, 3:5, 5:7)`.
-#' However, here also another method is provided allowing to expand the signal integral by
-#' consecutively expanding the integral by its chosen length. Example: `c(1:3, 1:5, 1:7)`
-#'
-#' Note that in both cases the integral limits are overlap. The finally applied limits are part
-#' of the function output.
+#' Note that in both cases the integral limits overlap. The finally applied
+#' limits are part of the function output.
 #'
 #' **analyse_function.control**
 #'
@@ -24,8 +25,9 @@
 #' `fit.method`, `fit.force_through_origin`, `trim_channels`, `plot` and
 #' `plot_singlePanels`.
 #'
-#' @param object [Luminescence::RLum.Analysis-class] (**required**): input object containing data for analysis
-#' Can be provided as a [list] of such objects.
+#' @param object [Luminescence::RLum.Analysis-class] (**required**):
+#' input object containing data for analysis. Can be provided as a [list] of
+#' such objects.
 #'
 #' @param signal_integral [integer] (**required**):
 #' vector of channels for the signal integral.
@@ -52,9 +54,10 @@
 #'
 #' @param analyse_function.control [list] (*optional*):
 #' selected arguments to be passed to the supported analyse functions
-#' ([Luminescence::analyse_SAR.CWOSL], [Luminescence::analyse_pIRIRSequence]). The arguments must be provided
-#' as named [list], e.g., `list(dose.points = c(0,10,20,30,0,10)` will set the
-#' regeneration dose points.
+#' ([Luminescence::analyse_SAR.CWOSL], [Luminescence::analyse_pIRIRSequence]).
+#' The arguments must be provided as named [list], e.g.,
+#' `list(dose.points = c(0, 10, 20, 30, 0, 10)` will set the regeneration dose
+#' points.
 #'
 #' @param n.channels [integer] (*optional*):
 #' number of channels used for the De(t) plot. If nothing is provided all
@@ -71,11 +74,13 @@
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
 #'
-#' @param multicore [logical] (*with default*) : enable/disable multi core
-#' calculation if `object` is a [list] of [Luminescence::RLum.Analysis-class] objects. Can be an
-#' [integer] specifying the number of cores
+#' @param multicore [logical] (*with default*):
+#' enable/disable multi core calculation if `object` is a [list] of
+#' [Luminescence::RLum.Analysis-class] objects. Can be an [integer] specifying
+#' the number of cores to use.
 #'
-#' @param plot [logical] (*with default*): enable/disable the plot output.
+#' @param plot [logical] (*with default*):
+#' enable/disable the plot output.
 #' Disabling the plot is useful in cases where the output need to be processed
 #' differently.
 #'
@@ -103,13 +108,13 @@
 #' }
 #'
 #' @note
-#' The entire analysis is based on the used analysis functions, namely
-#' [Luminescence::analyse_SAR.CWOSL] and [Luminescence::analyse_pIRIRSequence]. However, the integrity
-#' checks of this function are not that thoughtful as in these functions itself.
-#' It means, that every sequence should be checked carefully before running long
-#' calculations using several hundreds of channels.
+#' The entire analysis relies on the functions [Luminescence::analyse_SAR.CWOSL]
+#' and [Luminescence::analyse_pIRIRSequence]. However, the integrity checks
+#' here are less rigorous than in those functions: therefore, every sequence
+#' should be checked carefully before running long calculations over hundreds
+#' of channels.
 #'
-#' @section Function version: 0.1.10
+#' @section Function version: 0.1.11
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -205,6 +210,10 @@ plot_DetPlot <- function(
   method <- .validate_args(method, c("shift", "expansion"))
   analyse_function <- .validate_args(analyse_function,
                                      c("analyse_SAR.CWOSL", "analyse_pIRIRSequence"))
+  .validate_positive_scalar(n.channels, int = TRUE, null.ok = TRUE)
+  .validate_logical_scalar(show_ShineDownCurve)
+  .validate_logical_scalar(respect_RC.Status)
+  .validate_logical_scalar(plot)
 
   ## deprecated arguments
   if (any(grepl("[signal|background]\\.integral\\.[min|max]", ...names()))) {
@@ -349,14 +358,13 @@ plot_DetPlot <- function(
       n <- max.de - m * max(OSL_curve[, 2])
 
       OSL_curve[, 2] <- m * OSL_curve[, 2] + n
-      rm(n, m)
 
       ## plot settings
       unit <- if (is.null(analyse_function.settings$dose_rate_source)) "[s]" else "[Gy]"
       plot.settings <- modifyList(list(
           ylim = c(min.de, max.de),
           xlim = c(min(OSL_curve[, 1]), max(OSL_curve[, 1])),
-          ylab = if(show_ShineDownCurve[1])
+          ylab = if (show_ShineDownCurve)
                    bquote(D[e] ~ .(unit) ~ "and" ~ L[n] ~ "[a.u.]")
                  else
                    bquote(D[e] ~ .(unit)),
@@ -365,11 +373,8 @@ plot_DetPlot <- function(
           pch = 1,
           mtext = ifelse(is.na(pIRIR_signals[1]), "", paste0("Signal: ",pIRIR_signals[i])),
           cex = 1,
-          legend = if(show_ShineDownCurve[1]) TRUE else FALSE,
-          legend.text = if(show_ShineDownCurve[1])
-                          c(expression(D[e]), expression(L[n]-signal))
-                        else
-                          expression(D[e]),
+          legend = show_ShineDownCurve,
+          legend.text = c(expression(D[e]), if (show_ShineDownCurve) expression(L[n] - signal)),
           legend.pos = "bottomleft"
         ), list(...))
 
@@ -383,8 +388,8 @@ plot_DetPlot <- function(
         if (respect_RC.Status)
           df_final <- df_final[df_final$RC.Status != "FAILED", ]
 
-       if(plot[1]) {
-        ##general settings
+      if (plot) {
+        ## general settings
         par.default <- .par_defaults()
         on.exit(par(par.default), add = TRUE)
         par(cex = plot.settings$cex)
