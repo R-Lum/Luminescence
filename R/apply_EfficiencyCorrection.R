@@ -17,10 +17,12 @@
 #' object of class `RLum.Data.Spectrum`, `RLum.Analysis`or a [list] of such
 #' objects. Other objects in the list are skipped.
 #'
-#' @param spectral.efficiency [data.frame] (**required**):
+#' @param spectral.efficiency [data.frame] [character] (**required**):
 #' data frame with 2 columns containing wavelengths and relative spectral
 #' response values (values between 0 and 1). The provided data will be used to
-#' correct all spectra if `object` is a [list].
+#' correct all spectra if `object` is a [list]. If the input is of type 
+#' [character] (file path), the function will try to import the data from 
+#' a CSV-file with a header (default setting for [utils::read.csv]).
 #'
 #' @return Returns same object as provided as input
 #'
@@ -29,7 +31,7 @@
 #' sufficiently correct for spectral efficiency of the entire optical system
 #' (e.g., spectrometer, camera ...).
 #'
-#' @section Function version: 0.2.1
+#' @section Function version: 0.3.0
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -84,21 +86,31 @@ apply_EfficiencyCorrection <- function(
 
   ## Integrity checks -------------------------------------------------------
   .validate_class(object, "RLum.Data.Spectrum")
-  .validate_class(spectral.efficiency, "data.frame")
+  .validate_class(spectral.efficiency, c("data.frame", "character"))
   .validate_not_empty(spectral.efficiency)
-  if (ncol(spectral.efficiency) < 2)
+  if (inherits(spectral.efficiency, "data.frame") && ncol(spectral.efficiency) < 2)
     .throw_error("'spectral.efficiency' should have 2 columns")
 
   ## grep data matrix from the input object
   temp.matrix <- as(object, "matrix")
 
+  ## case of the file path
+   if(inherits(spectral.efficiency[1], "character")) {
+    if(!file.exists(spectral.efficiency[1]))
+      .throw_error("`spectral.efficiency` does not provide a valid file path!")
+    
+    ## import
+    spectral.efficiency <- read.csv(spectral.efficiency, header = TRUE)
+  }
+  
   ## remove missing values
   spectral.efficiency <- na.exclude(spectral.efficiency)
   if (nrow(spectral.efficiency) == 0)
     .throw_error("No valid data remains in 'spectral.efficiency' after ",
                  "removing NA values")
 
-  ## grep efficency values
+
+  ## convert to matrix
   temp.efficiency <- as.matrix(spectral.efficiency[,1:2])
 
   ##test max
@@ -106,7 +118,6 @@ apply_EfficiencyCorrection <- function(
     .throw_error("Relative quantum efficiency values > 1 are not allowed")
 
   # Apply method ------------------------------------------------------------
-
   ##the interpolation is needed to align the resolution
   #set data for interpolation
   temp.efficiency.x <- as.numeric(row.names(temp.matrix))

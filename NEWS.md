@@ -61,6 +61,11 @@ affected functions.
 - The `plot_singlePanels` argument produced no plots when set to 7 or 8
   (#1558).
 
+### `apply_EfficiencyCorrection()`
+
+- The argument `spectral.efficiency` now directly supports a CSV-file
+  input.
+
 ### `calc_MinDose()`
 
 - If `init.values` is provided and `log = TRUE`, the `sigma` parameter
