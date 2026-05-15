@@ -174,7 +174,7 @@
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.6.13
+#' @section Function version: 0.6.14
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -1072,7 +1072,8 @@ if(plot){
   }
 
   ## plot additional mtext
-  mtext(mtext, side = 3, cex = cex * 0.8)
+  if(plot.type != "interactive") 
+    mtext(mtext, side = 3, cex = cex * 0.8)
 }
 
 # Return ------------------------------------------------------------------
