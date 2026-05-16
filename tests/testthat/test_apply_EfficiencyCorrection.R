@@ -3,10 +3,6 @@ set.seed(1)
 data(ExampleData.XSYG, envir = environment())
 eff_data <- data.frame(WAVELENGTH = 1:1000, runif(1000))
 
-## store in tempfile to import
-eff_data_file <- tempfile(fileext = ".csv")
-write.csv(file = eff_data_file, x = eff_data, row.names = FALSE)
-
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -62,10 +58,14 @@ test_that("check functionality", {
                  "Skipping 'character' object in input list")
   
   ## with file input
+  ## store in tempfile to import
+  eff_data_file <- tempfile(fileext = ".csv")
+  write.csv(file = eff_data_file, x = eff_data, row.names = FALSE)
   expect_s4_class(
   apply_EfficiencyCorrection(
     set_RLum("RLum.Analysis",records = list(TL.Spectrum)), spectral.efficiency = eff_data_file), 
   "RLum.Analysis")
+  file.remove(eff_data_file)
 })
 
 test_that("snapshot tests", {
