@@ -36,12 +36,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [2.598143]
+                  "value": [2.59814634]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.03295976]
+                  "value": [0.0329592]
                 }
               ]
             },
