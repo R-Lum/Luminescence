@@ -13,7 +13,10 @@ test_that("input validation", {
                "'spectral.efficiency' should be of class 'data.frame'")
   expect_error(apply_EfficiencyCorrection(TL.Spectrum,
                                           spectral.efficiency = "error"),
-               "`spectral.efficiency` does not provide a valid file path!")
+               "'spectral.efficiency' does not provide a valid file path")
+  expect_error(apply_EfficiencyCorrection(TL.Spectrum,
+                                          spectral.efficiency = c("error", "error")),
+               "'spectral.efficiency' should have length 1")
   expect_error(apply_EfficiencyCorrection(TL.Spectrum,
                                           spectral.efficiency = data.frame()),
                "'spectral.efficiency' cannot be an empty data.frame")
@@ -56,14 +59,15 @@ test_that("check functionality", {
   input <- list(a = "test", TL.Spectrum,set_RLum("RLum.Analysis", records = list(TL.Spectrum)))
   expect_warning(apply_EfficiencyCorrection(input, eff_data),
                  "Skipping 'character' object in input list")
-  
+
   ## with file input
   ## store in tempfile to import
   eff_data_file <- tempfile(fileext = ".csv")
   write.csv(file = eff_data_file, x = eff_data, row.names = FALSE)
   expect_s4_class(
   apply_EfficiencyCorrection(
-    set_RLum("RLum.Analysis",records = list(TL.Spectrum)), spectral.efficiency = eff_data_file), 
+      set_RLum("RLum.Analysis", records = list(TL.Spectrum)),
+      spectral.efficiency = eff_data_file),
   "RLum.Analysis")
   file.remove(eff_data_file)
 })

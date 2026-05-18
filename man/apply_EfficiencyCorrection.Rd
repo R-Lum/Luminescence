@@ -11,12 +11,12 @@ apply_EfficiencyCorrection(object, spectral.efficiency)
 object of class \code{RLum.Data.Spectrum}, \code{RLum.Analysis}or a \link{list} of such
 objects. Other objects in the list are skipped.}
 
-\item{spectral.efficiency}{\link{data.frame} \link{character} (\strong{required}):
-data frame with 2 columns containing wavelengths and relative spectral
-response values (values between 0 and 1). The provided data will be used to
-correct all spectra if \code{object} is a \link{list}. If the input is of type
-\link{character} (file path), the function will try to import the data from
-a CSV-file with a header (default setting for \link[utils:read.csv]{utils::read.csv}).}
+\item{spectral.efficiency}{\link{data.frame} or \link{character} (\strong{required}):
+either a data frame with 2 columns containing wavelengths and relative
+spectral response values (values between 0 and 1); or a character string
+specifying the path to a CSV file (with a header row), which the function
+will attempt to import via \link[utils:read.csv]{utils::read.csv}. When \code{object} is a \link{list},
+the provided data will be used to correct all spectra.}
 }
 \value{
 Returns same object as provided as input
