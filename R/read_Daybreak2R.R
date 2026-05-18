@@ -163,7 +163,7 @@ read_Daybreak2R <- function(
 
       ##TERMINAL FEEDBACK
       if(verbose){
-        cat("\n[read_Daybreak()] Importing ...")
+        cat("[read_Daybreak2R()] Importing ...")
         cat("\n path: ", dirname(file[1]))
         cat("\n file: ", .shorten_filename(basename(file[1])))
         cat("\n")
@@ -359,7 +359,8 @@ read_Daybreak2R <- function(
 
     ## Read ASCII file ------------------------------------------------------
     if(verbose){
-      cat("\n[read_Daybreak()] File extension not of type '.DAT', trying to import ASCII-file ... \n")
+      .throw_message("File extension is not '.DAT', trying to import ASCII file ...",
+                     error = FALSE)
     }
 
     ##read file
@@ -394,7 +395,7 @@ read_Daybreak2R <- function(
 
     ##TERMINAL FEEDBACK
     if(verbose){
-      cat("\n[read_Daybreak()] Importing ...")
+      cat("[read_Daybreak2R()] Importing ...")
       cat("\n path: ", dirname(file[1]))
       cat("\n file: ", .shorten_filename(basename(file[1])))
       cat("\n")
@@ -494,8 +495,8 @@ read_Daybreak2R <- function(
 
   ## terminal feedback
   if (verbose) {
-    cat("\n ", length(unlist(get_RLum(output))),
-        "records have been read successfully\n")
+    .throw_message(length(unlist(get_RLum(output))),
+                   " records read successfully", error = FALSE)
   }
 
   output
