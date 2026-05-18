@@ -235,6 +235,7 @@ MCMC
 MDM
 MERCHANTABILITY
 Maartje
+MacOS
 Madsen
 Marquardt
 MatLab
@@ -312,6 +313,7 @@ RNG
 ROI
 ROIs
 RStudio
+RWTH
 Radionukliden
 Rainer
 Ramped
@@ -341,6 +343,7 @@ Sandur
 Sauer
 Schlunegger
 Schoorl
+SciPy
 Selva
 Semrock
 Silesian
@@ -416,7 +419,6 @@ Wallinga
 Weniger
 Wickham
 Wiechen
-Willian
 Wintle
 Wissenschaftsnetzwerk
 Woda
@@ -517,6 +519,7 @@ html
 http
 https
 initialisation
+initialised
 interquartile
 irradiations
 isochrons
@@ -534,7 +537,6 @@ lossy
 mGy
 mJ
 mW
-macOS
 massebezogenen
 minimisation
 misspecified
@@ -583,6 +585,7 @@ photomultipliers
 physica
 pipermail
 plotly
+png
 poisson
 polymineral
 portableOSL
@@ -615,6 +618,7 @@ scatterplot
 serialised
 sigmab
 skewness
+specialised
 sqrt
 standardisation
 standardised
@@ -637,6 +641,7 @@ un
 unfaded
 unitless
 univocally
+unlogged
 unrecognised
 utilised
 utilises
