@@ -146,6 +146,11 @@ objects to obtain the same output of `plot_DoseResponseCurve()` (#1550).
 did not flag as an error before, because the `plotly` object was returned regardless
 of the error message; fixed.
 
+### `read_Daybreak2R()`
+
+* Information about irradiation doses are now more easily retrievable from the
+`info` element (#1563; thanks to @andrzejbluszcz for the code contribution).
+
 ### `remove_RLum()`
 
 * The function no longer accepts unnamed arguments (#1529).

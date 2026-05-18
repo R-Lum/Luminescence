@@ -14,7 +14,13 @@ test_that("Test functionality", {
   expect_type(read_Daybreak2R(test_path("_data/daybreak-tests/morethan4cols.txt")),
               "list")
   })
-  expect_silent(read_Daybreak2R(txt.file, verbose = FALSE))
+  expect_s4_class(expect_silent(res <- read_Daybreak2R(txt.file, verbose = FALSE)[[1]]),
+                  "RLum.Analysis")
+  expect_equal(sapply(res, function(x) x@recordType),
+               c("PREHEAT_TL (PMT)", "OSL (PMT)", "irradiation (NA)"))
+  expect_null(res[[1]]@info$IRR_DATE)
+  expect_equal(res[[3]]@info$IRR_DATE,
+               as.Date("2020-04-06"))
 
   ## DAT
   SW({
