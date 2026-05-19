@@ -204,7 +204,7 @@ calc_OSLLxTxRatio <- function(
   signal_integral_Tx = NULL,
   background_integral_Tx = NULL,
   integral_input = c("channel", "measurement"),
-  background.count.distribution = "non-poisson",
+  background.count.distribution = c("non-poisson", "poisson"),
   use_previousBG = FALSE,
   sigmab = NULL,
   sig0 = 0,
@@ -246,7 +246,8 @@ calc_OSLLxTxRatio <- function(
   .validate_class(Tx.data, valid.classes, null.ok = TRUE,
                   extra = "a list of such objects")
   integral_input <- .validate_args(integral_input, c("channel", "measurement"))
-  .validate_class(background.count.distribution, "character", length = 1)
+  background.count.distribution <- .validate_args(background.count.distribution,
+                                                  c("non-poisson", "poisson"))
   .validate_logical_scalar(use_previousBG)
   .validate_class(sigmab, "numeric", null.ok = TRUE, length = 1:2)
   .validate_nonnegative_scalar(sig0)
@@ -482,16 +483,11 @@ calc_OSLLxTxRatio <- function(
     sqrt(Y0 + Y1 / k^2 + sigmab * (1 + 1 / k)) / (Y0 - Y1 / k)
   }
 
-  if(background.count.distribution == "poisson"){
-    used.sigmab.LnLx <- used.sigmab.TnTx <- 0
-  }else{
-    if(background.count.distribution != "non-poisson"){
-      .throw_warning("Unknown method for 'background.count.distribution', ",
-                     "a non-poisson distribution is assumed")
-    }
-    used.sigmab.LnLx <- if (.strict_na(background_integral)) 0 else sigmab.LnLx
-    used.sigmab.TnTx <- if (.strict_na(background_integral_Tx)) 0 else sigmab.TnTx
-  }
+  poisson <- background.count.distribution == "poisson"
+  used.sigmab.LnLx <- if (poisson || .strict_na(background_integral)) 0
+                      else sigmab.LnLx
+  used.sigmab.TnTx <- if (poisson || .strict_na(background_integral_Tx)) 0
+                      else sigmab.TnTx
 
   LnLx.relError <- rse(Y.0, Y.1, k, used.sigmab.LnLx)
   TnTx.relError <- rse(Y.0_TnTx, Y.1_TnTx, k, used.sigmab.TnTx)

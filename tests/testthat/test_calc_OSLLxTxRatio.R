@@ -163,7 +163,7 @@ test_that("input validation", {
   ), "When 'Tx.data' is provided, either both 'signal_integral_Tx' and")
 
   expect_error(calc_OSLLxTxRatio(Lx.data, Tx.data, background.count.distribution = NA),
-               "'background.count.distribution' should be of class 'character' and")
+               "'background.count.distribution' should be one of 'non-poisson' or")
   expect_error(calc_OSLLxTxRatio(Lx.data, Tx.data, use_previousBG = NA),
                "'use_previousBG' should be a single logical value")
 
@@ -226,14 +226,6 @@ test_that("create warnings", {
     background_integral = 60:100,
     background_integral_Tx = 80:100
   ), "Number of background channels for Tx < 25, error estimation might not be reliable")
-
-  expect_warning(calc_OSLLxTxRatio(
-    Lx.data,
-    Tx.data,
-    signal_integral = 1:20,
-    background_integral = 60:100,
-    background.count.distribution = "hallo"
-  ), "Unknown method for 'background.count.distribution', a non-poisson")
 
   expect_warning(calc_OSLLxTxRatio(
     Lx.data,
