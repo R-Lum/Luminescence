@@ -401,9 +401,10 @@ calc_OSLLxTxRatio <- function(
   ##TnTx
   Tx.curve <- Tx.data[, 2]
   Tx.signal <- sum(Tx.curve[signal_integral_Tx])
+  Tx.BG.counts <- sum(Tx.curve[background_integral_Tx])
   Tx.background <- if (.strict_na(background_integral_Tx)) 0
                    else if (use_previousBG) Lx.background
-                   else sum(Tx.curve[background_integral_Tx]) / k.Tx
+                   else Tx.BG.counts / k.Tx
 
   TnTx <- (Tx.signal-Tx.background)
 
@@ -419,7 +420,9 @@ calc_OSLLxTxRatio <- function(
   Y.0 <- Lx.signal
   Y.0_TnTx <- Tx.signal
   Y.1 <- if (.strict_na(background_integral)) 0 else Lx.BG.counts
-  Y.1_TnTx <- if (.strict_na(background_integral_Tx)) 0 else sum(Tx.curve[background_integral_Tx])
+  Y.1_TnTx <- if (.strict_na(background_integral_Tx)) 0
+              else if (use_previousBG) Lx.BG.counts
+              else Tx.BG.counts
 
   ##(b) estimate overdispersion (here called sigmab), see equation (4) in
   ## Galbraith (2002), Galbraith (2014)
