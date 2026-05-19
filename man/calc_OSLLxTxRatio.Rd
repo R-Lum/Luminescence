@@ -60,7 +60,7 @@ corresponding to the given time/temperature range are selected.}
 \item{background.count.distribution}{\link{character} (\emph{with default}):
 sets the count distribution assumed for the error calculation.
 Possible arguments are \code{"poisson"} or \code{"non-poisson"} (default). See
-details for further information.}
+details for further information. It is ignored if \code{od_rates} is provided.}
 
 \item{use_previousBG}{\link{logical} (\emph{with default}):
 If set to \code{TRUE} the background of the \code{Lx}-signal is subtracted also
@@ -116,7 +116,7 @@ $calc.parameters (list)
 .. $ k
 .. $ B_DC
 .. $ k_DC
-.. $ k_p
+.. $ k_ph
 }\if{html}{\out{</div>}}
 
 \strong{@info}
@@ -157,30 +157,30 @@ the already calculated \code{LxTx} and the result is added according to:
 
 Setting this argument activates an alternative path for the overdispersion
 calculation proposed by Andrzej Bluszcz. The argument expects a 3-element
-vector (dark count rate, background count overdispersion, photon count
-overdispersion), whose values should be experimentally established in
+vector (background count rate, background count overdispersion, photon
+count overdispersion), whose values should be experimentally established in
 advance.
 
-The dark count rate (or background count rate) \eqn{B_{DC}} and the
+The background count rate (or dark count rate) \eqn{B_{DC}} and the
 background count overdispersion \eqn{k_{DC}} can be obtained by direct
-experiments, while the photon count overdispersion \eqn{k_p} needs a photon
-source with a constant photon emission rate and independent photon
+experiments, while the photon count overdispersion \eqn{k_{ph}} needs a
+photon source with a constant photon emission rate and independent photon
 emissions (so the number of photons emitted in a fixed time is a Poisson
 variable). Note that \eqn{B_{DC}} must be non-negative, while \eqn{k_{DC}}
-and \eqn{k_p} must be positive (for readers with no pulse divider, they
+and \eqn{k_{ph}} must be positive (for readers with no pulse divider, they
 should be greater or equal to 1).
 
 Under the assumption of statistically independent background (\eqn{N_{DC}})
-and photon counts (\eqn{N_p}), the total number of counts (say, a certain
+and photon counts (\eqn{N_{ph}}), the total number of counts (say, a certain
 integral \eqn{N} of the OSL curve over time \eqn{t}) is:
 
-\deqn{N = N_p + N_{DC}}
+\deqn{N = N_{ph} + N_{DC}}
 
 and has the following variance:
 
-\deqn{ s^2(N) = k_p^2 N_p + K_{DC}^2 N_{DC}
-              = k_p^2 (N - B_{DC} t) + k_{DC}^2 B_{DC} t
-              = k_p^2 N + (k_{DC}^2 + k_p^2) B_{DC} t }
+\deqn{ s^2(N) = k_{ph}^2 N_{ph} + K_{DC}^2 N_{DC}
+              = k_{ph}^2 (N - B_{DC} t) + k_{DC}^2 B_{DC} t
+              = k_{ph}^2 N + (k_{DC}^2 + k_{ph}^2) B_{DC} t }
 
 The \code{LnLx.Error} and \code{TnTx.Error} are computed as \eqn{\sqrt{s^2(N)}}.
 
