@@ -243,7 +243,6 @@ calc_OSLLxTxRatio <- function(
   ## Integrity checks -------------------------------------------------------
   valid.classes <- c("RLum.Data.Curve", "data.frame", "matrix", "numeric")
   .validate_class(Lx.data, valid.classes, extra = "a list of such objects")
-  .validate_not_empty(Lx.data)
   .validate_class(Tx.data, valid.classes, null.ok = TRUE,
                   extra = "a list of such objects")
   integral_input <- .validate_args(integral_input, c("channel", "measurement"))
@@ -254,6 +253,7 @@ calc_OSLLxTxRatio <- function(
   .validate_nonnegative_scalar(digits, int = TRUE, null.ok = TRUE)
 
   .coerce <- function(data) {
+    .validate_not_empty(data, name = .first_argument())
     data <- switch(
         class(data)[1],
         RLum.Data.Curve = as(data, "data.frame"),
@@ -272,7 +272,6 @@ calc_OSLLxTxRatio <- function(
 
   ## Tx - coerce if required
   if(!is.null(Tx.data)){
-    .validate_not_empty(Tx.data)
     Tx.data <- .coerce(Tx.data)
     len.Tx <- nrow(Tx.data)
 
@@ -384,34 +383,27 @@ calc_OSLLxTxRatio <- function(
   n <- length(signal_integral)
   m <- length(background_integral)
   k <- m/n
-  n.Tx <- length(signal_integral_Tx)
 
   ##use previous BG and account for the option to set different integral limits
+  n.Tx <- length(signal_integral_Tx)
   m.Tx <- if (use_previousBG) m else length(background_integral_Tx)
   k.Tx <- m.Tx/n.Tx
 
   ##LnLx (comments are corresponding variables to Galbraith, 2002)
   Lx.curve <- Lx.data[,2]
   Lx.signal <- sum(Lx.curve[signal_integral])                #Y.0
-  Lx.background <- sum(Lx.curve[background_integral]) / k    #Y.1, mu.B
-  SN.ratio.LnLx <- Lx.signal / Lx.background
-  if (.strict_na(background_integral))
-    Lx.background <- 0
+  Lx.BG.counts <- sum(Lx.curve[background_integral])
+  Lx.background <- if (.strict_na(background_integral)) 0
+                   else Lx.BG.counts / k                     # Y.1, mu.B
 
   LnLx <- Lx.signal - Lx.background
 
   ##TnTx
-  Tx.curve <- ifelse(is.na(Tx.data[, 1]), NA, Tx.data[, 2])
+  Tx.curve <- Tx.data[, 2]
   Tx.signal <- sum(Tx.curve[signal_integral_Tx])
-
-  ##use previous BG
-  if(use_previousBG)
-    Tx.background <- if (.strict_na(background_integral_Tx)) NA else Lx.background
-  else
-    Tx.background <- sum(Tx.curve[background_integral_Tx]) / k.Tx
-  SN.ratio.TnTx <- Tx.signal / Tx.background
-  if (.strict_na(background_integral_Tx))
-    Tx.background <- 0
+  Tx.background <- if (.strict_na(background_integral_Tx)) 0
+                   else if (use_previousBG) Lx.background
+                   else sum(Tx.curve[background_integral_Tx]) / k.Tx
 
   TnTx <- (Tx.signal-Tx.background)
 
@@ -426,7 +418,7 @@ calc_OSLLxTxRatio <- function(
   ## Y.1 (total counts over m later channels)
   Y.0 <- Lx.signal
   Y.0_TnTx <- Tx.signal
-  Y.1 <- if (.strict_na(background_integral)) 0 else sum(Lx.curve[background_integral])
+  Y.1 <- if (.strict_na(background_integral)) 0 else Lx.BG.counts
   Y.1_TnTx <- if (.strict_na(background_integral_Tx)) 0 else sum(Tx.curve[background_integral_Tx])
 
   ##(b) estimate overdispersion (here called sigmab), see equation (4) in
@@ -521,8 +513,10 @@ calc_OSLLxTxRatio <- function(
     Net_LnLx.Error = LnLx.Error,
     Net_TnTx = TnTx,
     Net_TnTx.Error = TnTx.Error,
-    SN_RATIO_LnLx = SN.ratio.LnLx,
-    SN_RATIO_TnTx = SN.ratio.TnTx)
+    SN_RATIO_LnLx = if (.strict_na(background_integral)) NA_real_
+                    else Lx.signal / Lx.background,
+    SN_RATIO_TnTx = if (.strict_na(background_integral_Tx)) NA_real_
+                    else Tx.signal / Tx.background)
 
   ## ------------------------------------------------------------------------
   ## (4) Calculate LxTx error according Galbraith (2014)
