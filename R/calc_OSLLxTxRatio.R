@@ -33,7 +33,9 @@
 #'
 #' Setting this argument activates an alternative path for the overdispersion
 #' calculation proposed by Andrzej Bluszcz. The argument expects a 3-element
-#' vector, whose values should be experimentally established in advance.
+#' vector (dark count rate, background count overdispersion, photon count
+#' overdispersion), whose values should be experimentally established in
+#' advance.
 #'
 #' The dark count rate (or background count rate) \eqn{B_{DC}} and the
 #' background count overdispersion \eqn{k_{DC}} can be obtained by direct
@@ -152,7 +154,7 @@
 #' a vector of three elements: the dark count rate (or background count rate),
 #' the background count overdispersion, and the photon count overdispersion.
 #' If set, an alternative way of computing the overdispersion will be used
-#' (see details). It is ignored if `sigmab` is provided.
+#' (see details). It is ignored (with a warning) if `sigmab` is provided.
 #'
 #' @param digits [integer] (*with default*):
 #' round numbers to the specified digits. If set to `NULL` no rounding occurs.
@@ -450,7 +452,8 @@ calc_OSLLxTxRatio <- function(
   ##TnTx
   Tx.curve <- Tx.data[, 2]
   Tx.signal <- sum(Tx.curve[signal_integral_Tx])
-  Tx.BG.counts <- sum(Tx.curve[background_integral_Tx])
+  Tx.BG.counts <- if (use_previousBG) Lx.BG.counts
+                  else sum(Tx.curve[background_integral_Tx])
   Tx.background <- if (.strict_na(background_integral_Tx)) 0
                    else if (use_previousBG) Lx.background
                    else Tx.BG.counts / k.Tx
@@ -505,7 +508,7 @@ calc_OSLLxTxRatio <- function(
     max(stats::var(Y.i) - mean(Y.i), 0) * n
   }
 
-  ## account for when sigmab or od_rates is provided
+  ## account for when sigmab or od_rates are provided
   B_DC <- k_DC <- k_p <- NA
   if (!is.null(sigmab)) {
     if (!is.null(od_rates))
@@ -536,6 +539,7 @@ calc_OSLLxTxRatio <- function(
   ## when sigmab = 0, this reduces to equation (3), valid for poisson
   ## when background_integral = NA, we have Y1 = 0 and sigmab = 0, and this
   ## reduces to sqrt(Y0) / Y0
+  if (is.null(od_rates)) {
   rse <- function(Y0, Y1, k, sigmab) {
     sqrt(Y0 + Y1 / k^2 + sigmab * (1 + 1 / k)) / (Y0 - Y1 / k)
   }
@@ -559,7 +563,7 @@ calc_OSLLxTxRatio <- function(
   LnLx.Error <- abs(LnLx*LnLx.relError)
   TnTx.Error <- abs(TnTx*TnTx.relError)
 
-  if (!is.null(od_rates)) {
+  } else {
     ## calculate standard error of the raw number of counts in a channel
     ## (according to communication of Bluszcz via e-mail)
     .calc_se_bluszcz <- function(signal, time, B_DC, k_DC, k_p) {
@@ -567,30 +571,23 @@ calc_OSLLxTxRatio <- function(
     }
 
     ## compute times including the time for the first channel in the integral
-    compute.time.inclusive <- function(times, integral) {
-      ## return 0 instead of numeric(0) when a vector is indexed at 0
-      safe0 <- function(x) if (length(x)) x else 0
-      times[max(integral)] - safe0(times[min(integral) - 1])
+    .compute.time.inclusive <- function(times, integral) {
+      start <- if (min(integral) == 1) 0 else times[min(integral) - 1]
+      times[max(integral)] - start
     }
-    time.Lx <- compute.time.inclusive(Lx.data[, 1], signal_integral)
-    time.Lx.bg <- compute.time.inclusive(Lx.data[, 1], background_integral)
-    time.Tx <- compute.time.inclusive(Tx.data[, 1], signal_integral_Tx)
-    time.Tx.bg <- compute.time.inclusive(Tx.data[, 1], background_integral_Tx)
-
-    Lx.background <- Lx.background * time.Lx / time.Lx.bg
-    Tx.background <- Tx.background * time.Tx / time.Tx.bg
+    time.Lx <- .compute.time.inclusive(Lx.data[, 1], signal_integral)
+    time.Lx.bg <- .compute.time.inclusive(Lx.data[, 1], background_integral)
+    time.Tx <- .compute.time.inclusive(Tx.data[, 1], signal_integral_Tx)
+    time.Tx.bg <- .compute.time.inclusive(Tx.data[, 1], background_integral_Tx)
 
     Lx.signal.Error <- .calc_se_bluszcz(Lx.signal, time.Lx, B_DC, k_DC, k_p)
-    Lx.background.Error <- .calc_se_bluszcz(Lx.background, time.Lx.bg, B_DC, k_DC, k_p)
-    Lx.background.Error <- Lx.background.Error * time.Lx / time.Lx.bg
-
+    Lx.background.Error <- .calc_se_bluszcz(Lx.BG.counts, time.Lx.bg, B_DC, k_DC, k_p) *
+                            time.Lx / time.Lx.bg
     Tx.signal.Error <- .calc_se_bluszcz(Tx.signal, time.Tx, B_DC, k_DC, k_p)
-    Tx.background.Error <- .calc_se_bluszcz(Tx.background, time.Tx.bg, B_DC, k_DC, k_p)
-    Tx.background.Error <- Tx.background.Error * time.Tx / time.Tx.bg
+    Tx.background.Error <- .calc_se_bluszcz(Tx.BG.counts, time.Tx.bg, B_DC, k_DC, k_p) *
+                            time.Tx / time.Tx.bg
 
-    LnLx <- Lx.signal - Lx.background
     LnLx.Error <- sqrt(Lx.signal.Error^2 + Lx.background.Error^2)
-    TnTx <- Tx.signal - Tx.background
     TnTx.Error <- sqrt(Tx.signal.Error^2 + Tx.background.Error^2)
   }
 

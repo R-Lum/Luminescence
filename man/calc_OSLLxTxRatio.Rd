@@ -83,7 +83,7 @@ allow adding an extra component of error to the final \code{Lx/Tx} error value
 a vector of three elements: the dark count rate (or background count rate),
 the background count overdispersion, and the photon count overdispersion.
 If set, an alternative way of computing the overdispersion will be used
-(see details). It is ignored if \code{sigmab} is provided.}
+(see details). It is ignored (with a warning) if \code{sigmab} is provided.}
 
 \item{digits}{\link{integer} (\emph{with default}):
 round numbers to the specified digits. If set to \code{NULL} no rounding occurs.}
@@ -157,7 +157,9 @@ the already calculated \code{LxTx} and the result is added according to:
 
 Setting this argument activates an alternative path for the overdispersion
 calculation proposed by Andrzej Bluszcz. The argument expects a 3-element
-vector, whose values should be experimentally established in advance.
+vector (dark count rate, background count overdispersion, photon count
+overdispersion), whose values should be experimentally established in
+advance.
 
 The dark count rate (or background count rate) \eqn{B_{DC}} and the
 background count overdispersion \eqn{k_{DC}} can be obtained by direct

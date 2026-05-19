@@ -424,4 +424,35 @@ test_that("snapshot tests", {
       background_integral = 70:100,
       od_rates = c(1, 1, 1)),
       tolerance = snapshot.tolerance)
+
+  bluszcz <- readRDS(test_path("_data/LxTx_Bluszcz.rds"))
+  expect_snapshot_RLum(calc_OSLLxTxRatio(
+      bluszcz$Lx, bluszcz$Tx,
+      signal_integral = 1:5,
+      background_integral = 200:250,
+      od_rates = c(0, 1, 1)),
+      tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(calc_OSLLxTxRatio(
+      bluszcz$Lx, bluszcz$Tx,
+      signal_integral = 1:5,
+      background_integral = 200:250,
+      od_rates = c(0, 1, 2)),
+      tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(calc_OSLLxTxRatio(
+      bluszcz$Lx, bluszcz$Tx,
+      signal_integral = 2:5,
+      background_integral = 200:250,
+      od_rates = c(30, 2, 3),
+      sig0 = 1.2),
+      tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(calc_OSLLxTxRatio(
+      bluszcz$Lx, bluszcz$Tx,
+      signal_integral = 1:3,
+      background_integral = 150:250,
+      od_rates = c(30, 0.5, 0.8),
+      use_previousBG = TRUE),
+      tolerance = snapshot.tolerance)
 })
