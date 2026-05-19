@@ -39,11 +39,11 @@
 #'
 #' The dark count rate (or background count rate) \eqn{B_{DC}} and the
 #' background count overdispersion \eqn{k_{DC}} can be obtained by direct
-#' experiments, while the photon count overdispersion \eqn{k_p} needs a photon
+#' experiments, while the photon count overdispersion \eqn{k_ph} needs a photon
 #' source with a constant photon emission rate and independent photon
 #' emissions (so the number of photons emitted in a fixed time is a Poisson
 #' variable). Note that \eqn{B_{DC}} must be non-negative, while \eqn{k_{DC}}
-#' and \eqn{k_p} must be positive (for readers with no pulse divider, they
+#' and \eqn{k_ph} must be positive (for readers with no pulse divider, they
 #' should be greater or equal to 1).
 #'
 #' Under the assumption of statistically independent background (\eqn{N_{DC}})
@@ -54,9 +54,9 @@
 #'
 #' and has the following variance:
 #'
-#' \deqn{ s^2(N) = k_p^2 N_p + K_{DC}^2 N_{DC}
-#'               = k_p^2 (N - B_{DC} t) + k_{DC}^2 B_{DC} t
-#'               = k_p^2 N + (k_{DC}^2 + k_p^2) B_{DC} t }
+#' \deqn{ s^2(N) = k_ph^2 N_p + K_{DC}^2 N_{DC}
+#'               = k_ph^2 (N - B_{DC} t) + k_{DC}^2 B_{DC} t
+#'               = k_ph^2 N + (k_{DC}^2 + k_ph^2) B_{DC} t }
 #'
 #' The `LnLx.Error` and `TnTx.Error` are computed as \eqn{\sqrt{s^2(N)}}.
 #'
@@ -187,7 +187,7 @@
 #' .. $ k
 #' .. $ B_DC
 #' .. $ k_DC
-#' .. $ k_p
+#' .. $ k_ph
 #' ```
 #'
 #' **@info**
@@ -509,7 +509,7 @@ calc_OSLLxTxRatio <- function(
   }
 
   ## account for when sigmab or od_rates are provided
-  B_DC <- k_DC <- k_p <- NA
+  B_DC <- k_DC <- k_ph <- NA
   if (!is.null(sigmab)) {
     if (!is.null(od_rates)) {
       .throw_warning("Both 'sigmab' and 'od_rates' provided, 'od_rates' set to NULL")
@@ -521,7 +521,7 @@ calc_OSLLxTxRatio <- function(
     ## validate each of the od_rates values
     .validate_nonnegative_scalar(B_DC <- od_rates[1], name = "'od_rates[1]'")
     .validate_positive_scalar(k_DC <- od_rates[2], name = "'od_rates[2]'")
-    .validate_positive_scalar(k_p  <- od_rates[3], name = "'od_rates[3]'")
+    .validate_positive_scalar(k_ph <- od_rates[3], name = "'od_rates[3]'")
     sigmab.LnLx <- sigmab.TnTx <- NA
   } else {
     sigmab.LnLx <- .calc_sigmab(Lx.curve, signal_integral, background_integral,
@@ -568,8 +568,8 @@ calc_OSLLxTxRatio <- function(
   } else {
     ## calculate standard error of the raw number of counts in a channel
     ## (according to communication of Bluszcz via e-mail)
-    .calc_se_bluszcz <- function(signal, time, B_DC, k_DC, k_p) {
-      sqrt(k_p^2 * signal + (k_DC^2 - k_p^2) * B_DC * time)
+    .calc_se_bluszcz <- function(signal, time, B_DC, k_DC, k_ph) {
+      sqrt(k_ph^2 * signal + (k_DC^2 - k_ph^2) * B_DC * time)
     }
 
     ## compute times including the time for the first channel in the integral
@@ -582,11 +582,11 @@ calc_OSLLxTxRatio <- function(
     time.Tx <- .compute.time.inclusive(Tx.data[, 1], signal_integral_Tx)
     time.Tx.bg <- .compute.time.inclusive(Tx.data[, 1], background_integral_Tx)
 
-    Lx.signal.Error <- .calc_se_bluszcz(Lx.signal, time.Lx, B_DC, k_DC, k_p)
-    Lx.background.Error <- .calc_se_bluszcz(Lx.BG.counts, time.Lx.bg, B_DC, k_DC, k_p) *
+    Lx.signal.Error <- .calc_se_bluszcz(Lx.signal, time.Lx, B_DC, k_DC, k_ph)
+    Lx.background.Error <- .calc_se_bluszcz(Lx.BG.counts, time.Lx.bg, B_DC, k_DC, k_ph) *
                             time.Lx / time.Lx.bg
-    Tx.signal.Error <- .calc_se_bluszcz(Tx.signal, time.Tx, B_DC, k_DC, k_p)
-    Tx.background.Error <- .calc_se_bluszcz(Tx.BG.counts, time.Tx.bg, B_DC, k_DC, k_p) *
+    Tx.signal.Error <- .calc_se_bluszcz(Tx.signal, time.Tx, B_DC, k_DC, k_ph)
+    Tx.background.Error <- .calc_se_bluszcz(Tx.BG.counts, time.Tx.bg, B_DC, k_DC, k_ph) *
                             time.Tx / time.Tx.bg
 
     LnLx.Error <- sqrt(Lx.signal.Error^2 + Lx.background.Error^2)
@@ -623,7 +623,7 @@ calc_OSLLxTxRatio <- function(
     k = k,
     B_DC = B_DC,
     k_DC = k_DC,
-    k_p = k_p)
+    k_ph = k_ph)
 
   ##set results object
   set_RLum(
