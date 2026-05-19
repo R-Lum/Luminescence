@@ -419,8 +419,8 @@ read_Daybreak2R <- function(
     last.disk.n <- -1
     last.Dose <- 0
     last.irrad.time <- 0
-    last.irrad.temp <- 0
-    last.irrad.date <- as.Date(0)
+    last.irrad.temp <- NULL
+    last.irrad.date <- NULL
     RLum.Data.Curve.list <- lapply(seq_along(data.list), function(x) {
       record <- data.list[[x]]
       record.length <- length(record)
@@ -451,8 +451,8 @@ read_Daybreak2R <- function(
         last.disk.n <<- as.integer(info[["Disk"]])
         last.Dose <<- 0
         last.irrad.time <<- 0
-        last.irrad.temp <<- 0
-        last.irrad.date <<- as.Date(0)
+        last.irrad.temp <<- NULL
+        last.irrad.date <<- NULL
       }
 
       ## is it an irradiation record?
@@ -468,10 +468,8 @@ read_Daybreak2R <- function(
 
       info <- c(info, list(IRR_DOSE = last.Dose,
                            IRR_TIME = last.irrad.time,
-                           IRR_TEMP = last.irrad.temp))
-
-      if (last.irrad.date != as.Date(0)) # avoid storing 1970-01-01
-        info <- c(info, list(IRR_DATE = last.irrad.date))
+                           IRR_TEMP = last.irrad.temp,
+                           IRR_DATE = last.irrad.date))
 
       if(length(header.length)>0){
         ## get measurement data ... this construction makes no assumption on

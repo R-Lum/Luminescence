@@ -12,7 +12,7 @@ calc_OSLLxTxRatio(
   signal_integral_Tx = NULL,
   background_integral_Tx = NULL,
   integral_input = c("channel", "measurement"),
-  background.count.distribution = "non-poisson",
+  background.count.distribution = c("non-poisson", "poisson"),
   use_previousBG = FALSE,
   sigmab = NULL,
   sig0 = 0,
