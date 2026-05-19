@@ -131,7 +131,7 @@
 #' @param background.count.distribution [character] (*with default*):
 #' sets the count distribution assumed for the error calculation.
 #' Possible arguments are `"poisson"` or `"non-poisson"` (default). See
-#' details for further information.
+#' details for further information. It is ignored if `od_rates` is provided.
 #'
 #' @param use_previousBG [logical] (*with default*):
 #' If set to `TRUE` the background of the `Lx`-signal is subtracted also
@@ -511,8 +511,10 @@ calc_OSLLxTxRatio <- function(
   ## account for when sigmab or od_rates are provided
   B_DC <- k_DC <- k_p <- NA
   if (!is.null(sigmab)) {
-    if (!is.null(od_rates))
+    if (!is.null(od_rates)) {
       .throw_warning("Both 'sigmab' and 'od_rates' provided, 'od_rates' set to NULL")
+      od_rates <- NULL
+    }
     sigmab.LnLx <- sigmab[1]
     sigmab.TnTx <- sigmab[length(sigmab)]
   } else if (!is.null(od_rates)) {

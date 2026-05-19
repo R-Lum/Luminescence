@@ -3134,6 +3134,180 @@
                 {
                   "type": "integer",
                   "attributes": {},
+                  "value": [130367]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [5807.31707317]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [11766]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [4981.73770492]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [124559.68292683]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [364.98591157]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [6784.26229508]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [213.66866607]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [22.44874843]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [2.36182647]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [18.36009245]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.58074386]
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_p"]
+                }
+              },
+              "value": [
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [10]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [10]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [2.05]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                },
+                {
+                  "type": "logical",
+                  "attributes": {},
+                  "value": [null]
+                }
+              ]
+            }
+          ]
+        },
+        "originator": {
+          "type": "character",
+          "attributes": {},
+          "value": ["calc_OSLLxTxRatio"]
+        },
+        "info": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": []
+            }
+          },
+          "value": []
+        },
+        ".uid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        ".pid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        }
+      },
+      "value": {
+        "class": "RLum.Results",
+        "package": "Luminescence"
+      }
+    }
+
+---
+
+    {
+      "type": "S4",
+      "attributes": {
+        "data": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["LxTx.table", "calc.parameters"]
+            }
+          },
+          "value": [
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "Net_LnLx", "Net_LnLx.Error", "Net_TnTx", "Net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
+                },
+                "row.names": {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1]
+                }
+              },
+              "value": [
+                {
+                  "type": "integer",
+                  "attributes": {},
                   "value": [80809]
                 },
                 {

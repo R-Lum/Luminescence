@@ -258,17 +258,6 @@ test_that("create warnings", {
     integral_input = "measurement"),
     "'background_integral' contains out of bounds elements, reset to be between 52 and 100"),
     "'background_integral_Tx' contains out of bounds elements, reset to be between 37 and 100")
-
-  expect_warning(calc_OSLLxTxRatio(
-    Lx.data,
-    Tx.data,
-    signal_integral = 1:20,
-    signal_integral_Tx = 2:20,
-    background_integral = 60:100,
-    background_integral_Tx = 40:100,
-    sigmab = 10,
-    od_rates = c(1, 2, 3)
-  ), "Both 'sigmab' and 'od_rates' provided, 'od_rates' set to NULL")
 })
 
 test_that("snapshot tests", {
@@ -424,6 +413,19 @@ test_that("snapshot tests", {
       background_integral = 70:100,
       od_rates = c(1, 1, 1)),
       tolerance = snapshot.tolerance)
+
+  expect_warning(
+  expect_snapshot_RLum(calc_OSLLxTxRatio(
+      Lx.data,
+      Tx.data,
+      signal_integral = 1:20,
+      signal_integral_Tx = 2:20,
+      background_integral = 60:100,
+      background_integral_Tx = 40:100,
+      sigmab = 10,
+      od_rates = c(1, 2, 3)),
+      tolerance = snapshot.tolerance),
+  "Both 'sigmab' and 'od_rates' provided, 'od_rates' set to NULL")
 
   bluszcz <- readRDS(test_path("_data/LxTx_Bluszcz.rds"))
   expect_snapshot_RLum(calc_OSLLxTxRatio(
