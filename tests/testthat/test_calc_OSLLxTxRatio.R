@@ -88,7 +88,7 @@ test_that("input validation", {
   expect_warning(expect_error(
       calc_OSLLxTxRatio(Lx.data[1:10, ], signal_integral = -1:4),
       "'background_integral' should be of class 'integer', 'numeric' or NA"),
-      "'signal_integral' out of bounds, reset to be between 1 and 4")
+      "'signal_integral' contains out of bounds elements, reset to be between 1 and 4")
   expect_error(calc_OSLLxTxRatio(Lx.data[1:10, ], signal_integral = 1:2,
                                  background_integral = matrix(1:4, ncol =2)),
                "'background_integral' should be of class 'integer', 'numeric' or NA")
@@ -107,7 +107,7 @@ test_that("input validation", {
     signal_integral = 1:2000,
     background_integral = 85:100
   ), "'background_integral' is expected to be at least 101, but the maximum allowed is 100"),
-  "'signal_integral' out of bounds, reset to be between 1 and 100")
+  "'signal_integral' contains out of bounds elements, reset to be between 1 and 100")
 
   SW({
   expect_warning(calc_OSLLxTxRatio(
@@ -115,7 +115,7 @@ test_that("input validation", {
     Tx.data,
     signal_integral = 1:90,
     background_integral = 85:100
-  ), "'background_integral' out of bounds, reset to be between 91 and 100")
+  ), "'background_integral' contains out of bounds elements, reset to be between 91 and 100")
 
   expect_warning(calc_OSLLxTxRatio(
     Lx.data,
@@ -124,14 +124,14 @@ test_that("input validation", {
     signal_integral_Tx = 1:90,
     background_integral = 85:100,
     background_integral_Tx = 85:100
-  ), "'background_integral_Tx' out of bounds, reset to be between 91 and 100")
+  ), "'background_integral_Tx' contains out of bounds elements, reset to be between 91 and 100")
 
   expect_warning(calc_OSLLxTxRatio(
     Lx.data,
     Tx.data,
     signal_integral = 1:20,
     background_integral = 85:1000
-  ), "'background_integral' out of bounds, reset to be between 85 and 100")
+  ), "'background_integral' contains out of bounds elements, reset to be between 85 and 100")
 
   expect_warning(calc_OSLLxTxRatio(
     Lx.data,
@@ -140,7 +140,7 @@ test_that("input validation", {
     signal_integral_Tx = 1:10,
     background_integral = 85:100,
     background_integral_Tx = 85:10000
-  ), "'background_integral_Tx' out of bounds, reset to be between 85 and 100")
+  ), "'background_integral_Tx' contains out of bounds elements, reset to be between 85 and 100")
   })
 
   expect_warning(expect_error(calc_OSLLxTxRatio(
@@ -151,7 +151,7 @@ test_that("input validation", {
     background_integral = 85:100,
     background_integral_Tx = 85:100
   ), "background_integral_Tx' is expected to be at least 101, but the maximum"),
-  "'signal_integral_Tx' out of bounds, reset to be between 1 and 100")
+  "'signal_integral_Tx' contains out of bounds elements, reset to be between 1 and 100")
 
   expect_error(calc_OSLLxTxRatio(
     Lx.data,
@@ -256,8 +256,8 @@ test_that("create warnings", {
     background_integral = 10:20,
     background_integral_Tx = 7:100,
     integral_input = "measurement"),
-    "'background_integral' out of bounds, reset to be between 52 and 100"),
-    "'background_integral_Tx' out of bounds, reset to be between 37 and 100")
+    "'background_integral' contains out of bounds elements, reset to be between 52 and 100"),
+    "'background_integral_Tx' contains out of bounds elements, reset to be between 37 and 100")
 
   expect_warning(calc_OSLLxTxRatio(
     Lx.data,

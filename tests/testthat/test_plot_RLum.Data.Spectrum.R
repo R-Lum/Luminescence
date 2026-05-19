@@ -108,16 +108,17 @@ test_that("check functionality", {
         ylab = "Counts [1 / summed channels]")))
 
     ## plot: interactive ------------
-    expect_silent(suppressWarnings(
+    expect_silent(
       plot_RLum.Data.Spectrum(
         TL.Spectrum,
         plot.type = "interactive",
         xlim = c(310, 750),
         ylim = c(0, 300),
-        bin.rows = 10,
+        bin.rows = 1,
         bin.cols = 1
       )
-    ))
+    )
+    
 
     ## plot: interactive heatmap --------
     expect_silent(suppressWarnings(

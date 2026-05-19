@@ -48,7 +48,7 @@ test_that("input validation", {
 
   expect_error(analyse_FadingMeasurement(object, signal_integral = 1:2,
                                          background_integral = 2),
-               "'background_integral' is of length 0 after removing values smaller than 3")
+               "'background_integral' contains no elements between 3 and 40")
   expect_error(analyse_FadingMeasurement(object[-3], signal_integral = 1:2,
                                          background_integral = 3:40,
                                          structure = c("Lx", "Tx")),

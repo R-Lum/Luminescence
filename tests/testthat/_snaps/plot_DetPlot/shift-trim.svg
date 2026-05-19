@@ -41,12 +41,17 @@
 <polygon points='59.04,502.56 689.76,502.56 689.76,59.04 59.04,59.04 ' style='stroke-width: 0.75; fill: none;' />
 <text x='374.40' y='34.48' text-anchor='middle' style='font-size: 14.40px; font-weight: bold; font-family: sans;' textLength='59.22px' lengthAdjust='spacingAndGlyphs'>De(t) plot</text>
 <text x='374.40' y='557.28' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='101.38px' lengthAdjust='spacingAndGlyphs'>Stimulation time [s]</text>
-<text transform='translate(10.47,329.50) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='8.67px' lengthAdjust='spacingAndGlyphs'>D</text>
-<text transform='translate(12.69,320.83) rotate(-90)' style='font-size: 8.40px; font-family: sans;' textLength='4.67px' lengthAdjust='spacingAndGlyphs'>e</text>
-<text transform='translate(10.47,316.16) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='42.70px' lengthAdjust='spacingAndGlyphs'> [s] and </text>
-<text transform='translate(10.47,273.46) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>L</text>
-<text transform='translate(12.69,266.79) rotate(-90)' style='font-size: 8.40px; font-family: sans;' textLength='4.67px' lengthAdjust='spacingAndGlyphs'>n</text>
-<text transform='translate(10.47,262.12) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='30.02px' lengthAdjust='spacingAndGlyphs'> [a.u.]</text>
+<text transform='translate(10.47,328.84) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='8.67px' lengthAdjust='spacingAndGlyphs'>D</text>
+<text transform='translate(12.69,320.17) rotate(-90)' style='font-size: 8.40px; font-family: sans;' textLength='4.67px' lengthAdjust='spacingAndGlyphs'>e</text>
+<text transform='translate(10.47,315.50) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='3.00px' lengthAdjust='spacingAndGlyphs'> </text>
+<text transform='translate(10.47,312.49) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='12.67px' lengthAdjust='spacingAndGlyphs'>[s]</text>
+<text transform='translate(10.47,299.82) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='3.00px' lengthAdjust='spacingAndGlyphs'> </text>
+<text transform='translate(10.47,296.82) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='20.02px' lengthAdjust='spacingAndGlyphs'>and</text>
+<text transform='translate(10.47,276.80) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='3.00px' lengthAdjust='spacingAndGlyphs'> </text>
+<text transform='translate(10.47,273.79) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>L</text>
+<text transform='translate(12.69,267.12) rotate(-90)' style='font-size: 8.40px; font-family: sans;' textLength='4.67px' lengthAdjust='spacingAndGlyphs'>n</text>
+<text transform='translate(10.47,262.45) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='3.00px' lengthAdjust='spacingAndGlyphs'> </text>
+<text transform='translate(10.47,259.45) rotate(-90)' style='font-size: 12.00px; font-family: sans;' textLength='26.68px' lengthAdjust='spacingAndGlyphs'>[a.u.]</text>
 </g>
 <defs>
   <clipPath id='cpNTkuMDR8Njg5Ljc2fDU5LjA0fDUwMi41Ng=='>

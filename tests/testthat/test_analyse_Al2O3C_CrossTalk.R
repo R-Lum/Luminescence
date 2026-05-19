@@ -38,7 +38,7 @@ test_that("input validation", {
                "'irradiation_time_correction' has an unsupported originator")
   expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk,
                                         signal_integral = 0),
-               "is of length 0 after removing values smaller than 1 and greater than 99")
+               "'signal_integral' contains no elements between 1 and 99")
 })
 
 test_that("check functionality", {

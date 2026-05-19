@@ -660,11 +660,11 @@ test_that("Test internals", {
                integral)
   expect_warning(expect_equal(.validate_integral(integral <- c(5:1, -3:3)),
                               1:5),
-                 "'integral' out of bounds, reset to be between 1 and 5")
+                 "'integral' contains out of bounds elements, reset to be between 1 and 5")
   expect_warning(expect_equal(.validate_integral(integral <- 1:100,
                                                  min = 5, max = 50),
                               5:50),
-                 "'integral' out of bounds, reset to be between 5 and 50")
+                 "'integral' contains out of bounds elements, reset to be between 5 and 50")
   expect_error(.validate_integral(integral <- "error"),
                "'integral' should be of class 'integer' or 'numeric'")
   expect_error(.validate_integral(integral <- list(NA), na.ok = TRUE),
@@ -672,16 +672,16 @@ test_that("Test internals", {
   expect_error(.validate_integral(integral <- NA, na.ok = FALSE),
                "'integral' should be of class 'integer' or 'numeric'")
   expect_error(.validate_integral(integral <- -9:0),
-               "'integral' is of length 0 after removing values smaller than 1$")
+               "'integral' contains no elements between 1 and Inf")
   expect_error(.validate_integral(integral <- 1:10, min = 50, max = 100),
-               "after removing values smaller than 50 and greater than 100")
+               "'integral' contains no elements between 50 and 100")
   expect_error(.validate_integral(integral <- 1:10, min = 150, max = 100),
                "is expected to be at least 150, but the maximum allowed is 100")
   expect_error(.validate_integral(integral <- 1:5 + 0.1),
                "'integral' should be a vector of integers")
   expect_warning(expect_error(.validate_integral(integral <- c(0, 1.5)),
                               "'integral' should be a vector of integers"),
-                 "'integral' out of bounds, reset to be between 1.5 and 1.5")
+                 "'integral' contains out of bounds elements, reset to be between 1.5 and 1.5")
   expect_error(.validate_integral(list.integral <- list(1:4)),
                "'list.integral' should be of class 'integer' or 'numeric'")
   expect_error(.validate_integral(list.integral <- list("error"), list.ok = TRUE),
