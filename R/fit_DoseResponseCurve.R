@@ -138,21 +138,20 @@
 #'
 #' **Error estimation using Monte Carlo simulation**
 #'
-#' Error estimation is done using a parametric bootstrapping approach. A set of
-#' \eqn{\frac{L_x}{T_x}} values is constructed by randomly drawing curve data sampled from normal
-#' distributions. The normal distribution is defined by the input values (`mean
-#' = value`, `sd = value.error`). Then, a dose-response curve fit is attempted for each
-#' dataset resulting in a new distribution of single `De` values. The standard
-#' deviation of this distribution becomes then the error of the `De`. With increasing
-#' iterations, the error value becomes more stable. However, naturally the error
-#' will not decrease with more MC runs.
+#' Error estimation is done using a parametric bootstrap. A set of
+#' \eqn{\frac{L_x}{T_x}} values is constructed by randomly drawing curve data
+#' from normal distributions defined by the input values (`mean = value`,
+#' `sd = value.error`). A dose-response curve is then fitted for each sampled
+#' dataset using the chosen fitting method, producing a distribution of single
+#' `De` values. The standard deviation of this distribution is taken as the
+#' error of the `De`. With more iterations (`n.MC`) the error estimate
+#' stabilizes. However, naturally the error will not decrease with more MC runs.
 #'
 #' Alternatively, the function returns highest probability density interval
 #' estimates as output, users may find more useful under certain circumstances.
 #'
 #' **Note:** It may take some calculation time with increasing MC runs,
-#' especially for the composed functions (`EXP+LIN` and `EXP+EXP`).\cr
-#' Each error estimation is done with the function of the chosen fitting method.
+#' especially for the composed functions (`EXP+LIN` and `EXP+EXP`).
 #'
 #' @param object [data.frame] or a [list] of such objects (**required**):
 #' data frame with columns for `Dose`, `LxTx`, `LxTx.Error` and `TnTx`.
@@ -173,7 +172,7 @@
 #' - `"alternate"` calculates no equivalent dose and just fits the data points.
 #'
 #' Please note that for option `"interpolation"` the first point is considered
-#' as natural dose
+#' as natural dose.
 #'
 #' @param fit.method [character] (*with default*):
 #' function used for fitting. Possible options are: `LIN`, `QDR`, `EXP`,
@@ -209,7 +208,7 @@
 #' Argument to be inserted for experimental application only!
 #'
 #' @param n.MC [integer] (*with default*):
-#' number of Monte Carlo simulations for error estimation, see details.
+#' number of Monte Carlo simulations for error estimation.
 #'
 #' @param txtProgressBar [logical] (*with default*):
 #' enable/disable the progress bar. If `verbose = FALSE` also no
@@ -734,7 +733,7 @@ fit_DoseResponseCurve <- function(
         ## for uniroot() to work, the values at the endpoints (lower and upper)
         ## must have opposite sign: therefore we check if the value at lower
         ## is negative, and if not we decrease it until we find a negative
-        ## value or we see that the function not decreasing
+        ## value or we see that the function is not decreasing
         lower <- 0
         value.lower <- De.fs(fit, lower, y)
         while (value.lower > 0 && lower > -1000) {

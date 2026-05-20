@@ -17,10 +17,10 @@ plot_DoseResponseCurve(
 An object produced by \link{fit_DoseResponseCurve}.}
 
 \item{plot_extended}{\link{logical} (\emph{with default}):
-If \code{TRUE}, 3 plots on one plot area are provided:
+If \code{TRUE} (default), 3 plots on one plot area are provided:
 \enumerate{
-\item growth curve,
-\item histogram from Monte Carlo error simulation and
+\item the dose-response curve,
+\item a histogram from Monte Carlo error simulation and
 \item a test dose response plot.
 }
 

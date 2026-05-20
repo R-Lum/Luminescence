@@ -1,7 +1,6 @@
 #' @title Plot a dose-response curve for luminescence data (Lx/Tx against dose)
 #'
 #' @description
-#'
 #' A dose-response curve is produced for luminescence measurements using a
 #' regenerative or additive protocol as implemented in [Luminescence::fit_DoseResponseCurve].
 #'
@@ -9,9 +8,9 @@
 #' An object produced by [Luminescence::fit_DoseResponseCurve].
 #'
 #' @param plot_extended [logical] (*with default*):
-#' If `TRUE`, 3 plots on one plot area are provided:
-#' 1. growth curve,
-#' 2. histogram from Monte Carlo error simulation and
+#' If `TRUE` (default), 3 plots on one plot area are provided:
+#' 1. the dose-response curve,
+#' 2. a histogram from Monte Carlo error simulation and
 #' 3. a test dose response plot.
 #'
 #' If `FALSE`, just the growth curve will be plotted.
@@ -245,7 +244,7 @@ plot_DoseResponseCurve <- function(
 
       lines(x, eval(object$Formula))
     }
-    
+
     ## y-error bar
     segments(xy$x, xy$y - y.Error, xy$x, xy$y + y.Error)
 
