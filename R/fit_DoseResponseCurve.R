@@ -689,7 +689,7 @@ fit_DoseResponseCurve <- function(
   ## a normal distribution
 
   ## draw 50 start values from a normal distribution
-  if (fit.method != "LIN") {
+  if (!fit.method %in% c("LIN", "QDR", "GOK")) {
     a.MC <- suppressWarnings(rnorm(50, mean = a, sd = a / 100))
     b.MC <- suppressWarnings(rnorm(50, mean = b, sd = b / 100))
 
