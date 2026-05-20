@@ -691,10 +691,7 @@ fit_DoseResponseCurve <- function(
   ## draw 50 start values from a normal distribution
   if (fit.method != "LIN") {
     a.MC <- suppressWarnings(rnorm(50, mean = a, sd = a / 100))
-
-    if (!is.na(b)) {
-      b.MC <- suppressWarnings(rnorm(50, mean = b, sd = b / 100))
-    }
+    b.MC <- suppressWarnings(rnorm(50, mean = b, sd = b / 100))
 
     if(fit.force_through_origin)
       c.MC <- rep(0, 50)
