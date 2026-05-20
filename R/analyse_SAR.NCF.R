@@ -35,7 +35,7 @@
 #'
 #' @param method_control [list] (*optional*):
 #' parameters to control the peak-finding step.
-#' 
+#'
 #' @inheritParams analyse_SAR.CWOSL
 #'
 #' @return
@@ -235,10 +235,11 @@ analyse_SAR.NCF <- function(
   ## first TL
   plot(TL1, type = "l", col = 1,
        main = sprintf("TL Peaks (integration range = %g \u00B0C)", TL_peak_range))
+  ymin <- par("usr")[3]  ## minimum y coordinate visible on the plot
   abline(v = c(res1$peak.temperature, TL1@data[range(res1$range.idx), 1]),
          lty = c(2, 3, 3), col = 1)
   polygon(x = c(TL1@data[res1$range.idx, 1], rev(TL1@data[res1$range.idx, 1])),
-          y = c(TL1@data[res1$range.idx, 2], rep(-100, length(res1$range.idx))),
+          y = c(TL1@data[res1$range.idx, 2], rep(ymin, length(res1$range.idx))),
           col = rgb(0, 1, 0, 0.1), border = NA, xpd = FALSE)
 
   ## second TL
@@ -246,7 +247,7 @@ analyse_SAR.NCF <- function(
   abline(v = c(res2$peak.temperature, TL2@data[range(res2$range.idx), 1]),
          lty = c(2, 3, 3), col = 2)
   polygon(x = c(TL2@data[res2$range.idx, 1], rev(TL2@data[res2$range.idx, 1])),
-          y = c(TL2@data[res2$range.idx, 2], rep(-100, length(res2$range.idx))),
+          y = c(TL2@data[res2$range.idx, 2], rep(ymin, length(res2$range.idx))),
           col = rgb(0, 1, 0, 0.1), border = NA, xpd = FALSE)
 
   ## legend
