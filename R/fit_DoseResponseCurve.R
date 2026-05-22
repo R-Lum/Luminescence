@@ -461,18 +461,19 @@ fit_DoseResponseCurve <- function(
   }
 
   ## count and exclude NA values and print result
-  if (sum(!stats::complete.cases(object)) > 0)
+  if (sum(!stats::complete.cases(object)) > 0) {
     .throw_warning(sum(!stats::complete.cases(object)),
                    " NA values removed")
 
-  ## exclude NA
-  object <- na.exclude(object)
+    ## exclude NA
+    object <- na.exclude(object)
 
-  ## Check if anything is left after removal
-  if (nrow(object) == 0) {
-    .throw_message("After NA removal, nothing is left from the data set, ",
-                   "NULL returned")
-    return(NULL)
+    ## Check if anything is left after removal
+    if (nrow(object) == 0) {
+      .throw_message("After NA removal, nothing is left from the data set, ",
+                     "NULL returned")
+      return(NULL)
+    }
   }
 
   ##3. verbose mode
