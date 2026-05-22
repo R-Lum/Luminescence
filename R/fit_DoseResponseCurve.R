@@ -668,7 +668,8 @@ fit_DoseResponseCurve <- function(
   b <- 1
   if (any(data$y > 0)) {
     ## this may cause NaN values so we have to handle those later
-    fit.lm <- try(stats::lm(suppressWarnings(log(data$y)) ~ data$x),
+    fit.lm <- try(stats::lm(suppressWarnings(log(data$y)) ~ data$x,
+                            weights = fit.weights),
                   silent = TRUE)
 
     if (!inherits(fit.lm, "try-error") && !is.na(fit.lm$coefficients[2]))
@@ -676,7 +677,8 @@ fit_DoseResponseCurve <- function(
   }
 
   ##c - get start parameters from a linear fit - offset on x-axis
-  fit.lm <- stats::lm(data$y ~ data$x)
+  fit.lm <- stats::lm(data$y ~ data$x,
+                      weights = fit.weights)
   c <- as.numeric(abs(fit.lm$coefficients[1]/fit.lm$coefficients[2]))
 
   #take slope from x - y scaling
