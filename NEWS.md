@@ -61,6 +61,13 @@ affected functions.
 - The argument `spectral.efficiency` now directly supports a CSV-file
   input.
 
+### `calc_Huntley2006()`
+
+- The function now requires at least 4 dose points (the natural dose,
+  which is removed before fitting, plus at least 3 others). With fewer
+  points, model fitting can fail or crash, as all models have 3
+  parameters (#1572).
+
 ### `calc_MinDose()`
 
 - If `init.values` is provided and `log = TRUE`, the `sigma` parameter
