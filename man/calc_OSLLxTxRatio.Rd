@@ -15,8 +15,8 @@ calc_OSLLxTxRatio(
   background.count.distribution = c("non-poisson", "poisson"),
   use_previousBG = FALSE,
   sigmab = NULL,
-  sig0 = 0,
   od_rates = NULL,
+  sig0 = 0,
   digits = NULL,
   ...
 )
@@ -75,15 +75,15 @@ it is an additional variance (above Poisson variance), not a dispersion.
 \strong{Note:} If only one value is provided this value is taken for both
 (\code{LnTx} and \code{TnTx}) signals.}
 
-\item{sig0}{\link{numeric} (\emph{with default}):
-allow adding an extra component of error to the final \code{Lx/Tx} error value
-(e.g., instrumental error, see details).}
-
 \item{od_rates}{\link{numeric} (\emph{optional}):
 a vector of three elements: the dark count rate (or background count rate),
 the background count overdispersion, and the photon count overdispersion.
 If set, an alternative way of computing the overdispersion will be used
 (see details). It is ignored (with a warning) if \code{sigmab} is provided.}
+
+\item{sig0}{\link{numeric} (\emph{with default}):
+allow adding an extra component of error to the final \code{Lx/Tx} error value
+(e.g., instrumental error, see details).}
 
 \item{digits}{\link{integer} (\emph{with default}):
 round numbers to the specified digits. If set to \code{NULL} no rounding occurs.}
@@ -130,43 +130,68 @@ background subtraction.
 The function checks the integrity of the values chosen for the signal and
 background integrals; the signal integral limits have to be lower than
 the background integral limits. If a \link{vector} is given as input instead
-of a \link{data.frame}, an artificial \link{data.frame} is produced. The
-error calculation is done according to Galbraith (2002).
+of a \link{data.frame}, an artificial \link{data.frame} is produced.
+
+The error calculation is done according to Galbraith (2002, 2014) or to
+Bluszcz et a. (2015) depending on the presence of \code{od_rates} argument.
 
 \strong{Please note:} In cases where the calculation results in \code{NaN} values (for
 example due to zero-signal, and therefore a division of 0 by 0), these \code{NaN}
 values are replaced by 0.
 
+\strong{\code{background.count.distribution}}
+
+This argument allows selecting the distribution assumption that is used for
+the error calculation. According to Galbraith (2002, 2014) the background
+counts may be overdispersed (i.e. not follow a Poisson distribution, which
+is assumed for the photomultiplier counts). In that case (might be the
+normal case) the overdispersion has to be accounted for by estimating
+\eqn{\sigma_B^2} (i.e. the overdispersion value). Therefore the relative
+standard error is calculated as:
+\itemize{
+\item \code{poisson}
+\deqn{rse(\mu_{S}) \approx \sqrt{(Y_{0} + Y_{1}/k^2) / (Y_{0} - Y_{1}/k)} }
+\item \code{non-poisson}
+\deqn{rse(\mu_{S}) \approx \sqrt{(Y_{0} + Y_{1}/k^2 + \sigma_B^2(1+1/k)) / (Y_{0} - Y_{1}/k)} }
+}
+
+If \code{background_integral = NA}, then in both cases the relative standard
+error simplifies to:
+
+\deqn{rse(\mu_{S}) \approx \sqrt{Y_{0}} / Y_{0}}
+
 \strong{\code{sigmab}}
 
-The default value of \code{sigmab} is calculated assuming the background is
+The default value of \code{sigmab} (\eqn{\sigma_B^2}) is calculated assuming the background is
 constant and \strong{would not} be applicable when the background varies,
 e.g., as observed for the early light subtraction method.
 
-\strong{\code{sig0}}
-
-This argument allows adding an extra component of error to the final \code{Lx/Tx}
-error value. The input will be treated as a factor that is multiplied by
-the already calculated \code{LxTx} and the result is added according to:
-
-\deqn{se(LxTx) = \sqrt{se(LxTx)^2 + (LxTx * sig0)^2}}
+\strong{Note:} When using the early background subtraction method in combination
+with the 'non-poisson' distribution argument, the corresponding \code{Lx/Tx} error
+may considerably increase due to a high \code{sigmab} value. Please check whether
+this is valid for your data set; if necessary, consider providing a custom
+value using the \code{sigmab} argument.
 
 \strong{\code{od_rates}}
 
-Setting this argument activates an alternative path for the overdispersion
-calculation proposed by Andrzej Bluszcz. The argument expects a 3-element
-vector (background count rate, background count overdispersion, photon
-count overdispersion), whose values should be experimentally established in
-advance.
+Setting the \code{od_rates} argument activates the error calculation according
+to Bluszcz et al. (2015). The argument expects a 3-element vector:
+\itemize{
+\item \code{B_DC} is the PMT-specific dark count rate as pulses per second (not per channel)
+\item \code{k_DC} is the PMT-specific dispersion excess factor for dark counts
+\item \code{k_ph} is the PMT-specific dispersion excess factor for photon counts
+}
 
-The background count rate (or dark count rate) \eqn{B_{DC}} and the
-background count overdispersion \eqn{k_{DC}} can be obtained by direct
-experiments, while the photon count overdispersion \eqn{k_{ph}} needs a
-photon source with a constant photon emission rate and independent photon
-emissions (so the number of photons emitted in a fixed time is a Poisson
-variable). Note that \eqn{B_{DC}} must be non-negative, while \eqn{k_{DC}}
-and \eqn{k_{ph}} must be positive (for readers with no pulse divider, they
-should be greater or equal to 1).
+The dark count rate and the dispersion excess factors have to be known in
+advance, and can be obtained by direct experiments performed in laboratory
+conditions, essentially the same as the routine measurement conditions
+(for examples see: Bluszcz et al. (2015), Carter et al. (2018)).
+The photon count overdispersion \eqn{k_{ph}} needs a photon source with a
+constant photon emission rate and independent photon emissions (so the
+number of photons emitted in a fixed time is a Poisson variable). Note that
+\eqn{B_{DC}} must be non-negative, while \eqn{k_{DC}} and \eqn{k_{ph}} must
+be positive (for readers with no pulse divider, they should be greater or
+equal to 1).
 
 Under the assumption of statistically independent background (\eqn{N_{DC}})
 and photon counts (\eqn{N_{ph}}), the total number of counts (say, a certain
@@ -182,38 +207,19 @@ and has the following variance:
 
 The \code{LnLx.Error} and \code{TnTx.Error} are computed as \eqn{\sqrt{s^2(N)}}.
 
+\strong{\code{sig0}}
+
+This argument allows adding an extra component of error to the final \code{Lx/Tx}
+error value. The input will be treated as a factor that is multiplied by
+the already calculated \code{LxTx} and the result is added according to:
+
+\deqn{se(LxTx) = \sqrt{se(LxTx)^2 + (LxTx * sig0)^2}}
+
 \strong{\code{SN_RATIO_LnLx} and \code{SN_RATIO_TnTx}}
 
 For convenience, the function returns the signal-to-noise ratio (\code{SN_RATIO})
 for the \code{LnLx} and the \code{TnTx} curves. This is simply the signal divided
 by the background signal counts normalised to the \code{k} value (see below).
-
-\strong{\code{background.count.distribution}}
-
-This argument allows selecting the distribution assumption that is used for
-the error calculation. According to Galbraith (2002, 2014) the background
-counts may be overdispersed (i.e. do not follow a Poisson distribution,
-which is assumed for the photomultiplier counts). In that case (might be the
-normal case) the overdispersion  has to be accounted for by estimating
-\eqn{\sigma^2} (i.e. the overdispersion value). Therefore the relative
-standard error is calculated as:
-\itemize{
-\item \code{poisson}
-\deqn{rse(\mu_{S}) \approx \sqrt{Y_{0} + Y_{1}/k^2) / (Y_{0} - Y_{1}/k)} }
-\item \code{non-poisson}
-\deqn{rse(\mu_{S}) \approx \sqrt{Y_{0} + Y_{1}/k^2 + \sigma^2(1+1/k)) / (Y_{0} - Y_{1}/k)} }
-}
-
-If \code{background_integral = NA}, then in both cases the relative standard
-error simplifies to:
-
-\deqn{rse(\mu_{S}) \approx \sqrt{Y_{0}} / Y_{0}}
-
-\strong{Note:} When using the early background subtraction method in combination
-with the 'non-poisson' distribution argument, the corresponding \code{Lx/Tx} error
-may considerably increase due to a high \code{sigmab} value.
-Please check whether this is valid for your data set; if necessary, consider
-providing a custom value using the \code{sigmab} argument.
 }
 \note{
 The results of this function have been cross-checked with the Analyst
@@ -256,6 +262,11 @@ Bluszcz, A., Adamiec, G., Herr, A., 2015. Estimation of equivalent dose and
 its uncertainty in the OSL SAR protocol when count numbers do not follow a
 Poisson distribution. Radiation Measurements 81, 46-54.
 \doi{10.1016/j.radmeas.2015.01.004}
+
+Carter, J., Cresswell, A.J., Kinnaird, T.C., Carmichael, L.A., Murphy, S.,
+Sanderson, D.C.W., 2018. Non-Poisson variations in photomultipliers and
+implications for luminescence dating. Radiation Measurements 120, 267-273.
+\doi{10.1016/j.radmeas.2018.05.010}
 }
 \seealso{
 \link[=RLum.Data.Curve-class]{RLum.Data.Curve}, \link{fit_DoseResponseCurve},
