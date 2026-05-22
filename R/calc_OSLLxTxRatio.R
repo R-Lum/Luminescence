@@ -185,9 +185,7 @@
 #' .. $ sigmab.LnTx
 #' .. $ sigmab.TnTx
 #' .. $ k
-#' .. $ B_DC
-#' .. $ k_DC
-#' .. $ k_ph
+#' .. $ od_rates
 #' ```
 #'
 #' **@info**
@@ -617,9 +615,8 @@ calc_OSLLxTxRatio <- function(
     sigmab.LnLx = sigmab.LnLx,
     sigmab.TnTx = sigmab.TnTx,
     k = k,
-    B_DC = B_DC,
-    k_DC = k_DC,
-    k_ph = k_ph)
+    od_rates = c(B_DC = B_DC, k_DC = k_DC, k_ph = k_ph)
+  )
 
   ##set results object
   set_RLum(

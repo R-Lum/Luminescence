@@ -101,7 +101,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_ph"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "od_rates"]
                 }
               },
               "value": [
@@ -122,18 +122,14 @@
                 },
                 {
                   "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["B_DC", "k_DC", "k_ph"]
+                    }
+                  },
+                  "value": [null, null, null]
                 }
               ]
             }
@@ -275,7 +271,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_ph"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "od_rates"]
                 }
               },
               "value": [
@@ -296,18 +292,14 @@
                 },
                 {
                   "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["B_DC", "k_DC", "k_ph"]
+                    }
+                  },
+                  "value": [null, null, null]
                 }
               ]
             }
@@ -449,7 +441,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_ph"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "od_rates"]
                 }
               },
               "value": [
@@ -470,18 +462,14 @@
                 },
                 {
                   "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["B_DC", "k_DC", "k_ph"]
+                    }
+                  },
+                  "value": [null, null, null]
                 }
               ]
             }
@@ -623,7 +611,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_ph"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "od_rates"]
                 }
               },
               "value": [
@@ -644,18 +632,14 @@
                 },
                 {
                   "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["B_DC", "k_DC", "k_ph"]
+                    }
+                  },
+                  "value": [null, null, null]
                 }
               ]
             }
@@ -797,7 +781,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_ph"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "od_rates"]
                 }
               },
               "value": [
@@ -818,18 +802,14 @@
                 },
                 {
                   "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["B_DC", "k_DC", "k_ph"]
+                    }
+                  },
+                  "value": [null, null, null]
                 }
               ]
             }
@@ -971,7 +951,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_ph"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "od_rates"]
                 }
               },
               "value": [
@@ -992,18 +972,14 @@
                 },
                 {
                   "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["B_DC", "k_DC", "k_ph"]
+                    }
+                  },
+                  "value": [null, null, null]
                 }
               ]
             }
@@ -1145,7 +1121,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_ph"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "od_rates"]
                 }
               },
               "value": [
@@ -1166,18 +1142,14 @@
                 },
                 {
                   "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["B_DC", "k_DC", "k_ph"]
+                    }
+                  },
+                  "value": [null, null, null]
                 }
               ]
             }
@@ -1319,7 +1291,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_ph"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "od_rates"]
                 }
               },
               "value": [
@@ -1340,18 +1312,14 @@
                 },
                 {
                   "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["B_DC", "k_DC", "k_ph"]
+                    }
+                  },
+                  "value": [null, null, null]
                 }
               ]
             }
@@ -1493,7 +1461,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_ph"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "od_rates"]
                 }
               },
               "value": [
@@ -1514,18 +1482,14 @@
                 },
                 {
                   "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["B_DC", "k_DC", "k_ph"]
+                    }
+                  },
+                  "value": [null, null, null]
                 }
               ]
             }
@@ -1667,7 +1631,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_ph"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "od_rates"]
                 }
               },
               "value": [
@@ -1688,18 +1652,14 @@
                 },
                 {
                   "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["B_DC", "k_DC", "k_ph"]
+                    }
+                  },
+                  "value": [null, null, null]
                 }
               ]
             }
@@ -1981,7 +1941,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_ph"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "od_rates"]
                 }
               },
               "value": [
@@ -2002,18 +1962,14 @@
                 },
                 {
                   "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["B_DC", "k_DC", "k_ph"]
+                    }
+                  },
+                  "value": [null, null, null]
                 }
               ]
             }
@@ -2155,7 +2111,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_ph"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "od_rates"]
                 }
               },
               "value": [
@@ -2176,18 +2132,14 @@
                 },
                 {
                   "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["B_DC", "k_DC", "k_ph"]
+                    }
+                  },
+                  "value": [null, null, null]
                 }
               ]
             }
@@ -2329,7 +2281,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_ph"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "od_rates"]
                 }
               },
               "value": [
@@ -2350,18 +2302,14 @@
                 },
                 {
                   "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["B_DC", "k_DC", "k_ph"]
+                    }
+                  },
+                  "value": [null, null, null]
                 }
               ]
             }
@@ -2503,7 +2451,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_ph"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "od_rates"]
                 }
               },
               "value": [
@@ -2524,18 +2472,14 @@
                 },
                 {
                   "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["B_DC", "k_DC", "k_ph"]
+                    }
+                  },
+                  "value": [null, null, null]
                 }
               ]
             }
@@ -2677,7 +2621,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_ph"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "od_rates"]
                 }
               },
               "value": [
@@ -2698,18 +2642,14 @@
                 },
                 {
                   "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["B_DC", "k_DC", "k_ph"]
+                    }
+                  },
+                  "value": [null, null, null]
                 }
               ]
             }
@@ -2851,7 +2791,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_ph"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "od_rates"]
                 }
               },
               "value": [
@@ -2872,18 +2812,14 @@
                 },
                 {
                   "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["B_DC", "k_DC", "k_ph"]
+                    }
+                  },
+                  "value": [null, null, null]
                 }
               ]
             }
@@ -3025,7 +2961,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_ph"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "od_rates"]
                 }
               },
               "value": [
@@ -3046,18 +2982,14 @@
                 },
                 {
                   "type": "double",
-                  "attributes": {},
-                  "value": [1]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1]
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["B_DC", "k_DC", "k_ph"]
+                    }
+                  },
+                  "value": [1, 1, 1]
                 }
               ]
             }
@@ -3199,7 +3131,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_ph"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "od_rates"]
                 }
               },
               "value": [
@@ -3220,18 +3152,14 @@
                 },
                 {
                   "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [null]
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["B_DC", "k_DC", "k_ph"]
+                    }
+                  },
+                  "value": [null, null, null]
                 }
               ]
             }
@@ -3373,7 +3301,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_ph"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "od_rates"]
                 }
               },
               "value": [
@@ -3394,18 +3322,14 @@
                 },
                 {
                   "type": "double",
-                  "attributes": {},
-                  "value": [0]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1]
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["B_DC", "k_DC", "k_ph"]
+                    }
+                  },
+                  "value": [0, 1, 1]
                 }
               ]
             }
@@ -3547,7 +3471,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_ph"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "od_rates"]
                 }
               },
               "value": [
@@ -3568,18 +3492,14 @@
                 },
                 {
                   "type": "double",
-                  "attributes": {},
-                  "value": [0]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [1]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [2]
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["B_DC", "k_DC", "k_ph"]
+                    }
+                  },
+                  "value": [0, 1, 2]
                 }
               ]
             }
@@ -3721,7 +3641,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_ph"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "od_rates"]
                 }
               },
               "value": [
@@ -3742,18 +3662,14 @@
                 },
                 {
                   "type": "double",
-                  "attributes": {},
-                  "value": [30]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [2]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [3]
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["B_DC", "k_DC", "k_ph"]
+                    }
+                  },
+                  "value": [30, 2, 3]
                 }
               ]
             }
@@ -3895,7 +3811,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "B_DC", "k_DC", "k_ph"]
+                  "value": ["sigmab.LnLx", "sigmab.TnTx", "k", "od_rates"]
                 }
               },
               "value": [
@@ -3916,18 +3832,14 @@
                 },
                 {
                   "type": "double",
-                  "attributes": {},
-                  "value": [30]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [0.5]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [0.8]
+                  "attributes": {
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["B_DC", "k_DC", "k_ph"]
+                    }
+                  },
+                  "value": [30, 0.5, 0.8]
                 }
               ]
             }

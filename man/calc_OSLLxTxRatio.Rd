@@ -114,9 +114,7 @@ $calc.parameters (list)
 .. $ sigmab.LnTx
 .. $ sigmab.TnTx
 .. $ k
-.. $ B_DC
-.. $ k_DC
-.. $ k_ph
+.. $ od_rates
 }\if{html}{\out{</div>}}
 
 \strong{@info}
