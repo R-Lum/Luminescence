@@ -527,9 +527,9 @@ calc_OSLLxTxRatio <- function(
     sigmab.TnTx <- sigmab[length(sigmab)]
   } else if (!is.null(od_rates)) {
     ## validate each of the od_rates values
-    .validate_nonnegative_scalar(B_DC <- od_rates[1], name = "'od_rates[1]'")
-    .validate_positive_scalar(k_DC <- od_rates[2], name = "'od_rates[2]'")
-    .validate_positive_scalar(k_ph <- od_rates[3], name = "'od_rates[3]'")
+    .validate_nonnegative_scalar(B_DC <- od_rates[1], name = "'od_rates[1]' (B_DC)")
+    .validate_positive_scalar(k_DC <- od_rates[2], name = "'od_rates[2]' (k_DC)")
+    .validate_positive_scalar(k_ph <- od_rates[3], name = "'od_rates[3]' (k_ph)")
     sigmab.LnLx <- sigmab.TnTx <- NA
   } else {
     sigmab.LnLx <- .calc_sigmab(Lx.curve, signal_integral, background_integral,

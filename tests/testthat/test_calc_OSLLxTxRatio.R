@@ -189,6 +189,18 @@ test_that("input validation", {
                "'digits' should be a single non-negative integer value or NULL")
   expect_error(calc_OSLLxTxRatio(Lx.data, Tx.data, od_rates = 1),
                "'od_rates' should be of class 'numeric' or NULL and have length 3")
+  expect_error(calc_OSLLxTxRatio(Lx.data, Tx.data, od_rates = c(-1, 1, 1),
+                                 signal_integral = 1:2, background_integral = NA),
+               "'od_rates[1]' (B_DC) should be a single non-negative value",
+               fixed = TRUE)
+  expect_error(calc_OSLLxTxRatio(Lx.data, Tx.data, od_rates = c(1, 0, 1),
+                                 signal_integral = 1:2, background_integral = NA),
+               "'od_rates[2]' (k_DC) should be a single positive value",
+               fixed = TRUE)
+  expect_error(calc_OSLLxTxRatio(Lx.data, Tx.data, od_rates = c(1, 1, 0),
+                                 signal_integral = 1:2, background_integral = NA),
+               "'od_rates[3]' (k_ph) should be a single positive value",
+               fixed = TRUE)
 })
 
 test_that("create warnings", {
