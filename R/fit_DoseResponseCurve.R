@@ -652,7 +652,7 @@ fit_DoseResponseCurve <- function(
 
   ## helper to report a failure in the fit
   .report_fit_failure <- function(method, mode, ...) {
-    fit_message <<- sprintf("Fit failed for %s (%s)", fit.method, mode)
+    fit_message <<- sprintf("Fit failed for %s (%s)", method, mode)
     if (verbose)
       writeLines(paste("[fit_DoseResponseCurve()]", fit_message))
   }
