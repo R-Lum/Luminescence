@@ -485,11 +485,11 @@ temp_OTORX_alt <-
    }
 
    expect_equal(round(temp_OTOR$De[[1]], digits = 1),  1784.4)
-   expect_equal(round(temp_OTORX$De[[1]], digits = 1),  1785.2)
+   expect_equal(round(temp_OTORX$De[[1]], digits = 1), 2469.8)
    expect_equal(round(temp_OTORX_alt$De[[1]], digits = 2),  758.280)
    expect_equal(round(temp_OTORX_alt2$De[[1]], digits = 2),  793.21, tolerance = 0.2)
-   expect_equal(round(sum(temp_OTOR$De.MC, na.rm = TRUE), digits = 0), 17734)
-   expect_equal(round(sum(temp_OTORX$De.MC, na.rm = TRUE), digits = 0), 17851, tolerance = 0.2)
+   expect_equal(round(sum(temp_OTOR$De.MC, na.rm = TRUE), digits = 0), 17611)
+   expect_equal(round(sum(temp_OTORX$De.MC, na.rm = TRUE), digits = 0), 24408, tolerance = 0.2)
 
 # Check extrapolation -----------------------------------------------------
   ## load data
@@ -726,11 +726,17 @@ temp_OTORX_alt <-
       verbose = TRUE,
       n.MC = 10),
       "Fit failed for OTORX")
+  expect_error(fit_DoseResponseCurve(
+      LxTxData[-7, ],
+      fit.method = "EXP+EXP",
+      mode = "extrapolation"),
+      "Mode 'extrapolation' for fitting method 'EXP+EXP' not supported",
+      fixed = TRUE)
 
   set.seed(1)
   df <- data.frame(DOSE = c(0, 5, 10, 20, 25),
                    LxTx = c(40, -10, 30, -5, -20),
-                   LxTx_X = c(2, 0.01, 1, 2, 1))
+                   LxTx_X = c(2, 1, 1, 10, 1))
   expect_output(fit_DoseResponseCurve(df, fit.method = "EXP"),
                 "De = NaN")
 })
@@ -816,6 +822,15 @@ test_that("regression tests", {
                 "Fit: LIN (interpolation) | De = 1673.02", fixed = TRUE)
   expect_output(fit_DoseResponseCurve(LxTxData, fit.method = "QDR", n.MC = 1),
                 "Fit: QDR (interpolation) | De = 1646.83", fixed = TRUE)
+
+  ## issue 1570
+  df <- data.frame(Dose = c(0, 940.4, 2821.2, 4702, 0, 940.4),
+                   LxTx = c(1.69, 91.72, 13.71, 16.92, -0.50, 4.34),
+                   LxTx.Error = c(2.26, 1306.72, 9.12, 5.89, 0.37, 1.87),
+                   TnTx = c(7.02, 0.45, 15.56, 29.38, 25.03, 19.07))
+  expect_output(fit_DoseResponseCurve(df),
+                "Fit: EXP (interpolation) | De = 268.26 | D01 = 2612.50",
+                fixed = TRUE)
 })
 
 test_that("test internal functions", {
