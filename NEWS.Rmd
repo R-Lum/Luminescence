@@ -148,6 +148,9 @@ analysis function via the `analyse_function.control` argument, as in
 since v1.1.0. This error was introduced with commit cf299831 and remained
 unnoticed due to lack of graphical snapshots (a3ed7744).
 
+* Add `...` support for arguments `lwd_drc`, `lty_drc`, and `col_drc` to enable
+further customisation of the dose-response curve.
+
 ## `plot_KDE()`
 
 * The default background colour was incorrectly set to `NA`, which in some
