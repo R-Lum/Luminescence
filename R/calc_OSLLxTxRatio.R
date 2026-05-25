@@ -79,7 +79,7 @@
 #'
 #' \deqn{ s^2(N) = k_{ph}^2 N_{ph} + K_{DC}^2 N_{DC}
 #'               = k_{ph}^2 (N - B_{DC} t) + k_{DC}^2 B_{DC} t
-#'               = k_{ph}^2 N + (k_{DC}^2 + k_{ph}^2) B_{DC} t }
+#'               = k_{ph}^2 N + (k_{DC}^2 - k_{ph}^2) B_{DC} t }
 #'
 #' The `LnLx.Error` and `TnTx.Error` are computed as \eqn{\sqrt{s^2(N)}}.
 #'
