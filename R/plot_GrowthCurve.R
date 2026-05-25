@@ -28,7 +28,8 @@
 #' and to [Luminescence::plot_DoseResponseCurve] (`xlim`, `ylim`, `main`,
 #' `mtext`, `xlab`, `ylab`, `log`, `legend` (`TRUE/FALSE`), `legend.pos`,
 #' `reg_points_pch`, `density_polygon` (`TRUE/FALSE`), `density_polygon_col`,
-#' `density_rug` (`TRUE`/`FALSE`), `box` (`TRUE`/`FALSE`)).
+#' `density_rug` (`TRUE`/`FALSE`), `lwd_drc`, `col_drc`, `lty_drc`,
+#' `box` (`TRUE`/`FALSE`)).
 #'
 #' @return
 #' Along with a plot (if wanted) the [Luminescence::RLum.Results-class] object produced by
