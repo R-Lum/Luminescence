@@ -95,10 +95,10 @@ affected functions.
 
 - The new `od_rates` argument activates an alternative approach for
   error estimation of Lx/Tx ratios based on Bluszcz, Adamiec and Herr
-  (2015). This argument can also be passed via `analyse_SAR.CWOSL()` and
-  `analyse_pIRIRSequence()` (#1390; thanks to @andrzejbluszcz for
-  providing the mathematical description and contributing to the
-  implementation).
+  (2015). This argument is also supported by `analyse_SAR.CWOSL()`,
+  `analyse_pIRIRSequence()`, and `analyse_FadingMeasurement()` (#1390;
+  thanks to @andrzejbluszcz for providing the mathematical description,
+  contributing code and checking the implementation).
 
 ### `convert_Second2Gray()`
 
