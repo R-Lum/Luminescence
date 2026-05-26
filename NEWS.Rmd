@@ -96,9 +96,11 @@ was set to `TRUE` and `background_integral = NA`. Now the function will return
 very minor differences if the background counts for the `Lx` and `Tx` curves
 are similar (#1565).
 
-* The new `od_rates` argument activates an alternative approach to Galbraith's
-for error estimation of Lx/Tx ratios (#1390; thanks to @andrzejbluszcz for
-providing the mathematical description).
+* The new `od_rates` argument activates an alternative approach for error
+estimation of Lx/Tx ratios based on Bluszcz, Adamiec and Herr (2015). This
+argument can also be passed via `analyse_SAR.CWOSL()` and
+`analyse_pIRIRSequence()` (#1390; thanks to @andrzejbluszcz for providing the
+mathematical description and contributing to the implementation).
 
 ### `convert_Second2Gray()`
 

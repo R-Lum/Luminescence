@@ -289,6 +289,7 @@ calc_OSLLxTxRatio <- function(
                         background.count.distribution = background.count.distribution,
                         use_previousBG = use_previousBG,
                         sigmab = sigmab,
+                        od_rates = od_rates,
                         sig0 = sig0,
                         digits = digits,
                         ...)
