@@ -551,9 +551,6 @@ fit_DoseResponseCurve <- function(
 
   #1.2 Prepare data sets regeneration points for MC Simulation
   ## for interpolation the first point is considered as natural dose
-  first.idx <- ifelse(mode == "interpolation", 2, 1)
-  last.idx <- fit.NumberRegPoints + 1
-
   data.MC <- t(matrix(vapply(
       X = first.idx:last.idx,
       FUN = function(x) {
@@ -820,9 +817,9 @@ fit_DoseResponseCurve <- function(
         if(!inherits(fit.initial, "try-error")){
           #get parameters out of it
           parameters <- coef(fit.initial)
-          a.start[i] <- as.vector(parameters["a"])
-          b.start[i] <- as.vector(parameters["b"])
-          c.start[i] <- as.vector(parameters["c"])
+          a.start[i] <- as.numeric(parameters["a"])
+          b.start[i] <- as.numeric(parameters["b"])
+          c.start[i] <- as.numeric(parameters["c"])
         }
       }
 
@@ -848,13 +845,13 @@ fit_DoseResponseCurve <- function(
         control = minpack.lm::nls.lm.control(maxiter = 500)
       ), silent = TRUE)
 
-      if (inherits(fit, "try-error") & inherits(fit.initial, "try-error")){
+      if (inherits(fit, "try-error") && inherits(fit.initial, "try-error")) {
         .report_fit_failure(fit.method, mode)
 
       }else{
         ##this is to avoid the singular convergence failure due to a perfect fit at the beginning
         ##this may happen especially for simulated data
-        if(inherits(fit, "try-error") & !inherits(fit.initial, "try-error")){
+        if (inherits(fit, "try-error") && !inherits(fit.initial, "try-error")) {
           fit <- fit.initial
           rm(fit.initial)
         }
@@ -876,7 +873,6 @@ fit_DoseResponseCurve <- function(
 
         #print D01 value
         D01 <- b
-
         .report_fit(De, sprintf(" | D01 = %.2f", D01))
 
         #EXP MC -----
@@ -1187,10 +1183,10 @@ fit_DoseResponseCurve <- function(
       if (!inherits(fit.start, "try-error")) {
         #get parameters out of it
         parameters <- coef(fit.start)
-        a1.start[i] <- as.vector((parameters["a1"]))
-        b1.start[i] <- as.vector((parameters["b1"]))
-        a2.start[i] <- as.vector((parameters["a2"]))
-        b2.start[i] <- as.vector((parameters["b2"]))
+        a1.start[i] <- as.numeric((parameters["a1"]))
+        b1.start[i] <- as.numeric((parameters["b1"]))
+        a2.start[i] <- as.numeric((parameters["a2"]))
+        b2.start[i] <- as.numeric((parameters["b2"]))
       }
     }
 
@@ -1297,8 +1293,8 @@ fit_DoseResponseCurve <- function(
           parameters <- coef(fit.MC)
           var.a1 <- as.numeric(parameters["a1"])
           var.a2 <- as.numeric(parameters["a2"])
-          var.b1[i] <- as.vector((parameters["b1"]))
-          var.b2[i] <- as.vector((parameters["b2"]))
+          var.b1[i] <- as.numeric(parameters["b1"])
+          var.b2[i] <- as.numeric(parameters["b2"])
 
           #problem: analytically it is not easy to calculate x, here an simple approximation is made
           temp.De.MC <-  try(uniroot(
@@ -1370,7 +1366,6 @@ fit_DoseResponseCurve <- function(
 
       #print D01 value
       D01 <- b
-
       .report_fit(De, sprintf(" | D01 = %.2f | c = %.2f", D01, c))
 
       #EXP MC -----
@@ -1922,10 +1917,8 @@ fit_DoseResponseCurve <- function(
   } else {
     str <- "a * x + b * x^2 + n"
     param <- c(n = 0, a = 0, b = 0)
-     if(!"(Intercept)" %in% names(coef(f)))
-      param[2:(length(coef(f))+1)] <- coef(f)
-    else
-      param[1:length(coef(f))] <- coef(f)
+    first.idx <- if ("(Intercept)" %in% names(coef(f))) 0 else 1
+    param[first.idx + 1:length(coef(f))] <- coef(f)
   }
 
   ## if the following assertion is triggered, it means that we have used a C++
@@ -1936,16 +1929,16 @@ fit_DoseResponseCurve <- function(
   stopifnot(!startsWith("fit_function", str))
 
   ## replace parameters with fitted coefficients
-  for (i in 1:length(param)) {
+  for (par in names(param)) {
     str <- gsub(
-      pattern = names(param)[i],
-      replacement = format(param[i], digits = 3, scientific = TRUE),
+      pattern = par,
+      replacement = format(param[[par]], digits = 3, scientific = TRUE),
       x = str,
       fixed = TRUE)
   }
 
   ## return
-  return(parse(text = str))
+  parse(text = str)
 }
 
 #'@title Convert function to formula
