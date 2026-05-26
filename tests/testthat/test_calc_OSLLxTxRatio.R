@@ -187,6 +187,25 @@ test_that("input validation", {
                "'sig0' should be a single non-negative value")
   expect_error(calc_OSLLxTxRatio(Lx.data, Tx.data, digits = -1),
                "'digits' should be a single non-negative integer value or NULL")
+  expect_error(calc_OSLLxTxRatio(Lx.data, Tx.data, od_rates = 1),
+               "'od_rates' should be of class 'numeric' or NULL and have length 3")
+  expect_error(calc_OSLLxTxRatio(list(Lx.data), list(Tx.data),
+                                 od_rates = c(NA_integer_, 1, 0),
+                                 signal_integral = 1:2, background_integral = NA),
+               "'od_rates[1]' (B_DC) should be a single non-negative value",
+               fixed = TRUE)
+  expect_error(calc_OSLLxTxRatio(Lx.data, Tx.data, od_rates = c(-1, 1, 1),
+                                 signal_integral = 1:2, background_integral = NA),
+               "'od_rates[1]' (B_DC) should be a single non-negative value",
+               fixed = TRUE)
+  expect_error(calc_OSLLxTxRatio(Lx.data, Tx.data, od_rates = c(1, 0, 1),
+                                 signal_integral = 1:2, background_integral = NA),
+               "'od_rates[2]' (k_DC) should be a single positive value",
+               fixed = TRUE)
+  expect_error(calc_OSLLxTxRatio(Lx.data, Tx.data, od_rates = c(1, 1, 0),
+                                 signal_integral = 1:2, background_integral = NA),
+               "'od_rates[3]' (k_ph) should be a single positive value",
+               fixed = TRUE)
 })
 
 test_that("create warnings", {
@@ -393,5 +412,58 @@ test_that("snapshot tests", {
       background_integral = 70:100,
       signal_integral_Tx = 1:10,
       background_integral_Tx = NA),
+      tolerance = snapshot.tolerance)
+
+  ## od_rates
+  expect_snapshot_RLum(calc_OSLLxTxRatio(
+      Lx.data,
+      Tx.data,
+      signal_integral = 1:20,
+      background_integral = 70:100,
+      od_rates = c(1, 1, 1)),
+      tolerance = snapshot.tolerance)
+
+  expect_warning(
+  expect_snapshot_RLum(calc_OSLLxTxRatio(
+      Lx.data,
+      Tx.data,
+      signal_integral = 1:20,
+      signal_integral_Tx = 2:20,
+      background_integral = 60:100,
+      background_integral_Tx = 40:100,
+      sigmab = 10,
+      od_rates = c(1, 2, 3)),
+      tolerance = snapshot.tolerance),
+  "Both 'sigmab' and 'od_rates' provided, 'od_rates' set to NULL")
+
+  bluszcz <- readRDS(test_path("_data/LxTx_Bluszcz.rds"))
+  expect_snapshot_RLum(calc_OSLLxTxRatio(
+      bluszcz$Lx, bluszcz$Tx,
+      signal_integral = 1:5,
+      background_integral = 200:250,
+      od_rates = c(0, 1, 1)),
+      tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(calc_OSLLxTxRatio(
+      bluszcz$Lx, bluszcz$Tx,
+      signal_integral = 1:5,
+      background_integral = 200:250,
+      od_rates = c(0, 1, 2)),
+      tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(calc_OSLLxTxRatio(
+      bluszcz$Lx, bluszcz$Tx,
+      signal_integral = 2:5,
+      background_integral = 200:250,
+      od_rates = c(30, 2, 3),
+      sig0 = 1.2),
+      tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(calc_OSLLxTxRatio(
+      bluszcz$Lx, bluszcz$Tx,
+      signal_integral = 1:3,
+      background_integral = 150:250,
+      od_rates = c(30, 0.5, 0.8),
+      use_previousBG = TRUE),
       tolerance = snapshot.tolerance)
 })

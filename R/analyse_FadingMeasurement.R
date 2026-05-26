@@ -470,6 +470,7 @@ analyse_FadingMeasurement <- function(
         background_integral_Tx = list(...)$background_integral_Tx,
         integral_input = integral_input,
         sigmab = list(...)$sigmab,
+        od_rates = list(...)$od_rates,
         sig0 = list(...)$sig0 %||% formals(calc_OSLLxTxRatio)$sig0,
         background.count.distribution =
           list(...)$background.count.distribution %||%

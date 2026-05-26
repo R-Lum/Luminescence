@@ -155,11 +155,15 @@ curves with \code{recordType} starting with \verb{_} should be automatically rem
 \item{...}{further arguments that will be passed to
 \link{fit_DoseResponseCurve}, \link{plot_DoseResponseCurve}
 or \link{calc_OSLLxTxRatio} (supported:
-\code{background.count.distribution}, \code{sigmab}, \code{sig0}).
+\code{background.count.distribution}, \code{sigmab}, \code{sig0}, \code{od_rates}).
 Additionally, supported are \code{legend.cex} and \code{legend.pch} to modify the
 legend symbols.
 \strong{Note:} If you consider using the early light subtraction method,
-\code{sigmab} should be provided.}
+\code{sigmab} should be provided.
+
+\strong{Note:} \code{od_rates} can be used to treat uncertainties in Lx/Tx according
+to Bluszcz et al. (2015) instead of the standard approach of Galbraith
+(2002, 2014). See \link{calc_OSLLxTxRatio} for details.}
 }
 \value{
 A plot (\emph{optional}) and an \link[=RLum.Results-class]{RLum.Results} object is
@@ -343,6 +347,11 @@ Thomsen, K.J., Murray, A.S., Jain, M., Boetter-Jensen, L., 2008. Laboratory
 fading rates of various luminescence signals from feldspar-rich sediment
 extracts. Radiation Measurements 43, 1474-1486.
 doi:10.1016/j.radmeas.2008.06.002
+
+Bluszcz, A., Adamiec, G., Herr, A., 2015. Estimation of equivalent dose and
+its uncertainty in the OSL SAR protocol when count numbers do not follow a
+Poisson distribution. Radiation Measurements 81, 46-54.
+doi:10.1016/j.radmeas.2015.01.004
 }
 \seealso{
 \link{calc_OSLLxTxRatio}, \link{fit_DoseResponseCurve},

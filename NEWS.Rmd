@@ -96,13 +96,20 @@ was set to `TRUE` and `background_integral = NA`. Now the function will return
 very minor differences if the background counts for the `Lx` and `Tx` curves
 are similar (#1565).
 
+* The new `od_rates` argument activates an alternative approach for error
+estimation of Lx/Tx ratios based on Bluszcz, Adamiec and Herr (2015). This
+argument is also supported by `analyse_SAR.CWOSL()`, `analyse_pIRIRSequence()`,
+and `analyse_FadingMeasurement()` (#1390; thanks to @andrzejbluszcz for
+providing the mathematical description, contributing code and checking the
+implementation).
+
 ### `convert_Second2Gray()`
 
 * Input validation was strengthened to avoid two possible crashes (#1537).
 
 ### `fit_DoseResponseCurve()`
 
-* For `fit.method = "OTORX"` parameter `a` was renamed to `Di` for consistency. 
+* For `fit.method = "OTORX"` parameter `a` was renamed to `Di` for consistency.
 
 * The argument `fit.weights` now supports a `numeric` vector as input. This gives
 more control over the fitting process and enables better comparison with other
@@ -110,8 +117,8 @@ software, such as Python's SciPy. The `numeric` vector must be of the same
 length as the number of data points to be fit. This is typical the number of
 `LxTx` points (#1536)
 
-* Re-implement the argument `fit.weights`, now supporting keywords as input, 
-selecting different approaches for fit weights. `NULL` disables weights and 
+* Re-implement the argument `fit.weights`, now supporting keywords as input,
+selecting different approaches for fit weights. `NULL` disables weights and
 `numeric` input enables the definition of own weights. The new standard
 approach is `1/sigma^2` (#1539).
 
@@ -167,7 +174,7 @@ objects to obtain the same output of `plot_DoseResponseCurve()` (#1550).
 ### `plot_RLum.Data.Spectrum()`
 
 * If the function was called with `plot.type = "interactive"`, the error
-`plot.new has not been called yet` appeared in the terminal. This 
+`plot.new has not been called yet` appeared in the terminal. This
 did not flag as an error before, because the `plotly` object was returned regardless
 of the error message; fixed.
 
