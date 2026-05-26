@@ -64,6 +64,12 @@ test_that("graphical snapshot tests", {
                               plot_DoseResponseCurve(fit, legend = FALSE,
                                                      density_polygon_col = "azure",
                                                      cex = 2))
+  vdiffr::expect_doppelganger("drc",
+                              plot_DoseResponseCurve(fit, legend = FALSE,
+                                                     lwd_drc = 3,
+                                                     col_drc = "green",
+                                                     lty_drc = 3,
+                                                     cex = 2))
   vdiffr::expect_doppelganger("rlum.results",
                               plot_RLum.Results(fit, main = "plot_RLum.Results"))
 
@@ -117,5 +123,6 @@ test_that("graphical snapshot tests", {
                            main = "norm_inverse_std",
                            plot_singlePanels = TRUE)
   )
+  
   })
 })

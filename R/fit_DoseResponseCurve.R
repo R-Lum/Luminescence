@@ -138,21 +138,20 @@
 #'
 #' **Error estimation using Monte Carlo simulation**
 #'
-#' Error estimation is done using a parametric bootstrapping approach. A set of
-#' \eqn{\frac{L_x}{T_x}} values is constructed by randomly drawing curve data sampled from normal
-#' distributions. The normal distribution is defined by the input values (`mean
-#' = value`, `sd = value.error`). Then, a dose-response curve fit is attempted for each
-#' dataset resulting in a new distribution of single `De` values. The standard
-#' deviation of this distribution becomes then the error of the `De`. With increasing
-#' iterations, the error value becomes more stable. However, naturally the error
-#' will not decrease with more MC runs.
+#' Error estimation is done using a parametric bootstrap. A set of
+#' \eqn{\frac{L_x}{T_x}} values is constructed by randomly drawing curve data
+#' from normal distributions defined by the input values (`mean = value`,
+#' `sd = value.error`). A dose-response curve is then fitted for each sampled
+#' dataset using the chosen fitting method, producing a distribution of single
+#' `De` values. The standard deviation of this distribution is taken as the
+#' error of the `De`. With more iterations (`n.MC`) the error estimate
+#' stabilizes. However, naturally the error will not decrease with more MC runs.
 #'
 #' Alternatively, the function returns highest probability density interval
 #' estimates as output, users may find more useful under certain circumstances.
 #'
 #' **Note:** It may take some calculation time with increasing MC runs,
-#' especially for the composed functions (`EXP+LIN` and `EXP+EXP`).\cr
-#' Each error estimation is done with the function of the chosen fitting method.
+#' especially for the composed functions (`EXP+LIN` and `EXP+EXP`).
 #'
 #' @param object [data.frame] or a [list] of such objects (**required**):
 #' data frame with columns for `Dose`, `LxTx`, `LxTx.Error` and `TnTx`.
@@ -173,7 +172,7 @@
 #' - `"alternate"` calculates no equivalent dose and just fits the data points.
 #'
 #' Please note that for option `"interpolation"` the first point is considered
-#' as natural dose
+#' as natural dose.
 #'
 #' @param fit.method [character] (*with default*):
 #' function used for fitting. Possible options are: `LIN`, `QDR`, `EXP`,
@@ -209,7 +208,7 @@
 #' Argument to be inserted for experimental application only!
 #'
 #' @param n.MC [integer] (*with default*):
-#' number of Monte Carlo simulations for error estimation, see details.
+#' number of Monte Carlo simulations for error estimation.
 #'
 #' @param txtProgressBar [logical] (*with default*):
 #' enable/disable the progress bar. If `verbose = FALSE` also no
@@ -462,18 +461,19 @@ fit_DoseResponseCurve <- function(
   }
 
   ## count and exclude NA values and print result
-  if (sum(!stats::complete.cases(object)) > 0)
+  if (sum(!stats::complete.cases(object)) > 0) {
     .throw_warning(sum(!stats::complete.cases(object)),
                    " NA values removed")
 
-  ## exclude NA
-  object <- na.exclude(object)
+    ## exclude NA
+    object <- na.exclude(object)
 
-  ## Check if anything is left after removal
-  if (nrow(object) == 0) {
-    .throw_message("After NA removal, nothing is left from the data set, ",
-                   "NULL returned")
-    return(NULL)
+    ## Check if anything is left after removal
+    if (nrow(object) == 0) {
+      .throw_message("After NA removal, nothing is left from the data set, ",
+                     "NULL returned")
+      return(NULL)
+    }
   }
 
   ##3. verbose mode
@@ -652,7 +652,7 @@ fit_DoseResponseCurve <- function(
 
   ## helper to report a failure in the fit
   .report_fit_failure <- function(method, mode, ...) {
-    fit_message <<- sprintf("Fit failed for %s (%s)", fit.method, mode)
+    fit_message <<- sprintf("Fit failed for %s (%s)", method, mode)
     if (verbose)
       writeLines(paste("[fit_DoseResponseCurve()]", fit_message))
   }
@@ -668,7 +668,8 @@ fit_DoseResponseCurve <- function(
   b <- 1
   if (any(data$y > 0)) {
     ## this may cause NaN values so we have to handle those later
-    fit.lm <- try(stats::lm(suppressWarnings(log(data$y)) ~ data$x),
+    fit.lm <- try(stats::lm(suppressWarnings(log(data$y)) ~ data$x,
+                            weights = fit.weights),
                   silent = TRUE)
 
     if (!inherits(fit.lm, "try-error") && !is.na(fit.lm$coefficients[2]))
@@ -676,7 +677,8 @@ fit_DoseResponseCurve <- function(
   }
 
   ##c - get start parameters from a linear fit - offset on x-axis
-  fit.lm <- stats::lm(data$y ~ data$x)
+  fit.lm <- stats::lm(data$y ~ data$x,
+                      weights = fit.weights)
   c <- as.numeric(abs(fit.lm$coefficients[1]/fit.lm$coefficients[2]))
 
   #take slope from x - y scaling
@@ -690,12 +692,9 @@ fit_DoseResponseCurve <- function(
   ## a normal distribution
 
   ## draw 50 start values from a normal distribution
-  if (fit.method != "LIN") {
+  if (!fit.method %in% c("LIN", "QDR", "GOK")) {
     a.MC <- suppressWarnings(rnorm(50, mean = a, sd = a / 100))
-
-    if (!is.na(b)) {
-      b.MC <- suppressWarnings(rnorm(50, mean = b, sd = b / 100))
-    }
+    b.MC <- suppressWarnings(rnorm(50, mean = b, sd = b / 100))
 
     if(fit.force_through_origin)
       c.MC <- rep(0, 50)
@@ -734,7 +733,7 @@ fit_DoseResponseCurve <- function(
         ## for uniroot() to work, the values at the endpoints (lower and upper)
         ## must have opposite sign: therefore we check if the value at lower
         ## is negative, and if not we decrease it until we find a negative
-        ## value or we see that the function not decreasing
+        ## value or we see that the function is not decreasing
         lower <- 0
         value.lower <- De.fs(fit, lower, y)
         while (value.lower > 0 && lower > -1000) {

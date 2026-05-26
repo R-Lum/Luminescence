@@ -31,8 +31,8 @@ test_that("input validation", {
                "'data' should be of class 'data.frame'")
   expect_error(calc_Huntley2006("test"),
                "'data' should be of class 'data.frame'")
-  expect_error(calc_Huntley2006(data.frame()),
-               "'data' cannot be an empty data.frame")
+  expect_error(calc_Huntley2006(data.frame(a = 1, b = 2, c = 3)),
+               "'data' should contain at least 4 dose points")
   expect_error(calc_Huntley2006(iris[, 1, drop = FALSE]),
                "'data' should have at least 2 columns")
 
@@ -274,13 +274,13 @@ test_that("Further tests calc_Huntley2006", {
 
   expect_error(
     calc_Huntley2006(
-      data = iris[, 1:3],
+      data = iris[, 2:4],
       rhop = rhop, ddot = ddot, readerDdot = readerDdot,
       n.MC = 2, plot = FALSE, verbose = FALSE),
     "Unable to fit growth curve to measured data, try setting 'fit.bounds = FALSE'")
   expect_error(
     calc_Huntley2006(
-      data = iris[, 1:3],
+      data = iris[, 2:4],
       rhop = rhop, ddot = ddot, readerDdot = readerDdot,
       n.MC = 2, plot = FALSE, verbose = FALSE, fit.bounds = FALSE),
     "Unable to fit growth curve to measured data$")
@@ -293,7 +293,7 @@ test_that("Further tests calc_Huntley2006", {
     "Ln is >10 % larger than the maximum computed LxTx value")
   expect_warning(expect_error(
     calc_Huntley2006(
-      data = data,
+      data = data[8:11, ],
       rhop = c(4e-5, 5e-7), ddot = c(8, 0.04), readerDdot = c(0.0001, 0.006),
       n.MC = 2, mode = "extrapolation", plot = FALSE, verbose = FALSE),
     "Simulated D0 is NA: either your input values are unsuitable"),

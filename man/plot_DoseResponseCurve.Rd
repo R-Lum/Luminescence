@@ -17,10 +17,10 @@ plot_DoseResponseCurve(
 An object produced by \link{fit_DoseResponseCurve}.}
 
 \item{plot_extended}{\link{logical} (\emph{with default}):
-If \code{TRUE}, 3 plots on one plot area are provided:
+If \code{TRUE} (default), 3 plots on one plot area are provided:
 \enumerate{
-\item growth curve,
-\item histogram from Monte Carlo error simulation and
+\item the dose-response curve,
+\item a histogram from Monte Carlo error simulation and
 \item a test dose response plot.
 }
 
@@ -37,7 +37,7 @@ enable/disable output to the terminal.}
 \code{main}, \code{mtext}, \code{xlim}, \code{ylim}, \code{xlab}, \code{ylab}, \code{log}
 (not valid for objects fitted with \code{mode = "extrapolation"}), \code{legend} (\code{TRUE/FALSE}),
 \code{legend.pos}, \code{reg_points_pch}, \code{density_polygon} (\code{TRUE/FALSE}),
-\code{density_polygon_col}, \code{density_rug} (\code{TRUE}/\code{FALSE}),
+\code{density_polygon_col}, \code{density_rug} (\code{TRUE}/\code{FALSE}), \code{lwd_drc}, \code{col_drc},\code{lty_drc},
 \code{box} (\code{TRUE}/\code{FALSE}).}
 }
 \value{
@@ -48,7 +48,7 @@ A dose-response curve is produced for luminescence measurements using a
 regenerative or additive protocol as implemented in \link{fit_DoseResponseCurve}.
 }
 \section{Function version}{
- 1.0.9
+ 1.0.10
 }
 
 \examples{

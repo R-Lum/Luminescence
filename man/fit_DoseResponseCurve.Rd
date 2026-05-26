@@ -43,7 +43,7 @@ selects calculation mode of the function.
 }
 
 Please note that for option \code{"interpolation"} the first point is considered
-as natural dose}
+as natural dose.}
 
 \item{fit.method}{\link{character} (\emph{with default}):
 function used for fitting. Possible options are: \code{LIN}, \code{QDR}, \code{EXP},
@@ -79,7 +79,7 @@ with the fit methods \code{EXP}, \code{EXP+LIN}, \verb{EXP OR LIN}, \code{GOK}, 
 Argument to be inserted for experimental application only!}
 
 \item{n.MC}{\link{integer} (\emph{with default}):
-number of Monte Carlo simulations for error estimation, see details.}
+number of Monte Carlo simulations for error estimation.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
 enable/disable the progress bar. If \code{verbose = FALSE} also no
@@ -278,20 +278,20 @@ implemented fit weights differently.
 
 \strong{Error estimation using Monte Carlo simulation}
 
-Error estimation is done using a parametric bootstrapping approach. A set of
-\eqn{\frac{L_x}{T_x}} values is constructed by randomly drawing curve data sampled from normal
-distributions. The normal distribution is defined by the input values (\code{mean = value}, \code{sd = value.error}). Then, a dose-response curve fit is attempted for each
-dataset resulting in a new distribution of single \code{De} values. The standard
-deviation of this distribution becomes then the error of the \code{De}. With increasing
-iterations, the error value becomes more stable. However, naturally the error
-will not decrease with more MC runs.
+Error estimation is done using a parametric bootstrap. A set of
+\eqn{\frac{L_x}{T_x}} values is constructed by randomly drawing curve data
+from normal distributions defined by the input values (\code{mean = value},
+\code{sd = value.error}). A dose-response curve is then fitted for each sampled
+dataset using the chosen fitting method, producing a distribution of single
+\code{De} values. The standard deviation of this distribution is taken as the
+error of the \code{De}. With more iterations (\code{n.MC}) the error estimate
+stabilizes. However, naturally the error will not decrease with more MC runs.
 
 Alternatively, the function returns highest probability density interval
 estimates as output, users may find more useful under certain circumstances.
 
 \strong{Note:} It may take some calculation time with increasing MC runs,
-especially for the composed functions (\code{EXP+LIN} and \code{EXP+EXP}).\cr
-Each error estimation is done with the function of the chosen fitting method.
+especially for the composed functions (\code{EXP+LIN} and \code{EXP+EXP}).
 }
 }
 \section{Function version}{

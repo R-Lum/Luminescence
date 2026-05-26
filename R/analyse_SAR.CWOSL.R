@@ -1421,22 +1421,16 @@ analyse_SAR.CWOSL<- function(
   ## draw super circle
   shape::plotellipse(rx = 0.4, ry = 0.4, mid = c(0.5,0.5), lwd = 1)
 
-  ## draw positing holes
-  shape::plotellipse(
-    rx = 0.015,
-    ry = 0.015,
-    mid = c(0.15,0.5),
-    lwd = 1)
-  shape::plotellipse(
-    rx = 0.015,
-    ry = 0.015,
-    mid = c(0.5,0.85),
-    lwd = 1)
-  shape::plotellipse(
-    rx = 0.015,
-    ry = 0.015,
-    mid = c(0.85,0.5),
-    lwd = 1)
+  ## draw positioning holes
+  for (mid in list(c(0.15, 0.50),
+                   c(0.50, 0.85),
+                   c(0.85, 0.50))) {
+    shape::plotellipse(
+               rx = 0.015,
+               ry = 0.015,
+               mid = mid,
+               lwd = 1)
+  }
 
   ## add points
   points(xy_coord, bg = "grey", pch = 21, cex = 1.2)
