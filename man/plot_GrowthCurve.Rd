@@ -75,12 +75,11 @@ and to \link{plot_DoseResponseCurve} (\code{xlim}, \code{ylim}, \code{main},
 \code{mtext}, \code{xlab}, \code{ylab}, \code{log}, \code{legend} (\code{TRUE/FALSE}), \code{legend.pos},
 \code{reg_points_pch}, \code{density_polygon} (\code{TRUE/FALSE}), \code{density_polygon_col},
 \code{density_rug} (\code{TRUE}/\code{FALSE}), \code{lwd_drc}, \code{col_drc}, \code{lty_drc},
-
 \code{box} (\code{TRUE}/\code{FALSE})).}
 }
 \value{
-Along with a plot (if wanted) the \link[=RLum.Results-class]{RLum.Results} object produced by
-\link{fit_DoseResponseCurve} is returned.
+Along with a plot (if wanted) the \link[=RLum.Results-class]{RLum.Results} object
+produced by \link{fit_DoseResponseCurve} is returned invisibly.
 }
 \description{
 A dose-response curve is produced for luminescence measurements using a

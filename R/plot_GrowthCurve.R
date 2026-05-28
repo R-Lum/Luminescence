@@ -32,8 +32,8 @@
 #' `box` (`TRUE`/`FALSE`)).
 #'
 #' @return
-#' Along with a plot (if wanted) the [Luminescence::RLum.Results-class] object produced by
-#' [Luminescence::fit_DoseResponseCurve] is returned.
+#' Along with a plot (if wanted) the [Luminescence::RLum.Results-class] object
+#' produced by [Luminescence::fit_DoseResponseCurve] is returned invisibly.
 #'
 #' @section Function version: 1.2.3
 #'
@@ -43,7 +43,6 @@
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @references
-#'
 #' Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.
 #'
 #' Guralnik, B., Li, B., Jain, M., Chen, R., Paris, R.B., Murray, A.S., Li, S.-H., Pagonis, P.,
