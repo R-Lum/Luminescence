@@ -71,12 +71,12 @@ Default is \code{"mean.weighted"}.}
 \item{dispersion}{\link{character} (\emph{with default}):
 measure of dispersion, used for drawing the scatter polygon. One out of
 \itemize{
-\item \code{"qr"} (quartile range, default),
-\item \code{"pnn"} (symmetric percentile range with \code{nn} the lower percentile, e.g.
-\code{"p05"} indicating the range between 5 and 95 \%, or \code{"p10"} indicating
-the range between 10 and 90 \%), or
-\item \code{"sd"} (standard deviation) and
-\item \code{"2sd"} (2 standard deviations),
+\item \code{"qr"} (quartile range, default)
+\item \code{"sd"} (standard deviation)
+\item \code{"2sd"} (2 standard deviations)
+\item \code{"pNN"} (symmetric percentile range, with \code{NN} being the lower percentile,
+e.g. \code{"p05"} indicates the range between 5 and 95 \%, or \code{"p10"} indicates
+the range between 10 and 90 \%)
 }
 
 The default is \code{"qr"}. Note that \code{"sd"} and \code{"2sd"} are only meaningful in

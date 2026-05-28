@@ -109,12 +109,12 @@
 #'
 #' @param dispersion [character] (*with default*):
 #' measure of dispersion, used for drawing the scatter polygon. One out of
-#' - `"qr"` (quartile range, default),
-#' - `"pnn"` (symmetric percentile range with `nn` the lower percentile, e.g.
-#' `"p05"` indicating the range between 5 and 95 %, or `"p10"` indicating
-#' the range between 10 and 90 %), or
-#' - `"sd"` (standard deviation) and
-#' - `"2sd"` (2 standard deviations),
+#' - `"qr"` (quartile range, default)
+#' - `"sd"` (standard deviation)
+#' - `"2sd"` (2 standard deviations)
+#' - `"pNN"` (symmetric percentile range, with `NN` being the lower percentile,
+#' e.g. `"p05"` indicates the range between 5 and 95 %, or `"p10"` indicates
+#' the range between 10 and 90 %)
 #'
 #' The default is `"qr"`. Note that `"sd"` and `"2sd"` are only meaningful in
 #' combination with `"z.0 = 'mean'"` because the unweighted mean is used to
@@ -599,11 +599,10 @@ plot_AbanicoPlot <- function(
                           extra = "a numerical value")
   }
 
-  ## the 'pnn' option need some special treatment
-  main.choices <- c("qr", "sd", "2sd")
-  extra.choice <-"a percentile of the form 'pnn' (eg. 'p05')"
+  ## the 'pNN' option needs some special treatment
   if (!any(grepl("^p[0-9][0-9]$", dispersion)))
-    dispersion <- .validate_args(dispersion, main.choices, extra = extra.choice)
+    dispersion <- .validate_args(dispersion, c("qr", "sd", "2sd"),
+                                 extra = "a percentile of the form 'pNN' (e.g. 'p05')")
   .validate_length(dispersion, 1)
 
   valid.pos <- c("left", "center", "right", "topleft", "top", "topright",

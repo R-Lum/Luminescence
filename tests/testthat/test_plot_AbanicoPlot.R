@@ -81,7 +81,6 @@ test_that("input validation", {
                  "Lower x-axis limit was 2, reset to zero")
 })
 
-
 test_that("Test examples from the example page", {
   testthat::skip_on_cran()
 
