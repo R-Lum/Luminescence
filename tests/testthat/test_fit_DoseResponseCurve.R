@@ -54,7 +54,7 @@ test_that("input validation", {
                                      fit.force_through_origin = "error"),
                "'fit.force_through_origin' should be a single logical value")
   expect_error(fit_DoseResponseCurve(LxTxData, fit.weights = "error"),
-               "'fit.weights' should be one of 'inverse_var', 'inverse_std' or 'norm_inverse_std'")
+               "'fit.weights' should be one of 'inverse_var', 'inverse_std', 'norm_inverse_std', a numeric vector or NULL")
   expect_error(fit_DoseResponseCurve(LxTxData, fit.weights = iris),
                "'fit.weights' should be of class 'character', 'numeric' or NULL")
   expect_error(fit_DoseResponseCurve(LxTxData, fit.weights = c(1, 2)),

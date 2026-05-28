@@ -538,9 +538,8 @@ fit_DoseResponseCurve <- function(
 
   } else {
     ## the character case
-    .validate_args(
-      arg = fit.weights,
-      choices = c("inverse_var", "inverse_std", "norm_inverse_std"))
+    .validate_args(fit.weights, c("inverse_var", "inverse_std", "norm_inverse_std"),
+                   null.ok = TRUE, extra = "a numeric vector")
     fit.weights <- switch(
       fit.weights[1],
       "inverse_std" = 1 / abs(y.Error),
