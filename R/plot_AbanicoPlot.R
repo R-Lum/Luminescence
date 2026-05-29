@@ -1246,25 +1246,17 @@ plot_AbanicoPlot <- function(
                   xy.0[rotate.idx], limits.x[2])
   polygons.y <- matrix(nrow = length(data), ncol = 7)
   for(i in 1:length(data)) {
-    if(dispersion == "qr") {
-      ci.lo_up <- quantile(data[[i]][, 1], c(0.25, 0.75))
-    } else if (grepl("p", dispersion)) {
-      ci.plot <- as.numeric(strsplit(x = dispersion,
-                                     split = "p")[[1]][2])
-      ci.plot <- (100 - ci.plot) / 100
-      ci.lo_up <- quantile(data[[i]][, 1], c(ci.plot, 1 - ci.plot))
-    } else if(dispersion == "sd") {
+    if (grepl("sd", dispersion, fixed = TRUE)) {
+      pm <- if (dispersion == "2sd") c(-2, 2) else c(-1, 1)
       if (log.z) {
-        ci.lo_up <- exp(mean(log(data[[i]][, 1])) + c(-1, 1) * sd(log(data[[i]][, 1])))
+        ci.lo_up <- exp(mean(log(data[[i]][, 1])) + pm * sd(log(data[[i]][, 1])))
       } else {
-        ci.lo_up <- mean(data[[i]][, 1]) + c(-1, 1) * sd(data[[i]][, 1])
+        ci.lo_up <- mean(data[[i]][, 1]) + pm * sd(data[[i]][, 1])
       }
-    } else if(dispersion == "2sd") {
-      if (log.z) {
-        ci.lo_up <- exp(mean(log(data[[i]][, 1])) + c(-2, 2) * sd(log(data[[i]][, 1])))
-      } else {
-        ci.lo_up <- mean(data[[i]][, 1]) + c(-2, 2) * sd(data[[i]][, 1])
-      }
+    } else {
+      prob <- if (dispersion == "qr") 0.25
+              else as.numeric(substring(dispersion, 2)) / 100 # pNN case
+      ci.lo_up <- quantile(data[[i]][, 1], c(prob, 1 - prob))
     }
 
     if (log.z) {
