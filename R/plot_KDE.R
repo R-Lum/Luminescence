@@ -582,6 +582,7 @@ plot_KDE <- function(
                        layout$kde$font.deco$ylab1],
         cex = cex * layout$kde$font.size$ylab1/12)
 
+  ## add density curves
   for(i in 1:length(data)) {
     if(!all(is.na(De.density[[i]]))){
       polygon(x = c(par()$usr[1], De.density[[i]]$x, par()$usr[2]),
@@ -713,23 +714,17 @@ plot_KDE <- function(
 
         ## draw whiskers
         lines(x = c(boxplot.data[[i]]$stats[2,1],
-                    boxplot.data[[i]]$stats[1,1]),
-              y = c(-9/8, -9/8) * l_height,
+                    boxplot.data[[i]]$stats[1,1], NA,
+                    boxplot.data[[i]]$stats[4,1],
+                    boxplot.data[[i]]$stats[5,1]),
+              y = rep(-9/8, 5) * l_height,
               col = col.boxplot.line[i])
 
         lines(x = c(boxplot.data[[i]]$stats[1,1],
-                    boxplot.data[[i]]$stats[1,1]),
-              y = c(-10/8, -8/8) * l_height,
-              col = col.boxplot.line[i])
-
-        lines(x = c(boxplot.data[[i]]$stats[4,1],
+                    boxplot.data[[i]]$stats[1,1], NA,
+                    boxplot.data[[i]]$stats[5,1],
                     boxplot.data[[i]]$stats[5,1]),
-              y = c(-9/8, -9/8) * l_height,
-              col = col.boxplot.line[i])
-
-        lines(x = c(boxplot.data[[i]]$stats[5,1],
-                    boxplot.data[[i]]$stats[5,1]),
-              y = c(-10/8, -8/8) * l_height,
+              y = c(-10/8, -8/8, NA, -10/8, -8/8) * l_height,
               col = col.boxplot.line[i])
 
         ## draw outliers

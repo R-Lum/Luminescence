@@ -66,8 +66,8 @@
 <polyline points='469.67,488.33 469.67,481.13 ' style='stroke-width: 1.50;' />
 <polygon points='460.29,488.33 460.29,481.13 486.02,481.13 486.02,488.33 ' style='stroke-width: 0.75; fill: none;' />
 <polyline points='460.29,484.73 432.00,484.73 ' style='stroke-width: 0.75;' />
-<polyline points='432.00,486.53 432.00,482.93 ' style='stroke-width: 0.75;' />
 <polyline points='486.02,484.73 503.72,484.73 ' style='stroke-width: 0.75;' />
+<polyline points='432.00,486.53 432.00,482.93 ' style='stroke-width: 0.75;' />
 <polyline points='503.72,486.53 503.72,482.93 ' style='stroke-width: 0.75;' />
 <circle cx='415.65' cy='484.73' r='2.16' style='stroke-width: 0.75;' />
 <circle cx='532.43' cy='484.73' r='2.16' style='stroke-width: 0.75;' />
@@ -77,8 +77,8 @@
 <polyline points='112.68,488.33 112.68,481.13 ' style='stroke-width: 1.50; stroke: #DF536B;' />
 <polygon points='110.95,488.33 110.95,481.13 114.42,481.13 114.42,488.33 ' style='stroke-width: 0.75; stroke: #DF536B; fill: none;' />
 <polyline points='110.95,484.73 110.95,484.73 ' style='stroke-width: 0.75; stroke: #DF536B;' />
-<polyline points='110.95,486.53 110.95,482.93 ' style='stroke-width: 0.75; stroke: #DF536B;' />
 <polyline points='114.42,484.73 114.42,484.73 ' style='stroke-width: 0.75; stroke: #DF536B;' />
+<polyline points='110.95,486.53 110.95,482.93 ' style='stroke-width: 0.75; stroke: #DF536B;' />
 <polyline points='114.42,486.53 114.42,482.93 ' style='stroke-width: 0.75; stroke: #DF536B;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
