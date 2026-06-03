@@ -422,42 +422,36 @@ plot_RadialPlot <- function(
 
   ## calculate and append statistical measures --------------------------------
 
-  ## z-values and se based on log-option
-  data <- lapply(data, function(x, De.add) {
-    cbind(x,
-          z = if (log.z) log(x[, 1]) else x[, 1],
-          se = if (log.z) x[, 2] / (x[, 1] + De.add) else x[, 2])
-  }, De.add = De.add)
-
-  ## calculate central values
-  data <- lapply(data, function(x) {
-    cbind(x,
-          z.central = switch(
-            as.character(centrality[1]),
-            mean = rep(mean(x[, 3], na.rm = TRUE), nrow(x)),
-            median = rep(median(x[, 3], na.rm = TRUE), nrow(x)),
-            mean.weighted = rep(stats::weighted.mean(x[, 3], w = 1 / x[, 4]^2), nrow(x)),
-            median.weighted = rep(.weighted.median(x[, 3], w = 1 / x[, 4]^2), nrow(x)),
-            if (is.numeric(centrality) && length(centrality) >= length(data)) {
-             rep(median(x[, 3], na.rm = TRUE), nrow(x))
-            } else NA)
-          )
-  })
-
-  if (is.numeric(centrality) && length(centrality) == length(data)) {
-    ## compute z.central, as this could not be done in the lapply before
-    z.central.raw <- if (log.z) log(centrality + De.add) else centrality + De.add
-    lapply(1:length(data), function(x) data[[x]][, 5] <<- rep(z.central.raw[x], nrow(data[[x]])))
-  }
-
-  ## calculate precision and standard estimate
   idx <- 0
-  data <- lapply(data, function(x) {
+  data <- lapply(seq_along(data), function(i) {
+    x <- data[[i]]
     idx <<- idx + 1
-    colnames(x) <- c("De", "error", "z", "se", "z.central")
+    z <- if (log.z) log(x[, 1]) else x[, 1]
+    se <- if (log.z) x[, 2] / (x[, 1] + De.add) else x[, 2]
+
+    z.central <- switch(
+      as.character(centrality[1]),
+      mean = rep(mean(z, na.rm = TRUE), nrow(x)),
+      median = rep(median(z, na.rm = TRUE), nrow(x)),
+      mean.weighted = rep(stats::weighted.mean(z, w = 1 / se^2), nrow(x)),
+      median.weighted = rep(.weighted.median(z, w = 1 / se^2), nrow(x)),
+      if (is.numeric(centrality) && length(centrality) >= length(data)) {
+        rep(median(z, na.rm = TRUE), nrow(x))
+      } else NA)
+
+    if (is.numeric(centrality) && length(centrality) == length(data)) {
+      z.raw <- centrality[i] + De.add
+      z.central <- rep(if (log.z) log(z.raw) else z.raw,
+                       nrow(x))
+    }
+
+    colnames(x) <- c("De", "error")
     cbind(x,
-          precision = 1 / x[, 4],
-          std.estimate = (x[, 3] - x[, 5]) / x[, 4],
+          z = z,
+          se = se,
+          z.central = z.central,
+          precision = 1 / se,
+          std.estimate = (z - z.central[1]) / se,
           std.estimate.plot = NA, # will be filled in further down
           .id = idx)
   })
