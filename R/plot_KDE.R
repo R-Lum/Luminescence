@@ -256,27 +256,7 @@ plot_KDE <- function(
 
   ## data preparation steps ---------------------------------------------------
 
-  ## optionally, count and exclude NA values and print result
-  if (na.rm) {
-    for(i in 1:length(data)) {
-      na.idx <- which(is.na(data[[i]][, 1]))
-      n.NA <- length(na.idx)
-      if (n.NA > 0) {
-        message(sprintf("%d NA value%s excluded from data set %d\n",
-                        n.NA, ifelse(n.NA > 1, "s", ""), i))
-        data[[i]] <- data[[i]][-na.idx, ]
-      }
-    }
-  }
-
-  ## optionally, order data set
-  if (order) {
-    for(i in 1:length(data)) {
-      data[[i]] <- data[[i]][order(data[[i]][,1]),]
-    }
-  }
-
-  ## calculate and paste statistical summary
+  ## calculate statistics, density and global data
   De.stats <- matrix(nrow = length(data), ncol = 12)
   colnames(De.stats) <- c("n",
                           "mean",
@@ -290,10 +270,29 @@ plot_KDE <- function(
                           "q.75",
                           "skewness",
                           "kurtosis")
-  De.density <- list(NA)
+  De.global <- De.error.global <- NULL
+  De.density <- NULL
+  De.density.range <- matrix(nrow = length(data), ncol = 4)
 
   ## loop through all data sets
   for(i in 1:length(data)) {
+    ## optionally, remove NA values
+    if (na.rm) {
+      na.idx <- which(is.na(data[[i]][, 1]))
+      n.NA <- length(na.idx)
+      if (n.NA > 0) {
+        message(sprintf("%d NA value%s excluded from data set %d\n",
+                        n.NA, ifelse(n.NA > 1, "s", ""), i))
+        data[[i]] <- data[[i]][-na.idx, ]
+      }
+    }
+
+    ## optionally, order data ascending
+    if (order) {
+      data[[i]] <- data[[i]][order(data[[i]][, 1]), ]
+    }
+
+    ## calculate statistics
     statistics <- calc_Statistics(data[[i]], na.rm = na.rm)[[summary.method]]
 
     De.stats[i,1] <- statistics$n
@@ -308,26 +307,14 @@ plot_KDE <- function(
     De.stats[i,11] <- statistics$skewness
     De.stats[i,12] <- statistics$kurtosis
 
+    ## calculate density
     if(nrow(data[[i]]) >= 2){
-      De.density[[length(De.density) + 1]] <- density(data[[i]][,1],
-                                                      kernel = "gaussian",
-                                                      bw = bw)
+      De.density[[i]] <- density(data[[i]][, 1], kernel = "gaussian", bw = bw)
     }else{
-      De.density[[length(De.density) + 1]] <- NA
-      .throw_warning("Single data point found, no density calculated")
+      De.density[[i]] <- NA
+      .throw_warning("Single point found in dataset ", i, ", no density calculated")
     }
-  }
 
-  ## remove dummy list element
-  De.density[[1]] <- NULL
-
-  ## create global data set
-  De.global <- data[[1]][,1]
-  De.error.global <- data[[1]][,2]
-  De.density.range <- matrix(nrow = length(data),
-                             ncol = 4)
-
-  for(i in 1:length(data)) {
     ##global De and De.error vector
     De.global <- c(De.global, data[[i]][,1])
     De.error.global <- c(De.error.global, data[[i]][,2])

@@ -36,7 +36,7 @@ test_that("input validation", {
                "'ylim' should be of class 'numeric' and have length 4")
 
   expect_warning(plot_KDE(df[1, ]),
-                 "Single data point found, no density calculated")
+                 "Single point found in dataset 1, no density calculated")
 })
 
 test_that("check functionality", {
