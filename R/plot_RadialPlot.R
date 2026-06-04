@@ -784,11 +784,9 @@ plot_RadialPlot <- function(
            "")
   }
 
-  ## initialize list with a dummy element, it will be removed afterwards
-  label.text <- list(NA)
-
   is.sub <- summary.pos[1] == "sub"
   stops <- NULL
+  label.text <- list()
   for (i in 1:length(data)) {
     if (!is.sub)
       stops <- strrep("\n", (i - 1) * length(summary))
@@ -828,14 +826,11 @@ plot_RadialPlot <- function(
           .summary_line("serel.weighted", summary[j], De.stats[i, 18], sep = is.sub,
                         label = "rel. weighted se"))
     }
-    label.text[[length(label.text) + 1]] <- paste0(
+    label.text[[i]] <- paste0(
         if (is.sub ) "" else stops,
         paste(summary.text, collapse = ""),
         stops)
   }
-
-  ## remove dummy list element
-  label.text[[1]] <- NULL
 
   ## remove outer vertical lines from string
   if (is.sub) {
