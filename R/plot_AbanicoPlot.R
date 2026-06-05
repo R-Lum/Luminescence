@@ -701,55 +701,34 @@ plot_AbanicoPlot <- function(
 
   ## calculate and append statistical measures --------------------------------
 
-  ## z-values and se based on log-option
-  data <- lapply(data, function(x, De.add) {
-    cbind(x,
-          z = if (log.z) log(x[, 1]) else x[, 1],
-          se = if (log.z) x[, 2] / (x[, 1] + De.add) else x[, 2])
-  }, De.add = De.add)
-
-  ## calculate initial data statistics
-  stats.init <- lapply(data, function(x) calc_Statistics(data = x[, 3:4]))
-
-  ## calculate central values
-  if (z.0 %in% c("mean", "median")) {
-    z.central <- lapply(1:length(data), function(x){
-      rep(stats.init[[x]]$unweighted[[z.0]],
-          length(data[[x]][,3]))})
-
-  } else if(z.0 == "mean.weighted") {
-    z.central <- lapply(1:length(data), function(x){
-      rep(stats.init[[x]]$weighted$mean,
-          length(data[[x]][,3]))})
-
-  } else {
-    ## z.0 is numeric
-    z.central <- lapply(1:length(data), function(x){
-      rep(ifelse(log.z,
-                 log(z.0),
-                 z.0),
-          length(data[[x]][,3]))})
-  }
-
-  data <- lapply(1:length(data), function(x) {
-    cbind(data[[x]], z.central[[x]])})
-  rm(z.central)
-
-  ## calculate precision and standard estimate
-  data <- lapply(data, function(x) {
-    cbind(x,
-          precision = 1 / x[, 4],
-          std.estimate = (x[, 3] - x[, 5]) / x[, 4],
-          std.estimate.plot = NA)
-  })
-
   ## append optional weights for KDE curve
   use.weights <- "weights" %in% names(extraArgs) && extraArgs$weights
-  data <- lapply(data, function(x) {
-    cbind(x,
-          weights = if (use.weights) (1 / x[, 2]) / sum(1 / x[, 2]^2)
-                    else 1 / nrow(x))
-  })
+
+  ## compute statistics and append all additional columns
+  data <- lapply(seq_along(data), function(i, De.add) {
+    x <- data[[i]]
+    z <- if (log.z) log(x[, 1]) else x[, 1]
+    se <- if (log.z) x[, 2] / (x[, 1] + De.add) else x[, 2]
+
+    stats <- calc_Statistics(data = data.frame(z = z, se = se))
+    if (z.0 %in% c("mean", "median"))
+      z.central <- rep(stats$unweighted[[z.0]], nrow(x))
+    else if (z.0 == "mean.weighted")
+      z.central <- rep(stats$weighted$mean, nrow(x))
+    else
+      z.central <- rep(ifelse(log.z, log(z.0), z.0), nrow(x))
+
+    if (use.weights)
+      weights <- (1 / x[, 2]) / sum(1 / x[, 2]^2)
+    else
+      weights <- 1 / nrow(x)
+
+    cbind(x, z, se, z.central,
+          precision = 1 / se,
+          std.estimate = (z - z.central) / se,
+          std.estimate.plot = NA,
+          weights)
+  }, De.add = De.add)
 
   ## generate global data set
   data.global <- cbind(data[[1]], 1)
