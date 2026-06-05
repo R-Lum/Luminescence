@@ -1170,46 +1170,30 @@ plot_AbanicoPlot <- function(
     }
   }
 
+  limits.xy <- if (!rotate) list(limits.x, limits.y) else list(limits.y, limits.x)
+
+  ## convert keywords into summary placement coordinates
+  coords <- .get_keyword_coordinates(summary.pos, limits.xy[[1]], limits.xy[[2]])
+
   if (!rotate) {
-    ## convert keywords into summary placement coordinates
-    coords <- .get_keyword_coordinates(summary.pos, limits.x, limits.y)
-
-    ## apply some adjustments to the y positioning
-    if (summary.pos[1] %in% c("topleft", "top", "topright")) {
+    if (summary.pos[1] %in% c("topleft", "top", "topright"))
         coords$pos[2] <- coords$pos[2] - par()$cxy[2] * 1.0
-      } else if (summary.pos[1] %in% c("bottomleft", "bottom", "bottomright")) {
+      else if (summary.pos[1] %in% c("bottomleft", "bottom", "bottomright"))
         coords$pos[2] <- coords$pos[2] + par()$cxy[2] * 3.5
-    }
-    summary.pos <- coords$pos
-    summary.adj <- coords$adj
-
-    ## convert keywords into legend placement coordinates
-    coords <- .get_keyword_coordinates(legend.pos, limits.x, limits.y)
-    legend.pos <- coords$pos
-    legend.adj <- coords$adj
-
   } else {
-    ## convert keywords into summary placement coordinates
-    ## this time we swap x and y limits as we are rotated, then apply some
-    ## adjustments to the x positioning
-    coords <- .get_keyword_coordinates(summary.pos, limits.y, limits.x)
-    if (summary.pos[1] %in% c("topleft", "left", "bottomleft")) {
+    if (summary.pos[1] %in% c("topleft", "left", "bottomleft"))
       coords$pos[1] <- coords$pos[1] + par()$cxy[1] * 7.5
-    }
-    summary.pos <- coords$pos
-    summary.adj <- coords$adj
-
-    ## convert keywords into legend placement coordinates
-    ## this time we swap x and y limits as we are rotated, then apply some
-    ## adjustments to the x positioning
-    coords <- .get_keyword_coordinates(legend.pos, limits.y, limits.x)
-    if (!is.null(legend.pos) &&
-        legend.pos[1] %in% c("topleft", "left", "bottomleft")) {
-      coords$pos[1] <- coords$pos[1] + par()$cxy[1] * 7.5
-    }
-    legend.pos <- coords$pos
-    legend.adj <- coords$adj
   }
+  summary.pos <- coords$pos
+  summary.adj <- coords$adj
+
+  ## convert keywords into legend placement coordinates
+  coords <- .get_keyword_coordinates(legend.pos, limits.xy[[1]], limits.xy[[2]])
+  if (rotate && !is.null(legend.pos) &&
+      legend.pos[1] %in% c("topleft", "left", "bottomleft"))
+    coords$pos[1] <- coords$pos[1] + par()$cxy[1] * 7.5
+  legend.pos <- coords$pos
+  legend.adj <- coords$adj
 
   ## define cartesian plot origins
   if (!rotate) {
