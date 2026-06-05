@@ -868,47 +868,22 @@ plot_AbanicoPlot <- function(
     summary.col <- extraArgs$col
     centrality.col <- extraArgs$col
   } else {
-    bar.col <- layout$abanico$colour$bar.fill
-    if(length(layout$abanico$colour$bar.fill) == 1) {
-      bar.col <- 1:length(data)
+    .init_color <- function(key) {
+      val <- layout$abanico$colour[[key]]
+      if (length(val) == 1) 1:length(data) else val
     }
 
-    kde.line <- layout$abanico$colour$kde.line
-    if(length(layout$abanico$colour$kde.line) == 1) {
-      kde.line <- 1:length(data)
-    }
-
+    bar.col <- .init_color("bar.fill")
+    kde.line <- .init_color("kde.line")
     kde.fill <- layout$abanico$colour$kde.fill
     if(length(layout$abanico$colour$kde.fill) == 1) {
       kde.fill <- rep(layout$abanico$colour$kde.fill, length(data))
     }
-
-    value.dot <- layout$abanico$colour$value.dot
-    if(length(layout$abanico$colour$value.dot) == 1) {
-      value.dot <- 1:length(data)
-    }
-
-    value.bar <- layout$abanico$colour$value.bar
-    if(length(layout$abanico$colour$value.bar) == 1) {
-      value.bar <- 1:length(data)
-    }
-
-    value.rug <- layout$abanico$colour$value.rug
-    if(length(layout$abanico$colour$value.rug) == 1) {
-      value.rug <- 1:length(data)
-    }
-
-    summary.col <- layout$abanico$colour$summary
-    if(length(layout$abanico$colour$summary) == 1) {
-      summary.col <- 1:length(data)
-    }
-
-    if(length(layout$abanico$colour$centrality) == 1) {
-      centrality.col <- rep(x = 1:length(data), times = length(bar))
-    } else {
-      centrality.col <- rep(x = layout$abanico$colour$centrality,
-                            times = length(bar))
-    }
+    value.dot <- .init_color("value.dot")
+    value.bar <- .init_color("value.bar")
+    value.rug <- .init_color("value.rug")
+    summary.col <- .init_color("summary")
+    centrality.col <- .init_color("centrality")
   }
 
   ## update central line colour
