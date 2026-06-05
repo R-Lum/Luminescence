@@ -1970,21 +1970,17 @@ plot_AbanicoPlot <- function(
             col = layout$abanico$colour$border)
 
   ## draw border around plot
-  if (frame == 1) {
-    polygon.rot(x = c(limits.x[1], min.ellipse, y.max,
-                      y.max, min.ellipse),
-                y = c(0, max.ellipse.rot, max.ellipse.rot, min.ellipse.rot, min.ellipse.rot),
-                border = layout$abanico$colour$border,
-                lwd = 0.8)
-  } else if (frame == 2) {
-    polygon.rot(x = c(limits.x[1], min.ellipse, y.max,
-                      y.max, min.ellipse, limits.x[1]),
-                y = c(2, max.ellipse.rot, max.ellipse.rot, min.ellipse.rot, min.ellipse.rot, -2),
-                border = layout$abanico$colour$border,
-                lwd = 0.8)
-  } else if (frame == 3) {
-    polygon.rot(x = c(limits.x[1], y.max, y.max, limits.x[1]),
-                y = c(max.ellipse.rot, max.ellipse.rot, min.ellipse.rot, min.ellipse.rot),
+  if (frame > 0) {
+    frame.x <- c(limits.x[1], min.ellipse, y.max, y.max, min.ellipse, limits.x[1])
+    frame.y <- c(0, max.ellipse.rot, max.ellipse.rot, min.ellipse.rot, min.ellipse.rot, 0)
+    if (frame == 2) {
+      frame.y[c(1, 6)] <- c(2, -2)
+    } else if (frame == 3) {
+      frame.x <- frame.x[-c(2, 5)]
+      frame.y <- frame.y[-c(1, 6)]
+    }
+    polygon.rot(x = frame.x,
+                y = frame.y,
                 border = layout$abanico$colour$border,
                 lwd = 0.8)
   }
