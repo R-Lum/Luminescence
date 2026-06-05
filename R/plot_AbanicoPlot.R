@@ -1065,15 +1065,16 @@ plot_AbanicoPlot <- function(
   rotate.idx <- if (!rotate) 1 else 2
   min.ellipse <- min(ellipse[, rotate.idx])
   max.ellipse <- max(ellipse[, rotate.idx])
+  min.ellipse.rot <- min(ellipse[, 3 - rotate.idx])
+  max.ellipse.rot <- max(ellipse[, 3 - rotate.idx])
 
   ## re-calculate axes limits if necessary
   if(!("ylim" %in% names(extraArgs))) {
-    limits.z.y <- range(ellipse[, 3 - rotate.idx])
-    if(limits.z.y[1] < 0.66 * limits.y[1]) {
-      limits.y[1] <- 1.8 * limits.z.y[1]
+    if (min.ellipse.rot < 0.66 * limits.y[1]) {
+      limits.y[1] <- 1.8 * min.ellipse.rot
     }
-    if(limits.z.y[2] > 0.77 * limits.y[2]) {
-      limits.y[2] <- 1.3 * limits.z.y[2]
+    if (max.ellipse.rot > 0.77 * limits.y[2]) {
+      limits.y[2] <- 1.3 * max.ellipse.rot
     }
 
     if (rotate) {
@@ -1081,8 +1082,7 @@ plot_AbanicoPlot <- function(
     }
   }
   if(!("xlim" %in% names(extraArgs))) {
-    limits.z.x <- range(ellipse[, rotate.idx])
-    limits.x[2] <- max(limits.z.x[2], limits.z.x)
+    limits.x[2] <- max.ellipse
   }
 
   ## calculate and paste statistical summary
@@ -1853,8 +1853,8 @@ plot_AbanicoPlot <- function(
                         hist.data[[i]]$breaks[j]) * min.ellipse
 
           ## remove data out of z-axis range
-          hist.y.i <- pmax(hist.y.i, min(ellipse[, 3 - rotate.idx]))
-          hist.y.i <- pmin(hist.y.i, max(ellipse[, 3 - rotate.idx]))
+          hist.y.i <- pmax(hist.y.i, min.ellipse.rot)
+          hist.y.i <- pmin(hist.y.i, max.ellipse.rot)
 
           ## draw the bars
           polygon.rot(x = hist.x.i,
@@ -1919,8 +1919,8 @@ plot_AbanicoPlot <- function(
 
         ## remove data out of z-axis range
         keep.idx <- between(dots.y.i,
-                            min(ellipse[, 3 - rotate.idx]),
-                            max(ellipse[, 3 - rotate.idx]))
+                            min.ellipse.rot,
+                            max.ellipse.rot)
         dots.x.i <- dots.x.i[keep.idx]
         dots.y.i <- dots.y.i[keep.idx]
 
@@ -1966,28 +1966,25 @@ plot_AbanicoPlot <- function(
 
   ## plot KDE base line
   lines.rot(x = c(xy.0[rotate.idx], xy.0[rotate.idx]),
-            y = c(min(ellipse[, 3 - rotate.idx]), max(ellipse[, 3 - rotate.idx])),
+            y = c(min.ellipse.rot, max.ellipse.rot),
             col = layout$abanico$colour$border)
 
   ## draw border around plot
   if (frame == 1) {
     polygon.rot(x = c(limits.x[1], min.ellipse, y.max,
                       y.max, min.ellipse),
-                y = c(0, max(ellipse[, 3 - rotate.idx]), max(ellipse[, 3 - rotate.idx]),
-                      min(ellipse[, 3 - rotate.idx]), min(ellipse[, 3 - rotate.idx])),
+                y = c(0, max.ellipse.rot, max.ellipse.rot, min.ellipse.rot, min.ellipse.rot),
                 border = layout$abanico$colour$border,
                 lwd = 0.8)
   } else if (frame == 2) {
     polygon.rot(x = c(limits.x[1], min.ellipse, y.max,
                       y.max, min.ellipse, limits.x[1]),
-                y = c(2, max(ellipse[, 3 - rotate.idx]), max(ellipse[, 3 - rotate.idx]),
-                      min(ellipse[, 3 - rotate.idx]), min(ellipse[, 3 - rotate.idx]), -2),
+                y = c(2, max.ellipse.rot, max.ellipse.rot, min.ellipse.rot, min.ellipse.rot, -2),
                 border = layout$abanico$colour$border,
                 lwd = 0.8)
   } else if (frame == 3) {
     polygon.rot(x = c(limits.x[1], y.max, y.max, limits.x[1]),
-                y = c(max(ellipse[, 3 - rotate.idx]), max(ellipse[, 3 - rotate.idx]),
-                      min(ellipse[, 3 - rotate.idx]), min(ellipse[, 3 - rotate.idx])),
+                y = c(max.ellipse.rot, max.ellipse.rot, min.ellipse.rot, min.ellipse.rot),
                 border = layout$abanico$colour$border,
                 lwd = 0.8)
   }
