@@ -413,6 +413,8 @@ test_that("Test graphical snapshot", {
     vdiffr::expect_doppelganger("FMM",
                                 plot_AbanicoPlot(data = FMM, rotate = TRUE))
     vdiffr::expect_doppelganger("FMM cex",
-                                plot_AbanicoPlot(data = FMM, rotate = TRUE, cex = 2))
+                                plot_AbanicoPlot(data = FMM, rotate = TRUE,
+                                                 cex = 2,
+                                                 frame = 0))
   })
 })
