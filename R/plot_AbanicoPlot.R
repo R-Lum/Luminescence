@@ -538,17 +538,18 @@ plot_AbanicoPlot <- function(
   }
 
   ##AFTER NA removal, we should check the data set carefully again ...
+  nrows <- sapply(data, nrow)
   ##(1)
   ##check if there is still data left in the entire set
-  if(all(sapply(data, nrow) == 0)){
+  if (all(nrows == 0)) {
     .throw_message("'data' is empty, nothing plotted")
     return(NULL)
   }
   ##(2)
   ##check for sets with only 1 row or 0 rows at all
-  if (any(sapply(data, nrow) < 2)) {
+  if (any(nrows < 2)) {
     ##select problematic sets and remove the entries from the list
-    NArm.id <- which(sapply(data, nrow) <= 1)
+    NArm.id <- which(nrows <= 1)
     data[NArm.id] <- NULL
     .throw_warning("Data set ", toString(NArm.id),
                    " empty or consisting of only 1 row, removed")
@@ -787,13 +788,7 @@ plot_AbanicoPlot <- function(
     data[[i]][,8] <- (data[[i]][,3] - z.central.global) / data[[i]][,4]
   }
 
-  data.global.plot <- data[[1]][,8]
-  if(length(data) > 1) {
-    for(i in 2:length(data)) {
-      data.global.plot <- c(data.global.plot, data[[i]][,8])
-    }
-  }
-  data.global[,8] <- data.global.plot
+  data.global[, 8] <- unlist(lapply(data, function(x) x[, 8]))
 
   ## print message for too small scatter
   if(max(abs(1 / data.global[6])) < 0.02) {
@@ -941,9 +936,6 @@ plot_AbanicoPlot <- function(
        frame.plot = FALSE,
        axes = FALSE)
 
-  ## calculate conversion factor for plot coordinates
-  f <- 0
-
   ## calculate major and minor z-tick values
   if("at" %in% names(extraArgs)) {
     tick.values.major <- extraArgs$at
@@ -970,7 +962,7 @@ plot_AbanicoPlot <- function(
   }
 
   ## calculate z-axis radius
-  r <- max(sqrt((limits.x[2])^2 + (data.global[,7] * f)^2))
+  r <- limits.x[2]
 
   ## calculate node coordinates for semi-circle
   ellipse.values <- c(min(ifelse(log.z,
@@ -987,7 +979,7 @@ plot_AbanicoPlot <- function(
   ## correct for unpleasant value
   ellipse.values[ellipse.values == -Inf] <- 0
 
-  ellipse.x <- r / sqrt(1 + f^2 * (ellipse.values - z.central.global)^2)
+  ellipse.x <- r
   ellipse.y <- (ellipse.values - z.central.global) * ellipse.x
   ellipse <- cbind(ellipse.x, ellipse.y)
   if (rotate)
@@ -1198,7 +1190,7 @@ plot_AbanicoPlot <- function(
     }
 
     if (log.z) {
-      ci.lo_up[which(ci.lo_up < 0)] <- 1
+      ci.lo_up[ci.lo_up < 0] <- 1
       ci.lo_up <- log(ci.lo_up)
     }
     y.lower <- ci.lo_up[1] - z.central.global
@@ -1378,7 +1370,7 @@ plot_AbanicoPlot <- function(
     if (lwd[1] > 0 && lty[1] > 0 && !isFALSE(bar[1])) {
       for (i in 1:length(data)) {
         z.line <- if (length(bar) == 1) bar[1] else bar[i]
-        x2 <- r / sqrt(1 + f^2 * (z.line - z.central.global)^2)
+        x2 <- r
         y2 <- (z.line - z.central.global) * x2
         lines.rot(x = c(limits.x[1], x2, xy.0[rotate.idx], y.max),
               y = c(0, y2, y2, y2),
@@ -1433,11 +1425,7 @@ plot_AbanicoPlot <- function(
          cex.axis = layout$abanico$font.size$xtck3 / 12)
 
     ## KDE x-axis label including bandwidth size
-    mtext(text = paste0(xlab[3],
-                        " (bw ",
-                        round(x = KDE.bw,
-                              digits = 3),
-                        ")"),
+    mtext(sprintf("%s (bw %.3g)", xlab[3], KDE.bw),
           at = (xy.0[rotate.idx] + y.max) / 2,
           side = rotate.idx,
           line = 2.5 * layout$abanico$dimension$xlab3.line / 100,
