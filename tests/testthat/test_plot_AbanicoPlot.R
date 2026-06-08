@@ -369,6 +369,10 @@ test_that("Test graphical snapshot", {
 
     data.list <- list(ExampleData.DeValues[1:30,],
                       ExampleData.DeValues[31:62,] * 1.3)
+    vdiffr::expect_doppelganger("summary top",
+                                plot_AbanicoPlot(data = data.list,
+                                                 summary.pos = "top",
+                                                 summary = c("n", "in.2s", "median")))
     vdiffr::expect_doppelganger("line frame legend",
                                 plot_AbanicoPlot(data = data.list,
                                                  line = 75.7,
@@ -396,13 +400,10 @@ test_that("Test graphical snapshot", {
                                                  cex = 1.2,
                                                  log.z = FALSE,
                                                  z.0 = "mean",
-                                                 col = c("steelblue4", "orange4"),
-                                                 bar.col = c("steelblue3", "orange3"),
-                                                 polygon.col = c("steelblue1", "orange1"),
                                                  pch = c(2, 6),
                                                  angle = c(30, 50),
-                                                 summary = c("n", "in.2s", "median")))
-
+                                                 summary.pos = "right",
+                                                 summary = c("sd.rel", "sd.abs")))
     vdiffr::expect_doppelganger("CAM",
                                 plot_AbanicoPlot(data = CAM,
                                                  line.col = "darkseagreen",

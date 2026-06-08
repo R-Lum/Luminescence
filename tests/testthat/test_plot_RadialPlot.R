@@ -226,6 +226,15 @@ test_that("graphical snapshot tests", {
                                               centrality = "median.weighted",
                                               summary = c("n", "in.2s", "median.weighted"),
                                               rug = TRUE, col = c(2, 3)))
+  vdiffr::expect_doppelganger("list summary left",
+                              plot_RadialPlot(list(df, df2),
+                                              summary.pos = "left",
+                                              summary = c("n", "mean", "skewness"),
+                                              col = c(2, 3)))
+  vdiffr::expect_doppelganger("list summary top",
+                              plot_RadialPlot(list(df, df2),
+                                              summary.pos = "top",
+                                              summary = c("n", "median", "in.2s")))
   })
 })
 

@@ -517,13 +517,13 @@ fancy_scientific <- function(l) {
     adj <- c(1, 1)
   } else if (pos[1] == "left") {
     pos <- c(xlim[1], mean(ylim))
-    adj <- c(0, 0.5)
+    adj <- c(0, 1)
   } else if (pos[1] == "center") {
     pos <- c(mean(xlim), mean(ylim))
-    adj <- c(0.5, 0.5)
+    adj <- c(0.5, 1)
   } else if (pos[1] == "right") {
     pos <- c(xlim[2], mean(ylim))
-    adj <- c(1, 0.5)
+    adj <- c(1, 1)
   }else if (pos[1] == "bottomleft") {
     pos <- c(xlim[1], ylim[1])
     adj <- c(0, 0)
