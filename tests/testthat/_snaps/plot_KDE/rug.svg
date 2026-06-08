@@ -66,17 +66,12 @@
 <text x='367.20' y='75.46' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='80.41px' lengthAdjust='spacingAndGlyphs'>mean = 129.25</text>
 <text x='367.20' y='89.86' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='95.73px' lengthAdjust='spacingAndGlyphs'>in 2 sigma = 96 %</text>
 <text x='367.20' y='104.26' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='89.75px' lengthAdjust='spacingAndGlyphs'>skewness = 1.34</text>
-<text x='367.20' y='118.66' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
 <text x='367.20' y='75.46' text-anchor='middle' style='font-size: 12.00px; fill: #DF536B; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
 <text x='367.20' y='89.86' text-anchor='middle' style='font-size: 12.00px; fill: #DF536B; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
 <text x='367.20' y='104.26' text-anchor='middle' style='font-size: 12.00px; fill: #DF536B; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
 <text x='367.20' y='118.66' text-anchor='middle' style='font-size: 12.00px; fill: #DF536B; font-family: sans;' textLength='67.06px' lengthAdjust='spacingAndGlyphs'>mean = 23.5</text>
 <text x='367.20' y='133.06' text-anchor='middle' style='font-size: 12.00px; fill: #DF536B; font-family: sans;' textLength='102.41px' lengthAdjust='spacingAndGlyphs'>in 2 sigma = 100 %</text>
 <text x='367.20' y='147.46' text-anchor='middle' style='font-size: 12.00px; fill: #DF536B; font-family: sans;' textLength='73.07px' lengthAdjust='spacingAndGlyphs'>skewness = 0</text>
-<text x='367.20' y='161.86' text-anchor='middle' style='font-size: 12.00px; fill: #DF536B; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
-<text x='367.20' y='176.26' text-anchor='middle' style='font-size: 12.00px; fill: #DF536B; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
-<text x='367.20' y='190.66' text-anchor='middle' style='font-size: 12.00px; fill: #DF536B; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
-<text x='367.20' y='205.06' text-anchor='middle' style='font-size: 12.00px; fill: #DF536B; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
 <polyline points='469.67,487.76 469.67,480.56 ' style='stroke-width: 1.50;' />
 <polygon points='460.29,487.76 460.29,480.56 486.02,480.56 486.02,487.76 ' style='stroke-width: 0.75; fill: none;' />
 <polyline points='460.29,484.16 432.00,484.16 ' style='stroke-width: 0.75;' />

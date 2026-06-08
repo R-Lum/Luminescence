@@ -1091,12 +1091,8 @@ plot_AbanicoPlot <- function(
   }
 
   is.sub <- summary.pos[1] == "sub"
-  stops <- NULL
   label.text <- list()
   for (i in 1:length(data)) {
-    if (!is.sub)
-      stops <- strrep("\n", (i - 1) * length(summary))
-
     summary.text <- character(0)
     for (j in 1:length(summary)) {
       summary.text <-
@@ -1121,9 +1117,9 @@ plot_AbanicoPlot <- function(
                         label = "in 2 sigma", percent = TRUE, digits = 1))
     }
     label.text[[i]] <- paste0(
-        if (is.sub) "" else stops,
-        paste(summary.text, collapse = ""),
-        stops)
+        if (is.sub) "" else strrep("\n", (i - 1) * length(summary)),
+        paste(summary.text, collapse = ""))
+    label.text[[i]] <- gsub("\n$", "", label.text[[i]])
   }
 
   ## remove outer vertical lines from string1
