@@ -173,19 +173,19 @@
 <text x='43.20' y='257.21' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='10.67px' lengthAdjust='spacingAndGlyphs'>-2</text>
 <text x='43.20' y='226.02' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='43.20' y='194.84' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>2</text>
-<text x='57.60' y='252.16' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='26.96px' lengthAdjust='spacingAndGlyphs'>n = 30</text>
-<text x='57.60' y='263.68' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='53.65px' lengthAdjust='spacingAndGlyphs'>mean = 5.08</text>
-<text x='57.60' y='275.20' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='75.00px' lengthAdjust='spacingAndGlyphs'>skewness = -0.16</text>
-<text x='57.60' y='286.72' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
-<text x='57.60' y='217.60' style='font-size: 9.60px; fill: #61D04F; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
-<text x='57.60' y='229.12' style='font-size: 9.60px; fill: #61D04F; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
-<text x='57.60' y='240.64' style='font-size: 9.60px; fill: #61D04F; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
-<text x='57.60' y='252.16' style='font-size: 9.60px; fill: #61D04F; font-family: sans;' textLength='26.96px' lengthAdjust='spacingAndGlyphs'>n = 30</text>
-<text x='57.60' y='263.68' style='font-size: 9.60px; fill: #61D04F; font-family: sans;' textLength='53.65px' lengthAdjust='spacingAndGlyphs'>mean = 4.08</text>
-<text x='57.60' y='275.20' style='font-size: 9.60px; fill: #61D04F; font-family: sans;' textLength='75.00px' lengthAdjust='spacingAndGlyphs'>skewness = -0.16</text>
-<text x='57.60' y='286.72' style='font-size: 9.60px; fill: #61D04F; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
-<text x='57.60' y='298.24' style='font-size: 9.60px; fill: #61D04F; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
-<text x='57.60' y='309.76' style='font-size: 9.60px; fill: #61D04F; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
-<text x='57.60' y='321.28' style='font-size: 9.60px; fill: #61D04F; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
+<text x='57.60' y='272.75' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='26.96px' lengthAdjust='spacingAndGlyphs'>n = 30</text>
+<text x='57.60' y='284.27' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='53.65px' lengthAdjust='spacingAndGlyphs'>mean = 5.08</text>
+<text x='57.60' y='295.79' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='75.00px' lengthAdjust='spacingAndGlyphs'>skewness = -0.16</text>
+<text x='57.60' y='307.31' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
+<text x='57.60' y='272.75' style='font-size: 9.60px; fill: #61D04F; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
+<text x='57.60' y='284.27' style='font-size: 9.60px; fill: #61D04F; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
+<text x='57.60' y='295.79' style='font-size: 9.60px; fill: #61D04F; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
+<text x='57.60' y='307.31' style='font-size: 9.60px; fill: #61D04F; font-family: sans;' textLength='26.96px' lengthAdjust='spacingAndGlyphs'>n = 30</text>
+<text x='57.60' y='318.83' style='font-size: 9.60px; fill: #61D04F; font-family: sans;' textLength='53.65px' lengthAdjust='spacingAndGlyphs'>mean = 4.08</text>
+<text x='57.60' y='330.35' style='font-size: 9.60px; fill: #61D04F; font-family: sans;' textLength='75.00px' lengthAdjust='spacingAndGlyphs'>skewness = -0.16</text>
+<text x='57.60' y='341.87' style='font-size: 9.60px; fill: #61D04F; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
+<text x='57.60' y='353.39' style='font-size: 9.60px; fill: #61D04F; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
+<text x='57.60' y='364.91' style='font-size: 9.60px; fill: #61D04F; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
+<text x='57.60' y='376.43' style='font-size: 9.60px; fill: #61D04F; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
 </g>
 </svg>
