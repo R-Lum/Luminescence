@@ -144,8 +144,8 @@ affected functions.
 
 ### `plot_AbanicoPlot()`
 
-- The summary text is no longer overprinted when the multiple datasets
-  are given as input and `summary.pos` is one of `"left"`, `"center"` or
+- The summary text is no longer overprinted when multiple datasets are
+  given as input and `summary.pos` is one of `"left"`, `"center"` or
   `"right"` (#1575).
 
 ### `plot_DetPlot()`
@@ -171,14 +171,14 @@ affected functions.
   cause the KDE plot to appear to be drawn over an existing plot
   (#1556).
 
-- The summary text is no longer overprinted when the multiple datasets
-  are given as input and `summary.pos` is one of `"left"`, `"center"` or
+- The summary text is no longer overprinted when multiple datasets are
+  given as input and `summary.pos` is one of `"left"`, `"center"` or
   `"right"` (#1575).
 
 ### `plot_RadialPlot()`
 
-- The summary text is no longer overprinted when the multiple datasets
-  are given as input and `summary.pos` is one of `"left"`, `"center"` or
+- The summary text is no longer overprinted when multiple datasets are
+  given as input and `summary.pos` is one of `"left"`, `"center"` or
   `"right"` (#1575).
 
 ### `plot_RLum.Results()`

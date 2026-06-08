@@ -145,7 +145,7 @@ is highly irregular due to very large errors (#1570).
 
 ### `plot_AbanicoPlot()`
 
-* The summary text is no longer overprinted when the multiple datasets are
+* The summary text is no longer overprinted when multiple datasets are
 given as input and `summary.pos` is one of `"left"`, `"center"` or `"right"`
 (#1575).
 
@@ -171,13 +171,13 @@ cases, such as when plotting to a png file or in RStudio (at least on MacOS),
 corresponds to a transparent background. This could cause the KDE plot to
 appear to be drawn over an existing plot (#1556).
 
-* The summary text is no longer overprinted when the multiple datasets are
+* The summary text is no longer overprinted when multiple datasets are
 given as input and `summary.pos` is one of `"left"`, `"center"` or `"right"`
 (#1575).
 
 ### `plot_RadialPlot()`
 
-* The summary text is no longer overprinted when the multiple datasets are
+* The summary text is no longer overprinted when multiple datasets are
 given as input and `summary.pos` is one of `"left"`, `"center"` or `"right"`
 (#1575).
 
