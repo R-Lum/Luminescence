@@ -294,6 +294,8 @@ plot_RadialPlot <- function(
   if (is.character(centrality)) {
     centrality <- .validate_args(centrality, c("mean", "mean.weighted",
                                                "median", "median.weighted"))
+  } else if (anyNA(centrality)) {
+    .throw_error("'centrality' cannot contain missing values")
   }
 
   ## Homogenise input data format

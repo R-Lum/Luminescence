@@ -34,6 +34,8 @@ test_that("input validation", {
                "'centrality' should be of class 'character' or 'numeric'")
   expect_error(plot_RadialPlot(df, centrality = "error"),
                "'centrality' should be one of 'mean', 'mean.weighted', 'median'")
+  expect_error(plot_RadialPlot(df, centrality = NA_real_),
+               "'centrality' cannot contain missing values")
   expect_error(plot_RadialPlot(df, summary = 5),
                "'summary' should be of class 'character'")
   expect_error(plot_RadialPlot(df, summary.pos = 5),
