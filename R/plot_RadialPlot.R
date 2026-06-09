@@ -422,10 +422,8 @@ plot_RadialPlot <- function(
 
   ## calculate and append statistical measures --------------------------------
 
-  idx <- 0
   data <- lapply(seq_along(data), function(i) {
     x <- data[[i]]
-    idx <<- idx + 1
     z <- if (log.z) log(x[, 1]) else x[, 1]
     se <- if (log.z) x[, 2] / (x[, 1] + De.add) else x[, 2]
 
@@ -453,7 +451,7 @@ plot_RadialPlot <- function(
           precision = 1 / se,
           std.estimate = (z - z.central[1]) / se,
           std.estimate.plot = NA, # will be filled in further down
-          .id = idx)
+          .id = i)
   })
 
   ## generate global data set
