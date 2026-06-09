@@ -240,6 +240,9 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("list centrality",
                               plot_RadialPlot(list(df, df2),
                                               centrality = c(5, 6, 7)))
+  vdiffr::expect_doppelganger("regression 1577",
+                              plot_RadialPlot(list(df, df2),
+                                              centrality = 5))
   })
 })
 

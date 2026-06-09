@@ -61,8 +61,9 @@
 #' - `"mean"`,
 #' - `"median"`,
 #' - `"mean.weighted"` and
-#' - `"median.weighted"` or a
-#' - numeric value used for the standardisation.
+#' - `"median.weighted"`, or a
+#' - numeric value used for the standardisation of the same length as the number
+#' of input data sets (it is ignored otherwise).
 #'
 #' @param mtext [character] (*with default*):
 #' additional text below the plot title.
@@ -435,15 +436,15 @@ plot_RadialPlot <- function(
       median = rep(median(z, na.rm = TRUE), nrow(x)),
       mean.weighted = rep(stats::weighted.mean(z, w = 1 / se^2), nrow(x)),
       median.weighted = rep(.weighted.median(z, w = 1 / se^2), nrow(x)),
-      if (is.numeric(centrality) && length(centrality) >= length(data)) {
-        rep(median(z, na.rm = TRUE), nrow(x))
-      } else NA)
-
-    if (is.numeric(centrality) && length(centrality) == length(data)) {
-      z.raw <- centrality[i] + De.add
-      z.central <- rep(if (log.z) log(z.raw) else z.raw,
-                       nrow(x))
-    }
+      if (is.numeric(centrality)) {
+        if (length(centrality) == length(data)) {
+          z.raw <- centrality[i] + De.add
+          z.central <- rep(if (log.z) log(z.raw) else z.raw,
+                           nrow(x))
+        } else {
+          rep(median(z, na.rm = TRUE), nrow(x))
+        }
+      })
 
     colnames(x) <- c("De", "error")
     cbind(x,
@@ -466,9 +467,9 @@ plot_RadialPlot <- function(
                              mean.weighted = stats::weighted.mean(data.global[, 3], w = 1 / data.global[, 4]^2),
                              median.weighted = .weighted.median(data.global[, 3],
                                                                 w = 1 / data.global[, 4]^2),
-                             if (is.numeric(centrality) && length(centrality) >= length(data)) {
+                             if (is.numeric(centrality)) {
                                mean(data.global[, 3], na.rm = TRUE)
-                             } else NA)
+                             })
 
   ## optionally adjust central value by user-defined value
   if (!is.null(central.value)) {

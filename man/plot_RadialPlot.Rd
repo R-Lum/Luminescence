@@ -52,8 +52,9 @@ the central line. Can either be one out of
 \item \code{"mean"},
 \item \code{"median"},
 \item \code{"mean.weighted"} and
-\item \code{"median.weighted"} or a
-\item numeric value used for the standardisation.
+\item \code{"median.weighted"}, or a
+\item numeric value used for the standardisation of the same length as the number
+of input data sets (it is ignored otherwise).
 }}
 
 \item{mtext}{\link{character} (\emph{with default}):
