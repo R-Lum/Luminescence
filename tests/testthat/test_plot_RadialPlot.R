@@ -235,6 +235,9 @@ test_that("graphical snapshot tests", {
                               plot_RadialPlot(list(df, df2),
                                               summary.pos = "top",
                                               summary = c("n", "median", "in.2s")))
+  vdiffr::expect_doppelganger("list centrality",
+                              plot_RadialPlot(list(df, df2),
+                                              centrality = c(5, 6, 7)))
   })
 })
 
