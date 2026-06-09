@@ -1009,55 +1009,11 @@ analyse_SAR.CWOSL<- function(
                                     digits = 2)
 
       ## (1) Plotting TL Curves previous LnLx ----------------------------------------
-      ##overall plot option selection for plot.single.sel
       if (1 %in% plot.single.sel) {
-        ##check if TL curves are available
-        if (length(TL.Curves.ID.Lx) > 0) {
-          ##It is just an approximation taken from the data
-          resolution.TLCurves <-  round(mean(diff(
-            round(record_list[[TL.Curves.ID.Lx[[1]]]]@data[,1], digits = 1)
-          )), digits = 1)
-
-          ## get value ranges of the curves
-          xy_xlim <- matrixStats::rowRanges(vapply(
-            X = TL.Curves.ID.Lx,
-            FUN = \(x) apply(record_list[[x]]@data, 2, range, na.rm = TRUE),
-            FUN.VALUE = numeric(4)))
-
-          xlim_range <- c(min(xy_xlim[1,]), max(xy_xlim[2,]))
-          ylim_range <- c(1, max(xy_xlim[4,]))
-
-          plot(
-            NA,NA,
-            xlab = "T [\u00B0C]",
-            ylab = paste0("TL [cts/",resolution.TLCurves," \u00B0C]"),
-            xlim = xlim_range,
-            ylim = ylim_range,
-            main = main,
-            mgp = c(2, 0.7, 0),
-            tcl = -0.4,
-            log = gsub("x", "", log))
-
-          #provide curve information as mtext, to keep the space for the header
-          mtext(
-            side = 3,
-            text = expression(paste("TL previous ", L[n],",",L[x]," curves")),
-            cex = cex * 0.7)
-
-          ##plot TL curves
-          for (i in seq_along(TL.Curves.ID.Lx)) {
-            lines(record_list[[TL.Curves.ID.Lx[i]]]@data, col = col[i])
-          }
-
-        }else{
-          plot(
-            NA,NA,xlim = c(0,1), ylim = c(0,1), main = "",
-            axes = FALSE,
-            ylab = "",
-            xlab = "")
-          text(0.5,0.5, "No TL curve detected")
-        }
-      }#plot.single.sel
+        .plot_TL_Curves(record_list, TL.Curves.ID.Lx, main = main,
+                        mtext = expression(paste("TL previous ", L[n], ",", L[x], " curves")),
+                        cex = cex, col = col, log = log)
+      }
 
       ## (2) Plotting LnLx Curves ----------------------------------------------------
       ##overall plot option selection for plot.single.sel
@@ -1087,57 +1043,11 @@ analyse_SAR.CWOSL<- function(
       }# plot.single.sel
 
       ## (3) Plotting TL Curves previous TnTx ----------------------------------------
-      ##overall plot option selection for plot.single.sel
       if (3 %in% plot.single.sel) {
-        ##check if TL curves are available
-        if (length(TL.Curves.ID.Tx) > 0) {
-          ##It is just an approximation taken from the data
-          resolution.TLCurves <-  round(mean(diff(
-            round(record_list[[TL.Curves.ID.Tx[[1]]]]@data[,1], digits = 1)
-          )), digits = 1)
-
-          ## get value ranges of the curves
-          xy_xlim <- matrixStats::rowRanges(vapply(
-            X = TL.Curves.ID.Tx,
-            FUN = \(x) apply(record_list[[x]]@data, 2, range, na.rm = TRUE),
-            FUN.VALUE = numeric(4)))
-
-          xlim_range <- c(min(xy_xlim[1,]), max(xy_xlim[2,]))
-          ylim_range <- c(1, max(xy_xlim[4,]))
-
-          plot(
-            NA,NA,
-            xlab = "T [\u00B0C]",
-            ylab = paste0("TL [cts/",resolution.TLCurves," \u00B0C]"),
-            xlim = xlim_range,
-            ylim = ylim_range,
-            main = main,
-            mgp = c(2, 0.7, 0),
-            tcl = -0.4,
-            log = gsub("x", "", log))
-
-          #provide curve information as mtext, to keep the space for the header
-          mtext(
-            side = 3,
-            text = expression(paste("TL previous ", T[n],",",T[x]," curves")),
-            cex = cex * 0.7)
-
-          ##plot TL curves
-          for (i in seq_along(TL.Curves.ID.Tx)) {
-            lines(record_list[[TL.Curves.ID.Tx[i]]]@data, col = col[i])
-          }
-
-        }else{
-          plot(
-            NA,NA,xlim = c(0,1), ylim = c(0,1), main = "",
-            axes = FALSE,
-            ylab = "",
-            xlab = ""
-          )
-          text(0.5,0.5, "No TL curve detected")
-        }
-
-      }#plot.single.sel
+        .plot_TL_Curves(record_list, TL.Curves.ID.Tx, main = main,
+                        mtext = expression(paste("TL previous ", T[n], ",", T[x], " curves")),
+                        cex = cex, col = col, log = log)
+      }
 
       ## (4) Plotting TnTx Curves ----------------------------------------------------
       ##overall plot option selection for plot.single.sel
@@ -1535,6 +1445,42 @@ analyse_SAR.CWOSL<- function(
     cex = 1.3)
 }
 
+## Plot TL curves
+.plot_TL_Curves <- function(record_list, curve_ids, main, mtext, cex, col, log) {
+  if (length(curve_ids) == 0) {
+    plot(NA, NA, xlim = c(0, 1), ylim = c(0, 1), main = "",
+         axes = FALSE, ylab = "", xlab = "")
+    text(0.5, 0.5, "No TL curve detected")
+    return()
+  }
+
+  ## approximate curve resolution
+  resolution.TLCurves <- round(mean(diff(
+      round(record_list[[curve_ids[[1]]]]@data[, 1], digits = 1)
+  )), digits = 1)
+
+  ## get ranges of the curves
+  xy_xlim <- matrixStats::rowRanges(vapply(
+    X = curve_ids,
+    FUN = function(x) apply(record_list[[x]]@data, 2, range, na.rm = TRUE),
+    FUN.VALUE = numeric(4)))
+
+  plot(NA, NA,
+       xlab = "T [\u00B0C]",
+       ylab = paste0("TL [cts/", resolution.TLCurves, " \u00B0C]"),
+       xlim = c(min(xy_xlim[1, ]), max(xy_xlim[2, ])),
+       ylim = c(1, max(xy_xlim[4, ])),
+       main = main,
+       mgp = c(2, 0.7, 0),
+       tcl = -0.4,
+       log = gsub("x", "", log))
+
+  mtext(side = 3, text = mtext, cex = cex * 0.7)
+  for (i in seq_along(curve_ids)) {
+    lines(record_list[[curve_ids[i]]]@data, col = col[i])
+  }
+}
+
 # plot the shine-down curves more consistently
 .plot_ShineDownCurves <- function(
     record_list,
@@ -1568,16 +1514,13 @@ analyse_SAR.CWOSL<- function(
     FUN = \(x) apply(record_list[[x]]@data, 2, range, na.rm = TRUE),
     FUN.VALUE = numeric(4)))
 
-  xlim_range <- c(min(xy_xlim[1,]), max(xy_xlim[2,]))
-  ylim_range <- c(min(xy_xlim[3,]), max(xy_xlim[4,]))
-
   #open plot area LnLx
   plot(
     NA,NA,
     xlab = "Time [s]",
     ylab = paste0(set_curveType," [cts/",set_curveRes," s]"),
-    xlim = xlim_range,
-    ylim = ylim_range,
+    xlim = c(min(xy_xlim[1, ]), max(xy_xlim[2, ])),
+    ylim = c(min(xy_xlim[3, ]), max(xy_xlim[4, ])),
     main = set_main,
     mgp = c(2, 0.7, 0),
     tcl = -0.4,
