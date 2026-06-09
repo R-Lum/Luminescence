@@ -1159,17 +1159,12 @@ plot_AbanicoPlot <- function(
   legend.adj <- coords$adj
 
   ## define cartesian plot origins
-  if (!rotate) {
-    xy.0 <- c(min(ellipse[,1]) * lostintranslation, min(ellipse[,2]))
-  } else {
-    xy.0 <- c(min(ellipse[,1]), min(ellipse[,2]) * lostintranslation)
-  }
+  xy.0 <- min.ellipse * lostintranslation
 
   ## calculate coordinates for dispersion polygon overlay
   y.max <- if (!rotate) par()$usr[2] else par()$usr[4]
 
-  polygons.x <- c(limits.x[1], limits.x[2], xy.0[rotate.idx], y.max, y.max,
-                  xy.0[rotate.idx], limits.x[2])
+  polygons.x <- c(limits.x[1], limits.x[2], xy.0, y.max, y.max, xy.0, limits.x[2])
   polygons.y <- matrix(nrow = length(data), ncol = 7)
   for(i in 1:length(data)) {
     if (grepl("sd", dispersion, fixed = TRUE)) {
@@ -1193,12 +1188,8 @@ plot_AbanicoPlot <- function(
     y.upper <- ci.lo_up[2] - z.central.global
 
     polygons.y[i, ] <- c(0,
-                         y.upper * limits.x[2],
-                         y.upper * xy.0[rotate.idx],
-                         y.upper * xy.0[rotate.idx],
-                         y.lower * xy.0[rotate.idx],
-                         y.lower * xy.0[rotate.idx],
-                         y.lower * limits.x[2])
+                         y.upper * c(limits.x[2], xy.0, xy.0),
+                         y.lower * c(xy.0, xy.0, limits.x[2]))
   }
 
   ## append information about data in confidence interval
@@ -1337,7 +1328,7 @@ plot_AbanicoPlot <- function(
                 min.ellipse,
               col = grid.minor,
               lwd = 1)
-        lines.rot(x = c(xy.0[rotate.idx], y.max),
+        lines.rot(x = c(xy.0, y.max),
               y = c(tick.values.minor[i] - z.central.global,
                     tick.values.minor[i] - z.central.global) * min.ellipse,
               col = grid.minor,
@@ -1353,7 +1344,7 @@ plot_AbanicoPlot <- function(
                 min.ellipse,
               col = grid.major,
               lwd = 1)
-        lines.rot(x = c(xy.0[rotate.idx], y.max),
+        lines.rot(x = c(xy.0, y.max),
               y = c(tick.values.major[i] - z.central.global,
                     tick.values.major[i] - z.central.global) * min.ellipse,
               col = grid.major,
@@ -1367,7 +1358,7 @@ plot_AbanicoPlot <- function(
         z.line <- if (length(bar) == 1) bar[1] else bar[i]
         x2 <- r
         y2 <- (z.line - z.central.global) * x2
-        lines.rot(x = c(limits.x[1], x2, xy.0[rotate.idx], y.max),
+        lines.rot(x = c(limits.x[1], x2, xy.0, y.max),
               y = c(0, y2, y2, y2),
               lty = lty[i],
               lwd = lwd[i],
@@ -1387,11 +1378,11 @@ plot_AbanicoPlot <- function(
                           to = limits.z[2])
       KDE.max.plot <- max(KDE.plot$y, KDE.max.plot)
     }
-    KDE.scale <- (y.max - xy.0[rotate.idx]) / (KDE.max * 1.05)
+    KDE.scale <- (y.max - xy.0) / (KDE.max * 1.05)
 
     ## plot KDE lines
     for (i in 1:length(data)) {
-      polygon.rot(x = xy.0[rotate.idx] + KDE[[i]][, 2] * KDE.scale,
+      polygon.rot(x = xy.0 + KDE[[i]][, 2] * KDE.scale,
                   y = (KDE[[i]][, 1] - z.central.global) * min.ellipse,
                   col = kde.fill[i],
                   border = kde.line[i],
@@ -1400,7 +1391,7 @@ plot_AbanicoPlot <- function(
 
     ## plot KDE x-axis
     axis(side = rotate.idx,
-         at = c(xy.0[rotate.idx], y.max),
+         at = c(xy.0, y.max),
          col = layout$abanico$colour$xtck3,
          col.axis = layout$abanico$colour$xtck3,
          labels = NA,
@@ -1408,7 +1399,7 @@ plot_AbanicoPlot <- function(
          cex = cex)
 
     axis(side = rotate.idx,
-         at = c(xy.0[rotate.idx], y.max),
+         at = c(xy.0, y.max),
          labels = as.character(round(c(0, KDE.max.plot), 3)),
          line = 2 * layout$abanico$dimension$xtck3.line / 100 - 2,
          lwd = 0,
@@ -1420,7 +1411,7 @@ plot_AbanicoPlot <- function(
 
     ## KDE x-axis label including bandwidth size
     mtext(sprintf("%s (bw %.3g)", xlab[3], KDE.bw),
-          at = (xy.0[rotate.idx] + y.max) / 2,
+          at = (xy.0 + y.max) / 2,
           side = rotate.idx,
           line = 2.5 * layout$abanico$dimension$xlab3.line / 100,
           col = layout$abanico$colour$xlab3,
@@ -1708,7 +1699,7 @@ plot_AbanicoPlot <- function(
                            numeric(1)), na.rm = TRUE)
 
     ## calculate scaling factor for histogram bar heights
-    hist.scale <- (y.max - xy.0[rotate.idx]) / (hist.max * 1.05)
+    hist.scale <- (y.max - xy.0) / (hist.max * 1.05)
 
     ## normalise histogram bar height to KDE dimensions
     for (i in 1:length(data)) {
@@ -1720,7 +1711,7 @@ plot_AbanicoPlot <- function(
   ## optionally add histogram
   if (hist) {
       axis(side = rotate.idx,
-           at = c(xy.0[rotate.idx], y.max),
+           at = c(xy.0, y.max),
            labels = as.character(c(0, hist.max)),
            line = -1 * layout$abanico$dimension$xtck3.line / 100 - 2,
            lwd = 0,
@@ -1732,7 +1723,7 @@ plot_AbanicoPlot <- function(
 
       ## add label
       mtext(text = "n",
-            at = (xy.0[rotate.idx] + y.max) / 2,
+            at = (xy.0 + y.max) / 2,
             side = rotate.idx,
             line = -3.5 * layout$abanico$dimension$xlab2.line / 100,
             col = layout$abanico$colour$xlab2,
@@ -1742,7 +1733,7 @@ plot_AbanicoPlot <- function(
 
       ## plot ticks
       axis(side = rotate.idx,
-           at = c(xy.0[rotate.idx], y.max),
+           at = c(xy.0, y.max),
            col = layout$abanico$colour$xtck2,
            col.axis = layout$abanico$colour$xtck2,
            labels = NA,
@@ -1753,7 +1744,7 @@ plot_AbanicoPlot <- function(
     for (i in 1:length(data)) {
       for (j in 1:length(hist.data[[i]]$density)) {
           ## calculate x-coordinates
-          hist.x.i <- xy.0[rotate.idx] + c(0, 0, rep(hist.data[[i]]$density[j], 2))
+          hist.x.i <- xy.0 + c(0, 0, rep(hist.data[[i]]$density[j], 2))
 
           ## calculate y-coordinates
           hist.y.i <- c(hist.data[[i]]$breaks[j],
@@ -1777,7 +1768,7 @@ plot_AbanicoPlot <- function(
   ## optionally add box plot
   if (boxplot) {
 
-    box.x <- c(min.ellipse + KDE.max * 0.85, xy.0[rotate.idx] + KDE.max * 0.95)
+    box.x <- c(min.ellipse + KDE.max * 0.85, xy.0 + KDE.max * 0.95)
     for (i in 1:length(data)) {
       ## calculate boxplot data without plotting
       boxplot.data <- graphics::boxplot(data[[i]][, 3], plot = FALSE)
@@ -1815,11 +1806,11 @@ plot_AbanicoPlot <- function(
   ## optionally add dot plot
   if (dots) {
     ## calculate distance between dots
-    dots.distance <- (y.max - (xy.0[rotate.idx] + par()$cxy[rotate.idx] * 0.4)) / hist.max
+    dots.distance <- (y.max - (xy.0 + par()$cxy[rotate.idx] * 0.4)) / hist.max
 
     for (i in 1:length(data)) {
       for (j in 1:length(hist.data[[i]]$counts)) {
-        dots.x.i <- seq(from = xy.0[rotate.idx] + par()$cxy[rotate.idx] * 0.4,
+        dots.x.i <- seq(from = xy.0 + par()$cxy[rotate.idx] * 0.4,
                         by = dots.distance,
                         length.out = hist.data[[i]]$counts[j])
 
@@ -1863,7 +1854,7 @@ plot_AbanicoPlot <- function(
 
   ## optionally add rug
   if (rug) {
-    rug.x <- c(1 - 0.013 * (layout$abanico$dimension$rugl / 100), 1) * xy.0[rotate.idx]
+    rug.x <- c(1 - 0.013 * (layout$abanico$dimension$rugl / 100), 1) * xy.0
     rug.y <- ((if (log.z) log(De.global) else De.global) - z.central.global) * min.ellipse
     for (i in 1:length(rug.y)) {
       lines.rot(x = rug.x,
@@ -1873,7 +1864,7 @@ plot_AbanicoPlot <- function(
   }
 
   ## plot KDE base line
-  lines.rot(x = c(xy.0[rotate.idx], xy.0[rotate.idx]),
+  lines.rot(x = c(xy.0, xy.0),
             y = c(min.ellipse.rot, max.ellipse.rot),
             col = layout$abanico$colour$border)
 
@@ -1900,12 +1891,10 @@ plot_AbanicoPlot <- function(
     par(family = layout$abanico$font.type$legend)
 
     scale.rot <- if (!rotate) c(1, 0.8) else c(0.8, 1)
-    if (rotate)
-      legend.adj <- rev(legend.adj)
     legend(x = legend.pos[1] * scale.rot[1],
            y = legend.pos[2] * scale.rot[2],
-           xjust = legend.adj[1],
-           yjust = legend.adj[2],
+           xjust = legend.adj[rotate.idx],
+           yjust = legend.adj[3 - rotate.idx],
            legend = legend,
            pch = pch,
            col = value.dot,
@@ -1960,12 +1949,12 @@ plot_AbanicoPlot <- function(
                       zlim = limits.z,
                       polar.box = c(limits.x[1],
                                     limits.x[2],
-                                    min(ellipse[,2]),
-                                    max(ellipse[,2])),
-                      cartesian.box = c(xy.0[1],
-                                        par()$usr[2],
-                                        xy.0[2],
-                                        max(ellipse[,2])),
+                                    min.ellipse,
+                                    max.ellipse),
+                      cartesian.box = c(xy.0,
+                                        par("usr")[2 * rotate.idx],
+                                        min.ellipse.rot,
+                                        max.ellipse.rot),
                       plot.ratio = plot.ratio,
                       data = data,
                       data.global = data.global,
@@ -2077,10 +2066,10 @@ plot_AbanicoPlot <- function(
                                          dash = 2))
 
     # KDE plot ----
-    KDE.x <- xy.0[1] + KDE[[1]][ ,2] * KDE.scale
+    KDE.x <- xy.0 + KDE[[1]][, 2] * KDE.scale
     KDE.y <- (KDE[[1]][ ,1] - z.central.global) * min(ellipse[,1])
     KDE.curve <- data.frame(x = KDE.x, y = KDE.y)
-    KDE.curve <- KDE.curve[KDE.curve$x != xy.0[1], ]
+    KDE.curve <- KDE.curve[KDE.curve$x != xy.0, ]
     KDE.text <- paste0("Value:",
                        format(exp(KDE.curve$x), digits = 2, nsmall = 1), "<br />",
                        "Density:",
