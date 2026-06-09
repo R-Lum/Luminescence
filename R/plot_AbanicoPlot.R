@@ -1283,8 +1283,7 @@ plot_AbanicoPlot <- function(
           line = 3 * layout$abanico$dimension$ylab.line / 100,
           col = layout$abanico$colour$ylab,
           family = layout$abanico$font.type$ylab,
-          font = which(c("normal", "bold", "italic", "bold italic") ==
-                         layout$abanico$font.deco$ylab)[1],
+          font = .font_style(layout$abanico$font.deco$ylab),
           cex = cex * layout$abanico$font.size$ylab / 12)
 
     ## calculate upper x-axis label values
@@ -1415,8 +1414,7 @@ plot_AbanicoPlot <- function(
          lwd = 0,
          col = layout$abanico$colour$xtck3,
          family = layout$abanico$font.type$xtck3,
-         font = which(c("normal", "bold", "italic", "bold italic") ==
-                      layout$abanico$font.deco$xtck3)[1],
+         font = .font_style(layout$abanico$font.deco$xtck3),
          col.axis = layout$abanico$colour$xtck3,
          cex.axis = layout$abanico$font.size$xtck3 / 12)
 
@@ -1427,8 +1425,7 @@ plot_AbanicoPlot <- function(
           line = 2.5 * layout$abanico$dimension$xlab3.line / 100,
           col = layout$abanico$colour$xlab3,
           family = layout$abanico$font.type$xlab3,
-          font = which(c("normal", "bold", "italic", "bold italic") ==
-                       layout$abanico$font.deco$xlab3)[1],
+          font = .font_style(layout$abanico$font.deco$xlab3),
           cex = cex * layout$abanico$font.size$xlab3 / 12)
   }
 
@@ -1477,8 +1474,7 @@ plot_AbanicoPlot <- function(
     add.shift <- if (!rotate) 0 else 3.5
     title(main = main,
           family = layout$abanico$font.type$main,
-          font = which(c("normal", "bold", "italic", "bold italic") ==
-                         layout$abanico$font.deco$main)[1],
+          font = .font_style(layout$abanico$font.deco$main),
           col.main = layout$abanico$colour$main,
           cex = layout$abanico$font.size$main / 12,
           line = (shift.lines + add.shift) * layout$abanico$dimension$main / 100)
@@ -1502,8 +1498,7 @@ plot_AbanicoPlot <- function(
          lwd = 0,
          col = layout$abanico$colour$xtck1,
          family = layout$abanico$font.type$xtck1,
-         font = which(c("normal", "bold", "italic", "bold italic") ==
-                        layout$abanico$font.deco$xtck1)[1],
+         font = .font_style(layout$abanico$font.deco$xtck1),
          col.axis = layout$abanico$colour$xtck1,
          cex.axis = layout$abanico$font.size$xlab1 / 12)
 
@@ -1536,8 +1531,7 @@ plot_AbanicoPlot <- function(
           line = 2.5 * layout$abanico$dimension$xlab1.line / 100,
           col = layout$abanico$colour$xlab1,
           family = layout$abanico$font.type$xlab1,
-          font = which(c("normal", "bold", "italic", "bold italic") ==
-                         layout$abanico$font.deco$xlab1)[1],
+          font = .font_style(layout$abanico$font.deco$xlab1),
           cex = cex * layout$abanico$font.size$xlab1 / 12)
 
     ## add upper axis label
@@ -1547,8 +1541,7 @@ plot_AbanicoPlot <- function(
           line = -3.5 * layout$abanico$dimension$xlab2.line / 100,
           col = layout$abanico$colour$xlab2,
           family = layout$abanico$font.type$xlab2,
-          font = which(c("normal", "bold", "italic", "bold italic") ==
-                         layout$abanico$font.deco$xlab2)[1],
+          font = .font_style(layout$abanico$font.deco$xlab2),
           cex = cex * layout$abanico$font.size$xlab2 / 12)
 
     ## plot upper x-axis
@@ -1571,8 +1564,7 @@ plot_AbanicoPlot <- function(
          lwd = 0,
          col = layout$abanico$colour$xtck2,
          family = layout$abanico$font.type$xtck2,
-         font = which(c("normal", "bold", "italic", "bold italic") ==
-                        layout$abanico$font.deco$xtck2)[1],
+         font = .font_style(layout$abanico$font.deco$xtck2),
          col.axis = layout$abanico$colour$xtck2,
          cex.axis = layout$abanico$font.size$xlab2 / 12)
   }
@@ -1581,8 +1573,7 @@ plot_AbanicoPlot <- function(
   if (is.null(extraArgs$yaxt) || extraArgs$yaxt != "n") {
     line <- 2 * layout$abanico$dimension$ytck.line / 100 - 2
     family <- layout$abanico$font.type$ytck
-    font <- which(c("normal", "bold", "italic", "bold italic") ==
-                  layout$abanico$font.deco$ytck)[1]
+    font <- .font_style(layout$abanico$font.deco$ytck)
     col.axis <- layout$abanico$colour$ytck
     cex.axis <- layout$abanico$font.size$ylab / 12
     if (y.axis) {
@@ -1653,8 +1644,7 @@ plot_AbanicoPlot <- function(
            labels = label.z.text,
            adj = if (rotate) c(0.5, 0) else c(0, 0.5),
            family = layout$abanico$font.type$ztck,
-           font = which(c("normal", "bold", "italic", "bold italic") ==
-                        layout$abanico$font.deco$ztck)[1],
+           font = .font_style(layout$abanico$font.deco$ztck),
            cex = layout$abanico$font.size$ztck / 12)
 
   ## plot z-label
@@ -1666,8 +1656,7 @@ plot_AbanicoPlot <- function(
         line = (ifelse(rotate, 1.5, 4) + cex) * layout$abanico$dimension$zlab.line / 100,
         col = layout$abanico$colour$zlab,
         family = layout$abanico$font.type$zlab,
-        font = which(c("normal", "bold", "italic", "bold italic") ==
-                     layout$abanico$font.deco$zlab)[1],
+        font = .font_style(layout$abanico$font.deco$zlab),
         cex = cex * layout$abanico$font.size$zlab / 12)
 
   ## plot values and optionally error bars
@@ -1737,8 +1726,7 @@ plot_AbanicoPlot <- function(
            lwd = 0,
            col = layout$abanico$colour$xtck3,
            family = layout$abanico$font.type$xtck3,
-           font = which(c("normal", "bold", "italic", "bold italic") ==
-                          layout$abanico$font.deco$xtck3)[1],
+           font = .font_style(layout$abanico$font.deco$xtck3),
            col.axis = layout$abanico$colour$xtck3,
            cex.axis = layout$abanico$font.size$xtck3 / 12)
 
@@ -1749,8 +1737,7 @@ plot_AbanicoPlot <- function(
             line = -3.5 * layout$abanico$dimension$xlab2.line / 100,
             col = layout$abanico$colour$xlab2,
             family = layout$abanico$font.type$xlab2,
-            font = which(c("normal", "bold", "italic", "bold italic") ==
-                           layout$abanico$font.deco$xlab2)[1],
+            font = .font_style(layout$abanico$font.deco$xlab2),
             cex = cex * layout$abanico$font.size$xlab2 / 12)
 
       ## plot ticks
@@ -1869,8 +1856,7 @@ plot_AbanicoPlot <- function(
              pos = 2,
              labels = round(stats.data[, 3], 1),
              family = layout$abanico$font.type$stats,
-             font = which(c("normal", "bold", "italic", "bold italic") ==
-                          layout$abanico$font.deco$stats)[1],
+             font = .font_style(layout$abanico$font.deco$stats),
              cex = layout$abanico$font.size$stats / 12,
              col = layout$abanico$colour$stats)
   }
@@ -1924,8 +1910,7 @@ plot_AbanicoPlot <- function(
            pch = pch,
            col = value.dot,
            text.col = value.dot,
-           text.font = which(c("normal", "bold", "italic", "bold italic") ==
-                             layout$abanico$font.deco$legend)[1],
+           text.font = .font_style(layout$abanico$font.deco$legend),
            cex = layout$abanico$font.size$legend / 12,
            bty = "n")
 
@@ -1940,8 +1925,7 @@ plot_AbanicoPlot <- function(
         line = (shift.lines - 2 + add.shift) * layout$abanico$dimension$mtext / 100,
         col = layout$abanico$colour$mtext,
         family = layout$abanico$font.type$mtext,
-        font = which(c("normal", "bold", "italic", "bold italic") ==
-                     layout$abanico$font.deco$mtext)[1],
+        font = .font_style(layout$abanico$font.deco$mtext),
         cex = cex * layout$abanico$font.size$mtext / 12)
 
   ## add summary content
@@ -1953,8 +1937,7 @@ plot_AbanicoPlot <- function(
              labels = label.text[[i]],
              col = summary.col[i],
              family = layout$abanico$font.type$summary,
-             font = which(c("normal", "bold", "italic", "bold italic") ==
-                            layout$abanico$font.deco$summary)[1],
+             font = .font_style(layout$abanico$font.deco$summary),
              cex = layout$abanico$font.size$summary / 12)
     } else if (mtext == "") {
           mtext(side = 3,
@@ -1963,8 +1946,7 @@ plot_AbanicoPlot <- function(
                 text = label.text[[i]],
                 col = summary.col[i],
                 family = layout$abanico$font.type$summary,
-                font = which(c("normal", "bold", "italic", "bold italic") ==
-                               layout$abanico$font.deco$summary)[1],
+                font = .font_style(layout$abanico$font.deco$summary),
                 cex = cex * layout$abanico$font.size$summary / 12)
     }
   }

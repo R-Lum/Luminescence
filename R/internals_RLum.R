@@ -538,6 +538,19 @@ fancy_scientific <- function(l) {
   list(pos = pos, adj = adj)
 }
 
+#' Convert font-style keyword to integer.
+#'
+#' @param style [character] (**required**):
+#' One of "normal", "bold", "italic" or "bold italic".
+#'
+#' @return
+#' An integer specifying the font to use (see the `font` entry in `?par`).
+#'
+#' @noRd
+.font_style <- function(style) {
+  match(style, c("normal", "bold", "italic", "bold italic"))
+}
+
 
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #+ Statistical Summary for Plot functions

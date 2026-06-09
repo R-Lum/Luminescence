@@ -522,8 +522,7 @@ plot_KDE <- function(
        lwd = 0,
        col = layout$kde$colour$xtck,
        family = layout$kde$font.type$xtck,
-       font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
-                      layout$kde$font.deco$xtck],
+       font = .font_style(layout$kde$font.deco$xtck),
        col.axis = layout$kde$colour$xtck,
        cex.axis = layout$kde$font.size$xlab/12)
 
@@ -532,8 +531,7 @@ plot_KDE <- function(
         line = 3 * layout$kde$dimension$xlab.line / 100,
         col = layout$kde$colour$xlab,
         family = layout$kde$font.type$xlab,
-        font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
-                       layout$kde$font.deco$xlab],
+        font = .font_style(layout$kde$font.deco$xlab),
         cex = cex * layout$kde$font.size$xlab/12)
 
   ## add left y-axis
@@ -551,8 +549,7 @@ plot_KDE <- function(
        lwd = 0,
        col = layout$kde$colour$ytck1,
        family = layout$kde$font.type$ytck1,
-       font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
-                      layout$kde$font.deco$ytck1],
+       font = .font_style(layout$kde$font.deco$ytck1),
        col.axis = layout$kde$colour$ytck1,
        cex.axis = layout$kde$font.size$ylab1/12)
 
@@ -561,8 +558,7 @@ plot_KDE <- function(
         line = 3 * layout$kde$dimension$ylab1.line / 100,
         col = layout$kde$colour$ylab1,
         family = layout$kde$font.type$ylab1,
-        font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
-                       layout$kde$font.deco$ylab1],
+        font = .font_style(layout$kde$font.deco$ylab1),
         cex = cex * layout$kde$font.size$ylab1/12)
 
   ## add density curves
@@ -580,8 +576,7 @@ plot_KDE <- function(
   ## add plot title
   title(main = main,
         family = layout$kde$font.type$main,
-        font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
-                       layout$kde$font.deco$main],
+        font = .font_style(layout$kde$font.deco$main),
         col.main = layout$kde$colour$main,
         cex = layout$kde$font.size$main / 12,
         line = (toplines + 1.2) * layout$kde$dimension$main / 100)
@@ -592,8 +587,7 @@ plot_KDE <- function(
           side = 3,
           line = 0.5,
           family = layout$kde$font.type$mtext,
-          font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
-                         layout$kde$font.deco$mtext],
+          font = .font_style(layout$kde$font.deco$mtext),
           col.main = layout$kde$colour$mtext,
           cex = cex * layout$kde$font.size$mtext / 12)
   }
@@ -755,8 +749,7 @@ plot_KDE <- function(
          lwd = 0,
          col = layout$kde$colour$ytck2,
          family = layout$kde$font.type$ytck2,
-         font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
-                        layout$kde$font.deco$ytck2],
+         font = .font_style(layout$kde$font.deco$ytck2),
          col.axis = layout$kde$colour$ytck2,
          cex.axis = layout$kde$font.size$ylab2/12)
 
@@ -765,8 +758,7 @@ plot_KDE <- function(
           line = 3 * layout$kde$dimension$ylab2.line / 100,
           col = layout$kde$colour$ylab2,
           family = layout$kde$font.type$ylab2,
-          font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
-                         layout$kde$font.deco$ylab2],
+          font = .font_style(layout$kde$font.deco$ylab2),
           cex = cex * layout$kde$font.size$ylab2/12)
 
     ## add De error bars
