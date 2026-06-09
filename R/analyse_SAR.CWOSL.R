@@ -904,11 +904,11 @@ analyse_SAR.CWOSL<- function(
 
   recuperation.threshold <- rep(rejection.criteria$recuperation.rate / 100,
                                 length(Recuperation))
-  status.Recuperation <- sapply(Recuperation, function(value) {
+  status.Recuperation <- vapply(Recuperation, function(value) {
     if (is.na(value))
       return("OK")
     .status_from_threshold(value, rejection.criteria$recuperation.rate / 100)
-  })
+  }, FUN.VALUE = character(1))
 
   ## Calculate Testdose error -----------------------------------------------
   Testdose.error <- (LnLxTnTx$Net_TnTx.Error/LnLxTnTx$Net_TnTx)[1]
