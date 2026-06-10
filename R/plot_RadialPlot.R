@@ -291,6 +291,7 @@ plot_RadialPlot <- function(
 
   .validate_not_empty(data)
   .validate_logical_scalar(log.z)
+  .validate_positive_scalar(central.value, null.ok = TRUE)
   .validate_class(centrality, c("character", "numeric"))
   if (is.character(centrality)) {
     centrality <- .validate_args(centrality, c("mean", "mean.weighted",
@@ -349,6 +350,8 @@ plot_RadialPlot <- function(
   .validate_class(summary, "character")
   if (is.numeric(summary.pos)) {
     .validate_length(summary.pos, 2)
+    if (anyNA(summary.pos))
+      .throw_error("'summary.pos' cannot contain missing values")
   }
   else {
     summary.pos <- .validate_args(summary.pos, c("sub", valid.pos))
@@ -356,6 +359,8 @@ plot_RadialPlot <- function(
   .validate_class(legend, "character", null.ok = TRUE)
   if (is.numeric(legend.pos)) {
     .validate_length(legend.pos, 2)
+    if (anyNA(legend.pos))
+      .throw_error("'legend.pos' cannot contain missing values")
   } else {
     legend.pos <- .validate_args(legend.pos, valid.pos)
   }
@@ -475,8 +480,6 @@ plot_RadialPlot <- function(
   if (!is.null(central.value)) {
     # ## adjust central value for De.add
     central.value <- central.value + De.add
-    if (log.z)
-      .validate_positive_scalar(central.value)
     z.central.global <- ifelse(log.z,
                                log(central.value),
                                central.value)

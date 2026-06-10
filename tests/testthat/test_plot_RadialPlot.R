@@ -27,7 +27,7 @@ test_that("input validation", {
   expect_error(plot_RadialPlot(df, na.rm = -1),
                "'na.rm' should be a single logical value")
   expect_error(plot_RadialPlot(df, central.value = -1),
-               "'central.value' should be a single positive value")
+               "'central.value' should be a single positive value or NULL")
   expect_error(plot_RadialPlot(df, xlab = "x"),
                "'xlab' should be of class 'character' and have length 2")
   expect_error(plot_RadialPlot(df, centrality = list("error")),
@@ -40,10 +40,14 @@ test_that("input validation", {
                "'summary' should be of class 'character'")
   expect_error(plot_RadialPlot(df, summary.pos = 5),
                "'summary.pos' should have length 2")
+  expect_error(plot_RadialPlot(df, summary.pos = c(5, NA)),
+               "'summary.pos' cannot contain missing values")
   expect_error(plot_RadialPlot(df, summary.pos = list()),
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
   expect_error(plot_RadialPlot(df, summary.pos = "error"),
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
+  expect_error(plot_RadialPlot(df, legend.pos = c(5, NA)),
+               "'legend.pos' cannot contain missing values")
   expect_error(plot_RadialPlot(df, plot.ratio = NA),
                "'plot.ratio' should be a single positive value or NULL")
   expect_error(plot_RadialPlot(df, line = c(NA, NA)),
@@ -157,12 +161,11 @@ test_that("check functionality", {
   ## trigger warning
   expect_warning(plot_RadialPlot(
       data = df,
-      #centrality = ,
-      central.value = -1,
+      central.value = 1,
       log.z = FALSE),
       "z-scale touches 2s-polygon, decrease plot ratio"
     )
-  expect_silent(plot_RadialPlot(df, central.value = -1, log.z = FALSE,
+  expect_silent(plot_RadialPlot(df, central.value = 1, log.z = FALSE,
                                 bar.col = "none"))
 
   expect_warning(plot_RadialPlot(data.frame(c(12, 2, 7), c(0, 2, 3))),
