@@ -34,6 +34,10 @@ test_that("input validation", {
                "'xlab' must have length 2")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, z.0 = "error"),
                "'z.0' should be one of 'mean', 'mean.weighted', 'median' or")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, z.0 = NA_real_),
+               "'z.0' should be a single positive value")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, z.0 = c(2, 3)),
+               "'z.0' should be a single positive value")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, dispersion = "error"),
                "'dispersion' should be one of 'qr', 'sd', '2sd' or a percentile")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, dispersion = "p5"),
