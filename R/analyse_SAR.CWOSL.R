@@ -943,6 +943,14 @@ analyse_SAR.CWOSL<- function(
   ## if OSL.component is used)
   RejectionCriteria <- RejectionCriteria[!is.na(RejectionCriteria$Value), ]
 
+  ## get position numbers
+  POSITION <- unique(unlist(lapply(object@records,
+                                   function(x) x@info$POSITION %||% NA)))[1]
+
+  ## get grain numbers
+  GRAIN <- unique(unlist(lapply(object@records,
+                                function(x) x@info$GRAIN %||% NA)))[1]
+
   ## Plotting ---------------------------------------------------------------
   if (plot) {
       ## the graphical parameters cannot be restored unconditionally, as that
@@ -1236,45 +1244,13 @@ analyse_SAR.CWOSL<- function(
     }
   }
 
-  ## add information on the integration limits
-  temp.GC.extended <- data.frame(
-      signal.range = .format_range(signal_integral),
-      background.range = .format_range(background_integral),
-      signal.range.Tx = .format_range(signal_integral_Tx %||% NA),
-      background.range.Tx = .format_range(background_integral_Tx %||% NA),
-      stringsAsFactors = FALSE)
-
-# Set return Values -----------------------------------------------------------
-    ##generate unique identifier
-    UID <- create_UID()
-
-  ## get position numbers
-  POSITION <- unique(unlist(lapply(object@records,
-                                   function(x) x@info$POSITION %||% NA)))[1]
-
-  ## get grain numbers
-  GRAIN <- unique(unlist(lapply(object@records,
-                                function(x) x@info$GRAIN %||% NA)))[1]
-
-    temp.results.final <- set_RLum(
-      class = "RLum.Results",
-      data = list(
-        data = as.data.frame(
-          c(temp.GC, temp.GC.extended, ALQ = 1,
-            POS = POSITION, GRAIN = GRAIN, UID = UID),
-          stringsAsFactors = FALSE),
-        LnLxTnTx.table = cbind(LnLxTnTx, UID = UID, stringsAsFactors = FALSE),
-        rejection.criteria = cbind(UID, RejectionCriteria),
-        Formula = temp.GC.fit.Formula
-      ),
-      info = list(call = sys.call())
-    )
-
-  ## (7) Plot IRSL curve/Single Grain ---------------------------------------
-  if (plot[1] && 8 %in% plot.single.sel) {
-    ## split the device area in two so that the IRSL curve can be plotted
-    ## alongside the rejection criteria
-    if (!plot_singlePanels[1]) par(mfrow = c(1,2))
+  if (plot) {
+    ## (7) Plot IRSL curve/Single Grain -------------------------------------
+    if (8 %in% plot.single.sel) {
+      ## split the device area in two so that the IRSL curve can be plotted
+      ## alongside the rejection criteria
+      if (!plot_singlePanels[1])
+        par(mfrow = c(1,2))
 
       ## check grain an pos and plot single grain disc marker
       ## if we don't have single grain, we can safely use the other
@@ -1301,13 +1277,30 @@ analyse_SAR.CWOSL<- function(
       }
     }
 
-  ## (8) Plot rejection criteria --------------------------------------------
-  if (plot && 7 %in% plot.single.sel) {
-    .plot_RCCriteria(RejectionCriteria)
-  }
+    ## (8) Plot rejection criteria ------------------------------------------
+    if (7 %in% plot.single.sel) {
+      .plot_RCCriteria(RejectionCriteria)
+    }
+  } # end plot
 
   ## Return -----------------------------------------------------------------
-  invisible(temp.results.final)
+  UID <- create_UID()
+  invisible(set_RLum(
+      class = "RLum.Results",
+      data = list(
+          data = cbind(
+              temp.GC,
+              signal.range = .format_range(signal_integral),
+              background.range = .format_range(background_integral),
+              signal.range.Tx = .format_range(signal_integral_Tx %||% NA),
+              background.range.Tx = .format_range(background_integral_Tx %||% NA),
+              ALQ = 1, POS = POSITION, GRAIN = GRAIN, UID = UID),
+          LnLxTnTx.table = cbind(LnLxTnTx, UID = UID, stringsAsFactors = FALSE),
+          rejection.criteria = cbind(UID, RejectionCriteria),
+          Formula = temp.GC.fit.Formula
+      ),
+      info = list(call = sys.call())
+  ))
 }
 
 
