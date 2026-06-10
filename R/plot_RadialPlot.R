@@ -473,7 +473,7 @@ plot_RadialPlot <- function(
                              median.weighted = .weighted.median(data.global[, 3],
                                                                 w = 1 / data.global[, 4]^2),
                              if (is.numeric(centrality)) {
-                               mean(data.global[, 3], na.rm = TRUE)
+                               median(data.global[, 3], na.rm = TRUE)
                              })
 
   ## optionally adjust central value by user-defined value
