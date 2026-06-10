@@ -103,9 +103,9 @@
 #' Option to display the z-axis in logarithmic scale. Default is `TRUE`.
 #'
 #' @param z.0 [character] or [numeric] (*with default*):
-#' User-defined central value, used for centring of data. One out of `"mean"`,
-#' `"mean.weighted"` and `"median"` or a numeric value (not its logarithm).
-#' Default is `"mean.weighted"`.
+#' User-defined central value used for centring of data. One of `"mean.weighted"`
+#' (default), `"mean"`and `"median"`, or a single numeric value (not its
+#' logarithm).
 #'
 #' @param dispersion [character] (*with default*):
 #' measure of dispersion, used for drawing the scatter polygon. One out of
@@ -441,7 +441,7 @@ plot_AbanicoPlot <- function(
   data,
   na.rm = TRUE,
   log.z = TRUE,
-  z.0 = c("mean.weighted", "mean.weighted", "median"),
+  z.0 = c("mean.weighted", "mean", "median"),
   dispersion = c("qr", "sd", "2sd"),
   plot.ratio = 0.75,
   rotate = FALSE,
@@ -594,7 +594,9 @@ plot_AbanicoPlot <- function(
   .validate_logical_scalar(boxplot)
   .validate_logical_scalar(error.bars)
 
-  if (!is.numeric(z.0)) {
+  if (is.numeric(z.0)) {
+    .validate_positive_scalar(z.0)
+  } else {
     .validate_class(z.0, "character")
     z.0 <- .validate_args(z.0, c("mean", "mean.weighted", "median"),
                           extra = "a numerical value")
