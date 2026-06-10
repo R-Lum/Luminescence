@@ -52,6 +52,8 @@ test_that("input validation", {
                "'summary' should be of class 'character'")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, summary.pos = 5),
                "'summary.pos' should have length 2")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, summary.pos = c(NA, 5)),
+               "'summary.pos' cannot contain missing values")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, summary.pos = list()),
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, summary.pos = "error"),
@@ -60,6 +62,8 @@ test_that("input validation", {
                "'legend' should be of class 'character'")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, legend.pos = 5),
                "'legend.pos' should have length 2")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, legend.pos = c(5, NA)),
+               "'legend.pos' cannot contain missing values")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, frame = NULL),
                "'frame' should be one of '0', '1', '2' or '3'")
 

@@ -592,7 +592,9 @@ plot_AbanicoPlot <- function(
   .validate_logical_scalar(hist)
   .validate_logical_scalar(dots)
   .validate_logical_scalar(boxplot)
+  .validate_logical_scalar(y.axis)
   .validate_logical_scalar(error.bars)
+  .validate_logical_scalar(interactive)
 
   if (is.numeric(z.0)) {
     .validate_positive_scalar(z.0)
@@ -613,6 +615,8 @@ plot_AbanicoPlot <- function(
   .validate_class(summary, "character")
   if (is.numeric(summary.pos)) {
     .validate_length(summary.pos, 2)
+    if (anyNA(summary.pos))
+      .throw_error("'summary.pos' cannot contain missing values")
   }
   else {
     summary.pos <- .validate_args(summary.pos, c("sub", valid.pos))
@@ -620,6 +624,8 @@ plot_AbanicoPlot <- function(
   .validate_class(legend, "character", null.ok = TRUE)
   if (is.numeric(legend.pos)) {
     .validate_length(legend.pos, 2)
+    if (anyNA(legend.pos))
+      .throw_error("'legend.pos' cannot contain missing values")
   } else {
     legend.pos <- .validate_args(legend.pos, valid.pos)
   }
