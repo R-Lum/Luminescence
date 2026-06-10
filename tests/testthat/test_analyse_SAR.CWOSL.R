@@ -888,6 +888,14 @@ test_that("graphical snapshot tests", {
                                   background_integral = 900:975,
                                   plot_onePage = TRUE,
                                   verbose = FALSE))
+
+  vdiffr::expect_doppelganger("ignore plot_singlePanels",
+                              analyse_SAR.CWOSL(
+                                  object = object,
+                                  signal_integral = 1:5,
+                                  background_integral = 900:1000,
+                                  plot_onePage = TRUE,
+                                  plot_singlePanels = 1:5))
   })
 })
 
