@@ -18,15 +18,6 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
-</g>
-<defs>
-  <clipPath id='cpMC4wMHw3MTQuOTZ8NDYuMDh8NTYxLjYw'>
-    <rect x='0.00' y='46.08' width='714.96' height='515.52' />
-  </clipPath>
-</defs>
-<g clip-path='url(#cpMC4wMHw3MTQuOTZ8NDYuMDh8NTYxLjYw)'>
-</g>
-<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <text x='357.48' y='28.00' text-anchor='middle' style='font-size: 14.40px; font-weight: bold; font-family: sans;' textLength='48.04px' lengthAdjust='spacingAndGlyphs'>Checks</text>
 <text x='609.04' y='498.49' text-anchor='end' style='font-size: 10.80px; font-family: sans;' textLength='111.65px' lengthAdjust='spacingAndGlyphs'>Recycling ratio (R5/R1)</text>
 <text x='609.04' y='420.38' text-anchor='end' style='font-size: 10.80px; font-family: sans;' textLength='139.88px' lengthAdjust='spacingAndGlyphs'>Recuperation rate (Natural) 1</text>
@@ -35,6 +26,11 @@
 <text x='609.04' y='186.05' text-anchor='end' style='font-size: 10.80px; font-family: sans;' textLength='82.86px' lengthAdjust='spacingAndGlyphs'>Palaeodose error</text>
 <text x='609.04' y='107.94' text-anchor='end' style='font-size: 10.80px; font-family: sans;' textLength='102.38px' lengthAdjust='spacingAndGlyphs'>De &gt; max. dose point</text>
 </g>
+<defs>
+  <clipPath id='cpMC4wMHw3MTQuOTZ8NDYuMDh8NTYxLjYw'>
+    <rect x='0.00' y='46.08' width='714.96' height='515.52' />
+  </clipPath>
+</defs>
 <g clip-path='url(#cpMC4wMHw3MTQuOTZ8NDYuMDh8NTYxLjYw)'>
 <polyline points='92.68,455.72 688.48,455.72 ' style='stroke-width: 0.19;' />
 <polyline points='92.68,377.61 688.48,377.61 ' style='stroke-width: 0.19;' />
