@@ -177,8 +177,8 @@ test_that("check functionality", {
     ),
     class = "RLum.Results"
   )
-
-  expect_type(t@data$data$POS, "logical")
+  expect_true(is.na(t@data$data$POS))
+  expect_true(is.na(t@data$data$GRAIN))
 
   ## signal integral set to NULL or NA
   expect_warning(

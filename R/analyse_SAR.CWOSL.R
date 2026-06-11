@@ -359,9 +359,14 @@ analyse_SAR.CWOSL<- function(
 
   ## deprecated arguments
   extraArgs <- list(...)
-  if (any(grepl("[signal|background]\\.integral\\.[min|max]", names(extraArgs))) &&
-      !is.null(c(extraArgs$signal.integral.min, extraArgs$signal.integral.max,
-                 extraArgs$background.integral.min, extraArgs$background.integral.max)) &&
+  has_deprecated_args <- any(grepl("[signal|background]\\.integral\\.[min|max]",
+                                   names(extraArgs)))
+  has_deprecated_values <- !is.null(c(extraArgs$signal.integral.min,
+                                      extraArgs$signal.integral.max,
+                                      extraArgs$background.integral.min,
+                                      extraArgs$background.integral.max))
+
+  if (has_deprecated_args && has_deprecated_values &&
       (!(is.null(signal_integral) || anyNA(signal_integral)) ||
        !(is.null(background_integral) || anyNA(background_integral)))) {
     .throw_error("Convert all integral arguments to the new names, ",
@@ -382,15 +387,10 @@ analyse_SAR.CWOSL<- function(
   }
 
     ## deprecated arguments
-    if (any(grepl("[signal|background]\\.integral\\.[min|max]", names(extraArgs)))) {
-        extraArgs$signal.integral.min <- .listify(extraArgs$signal.integral.min,
-                                                  length(object))
-        extraArgs$signal.integral.max <- .listify(extraArgs$signal.integral.max,
-                                                  length(object))
-        extraArgs$background.integral.min <- .listify(extraArgs$background.integral.min,
-                                                      length(object))
-        extraArgs$background.integral.max <- .listify(extraArgs$background.integral.max,
-                                                      length(object))
+    if (has_deprecated_args) {
+      for (name in c("signal.integral.min", "signal.integral.max",
+                     "background.integral.min", "background.integral.max"))
+        extraArgs[[name]] <- .listify(extraArgs[[name]], length(object))
     }
 
     ## remove unnamed rejection criteria
@@ -398,6 +398,7 @@ analyse_SAR.CWOSL<- function(
       parm$rejection.criteria <- lapply(parm$rejection.criteria,
                                         .rm_unnamed_elements)
     }
+
   results <- .warningCatcher(merge_RLum(lapply(seq_along(object), function(x){
     analyse_SAR.CWOSL(
       object = object[[x]],
@@ -561,9 +562,7 @@ analyse_SAR.CWOSL<- function(
   ## Integrals checks -------------------------------------------------------
 
   ## deprecated arguments
-  if (any(grepl("[signal|background]\\.integral\\.[min|max]", names(extraArgs))) &&
-      !is.null(c(extraArgs$signal.integral.min, extraArgs$signal.integral.max,
-                 extraArgs$background.integral.min, extraArgs$background.integral.max))) {
+  if (has_deprecated_args && has_deprecated_values) {
     .deprecated(old = c("signal.integral.min", "signal.integral.max",
                         "background.integral.min", "background.integral.max"),
                 new = c("signal_integral", "background_integral"),
@@ -701,11 +700,9 @@ analyse_SAR.CWOSL<- function(
   ## extract relevant curves from RLum.Analysis object
   OSL.Curves.ID <- get_RLum(object, recordType = CWcurve.type, get.index = TRUE)
 
-    ##separate curves by Lx and Tx (it makes it much easier)
-    OSL.Curves.ID.Lx <-
-      OSL.Curves.ID[seq(1,length(OSL.Curves.ID), by = 2)]
-    OSL.Curves.ID.Tx <-
-      OSL.Curves.ID[seq(2,length(OSL.Curves.ID), by = 2)]
+  ## separate curves by Lx and Tx using vector recycling
+  OSL.Curves.ID.Lx <- OSL.Curves.ID[c(TRUE, FALSE)] # odd elements
+  OSL.Curves.ID.Tx <- OSL.Curves.ID[c(FALSE, TRUE)] # even elements
 
     ##get index of TL curves
     TL.Curves.ID <-
@@ -723,11 +720,11 @@ analyse_SAR.CWOSL<- function(
       .throw_warning("'object' does not appear to have been processed by ",
                      "OSLdecomposition::RLum.OSL_decomposition()")
     }
-    LnLxTnTx <- try(lapply(seq(1, length(OSL.Curves.ID), by = 2), function(x) {
-      temp.LnLxTnTx <- get_RLum(
+    LnLxTnTx <- try(lapply(seq_along(OSL.Curves.ID.Lx), function(i) {
+      get_RLum(
           calc_OSLLxTxDecomposed(
-              Lx.data = object@records[[OSL.Curves.ID[x]]]@info$COMPONENTS,
-              Tx.data = object@records[[OSL.Curves.ID[x + 1]]]@info$COMPONENTS,
+              Lx.data = object@records[[OSL.Curves.ID.Lx[i]]]@info$COMPONENTS,
+              Tx.data = object@records[[OSL.Curves.ID.Tx[i]]]@info$COMPONENTS,
               OSL.component = OSL.component,
               digits = 4,
               sig0 = sig0))
@@ -758,16 +755,10 @@ analyse_SAR.CWOSL<- function(
     return(NULL)
   }
 
-  ## extract the dose
-  temp.Dose <- lapply(OSL.Curves.ID.Lx, function(x) {
-    object@records[[x]]@info$IRR_TIME %||% NA
-  })
-  LnLxTnTx <- lapply(seq_along(LnLxTnTx), function(x) {
-    cbind(Dose = temp.Dose[[x]], LnLxTnTx[[x]])
-  })
-
-  ## combine all tables
-  LnLxTnTx <- data.table::rbindlist(LnLxTnTx)
+  ## extract the dose and combine
+  LnLxTnTx <- cbind(Dose = sapply(object@records[OSL.Curves.ID.Lx],
+                                  function(record) record@info$IRR_TIME %||% NA),
+                    data.table::rbindlist(LnLxTnTx))
 
   ## Set regeneration points ------------------------------------------------
   ## overwrite dose point manually
@@ -864,9 +855,6 @@ analyse_SAR.CWOSL<- function(
   ## Recycling Ratio
   recycling.threshold <- rep(rejection.criteria$recycling.ratio / 100,
                              length(RecyclingRatio))
-  status.RecyclingRatio <- vapply(abs(1 - RecyclingRatio), .status_from_threshold,
-                                  threshold = recycling.threshold[1],
-                                  FUN.VALUE = character(1))
 
   if (!is.na(rejection.criteria$recycling.ratio)) {
     ## set better ratio by given the absolute margin depending
@@ -876,6 +864,10 @@ analyse_SAR.CWOSL<- function(
     idx.lt1 <- which(RecyclingRatio < 1)
     recycling.threshold[idx.lt1] <- 1 - recycling.threshold[idx.lt1]
   }
+
+  status.RecyclingRatio <- vapply(abs(1 - RecyclingRatio), .status_from_threshold,
+                                  threshold = rejection.criteria$recycling.ratio / 100,
+                                  FUN.VALUE = character(1))
 
   ## Calculate Recuperation Rate --------------------------------------------
   Recuperation <- NA
@@ -1005,19 +997,18 @@ analyse_SAR.CWOSL<- function(
           Status = .status_from_threshold(palaeodose.error.calculated,
                                           palaeodose.error.threshold))
 
+      exceed.max.threshold <- if (is.na(rejection.criteria$exceed.max.regpoint)) {
+                                NA
+                              } else if (!rejection.criteria$exceed.max.regpoint) {
+                                Inf
+                              } else {
+                                as.numeric(max(LnLxTnTx$Dose))
+                              }
       exceed.max.regpoint.data.frame <- data.frame(
           Criteria = "De > max. dose point",
           Value = De - ifelse(consider.uncertainties, De.err, 0),
-          Threshold = if (is.na(rejection.criteria$exceed.max.regpoint)) {
-                        NA
-                      } else if (!rejection.criteria$exceed.max.regpoint) {
-                        Inf
-                      } else {
-                        as.numeric(max(LnLxTnTx$Dose))
-                      },
-          Status = NA_character_)
-      exceed.max.regpoint.data.frame$Status <-
-        .status_from_threshold(De, exceed.max.regpoint.data.frame$Threshold)
+          Threshold = exceed.max.threshold,
+          Status = .status_from_threshold(De, exceed.max.threshold))
 
       ## add to RejectionCriteria data.frame
       RejectionCriteria <- rbind(RejectionCriteria,
@@ -1027,12 +1018,14 @@ analyse_SAR.CWOSL<- function(
   }
 
   ## get position numbers
-  POSITION <- unique(unlist(lapply(object@records,
-                                   function(x) x@info$POSITION %||% NA)))[1]
+  POSITION <- unique(vapply(object@records,
+                            function(x) x@info$POSITION %||% NA,
+                            FUN.VALUE = numeric(1)))[1]
 
   ## get grain numbers
-  GRAIN <- unique(unlist(lapply(object@records,
-                                function(x) x@info$GRAIN %||% NA)))[1]
+  GRAIN <- unique(vapply(object@records,
+                         function(x) x@info$GRAIN %||% NA,
+                         FUN.VALUE = numeric(1)))[1]
 
   ## Plotting ---------------------------------------------------------------
   if (plot) {
@@ -1089,7 +1082,7 @@ analyse_SAR.CWOSL<- function(
       }
 
       ##warning if number of curves exceed colour values
-      if (length(col) < length(OSL.Curves.ID) / 2) {
+      if (length(col) < length(OSL.Curves.ID.Lx)) {
         .throw_warning("Too many curves, only the first ",
                        length(col), " curves are plotted")
       }
@@ -1167,7 +1160,7 @@ analyse_SAR.CWOSL<- function(
         par.old <- par("mar", "mai")
         par(mar = c(1,1,1,1), mai = c(0,0,0,0))
 
-        n <- length(OSL.Curves.ID) / 2
+        n <- length(OSL.Curves.ID.Lx)
         x <- seq_len(n)
         y <- rep(7, n)
 
