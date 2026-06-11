@@ -683,9 +683,8 @@ analyse_SAR.CWOSL<- function(
                   name = "'sn_reference' in 'rejection.criteria'")
 
 # Deal with extra arguments ----------------------------------------------------
-  ##deal with addition arguments
 
-  verbose <- extraArgs$verbose %||% TRUE
+  verbose <- .validate_logical_scalar(extraArgs$verbose %||% TRUE, name = "'verbose'")
   main <- extraArgs$main %||% ""
   log <- extraArgs$log %||% ""
   cex <- extraArgs$cex %||% 1
@@ -943,6 +942,90 @@ analyse_SAR.CWOSL<- function(
   ## if OSL.component is used)
   RejectionCriteria <- RejectionCriteria[!is.na(RejectionCriteria$Value), ]
 
+  ## this must be kept in sync with fit_DoseResponseCurve()
+  temp.GC.all.na <- data.frame(
+      De = NA,
+      De.Error = NA,
+      D01 = NA,
+      D01.ERROR = NA,
+      D02 = NA,
+      D02.ERROR = NA,
+      R = NA,
+      R.ERROR = NA,
+      Dc = NA,
+      D63 = NA,
+      n_N = NA,
+      De.MC = NA,
+      Fit = NA,
+      Mode = NA,
+      HPDI68_L = NA,
+      HPDI68_U = NA,
+      HPDI95_L = NA,
+      HPDI95_U = NA,
+      RC.Status = NA,
+      .De.plot = NA,
+      .De.raw = NA)
+
+  ## default growth curve results in case no calculation is performed
+  temp.GC <- temp.GC.all.na
+  temp.GC.fit <- NULL
+
+  ## Calculate the dose-response curve --------------------------------------
+  if (!onlyLxTxTable) {
+    ## we want to force fit_DoseResponseCurve() to run with verbose = FALSE so
+    ## that we can print out the fit message ourselves further down if desired
+    extraArgs$verbose <- NULL
+    temp.GC.fit <- do.call(fit_DoseResponseCurve,
+                           modifyList(list(object = data.frame(
+                                               Dose = LnLxTnTx$Dose,
+                                               LxTx = LnLxTnTx$LxTx,
+                                               LxTx.Error = LnLxTnTx$LxTx.Error,
+                                               TnTx = LnLxTnTx$Net_TnTx,
+                                               Test_Dose = LnLxTnTx$Test_Dose),
+                                           verbose = FALSE),
+                                      extraArgs, keep.null = TRUE))
+
+    if (!is.null(temp.GC.fit)) {
+      if (verbose)
+        .throw_message(extraArgs$.aliquot_number, temp.GC.fit@info$fit_message,
+                       error = FALSE)
+
+      temp.GC <- get_RLum(temp.GC.fit)
+      De <- temp.GC$De
+      De.err <- temp.GC$De.Error
+
+      ## Rejection Criteria for Palaeodose error ----------------------------
+      palaeodose.error.calculated <- round(De.err / De, digits = 5)
+      palaeodose.error.threshold <- rejection.criteria$palaeodose.error / 100
+
+      palaeodose.error.data.frame <- data.frame(
+          Criteria = "Palaeodose error",
+          Value = palaeodose.error.calculated,
+          Threshold = palaeodose.error.threshold,
+          Status = .status_from_threshold(palaeodose.error.calculated,
+                                          palaeodose.error.threshold))
+
+      exceed.max.regpoint.data.frame <- data.frame(
+          Criteria = "De > max. dose point",
+          Value = De - ifelse(consider.uncertainties, De.err, 0),
+          Threshold = if (is.na(rejection.criteria$exceed.max.regpoint)) {
+                        NA
+                      } else if (!rejection.criteria$exceed.max.regpoint) {
+                        Inf
+                      } else {
+                        as.numeric(max(LnLxTnTx$Dose))
+                      },
+          Status = NA_character_)
+      exceed.max.regpoint.data.frame$Status <-
+        .status_from_threshold(De, exceed.max.regpoint.data.frame$Threshold)
+
+      ## add to RejectionCriteria data.frame
+      RejectionCriteria <- rbind(RejectionCriteria,
+                                 palaeodose.error.data.frame,
+                                 exceed.max.regpoint.data.frame)
+    }
+  }
+
   ## get position numbers
   POSITION <- unique(unlist(lapply(object@records,
                                    function(x) x@info$POSITION %||% NA)))[1]
@@ -980,7 +1063,7 @@ analyse_SAR.CWOSL<- function(
       par(oma = c(0, 0, 0, 0),
           mar = c(4, 3, 3, 1),
           cex = cex * 0.6)
-      }
+    }
 
     ## Plotting - old way config --------------------------------------------
 
@@ -1108,143 +1191,29 @@ analyse_SAR.CWOSL<- function(
         #reset margin
         par(par.old)
       }#plot.single.sel
-    }##end plot
 
-  ## (6) Plot Dose-Response Curve --------------------------------------------
-  ## overall plot option selection for plot.single.sel
-  plot.drc <- plot && 6 %in% plot.single.sel
-
-  ## if we don't compute the dose-response curve, we'll insert empty subplots
-  insert.emptyDRCPlots <- onlyLxTxTable
-
-    ## this must be kept in sync with fit_DoseResponseCurve()
-    temp.GC.all.na <- data.frame(
-        De = NA,
-        De.Error = NA,
-        D01 = NA,
-        D01.ERROR = NA,
-        D02 = NA,
-        D02.ERROR = NA,
-        R = NA,
-        R.ERROR = NA,
-        Dc = NA,
-        D63 = NA,
-        n_N = NA,
-        De.MC = NA,
-        Fit = NA,
-        Mode = NA,
-        HPDI68_L = NA,
-        HPDI68_U = NA,
-        HPDI95_L = NA,
-        HPDI95_U = NA,
-        RC.Status = NA,
-        .De.plot = NA,
-        .De.raw = NA,
-        stringsAsFactors = FALSE)
-
-    ##Fit and plot growth curve
-    temp.GC <- temp.GC.all.na
-    temp.GC.fit.Formula <- NULL
-
-  ## Calculate Dose-response curve ------------------------------------------
-  if (!onlyLxTxTable) {
-
-    ## create data.frame
-    temp.sample <- data.frame(
-        Dose = LnLxTnTx$Dose,
-        LxTx = LnLxTnTx$LxTx,
-        LxTx.Error = LnLxTnTx$LxTx.Error,
-        TnTx = LnLxTnTx$Net_TnTx,
-        Test_Dose = LnLxTnTx$Test_Dose
-    )
-
-    ## we want to force fit_DoseResponseCurve to run with verbose = FALSE so
-    ## that we can print out the fit message ourselves
-    extraArgs$verbose <- NULL
-    temp.GC <- do.call(fit_DoseResponseCurve,
-                       modifyList(list(object = temp.sample, verbose = FALSE),
-                                  extraArgs, keep.null = TRUE))
-    if (verbose && !is.null(temp.GC)) {
-      .throw_message(extraArgs$.aliquot_number, temp.GC@info$fit_message,
-                     error = FALSE)
-    }
-
-    if (is.null(temp.GC)) {
-      temp.GC <- temp.GC.all.na
-      temp.GC.fit.Formula <- NA
-      insert.emptyDRCPlots <- TRUE
-    } else {
-      if (plot.drc) {
+    ## (6) Plot Dose-Response Curve --------------------------------------------
+    if (6 %in% plot.single.sel) {
+      if (!is.null(temp.GC.fit)) {
             do.call(plot_DoseResponseCurve, args = modifyList(
               list(
-                object = temp.GC,
+                object = temp.GC.fit,
                 xlab = if(is.null(dose_rate_source)) "Dose [s]" else "Dose [Gy]",
                 plot_singlePanels = plot_onePage || length(plot_singlePanels) > 1,
                 cex = ifelse(plot_onePage, 0.6, 1)
               ),
               list(...)
             ))
-          }
-
-          ##grep information on the fit object
-          temp.GC.fit.Formula  <- get_RLum(temp.GC, "Formula")
-
-          ##grep results
-          temp.GC <- get_RLum(temp.GC)
-          De <- temp.GC$De
-          De.err <- temp.GC$De.Error
-
-          # Provide Rejection Criteria for Palaeodose error --------------------------
-          palaeodose.error.calculated <- round(De.err / De, digits = 5)
-          palaeodose.error.threshold <-
-            rejection.criteria$palaeodose.error / 100
-
-          palaeodose.error.data.frame <- data.frame(
-            Criteria = "Palaeodose error",
-            Value = palaeodose.error.calculated,
-            Threshold = palaeodose.error.threshold,
-            Status = .status_from_threshold(palaeodose.error.calculated,
-                                            palaeodose.error.threshold),
-            stringsAsFactors = FALSE
-          )
-
-          exceed.max.regpoint.data.frame <- data.frame(
-            Criteria = "De > max. dose point",
-            Value = De - ifelse(consider.uncertainties, De.err, 0),
-            Threshold = if(is.na(rejection.criteria$exceed.max.regpoint)){
-                NA
-              }else if(!rejection.criteria$exceed.max.regpoint){
-                Inf
-              }else{
-                as.numeric(max(LnLxTnTx$Dose))
-              },
-            Status = NA_character_)
-      exceed.max.regpoint.data.frame$Status <-
-        .status_from_threshold(De, exceed.max.regpoint.data.frame$Threshold)
-
-          ##add to RejectionCriteria data.frame
-          RejectionCriteria <- rbind(RejectionCriteria,
-                                     palaeodose.error.data.frame,
-                                     exceed.max.regpoint.data.frame)
-
-          ## add rejection status
-          status <- if ("FAILED" %in% RejectionCriteria$Status) "FAILED" else "OK"
-          temp.GC <- data.frame(temp.GC,
-                                RC.Status = status,
-                                stringsAsFactors = FALSE)
+      } else {
+        ## insert empty plots, otherwise the ordering may get messed up
+        shape::emptyplot()
+        if (extraArgs$plot_extended %||% TRUE) {
+          shape::emptyplot()
+          shape::emptyplot()
+        }
       }
-  }
-
-  ## insert empty plots, otherwise the ordering may get messed up
-  if (plot.drc && insert.emptyDRCPlots) {
-    shape::emptyplot()
-    if (extraArgs$plot_extended %||% TRUE) {
-      shape::emptyplot()
-      shape::emptyplot()
     }
-  }
 
-  if (plot) {
     ## (7) Plot IRSL curve/Single Grain -------------------------------------
     if (8 %in% plot.single.sel) {
       ## split the device area in two so that the IRSL curve can be plotted
@@ -1290,6 +1259,7 @@ analyse_SAR.CWOSL<- function(
       data = list(
           data = cbind(
               temp.GC,
+              RC.Status = if ("FAILED" %in% RejectionCriteria$Status) "FAILED" else "OK",
               signal.range = .format_range(signal_integral),
               background.range = .format_range(background_integral),
               signal.range.Tx = .format_range(signal_integral_Tx %||% NA),
@@ -1297,7 +1267,7 @@ analyse_SAR.CWOSL<- function(
               ALQ = 1, POS = POSITION, GRAIN = GRAIN, UID = UID),
           LnLxTnTx.table = cbind(LnLxTnTx, UID = UID, stringsAsFactors = FALSE),
           rejection.criteria = cbind(UID, RejectionCriteria),
-          Formula = temp.GC.fit.Formula
+          Formula = get_RLum(temp.GC.fit, "Formula")
       ),
       info = list(call = sys.call())
   ))
