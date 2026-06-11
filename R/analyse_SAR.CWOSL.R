@@ -1029,13 +1029,6 @@ analyse_SAR.CWOSL<- function(
 
   ## Plotting ---------------------------------------------------------------
   if (plot) {
-      ## the graphical parameters cannot be restored unconditionally, as that
-      ## may affect the analyse_pIRIRSequence() plots
-      if (plot_onePage || !plot_singlePanels[1]) {
-        par.default <- .par_defaults()
-        on.exit(par(par.default), add = TRUE)
-      }
-
       ##colours and double for plotting
       col <- get("col", pos = .LuminescenceEnv)
 
@@ -1049,17 +1042,7 @@ analyse_SAR.CWOSL<- function(
                               5, 5, 5, 5, 5, 5, 5),
                             nrow = 5, ncol = 7, byrow = TRUE)
 
-    ## Plotting - one Page config -------------------------------------------
-    if (plot_onePage) {
-      plot_singlePanels <- TRUE
-      graphics::layout(layout.matrix)
-      par(oma = c(0, 0, 0, 0),
-          mar = c(4, 3, 3, 1),
-          cex = cex * 0.6)
-    }
-
-    ## Plotting - old way config --------------------------------------------
-
+    ## Layout and panel selection -------------------------------------------
     ## 1 -> TL previous LnLx
     ## 2 -> LnLx
     ## 3 -> TL previous TnTx
@@ -1068,18 +1051,28 @@ analyse_SAR.CWOSL<- function(
     ## 6 -> Dose-response curve
     ## 7 -> Rejection criteria
     ## 8 -> IRSL curve/Single grain
-    plot.single.sel <- 1:8
 
-    if (!plot_singlePanels[1]) {
-        graphics::layout(layout.matrix[, 1:4])
-        par(
-          oma = c(0,0,0,0), mar = c(4,4,3,3), cex = cex * 0.6
-        )
-    } else if (!is.logical(plot_singlePanels)) {
-          ## this is used when called from analyse_pIRIRSequence()
-          par(mar = c(4, 3, 3, 1))
-          plot.single.sel <- plot_singlePanels
+    mar <- c(4, 3, 3, 1)
+    if (plot_onePage || identical(plot_singlePanels[1], FALSE)) {
+      ## the graphical parameters cannot be restored unconditionally, as that
+      ## may affect the analyse_pIRIRSequence() plots
+      par.default <- .par_defaults()
+      on.exit(par(par.default), add = TRUE)
+
+      if (plot_onePage) {
+        plot_singlePanels <- TRUE
+      } else {
+        mar <- c(4, 4, 3, 3)
+        layout.matrix <- layout.matrix[, 1:4]
       }
+      graphics::layout(layout.matrix)
+      par(oma = c(0, 0, 0, 0), mar = mar, cex = cex * 0.6)
+      plot.single.sel <- 1:8
+    } else {
+      ## this is used when called from analyse_pIRIRSequence()
+      par(mar = mar)
+      plot.single.sel <- plot_singlePanels
+    }
 
       ##warning if number of curves exceed colour values
       if (length(col) < length(OSL.Curves.ID.Lx)) {
@@ -1100,7 +1093,6 @@ analyse_SAR.CWOSL<- function(
       }
 
       ## (2) Plotting LnLx Curves ----------------------------------------------------
-      ##overall plot option selection for plot.single.sel
       if (2 %in% plot.single.sel) {
         .plot_ShineDownCurves(
           record_list,
@@ -1123,7 +1115,6 @@ analyse_SAR.CWOSL<- function(
           line = -1.7,
           cex = cex,
           col = "blue")
-
       }# plot.single.sel
 
       ## (3) Plotting TL Curves previous TnTx ----------------------------------------
@@ -1134,7 +1125,6 @@ analyse_SAR.CWOSL<- function(
       }
 
       ## (4) Plotting TnTx Curves ----------------------------------------------------
-      ##overall plot option selection for plot.single.sel
       if (4 %in% plot.single.sel) {
         .plot_ShineDownCurves(
           record_list,
@@ -1148,11 +1138,9 @@ analyse_SAR.CWOSL<- function(
           set_mtext = expression(paste(T[n], ", ", T[x], " curves")),
           set_curveType = CWcurve.type,
           set_curveRes = resolution.OSLCurves)
-
       }# plot.single.sel
 
       ## (5) Plotting Legend ----------------------------------------
-      ##overall plot option selection for plot.single.sel
       if (5 %in% plot.single.sel) {
         ## par.old must be assigned before changing the par() values
         ## because `mai` is affected by `mar`, and doing it in one line like
