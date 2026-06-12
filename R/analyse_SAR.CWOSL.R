@@ -247,6 +247,7 @@
 #' \item{rejection.criteria}{[data.frame] with values that might by used as rejection criteria.
 #' `NA` is produced if no R0 dose point exists.}
 #' \item{Formula}{[formula] formula that have been used for the growth curve fitting}
+#' \item{.plot.data}{List used internally for plotting.}
 #'
 #' The output should be accessed using the function [Luminescence::get_RLum].
 #'
@@ -1024,17 +1025,75 @@ analyse_SAR.CWOSL<- function(
                          function(x) x@info$GRAIN %||% NA,
                          FUN.VALUE = numeric(1)))[1]
 
+  ## Results object ---------------------------------------------------------
+  UID <- create_UID()
+  results <- set_RLum(
+      class = "RLum.Results",
+      data = list(
+          data = cbind(
+              temp.GC,
+              RC.Status = if ("FAILED" %in% RejectionCriteria$Status) "FAILED" else "OK",
+              signal.range = .format_range(signal_integral),
+              background.range = .format_range(background_integral),
+              signal.range.Tx = .format_range(signal_integral_Tx %||% NA),
+              background.range.Tx = .format_range(background_integral_Tx %||% NA),
+              ALQ = 1, POS = POSITION, GRAIN = GRAIN, UID = UID),
+          LnLxTnTx.table = cbind(LnLxTnTx, UID = UID, stringsAsFactors = FALSE),
+          rejection.criteria = cbind(UID, RejectionCriteria),
+          Formula = get_RLum(temp.GC.fit, "Formula"),
+          .plot.data = list(
+              records = object@records,
+              signal_integral = signal_integral,
+              background_integral = background_integral,
+              OSL.Curves.ID = OSL.Curves.ID,
+              TL.Curves.ID = TL.Curves.ID,
+              curveType = CWcurve.type,
+              GC.fit = temp.GC.fit,
+              xlab.drc = if (is.null(dose_rate_source)) "Dose [s]" else "Dose [Gy]",
+              main = main)
+      ),
+      info = list(call = sys.call())
+  )
+
   ## Plotting ---------------------------------------------------------------
   if (plot) {
-      ##colours and double for plotting
-      col <- get("col", pos = .LuminescenceEnv)
+    .plot_SAR.CWOSL(results,
+                    mtext.outer = mtext.outer,
+                    plot_onePage = plot_onePage,
+                    plot_singlePanels = plot_singlePanels,
+                    ...)
+  }
 
-    layout.matrix <- matrix(c(1, 1, 3, 3, 6, 6, 7,
+  ## Return -----------------------------------------------------------------
+  invisible(results)
+}
+
+.plot_SAR.CWOSL <- function(
+  results,
+  mtext.outer = "",
+  plot_onePage = FALSE,
+  plot_singlePanels = FALSE,
+  legend.pch = 20,
+  legend.cex = 4,
+  ...
+) {
+  curve_args <- results@data$.plot.data
+  records <- curve_args$records
+  OSL.Curves.ID <- curve_args$OSL.Curves.ID
+  TL.Curves.ID <- curve_args$TL.Curves.ID
+  GC.fit <- curve_args$GC.fit
+  LnLxTnTx <- results@data$LnLxTnTx.table
+
+  layout.matrix <- matrix(c(1, 1, 3, 3, 6, 6, 7,
                               1, 1, 3, 3, 6, 6, 8,
                               2, 2, 4, 4, 9, 9, 10,
                               2, 2, 4, 4, 9, 9, 10,
                               5, 5, 5, 5, 5, 5, 5),
                             nrow = 5, ncol = 7, byrow = TRUE)
+  col <- get("col", pos = .LuminescenceEnv)
+  curve_args$col <- col
+  curve_args$cex <- list(...)$cex %||% 1
+  curve_args$log <- list(...)$log %||% ""
 
     ## Layout and panel selection -------------------------------------------
     ## 1 -> TL previous LnLx
@@ -1060,7 +1119,7 @@ analyse_SAR.CWOSL<- function(
         layout.matrix <- layout.matrix[, 1:4]
       }
       graphics::layout(layout.matrix)
-      par(oma = c(0, 0, 0, 0), mar = mar, cex = cex * 0.6)
+      par(oma = c(0, 0, 0, 0), mar = mar, cex = curve_args$cex * 0.6)
       plot.single.sel <- 1:8
     } else {
       ## this is used when called from analyse_pIRIRSequence()
@@ -1074,23 +1133,17 @@ analyse_SAR.CWOSL<- function(
                        length(col), " curves are plotted")
       }
 
-    ## shared arguments for TL and OSL plots
-    curve_args <- list(signal_integral = signal_integral,
-                       background_integral = background_integral,
-                       curveType = CWcurve.type,
-                       main = main, cex = cex, col = col, log = log)
-
       ## (1) Plotting TL Curves previous LnLx ----------------------------------------
       if (1 %in% plot.single.sel) {
         do.call(.plot_Curves,
-                c(curve_args, list(records = object@records, is.TL = TRUE,
+                c(curve_args, list(is.TL = TRUE,
                                    curve_ids = TL.Curves.ID$Lx, is.Lx = TRUE)))
       }
 
       ## (2) Plotting LnLx Curves ----------------------------------------------------
       if (2 %in% plot.single.sel) {
         do.call(.plot_Curves,
-                c(curve_args, list(records = object@records, is.TL = FALSE,
+                c(curve_args, list(is.TL = FALSE,
                                    curve_ids = OSL.Curves.ID$Lx, is.Lx = TRUE)))
 
         ##mtext, implemented here, as a plot window has to be called first
@@ -1099,21 +1152,21 @@ analyse_SAR.CWOSL<- function(
           side = 4,
           outer = TRUE,
           line = -1.7,
-          cex = cex,
+          cex = curve_args$cex,
           col = "blue")
       }# plot.single.sel
 
       ## (3) Plotting TL Curves previous TnTx ----------------------------------------
       if (3 %in% plot.single.sel) {
         do.call(.plot_Curves,
-                c(curve_args, list(records = object@records, is.TL = TRUE,
+                c(curve_args, list(is.TL = TRUE,
                                    curve_ids = TL.Curves.ID$Tx, is.Lx = FALSE)))
       }
 
       ## (4) Plotting TnTx Curves ----------------------------------------------------
       if (4 %in% plot.single.sel) {
         do.call(.plot_Curves,
-                c(curve_args, list(records = object@records, is.TL = FALSE,
+                c(curve_args, list(is.TL = FALSE,
                                    curve_ids = OSL.Curves.ID$Tx, is.Lx = FALSE)))
       }# plot.single.sel
 
@@ -1152,16 +1205,16 @@ analyse_SAR.CWOSL<- function(
 
     ## (6) Plot Dose-Response Curve --------------------------------------------
     if (6 %in% plot.single.sel) {
-      if (!is.null(temp.GC.fit)) {
+      extraArgs <- list(...)
+      if (!is.null(GC.fit)) {
             do.call(plot_DoseResponseCurve, args = modifyList(
               list(
-                object = temp.GC.fit,
-                xlab = if(is.null(dose_rate_source)) "Dose [s]" else "Dose [Gy]",
+                object = GC.fit,
+                xlab = curve_args$xlab.drc,
                 plot_singlePanels = plot_onePage || length(plot_singlePanels) > 1,
                 cex = ifelse(plot_onePage, 0.6, 1)
               ),
-              list(...)
-            ))
+              extraArgs))
       } else {
         ## insert empty plots, otherwise the ordering may get messed up
         shape::emptyplot()
@@ -1183,53 +1236,32 @@ analyse_SAR.CWOSL<- function(
       ## if we don't have single grain, we can safely use the other
       ## plot option because this kind of test is almost never
       ## for single grains but on all grains
+      POSITION <- results@data$data$POS
+      GRAIN <- results@data$data$GRAIN
       if(!is.na(POSITION) & !is.na(GRAIN) && GRAIN > 0) {
         .plot_SGMarker(this_grain = GRAIN, this_pos = POSITION)
 
       } else {
         ##graphical representation of IR-curve
-        temp.IRSL <- suppressWarnings(get_RLum(object, recordType = "IRSL"))
-        if(length(temp.IRSL) != 0){
-          .validate_class(temp.IRSL, c("RLum.Data.Curve", "list"))
-          if (inherits(temp.IRSL, "list")) {
-            temp.IRSL <- temp.IRSL[[length(temp.IRSL)]]
-            .throw_warning("Multiple IRSL curves detected (IRSL test), only the last one shown")
-          }
-          plot_RLum.Data.Curve(temp.IRSL, par.local = FALSE,
-                               mgp = c(2, 0.7, 0), tcl = -0.4)
-        }else{
+        IRSL.idx <- grep("IRSL", vapply(records, function(x) x@recordType,
+                                        FUN.VALUE = character(1)))
+        if (length(IRSL.idx) == 0) {
           plot(1, type = "n", axes = FALSE, xlab = "", ylab = "")
           text(x = c(1,1), y = c(1, 1), labels = "No IRSL curve detected!")
+        } else {
+          if (length(IRSL.idx) > 1)
+            .throw_warning("Multiple IRSL curves detected (IRSL test), only the last one shown")
+          plot_RLum.Data.Curve(records[[tail(IRSL.idx, 1)]],
+                               par.local = FALSE, mgp = c(2, 0.7, 0), tcl = -0.4)
         }
       }
     }
 
     ## (8) Plot rejection criteria ------------------------------------------
     if (7 %in% plot.single.sel) {
-      .plot_RCCriteria(RejectionCriteria)
+      .plot_RCCriteria(results@data$rejection.criteria)
     }
   } # end plot
-
-  ## Return -----------------------------------------------------------------
-  UID <- create_UID()
-  invisible(set_RLum(
-      class = "RLum.Results",
-      data = list(
-          data = cbind(
-              temp.GC,
-              RC.Status = if ("FAILED" %in% RejectionCriteria$Status) "FAILED" else "OK",
-              signal.range = .format_range(signal_integral),
-              background.range = .format_range(background_integral),
-              signal.range.Tx = .format_range(signal_integral_Tx %||% NA),
-              background.range.Tx = .format_range(background_integral_Tx %||% NA),
-              ALQ = 1, POS = POSITION, GRAIN = GRAIN, UID = UID),
-          LnLxTnTx.table = cbind(LnLxTnTx, UID = UID, stringsAsFactors = FALSE),
-          rejection.criteria = cbind(UID, RejectionCriteria),
-          Formula = get_RLum(temp.GC.fit, "Formula")
-      ),
-      info = list(call = sys.call())
-  ))
-}
 
 
 # Helper functions -------------------------------------------------------------
@@ -1360,7 +1392,7 @@ analyse_SAR.CWOSL<- function(
 ## Plot TL or OSL curves
 .plot_Curves <- function(records, curve_ids, curveType = NULL, is.TL, is.Lx,
                          signal_integral = NULL, background_integral = NULL,
-                         main = NULL, cex = 1, col = NULL, log = "") {
+                         main = NULL, cex = 1, col = NULL, log = "", ...) {
   ## TL: empty guard
   if (is.TL && length(curve_ids) == 0) {
     plot(NA, NA, xlim = c(0, 1), ylim = c(0, 1), main = "",
