@@ -1285,24 +1285,11 @@ analyse_SAR.CWOSL<- function(
 
 # create rejection criteria plot
 .plot_RCCriteria <- function(x) {
-  ##set par
   par.old <- par(mar = c(1, 0, 3.2, 0.35))
   on.exit(par(par.old), add = TRUE)
 
-  ## determine number of criteria
-  n <- nrow(x)
-
   ## calculate middle points for the lines
-  y_coord <- seq(0.1,1,length.out = n * 2)
-
-  # set colours
-  pch_set <- vapply(1:nrow(x), function(y) {
-    c <- if(x[y,"Status"] == "OK") 3 else 2
-    c[is.na(x[y,"Threshold"])] <- 24
-    s <- if(x[y,"Status"] == "FAILED") 4 else 21
-
-   c(c,s)
-  }, numeric(2))
+  y_coord <- seq(0.1, 1, length.out = nrow(x) * 2)
 
   ## open plot
   plot(NA, NA,
@@ -1346,6 +1333,10 @@ analyse_SAR.CWOSL<- function(
   ## and threshold can be seen
   digits <- pmax(ceiling(-log10(abs(x$Value - x$Threshold))), 0, na.rm = TRUE)
 
+  ## set colours
+  col <- ifelse(x$Status == "OK", 3, 2)
+  col[is.na(x$Threshold)] <- 24
+
   ## set labels
   x$Value <- mapply(function(x, d) round(x, digits = d), x$Value, digits)
   x$Threshold <- mapply(function(x, d) round(x, digits = d), x$Threshold, digits)
@@ -1361,11 +1352,11 @@ analyse_SAR.CWOSL<- function(
 
   ## add final points
   points(
-    x = rep(0.95, n),
-    pch = pch_set[2,],
+    x = rep(0.95, nrow(x)),
+    pch = ifelse(x$Status == "FAILED", 4, 21),
     y = y_coord[seq(1,length(y_coord),2)],
-    bg = pch_set[1,],
-    col = pch_set[1,],
+    bg = col,
+    col = col,
     cex = 1.3)
 }
 
