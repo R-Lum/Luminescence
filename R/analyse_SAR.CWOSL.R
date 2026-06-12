@@ -699,32 +699,29 @@ analyse_SAR.CWOSL<- function(
   # Grep Curves -------------------------------------------------------------
   ## extract relevant curves from RLum.Analysis object
   OSL.Curves.ID <- get_RLum(object, recordType = CWcurve.type, get.index = TRUE)
+  TL.Curves.ID <- get_RLum(object, recordType = "TL$", get.index = TRUE)
 
   ## separate curves by Lx and Tx using vector recycling
-  OSL.Curves.ID.Lx <- OSL.Curves.ID[c(TRUE, FALSE)] # odd elements
-  OSL.Curves.ID.Tx <- OSL.Curves.ID[c(FALSE, TRUE)] # even elements
+  OSL.Curves.ID <- list(Lx = OSL.Curves.ID[c(TRUE, FALSE)], # odd elements
+                        Tx = OSL.Curves.ID[c(FALSE, TRUE)]) # even elements
 
-    ##get index of TL curves
-    TL.Curves.ID <-
-      suppressWarnings(get_RLum(object, recordType = "TL$", get.index = TRUE))
-
-    ##separate TL curves which is always coming before the OSL curve
-    ##Note: we do not check anymore whether the sequence makes sense.
-    TL.Curves.ID.Lx <- TL.Curves.ID[TL.Curves.ID%in%(OSL.Curves.ID.Lx - 1)]
-    TL.Curves.ID.Tx <- TL.Curves.ID[TL.Curves.ID%in%(OSL.Curves.ID.Tx - 1)]
+  ## separate TL curves which are always coming before the OSL curve
+  ## Note: we do not check anymore whether the sequence makes sense
+  TL.Curves.ID <- list(Lx = TL.Curves.ID[TL.Curves.ID %in% (OSL.Curves.ID$Lx - 1)],
+                       Tx = TL.Curves.ID[TL.Curves.ID %in% (OSL.Curves.ID$Tx - 1)])
 
 # Calculate LnLxTnTx values  --------------------------------------------------
   ##calculate LxTx values using external function
   if (length(OSL.component) > 0) {
-    if (is.null(object@records[[OSL.Curves.ID[1]]]@info$COMPONENTS)) {
+    if (is.null(object@records[[OSL.Curves.ID$Lx[1]]]@info$COMPONENTS)) {
       .throw_warning("'object' does not appear to have been processed by ",
                      "OSLdecomposition::RLum.OSL_decomposition()")
     }
-    LnLxTnTx <- try(lapply(seq_along(OSL.Curves.ID.Lx), function(i) {
+    LnLxTnTx <- try(lapply(seq_along(OSL.Curves.ID$Lx), function(i) {
       get_RLum(
           calc_OSLLxTxDecomposed(
-              Lx.data = object@records[[OSL.Curves.ID.Lx[i]]]@info$COMPONENTS,
-              Tx.data = object@records[[OSL.Curves.ID.Tx[i]]]@info$COMPONENTS,
+              Lx.data = object@records[[OSL.Curves.ID$Lx[i]]]@info$COMPONENTS,
+              Tx.data = object@records[[OSL.Curves.ID$Tx[i]]]@info$COMPONENTS,
               OSL.component = OSL.component,
               digits = 4,
               sig0 = sig0))
@@ -732,8 +729,8 @@ analyse_SAR.CWOSL<- function(
   } else {
     LnLxTnTx <- try(get_RLum(
         calc_OSLLxTxRatio(
-            Lx.data = object@records[OSL.Curves.ID.Lx],
-            Tx.data = object@records[OSL.Curves.ID.Tx],
+            Lx.data = object@records[OSL.Curves.ID$Lx],
+            Tx.data = object@records[OSL.Curves.ID$Tx],
             signal_integral = signal_integral,
             signal_integral_Tx = signal_integral_Tx,
             background_integral = background_integral,
@@ -756,7 +753,7 @@ analyse_SAR.CWOSL<- function(
   }
 
   ## extract the dose and combine
-  LnLxTnTx <- cbind(Dose = sapply(object@records[OSL.Curves.ID.Lx],
+  LnLxTnTx <- cbind(Dose = sapply(object@records[OSL.Curves.ID$Lx],
                                   function(record) record@info$IRR_TIME %||% NA),
                     data.table::rbindlist(LnLxTnTx))
 
@@ -1072,7 +1069,7 @@ analyse_SAR.CWOSL<- function(
     }
 
       ##warning if number of curves exceed colour values
-      if (length(col) < length(OSL.Curves.ID.Lx)) {
+      if (length(col) < length(OSL.Curves.ID$Lx)) {
         .throw_warning("Too many curves, only the first ",
                        length(col), " curves are plotted")
       }
@@ -1087,14 +1084,14 @@ analyse_SAR.CWOSL<- function(
       if (1 %in% plot.single.sel) {
         do.call(.plot_Curves,
                 c(curve_args, list(records = object@records, is.TL = TRUE,
-                                   curve_ids = TL.Curves.ID.Lx, is.Lx = TRUE)))
+                                   curve_ids = TL.Curves.ID$Lx, is.Lx = TRUE)))
       }
 
       ## (2) Plotting LnLx Curves ----------------------------------------------------
       if (2 %in% plot.single.sel) {
         do.call(.plot_Curves,
                 c(curve_args, list(records = object@records, is.TL = FALSE,
-                                   curve_ids = OSL.Curves.ID.Lx, is.Lx = TRUE)))
+                                   curve_ids = OSL.Curves.ID$Lx, is.Lx = TRUE)))
 
         ##mtext, implemented here, as a plot window has to be called first
         mtext(
@@ -1110,14 +1107,14 @@ analyse_SAR.CWOSL<- function(
       if (3 %in% plot.single.sel) {
         do.call(.plot_Curves,
                 c(curve_args, list(records = object@records, is.TL = TRUE,
-                                   curve_ids = TL.Curves.ID.Tx, is.Lx = FALSE)))
+                                   curve_ids = TL.Curves.ID$Tx, is.Lx = FALSE)))
       }
 
       ## (4) Plotting TnTx Curves ----------------------------------------------------
       if (4 %in% plot.single.sel) {
         do.call(.plot_Curves,
                 c(curve_args, list(records = object@records, is.TL = FALSE,
-                                   curve_ids = OSL.Curves.ID.Tx, is.Lx = FALSE)))
+                                   curve_ids = OSL.Curves.ID$Tx, is.Lx = FALSE)))
       }# plot.single.sel
 
       ## (5) Plotting Legend ----------------------------------------
@@ -1128,7 +1125,7 @@ analyse_SAR.CWOSL<- function(
         par.old <- par("mar", "mai")
         par(mar = c(1,1,1,1), mai = c(0,0,0,0))
 
-        n <- length(OSL.Curves.ID.Lx)
+        n <- length(OSL.Curves.ID$Lx)
         x <- seq_len(n)
         y <- rep(7, n)
 
@@ -1138,7 +1135,7 @@ analyse_SAR.CWOSL<- function(
           xlab = "", ylab = "",
           pch = legend.pch,
           type = "p",
-          col = unique(col[1:length(OSL.Curves.ID)]),
+          col = unique(col[1:length(OSL.Curves.ID$Lx)]),
           cex = legend.cex,
           ylim = c(0,10))
 
