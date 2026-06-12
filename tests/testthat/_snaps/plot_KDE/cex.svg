@@ -67,8 +67,8 @@
 <polyline points='306.80,420.62 306.80,413.42 ' style='stroke-width: 1.50;' />
 <polygon points='291.52,420.62 291.52,413.42 333.44,413.42 333.44,420.62 ' style='stroke-width: 0.75; fill: none;' />
 <polyline points='291.52,417.02 245.42,417.02 ' style='stroke-width: 0.75;' />
-<polyline points='245.42,418.82 245.42,415.22 ' style='stroke-width: 0.75;' />
 <polyline points='333.44,417.02 362.29,417.02 ' style='stroke-width: 0.75;' />
+<polyline points='245.42,418.82 245.42,415.22 ' style='stroke-width: 0.75;' />
 <polyline points='362.29,418.82 362.29,415.22 ' style='stroke-width: 0.75;' />
 <circle cx='218.77' cy='417.02' r='4.32' style='stroke-width: 0.75;' />
 <circle cx='409.08' cy='417.02' r='4.32' style='stroke-width: 0.75;' />

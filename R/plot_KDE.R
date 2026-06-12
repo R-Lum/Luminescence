@@ -256,27 +256,7 @@ plot_KDE <- function(
 
   ## data preparation steps ---------------------------------------------------
 
-  ## optionally, count and exclude NA values and print result
-  if (na.rm) {
-    for(i in 1:length(data)) {
-      na.idx <- which(is.na(data[[i]][, 1]))
-      n.NA <- length(na.idx)
-      if (n.NA > 0) {
-        message(sprintf("%d NA value%s excluded from data set %d\n",
-                        n.NA, ifelse(n.NA > 1, "s", ""), i))
-        data[[i]] <- data[[i]][-na.idx, ]
-      }
-    }
-  }
-
-  ## optionally, order data set
-  if (order) {
-    for(i in 1:length(data)) {
-      data[[i]] <- data[[i]][order(data[[i]][,1]),]
-    }
-  }
-
-  ## calculate and paste statistical summary
+  ## calculate statistics, density and global data
   De.stats <- matrix(nrow = length(data), ncol = 12)
   colnames(De.stats) <- c("n",
                           "mean",
@@ -290,10 +270,29 @@ plot_KDE <- function(
                           "q.75",
                           "skewness",
                           "kurtosis")
-  De.density <- list(NA)
+  De.global <- De.error.global <- NULL
+  De.density <- NULL
+  De.density.range <- matrix(nrow = length(data), ncol = 4)
 
   ## loop through all data sets
   for(i in 1:length(data)) {
+    ## optionally, remove NA values
+    if (na.rm) {
+      na.idx <- which(is.na(data[[i]][, 1]))
+      n.NA <- length(na.idx)
+      if (n.NA > 0) {
+        message(sprintf("%d NA value%s excluded from data set %d\n",
+                        n.NA, ifelse(n.NA > 1, "s", ""), i))
+        data[[i]] <- data[[i]][-na.idx, ]
+      }
+    }
+
+    ## optionally, order data ascending
+    if (order) {
+      data[[i]] <- data[[i]][order(data[[i]][, 1]), ]
+    }
+
+    ## calculate statistics
     statistics <- calc_Statistics(data[[i]], na.rm = na.rm)[[summary.method]]
 
     De.stats[i,1] <- statistics$n
@@ -308,26 +307,14 @@ plot_KDE <- function(
     De.stats[i,11] <- statistics$skewness
     De.stats[i,12] <- statistics$kurtosis
 
+    ## calculate density
     if(nrow(data[[i]]) >= 2){
-      De.density[[length(De.density) + 1]] <- density(data[[i]][,1],
-                                                      kernel = "gaussian",
-                                                      bw = bw)
+      De.density[[i]] <- density(data[[i]][, 1], kernel = "gaussian", bw = bw)
     }else{
-      De.density[[length(De.density) + 1]] <- NA
-      .throw_warning("Single data point found, no density calculated")
+      De.density[[i]] <- NA
+      .throw_warning("Single point found in dataset ", i, ", no density calculated")
     }
-  }
 
-  ## remove dummy list element
-  De.density[[1]] <- NULL
-
-  ## create global data set
-  De.global <- data[[1]][,1]
-  De.error.global <- data[[1]][,2]
-  De.density.range <- matrix(nrow = length(data),
-                             ncol = 4)
-
-  for(i in 1:length(data)) {
     ##global De and De.error vector
     De.global <- c(De.global, data[[i]][,1])
     De.error.global <- c(De.error.global, data[[i]][,2])
@@ -362,11 +349,7 @@ plot_KDE <- function(
   ## initialize list
   label.text <- NULL
   is.sub <- summary.pos[1] == "sub"
-  stops <- NULL
   for (i in 1:length(data)) {
-    if (!is.sub)
-      stops <- strrep("\n", (i - 1) * length(summary))
-
     summary.text <- character(0)
     for (j in 1:length(summary)) {
       summary.text <-
@@ -395,9 +378,9 @@ plot_KDE <- function(
     }
 
     label.text[[i]] <- paste0(
-        if (is.sub) "" else stops,
-        paste(summary.text, collapse = ""),
-        stops)
+        if (is.sub) "" else strrep("\n", (i - 1) * length(summary)),
+        paste(summary.text, collapse = ""))
+    label.text[[i]] <- gsub("\n$", "", label.text[[i]])
   }
 
   ## remove outer vertical lines from string
@@ -539,8 +522,7 @@ plot_KDE <- function(
        lwd = 0,
        col = layout$kde$colour$xtck,
        family = layout$kde$font.type$xtck,
-       font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
-                      layout$kde$font.deco$xtck],
+       font = .font_style(layout$kde$font.deco$xtck),
        col.axis = layout$kde$colour$xtck,
        cex.axis = layout$kde$font.size$xlab/12)
 
@@ -549,8 +531,7 @@ plot_KDE <- function(
         line = 3 * layout$kde$dimension$xlab.line / 100,
         col = layout$kde$colour$xlab,
         family = layout$kde$font.type$xlab,
-        font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
-                       layout$kde$font.deco$xlab],
+        font = .font_style(layout$kde$font.deco$xlab),
         cex = cex * layout$kde$font.size$xlab/12)
 
   ## add left y-axis
@@ -568,8 +549,7 @@ plot_KDE <- function(
        lwd = 0,
        col = layout$kde$colour$ytck1,
        family = layout$kde$font.type$ytck1,
-       font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
-                      layout$kde$font.deco$ytck1],
+       font = .font_style(layout$kde$font.deco$ytck1),
        col.axis = layout$kde$colour$ytck1,
        cex.axis = layout$kde$font.size$ylab1/12)
 
@@ -578,10 +558,10 @@ plot_KDE <- function(
         line = 3 * layout$kde$dimension$ylab1.line / 100,
         col = layout$kde$colour$ylab1,
         family = layout$kde$font.type$ylab1,
-        font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
-                       layout$kde$font.deco$ylab1],
+        font = .font_style(layout$kde$font.deco$ylab1),
         cex = cex * layout$kde$font.size$ylab1/12)
 
+  ## add density curves
   for(i in 1:length(data)) {
     if(!all(is.na(De.density[[i]]))){
       polygon(x = c(par()$usr[1], De.density[[i]]$x, par()$usr[2]),
@@ -596,8 +576,7 @@ plot_KDE <- function(
   ## add plot title
   title(main = main,
         family = layout$kde$font.type$main,
-        font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
-                       layout$kde$font.deco$main],
+        font = .font_style(layout$kde$font.deco$main),
         col.main = layout$kde$colour$main,
         cex = layout$kde$font.size$main / 12,
         line = (toplines + 1.2) * layout$kde$dimension$main / 100)
@@ -608,8 +587,7 @@ plot_KDE <- function(
           side = 3,
           line = 0.5,
           family = layout$kde$font.type$mtext,
-          font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
-                         layout$kde$font.deco$mtext],
+          font = .font_style(layout$kde$font.deco$mtext),
           col.main = layout$kde$colour$mtext,
           cex = cex * layout$kde$font.size$mtext / 12)
   }
@@ -713,23 +691,17 @@ plot_KDE <- function(
 
         ## draw whiskers
         lines(x = c(boxplot.data[[i]]$stats[2,1],
-                    boxplot.data[[i]]$stats[1,1]),
-              y = c(-9/8, -9/8) * l_height,
+                    boxplot.data[[i]]$stats[1,1], NA,
+                    boxplot.data[[i]]$stats[4,1],
+                    boxplot.data[[i]]$stats[5,1]),
+              y = rep(-9/8, 5) * l_height,
               col = col.boxplot.line[i])
 
         lines(x = c(boxplot.data[[i]]$stats[1,1],
-                    boxplot.data[[i]]$stats[1,1]),
-              y = c(-10/8, -8/8) * l_height,
-              col = col.boxplot.line[i])
-
-        lines(x = c(boxplot.data[[i]]$stats[4,1],
+                    boxplot.data[[i]]$stats[1,1], NA,
+                    boxplot.data[[i]]$stats[5,1],
                     boxplot.data[[i]]$stats[5,1]),
-              y = c(-9/8, -9/8) * l_height,
-              col = col.boxplot.line[i])
-
-        lines(x = c(boxplot.data[[i]]$stats[5,1],
-                    boxplot.data[[i]]$stats[5,1]),
-              y = c(-10/8, -8/8) * l_height,
+              y = c(-10/8, -8/8, NA, -10/8, -8/8) * l_height,
               col = col.boxplot.line[i])
 
         ## draw outliers
@@ -777,8 +749,7 @@ plot_KDE <- function(
          lwd = 0,
          col = layout$kde$colour$ytck2,
          family = layout$kde$font.type$ytck2,
-         font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
-                        layout$kde$font.deco$ytck2],
+         font = .font_style(layout$kde$font.deco$ytck2),
          col.axis = layout$kde$colour$ytck2,
          cex.axis = layout$kde$font.size$ylab2/12)
 
@@ -787,8 +758,7 @@ plot_KDE <- function(
           line = 3 * layout$kde$dimension$ylab2.line / 100,
           col = layout$kde$colour$ylab2,
           family = layout$kde$font.type$ylab2,
-          font = (1:4)[c("plain", "bold", "italic", "bold italic") ==
-                         layout$kde$font.deco$ylab2],
+          font = .font_style(layout$kde$font.deco$ylab2),
           cex = cex * layout$kde$font.size$ylab2/12)
 
     ## add De error bars

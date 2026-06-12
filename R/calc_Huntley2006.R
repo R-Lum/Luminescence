@@ -322,7 +322,6 @@ calc_Huntley2006 <- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(data, "data.frame")
-  .validate_not_empty(data)
   .validate_class(LnTn, "data.frame", null.ok = TRUE)
   fit.method <- .validate_args(fit.method, c("EXP", "GOK"))
   .validate_class(lower.bounds, "numeric", length = 4)
@@ -339,6 +338,8 @@ calc_Huntley2006 <- function(
                      "if you wish to use actually measured LxTx errors.")
       data[ ,3] <- data[ ,2] * 0.05
   }
+  if (nrow(data) < 4)
+    .throw_error("'data' should contain at least 4 dose points")
 
   ## Check if 'LnTn' is used and overwrite 'data'
   if (!is.null(LnTn)) {

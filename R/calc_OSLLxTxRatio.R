@@ -8,18 +8,80 @@
 #' The function checks the integrity of the values chosen for the signal and
 #' background integrals; the signal integral limits have to be lower than
 #' the background integral limits. If a [vector] is given as input instead
-#' of a [data.frame], an artificial [data.frame] is produced. The
-#' error calculation is done according to Galbraith (2002).
+#' of a [data.frame], an artificial [data.frame] is produced.
+#'
+#' The error calculation is done according to Galbraith (2002, 2014) or to
+#' Bluszcz et a. (2015) depending on the presence of `od_rates` argument.
 #'
 #' **Please note:** In cases where the calculation results in `NaN` values (for
 #' example due to zero-signal, and therefore a division of 0 by 0), these `NaN`
 #' values are replaced by 0.
 #'
+#' **`background.count.distribution`**
+#'
+#' This argument allows selecting the distribution assumption that is used for
+#' the error calculation. According to Galbraith (2002, 2014) the background
+#' counts may be overdispersed (i.e. not follow a Poisson distribution, which
+#' is assumed for the photomultiplier counts). In that case (might be the
+#' normal case) the overdispersion has to be accounted for by estimating
+#' \eqn{\sigma_B^2} (i.e. the overdispersion value). Therefore the relative
+#' standard error is calculated as:
+#'
+#' - `poisson`
+#' \deqn{rse(\mu_{S}) \approx \sqrt{(Y_{0} + Y_{1}/k^2) / (Y_{0} - Y_{1}/k)} }
+#'
+#' - `non-poisson`
+#' \deqn{rse(\mu_{S}) \approx \sqrt{(Y_{0} + Y_{1}/k^2 + \sigma_B^2(1+1/k)) / (Y_{0} - Y_{1}/k)} }
+#'
+#' If `background_integral = NA`, then in both cases the relative standard
+#' error simplifies to:
+#'
+#' \deqn{rse(\mu_{S}) \approx \sqrt{Y_{0}} / Y_{0}}
+#'
 #' **`sigmab`**
 #'
-#' The default value of `sigmab` is calculated assuming the background is
+#' The default value of `sigmab` (\eqn{\sigma_B^2}) is calculated assuming the background is
 #' constant and **would not** be applicable when the background varies,
 #' e.g., as observed for the early light subtraction method.
+#'
+#' **Note:** When using the early background subtraction method in combination
+#' with the 'non-poisson' distribution argument, the corresponding `Lx/Tx` error
+#' may considerably increase due to a high `sigmab` value. Please check whether
+#' this is valid for your data set; if necessary, consider providing a custom
+#' value using the `sigmab` argument.
+#'
+#' **`od_rates`**
+#'
+#' Setting the `od_rates` argument activates the error calculation according
+#' to Bluszcz et al. (2015). The argument expects a 3-element vector:
+#' - `B_DC` is the PMT-specific dark count rate as pulses per second (not per channel)
+#' - `k_DC` is the PMT-specific dispersion excess factor for dark counts
+#' - `k_ph` is the PMT-specific dispersion excess factor for photon counts
+#'
+#' The dark count rate and the dispersion excess factors have to be known in
+#' advance, and can be obtained by direct experiments performed in laboratory
+#' conditions, essentially the same as the routine measurement conditions
+#' (for examples see: Bluszcz et al. (2015), Carter et al. (2018)).
+#' The photon count overdispersion \eqn{k_{ph}} needs a photon source with a
+#' constant photon emission rate and independent photon emissions (so the
+#' number of photons emitted in a fixed time is a Poisson variable). Note that
+#' \eqn{B_{DC}} must be non-negative, while \eqn{k_{DC}} and \eqn{k_{ph}} must
+#' be positive (for readers with no pulse divider, they should be greater or
+#' equal to 1).
+#'
+#' Under the assumption of statistically independent background (\eqn{N_{DC}})
+#' and photon counts (\eqn{N_{ph}}), the total number of counts (say, a certain
+#' integral \eqn{N} of the OSL curve over time \eqn{t}) is:
+#'
+#' \deqn{N = N_{ph} + N_{DC}}
+#'
+#' and has the following variance:
+#'
+#' \deqn{ s^2(N) = k_{ph}^2 N_{ph} + K_{DC}^2 N_{DC}
+#'               = k_{ph}^2 (N - B_{DC} t) + k_{DC}^2 B_{DC} t
+#'               = k_{ph}^2 N + (k_{DC}^2 - k_{ph}^2) B_{DC} t }
+#'
+#' The `LnLx.Error` and `TnTx.Error` are computed as \eqn{\sqrt{s^2(N)}}.
 #'
 #' **`sig0`**
 #'
@@ -34,33 +96,6 @@
 #' For convenience, the function returns the signal-to-noise ratio (`SN_RATIO`)
 #' for the `LnLx` and the `TnTx` curves. This is simply the signal divided
 #' by the background signal counts normalised to the `k` value (see below).
-#'
-#' **`background.count.distribution`**
-#'
-#' This argument allows selecting the distribution assumption that is used for
-#' the error calculation. According to Galbraith (2002, 2014) the background
-#' counts may be overdispersed (i.e. do not follow a Poisson distribution,
-#' which is assumed for the photomultiplier counts). In that case (might be the
-#' normal case) the overdispersion  has to be accounted for by estimating
-#' \eqn{\sigma^2} (i.e. the overdispersion value). Therefore the relative
-#' standard error is calculated as:
-#'
-#' - `poisson`
-#' \deqn{rse(\mu_{S}) \approx \sqrt{Y_{0} + Y_{1}/k^2) / (Y_{0} - Y_{1}/k)} }
-#'
-#' - `non-poisson`
-#' \deqn{rse(\mu_{S}) \approx \sqrt{Y_{0} + Y_{1}/k^2 + \sigma^2(1+1/k)) / (Y_{0} - Y_{1}/k)} }
-#'
-#' If `background_integral = NA`, then in both cases the relative standard
-#' error simplifies to:
-#'
-#' \deqn{rse(\mu_{S}) \approx \sqrt{Y_{0}} / Y_{0}}
-#'
-#' **Note:** When using the early background subtraction method in combination
-#' with the 'non-poisson' distribution argument, the corresponding `Lx/Tx` error
-#' may considerably increase due to a high `sigmab` value.
-#' Please check whether this is valid for your data set; if necessary, consider
-#' providing a custom value using the `sigmab` argument.
 #'
 #' @param Lx.data [Luminescence::RLum.Data.Curve-class], [data.frame], [list] (**required**):
 #' requires a CW-OSL shine down curve (x = time, y = counts). Data can also be
@@ -100,7 +135,7 @@
 #' @param background.count.distribution [character] (*with default*):
 #' sets the count distribution assumed for the error calculation.
 #' Possible arguments are `"poisson"` or `"non-poisson"` (default). See
-#' details for further information.
+#' details for further information. It is ignored if `od_rates` is provided.
 #'
 #' @param use_previousBG [logical] (*with default*):
 #' If set to `TRUE` the background of the `Lx`-signal is subtracted also
@@ -110,8 +145,16 @@
 #' @param sigmab [numeric] (*optional*):
 #' option to set a manual value for the overdispersion (for `LnTx` and `TnTx`),
 #' used for the `Lx/Tx` error calculation. The value should be provided as
-#' absolute squared count values, e.g. `sigmab = c(300,300)`.
-#' **Note:** If only one value is provided this value is taken for both (`LnTx` and `TnTx`) signals.
+#' absolute squared count values, e.g. `sigmab = c(300,300)`. Despite its name
+#' it is an additional variance (above Poisson variance), not a dispersion.
+#' **Note:** If only one value is provided this value is taken for both
+#' (`LnTx` and `TnTx`) signals.
+#'
+#' @param od_rates [numeric] (*optional*):
+#' a vector of three elements: the dark count rate (or background count rate),
+#' the background count overdispersion, and the photon count overdispersion.
+#' If set, an alternative way of computing the overdispersion will be used
+#' (see details). It is ignored (with a warning) if `sigmab` is provided.
 #'
 #' @param sig0 [numeric] (*with default*):
 #' allow adding an extra component of error to the final `Lx/Tx` error value
@@ -146,6 +189,7 @@
 #' .. $ sigmab.LnTx
 #' .. $ sigmab.TnTx
 #' .. $ k
+#' .. $ od_rates
 #' ```
 #'
 #' **@info**
@@ -164,12 +208,14 @@
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
-#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
+#' Andrzej Bluszcz, Silesian University of Technology, Gliwice (Poland)\cr
 #'
 #' @seealso [Luminescence::RLum.Data.Curve-class], [Luminescence::fit_DoseResponseCurve],
 #' [Luminescence::analyse_SAR.CWOSL]
 #'
-#' @references Duller, G., 2018. Analyst v4.57 - User Manual.
+#' @references
+#' Duller, G., 2018. Analyst v4.57 - User Manual.
 #' `https://users.aber.ac.uk/ggd`\cr
 #'
 #' Galbraith, R.F., 2002. A note on the variance of a background-corrected OSL
@@ -177,6 +223,16 @@
 #'
 #' Galbraith, R.F., 2014. A further note on the variance of a
 #' background-corrected OSL count. Ancient TL, 31 (2), 1-3. \doi{10.26034/la.atl.2014.477}
+#'
+#' Bluszcz, A., Adamiec, G., Herr, A., 2015. Estimation of equivalent dose and
+#' its uncertainty in the OSL SAR protocol when count numbers do not follow a
+#' Poisson distribution. Radiation Measurements 81, 46-54.
+#' \doi{10.1016/j.radmeas.2015.01.004}
+#'
+#' Carter, J., Cresswell, A.J., Kinnaird, T.C., Carmichael, L.A., Murphy, S.,
+#' Sanderson, D.C.W., 2018. Non-Poisson variations in photomultipliers and
+#' implications for luminescence dating. Radiation Measurements 120, 267-273.
+#' \doi{10.1016/j.radmeas.2018.05.010}
 #'
 #' @keywords datagen
 #'
@@ -204,9 +260,10 @@ calc_OSLLxTxRatio <- function(
   signal_integral_Tx = NULL,
   background_integral_Tx = NULL,
   integral_input = c("channel", "measurement"),
-  background.count.distribution = "non-poisson",
+  background.count.distribution = c("non-poisson", "poisson"),
   use_previousBG = FALSE,
   sigmab = NULL,
+  od_rates = NULL,
   sig0 = 0,
   digits = NULL,
   ...
@@ -232,6 +289,7 @@ calc_OSLLxTxRatio <- function(
                         background.count.distribution = background.count.distribution,
                         use_previousBG = use_previousBG,
                         sigmab = sigmab,
+                        od_rates = od_rates,
                         sig0 = sig0,
                         digits = digits,
                         ...)
@@ -243,17 +301,19 @@ calc_OSLLxTxRatio <- function(
   ## Integrity checks -------------------------------------------------------
   valid.classes <- c("RLum.Data.Curve", "data.frame", "matrix", "numeric")
   .validate_class(Lx.data, valid.classes, extra = "a list of such objects")
-  .validate_not_empty(Lx.data)
   .validate_class(Tx.data, valid.classes, null.ok = TRUE,
                   extra = "a list of such objects")
   integral_input <- .validate_args(integral_input, c("channel", "measurement"))
-  .validate_class(background.count.distribution, "character", length = 1)
+  background.count.distribution <- .validate_args(background.count.distribution,
+                                                  c("non-poisson", "poisson"))
   .validate_logical_scalar(use_previousBG)
   .validate_class(sigmab, "numeric", null.ok = TRUE, length = 1:2)
   .validate_nonnegative_scalar(sig0)
   .validate_nonnegative_scalar(digits, int = TRUE, null.ok = TRUE)
+  .validate_class(od_rates, "numeric", null.ok = TRUE, length = 3)
 
   .coerce <- function(data) {
+    .validate_not_empty(data, name = .first_argument())
     data <- switch(
         class(data)[1],
         RLum.Data.Curve = as(data, "data.frame"),
@@ -272,7 +332,6 @@ calc_OSLLxTxRatio <- function(
 
   ## Tx - coerce if required
   if(!is.null(Tx.data)){
-    .validate_not_empty(Tx.data)
     Tx.data <- .coerce(Tx.data)
     len.Tx <- nrow(Tx.data)
 
@@ -384,34 +443,29 @@ calc_OSLLxTxRatio <- function(
   n <- length(signal_integral)
   m <- length(background_integral)
   k <- m/n
-  n.Tx <- length(signal_integral_Tx)
 
   ##use previous BG and account for the option to set different integral limits
+  n.Tx <- length(signal_integral_Tx)
   m.Tx <- if (use_previousBG) m else length(background_integral_Tx)
   k.Tx <- m.Tx/n.Tx
 
   ##LnLx (comments are corresponding variables to Galbraith, 2002)
   Lx.curve <- Lx.data[,2]
   Lx.signal <- sum(Lx.curve[signal_integral])                #Y.0
-  Lx.background <- sum(Lx.curve[background_integral]) / k    #Y.1, mu.B
-  SN.ratio.LnLx <- Lx.signal / Lx.background
-  if (.strict_na(background_integral))
-    Lx.background <- 0
+  Lx.BG.counts <- sum(Lx.curve[background_integral])
+  Lx.background <- if (.strict_na(background_integral)) 0
+                   else Lx.BG.counts / k                     # Y.1, mu.B
 
   LnLx <- Lx.signal - Lx.background
 
   ##TnTx
-  Tx.curve <- ifelse(is.na(Tx.data[, 1]), NA, Tx.data[, 2])
+  Tx.curve <- Tx.data[, 2]
   Tx.signal <- sum(Tx.curve[signal_integral_Tx])
-
-  ##use previous BG
-  if(use_previousBG)
-    Tx.background <- if (.strict_na(background_integral_Tx)) NA else Lx.background
-  else
-    Tx.background <- sum(Tx.curve[background_integral_Tx]) / k.Tx
-  SN.ratio.TnTx <- Tx.signal / Tx.background
-  if (.strict_na(background_integral_Tx))
-    Tx.background <- 0
+  Tx.BG.counts <- if (use_previousBG) Lx.BG.counts
+                  else sum(Tx.curve[background_integral_Tx])
+  Tx.background <- if (.strict_na(background_integral_Tx)) 0
+                   else if (use_previousBG) Lx.background
+                   else Tx.BG.counts / k.Tx
 
   TnTx <- (Tx.signal-Tx.background)
 
@@ -426,8 +480,10 @@ calc_OSLLxTxRatio <- function(
   ## Y.1 (total counts over m later channels)
   Y.0 <- Lx.signal
   Y.0_TnTx <- Tx.signal
-  Y.1 <- if (.strict_na(background_integral)) 0 else sum(Lx.curve[background_integral])
-  Y.1_TnTx <- if (.strict_na(background_integral_Tx)) 0 else sum(Tx.curve[background_integral_Tx])
+  Y.1 <- if (.strict_na(background_integral)) 0 else Lx.BG.counts
+  Y.1_TnTx <- if (.strict_na(background_integral_Tx)) 0
+              else if (use_previousBG) Lx.BG.counts
+              else Tx.BG.counts
 
   ##(b) estimate overdispersion (here called sigmab), see equation (4) in
   ## Galbraith (2002), Galbraith (2014)
@@ -448,7 +504,7 @@ calc_OSLLxTxRatio <- function(
     } else {
       ## warn if m is < 25, as suggested by Rex Galbraith (low number of
       ## degrees of freedom)
-      if (m < 25 && !.strict_na(background_integral)) {
+      if (m < 25 && !.strict_na(background_integral)) { # shouldn't be it k? - dof = k - 1
         .throw_warning("Number of background channels for ", what, " < 25, ",
                        "error estimation might not be reliable")
       }
@@ -461,10 +517,21 @@ calc_OSLLxTxRatio <- function(
     max(stats::var(Y.i) - mean(Y.i), 0) * n
   }
 
-  ##account for a manually set sigmab value
+  ## account for when sigmab or od_rates are provided
+  B_DC <- k_DC <- k_ph <- NA
   if (!is.null(sigmab)) {
+    if (!is.null(od_rates)) {
+      .throw_warning("Both 'sigmab' and 'od_rates' provided, 'od_rates' set to NULL")
+      od_rates <- NULL
+    }
     sigmab.LnLx <- sigmab[1]
     sigmab.TnTx <- sigmab[length(sigmab)]
+  } else if (!is.null(od_rates)) {
+    ## validate each of the od_rates values
+    .validate_nonnegative_scalar(B_DC <- od_rates[1], name = "'od_rates[1]' (B_DC)")
+    .validate_positive_scalar(k_DC <- od_rates[2], name = "'od_rates[2]' (k_DC)")
+    .validate_positive_scalar(k_ph <- od_rates[3], name = "'od_rates[3]' (k_ph)")
+    sigmab.LnLx <- sigmab.TnTx <- NA
   } else {
     sigmab.LnLx <- .calc_sigmab(Lx.curve, signal_integral, background_integral,
                                 m, k, "Lx")
@@ -483,20 +550,16 @@ calc_OSLLxTxRatio <- function(
   ## when sigmab = 0, this reduces to equation (3), valid for poisson
   ## when background_integral = NA, we have Y1 = 0 and sigmab = 0, and this
   ## reduces to sqrt(Y0) / Y0
+  if (is.null(od_rates)) {
   rse <- function(Y0, Y1, k, sigmab) {
     sqrt(Y0 + Y1 / k^2 + sigmab * (1 + 1 / k)) / (Y0 - Y1 / k)
   }
 
-  if(background.count.distribution == "poisson"){
-    used.sigmab.LnLx <- used.sigmab.TnTx <- 0
-  }else{
-    if(background.count.distribution != "non-poisson"){
-      .throw_warning("Unknown method for 'background.count.distribution', ",
-                     "a non-poisson distribution is assumed")
-    }
-    used.sigmab.LnLx <- if (.strict_na(background_integral)) 0 else sigmab.LnLx
-    used.sigmab.TnTx <- if (.strict_na(background_integral_Tx)) 0 else sigmab.TnTx
-  }
+  poisson <- background.count.distribution == "poisson"
+  used.sigmab.LnLx <- if (poisson || .strict_na(background_integral)) 0
+                      else sigmab.LnLx
+  used.sigmab.TnTx <- if (poisson || .strict_na(background_integral_Tx)) 0
+                      else sigmab.TnTx
 
   LnLx.relError <- rse(Y.0, Y.1, k, used.sigmab.LnLx)
   TnTx.relError <- rse(Y.0_TnTx, Y.1_TnTx, k, used.sigmab.TnTx)
@@ -505,6 +568,34 @@ calc_OSLLxTxRatio <- function(
   ##calculate absolute standard error
   LnLx.Error <- abs(LnLx*LnLx.relError)
   TnTx.Error <- abs(TnTx*TnTx.relError)
+
+  } else {
+    ## calculate standard error of the raw number of counts in a channel
+    ## (according to communication of Bluszcz via e-mail)
+    .calc_se_bluszcz <- function(signal, time, B_DC, k_DC, k_ph) {
+      sqrt(k_ph^2 * signal + (k_DC^2 - k_ph^2) * B_DC * time)
+    }
+
+    ## compute times including the time for the first channel in the integral
+    .compute.time.inclusive <- function(times, integral) {
+      start <- if (min(integral) == 1) 0 else times[min(integral) - 1]
+      times[max(integral)] - start
+    }
+    time.Lx <- .compute.time.inclusive(Lx.data[, 1], signal_integral)
+    time.Lx.bg <- .compute.time.inclusive(Lx.data[, 1], background_integral)
+    time.Tx <- .compute.time.inclusive(Tx.data[, 1], signal_integral_Tx)
+    time.Tx.bg <- .compute.time.inclusive(Tx.data[, 1], background_integral_Tx)
+
+    Lx.signal.Error <- .calc_se_bluszcz(Lx.signal, time.Lx, B_DC, k_DC, k_ph)
+    Lx.background.Error <- .calc_se_bluszcz(Lx.BG.counts, time.Lx.bg, B_DC, k_DC, k_ph) *
+                            time.Lx / time.Lx.bg
+    Tx.signal.Error <- .calc_se_bluszcz(Tx.signal, time.Tx, B_DC, k_DC, k_ph)
+    Tx.background.Error <- .calc_se_bluszcz(Tx.BG.counts, time.Tx.bg, B_DC, k_DC, k_ph) *
+                            time.Tx / time.Tx.bg
+
+    LnLx.Error <- sqrt(Lx.signal.Error^2 + Lx.background.Error^2)
+    TnTx.Error <- sqrt(Tx.signal.Error^2 + Tx.background.Error^2)
+  }
 
     ##we do not want to have NaN values, as they are mathematically correct, but make
     ##no sense and would result in aliquots that become rejected later
@@ -521,8 +612,10 @@ calc_OSLLxTxRatio <- function(
     Net_LnLx.Error = LnLx.Error,
     Net_TnTx = TnTx,
     Net_TnTx.Error = TnTx.Error,
-    SN_RATIO_LnLx = SN.ratio.LnLx,
-    SN_RATIO_TnTx = SN.ratio.TnTx)
+    SN_RATIO_LnLx = if (.strict_na(background_integral)) NA_real_
+                    else Lx.signal / Lx.background,
+    SN_RATIO_TnTx = if (.strict_na(background_integral_Tx)) NA_real_
+                    else Tx.signal / Tx.background)
 
   ## ------------------------------------------------------------------------
   ## (4) Calculate LxTx error according Galbraith (2014)
@@ -531,7 +624,9 @@ calc_OSLLxTxRatio <- function(
   calc.parameters <- list(
     sigmab.LnLx = sigmab.LnLx,
     sigmab.TnTx = sigmab.TnTx,
-    k = k)
+    k = k,
+    od_rates = c(B_DC = B_DC, k_DC = k_DC, k_ph = k_ph)
+  )
 
   ##set results object
   set_RLum(

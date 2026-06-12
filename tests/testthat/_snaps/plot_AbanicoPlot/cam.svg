@@ -181,10 +181,9 @@
 <circle cx='324.89' cy='128.73' r='1.80' style='stroke-width: 0.75; fill: #000000;' />
 <circle cx='281.94' cy='132.30' r='1.80' style='stroke-width: 0.75; fill: #000000;' />
 <polyline points='514.49,363.63 514.49,69.04 ' style='stroke-width: 0.75;' />
-<polygon points='64.80,179.17 501.39,69.04 619.20,69.04 619.20,363.63 501.39,363.63 ' style='stroke-width: 0.60; fill: none;' />
+<polygon points='64.80,179.17 501.39,69.04 619.20,69.04 619.20,363.63 501.39,363.63 64.80,179.17 ' style='stroke-width: 0.60; fill: none;' />
 <text x='342.00' y='47.52' text-anchor='middle' style='font-size: 10.00px; font-family: sans;' textLength='83.87px' lengthAdjust='spacingAndGlyphs'>CDM: 65.71 ± 3.05</text>
-<text x='64.80' y='457.25' style='font-size: 10.00px; font-family: sans;' textLength='28.09px' lengthAdjust='spacingAndGlyphs'>n = 62</text>
-<text x='64.80' y='469.25' style='font-size: 10.00px; font-family: sans;' textLength='88.12px' lengthAdjust='spacingAndGlyphs'>in 2 sigma = 41.9 %</text>
-<text x='64.80' y='481.25' style='font-size: 10.00px; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
+<text x='64.80' y='469.25' style='font-size: 10.00px; font-family: sans;' textLength='28.09px' lengthAdjust='spacingAndGlyphs'>n = 62</text>
+<text x='64.80' y='481.25' style='font-size: 10.00px; font-family: sans;' textLength='88.12px' lengthAdjust='spacingAndGlyphs'>in 2 sigma = 41.9 %</text>
 </g>
 </svg>

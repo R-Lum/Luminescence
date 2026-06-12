@@ -61,8 +61,9 @@
 #' - `"mean"`,
 #' - `"median"`,
 #' - `"mean.weighted"` and
-#' - `"median.weighted"` or a
-#' - numeric value used for the standardisation.
+#' - `"median.weighted"`, or a
+#' - numeric value used for the standardisation of the same length as the number
+#' of input data sets (it is ignored otherwise).
 #'
 #' @param mtext [character] (*with default*):
 #' additional text below the plot title.
@@ -290,10 +291,13 @@ plot_RadialPlot <- function(
 
   .validate_not_empty(data)
   .validate_logical_scalar(log.z)
+  .validate_positive_scalar(central.value, null.ok = TRUE)
   .validate_class(centrality, c("character", "numeric"))
   if (is.character(centrality)) {
     centrality <- .validate_args(centrality, c("mean", "mean.weighted",
                                                "median", "median.weighted"))
+  } else if (anyNA(centrality)) {
+    .throw_error("'centrality' cannot contain missing values")
   }
 
   ## Homogenise input data format
@@ -346,6 +350,8 @@ plot_RadialPlot <- function(
   .validate_class(summary, "character")
   if (is.numeric(summary.pos)) {
     .validate_length(summary.pos, 2)
+    if (anyNA(summary.pos))
+      .throw_error("'summary.pos' cannot contain missing values")
   }
   else {
     summary.pos <- .validate_args(summary.pos, c("sub", valid.pos))
@@ -353,6 +359,8 @@ plot_RadialPlot <- function(
   .validate_class(legend, "character", null.ok = TRUE)
   if (is.numeric(legend.pos)) {
     .validate_length(legend.pos, 2)
+    if (anyNA(legend.pos))
+      .throw_error("'legend.pos' cannot contain missing values")
   } else {
     legend.pos <- .validate_args(legend.pos, valid.pos)
   }
@@ -422,44 +430,36 @@ plot_RadialPlot <- function(
 
   ## calculate and append statistical measures --------------------------------
 
-  ## z-values and se based on log-option
-  data <- lapply(data, function(x, De.add) {
-    cbind(x,
-          z = if (log.z) log(x[, 1]) else x[, 1],
-          se = if (log.z) x[, 2] / (x[, 1] + De.add) else x[, 2])
-  }, De.add = De.add)
+  data <- lapply(seq_along(data), function(i) {
+    x <- data[[i]]
+    z <- if (log.z) log(x[, 1]) else x[, 1]
+    se <- if (log.z) x[, 2] / (x[, 1] + De.add) else x[, 2]
 
-  ## calculate central values
-  data <- lapply(data, function(x) {
-    cbind(x,
-          z.central = switch(
-            as.character(centrality[1]),
-            mean = rep(mean(x[, 3], na.rm = TRUE), nrow(x)),
-            median = rep(median(x[, 3], na.rm = TRUE), nrow(x)),
-            mean.weighted = rep(stats::weighted.mean(x[, 3], w = 1 / x[, 4]^2), nrow(x)),
-            median.weighted = rep(.weighted.median(x[, 3], w = 1 / x[, 4]^2), nrow(x)),
-            if (is.numeric(centrality) && length(centrality) >= length(data)) {
-             rep(median(x[, 3], na.rm = TRUE), nrow(x))
-            } else NA)
-          )
-  })
+    z.central <- switch(
+      as.character(centrality[1]),
+      mean = rep(mean(z, na.rm = TRUE), nrow(x)),
+      median = rep(median(z, na.rm = TRUE), nrow(x)),
+      mean.weighted = rep(stats::weighted.mean(z, w = 1 / se^2), nrow(x)),
+      median.weighted = rep(.weighted.median(z, w = 1 / se^2), nrow(x)),
+      if (is.numeric(centrality)) {
+        if (length(centrality) == length(data)) {
+          z.raw <- centrality[i] + De.add
+          z.central <- rep(if (log.z) log(z.raw) else z.raw,
+                           nrow(x))
+        } else {
+          rep(median(z, na.rm = TRUE), nrow(x))
+        }
+      })
 
-  if (is.numeric(centrality) && length(centrality) == length(data)) {
-    ## compute z.central, as this could not be done in the lapply before
-    z.central.raw <- if (log.z) log(centrality + De.add) else centrality + De.add
-    lapply(1:length(data), function(x) data[[x]][, 5] <<- rep(z.central.raw[x], nrow(data[[x]])))
-  }
-
-  ## calculate precision and standard estimate
-  idx <- 0
-  data <- lapply(data, function(x) {
-    idx <<- idx + 1
-    colnames(x) <- c("De", "error", "z", "se", "z.central")
+    colnames(x) <- c("De", "error")
     cbind(x,
-          precision = 1 / x[, 4],
-          std.estimate = (x[, 3] - x[, 5]) / x[, 4],
+          z = z,
+          se = se,
+          z.central = z.central,
+          precision = 1 / se,
+          std.estimate = (z - z.central[1]) / se,
           std.estimate.plot = NA, # will be filled in further down
-          .id = idx)
+          .id = i)
   })
 
   ## generate global data set
@@ -472,16 +472,14 @@ plot_RadialPlot <- function(
                              mean.weighted = stats::weighted.mean(data.global[, 3], w = 1 / data.global[, 4]^2),
                              median.weighted = .weighted.median(data.global[, 3],
                                                                 w = 1 / data.global[, 4]^2),
-                             if (is.numeric(centrality) && length(centrality) >= length(data)) {
-                               mean(data.global[, 3], na.rm = TRUE)
-                             } else NA)
+                             if (is.numeric(centrality)) {
+                               median(data.global[, 3], na.rm = TRUE)
+                             })
 
   ## optionally adjust central value by user-defined value
   if (!is.null(central.value)) {
     # ## adjust central value for De.add
     central.value <- central.value + De.add
-    if (log.z)
-      .validate_positive_scalar(central.value)
     z.central.global <- ifelse(log.z,
                                log(central.value),
                                central.value)
@@ -790,15 +788,10 @@ plot_RadialPlot <- function(
            "")
   }
 
-  ## initialize list with a dummy element, it will be removed afterwards
-  label.text <- list(NA)
-
   is.sub <- summary.pos[1] == "sub"
   stops <- NULL
+  label.text <- list()
   for (i in 1:length(data)) {
-    if (!is.sub)
-      stops <- strrep("\n", (i - 1) * length(summary))
-
     summary.text <- character(0)
     for (j in 1:length(summary)) {
       summary.text <-
@@ -834,14 +827,11 @@ plot_RadialPlot <- function(
           .summary_line("serel.weighted", summary[j], De.stats[i, 18], sep = is.sub,
                         label = "rel. weighted se"))
     }
-    label.text[[length(label.text) + 1]] <- paste0(
-        if (is.sub ) "" else stops,
-        paste(summary.text, collapse = ""),
-        stops)
+    label.text[[i]] <- paste0(
+        if (is.sub) "" else strrep("\n", (i - 1) * length(summary)),
+        paste(summary.text, collapse = ""))
+    label.text[[i]] <- gsub("\n$", "", label.text[[i]])
   }
-
-  ## remove dummy list element
-  label.text[[1]] <- NULL
 
   ## remove outer vertical lines from string
   if (is.sub) {

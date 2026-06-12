@@ -167,7 +167,7 @@
 <circle cx='287.39' cy='157.03' r='1.80' style='stroke-width: 0.75; fill: #000000;' />
 <circle cx='456.73' cy='134.58' r='1.80' style='stroke-width: 0.75; fill: #000000;' />
 <polyline points='514.49,366.28 514.49,113.62 ' style='stroke-width: 0.75;' />
-<polygon points='64.80,185.12 501.39,113.62 619.20,113.62 619.20,366.28 501.39,366.28 ' style='stroke-width: 0.60; fill: none;' />
+<polygon points='64.80,185.12 501.39,113.62 619.20,113.62 619.20,366.28 501.39,366.28 64.80,185.12 ' style='stroke-width: 0.60; fill: none;' />
 <text x='342.00' y='47.52' text-anchor='middle' style='font-size: 10.00px; font-family: sans;' textLength='215.83px' lengthAdjust='spacingAndGlyphs'>n = 56 | in 2 sigma = 53.6 % | ADM: 65.36 ± 2.43</text>
 </g>
 </svg>

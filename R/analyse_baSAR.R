@@ -1702,42 +1702,42 @@ analyse_baSAR <- function(
 
   # Terminal output -----------------------------------------------------------------------------
   if(verbose){
+    rr <- results[[1]]
     cat("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n")
     cat("\n[analyse_baSAR()] ---- RESULTS ---- \n")
     cat("------------------------------------------------------------------\n")
-    cat("Used distribution:\t\t", results[[1]][["DISTRIBUTION"]], "\n")
-    num.aliquots <- results[[1]][["NB_ALIQUOTS"]]
+    cat("Used distribution:\t\t", rr[["DISTRIBUTION"]], "\n")
+    num.aliquots <- rr[["NB_ALIQUOTS"]]
     tot.aliquots <- num.aliquots
     if (!is.null(removed_aliquots))
       tot.aliquots <- tot.aliquots + nrow(removed_aliquots)
-    cat(paste0("Number of aliquots used:\t", num.aliquots, "/", tot.aliquots))
+    cat("Number of aliquots used:\t ", num.aliquots, "/", tot.aliquots, sep = "")
     if (!is.null(aliquot_range)) {
       cat(" (manually removed: ", length(aliquot_range), ")\n", sep = "")
     } else {
       cat("\n")
     }
 
-    cat("Considered fitting method:\t", results[[1]][["FIT_METHOD"]],
+    cat("Considered fitting method:\t", rr[["FIT_METHOD"]],
         if (!is.null(baSAR_model)) " (user defined)", "\n")
-    cat("Number of independent chains:\t", results[[1]][["N.CHAINS"]], "\n")
-    cat("Number MCMC iterations/chain:\t", results[[1]][["N.MCMC"]], "\n")
+    cat("Number of independent chains:\t", rr[["N.CHAINS"]], "\n")
+    cat("Number MCMC iterations/chain:\t", rr[["N.MCMC"]], "\n")
     cat("------------------------------------------------------------------\n")
     cat(sprintf("\t\t\t\tmean%s\tsd\tHPD\n",
                 ifelse(distribution == "log_normal", "*", "")))
-
-    cat(paste0(">> Central dose:\t\t", results[[1]][["CENTRAL"]],"\t",
-               results[[1]][["CENTRAL.SD"]],"\t",
-               "[", results[[1]][["CENTRAL_Q_.16"]]," ; ", results[[1]][["CENTRAL_Q_.84"]], "]**\t"))
-    cat(paste0("\n\t\t\t\t\t\t[", results[[1]][["CENTRAL_Q_.025"]]," ; ", results[[1]][["CENTRAL_Q_.975"]],"]***"))
-
-    cat(paste0("\n>> sigma_D:\t\t\t", results[[1]][["SIGMA"]],"\t", results[[1]][["SIGMA.SD"]], "\t",
-               "[",results[[1]][["SIGMA_Q_.16"]]," ; ", results[[1]][["SIGMA_Q_.84"]], "]**\t"))
-    cat(paste0("\n\t\t\t\t\t\t[",results[[1]][["SIGMA_Q_.025"]]," ; ", results[[1]][["SIGMA_Q_.975"]], "]***"))
-    cat(paste0("\n>> Final central De:\t\t", results[[1]][["DE_FINAL"]],"\t", round(results[[1]][["DE_FINAL.ERROR"]], digits = digits), "\t",
-               " - \t -"))
+    cat(">> Central dose:\t\t", rr[["CENTRAL"]], "\t", rr[["CENTRAL.SD"]], "\t[",
+        rr[["CENTRAL_Q_.16"]], " ; ", rr[["CENTRAL_Q_.84"]], "]**\n", sep = "")
+    cat("\t\t\t\t\t\t[",
+        rr[["CENTRAL_Q_.025"]], " ; ", rr[["CENTRAL_Q_.975"]], "]***\n", sep = "")
+    cat(">> sigma_D:\t\t\t", rr[["SIGMA"]], "\t", rr[["SIGMA.SD"]], "\t[",
+        rr[["SIGMA_Q_.16"]], " ; ", rr[["SIGMA_Q_.84"]], "]**\n", sep = "")
+    cat("\t\t\t\t\t\t[",
+        rr[["SIGMA_Q_.025"]], " ; ", rr[["SIGMA_Q_.975"]], "]***\n", sep = "")
+    cat(">> Final central De:\t\t", rr[["DE_FINAL"]], "\t", round(rr[["DE_FINAL.ERROR"]], digits = digits),
+        "\t - \t -", sep = "")
     cat("\n------------------------------------------------------------------\n")
     cat("(systematic error contribution to final De:",
-        format((1 - results[[1]][["CENTRAL.SD"]] / results[[1]][["DE_FINAL.ERROR"]]) * 100,
+        format((1 - rr[["CENTRAL.SD"]] / rr[["DE_FINAL.ERROR"]]) * 100,
                scientific = TRUE), "%)\n")
     if(distribution == "log_normal"){
      cat("* mean of the central dose is the geometric mean\n")

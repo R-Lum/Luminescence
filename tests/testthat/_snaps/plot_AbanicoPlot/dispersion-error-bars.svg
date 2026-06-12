@@ -262,10 +262,9 @@
 <circle cx='522.03' cy='345.77' r='2.16' style='stroke-width: 0.75;' />
 <circle cx='522.03' cy='304.43' r='2.16' style='stroke-width: 0.75;' />
 <polyline points='493.07,363.63 493.07,69.04 ' style='stroke-width: 0.75;' />
-<polygon points='64.80,179.17 480.60,69.04 619.20,69.04 619.20,363.63 480.60,363.63 ' style='stroke-width: 0.60; fill: none;' />
+<polygon points='64.80,179.17 480.60,69.04 619.20,69.04 619.20,363.63 480.60,363.63 64.80,179.17 ' style='stroke-width: 0.60; fill: none;' />
 <text x='64.80' y='51.44' style='font-size: 10.00px; font-family: sans;' textLength='28.09px' lengthAdjust='spacingAndGlyphs'>n = 62</text>
 <text x='64.80' y='63.44' style='font-size: 10.00px; font-family: sans;' textLength='55.87px' lengthAdjust='spacingAndGlyphs'>rel. se = 4 %</text>
 <text x='64.80' y='75.44' style='font-size: 10.00px; font-family: sans;' textLength='65.33px' lengthAdjust='spacingAndGlyphs'>kurtosis = 2.51</text>
-<text x='64.80' y='87.44' style='font-size: 10.00px; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
 </g>
 </svg>

@@ -27,21 +27,27 @@ test_that("input validation", {
   expect_error(plot_RadialPlot(df, na.rm = -1),
                "'na.rm' should be a single logical value")
   expect_error(plot_RadialPlot(df, central.value = -1),
-               "'central.value' should be a single positive value")
+               "'central.value' should be a single positive value or NULL")
   expect_error(plot_RadialPlot(df, xlab = "x"),
                "'xlab' should be of class 'character' and have length 2")
   expect_error(plot_RadialPlot(df, centrality = list("error")),
                "'centrality' should be of class 'character' or 'numeric'")
   expect_error(plot_RadialPlot(df, centrality = "error"),
                "'centrality' should be one of 'mean', 'mean.weighted', 'median'")
+  expect_error(plot_RadialPlot(df, centrality = NA_real_),
+               "'centrality' cannot contain missing values")
   expect_error(plot_RadialPlot(df, summary = 5),
                "'summary' should be of class 'character'")
   expect_error(plot_RadialPlot(df, summary.pos = 5),
                "'summary.pos' should have length 2")
+  expect_error(plot_RadialPlot(df, summary.pos = c(5, NA)),
+               "'summary.pos' cannot contain missing values")
   expect_error(plot_RadialPlot(df, summary.pos = list()),
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
   expect_error(plot_RadialPlot(df, summary.pos = "error"),
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
+  expect_error(plot_RadialPlot(df, legend.pos = c(5, NA)),
+               "'legend.pos' cannot contain missing values")
   expect_error(plot_RadialPlot(df, plot.ratio = NA),
                "'plot.ratio' should be a single positive value or NULL")
   expect_error(plot_RadialPlot(df, line = c(NA, NA)),
@@ -155,12 +161,11 @@ test_that("check functionality", {
   ## trigger warning
   expect_warning(plot_RadialPlot(
       data = df,
-      #centrality = ,
-      central.value = -1,
+      central.value = 1,
       log.z = FALSE),
       "z-scale touches 2s-polygon, decrease plot ratio"
     )
-  expect_silent(plot_RadialPlot(df, central.value = -1, log.z = FALSE,
+  expect_silent(plot_RadialPlot(df, central.value = 1, log.z = FALSE,
                                 bar.col = "none"))
 
   expect_warning(plot_RadialPlot(data.frame(c(12, 2, 7), c(0, 2, 3))),
@@ -226,6 +231,21 @@ test_that("graphical snapshot tests", {
                                               centrality = "median.weighted",
                                               summary = c("n", "in.2s", "median.weighted"),
                                               rug = TRUE, col = c(2, 3)))
+  vdiffr::expect_doppelganger("list summary left",
+                              plot_RadialPlot(list(df, df2),
+                                              summary.pos = "left",
+                                              summary = c("n", "mean", "skewness"),
+                                              col = c(2, 3)))
+  vdiffr::expect_doppelganger("list summary top",
+                              plot_RadialPlot(list(df, df2),
+                                              summary.pos = "top",
+                                              summary = c("n", "median", "in.2s")))
+  vdiffr::expect_doppelganger("list centrality",
+                              plot_RadialPlot(list(df, df2),
+                                              centrality = c(5, 6, 7)))
+  vdiffr::expect_doppelganger("regression 1577",
+                              plot_RadialPlot(list(df, df2),
+                                              centrality = 5))
   })
 })
 

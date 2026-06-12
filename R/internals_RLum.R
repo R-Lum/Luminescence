@@ -517,13 +517,13 @@ fancy_scientific <- function(l) {
     adj <- c(1, 1)
   } else if (pos[1] == "left") {
     pos <- c(xlim[1], mean(ylim))
-    adj <- c(0, 0.5)
+    adj <- c(0, 1)
   } else if (pos[1] == "center") {
     pos <- c(mean(xlim), mean(ylim))
-    adj <- c(0.5, 0.5)
+    adj <- c(0.5, 1)
   } else if (pos[1] == "right") {
     pos <- c(xlim[2], mean(ylim))
-    adj <- c(1, 0.5)
+    adj <- c(1, 1)
   }else if (pos[1] == "bottomleft") {
     pos <- c(xlim[1], ylim[1])
     adj <- c(0, 0)
@@ -536,6 +536,19 @@ fancy_scientific <- function(l) {
   }
 
   list(pos = pos, adj = adj)
+}
+
+#' Convert font-style keyword to integer.
+#'
+#' @param style [character] (**required**):
+#' One of "normal", "bold", "italic" or "bold italic".
+#'
+#' @return
+#' An integer specifying the font to use (see the `font` entry in `?par`).
+#'
+#' @noRd
+.font_style <- function(style) {
+  match(style, c("normal", "bold", "italic", "bold italic"))
 }
 
 

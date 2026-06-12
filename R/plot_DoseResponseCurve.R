@@ -1,7 +1,6 @@
 #' @title Plot a dose-response curve for luminescence data (Lx/Tx against dose)
 #'
 #' @description
-#'
 #' A dose-response curve is produced for luminescence measurements using a
 #' regenerative or additive protocol as implemented in [Luminescence::fit_DoseResponseCurve].
 #'
@@ -9,9 +8,9 @@
 #' An object produced by [Luminescence::fit_DoseResponseCurve].
 #'
 #' @param plot_extended [logical] (*with default*):
-#' If `TRUE`, 3 plots on one plot area are provided:
-#' 1. growth curve,
-#' 2. histogram from Monte Carlo error simulation and
+#' If `TRUE` (default), 3 plots on one plot area are provided:
+#' 1. the dose-response curve,
+#' 2. a histogram from Monte Carlo error simulation and
 #' 3. a test dose response plot.
 #'
 #' If `FALSE`, just the growth curve will be plotted.
@@ -27,13 +26,13 @@
 #' `main`, `mtext`, `xlim`, `ylim`, `xlab`, `ylab`, `log`
 #' (not valid for objects fitted with `mode = "extrapolation"`), `legend` (`TRUE/FALSE`),
 #' `legend.pos`, `reg_points_pch`, `density_polygon` (`TRUE/FALSE`),
-#' `density_polygon_col`, `density_rug` (`TRUE`/`FALSE`),
+#' `density_polygon_col`, `density_rug` (`TRUE`/`FALSE`), `lwd_drc`, `col_drc`,`lty_drc`,
 #' `box` (`TRUE`/`FALSE`).
 #'
 #' @return
 #' A plot (or a series of plots) is produced.
 #'
-#' @section Function version: 1.0.9
+#' @section Function version: 1.0.10
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -143,6 +142,9 @@ plot_DoseResponseCurve <- function(
       ylab = if (mode == "interpolation") expression(L[x]/T[x]) else "Luminescence [a.u.]",
       ylim = ylim,
       xlim = xlim,
+      lwd_drc = 1,
+      col_drc = "black",
+      lty_drc = 1,
       mar = c(4, 3, 3, 1),
       mgp = c(2, 0.7, 0),
       tcl = -0.4,
@@ -189,7 +191,6 @@ plot_DoseResponseCurve <- function(
   }
 
   ## Main plots -------------------------------------------------------------
-
   ## open plot area
   if (plot_extended && !plot_singlePanels) {
     par.default <- .par_defaults()
@@ -243,9 +244,14 @@ plot_DoseResponseCurve <- function(
       if (grepl("x", plot_settings$log))
         x <- 10^x
 
-      lines(x, eval(object$Formula))
+      ## draw curve
+      lines(x,
+            eval(object$Formula),
+            lwd = plot_settings$lwd_drc,
+            col = plot_settings$col_drc,
+            lty = plot_settings$lty_drc)
     }
-    
+
     ## y-error bar
     segments(xy$x, xy$y - y.Error, xy$x, xy$y + y.Error)
 
@@ -402,7 +408,6 @@ plot_DoseResponseCurve <- function(
 
       ## to avoid errors plot only if histogram exists
       if (exists("histogram") && length(histogram$counts) > 2) {
-
         ## plot histogram
         histogram <- try(hist(
             x.natural,

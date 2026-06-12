@@ -36,7 +36,7 @@ test_that("input validation", {
                "'ylim' should be of class 'numeric' and have length 4")
 
   expect_warning(plot_KDE(df[1, ]),
-                 "Single data point found, no density calculated")
+                 "Single point found in dataset 1, no density calculated")
 })
 
 test_that("check functionality", {
@@ -103,7 +103,8 @@ test_that("graphical snapshot tests", {
                               plot_KDE(data = df, summary.pos = "sub",
                                        summary = c("n", "se.rel", "kurtosis")))
   vdiffr::expect_doppelganger("KDE summary left",
-                              plot_KDE(data = df, summary.pos = "left",
+                              plot_KDE(list(df, df * 1.2),
+                                       summary.pos = "left",
                                        summary.method = "weighted",
                                        summary = c("mean", "in.2s", "skewness",
                                                    "median")))
@@ -111,8 +112,12 @@ test_that("graphical snapshot tests", {
                               plot_KDE(data = df,
                                        values.cumulative = FALSE))
   vdiffr::expect_doppelganger("rug",
-                              plot_KDE(data = list(df, data.frame(c(23, 24), c(3, 3)))))
+                              plot_KDE(list(df, data.frame(c(23, 24), c(3, 3))),
+                                       summary.pos = "top",
+                                       summary = c("mean", "in.2s", "skewness")))
   vdiffr::expect_doppelganger("rug many points",
                               plot_KDE(data = rbind(df, df, df, df)))
+  vdiffr::expect_doppelganger("layout",
+                              plot_KDE(data = df, layout = "journal"))
   })
 })

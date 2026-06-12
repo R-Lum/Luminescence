@@ -34,6 +34,10 @@ test_that("input validation", {
                "'xlab' must have length 2")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, z.0 = "error"),
                "'z.0' should be one of 'mean', 'mean.weighted', 'median' or")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, z.0 = NA_real_),
+               "'z.0' should be a single positive value")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, z.0 = c(2, 3)),
+               "'z.0' should be a single positive value")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, dispersion = "error"),
                "'dispersion' should be one of 'qr', 'sd', '2sd' or a percentile")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, dispersion = "p5"),
@@ -48,6 +52,8 @@ test_that("input validation", {
                "'summary' should be of class 'character'")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, summary.pos = 5),
                "'summary.pos' should have length 2")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, summary.pos = c(NA, 5)),
+               "'summary.pos' cannot contain missing values")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, summary.pos = list()),
                "'summary.pos' should be one of 'sub', 'left', 'center', 'right'")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, summary.pos = "error"),
@@ -56,6 +62,8 @@ test_that("input validation", {
                "'legend' should be of class 'character'")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, legend.pos = 5),
                "'legend.pos' should have length 2")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, legend.pos = c(5, NA)),
+               "'legend.pos' cannot contain missing values")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, frame = NULL),
                "'frame' should be one of '0', '1', '2' or '3'")
 
@@ -80,7 +88,6 @@ test_that("input validation", {
   expect_warning(plot_AbanicoPlot(ExampleData.DeValues, xlim = c(2, 12)),
                  "Lower x-axis limit was 2, reset to zero")
 })
-
 
 test_that("Test examples from the example page", {
   testthat::skip_on_cran()
@@ -370,6 +377,10 @@ test_that("Test graphical snapshot", {
 
     data.list <- list(ExampleData.DeValues[1:30,],
                       ExampleData.DeValues[31:62,] * 1.3)
+    vdiffr::expect_doppelganger("summary top",
+                                plot_AbanicoPlot(data = data.list,
+                                                 summary.pos = "top",
+                                                 summary = c("n", "in.2s", "median")))
     vdiffr::expect_doppelganger("line frame legend",
                                 plot_AbanicoPlot(data = data.list,
                                                  line = 75.7,
@@ -397,13 +408,10 @@ test_that("Test graphical snapshot", {
                                                  cex = 1.2,
                                                  log.z = FALSE,
                                                  z.0 = "mean",
-                                                 col = c("steelblue4", "orange4"),
-                                                 bar.col = c("steelblue3", "orange3"),
-                                                 polygon.col = c("steelblue1", "orange1"),
                                                  pch = c(2, 6),
                                                  angle = c(30, 50),
-                                                 summary = c("n", "in.2s", "median")))
-
+                                                 summary.pos = "right",
+                                                 summary = c("sd.rel", "sd.abs")))
     vdiffr::expect_doppelganger("CAM",
                                 plot_AbanicoPlot(data = CAM,
                                                  line.col = "darkseagreen",
@@ -414,6 +422,8 @@ test_that("Test graphical snapshot", {
     vdiffr::expect_doppelganger("FMM",
                                 plot_AbanicoPlot(data = FMM, rotate = TRUE))
     vdiffr::expect_doppelganger("FMM cex",
-                                plot_AbanicoPlot(data = FMM, rotate = TRUE, cex = 2))
+                                plot_AbanicoPlot(data = FMM, rotate = TRUE,
+                                                 cex = 2,
+                                                 frame = 0))
   })
 })

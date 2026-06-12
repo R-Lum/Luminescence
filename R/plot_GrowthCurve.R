@@ -1,10 +1,9 @@
 #' @title Fit and plot a dose-response curve for luminescence data (Lx/Tx against dose)
 #'
 #' @description
-#'
 #' A dose-response curve is produced for luminescence measurements using a
-#' regenerative or additive protocol as implemented in [Luminescence::fit_DoseResponseCurve]
-#' and [Luminescence::plot_DoseResponseCurve]
+#' regenerative or additive protocol. This is a wrapper around
+#' [Luminescence::fit_DoseResponseCurve] and [Luminescence::plot_DoseResponseCurve].
 #'
 #' @inheritParams fit_DoseResponseCurve
 #'
@@ -12,9 +11,9 @@
 #' enable/disable the plot output.
 #'
 #' @param output.plotExtended [logical] (*with default*):
-#' If `TRUE`, 3 plots on one plot area are provided:
-#' 1. growth curve,
-#' 2. histogram from Monte Carlo error simulation and
+#' If `TRUE` (default), 3 plots on one plot area are provided:
+#' 1. the dose-response curve,
+#' 2. a histogram from Monte Carlo error simulation and
 #' 3. a test dose response plot.
 #'
 #' If `FALSE`, just the growth curve will be plotted.
@@ -23,18 +22,18 @@
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in
 #' single plot windows. Requires `output.plotExtended = TRUE`.
 #'
-#' @param n.MC [integer] (*with default*):
-#' number of MC runs for error calculation.
-#'
-#' @param ... Further arguments to [Luminescence::fit_DoseResponseCurve] (`fit_weights`,
-#' `fit_bounds`, `fit.force_through_origin`, `fit.includingRepeatedRegPoints`,
-#' `fit.NumberRegPoints`, `fit.NumberRegPointsReal`, `n.MC`,
-#' `txtProgressBar`) and graphical parameters to be passed (supported:
-#' `xlim`, `ylim`, `main`, `xlab`, `ylab`).
+#' @param ... Further arguments to [Luminescence::fit_DoseResponseCurve]
+#' (`fit.force_through_origin`, `fit_weights`, `fit.includingRepeatedRegPoints`,
+#' `fit.NumberRegPoints`, `fit.NumberRegPointsReal`, `fit_bounds`, `txtProgressBar`)
+#' and to [Luminescence::plot_DoseResponseCurve] (`xlim`, `ylim`, `main`,
+#' `mtext`, `xlab`, `ylab`, `log`, `legend` (`TRUE/FALSE`), `legend.pos`,
+#' `reg_points_pch`, `density_polygon` (`TRUE/FALSE`), `density_polygon_col`,
+#' `density_rug` (`TRUE`/`FALSE`), `lwd_drc`, `col_drc`, `lty_drc`,
+#' `box` (`TRUE`/`FALSE`)).
 #'
 #' @return
-#' Along with a plot (if wanted) the [Luminescence::RLum.Results-class] object produced by
-#' [Luminescence::fit_DoseResponseCurve] is returned.
+#' Along with a plot (if wanted) the [Luminescence::RLum.Results-class] object
+#' produced by [Luminescence::fit_DoseResponseCurve] is returned invisibly.
 #'
 #' @section Function version: 1.2.3
 #'
@@ -44,7 +43,6 @@
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @references
-#'
 #' Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7, 43-46.
 #'
 #' Guralnik, B., Li, B., Jain, M., Chen, R., Paris, R.B., Murray, A.S., Li, S.-H., Pagonis, P.,

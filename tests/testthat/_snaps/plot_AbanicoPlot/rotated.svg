@@ -307,10 +307,9 @@
 <polyline points='437.11,189.02 437.11,184.68 ' style='stroke-width: 0.75;' />
 <polyline points='445.82,189.02 445.82,184.68 ' style='stroke-width: 0.75;' />
 <polyline points='192.00,184.68 460.30,184.68 ' style='stroke-width: 0.75;' />
-<polygon points='360.00,518.40 460.30,194.40 460.30,86.40 192.00,86.40 192.00,194.40 ' style='stroke-width: 0.60; fill: none;' />
-<text x='88.42' y='482.40' style='font-size: 10.00px; font-family: sans;' textLength='61.45px' lengthAdjust='spacingAndGlyphs'>mean = 66.01</text>
-<text x='88.42' y='494.40' style='font-size: 10.00px; font-family: sans;' textLength='88.12px' lengthAdjust='spacingAndGlyphs'>in 2 sigma = 41.9 %</text>
-<text x='88.42' y='506.40' style='font-size: 10.00px; font-family: sans;' textLength='78.12px' lengthAdjust='spacingAndGlyphs'>skewness = -0.04</text>
-<text x='88.42' y='518.40' style='font-size: 10.00px; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
+<polygon points='360.00,518.40 460.30,194.40 460.30,86.40 192.00,86.40 192.00,194.40 360.00,518.40 ' style='stroke-width: 0.60; fill: none;' />
+<text x='88.42' y='494.40' style='font-size: 10.00px; font-family: sans;' textLength='61.45px' lengthAdjust='spacingAndGlyphs'>mean = 66.01</text>
+<text x='88.42' y='506.40' style='font-size: 10.00px; font-family: sans;' textLength='88.12px' lengthAdjust='spacingAndGlyphs'>in 2 sigma = 41.9 %</text>
+<text x='88.42' y='518.40' style='font-size: 10.00px; font-family: sans;' textLength='78.12px' lengthAdjust='spacingAndGlyphs'>skewness = -0.04</text>
 </g>
 </svg>

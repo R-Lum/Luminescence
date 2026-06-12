@@ -177,8 +177,8 @@ test_that("check functionality", {
     ),
     class = "RLum.Results"
   )
-
-  expect_type(t@data$data$POS, "logical")
+  expect_true(is.na(t@data$data$POS))
+  expect_true(is.na(t@data$data$GRAIN))
 
   ## signal integral set to NULL or NA
   expect_warning(
@@ -840,7 +840,7 @@ test_that("graphical snapshot tests", {
 
   vdiffr::expect_doppelganger("onlyLxTxTable",
                               analyse_SAR.CWOSL(
-                                  object = object,
+                                  object = object[[2]],
                                   signal_integral = 1:2,
                                   background_integral = 900:1000,
                                   onlyLxTxTable = TRUE,
@@ -848,7 +848,7 @@ test_that("graphical snapshot tests", {
 
   vdiffr::expect_doppelganger("NA rejection criteria",
                               analyse_SAR.CWOSL(
-                                  object = object,
+                                  object = object[[2]],
                                   signal_integral = 1:2,
                                   background_integral = 900:1000,
                                   rejection.criteria = list(recycling.ratio = NA,
@@ -865,17 +865,25 @@ test_that("graphical snapshot tests", {
 
   vdiffr::expect_doppelganger("background_integral NA",
                               analyse_SAR.CWOSL(
-                                  object = object,
+                                  object = object[[2]],
                                   signal_integral = 1:5,
                                   background_integral = NA,
                                   plot_onePage = TRUE))
 
   vdiffr::expect_doppelganger("plot_singlePanels = 7",
                               analyse_SAR.CWOSL(
-                                  object = object,
+                                  object = object[[2]],
                                   signal_integral = 1:5,
                                   background_integral = 900:1000,
                                   plot_singlePanels = 7))
+
+  vdiffr::expect_doppelganger("plot_singlePanels = 2",
+                              res <- analyse_SAR.CWOSL(
+                                  object = object[[2]],
+                                  signal_integral = 1:5,
+                                  background_integral = 900:1000,
+                                  mtext.outer = "mtext.outer",
+                                  plot_singlePanels = 2))
 
   ## simulate single grain
   sg <- get_RLum(object, recordType = "OSL", drop = FALSE)
@@ -888,6 +896,21 @@ test_that("graphical snapshot tests", {
                                   background_integral = 900:975,
                                   plot_onePage = TRUE,
                                   verbose = FALSE))
+
+  vdiffr::expect_doppelganger("ignore plot_singlePanels",
+                              analyse_SAR.CWOSL(
+                                  object = object[[2]],
+                                  signal_integral = 1:5,
+                                  background_integral = 900:1000,
+                                  main = "ALQ #2",
+                                  mtext.outer = "mtext.outer",
+                                  plot_onePage = TRUE,
+                                  plot_singlePanels = 1:5))
+
+  vdiffr::expect_doppelganger("from results",
+                              .plot_SAR.CWOSL(
+                                  res,
+                                  plot_onePage = TRUE))
   })
 })
 
@@ -934,7 +957,7 @@ test_that("deprecated arguments", {
                                    background.integral.min = list(900, 950),
                                    background.integral.max = list(1000, 1000)),
                  "were deprecated in v1.2.0, use 'signal_integral'")
-  expect_warning(analyse_SAR.CWOSL(object,
+  expect_warning(analyse_SAR.CWOSL(object[[1]],
                                    signal.integral.min = 1,
                                    signal.integral.max = 187,
                                    background.integral.min = 900,

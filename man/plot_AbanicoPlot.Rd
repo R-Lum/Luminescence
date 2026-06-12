@@ -8,7 +8,7 @@ plot_AbanicoPlot(
   data,
   na.rm = TRUE,
   log.z = TRUE,
-  z.0 = c("mean.weighted", "mean.weighted", "median"),
+  z.0 = c("mean.weighted", "mean", "median"),
   dispersion = c("qr", "sd", "2sd"),
   plot.ratio = 0.75,
   rotate = FALSE,
@@ -64,19 +64,19 @@ exclude \code{NA} values from the data set prior to any further operations.}
 Option to display the z-axis in logarithmic scale. Default is \code{TRUE}.}
 
 \item{z.0}{\link{character} or \link{numeric} (\emph{with default}):
-User-defined central value, used for centring of data. One out of \code{"mean"},
-\code{"mean.weighted"} and \code{"median"} or a numeric value (not its logarithm).
-Default is \code{"mean.weighted"}.}
+User-defined central value used for centring of data. One of \code{"mean.weighted"}
+(default), \code{"mean"}and \code{"median"}, or a single numeric value (not its
+logarithm).}
 
 \item{dispersion}{\link{character} (\emph{with default}):
 measure of dispersion, used for drawing the scatter polygon. One out of
 \itemize{
-\item \code{"qr"} (quartile range, default),
-\item \code{"pnn"} (symmetric percentile range with \code{nn} the lower percentile, e.g.
-\code{"p05"} indicating the range between 5 and 95 \%, or \code{"p10"} indicating
-the range between 10 and 90 \%), or
-\item \code{"sd"} (standard deviation) and
-\item \code{"2sd"} (2 standard deviations),
+\item \code{"qr"} (quartile range, default)
+\item \code{"sd"} (standard deviation)
+\item \code{"2sd"} (2 standard deviations)
+\item \code{"pNN"} (symmetric percentile range, with \code{NN} being the lower percentile,
+e.g. \code{"p05"} indicates the range between 5 and 95 \%, or \code{"p10"} indicates
+the range between 10 and 90 \%)
 }
 
 The default is \code{"qr"}. Note that \code{"sd"} and \code{"2sd"} are only meaningful in

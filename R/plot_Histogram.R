@@ -327,11 +327,7 @@ plot_Histogram <- function(
   ## initialize list
   label.text <- NULL
   is.sub <- summary.pos[1] == "sub"
-  stops <- NULL
   for (i in 1:length(data)) {
-    if (!is.sub)
-      stops <- strrep("\n", (i - 1) * length(summary))
-
     summary.text <- character(0)
     for (j in 1:length(summary)) {
       summary.text <-
@@ -364,9 +360,9 @@ plot_Histogram <- function(
                         label = "rel. weighted se"))
     }
     label.text[[i]] <- paste0(
-        if (is.sub) "" else stops,
-        paste(summary.text, collapse = ""),
-        stops)
+        if (is.sub) "" else strrep("\n", (i - 1) * length(summary)),
+        paste(summary.text, collapse = ""))
+    label.text[[i]] <- gsub("\n$", "", label.text[[i]])
   }
 
   ## remove outer vertical lines from string

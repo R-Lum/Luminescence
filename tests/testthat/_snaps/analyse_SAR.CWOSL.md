@@ -9,7 +9,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["data", "LnLxTnTx.table", "rejection.criteria"]
+              "value": ["data", "LnLxTnTx.table", "rejection.criteria", ".plot.data"]
             }
           },
           "value": [
@@ -36,22 +36,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1666.01288231]
+                  "value": [1666.01288143]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [47.85005441]
+                  "value": [47.85005432]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1938.31490617]
+                  "value": [1938.31491507]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [85.27449881]
+                  "value": [85.27449777]
                 },
                 {
                   "type": "logical",
@@ -91,7 +91,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1672.66285448]
+                  "value": [1672.66285436]
                 },
                 {
                   "type": "character",
@@ -106,32 +106,32 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1620.2187533]
+                  "value": [1620.21875324]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1724.30469751]
+                  "value": [1724.30469728]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1578.07352436]
+                  "value": [1578.07352437]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1770.2813109]
+                  "value": [1770.28131059]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1666.01288231]
+                  "value": [1666.01288143]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1666.01288231]
+                  "value": [1666.01288143]
                 },
                 {
                   "type": "character",
@@ -164,12 +164,12 @@
                   "value": [1]
                 },
                 {
-                  "type": "integer",
+                  "type": "double",
                   "attributes": {},
                   "value": [1]
                 },
                 {
-                  "type": "integer",
+                  "type": "double",
                   "attributes": {},
                   "value": [0]
                 }
@@ -305,7 +305,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.0501, 0.00376529, 0.01470634, 338.95506912, 0.02872, 1666.01288231]
+                  "value": [1.0501, 0.00376529, 0.01470634, 338.95506912, 0.02872, 1666.01288143]
                 },
                 {
                   "type": "double",
@@ -318,6 +318,11 @@
                   "value": ["OK", "OK", "OK", "OK", "OK", "OK"]
                 }
               ]
+            },
+            {
+              "type": "logical",
+              "attributes": {},
+              "value": [null]
             }
           ]
         },
@@ -365,7 +370,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["data", "LnLxTnTx.table", "rejection.criteria"]
+              "value": ["data", "LnLxTnTx.table", "rejection.criteria", ".plot.data"]
             }
           },
           "value": [
@@ -520,12 +525,12 @@
                   "value": [1, 2]
                 },
                 {
-                  "type": "integer",
+                  "type": "double",
                   "attributes": {},
                   "value": [1, 2]
                 },
                 {
-                  "type": "integer",
+                  "type": "double",
                   "attributes": {},
                   "value": [0, 0]
                 }
@@ -674,6 +679,11 @@
                   "value": ["OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK"]
                 }
               ]
+            },
+            {
+              "type": "logical",
+              "attributes": {},
+              "value": [null]
             }
           ]
         },
@@ -721,7 +731,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["data", "LnLxTnTx.table", "rejection.criteria"]
+              "value": ["data", "LnLxTnTx.table", "rejection.criteria", ".plot.data"]
             }
           },
           "value": [
@@ -876,12 +886,12 @@
                   "value": [1, 2]
                 },
                 {
-                  "type": "integer",
+                  "type": "double",
                   "attributes": {},
                   "value": [1, 2]
                 },
                 {
-                  "type": "integer",
+                  "type": "double",
                   "attributes": {},
                   "value": [0, 0]
                 }
@@ -1030,6 +1040,11 @@
                   "value": ["OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK"]
                 }
               ]
+            },
+            {
+              "type": "logical",
+              "attributes": {},
+              "value": [null]
             }
           ]
         },
@@ -1077,7 +1092,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["data", "LnLxTnTx.table", "rejection.criteria"]
+              "value": ["data", "LnLxTnTx.table", "rejection.criteria", ".plot.data"]
             }
           },
           "value": [
@@ -1232,12 +1247,12 @@
                   "value": [1, 2]
                 },
                 {
-                  "type": "integer",
+                  "type": "double",
                   "attributes": {},
                   "value": [1, 2]
                 },
                 {
-                  "type": "integer",
+                  "type": "double",
                   "attributes": {},
                   "value": [0, 0]
                 }
@@ -1386,6 +1401,11 @@
                   "value": ["OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK", "OK"]
                 }
               ]
+            },
+            {
+              "type": "logical",
+              "attributes": {},
+              "value": [null]
             }
           ]
         },
@@ -1433,7 +1453,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["data", "LnLxTnTx.table", "rejection.criteria"]
+              "value": ["data", "LnLxTnTx.table", "rejection.criteria", ".plot.data"]
             }
           },
           "value": [
@@ -1588,12 +1608,12 @@
                   "value": [1]
                 },
                 {
-                  "type": "integer",
+                  "type": "double",
                   "attributes": {},
                   "value": [1]
                 },
                 {
-                  "type": "integer",
+                  "type": "double",
                   "attributes": {},
                   "value": [0]
                 }
@@ -1742,6 +1762,11 @@
                   "value": ["OK", "FAILED", "FAILED", "OK", "OK", "OK"]
                 }
               ]
+            },
+            {
+              "type": "logical",
+              "attributes": {},
+              "value": [null]
             }
           ]
         },
@@ -1789,7 +1814,7 @@
             "names": {
               "type": "character",
               "attributes": {},
-              "value": ["data", "LnLxTnTx.table", "rejection.criteria"]
+              "value": ["data", "LnLxTnTx.table", "rejection.criteria", ".plot.data"]
             }
           },
           "value": [
@@ -1821,7 +1846,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [83.58354415]
+                  "value": [83.58352805]
                 },
                 {
                   "type": "double",
@@ -1831,7 +1856,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [718.68045835]
+                  "value": [718.68046249]
                 },
                 {
                   "type": "logical",
@@ -1871,7 +1896,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1909.76935019]
+                  "value": [1909.76933367]
                 },
                 {
                   "type": "character",
@@ -1886,22 +1911,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1805.32858942]
+                  "value": [1805.32863398]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1976.55678957]
+                  "value": [1976.55682123]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1753.75383034]
+                  "value": [1753.75387878]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [2095.17873545]
+                  "value": [2095.17875819]
                 },
                 {
                   "type": "double",
@@ -1944,12 +1969,12 @@
                   "value": [1]
                 },
                 {
-                  "type": "integer",
+                  "type": "double",
                   "attributes": {},
                   "value": ["NA"]
                 },
                 {
-                  "type": "integer",
+                  "type": "double",
                   "attributes": {},
                   "value": ["NA"]
                 }
@@ -2078,6 +2103,11 @@
                   "value": ["OK", "OK", "OK"]
                 }
               ]
+            },
+            {
+              "type": "logical",
+              "attributes": {},
+              "value": [null]
             }
           ]
         },

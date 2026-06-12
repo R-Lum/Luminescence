@@ -138,21 +138,20 @@
 #'
 #' **Error estimation using Monte Carlo simulation**
 #'
-#' Error estimation is done using a parametric bootstrapping approach. A set of
-#' \eqn{\frac{L_x}{T_x}} values is constructed by randomly drawing curve data sampled from normal
-#' distributions. The normal distribution is defined by the input values (`mean
-#' = value`, `sd = value.error`). Then, a dose-response curve fit is attempted for each
-#' dataset resulting in a new distribution of single `De` values. The standard
-#' deviation of this distribution becomes then the error of the `De`. With increasing
-#' iterations, the error value becomes more stable. However, naturally the error
-#' will not decrease with more MC runs.
+#' Error estimation is done using a parametric bootstrap. A set of
+#' \eqn{\frac{L_x}{T_x}} values is constructed by randomly drawing curve data
+#' from normal distributions defined by the input values (`mean = value`,
+#' `sd = value.error`). A dose-response curve is then fitted for each sampled
+#' dataset using the chosen fitting method, producing a distribution of single
+#' `De` values. The standard deviation of this distribution is taken as the
+#' error of the `De`. With more iterations (`n.MC`) the error estimate
+#' stabilizes. However, naturally the error will not decrease with more MC runs.
 #'
 #' Alternatively, the function returns highest probability density interval
 #' estimates as output, users may find more useful under certain circumstances.
 #'
 #' **Note:** It may take some calculation time with increasing MC runs,
-#' especially for the composed functions (`EXP+LIN` and `EXP+EXP`).\cr
-#' Each error estimation is done with the function of the chosen fitting method.
+#' especially for the composed functions (`EXP+LIN` and `EXP+EXP`).
 #'
 #' @param object [data.frame] or a [list] of such objects (**required**):
 #' data frame with columns for `Dose`, `LxTx`, `LxTx.Error` and `TnTx`.
@@ -173,7 +172,7 @@
 #' - `"alternate"` calculates no equivalent dose and just fits the data points.
 #'
 #' Please note that for option `"interpolation"` the first point is considered
-#' as natural dose
+#' as natural dose.
 #'
 #' @param fit.method [character] (*with default*):
 #' function used for fitting. Possible options are: `LIN`, `QDR`, `EXP`,
@@ -209,7 +208,7 @@
 #' Argument to be inserted for experimental application only!
 #'
 #' @param n.MC [integer] (*with default*):
-#' number of Monte Carlo simulations for error estimation, see details.
+#' number of Monte Carlo simulations for error estimation.
 #'
 #' @param txtProgressBar [logical] (*with default*):
 #' enable/disable the progress bar. If `verbose = FALSE` also no
@@ -462,18 +461,19 @@ fit_DoseResponseCurve <- function(
   }
 
   ## count and exclude NA values and print result
-  if (sum(!stats::complete.cases(object)) > 0)
+  if (sum(!stats::complete.cases(object)) > 0) {
     .throw_warning(sum(!stats::complete.cases(object)),
                    " NA values removed")
 
-  ## exclude NA
-  object <- na.exclude(object)
+    ## exclude NA
+    object <- na.exclude(object)
 
-  ## Check if anything is left after removal
-  if (nrow(object) == 0) {
-    .throw_message("After NA removal, nothing is left from the data set, ",
-                   "NULL returned")
-    return(NULL)
+    ## Check if anything is left after removal
+    if (nrow(object) == 0) {
+      .throw_message("After NA removal, nothing is left from the data set, ",
+                     "NULL returned")
+      return(NULL)
+    }
   }
 
   ##3. verbose mode
@@ -538,9 +538,8 @@ fit_DoseResponseCurve <- function(
 
   } else {
     ## the character case
-    .validate_args(
-      arg = fit.weights,
-      choices = c("inverse_var", "inverse_std", "norm_inverse_std"))
+    .validate_args(fit.weights, c("inverse_var", "inverse_std", "norm_inverse_std"),
+                   null.ok = TRUE, extra = "a numeric vector")
     fit.weights <- switch(
       fit.weights[1],
       "inverse_std" = 1 / abs(y.Error),
@@ -551,9 +550,6 @@ fit_DoseResponseCurve <- function(
 
   #1.2 Prepare data sets regeneration points for MC Simulation
   ## for interpolation the first point is considered as natural dose
-  first.idx <- ifelse(mode == "interpolation", 2, 1)
-  last.idx <- fit.NumberRegPoints + 1
-
   data.MC <- t(matrix(vapply(
       X = first.idx:last.idx,
       FUN = function(x) {
@@ -652,7 +648,7 @@ fit_DoseResponseCurve <- function(
 
   ## helper to report a failure in the fit
   .report_fit_failure <- function(method, mode, ...) {
-    fit_message <<- sprintf("Fit failed for %s (%s)", fit.method, mode)
+    fit_message <<- sprintf("Fit failed for %s (%s)", method, mode)
     if (verbose)
       writeLines(paste("[fit_DoseResponseCurve()]", fit_message))
   }
@@ -668,7 +664,8 @@ fit_DoseResponseCurve <- function(
   b <- 1
   if (any(data$y > 0)) {
     ## this may cause NaN values so we have to handle those later
-    fit.lm <- try(stats::lm(suppressWarnings(log(data$y)) ~ data$x),
+    fit.lm <- try(stats::lm(suppressWarnings(log(data$y)) ~ data$x,
+                            weights = fit.weights),
                   silent = TRUE)
 
     if (!inherits(fit.lm, "try-error") && !is.na(fit.lm$coefficients[2]))
@@ -676,7 +673,8 @@ fit_DoseResponseCurve <- function(
   }
 
   ##c - get start parameters from a linear fit - offset on x-axis
-  fit.lm <- stats::lm(data$y ~ data$x)
+  fit.lm <- stats::lm(data$y ~ data$x,
+                      weights = fit.weights)
   c <- as.numeric(abs(fit.lm$coefficients[1]/fit.lm$coefficients[2]))
 
   #take slope from x - y scaling
@@ -690,12 +688,9 @@ fit_DoseResponseCurve <- function(
   ## a normal distribution
 
   ## draw 50 start values from a normal distribution
-  if (fit.method != "LIN") {
+  if (!fit.method %in% c("LIN", "QDR", "GOK")) {
     a.MC <- suppressWarnings(rnorm(50, mean = a, sd = a / 100))
-
-    if (!is.na(b)) {
-      b.MC <- suppressWarnings(rnorm(50, mean = b, sd = b / 100))
-    }
+    b.MC <- suppressWarnings(rnorm(50, mean = b, sd = b / 100))
 
     if(fit.force_through_origin)
       c.MC <- rep(0, 50)
@@ -734,7 +729,7 @@ fit_DoseResponseCurve <- function(
         ## for uniroot() to work, the values at the endpoints (lower and upper)
         ## must have opposite sign: therefore we check if the value at lower
         ## is negative, and if not we decrease it until we find a negative
-        ## value or we see that the function not decreasing
+        ## value or we see that the function is not decreasing
         lower <- 0
         value.lower <- De.fs(fit, lower, y)
         while (value.lower > 0 && lower > -1000) {
@@ -821,9 +816,9 @@ fit_DoseResponseCurve <- function(
         if(!inherits(fit.initial, "try-error")){
           #get parameters out of it
           parameters <- coef(fit.initial)
-          a.start[i] <- as.vector(parameters["a"])
-          b.start[i] <- as.vector(parameters["b"])
-          c.start[i] <- as.vector(parameters["c"])
+          a.start[i] <- as.numeric(parameters["a"])
+          b.start[i] <- as.numeric(parameters["b"])
+          c.start[i] <- as.numeric(parameters["c"])
         }
       }
 
@@ -849,13 +844,13 @@ fit_DoseResponseCurve <- function(
         control = minpack.lm::nls.lm.control(maxiter = 500)
       ), silent = TRUE)
 
-      if (inherits(fit, "try-error") & inherits(fit.initial, "try-error")){
+      if (inherits(fit, "try-error") && inherits(fit.initial, "try-error")) {
         .report_fit_failure(fit.method, mode)
 
       }else{
         ##this is to avoid the singular convergence failure due to a perfect fit at the beginning
         ##this may happen especially for simulated data
-        if(inherits(fit, "try-error") & !inherits(fit.initial, "try-error")){
+        if (inherits(fit, "try-error") && !inherits(fit.initial, "try-error")) {
           fit <- fit.initial
           rm(fit.initial)
         }
@@ -877,7 +872,6 @@ fit_DoseResponseCurve <- function(
 
         #print D01 value
         D01 <- b
-
         .report_fit(De, sprintf(" | D01 = %.2f", D01))
 
         #EXP MC -----
@@ -1188,10 +1182,10 @@ fit_DoseResponseCurve <- function(
       if (!inherits(fit.start, "try-error")) {
         #get parameters out of it
         parameters <- coef(fit.start)
-        a1.start[i] <- as.vector((parameters["a1"]))
-        b1.start[i] <- as.vector((parameters["b1"]))
-        a2.start[i] <- as.vector((parameters["a2"]))
-        b2.start[i] <- as.vector((parameters["b2"]))
+        a1.start[i] <- as.numeric((parameters["a1"]))
+        b1.start[i] <- as.numeric((parameters["b1"]))
+        a2.start[i] <- as.numeric((parameters["a2"]))
+        b2.start[i] <- as.numeric((parameters["b2"]))
       }
     }
 
@@ -1298,8 +1292,8 @@ fit_DoseResponseCurve <- function(
           parameters <- coef(fit.MC)
           var.a1 <- as.numeric(parameters["a1"])
           var.a2 <- as.numeric(parameters["a2"])
-          var.b1[i] <- as.vector((parameters["b1"]))
-          var.b2[i] <- as.vector((parameters["b2"]))
+          var.b1[i] <- as.numeric(parameters["b1"])
+          var.b2[i] <- as.numeric(parameters["b2"])
 
           #problem: analytically it is not easy to calculate x, here an simple approximation is made
           temp.De.MC <-  try(uniroot(
@@ -1371,7 +1365,6 @@ fit_DoseResponseCurve <- function(
 
       #print D01 value
       D01 <- b
-
       .report_fit(De, sprintf(" | D01 = %.2f | c = %.2f", D01, c))
 
       #EXP MC -----
@@ -1923,10 +1916,8 @@ fit_DoseResponseCurve <- function(
   } else {
     str <- "a * x + b * x^2 + n"
     param <- c(n = 0, a = 0, b = 0)
-     if(!"(Intercept)" %in% names(coef(f)))
-      param[2:(length(coef(f))+1)] <- coef(f)
-    else
-      param[1:length(coef(f))] <- coef(f)
+    first.idx <- if ("(Intercept)" %in% names(coef(f))) 0 else 1
+    param[first.idx + 1:length(coef(f))] <- coef(f)
   }
 
   ## if the following assertion is triggered, it means that we have used a C++
@@ -1937,16 +1928,16 @@ fit_DoseResponseCurve <- function(
   stopifnot(!startsWith("fit_function", str))
 
   ## replace parameters with fitted coefficients
-  for (i in 1:length(param)) {
+  for (par in names(param)) {
     str <- gsub(
-      pattern = names(param)[i],
-      replacement = format(param[i], digits = 3, scientific = TRUE),
+      pattern = par,
+      replacement = format(param[[par]], digits = 3, scientific = TRUE),
       x = str,
       fixed = TRUE)
   }
 
   ## return
-  return(parse(text = str))
+  parse(text = str)
 }
 
 #'@title Convert function to formula

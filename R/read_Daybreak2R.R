@@ -148,6 +148,8 @@ read_Daybreak2R <- function(
           GAMMADOSE = double(length = n.length),
           BETADOSE = double(length = n.length),
           ALPHADOSE = double(length = n.length),
+          IRR_TIME = double(length = n.length),
+          IRR_DOSERATE = double(length = n.length),
           BLEACHINGTIME = double(length = n.length),
           GRUNIT = character(length = n.length),
           BRUNIT = character(length = n.length),
@@ -163,7 +165,7 @@ read_Daybreak2R <- function(
 
       ##TERMINAL FEEDBACK
       if(verbose){
-        cat("\n[read_Daybreak()] Importing ...")
+        cat("[read_Daybreak2R()] Importing ...")
         cat("\n path: ", dirname(file[1]))
         cat("\n file: ", .shorten_filename(basename(file[1])))
         cat("\n")
@@ -205,6 +207,12 @@ read_Daybreak2R <- function(
         i_GAMMADOSE<-ligne3[6]#0
         i_BETADOSE<-ligne3[7]#0
         i_ALPHADOSE<-ligne3[8]#0
+        i_IRR_TIME <- ifelse(i_GAMMADOSE > 0, i_GAMMADOSE,
+                             ifelse(i_BETADOSE > 0, i_BETADOSE,
+                                    ifelse(i_ALPHADOSE > 0, i_ALPHADOSE, 0)))
+        i_IRR_DOSERATE <- ifelse(i_GAMMADOSE > 0, i_GRATE,
+                                 ifelse(i_BETADOSE > 0, i_BRATE,
+                                        ifelse(i_ALPHADOSE > 0, i_ARATE, 0)))
         i_SHIFT<-ligne3[9] #0
         if (i_DEVN == 0) {
           ## nocov start
@@ -276,6 +284,7 @@ read_Daybreak2R <- function(
                             LPOWER = i_LPOWER,
                             GRATE=i_GRATE,BRATE=i_BRATE,ARATE=i_ARATE,
                             GAMMADOSE=i_GAMMADOSE,BETADOSE=i_BETADOSE,ALPHADOSE=i_ALPHADOSE,
+                            IRR_TIME=i_IRR_TIME,IRR_DOSERATE=i_IRR_DOSERATE,
                             BLEACHINGTIME=i_BLEACHINGTIME,
                             GRUNIT=i_GRUNIT,BRUNIT=i_BRUNIT, ARUNIT=i_ARUNIT,
                             BFILTER=i_BFILTER,
@@ -359,7 +368,8 @@ read_Daybreak2R <- function(
 
     ## Read ASCII file ------------------------------------------------------
     if(verbose){
-      cat("\n[read_Daybreak()] File extension not of type '.DAT', trying to import ASCII-file ... \n")
+      .throw_message("File extension is not '.DAT', trying to import ASCII file ...",
+                     error = FALSE)
     }
 
     ##read file
@@ -394,7 +404,7 @@ read_Daybreak2R <- function(
 
     ##TERMINAL FEEDBACK
     if(verbose){
-      cat("\n[read_Daybreak()] Importing ...")
+      cat("[read_Daybreak2R()] Importing ...")
       cat("\n path: ", dirname(file[1]))
       cat("\n file: ", .shorten_filename(basename(file[1])))
       cat("\n")
@@ -406,6 +416,11 @@ read_Daybreak2R <- function(
 
     ##(2)
     ##Loop over the list to create RLum.Data.Curve objects
+    last.disk.n <- -1
+    last.Dose <- 0
+    last.irrad.time <- 0
+    last.irrad.temp <- NULL
+    last.irrad.date <- NULL
     RLum.Data.Curve.list <- lapply(seq_along(data.list), function(x) {
       record <- data.list[[x]]
       record.length <- length(record)
@@ -425,6 +440,36 @@ read_Daybreak2R <- function(
 
       ##add position, which is 'Disk'
       info <- c(info, position = as.integer(info$Disk))
+
+      ## recordType
+      record_type <- paste(gsub(" ", replacement = "_", x = info$DataType),
+                           "(PMT)")
+
+      ## process other info elements (new disk, new irrad dose)
+      ## is it a new disk?
+      if (as.integer(info[["Disk"]]) != last.disk.n) {
+        last.disk.n <<- as.integer(info[["Disk"]])
+        last.Dose <<- 0
+        last.irrad.time <<- 0
+        last.irrad.temp <<- NULL
+        last.irrad.date <<- NULL
+      }
+
+      ## is it an irradiation record?
+      if (info$DataType %in% c("Irrad", "NORM_Irrad", "NORM Irrad")) {
+        last.Dose <<- as.numeric(info[["IrradDose"]])
+        last.irrad.time <<- as.numeric(info[["IrradTime"]])
+        last.irrad.temp <<- as.numeric(info[["SampleTemp"]])
+        last.irrad.date <<- as.Date(info[["Started"]], format = c("%d/%m/%y"))
+        if (is.na(last.irrad.date))
+          last.irrad.date <<- as.Date(info[["Started"]])
+        record_type <- "irradiation (NA)"
+      }
+
+      info <- c(info, list(IRR_DOSE = last.Dose,
+                           IRR_TIME = last.irrad.time,
+                           IRR_TEMP = last.irrad.temp,
+                           IRR_DATE = last.irrad.date))
 
       if(length(header.length)>0){
         ## get measurement data ... this construction makes no assumption on
@@ -458,7 +503,7 @@ read_Daybreak2R <- function(
       set_RLum(
           class = "RLum.Data.Curve",
           originator = "read_Daybreak2R",
-          recordType = sub(" ", replacement = "_", x = info$DataType),
+          recordType = record_type,
           curveType = "measured",
           data = data,
           info = info
@@ -494,8 +539,8 @@ read_Daybreak2R <- function(
 
   ## terminal feedback
   if (verbose) {
-    cat("\n ", length(unlist(get_RLum(output))),
-        "records have been read successfully\n")
+    .throw_message(length(unlist(get_RLum(output))),
+                   " records read successfully", error = FALSE)
   }
 
   output
