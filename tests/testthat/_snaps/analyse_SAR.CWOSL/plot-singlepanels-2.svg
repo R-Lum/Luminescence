@@ -43,12 +43,12 @@
 <polygon points='43.20,518.40 705.60,518.40 705.60,43.20 43.20,43.20 ' style='stroke-width: 0.75; fill: none;' />
 <text x='374.40' y='558.72' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='42.67px' lengthAdjust='spacingAndGlyphs'>Time [s]</text>
 <text transform='translate(11.52,280.80) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='85.39px' lengthAdjust='spacingAndGlyphs'>OSL [cts/0.04 s]</text>
-<text x='350.75' y='38.77' style='font-size: 8.40px; font-family: sans;' textLength='4.67px' lengthAdjust='spacingAndGlyphs'>L</text>
-<text x='355.42' y='40.32' style='font-size: 5.88px; font-family: sans;' textLength='3.27px' lengthAdjust='spacingAndGlyphs'>n</text>
-<text x='358.69' y='38.77' style='font-size: 8.40px; font-family: sans;' textLength='4.67px' lengthAdjust='spacingAndGlyphs'>, </text>
-<text x='363.36' y='38.77' style='font-size: 8.40px; font-family: sans;' textLength='4.67px' lengthAdjust='spacingAndGlyphs'>L</text>
-<text x='368.03' y='40.32' style='font-size: 5.88px; font-family: sans;' textLength='2.94px' lengthAdjust='spacingAndGlyphs'>x</text>
-<text x='370.97' y='38.77' style='font-size: 8.40px; font-family: sans;' textLength='27.08px' lengthAdjust='spacingAndGlyphs'> curves</text>
+<text x='351.91' y='38.77' style='font-size: 8.40px; font-family: sans;' textLength='4.67px' lengthAdjust='spacingAndGlyphs'>L</text>
+<text x='356.58' y='40.32' style='font-size: 5.88px; font-family: sans;' textLength='3.27px' lengthAdjust='spacingAndGlyphs'>n</text>
+<text x='359.85' y='38.77' style='font-size: 8.40px; font-family: sans;' textLength='2.33px' lengthAdjust='spacingAndGlyphs'>,</text>
+<text x='362.19' y='38.77' style='font-size: 8.40px; font-family: sans;' textLength='4.67px' lengthAdjust='spacingAndGlyphs'>L</text>
+<text x='366.86' y='40.32' style='font-size: 5.88px; font-family: sans;' textLength='2.94px' lengthAdjust='spacingAndGlyphs'>x</text>
+<text x='369.80' y='38.77' style='font-size: 8.40px; font-family: sans;' textLength='27.08px' lengthAdjust='spacingAndGlyphs'> curves</text>
 </g>
 <defs>
   <clipPath id='cpNDMuMjB8NzA1LjYwfDQzLjIwfDUxOC40MA=='>

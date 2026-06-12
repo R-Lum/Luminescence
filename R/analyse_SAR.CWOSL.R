@@ -1103,7 +1103,7 @@ analyse_SAR.CWOSL<- function(
           set_log = log,
           set_cex = cex,
           set_col = col,
-          set_mtext = expression(paste(L[n], ", ", L[x], " curves")),
+          set_mtext = expression(paste(L[n], ",", L[x], " curves")),
           set_curveType = CWcurve.type,
           set_curveRes = resolution.OSLCurves)
 
@@ -1135,7 +1135,7 @@ analyse_SAR.CWOSL<- function(
           set_log = log,
           set_cex = cex,
           set_col = col,
-          set_mtext = expression(paste(T[n], ", ", T[x], " curves")),
+          set_mtext = expression(paste(T[n], ",", T[x], " curves")),
           set_curveType = CWcurve.type,
           set_curveRes = resolution.OSLCurves)
       }# plot.single.sel
