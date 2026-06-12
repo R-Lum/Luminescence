@@ -1032,9 +1032,6 @@ analyse_SAR.CWOSL<- function(
       ##colours and double for plotting
       col <- get("col", pos = .LuminescenceEnv)
 
-      ## get record list
-      record_list <- object@records
-
     layout.matrix <- matrix(c(1, 1, 3, 3, 6, 6, 7,
                               1, 1, 3, 3, 6, 6, 8,
                               2, 2, 4, 4, 9, 9, 10,
@@ -1080,32 +1077,24 @@ analyse_SAR.CWOSL<- function(
                        length(col), " curves are plotted")
       }
 
-      ##get channel resolution (should be equal for all curves)
-      resolution.OSLCurves <- round(object@records[[OSL.Curves.ID[1]]]@data[2,1] -
-                                      object@records[[OSL.Curves.ID[1]]]@data[1,1],
-                                    digits = 2)
+    ## shared arguments for TL and OSL plots
+    curve_args <- list(signal_integral = signal_integral,
+                       background_integral = background_integral,
+                       curveType = CWcurve.type,
+                       main = main, cex = cex, col = col, log = log)
 
       ## (1) Plotting TL Curves previous LnLx ----------------------------------------
       if (1 %in% plot.single.sel) {
-        .plot_TL_Curves(record_list, TL.Curves.ID.Lx, main = main,
-                        mtext = expression(paste("TL previous ", L[n], ",", L[x], " curves")),
-                        cex = cex, col = col, log = log)
+        do.call(.plot_Curves,
+                c(curve_args, list(records = object@records, is.TL = TRUE,
+                                   curve_ids = TL.Curves.ID.Lx, is.Lx = TRUE)))
       }
 
       ## (2) Plotting LnLx Curves ----------------------------------------------------
       if (2 %in% plot.single.sel) {
-        .plot_ShineDownCurves(
-          record_list,
-          curve_ids = OSL.Curves.ID.Lx,
-          signal_integral = signal_integral,
-          background_integral = background_integral,
-          set_main = main,
-          set_log = log,
-          set_cex = cex,
-          set_col = col,
-          set_mtext = expression(paste(L[n], ",", L[x], " curves")),
-          set_curveType = CWcurve.type,
-          set_curveRes = resolution.OSLCurves)
+        do.call(.plot_Curves,
+                c(curve_args, list(records = object@records, is.TL = FALSE,
+                                   curve_ids = OSL.Curves.ID.Lx, is.Lx = TRUE)))
 
         ##mtext, implemented here, as a plot window has to be called first
         mtext(
@@ -1119,25 +1108,16 @@ analyse_SAR.CWOSL<- function(
 
       ## (3) Plotting TL Curves previous TnTx ----------------------------------------
       if (3 %in% plot.single.sel) {
-        .plot_TL_Curves(record_list, TL.Curves.ID.Tx, main = main,
-                        mtext = expression(paste("TL previous ", T[n], ",", T[x], " curves")),
-                        cex = cex, col = col, log = log)
+        do.call(.plot_Curves,
+                c(curve_args, list(records = object@records, is.TL = TRUE,
+                                   curve_ids = TL.Curves.ID.Tx, is.Lx = FALSE)))
       }
 
       ## (4) Plotting TnTx Curves ----------------------------------------------------
       if (4 %in% plot.single.sel) {
-        .plot_ShineDownCurves(
-          record_list,
-          curve_ids = OSL.Curves.ID.Tx,
-          signal_integral = signal_integral,
-          background_integral = background_integral,
-          set_main = main,
-          set_log = log,
-          set_cex = cex,
-          set_col = col,
-          set_mtext = expression(paste(T[n], ",", T[x], " curves")),
-          set_curveType = CWcurve.type,
-          set_curveRes = resolution.OSLCurves)
+        do.call(.plot_Curves,
+                c(curve_args, list(records = object@records, is.TL = FALSE,
+                                   curve_ids = OSL.Curves.ID.Tx, is.Lx = FALSE)))
       }# plot.single.sel
 
       ## (5) Plotting Legend ----------------------------------------
@@ -1389,101 +1369,62 @@ analyse_SAR.CWOSL<- function(
     cex = 1.3)
 }
 
-## Plot TL curves
-.plot_TL_Curves <- function(record_list, curve_ids, main, mtext, cex, col, log) {
-  if (length(curve_ids) == 0) {
+## Plot TL or OSL curves
+.plot_Curves <- function(records, curve_ids, curveType = NULL, is.TL, is.Lx,
+                         signal_integral = NULL, background_integral = NULL,
+                         main = NULL, cex = 1, col = NULL, log = "") {
+  ## TL: empty guard
+  if (is.TL && length(curve_ids) == 0) {
     plot(NA, NA, xlim = c(0, 1), ylim = c(0, 1), main = "",
          axes = FALSE, ylab = "", xlab = "")
     text(0.5, 0.5, "No TL curve detected")
     return()
   }
 
-  ## approximate curve resolution
-  resolution.TLCurves <- round(mean(diff(
-      round(record_list[[curve_ids[[1]]]]@data[, 1], digits = 1)
-  )), digits = 1)
-
-  ## get ranges of the curves
-  xy_xlim <- matrixStats::rowRanges(vapply(
-    X = curve_ids,
-    FUN = function(x) apply(record_list[[x]]@data, 2, range, na.rm = TRUE),
-    FUN.VALUE = numeric(4)))
-
-  plot(NA, NA,
-       xlab = "T [\u00B0C]",
-       ylab = paste0("TL [cts/", resolution.TLCurves, " \u00B0C]"),
-       xlim = c(min(xy_xlim[1, ]), max(xy_xlim[2, ])),
-       ylim = c(1, max(xy_xlim[4, ])),
-       main = main,
-       mgp = c(2, 0.7, 0),
-       tcl = -0.4,
-       log = gsub("x", "", log))
-
-  mtext(side = 3, text = mtext, cex = cex * 0.7)
-  for (i in seq_along(curve_ids)) {
-    lines(record_list[[curve_ids[i]]]@data, col = col[i])
-  }
-}
-
-# plot the shine-down curves more consistently
-.plot_ShineDownCurves <- function(
-    record_list,
-    curve_ids,
-    signal_integral,
-    background_integral,
-    set_main,
-    set_log,
-    set_cex,
-    set_col,
-    set_mtext,
-    set_curveType,
-    set_curveRes
-) {
-
-  ## if we want to apply a log-transform on x and the first time point
-  ## is 0, we shift the curves by one channel
-  if (set_log %in% c("x", "xy")) {
-    for(i in curve_ids) {
-      x.vals <- record_list[[i]]@data[, 1]
+  ## OSL: shift curves if x starts at 0 and log-transform is applied
+  if (!is.TL && log %in% c("x", "xy")) {
+    for (i in curve_ids) {
+      x.vals <- records[[i]]@data[, 1]
       if (x.vals[1] == 0) {
-        record_list[[i]]@data[, 1] <- x.vals + x.vals[2] - x.vals[1]
+        records[[i]]@data[, 1] <- x.vals + x.vals[2] - x.vals[1]
         .throw_warning("Curves shifted by one channel for log-plot")
       }
     }
   }
 
-  ## get value ranges of the curves
+  ## approximate curve resolution
+  x.vals <- records[[curve_ids[[1]]]]@data[, 1]
+  resolution <- round(mean(diff(x.vals)), digits = ifelse(is.TL, 1, 2))
+
+  ## get ranges of the curves
   xy_xlim <- matrixStats::rowRanges(vapply(
     X = curve_ids,
-    FUN = \(x) apply(record_list[[x]]@data, 2, range, na.rm = TRUE),
+    FUN = function(x) apply(records[[x]]@data, 2, range, na.rm = TRUE),
     FUN.VALUE = numeric(4)))
 
-  #open plot area LnLx
-  plot(
-    NA,NA,
-    xlab = "Time [s]",
-    ylab = paste0(set_curveType," [cts/",set_curveRes," s]"),
-    xlim = c(min(xy_xlim[1, ]), max(xy_xlim[2, ])),
-    ylim = c(min(xy_xlim[3, ]), max(xy_xlim[4, ])),
-    main = set_main,
-    mgp = c(2, 0.7, 0),
-    tcl = -0.4,
-    log = set_log)
+  plot(NA, NA,
+       xlab = if (is.TL) "T [\u00B0C]" else "Time [s]",
+       ylab = if (is.TL) paste0("TL [cts/", resolution, " \u00B0C]")
+              else paste0(curveType, " [cts/", resolution, " s]"),
+       xlim = c(min(xy_xlim[1, ]), max(xy_xlim[2, ])),
+       ylim = c(if (is.TL) 1 else min(xy_xlim[3, ]),
+                max(xy_xlim[4, ])),
+       main = main,
+       mgp = c(2, 0.7, 0),
+       tcl = -0.4,
+       log = if (is.TL) gsub("x", "", log) else log)
 
-  #provide curve information as mtext, to keep the space for the header
-  mtext(
-    side = 3,
-    text = set_mtext,
-    cex = set_cex * 0.7)
+  prefix <- if (is.TL) "TL previous " else ""
+  letter <- if (is.Lx) as.symbol("L") else as.symbol("T")
+  mtext(text = eval(bquote(expression(.(prefix) * .(letter)[n] * "," *
+                                      .(letter)[x] * " curves"))),
+        side = 3, cex = cex * 0.7)
+  for (i in seq_along(curve_ids))
+    lines(records[[curve_ids[i]]]@data, col = col[i])
 
-  for (idx in seq_along(curve_ids)) {
-    lines(record_list[[curve_ids[idx]]]@data, col = set_col[idx])
-  }
-
-  ##mark integration limit Lx curves
-  rec <- record_list[[curve_ids[1]]]@data[, 1]
-  abline(v = c(rec[range(signal_integral)],
-               rec[range(background_integral)]),
-    lty = 2,
-    col = "gray")
+  ## mark integration limits for OSL curves
+  if (!is.TL)
+    abline(v = c(x.vals[range(signal_integral)],
+                 x.vals[range(background_integral)]),
+           lty = 2, col = "gray")
 }
