@@ -878,7 +878,7 @@ test_that("graphical snapshot tests", {
                                   plot_singlePanels = 7))
 
   vdiffr::expect_doppelganger("plot_singlePanels = 2",
-                              analyse_SAR.CWOSL(
+                              res <- analyse_SAR.CWOSL(
                                   object = object[[2]],
                                   signal_integral = 1:5,
                                   background_integral = 900:1000,
@@ -906,6 +906,11 @@ test_that("graphical snapshot tests", {
                                   mtext.outer = "mtext.outer",
                                   plot_onePage = TRUE,
                                   plot_singlePanels = 1:5))
+
+  vdiffr::expect_doppelganger("from results",
+                              .plot_SAR.CWOSL(
+                                  res,
+                                  plot_onePage = TRUE))
   })
 })
 

@@ -175,6 +175,7 @@ background counts and the dose points}
 \item{rejection.criteria}{\link{data.frame} with values that might by used as rejection criteria.
 \code{NA} is produced if no R0 dose point exists.}
 \item{Formula}{\link{formula} formula that have been used for the growth curve fitting}
+\item{.plot.data}{List used internally for plotting.}
 
 The output should be accessed using the function \link{get_RLum}.
 

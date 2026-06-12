@@ -38,6 +38,9 @@ expect_snapshot_RLum <- function(object, ...) {
         object@data$fits$unfaded$convInfo$finIter <- NULL # for macos
       }
     }
+    if (".plot.data" %in% names(object@data)) { # analyse_SAR.CWOSL()
+      object@data$.plot.data <- NA
+    }
     if ("data" %in% names(object@data)) {
       if ("UID" %in% names(object@data$data))
         object@data$data$UID <- NULL
