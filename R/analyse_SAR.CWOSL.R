@@ -655,9 +655,8 @@ analyse_SAR.CWOSL<- function(
     }
   }
 
-# Rejection criteria ------------------------------------------------------
+  ## Rejection criteria -----------------------------------------------------
 
-  ##set list
   rejection.criteria <- modifyList(x = list(
       recycling.ratio = 10,
       recuperation.rate = 10,
@@ -682,7 +681,7 @@ analyse_SAR.CWOSL<- function(
   .validate_class(sn_reference, "character", length = 1,
                   name = "'sn_reference' in 'rejection.criteria'")
 
-# Deal with extra arguments ----------------------------------------------------
+  ## Deal with extra arguments ----------------------------------------------
 
   verbose <- .validate_logical_scalar(extraArgs$verbose %||% TRUE, name = "'verbose'")
   main <- extraArgs$main %||% ""
@@ -794,8 +793,7 @@ analyse_SAR.CWOSL<- function(
 
   ## Label dose points ------------------------------------------------------
   dose <- LnLxTnTx$Dose
-    ## preset names
-    dose_names <- paste0("R", seq_along(dose) - 1)
+  dose_names <- paste0("R", seq_along(dose) - 1)
 
     ## identify 0 dose point
     zero_id <- which(dose == 0)
@@ -1068,6 +1066,9 @@ analyse_SAR.CWOSL<- function(
   invisible(results)
 }
 
+
+## Helper functions ---------------------------------------------------------
+## Plot the results of the analysis
 .plot_SAR.CWOSL <- function(
   results,
   mtext.outer = "",
@@ -1084,13 +1085,13 @@ analyse_SAR.CWOSL<- function(
   GC.fit <- curve_args$GC.fit
   LnLxTnTx <- results@data$LnLxTnTx.table
 
-  layout.matrix <- matrix(c(1, 1, 3, 3, 6, 6, 7,
-                              1, 1, 3, 3, 6, 6, 8,
-                              2, 2, 4, 4, 9, 9, 10,
-                              2, 2, 4, 4, 9, 9, 10,
-                              5, 5, 5, 5, 5, 5, 5),
-                            nrow = 5, ncol = 7, byrow = TRUE)
+  ## use the package colours
   col <- get("col", pos = .LuminescenceEnv)
+  if (length(OSL.Curves.ID$Lx) > length(col)) {
+    .throw_warning("Too many curves, only the first ", length(col),
+                   " will be plotted")
+  }
+
   curve_args$col <- col
   curve_args$cex <- list(...)$cex %||% 1
   curve_args$log <- list(...)$log %||% ""
@@ -1112,6 +1113,12 @@ analyse_SAR.CWOSL<- function(
       par.default <- .par_defaults()
       on.exit(par(par.default), add = TRUE)
 
+      layout.matrix <- matrix(c(1, 1, 3, 3, 6, 6, 7,
+                                1, 1, 3, 3, 6, 6, 8,
+                                2, 2, 4, 4, 9, 9, 10,
+                                2, 2, 4, 4, 9, 9, 10,
+                                5, 5, 5, 5, 5, 5, 5),
+                              nrow = 5, ncol = 7, byrow = TRUE)
       if (plot_onePage) {
         plot_singlePanels <- TRUE
       } else {
@@ -1126,12 +1133,6 @@ analyse_SAR.CWOSL<- function(
       par(mar = mar)
       plot.single.sel <- plot_singlePanels
     }
-
-      ##warning if number of curves exceed colour values
-      if (length(col) < length(OSL.Curves.ID$Lx)) {
-        .throw_warning("Too many curves, only the first ",
-                       length(col), " curves are plotted")
-      }
 
       ## (1) Plotting TL Curves previous LnLx ----------------------------------------
       if (1 %in% plot.single.sel) {
@@ -1261,22 +1262,19 @@ analyse_SAR.CWOSL<- function(
     if (7 %in% plot.single.sel) {
       .plot_RCCriteria(results@data$rejection.criteria)
     }
-  } # end plot
+}
 
-
-# Helper functions -------------------------------------------------------------
 ## create single grain discs with measured grain labelled
 .plot_SGMarker <- function(this_grain = 1, this_pos = 1) {
+  par.old <- par(mar = c(3, 3, 3, 3))
+  on.exit(par(par.old), add = TRUE)
+
   ## calculate coordinate matrix
   xy_coord <- matrix(
     data = c(
       rep(seq(0.25,0.75, length.out = 10), 10),
       rep(rev(seq(0.25,0.75, length.out = 10)), each = 10)),
     ncol = 2)
-
-  ##set par
-  par.old <- par(mar = c(3, 3, 3, 3))
-  on.exit(par(par.old), add = TRUE)
 
   ## draw disc
   shape::emptyplot(main = "Grain location")

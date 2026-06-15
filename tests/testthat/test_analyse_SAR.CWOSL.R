@@ -598,7 +598,7 @@ test_that("advance tests run", {
                         background_integral = 900:900,
                         background.count.distribution = "poisson",
                         log = "xy", verbose = FALSE),
-      "Too many curves, only the first 21 curves are plotted"),
+      "Too many curves, only the first 21 will be plotted"),
       "Multiple IRSL curves detected")
   })
 
