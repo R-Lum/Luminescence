@@ -79,7 +79,7 @@
 #' @examples
 #' ## Load example data
 #' file <- system.file("extdata/NCF.binx", package = "Luminescence")
-#' ncf <- read_BIN2R(file, fastForward = TRUE)[[1]]
+#' ncf <- read_BIN2R(file, fastForward = TRUE)
 #'
 #' results <- analyse_SAR.NCF(
 #'  object = ncf,
@@ -132,7 +132,15 @@ analyse_SAR.NCF <- function(
 
   ## ------------------------------------------------------------------------
   ## Main analysis
-  cwosl <- analyse_SAR.CWOSL(object, ..., .NCF_mode = TRUE)
+
+  ## to suppress the plotting from analyse_SAR.CWOSL(), we need to remove the
+  ## plot argument from ..., otherwise it may cause a multiple match error
+  extraArgs <- list(...)
+  extraArgs$plot <- NULL
+
+  cwosl <- do.call(analyse_SAR.CWOSL,
+                   c(list(object = object, plot = FALSE, .NCF_mode = TRUE),
+                     extraArgs))
   if (is.null(cwosl)) {
     .throw_message("CWOSL analysis skipped: check your sequence, NULL returned")
     return(NULL)
@@ -193,6 +201,17 @@ analyse_SAR.NCF <- function(
 
   ## plot the TL peaks
   if (is.null(extraArgs$plot) || isTRUE(extraArgs$plot)) {
+    par.default <- .par_defaults()
+    on.exit(par(par.default), add = TRUE)
+
+    layout.matrix <- matrix(c(1, 1, 3, 3,  6,  6, 7,
+                              1, 1, 3, 3,  6,  6, 8,
+                              2, 2, 4, 4, 10, 10, 9,
+                              2, 2, 4, 4, 10, 10, 9,
+                              5, 5, 5, 5,  5,  5, 5),
+                            nrow = 5, ncol = 7, byrow = TRUE)
+    graphics::layout(layout.matrix)
+    .plot_SAR.CWOSL(cwosl, plot_singlePanels = 1:7)
     .plot_TL_peaks(TL1, TL2, res1, res2, TL_peak_range)
   }
 
@@ -233,7 +252,7 @@ analyse_SAR.NCF <- function(
 
 .plot_TL_peaks <- function(TL1, TL2, res1, res2, TL_peak_range) {
   ## first TL
-  plot(TL1, type = "l", col = 1,
+  plot(TL1, type = "l", col = 1, par.local = FALSE,
        main = sprintf("TL Peaks (integration range = %g \u00B0C)", TL_peak_range))
   ymin <- par("usr")[3]  ## minimum y coordinate visible on the plot
   abline(v = c(res1$peak.temperature, TL1@data[range(res1$range.idx), 1]),

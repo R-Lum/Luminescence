@@ -22,11 +22,15 @@ parameters to control the peak-finding step.}
 \item{...}{further arguments that will be passed to
 \link{fit_DoseResponseCurve}, \link{plot_DoseResponseCurve}
 or \link{calc_OSLLxTxRatio} (supported:
-\code{background.count.distribution}, \code{sigmab}, \code{sig0}).
+\code{background.count.distribution}, \code{sigmab}, \code{sig0}, \code{od_rates}).
 Additionally, supported are \code{legend.cex} and \code{legend.pch} to modify the
 legend symbols.
 \strong{Note:} If you consider using the early light subtraction method,
-\code{sigmab} should be provided.}
+\code{sigmab} should be provided.
+
+\strong{Note:} \code{od_rates} can be used to treat uncertainties in Lx/Tx according
+to Bluszcz et al. (2015) instead of the standard approach of Galbraith
+(2002, 2014). See \link{calc_OSLLxTxRatio} for details.}
 }
 \value{
 Plots (\emph{optional}) and an \link[=RLum.Results-class]{RLum.Results} object is
@@ -79,7 +83,7 @@ This function is a beta version.
 \examples{
 ## Load example data
 file <- system.file("extdata/NCF.binx", package = "Luminescence")
-ncf <- read_BIN2R(file, fastForward = TRUE)[[1]]
+ncf <- read_BIN2R(file, fastForward = TRUE)
 
 results <- analyse_SAR.NCF(
  object = ncf,
