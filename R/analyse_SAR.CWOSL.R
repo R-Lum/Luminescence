@@ -452,6 +452,8 @@ analyse_SAR.CWOSL<- function(
   .validate_logical_scalar(plot_onePage)
   .validate_logical_scalar(onlyLxTxTable)
   .validate_class(rejection.criteria, "list", null.ok = TRUE)
+  .validate_class(dose.points, c("numeric", "integer"), null.ok = TRUE)
+  .validate_class(dose.points.test, c("numeric", "integer"), null.ok = TRUE)
   .validate_scalar(dose_rate_source, null.ok = TRUE)
   .validate_class(method_control, "list")
   method_control <- modifyList(x = list(auto_curve_removal = TRUE),
@@ -766,9 +768,14 @@ analyse_SAR.CWOSL<- function(
 
       LnLxTnTx$Dose <- dose.points
   }
+  if (length(dose.points.test) > 1 &&  # allow for recycling
+      length(dose.points.test) != length(LnLxTnTx$Dose)) {
+    .throw_error("Length of 'dose.points.test' (", length(dose.points.test),
+                 ") differs from number of curves (", length(LnLxTnTx$Dose), ")")
+  }
 
-  ## set test dose points; we set it to -1 if nothing is available
-  LnLxTnTx$Test_Dose <- rep_len(dose.points.test %||% -1, nrow(LnLxTnTx))
+  ## set test dose points to -1 if nothing is available
+  LnLxTnTx$Test_Dose <- dose.points.test %||% -1
 
   ## use source dose rate
   if(!is.null(dose_rate_source)) {
