@@ -61,6 +61,16 @@ test_that("input validation", {
   expect_error(analyse_SAR.CWOSL(object[[1]],
                                  signal_integral = 1:2,
                                  background_integral = 900:1000,
+                                 dose.points = NA),
+               "'dose.points' should be of class 'numeric', 'integer' or NULL")
+  expect_error(analyse_SAR.CWOSL(object[[1]],
+                                 signal_integral = 1:2,
+                                 background_integral = 900:1000,
+                                 dose.points.test = NA),
+               "'dose.points.test' should be of class 'numeric', 'integer' or NULL")
+  expect_error(analyse_SAR.CWOSL(object[[1]],
+                                 signal_integral = 1:2,
+                                 background_integral = 900:1000,
                                  rejection.criteria = list(recuperation_reference = letters)),
                "'recuperation_reference' in 'rejection.criteria' should be of class 'character'")
   expect_error(analyse_SAR.CWOSL(object[[1]],
@@ -342,6 +352,14 @@ test_that("check functionality", {
      plot = FALSE,
      verbose = FALSE),
      "Length of 'dose.points' (3) differs from number of curves (7)",
+     fixed = TRUE)
+
+   expect_error(analyse_SAR.CWOSL(
+     object = object[[1]],
+     signal_integral = 1:2,
+     background_integral = 900:1000,
+     dose.points.test = 1:3),
+     "Length of 'dose.points.test' (3) differs from number of curves (7)",
      fixed = TRUE)
 
   expect_message(
