@@ -197,6 +197,10 @@ affected functions.
   allows using `plot()` on those objects to obtain the same output of
   `plot_DoseResponseCurve()` (#1550).
 
+- Plotting an object produced by `calc_AliquotSize()` now supports that
+  function’s full range of plot customisation arguments via `...`
+  (#1585).
+
 ### `plot_RLum.Data.Spectrum()`
 
 - If the function was called with `plot.type = "interactive"`, the error

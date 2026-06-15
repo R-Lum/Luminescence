@@ -112,6 +112,7 @@ plot_RLum.Results<- function(
       analyse_SAR.CWOSL = plot_AbanicoPlot(object),
       analyse_pIRIRSequence = plot_AbanicoPlot(object),
       analyse_IRSAR.RF = plot_AbanicoPlot(object),
+      calc_AliquotSize = .plot_AliquotSize(object, ...),
       calc_FiniteMixture = do.call(calc_FiniteMixture, c(object, extraArgs)),
       fit_DoseResponseCurve = do.call(plot_DoseResponseCurve, c(object, extraArgs)),
     NULL
@@ -589,79 +590,6 @@ plot_RLum.Results<- function(
     ##MTEXT
     mtext(side=3,mtext,cex=cex)
   }
-
-  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-  ## CASE 5: Aliquot Size ---------
-  if (.check_originator(object, "calc_AliquotSize") &&
-      !is.null(object@data$MC$estimates)) {
-    ## FIXME(mcol): The following code has been ported to calc_AliquotSize(),
-    ## where it has been further updated. This version is preserved to support
-    ## the plotting of an RLum.Results object directly, which calc_AliquotSize()
-    ## doesn't yet support.
-      extraArgs <- list(...)
-
-      main <- extraArgs$main %||% "Monte Carlo Simulation"
-      xlab <- extraArgs$xlab %||% "Amount of grains on aliquot"
-
-      # extract relevant data
-      MC.n<- object@data$MC$estimates
-      MC.n.kde<- object@data$MC$kde
-      MC.stats<- object@data$MC$statistics
-      MC.q<- object@data$MC$quantile
-      MC.iter<- object@data$args$MC.iter
-
-      # set layout of plotting device
-      graphics::layout(matrix(c(1, 1, 2)), 2, 1)
-      par(cex = 0.8)
-
-      ## plot MC estimate distribution
-
-      # set margins (bottom, left, top, right)
-      par(mar=c(2,5,5,3))
-
-      # plot histogram
-      hist(MC.n, freq=FALSE, col = "gray90",
-           main="", xlab=xlab,
-           xlim = c(min(MC.n)*0.95, max(MC.n)*1.05),
-           ylim = c(0, max(MC.n.kde$y)*1.1))
-
-      # add rugs to histogram
-      graphics::rug(MC.n)
-
-      # add KDE curve
-      lines(MC.n.kde, col = "black", lwd = 1)
-
-      # add mean, median and quantils (0.05,0.95)
-      abline(v=c(MC.stats$mean, MC.stats$median, MC.q),
-             lty=c(2, 4, 3,3), lwd = 1)
-
-      # add main- and subtitle
-      mtext(main, side = 3, adj = 0.5,
-            line = 3, cex = 1)
-      mtext(as.expression(bquote(italic(n) == .(MC.iter) ~ "|" ~
-                                   italic(hat(mu)) == .(round(MC.stats$mean)) ~ "|" ~
-                                   italic(hat(sigma))  == .(round(MC.stats$sd.abs)) ~ "|" ~
-                                   italic(frac(hat(sigma),sqrt(n))) == .(round(MC.stats$se.abs))  ~ "|" ~
-                                   italic(v) == .(round(MC.stats$skewness, 2))
-      )
-      ),
-      side = 3, line = 0.3, adj = 0.5,
-      cex = 0.9)
-
-      # add legend
-      legend("topright", legend = c("mean","median", "0.05 / 0.95 quantile"),
-             lty = c(2, 4, 3), bg = "white", box.col = "white", cex = 0.9)
-
-      ## BOXPLOT
-      # set margins (bottom, left, top, right)
-      par(mar=c(5,5,0,3))
-
-      plot(NA, type="n", xlim=c(min(MC.n)*0.95, max(MC.n)*1.05),
-           xlab=xlab,  ylim=c(0.5,1.5),
-           xaxt="n", yaxt="n", ylab="")
-      par(bty="n")
-      graphics::boxplot(MC.n, horizontal = TRUE, add = TRUE, bty = "n", cex = 1)
-  }#EndOf::Case 5 - calc_AliquotSize()
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 6: calc_SourceDoseRate() ----------

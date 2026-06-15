@@ -391,7 +391,22 @@ calc_AliquotSize <- function(
 
   ##=========##
   ## PLOTTING
-  if (plot && !is.null(object@data$MC$estimates)) {
+  if (plot) {
+    .plot_AliquotSize(object, ...)
+  }
+
+  ## Return values
+  invisible(object)
+}
+
+.plot_AliquotSize <- function(results, ...) {
+  MC <- get_RLum(results, "MC")
+  MC.n <- MC$estimates
+  MC.stats <- MC$statistics
+
+  if (is.null(MC.n)) {
+    return(invisible())
+  }
 
     ## default graphical settings
     settings <- list(
@@ -421,7 +436,7 @@ calc_AliquotSize <- function(
     hist(MC.n, freq = FALSE, col = settings$col,
          main = settings$main, xlab = settings$xlab, cex = settings$cex,
          xlim = c(min(MC.n) * 0.95, max(MC.n) * 1.05),
-         ylim = c(0, max(MC.n.kde$y) * 1.1))
+         ylim = c(0, max(MC$kde$y) * 1.1))
 
     ## add rugs to histogram
     if (settings$rug) {
@@ -429,10 +444,10 @@ calc_AliquotSize <- function(
     }
 
     ## add KDE curve
-    lines(MC.n.kde, col = settings$line_col, lwd = settings$line_lwd)
+    lines(MC$kde, col = settings$line_col, lwd = settings$line_lwd)
 
     ## add mean, median and quantils (0.05,0.95)
-    abline(v = c(MC.stats$mean, MC.stats$median, MC.q),
+    abline(v = c(MC.stats$mean, MC.stats$median, MC$quantile),
            lty = c(2, 4, 3, 3), lwd = 1)
 
     ## add title and subtitle
@@ -461,8 +476,4 @@ calc_AliquotSize <- function(
            xaxt = "n", yaxt = "n", ylab = "")
       graphics::boxplot(MC.n, horizontal = TRUE, add = TRUE, bty = "n", cex = 1)
     }
-  }
-
-  # Return values
-  invisible(object)
 }
