@@ -759,6 +759,11 @@ analyse_SAR.CWOSL<- function(
                                   function(record) record@info$IRR_TIME %||% NA),
                     data.table::rbindlist(LnLxTnTx))
 
+  ## check whether we have dose points at all
+  if (is.null(dose.points) && anyNA(LnLxTnTx$Dose)) {
+    .throw_error("'dose.points' contains NA values or was not set")
+  }
+
   ## Set regeneration points ------------------------------------------------
   ## overwrite dose point manually
   if (length(dose.points) > 0) {
@@ -781,11 +786,6 @@ analyse_SAR.CWOSL<- function(
   if(!is.null(dose_rate_source)) {
     LnLxTnTx$Dose <- LnLxTnTx$Dose * dose_rate_source
     LnLxTnTx$Test_Dose <- ifelse(LnLxTnTx$Test_Dose < 1, -1, LnLxTnTx$Test_Dose  * dose_rate_source)
-  }
-
-  ##check whether we have dose points at all
-  if (is.null(dose.points) && anyNA(LnLxTnTx$Dose)) {
-    .throw_error("'dose.points' contains NA values or was not set")
   }
 
   ## check whether the first OSL/IRSL curve (i.e., the Natural) has 0 dose. If
