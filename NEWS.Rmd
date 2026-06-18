@@ -205,6 +205,11 @@ function's full range of plot customisation arguments via `...` (#1585).
 did not flag as an error before, because the `plotly` object was returned regardless
 of the error message; fixed.
 
+* If the column names are replaced by the index, the default y-axis label is now
+preset accordingly to "Channel index"; it can be overwritten manually using `ylab` 
+as a function argument. This should avoid cases where the user overlooks the warning
+and struggles to understand the axis values. 
+
 ### `read_Daybreak2R()`
 
 * Information about irradiation doses are now more easily retrievable from the

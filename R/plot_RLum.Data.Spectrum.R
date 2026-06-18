@@ -174,7 +174,7 @@
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.6.14
+#' @section Function version: 0.6.15
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -324,9 +324,11 @@ plot_RLum.Data.Spectrum <- function(
   }
 
   ## check for duplicated column names (e.g., temperature not increasing)
+  ## in this case we replace the axis labelling
   if (anyDuplicated(colnames(object@data)) > 0) {
     .throw_warning("Duplicated column names found, replaced by index")
     colnames(object@data) <- 1:ncol(object@data[])
+    ylab <- "Channel index"
   }
 
   ##deal with addition arguments
