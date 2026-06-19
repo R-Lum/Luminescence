@@ -332,16 +332,14 @@ analyse_portableOSL <- function(
 
   if (plot) {
 
-    ## add a few attributes to be used later
-    attr(m_list, "xlim") <- lapply(m_list, function(x) range(x[,1]))
-    attr(m_list, "ylim") <- if(invert) rev(range(m_list[[1]][,2])) else range(m_list[[1]][,2])
-    attr(m_list, "zlim") <- lapply(m_list, function(x) range(x[,3]))
-
-    ## account for surface case
     if (mode == "surface") {
-      attr(m_list, "ylim") <- if (invert) rev(range(summary$COORD_Y)) else range(summary$COORD_Y)
-      attr(m_list, "xlim") <- range(summary$COORD_X)
+      xlim <- range(summary$COORD_X)
+      ylim <- range(summary$COORD_Y)
+    } else {
+      xlim <- lapply(m_list, function(x) range(x[, 1]))
+      ylim <- range(m_list[[1]][, 2])
     }
+    zlim <- lapply(m_list, function(x) range(x[, 3]))
 
    ## preset plot settings
    ## plot settings -------
@@ -357,9 +355,9 @@ analyse_portableOSL <- function(
        labcex = 0.6,
        col = c("blue", "red", "blue", "red", "black", "grey"),
        pch = rep(16, length(m_list)),
-       xlim = attr(m_list, "xlim"),
-       ylim = attr(m_list, "ylim"),
-       zlim = if(mode == "surface") NA else attr(m_list, "zlim"),
+       xlim = xlim,
+       ylim = if (invert) rev(ylim) else ylim,
+       zlim = if (mode == "surface") NA else zlim,
        ylab = if (!anyNA(summary$COORD_Y)) "Depth [m]" else "Index",
        xlab = "x [m]",
        nx = 200,
@@ -548,7 +546,7 @@ analyse_portableOSL <- function(
     if(!inherits(plot_settings$zlim, "list")) {
       .throw_warning("In profile mode, zlim needs to be provided as a named ",
                      "list, example: list(BSL = c(0,1)). Reset to default")
-      plot_settings$zlim <- attr(m_list, "zlim")
+        plot_settings$zlim <- zlim
     }
 
       ## plot the profile for each measure
