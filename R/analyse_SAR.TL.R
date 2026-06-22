@@ -370,31 +370,20 @@ analyse_SAR.TL <- function(
   }
 
   # # Plotting TL LnLx Curves ----------------------------------------------------
-  ##matrix with LnLx curves
-  LnLx_matrix <- vapply(seq(1, length(TL.signal.ID), by = 2), function(x){
-    if(length(TL.background.ID) != 0){
-      object@records[[TL.signal.ID[x]]]@data[,2] -
-        object@records[[TL.background.ID[x]]]@data[,2]
-    }else{
-      object@records[[TL.signal.ID[x]]]@data[,2]
-    }
-  }, numeric(nrow(object@records[[TL.signal.ID[1]]]@data)))
-
-  ##add time axis
-  LnLx_matrix <- cbind(object@records[[TL.signal.ID[1]]]@data[,1], LnLx_matrix)
-
-  ##matrix with TnTx curves
-  TnTx_matrix <- vapply(seq(2, length(TL.signal.ID), by = 2), function(x){
-    if(length(TL.background.ID) != 0){
-      object@records[[TL.signal.ID[x]]]@data[,2] -
-        object@records[[TL.background.ID[x]]]@data[,2]
-    }else{
-      object@records[[TL.signal.ID[x]]]@data[,2]
-    }
-  }, numeric(nrow(object@records[[TL.signal.ID[1]]]@data)))
-
-  ##add time axis
-  TnTx_matrix <- cbind(object@records[[TL.signal.ID[1]]]@data[,1], TnTx_matrix)
+  .get_curve_matrix <- function(start.index) {
+    time.axis <- object@records[[TL.signal.ID[1]]]@data[, 1]
+    mat <- vapply(seq(start.index, length(TL.signal.ID), by = 2), function(x) {
+      object@records[[TL.signal.ID[x]]]@data[, 2] -
+        if (length(TL.background.ID) > 0) {
+          object@records[[TL.background.ID[x]]]@data[, 2]
+        } else {
+          0
+        }
+    }, numeric(length(time.axis)))
+    cbind(time.axis, mat)
+  }
+  LnLx_matrix <- .get_curve_matrix(1)
+  TnTx_matrix <- .get_curve_matrix(2)
 
   ##catch log-scale problem
   if (log != "" && (min(LnLx_matrix) <= 0 || min(TnTx_matrix) <= 0)) {
