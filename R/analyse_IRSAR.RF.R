@@ -1375,9 +1375,9 @@ analyse_IRSAR.RF<- function(
     }
     par(cex = plot.settings[["cex"]])
 
+    x <- NULL ## silence notes raised by R CMD check
     .draw_fit_curve <- function(coef, from, to, col, lty = 1) {
       if (length(coef) < 4L) return()
-      x <- NULL
       curve(coef[[1]] - (coef[[2]] * ((1 - exp(-coef[[3]] * x)) ^ coef[[4]])),
             add = TRUE, from = from, to = to, col = col, lty = lty)
     }

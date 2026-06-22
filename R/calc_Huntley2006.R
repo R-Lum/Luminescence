@@ -665,11 +665,12 @@ calc_Huntley2006 <- function(
   scaled.ddots <- ddots / (ddots + UFD0 * K)
   A.pr.ddots <- A * pr * scaled.ddots
   inv.UFD0.K <- 1 / scaled.ddots / UFD0
-  fun <- switch(fit.method,
+  fun <- list(
     EXP = function(k) A.pr.ddots[k] *
         (1 - exp(-(natdosetime + c_val) * inv.UFD0.K[k])),
     GOK = function(k) A.pr.ddots[k] *
         (d_gok - (1 + inv.UFD0.K[k] * natdosetime * c_val)^(-1 / c_val)))
+  fun <- fun[[fit.method]]
   TermA <- t(vapply(seq_along(rprime), fun, USE.NAMES = FALSE,
                     FUN.VALUE = numeric(length(natdosetime))))
 
