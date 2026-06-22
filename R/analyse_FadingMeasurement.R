@@ -352,7 +352,7 @@ analyse_FadingMeasurement <- function(
       if(any(TIMESINCEIRR < 0)){
         ##now we have a problem and we first have to make sure that we understand
         ##the data structure and remove also the corresponding values
-        if(all(structure == c("Lx", "Tx"))){
+        if (length(structure) == 2) {
           rm_id <- matrix(TIMESINCEIRR, ncol = 2, byrow = TRUE)
           rm_id[apply(rm_id < 0, MARGIN = 1, any),] <- NA
           rm_id <- is.na(as.numeric(t(rm_id)))
@@ -454,7 +454,7 @@ analyse_FadingMeasurement <- function(
         TIMESINCEIRR <- TIMESINCEIRR[-rm.idx]
       }
 
-    }else if(length(structure) == 1){
+    } else {
       Lx_data <- object_clean
       Tx_data <- NULL
     }
@@ -466,14 +466,14 @@ analyse_FadingMeasurement <- function(
         Tx.data = Tx_data,
         signal_integral = signal_integral,
         background_integral = background_integral,
-        signal_integral_Tx = list(...)$signal_integral_Tx,
-        background_integral_Tx = list(...)$background_integral_Tx,
+        signal_integral_Tx = extraArgs$signal_integral_Tx,
+        background_integral_Tx = extraArgs$background_integral_Tx,
         integral_input = integral_input,
-        sigmab = list(...)$sigmab,
-        od_rates = list(...)$od_rates,
-        sig0 = list(...)$sig0 %||% formals(calc_OSLLxTxRatio)$sig0,
+        sigmab = extraArgs$sigmab,
+        od_rates = extraArgs$od_rates,
+        sig0 = extraArgs$sig0 %||% formals(calc_OSLLxTxRatio)$sig0,
         background.count.distribution =
-          list(...)$background.count.distribution %||%
+          extraArgs$background.count.distribution %||%
                    formals(calc_OSLLxTxRatio)$background.count.distribution
       )
     ))$LxTx.table
@@ -540,7 +540,6 @@ analyse_FadingMeasurement <- function(
 
   ##apply the fit
   fit_matrix <- vapply(X = 1:n.MC, FUN = function(x) {
-    ##fit
     fit <- try(stats::lm(y ~ x, data = data.frame(
       x = MC_matrix[,1],
       y = MC_matrix[, x + 1]))$coefficients, silent = TRUE)
@@ -594,8 +593,6 @@ analyse_FadingMeasurement <- function(
   df <- data.frame(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
                    y = LxTx_table[["LxTx_NORM"]])
   fit <- try(stats::lm(y ~ x, data = df), silent = TRUE)
-  fit_power <- try(stats::lm(y ~ I(x^3) + I(x^2) + I(x),
-                             data = df), silent = TRUE)
 
   ##for predicting
   fit_predict <-
@@ -659,9 +656,6 @@ analyse_FadingMeasurement <- function(
       par(mfrow = c(2, 2))
     }
 
-    ##get package
-    col <- get("col", pos = .LuminescenceEnv)
-
     ##set some plot settings
     plot_settings <- list(
       xlab = "Stimulation time [s]",
@@ -673,7 +667,7 @@ analyse_FadingMeasurement <- function(
     )
 
     ##modify on request
-    plot_settings <- modifyList(x = plot_settings, val = list(...))
+    plot_settings <- modifyList(x = plot_settings, val = extraArgs)
 
     ##get unique irradiation times ... for plotting
     irradiation_times.unique <- unique(TIMESINCEIRR)
@@ -692,21 +686,20 @@ analyse_FadingMeasurement <- function(
 
     ## compute integration limits for plots
     if (!is.null(object)) {
-      if (length(structure) == 2) {
-        int.limits.lx <- c(object_clean[[1]][range(signal_integral), 1],
-                           object_clean[[1]][range(background_integral), 1])
-      } else {
-        int.limits.lx <- c(range(signal_integral), range(background_integral)) *
-          max(as.matrix(object_clean[[1]][, 1])) /
-          nrow(as.matrix(object_clean[[1]]))
+      obj <- object_clean[[1]]
+      .limits <- function(signal_int, background_int) {
+        c(range(signal_int), range(background_int)) * max(obj[, 1]) / nrow(obj)
       }
-      if (is.null(list(...)$signal_integral_Tx)) {
+      if (length(structure) == 2) {
+        int.limits.lx <- obj[c(range(signal_integral), range(background_integral)), 1]
+      } else {
+        int.limits.lx <- .limits(signal_integral, background_integral)
+      }
+      if (is.null(extraArgs$signal_integral_Tx)) {
         int.limits.tx <- int.limits.lx
       } else {
-        int.limits.tx <- c(range(list(...)$signal_integral_Tx),
-                           range(list(...)$background_integral_Tx)) *
-          max(as.matrix(object_clean[[1]][, 1])) /
-          nrow(as.matrix(object_clean[[1]]))
+        int.limits.tx <- .limits(extraArgs$signal_integral_Tx,
+                                 extraArgs$background_integral_Tx)
       }
     }
 
@@ -789,39 +782,19 @@ analyse_FadingMeasurement <- function(
         ## if we have less then two values to show, we fall back to the
         ## old data representation.
         if (length(x_axis_ticks[x_axis_ticks > 0]) > 2) {
-          axis(
-            side = 1,
-            at = x_axis_ticks,
-            labels = sapply(x_axis_lab, function(i)
-              as.expression(bquote(10 ^ .(i))))
-          )
-          ##lower axis
-          axis(
-            side = 1,
-            at = x_axis_ticks,
-            labels = paste0("[",round(x_axis_ticks,1),"]"),
-            cex.axis = 0.7,
-            tick = FALSE,
-            line = 0.75)
-
+          at <- x_axis_ticks
+          lab <- sapply(x_axis_lab, function(i) as.expression(bquote(10^.(i))))
+          lab2 <- paste0("[", round(x_axis_ticks, 1), "]")
         } else {
-          axis(
-            side = 1,
-            at = axTicks(side = 1),
-            labels = suppressWarnings(format((10 ^ (axTicks(side = 1)) * tc),
-                                                digits = 1,
-                                                decimal.mark = "",
-                                                scientific = TRUE)))
-
-          ##lower axis
-          axis(
-            side = 1,
-            at = axTicks(1),
-            labels = axTicks(1),
-            cex.axis = 0.7,
-            tick = FALSE,
-            line = 0.75)
+          at <- axTicks(side = 1)
+          lab <- suppressWarnings(format(10^at * tc,
+                                          digits = 1, decimal.mark = "",
+                                          scientific = TRUE))
+          lab2 <- at
         }
+        axis(side = 1, at = at, labels = lab)
+        axis(side = 1, at = at, labels = lab2,
+             cex.axis = 0.7, tick = FALSE, line = 0.75)
 
         mtext(
           side = 3,
@@ -860,6 +833,8 @@ analyse_FadingMeasurement <- function(
 
         ##add power law curve
         if(plot_settings$plot.trend) {
+          fit_power <- try(stats::lm(y ~ I(x^3) + I(x^2) + I(x),
+                                     data = df), silent = TRUE)
           curve(
             x ^ 3 * fit_power$coefficient[2] + x ^ 2 * fit_power$coefficient[3] + x
             * fit_power$coefficient[4] + fit_power$coefficient[1],
@@ -887,16 +862,15 @@ analyse_FadingMeasurement <- function(
         ##add legend
         legend(
           "bottom",
-          legend = c("fit", "fit MC", if(plot_settings$plot.trend) "trend" else NULL),
-          col = c("red", "grey", if(plot_settings$plot.trend) "blue" else NULL),
-          lty = c(1, 1, if(plot_settings$plot.trend) 2 else NULL),
+          legend = c("fit", "fit MC", if (plot_settings$plot.trend) "trend"),
+          col = c("red", "grey", if (plot_settings$plot.trend) "blue"),
+          lty = c(1, 1, if (plot_settings$plot.trend) 2),
           bty = "n",
           horiz = TRUE
         )
     }#
 
     if (4 %in% plot_singlePanels) {
-
       if(all(is.na(g_value.MC))){
         shape::emptyplot()
         text(x = 0.5, y = 0.5, labels = "All NA values!")
