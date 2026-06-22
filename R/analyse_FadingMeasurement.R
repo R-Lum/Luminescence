@@ -530,13 +530,13 @@ analyse_FadingMeasurement <- function(
   ##we need to fit the data to get the g_value
 
   ##sample for monte carlo runs
-  MC_matrix <- suppressWarnings(cbind(LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
-                     matrix(rnorm(
-                       n = n.MC * nrow(LxTx_table),
-                       mean = LxTx_table[["LxTx_NORM"]],
-                       sd = abs(LxTx_table[["LxTx_NORM.ERROR"]])
-                     ),
-                     ncol = n.MC)))
+  MC_all <- suppressWarnings(matrix(rnorm(
+    n = 2 * n.MC * nrow(LxTx_table),
+    mean = LxTx_table[["LxTx_NORM"]],
+    sd = abs(LxTx_table[["LxTx_NORM.ERROR"]])
+  ), ncol = 2 * n.MC))
+  MC_matrix <- cbind(LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
+                     MC_all[, 1:n.MC, drop = FALSE])
 
   ##apply the fit
   fit_matrix <- vapply(X = 1:n.MC, FUN = function(x) {
@@ -558,12 +558,8 @@ analyse_FadingMeasurement <- function(
   ##s value after Huntley (2006) J. Phys. D.
   Hs <- 3e15
 
-  ##sample for monte carlo runs
-  MC_matrix_rhop <-  suppressWarnings(matrix(rnorm(
-    n = n.MC * nrow(LxTx_table),
-    mean = LxTx_table[["LxTx_NORM"]],
-    sd = abs(LxTx_table[["LxTx_NORM.ERROR"]])
-  ), ncol = n.MC))
+  ## rho' matrix
+  MC_matrix_rhop <- MC_all[, n.MC + 1:n.MC, drop = FALSE]
 
   ## calculate rho prime for all MC samples
   fit_vector_rhop <- suppressWarnings(apply(MC_matrix_rhop, MARGIN = 2, FUN = function(x) {
