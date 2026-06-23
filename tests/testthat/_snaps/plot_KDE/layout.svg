@@ -38,14 +38,14 @@
 <text x='353.77' y='397.36' style='font-size: 4.90px; font-family: sans;' textLength='2.73px' lengthAdjust='spacingAndGlyphs'>e</text>
 <text x='356.50' y='396.07' style='font-size: 7.00px; font-family: sans;' textLength='14.78px' lengthAdjust='spacingAndGlyphs'> [Gy]</text>
 <line x1='274.96' y1='349.01' x2='274.96' y2='204.35' style='stroke-width: 0.75;' />
-<line x1='274.96' y1='349.01' x2='270.28' y2='349.01' style='stroke-width: 0.75;' />
-<line x1='274.96' y1='328.34' x2='270.28' y2='328.34' style='stroke-width: 0.75;' />
-<line x1='274.96' y1='307.68' x2='270.28' y2='307.68' style='stroke-width: 0.75;' />
-<line x1='274.96' y1='287.01' x2='270.28' y2='287.01' style='stroke-width: 0.75;' />
-<line x1='274.96' y1='266.34' x2='270.28' y2='266.34' style='stroke-width: 0.75;' />
-<line x1='274.96' y1='245.68' x2='270.28' y2='245.68' style='stroke-width: 0.75;' />
-<line x1='274.96' y1='225.01' x2='270.28' y2='225.01' style='stroke-width: 0.75;' />
-<line x1='274.96' y1='204.35' x2='270.28' y2='204.35' style='stroke-width: 0.75;' />
+<line x1='274.96' y1='349.01' x2='271.36' y2='349.01' style='stroke-width: 0.75;' />
+<line x1='274.96' y1='328.34' x2='271.36' y2='328.34' style='stroke-width: 0.75;' />
+<line x1='274.96' y1='307.68' x2='271.36' y2='307.68' style='stroke-width: 0.75;' />
+<line x1='274.96' y1='287.01' x2='271.36' y2='287.01' style='stroke-width: 0.75;' />
+<line x1='274.96' y1='266.34' x2='271.36' y2='266.34' style='stroke-width: 0.75;' />
+<line x1='274.96' y1='245.68' x2='271.36' y2='245.68' style='stroke-width: 0.75;' />
+<line x1='274.96' y1='225.01' x2='271.36' y2='225.01' style='stroke-width: 0.75;' />
+<line x1='274.96' y1='204.35' x2='271.36' y2='204.35' style='stroke-width: 0.75;' />
 <text transform='translate(267.76,349.01) rotate(-90)' text-anchor='middle' style='font-size: 7.00px; font-family: sans;' textLength='13.62px' lengthAdjust='spacingAndGlyphs'>0.00</text>
 <text transform='translate(267.76,328.34) rotate(-90)' text-anchor='middle' style='font-size: 7.00px; font-family: sans;' textLength='13.62px' lengthAdjust='spacingAndGlyphs'>0.01</text>
 <text transform='translate(267.76,307.68) rotate(-90)' text-anchor='middle' style='font-size: 7.00px; font-family: sans;' textLength='13.62px' lengthAdjust='spacingAndGlyphs'>0.02</text>
