@@ -32,7 +32,8 @@ get_RLum(object, ...)
   recursive = TRUE,
   info.object = NULL,
   subset = NULL,
-  env = parent.frame(2)
+  env = parent.frame(2),
+  verbose = TRUE
 )
 
 \S4method{get_RLum}{RLum.Data.Curve}(object, info.object = NULL)
@@ -103,6 +104,9 @@ info elements.}
 \item{env}{\link{environment} (\emph{with default}):
 An environment passed to \link{eval} as the enclosure. This argument is only
 relevant when subsetting the object and should not be used manually.}
+
+\item{verbose}{\link{logical} (\emph{with default}):
+Enable/disable output to the terminal.}
 
 \item{data.object}{\link{character} or \link{numeric}:
 name or index of the data slot to be returned.}

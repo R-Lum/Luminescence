@@ -93,12 +93,12 @@ test_that("get_RLum", {
                "'info.object' should be of class 'character' or NULL and have length 1")
   expect_error(get_RLum(obj, subset = "recordType == 'RF (NA)'", get.index = NA),
                "'get.index' should be a single logical value")
-  SW({
   expect_message(expect_null(get_RLum(obj, subset = (recordType == "RF"))),
                  "Error: 'subset' expression produced an empty selection")
   expect_message(expect_null(get_RLum(obj, subset = "recordType == 'RF'")),
                  "Error: 'subset' expression produced an empty selection")
-  })
+  expect_silent(expect_null(get_RLum(obj, subset = "recordType == 'RF'",
+                                     verbose = FALSE)))
 
   ## check functionality
   expect_length(get_RLum(obj, subset = (recordType == "RF (NA)")), 2)
