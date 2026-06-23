@@ -456,6 +456,17 @@ fit_DoseResponseCurve <- function(
       .throw_warning("Inf values found, replaced by NA")
   }
 
+  ##2.2.1 silent column name corrections and ordering
+  ## ensure consistent column names
+  colnames(object) <- tolower(colnames(object))
+  
+  ## check if all desired column names are present
+  ## then sort (either way!)
+  default_cln <- c("dose", "lxtx", "lxtx.error", "tntx", "test_dose")
+  if(max(match(colnames(object), default_cln), na.rm = TRUE) > 2) 
+    object <- object[,intersect(default_cln, colnames(object))]
+    
+    
   ##2.3 check whether the dose value is equal all the time
   if (sum(abs(diff(object[[1]])), na.rm = TRUE) == 0) {
     .throw_message("All points have the same dose, NULL returned")
@@ -477,18 +488,6 @@ fit_DoseResponseCurve <- function(
       return(NULL)
     }
   }
-
-  ##2.4 treat column names to enable users providing mixed column names 
-  ##as long as the names somehwat exist
-
-  ## ensure consistent column names
-  colnames(object) <- tolower(colnames(object))
-  
-  ## check if all desired column names are present
-  ## then sort (either way!)
-  if(all(colnames(object[1:ncol(object)]) %in% c("dose", "lxtx", "lxtx.error", "tntx", "test_dose"))) 
-    object <- object[,c("dose", "lxtx", "lxtx.error", "tntx", "test_dose")[1:ncol(object)]]
-    
 
   ##3. verbose mode
   if(!verbose)
