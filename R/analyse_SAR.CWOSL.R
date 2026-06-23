@@ -225,7 +225,7 @@
 #'
 #' @param ... further arguments that will be passed to
 #' [Luminescence::fit_DoseResponseCurve], [Luminescence::plot_DoseResponseCurve]
-#' or [Luminescence::calc_OSLLxTxRatio] (supported:
+#' or [Luminescence::calc_OSLLxTxRatio] (the latter only supports
 #' `background.count.distribution`, `sigmab`, `sig0`, `od_rates`).
 #' Additionally, supported are `legend.cex` and `legend.pch` to modify the
 #' legend symbols.
