@@ -155,10 +155,12 @@
 #'
 #' @param object [data.frame] or a [list] of such objects (**required**):
 #' data frame with columns for `Dose`, `LxTx`, `LxTx.Error` and `TnTx`.
+#' 
 #' The column for the test dose response is optional, but requires `'TnTx'` as
 #' column name if used. For exponential fits at least three dose points
 #' (including the natural) should be provided. If `object` is a list,
 #' the function is called on each of its elements.
+#' 
 #' If `fit.method = "OTORX"` you have  to provide the test dose in the same unit
 #' as the dose in a column called `Test_Dose`. The function searches explicitly
 #' for this column name. Only the first value will be used assuming a constant
@@ -271,7 +273,7 @@
 #' `.De.raw` \tab [numeric] \tab equivalent dose reported 'as is', that is, containing infinities and negative values if they could be calculated. Bear in mind that negative values are meaningless and may be arbitrary.\cr
 #' }
 #'
-#' @section Function version: 1.5.0
+#' @section Function version: 1.5.1
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -436,7 +438,7 @@ fit_DoseResponseCurve <- function(
     data.frame = object,
     matrix = object <- as.data.frame(object),
   )
-
+  
   ##2.1 check column numbers; we assume that in this particular case no error value
   ##was provided, e.g., set all errors to 0
   if (ncol(object) < 2) {
@@ -475,6 +477,18 @@ fit_DoseResponseCurve <- function(
       return(NULL)
     }
   }
+
+  ##2.4 treat column names to enable users providing mixed column names 
+  ##as long as the names somehwat exist
+
+  ## ensure consistent column names
+  colnames(object) <- tolower(colnames(object))
+  
+  ## check if all desired column names are present
+  ## then sort (either way!)
+  if(all(colnames(object[1:ncol(object)]) %in% c("dose", "lxtx", "lxtx.error", "tntx", "test_dose"))) 
+    object <- object[,c("dose", "lxtx", "lxtx.error", "tntx", "test_dose")[1:ncol(object)]]
+    
 
   ##3. verbose mode
   if(!verbose)
@@ -1580,12 +1594,12 @@ fit_DoseResponseCurve <- function(
 
   }  ## OTORX ---------------------------------------------------------------
   else if (fit.method == "OTORX") {
-    if(is.null(object$Test_Dose) || all(object$Test_Dose == -1))
+    if(is.null(object$test_dose) || all(object$test_dose == -1))
       .throw_error("Column 'Test_Dose' missing but mandatory for 'OTORX' fitting!")
 
     ## we need a test dose; the default value is -1 because an NA will cause
     ## additional problems
-      TEST_DOSE <- object$Test_Dose[[1]]
+      TEST_DOSE <- object$test_dose[[1]]
 
       ## here we replace TEST_DOSE by an evaluated value
       ## in the function body; this makes things ALOT easier below

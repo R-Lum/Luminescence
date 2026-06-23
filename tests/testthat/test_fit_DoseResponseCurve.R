@@ -131,6 +131,14 @@ test_that("weird LxTx values", {
     fit_DoseResponseCurve(as.matrix(LxTxData)),
     class = "RLum.Results")
   })
+  
+  ## shuffle column names
+  SW({
+    LxTxData_shuffle <- LxTxData[,c("LxTx.Error", "LxTx", "Dose")]
+    expect_s4_class(
+      fit_DoseResponseCurve(LxTxData_shuffle),
+      class = "RLum.Results")
+  })
 
   ## test case for only two columns
   expect_s4_class(

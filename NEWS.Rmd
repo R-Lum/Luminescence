@@ -146,6 +146,13 @@ results are to be expected (#1568).
 errors as weights, which may improve the fitting in cases when the data to fit
 is highly irregular due to very large errors (#1570).
 
+* From the documentation, it was not always clear that the function 
+expects columns with values in a particular order and does not look 
+up column names (at least not all). Now the function is a little bit
+more flexible and automatically orders columns in the required order
+if column names that would somewhat match the expectations are used. 
+(#1591 reported by @DirkMittelstrass). 
+
 ### `get_RLum()`
 
 * It is now possible to disable a potentially very long information message

@@ -19,10 +19,12 @@ plot_GrowthCurve(
 \arguments{
 \item{object}{\link{data.frame} or a \link{list} of such objects (\strong{required}):
 data frame with columns for \code{Dose}, \code{LxTx}, \code{LxTx.Error} and \code{TnTx}.
+
 The column for the test dose response is optional, but requires \code{'TnTx'} as
 column name if used. For exponential fits at least three dose points
 (including the natural) should be provided. If \code{object} is a list,
 the function is called on each of its elements.
+
 If \code{fit.method = "OTORX"} you have  to provide the test dose in the same unit
 as the dose in a column called \code{Test_Dose}. The function searches explicitly
 for this column name. Only the first value will be used assuming a constant
