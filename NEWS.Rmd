@@ -146,6 +146,14 @@ results are to be expected (#1568).
 errors as weights, which may improve the fitting in cases when the data to fit
 is highly irregular due to very large errors (#1570).
 
+### `get_RLum()`
+
+* It is now possible to disable a potentially very long information message
+reported when the `subset` argument returns an empty list by setting
+`verbose = FALSE`. The `verbose` argument is also exposed in the `subset()`
+method for `RLum.Analysis` objects (#1587; thanks to @DirkMittelstrass for
+highlighting the problem).
+
 ### `plot_AbanicoPlot()`
 
 * The summary text is no longer overprinted when multiple datasets are
