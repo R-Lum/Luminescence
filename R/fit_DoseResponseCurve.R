@@ -461,7 +461,7 @@ fit_DoseResponseCurve <- function(
   ## check if all desired column names are present
   ## then sort (either way!)
   default_cln <- c("dose", "lxtx", "lxtx.error", "tntx", "test_dose")
-  match.idx <- na.omit(match(default_cln, tolower(colnames(object))))
+  match.idx <- stats::na.omit(match(default_cln, tolower(colnames(object))))
   if (length(match.idx) >= 3)
     object <- object[, match.idx]
 
