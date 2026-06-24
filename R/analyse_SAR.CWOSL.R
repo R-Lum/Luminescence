@@ -687,11 +687,6 @@ analyse_SAR.CWOSL<- function(
 
   verbose <- .validate_logical_scalar(extraArgs$verbose %||% TRUE, name = "'verbose'")
   main <- extraArgs$main %||% ""
-  log <- extraArgs$log %||% ""
-  cex <- extraArgs$cex %||% 1
-  legend.cex <- extraArgs$legend.cex %||% 4
-  legend.pch <- extraArgs$legend.pch %||% 20
-
   background.count.distribution <-
       extraArgs$background.count.distribution %||% "non-poisson"
   sigmab <- extraArgs$sigmab
@@ -1081,8 +1076,6 @@ analyse_SAR.CWOSL<- function(
   mtext.outer = "",
   plot_onePage = FALSE,
   plot_singlePanels = FALSE,
-  legend.pch = 20,
-  legend.cex = 4,
   ...
 ) {
   curve_args <- results@data$.plot.data
@@ -1102,6 +1095,8 @@ analyse_SAR.CWOSL<- function(
   curve_args$col <- col
   curve_args$cex <- list(...)$cex %||% 1
   curve_args$log <- list(...)$log %||% ""
+  legend.cex <- list(...)$legend.cex %||% 4
+  legend.pch <- list(...)$legend.pch %||% 20
 
     ## Layout and panel selection -------------------------------------------
     ## 1 -> TL previous LnLx
