@@ -12,6 +12,8 @@ test_that("input validation", {
                "All elements of 'object' should be of class 'RLum.Results'")
   expect_message(expect_null(merge_RLum.Results(list())),
                  "'objects' contains no data, NULL returned")
+  expect_error(merge_RLum.Results(list(res), flatten = NA),
+               "'flatten' should be a single logical value")
 
   res2 <- res
   res2@originator <- "unknown"
@@ -39,4 +41,8 @@ test_that("check functionality", {
   expect_snapshot_RLum(merge_RLum.Results(list(empty)))
   expect_s4_class(merge_RLum.Results(list(empty, empty)),
                   "RLum.Results")
+
+  expect_snapshot_RLum(merge_RLum.Results(lapply(list(roi, roi),
+                                                 function(x) extract_ROI(a, x)),
+                                          flatten = FALSE))
 })

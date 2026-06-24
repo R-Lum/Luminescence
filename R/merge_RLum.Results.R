@@ -12,7 +12,10 @@
 #' @param objects [list] (**required**):
 #' a list of [Luminescence::RLum.Results-class] objects
 #'
-#' @section Function version: 0.2.1
+#' @param flatten [logical] (*with default*):
+#' whether list elements should be flattened before merging.
+#'
+#' @section Function version: 0.3
 #'
 #' @keywords internal
 #'
@@ -21,19 +24,19 @@
 #'
 #' @export
 merge_RLum.Results <- function(
-  objects
+  objects,
+  flatten = TRUE
 ) {
   .set_function_name("merge_RLum.Results")
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-
   .validate_class(objects, "list")
-
   if (length(objects) == 0) {
     .throw_message("'objects' contains no data, NULL returned")
     return(NULL)
   }
+  .validate_logical_scalar(flatten)
 
   ## check if objects in the list are of type RLum.Results
   temp.originator <- sapply(objects, function(x) {
@@ -104,7 +107,7 @@ merge_RLum.Results <- function(
                 objects[[1]]@data[[i]] <- lapply(objects, function(x) x@data[[i]])
 
                 ##unlist to flatten list if necessary for the elements
-                if (inherits(objects[[1]]@data[[i]][[1]], "list")) {
+                if (inherits(objects[[1]]@data[[i]][[1]], "list") && flatten) {
                   objects[[1]]@data[[i]] <- unlist(objects[[1]]@data[[i]],
                                                        recursive = FALSE)
                 }

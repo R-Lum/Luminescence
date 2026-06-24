@@ -163,6 +163,11 @@ reported when the `subset` argument returns an empty list by setting
 method for `RLum.Analysis` objects (#1587; thanks to @DirkMittelstrass for
 highlighting the problem).
 
+### `merge_RLum.Results()`
+
+* The function gained the `flatten` argument, which allows to control whether
+list elements should be flattened into a single list when merging (#1593).
+
 ### `plot_AbanicoPlot()`
 
 * The summary text is no longer overprinted when multiple datasets are
