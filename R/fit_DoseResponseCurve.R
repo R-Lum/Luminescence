@@ -155,12 +155,12 @@
 #'
 #' @param object [data.frame] or a [list] of such objects (**required**):
 #' data frame with columns for `Dose`, `LxTx`, `LxTx.Error` and `TnTx`.
-#' 
+#'
 #' The column for the test dose response is optional, but requires `'TnTx'` as
 #' column name if used. For exponential fits at least three dose points
 #' (including the natural) should be provided. If `object` is a list,
 #' the function is called on each of its elements.
-#' 
+#'
 #' If `fit.method = "OTORX"` you have  to provide the test dose in the same unit
 #' as the dose in a column called `Test_Dose`. The function searches explicitly
 #' for this column name. Only the first value will be used assuming a constant
@@ -438,7 +438,7 @@ fit_DoseResponseCurve <- function(
     data.frame = object,
     matrix = object <- as.data.frame(object),
   )
-  
+
   ##2.1 check column numbers; we assume that in this particular case no error value
   ##was provided, e.g., set all errors to 0
   if (ncol(object) < 2) {
@@ -457,16 +457,19 @@ fit_DoseResponseCurve <- function(
   }
 
   ##2.2.1 silent column name corrections and ordering
-  ## ensure consistent column names
-  colnames(object) <- tolower(colnames(object))
-  
+
   ## check if all desired column names are present
   ## then sort (either way!)
   default_cln <- c("dose", "lxtx", "lxtx.error", "tntx", "test_dose")
-  if(max(match(colnames(object), default_cln), na.rm = TRUE) > 2) 
-    object <- object[,intersect(default_cln, colnames(object))]
-    
-    
+  match.idx <- na.omit(match(default_cln, tolower(colnames(object))))
+  if (length(match.idx) >= 3)
+    object <- object[, match.idx]
+
+  ## ensure consistent naming of the test dose column
+  test_dose.idx <- grep("Test_Dose", colnames(object), ignore.case = TRUE)
+  if (!is.null(test_dose.idx))
+    colnames(object)[test_dose.idx] <- "Test_Dose"
+
   ##2.3 check whether the dose value is equal all the time
   if (sum(abs(diff(object[[1]])), na.rm = TRUE) == 0) {
     .throw_message("All points have the same dose, NULL returned")
@@ -1593,12 +1596,12 @@ fit_DoseResponseCurve <- function(
 
   }  ## OTORX ---------------------------------------------------------------
   else if (fit.method == "OTORX") {
-    if(is.null(object$test_dose) || all(object$test_dose == -1))
+    if(is.null(object$Test_Dose) || all(object$Test_Dose == -1))
       .throw_error("Column 'Test_Dose' missing but mandatory for 'OTORX' fitting!")
 
     ## we need a test dose; the default value is -1 because an NA will cause
     ## additional problems
-      TEST_DOSE <- object$test_dose[[1]]
+    TEST_DOSE <- object$Test_Dose[[1]]
 
       ## here we replace TEST_DOSE by an evaluated value
       ## in the function body; this makes things ALOT easier below

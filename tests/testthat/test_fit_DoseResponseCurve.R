@@ -131,7 +131,7 @@ test_that("weird LxTx values", {
     fit_DoseResponseCurve(as.matrix(LxTxData)),
     class = "RLum.Results")
   })
-  
+
   ## shuffle column names
   SW({
     LxTxData_shuffle <- LxTxData[,c("LxTx.Error", "LxTx", "Dose")]
@@ -839,26 +839,22 @@ test_that("regression tests", {
   expect_output(fit_DoseResponseCurve(df),
                 "Fit: EXP (interpolation) | De = 268.26 | D01 = 2612.50",
                 fixed = TRUE)
-  
+
   ## issue 1591
   data(ExampleData.BINfileData, envir = environment())
-  
-  ##transform the values from the first position in a RLum.Analysis object
   object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
-  
-  ##perform SAR analysis and set rejection criteria
   results <- analyse_SAR.CWOSL(
     object = object,
     signal_integral = 1:2,
     background_integral = 900:1000,
     log = "x",
-    fit.method = "EXP", 
-    plot = FALSE, 
+    fit.method = "EXP",
+    plot = FALSE,
     verbose = FALSE
   )
-  
+
   t <- expect_s4_class(
-    object = fit_DoseResponseCurve(results$LnLxTnTx.table), 
+    object = fit_DoseResponseCurve(results$LnLxTnTx.table, verbose = FALSE),
     class = "RLum.Results")
   expect_equal(results$data$De, t$De$De)
 })
