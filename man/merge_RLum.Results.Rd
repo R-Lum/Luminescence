@@ -4,11 +4,14 @@
 \alias{merge_RLum.Results}
 \title{Merge function for RLum.Results S4-class objects}
 \usage{
-merge_RLum.Results(objects)
+merge_RLum.Results(objects, flatten = TRUE)
 }
 \arguments{
 \item{objects}{\link{list} (\strong{required}):
 a list of \link[=RLum.Results-class]{RLum.Results} objects}
+
+\item{flatten}{\link{logical} (\emph{with default}):
+whether list elements should be flattened before merging.}
 }
 \description{
 Function merges objects of class \link[=RLum.Results-class]{RLum.Results}. The slots in the objects
@@ -23,7 +26,7 @@ not of similar name as the default attributes of, e.g., a \link{data.frame}
 The \code{originator} is taken from the first element and not reset to \link{merge_RLum}
 }
 \section{Function version}{
- 0.2.1
+ 0.3
 }
 
 \author{
