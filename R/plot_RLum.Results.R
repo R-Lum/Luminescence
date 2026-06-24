@@ -93,7 +93,7 @@ plot_RLum.Results<- function(
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 0: General plot dispatcher ----------
   switch(object@originator,
-      analyse_SAR.CWOSL = plot_AbanicoPlot(object),
+      analyse_SAR.CWOSL = .plot_SAR.CWOSL(object, ...),
       analyse_pIRIRSequence = plot_AbanicoPlot(object),
       analyse_IRSAR.RF = plot_AbanicoPlot(object),
       calc_AliquotSize = .plot_AliquotSize(object, ...),
