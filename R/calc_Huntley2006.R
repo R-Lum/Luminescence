@@ -501,6 +501,8 @@ calc_Huntley2006 <- function(
                  ifelse(fit.bounds, ", try setting 'fit.bounds = FALSE'", ""))
   }
   if (settings$plot_all_DRC) {
+    ## set originator manually, as do.call() sets it to NA
+    GC.measured@originator <- "fit_DoseResponseCurve"
     plot_DoseResponseCurve(GC.measured, main = "Measured dose response curve",
                            xlab = "Dose [Gy]", verbose = FALSE)
   }
@@ -702,6 +704,8 @@ calc_Huntley2006 <- function(
   Age.sim <- Age.sim.error <- Age.sim.2D0 <- Age.sim.2D0.error <- NA
   if (!inherits(GC.simulated, "try-error")) {
     if (settings$plot_all_DRC) {
+      ## set originator manually, as do.call() sets it to NA
+      GC.simulated@originator <- "fit_DoseResponseCurve"
       plot_DoseResponseCurve(GC.simulated, main = "Simulated dose response curve",
                              xlab = "Dose (Gy)", verbose = FALSE)
     }

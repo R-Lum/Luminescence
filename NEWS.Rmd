@@ -199,6 +199,10 @@ unnoticed due to lack of graphical snapshots (a3ed7744).
 * Add `...` support for arguments `lwd_drc`, `lty_drc`, and `col_drc` to enable
 further customisation of the dose-response curve.
 
+* The function can now print the dose-response curves from an `RLum.Results'
+object created by `analyse_SAR.CWOSL()` (#1592; thanks to @DirkMittelstrass
+for reporting).
+
 ## `plot_KDE()`
 
 * The default background colour was incorrectly set to `NA`, which in some
