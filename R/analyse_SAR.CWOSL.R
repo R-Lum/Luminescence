@@ -976,6 +976,8 @@ analyse_SAR.CWOSL<- function(
                                       extraArgs, keep.null = TRUE))
 
     if (!is.null(temp.GC.fit)) {
+      ## set originator manually, as do.call() sets it to NA
+      temp.GC.fit@originator <- "fit_DoseResponseCurve"
       if (verbose)
         .throw_message(extraArgs$.aliquot_number, temp.GC.fit@info$fit_message,
                        error = FALSE)
