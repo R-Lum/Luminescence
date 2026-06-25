@@ -24,7 +24,7 @@ test_that("input validation", {
 
   object@originator <- "error"
   expect_error(verify_SingleGrainData(object),
-               "Object originator 'error' not supported")
+               "'object' has an unsupported originator")
 })
 
 test_that("check functionality", {
@@ -39,6 +39,12 @@ test_that("check functionality", {
   expect_equal(res@originator, "verify_SingleGrainData")
   expect_length(res@records, 5)
 
+  expect_message(res <- verify_SingleGrainData(object, cleanup = TRUE,
+                                              cleanup_level = "curve",
+                                              threshold = 10000),
+                "RLum.Analysis object reduced to records: <none>")
+  expect_length(res@records, 0)
+
   ## check for empty object in a list
   object_empty <- list(
     set_RLum(class = "RLum.Analysis", originator = "Risoe.BINfileData2RLum.Analysis"),
@@ -52,7 +58,8 @@ test_that("check functionality", {
       ))
     )
   )
-  expect_warning(verify_SingleGrainData(object_empty), regexp = "Cannot process empty RLum.Analysis objects. NULL returned!")
+  expect_warning(verify_SingleGrainData(object_empty),
+                 "Cannot process empty RLum.Analysis objects, NULL returned")
 
   ## threshold too high, empty object generated
   expect_message(res <- verify_SingleGrainData(object, cleanup = TRUE,

@@ -213,50 +213,54 @@ verify_SingleGrainData <- function(
     }, logical(1))
   }
 
+  ## helper to compute mean and variance for a list of curves
+  .mean_var_matrix <- function(l) t(vapply(l, function(x) c(mean(x), stats::var(x)),
+                                           numeric(2)))
+
+  ## helper to build the selection data.frame
+  .build_selection_df <- function(position, grain, data) {
+    ratio <- temp.results_matrix[, 2] / temp.results_matrix[, 1]
+    data.frame(
+      POSITION = position,
+      GRAIN = grain,
+      MEAN = temp.results_matrix[, 1],
+      VAR = temp.results_matrix[, 2],
+      RATIO = ratio,
+      THRESHOLD = threshold,
+      VALID = ratio > threshold & if (use_fft) .calc_FFT_selection(data) else TRUE
+    )
+  }
+
+  ## helper for aliquot-level selection by one or two columns
+  .aliquot_selection_id <- function(cols) {
+    if (nrow(unique_pairs) == 0) return(integer(0))
+    if (all(is.na(unique_pairs))) return(NA)
+    sort(unlist(lapply(1:nrow(unique_pairs), function(x) {
+      matches <- .subset2(selection, cols[1]) == .subset2(unique_pairs, cols[1])[x]
+      if (length(cols) > 1)
+        matches <- matches & .subset2(selection, cols[2]) == .subset2(unique_pairs, cols[2])[x]
+      which(matches)
+    })))
+  }
+
   ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ##RisoeBINfileData
   if(inherits(object, "Risoe.BINfileData")){
     ##run test on DATA slot
     ##MEAN + SD
-    temp.results_matrix <- t(vapply(X = object@DATA, FUN = function(x){
-      c(mean(x), stats::var(x))
-    }, numeric(2)))
+    temp.results_matrix <- .mean_var_matrix(object@DATA)
 
-    ##DIFF
-    temp.results_matrix_RATIO <- temp.results_matrix[,2]/temp.results_matrix[,1]
-
-    ##SEL
-    temp.results_matrix_VALID <-
-      temp.results_matrix_RATIO > threshold &
-      if (use_fft) .calc_FFT_selection(object@DATA) else TRUE
-
-    ##combine everything to in a data.frame
-    selection <- data.frame(
-      POSITION = object@METADATA$POSITION,
-      GRAIN = object@METADATA$GRAIN,
-      MEAN = temp.results_matrix[, 1],
-      VAR = temp.results_matrix[, 2],
-      RATIO = temp.results_matrix_RATIO,
-      THRESHOLD = rep_len(threshold, length(object@DATA)),
-      VALID = temp.results_matrix_VALID
-    )
+    ## combine everything into a data.frame
+    selection <- .build_selection_df(object@METADATA$POSITION,
+                                     object@METADATA$GRAIN,
+                                     object@DATA)
 
     ##get unique pairs for POSITION and GRAIN for VALID == TRUE
     unique_pairs <- unique(
       selection[selection[["VALID"]], c("POSITION", "GRAIN")])
 
-    if(cleanup_level == "aliquot"){
-      selection_id <- sort(unlist(lapply(1:nrow(unique_pairs), function(x) {
-        which(
-          .subset2(selection, 1) == .subset2(unique_pairs, 1)[x] &
-            .subset2(selection, 2) == .subset2(unique_pairs, 2)[x]
-        )
-      })))
-
-    }else{
-      ##reduce data to TRUE selection
-      selection_id <- which(selection[["VALID"]])
-    }
+    selection_id <- if (cleanup_level == "aliquot") .aliquot_selection_id(1:2)
+                    else which(selection[["VALID"]])
 
     ##select output on the chosen input
     if(cleanup){
@@ -267,10 +271,9 @@ verify_SingleGrainData <- function(
         object@METADATA$ID <- 1:length(object@DATA)
 
         ##print message
-        selection_id <- .collapse(selection_id, quote = FALSE)
         if(verbose){
           cat("\n[verify_SingleGrainData()] Risoe.BINfileData object reduced to records:\n",
-              selection_id)
+              .collapse(selection_id, quote = FALSE))
           cat("\n\n[verify_SingleGrainData()] Risoe.BINfileData object record index reset.\n")
         }
       } else {
@@ -298,10 +301,13 @@ verify_SingleGrainData <- function(
   } else if (inherits(object,"RLum.Analysis")) {
     ## check for empty records
     if(length(object@records) == 0) {
-      .throw_warning("Cannot process empty RLum.Analysis objects. NULL returned!")
+      .throw_warning("Cannot process empty RLum.Analysis objects, NULL returned")
       return(NULL)
-
     }
+
+    .validate_originator(object,
+                         c("Risoe.BINfileData2RLum.Analysis", "read_XSYG2R"))
+    is_risoe_origin <- .check_originator(object, "Risoe.BINfileData2RLum.Analysis")
 
     ##first extract all count values from all curves
     object_list <- lapply(object@records, function(x){
@@ -310,54 +316,25 @@ verify_SingleGrainData <- function(
     })
 
     ##MEAN + SD
-    temp.results_matrix <- lapply(X = object_list, FUN = function(x){
-      c(mean(x), stats::var(x))
-    })
-
-    temp.results_matrix <- do.call(rbind,  temp.results_matrix)
-
-    ##DIFF
-    temp.results_matrix_RATIO <- temp.results_matrix[,2]/temp.results_matrix[,1]
-
-    ##SEL
-    temp.results_matrix_VALID <- temp.results_matrix_RATIO > threshold &
-      if (use_fft) .calc_FFT_selection(object_list) else TRUE
+    temp.results_matrix <- .mean_var_matrix(object_list)
 
     ##get structure for the RLum.Analysis object
     temp_structure <- structure_RLum(object, fullExtent = TRUE)
 
     ##now we have two cases, depending on where measurement is coming from
-    if (.check_originator(object, "Risoe.BINfileData2RLum.Analysis")) {
-      ##combine everything to in a data.frame
-      selection <- data.frame(
-        POSITION = temp_structure$info.POSITION,
-        GRAIN = temp_structure$info.GRAIN,
-        MEAN = temp.results_matrix[, 1],
-        VAR = temp.results_matrix[, 2],
-        RATIO = temp.results_matrix_RATIO,
-        THRESHOLD = rep_len(threshold, length(object_list)),
-        VALID = temp.results_matrix_VALID
-      )
+    if (is_risoe_origin) {
+      selection <- .build_selection_df(temp_structure$info.POSITION,
+                                       temp_structure$info.GRAIN,
+                                       object_list)
       sel.cols <- c("POSITION", "GRAIN")
 
-    } else if (.check_originator(object, "read_XSYG2R")) {
-      ##combine everything to in a data.frame
-      selection <- data.frame(
-        POSITION = if(any(grepl(pattern = "position", names(temp_structure)))){
-          temp_structure$info.position}else{
-            NA
-          },
-        GRAIN = NA,
-        MEAN = temp.results_matrix[, 1],
-        VAR = temp.results_matrix[, 2],
-        RATIO = temp.results_matrix_RATIO,
-        THRESHOLD = rep_len(threshold, length(object_list)),
-        VALID = temp.results_matrix_VALID
-      )
+    } else { ## read_XSYG2R case
+      selection <- .build_selection_df(
+          if (any(grepl("position", names(temp_structure))))
+            temp_structure$info.position else NA,
+          NA,
+          object_list)
       sel.cols <- "POSITION"
-
-    } else{
-      .throw_error("Object originator '", object@originator, "' not supported")
     }
 
     ## get unique POSITION and GRAIN pairs where VALID == TRUE
@@ -365,27 +342,8 @@ verify_SingleGrainData <- function(
 
     ##set up cleanup
     if(cleanup_level == "aliquot") {
-      if (.check_originator(object, "read_XSYG2R")) {
-
-        if (!all(is.na(unique_pairs))) {
-          selection_id <-
-            sort(unlist(lapply(1:nrow(unique_pairs), function(x) {
-              which(.subset2(selection, 1) == .subset2(unique_pairs, 1)[x])
-            })))
-
-        }else{
-          selection_id <- NA
-        }
-
-      } else if (.check_originator(object, "Risoe.BINfileData2RLum.Analysis")) {
-        selection_id <-
-          sort(unlist(lapply(1:nrow(unique_pairs), function(x) {
-            which(
-              .subset2(selection, 1) == .subset2(unique_pairs, 1)[x] &
-                .subset2(selection, 2) == .subset2(unique_pairs, 2)[x]
-            )
-          })))
-      }
+      selection_id <- if (is_risoe_origin) .aliquot_selection_id(1:2)
+                      else .aliquot_selection_id(1)
 
       ##make sure that we do not break subsequent code
       if(length(selection_id) == 0) selection_id <- NA
@@ -400,40 +358,25 @@ verify_SingleGrainData <- function(
     if (cleanup && !anyNA(selection_id)) {
       ##print message
       if(verbose && cleanup_level == "curve"){
-        selection_id_text <- .collapse(selection_id, quote = FALSE)
-        if(selection_id_text == "")
-          selection_id_text <- "<none>"
-
+        sid <- .collapse(selection_id, quote = FALSE)
         .throw_message("RLum.Analysis object reduced to records: ",
-                       selection_id_text, error = FALSE)
+                       if (!nzchar(sid)) "<none>" else sid, error = FALSE)
       }
 
       ##selected wanted elements
+      return_object <- set_RLum(
+          class = "RLum.Analysis",
+          records = suppressWarnings(get_RLum(object, record.id = selection_id,
+                                              drop = FALSE)),
+          info = list(
+            unique_pairs = unique_pairs,
+            selection_id = selection_id,
+            selection_full = selection)
+        )
       if (length(selection_id) == 0) {
-        object <- set_RLum(
-          class = "RLum.Analysis",
-          originator = object@originator,
-          protocol = object@protocol,
-          records = list(),
-          info = list(
-            unique_pairs = unique_pairs,
-            selection_id = selection_id,
-            selection_full = selection)
-        )
-
-      } else{
-        object <- set_RLum(
-          class = "RLum.Analysis",
-          records = get_RLum(object, record.id = selection_id, drop = FALSE),
-          info = list(
-            unique_pairs = unique_pairs,
-            selection_id = selection_id,
-            selection_full = selection)
-        )
+        return_object@originator <- object@originator
+        return_object@protocol <- object@protocol
       }
-
-      ##return
-      return_object <- object
 
     }else{
       if (anyNA(selection_id))
@@ -476,11 +419,14 @@ verify_SingleGrainData <- function(
       main = plot_settings$main
     )
 
+    sel_valid <- which(selection[["VALID"]])
+    sel_invalid <- which(!selection[["VALID"]])
+
     ##plot points above the threshold
-    points(x = which(selection[["VALID"]]),
-           y = selection[["RATIO"]][selection[["VALID"]]], pch = 20, col = "darkgreen")
-    points(x = which(!selection[["VALID"]]),
-           y = selection[["RATIO"]][!selection[["VALID"]]], pch = 20, col = rgb(0,0,0,0.5))
+    points(x = sel_valid,
+           y = selection[["RATIO"]][sel_valid], pch = 20, col = "darkgreen")
+    points(x = sel_invalid,
+           y = selection[["RATIO"]][sel_invalid], pch = 20, col = rgb(0,0,0,0.5))
 
     abline(h = threshold, col = "red", lty = 1, lwd = 2)
 
@@ -488,8 +434,8 @@ verify_SingleGrainData <- function(
       side = 3,
       text = paste0(
         "(total: ", nrow(selection),
-        " | valid: ", length(which(selection[["VALID"]])),
-        " | invalid: ", length(which(!selection[["VALID"]])), ")"),
+        " | valid: ", length(sel_valid),
+        " | invalid: ", length(sel_invalid), ")"),
       cex = 0.9 * par()$cex)
   }
 
