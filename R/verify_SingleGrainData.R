@@ -262,7 +262,7 @@ verify_SingleGrainData <- function(
     selection_id <- if (cleanup_level == "aliquot") .aliquot_selection_id(1:2)
                     else which(selection[["VALID"]])
 
-    ##select output on the chosen input
+    cleaned <- NULL
     if(cleanup){
       ##selected wanted elements
       object@DATA <- object@DATA[selection_id]
@@ -276,24 +276,9 @@ verify_SingleGrainData <- function(
               .collapse(selection_id, quote = FALSE))
           cat("\n\n[verify_SingleGrainData()] Risoe.BINfileData object record index reset.\n")
         }
-      } else {
-        object <- NULL
+        cleaned <- object
       }
-
-      ##return
-      return_object <- object
-
-    }else{
-      return_object <- set_RLum(
-        class = "RLum.Results",
-        data = list(
-          unique_pairs =  unique_pairs,
-          selection_id = selection_id,
-          selection_full = selection),
-        info = list(call = sys.call())
-      )
     }
-
 
     ##++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ##RLum.Analysis and list with RLum.Analysis objects
@@ -353,8 +338,10 @@ verify_SingleGrainData <- function(
       selection_id <- which(selection[["VALID"]])
     }
 
-    ##return value
-    ##select output on the chosen input
+    if (anyNA(selection_id))
+      .throw_warning("'selection_id' is NA, everything tagged for removal")
+
+    cleaned <- NULL
     if (cleanup && !anyNA(selection_id)) {
       ##print message
       if(verbose && cleanup_level == "curve"){
@@ -364,7 +351,7 @@ verify_SingleGrainData <- function(
       }
 
       ##selected wanted elements
-      return_object <- set_RLum(
+      cleaned <- set_RLum(
           class = "RLum.Analysis",
           records = suppressWarnings(get_RLum(object, record.id = selection_id,
                                               drop = FALSE)),
@@ -374,26 +361,9 @@ verify_SingleGrainData <- function(
             selection_full = selection)
         )
       if (length(selection_id) == 0) {
-        return_object@originator <- object@originator
-        return_object@protocol <- object@protocol
+        cleaned@originator <- object@originator
+        cleaned@protocol <- object@protocol
       }
-
-    }else{
-      if (anyNA(selection_id))
-        .throw_warning("'selection_id' is NA, everything tagged for removal")
-
-      return_object <- set_RLum(
-        class = "RLum.Results",
-        data = list(
-          unique_pairs = unique_pairs,
-          selection_id = selection_id,
-          selection_full = selection),
-        info = list(call = sys.call())
-      )
-
-      ## cleanup means cleanup
-      if (cleanup)
-        return_object <- NULL
     }
   }
 
@@ -439,9 +409,18 @@ verify_SingleGrainData <- function(
       cex = 0.9 * par()$cex)
   }
 
-  # Return --------------------------------------------------------------------------------------
-  if(is.null(return_object))
-    .throw_warning("Verification and cleanup removed all records, NULL returned")
-
-  return(return_object)
+  ## Return -----------------------------------------------------------------
+  if (cleanup) {
+    if (is.null(cleaned))
+      .throw_warning("Verification and cleanup removed all records, NULL returned")
+    cleaned
+  } else {
+    set_RLum(class = "RLum.Results",
+             originator = "verify_SingleGrainData",
+             data = list(
+                 unique_pairs = unique_pairs,
+                 selection_id = selection_id,
+                 selection_full = selection),
+             info = list(call = sys.call()))
+  }
 }
