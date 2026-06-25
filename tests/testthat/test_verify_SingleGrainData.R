@@ -1,4 +1,5 @@
 ## load data
+data(ExampleData.BINfileData, envir = environment())
 data(ExampleData.XSYG, envir = environment())
 object <- get_RLum(OSL.SARMeasurement$Sequence.Object,
                    recordType = "OSL (UVVIS)", drop = FALSE)
@@ -30,13 +31,6 @@ test_that("check functionality", {
   testthat::skip_on_cran()
 
   ## RLum.Analysis object
-  expect_warning(output <- verify_SingleGrainData(object),
-                 "'selection_id' is NA, everything tagged for removal")
-  expect_s4_class(output, "RLum.Results")
-  expect_s3_class(output$selection_full, "data.frame")
-  expect_equal(sum(output@data$selection_full$VALID), 11)
-  expect_equal(output@originator, "verify_SingleGrainData")
-
   expect_message(res <- verify_SingleGrainData(object, cleanup = TRUE,
                                               cleanup_level = "curve",
                                               threshold = 100),
@@ -80,7 +74,6 @@ test_that("check functionality", {
   expect_length(res[[1]]@records, 0)
 
   ## check for cleanup
-  data(ExampleData.BINfileData, envir = environment())
   t <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data)
   expect_warning(
     object = verify_SingleGrainData(t, cleanup = TRUE, threshold = 20000),
@@ -88,9 +81,6 @@ test_that("check functionality", {
   expect_null(suppressWarnings(verify_SingleGrainData(t, cleanup = TRUE, threshold = 20000)))
 
   ## Risoe.BINfileData
-  res <- expect_silent(verify_SingleGrainData(CWOSL.SAR.Data, plot = TRUE))
-  expect_s4_class(res, "RLum.Results")
-
   expect_output(res <- verify_SingleGrainData(CWOSL.SAR.Data, cleanup = TRUE,
                                               cleanup_level = "curve"),
                        "Risoe.BINfileData object reduced to records")
@@ -130,6 +120,19 @@ test_that("check functionality", {
   expect_silent(suppressWarnings(verify_SingleGrainData(list(object))))
 })
 
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
+
+  snapshot.tolerance <- 1.5e-6
+
+  expect_warning(expect_snapshot_RLum(verify_SingleGrainData(object),
+                                      tolerance = snapshot.tolerance),
+                 "'selection_id' is NA, everything tagged for removal")
+
+  expect_snapshot_RLum(verify_SingleGrainData(object, cleanup_level = "curve"),
+                       tolerance = snapshot.tolerance)
+})
+
 test_that("graphical snapshot tests", {
   testthat::skip_on_cran()
   testthat::skip_if_not_installed("vdiffr")
@@ -137,6 +140,10 @@ test_that("graphical snapshot tests", {
   SW({
   vdiffr::expect_doppelganger("default",
                               verify_SingleGrainData(object,
+                                                     plot = TRUE))
+  vdiffr::expect_doppelganger("Risoe.BINfileData",
+                              verify_SingleGrainData(subset(CWOSL.SAR.Data,
+                                                            POSITION <= 3),
                                                      plot = TRUE))
   })
 })
