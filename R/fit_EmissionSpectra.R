@@ -449,7 +449,6 @@ fit_EmissionSpectra <- function(
     run <- run + 1
   }
 
-
   ## handle the output
   if (verbose) {
     cat("\r>> Searching components ... \t\t\t",
@@ -459,8 +458,9 @@ fit_EmissionSpectra <- function(
   ## store the values that will be used when plotting
   h <- 4.135667662e-15 # eV * s
   c <- 299792458e+09 # nm/s
+  hc <- h * c
   df_plot <- data.frame(ENERGY = m[, 1],
-                        WAVELENGTH = h * c / m[, 1])
+                        WAVELENGTH = hc / m[, 1])
 
   ##Extract best fit values
   ##TODO ... should be improved, its works, but maybe there are better solutions
@@ -514,12 +514,12 @@ fit_EmissionSpectra <- function(
 
   # Terminal output -----------------------------------------------------------------------------
   if(verbose && !is.na(m_coef[1])){
-    cat(paste0("\n\n>> Fitting results (",length(mu), " component model):\n"))
+    cat("\n\n>> Fitting results (", length(mu), " component model):\n", sep = "")
     cat("-------------------------------------------------------------------------\n")
     print(m_coef)
     cat("-------------------------------------------------------------------------")
-    cat(paste0("\nSE: standard error | SSR: ", format(min(best_fit), scientific=TRUE, digits = 4),
-               "| R^2: ", round(R2,3), " | R^2_adj: ", round(R2adj,4)))
+    cat("\nSE: standard error | SSR:", format(SSR, scientific = TRUE, digits = 4),
+        "| R^2:", round(R2,3), "| R^2_adj:", round(R2adj, 4))
     cat("\n(use the output in $fit for a more detailed analysis)\n\n")
   }
 
@@ -637,11 +637,9 @@ fit_EmissionSpectra <- function(
     abline(h = 0, lty = 2)
 
     ##add wavelength axis
-    h <- 4.135667662e-15 #eV * s
-    c <- 299792458e+09 #nm/s
     axis(
       side = 1,
-      labels = paste0("(",round((h * c) / axTicks(side = 3), 0), " nm)"),
+      labels = paste0("(", round(hc / axTicks(side = 3), 0), " nm)"),
       at = axTicks(side = 3),
       cex.axis = 0.7,
       line = 0.8,
