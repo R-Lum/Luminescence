@@ -248,6 +248,10 @@ preset accordingly to "Channel index"; it can be overwritten manually using `yla
 as a function argument. This should avoid cases where the user overlooks the warning
 and struggles to understand the axis values. 
 
+### `plot_ViolinPlot()`
+
+* Numeric coordinates for `summary.pos` are now respected (#1596).
+
 ### `read_Daybreak2R()`
 
 * Information about irradiation doses are now more easily retrievable from the
