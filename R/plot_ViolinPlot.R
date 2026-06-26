@@ -103,6 +103,7 @@ plot_ViolinPlot <- function(
   .validate_class(summary, "character")
   if (is.numeric(summary.pos)) {
     .validate_length(summary.pos, 2)
+    summary.pos <- t(summary.pos)
   }
   else {
     summary.pos <- .validate_args(summary.pos,
