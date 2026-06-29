@@ -189,6 +189,12 @@ time/temperature (y-axis) will be plotted along the wavelength/channels
 summed up. To select a transect use the \code{xlim} argument, e.g.
 \code{xlim = c(300,310)} plot along the summed up count values of channel
 300 to 310.
+\itemize{
+\item \code{add}: default is \code{FALSE}: adds the plot to an existing plot
+\item \code{smooth}: default is \code{FALSE}: performs a simple curve smoothing
+\item \code{transect_mode}: default is \code{sum}: sets the integration mode for the transect along the
+wavelength axis. Other allowed values are \code{mean}, \code{mean}, \code{min}, \code{max}
+}
 
 \strong{Further arguments that will be passed (depending on the plot type)}
 
@@ -203,7 +209,7 @@ summed up. To select a transect use the \code{xlim} argument, e.g.
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.6.15
+ 0.6.16
 }
 
 \examples{

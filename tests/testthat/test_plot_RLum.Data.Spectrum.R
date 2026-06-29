@@ -106,7 +106,20 @@ test_that("check functionality", {
         ylim = c(0, 350),
         zlim = c(0, 1e6),
         ylab = "Counts [1 / summed channels]")))
-
+    
+    ## deploy arguments
+    expect_silent(suppressWarnings(
+      plot_RLum.Data.Spectrum(
+        TL.Spectrum,
+        smoooth = TRUE, 
+        norm = TRUE, 
+        transect_mode = "mean",
+        plot.type = "transect",
+        xlim = c(310, 750),
+        ylim = c(0, 350),
+        zlim = c(0, 1e6),
+        ylab = "Counts [1 / summed channels]")))
+  
     ## plot: interactive ------------
     expect_silent(
       plot_RLum.Data.Spectrum(
@@ -275,6 +288,32 @@ test_that("graphical snapshot tests", {
                                                       xlim = c(310, 750),
                                                       ylim = c(0, 300),
                                                       bin.rows = 10))
+  
+  fig <- function() {
+    plot_RLum.Data.Spectrum(
+      TL.Spectrum,
+      norm = TRUE, 
+      smooth = TRUE, 
+      plot.type = "transect",
+      xlim = c(500, 750),
+      ylim = c(0, 300),
+      bin.rows = 10
+    )
+    plot_RLum.Data.Spectrum(
+      TL.Spectrum,
+      norm = TRUE, 
+      smooth = TRUE, 
+      add = TRUE,
+      transect_mode = "mean",
+      plot.type = "transect",
+      xlim = c(300, 500),
+      ylim = c(0, 300),
+      bin.rows = 10
+    )
+  }
+  
+  vdiffr::expect_doppelganger("transect_arguments",
+                              fig)
   })
 })
 

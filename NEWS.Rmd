@@ -248,6 +248,11 @@ preset accordingly to "Channel index"; it can be overwritten manually using `yla
 as a function argument. This should avoid cases where the user overlooks the warning
 and struggles to understand the axis values. 
 
+* The `plot.type = "transect"` now scales the y-axis automatically (can be overwritten with `zlim`)
+
+* The `plot.type = "transect"` gained support for a couple of arguments: `add` (to add additional transects to an existing plot), 
+`smooth` (basic curve smoothing), `transect_mode` to control the integration method (`sum` the default, `mean`, `median`, `min`, `max`) 
+
 ### `plot_ViolinPlot()`
 
 * Numeric coordinates for `summary.pos` are now respected (#1596).
