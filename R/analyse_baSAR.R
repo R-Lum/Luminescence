@@ -1028,15 +1028,15 @@ analyse_baSAR <- function(
       FUN = function(x) x@METADATA[["SEL"]] ))
 
     if (!all(record.selected)) {
-      if (verbose) {
-        .throw_message("Record pre-selection in BIN-file detected, ",
-                       "record reduced to selection\n", error = FALSE)
-      }
       if (sum(record.selected) == 0) {
         .throw_warning("No records selected, NULL returned")
         return(NULL)
       }
 
+      if (verbose) {
+        .throw_message("Record pre-selection in BIN-file detected, ",
+                       "record reduced to selection\n", error = FALSE)
+      }
       fileBIN.list <- lapply(fileBIN.list, function(x){
             ##reduce data
             x@DATA <- x@DATA[x@METADATA[["SEL"]]]
@@ -1053,14 +1053,8 @@ analyse_baSAR <- function(
     Disc <-  list()
     Grain <- list()
     Disc_Grain.list <- list()
-
-    Nb_aliquots <-  0
-    previous.Nb_aliquots <- 0
     object.file_name <- list()
-
     Mono_grain <-  TRUE
-
-    Limited_cycles <- vector()
 
     ##set information
     for (i in seq_along(fileBIN.list)) {
@@ -1341,9 +1335,9 @@ analyse_baSAR <- function(
   }
 
 
-  ######################  Data associated with a single Disc/Grain
-  max_cycles <-  0
-  count <- 1
+    ###################### Data associated with a single Disc/Grain
+    max_cycles <-  0
+    count <- 1
 
   for (k in seq_along(fileBIN.list)) {
 
@@ -1362,47 +1356,28 @@ analyse_baSAR <- function(
 
 
       ## data.tables for Ln and Tn values
-      Ln_dt <- rbindlist(list(fileBIN.list[[k]]@DATA[curve_index[1, ]]))
-      Tn_dt <- rbindlist(list(fileBIN.list[[k]]@DATA[curve_index[2, ]]))
+      Ln_dt <- as.data.table(fileBIN.list[[k]]@DATA[curve_index[1, ]])
+      Tn_dt <- as.data.table(fileBIN.list[[k]]@DATA[curve_index[2, ]])
 
-      ##open plot are
-      if (!plot_singlePanels) {
-        par(mfrow = c(1, 2))
+      .plot_LnTn <- function(dt, main, sig, bg) {
+        graphics::matplot(
+          x = seq_len(nrow(dt)), y = dt,
+          col = rgb(0, 0, 0, 0.3),
+          ylab = "Luminescence [a.u.]", xlab = "Channel",
+          main = main, type = "l")
+        abline(v = range(sig), lty = 2, col = "green")
+        abline(v = range(bg), lty = 2, col = "red")
+        mtext(paste0("ALQ: ", count, ":", count + ncol(curve_index)))
       }
 
-      ##get natural curve and combine them in matrix
-      graphics::matplot(
-        x = seq_len(nrow(Ln_dt)),
-        y = Ln_dt,
-        col = rgb(0, 0, 0, 0.3),
-        ylab = "Luminescence [a.u.]",
-        xlab = "Channel",
-        main = expression(paste(L[n], " - curves")),
-        type = "l"
-      )
+      if (!plot_singlePanels)
+        par(mfrow = c(1, 2))
 
-      ##add integration limits
-      abline(v = range(signal_integral[[k]]), lty = 2, col = "green")
-      abline(v = range(background_integral[[k]]), lty = 2, col = "red")
-      mtext(paste0("ALQ: ",count, ":", count + ncol(curve_index)))
-
-      graphics::matplot(
-        x = seq_len(nrow(Tn_dt)),
-        y = Tn_dt,
-        col = rgb(0, 0, 0, 0.3),
-        ylab = "Luminescence [a.u.]",
-        xlab = "Channel",
-        main = expression(paste(T[n], " - curves")),
-        type = "l"
-      )
-
-      ## add integration limits depending on the chosen value
-      abline(v = range(signal_integral_Tx[[k]] %||% signal_integral[[k]]),
-             lty = 2, col = "green")
-      abline(v = range(background_integral_Tx[[k]] %||% background_integral[[k]]),
-             lty = 2, col = "red")
-
-      mtext(paste0("ALQ: ",count, ":", count + ncol(curve_index)))
+      .plot_LnTn(Ln_dt, expression(paste(L[n], " - curves")),
+                 signal_integral[[k]], background_integral[[k]])
+      .plot_LnTn(Tn_dt, expression(paste(T[n], " - curves")),
+                 signal_integral_Tx[[k]] %||% signal_integral[[k]],
+                 background_integral_Tx[[k]] %||% background_integral[[k]])
 
       ##reset par
       if (!plot_singlePanels) {
@@ -1499,18 +1474,13 @@ analyse_baSAR <- function(
       ## reset `sel.disc.grain` because the data it pointed to has changed
       sel.disc.grain <- Disc_Grain.list[[k]][[dd]][[gg]]
 
-      Limited_cycles[previous.Nb_aliquots + i] <- length(sel.disc.grain[[2]])
-
       max_cycles <- max(length(sel.disc.grain[[2]]), max_cycles)
-
-        previous.Nb_aliquots <-
-            length(stats::na.exclude(Limited_cycles)) # Total count of aliquots
 
       count <- count + 1
     }
   }   ##  END of loop on BIN files
 
-  Nb_aliquots <- previous.Nb_aliquots
+    Nb_aliquots <- count - 1
 
   ##create results matrix
   OUTPUT_results <-
@@ -1744,6 +1714,8 @@ analyse_baSAR <- function(
     ##get colours from the package Luminescence
     col <- get("col", pos = .LuminescenceEnv)
 
+    dose_xlab <- ifelse(is.null(unlist(source_doserate)), "Dose [s]", "Dose [Gy]")
+
     ##get list of variable names (we need them later)
     varnames <- coda::varnames(results[[2]])
 
@@ -1804,7 +1776,7 @@ analyse_baSAR <- function(
         horizontal = TRUE,
         outline = TRUE,
         col = box.col[i:step],
-        xlab = ifelse(is.null(unlist(source_doserate)), "Dose [s]", "Dose [Gy]"),
+        xlab = dose_xlab,
         ylab = "Aliquot index",
         yaxt = "n",
         xlim = c(1,19),
@@ -1907,7 +1879,7 @@ analyse_baSAR <- function(
           ylim = ylim,
           xlim = xlim,
           ylab = expression(paste(L[x] / T[x])),
-          xlab = ifelse(is.null(unlist(source_doserate)), "Dose [s]", "Dose [Gy]"),
+          xlab = dose_xlab,
           main = "baSAR Dose Response Curves"
         ))
 
@@ -2000,6 +1972,8 @@ analyse_baSAR <- function(
       rm(plot_matrix)
 
       ##03 Abanico Plot
+      n_plotted <- nrow(input_object) - length(which(is.na(input_object[, c("DE", "DE.SD")])))
+
       if(distribution_plot == "abanico"){
         plot_check <- plot_AbanicoPlot(
           data = input_object[, c("DE", "DE.SD")],
@@ -2015,12 +1989,8 @@ analyse_baSAR <- function(
           line.col = c(col[3], col[3], col[2], col[2]),
           line.lty = c(3,3,2,2),
           output = TRUE,
-          mtext = paste0(
-            nrow(input_object) - length(which(is.na(input_object[, c("DE", "DE.SD")]))),
-            "/",
-            nrow(input_object),
-            " plotted (removed are NA values)"
-          )
+          mtext = paste0(n_plotted, "/", nrow(input_object),
+                         " plotted (removed are NA values)")
         )
 
         if (!is.null(plot_check)) {
@@ -2045,12 +2015,8 @@ analyse_baSAR <- function(
           xlab = ifelse(is.null(unlist(source_doserate)),
                         expression(paste(D[e], " [s]")),
                         expression(paste(D[e], " [Gy]"))),
-          mtext =   paste0(
-            nrow(input_object) - length(which(is.na(input_object[, c("DE", "DE.SD")]))),
-            "/",
-            nrow(input_object),
-            " (removed are NA values)"
-          )
+          mtext = paste0(n_plotted, "/", nrow(input_object),
+                         " (removed are NA values)")
         )), outFile = stdout()) # redirect error messages so they can be silenced
 
         if (!inherits(plot_check, "try-error")) {
