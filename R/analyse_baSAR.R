@@ -987,6 +987,11 @@ analyse_baSAR <- function(
       }
     }
 
+    ## normalise single objects into a 1-element list
+    if (is.character(object) || inherits(object, "Risoe.BINfileData")) {
+      object <- list(object)
+    }
+
     if (inherits(object, "list")) {
       ## check what the list contains ...
       object_type <- unique(sapply(object, function(x) {
@@ -998,34 +1003,22 @@ analyse_baSAR <- function(
       if (length(object_type) > 1) {
         .throw_error("'object' only accepts a list of objects of the same type")
       }
-        if (object_type == "Risoe.BINfileData") {
-          fileBIN.list <- object
 
-        } else if (object_type == "character") {
-          fileBIN.list <- read_BIN2R(
-            file = object,
-            position = additional_arguments$position,
-            duplicated.rm = additional_arguments$duplicated.rm,
-            n.records = additional_arguments$n.records,
-            pattern = additional_arguments$pattern,
-            verbose = verbose
-          )
-          fileBIN.list <- .rm_NULL_elements(fileBIN.list)
-          if (length(fileBIN.list) == 0)
-            return(NULL)
-        }
-
-    } else if (is.character(object)) {
-      fileBIN.list <- list(read_BIN2R(
+      if (object_type == "character") {
+        fileBIN.list <- read_BIN2R(
           file = object,
           position = additional_arguments$position,
           duplicated.rm = additional_arguments$duplicated.rm,
           n.records = additional_arguments$n.records,
           pattern = additional_arguments$pattern,
-          verbose = verbose))
+          verbose = verbose)
+        fileBIN.list <- .rm_NULL_elements(fileBIN.list)
+        if (length(fileBIN.list) == 0)
+          return(NULL)
 
-    } else if (inherits(object, "Risoe.BINfileData")) {
-      fileBIN.list <- list(object)
+      } else {
+        fileBIN.list <- object
+      }
     }
 
     ##Problem ... the user might have made a pre-selection in the Analyst software, if this the

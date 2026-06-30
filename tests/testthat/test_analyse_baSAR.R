@@ -6,9 +6,9 @@ CWOSL.sub <- subset(CWOSL.SAR.Data,
 test_that("input validation", {
   skip_on_cran()
 
-  expect_error(analyse_baSAR("error",
+  expect_output(expect_null(analyse_baSAR("error",
                              signal_integral = 1:2, background_integral = 80:100,
-                             verbose = FALSE),
+                             verbose = FALSE)),
                "File '.*error' does not exist") # windows CI needs the regexp
   expect_output(expect_null(analyse_baSAR(list("error"),
                              signal_integral = 1:2, background_integral = 80:100,
