@@ -57,6 +57,11 @@ abanico plots can still be created by calling `plot_AbanicoPlot()` directly
 
 ## Bugfixes and changes
 
+### `analyse_baSAR()`
+
+* The function no longer crashes if a list containing multiple empty objects
+is provided (#1598).
+
 ### `analyse_SAR.CWOSL()`
 
 * The default value for the `background_integral` argument has changed from

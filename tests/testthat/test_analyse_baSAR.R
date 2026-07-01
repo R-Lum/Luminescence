@@ -2,6 +2,8 @@
 data(ExampleData.BINfileData, envir = environment())
 CWOSL.sub <- subset(CWOSL.SAR.Data,
                     subset = POSITION %in% c(1:3) & LTYPE == "OSL")
+empty <- CWOSL.sub
+empty@METADATA <- empty@METADATA[integer(0), ]
 
 test_that("input validation", {
   skip_on_cran()
@@ -130,8 +132,6 @@ test_that("input validation", {
                     recordType = "NONE", verbose = TRUE)),
     "No records of the appropriate type found")
 
-  empty <- CWOSL.sub
-  empty@METADATA <- empty@METADATA[integer(0), ]
   expect_error(expect_warning(
       analyse_baSAR(list(empty),
                     source_doserate = c(0.04, 0.001),
@@ -610,6 +610,15 @@ test_that("regression tests", {
       "Only multiple grain data provided, automatic selection skipped"),
       "which may indicate an incorrect 'source_doserate'")
   )
+
+  ## issue 1598
+  SW({
+  expect_error(expect_warning(
+      analyse_baSAR(list(empty, empty), source_doserate = 0.04,
+                    signal_integral = 1:2, background_integral = 80:100),
+      "No data selected from BIN-file 2, BIN-file removed from input"),
+      "All provided objects were removed")
+  })
 
   ## check parameters irradiation times
   SW({

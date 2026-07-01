@@ -1238,9 +1238,12 @@ analyse_baSAR <- function(
     n_aliquots_k <- length(Disc[[k]])
 
       if(n_aliquots_k == 0){
-        fileBIN.list[[k]] <- NULL
         .throw_warning("No data selected from BIN-file ", k,
                        ", BIN-file removed from input")
+
+        ## mark the object for removal: this cannot be done directly by
+        ## assigning NULL to it, as the index would go out of sync
+        fileBIN.list[[k]] <- NA
         next()
       }
 
@@ -1257,6 +1260,8 @@ analyse_baSAR <- function(
     }
   }
 
+    ## remove objects marked for removal
+    fileBIN.list <- fileBIN.list[!is.na(fileBIN.list)]
     if (length(fileBIN.list) == 0) {
       .throw_error("All provided objects were removed")
     }
