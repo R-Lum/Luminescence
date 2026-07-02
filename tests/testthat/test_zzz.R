@@ -12,9 +12,24 @@ test_that("Test zzz functions ... they should still work", {
   expect_silent(get_Quote(ID = 1e06))
 
   ##tune data
-  expect_warning(tune_Data(1:10))
-  expect_warning(tune_Data(data.frame(runif(n = 10, 8,12),runif(n = 10, 0.1,0.3) ), decrease.error = TRUE))
-  expect_warning(tune_Data(data.frame(runif(n = 10, 8,12),runif(n = 10, 0.1,0.3) ), increase.data = TRUE))
+  expect_error(tune_Data(1:10),
+               "'data' should be of class 'data.frame'")
+  expect_error(tune_Data(iris[1, , drop = FALSE]),
+               "'data' should have at least two rows")
+  expect_error(tune_Data(iris[, 1, drop = FALSE]),
+               "'data' should have at least two columns")
+  expect_error(tune_Data(iris, decrease.error = -1),
+               "'decrease.error' should be a single non-negative value")
+  expect_error(tune_Data(iris, decrease.error = 10),
+               "'decrease.error' should be at most 1")
+  expect_error(tune_Data(iris, increase.data = -1),
+               "'increase.data' should be a single non-negative value")
+  expect_error(tune_Data(iris, increase.data = 2000),
+               "'increase.data' should be at most 1000")
+  expect_warning(
+      expect_equal(ncol(tune_Data(iris, decrease.error = 0.5, increase.data = 1)),
+                   2),
+      "these activities on your")
 
   ##sTeve
   ## read example data set
