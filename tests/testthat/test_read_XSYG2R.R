@@ -22,6 +22,12 @@ test_that("input validation", {
   expect_error(read_XSYG2R(xsyg.file, n_records = "error"),
                "'n_records' should be a single positive integer value or NULL")
 
+  ## must be tested on vector of input filenames
+  expect_error(read_XSYG2R(c("A", "B"), fastForward = NA),
+               "'fastForward' should be a single logical value")
+  expect_error(read_XSYG2R(c("A", "B"), fastForward = TRUE, import = NA),
+               "'import' should be a single logical value")
+
   SW({
   expect_message(expect_null(read_XSYG2R(test_path("_data/bin-tests/"))),
                  "No files matching the given pattern found in directory")
