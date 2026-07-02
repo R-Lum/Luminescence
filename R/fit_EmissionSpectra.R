@@ -223,7 +223,7 @@ fit_EmissionSpectra <- function(
       rownames(o@data) <- NULL
 
       ##set frame
-      if(is.null(frame)){
+      if (length(frame) == 0) {
         frame <- 1:ncol(o@data)
       } else if (max(frame) > ncol(o@data)|| min(frame) < 1) {
           .throw_error("Invalid 'frame', allowed values range from 1 to ",
@@ -250,7 +250,7 @@ fit_EmissionSpectra <- function(
     rownames(object) <- NULL
 
     ##set frame
-    if(is.null(frame)){
+    if (length(frame) == 0) {
       frame <- 1:(ncol(object) - 1)
     } else if(max(frame) > (ncol(object)-1) || min(frame) < 1) {
         .throw_error("Invalid 'frame', allowed values range from 1 to ",
