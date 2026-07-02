@@ -197,6 +197,10 @@ fit_EmissionSpectra <- function(
   .validate_class(object, c("RLum.Data.Spectrum", "matrix", "list"))
   .validate_class(frame, c("integer", "numeric"), null.ok = TRUE)
   .validate_positive_scalar(n_components, int = TRUE, null.ok = TRUE)
+  .validate_class(start_parameters, "numeric", null.ok = TRUE)
+  if (any(is.na(start_parameters)))
+    .throw_error("'start_parameters' cannot contain missing values")
+  .validate_nonnegative_scalar(sub_negative, null.ok = TRUE)
   input_scale <- .validate_args(input_scale, c("wavelength", "energy"),
                                 null.ok = TRUE)
   .validate_class(method_control, "list")
@@ -402,7 +406,7 @@ fit_EmissionSpectra <- function(
     ## set start parameters for fitting --------
     mu <- m[id_peaks,1]
 
-    if(!is.null(start_parameters))
+    if (length(start_parameters) > 0)
       mu <- c(sort(start_parameters), mu[-(1:length(start_parameters))])
 
     ## limit the number of components

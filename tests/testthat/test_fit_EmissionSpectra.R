@@ -22,6 +22,12 @@ test_that("input validation", {
                "'object' should have at least two columns")
   expect_error(fit_EmissionSpectra(TL.Spectrum, n_components = 1.4),
                "'n_components' should be a single positive integer value")
+  expect_error(fit_EmissionSpectra(TL.Spectrum, start_parameters = "error"),
+               "'start_parameters' should be of class 'numeric'")
+  expect_error(fit_EmissionSpectra(TL.Spectrum, start_parameters = NaN),
+               "'start_parameters' cannot contain missing values")
+  expect_error(fit_EmissionSpectra(TL.Spectrum, sub_negative = -1),
+               "'sub_negative' should be a single non-negative value")
   expect_error(fit_EmissionSpectra(TL.Spectrum, input_scale = "error"),
                "'input_scale' should be one of 'wavelength', 'energy' or NULL")
   expect_error(fit_EmissionSpectra(TL.Spectrum, method_control = "error"),
@@ -74,6 +80,12 @@ test_that("check functionality", {
       verbose = FALSE,
       method_control = list(max.runs = 5))
   expect_equal(results@data$df_plot[[1]], NA)
+
+  ## empty start_parameters
+  expect_s4_class(fit_EmissionSpectra(TL.Spectrum, start_parameters = numeric(),
+                                      n_components = 1, plot = FALSE, verbose = FALSE,
+                                      method_control = list(max.runs = 2)),
+                  "RLum.Results")
 })
 
 test_that("snapshot tests", {
