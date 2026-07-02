@@ -19,6 +19,10 @@ test_that("input validation", {
                "'norm' should be one of 'max', 'min', 'first', 'last', 'huot' or")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bg.spectrum = "error"),
                "'bg.spectrum' should be of class 'RLum.Data.Spectrum', 'matrix' or")
+  expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bg.channels = "error"),
+               "'bg.channels' should be of class 'integer', 'numeric' or NULL")
+  expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bg.channels = numeric()),
+               "'bg.channels' cannot be an empty numeric")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bin.rows = 1.7),
                "'bin.rows' should be a single positive integer value")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bin.cols = 0),
@@ -131,7 +135,6 @@ test_that("check functionality", {
         bin.cols = 1
       )
     )
-    
 
     ## plot: interactive heatmap --------
     expect_silent(suppressWarnings(

@@ -75,7 +75,7 @@
 #' summed up. To select a transect use the `xlim` argument, e.g.
 #' `xlim = c(300,310)` plot along the summed up count values of channel
 #' 300 to 310.
-#' 
+#'
 #' - `add`: default is `FALSE`: adds the plot to an existing plot
 #' - `smooth`: default is `FALSE`: performs a simple curve smoothing
 #' - `transect_mode`: default is `sum`: sets the integration mode for the transect along the
@@ -296,11 +296,17 @@ plot_RLum.Data.Spectrum <- function(
   }
   ## `norm` is not validated here but will be validated by normalise_RLum()
   .validate_class(bg.spectrum, c("RLum.Data.Spectrum", "matrix"), null.ok = TRUE)
+  .validate_class(bg.channels, c("integer", "numeric"), null.ok = TRUE)
   plot.type <- .validate_args(plot.type, c("contour", "persp", "single",
                                            "multiple.lines", "image",
                                            "transect", "interactive"))
   .validate_positive_scalar(bin.rows, int = TRUE)
   .validate_positive_scalar(bin.cols, int = TRUE)
+  .validate_logical_scalar(par.local)
+  .validate_logical_scalar(optical.wavelength.colours)
+  .validate_logical_scalar(rug)
+  .validate_logical_scalar(xaxis.energy)
+  .validate_logical_scalar(plot)
 
   ##XSYG
   ##check for curveDescripter
@@ -371,15 +377,15 @@ plot_RLum.Data.Spectrum <- function(
   bty <- extraArgs$bty
   sub <- extraArgs$sub %||% ""
   add <- extraArgs$add %||% FALSE
-  
-  
+
+
   ## transect
   smooth <- extraArgs$smooth %||% FALSE
   transect_mode <- extraArgs$transect_mode %||% "sum"
-  
+
   #for plotly::plot_ly
   showscale <- extraArgs$showscale %||% FALSE
-  
+
   ## further plot settings
   plot_settings <- modifyList(
     x = list(
@@ -464,6 +470,7 @@ plot_RLum.Data.Spectrum <- function(
 
   # Background subtraction ---------------------------------------------------
   if(!is.null(bg.channels)){
+    .validate_not_empty(bg.channels)
     ##set background object if not available
     if(is.null(bg.spectrum)) bg.xyz <- temp.xyz
 
@@ -1068,16 +1075,16 @@ if(plot){
     ## ========================================================================#
     ##sum up rows (column sum)
     temp.xyz <- switch(
-      transect_mode, 
+      transect_mode,
       "mean" =  matrixStats::colMeans2(temp.xyz, na.rm = TRUE),
       "median" = matrixStats::colMedians(temp.xyz, na.rm = TRUE),
       "min"  = matrixStats::colMins(temp.xyz, na.rm = TRUE),
       "max" = matrixStats::colMaxs(temp.xyz, na.rm = TRUE),
       matrixStats::colSums2(temp.xyz, na.rm = TRUE)
     )
-    
+
     ## we have to normalise again to ensure that normalisation works because
-    ## above we apply it to single curves before we sum up 
+    ## above we apply it to single curves before we sum up
     ## this solution is not super clean, but it works sufficiently well
     if(!isFALSE(norm))
       temp.xyz <- .normalise_curve(temp.xyz, norm)
@@ -1085,15 +1092,15 @@ if(plot){
     ## smooth if requested
     if(smooth[1])
       temp.xyz <- .smoothing(temp.xyz)
-      
+
     ##consider differences within the arguments
     zlim <- extraArgs$zlim %||% range(temp.xyz, na.rm = TRUE)
     zlab <- extraArgs$ylab %||% "Counts [1/summed channels]"
-    
+
     ## here it does not make sense that we show a wavelength range
-    ## that does not exist; so we limit to data. 
-    xlim <- c(max(min(x.vals), xlim[1]), min(max(x.vals), xlim[2])) 
-    
+    ## that does not exist; so we limit to data.
+    xlim <- c(max(min(x.vals), xlim[1]), min(max(x.vals), xlim[2]))
+
     ## plot lines or plots
     if(add[1]) {
       lines(
@@ -1101,7 +1108,7 @@ if(plot){
         col = col,
         type = type,
         pch = pch)
-  
+
     } else {
       plot(
         y,
@@ -1117,11 +1124,11 @@ if(plot){
         pch = pch
       )
     }
-    
+
   }
 
   ## plot additional mtext
-  if(plot.type != "interactive") 
+  if(plot.type != "interactive")
     mtext(mtext, side = 3, cex = cex * 0.8)
 }
 
