@@ -203,6 +203,20 @@ fit_EmissionSpectra <- function(
   .validate_logical_scalar(verbose)
   .validate_logical_scalar(plot)
 
+  ## validate frame bounds and extract frames
+  .validate_frame <- function(frame, data, x.vals) {
+    if (length(frame) == 0)
+      frame <- seq_len(ncol(data))
+    else if (all(is.na(frame)) ||
+             max(frame, na.rm = TRUE) > ncol(data) ||
+             min(frame, na.rm = TRUE) < 1)
+      .throw_error("Invalid 'frame', allowed values range from 1 to ", ncol(data))
+
+    cols <- lapply(frame, function(i) cbind(x.vals, data[, i]))
+    names(cols) <- paste("Frame:", frame)
+    cols
+  }
+
   ##input RLum.Data.Spectrum ... make list either way
   if(inherits(object, "RLum.Data.Spectrum"))
     object <- list(object)
@@ -222,18 +236,8 @@ fit_EmissionSpectra <- function(
       x <- as.numeric(rownames(o@data))
       rownames(o@data) <- NULL
 
-      ##set frame
-      if (length(frame) == 0) {
-        frame <- 1:ncol(o@data)
-      } else if (max(frame) > ncol(o@data)|| min(frame) < 1) {
-          .throw_error("Invalid 'frame', allowed values range from 1 to ",
-                       ncol(o@data))
-      }
-
-      ##get frame
-      temp_frame <- lapply(frame, function(f) cbind(x, o@data[,f]))
-      names(temp_frame) <- paste0("Frame: ", frame)
-      return(temp_frame)
+      ## extract and validate the frame
+      .validate_frame(frame, o@data, x)
     })
 
     ##set object name
@@ -249,18 +253,8 @@ fit_EmissionSpectra <- function(
   if(inherits(object, "matrix") && ncol(object) > 2){
     rownames(object) <- NULL
 
-    ##set frame
-    if (length(frame) == 0) {
-      frame <- 1:(ncol(object) - 1)
-    } else if(max(frame) > (ncol(object)-1) || min(frame) < 1) {
-        .throw_error("Invalid 'frame', allowed values range from 1 to ",
-                     ncol(object) - 1)
-    }
-
-    temp <- lapply(frame +1 , function(x) cbind(object[,1],object[,x]))
-    names(temp) <- paste0("Frame: ",frame)
-    object <- temp
-    rm(temp)
+    ## extract and validate frame
+    object <- .validate_frame(frame, object[, -1, drop = FALSE], object[, 1])
   }
 
   ##now treat different lists, the aim is to have a list of 2-column matrices

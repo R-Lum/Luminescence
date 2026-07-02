@@ -36,6 +36,14 @@ test_that("input validation", {
                "'frame' should be of class 'integer', 'numeric' or NULL")
   expect_error(fit_EmissionSpectra(TL.Spectrum, frame = 1000),
                "Invalid 'frame', allowed values range from 1 to 24")
+  expect_error(fit_EmissionSpectra(TL.Spectrum, frame = NA_integer_),
+               "Invalid 'frame', allowed values range from 1 to 24")
+  expect_error(fit_EmissionSpectra(TL.Spectrum, frame = c(0, NA)),
+               "Invalid 'frame', allowed values range from 1 to 24")
+  expect_error(fit_EmissionSpectra(mat, frame = NaN),
+               "Invalid 'frame', allowed values range from 1 to 3")
+  expect_error(fit_EmissionSpectra(mat, frame = c(0, NA)),
+               "Invalid 'frame', allowed values range from 1 to 3")
 
   ## wrong graining argument -------
   SW({
