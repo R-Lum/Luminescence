@@ -298,6 +298,8 @@ fit_OSLLifeTimes <- function(
   ##save original data for later
   df_raw <- df
 
+  .validate_nonnegative_scalar(tp)
+
   ##signal_range
   if(!is.null(signal_range)){
     .validate_class(signal_range, c("integer", "numeric"), length = 1:2)
