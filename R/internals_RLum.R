@@ -1377,6 +1377,8 @@ SW <- function(expr) {
 #'        (`FALSE` by default).
 #' @param log [logical] (*with default*): whether the value has to be logical
 #'        (`FALSE` by default).
+#' @param inf [logical] (*with default*): whether infinite values are allowed
+#'        (`FALSE` by default).
 #' @inheritParams .validate_args
 #'
 #' @return
@@ -1384,12 +1386,13 @@ SW <- function(expr) {
 #'
 #' @noRd
 .validate_scalar <- function(val, int = FALSE, pos = FALSE, nng = FALSE, log = FALSE,
-                             null.ok = FALSE, name = NULL, extra = NULL) {
+                             inf = FALSE, null.ok = FALSE, name = NULL, extra = NULL) {
   if (!missing(val) && is.null(val) && null.ok)
     return(NULL)
   if (missing(val) || NROW(val) != 1 || NCOL(val) != 1 || !is.null(dim(val)) || is.na(val) ||
       (!log && !is.numeric(val)) || (log && !is.logical(val)) ||
-      (int && (is.infinite(val) || val != as.integer(val))) ||
+      (!inf && val >= .Machine$double.xmax) ||
+      (int && val != as.integer(val)) ||
       (pos && val <= 0) || (nng && val < 0)) {
     ## additional text to append for extra options that cannot be validated
     ## but we want to report
@@ -1410,9 +1413,9 @@ SW <- function(expr) {
 #' @inheritParams .validate_scalar
 #'
 #' @noRd
-.validate_positive_scalar <- function(val, int = FALSE, null.ok = FALSE,
+.validate_positive_scalar <- function(val, int = FALSE, inf = FALSE, null.ok = FALSE,
                                       name = NULL, extra = NULL) {
-  .validate_scalar(val, int = int, pos = TRUE, null.ok = null.ok,
+  .validate_scalar(val, int = int, pos = TRUE, inf = inf, null.ok = null.ok,
                    name = name %||% .first_argument(), extra = extra)
 }
 
@@ -1421,9 +1424,9 @@ SW <- function(expr) {
 #' @inheritParams .validate_scalar
 #'
 #' @noRd
-.validate_nonnegative_scalar <- function(val, int = FALSE, null.ok = FALSE,
+.validate_nonnegative_scalar <- function(val, int = FALSE, inf = FALSE, null.ok = FALSE,
                                          name = NULL, extra = NULL) {
-  .validate_scalar(val, int = int, nng = TRUE, null.ok = null.ok,
+  .validate_scalar(val, int = int, nng = TRUE, inf = inf, null.ok = null.ok,
                    name = name %||% .first_argument(), extra = extra)
 }
 

@@ -172,7 +172,7 @@ calc_AliquotSize <- function(
     .throw_error("'grain.size' should contain positive values")
   }
 
-  .validate_positive_scalar(packing.density)
+  .validate_positive_scalar(packing.density, inf = TRUE)
   if (is.infinite(packing.density)) {
     # use ~0.907... from Thue's Theorem as packing density
     packing.density <- pi / sqrt(12)

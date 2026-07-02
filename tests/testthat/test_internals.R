@@ -502,6 +502,8 @@ test_that("Test internals", {
                1.3)
   expect_equal(.validate_scalar(-2, int = TRUE),
                -2)
+  expect_equal(.validate_scalar(Inf, inf = TRUE),
+               Inf)
   expect_null(.validate_scalar(NULL, int = TRUE, null.ok = TRUE))
 
   expect_error(.validate_scalar(int = TRUE),
@@ -526,7 +528,11 @@ test_that("Test internals", {
                "'NA' should be a single value")
   expect_error(.validate_scalar(-1:2, name = "'var'"),
                "'var' should be a single value")
+  expect_error(.validate_scalar(Inf, name = "'var'"),
+               "'var' should be a single value")
   expect_error(.validate_scalar(Inf, int = TRUE, name = "'var'"),
+               "'var' should be a single integer value")
+  expect_error(.validate_scalar(.Machine$double.xmax, int = TRUE, name = "'var'"),
                "'var' should be a single integer value")
   expect_error(.validate_scalar(1.5, int = TRUE, name = "'var'"),
                "'var' should be a single integer value")
@@ -542,6 +548,8 @@ test_that("Test internals", {
                1.3)
   expect_equal(.validate_positive_scalar(2, int = TRUE),
                2)
+  expect_equal(.validate_positive_scalar(Inf, inf = TRUE),
+               Inf)
   expect_null(.validate_positive_scalar(NULL, int = TRUE, null.ok = TRUE))
 
   expect_error(.validate_positive_scalar(int = TRUE),
@@ -576,6 +584,8 @@ test_that("Test internals", {
                0)
   expect_equal(.validate_nonnegative_scalar(2, int = TRUE),
                2)
+  expect_equal(.validate_nonnegative_scalar(Inf, inf = TRUE),
+               Inf)
   expect_null(.validate_nonnegative_scalar(NULL, int = TRUE, null.ok = TRUE))
 
   expect_error(.validate_nonnegative_scalar(int = TRUE),
