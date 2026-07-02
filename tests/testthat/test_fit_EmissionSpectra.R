@@ -145,4 +145,13 @@ test_that("regression tests", {
   expect_error(fit_EmissionSpectra(matrix(rnorm(5), 1, 5), verbose = FALSE),
                "method_control$graining cannot exceed the available channels",
                fixed = TRUE)
+
+  ## issue 1602
+  expect_s4_class(fit_EmissionSpectra(TL.Spectrum, numeric(), n_components = 2,
+                                      plot = FALSE, verbose = FALSE,
+                                      method_control = list(max.runs = 2)),
+                  "RLum.Results")
+  expect_error(fit_EmissionSpectra(matrix(rnorm(5), 1, 5), numeric(), verbose = FALSE),
+               "method_control$graining cannot exceed the available channels",
+               fixed = TRUE)
 })
