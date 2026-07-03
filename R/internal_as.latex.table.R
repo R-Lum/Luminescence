@@ -70,6 +70,8 @@
   # -
 
   .validate_logical_scalar(comments)
+  .validate_class(pos, "character", length = 1)
+  .validate_nonnegative_scalar(digits, int = TRUE)
   .validate_logical_scalar(rm.zero)
   .validate_class(select, "character", null.ok = TRUE)
   .validate_logical_scalar(tabular_only)
@@ -187,8 +189,6 @@
     .throw_error("Length of 'col.names' does not match the number of columns")
   if (!is.null(row.names) && length(row.names) != nrow(x))
     .throw_error("Length of 'row.names' does not match the number of rows")
-  if (length(pos) != 1)
-    .throw_error("Length of 'pos' does not match the number of columns")
 
   ## Default settings ----
   options <- modifyList(list(verbose = TRUE),
