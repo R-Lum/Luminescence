@@ -114,6 +114,8 @@ setMethod("get_RLum", signature = "list",
     function(object, class = NULL, null.rm = FALSE, ...) {
       ## input validation
       .validate_class(class, "character", null.ok = TRUE, length = 1)
+      if (!is.null(class) && is.na(class))
+        .throw_error("'class' cannot contain missing values")
       .validate_logical_scalar(null.rm)
 
       ## take care of the class argument
