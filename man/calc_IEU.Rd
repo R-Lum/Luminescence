@@ -22,7 +22,7 @@ intercept}
 fixed interval (e.g. 5 Gy) used for iteration of \code{Dbar}, from the mean to
 Lowest.De used to create Graph.IEU \verb{[Dbar.Fixed vs Z]}}
 
-\item{decimal.point}{\link{numeric} (\emph{with default}):
+\item{decimal.point}{\link{integer} (\emph{with default}):
 number of decimal points for rounding calculations (e.g. 2)}
 
 \item{plot}{\link{logical} (\emph{with default}):

@@ -21,7 +21,7 @@
 #' fixed interval (e.g. 5 Gy) used for iteration of `Dbar`, from the mean to
 #' Lowest.De used to create Graph.IEU `[Dbar.Fixed vs Z]`
 #'
-#' @param decimal.point [numeric] (*with default*):
+#' @param decimal.point [integer] (*with default*):
 #' number of decimal points for rounding calculations (e.g. 2)
 #'
 #' @param plot [logical] (*with default*):
@@ -98,9 +98,11 @@ calc_IEU <- function(
   data <- data[, 1:2]
   colnames(data) <- c("De", "De.Error")
 
-  .validate_class(a, "numeric")
-  .validate_class(b, "numeric")
+  .validate_class(a, "numeric", length = 1)
+  .validate_class(b, "numeric", length = 1)
   .validate_positive_scalar(interval)
+  .validate_nonnegative_scalar(decimal.point, int = TRUE)
+  .validate_logical_scalar(plot)
 
   ##==========================================================================##
   ## ... ARGUMENTS
