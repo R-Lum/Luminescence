@@ -102,7 +102,7 @@ test_that("check functionality", {
       fixed = TRUE)
 
     ## plot: transect ------------
-    expect_silent(suppressWarnings(
+    t <- expect_silent(suppressWarnings(
       plot_RLum.Data.Spectrum(
         TL.Spectrum,
         plot.type = "transect",
@@ -110,6 +110,8 @@ test_that("check functionality", {
         ylim = c(0, 350),
         zlim = c(0, 1e6),
         ylab = "Counts [1 / summed channels]")))
+    expect_type(t, "double")
+    expect_true(inherits(t, "matrix"))
     
     ## deploy arguments
     expect_silent(suppressWarnings(

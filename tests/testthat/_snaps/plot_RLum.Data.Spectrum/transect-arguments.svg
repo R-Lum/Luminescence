@@ -60,7 +60,7 @@
 <text x='375.12' y='19.36' text-anchor='middle' style='font-size: 14.40px; font-weight: bold; font-family: sans;' textLength='138.48px' lengthAdjust='spacingAndGlyphs'>RLum.Data.Spectrum</text>
 <text x='375.12' y='571.68' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='140.77px' lengthAdjust='spacingAndGlyphs'>(channel range: 500 : 750)</text>
 <text x='375.12' y='557.28' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='19.34px' lengthAdjust='spacingAndGlyphs'>t [s]</text>
-<text transform='translate(12.96,272.88) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='155.45px' lengthAdjust='spacingAndGlyphs'>Counts [1/summed channels]</text>
+<text transform='translate(12.96,272.88) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='161.46px' lengthAdjust='spacingAndGlyphs'>Counts [1/combined channels]</text>
 </g>
 <g clip-path='url(#cpNDQuNjR8NzA1LjYwfDI4LjgwfDUxNi45Ng==)'>
 <polyline points='69.18,503.99 109.98,501.99 150.77,492.49 191.57,412.82 232.37,169.43 273.17,46.88 313.96,135.98 354.76,223.84 395.56,296.66 436.36,353.01 477.16,402.41 517.96,429.21 558.75,447.80 599.55,443.98 640.35,407.83 ' style='stroke-width: 0.75; stroke: #EE82EE;' />
