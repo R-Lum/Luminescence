@@ -209,7 +209,7 @@ wavelength axis. Other allowed values are \code{mean}, \code{mean}, \code{min}, 
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.6.16
+ 0.6.17
 }
 
 \examples{
