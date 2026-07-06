@@ -263,6 +263,9 @@ and struggles to understand the axis values.
 * The `plot.type = "transect"` gained support for a couple of arguments: `add` (to add additional transects to an existing plot), 
 `smooth` (basic curve smoothing), `transect_mode` to control the integration method (`sum` the default, `mean`, `median`, `min`, `max`) 
 
+* For `plot.type = "multiple.lines"` the number of legend entries is limited to 30 to avoid excessive overplotting; 
+can be overwritten by setting `legend.text`.
+
 ### `plot_ViolinPlot()`
 
 * Numeric coordinates for `summary.pos` are now respected (#1596).

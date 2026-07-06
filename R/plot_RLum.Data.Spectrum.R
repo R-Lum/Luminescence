@@ -1087,8 +1087,14 @@ if(plot){
     if(box) graphics::box()
 
     ##for missing values - legend.text
-    if (is.null(legend.text))
+    if (is.null(legend.text)) {
       legend.text <- as.character(paste(round(y[frames],digits=1), zlab))
+      
+      ## limit number of entries show to avoid excessive overplotting
+      legend.text <- legend.text[
+        seq(1,length(legend.text), length.out = min(c(length(legend.text), 30)))]
+       
+    }
 
     ##legend
     if(plot_settings$legend) {
