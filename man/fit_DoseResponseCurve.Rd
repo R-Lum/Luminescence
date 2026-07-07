@@ -128,10 +128,18 @@ This object is a \link{data.frame} with the following columns
 \code{D01.ERROR} \tab \link{numeric} \tab standard error of the \eqn{D_0} value\cr
 \code{D02} \tab \link{numeric} \tab 2nd \eqn{D_0} value, only for \code{EXP+EXP}\cr
 \code{D02.ERROR} \tab \link{numeric} \tab standard error for 2nd \eqn{D_0}; only for \code{EXP+EXP}\cr
-\code{R} \tab \link{numeric} \tab the material specific parameter \eqn{R}\cr
-\code{R.ERROR} \tab \link{numeric} \tab the uncertainty of \eqn{R}\cr
+\code{R} \tab \link{numeric} \tab the material specific parameter \eqn{R} (only \code{OTOR} and \code{OTORX})\cr
+\code{R.LOWER} \tab \link{numeric} \tab lower 25\% quantile of \eqn{R}\cr
+\code{R.UPPER} \tab \link{numeric} \tab upper 75\% quantile of \eqn{R}\cr
 \code{Dc} \tab \link{numeric} \tab value indicating saturation level; only for \code{OTOR} \cr
-\code{D63} \tab \link{numeric} \tab the specific saturation level; only for \code{OTORX} \cr
+\code{Dc.LOWER} \tab \link{numeric} \tab lower 25\% quantile for \code{Dc}; only for \code{OTOR} \cr
+\code{Dc.UPPER} \tab \link{numeric} \tab upper 75\% quantile for \code{Dc}; only for \code{OTOR} \cr
+\code{D63} \tab \link{numeric} \tab the specific saturation level; only for \code{OTOR}, \code{OTORX} \cr
+\code{D63.LOWER} \ tab \link{numeric} \tab lower 25\% quantile of \code{D63}; only for \code{OTOR}, \code{OTORX} \cr
+\code{D63.UPPER} \ tab \link{numeric} \tab upper 75\% quantile of \code{D63}; only for \code{OTOR}, \code{OTORX} \cr
+\code{D80} \tab \link{numeric} \tab the specific saturation level; only for \code{EXP}, \code{OTOR}, \code{OTORX} \cr
+\code{D80.LOWER} \ tab \link{numeric} \tab lower 25\% quantile of \code{D80}; only for \code{OTOR}, \code{OTORX} \cr
+\code{D80.UPPER} \ tab \link{numeric} \tab upper 75\% quantile of \code{D80}; only for \code{OTOR}, \code{OTORX} \cr
 \code{n_N} \tab \link{numeric} \tab saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (\code{N}) to the integral until \code{De} (\code{n}) (e.g.,  Guralnik et al., 2015)\cr
 \code{De.MC} \tab \link{numeric} \tab equivalent dose derived by Monte-Carlo simulation; ideally identical to \code{De}\cr
 \code{Fit} \tab \link{character} \tab applied fit function \cr
@@ -297,7 +305,7 @@ especially for the composed functions (\code{EXP+LIN} and \code{EXP+EXP}).
 }
 }
 \section{Function version}{
- 1.5.1
+ 1.6.0
 }
 
 \examples{

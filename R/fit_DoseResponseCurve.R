@@ -257,10 +257,18 @@
 #' `D01.ERROR` \tab [numeric] \tab standard error of the \eqn{D_0} value\cr
 #' `D02` \tab [numeric] \tab 2nd \eqn{D_0} value, only for `EXP+EXP`\cr
 #' `D02.ERROR` \tab [numeric] \tab standard error for 2nd \eqn{D_0}; only for `EXP+EXP`\cr
-#' `R` \tab [numeric] \tab the material specific parameter \eqn{R}\cr
-#' `R.ERROR` \tab [numeric] \tab the uncertainty of \eqn{R}\cr
+#' `R` \tab [numeric] \tab the material specific parameter \eqn{R} (only `OTOR` and `OTORX`)\cr
+#' `R.LOWER` \tab [numeric] \tab lower 25% quantile of \eqn{R}\cr
+#' `R.UPPER` \tab [numeric] \tab upper 75% quantile of \eqn{R}\cr
 #' `Dc` \tab [numeric] \tab value indicating saturation level; only for `OTOR` \cr
-#' `D63` \tab [numeric] \tab the specific saturation level; only for `OTORX` \cr
+#' `Dc.LOWER` \tab [numeric] \tab lower 25% quantile for `Dc`; only for `OTOR` \cr
+#' `Dc.UPPER` \tab [numeric] \tab upper 75% quantile for `Dc`; only for `OTOR` \cr
+#' `D63` \tab [numeric] \tab the specific saturation level; only for `OTOR`, `OTORX` \cr
+#' `D63.LOWER` \ tab [numeric] \tab lower 25% quantile of `D63`; only for `OTOR`, `OTORX` \cr
+#' `D63.UPPER` \ tab [numeric] \tab upper 75% quantile of `D63`; only for `OTOR`, `OTORX` \cr
+#' `D80` \tab [numeric] \tab the specific saturation level; only for `EXP`, `OTOR`, `OTORX` \cr
+#' `D80.LOWER` \ tab [numeric] \tab lower 25% quantile of `D80`; only for `OTOR`, `OTORX` \cr
+#' `D80.UPPER` \ tab [numeric] \tab upper 75% quantile of `D80`; only for `OTOR`, `OTORX` \cr
 #' `n_N` \tab [numeric] \tab saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (`N`) to the integral until `De` (`n`) (e.g.,  Guralnik et al., 2015)\cr
 #' `De.MC` \tab [numeric] \tab equivalent dose derived by Monte-Carlo simulation; ideally identical to `De`\cr
 #' `Fit` \tab [character] \tab applied fit function \cr
@@ -273,7 +281,7 @@
 #' `.De.raw` \tab [numeric] \tab equivalent dose reported 'as is', that is, containing infinities and negative values if they could be calculated. Bear in mind that negative values are meaningless and may be arbitrary.\cr
 #' }
 #'
-#' @section Function version: 1.5.1
+#' @section Function version: 1.6.0
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -594,7 +602,8 @@ fit_DoseResponseCurve <- function(
   x.natural <- rep(NA_real_, n.MC)
 
   ##1.4 set initialise variables
-  De <- De.Error <- D01 <- R <- R.ERROR <- Dc <- D63 <- Di <- N <- TEST_DOSE <- NA_real_
+  De <- De.Error <- D01 <- R <- R.LOWER <- R.UPPER <- Dc <- Dc.LOWER <- Dc.UPPER <- NA_real_
+  D63 <- D63.LOWER <- D63.UPPER <- D80 <- D80.LOWER <- D80.UPPER <- Di <- N <- TEST_DOSE <- NA_real_
 
   ##1.5 create bindings (we generate this with an internal function klate)
   var.g <- d <- Dint <- Q <- NA_real_
@@ -656,7 +665,7 @@ fit_DoseResponseCurve <- function(
   ## helper to report the fit: this assigns the
   fit_message <- ""
   .report_fit <- function(De, ...) {
-      fit_message <<- paste0(sprintf("Fit: %s (%s) | De = %.2f",
+      fit_message <<- paste0(sprintf("Fit: %6s (%s) | De = %.2f",
                                      fit.method, mode, abs(De)), ...)
       if (verbose)
         writeLines(paste("[fit_DoseResponseCurve()]", fit_message))
@@ -877,6 +886,9 @@ fit_DoseResponseCurve <- function(
 
         #get parameters out of it
         .get_coef(fit)
+        
+        ## calculate D63 and D80 based on approximation in Mauz et al. (submitted)
+        D80 <- 1.609 * b
 
         #calculate De
         De <- NA
@@ -1505,9 +1517,13 @@ fit_DoseResponseCurve <- function(
           }
 
           if (inherits(De, "try-error")) De <- NA # nocov
+          
+          ## return D63 based on formula in the appendix of Mauz et al. (submitted)
+          D63 <- (0.367 + 0.633 * R) * Dc
+          D80 <- D63 * (0.809 + 0.800 * R) / (0.368 + 0.632 * R)
 
           ## report terminal line
-          .report_fit(De, sprintf(" | R = %.2f | Dc = %.2f", R, Dc))
+          .report_fit(De, sprintf(" | R = %.2f | D63 = %.2f", R, D63))
 
           #OTOR MC -----
           ##Monte Carlo Simulation
@@ -1585,9 +1601,22 @@ fit_DoseResponseCurve <- function(
           }#end for loop
 
           ##write Dc.ERROR
-          Dc.ERROR <- sd(var.Dc, na.rm = TRUE)
-          R.ERROR <- sd(var.R, na.rm = TRUE)
+          Dc.ERROR <- quantile(var.Dc, na.rm = TRUE, probs = c(0.25,0.75))
+          R.ERROR <- quantile(var.R, na.rm = TRUE, probs = c(0.25,0.75))
+          Dc.LOWER <- Dc.ERROR[1]
+          Dc.UPPER <- Dc.ERROR[2]
+          R.LOWER <- R.ERROR[1]
+          R.UPPER <- R.ERROR[2]
 
+          ## calculate the D63 using the approximation in Mauz et al. (submitted)
+          D63.ERROR <- (0.367 + 0.633 * R.ERROR) * Dc.ERROR
+          D63.LOWER <- D63.ERROR[1]
+          D63.UPPER <- D63.ERROR[2]
+          
+          ## calculate D80 the same way
+          D80.LOWER <- D63.LOWER * (0.809 + 0.800 * R.LOWER) / (0.368 + 0.632 * R.LOWER)
+          D80.UPPER <- D63.UPPER * (0.809 + 0.800 * R.UPPER) / (0.368 + 0.632 * R.UPPER)
+          
           ##remove values
           rm(var.Dc)
           rm(var.R)
@@ -1636,8 +1665,13 @@ fit_DoseResponseCurve <- function(
       #get parameters out of it
       .get_coef(fit)
 
-      ## get also R, this is not part of the fit
+      ## get also R, this is not part of the fit, approximation 
+      ## based on Mauz et al. (submitted)
       R <- 1 - Q
+      Dc <- D63 / (0.367 + 0.633 * R)
+      
+      ## calculate also D80
+      D80 <- D63 * (0.809 + 0.800 * R) / (0.368 + 0.632 * R)
 
       #calculate De
       De <- NA
@@ -1761,8 +1795,18 @@ fit_DoseResponseCurve <- function(
       }#end for loop
 
       ##write Dc.ERROR
-      D63.ERROR <- sd(var.D63, na.rm = TRUE)
-      R.ERROR <- sd(1-var.Q, na.rm = TRUE)
+      D63.ERROR <- quantile(var.D63, na.rm = TRUE, probs = c(0.25, 0.75))
+      R.ERROR <- quantile(1-var.Q, na.rm = TRUE, probs = c(0.25, 0.75))
+      
+      ##write Dc.ERROR
+      D63.LOWER <- D63.ERROR[1]
+      D63.UPPER <- D63.ERROR[2]
+      R.LOWER <- R.ERROR[1]
+      R.UPPER <- R.ERROR[2]
+      
+      ## calculate D80 the same way
+      D80.LOWER <- D63.LOWER * (0.809 + 0.800 * R.LOWER) / (0.368 + 0.632 * R.LOWER)
+      D80.UPPER <- D63.UPPER * (0.809 + 0.800 * R.UPPER) / (0.368 + 0.632 * R.UPPER)
 
       ##remove values
       rm(var.D63)
@@ -1843,9 +1887,17 @@ fit_DoseResponseCurve <- function(
     D02 = D02,
     D02.ERROR = D02.ERROR,
     R = R,
-    R.ERROR = R.ERROR,
+    R.LOWER = R.LOWER,
+    R.UPPER = R.UPPER,
     Dc = Dc,
+    Dc.LOWER = Dc.LOWER,
+    Dc.UPPER = Dc.UPPER,
     D63 = D63,
+    D63.LOWER = D63.LOWER,
+    D63.UPPER = D63.UPPER,
+    D80 = D80,
+    D80.LOWER = D80.LOWER,
+    D80.UPPER = D80.UPPER,
     n_N = n_N,
     De.MC = De.MonteCarlo,
     Fit = fit.method,

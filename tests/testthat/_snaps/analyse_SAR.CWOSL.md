@@ -19,7 +19,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -36,22 +36,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1666.01288143]
+                  "value": [1666.01288134]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [47.85005432]
+                  "value": [47.85005436]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1938.31491507]
+                  "value": [1938.3149198]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [85.27449777]
+                  "value": [85.27449773]
                 },
                 {
                   "type": "logical",
@@ -72,6 +72,46 @@
                   "type": "double",
                   "attributes": {},
                   "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [3118.74870595]
                 },
                 {
                   "type": "double",
@@ -91,7 +131,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1672.66285436]
+                  "value": [1672.66285451]
                 },
                 {
                   "type": "character",
@@ -106,32 +146,32 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1620.21875324]
+                  "value": [1620.21875295]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1724.30469728]
+                  "value": [1724.30469642]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1578.07352437]
+                  "value": [1578.07352431]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1770.28131059]
+                  "value": [1770.28130948]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1666.01288143]
+                  "value": [1666.01288134]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1666.01288143]
+                  "value": [1666.01288134]
                 },
                 {
                   "type": "character",
@@ -305,7 +345,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.0501, 0.00376529, 0.01470634, 338.95506912, 0.02872, 1666.01288143]
+                  "value": [1.0501, 0.00376529, 0.01470634, 338.95506912, 0.02872, 1666.01288134]
                 },
                 {
                   "type": "double",
@@ -380,7 +420,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -423,6 +463,46 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null, null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
                 },
                 {
                   "type": "double",
@@ -741,7 +821,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -784,6 +864,46 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null, null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
                 },
                 {
                   "type": "double",
@@ -1102,7 +1222,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -1145,6 +1265,46 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null, null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA", "NA"]
                 },
                 {
                   "type": "double",
@@ -1463,7 +1623,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -1506,6 +1666,46 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1824,7 +2024,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -1846,7 +2046,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [83.58352805]
+                  "value": [83.58357816]
                 },
                 {
                   "type": "double",
@@ -1856,7 +2056,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [718.68046249]
+                  "value": [718.68041612]
                 },
                 {
                   "type": "logical",
@@ -1877,6 +2077,46 @@
                   "type": "double",
                   "attributes": {},
                   "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [3360.29272957]
                 },
                 {
                   "type": "double",
@@ -1896,7 +2136,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1909.76933367]
+                  "value": [1909.76933022]
                 },
                 {
                   "type": "character",
@@ -1911,22 +2151,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1805.32863398]
+                  "value": [1805.32851622]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1976.55682123]
+                  "value": [1976.55655455]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1753.75387878]
+                  "value": [1753.75380588]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [2095.17875819]
+                  "value": [2095.17838833]
                 },
                 {
                   "type": "double",

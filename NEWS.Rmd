@@ -12,6 +12,8 @@ header-includes:
 
 ## Breaking changes
 
+### `fit_DoseResponseCurve()`
+
 * In function `fit_DoseReponseCurve()` we modified how weights are handled.
 Up to v1.2.1, the default for `fit.weights` used a normalised inverse standard
 error approach, under the assumption that uncertainties scale with the dose.
@@ -34,6 +36,14 @@ These changes affect the numerical output of the following functions:
 Although the changes in the numerical output may be inconvenient, we strongly
 advise updating regardless. The old results can still be reproduced using
 option `fit.weights = "norm_inverse_std"` in the affected functions.
+
+* Furthermore, the output object data frame was expanded to support new 
+parameters for `D63` and `D80` consistently for `OTOR` and `OTORX`. Along
+with this, we modified the uncertainty calculation for `Dc`, `R`, `D63`, and `D80`.
+Now we calculate the lower 25% and the upper 75% quantile instead of returning the 
+standard deviation, which did not make much sense. This means that the column `R.ERROR` 
+is no longer available. Please note that the new output table was also updated 
+in `analyse_SAR.CWOSL()` and subsequent functions. 
 
 * In function `calc_MinDose()` we changed how the `sigmab` argument should be
 expressed in the `log = FALSE` case. Up to v1.2.1, it was required to be
