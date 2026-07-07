@@ -42,8 +42,9 @@ parameters for `D63` and `D80` consistently for `OTOR` and `OTORX`. Along
 with this, we modified the uncertainty calculation for `Dc`, `R`, `D63`, and `D80`.
 Now we calculate the lower 25% and the upper 75% quantile instead of returning the 
 standard deviation, which did not make much sense. This means that the column `R.ERROR` 
-is no longer available. Please note that the new output table was also updated 
-in `analyse_SAR.CWOSL()` and subsequent functions. 
+is no longer available. Please note that the output table was also updated 
+in `analyse_SAR.CWOSL()` and subsequent functions. As long as you access column 
+values using their names, this changes should not affect your existing scripts. 
 
 * In function `calc_MinDose()` we changed how the `sigmab` argument should be
 expressed in the `log = FALSE` case. Up to v1.2.1, it was required to be
@@ -177,6 +178,10 @@ if column names that would somewhat match the expectations are used.
 As a positive side effect, the LxTx table produced by `analyse_SAR.CWOSL()`
 can be now inserted as input without further modification. 
 (#1591 reported by @DirkMittelstrass). 
+
+* Minor adjustment of the terminal feedback for better text alignment. Plus, 
+remove reporting `Dc` for OTOR in favour of `D63` (`Dc` is still accessible in 
+the output).
 
 ### `fit_EmissionSpectra()`
 
