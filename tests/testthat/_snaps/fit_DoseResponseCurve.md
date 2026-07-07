@@ -19,7 +19,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -36,22 +36,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1737.70661892]
+                  "value": [1737.70661408]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [47.79959647]
+                  "value": [47.79959599]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1721.83061162]
+                  "value": [1721.83064073]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [63.32124418]
+                  "value": [63.32124548]
                 },
                 {
                   "type": "logical",
@@ -72,6 +72,46 @@
                   "type": "double",
                   "attributes": {},
                   "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [2770.42550094]
                 },
                 {
                   "type": "double",
@@ -91,7 +131,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1756.34019281]
+                  "value": [1756.34019167]
                 },
                 {
                   "type": "character",
@@ -106,39 +146,39 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1698.5478354]
+                  "value": [1698.54783648]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1720.22346616]
+                  "value": [1720.22346655]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1664.08914035]
+                  "value": [1664.08914252]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1829.15740537]
+                  "value": [1829.15740228]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1737.70661892]
+                  "value": [1737.70661408]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1737.70661892]
+                  "value": [1737.70661408]
                 }
               ]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": [1684.08818332, 1763.41239249, 1762.76103383, 1851.39805311, 1774.39291503, 1702.99383977, 1794.52710109, 1717.02366122, 1760.86602718, 1751.93872102]
+              "value": [1684.08818313, 1763.41238868, 1762.76103457, 1851.39805103, 1774.39291248, 1702.99383838, 1794.52710069, 1717.02366138, 1760.86602595, 1751.93872037]
             },
             {
               "type": "list",
@@ -259,7 +299,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: EXP (interpolation) | De = 1737.71 | D01 = 1721.83"]
+              "value": ["Fit:    EXP (interpolation) | De = 1737.71 | D01 = 1721.83"]
             }
           ]
         },
@@ -301,7 +341,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -318,22 +358,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1746.54042319]
+                  "value": [1746.54042611]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [66.12135437]
+                  "value": [66.12135341]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1869.09452187]
+                  "value": [1869.09453764]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [124.49330404]
+                  "value": [124.49336871]
                 },
                 {
                   "type": "logical",
@@ -354,6 +394,46 @@
                   "type": "double",
                   "attributes": {},
                   "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [3007.37311106]
                 },
                 {
                   "type": "double",
@@ -373,7 +453,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1795.02114844]
+                  "value": [1795.02115164]
                 },
                 {
                   "type": "character",
@@ -388,39 +468,39 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1704.48299935]
+                  "value": [1704.48300381]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1858.73688484]
+                  "value": [1858.7368894]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1665.11612232]
+                  "value": [1665.11612676]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1934.25701627]
+                  "value": [1934.25702089]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1746.54042319]
+                  "value": [1746.54042611]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1746.54042319]
+                  "value": [1746.54042611]
                 }
               ]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": [1806.26496526, 1799.74020485, 1886.36561444, 1839.97049587, 1713.48700629, 1898.74062277, 1723.21572752, 1719.03815974, 1790.21394305, 1773.17474464]
+              "value": [1806.26494752, 1799.74020691, 1886.36560634, 1839.97050264, 1713.48700905, 1898.74062907, 1723.21573154, 1719.03815779, 1790.21397794, 1773.17474759]
             },
             {
               "type": "list",
@@ -541,7 +621,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: EXP (interpolation) | De = 1746.54 | D01 = 1869.09"]
+              "value": ["Fit:    EXP (interpolation) | De = 1746.54 | D01 = 1869.09"]
             }
           ]
         },
@@ -583,7 +663,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -600,22 +680,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1737.70661885]
+                  "value": [1737.70661359]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [85.43222155]
+                  "value": [85.43222195]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1721.8306112]
+                  "value": [1721.83064121]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [91.72758783]
+                  "value": [91.72758719]
                 },
                 {
                   "type": "logical",
@@ -636,6 +716,46 @@
                   "type": "double",
                   "attributes": {},
                   "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [2770.42550171]
                 },
                 {
                   "type": "double",
@@ -655,7 +775,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1720.1083864]
+                  "value": [1720.10838664]
                 },
                 {
                   "type": "character",
@@ -670,39 +790,39 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1617.11998874]
+                  "value": [1617.11998924]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1765.83054379]
+                  "value": [1765.83054482]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1574.49594429]
+                  "value": [1574.49594464]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1870.02265243]
+                  "value": [1870.02265383]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1737.70661885]
+                  "value": [1737.70661359]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1737.70661885]
+                  "value": [1737.70661359]
                 }
               ]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": [1667.95039056, 1750.84259936, 1804.582516, 1643.99368696, 1610.76348842, 1681.31166968, 1906.68958436, 1728.53511384, 1693.79266905, 1712.62214582]
+              "value": [1667.95039165, 1750.84260061, 1804.58251585, 1643.99368698, 1610.76348861, 1681.31166908, 1906.68958617, 1728.53511287, 1693.79266886, 1712.62214571]
             },
             {
               "type": "list",
@@ -823,7 +943,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: EXP (interpolation) | De = 1737.71 | D01 = 1721.83"]
+              "value": ["Fit:    EXP (interpolation) | De = 1737.71 | D01 = 1721.83"]
             }
           ]
         },
@@ -865,7 +985,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -908,6 +1028,46 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1105,7 +1265,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: LIN (interpolation) | De = 1673.02"]
+              "value": ["Fit:    LIN (interpolation) | De = 1673.02"]
             }
           ]
         },
@@ -1147,7 +1307,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -1190,6 +1350,46 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1387,7 +1587,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: LIN (extrapolation) | De = 0.00"]
+              "value": ["Fit:    LIN (extrapolation) | De = 0.00"]
             }
           ]
         },
@@ -1429,7 +1629,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -1446,12 +1646,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1794.53219421]
+                  "value": [1794.53219593]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [65.56218029]
+                  "value": [65.56218413]
                 },
                 {
                   "type": "logical",
@@ -1472,6 +1672,46 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1501,7 +1741,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1804.9170738]
+                  "value": [1804.91707407]
                 },
                 {
                   "type": "character",
@@ -1516,39 +1756,39 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1713.28211602]
+                  "value": [1713.28212511]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1840.39420132]
+                  "value": [1840.39420301]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1696.83231674]
+                  "value": [1696.83232679]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1951.05648735]
+                  "value": [1951.0564826]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1794.53219421]
+                  "value": [1794.53219593]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1794.53219421]
+                  "value": [1794.53219593]
                 }
               ]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": [1782.27971725, 1844.77085464, 1774.91875613, 1798.32088399, 1753.17188562, 1931.05081114, 1738.52181927, 1783.42205299, 1745.05749636, 1897.65646064]
+              "value": [1782.27971898, 1844.77086322, 1774.91880203, 1798.32087973, 1753.17188864, 1931.05081268, 1738.52182176, 1783.4220562, 1745.05743718, 1897.65646025]
             },
             {
               "type": "list",
@@ -1711,7 +1951,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -1754,6 +1994,46 @@
                   "type": "double",
                   "attributes": {},
                   "value": [4639326.25581932]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -1993,7 +2273,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -2036,6 +2316,46 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -2233,7 +2553,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: QDR (interpolation) | De = 1646.83"]
+              "value": ["Fit:    QDR (interpolation) | De = 1646.83"]
             }
           ]
         },
@@ -2275,7 +2595,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -2318,6 +2638,46 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -2515,7 +2875,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: GOK (interpolation) | De = 1786.12 | D01 = 29785.54 | c = 29.23"]
+              "value": ["Fit:    GOK (interpolation) | De = 1786.12 | D01 = 29785.54 | c = 29.23"]
             }
           ]
         },
@@ -2557,7 +2917,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -2609,7 +2969,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.77925245]
+                  "value": [0.4885713]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1.74298866]
                 },
                 {
                   "type": "double",
@@ -2619,7 +2984,42 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": ["NA"]
+                  "value": [1048.20371626]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [5067.27598944]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [4114.48873034]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [708.86415101]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [7450.47578279]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [7581.47779656]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1256.74419208]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [11170.83486128]
                 },
                 {
                   "type": "double",
@@ -2797,7 +3197,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: OTOR (interpolation) | De = 1784.44 | R = 0.36 | Dc = 6923.02"]
+              "value": ["Fit:   OTOR (interpolation) | De = 1784.44 | R = 0.36 | D63 = 4114.49"]
             }
           ]
         },
@@ -2839,7 +3239,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -2882,6 +3282,46 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -3079,7 +3519,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: QDR (extrapolation) | De = 5.80"]
+              "value": ["Fit:    QDR (extrapolation) | De = 5.80"]
             }
           ]
         },
@@ -3121,7 +3561,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -3164,6 +3604,46 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -3260,15 +3740,15 @@
                       "attributes": {},
                       "value": ["Dose", "LxTx", "LxTx.Error", "TnTx"]
                     },
-                    "row.names": {
-                      "type": "integer",
-                      "attributes": {},
-                      "value": [1, 2, 3, 4, 5, 6, 7]
-                    },
                     "class": {
                       "type": "character",
                       "attributes": {},
                       "value": ["data.frame"]
+                    },
+                    "row.names": {
+                      "type": "integer",
+                      "attributes": {},
+                      "value": [1, 2, 3, 4, 5, 6, 7]
                     }
                   },
                   "value": [
@@ -3361,7 +3841,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: QDR (extrapolation) | De = 0.00"]
+              "value": ["Fit:    QDR (extrapolation) | De = 0.00"]
             }
           ]
         },
@@ -3403,7 +3883,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -3446,6 +3926,46 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -3643,7 +4163,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: LIN (extrapolation) | De = 9.58"]
+              "value": ["Fit:    LIN (extrapolation) | De = 9.58"]
             }
           ]
         },
@@ -3685,7 +4205,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -3728,6 +4248,46 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [null]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -3925,7 +4485,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: GOK (extrapolation) | De = 5.00 | D01 = 20030.09 | c = 19.01"]
+              "value": ["Fit:    GOK (extrapolation) | De = 5.00 | D01 = 20030.09 | c = 19.01"]
             }
           ]
         },
@@ -3967,7 +4527,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -4019,7 +4579,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [3.01950203e-06]
+                  "value": [-0.00001595]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [-0.0000127]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [64602970.19914806]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
@@ -4030,6 +4605,31 @@
                   "type": "double",
                   "attributes": {},
                   "value": [23708562.824983]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [36069715.01190383]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [44158441.19943765]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [52120858.22159222]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [79295485.31574124]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [97077471.68578492]
                 },
                 {
                   "type": "double",
@@ -4212,7 +4812,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: OTORX (interpolation) | De = 2469.79 | R = -0.00 | D63 = 23708562.82"]
+              "value": ["Fit:  OTORX (interpolation) | De = 2469.79 | R = -0.00 | D63 = 23708562.82"]
             }
           ]
         },
@@ -4254,7 +4854,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -4307,6 +4907,46 @@
                   "type": "double",
                   "attributes": {},
                   "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [2.23653486]
                 },
                 {
                   "type": "double",
@@ -4489,7 +5129,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: EXP (interpolation) | De = 3.49 | D01 = 1.39"]
+              "value": ["Fit:    EXP (interpolation) | De = 3.49 | D01 = 1.39"]
             }
           ]
         },
@@ -4531,7 +5171,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -4584,6 +5224,46 @@
                   "type": "double",
                   "attributes": {},
                   "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [2.99091215]
                 },
                 {
                   "type": "double",
@@ -4766,7 +5446,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: EXP (extrapolation) | De = 5.76 | D01 = 1.86"]
+              "value": ["Fit:    EXP (extrapolation) | De = 5.76 | D01 = 1.86"]
             }
           ]
         },
@@ -4808,7 +5488,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -4861,6 +5541,46 @@
                   "type": "double",
                   "attributes": {},
                   "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [3007.37294213]
                 },
                 {
                   "type": "double",
@@ -5048,7 +5768,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: EXP (interpolation) | De = 1746.54 | D01 = 1869.09"]
+              "value": ["Fit:    EXP (interpolation) | De = 1746.54 | D01 = 1869.09"]
             }
           ]
         },
@@ -5090,7 +5810,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -5107,22 +5827,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1737.70661385]
+                  "value": [1737.70661469]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [60.18786915]
+                  "value": [60.18786948]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1721.83064456]
+                  "value": [1721.83063651]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [99.9027553]
+                  "value": [99.90275332]
                 },
                 {
                   "type": "logical",
@@ -5143,6 +5863,46 @@
                   "type": "double",
                   "attributes": {},
                   "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [2770.42549415]
                 },
                 {
                   "type": "double",
@@ -5162,7 +5922,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1739.85041389]
+                  "value": [1739.850414]
                 },
                 {
                   "type": "character",
@@ -5177,39 +5937,39 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1668.06839157]
+                  "value": [1668.06839064]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1809.9638951]
+                  "value": [1809.96389421]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1617.33891104]
+                  "value": [1617.33891009]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1859.95816578]
+                  "value": [1859.95816489]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1737.70661385]
+                  "value": [1737.70661469]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1737.70661385]
+                  "value": [1737.70661469]
                 }
               ]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": [1659.67886907, 1693.59328047, 1808.52547691, 1658.85163326, 1760.57885315, 1829.4735915, 1774.74777176, 1781.16966871, 1705.24939044, 1726.63560364]
+              "value": [1659.67886962, 1693.59327891, 1808.52548049, 1658.85163287, 1760.57885567, 1829.47359006, 1774.74777062, 1781.16966828, 1705.24939037, 1726.63560308]
             },
             {
               "type": "list",
@@ -5330,7 +6090,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: EXP (interpolation) | De = 1737.71 | D01 = 1721.83"]
+              "value": ["Fit:    EXP (interpolation) | De = 1737.71 | D01 = 1721.83"]
             }
           ]
         },
@@ -5372,7 +6132,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -5389,22 +6149,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1737.88094394]
+                  "value": [1737.88095289]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [42.2245013]
+                  "value": [42.22450119]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1766.07421611]
+                  "value": [1766.07386872]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [72.85749631]
+                  "value": [72.85749024]
                 },
                 {
                   "type": "logical",
@@ -5425,6 +6185,46 @@
                   "type": "double",
                   "attributes": {},
                   "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [2841.61285477]
                 },
                 {
                   "type": "double",
@@ -5444,7 +6244,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1741.46554966]
+                  "value": [1741.46554901]
                 },
                 {
                   "type": "character",
@@ -5459,39 +6259,39 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1688.77526575]
+                  "value": [1688.77526646]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1786.84216776]
+                  "value": [1786.84216588]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1656.78552767]
+                  "value": [1656.78552921]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1827.74707875]
+                  "value": [1827.7470758]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1737.88094394]
+                  "value": [1737.88095289]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1737.88094394]
+                  "value": [1737.88095289]
                 }
               ]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": [1683.57453263, 1810.92209058, 1787.40074233, 1767.63195221, 1712.34964912, 1741.30875255, 1714.32994682, 1768.32756982, 1739.955778, 1688.85448254]
+              "value": [1683.57453101, 1810.92209052, 1787.40074157, 1767.63195015, 1712.34965077, 1741.30875182, 1714.32994675, 1768.32756762, 1739.95577852, 1688.85448133]
             },
             {
               "type": "list",
@@ -5612,7 +6412,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07"]
+              "value": ["Fit:    EXP (interpolation) | De = 1737.88 | D01 = 1766.07"]
             }
           ]
         },
@@ -5654,7 +6454,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.ERROR", "Dc", "D63", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
+                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw"]
                 },
                 "class": {
                   "type": "character",
@@ -5671,22 +6471,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1737.88094434]
+                  "value": [1737.88095592]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [69.97326091]
+                  "value": [69.97325964]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1766.07421062]
+                  "value": [1766.07391326]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [99.36449989]
+                  "value": [99.36450256]
                 },
                 {
                   "type": "logical",
@@ -5721,12 +6521,52 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.52713521]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1707.28253104]
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [2841.61292644]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": ["NA"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.52713522]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1707.28253067]
                 },
                 {
                   "type": "character",
@@ -5741,39 +6581,39 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1613.60009029]
+                  "value": [1613.60009022]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1771.65416091]
+                  "value": [1771.65415749]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1572.52389115]
+                  "value": [1572.52389195]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1859.1643243]
+                  "value": [1859.16431902]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1737.88094434]
+                  "value": [1737.88095592]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1737.88094434]
+                  "value": [1737.88095592]
                 }
               ]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": [1649.40234964, 1836.3987104, 1734.55301419, 1704.68671974, 1769.15546256, 1645.86370757, 1685.56905427, 1654.17078933, 1774.51901553, 1618.50648717]
+              "value": [1649.40234907, 1836.39870524, 1734.55301569, 1704.68671835, 1769.15546278, 1645.86371036, 1685.56905335, 1654.1707896, 1774.51901489, 1618.50648736]
             },
             {
               "type": "list",
@@ -5894,7 +6734,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07"]
+              "value": ["Fit:    EXP (interpolation) | De = 1737.88 | D01 = 1766.07"]
             }
           ]
         },

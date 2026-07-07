@@ -403,9 +403,9 @@
               "value": [5.5]
             },
             {
-              "type": "double",
+              "type": "integer",
               "attributes": {},
-              "value": [5.5]
+              "value": [5]
             },
             {
               "type": "double",
