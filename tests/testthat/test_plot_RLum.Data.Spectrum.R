@@ -3,6 +3,11 @@ data(ExampleData.XSYG, envir = environment())
 bg.spectrum <- set_RLum("RLum.Data.Spectrum",
                         data = TL.Spectrum@data[, 15:16, drop = FALSE])
 
+## more than 30 columns
+large <- TL.Spectrum
+colnames(large@data) <- as.character(as.numeric(colnames(large@data)) + 480)
+large@data <- cbind(TL.Spectrum@data, large@data[, 1:16])[1:150, ]
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -112,7 +117,7 @@ test_that("check functionality", {
         ylab = "Counts [1 / summed channels]")))
     expect_type(t, "double")
     expect_true(inherits(t, "matrix"))
-    
+
     ## deploy arguments
     expect_silent(suppressWarnings(
       plot_RLum.Data.Spectrum(
@@ -125,7 +130,7 @@ test_that("check functionality", {
         ylim = c(0, 350),
         zlim = c(0, 1e6),
         ylab = "Counts [1 / summed channels]")))
-  
+
     ## plot: interactive ------------
     expect_silent(
       plot_RLum.Data.Spectrum(
@@ -287,13 +292,16 @@ test_that("graphical snapshot tests", {
                                                       bg.channels = 2,
                                                       bin.cols = 1,
                                                       xaxis.energy = TRUE))
+  vdiffr::expect_doppelganger("multiple large",
+                              plot_RLum.Data.Spectrum(large,
+                                                      plot.type = "multiple.lines"))
   vdiffr::expect_doppelganger("transect",
                               plot_RLum.Data.Spectrum(TL.Spectrum,
                                                       plot.type = "transect",
                                                       xlim = c(310, 750),
                                                       ylim = c(0, 300),
                                                       bin.rows = 10))
-  
+
   fig <- function() {
     plot_RLum.Data.Spectrum(
       TL.Spectrum,
@@ -316,7 +324,7 @@ test_that("graphical snapshot tests", {
       bin.rows = 10
     )
   }
-  
+
   vdiffr::expect_doppelganger("transect_arguments",
                               fig)
   })
