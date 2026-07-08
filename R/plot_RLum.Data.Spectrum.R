@@ -660,17 +660,17 @@ plot_RLum.Data.Spectrum <- function(
       "max" = matrixStats::colMaxs(temp.xyz, na.rm = TRUE),
       matrixStats::colSums2(temp.xyz, na.rm = TRUE)
     )
-    
+
     ## we have to normalise again to ensure that normalisation works because
     ## above we apply it to single curves before we sum up
     ## this solution is not super clean, but it works sufficiently well
     if(!isFALSE(norm))
       temp.xyz <- .normalise_curve(temp.xyz, norm)
-    
+
     ## smooth if requested
     if(smooth[1])
       temp.xyz <- .smoothing(temp.xyz)
-    
+
     ## recover the matrix matrixStats returns a vector
     temp.xyz <- matrix(
       data = temp.xyz, 
@@ -679,12 +679,12 @@ plot_RLum.Data.Spectrum <- function(
         paste(range(xlim), collapse = ":"), 
         names(temp.xyz)))
   }
-  
+
 # PLOT --------------------------------------------------------------------
-  
+
 ## set variables we need later
 pmat <- NA
-  
+
 if(plot){
   ##par setting for possible combination with plot method for RLum.Analysis objects
   if(par.local) {
@@ -1088,12 +1088,10 @@ if(plot){
 
     ##for missing values - legend.text
     if (is.null(legend.text)) {
-      legend.text <- as.character(paste(round(y[frames],digits=1), zlab))
-      
       ## limit number of entries show to avoid excessive overplotting
-      legend.text <- legend.text[
-        seq(1,length(legend.text), length.out = min(c(length(legend.text), 30)))]
-       
+      num.frames <- length(frames)
+      sel <- seq.int(1, num.frames, length.out = min(num.frames, 30))
+      legend.text <- paste(round(y[sel], digits = 1), zlab)
     }
 
     ##legend
@@ -1113,11 +1111,11 @@ if(plot){
       ##consider differences within the arguments
       zlim <- extraArgs$zlim %||% range(temp.xyz, na.rm = TRUE)
       zlab <- extraArgs$ylab %||% "Counts [1/combined channels]"
-      
+
       ## here it does not make sense that we show a wavelength range
       ## that does not exist; so we limit to data.
       xlim <- c(max(min(x.vals), xlim[1]), min(max(x.vals), xlim[2]))
-      
+
       ## plot lines or plots
       if(add[1]) {
         lines(
@@ -1126,7 +1124,7 @@ if(plot){
           col = col,
           type = type,
           pch = pch)
-  
+
       } else {
         plot(
           y,
