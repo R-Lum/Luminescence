@@ -310,7 +310,7 @@ test_that("Full check of analyse_baSAR function", {
       txtProgressBar = FALSE,
       method_control = list(lower_centralD = 0),
       n.MCMC = 100),
-      "You have modified the lower central_D boundary")
+      "You have modified the lower_centralD boundary")
 
   suppressWarnings(expect_warning(analyse_baSAR(
       object = results,
