@@ -969,15 +969,11 @@ analyse_baSAR <- function(
       }
 
       ## remove non-OSL curves
-      rm_id <- which(object@METADATA[["LTYPE"]] != "OSL")
-      if (length(rm_id) > 0) {
+      if (any(object@METADATA[["LTYPE"]] != "OSL")) {
         if(verbose)
           cat("\t\t  .. remove non-OSL curves\n")
-        object@METADATA <- object@METADATA[-rm_id,]
-        object@DATA[rm_id] <- NULL
-
-        ##reset index
-        object@METADATA[["ID"]] <- seq_along(object@METADATA[["ID"]])
+        LTYPE <- NULL # silence notes raised by R CMD check
+        object <- subset(object, LTYPE == "OSL")
       }
     }
 
@@ -1031,15 +1027,8 @@ analyse_baSAR <- function(
         .throw_message("Record pre-selection in BIN-file detected, ",
                        "record reduced to selection\n", error = FALSE)
       }
-      fileBIN.list <- lapply(fileBIN.list, function(x){
-            ##reduce data
-            x@DATA <- x@DATA[x@METADATA[["SEL"]]]
-            x@METADATA <- x@METADATA[x@METADATA[["SEL"]], ]
-
-            ##reset index
-            x@METADATA[["ID"]] <- seq_len(nrow(x@METADATA))
-            return(x)
-      })
+      SEL <- NULL # silence notes raised by R CMD check
+      fileBIN.list <- lapply(fileBIN.list, subset, SEL == TRUE)
     }
 
     # Declare variables ---------------------------------------------------------------------------
