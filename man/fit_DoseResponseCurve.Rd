@@ -223,12 +223,13 @@ This tries to fit a dose-response curve based on the Lambert W function
 and the one trap one recombination centre (OTOR) model according to Pagonis
 et al. (2020). The function has the form:
 
-\deqn{y = (1 + (\mathcal{W}((R - 1) * \exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
+\deqn{y = (1 + (\mathcal{W}((R - 1) * \exp(R - 1 - ((x + D_{i}) / D_{c}))) / (1 - R))) * N}
 
-with \eqn{W} the Lambert W function (calculated using \link[lamW:lambertW0]{lamW::lambertW0}),
+with \eqn{W} the Lambert-W function (calculated using \link[lamW:lambertW0]{lamW::lambertW0}),
 \eqn{R} the dimensionless retrapping ratio, \eqn{N} the total concentration
 of trappings states in cm\eqn{^{-3}}, \eqn{D_{c} = N/R} a constant, and
-\eqn{D_{int}} is the offset on the x-axis. Note that \eqn{R} and \eqn{D_{c}}
+\eqn{D_{i}} is the offset on the x-axis (not part of the original formula in
+Pagonis et al. 2020). Note that \eqn{R} and \eqn{D_{c}}
 have a valid physical interpretation only when saturation is reached.
 Please note that finding the root in \code{mode = "extrapolation"}
 is a non-easy task due to the shape of the function and the results might be
@@ -305,7 +306,7 @@ especially for the composed functions (\code{EXP+LIN} and \code{EXP+EXP}).
 }
 }
 \section{Function version}{
- 1.6.0
+ 1.6.1
 }
 
 \examples{
