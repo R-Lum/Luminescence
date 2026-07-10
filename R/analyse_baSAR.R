@@ -820,26 +820,20 @@ analyse_baSAR <- function(
   ## check the central_D bounds and set defaults according to Combès et al., 2015
   ## "We set the bounds for the prior on the central dose D, Dmin = 0 Gy and
   ##  Dmax = 1000 Gy, to cover the likely range of possible values for D."
-  msg <- paste("You have modified the %s central_D boundary while applying",
-               "a predefined model. This is possible but not recommended")
-
-  ## check lower_centralD and upper_centralD
-  lower_centralD <- method_control$lower_centralD
-  if (is.null(lower_centralD)) {
-    lower_centralD <- 0
-  } else if (distribution != "user_defined") {
-    .validate_nonnegative_scalar(lower_centralD, null.ok = TRUE,
-                                 name = "'lower_centralD' in 'method_control'")
-    .throw_warning(sprintf(msg, "lower"))
+  set_centralD_bounds <- function(name, default) {
+    val <- method_control[[name]]
+    if (is.null(val))
+      return(default)
+    if (distribution != "user_defined") {
+      .validate_nonnegative_scalar(val, null.ok = TRUE,
+                                   name = sprintf("'%s' in 'method_control'", name))
+      .throw_warning("You have modified the ", name, " boundary while using ",
+                     "a predefined model: this is allowed but not recommended")
+    }
+    val
   }
-  upper_centralD <- method_control$upper_centralD
-  if (is.null(upper_centralD)) {
-    upper_centralD <- 1000
-  } else if (distribution != "user_defined") {
-    .validate_nonnegative_scalar(upper_centralD, null.ok = TRUE,
-                                 name = "'upper_centralD' in 'method_control'")
-    .throw_warning(sprintf(msg, "upper"))
-  }
+  lower_centralD <- set_centralD_bounds("lower_centralD", 0)
+  upper_centralD <- set_centralD_bounds("upper_centralD", 1000)
   if (upper_centralD <= lower_centralD) {
     .throw_error("'upper_centralD' in 'method_control' must be greater than ",
                  "'lower_centralD'")
@@ -975,15 +969,11 @@ analyse_baSAR <- function(
       }
 
       ## remove non-OSL curves
-      rm_id <- which(object@METADATA[["LTYPE"]] != "OSL")
-      if (length(rm_id) > 0) {
+      if (any(object@METADATA[["LTYPE"]] != "OSL")) {
         if(verbose)
           cat("\t\t  .. remove non-OSL curves\n")
-        object@METADATA <- object@METADATA[-rm_id,]
-        object@DATA[rm_id] <- NULL
-
-        ##reset index
-        object@METADATA[["ID"]] <- seq_along(object@METADATA[["ID"]])
+        LTYPE <- NULL # silence notes raised by R CMD check
+        object <- subset(object, LTYPE == "OSL")
       }
     }
 
@@ -1037,15 +1027,8 @@ analyse_baSAR <- function(
         .throw_message("Record pre-selection in BIN-file detected, ",
                        "record reduced to selection\n", error = FALSE)
       }
-      fileBIN.list <- lapply(fileBIN.list, function(x){
-            ##reduce data
-            x@DATA <- x@DATA[x@METADATA[["SEL"]]]
-            x@METADATA <- x@METADATA[x@METADATA[["SEL"]], ]
-
-            ##reset index
-            x@METADATA[["ID"]] <- seq_len(nrow(x@METADATA))
-            return(x)
-      })
+      SEL <- NULL # silence notes raised by R CMD check
+      fileBIN.list <- lapply(fileBIN.list, subset, SEL == TRUE)
     }
 
     # Declare variables ---------------------------------------------------------------------------
