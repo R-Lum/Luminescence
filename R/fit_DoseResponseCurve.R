@@ -72,12 +72,13 @@
 #' and the one trap one recombination centre (OTOR) model according to Pagonis
 #' et al. (2020). The function has the form:
 #'
-#' \deqn{y = (1 + (\mathcal{W}((R - 1) * \exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
+#' \deqn{y = (1 + (\mathcal{W}((R - 1) * \exp(R - 1 - ((x + D_{i}) / D_{c}))) / (1 - R))) * N}
 #'
-#' with \eqn{W} the Lambert W function (calculated using [lamW::lambertW0]),
+#' with \eqn{W} the Lambert-W function (calculated using [lamW::lambertW0]),
 #' \eqn{R} the dimensionless retrapping ratio, \eqn{N} the total concentration
 #' of trappings states in cm\eqn{^{-3}}, \eqn{D_{c} = N/R} a constant, and
-#' \eqn{D_{int}} is the offset on the x-axis. Note that \eqn{R} and \eqn{D_{c}}
+#' \eqn{D_{i}} is the offset on the x-axis (not part of the original formula in 
+#' Pagonis et al. 2020). Note that \eqn{R} and \eqn{D_{c}}
 #' have a valid physical interpretation only when saturation is reached.
 #' Please note that finding the root in `mode = "extrapolation"`
 #' is a non-easy task due to the shape of the function and the results might be
@@ -281,7 +282,7 @@
 #' `.De.raw` \tab [numeric] \tab equivalent dose reported 'as is', that is, containing infinities and negative values if they could be calculated. Bear in mind that negative values are meaningless and may be arbitrary.\cr
 #' }
 #'
-#' @section Function version: 1.6.0
+#' @section Function version: 1.6.1
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -606,7 +607,7 @@ fit_DoseResponseCurve <- function(
   D63 <- D63.LOWER <- D63.UPPER <- D80 <- D80.LOWER <- D80.UPPER <- Di <- N <- TEST_DOSE <- NA_real_
 
   ##1.5 create bindings (we generate this with an internal function klate)
-  var.g <- d <- Dint <- Q <- NA_real_
+  var.g <- d <- Di <- Q <- NA_real_
 
   ## FITTING ----------------------------------------------------------------
   ##3. Fitting values with nonlinear least-squares estimation of the parameters
@@ -631,7 +632,7 @@ fit_DoseResponseCurve <- function(
   fit.functionGOK <- function(a,b,c,d,x) a*(d-(1+(1/b)*x*c)^(-1/c))
 
   ### OTOR -------------
-  fit.functionOTOR <- function(R, Dc, N, Dint, x) (1 + (lamW::lambertW0((R - 1) * exp(R - 1 - ((x + Dint) / Dc ))) / (1 - R))) * N
+  fit.functionOTOR <- function(R, Dc, N, Di, x) (1 + (lamW::lambertW0((R - 1) * exp(R - 1 - ((x + Di) / Dc ))) / (1 - R))) * N
 
   ### OTORX -------------
   fit.functionOTORX <- function(x, Q, D63, c, Di) .D2nN(x + Di, Q, D63) * c / .D2nN(TEST_DOSE + Di, Q, D63)
@@ -1446,18 +1447,18 @@ fit_DoseResponseCurve <- function(
 
   ## OTOR ---------------------------------------------------------------
   else if (fit.method == "OTOR") {
-    Dint_lower <- 0.01
+    Di_lower <- 0.01
     if(mode == "extrapolation")
-      Dint_lower <- 50 ##TODO - fragile ... however it is only used by a few
+      Di_lower <- 50 ##TODO - fragile ... however it is only used by a few
 
     ## set bounds
-    lower <- if (fit.bounds) c(0, 0, 0, Dint_lower) else rep(-Inf, 4)
+    lower <- if (fit.bounds) c(0, 0, 0, Di_lower) else rep(-Inf, 4)
     upper <- if (fit.force_through_origin) c(10, Inf, Inf, 0) else c(10, Inf, Inf, Inf)
 
     fit <- try(minpack.lm::nlsLM(
           formula = .toFormula(fit.functionOTOR, env = currn_env),
           data = data,
-          start = list(R = 0, Dc = b, N = b, Dint = 0.1),
+          start = list(R = 0, Dc = b, N = b, Di = 0.1),
           weights = fit.weights,
           trace = FALSE,
           algorithm = "LM",
@@ -1478,24 +1479,24 @@ fit_DoseResponseCurve <- function(
           De <- NA
           if(mode == "interpolation"){
              De <- try(suppressWarnings(stats::uniroot(
-               f = function(x, R, Dc, N, Dint, LnTn) {
-                 fit.functionOTOR(R, Dc, N, Dint, x) - LnTn},
+               f = function(x, R, Dc, N, Di, LnTn) {
+                 fit.functionOTOR(R, Dc, N, Di, x) - LnTn},
                interval = c(0, max(object[[1]]) * 1.2),
                R = R,
                Dc = Dc,
                N = N,
-               Dint = Dint,
+               Di = Di,
                LnTn = object[1, 2])$root), silent = TRUE)
 
           }else if (mode == "extrapolation"){
             De <- try(suppressWarnings(stats::uniroot(
-              f = function(x, R, Dc, N, Dint) {
-                fit.functionOTOR(R, Dc, N, Dint, x)},
+              f = function(x, R, Dc, N, Di) {
+                fit.functionOTOR(R, Dc, N, Di, x)},
               interval = c(-max(object[[1]]), 0),
               R = R,
               Dc = Dc,
               N = N,
-              Dint = Dint)$root), silent = TRUE)
+              Di = Di)$root), silent = TRUE)
 
             ## there are cases where the function cannot calculate the root
             ## due to its shape, here we have to use the minimum
@@ -1506,13 +1507,13 @@ fit_DoseResponseCurve <- function(
                   "to unexpected and inconclusive results for fit.method = 'OTOR'")
 
               De <- try(suppressWarnings(stats::optimize(
-                f = function(x, R, Dc, N, Dint) {
-                  fit.functionOTOR(R, Dc, N, Dint, x)},
+                f = function(x, R, Dc, N, Di) {
+                  fit.functionOTOR(R, Dc, N, Di, x)},
                 interval = c(-max(object[[1]]), 0),
                 R = R,
                 Dc = Dc,
                 N = N,
-                Dint = Dint)$minimum), silent = TRUE)
+                Di = Di)$minimum), silent = TRUE)
             }
           }
 
@@ -1538,11 +1539,11 @@ fit_DoseResponseCurve <- function(
             fit.MC <- try(minpack.lm::nlsLM(
               formula = .toFormula(fit.functionOTOR, env = currn_env),
               data = list(x = xy$x,y = data.MC[,i]),
-              start = list(R = 0, Dc = b, N = 0, Dint = 0),
+              start = list(R = 0, Dc = b, N = 0, Di = 0),
               weights = fit.weights,
               trace = FALSE,
               algorithm = "LM",
-              lower = if (fit.bounds) c(0, 0, 0, Dint*runif(1,0,2)) else c(-Inf,-Inf,-Inf, -Inf),
+              lower = if (fit.bounds) c(0, 0, 0, Di * runif(1,0,2)) else c(-Inf,-Inf,-Inf, -Inf),
               upper = upper,
               control = minpack.lm::nls.lm.control(maxiter = 500)
             ), silent = TRUE)
@@ -1554,43 +1555,43 @@ fit_DoseResponseCurve <- function(
               var.R[i] <- as.numeric(parameters["R"])
               var.Dc[i] <- as.numeric(parameters["Dc"])
               var.N <- as.numeric(parameters["N"])
-              var.Dint <- as.numeric(parameters["Dint"])
+              var.Di <- as.numeric(parameters["Di"])
 
               # calculate x.natural for error calculation
               if(mode == "interpolation"){
                 try <- try({
                   suppressWarnings(stats::uniroot(
-                  f = function(x, R, Dc, N, Dint, LnTn) {
-                    fit.functionOTOR(R, Dc, N, Dint, x) - LnTn},
+                  f = function(x, R, Dc, N, Di, LnTn) {
+                    fit.functionOTOR(R, Dc, N, Di, x) - LnTn},
                   interval = c(0, max(object[[1]]) * 1.2),
                   R = var.R[i],
                   Dc = var.Dc[i],
                   N = var.N,
-                  Dint = var.Dint,
+                  Di = var.Di,
                   LnTn = data.MC.De[i])$root)
                 }, silent = TRUE)
 
               } else if (mode == "extrapolation"){
                 try <- try(
                   suppressWarnings(stats::uniroot(
-                    f = function(x, R, Dc, N, Dint) {
-                      fit.functionOTOR(R, Dc, N, Dint, x)},
+                    f = function(x, R, Dc, N, Di) {
+                      fit.functionOTOR(R, Dc, N, Di, x)},
                     interval = c(-max(object[[1]]), 0),
                     R = var.R[i],
                     Dc = var.Dc[i],
                     N = var.N,
-                    Dint = var.Dint)$root),
+                    Di = var.Di)$root),
                   silent = TRUE)
 
                 if(inherits(try, "try-error")){
                   try <- try(suppressWarnings(stats::optimize(
-                    f = function(x, R, Dc, N, Dint) {
-                      fit.functionOTOR(R, Dc, N, Dint, x)},
+                    f = function(x, R, Dc, N, Di) {
+                      fit.functionOTOR(R, Dc, N, Di, x)},
                     interval = c(-max(object[[1]]), 0),
                     R = var.R[i],
                     Dc = var.Dc[i],
                     N = var.N,
-                    Dint = var.Dint)$minimum),
+                    Di = var.Dit)$minimum),
                     silent = TRUE)
                 }
               }##endif extrapolation
