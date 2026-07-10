@@ -77,7 +77,7 @@
 #' with \eqn{W} the Lambert-W function (calculated using [lamW::lambertW0]),
 #' \eqn{R} the dimensionless retrapping ratio, \eqn{N} the total concentration
 #' of trappings states in cm\eqn{^{-3}}, \eqn{D_{c} = N/R} a constant, and
-#' \eqn{D_{i}} is the offset on the x-axis (not part of the original formula in 
+#' \eqn{D_{i}} is the offset on the x-axis (not part of the original formula in
 #' Pagonis et al. 2020). Note that \eqn{R} and \eqn{D_{c}}
 #' have a valid physical interpretation only when saturation is reached.
 #' Please note that finding the root in `mode = "extrapolation"`
@@ -887,7 +887,7 @@ fit_DoseResponseCurve <- function(
 
         #get parameters out of it
         .get_coef(fit)
-        
+
         ## calculate D63 and D80 based on approximation in Mauz et al. (submitted)
         D80 <- 1.609 * b
 
@@ -1518,7 +1518,7 @@ fit_DoseResponseCurve <- function(
           }
 
           if (inherits(De, "try-error")) De <- NA # nocov
-          
+
           ## return D63 based on formula in the appendix of Mauz et al. (submitted)
           D63 <- (0.367 + 0.633 * R) * Dc
           D80 <- D63 * (0.809 + 0.800 * R) / (0.368 + 0.632 * R)
@@ -1591,7 +1591,7 @@ fit_DoseResponseCurve <- function(
                     R = var.R[i],
                     Dc = var.Dc[i],
                     N = var.N,
-                    Di = var.Dit)$minimum),
+                    Di = var.Di)$minimum),
                     silent = TRUE)
                 }
               }##endif extrapolation
@@ -1613,11 +1613,11 @@ fit_DoseResponseCurve <- function(
           D63.ERROR <- (0.367 + 0.633 * R.ERROR) * Dc.ERROR
           D63.LOWER <- D63.ERROR[1]
           D63.UPPER <- D63.ERROR[2]
-          
+
           ## calculate D80 the same way
           D80.LOWER <- D63.LOWER * (0.809 + 0.800 * R.LOWER) / (0.368 + 0.632 * R.LOWER)
           D80.UPPER <- D63.UPPER * (0.809 + 0.800 * R.UPPER) / (0.368 + 0.632 * R.UPPER)
-          
+
           ##remove values
           rm(var.Dc)
           rm(var.R)
@@ -1666,11 +1666,11 @@ fit_DoseResponseCurve <- function(
       #get parameters out of it
       .get_coef(fit)
 
-      ## get also R, this is not part of the fit, approximation 
+      ## get also R, this is not part of the fit, approximation
       ## based on Mauz et al. (submitted)
       R <- 1 - Q
       Dc <- D63 / (0.367 + 0.633 * R)
-      
+
       ## calculate also D80
       D80 <- D63 * (0.809 + 0.800 * R) / (0.368 + 0.632 * R)
 
@@ -1798,13 +1798,13 @@ fit_DoseResponseCurve <- function(
       ##write Dc.ERROR
       D63.ERROR <- quantile(var.D63, na.rm = TRUE, probs = c(0.25, 0.75))
       R.ERROR <- quantile(1-var.Q, na.rm = TRUE, probs = c(0.25, 0.75))
-      
+
       ##write Dc.ERROR
       D63.LOWER <- D63.ERROR[1]
       D63.UPPER <- D63.ERROR[2]
       R.LOWER <- R.ERROR[1]
       R.UPPER <- R.ERROR[2]
-      
+
       ## calculate D80 the same way
       D80.LOWER <- D63.LOWER * (0.809 + 0.800 * R.LOWER) / (0.368 + 0.632 * R.LOWER)
       D80.UPPER <- D63.UPPER * (0.809 + 0.800 * R.UPPER) / (0.368 + 0.632 * R.UPPER)
