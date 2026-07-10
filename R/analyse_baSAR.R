@@ -929,6 +929,18 @@ analyse_baSAR <- function(
     ##      .. list
     ##      .. S4
 
+    ## subsetting function that doesn't rely on non-standard evaluation
+    .select_rows_Risoe <- function(x, col, value) {
+      ## apply selection
+      sel <- x@METADATA[[col]] == value
+      x@DATA <- x@DATA[sel]
+      x@METADATA <- x@METADATA[sel, ]
+
+      ## reset index
+      x@METADATA[["ID"]] <- seq_len(nrow(x@METADATA))
+      x
+    }
+
     ##In case an RLum.Analysis object is provided we try an ugly conversion only
     if (inherits(object, "list") &&
         all(vapply(object, inherits, "RLum.Analysis", FUN.VALUE = logical(1)))) {
@@ -972,8 +984,7 @@ analyse_baSAR <- function(
       if (any(object@METADATA[["LTYPE"]] != "OSL")) {
         if(verbose)
           cat("\t\t  .. remove non-OSL curves\n")
-        LTYPE <- NULL # silence notes raised by R CMD check
-        object <- subset(object, LTYPE == "OSL")
+        object <- .select_rows_Risoe(object, col = "LTYPE", value = "OSL")
       }
     }
 
@@ -1027,8 +1038,7 @@ analyse_baSAR <- function(
         .throw_message("Record pre-selection in BIN-file detected, ",
                        "record reduced to selection\n", error = FALSE)
       }
-      SEL <- NULL # silence notes raised by R CMD check
-      fileBIN.list <- lapply(fileBIN.list, subset, SEL == TRUE)
+      fileBIN.list <- lapply(fileBIN.list, .select_rows_Risoe, col = "SEL", value = TRUE)
     }
 
     # Declare variables ---------------------------------------------------------------------------
