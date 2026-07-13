@@ -1392,7 +1392,7 @@ SW <- function(expr) {
   if (missing(val) || NROW(val) != 1 || NCOL(val) != 1 || !is.null(dim(val)) || is.na(val) ||
       (!log && !is.numeric(val)) || (log && !is.logical(val)) ||
       (!inf && val >= .Machine$double.xmax) ||
-      (int && val != as.integer(val)) ||
+      (int && val %% 1 != 0) ||
       (pos && val <= 0) || (nng && val < 0)) {
     ## additional text to append for extra options that cannot be validated
     ## but we want to report
