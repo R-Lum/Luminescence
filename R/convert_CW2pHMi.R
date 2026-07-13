@@ -244,6 +244,9 @@ convert_CW2pHMi<- function(
 
   ##interpolate values, values beyond the range return NA values
   CW_OSL.interpolated <- approx(t,CW_OSL.log, xout=t.transformed, rule=1)
+  if (all(is.na(CW_OSL.interpolated$y))) {
+    .throw_error("All points are outside the interpolation range")
+  }
 
   ## In some cases the interpolation algorithm is not working properly, and
   ## Inf or NaN values are produced

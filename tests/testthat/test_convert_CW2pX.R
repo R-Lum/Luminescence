@@ -87,7 +87,7 @@ test_that("input validation", {
   expect_error(convert_CW2pHMi(data.frame(a = c(12, -2.1), b = c(1.34, 0))),
                "'object' cannot contain negative times")
   expect_error(convert_CW2pHMi(data.frame(a = c(12, 2.1), b = c(1.34, 0))),
-               "All interpolated values are Inf/NaN/NA, check your data")
+               "All points are outside the interpolation range")
   expect_error(convert_CW2pHMi(data.frame(a = 1:10, b = NA)),
                "'object' should have at least 2 non-missing values")
   expect_error(convert_CW2pHMi(iris),

@@ -288,8 +288,6 @@ convert_CW2pLMi<- function(
   invalid.idx <- which(is.infinite(values) | is.nan(values))
   if (length(invalid.idx) == 0)
     return(values)
-  if (all(is.infinite(values) | is.na(values)))
-    .throw_error("All interpolated values are Inf/NaN/NA, check your data")
 
   ## replace invalid values with mean of the value before and the value after
   values[invalid.idx] <- sapply(invalid.idx,
