@@ -34,11 +34,9 @@ NumericVector find_first_larger_value(
 
       //fill vector
       cur_mean_id[i] = ic;
-
     }
 
     return(cur_mean_id);
-
 }
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -57,23 +55,21 @@ NumericVector row_sd(NumericMatrix m){
 
     //initialise variables
     double tmp_mean;
-    double sum = 0;
     int n = m.ncol();
     NumericVector output(m.nrow());
 
    //calculate standard deviation
    for(int i = 0; i < m.nrow(); i++){
+     double sum = 0.0;
      tmp_mean = mean(m(i,_));
 
      //inner loop over elements
      for(int j = 0; j < n; j++){
-        sum += pow(m(i,j) - tmp_mean, 2.0);
-
+       double d = m(i, j) - tmp_mean;
+       sum += d * d;
      }
 
-     output(i) = pow(sum / (n - 1), 0.5);
-     sum = 0;
-
+     output(i) = std::sqrt(sum / (n - 1));
    }
 
   return(output);
@@ -105,7 +101,6 @@ NumericMatrix src_EED_Calc_Overall_StatUncertainty (
   int Ndata,
   int Nsimul,
   int MinNbSimExp
-
 ){
 
   // initialise variables
