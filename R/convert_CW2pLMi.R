@@ -200,20 +200,7 @@ convert_CW2pLMi<- function(
   #endif
 
   # (2) Interpolation ---------------------------------------------------------------------------
-
-  ##interpolate values, values beyond the range return NA values
-  CW_OSL.interpolated<-approx(t,CW_OSL.log, xout=t.transformed, rule=1 )
-  if (all(is.na(CW_OSL.interpolated$y))) {
-    .throw_error("All points are outside the interpolation range")
-  }
-
-  ## In some cases the interpolation algorithm is not working properly, and
-  ## Inf or NaN values are produced
-  interpolated <- .fix_interpolation_inf_nan(unlist(CW_OSL.interpolated$y),
-                                             warn = FALSE)
-
-  ## combine t.transformed and CW_OSL.interpolated in a data.frame
-  temp <- data.frame(x = t.transformed, y = interpolated)
+  temp <- .interpolate_values(t, CW_OSL.log, t.transformed)
 
   # (3) Extrapolate first values of the curve ---------------------------------------------------
 
@@ -282,6 +269,22 @@ convert_CW2pLMi<- function(
   }
 
   object
+}
+
+.interpolate_values <- function(t, CW_OSL.log, t.transformed, warn = FALSE) {
+  ## interpolate values, points beyond the range produce NAs
+  CW_OSL.interpolated <- approx(t, CW_OSL.log, xout = t.transformed, rule = 1)
+  if (all(is.na(CW_OSL.interpolated$y))) {
+    .throw_error("All points are outside the interpolation range")
+  }
+
+  ## in some cases the interpolation algorithm is not working properly, and
+  ## Inf or NaN values are produced
+  interpolated <- .fix_interpolation_inf_nan(unlist(CW_OSL.interpolated$y),
+                                             warn = warn)
+
+  ## combine t.transformed and CW_OSL.interpolated in a data.frame
+  data.frame(x = t.transformed, y = interpolated)
 }
 
 .fix_interpolation_inf_nan <- function(values, warn) {
