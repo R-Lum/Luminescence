@@ -218,9 +218,6 @@ convert_CW2pHMi<- function(
 
   ##time transformation t >> t'
   t<-temp.values[,1]
-  if (anyDuplicated(t) > 0) {
-    .throw_error("'object' contains duplicated time values")
-  }
 
   ##set delta
   ##if no values for delta is set selected a delta value for a maximum of

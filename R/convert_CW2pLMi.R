@@ -176,9 +176,6 @@ convert_CW2pLMi<- function(
 
   ##(b) time transformation t >> t'
   t<-temp.values[,1]
-  if (anyDuplicated(t) > 0) {
-    .throw_error("'object' contains duplicated time values")
-  }
 
   ##set P
   ##if no values for P is set selected a P value for a maximum of
@@ -266,6 +263,10 @@ convert_CW2pLMi<- function(
   object <- na.exclude(object)
   if (nrow(object) < 2) {
     .throw_error("'object' should have at least 2 non-missing values")
+  }
+
+  if (anyDuplicated(object[, 1]) > 0) {
+    .throw_error("'object' contains duplicated time values")
   }
 
   object

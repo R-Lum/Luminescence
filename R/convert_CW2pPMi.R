@@ -175,9 +175,6 @@ convert_CW2pPMi<- function(
 
   ##time transformation t >> t'
   t<-temp.values[,1]
-  if (anyDuplicated(t) > 0) {
-    .throw_error("'object' contains duplicated time values")
-  }
 
   ##set P
   ##if no values for P is set selected a P value for a maximum of
