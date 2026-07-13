@@ -175,8 +175,8 @@ analyse_SAR.NCF <- function(
   icnt1.err <- sqrt(icnt1)
   icnt2.err <- sqrt(icnt2)
   LnTn.Error.corrected <- sqrt((LnTn.Error / LnTn)^2 +
-                               (icnt1.err / icnt1)^2 +
-                               (icnt2.err / icnt2)^2) * LnTn.corrected
+                                 (icnt1.err / icnt1)^2 +
+                                 (icnt2.err / icnt2)^2) * LnTn.corrected
 
   ## use the corrected values in the LnLxTnTx data frame
   LnLxTnTx$LxTx[nat.idx] <- LnTn.corrected
@@ -253,7 +253,7 @@ analyse_SAR.NCF <- function(
 .plot_TL_peaks <- function(TL1, TL2, res1, res2, TL_peak_range) {
   ## first TL
   plot(TL1, type = "l", col = 1, par.local = FALSE,
-       main = sprintf("TL Peaks (integration range = %g \u00B0C)", TL_peak_range))
+       main = sprintf("TL Peaks (interval: %g \u00B0C)", TL_peak_range))
   ymin <- par("usr")[3]  ## minimum y coordinate visible on the plot
   abline(v = c(res1$peak.temperature, TL1@data[range(res1$range.idx), 1]),
          lty = c(2, 3, 3), col = 1)
@@ -271,7 +271,9 @@ analyse_SAR.NCF <- function(
 
   ## legend
   legend("topright",
-         legend = c(sprintf("TL 1, peak at %.1f \u00B0C", res1$peak.tem),
-                    sprintf("TL 2, peak at %.1f \u00B0C", res2$peak.tem)),
+         legend = c(sprintf("TL#1,@ %.1f \u00B0C", res1$peak.tem),
+                    sprintf("TL#2,@ %.1f \u00B0C", res2$peak.tem)),
+         bty = "n",
+         cex = 0.9,
          fill = 1:2)
 }
