@@ -586,7 +586,16 @@ setGeneric("set_RLum", function(class, originator, .uid = create_UID(),
       ## use tail() to account for package-qualified calls
       originator <- tail(as.character(caller), 1)
     } else {
-      originator <- NA_character_
+      ## try harder to find the originator by looking at the parent call: if
+      ## it's do.call(), then take use the function it calls as originator
+      parent.call <- if (length(sys.calls()) > 2) sys.call(which = -2) else NULL
+      if (!is.null(parent.call) &&
+          is.language(parent.call[[1]]) &&
+          as.character(parent.call[[1]]) == "do.call") {
+        originator <- as.character(parent.call[[2]])
+      } else {
+        originator <- NA_character_
+      }
     }
   }
 

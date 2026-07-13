@@ -29,4 +29,9 @@ test_that("check functionality", {
                "fit_DoseResponseCurve")
   expect_equal(Luminescence:::fit_DoseResponseCurve(LxTxData, verbose = FALSE)@originator,
                "fit_DoseResponseCurve")
+
+  ## do.call
+  expect_equal(do.call(fit_DoseResponseCurve,
+                       list(object = LxTxData, verbose = FALSE))@originator,
+               "fit_DoseResponseCurve")
 })
