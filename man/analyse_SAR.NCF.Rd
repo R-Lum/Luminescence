@@ -2,7 +2,7 @@
 % Please edit documentation in R/analyse_SAR.NCF.R
 \name{analyse_SAR.NCF}
 \alias{analyse_SAR.NCF}
-\title{Compute SAR paleodoses using natural sensitivity correction (NCF)}
+\title{Compute SAR palaeodoses using natural sensitivity correction (NCF)}
 \usage{
 analyse_SAR.NCF(object, TL_peak_range = 15, method_control = NULL, ...)
 }
@@ -38,27 +38,46 @@ returned containing the following elements:
 
 \tabular{lll}{
 \strong{DATA.OBJECT} \tab \strong{TYPE} \tab \strong{DESCRIPTION} \cr
-\code{..$data} : \tab  \code{data.frame} \tab Table with De values \cr
-\code{..$LnLxTnTx.table} : \tab \code{data.frame} \tab \code{LnLxTnTx} values \cr
-\code{..$rejection.criteria} : \tab data.fram] \tab Rejection criteria \cr
+\code{..$data} : \tab  \code{data.frame} \tab Table with corrected \eqn{D_e} values \cr
+\code{..$LnLxTnTx.table} : \tab \code{data.frame} \tab corrected \code{LnLxTnTx} values \cr
+\code{..$rejection.criteria} : \tab \code{data.frame} \tab Rejection criteria \cr
 \code{..$Formula} : \tab list \tab Function used for fitting of the dose response curve \cr
-\code{..$data.NCF} : \tab  \code{data.frame} \tab Table with NCF-corrected De values \cr
-\code{..$LnLxTnTx.table.NCF} : \tab \code{data.frame} \tab \code{LnLxTnTx} values after NCF correction \cr
+\code{..$data_uncor} : \tab  \code{data.frame} \tab Table with the uncorrected data \cr
+\code{..$LnLxTnTx.table_uncor} : \tab \code{data.frame} \tab uncorrected \code{LnLxTnTx} values\cr
 \code{..$NCF_settings} : \tab list \tab Setting used for TL peak finding \cr
 }
+
+This output is similar to the output of \link{analyse_SAR.CWOSL} extended
+by a few more elements.
 }
 \description{
 The function computes the natural sensitivity correction factor (NCF) for
-the assessment of single aliquot regeneration based paleodoses. This allows
-to produce corrected De values that account for sensitivity changes that
-may occur during the preheat and readout of natural OSL.
+the assessment of single aliquot regeneration based palaeodoses. This allows
+to produce \eqn{D_e} values that account for sensitivity changes that
+may occur during the preheat and readout of the natural OSL.
 }
 \details{
+This function is wrapped around \link{analyse_SAR.CWOSL}, works
+similar, but corrects the natural OSL signal according to Singhvi et al. (2011)
+and by implementing the MatLab code reported in Kaushal et al. (2022).
+\subsection{Input data}{
+
+The NCF protocol modifies the standard SAR protocol by adding a tiny
+dose prior to the readout of the natural signal and then monitoring
+the corresponding 110 deg. C TL peak in quartz, compared to the 110 deg. C TL
+peak recorded during the typical cutheat measurement. The published NCF sequence
+structure must be followed, otherwise the correction will not work.
+The identified TL curves and the chosen signal integral are shown
+in the graphical output.
+}
+
+\subsection{The NCF procedure}{
+
 NCF is measured as the ratio of the 110 degrees C TL peaks before and after
 the measurement of natural OSL, accounting for an integration range around
-the peak, typically 15 degrees C or the full with at half maximum (FWHM).
+the peak, typically 15 degrees C or the full width at half maximum (FWHM).
 
-The TL peaks are by default found automatically by finding the position
+The TL peaks are found automatically by finding the position
 with highest counts below 160 degrees C (after some smoothing has been
 applied to the counts data) for each of the two curves.
 
@@ -71,6 +90,9 @@ manually; if set to \code{NULL} (default), the peak is found automatically
 \item \code{search.threshold.degrees}: threshold in degrees C below which the peak
 is searched (160 by default); this is ignored if \code{peak.temperature} is
 not \code{NULL}
+}
+
+The additional dose used for the NCF TL curves is subtracted automatically.
 }
 }
 \note{
@@ -89,7 +111,7 @@ results <- analyse_SAR.NCF(
  object = ncf,
  signal_integral = 1:2,
  background_integral = 100:250,
- dose_rate_source = 4.702)
+ dose_rate_source = 0.1)
 
 }
 \references{
@@ -107,7 +129,8 @@ Geochronometria, 38 (3), 231-241. \doi{10.2478/s13386-011-0028-3}
 \link{analyse_SAR.CWOSL}, \link{fit_DoseResponseCurve}
 }
 \author{
-Marco Colombo, Institute of Geography, Heidelberg University (Germany)
+Marco Colombo, Institute of Geography, Heidelberg University (Germany),
+Sebastian Kreutzer, LIAG Institute for Applied Geophysics (Germany)
 }
 \keyword{datagen}
 \keyword{plot}

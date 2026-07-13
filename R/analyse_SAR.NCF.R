@@ -1,17 +1,33 @@
-#' @title Compute SAR paleodoses using natural sensitivity correction (NCF)
+#' @title Compute SAR palaeodoses using natural sensitivity correction (NCF)
 #'
 #' @description
 #' The function computes the natural sensitivity correction factor (NCF) for
-#' the assessment of single aliquot regeneration based paleodoses. This allows
-#' to produce corrected De values that account for sensitivity changes that
-#' may occur during the preheat and readout of natural OSL.
+#' the assessment of single aliquot regeneration based palaeodoses. This allows
+#' to produce \eqn{D_e} values that account for sensitivity changes that
+#' may occur during the preheat and readout of the natural OSL.
 #'
 #' @details
+#' This function is wrapped around [Luminescence::analyse_SAR.CWOSL], works 
+#' similar, but corrects the natural OSL signal according to Singhvi et al. (2011) 
+#' and by implementing the MatLab code reported in Kaushal et al. (2022).
+#' 
+#' ## Input data
+#' 
+#' The NCF protocol modifies the standard SAR protocol by adding a tiny 
+#' dose prior to the readout of the natural signal and then monitoring
+#' the corresponding 110 deg. C TL peak in quartz, compared to the 110 deg. C TL 
+#' peak recorded during the typical cutheat measurement. The published NCF sequence
+#' structure must be followed, otherwise the correction will not work. 
+#' The identified TL curves and the chosen signal integral are shown 
+#' in the graphical output. 
+#' 
+#' ## The NCF procedure
+#' 
 #' NCF is measured as the ratio of the 110 degrees C TL peaks before and after
 #' the measurement of natural OSL, accounting for an integration range around
-#' the peak, typically 15 degrees C or the full with at half maximum (FWHM).
+#' the peak, typically 15 degrees C or the full width at half maximum (FWHM).
 #'
-#' The TL peaks are by default found automatically by finding the position
+#' The TL peaks are found automatically by finding the position
 #' with highest counts below 160 degrees C (after some smoothing has been
 #' applied to the counts data) for each of the two curves.
 #'
@@ -23,6 +39,8 @@
 #' - `search.threshold.degrees`: threshold in degrees C below which the peak
 #'   is searched (160 by default); this is ignored if `peak.temperature` is
 #'   not `NULL`
+#'   
+#'  The additional dose used for the NCF TL curves is subtracted automatically.
 #'
 #' @param object [Luminescence::RLum.Analysis-class] or [list] of
 #' [Luminescence::RLum.Analysis-class] objects (**required**):
@@ -44,14 +62,17 @@
 #'
 #' \tabular{lll}{
 #' **DATA.OBJECT** \tab **TYPE** \tab **DESCRIPTION** \cr
-#' `..$data` : \tab  `data.frame` \tab Table with De values \cr
-#' `..$LnLxTnTx.table` : \tab `data.frame` \tab `LnLxTnTx` values \cr
-#' `..$rejection.criteria` : \tab data.fram] \tab Rejection criteria \cr
+#' `..$data` : \tab  `data.frame` \tab Table with corrected \eqn{D_e} values \cr
+#' `..$LnLxTnTx.table` : \tab `data.frame` \tab corrected `LnLxTnTx` values \cr
+#' `..$rejection.criteria` : \tab `data.frame` \tab Rejection criteria \cr
 #' `..$Formula` : \tab list \tab Function used for fitting of the dose response curve \cr
-#' `..$data.NCF` : \tab  `data.frame` \tab Table with NCF-corrected De values \cr
-#' `..$LnLxTnTx.table.NCF` : \tab `data.frame` \tab `LnLxTnTx` values after NCF correction \cr
+#' `..$data_uncor` : \tab  `data.frame` \tab Table with the uncorrected data \cr
+#' `..$LnLxTnTx.table_uncor` : \tab `data.frame` \tab uncorrected `LnLxTnTx` values\cr
 #' `..$NCF_settings` : \tab list \tab Setting used for TL peak finding \cr
 #' }
+#' 
+#' This output is similar to the output of [Luminescence::analyse_SAR.CWOSL] extended
+#' by a few more elements. 
 #'
 #' @note
 #' This function is a beta version.
@@ -59,7 +80,8 @@
 #' @section Function version: 0.1.0
 #'
 #' @author
-#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany), 
+#' Sebastian Kreutzer, LIAG Institute for Applied Geophysics (Germany)
 #'
 #' @seealso [Luminescence::analyse_SAR.CWOSL], [Luminescence::fit_DoseResponseCurve]
 #'
@@ -85,7 +107,7 @@
 #'  object = ncf,
 #'  signal_integral = 1:2,
 #'  background_integral = 100:250,
-#'  dose_rate_source = 4.702)
+#'  dose_rate_source = 0.1)
 #'
 #' @export
 analyse_SAR.NCF <- function(
@@ -115,8 +137,8 @@ analyse_SAR.NCF <- function(
   ## there should be an additional dose recorded for NCF
   additional.dose <- object@records[[1]]@info$IRR_TIME
   if (is.null(additional.dose) || is.na(additional.dose) || additional.dose == 0) {
-    .throw_error("No additional dose found, check that the NCF-SAR protocol ",
-                 "was correctly implemented")
+    .throw_error("No additional dose point found, check that the NCF-SAR protocol ",
+                 "was correctly implemented!")
   }
 
   ## default values
@@ -130,22 +152,23 @@ analyse_SAR.NCF <- function(
       val = as.list(method_control),
       keep.null = TRUE)
 
-  ## ------------------------------------------------------------------------
-  ## Main analysis
 
+  ## Main analysis --------------------------------------------------------------
   ## to suppress the plotting from analyse_SAR.CWOSL(), we need to remove the
   ## plot argument from ..., otherwise it may cause a multiple match error
   extraArgs <- list(...)
   extraArgs$plot <- NULL
 
+  ## this runs the analysis with the original dataset
   cwosl <- do.call(analyse_SAR.CWOSL,
                    c(list(object = object, plot = FALSE, .NCF_mode = TRUE),
                      extraArgs))
   if (is.null(cwosl)) {
-    .throw_message("CWOSL analysis skipped: check your sequence, NULL returned")
+    .throw_message("CW-OSL analysis skipped: check your sequence, NULL returned")
     return(NULL)
   }
 
+  ### Identify TL1 and TL2 -----------------------------------------------------
   ## to identify TL1 and TL2, we look for the first two OSL records
   osl.idx <- get_RLum(object, recordType = "OSL", get.index = TRUE)[1:2]
   tl.idx <- get_RLum(object, recordType = "TL", get.index = TRUE)
@@ -167,6 +190,7 @@ analyse_SAR.NCF <- function(
   LnTn <- LnLxTnTx$LxTx[nat.idx]
   LnTn.Error <- LnLxTnTx$LxTx.Error[nat.idx]
 
+  ### correct LnTn -------------------------------------------------------------
   ## correct LnTn by the NCF
   LnTn.corrected <- LnTn * NCF
 
@@ -184,7 +208,6 @@ analyse_SAR.NCF <- function(
 
   ## we want to force fit_DoseResponseCurve to run with verbose = FALSE so
   ## that we can print out the fit message ourselves
-  extraArgs <- list(...)
   verbose <- extraArgs$verbose %||% TRUE
   extraArgs$verbose <- NULL
   DRC <- do.call(fit_DoseResponseCurve,
@@ -193,17 +216,21 @@ analyse_SAR.NCF <- function(
                             extraArgs))
   if (verbose)
     .throw_message(DRC@info$fit_message, error = FALSE)
-
-  ## subtract the additional dose
+  
+  ### Subtract additional dose -------------------------------------------------
+  ## subtract the additional dose from the NCF
   additional.dose <- additional.dose * (extraArgs$dose_rate_source %||% 1)
   cwosl@data$data$De <- cwosl@data$data$De - additional.dose
   DRC@data$De$De <- DRC@data$De$De - additional.dose
 
+
+  # Plotting ----------------------------------------------------------------
   ## plot the TL peaks
   if (is.null(extraArgs$plot) || isTRUE(extraArgs$plot)) {
     par.default <- .par_defaults()
     on.exit(par(par.default), add = TRUE)
 
+    ## recreate layout matrix
     layout.matrix <- matrix(c(1, 1, 3, 3,  6,  6, 7,
                               1, 1, 3, 3,  6,  6, 8,
                               2, 2, 4, 4, 10, 10, 9,
@@ -215,18 +242,27 @@ analyse_SAR.NCF <- function(
     .plot_TL_peaks(TL1, TL2, res1, res2, TL_peak_range)
   }
 
+
+  # Return results ----------------------------------------------------------
   ## we return the object from analyse_SAR.CWOSL() and append to it the fields
   ## for the NCF-corrected values
   results <- cwosl
-  results@originator <- "analyse_SAR.NCF"
-  results@data$data.NCF <- results@data$data
-  results@data$data.NCF[, 1:length(DRC$De)] <- DRC$De
-  results@data$LnLxTnTx.table.NCF <- LnLxTnTx
-  results@data$NCF_settings <- method_control
+  
+    ## so create a new slot with the uncorrected De
+    results@data$data_uncor <- results@data$data
+    results@data$LnLxTnTx.table_uncor <- results@data$LnLxTnTx.table
+    results@data$NCF_settings <- method_control
+    
+    ## overwrite slots with new data
+    results@originator <- "analyse_SAR.NCF"
+    results@data$data[, 1:length(DRC$De)] <- DRC$De
+    results@data$LnLxTnTx.table <- LnLxTnTx
 
-  results
+  return(results)
 }
 
+
+# Helpers -----------------------------------------------------------------
 .compute.integrated.counts <- function(curve, TL_peak_range, method_control) {
   ## smooth the counts
   data <- curve@data
