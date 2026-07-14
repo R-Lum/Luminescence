@@ -693,6 +693,10 @@ analyse_SAR.CWOSL<- function(
   sig0 <- extraArgs$sig0 %||% 0
   od_rates <- extraArgs$od_rates
 
+  ## this is set by analyse_SAR.NCF() to disable the dose recovery test warning,
+  ## which would be wrong in that context
+  NCF_mode <- extraArgs$.NCF_mode %||% FALSE
+
   # Grep Curves -------------------------------------------------------------
   ## extract relevant curves from RLum.Analysis object
   OSL.Curves.ID <- get_RLum(object, recordType = CWcurve.type, get.index = TRUE)
@@ -787,11 +791,13 @@ analyse_SAR.CWOSL<- function(
   ## not, it is probably a dose recovery test with the given dose being treated
   ## as the unknown dose. We overwrite this value and warn the user.
   if (LnLxTnTx$Dose[1] != 0 && (list(...)$mode %||% "") != "alternate") {
+    if (!NCF_mode) {
       .throw_warning("The natural signal has a dose of ", LnLxTnTx$Dose[1],
                      " s, which is indicative of a dose recovery test. ",
                      "The natural dose was set to 0.")
-      LnLxTnTx$Dose[1] <- 0
     }
+    LnLxTnTx$Dose[1] <- 0
+  }
 
   ## Label dose points ------------------------------------------------------
   dose <- LnLxTnTx$Dose

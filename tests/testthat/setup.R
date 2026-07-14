@@ -6,7 +6,7 @@
 expect_snapshot_RLum <- function(object, ...) {
   if (inherits(object, "list")) {
     for (idx in seq_along(object))
-      expect_snapshot_RLum(object[[idx]])
+      expect_snapshot_RLum(object[[idx]], ...)
     return()
   }
   object@.uid <- NA_character_
@@ -44,6 +44,10 @@ expect_snapshot_RLum <- function(object, ...) {
     if ("data" %in% names(object@data)) {
       if ("UID" %in% names(object@data$data))
         object@data$data$UID <- NULL
+    }
+    if ("data_uncor" %in% names(object@data)) { # analyse_SAR.NCF()
+      object@data$data_uncor$UID <- NULL
+      object@data$LnLxTnTx.table_uncor$UID <- NULL
     }
     if ("Fit" %in% names(object@data))
       object@data$Fit <- NULL

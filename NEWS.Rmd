@@ -67,6 +67,11 @@ Abanico plots can still be created by calling `plot_AbanicoPlot()` directly
 
 ## New functions
 
+* Function `analyse_SAR.NCF()` implements the natural sensitivity correction
+for the assessment of single aliquot regeneration based palaeodoses, proposed
+originally by Singhvi et al. (2011) and later implemented in Matlab by Kaushal
+et al. (2022). This is currently in beta, pending more testing on real data
+(#1091).
 
 ## Removed functions and deprecations
 
