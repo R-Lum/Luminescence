@@ -14,14 +14,14 @@ If a \link{list} is provided the functions tries to iterate over each element
 in the list.}
 
 \item{TL_peak_range}{\link{integer} (\strong{with default}):
-integration range in degrees C around the identified peak.}
+integration range in deg. C around the identified peak.}
 
 \item{method_control}{\link{list} (\emph{optional}):
 parameters to control the peak-finding step.}
 
 \item{...}{further arguments that will be passed to
 \link{fit_DoseResponseCurve}, \link{plot_DoseResponseCurve}
-or \link{calc_OSLLxTxRatio} (supported:
+or \link{calc_OSLLxTxRatio} (the latter only supports
 \code{background.count.distribution}, \code{sigmab}, \code{sig0}, \code{od_rates}).
 Additionally, supported are \code{legend.cex} and \code{legend.pch} to modify the
 legend symbols.
@@ -47,8 +47,8 @@ returned containing the following elements:
 \code{..$NCF_settings} : \tab list \tab Setting used for TL peak finding \cr
 }
 
-This output is similar to the output of \link{analyse_SAR.CWOSL} extended
-by a few more elements.
+This output is similar to the output of \link{analyse_SAR.CWOSL}
+extended by a few more elements.
 }
 \description{
 The function computes the natural sensitivity correction factor (NCF) for
@@ -57,29 +57,30 @@ to produce \eqn{D_e} values that account for sensitivity changes that
 may occur during the preheat and readout of the natural OSL.
 }
 \details{
-This function is wrapped around \link{analyse_SAR.CWOSL}, works
-similar, but corrects the natural OSL signal according to Singhvi et al. (2011)
-and by implementing the MatLab code reported in Kaushal et al. (2022).
-\subsection{Input data}{
-
-The NCF protocol modifies the standard SAR protocol by adding a tiny
-dose prior to the readout of the natural signal and then monitoring
-the corresponding 110 deg. C TL peak in quartz, compared to the 110 deg. C TL
-peak recorded during the typical cutheat measurement. The published NCF sequence
-structure must be followed, otherwise the correction will not work.
-The identified TL curves and the chosen signal integral are shown
-in the graphical output.
-}
-
+This function is a wrapper around \link{analyse_SAR.CWOSL}: it
+works in a similar way, but corrects the natural OSL signal according to
+Singhvi et al. (2011) and by implementing the MatLab code reported in
+Kaushal et al. (2022).
 \subsection{The NCF procedure}{
 
-NCF is measured as the ratio of the 110 degrees C TL peaks before and after
-the measurement of natural OSL, accounting for an integration range around
-the peak, typically 15 degrees C or the full width at half maximum (FWHM).
+The NCF protocol modifies the standard SAR protocol by adding a small dose
+before the readout of the natural signal; the corresponding 110 deg. C TL
+peak in quartz is monitored and compared to the TL peak recorded during the
+typical cutheat measurement. The additional dose used for the NCF TL curves
+is subtracted automatically. The published NCF sequence structure must be
+followed, otherwise the correction will not work.
 
-The TL peaks are found automatically by finding the position
-with highest counts below 160 degrees C (after some smoothing has been
-applied to the counts data) for each of the two curves.
+The natural sensitivity correction factor (NCF) is measured as the ratio of
+the 110 deg. C TL peaks before and after the measurement of natural OSL,
+accounting for an integration range around the peak, typically 15 deg. C or
+the full width at half maximum (FWHM).
+}
+
+\subsection{TL peak finding}{
+
+The TL peaks are found automatically by finding the position  with highest
+counts below 160 deg. C (after some smoothing has been applied to the counts
+data) for each of the two TL curves.
 
 The peak search parameters can be controlled via the \code{method_control}
 argument. If used, this must be a list with one or more of the following
@@ -87,12 +88,13 @@ named arguments (e.g. \code{method_control = list(search.threshold.degrees = 130
 \itemize{
 \item \code{peak.temperature}: this can be used to set the temperature of the TL peak
 manually; if set to \code{NULL} (default), the peak is found automatically
-\item \code{search.threshold.degrees}: threshold in degrees C below which the peak
+\item \code{search.threshold.degrees}: threshold in deg. C below which the peak
 is searched (160 by default); this is ignored if \code{peak.temperature} is
 not \code{NULL}
 }
 
-The additional dose used for the NCF TL curves is subtracted automatically.
+The identified TL curves and the chosen signal integral are shown
+in the graphical output.
 }
 }
 \note{
@@ -129,7 +131,7 @@ Geochronometria, 38 (3), 231-241. \doi{10.2478/s13386-011-0028-3}
 \link{analyse_SAR.CWOSL}, \link{fit_DoseResponseCurve}
 }
 \author{
-Marco Colombo, Institute of Geography, Heidelberg University (Germany),
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
 Sebastian Kreutzer, LIAG Institute for Applied Geophysics (Germany)
 }
 \keyword{datagen}
