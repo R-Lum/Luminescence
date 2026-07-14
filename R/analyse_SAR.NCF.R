@@ -50,11 +50,11 @@
 #' If a [list] is provided the functions tries to iterate over each element
 #' in the list.
 #'
-#' @param TL_peak_range [integer] (**with default**):
-#' integration range in deg. C around the identified peak.
+#' @param TL_peak_range [numeric] (**with default**):
+#' size of the integration window in deg. C on each side of the identified peak.
 #'
 #' @param method_control [list] (*optional*):
-#' parameters to control the peak-finding step.
+#' parameters to control the peak-finding step (see Details).
 #'
 #' @inheritParams analyse_SAR.CWOSL
 #'
@@ -65,11 +65,11 @@
 #' \tabular{lll}{
 #' **DATA.OBJECT** \tab **TYPE** \tab **DESCRIPTION** \cr
 #' `..$data` : \tab  `data.frame` \tab Table with corrected \eqn{D_e} values \cr
-#' `..$LnLxTnTx.table` : \tab `data.frame` \tab corrected `LnLxTnTx` values \cr
+#' `..$LnLxTnTx.table` : \tab `data.frame` \tab Corrected `LnLxTnTx` values \cr
 #' `..$rejection.criteria` : \tab `data.frame` \tab Rejection criteria \cr
 #' `..$Formula` : \tab list \tab Function used for fitting of the dose response curve \cr
 #' `..$data_uncor` : \tab  `data.frame` \tab Table with the uncorrected data \cr
-#' `..$LnLxTnTx.table_uncor` : \tab `data.frame` \tab uncorrected `LnLxTnTx` values\cr
+#' `..$LnLxTnTx.table_uncor` : \tab `data.frame` \tab Uncorrected `LnLxTnTx` values\cr
 #' `..$NCF_settings` : \tab list \tab Setting used for TL peak finding \cr
 #' }
 #'
@@ -304,8 +304,8 @@ analyse_SAR.NCF <- function(
 
   ## legend
   legend("topright",
-         legend = c(sprintf("TL#1 @ %.1f \u00B0C", res1$peak.tem),
-                    sprintf("TL#2 @ %.1f \u00B0C", res2$peak.tem)),
+         legend = c(sprintf("TL#1 @ %.1f \u00B0C", res1$peak.temperature),
+                    sprintf("TL#2 @ %.1f \u00B0C", res2$peak.temperature)),
          bty = "n",
          cex = 0.9,
          fill = 1:2)

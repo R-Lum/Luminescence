@@ -13,11 +13,11 @@ input object containing data for analysis.
 If a \link{list} is provided the functions tries to iterate over each element
 in the list.}
 
-\item{TL_peak_range}{\link{integer} (\strong{with default}):
-integration range in deg. C around the identified peak.}
+\item{TL_peak_range}{\link{numeric} (\strong{with default}):
+size of the integration window in deg. C on each side of the identified peak.}
 
 \item{method_control}{\link{list} (\emph{optional}):
-parameters to control the peak-finding step.}
+parameters to control the peak-finding step (see Details).}
 
 \item{...}{further arguments that will be passed to
 \link{fit_DoseResponseCurve}, \link{plot_DoseResponseCurve}
@@ -39,11 +39,11 @@ returned containing the following elements:
 \tabular{lll}{
 \strong{DATA.OBJECT} \tab \strong{TYPE} \tab \strong{DESCRIPTION} \cr
 \code{..$data} : \tab  \code{data.frame} \tab Table with corrected \eqn{D_e} values \cr
-\code{..$LnLxTnTx.table} : \tab \code{data.frame} \tab corrected \code{LnLxTnTx} values \cr
+\code{..$LnLxTnTx.table} : \tab \code{data.frame} \tab Corrected \code{LnLxTnTx} values \cr
 \code{..$rejection.criteria} : \tab \code{data.frame} \tab Rejection criteria \cr
 \code{..$Formula} : \tab list \tab Function used for fitting of the dose response curve \cr
 \code{..$data_uncor} : \tab  \code{data.frame} \tab Table with the uncorrected data \cr
-\code{..$LnLxTnTx.table_uncor} : \tab \code{data.frame} \tab uncorrected \code{LnLxTnTx} values\cr
+\code{..$LnLxTnTx.table_uncor} : \tab \code{data.frame} \tab Uncorrected \code{LnLxTnTx} values\cr
 \code{..$NCF_settings} : \tab list \tab Setting used for TL peak finding \cr
 }
 
