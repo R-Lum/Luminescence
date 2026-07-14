@@ -9,7 +9,7 @@ test_that("input validation", {
   object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1:2)
   expect_error(analyse_SAR.NCF(object, signal_integral = 1:2,
                                background_integral = 100:250),
-               "No additional dose found, check that the NCF-SAR protocol was")
+               "No additional dose point found, check that the NCF-SAR protocol")
 
 
   expect_message(expect_message(expect_null(
@@ -19,7 +19,7 @@ test_that("input validation", {
                                                        info = list(IRR_TIME = 10)))),
                       signal_integral = 1:2, background_integral = 100:200)),
       "Error: No record of type 'OSL', 'IRSL', 'POSL' detected, NULL returned"),
-      "Error: CWOSL analysis skipped: check your sequence, NULL returned")
+      "Error: CW-OSL analysis skipped: check your sequence, NULL returned")
 })
 
 test_that("check functionality", {
@@ -28,7 +28,7 @@ test_that("check functionality", {
   SW({
   res <- analyse_SAR.NCF(ncf, signal_integral = 1:2,
                          background_integral = 100:250,
-                         dose_rate_source = 4.702)
+                         dose_rate_source = 0.1)
   })
   expect_type(res, "list")
   expect_length(res, 1)
@@ -37,6 +37,23 @@ test_that("check functionality", {
   expect_silent(analyse_SAR.NCF(ncf, signal_integral = 1:2,
                                 background_integral = 100:250,
                                 plot = FALSE, verbose = FALSE))
+})
+
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
+
+  set.seed(1)
+  snapshot.tolerance <- 1.5e-5
+
+  SW({
+  expect_snapshot_RLum(
+      analyse_SAR.NCF(
+          ncf,
+          signal_integral = 1:2,
+          background_integral = 100:250,
+          dose_rate_source = 0.1),
+      tolerance = snapshot.tolerance)
+  })
 })
 
 test_that("graphical snapshot tests", {
@@ -49,6 +66,6 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("default",
                               analyse_SAR.NCF(ncf, signal_integral = 1:2,
                                               background_integral = 100:250,
-                                              dose_rate_source = 4.702))
+                                              dose_rate_source = 0.1))
   })
 })
