@@ -45,6 +45,10 @@ test_that("check get_RLum on a list and NULL", {
   ##check class argument
   a <- list(set_RLum("RLum.Results"),
             set_RLum("RLum.Analysis", records = list(set_RLum("RLum.Data.Curve"))))
+  expect_error(get_RLum(a, class = 13),
+               "'class' should be of class 'character' or NULL and have length 1")
+  expect_error(get_RLum(a, class = NA_character_),
+               "'class' cannot contain missing values")
   expect_type(get_RLum(a, class = "test", drop = FALSE), "list")
   expect_type(get_RLum(a, class = "test", drop = TRUE), "list")
   expect_type(get_RLum(a, class = "RLum.Results", drop = FALSE), "list")

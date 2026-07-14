@@ -509,57 +509,39 @@ plot_KDE <- function(
   graphics::box(which = "plot",
                 col = layout$kde$colour$box)
 
+  .draw_axis <- function(side, at = NULL, tck_var, tcl_var, lab_var, lab_text) {
+    axis(side = side, at = at,
+         col = layout$kde$colour[[tck_var]],
+         col.axis = layout$kde$colour[[tck_var]],
+         labels = NA,
+         tcl = -layout$kde$dimension[[tcl_var]] / 200,
+         cex = cex)
+
+    axis(side = side, at = at,
+         line = 2 * layout$kde$dimension[[paste0(tck_var, ".line")]] / 100 - 2,
+         lwd = 0,
+         col = layout$kde$colour[[tck_var]],
+         family = layout$kde$font.type[[tck_var]],
+         font = .font_style(layout$kde$font.deco[[tck_var]]),
+         col.axis = layout$kde$colour[[tck_var]],
+         cex.axis = layout$kde$font.size[[lab_var]] / 12)
+
+    mtext(text = lab_text, side = side,
+          line = 3 * layout$kde$dimension[[paste0(lab_var, ".line")]] / 100,
+          col = layout$kde$colour[[lab_var]],
+          family = layout$kde$font.type[[lab_var]],
+          font = .font_style(layout$kde$font.deco[[lab_var]]),
+          cex = cex * layout$kde$font.size[[lab_var]] / 12)
+  }
+
   ## add x-axis
-  axis(side = 1,
-       col = layout$kde$colour$xtck,
-       col.axis = layout$kde$colour$xtck,
-       labels = NA,
-       tcl = -layout$kde$dimension$xtcl / 200,
-       cex = cex)
-
-  axis(side = 1,
-       line = 2 * layout$kde$dimension$xtck.line / 100 - 2,
-       lwd = 0,
-       col = layout$kde$colour$xtck,
-       family = layout$kde$font.type$xtck,
-       font = .font_style(layout$kde$font.deco$xtck),
-       col.axis = layout$kde$colour$xtck,
-       cex.axis = layout$kde$font.size$xlab/12)
-
-  mtext(text = xlab,
-        side = 1,
-        line = 3 * layout$kde$dimension$xlab.line / 100,
-        col = layout$kde$colour$xlab,
-        family = layout$kde$font.type$xlab,
-        font = .font_style(layout$kde$font.deco$xlab),
-        cex = cex * layout$kde$font.size$xlab/12)
+  .draw_axis(side = 1, tck_var = "xtck", tcl_var = "xtcl",
+             lab_var = "xlab", lab_text = xlab)
 
   ## add left y-axis
-  axis(side = 2,
-       at = pretty(x = range(De.density.range[3:4])),
-       col = layout$kde$colour$ytck1,
-       col.axis = layout$kde$colour$ytck1,
-       labels = NA,
-       tcl = -layout$kde$dimension$ytck1 / 200,
-       cex = cex)
-
-  axis(side = 2,
-       at = pretty(x = range(De.density.range[3:4])),
-       line = 2 * layout$kde$dimension$ytck1.line / 100 - 2,
-       lwd = 0,
-       col = layout$kde$colour$ytck1,
-       family = layout$kde$font.type$ytck1,
-       font = .font_style(layout$kde$font.deco$ytck1),
-       col.axis = layout$kde$colour$ytck1,
-       cex.axis = layout$kde$font.size$ylab1/12)
-
-  mtext(text = ylab[1],
-        side = 2,
-        line = 3 * layout$kde$dimension$ylab1.line / 100,
-        col = layout$kde$colour$ylab1,
-        family = layout$kde$font.type$ylab1,
-        font = .font_style(layout$kde$font.deco$ylab1),
-        cex = cex * layout$kde$font.size$ylab1/12)
+  .draw_axis(side = 2, at = pretty(range(De.density.range[3:4])),
+             tck_var = "ytck1", tcl_var = "ytcl1",
+             lab_var = "ylab1", lab_text = ylab[1])
 
   ## add density curves
   for(i in 1:length(data)) {
@@ -735,31 +717,9 @@ plot_KDE <- function(
                          no = ticks_axis)
 
     ## add right y-axis
-    axis(side = 4,
-         at = ticks_axis,
-         col = layout$kde$colour$ytck2,
-         col.axis = layout$kde$colour$ytck2,
-         labels = NA,
-         tcl = -layout$kde$dimension$ytck2 / 200,
-         cex = cex)
-
-    axis(side = 4,
-         at = ticks_axis,
-         line = 2 * layout$kde$dimension$ytck2.line / 100 - 2,
-         lwd = 0,
-         col = layout$kde$colour$ytck2,
-         family = layout$kde$font.type$ytck2,
-         font = .font_style(layout$kde$font.deco$ytck2),
-         col.axis = layout$kde$colour$ytck2,
-         cex.axis = layout$kde$font.size$ylab2/12)
-
-    mtext(text = ylab[2],
-          side = 4,
-          line = 3 * layout$kde$dimension$ylab2.line / 100,
-          col = layout$kde$colour$ylab2,
-          family = layout$kde$font.type$ylab2,
-          font = .font_style(layout$kde$font.deco$ylab2),
-          cex = cex * layout$kde$font.size$ylab2/12)
+    .draw_axis(side = 4, at = ticks_axis,
+               tck_var = "ytck2", tcl_var = "ytcl2",
+               lab_var = "ylab2", lab_text = ylab[2])
 
     ## add De error bars
     for(i in 1:length(data)) {

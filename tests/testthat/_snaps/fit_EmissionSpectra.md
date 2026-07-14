@@ -133,7 +133,7 @@
         "originator": {
           "type": "character",
           "attributes": {},
-          "value": [null]
+          "value": ["fit_EmissionSpectra"]
         },
         "info": {
           "type": "list",
@@ -251,7 +251,7 @@
         "originator": {
           "type": "character",
           "attributes": {},
-          "value": [null]
+          "value": ["fit_EmissionSpectra"]
         },
         "info": {
           "type": "list",
@@ -435,7 +435,7 @@
         "originator": {
           "type": "character",
           "attributes": {},
-          "value": [null]
+          "value": ["fit_EmissionSpectra"]
         },
         "info": {
           "type": "list",

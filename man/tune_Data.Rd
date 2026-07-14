@@ -8,17 +8,17 @@ tune_Data(data, decrease.error = 0, increase.data = 0)
 }
 \arguments{
 \item{data}{\link{data.frame} (\strong{required}):
-input values, structure: data (\code{values[,1]}) and data error (\code{values [,2]})
-are required}
+input values, structure: values (\code{data[, 1]}) and error (\code{data[, 2]})
+are required.}
 
 \item{decrease.error}{\link{numeric}:
 factor by which the error is decreased, ranges between 0 and 1.}
 
 \item{increase.data}{\link{numeric}:
-factor by which the error is decreased, ranges between 0 and \code{Inf}.}
+factor by which the error is decreased, ranges between 0 and 1000.}
 }
 \value{
-Returns a \link{data.frame} with tuned values.
+Returns a 2-column \link{data.frame} with tuned values.
 }
 \description{
 The error can be reduced and sample size increased for specific purpose.
@@ -27,7 +27,7 @@ The error can be reduced and sample size increased for specific purpose.
 You should not use this function to improve your poor data set!
 }
 \section{Function version}{
- 0.5.0
+ 0.5.1
 }
 
 \examples{

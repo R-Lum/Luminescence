@@ -97,9 +97,30 @@ plot_DoseResponseCurve <- function(
 
   ## Integrity checks -------------------------------------------------------
   .validate_class(object, "RLum.Results")
+  .validate_originator(object, c("fit_DoseResponseCurve", "analyse_SAR.CWOSL"))
   .validate_logical_scalar(plot_extended)
   .validate_logical_scalar(plot_singlePanels)
   .validate_logical_scalar(verbose)
+
+  ## Support DRC plotting from analyse_SAR.CWOSL objects --------------------
+  if (object@originator == "analyse_SAR.CWOSL") {
+
+    ## if we are dealing with multiple aliquots, we must self-call
+    results <- object@data$.plot.data
+    if (is.null(names(results))) {
+      for (alq in seq_along(results)) {
+        plot_DoseResponseCurve(results[[alq]]$GC.fit,
+                               plot_extended = plot_extended,
+                               plot_singlePanels = plot_singlePanels,
+                               verbose = verbose,
+                               ...)
+      }
+      return(invisible())
+    }
+
+    ## single aliquot case
+    object <- results$GC.fit
+  }
 
   ## Fitting arguments ------------------------------------------------------
   fit.args <- object$Fit.Args

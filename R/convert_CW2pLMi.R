@@ -176,9 +176,6 @@ convert_CW2pLMi<- function(
 
   ##(b) time transformation t >> t'
   t<-temp.values[,1]
-  if (anyDuplicated(t) > 0) {
-    .throw_error("'object' contains duplicated time values")
-  }
 
   ##set P
   ##if no values for P is set selected a P value for a maximum of
@@ -200,20 +197,7 @@ convert_CW2pLMi<- function(
   #endif
 
   # (2) Interpolation ---------------------------------------------------------------------------
-
-  ##interpolate values, values beyond the range return NA values
-  CW_OSL.interpolated<-approx(t,CW_OSL.log, xout=t.transformed, rule=1 )
-  if (all(is.na(CW_OSL.interpolated$y))) {
-    .throw_error("All points are outside the interpolation range")
-  }
-
-  ## In some cases the interpolation algorithm is not working properly, and
-  ## Inf or NaN values are produced
-  interpolated <- .fix_interpolation_inf_nan(unlist(CW_OSL.interpolated$y),
-                                             warn = FALSE)
-
-  ## combine t.transformed and CW_OSL.interpolated in a data.frame
-  temp <- data.frame(x = t.transformed, y = interpolated)
+  temp <- .interpolate_values(t, CW_OSL.log, t.transformed)
 
   # (3) Extrapolate first values of the curve ---------------------------------------------------
 
@@ -281,15 +265,33 @@ convert_CW2pLMi<- function(
     .throw_error("'object' should have at least 2 non-missing values")
   }
 
+  if (anyDuplicated(object[, 1]) > 0) {
+    .throw_error("'object' contains duplicated time values")
+  }
+
   object
+}
+
+.interpolate_values <- function(t, CW_OSL.log, t.transformed, warn = FALSE) {
+  ## interpolate values, points beyond the range produce NAs
+  CW_OSL.interpolated <- approx(t, CW_OSL.log, xout = t.transformed, rule = 1)
+  if (all(is.na(CW_OSL.interpolated$y))) {
+    .throw_error("All points are outside the interpolation range")
+  }
+
+  ## in some cases the interpolation algorithm is not working properly, and
+  ## Inf or NaN values are produced
+  interpolated <- .fix_interpolation_inf_nan(unlist(CW_OSL.interpolated$y),
+                                             warn = warn)
+
+  ## combine t.transformed and CW_OSL.interpolated in a data.frame
+  data.frame(x = t.transformed, y = interpolated)
 }
 
 .fix_interpolation_inf_nan <- function(values, warn) {
   invalid.idx <- which(is.infinite(values) | is.nan(values))
   if (length(invalid.idx) == 0)
     return(values)
-  if (all(is.infinite(values) | is.na(values)))
-    .throw_error("All interpolated values are Inf/NaN/NA, check your data")
 
   ## replace invalid values with mean of the value before and the value after
   values[invalid.idx] <- sapply(invalid.idx,

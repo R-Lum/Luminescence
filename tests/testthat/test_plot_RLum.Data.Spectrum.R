@@ -3,6 +3,11 @@ data(ExampleData.XSYG, envir = environment())
 bg.spectrum <- set_RLum("RLum.Data.Spectrum",
                         data = TL.Spectrum@data[, 15:16, drop = FALSE])
 
+## more than 30 columns
+large <- TL.Spectrum
+colnames(large@data) <- as.character(as.numeric(colnames(large@data)) + 480)
+large@data <- cbind(TL.Spectrum@data, large@data[, 1:16])[1:150, ]
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -19,6 +24,10 @@ test_that("input validation", {
                "'norm' should be one of 'max', 'min', 'first', 'last', 'huot' or")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bg.spectrum = "error"),
                "'bg.spectrum' should be of class 'RLum.Data.Spectrum', 'matrix' or")
+  expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bg.channels = "error"),
+               "'bg.channels' should be of class 'integer', 'numeric' or NULL")
+  expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bg.channels = numeric()),
+               "'bg.channels' cannot be an empty numeric")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bin.rows = 1.7),
                "'bin.rows' should be a single positive integer value")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bin.cols = 0),
@@ -98,9 +107,24 @@ test_that("check functionality", {
       fixed = TRUE)
 
     ## plot: transect ------------
+    t <- expect_silent(suppressWarnings(
+      plot_RLum.Data.Spectrum(
+        TL.Spectrum,
+        plot.type = "transect",
+        xlim = c(310, 750),
+        ylim = c(0, 350),
+        zlim = c(0, 1e6),
+        ylab = "Counts [1 / summed channels]")))
+    expect_type(t, "double")
+    expect_true(inherits(t, "matrix"))
+
+    ## deploy arguments
     expect_silent(suppressWarnings(
       plot_RLum.Data.Spectrum(
         TL.Spectrum,
+        smoooth = TRUE, 
+        norm = TRUE, 
+        transect_mode = "mean",
         plot.type = "transect",
         xlim = c(310, 750),
         ylim = c(0, 350),
@@ -118,7 +142,6 @@ test_that("check functionality", {
         bin.cols = 1
       )
     )
-    
 
     ## plot: interactive heatmap --------
     expect_silent(suppressWarnings(
@@ -269,12 +292,41 @@ test_that("graphical snapshot tests", {
                                                       bg.channels = 2,
                                                       bin.cols = 1,
                                                       xaxis.energy = TRUE))
+  vdiffr::expect_doppelganger("multiple large",
+                              plot_RLum.Data.Spectrum(large,
+                                                      plot.type = "multiple.lines"))
   vdiffr::expect_doppelganger("transect",
                               plot_RLum.Data.Spectrum(TL.Spectrum,
                                                       plot.type = "transect",
                                                       xlim = c(310, 750),
                                                       ylim = c(0, 300),
                                                       bin.rows = 10))
+
+  fig <- function() {
+    plot_RLum.Data.Spectrum(
+      TL.Spectrum,
+      norm = TRUE, 
+      smooth = TRUE, 
+      plot.type = "transect",
+      xlim = c(500, 750),
+      ylim = c(0, 300),
+      bin.rows = 10
+    )
+    plot_RLum.Data.Spectrum(
+      TL.Spectrum,
+      norm = TRUE, 
+      smooth = TRUE, 
+      add = TRUE,
+      transect_mode = "mean",
+      plot.type = "transect",
+      xlim = c(300, 500),
+      ylim = c(0, 300),
+      bin.rows = 10
+    )
+  }
+
+  vdiffr::expect_doppelganger("transect_arguments",
+                              fig)
   })
 })
 

@@ -608,40 +608,22 @@ analyse_IRSAR.RF<- function(
                  "), check your 'sequence_structure'")
   }
 
+  .check_limits <- function(lim, max.channels, name) {
+    if (is.null(lim) || anyNA(lim))
+      return(c(1, max.channels))
+    if (length(lim) == 1)
+      lim <- c(lim, max.channels)
+    if (min(lim) < 1 || max(lim) > max.channels) {
+      lim <- c(1, max.channels)
+      .throw_warning("'", name, "' out of bounds, reset to c(",
+                     .format_range(lim, sep = ", "), ")")
+    }
+    lim
+  }
+
   ## 02 - check boundaries
-  ##RF_nat.lim
-  if (is.null(RF_nat.lim) || anyNA(RF_nat.lim)) {
-    RF_nat.lim <- c(1, max.channels.nat)
-
-  }else {
-    ##this allows to provide only one boundary and the 2nd will be added automatically
-    if (length(RF_nat.lim) == 1) {
-      RF_nat.lim <- c(RF_nat.lim, max.channels.nat)
-    }
-
-    if (min(RF_nat.lim) < 1 || max(RF_nat.lim) > max.channels.nat) {
-      RF_nat.lim <- c(1, max.channels.nat)
-      .throw_warning("'RF_nat.lim' out of bounds, reset to c(",
-                     .format_range(RF_nat.lim, sep = ", "), ")")
-    }
-  }
-
-  ##RF_reg.lim
-  if (is.null(RF_reg.lim)) {
-    RF_reg.lim <- c(1, max.channels.reg)
-
-  }else {
-    ##this allows to provide only one boundary and the 2nd will be added automatically
-    if (length(RF_reg.lim) == 1) {
-      RF_reg.lim <- c(RF_reg.lim, max.channels.reg)
-    }
-
-    if (min(RF_reg.lim) < 1 || max(RF_reg.lim) > max.channels.reg) {
-      RF_reg.lim <- c(1, max.channels.reg)
-      .throw_warning("'RF_reg.lim' out of bounds, reset to c(",
-                     .format_range(RF_reg.lim, sep = ", "), ")")
-    }
-  }
+  RF_nat.lim <- .check_limits(RF_nat.lim, max.channels.nat, "RF_nat.lim")
+  RF_reg.lim <- .check_limits(RF_reg.lim, max.channels.reg, "RF_reg.lim")
 
   ## check if intervals make sense at all
   len.RF_reg.lim <- length(RF_reg.lim[1]:RF_reg.lim[2])
@@ -843,7 +825,7 @@ analyse_IRSAR.RF<- function(
     ##Monte Carlo approach for fitting
     fit.MC.results <- data.frame()
 
-    ##produce set of start paramters
+    ## start parameters
     n.MC <- n.MC %||% 0
     lambda.MC <- seq(0.0001, 0.001, length = n.MC)
     start.MC <- fit.parameters.start
@@ -1244,6 +1226,13 @@ analyse_IRSAR.RF<- function(
       data.frame(THRESHOLD = as.numeric(x), VALUE = NA, STATUS = "OK", stringsAsFactors = TRUE)
     })
 
+  .check_threshold <- function(param, operator = ">",
+                               threshold = TP[[param]]$THRESHOLD) {
+    if (!is.na(threshold)) {
+      TP[[param]]$STATUS <<- ifelse(
+        get(operator)(TP[[param]]$VALUE, threshold), "FAILED", "OK")
+    }
+  }
 
   ##(1) check if RF_nat > RF_reg, considering the fit range
   ##TP$curves_ratio
@@ -1251,10 +1240,7 @@ analyse_IRSAR.RF<- function(
       TP$curves_ratio$VALUE <-
         sum(RF_nat.limited[,2]) / sum(RF_reg[RF_nat.lim[1]:RF_nat.lim[2], 2])
 
-      if (!is.na(TP$curves_ratio$THRESHOLD)) {
-        TP$curves_ratio$STATUS <-
-          ifelse(TP$curves_ratio$VALUE > TP$curves_ratio$THRESHOLD, "FAILED", "OK")
-      }
+      .check_threshold("curves_ratio")
     }
 
    ##(1.1) check if RF_nat > RF_reg, considering the fit range
@@ -1286,35 +1272,26 @@ analyse_IRSAR.RF<- function(
         abs(1 - sum(RF_nat.limited[, 2] / IR_RF_nat.max) /
             sum(RF_reg[this.idx, 2] / max(RF_reg[this.idx, 2])))
 
-      if (!is.na(TP$intersection_ratio$THRESHOLD)) {
-        TP$intersection_ratio$STATUS <-
-          ifelse(TP$intersection_ratio$VALUE > TP$intersection_ratio$THRESHOLD, "FAILED", "OK")
-      }
+      .check_threshold("intersection_ratio")
       }
     }
 
-  ##(2) check slop of the residuals using a linear fit
+  ## (2) check slope of the residuals using a linear fit
   ##TP$residuals_slope
   if ("residuals_slope" %in% names(TP) && exists("slide")) {
         TP$residuals_slope$VALUE <- abs(slide$trend.fit[2])
 
-        if (!is.na(TP$residuals_slope$THRESHOLD)) {
-          TP$residuals_slope$STATUS <- ifelse(
-            TP$residuals_slope$VALUE > TP$residuals_slope$THRESHOLD, "FAILED", "OK")
-        }
+        .check_threshold("residuals_slope")
   }
 
-  ##(3) calculate dynamic range of regenrated curve
+  ## (3) calculate dynamic range of regenerated curve
   ##TP$dynamic_ratio
   if ("dynamic_ratio" %in% names(TP)) {
     TP.dynamic_ratio <- subset(temp.sequence_structure,
                                temp.sequence_structure$protocol.step == "REGENERATED")
     TP$dynamic_ratio$VALUE <- min(TP.dynamic_ratio$y.max / TP.dynamic_ratio$y.min)
 
-    if (!is.na(TP$dynamic_ratio$THRESHOLD)){
-      TP$dynamic_ratio$STATUS  <- ifelse(
-        TP$dynamic_ratio$VALUE < TP$dynamic_ratio$THRESHOLD , "FAILED", "OK")
-    }
+    .check_threshold("dynamic_ratio", "<")
   }
 
   ##(4) decay parameter
@@ -1338,17 +1315,11 @@ analyse_IRSAR.RF<- function(
        TP$beta$VALUE <- temp.coef["beta"]
        TP$delta.phi$VALUE <- temp.coef["delta.phi"]
 
-       if (!is.na( TP$lambda$THRESHOLD)){
-        TP$lambda$STATUS <- ifelse(TP$lambda$VALUE <= TP$lambda$THRESHOLD, "FAILED", "OK")
-       }
+       .check_threshold("lambda", "<=")
 
-       if (!is.na( TP$beta$THRESHOLD)){
-         TP$beta$STATUS <- ifelse(TP$beta$VALUE <= TP$beta$THRESHOLD, "FAILED", "OK")
-       }
+       .check_threshold("beta", "<=")
 
-       if (!is.na( TP$delta.phi$THRESHOLD)){
-         TP$delta.phi$STATUS <- ifelse(TP$delta.phi$VALUE <= TP$delta.phi$THRESHOLD, "FAILED", "OK")
-       }
+       .check_threshold("delta.phi", "<=")
     }
   }
 
@@ -1359,16 +1330,12 @@ analyse_IRSAR.RF<- function(
       ## add one channel on the top to make sure that it works
       TP$curves_bounds$VALUE <- max(RF_nat.slid[RF_nat.lim,1]) + (RF_nat[2,1] - RF_nat[1,1])
 
-       if (!is.na(TP$curves_bounds$THRESHOLD)){
-        TP$curves_bounds$STATUS <- ifelse(TP$curves_bounds$VALUE >= floor(max(RF_reg.x)), "FAILED", "OK")
-       }
+       .check_threshold("curves_bounds", ">=", floor(max(RF_reg.x)))
 
     }else if(exists("fit")){
       TP$curves_bounds$VALUE <- De.upper
 
-      if (!is.na(TP$curves_bounds$THRESHOLD)){
-        TP$curves_bounds$STATUS <- ifelse(TP$curves_bounds$VALUE  >= max(RF_reg.x), "FAILED", "OK")
-      }
+      .check_threshold("curves_bounds", ">=", max(RF_reg.x))
     }
   }
 
@@ -1407,6 +1374,38 @@ analyse_IRSAR.RF<- function(
         par(mar = c(0, 4, 3, 1))
     }
     par(cex = plot.settings[["cex"]])
+
+    x <- NULL ## silence notes raised by R CMD check
+    .draw_fit_curve <- function(coef, from, to, col, lty = 1) {
+      if (length(coef) < 4L) return()
+      curve(coef[[1]] - (coef[[2]] * ((1 - exp(-coef[[3]] * x)) ^ coef[[4]])),
+            add = TRUE, from = from, to = to, col = col, lty = lty)
+    }
+
+    .draw_legend <- function() {
+      if (plot.settings$legend) {
+        legend(
+          plot.settings$legend.pos,
+          legend = plot.settings$legend.text,
+          pch = c(19, 3),
+          col = c("red", col[10]),
+          horiz = TRUE,
+          bty = "n",
+          cex = 0.9)
+      }
+    }
+
+    .draw_fit_range <- function() {
+      abline(v = RF_reg[min(RF_reg.lim), 1], lty = 2)
+      abline(v = RF_reg[max(RF_reg.lim), 1], lty = 2)
+    }
+
+    mtext.txt <- extraArgs$mtext %||% substitute(D[e] == De,
+                                                 list(De = sprintf("%g [%g ; %g]",
+                                                                   De, De.lower, De.upper)))
+    .draw_De_mtext <- function(col = NA) {
+      mtext(side = 3, mtext.txt, cex = plot.settings$mtext.cex, col = col)
+    }
 
     ##here control xlim and ylim behaviour
     xlim <- extraArgs$xlim %||% c(if (xlog)
@@ -1464,18 +1463,7 @@ analyse_IRSAR.RF<- function(
         mtext(side = 3, extraArgs$mtext, cex = plot.settings$mtext.cex)
       }
 
-      ##legend
-      if (plot.settings$legend) {
-        legend(
-          plot.settings$legend.pos,
-          legend = plot.settings$legend.text,
-          pch = c(19, 3),
-          col = c("red", col[10]),
-          horiz = TRUE,
-          bty = "n",
-          cex = 0.9
-        )
-      }
+      .draw_legend()
     }
 
     ##Add fitted curve, if possible. This is a graphical control that might be considered
@@ -1500,57 +1488,30 @@ analyse_IRSAR.RF<- function(
     ## PLOT - METHOD FIT
     ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     if(method == "FIT"){
-      ## silence notes raised by R CMD check
-      x <- NULL
-
-      ##plot fitted curve
-      curve(fit.parameters.results["phi.0"]-
-              (fit.parameters.results["delta.phi"]*
-                 ((1-exp(-fit.parameters.results["lambda"]*x))^fit.parameters.results["beta"])),
-            add=TRUE,
-            from = RF_reg[min(RF_reg.lim), 1],
-            to = RF_reg[max(RF_reg.lim), 1],
-            col="red")
+      .draw_fit_curve(fit.parameters.results,
+                      from = RF_reg[min(RF_reg.lim), 1],
+                      to = RF_reg[max(RF_reg.lim), 1],
+                      col = "red")
 
       ##plotting to show the limitations if RF_reg.lim was chosen
       ## show fitted curve GREY (before red curve)
-      curve(fit.parameters.results["phi.0"]-
-              (fit.parameters.results["delta.phi"]*
-                 ((1-exp(-fit.parameters.results["lambda"]*x))^fit.parameters.results["beta"])),
-            add=TRUE,
-            from = min(RF_reg[, 1]),
-            to = RF_reg[min(RF_reg.lim), 1],
-            col="grey")
+      .draw_fit_curve(fit.parameters.results,
+                      from = min(RF_reg[, 1]),
+                      to = RF_reg[min(RF_reg.lim), 1],
+                      col = "grey")
 
       ##show fitted curve GREY (after red curve)
-      curve(fit.parameters.results["phi.0"]-
-              (fit.parameters.results["delta.phi"]*
-                 ((1-exp(-fit.parameters.results["lambda"]*x))^fit.parameters.results["beta"])),
-            add=TRUE,
-            from = RF_reg[max(RF_reg.lim), 1],
-            to = max(RF_reg[, 1]),
-            col="grey")
+      .draw_fit_curve(fit.parameters.results,
+                      from = RF_reg[max(RF_reg.lim), 1],
+                      to = max(RF_reg[, 1]),
+                      col = "grey")
 
       ##add points
       points(RF_nat, pch = 20, col = col[19])
       points(RF_nat.limited, pch = 20, col = col[2])
 
-      ##legend
-      if (plot.settings$legend) {
-        legend(
-          plot.settings$legend.pos,
-          legend = plot.settings$legend.text,
-          pch = c(19, 3),
-          col = c("red", col[10]),
-          horiz = TRUE,
-          bty = "n",
-          cex = 0.9
-        )
-      }
-
-      ## plot range chosen for fitting
-      abline(v=RF_reg[min(RF_reg.lim), 1], lty=2)
-      abline(v=RF_reg[max(RF_reg.lim), 1], lty=2)
+      .draw_legend()
+      .draw_fit_range()
 
       ##plot De if De was calculated
       if (!is.na(De)) {
@@ -1566,23 +1527,11 @@ analyse_IRSAR.RF<- function(
       }
 
       ##Insert fit and result
-      mtext.txt <-  substitute(D[e] == De,
-                               list(De = paste0(De, " [", De.lower,
-                                                " ; ", De.upper,"]")))
       if (!is.na(De) && max(De, De.upper) > max(RF_reg.x)) {
-        try(mtext(side=3, mtext.txt,
-                  line = 0, cex = plot.settings$mtext.cex, col = "red"),
-            silent = TRUE)
+        .draw_De_mtext(col = "red")
         De.status <- "VALUE OUT OF BOUNDS"
-
       } else{
-        if ("mtext" %in% names(extraArgs)) {
-          mtext(side = 3, extraArgs$mtext, cex = plot.settings$mtext.cex)
-        }else{
-          try(mtext(side = 3, mtext.txt,
-                    line = 0, cex = plot.settings$mtext.cex), silent = TRUE)
-        }
-
+        .draw_De_mtext()
         De.status <- "OK"
       }
     }
@@ -1678,31 +1627,11 @@ analyse_IRSAR.RF<- function(
       ##could become a polygone for future versions
       #lapply(1:n.MC, function(x){lines(slide.MC.list[[x]], col = rgb(0,0,0, alpha = 0.2))})
 
-      ## plot range chosen for fitting
-      abline(v=RF_reg[min(RF_reg.lim), 1], lty=2)
-      abline(v=RF_reg[max(RF_reg.lim), 1], lty=2)
-
-      if (plot.settings$legend) {
-        legend(
-          plot.settings$legend.pos,
-          legend = plot.settings$legend.text,
-          pch = c(19, 3),
-          col = c("red", col[10]),
-          horiz = TRUE,
-          bty = "n",
-          cex = 0.9
-        )
-      }
+      .draw_fit_range()
+      .draw_legend()
 
       ##write information on the De in the plot
-      if("mtext" %in% names(extraArgs)) {
-        mtext(side = 3, extraArgs$mtext, cex = plot.settings$mtext.cex)
-      }else{
-        try(mtext(side=3,
-                  substitute(D[e] == De, list(De=paste0(De," [", De.lower, " ; ", De.upper, "]"))),
-                  line = 0, cex = plot.settings$mtext.cex),
-            silent=TRUE)
-      }
+      .draw_De_mtext()
     }
 
     if (!plot_reduced && method != "NONE") {

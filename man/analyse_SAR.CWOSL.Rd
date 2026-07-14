@@ -154,7 +154,7 @@ curves with \code{recordType} starting with \verb{_} should be automatically rem
 
 \item{...}{further arguments that will be passed to
 \link{fit_DoseResponseCurve}, \link{plot_DoseResponseCurve}
-or \link{calc_OSLLxTxRatio} (supported:
+or \link{calc_OSLLxTxRatio} (the latter only supports
 \code{background.count.distribution}, \code{sigmab}, \code{sig0}, \code{od_rates}).
 Additionally, supported are \code{legend.cex} and \code{legend.pch} to modify the
 legend symbols.
@@ -282,7 +282,7 @@ function does \strong{not} overwrite values preset in \code{IRR_TIME}.
 }
 }
 \section{Function version}{
- 0.13.9
+ 1.0.0
 }
 
 \examples{

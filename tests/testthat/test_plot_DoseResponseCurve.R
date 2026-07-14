@@ -15,6 +15,9 @@ test_that("input validation", {
       "[plot_DoseResponseCurve()] 'object' should be of class 'RLum.Results'",
       fixed = TRUE)
   expect_error(
+      plot_DoseResponseCurve(set_RLum("RLum.Results", originator = "error")),
+      "'object' has an unsupported originator")
+  expect_error(
       plot_DoseResponseCurve(fit, plot_extended = "error"),
       "'plot_extended' should be a single logical value")
   expect_error(
@@ -81,48 +84,33 @@ test_that("graphical snapshot tests", {
                               plot_DoseResponseCurve(fit_DoseResponseCurve(df)))
   })
 
-  ## graphicl snapshots that also check numerical correctness
+  ## graphical snapshots that also check numerical correctness
   data(ExampleData.LxTxData, envir = environment())
   LxTxData$LxTx.Error[[5]] <- 0.8
   LxTxData$LxTx.Error[[4]] <- 0.4
-  fit_method = "EXP"
 
   SW({
   set.seed(1234)
-  vdiffr::expect_doppelganger("NULL",fit_DoseResponseCurve(
-    object = LxTxData,
-    fit.method = fit_method,
-    fit.weights = NULL) |>
-    plot_DoseResponseCurve(plot_extended = FALSE,
-                           main = "NULL",
-                           plot_singlePanels = TRUE)
-  )
-  vdiffr::expect_doppelganger("inverse_var", fit_DoseResponseCurve(
-    object = LxTxData,
-    fit.method = fit_method,
-    fit.weights = "inverse_var") |>
-    plot_DoseResponseCurve(plot_extended = FALSE,
-                           main = "inverse_var",
-                           plot_singlePanels = TRUE)
-  )
+  for (var in c("NULL", "inverse_var", "inverse_std", "norm_inverse_std")) {
+    vdiffr::expect_doppelganger(var,
+                                fit_DoseResponseCurve(
+                                    object = LxTxData,
+                                    fit.method = "EXP",
+                                    fit.weights = if (var == "NULL") NULL else var) |>
+                                plot_DoseResponseCurve(plot_extended = FALSE,
+                                                       main = var,
+                                                       plot_singlePanels = TRUE))
+  }
+  })
 
-  vdiffr::expect_doppelganger("inverse_std", fit_DoseResponseCurve(
-    object = LxTxData,
-    fit.method = fit_method,
-    fit.weights = "inverse_std") |>
-    plot_DoseResponseCurve(plot_extended = FALSE,
-                           main = "inverse_std",
-                           plot_singlePanels = TRUE)
-  )
-
-  vdiffr::expect_doppelganger("norm_inverse_std", fit_DoseResponseCurve(
-    object = LxTxData,
-    fit.method = fit_method,
-    fit.weights = "norm_inverse_std") |>
-    plot_DoseResponseCurve(plot_extended = FALSE,
-                           main = "norm_inverse_std",
-                           plot_singlePanels = TRUE)
-  )
-  
+  ## from analyse_SAR.CWOSL
+  data(ExampleData.BINfileData, envir = environment())
+  object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 4)
+  SW({
+  vdiffr::expect_doppelganger("analyse_SAR.CWOSL",
+                              analyse_SAR.CWOSL(object, signal_integral = 1:4,
+                                                background_integral = 100:200,
+                                                plot = FALSE) |>
+                              plot_DoseResponseCurve())
   })
 })

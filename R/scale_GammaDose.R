@@ -343,12 +343,10 @@ scale_GammaDose <- function(
 
   dose_rate$sum <- dose_rate$K + dose_rate$Th + dose_rate$U
   dose_rate$sum_re <- sqrt(dose_rate$K_re^2 + dose_rate$Th_re^2 + dose_rate$U_re^2)
-  dose_rate$K_frac <- dose_rate$K / dose_rate$sum
-  dose_rate$K_frac_re <- sqrt(dose_rate$K_re^2 + dose_rate$sum_re^2 )
-  dose_rate$Th_frac <- dose_rate$Th / dose_rate$sum
-  dose_rate$Th_frac_re <- sqrt(dose_rate$Th_re^2 + dose_rate$sum_re^2 )
-  dose_rate$U_frac <- dose_rate$U / dose_rate$sum
-  dose_rate$U_frac_re <- sqrt(dose_rate$U_re^2 + dose_rate$sum_re^2 )
+  for (nuc in c("K", "Th", "U")) {
+    dose_rate[[paste0(nuc, "_frac")]] <- dose_rate[[nuc]] / dose_rate$sum
+    dose_rate[[paste0(nuc, "_frac_re")]] <- sqrt(dose_rate[[paste0(nuc, "_re")]]^2 + dose_rate$sum_re^2)
+  }
 
   ## weighted fractional dose
   z_scale <- do.call(cbind, Map(function(d, wc) {
@@ -451,24 +449,27 @@ scale_GammaDose <- function(
                  nm = c("K","K_se","Th","Th_se","U","U_se","sum","sum_se",
                         "K_inf","K_inf_se","Th_inf","Th_inf_se","U_inf","U_inf_se","sum_inf","sum_inf_se",
                         "contrib"))
+  ## water-content scaling factor and squared error
+  wc_factor <- 1 + 1.14 * data$water_content / 100
+  wc_re_sq <- (data$water_content_se / data$water_content)^2
 
   # fractional dose rate
-  op$K <- Inf_frac$K * dose_rate$K / (1 + 1.14 * data$water_content / 100)
-  op$K_se <- op$K * sqrt(dose_rate$K_re^2 + (data$water_content_se / data$water_content)^2)
-  op$Th <- Inf_frac$Th * dose_rate$Th / (1 + 1.14 * data$water_content / 100)
-  op$Th_se <- op$Th * sqrt(dose_rate$Th_re^2 + (data$water_content_se / data$water_content)^2)
-  op$U <- Inf_frac$U * dose_rate$U / (1 + 1.14 * data$water_content / 100)
-  op$U_se <- op$U * sqrt(dose_rate$U_re^2 + (data$water_content_se / data$water_content)^2)
+  op$K <- Inf_frac$K * dose_rate$K / wc_factor
+  op$K_se <- op$K * sqrt(dose_rate$K_re^2 + wc_re_sq)
+  op$Th <- Inf_frac$Th * dose_rate$Th / wc_factor
+  op$Th_se <- op$Th * sqrt(dose_rate$Th_re^2 + wc_re_sq)
+  op$U <- Inf_frac$U * dose_rate$U / wc_factor
+  op$U_se <- op$U * sqrt(dose_rate$U_re^2 + wc_re_sq)
   op$sum <- op$K + op$Th + op$U
   op$sum_se <- sqrt(op$K_se^2 + op$Th_se^2 + op$U_se^2)
 
   # infinite matrix dose rate
   op$K_inf <- op$K / Inf_frac$K
-  op$K_inf_se <- op$K_inf * sqrt(dose_rate$K_re^2 + (data$water_content_se / data$water_content)^2)
+  op$K_inf_se <- op$K_inf * sqrt(dose_rate$K_re^2 + wc_re_sq)
   op$Th_inf <- op$Th / Inf_frac$Th
-  op$Th_inf_se <- op$Th_inf * sqrt(dose_rate$Th_re^2 + (data$water_content_se / data$water_content)^2)
+  op$Th_inf_se <- op$Th_inf * sqrt(dose_rate$Th_re^2 + wc_re_sq)
   op$U_inf <- op$U / Inf_frac$U
-  op$U_inf_se <- op$U_inf * sqrt(dose_rate$U_re^2 + (data$water_content_se / data$water_content)^2)
+  op$U_inf_se <- op$U_inf * sqrt(dose_rate$U_re^2 + wc_re_sq)
   op$sum_inf <- op$K_inf + op$Th_inf + op$U_inf
   op$sum_inf_se <- sqrt(op$K_inf_se^2 + op$Th_inf_se^2 + op$U_inf_se^2)
 

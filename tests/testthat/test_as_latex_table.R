@@ -7,6 +7,10 @@ test_that("Check .as.latex.table()", {
                "'x' cannot be an empty data.frame")
   expect_error(.as.latex.table(df, comments = iris),
                "'comments' should be a single logical value")
+  expect_error(.as.latex.table(df, pos = TRUE),
+               "'pos' should be of class 'character' and have length 1")
+  expect_error(.as.latex.table(df, digits = NA_integer_),
+               "'digits' should be a single non-negative integer value")
   expect_error(.as.latex.table(df, rm.zero = NA),
                "'rm.zero' should be a single logical value")
   expect_error(.as.latex.table(df, select = 2),
@@ -48,7 +52,7 @@ test_that("Check .as.latex.table.data.frame()", {
   expect_error(.as.latex.table(df, row.names = "row1"),
                "Length of 'row.names' does not match the number of rows")
   expect_error(.as.latex.table(df, pos = c("pos1", "pos2")),
-               "Length of 'pos' does not match the number of columns")
+               "'pos' should be of class 'character' and have length 1")
   expect_error(.as.latex.table(df, comments = iris),
                "'comments' should be a single logical value")
   expect_error(.as.latex.table(df, verbose = NA),

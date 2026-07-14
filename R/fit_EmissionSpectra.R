@@ -197,11 +197,29 @@ fit_EmissionSpectra <- function(
   .validate_class(object, c("RLum.Data.Spectrum", "matrix", "list"))
   .validate_class(frame, c("integer", "numeric"), null.ok = TRUE)
   .validate_positive_scalar(n_components, int = TRUE, null.ok = TRUE)
+  .validate_class(start_parameters, "numeric", null.ok = TRUE)
+  if (any(is.na(start_parameters)))
+    .throw_error("'start_parameters' cannot contain missing values")
+  .validate_nonnegative_scalar(sub_negative, null.ok = TRUE)
   input_scale <- .validate_args(input_scale, c("wavelength", "energy"),
                                 null.ok = TRUE)
   .validate_class(method_control, "list")
   .validate_logical_scalar(verbose)
   .validate_logical_scalar(plot)
+
+  ## validate frame bounds and extract frames
+  .validate_frame <- function(frame, data, x.vals) {
+    if (length(frame) == 0)
+      frame <- seq_len(ncol(data))
+    else if (all(is.na(frame)) ||
+             max(frame, na.rm = TRUE) > ncol(data) ||
+             min(frame, na.rm = TRUE) < 1)
+      .throw_error("Invalid 'frame', allowed values range from 1 to ", ncol(data))
+
+    cols <- lapply(frame, function(i) cbind(x.vals, data[, i]))
+    names(cols) <- paste("Frame:", frame)
+    cols
+  }
 
   ##input RLum.Data.Spectrum ... make list either way
   if(inherits(object, "RLum.Data.Spectrum"))
@@ -222,18 +240,8 @@ fit_EmissionSpectra <- function(
       x <- as.numeric(rownames(o@data))
       rownames(o@data) <- NULL
 
-      ##set frame
-      if(is.null(frame)){
-        frame <- 1:ncol(o@data)
-      } else if (max(frame) > ncol(o@data)|| min(frame) < 1) {
-          .throw_error("Invalid 'frame', allowed values range from 1 to ",
-                       ncol(o@data))
-      }
-
-      ##get frame
-      temp_frame <- lapply(frame, function(f) cbind(x, o@data[,f]))
-      names(temp_frame) <- paste0("Frame: ", frame)
-      return(temp_frame)
+      ## extract and validate the frame
+      .validate_frame(frame, o@data, x)
     })
 
     ##set object name
@@ -249,18 +257,8 @@ fit_EmissionSpectra <- function(
   if(inherits(object, "matrix") && ncol(object) > 2){
     rownames(object) <- NULL
 
-    ##set frame
-    if(is.null(frame)){
-      frame <- 1:(ncol(object) - 1)
-    } else if(max(frame) > (ncol(object)-1) || min(frame) < 1) {
-        .throw_error("Invalid 'frame', allowed values range from 1 to ",
-                     ncol(object) - 1)
-    }
-
-    temp <- lapply(frame +1 , function(x) cbind(object[,1],object[,x]))
-    names(temp) <- paste0("Frame: ",frame)
-    object <- temp
-    rm(temp)
+    ## extract and validate frame
+    object <- .validate_frame(frame, object[, -1, drop = FALSE], object[, 1])
   }
 
   ##now treat different lists, the aim is to have a list of 2-column matrices
@@ -408,7 +406,7 @@ fit_EmissionSpectra <- function(
     ## set start parameters for fitting --------
     mu <- m[id_peaks,1]
 
-    if(!is.null(start_parameters))
+    if (length(start_parameters) > 0)
       mu <- c(sort(start_parameters), mu[-(1:length(start_parameters))])
 
     ## limit the number of components
@@ -449,7 +447,6 @@ fit_EmissionSpectra <- function(
     run <- run + 1
   }
 
-
   ## handle the output
   if (verbose) {
     cat("\r>> Searching components ... \t\t\t",
@@ -459,8 +456,9 @@ fit_EmissionSpectra <- function(
   ## store the values that will be used when plotting
   h <- 4.135667662e-15 # eV * s
   c <- 299792458e+09 # nm/s
+  hc <- h * c
   df_plot <- data.frame(ENERGY = m[, 1],
-                        WAVELENGTH = h * c / m[, 1])
+                        WAVELENGTH = hc / m[, 1])
 
   ##Extract best fit values
   ##TODO ... should be improved, its works, but maybe there are better solutions
@@ -514,12 +512,12 @@ fit_EmissionSpectra <- function(
 
   # Terminal output -----------------------------------------------------------------------------
   if(verbose && !is.na(m_coef[1])){
-    cat(paste0("\n\n>> Fitting results (",length(mu), " component model):\n"))
+    cat("\n\n>> Fitting results (", length(mu), " component model):\n", sep = "")
     cat("-------------------------------------------------------------------------\n")
     print(m_coef)
     cat("-------------------------------------------------------------------------")
-    cat(paste0("\nSE: standard error | SSR: ", format(min(best_fit), scientific=TRUE, digits = 4),
-               "| R^2: ", round(R2,3), " | R^2_adj: ", round(R2adj,4)))
+    cat("\nSE: standard error | SSR:", format(SSR, scientific = TRUE, digits = 4),
+        "| R^2:", round(R2,3), "| R^2_adj:", round(R2adj, 4))
     cat("\n(use the output in $fit for a more detailed analysis)\n\n")
   }
 
@@ -637,11 +635,9 @@ fit_EmissionSpectra <- function(
     abline(h = 0, lty = 2)
 
     ##add wavelength axis
-    h <- 4.135667662e-15 #eV * s
-    c <- 299792458e+09 #nm/s
     axis(
       side = 1,
-      labels = paste0("(",round((h * c) / axTicks(side = 3), 0), " nm)"),
+      labels = paste0("(", round(hc / axTicks(side = 3), 0), " nm)"),
       at = axTicks(side = 3),
       cex.axis = 0.7,
       line = 0.8,

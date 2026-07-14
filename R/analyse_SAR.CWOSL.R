@@ -225,7 +225,7 @@
 #'
 #' @param ... further arguments that will be passed to
 #' [Luminescence::fit_DoseResponseCurve], [Luminescence::plot_DoseResponseCurve]
-#' or [Luminescence::calc_OSLLxTxRatio] (supported:
+#' or [Luminescence::calc_OSLLxTxRatio] (the latter only supports
 #' `background.count.distribution`, `sigmab`, `sig0`, `od_rates`).
 #' Additionally, supported are `legend.cex` and `legend.pch` to modify the
 #' legend symbols.
@@ -253,7 +253,7 @@
 #'
 #' **The function currently supports only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 0.13.9
+#' @section Function version: 1.0.0
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
@@ -430,7 +430,7 @@ analyse_SAR.CWOSL<- function(
       .aliquot_number = sprintf("ALQ: #%d | ", x),
 
       ...)
-  })))
+  }), flatten = FALSE))
 
   ##return
   if(length(results) == 0) return(NULL)
@@ -452,6 +452,8 @@ analyse_SAR.CWOSL<- function(
   .validate_logical_scalar(plot_onePage)
   .validate_logical_scalar(onlyLxTxTable)
   .validate_class(rejection.criteria, "list", null.ok = TRUE)
+  .validate_class(dose.points, c("numeric", "integer"), null.ok = TRUE)
+  .validate_class(dose.points.test, c("numeric", "integer"), null.ok = TRUE)
   .validate_scalar(dose_rate_source, null.ok = TRUE)
   .validate_class(method_control, "list")
   method_control <- modifyList(x = list(auto_curve_removal = TRUE),
@@ -655,9 +657,8 @@ analyse_SAR.CWOSL<- function(
     }
   }
 
-# Rejection criteria ------------------------------------------------------
+  ## Rejection criteria -----------------------------------------------------
 
-  ##set list
   rejection.criteria <- modifyList(x = list(
       recycling.ratio = 10,
       recuperation.rate = 10,
@@ -682,15 +683,10 @@ analyse_SAR.CWOSL<- function(
   .validate_class(sn_reference, "character", length = 1,
                   name = "'sn_reference' in 'rejection.criteria'")
 
-# Deal with extra arguments ----------------------------------------------------
+  ## Deal with extra arguments ----------------------------------------------
 
   verbose <- .validate_logical_scalar(extraArgs$verbose %||% TRUE, name = "'verbose'")
   main <- extraArgs$main %||% ""
-  log <- extraArgs$log %||% ""
-  cex <- extraArgs$cex %||% 1
-  legend.cex <- extraArgs$legend.cex %||% 4
-  legend.pch <- extraArgs$legend.pch %||% 20
-
   background.count.distribution <-
       extraArgs$background.count.distribution %||% "non-poisson"
   sigmab <- extraArgs$sigmab
@@ -762,6 +758,11 @@ analyse_SAR.CWOSL<- function(
                                   function(record) record@info$IRR_TIME %||% NA),
                     data.table::rbindlist(LnLxTnTx))
 
+  ## check whether we have dose points at all
+  if (is.null(dose.points) && anyNA(LnLxTnTx$Dose)) {
+    .throw_error("'dose.points' contains NA values or was not set")
+  }
+
   ## Set regeneration points ------------------------------------------------
   ## overwrite dose point manually
   if (length(dose.points) > 0) {
@@ -771,19 +772,19 @@ analyse_SAR.CWOSL<- function(
 
       LnLxTnTx$Dose <- dose.points
   }
+  if (length(dose.points.test) > 1 &&  # allow for recycling
+      length(dose.points.test) != length(LnLxTnTx$Dose)) {
+    .throw_error("Length of 'dose.points.test' (", length(dose.points.test),
+                 ") differs from number of curves (", length(LnLxTnTx$Dose), ")")
+  }
 
-  ## set test dose points; we set it to -1 if nothing is available
-  LnLxTnTx$Test_Dose <- rep_len(dose.points.test %||% -1, nrow(LnLxTnTx))
+  ## set test dose points to -1 if nothing is available
+  LnLxTnTx$Test_Dose <- dose.points.test %||% -1
 
   ## use source dose rate
   if(!is.null(dose_rate_source)) {
     LnLxTnTx$Dose <- LnLxTnTx$Dose * dose_rate_source
     LnLxTnTx$Test_Dose <- ifelse(LnLxTnTx$Test_Dose < 1, -1, LnLxTnTx$Test_Dose  * dose_rate_source)
-  }
-
-  ##check whether we have dose points at all
-  if (is.null(dose.points) && anyNA(LnLxTnTx$Dose)) {
-    .throw_error("'dose.points' contains NA values or was not set")
   }
 
   ## check whether the first OSL/IRSL curve (i.e., the Natural) has 0 dose. If
@@ -800,8 +801,7 @@ analyse_SAR.CWOSL<- function(
 
   ## Label dose points ------------------------------------------------------
   dose <- LnLxTnTx$Dose
-    ## preset names
-    dose_names <- paste0("R", seq_along(dose) - 1)
+  dose_names <- paste0("R", seq_along(dose) - 1)
 
     ## identify 0 dose point
     zero_id <- which(dose == 0)
@@ -947,9 +947,17 @@ analyse_SAR.CWOSL<- function(
       D02 = NA,
       D02.ERROR = NA,
       R = NA,
-      R.ERROR = NA,
+      R.LOWER = NA,
+      R.UPPER = NA,
       Dc = NA,
+      Dc.LOWER = NA,
+      Dc.UPPER = NA,
       D63 = NA,
+      D63.LOWER = NA, 
+      D63.UPPER = NA,
+      D80 = NA,
+      D80.LOWER = NA,
+      D80.UPPER = NA,
       n_N = NA,
       De.MC = NA,
       Fit = NA,
@@ -1074,32 +1082,58 @@ analyse_SAR.CWOSL<- function(
   invisible(results)
 }
 
+
+## Helper functions ---------------------------------------------------------
+## Plot the results of the analysis
 .plot_SAR.CWOSL <- function(
   results,
   mtext.outer = "",
   plot_onePage = FALSE,
   plot_singlePanels = FALSE,
-  legend.pch = 20,
-  legend.cex = 4,
   ...
 ) {
   curve_args <- results@data$.plot.data
+  if (is.null(curve_args)) {
+    ## support objects generated by v1.2.1 or older
+    return(plot_AbanicoPlot(results))
+  }
+
+  ## self-call
+  if (is.null(names(curve_args))) {
+    for (alq in seq_along(curve_args)) {
+      single <- results
+      single@data$data <- single@data$data[alq, ]
+      single@data$LnLxTnTx.table <- single@data$LnLxTnTx.table[alq, ]
+      single@data$rejection.criteria <- single@data$rejection.criteria[
+        single@data$rejection.criteria$UID %in% single@data$data$UID, ]
+      single@data$.plot.data <- curve_args[[alq]]
+      .plot_SAR.CWOSL(single,
+                      mtext.outer = mtext.outer,
+                      plot_onePage = plot_onePage,
+                      plot_singlePanels = plot_singlePanels,
+                      ...)
+    }
+    return(invisible())
+  }
+
   records <- curve_args$records
   OSL.Curves.ID <- curve_args$OSL.Curves.ID
   TL.Curves.ID <- curve_args$TL.Curves.ID
   GC.fit <- curve_args$GC.fit
   LnLxTnTx <- results@data$LnLxTnTx.table
 
-  layout.matrix <- matrix(c(1, 1, 3, 3, 6, 6, 7,
-                              1, 1, 3, 3, 6, 6, 8,
-                              2, 2, 4, 4, 9, 9, 10,
-                              2, 2, 4, 4, 9, 9, 10,
-                              5, 5, 5, 5, 5, 5, 5),
-                            nrow = 5, ncol = 7, byrow = TRUE)
+  ## use the package colours
   col <- get("col", pos = .LuminescenceEnv)
+  if (length(OSL.Curves.ID$Lx) > length(col)) {
+    .throw_warning("Too many curves, only the first ", length(col),
+                   " will be plotted")
+  }
+
   curve_args$col <- col
   curve_args$cex <- list(...)$cex %||% 1
   curve_args$log <- list(...)$log %||% ""
+  legend.cex <- list(...)$legend.cex %||% 4
+  legend.pch <- list(...)$legend.pch %||% 20
 
     ## Layout and panel selection -------------------------------------------
     ## 1 -> TL previous LnLx
@@ -1118,6 +1152,12 @@ analyse_SAR.CWOSL<- function(
       par.default <- .par_defaults()
       on.exit(par(par.default), add = TRUE)
 
+      layout.matrix <- matrix(c(1, 1, 3, 3, 6, 6, 7,
+                                1, 1, 3, 3, 6, 6, 8,
+                                2, 2, 4, 4, 9, 9, 10,
+                                2, 2, 4, 4, 9, 9, 10,
+                                5, 5, 5, 5, 5, 5, 5),
+                              nrow = 5, ncol = 7, byrow = TRUE)
       if (plot_onePage) {
         plot_singlePanels <- TRUE
       } else {
@@ -1132,12 +1172,6 @@ analyse_SAR.CWOSL<- function(
       par(mar = mar)
       plot.single.sel <- plot_singlePanels
     }
-
-      ##warning if number of curves exceed colour values
-      if (length(col) < length(OSL.Curves.ID$Lx)) {
-        .throw_warning("Too many curves, only the first ",
-                       length(col), " curves are plotted")
-      }
 
       ## (1) Plotting TL Curves previous LnLx ----------------------------------------
       if (1 %in% plot.single.sel) {
@@ -1267,22 +1301,19 @@ analyse_SAR.CWOSL<- function(
     if (7 %in% plot.single.sel) {
       .plot_RCCriteria(results@data$rejection.criteria)
     }
-  } # end plot
+}
 
-
-# Helper functions -------------------------------------------------------------
 ## create single grain discs with measured grain labelled
 .plot_SGMarker <- function(this_grain = 1, this_pos = 1) {
+  par.old <- par(mar = c(3, 3, 3, 3))
+  on.exit(par(par.old), add = TRUE)
+
   ## calculate coordinate matrix
   xy_coord <- matrix(
     data = c(
       rep(seq(0.25,0.75, length.out = 10), 10),
       rep(rev(seq(0.25,0.75, length.out = 10)), each = 10)),
     ncol = 2)
-
-  ##set par
-  par.old <- par(mar = c(3, 3, 3, 3))
-  on.exit(par(par.old), add = TRUE)
 
   ## draw disc
   shape::emptyplot(main = "Grain location")

@@ -128,135 +128,47 @@ calc_Statistics <- function(
       ncol = n.MCM)
   }
 
-  ## calculate n
   S.n <- nrow(data)
-  S.m.n <- S.n * ncol(data.MCM)
 
-  ## calculate mean
-  S.mean <- mean(x = data[,1],
-                 na.rm = na.rm)
+  ## unweighted statistics
+  u.mean <- mean(data[, 1], na.rm = na.rm)
+  u.median <- median(data[, 1], na.rm = na.rm)
+  u.sd <- sd(data[, 1], na.rm = na.rm)
+  u.skewness <- 1 / S.n * sum(((data[, 1] - u.mean) / u.sd)^3)
+  u.kurtosis <- 1 / S.n * sum(((data[, 1] - u.mean) / u.sd)^4)
 
-  S.wg.mean <- stats::weighted.mean(x = data[,1],
-                                    w = S.weights,
-                                    n.rm = na.rm)
+  ## weighted statistics
+  w.mean <- stats::weighted.mean(data[, 1], w = S.weights, n.rm = na.rm)
+  w.median <- .weighted.median(data[, 1], w = S.weights, na.rm = na.rm)
+  w.sd <- sqrt(sum(S.weights * (data[,1] - w.mean)^2) /
+               (((S.n - 1) * sum(S.weights)) / S.n))
 
-  S.m.mean <- mean(x = data.MCM,
-                   na.rm = na.rm)
+  ## MCM statistics
+  m.mean <- mean(data.MCM, na.rm = na.rm)
+  m.median <- median(data.MCM, na.rm = na.rm)
+  m.sd <- sd(data.MCM, na.rm = na.rm)
+  m.n <- S.n * ncol(data.MCM)
+  m.skewness <- 1 / m.n * sum(((data.MCM - m.mean) / m.sd)^3)
+  m.kurtosis <- 1 / m.n * sum(((data.MCM - m.mean) / m.sd)^4)
 
-  ## calculate median
-  S.median <- median(x = data[,1],
-                     na.rm = na.rm)
-
-  S.wg.median <- .weighted.median(data[, 1],
-                                  w = S.weights,
-                                  na.rm = na.rm)
-
-  S.m.median <- median(x = data.MCM,
-                       na.rm = na.rm)
-
-  ## calculate absolute standard deviation
-  S.sd.abs <- sd(x = data[,1],
-                 na.rm = na.rm)
-
-  S.wg.sd.abs <- sqrt(sum(S.weights * (data[,1] - S.wg.mean)^2) /
-                        (((S.n - 1) * sum(S.weights)) / S.n))
-
-  S.m.sd.abs <- sd(x = data.MCM,
-                   na.rm = na.rm)
-
-  ## calculate relative standard deviation
-  S.sd.rel <- S.sd.abs / S.mean * 100
-
-  S.wg.sd.rel <- S.wg.sd.abs / S.wg.mean * 100
-
-  S.m.sd.rel <- S.m.sd.abs / S.m.mean * 100
-
-  ## calculate absolute standard error of the mean
-  S.se.abs <- S.sd.abs / sqrt(S.n)
-
-  S.wg.se.abs <- S.wg.sd.abs / sqrt(S.n)
-
-  S.m.se.abs <- S.m.sd.abs / sqrt(S.n)
-
-  ## calculate relative standard error of the mean
-  S.se.rel <- S.se.abs / S.mean * 100
-
-  S.wg.se.rel <- S.wg.se.abs / S.wg.mean * 100
-
-  S.m.se.rel <- S.m.se.abs / S.m.mean * 100
-
-  ## calculate skewness
-  S.skewness <- 1 / S.n * sum(((data[,1] - S.mean) / S.sd.abs)^3)
-
-  S.m.skewness <- 1 / S.m.n * sum(((data.MCM - S.m.mean) / S.m.sd.abs)^3)
-
-  ## calculate kurtosis
-  S.kurtosis <- 1 / S.n * sum(((data[,1] - S.mean) / S.sd.abs)^4)
-
-  S.m.kurtosis <- 1 / S.m.n * sum(((data.MCM - S.m.mean) / S.m.sd.abs)^4)
-
-  ## create list objects of calculation output
-  S.weighted <- list(n = S.n,
-                     mean = S.wg.mean,
-                     median = S.wg.median,
-                     sd.abs = S.wg.sd.abs,
-                     sd.rel = S.wg.sd.rel,
-                     se.abs = S.wg.se.abs,
-                     se.rel = S.wg.se.rel,
-                     skewness = S.skewness,
-                     kurtosis = S.kurtosis)
-
-
-  if(!is.null(digits)) {
-
-     S.weighted <- sapply(names(S.weighted),
-                          simplify = FALSE,
-                          USE.NAMES = TRUE,
-                          function(x) {
-                            round(S.weighted[[x]],
-                                  digits = digits)})
+  ## build result lists -----------------------------------------------------
+  .build_list <- function(n, mean, median, sd, skewness, kurtosis) {
+    list(n = n, mean = mean, median = median,
+         sd.abs = sd,
+         sd.rel = sd / mean * 100,
+         se.abs = sd / sqrt(n),
+         se.rel = sd / sqrt(n) / mean * 100,
+         skewness = skewness, kurtosis = kurtosis)
   }
 
-  S.unweighted <- list(n = S.n,
-                       mean = S.mean,
-                       median = S.median,
-                       sd.abs = S.sd.abs,
-                       sd.rel = S.sd.rel,
-                       se.abs = S.se.abs,
-                       se.rel = S.se.rel,
-                       skewness = S.skewness,
-                       kurtosis = S.kurtosis)
+  results <- list(
+    weighted   = .build_list(S.n, w.mean, w.median, w.sd, u.skewness, u.kurtosis),
+    unweighted = .build_list(S.n, u.mean, u.median, u.sd, u.skewness, u.kurtosis),
+    MCM        = .build_list(S.n, m.mean, m.median, m.sd, m.skewness, m.kurtosis)
+  )
 
-  if(!is.null(digits)){
-    S.unweighted  <- sapply(names(S.unweighted),
-                            simplify = FALSE,
-                            USE.NAMES = TRUE,
-                            function(x) {
-                              round(S.unweighted [[x]],
-                                    digits = digits)})
-  }
+  if (!is.null(digits))
+    results <- lapply(results, function(x) lapply(x, round, digits = digits))
 
-  S.MCM <- list(n = S.n,
-                mean = S.m.mean,
-                median = S.m.median,
-                sd.abs = S.m.sd.abs,
-                sd.rel = S.m.sd.rel,
-                se.abs = S.m.se.abs,
-                se.rel = S.m.se.rel,
-                skewness = S.m.skewness,
-                kurtosis = S.m.kurtosis)
-
-  if(!is.null(digits)){
-
-    S.MCM  <- sapply(names(S.MCM),
-                     simplify = FALSE,
-                     USE.NAMES = TRUE,
-                     function(x) {
-                       round(S.MCM [[x]],
-                             digits = digits)})
-  }
-
-  list(weighted = S.weighted,
-       unweighted = S.unweighted,
-       MCM = S.MCM)
+  results
 }

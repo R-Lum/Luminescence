@@ -820,26 +820,20 @@ analyse_baSAR <- function(
   ## check the central_D bounds and set defaults according to Combès et al., 2015
   ## "We set the bounds for the prior on the central dose D, Dmin = 0 Gy and
   ##  Dmax = 1000 Gy, to cover the likely range of possible values for D."
-  msg <- paste("You have modified the %s central_D boundary while applying",
-               "a predefined model. This is possible but not recommended")
-
-  ## check lower_centralD and upper_centralD
-  lower_centralD <- method_control$lower_centralD
-  if (is.null(lower_centralD)) {
-    lower_centralD <- 0
-  } else if (distribution != "user_defined") {
-    .validate_nonnegative_scalar(lower_centralD, null.ok = TRUE,
-                                 name = "'lower_centralD' in 'method_control'")
-    .throw_warning(sprintf(msg, "lower"))
+  set_centralD_bounds <- function(name, default) {
+    val <- method_control[[name]]
+    if (is.null(val))
+      return(default)
+    if (distribution != "user_defined") {
+      .validate_nonnegative_scalar(val, null.ok = TRUE,
+                                   name = sprintf("'%s' in 'method_control'", name))
+      .throw_warning("You have modified the ", name, " boundary while using ",
+                     "a predefined model: this is allowed but not recommended")
+    }
+    val
   }
-  upper_centralD <- method_control$upper_centralD
-  if (is.null(upper_centralD)) {
-    upper_centralD <- 1000
-  } else if (distribution != "user_defined") {
-    .validate_nonnegative_scalar(upper_centralD, null.ok = TRUE,
-                                 name = "'upper_centralD' in 'method_control'")
-    .throw_warning(sprintf(msg, "upper"))
-  }
+  lower_centralD <- set_centralD_bounds("lower_centralD", 0)
+  upper_centralD <- set_centralD_bounds("upper_centralD", 1000)
   if (upper_centralD <= lower_centralD) {
     .throw_error("'upper_centralD' in 'method_control' must be greater than ",
                  "'lower_centralD'")
@@ -935,6 +929,18 @@ analyse_baSAR <- function(
     ##      .. list
     ##      .. S4
 
+    ## subsetting function that doesn't rely on non-standard evaluation
+    .select_rows_Risoe <- function(x, col, value) {
+      ## apply selection
+      sel <- x@METADATA[[col]] == value
+      x@DATA <- x@DATA[sel]
+      x@METADATA <- x@METADATA[sel, ]
+
+      ## reset index
+      x@METADATA[["ID"]] <- seq_len(nrow(x@METADATA))
+      x
+    }
+
     ##In case an RLum.Analysis object is provided we try an ugly conversion only
     if (inherits(object, "list") &&
         all(vapply(object, inherits, "RLum.Analysis", FUN.VALUE = logical(1)))) {
@@ -975,16 +981,16 @@ analyse_baSAR <- function(
       }
 
       ## remove non-OSL curves
-      rm_id <- which(object@METADATA[["LTYPE"]] != "OSL")
-      if (length(rm_id) > 0) {
+      if (any(object@METADATA[["LTYPE"]] != "OSL")) {
         if(verbose)
           cat("\t\t  .. remove non-OSL curves\n")
-        object@METADATA <- object@METADATA[-rm_id,]
-        object@DATA[rm_id] <- NULL
-
-        ##reset index
-        object@METADATA[["ID"]] <- seq_along(object@METADATA[["ID"]])
+        object <- .select_rows_Risoe(object, col = "LTYPE", value = "OSL")
       }
+    }
+
+    ## normalise single objects into a 1-element list
+    if (is.character(object) || inherits(object, "Risoe.BINfileData")) {
+      object <- list(object)
     }
 
     if (inherits(object, "list")) {
@@ -998,34 +1004,22 @@ analyse_baSAR <- function(
       if (length(object_type) > 1) {
         .throw_error("'object' only accepts a list of objects of the same type")
       }
-        if (object_type == "Risoe.BINfileData") {
-          fileBIN.list <- object
 
-        } else if (object_type == "character") {
-          fileBIN.list <- read_BIN2R(
-            file = object,
-            position = additional_arguments$position,
-            duplicated.rm = additional_arguments$duplicated.rm,
-            n.records = additional_arguments$n.records,
-            pattern = additional_arguments$pattern,
-            verbose = verbose
-          )
-          fileBIN.list <- .rm_NULL_elements(fileBIN.list)
-          if (length(fileBIN.list) == 0)
-            return(NULL)
-        }
-
-    } else if (is.character(object)) {
-      fileBIN.list <- list(read_BIN2R(
+      if (object_type == "character") {
+        fileBIN.list <- read_BIN2R(
           file = object,
           position = additional_arguments$position,
           duplicated.rm = additional_arguments$duplicated.rm,
           n.records = additional_arguments$n.records,
           pattern = additional_arguments$pattern,
-          verbose = verbose))
+          verbose = verbose)
+        fileBIN.list <- .rm_NULL_elements(fileBIN.list)
+        if (length(fileBIN.list) == 0)
+          return(NULL)
 
-    } else if (inherits(object, "Risoe.BINfileData")) {
-      fileBIN.list <- list(object)
+      } else {
+        fileBIN.list <- object
+      }
     }
 
     ##Problem ... the user might have made a pre-selection in the Analyst software, if this the
@@ -1035,24 +1029,16 @@ analyse_baSAR <- function(
       FUN = function(x) x@METADATA[["SEL"]] ))
 
     if (!all(record.selected)) {
-      if (verbose) {
-        .throw_message("Record pre-selection in BIN-file detected, ",
-                       "record reduced to selection\n", error = FALSE)
-      }
       if (sum(record.selected) == 0) {
         .throw_warning("No records selected, NULL returned")
         return(NULL)
       }
 
-      fileBIN.list <- lapply(fileBIN.list, function(x){
-            ##reduce data
-            x@DATA <- x@DATA[x@METADATA[["SEL"]]]
-            x@METADATA <- x@METADATA[x@METADATA[["SEL"]], ]
-
-            ##reset index
-            x@METADATA[["ID"]] <- seq_len(nrow(x@METADATA))
-            return(x)
-      })
+      if (verbose) {
+        .throw_message("Record pre-selection in BIN-file detected, ",
+                       "record reduced to selection\n", error = FALSE)
+      }
+      fileBIN.list <- lapply(fileBIN.list, .select_rows_Risoe, col = "SEL", value = TRUE)
     }
 
     # Declare variables ---------------------------------------------------------------------------
@@ -1060,14 +1046,8 @@ analyse_baSAR <- function(
     Disc <-  list()
     Grain <- list()
     Disc_Grain.list <- list()
-
-    Nb_aliquots <-  0
-    previous.Nb_aliquots <- 0
     object.file_name <- list()
-
     Mono_grain <-  TRUE
-
-    Limited_cycles <- vector()
 
     ##set information
     for (i in seq_along(fileBIN.list)) {
@@ -1251,9 +1231,12 @@ analyse_baSAR <- function(
     n_aliquots_k <- length(Disc[[k]])
 
       if(n_aliquots_k == 0){
-        fileBIN.list[[k]] <- NULL
         .throw_warning("No data selected from BIN-file ", k,
                        ", BIN-file removed from input")
+
+        ## mark the object for removal: this cannot be done directly by
+        ## assigning NULL to it, as the index would go out of sync
+        fileBIN.list[[k]] <- NA
         next()
       }
 
@@ -1270,6 +1253,8 @@ analyse_baSAR <- function(
     }
   }
 
+    ## remove objects marked for removal
+    fileBIN.list <- fileBIN.list[!is.na(fileBIN.list)]
     if (length(fileBIN.list) == 0) {
       .throw_error("All provided objects were removed")
     }
@@ -1348,9 +1333,9 @@ analyse_baSAR <- function(
   }
 
 
-  ######################  Data associated with a single Disc/Grain
-  max_cycles <-  0
-  count <- 1
+    ###################### Data associated with a single Disc/Grain
+    max_cycles <-  0
+    count <- 1
 
   for (k in seq_along(fileBIN.list)) {
 
@@ -1369,47 +1354,28 @@ analyse_baSAR <- function(
 
 
       ## data.tables for Ln and Tn values
-      Ln_dt <- rbindlist(list(fileBIN.list[[k]]@DATA[curve_index[1, ]]))
-      Tn_dt <- rbindlist(list(fileBIN.list[[k]]@DATA[curve_index[2, ]]))
+      Ln_dt <- as.data.table(fileBIN.list[[k]]@DATA[curve_index[1, ]])
+      Tn_dt <- as.data.table(fileBIN.list[[k]]@DATA[curve_index[2, ]])
 
-      ##open plot are
-      if (!plot_singlePanels) {
-        par(mfrow = c(1, 2))
+      .plot_LnTn <- function(dt, main, sig, bg) {
+        graphics::matplot(
+          x = seq_len(nrow(dt)), y = dt,
+          col = rgb(0, 0, 0, 0.3),
+          ylab = "Luminescence [a.u.]", xlab = "Channel",
+          main = main, type = "l")
+        abline(v = range(sig), lty = 2, col = "green")
+        abline(v = range(bg), lty = 2, col = "red")
+        mtext(paste0("ALQ: ", count, ":", count + ncol(curve_index)))
       }
 
-      ##get natural curve and combine them in matrix
-      graphics::matplot(
-        x = seq_len(nrow(Ln_dt)),
-        y = Ln_dt,
-        col = rgb(0, 0, 0, 0.3),
-        ylab = "Luminescence [a.u.]",
-        xlab = "Channel",
-        main = expression(paste(L[n], " - curves")),
-        type = "l"
-      )
+      if (!plot_singlePanels)
+        par(mfrow = c(1, 2))
 
-      ##add integration limits
-      abline(v = range(signal_integral[[k]]), lty = 2, col = "green")
-      abline(v = range(background_integral[[k]]), lty = 2, col = "red")
-      mtext(paste0("ALQ: ",count, ":", count + ncol(curve_index)))
-
-      graphics::matplot(
-        x = seq_len(nrow(Tn_dt)),
-        y = Tn_dt,
-        col = rgb(0, 0, 0, 0.3),
-        ylab = "Luminescence [a.u.]",
-        xlab = "Channel",
-        main = expression(paste(T[n], " - curves")),
-        type = "l"
-      )
-
-      ## add integration limits depending on the chosen value
-      abline(v = range(signal_integral_Tx[[k]] %||% signal_integral[[k]]),
-             lty = 2, col = "green")
-      abline(v = range(background_integral_Tx[[k]] %||% background_integral[[k]]),
-             lty = 2, col = "red")
-
-      mtext(paste0("ALQ: ",count, ":", count + ncol(curve_index)))
+      .plot_LnTn(Ln_dt, expression(paste(L[n], " - curves")),
+                 signal_integral[[k]], background_integral[[k]])
+      .plot_LnTn(Tn_dt, expression(paste(T[n], " - curves")),
+                 signal_integral_Tx[[k]] %||% signal_integral[[k]],
+                 background_integral_Tx[[k]] %||% background_integral[[k]])
 
       ##reset par
       if (!plot_singlePanels) {
@@ -1506,18 +1472,13 @@ analyse_baSAR <- function(
       ## reset `sel.disc.grain` because the data it pointed to has changed
       sel.disc.grain <- Disc_Grain.list[[k]][[dd]][[gg]]
 
-      Limited_cycles[previous.Nb_aliquots + i] <- length(sel.disc.grain[[2]])
-
       max_cycles <- max(length(sel.disc.grain[[2]]), max_cycles)
-
-        previous.Nb_aliquots <-
-            length(stats::na.exclude(Limited_cycles)) # Total count of aliquots
 
       count <- count + 1
     }
   }   ##  END of loop on BIN files
 
-  Nb_aliquots <- previous.Nb_aliquots
+    Nb_aliquots <- count - 1
 
   ##create results matrix
   OUTPUT_results <-
@@ -1751,6 +1712,8 @@ analyse_baSAR <- function(
     ##get colours from the package Luminescence
     col <- get("col", pos = .LuminescenceEnv)
 
+    dose_xlab <- ifelse(is.null(unlist(source_doserate)), "Dose [s]", "Dose [Gy]")
+
     ##get list of variable names (we need them later)
     varnames <- coda::varnames(results[[2]])
 
@@ -1811,7 +1774,7 @@ analyse_baSAR <- function(
         horizontal = TRUE,
         outline = TRUE,
         col = box.col[i:step],
-        xlab = ifelse(is.null(unlist(source_doserate)), "Dose [s]", "Dose [Gy]"),
+        xlab = dose_xlab,
         ylab = "Aliquot index",
         yaxt = "n",
         xlim = c(1,19),
@@ -1914,7 +1877,7 @@ analyse_baSAR <- function(
           ylim = ylim,
           xlim = xlim,
           ylab = expression(paste(L[x] / T[x])),
-          xlab = ifelse(is.null(unlist(source_doserate)), "Dose [s]", "Dose [Gy]"),
+          xlab = dose_xlab,
           main = "baSAR Dose Response Curves"
         ))
 
@@ -2007,6 +1970,8 @@ analyse_baSAR <- function(
       rm(plot_matrix)
 
       ##03 Abanico Plot
+      n_plotted <- nrow(input_object) - length(which(is.na(input_object[, c("DE", "DE.SD")])))
+
       if(distribution_plot == "abanico"){
         plot_check <- plot_AbanicoPlot(
           data = input_object[, c("DE", "DE.SD")],
@@ -2022,12 +1987,8 @@ analyse_baSAR <- function(
           line.col = c(col[3], col[3], col[2], col[2]),
           line.lty = c(3,3,2,2),
           output = TRUE,
-          mtext = paste0(
-            nrow(input_object) - length(which(is.na(input_object[, c("DE", "DE.SD")]))),
-            "/",
-            nrow(input_object),
-            " plotted (removed are NA values)"
-          )
+          mtext = paste0(n_plotted, "/", nrow(input_object),
+                         " plotted (removed are NA values)")
         )
 
         if (!is.null(plot_check)) {
@@ -2052,12 +2013,8 @@ analyse_baSAR <- function(
           xlab = ifelse(is.null(unlist(source_doserate)),
                         expression(paste(D[e], " [s]")),
                         expression(paste(D[e], " [Gy]"))),
-          mtext =   paste0(
-            nrow(input_object) - length(which(is.na(input_object[, c("DE", "DE.SD")]))),
-            "/",
-            nrow(input_object),
-            " (removed are NA values)"
-          )
+          mtext = paste0(n_plotted, "/", nrow(input_object),
+                         " (removed are NA values)")
         )), outFile = stdout()) # redirect error messages so they can be silenced
 
         if (!inherits(plot_check, "try-error")) {

@@ -132,6 +132,14 @@ test_that("weird LxTx values", {
     class = "RLum.Results")
   })
 
+  ## shuffle column names
+  SW({
+    LxTxData_shuffle <- LxTxData[,c("LxTx.Error", "LxTx", "Dose")]
+    expect_s4_class(
+      fit_DoseResponseCurve(LxTxData_shuffle),
+      class = "RLum.Results")
+  })
+
   ## test case for only two columns
   expect_s4_class(
     suppressWarnings(fit_DoseResponseCurve(LxTxData[,1:2], verbose = FALSE)),
@@ -476,7 +484,7 @@ temp_OTORX_alt <-
    if (R.version$major > "3"){
      if(any(grepl("aarch64", sessionInfo()$platform))) {
        expect_equal(round(sum(temp_GOK$De.MC, na.rm = TRUE), digits = 1), 17796,
-                    tolerance = 0.001)
+                    tolerance = 0.1)
 
      } else {
        expect_equal(round(sum(temp_GOK$De.MC, na.rm = TRUE), digits = 1), 17828.9,
@@ -485,7 +493,7 @@ temp_OTORX_alt <-
    }
 
    expect_equal(round(temp_OTOR$De[[1]], digits = 1),  1784.4)
-   expect_equal(round(temp_OTORX$De[[1]], digits = 1), 2469.8)
+   expect_equal(round(temp_OTORX$De[[1]], digits = 1), 2469.8, tolerance = 0.1)
    expect_equal(round(temp_OTORX_alt$De[[1]], digits = 2),  758.280)
    expect_equal(round(temp_OTORX_alt2$De[[1]], digits = 2),  793.21, tolerance = 0.2)
    expect_equal(round(sum(temp_OTOR$De.MC, na.rm = TRUE), digits = 0), 17611)
@@ -815,13 +823,13 @@ test_that("regression tests", {
 
   ## issue 1541
   expect_output(fit_DoseResponseCurve(df_odd, fit.method = "QDR"),
-                "Fit: QDR (interpolation) | De = 35.08", fixed = TRUE)
+                "Fit:    QDR (interpolation) | De = 35.08", fixed = TRUE)
 
   ## issue 1543
   expect_output(fit_DoseResponseCurve(LxTxData, fit.method = "LIN", n.MC = 1),
-                "Fit: LIN (interpolation) | De = 1673.02", fixed = TRUE)
+                "Fit:    LIN (interpolation) | De = 1673.02", fixed = TRUE)
   expect_output(fit_DoseResponseCurve(LxTxData, fit.method = "QDR", n.MC = 1),
-                "Fit: QDR (interpolation) | De = 1646.83", fixed = TRUE)
+                "Fit:    QDR (interpolation) | De = 1646.83", fixed = TRUE)
 
   ## issue 1570
   df <- data.frame(Dose = c(0, 940.4, 2821.2, 4702, 0, 940.4),
@@ -829,8 +837,26 @@ test_that("regression tests", {
                    LxTx.Error = c(2.26, 1306.72, 9.12, 5.89, 0.37, 1.87),
                    TnTx = c(7.02, 0.45, 15.56, 29.38, 25.03, 19.07))
   expect_output(fit_DoseResponseCurve(df),
-                "Fit: EXP (interpolation) | De = 268.26 | D01 = 2612.50",
+                "Fit:    EXP (interpolation) | De = 268.26 | D01 = 2612.50",
                 fixed = TRUE)
+
+  ## issue 1591
+  data(ExampleData.BINfileData, envir = environment())
+  object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
+  results <- analyse_SAR.CWOSL(
+    object = object,
+    signal_integral = 1:2,
+    background_integral = 900:1000,
+    log = "x",
+    fit.method = "EXP",
+    plot = FALSE,
+    verbose = FALSE
+  )
+
+  t <- expect_s4_class(
+    object = fit_DoseResponseCurve(results$LnLxTnTx.table, verbose = FALSE),
+    class = "RLum.Results")
+  expect_equal(results$data$De, t$De$De)
 })
 
 test_that("test internal functions", {

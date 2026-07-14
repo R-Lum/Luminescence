@@ -641,7 +641,7 @@ get_Layout <- function(
             ytck1.line      = 65, # line height in %
             ytck2.line      = 50, # line height in %
             xtcl            = 50, # tick length in %
-            ytcl1           = 20, # tick length in %
+            ytcl1           = 50, # tick length in %
             ytcl2           = 50, # tick length in %
             stats.line      = 70 # line height in %
           )

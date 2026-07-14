@@ -143,7 +143,6 @@ calc_FastRatio <- function(object,
       .throw_error("'Ch_L3[2]' must be greater than or equal to 'Ch_L3[1]'")
     }
   }
-  .validate_positive_scalar(wavelength)
   .validate_positive_scalar(sigmaF)
   .validate_positive_scalar(sigmaM)
   .validate_positive_scalar(x)
@@ -196,12 +195,9 @@ calc_FastRatio <- function(object,
 
     ## Energy calculation
     # P = user defined stimulation power in mW
-    # lambdaLED = wavelength of stimulation source in nm
-    P <- stimulation.power
-    lamdaLED <- wavelength
-
     ## c = speed of light, h = Planck's constant
-    I0 <- (P / 1000) / (.const$c * .const$h / (lamdaLED * 10^-9))
+    P <- stimulation.power
+    I0 <- (P / 1000) / (.const$c * .const$h / (wavelength * 10^-9))
     Ch_width <- max(A[ ,1]) / length(A[ ,1])
 
     # remove dead channels
@@ -299,12 +295,6 @@ calc_FastRatio <- function(object,
     }
     Cts_L2 <- A[Ch_L2, 2]
 
-    # optional: predict the counts from the fitted curve
-    if (fitCW.curve && !inherits(fitCW.res, "try-error")) {
-        nls <- get_RLum(fitCW.res, "fit")
-        Cts_L2 <- predict(nls, list(x = t_L2))
-    }
-
     # L3 ----
     if (Ch_L3st >= nrow(A) | Ch_L3end > nrow(A)) {
       msg <- sprintf(paste("The calculated channels for L3 (%i, %i) exceed",
@@ -323,6 +313,7 @@ calc_FastRatio <- function(object,
     # optional: predict the counts from the fitted curve
     if (fitCW.curve && !inherits(fitCW.res, "try-error")) {
         nls <- get_RLum(fitCW.res, "fit")
+        Cts_L2 <- predict(nls, list(x = t_L2))
         Cts_L3 <- mean(predict(nls, list(x = c(t_L3_start, t_L3_end))))
     }
 

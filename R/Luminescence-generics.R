@@ -114,6 +114,8 @@ setMethod("get_RLum", signature = "list",
     function(object, class = NULL, null.rm = FALSE, ...) {
       ## input validation
       .validate_class(class, "character", null.ok = TRUE, length = 1)
+      if (!is.null(class) && is.na(class))
+        .throw_error("'class' cannot contain missing values")
       .validate_logical_scalar(null.rm)
 
       ## take care of the class argument
@@ -579,17 +581,21 @@ setGeneric("set_RLum", function(class, originator, .uid = create_UID(),
   class(class) <- as.character(class)
 
   if (missing(originator)) {
-    if (is.language(sys.call(which = -1)[[1]])) {
-      originator <- as.character(sys.call(which = -1)[[1]])
-
-      ## account for calls using the double colons, in this case the vector
-      ## is of length 3, not only 1
-      if (length(originator) == 3) {
-        originator <- originator[3]
-      }
-
+    caller <- sys.call(which = -1)[[1]]
+    if (is.language(caller)) {
+      ## use tail() to account for package-qualified calls
+      originator <- tail(as.character(caller), 1)
     } else {
-      originator <- NA_character_
+      ## try harder to find the originator by looking at the parent call: if
+      ## it's do.call(), then take use the function it calls as originator
+      parent.call <- if (length(sys.calls()) > 2) sys.call(which = -2) else NULL
+      if (!is.null(parent.call) &&
+          is.language(parent.call[[1]]) &&
+          as.character(parent.call[[1]]) == "do.call") {
+        originator <- as.character(parent.call[[2]])
+      } else {
+        originator <- NA_character_
+      }
     }
   }
 

@@ -76,6 +76,11 @@
 #' `xlim = c(300,310)` plot along the summed up count values of channel
 #' 300 to 310.
 #'
+#' - `add`: default is `FALSE`: adds the plot to an existing plot
+#' - `smooth`: default is `FALSE`: performs a simple curve smoothing
+#' - `transect_mode`: default is `sum`: sets the integration mode for the transect along the
+#' wavelength axis. Other allowed values are `mean`, `mean`, `min`, `max`
+#'
 #' **Further arguments that will be passed (depending on the plot type)**
 #'
 #' `xlab`, `ylab`, `zlab`, `xlim`, `ylim`, `zlim`, `main`, `mtext`,
@@ -174,7 +179,7 @@
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.6.14
+#' @section Function version: 0.6.17
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -291,11 +296,17 @@ plot_RLum.Data.Spectrum <- function(
   }
   ## `norm` is not validated here but will be validated by normalise_RLum()
   .validate_class(bg.spectrum, c("RLum.Data.Spectrum", "matrix"), null.ok = TRUE)
+  .validate_class(bg.channels, c("integer", "numeric"), null.ok = TRUE)
   plot.type <- .validate_args(plot.type, c("contour", "persp", "single",
                                            "multiple.lines", "image",
                                            "transect", "interactive"))
   .validate_positive_scalar(bin.rows, int = TRUE)
   .validate_positive_scalar(bin.cols, int = TRUE)
+  .validate_logical_scalar(par.local)
+  .validate_logical_scalar(optical.wavelength.colours)
+  .validate_logical_scalar(rug)
+  .validate_logical_scalar(xaxis.energy)
+  .validate_logical_scalar(plot)
 
   ##XSYG
   ##check for curveDescripter
@@ -324,9 +335,11 @@ plot_RLum.Data.Spectrum <- function(
   }
 
   ## check for duplicated column names (e.g., temperature not increasing)
+  ## in this case we replace the axis labelling
   if (anyDuplicated(colnames(object@data)) > 0) {
     .throw_warning("Duplicated column names found, replaced by index")
     colnames(object@data) <- 1:ncol(object@data[])
+    ylab <- "Channel index"
   }
 
   ##deal with addition arguments
@@ -363,6 +376,13 @@ plot_RLum.Data.Spectrum <- function(
   lwd <- extraArgs$lwd %||% 1
   bty <- extraArgs$bty
   sub <- extraArgs$sub %||% ""
+  add <- extraArgs$add %||% FALSE
+
+
+  ## transect
+  smooth <- extraArgs$smooth %||% FALSE
+  transect_mode <- extraArgs$transect_mode %||% "sum"
+
   #for plotly::plot_ly
   showscale <- extraArgs$showscale %||% FALSE
 
@@ -375,6 +395,7 @@ plot_RLum.Data.Spectrum <- function(
       n_breaks = 50
     ),
     val = extraArgs)
+
 
   # prepare values for plot ---------------------------------------------------
   ##copy data
@@ -449,6 +470,7 @@ plot_RLum.Data.Spectrum <- function(
 
   # Background subtraction ---------------------------------------------------
   if(!is.null(bg.channels)){
+    .validate_not_empty(bg.channels)
     ##set background object if not available
     if(is.null(bg.spectrum)) bg.xyz <- temp.xyz
 
@@ -625,13 +647,45 @@ plot_RLum.Data.Spectrum <- function(
   ##z
   if(grepl("z", log)[1]) temp.xyz <- log10(temp.xyz)
 
+# Pre-Processing --------------------------------------------------------------
+  ## we have to pre-process the transect here to maintain the rest
+  ## of the code consistent, because we have the option plot
+  if(plot.type == "transect") {
+    ##sum up rows (column sum)
+    temp.xyz <- switch(
+      transect_mode,
+      "mean" =  matrixStats::colMeans2(temp.xyz, na.rm = TRUE, ),
+      "median" = matrixStats::colMedians(temp.xyz, na.rm = TRUE),
+      "min"  = matrixStats::colMins(temp.xyz, na.rm = TRUE),
+      "max" = matrixStats::colMaxs(temp.xyz, na.rm = TRUE),
+      matrixStats::colSums2(temp.xyz, na.rm = TRUE)
+    )
+
+    ## we have to normalise again to ensure that normalisation works because
+    ## above we apply it to single curves before we sum up
+    ## this solution is not super clean, but it works sufficiently well
+    if(!isFALSE(norm))
+      temp.xyz <- .normalise_curve(temp.xyz, norm)
+
+    ## smooth if requested
+    if(smooth[1])
+      temp.xyz <- .smoothing(temp.xyz)
+
+    ## recover the matrix matrixStats returns a vector
+    temp.xyz <- matrix(
+      data = temp.xyz, 
+      nrow = 1, 
+      dimnames = list(
+        paste(range(xlim), collapse = ":"), 
+        names(temp.xyz)))
+  }
+
 # PLOT --------------------------------------------------------------------
 
 ## set variables we need later
 pmat <- NA
 
 if(plot){
-
   ##par setting for possible combination with plot method for RLum.Analysis objects
   if(par.local) {
     par.default <- par()[c("mfrow", "mar", "mgp", "xpd")]
@@ -647,13 +701,12 @@ if(plot){
     .throw_warning("Single column matrix, 'plot.type' reset to 'single'")
   }
 
-  if (nrow(temp.xyz) == 1 && plot.type != "single") {
+  if (nrow(temp.xyz) == 1 && plot.type != "single" && plot.type != "transect") {
     .throw_message("Insufficient data for plotting, NULL returned")
     return(NULL)
   }
 
   if (plot.type == "persp") {
-
     ## Plot: perspective plot ----
     ## ==========================================================================#
     pmat <- graphics::persp(
@@ -1034,8 +1087,12 @@ if(plot){
     if(box) graphics::box()
 
     ##for missing values - legend.text
-    if (is.null(legend.text))
-      legend.text <- as.character(paste(round(y[frames],digits=1), zlab))
+    if (is.null(legend.text)) {
+      ## limit number of entries show to avoid excessive overplotting
+      num.frames <- length(frames)
+      sel <- seq.int(1, num.frames, length.out = min(num.frames, 30))
+      legend.text <- paste(round(y[sel], digits = 1), zlab)
+    }
 
     ##legend
     if(plot_settings$legend) {
@@ -1051,30 +1108,44 @@ if(plot){
   } else if (plot.type == "transect") {
     ## Plot: transect plot ----
     ## ========================================================================#
+      ##consider differences within the arguments
+      zlim <- extraArgs$zlim %||% range(temp.xyz, na.rm = TRUE)
+      zlab <- extraArgs$ylab %||% "Counts [1/combined channels]"
 
-    ##sum up rows (column sum)
-    temp.xyz <- colSums(temp.xyz, na.rm = TRUE)
+      ## here it does not make sense that we show a wavelength range
+      ## that does not exist; so we limit to data.
+      xlim <- c(max(min(x.vals), xlim[1]), min(max(x.vals), xlim[2]))
 
-    ##consider differences within the arguments
-    zlim <- extraArgs$zlim %||% c(0, max(temp.xyz))
-    zlab <- extraArgs$ylab %||% "Counts [1/summed channels]"
+      ## plot lines or plots
+      if(add[1]) {
+        lines(
+          x = y, 
+          y = temp.xyz,
+          col = col,
+          type = type,
+          pch = pch)
 
-    plot(y, temp.xyz,
-         xlab = ylab,
-         ylab = zlab,
-         main = main,
-         xlim = ylim,
-         ylim = zlim,
-         col = col,
-         sub = paste0("(channel range: ", .format_range(xlim, sep = " : "), ")"),
-         type = type,
-         pch = pch)
+      } else {
+        plot(
+          y,
+          temp.xyz,
+          xlab = ylab,
+          ylab = zlab,
+          main = main,
+          xlim = ylim,
+          ylim = zlim,
+          col = col,
+          sub = paste0("(channel range: ", .format_range(xlim, sep = " : "), ")"),
+          type = type,
+          pch = pch
+        )
+      }
   }
 
   ## plot additional mtext
-  if(plot.type != "interactive") 
+  if(plot.type != "interactive")
     mtext(mtext, side = 3, cex = cex * 0.8)
-}
+} ## end plot
 
 # Return ------------------------------------------------------------------
 ## add some attributes

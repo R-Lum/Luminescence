@@ -229,6 +229,8 @@ read_XSYG2R <- function(
   if (length(file) == 0)
     return(NULL)
   .validate_positive_scalar(n_records, int = TRUE, null.ok = TRUE)
+  .validate_logical_scalar(fastForward)
+  .validate_logical_scalar(import)
 
   # Self Call -----------------------------------------------------------------------------------
   # Option (a): Input is a list, every element in the list will be treated as file connection
@@ -256,8 +258,6 @@ read_XSYG2R <- function(
   }
 
   ## Integrity checks -------------------------------------------------------
-  .validate_logical_scalar(fastForward)
-  .validate_logical_scalar(import)
   .validate_logical_scalar(auto_linearity_correction)
   .validate_logical_scalar(txtProgressBar)
 

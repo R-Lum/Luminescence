@@ -87,33 +87,18 @@ plot_RLum.Results<- function(
   on.exit(suppressWarnings(par(par.default)), add = TRUE)
 
   ##============================================================================##
-  ## ... ARGUMENTS
-  ##============================================================================##
-
-  ##deal with addition arguments
-  extraArgs <- list(...)
-
-  main <- extraArgs$main %||% ""
-  mtext <- extraArgs$mtext %||% ""
-  log <- extraArgs$log %||% ""
-  lwd <- extraArgs$lwd %||% 1
-  lty <- extraArgs$lty %||% 1
-  type <- extraArgs$type %||% "l"
-  pch <- extraArgs$pch %||% 1
-  col <- extraArgs$col %||% "black"
-
-  ##============================================================================##
   ## PLOTTING
   ##============================================================================##
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 0: General plot dispatcher ----------
   switch(object@originator,
-      analyse_SAR.CWOSL = plot_AbanicoPlot(object),
+      analyse_SAR.CWOSL = .plot_SAR.CWOSL(object, ...),
       analyse_pIRIRSequence = plot_AbanicoPlot(object),
       analyse_IRSAR.RF = plot_AbanicoPlot(object),
-      calc_FiniteMixture = do.call(calc_FiniteMixture, c(object, extraArgs)),
-      fit_DoseResponseCurve = do.call(plot_DoseResponseCurve, c(object, extraArgs)),
+      calc_AliquotSize = .plot_AliquotSize(object, ...),
+      calc_FiniteMixture = calc_FiniteMixture(object, ...),
+      fit_DoseResponseCurve = plot_DoseResponseCurve(object, ...),
     NULL
     )
 
@@ -166,8 +151,6 @@ plot_RLum.Results<- function(
       })
     }
     par(mfrow=c(1,1))
-
-    # })
 
     ## bootstrap MAM estimates
     if (object@data$args$bootstrap) {
@@ -238,7 +221,7 @@ plot_RLum.Results<- function(
         )
         ),
         side = 3, line = 0.3, adj = 0.5,
-        cex = if(single){0.5}else{0.8})
+        cex = if (single) 0.5 else 0.8)
 
         # add points
         points(x=pairs[,1], y=pairs[,2], pch=1, col = "grey80")
@@ -286,7 +269,7 @@ plot_RLum.Results<- function(
         rss<- sum(residuals(poly.fits[[i]])^2)
         mtext(text = paste("RSS =",round(rss,3)), adj = 1,
               side = 3, line = -2,
-              cex = if(single){0.6}else{0.8})
+              cex = if (single) 0.6 else 0.8)
 
         ## ----- PROPORTIONS
 
@@ -448,8 +431,6 @@ plot_RLum.Results<- function(
              x1 =  x+err, y1 = y,
              code = 3, angle = 90, length = 0.05)
 
-      ### ---- AUXILLARY
-
       # add legend
       legend("bottomright",
              bty = "n",
@@ -514,18 +495,11 @@ plot_RLum.Results<- function(
 
     ##deal with addition arguments
     extraArgs <- list(...)
-
-    main <- extraArgs$main %||% "Fuchs & Lang (2001)"
-    xlab <- extraArgs$xlab %||% expression(paste(D[e]," [s]"))
-    ylab <- extraArgs$ylab %||% "# Aliquots"
-    sub <-  extraArgs$sub %||% ""
     cex <- extraArgs$cex %||% 1
     lwd <- extraArgs$lwd %||% 1
-    pch <- extraArgs$pch %||% 19
     ylim <- extraArgs$ylim %||% c(1, length(object@data$data[, 1]) + 3)
     xlim <- extraArgs$xlim %||% c(min(object@data$data[, 1]) - max(object@data$data[, 2]),
                                   max(object@data$data[, 1]) + max(object@data$data[, 2]))
-    mtext <- extraArgs$mtext %||% "unknown sample"
 
     # extract relevant plotting parameters
     o<- order(object@data$data[[1]])
@@ -541,10 +515,9 @@ plot_RLum.Results<- function(
     plot(NA,NA,
          ylim = ylim,
          xlim = xlim,
-         xlab = xlab,
-         ylab = ylab,
-         main = main,
-         sub = sub)
+         xlab = extraArgs$xlab %||% expression(paste(D[e], " [s]")),
+         ylab = extraArgs$ylab %||% "# Aliquots",
+         main = extraArgs$main %||% "Fuchs & Lang (2001)")
 
     ##SEGMENTS
     segments(data_ordered[,1]-data_ordered[,2],1:length(data_ordered[,1]),
@@ -552,7 +525,7 @@ plot_RLum.Results<- function(
              col="gray")
 
     ##POINTS
-    points(data_ordered[,1], counter,pch=pch)
+    points(data_ordered[, 1], counter, pch = extraArgs$pch %||% 19)
 
     ##LINES
     ##BOUNDARY INFORMATION
@@ -587,81 +560,8 @@ plot_RLum.Results<- function(
       adj=0)
 
     ##MTEXT
-    mtext(side=3,mtext,cex=cex)
+    mtext(extraArgs$mtext %||% "unknown sample", side = 3, cex = cex)
   }
-
-  #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
-  ## CASE 5: Aliquot Size ---------
-  if (.check_originator(object, "calc_AliquotSize") &&
-      !is.null(object@data$MC$estimates)) {
-    ## FIXME(mcol): The following code has been ported to calc_AliquotSize(),
-    ## where it has been further updated. This version is preserved to support
-    ## the plotting of an RLum.Results object directly, which calc_AliquotSize()
-    ## doesn't yet support.
-      extraArgs <- list(...)
-
-      main <- extraArgs$main %||% "Monte Carlo Simulation"
-      xlab <- extraArgs$xlab %||% "Amount of grains on aliquot"
-
-      # extract relevant data
-      MC.n<- object@data$MC$estimates
-      MC.n.kde<- object@data$MC$kde
-      MC.stats<- object@data$MC$statistics
-      MC.q<- object@data$MC$quantile
-      MC.iter<- object@data$args$MC.iter
-
-      # set layout of plotting device
-      graphics::layout(matrix(c(1, 1, 2)), 2, 1)
-      par(cex = 0.8)
-
-      ## plot MC estimate distribution
-
-      # set margins (bottom, left, top, right)
-      par(mar=c(2,5,5,3))
-
-      # plot histogram
-      hist(MC.n, freq=FALSE, col = "gray90",
-           main="", xlab=xlab,
-           xlim = c(min(MC.n)*0.95, max(MC.n)*1.05),
-           ylim = c(0, max(MC.n.kde$y)*1.1))
-
-      # add rugs to histogram
-      graphics::rug(MC.n)
-
-      # add KDE curve
-      lines(MC.n.kde, col = "black", lwd = 1)
-
-      # add mean, median and quantils (0.05,0.95)
-      abline(v=c(MC.stats$mean, MC.stats$median, MC.q),
-             lty=c(2, 4, 3,3), lwd = 1)
-
-      # add main- and subtitle
-      mtext(main, side = 3, adj = 0.5,
-            line = 3, cex = 1)
-      mtext(as.expression(bquote(italic(n) == .(MC.iter) ~ "|" ~
-                                   italic(hat(mu)) == .(round(MC.stats$mean)) ~ "|" ~
-                                   italic(hat(sigma))  == .(round(MC.stats$sd.abs)) ~ "|" ~
-                                   italic(frac(hat(sigma),sqrt(n))) == .(round(MC.stats$se.abs))  ~ "|" ~
-                                   italic(v) == .(round(MC.stats$skewness, 2))
-      )
-      ),
-      side = 3, line = 0.3, adj = 0.5,
-      cex = 0.9)
-
-      # add legend
-      legend("topright", legend = c("mean","median", "0.05 / 0.95 quantile"),
-             lty = c(2, 4, 3), bg = "white", box.col = "white", cex = 0.9)
-
-      ## BOXPLOT
-      # set margins (bottom, left, top, right)
-      par(mar=c(5,5,0,3))
-
-      plot(NA, type="n", xlim=c(min(MC.n)*0.95, max(MC.n)*1.05),
-           xlab=xlab,  ylim=c(0.5,1.5),
-           xaxt="n", yaxt="n", ylab="")
-      par(bty="n")
-      graphics::boxplot(MC.n, horizontal = TRUE, add = TRUE, bty = "n", cex = 1)
-  }#EndOf::Case 5 - calc_AliquotSize()
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 6: calc_SourceDoseRate() ----------
@@ -674,7 +574,6 @@ plot_RLum.Results<- function(
     if(nrow(df)>100)
       df <- df[seq(1,nrow(df), length = 100),]
 
-    ##plot settings
     plot.settings <- list(
       main = "Source Dose Rate Prediction",
       xlab = "Date",
@@ -730,13 +629,11 @@ plot_RLum.Results<- function(
     if(!is.null(plot.settings$grid)){
       graphics::grid(eval(plot.settings$grid))
     }
-
   }#EndOf::Case 6 - calc_SourceDoseRate()
 
   #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
   ## CASE 7: Fast Ratio ----------
   if (.check_originator(object, "calc_FastRatio")) {
-    # graphical settings
     settings <- list(main = "Fast Ratio",
                      xlab = "t/s",
                      ylab = "Signal/cts",
@@ -764,7 +661,7 @@ plot_RLum.Results<- function(
          xlab = settings$xlab, ylab = settings$ylab, log = settings$log)
 
     # plot points to show measured data points (i.e., the channels)
-    if (settings$type == "p" || settings$type == "b")
+    if (settings$type %in% c("p", "b"))
       points(curve[(res$dead.channels.start + 1):(nrow(curve) - res$dead.channels.end), ],
              pch = settings$pch, col = settings$col)
 
@@ -774,7 +671,7 @@ plot_RLum.Results<- function(
     if (res$dead.channels.end > 0)
       points(curve[(nrow(curve) - res$dead.channels.end):nrow(curve), ])
 
-    if (settings$type == "l" || settings$type == "b")
+    if (settings$type %in% c("l", "b"))
       lines(curve, col = settings$col)
 
     # optional: plot fitted CW curve

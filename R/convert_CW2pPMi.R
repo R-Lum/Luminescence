@@ -175,9 +175,6 @@ convert_CW2pPMi<- function(
 
   ##time transformation t >> t'
   t<-temp.values[,1]
-  if (anyDuplicated(t) > 0) {
-    .throw_error("'object' contains duplicated time values")
-  }
 
   ##set P
   ##if no values for P is set selected a P value for a maximum of
@@ -197,16 +194,7 @@ convert_CW2pPMi<- function(
   }
 
   # (4) Interpolation ---------------------------------------------------------
-
-  ##interpolate values, values beyond the range return NA values
-  CW_OSL.interpolated <- approx(t, CW_OSL.log, xout=t.transformed, rule=1 )
-  if (all(is.na(CW_OSL.interpolated$y))) {
-    .throw_error("All points are outside the interpolation range")
-  }
-
-  ##combine t.transformed and CW_OSL.interpolated in a data.frame
-  temp<-data.frame(x=t.transformed, y = unlist(CW_OSL.interpolated$y))
-
+  temp <- .interpolate_values(t, CW_OSL.log, t.transformed)
 
   # (5) Extrapolate first values of the curve ---------------------------------
   res <- .extrapolate_first(temp, t = t[1:2], y = CW_OSL.log[1:2])

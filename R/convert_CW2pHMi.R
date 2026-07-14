@@ -218,9 +218,6 @@ convert_CW2pHMi<- function(
 
   ##time transformation t >> t'
   t<-temp.values[,1]
-  if (anyDuplicated(t) > 0) {
-    .throw_error("'object' contains duplicated time values")
-  }
 
   ##set delta
   ##if no values for delta is set selected a delta value for a maximum of
@@ -241,17 +238,7 @@ convert_CW2pHMi<- function(
   }
 
   # (2) Interpolation ---------------------------------------------------------
-
-  ##interpolate values, values beyond the range return NA values
-  CW_OSL.interpolated <- approx(t,CW_OSL.log, xout=t.transformed, rule=1)
-
-  ## In some cases the interpolation algorithm is not working properly, and
-  ## Inf or NaN values are produced
-  interpolated <- .fix_interpolation_inf_nan(unlist(CW_OSL.interpolated$y),
-                                             warn = TRUE)
-
-  ## combine t.transformed and CW_OSL.interpolated in a data.frame
-  temp <- data.frame(x = t.transformed, y = interpolated)
+  temp <- .interpolate_values(t, CW_OSL.log, t.transformed, warn = TRUE)
 
   # (3) Extrapolate first values of the curve ---------------------------------
 

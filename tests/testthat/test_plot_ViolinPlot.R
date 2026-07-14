@@ -64,9 +64,14 @@ test_that("graphical snapshot tests", {
                               plot_ViolinPlot(df))
   vdiffr::expect_doppelganger("ViolinPlot summary sub",
                               plot_ViolinPlot(df, summary.pos = "sub",
-                                              summary = c("n", "serel", "kurtosis")))
+                                              summary = c("n", "se.rel", "kurtosis")))
   vdiffr::expect_doppelganger("ViolinPlot summary left",
                               plot_ViolinPlot(df, summary.pos = "left",
                                               summary = c("mean", "skewness")))
+  vdiffr::expect_doppelganger("numeric summary pos",
+                              plot_ViolinPlot(df, rug = FALSE,
+                                              summary.pos = c(5, 1.4),
+                                              summary = c("se.abs", "median"),
+                                              col.violin = "aquamarine"))
   })
 })

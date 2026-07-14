@@ -10,13 +10,17 @@ test_that("input validation", {
   expect_error(calc_IEU(df[, 1, drop = FALSE], a = 0.2, b = 1.9, interval = 1),
                "'data' should have at least two columns")
   expect_error(calc_IEU(df, a = "error", b = 1.9, interval = 1),
-               "'a' should be of class 'numeric'")
+               "'a' should be of class 'numeric' and have length 1")
   expect_error(calc_IEU(df, a = 0.2, b = "error", interval = 1),
-               "'b' should be of class 'numeric'")
+               "'b' should be of class 'numeric' and have length 1")
   expect_error(calc_IEU(df, a = 0.2, b = 1.9, interval = "error"),
                "'interval' should be a single positive value")
   expect_error(calc_IEU(df, a = 0.2, b = 1.9, interval = NA_real_),
                "'interval' should be a single positive value")
+  expect_error(calc_IEU(df, a = 0.2, b = 1.9, interval = 1, decimal.point = 1:4),
+               "'decimal.point' should be a single non-negative integer value")
+  expect_error(calc_IEU(df, a = 0.2, b = 1.9, interval = 1, plot = NA),
+               "'plot' should be a single logical value")
   expect_error(calc_IEU(data.frame(), a = 0.2, b = 1.9, interval = 1),
                "'data' contains no data")
   expect_error(calc_IEU(iris[0, ], a = 0.2, b = 1.9, interval = 1),

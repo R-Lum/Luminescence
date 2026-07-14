@@ -103,6 +103,7 @@ plot_ViolinPlot <- function(
   .validate_class(summary, "character")
   if (is.numeric(summary.pos)) {
     .validate_length(summary.pos, 2)
+    summary.pos <- t(summary.pos)
   }
   else {
     summary.pos <- .validate_args(summary.pos,
@@ -159,28 +160,23 @@ plot_ViolinPlot <- function(
                      .collapse(names(stat.summary[[1]])))
     }
 
-    ##make sure that only valid keywords make it
-    summary <- summary[(summary %in% names(stat.summary[[1]]))]
-
-    stat.text <- .create_StatisticalSummaryText(stat.summary, keywords = summary, sep = " \n ")
-    stat.mtext <- .create_StatisticalSummaryText(stat.summary, keywords = summary, sep = " | ")
+  is.sub <- summary.pos[1] == "sub"
+  stat.text <- .create_StatisticalSummaryText(stat.summary, keywords = summary,
+                                              sep = if (is.sub) " | " else " \n ")
 
   # Plot settings -------------------------------------------------------------------------------
 
   ##set default values
-  plot.settings <- list(
-    xlim = if(!is.null(density)){range(density$x)}else{c(data[1]*0.9, data[1]*1.1)},
+  plot.settings <- modifyList(list(
+    xlim = if (!is.null(density)) range(density$x) else data[1] * c(0.9, 1.1),
     main = "Violin Plot",
     xlab = expression(paste(D[e], " [a.u.]")),
-    ylab = if(!is.null(density)){"Density"}else{" "},
+    ylab = if (!is.null(density)) "Density" else NA,
     col.violin = rgb(0,0,0,0.2),
     col.boxplot = NULL,
-    mtext = ifelse(summary.pos != 'sub', "", stat.mtext),
+    mtext = ifelse(is.sub, stat.text, ""),
     cex = 1
-  )
-
-  ##modify list accordingly
-  plot.settings <- modifyList(plot.settings, val = list(...))
+  ), val = list(...))
 
 
   # Plot ----------------------------------------------------------------------------------------
@@ -232,7 +228,7 @@ plot_ViolinPlot <- function(
   }
 
   ##add stat.text
-  if (summary.pos != "sub") {
+  if (!is.sub) {
       legend(summary.pos, legend = stat.text, bty = "n")
   }
 }

@@ -308,12 +308,15 @@ setMethod(
 #' An environment passed to [eval] as the enclosure. This argument is only
 #' relevant when subsetting the object and should not be used manually.
 #'
+#' @param verbose [logical] (*with default*):
+#' Enable/disable output to the terminal.
+#'
 #' @export
 setMethod("get_RLum",
           signature = ("RLum.Analysis"),
           function(object, record.id = NULL, recordType = NULL, curveType = NULL, RLum.type = NULL,
                    protocol = "UNKNOWN", get.index = FALSE, drop = TRUE, recursive = TRUE,
-                   info.object = NULL, subset = NULL, env = parent.frame(2)) {
+                   info.object = NULL, subset = NULL, env = parent.frame(2), verbose = TRUE) {
             .set_function_name("get_RLum")
             on.exit(.unset_function_name(), add = TRUE)
 
@@ -367,11 +370,15 @@ setMethod("get_RLum",
                 object@records <- object@records[sel]
                 return(object)
               } else {
-                mapply(function(name, op) {
-                  message("  ", name, ": ", .collapse(unique(op), quote = FALSE))
-                }, names(envir), envir)
-                .throw_message("'subset' expression produced an ",
-                               "empty selection, NULL returned")
+                if (verbose) {
+                  msg <- paste("The following fields and values are available",
+                               "(set 'verbose = FALSE' to suppress this message):")
+                  vals <- mapply(function(name, op) {
+                    sprintf("\n  %s: %s", name, .collapse(unique(op), quote = FALSE))
+                  }, names(envir), envir)
+                  .throw_message(msg, vals, "\nError: 'subset' expression ",
+                                 "produced an empty selection, NULL returned")
+                }
                 return(NULL)
               }
             }

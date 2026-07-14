@@ -8,6 +8,9 @@ test_that("test RLum.Analysis S3 methods", {
   expect_silent(hist(analysis))
   expect_type(summary(analysis), "list")
   expect_s4_class(subset(analysis), "RLum.Analysis")
+  expect_message(subset(analysis, curveType == "error"),
+                 "The following fields and values are available")
+  expect_silent(subset(analysis, curveType == "error", verbose = FALSE))
   expect_equal(length(analysis), 2)
   expect_length(rep(analysis, 2), 2)
   expect_equal(names(analysis), c("RF (NA)", "RF (NA)"))

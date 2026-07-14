@@ -24,10 +24,12 @@ fit_DoseResponseCurve(
 \arguments{
 \item{object}{\link{data.frame} or a \link{list} of such objects (\strong{required}):
 data frame with columns for \code{Dose}, \code{LxTx}, \code{LxTx.Error} and \code{TnTx}.
+
 The column for the test dose response is optional, but requires \code{'TnTx'} as
 column name if used. For exponential fits at least three dose points
 (including the natural) should be provided. If \code{object} is a list,
 the function is called on each of its elements.
+
 If \code{fit.method = "OTORX"} you have  to provide the test dose in the same unit
 as the dose in a column called \code{Test_Dose}. The function searches explicitly
 for this column name. Only the first value will be used assuming a constant
@@ -126,10 +128,18 @@ This object is a \link{data.frame} with the following columns
 \code{D01.ERROR} \tab \link{numeric} \tab standard error of the \eqn{D_0} value\cr
 \code{D02} \tab \link{numeric} \tab 2nd \eqn{D_0} value, only for \code{EXP+EXP}\cr
 \code{D02.ERROR} \tab \link{numeric} \tab standard error for 2nd \eqn{D_0}; only for \code{EXP+EXP}\cr
-\code{R} \tab \link{numeric} \tab the material specific parameter \eqn{R}\cr
-\code{R.ERROR} \tab \link{numeric} \tab the uncertainty of \eqn{R}\cr
+\code{R} \tab \link{numeric} \tab the material specific parameter \eqn{R} (only \code{OTOR} and \code{OTORX})\cr
+\code{R.LOWER} \tab \link{numeric} \tab lower 25\% quantile of \eqn{R}\cr
+\code{R.UPPER} \tab \link{numeric} \tab upper 75\% quantile of \eqn{R}\cr
 \code{Dc} \tab \link{numeric} \tab value indicating saturation level; only for \code{OTOR} \cr
-\code{D63} \tab \link{numeric} \tab the specific saturation level; only for \code{OTORX} \cr
+\code{Dc.LOWER} \tab \link{numeric} \tab lower 25\% quantile for \code{Dc}; only for \code{OTOR} \cr
+\code{Dc.UPPER} \tab \link{numeric} \tab upper 75\% quantile for \code{Dc}; only for \code{OTOR} \cr
+\code{D63} \tab \link{numeric} \tab the specific saturation level; only for \code{OTOR}, \code{OTORX} \cr
+\code{D63.LOWER} \ tab \link{numeric} \tab lower 25\% quantile of \code{D63}; only for \code{OTOR}, \code{OTORX} \cr
+\code{D63.UPPER} \ tab \link{numeric} \tab upper 75\% quantile of \code{D63}; only for \code{OTOR}, \code{OTORX} \cr
+\code{D80} \tab \link{numeric} \tab the specific saturation level; only for \code{EXP}, \code{OTOR}, \code{OTORX} \cr
+\code{D80.LOWER} \ tab \link{numeric} \tab lower 25\% quantile of \code{D80}; only for \code{OTOR}, \code{OTORX} \cr
+\code{D80.UPPER} \ tab \link{numeric} \tab upper 75\% quantile of \code{D80}; only for \code{OTOR}, \code{OTORX} \cr
 \code{n_N} \tab \link{numeric} \tab saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (\code{N}) to the integral until \code{De} (\code{n}) (e.g.,  Guralnik et al., 2015)\cr
 \code{De.MC} \tab \link{numeric} \tab equivalent dose derived by Monte-Carlo simulation; ideally identical to \code{De}\cr
 \code{Fit} \tab \link{character} \tab applied fit function \cr
@@ -213,12 +223,13 @@ This tries to fit a dose-response curve based on the Lambert W function
 and the one trap one recombination centre (OTOR) model according to Pagonis
 et al. (2020). The function has the form:
 
-\deqn{y = (1 + (\mathcal{W}((R - 1) * \exp(R - 1 - ((x + D_{int}) / D_{c}))) / (1 - R))) * N}
+\deqn{y = (1 + (\mathcal{W}((R - 1) * \exp(R - 1 - ((x + D_{i}) / D_{c}))) / (1 - R))) * N}
 
-with \eqn{W} the Lambert W function (calculated using \link[lamW:lambertW0]{lamW::lambertW0}),
+with \eqn{W} the Lambert-W function (calculated using \link[lamW:lambertW0]{lamW::lambertW0}),
 \eqn{R} the dimensionless retrapping ratio, \eqn{N} the total concentration
 of trappings states in cm\eqn{^{-3}}, \eqn{D_{c} = N/R} a constant, and
-\eqn{D_{int}} is the offset on the x-axis. Note that \eqn{R} and \eqn{D_{c}}
+\eqn{D_{i}} is the offset on the x-axis (not part of the original formula in
+Pagonis et al. 2020). Note that \eqn{R} and \eqn{D_{c}}
 have a valid physical interpretation only when saturation is reached.
 Please note that finding the root in \code{mode = "extrapolation"}
 is a non-easy task due to the shape of the function and the results might be
@@ -295,7 +306,7 @@ especially for the composed functions (\code{EXP+LIN} and \code{EXP+EXP}).
 }
 }
 \section{Function version}{
- 1.5.0
+ 1.6.1
 }
 
 \examples{
