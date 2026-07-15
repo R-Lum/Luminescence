@@ -909,9 +909,6 @@ analyse_baSAR <- function(
 
      ##set non function arguments
      max_cycles <- max(object$input_object[["CYCLES_NB"]])
-     Doses <- t(input_object[,9:(8 + max_cycles)])
-     LxTx <- t(input_object[,(9 + max_cycles):(8 + 2 * max_cycles)])
-     LxTx.error <-  t(input_object[,(9 + 2 * max_cycles):(8 + 3 * max_cycles)])
 
   }else{
     if(verbose){
@@ -1043,17 +1040,6 @@ analyse_baSAR <- function(
 
     # Declare variables ---------------------------------------------------------------------------
 
-    Disc <-  list()
-    Grain <- list()
-    Disc_Grain.list <- list()
-    Mono_grain <-  TRUE
-
-    ##set information
-    for (i in seq_along(fileBIN.list)) {
-      Disc[[i]] <-  list()
-      Grain[[i]] <-  list()
-    }
-
     object.file_name <- unlist(lapply(fileBIN.list,
                                       function(x) unique(x@METADATA[["FNAME"]])))
 
@@ -1068,8 +1054,6 @@ analyse_baSAR <- function(
       .throw_warning(msg)
 
       ##remove entry
-      Disc[is.duplicated] <- NULL
-      Grain[is.duplicated] <- NULL
       fileBIN.list[is.duplicated] <- NULL
       object.file_name <- object.file_name[!is.duplicated]
     }
@@ -1093,6 +1077,10 @@ analyse_baSAR <- function(
   if (!is.null(background_integral_Tx)) {
     background_integral_Tx <- .listify(background_integral_Tx, rep.length)
   }
+
+    ## create empty sublists for each BIN file
+    Disc_Grain.list <- replicate(rep.length, list())
+    Mono_grain <-  TRUE
 
   # Read CSV file -----------------------------------------------------------
   if (is.null(CSV_file)) {
@@ -1137,8 +1125,16 @@ analyse_baSAR <- function(
       Nb_aliquots <- nrow(datalu)
 
       ##write information in variables
-      Disc[[k]] <- datalu[["POSITION"]]
-      Grain[[k]] <- datalu[["GRAIN"]]
+      Disc_Grain.list[[k]] <- lapply(seq_len(nrow(datalu)), function(d) list(
+        disc = as.integer(datalu[["POSITION"]][d]),
+        grain = if (Mono_grain) as.integer(datalu[["GRAIN"]][d]) else 1,
+        indices = integer(0),
+        doses = numeric(0),
+        LxTx = numeric(0),
+        LxTx.error = numeric(0),
+        TnTx = numeric(0),
+        De = numeric(0)
+      ))
 
       ##free memory
       rm(datalu, aliquot_selection)
@@ -1194,12 +1190,21 @@ analyse_baSAR <- function(
         matches <- grep(pattern = file.basename, x = object.file_name)
         if (length(matches) > 0) {
           k <- matches[1]
-          nj <- length(Disc[[k]]) + 1
+          nj <- length(Disc_Grain.list[[k]]) + 1
 
-          Disc[[k]][nj] <-  as.numeric(datalu[nn, 2])
-          Grain[[k]][nj] <-  as.numeric(datalu[nn, 3])
+          Disc_Grain.list[[k]][[nj]] <- list(
+            disc = as.integer(datalu[nn, 2]),
+            grain = if (Mono_grain) as.integer(datalu[nn, 3]) else 1,
+            indices = integer(0),
+            doses = numeric(0),
+            LxTx = numeric(0),
+            LxTx.error = numeric(0),
+            TnTx = numeric(0),
+            De = numeric(0)
+          )
           Nb_ali <-  Nb_ali + 1
-          if (is.na(Grain[[k]][nj]) || Grain[[k]][nj] == 0) {
+          if (is.na(Disc_Grain.list[[k]][[nj]]$grain) ||
+              Disc_Grain.list[[k]][[nj]]$grain == 0) {
             Mono_grain <- FALSE
           }
 
@@ -1223,48 +1228,28 @@ analyse_baSAR <- function(
     }
   }
 
-  ###################################### loops on files_number
-  for (k in seq_along(fileBIN.list)) {
-    Disc_Grain.list[[k]] <- list()   # data.file number
-    n_aliquots_k <- length(Disc[[k]])
-
-      if(n_aliquots_k == 0){
+    ## remove empty objects: we loop in reverse so we can remove them directly
+    for (k in rev(seq_along(fileBIN.list))) {
+      if (length(Disc_Grain.list[[k]]) == 0) {
         .throw_warning("No data selected from BIN-file ", k,
                        ", BIN-file removed from input")
-
-        ## mark the object for removal: this cannot be done directly by
-        ## assigning NULL to it, as the index would go out of sync
-        fileBIN.list[[k]] <- NA
-        next()
+        fileBIN.list[[k]] <- NULL
       }
-
-    for (d in 1:n_aliquots_k) {
-      dd <-  as.integer(unlist(Disc[[k]][d]))
-      gg <- if (Mono_grain) as.integer(unlist(Grain[[k]][d])) else 1
-      Disc_Grain.list[[k]][[dd]] <- list()  # data.file number ,  disc_number
-
-        Disc_Grain.list[[k]][[dd]][[gg]] <- list()  # data.file number ,  disc_number, grain_number
-        for (z in 1:6) {
-          Disc_Grain.list[[k]][[dd]][[gg]][[z]] <- list()
-          # 1 = index numbers, 2 = irradiation doses,  3 = LxTx , 4 = sLxTx,  5 = N d'aliquot, 6 = De +- D0 +- (4 values)
-        }
     }
-  }
-
-    ## remove objects marked for removal
-    fileBIN.list <- fileBIN.list[!is.na(fileBIN.list)]
     if (length(fileBIN.list) == 0) {
       .throw_error("All provided objects were removed")
     }
 
-  if(verbose){
-    cat("[analyse_baSAR()] Preliminary analysis in progress, this may take a while ... \n")
-  }
+    ###################### Data associated with a single Disc/Grain
+    if (verbose)
+      cat("[analyse_baSAR()] Preliminary analysis in progress, this may take a while ...\n")
+    max_cycles <-  0
+    count <- 1
 
   for (k in seq_along(fileBIN.list)) {
     ## check that the data available is consistent
     length.data <- nrow(fileBIN.list[[k]]@METADATA)
-    length.disc <- length(Disc[[k]])
+    length.disc <- length(Disc_Grain.list[[k]])
     if (length.data %% length.disc != 0) {
       ## this can happen if the input data was subset incorrectly (#517)
       .throw_error("In input ", k, " the number of data points (",
@@ -1294,9 +1279,10 @@ analyse_baSAR <- function(
     dose.rate <- unlist(source_doserate[[k]][1]) %||% 1
 
     ### Automatic Filling - Disc_Grain.list
-    for (i in seq_along(Disc[[k]])) {
-      disc_selected <-  as.integer(Disc[[k]][i])
-      grain_selected <- if (Mono_grain) as.integer(Grain[[k]][i]) else 0
+    for (i in seq_along(Disc_Grain.list[[k]])) {
+      sel.disc.grain <- Disc_Grain.list[[k]][[i]]
+      disc_selected <- sel.disc.grain$disc
+      grain_selected <- if (Mono_grain) sel.disc.grain$grain else 0
 
       ## hard break if the disc number or grain number does not fit
       msg <- "In BIN-file '%s' %s number %d does not exist, NULL returned"
@@ -1315,41 +1301,25 @@ analyse_baSAR <- function(
         return(NULL)
       }
 
-      ## if the test passed, compile index list
       index_list <- n_index.vector[disc_logic & grain_logic]
-
-      if (!Mono_grain)
-        grain_selected <- 1
-
       for (t in index_list) {
         dose.value <- irrad_time.vector[t] * dose.rate
-              s <- 1 + length( Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[1]] )
-              Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[1]][s] <- n_index.vector[t]  # indexes
-              if ( s%%2 == 1) { Disc_Grain.list[[k]][[disc_selected]][[grain_selected]][[2]][as.integer(1+s/2)] <- dose.value  }      # irradiation doses
-          }
+        s <- 1 + length(sel.disc.grain$indices)
+        sel.disc.grain$indices[s] <- n_index.vector[t]
+        if (s %% 2 == 1)
+          sel.disc.grain$doses[as.integer(1 + s/2)] <- dose.value
+      }
+
+      Disc_Grain.list[[k]][[i]] <- sel.disc.grain
     }
-  }
-
-
-    ###################### Data associated with a single Disc/Grain
-    max_cycles <-  0
-    count <- 1
-
-  for (k in seq_along(fileBIN.list)) {
 
     ##plot Ln and Tn curves if wanted
     ##we want to plot the Ln and Tn curves to get a better feeling
     ##The approach here is rather rough coded, but it works
     if (plot) {
-      curve_index <- vapply(seq_along(Disc[[k]]), function(i) {
-        dd <- as.integer(Disc[[k]][i])
-        gg <- if (Mono_grain) as.integer(Grain[[k]][i]) else 1
-
-        Ln_index <- as.numeric(Disc_Grain.list[[k]][[dd]][[gg]][[1]][1])
-        Tn_index <- as.numeric(Disc_Grain.list[[k]][[dd]][[gg]][[1]][2])
-        return(c(Ln_index, Tn_index))
+      curve_index <- vapply(seq_along(Disc_Grain.list[[k]]), function(i) {
+        as.numeric(Disc_Grain.list[[k]][[i]]$indices[1:2])
       }, FUN.VALUE = numeric(2))
-
 
       ## data.tables for Ln and Tn values
       Ln_dt <- as.data.table(fileBIN.list[[k]]@DATA[curve_index[1, ]])
@@ -1385,16 +1355,14 @@ analyse_baSAR <- function(
     }
 
 
-    for (i in seq_along(Disc[[k]])) {
-      dd <- as.integer(Disc[[k]][i])
-      gg <- if (Mono_grain) as.integer(Grain[[k]][i]) else 1
-      sel.disc.grain <- Disc_Grain.list[[k]][[dd]][[gg]]
+    for (i in seq_along(Disc_Grain.list[[k]])) {
+      sel.disc.grain <- Disc_Grain.list[[k]][[i]]
 
       # Data for the selected Disc-Grain
-      for (nb_index in 1:(length(sel.disc.grain[[1]]) / 2)) {
+      for (nb_index in 1:(length(sel.disc.grain$indices) / 2)) {
 
-        index1 <- as.numeric(sel.disc.grain[[1]][2 * nb_index - 1])
-        index2 <- as.numeric(sel.disc.grain[[1]][2 * nb_index])
+        index1 <- as.numeric(sel.disc.grain$indices[2 * nb_index - 1])
+        index2 <- as.numeric(sel.disc.grain$indices[2 * nb_index])
         this.data <- fileBIN.list[[k]]@DATA
         Lx.data <- data.frame(seq_along(this.data[[index1]]),
                               this.data[[index1]])
@@ -1402,7 +1370,6 @@ analyse_baSAR <- function(
                               this.data[[index2]])
 
         ## call calc_OSLLxTxRatio()
-        ## we run this function with a warnings catcher to reduce the load of warnings for the user
         LxTx.table <- .warningCatcher(
           calc_OSLLxTxRatio(
             Lx.data = Lx.data,
@@ -1416,22 +1383,20 @@ analyse_baSAR <- function(
             sig0 = sig0[[k]])$LxTx.table
         )
 
-        Disc_Grain.list[[k]][[dd]][[gg]][[3]][nb_index] <- LxTx.table$LxTx
-        Disc_Grain.list[[k]][[dd]][[gg]][[4]][nb_index] <- LxTx.table$LxTx.Error
-        Disc_Grain.list[[k]][[dd]][[gg]][[5]][nb_index] <- LxTx.table$Net_TnTx
+        sel.disc.grain$LxTx[nb_index] <- LxTx.table$LxTx
+        sel.disc.grain$LxTx.error[nb_index] <- LxTx.table$LxTx.Error
+        sel.disc.grain$TnTx[nb_index] <- LxTx.table$Net_TnTx
 
-        ##free memory
         rm(LxTx.table)
       }
 
-      ## reset `sel.disc.grain` because the data it pointed to has changed
-      sel.disc.grain <- Disc_Grain.list[[k]][[dd]][[gg]]
+      Disc_Grain.list[[k]][[i]] <- sel.disc.grain
 
       ## fit dose response curve and plot
-      sample_dose <- unlist(sel.disc.grain[[2]])
-      sample_LxTx <- unlist(sel.disc.grain[[3]])
-      sample_sLxTx <- unlist(sel.disc.grain[[4]])
-      TnTx <- unlist(sel.disc.grain[[5]])
+      sample_dose <- unlist(sel.disc.grain$doses)
+      sample_LxTx <- unlist(sel.disc.grain$LxTx)
+      sample_sLxTx <- unlist(sel.disc.grain$LxTx.error)
+      TnTx <- unlist(sel.disc.grain$TnTx)
 
       ##create needed data.frame (this way to make sure that rows are doubled if something is missing)
       selected_sample <- as.data.frame(cbind(sample_dose, sample_LxTx, sample_sLxTx, TnTx))
@@ -1455,103 +1420,68 @@ analyse_baSAR <- function(
             fitcurve,
             plot_extended = additional_arguments$plot_extended,
             verbose = verbose,
-            main = paste0("ALQ: ", count, " | POS: ", Disc[[k]][i],
-                          " | GRAIN: ", Grain[[k]][i]))
+            main = paste0("ALQ: ", count, " | POS: ", Disc_Grain.list[[k]][[i]]$disc,
+                          " | GRAIN: ", Disc_Grain.list[[k]][[i]]$grain))
       }
 
-        ##get data.frame with De values
-        Disc_Grain.list[[k]][[dd]][[gg]][[6]][1:4] <- NA
+        sel.disc.grain$De <- NA_real_
         if(!is.null(fitcurve)){
           fitcurve_De <- get_RLum(fitcurve, data.object = "De")
-          Disc_Grain.list[[k]][[dd]][[gg]][[6]][1:4] <-
-            fitcurve_De[, c("De", "De.Error", "D01", "D01.ERROR")]
+          sel.disc.grain$De <-
+            as.numeric(fitcurve_De[1, c("De", "De.Error", "D01", "D01.ERROR")])
         }
 
-      ## reset `sel.disc.grain` because the data it pointed to has changed
-      sel.disc.grain <- Disc_Grain.list[[k]][[dd]][[gg]]
-
-      max_cycles <- max(length(sel.disc.grain[[2]]), max_cycles)
-
+      Disc_Grain.list[[k]][[i]] <- sel.disc.grain
+      max_cycles <- max(length(sel.disc.grain$doses), max_cycles)
       count <- count + 1
     }
   }   ##  END of loop on BIN files
 
     Nb_aliquots <- count - 1
 
-  ##create results matrix
-  OUTPUT_results <-
-    matrix(nrow = Nb_aliquots,
-           ncol = (8 + 3 * max_cycles),
-           byrow = TRUE)
+    ## column names
+    nms <- c("IDX_BIN", "DISC", "GRAIN", "DE", "DE.SD", "D0", "D0.SD", "CYCLES_NB",
+             paste0("DOSE_", 1:max_cycles),
+             paste0("LxTx_", 1:max_cycles),
+             paste0("LxTx_", 1:max_cycles, ".SD"))
 
-  ## set column name (this makes it much easier to debug)
-  colnames(OUTPUT_results) <- c(
-    "INDEX_BINfile",
-    "DISC",
-    "GRAIN",
-    "DE",
-    "DE.SD",
-    "D0",
-    "D0.SD",
-    "CYCLES_NB",
-    paste0("DOSE_", 1:max_cycles),
-    paste0("LxTx_", 1:max_cycles),
-    paste0("LxTx_", 1:max_cycles, ".SD")
-  )
+    ## build each col as a named numeric vector, then combine
+    cols_list <- list()
+    for (k in seq_along(fileBIN.list)) {
+      for (sel.disc.grain in Disc_Grain.list[[k]]) {
+        col <- setNames(numeric(8 + 3 * max_cycles), nms)
+        col[1] <- k
+        col[2] <- sel.disc.grain$disc
+        col[3] <- if (Mono_grain) sel.disc.grain$grain else 0L
 
-  comptage <- 0
-  for (k in seq_along(fileBIN.list)) {
-    for (i in seq_along(Disc[[k]])) {
-      dd <- as.numeric(Disc[[k]][i])
-      gg <- if (Mono_grain) as.numeric(Grain[[k]][i]) else 1
+        if (length(sel.disc.grain$De) != 0) {
+          num.doses <- length(sel.disc.grain$doses)
 
-      comptage <- comptage + 1
-      OUTPUT_results[comptage, 1] <- k
-      OUTPUT_results[comptage, 2] <- dd
-      OUTPUT_results[comptage, 3] <- if (Mono_grain) gg else 0
+          ## DE, DE.SD, D0, D0.SD, CYCLES_NB
+          col[4:8] <- c(sel.disc.grain$De[1:4], num.doses)
 
-      sel.disc.grain <- Disc_Grain.list[[k]][[dd]][[gg]]
-      if (length(sel.disc.grain[[6]]) != 0) {
-        ## DE, DE.SD, D0, D0.SD
-        OUTPUT_results[comptage, 4:7] <- as.numeric(sel.disc.grain[[6]][1:4])
+          ## Dose
+          col[8 + 1:num.doses] <- as.numeric(sel.disc.grain$doses)
 
-        ##CYCLES_NB
-        OUTPUT_results[comptage, 8] <- length(sel.disc.grain[[2]])
+          ## LxTx values
+          col[8 + max_cycles + 1:num.doses] <- as.numeric(sel.disc.grain$LxTx)
 
-        ## auxiliary variable
-        llong <- length(sel.disc.grain[[2]])
-
-        ##Dose
-        OUTPUT_results[comptage, 9:(8 + llong)] <- as.numeric(sel.disc.grain[[2]])
-
-        ##LxTx values
-        OUTPUT_results[comptage, (9 + max_cycles):(8 + max_cycles + llong)] <-
-          as.numeric(sel.disc.grain[[3]])
-
-        ##LxTx SD values
-         OUTPUT_results[comptage, (9 + 2*max_cycles):(8 + 2*max_cycles + llong)] <-
-           as.numeric(sel.disc.grain[[4]])
+          ## LxTx SD values
+          col[8 + 2 * max_cycles + 1:num.doses] <- as.numeric(sel.disc.grain$LxTx.error)
+        }
+        cols_list[[length(cols_list) + 1]] <- col
       }
     }
-  }
-
-  ##Clean matrix and remove all unwanted entries
-
-    ##remove all NA columns, means all NA columns in POSITION and DISC
-    ##this NA values are no calculation artefacts, but coming from the data processing and have
-    ##no further value
-    OUTPUT_results <- OUTPUT_results[!is.na(OUTPUT_results[, 2]), , drop = FALSE]
+    OUTPUT_results <- do.call(cbind, cols_list)
 
     ##clean up NaN values in the LxTx and corresponding error values
-    ##the transposition of the matrix may increase the performance for very large matrices
-    OUTPUT_results_reduced <- t(OUTPUT_results)
-    selection <- vapply(seq_len(ncol(OUTPUT_results_reduced)), function(x) {
-      col <- OUTPUT_results_reduced[9:(8 + 3 * max_cycles), x]
+    selection <- vapply(seq_len(ncol(OUTPUT_results)), function(x) {
+      col <- OUTPUT_results[9:(8 + 3 * max_cycles), x]
       !any(is.nan(col) | is.infinite(col))
     }, FUN.VALUE = logical(1))
 
-    removed_aliquots <- t(OUTPUT_results_reduced[,!selection])
-    OUTPUT_results_reduced <- t(OUTPUT_results_reduced[,selection])
+    removed_aliquots <- t(OUTPUT_results[, !selection, drop = FALSE])
+    OUTPUT_results_reduced <- t(OUTPUT_results[, selection, drop = FALSE])
 
     ## check for difference in the number of dose points, they should be the same
     if (length(unique(OUTPUT_results_reduced[, "CYCLES_NB"])) > 1) {
@@ -1565,11 +1495,6 @@ analyse_baSAR <- function(
                      "in Lx and/or Tx to ", Nb_aliquots, ", you might want ",
                      "to check 'removed_aliquots' in the function output")
     }
-
-    ## prepare for Bayesian analysis
-    Doses <- t(OUTPUT_results_reduced[,9:(8 + max_cycles)])
-    LxTx <- t(OUTPUT_results_reduced[, (9 + max_cycles):(8 + 2 * max_cycles)])
-    LxTx.error <- t(OUTPUT_results_reduced[, (9 + 2 * max_cycles):(8 + 3 * max_cycles)])
 
     ## prepare data frame for output that can used as input
     BIN_FILE <- character(0)
@@ -1590,6 +1515,10 @@ analyse_baSAR <- function(
   }
 
   # Call baSAR-function -------------------------------------------------------------------------
+
+  Doses <- t(input_object[, 9:(8 + max_cycles)])
+  LxTx <- t(input_object[, (9 + max_cycles):(8 + 2 * max_cycles)])
+  LxTx.error <- t(input_object[, (9 + 2 * max_cycles):(8 + 3 * max_cycles)])
 
   temp.DE <- input_object$DE
   if (all(is.na(temp.DE)) ||
