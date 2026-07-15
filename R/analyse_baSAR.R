@@ -1864,7 +1864,7 @@ analyse_baSAR <- function(
     de_data <- input_object[, c("DE", "DE.SD")]
     n_plotted <- nrow(input_object) - length(which(is.na(de_data)))
 
-      if(distribution_plot == "abanico"){
+    if (distribution_plot == "abanico") {
         plot_check <- plot_AbanicoPlot(
           data = de_data,
           zlab = dose_expression,
@@ -1891,13 +1891,8 @@ analyse_baSAR <- function(
             cex = par()$cex * 0.8
           )
         }
-      }else{
-        plot_check <- NULL
-      }
 
-      ##In case the Abanico plot will not work because of negative values
-      ##provide a KDE
-      if(is.null(plot_check) && distribution_plot == "kde"){
+    } else if (distribution_plot == "kde") {
         plot_check <- try(suppressWarnings(plot_KDE(
           data = de_data,
           xlab = dose_expression,
@@ -1924,7 +1919,7 @@ analyse_baSAR <- function(
             cex = par()$cex * 0.8
           )
         }
-      }
+    }
   }
 
   # Return --------------------------------------------------------------------------------------
