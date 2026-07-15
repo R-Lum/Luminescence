@@ -484,10 +484,6 @@ analyse_baSAR <- function(
                        "', reset to ", thin)
       }
 
-      ExpoGC <- as.numeric(grepl("EXP", fit.method))
-      LinGC <- as.numeric(grepl("LIN", fit.method))
-      GC_Origin <- as.numeric(fit.force_through_origin)
-
       ## exclude repeated dose points
       if (!fit.includingRepeatedRegPoints) {
         for (i in 1:Nb_aliquots) {
@@ -1082,6 +1078,20 @@ analyse_baSAR <- function(
     Disc_Grain.list <- replicate(rep.length, list())
     Mono_grain <-  TRUE
 
+    ## helper to create a Disc_Grain.list entry
+    .disc_grain_entry <- function(disc, grain) {
+      list(
+        disc = as.integer(disc),
+        grain = if (Mono_grain) as.integer(grain) else 1L,
+        indices = integer(0),
+        doses = numeric(0),
+        LxTx = numeric(0),
+        LxTx.error = numeric(0),
+        TnTx = numeric(0),
+        De = numeric(0)
+      )
+    }
+
     ## Read CSV file --------------------------------------------------------
     if (is.null(CSV_file)) {
       ## select aliquots giving light only
@@ -1123,16 +1133,9 @@ analyse_baSAR <- function(
       }
 
       ##write information in variables
-      Disc_Grain.list[[k]] <- lapply(seq_len(nrow(datalu)), function(d) list(
-        disc = as.integer(datalu[["POSITION"]][d]),
-        grain = if (Mono_grain) as.integer(datalu[["GRAIN"]][d]) else 1,
-        indices = integer(0),
-        doses = numeric(0),
-        LxTx = numeric(0),
-        LxTx.error = numeric(0),
-        TnTx = numeric(0),
-        De = numeric(0)
-      ))
+      Disc_Grain.list[[k]] <- lapply(seq_len(nrow(datalu)), function(d)
+        .disc_grain_entry(datalu[["POSITION"]][d], datalu[["GRAIN"]][d])
+      )
       }
     } else {
       datalu <- if (is.data.frame(CSV_file)) {
@@ -1174,16 +1177,7 @@ analyse_baSAR <- function(
           k <- matches[1]
           nj <- length(Disc_Grain.list[[k]]) + 1
 
-          Disc_Grain.list[[k]][[nj]] <- list(
-            disc = as.integer(datalu[nn, 2]),
-            grain = if (Mono_grain) as.integer(datalu[nn, 3]) else 1,
-            indices = integer(0),
-            doses = numeric(0),
-            LxTx = numeric(0),
-            LxTx.error = numeric(0),
-            TnTx = numeric(0),
-            De = numeric(0)
-          )
+          Disc_Grain.list[[k]][[nj]] <- .disc_grain_entry(datalu[nn, 2], datalu[nn, 3])
           if (is.na(Disc_Grain.list[[k]][[nj]]$grain) ||
               Disc_Grain.list[[k]][[nj]]$grain == 0) {
             Mono_grain <- FALSE
@@ -1491,6 +1485,10 @@ analyse_baSAR <- function(
 
   # Call baSAR-function -------------------------------------------------------------------------
 
+  ExpoGC <- as.numeric(grepl("EXP", fit.method))
+  LinGC <- as.numeric(grepl("LIN", fit.method))
+  GC_Origin <- as.numeric(fit.force_through_origin)
+
   Doses <- t(input_object[, 9:(8 + max_cycles)])
   LxTx <- t(input_object[, (9 + max_cycles):(8 + 2 * max_cycles)])
   LxTx.error <- t(input_object[, (9 + 2 * max_cycles):(8 + 3 * max_cycles)])
@@ -1615,6 +1613,10 @@ analyse_baSAR <- function(
     col <- get("col", pos = .LuminescenceEnv)
 
     dose_xlab <- ifelse(is.null(unlist(source_doserate)), "Dose [s]", "Dose [Gy]")
+    dose_expression <- ifelse(is.null(unlist(source_doserate)),
+                              expression(paste(D[e], " [s]")),
+                              expression(paste(D[e], " [Gy]")))
+    dose_cols <- grep("DOSE", colnames(input_object))
 
     ##get list of variable names (we need them later)
     varnames <- coda::varnames(results[[2]])
@@ -1660,11 +1662,6 @@ analyse_baSAR <- function(
         idx <- idx + 1
       c("white", "orange", col[2])[idx]
     }, FUN.VALUE = character(1))
-
-    ## make selection according to the model for the curve plotting
-    ExpoGC <- as.numeric(grepl("EXP", fit.method))
-    LinGC <- as.numeric(grepl("LIN", fit.method))
-    GC_Origin <- as.numeric(fit.force_through_origin)
 
     ## to ensure a minimum of quality no more than 15 boxes are plotted in each plot
     i <- 1
@@ -1749,7 +1746,7 @@ analyse_baSAR <- function(
       }
 
       ## set xlim and ylim based on ranges in the input
-      xlim <- c(0, max(input_object[, grep("DOSE", colnames(input_object))],
+      xlim <- c(0, max(input_object[, dose_cols],
                        na.rm = TRUE) * 1.1)
       ylim <- range(input_object[, grep("LxTx", colnames(input_object))],
                     na.rm = TRUE) * c(1, 1.1)
@@ -1807,15 +1804,12 @@ analyse_baSAR <- function(
       ## remove object, it might be rather big
       rm(plot_matrix)
 
-          ##add dose points
-          n.col <-
-            length(input_object[, grep(x = colnames(input_object), pattern = "DOSE")])
+      ## add rug with natural Lx/Tx
+      n.col <- length(dose_cols)
+      graphics::rug(side = 2, x = input_object[[9 + n.col]])
 
-          ##add rug with natural Lx/Tx
-          graphics::rug(side = 2, x = input_object[[9 + n.col]])
-
-          ##plot Lx/Tx values .. without errors ... this is enough here
-          for (i in 2:length(input_object[, grep(x = colnames(input_object), pattern = "DOSE")])) {
+      ## plot Lx/Tx values .. without errors ... this is enough here
+      for (i in 2:n.col) {
             ##add error bars
             segments(
               x0 = input_object[[8 + i]],
@@ -1833,7 +1827,7 @@ analyse_baSAR <- function(
               col = col[11],
               bg = "grey"
             )
-          }
+      }
 
           ##add ablines
           abline(
@@ -1866,15 +1860,14 @@ analyse_baSAR <- function(
           )
     }
 
-      ##03 Abanico Plot
-      n_plotted <- nrow(input_object) - length(which(is.na(input_object[, c("DE", "DE.SD")])))
+    ## 03 Abanico Plot
+    de_data <- input_object[, c("DE", "DE.SD")]
+    n_plotted <- nrow(input_object) - length(which(is.na(de_data)))
 
       if(distribution_plot == "abanico"){
         plot_check <- plot_AbanicoPlot(
-          data = input_object[, c("DE", "DE.SD")],
-          zlab = ifelse(is.null(unlist(source_doserate)),
-                        expression(paste(D[e], " [s]")),
-                        expression(paste(D[e], " [Gy]"))),
+          data = de_data,
+          zlab = dose_expression,
           log.z = distribution == "log_normal",
           z.0 = results[[1]]$CENTRAL,
           y.axis = FALSE,
@@ -1906,10 +1899,8 @@ analyse_baSAR <- function(
       ##provide a KDE
       if(is.null(plot_check) && distribution_plot == "kde"){
         plot_check <- try(suppressWarnings(plot_KDE(
-          data = input_object[, c("DE", "DE.SD")],
-          xlab = ifelse(is.null(unlist(source_doserate)),
-                        expression(paste(D[e], " [s]")),
-                        expression(paste(D[e], " [Gy]"))),
+          data = de_data,
+          xlab = dose_expression,
           mtext = paste0(n_plotted, "/", nrow(input_object),
                          " (removed are NA values)")
         )), outFile = stdout()) # redirect error messages so they can be silenced
