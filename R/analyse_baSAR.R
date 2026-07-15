@@ -1046,23 +1046,21 @@ analyse_baSAR <- function(
     Disc <-  list()
     Grain <- list()
     Disc_Grain.list <- list()
-    object.file_name <- list()
     Mono_grain <-  TRUE
 
     ##set information
     for (i in seq_along(fileBIN.list)) {
       Disc[[i]] <-  list()
       Grain[[i]] <-  list()
-
-      ##get BIN-file name
-      object.file_name[[i]] <- unique(fileBIN.list[[i]]@METADATA[["FNAME"]])
     }
 
+    object.file_name <- unlist(lapply(fileBIN.list,
+                                      function(x) unique(x@METADATA[["FNAME"]])))
+
     ## remove duplicated entries
-    object.filenames <- unlist(object.file_name)
-    is.duplicated <- duplicated(object.filenames)
+    is.duplicated <- duplicated(object.file_name)
     if (any(is.duplicated)) {
-      msg <- paste(.collapse(object.filenames[is.duplicated]),
+      msg <- paste(.collapse(object.file_name[is.duplicated]),
                    "is a duplicate and therefore removed from the input")
       if(verbose){
         .throw_message(msg, error = FALSE)
@@ -1073,7 +1071,7 @@ analyse_baSAR <- function(
       Disc[is.duplicated] <- NULL
       Grain[is.duplicated] <- NULL
       fileBIN.list[is.duplicated] <- NULL
-      object.file_name[is.duplicated] <- NULL
+      object.file_name <- object.file_name[!is.duplicated]
     }
 
   ## Expand input arguments -------------------------------------------------
@@ -1193,7 +1191,7 @@ analyse_baSAR <- function(
 
         ##check whether one file fits
         file.basename <- tools::file_path_sans_ext(basename(datalu[nn, 1]))
-        matches <- grep(pattern = file.basename, x = unlist(object.file_name))
+        matches <- grep(pattern = file.basename, x = object.file_name)
         if (length(matches) > 0) {
           k <- matches[1]
           nj <- length(Disc[[k]]) + 1
@@ -1576,7 +1574,7 @@ analyse_baSAR <- function(
     ## prepare data frame for output that can used as input
     BIN_FILE <- character(0)
     if (length(OUTPUT_results_reduced) > 0)
-      BIN_FILE <- unlist(object.file_name)[OUTPUT_results_reduced[[1]]]
+      BIN_FILE <- object.file_name[OUTPUT_results_reduced[[1]]]
     input_object <- data.frame(
         BIN_FILE = BIN_FILE,
         OUTPUT_results_reduced[, -1, drop = FALSE],
