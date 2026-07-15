@@ -119,7 +119,7 @@ test_that("input validation", {
                              signal_integral = 1:2,
                              background_integral = 80:100,
                              CSV_file = data.frame(a = NA, b = 1, c = 2)),
-               "Number of discs/grains = 0")
+               "The BIN-file names provided via 'CSV_file' do not match")
 
   SW({
   obj <- Risoe.BINfileData2RLum.Analysis(CWOSL.sub)

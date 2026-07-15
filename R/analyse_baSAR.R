@@ -1082,14 +1082,15 @@ analyse_baSAR <- function(
     Disc_Grain.list <- replicate(rep.length, list())
     Mono_grain <-  TRUE
 
-  # Read CSV file -----------------------------------------------------------
-  if (is.null(CSV_file)) {
-    ##select aliquots giving light only, this function accepts also a list as input
-    if(verbose){
-      cat("[analyse_baSAR()] 'CSV_file' not provided, running automatic grain selection ...\n")
-    }
+    ## Read CSV file --------------------------------------------------------
+    if (is.null(CSV_file)) {
+      ## select aliquots giving light only
+      if (verbose) {
+        .throw_message("'CSV_file' not provided, running automatic grain selection ...",
+                       error = FALSE)
+      }
 
-    for (k in seq_along(fileBIN.list)) {
+      for (k in seq_along(fileBIN.list)) {
       ##if the uses provides only multiple grain data (GRAIN == 0), the verification
       ##here makes not really sense and should be skipped
       if(length(unique(fileBIN.list[[k]]@METADATA[["GRAIN"]])) > 1){
@@ -1111,6 +1112,7 @@ analyse_baSAR <- function(
                          " curves with grain index 0 have been removed ",
                          "from the dataset")
         }
+          rm(aliquot_selection)
       }else{
           .throw_warning("Only multiple grain data provided, ",
                          "automatic selection skipped")
@@ -1118,11 +1120,7 @@ analyse_baSAR <- function(
 
           ##set mono grain to FALSE
           Mono_grain <- FALSE
-          aliquot_selection <- NA
       }
-
-      ##get number of aliquots (one aliquot has a position and a grain number)
-      Nb_aliquots <- nrow(datalu)
 
       ##write information in variables
       Disc_Grain.list[[k]] <- lapply(seq_len(nrow(datalu)), function(d) list(
@@ -1135,36 +1133,29 @@ analyse_baSAR <- function(
         TnTx = numeric(0),
         De = numeric(0)
       ))
+      }
+    } else {
+      datalu <- if (is.data.frame(CSV_file)) {
+                  CSV_file
+                } else { ## read CSV file if we have a filename
+                  tryCatch(data.table::fread(CSV_file, data.table = FALSE,
+                                             skip = additional_arguments$skip),
+                           error = function(e) .throw_error(e$message))
+                }
 
-      ##free memory
-      rm(datalu, aliquot_selection)
-    }
-  } else {
-    ## error message used multiple times
-    err.msg <- paste("'CSV_file' should have at least 3 columns for the name",
-                     "of the file, the disc position and the grain position")
-
-    ##load file if we have a filename
-    if (is.character(CSV_file)) {
-      ## import CSV file
-      datalu <- tryCatch(data.table::fread(CSV_file, data.table = FALSE,
-                                           skip = additional_arguments$skip),
-                         error = function(e) .throw_error(e$message))
-
-      ###check whether data format is somehow odd, check only the first three columns
+      ## validate and normalise
       if (ncol(datalu) < 3) {
-        .throw_error(err.msg)
+        .throw_error("'CSV_file' should have at least 3 columns for the name ",
+                     "of the file, the disc position and the grain position")
+      }
+
+      ## limit aliquot range
+      if (!is.null(aliquot_range)) {
+        datalu <- datalu[aliquot_range, ]
       }
 
       ##get rid of empty rows if the BIN_FILE name column is empty
       datalu <- datalu[!is.na(datalu[[1]]), ]
-
-    } else{
-
-      datalu <- CSV_file
-      if(ncol(datalu) < 3){
-        .throw_error(err.msg)
-      }
 
       ##problem: the first column should be of type character, the others are
       ##of type numeric, unfortunately it is too risky to rely on the user, we do the
@@ -1172,23 +1163,14 @@ analyse_baSAR <- function(
       datalu[[1]] <- as.character(datalu[[1]])
       datalu[[2]] <- as.numeric(datalu[[2]])
       datalu[[3]] <- as.numeric(datalu[[3]])
-    }
 
-    ##limit aliquot range
-    if (!is.null(aliquot_range)) {
-      datalu <- datalu[aliquot_range,]
-    }
-
-    Nb_ali <-  0
-    k <- NULL
-
-    for (nn in seq_len(nrow(datalu))) {
-      if (!is.na(datalu[nn, 1]))  {
-
-        ##check whether one file fits
+      ## check whether one file fits
+      has.matches <- FALSE
+      for (nn in seq_len(nrow(datalu))) {
         file.basename <- tools::file_path_sans_ext(basename(datalu[nn, 1]))
         matches <- grep(pattern = file.basename, x = object.file_name)
         if (length(matches) > 0) {
+          has.matches <- TRUE
           k <- matches[1]
           nj <- length(Disc_Grain.list[[k]]) + 1
 
@@ -1202,7 +1184,6 @@ analyse_baSAR <- function(
             TnTx = numeric(0),
             De = numeric(0)
           )
-          Nb_ali <-  Nb_ali + 1
           if (is.na(Disc_Grain.list[[k]][[nj]]$grain) ||
               Disc_Grain.list[[k]][[nj]]$grain == 0) {
             Mono_grain <- FALSE
@@ -1211,22 +1192,16 @@ analyse_baSAR <- function(
         }else{
           .throw_warning("File '", datalu[nn, 1], "' doesn't match, skipped")
         }
+      }
 
-      } else{
-        if (Nb_ali == 0) {
-          .throw_error("Number of discs/grains = 0")
-        }
-        break()
+      if (!has.matches) {
+        .throw_error("The BIN-file names provided via 'CSV_file' do not match ",
+                     "the loaded BIN-files")
       }
     }
 
-    ##if k is NULL it means it was not set so far, so there was
-    ##no corresponding BIN-file found
-    if(is.null(k)){
-      .throw_error("The BIN-file names provided via 'CSV_file' do not match ",
-                   "the loaded BIN-files")
-    }
-  }
+    ## free memory
+    rm(datalu)
 
     ## remove empty objects: we loop in reverse so we can remove them directly
     for (k in rev(seq_along(fileBIN.list))) {
