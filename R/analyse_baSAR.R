@@ -1828,29 +1828,15 @@ analyse_baSAR <- function(
       i <- i + 15
     }
 
+    ## remove object, it might be rather big
+    rm(plot_matrix)
+
     if (!plot_singlePanels) {
       par(mfrow = c(1,2))
     }
     ##////////////////////////////////////////////////////////////////////////////////////////////
     ##DOSE RESPONSE CURVES AND Lx/Tx VALUES
     ####//////////////////////////////////////////////////////////////////////////////////////////
-
-      ##define selection vector
-      selection <- c("a[", "b[", "c[", "g[", "Q[1,")
-
-      ##get list out of it
-      list_selection <- lapply(X = selection, FUN = function(x){
-        unlist(results[[2]][,grep(x = varnames, pattern = x, fixed = TRUE)])
-      })
-
-      ## assign only the first letter to avoid `[` in the names
-      names(list_selection) <- strtrim(selection, 1)
-
-      ##create matrix
-      plot_matrix <- do.call(what = "cbind", args = list_selection)
-
-      ##free memory
-      rm(list_selection)
 
       ##add choise for own provided model
       fit.method_plot <- fit.method
@@ -1879,9 +1865,17 @@ analyse_baSAR <- function(
           main = "baSAR Dose Response Curves"
         ))
 
-        if (!inherits(plot_check, "try-error")) {
-          ##add mtext
-          mtext(side = 3, text = paste("Fit:", fit.method_plot))
+    if (!inherits(plot_check, "try-error")) {
+      mtext(side = 3, text = paste("Fit:", fit.method_plot))
+
+      ## define selection vector (handle both scalar and indexed vars)
+      selection <- c(a = "^a(\\[|$)", b = "^b(\\[|$)", c = "^c(\\[|$)",
+                     g = "^g(\\[|$)", Q = "^Q\\[1,")
+
+      ## create matrix
+      plot_matrix <- do.call("cbind", lapply(selection, function(pattern) {
+        unlist(results[[2]][, grep(pattern, varnames)])
+      }))
 
           ##check whether we have all data we need (might be not the case of the user
           ##selects own variables)
@@ -1905,6 +1899,9 @@ analyse_baSAR <- function(
                            "'variable.names' does not include ",
                            .collapse(var.missing))
           }
+
+      ## remove object, it might be rather big
+      rm(plot_matrix)
 
           ##add dose points
           n.col <-
@@ -1963,9 +1960,7 @@ analyse_baSAR <- function(
             bg = "grey",
             legend = "measured dose points"
           )
-        }
-      ##remove object, it might be rather big
-      rm(plot_matrix)
+    }
 
       ##03 Abanico Plot
       n_plotted <- nrow(input_object) - length(which(is.na(input_object[, c("DE", "DE.SD")])))
