@@ -61,7 +61,7 @@
 #' Tries to fit the general-order kinetics function following Guralnik et al. (2015)
 #' of the form
 #'
-#' \deqn{y = a (d - (1 + (\frac{1}{b}) x c)^{(-1/c)})}
+#' \deqn{y = a (d - (1 + (\frac{1}{D0}) x c)^{(-1 / c)})}
 #'
 #' where \eqn{c > 0} is a kinetic order modifier
 #' (not to be confused with **c** in `SEE` or `SSE+LIN`!).
@@ -633,7 +633,8 @@ fit_DoseResponseCurve <- function(
   fit.functionDSE <- function(a1, a2, b1, b2, x) a1 * (1 - exp(-x / b1)) + a2 * (1 - exp(-x / b2))
 
   ### GOK ---------------- (C++ version available)
-  fit.functionGOK <- function(a,b,c,d,x) a*(d-(1+(1/b)*x*c)^(-1/c))
+  fit.functionGOK <- function(a, D0, c, d, x)
+    a * (d - (1 + (1 / D0) * x * c)^(-1 / c))
 
   ### OTOR -------------
   fit.functionOTOR <- function(R, Dc, N, Di, x) (1 + (lamW::lambertW0((R - 1) * exp(R - 1 - ((x + Di) / Dc ))) / (1 - R))) * N
@@ -1362,7 +1363,7 @@ fit_DoseResponseCurve <- function(
     fit <- try(minpack.lm::nlsLM(
       formula = .toFormula(fit.functionGOK, env = currn_env),
       data = data,
-      start = list(a = a, b = b, c = 1, d = 1),
+      start = list(a = a, D0 = b, c = 1, d = 1),
       weights = fit.weights,
       trace = FALSE,
       algorithm = "LM",
@@ -1383,13 +1384,13 @@ fit_DoseResponseCurve <- function(
       De <- switch(
         mode,
         interpolation = suppressWarnings(
-          -(b * (( (a * d - y)/a)^c - 1) * ( ((a * d - y)/a)^-c  )) / c),
+          -(D0 * (( (a * d - y) / a)^c - 1) * ((a * d - y)/a)^-c ) / c),
         extrapolation = suppressWarnings(
-          -(b * (( (a * d - 0)/a)^c - 1) * ( ((a * d - 0)/a)^-c  )) / c),
+          -(D0 * (( (a * d - 0) / a)^c - 1) * ((a * d - 0)/a)^-c ) / c),
         NA)
 
       #print D01 value
-      D01 <- b
+      D01 <- D0
       .report_fit(De, sprintf(" | D01 = %.2f | c = %.2f", D01, c))
 
       ##Monte Carlo Simulation
@@ -1397,16 +1398,16 @@ fit_DoseResponseCurve <- function(
       #	--take De_Error
 
       ## preallocate variable
-      var.b <- vector(mode = "numeric", length = n.MC)
+      var.D0 <- vector(mode = "numeric", length = n.MC)
 
       #start loop
       for (i in 1:n.MC) {
         ##set data set
         fit.MC <- try({
           minpack.lm::nlsLM(
-          formula = y ~ fit_functionGOK_cpp(a, b, c, d, x),
+          formula = y ~ fit_functionGOK_cpp(a, D0, c, d, x),
           data = list(x = xy$x,y = data.MC[,i]),
-          start = list(a = a, b = b, c = 1, d = 1),
+          start = list(a = a, D0 = D0, c = 1, d = 1),
           weights = fit.weights,
           trace = FALSE,
           algorithm = "LM",
@@ -1420,23 +1421,23 @@ fit_DoseResponseCurve <- function(
           # get parameters out
           parameters<-coef(fit.MC)
           var.a <- as.numeric(parameters["a"]) #Imax
-          var.b[i] <- as.numeric(parameters["b"]) #D0
+          var.D0[i] <- as.numeric(parameters["D0"])
           var.c <- as.numeric(parameters["c"]) #kinetic order modifier
           var.d <- as.numeric(parameters["d"]) #origin
 
           # calculate x.natural for error calculation
           ## note that data.MC.De contains only 0s for extrapolation
           temp <- (var.a * var.d - data.MC.De[i]) / var.a
-          x.natural[i] <- suppressWarnings(-var.b[i] * (1 - temp^-var.c) / var.c)
+          x.natural[i] <- suppressWarnings(-var.D0[i] * (1 - temp^-var.c) / var.c)
         }
 
       }#end for loop
 
       ##write D01.ERROR
-      D01.ERROR <- sd(var.b, na.rm = TRUE)
+      D01.ERROR <- sd(var.D0, na.rm = TRUE)
 
       ##remove values
-      rm(var.b)
+      rm(var.D0)
     }
   }
 

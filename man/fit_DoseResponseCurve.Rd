@@ -212,7 +212,7 @@ Tries to fit a double exponential function of the form
 Tries to fit the general-order kinetics function following Guralnik et al. (2015)
 of the form
 
-\deqn{y = a (d - (1 + (\frac{1}{b}) x c)^{(-1/c)})}
+\deqn{y = a (d - (1 + (\frac{1}{D0}) x c)^{(-1 / c)})}
 
 where \eqn{c > 0} is a kinetic order modifier
 (not to be confused with \strong{c} in \code{SEE} or \code{SSE+LIN}!).

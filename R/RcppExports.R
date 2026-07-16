@@ -33,8 +33,8 @@ fit_functionDSE_cpp <- function(a1, a2, b1, b2, x) {
     .Call(`_Luminescence_fit_functionDSE_cpp`, a1, a2, b1, b2, x)
 }
 
-fit_functionGOK_cpp <- function(a, b, c, d, x) {
-    .Call(`_Luminescence_fit_functionGOK_cpp`, a, b, c, d, x)
+fit_functionGOK_cpp <- function(a, D0, c, d, x) {
+    .Call(`_Luminescence_fit_functionGOK_cpp`, a, D0, c, d, x)
 }
 
 src_get_XSYG_curve_values <- function(s) {

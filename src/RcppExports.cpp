@@ -133,17 +133,17 @@ BEGIN_RCPP
 END_RCPP
 }
 // fit_functionGOK_cpp
-NumericVector fit_functionGOK_cpp(double a, double b, double c, double d, NumericVector x);
-RcppExport SEXP _Luminescence_fit_functionGOK_cpp(SEXP aSEXP, SEXP bSEXP, SEXP cSEXP, SEXP dSEXP, SEXP xSEXP) {
+NumericVector fit_functionGOK_cpp(double a, double D0, double c, double d, NumericVector x);
+RcppExport SEXP _Luminescence_fit_functionGOK_cpp(SEXP aSEXP, SEXP D0SEXP, SEXP cSEXP, SEXP dSEXP, SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< double >::type a(aSEXP);
-    Rcpp::traits::input_parameter< double >::type b(bSEXP);
+    Rcpp::traits::input_parameter< double >::type D0(D0SEXP);
     Rcpp::traits::input_parameter< double >::type c(cSEXP);
     Rcpp::traits::input_parameter< double >::type d(dSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(fit_functionGOK_cpp(a, b, c, d, x));
+    rcpp_result_gen = Rcpp::wrap(fit_functionGOK_cpp(a, D0, c, d, x));
     return rcpp_result_gen;
 END_RCPP
 }

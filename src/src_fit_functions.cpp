@@ -57,14 +57,14 @@ NumericVector fit_functionDSE_cpp(double a1, double a2, double b1, double b2, Nu
 
 // fit.functionGOK equivalent
 // [[Rcpp::export]]
-NumericVector fit_functionGOK_cpp(double a, double b, double c, double d, NumericVector x) {
+NumericVector fit_functionGOK_cpp(double a, double D0, double c, double d, NumericVector x) {
   int n = x.size();
   NumericVector y(n);
 
-  double c_over_b = c / b;
+  double c_over_D0 = c / D0;
   double exponent = -1.0 / c;
   for (int i = 0; i < n; ++i) {
-    double base = 1.0 + (x[i] * c_over_b);
+    double base = 1.0 + (x[i] * c_over_D0);
     y[i] = a * (d - std::pow(base, exponent));
   }
 
