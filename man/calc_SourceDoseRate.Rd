@@ -40,7 +40,10 @@ Gy/s as valid for the function \link{convert_Second2Gray}.}
 option allowing to predict the dose rate of the source over time in days
 set by the provided value. Starting date is the value set with
 \code{measurement.date}, e.g., \code{calc_SourceDoseRate(..., predict = 100)} calculates
-the source dose rate for the next 100 days.}
+the source dose rate for the next 100 days. If predict is of length two, this
+will be used to calculate the value per days backwards and forward.
+For instance: \code{predict = c(-100, 100)} will calculate 100 days backwards and
+100 days forward.}
 }
 \value{
 Returns an S4 object of type \link[=RLum.Results-class]{RLum.Results}.
@@ -99,17 +102,18 @@ but mixes them up. Therefore, it is not recommended to use this option
 when multiple calibration dates (\code{calib.date}) are provided.
 }
 \section{Function version}{
- 0.3.4
+ 0.3.5
 }
 
 \examples{
 
 ##(1) Simple function usage
 ##Basic calculation of the dose rate for a specific date
-dose.rate <-  calc_SourceDoseRate(measurement.date = "2012-01-27",
-                                  calib.date = "2014-12-19",
-                                  calib.dose.rate = 0.0438,
-                                  calib.error = 0.0019)
+dose.rate <-  calc_SourceDoseRate(
+ measurement.date = "2012-01-27",
+ calib.date = "2014-12-19",
+ calib.dose.rate = 0.0438,
+ calib.error = 0.0019)
 
 ##show results
 get_RLum(dose.rate)
@@ -123,12 +127,13 @@ data(ExampleData.DeValues, envir = environment())
 convert_Second2Gray(ExampleData.DeValues$BT998, dose.rate)
 
 ##(3) source rate prediction and plotting
-dose.rate <-  calc_SourceDoseRate(measurement.date = "2012-01-27",
-                                  calib.date = "2014-12-19",
-                                  calib.dose.rate = 0.0438,
-                                  calib.error = 0.0019,
-                                  predict = 1000)
-plot_RLum(dose.rate)
+dose.rate <-  calc_SourceDoseRate(
+ measurement.date = "2012-01-27",
+ calib.date = "2014-12-19",
+ calib.dose.rate = 0.0438,
+ calib.error = 0.0019,
+ predict = c(-1000,1000))
+plot(dose.rate, type = "l")
 
 ##(4) export output to a LaTeX table (example using the package 'xtable')
 \dontrun{

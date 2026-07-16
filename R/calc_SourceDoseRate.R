@@ -53,7 +53,10 @@
 #' option allowing to predict the dose rate of the source over time in days
 #' set by the provided value. Starting date is the value set with
 #' `measurement.date`, e.g., `calc_SourceDoseRate(..., predict = 100)` calculates
-#' the source dose rate for the next 100 days.
+#' the source dose rate for the next 100 days. If predict is of length two, this 
+#' will be used to calculate the value per days backwards and forward. 
+#' For instance: `predict = c(-100, 100)` will calculate 100 days backwards and
+#' 100 days forward. 
 #'
 #' @return
 #' Returns an S4 object of type [Luminescence::RLum.Results-class].
@@ -84,7 +87,7 @@
 #' but mixes them up. Therefore, it is not recommended to use this option
 #' when multiple calibration dates (`calib.date`) are provided.
 #'
-#' @section Function version: 0.3.4
+#' @section Function version: 0.3.5
 #'
 #' @author
 #' Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany) \cr
@@ -101,10 +104,11 @@
 #'
 #' ##(1) Simple function usage
 #' ##Basic calculation of the dose rate for a specific date
-#' dose.rate <-  calc_SourceDoseRate(measurement.date = "2012-01-27",
-#'                                   calib.date = "2014-12-19",
-#'                                   calib.dose.rate = 0.0438,
-#'                                   calib.error = 0.0019)
+#' dose.rate <-  calc_SourceDoseRate(
+#'  measurement.date = "2012-01-27",
+#'  calib.date = "2014-12-19",
+#'  calib.dose.rate = 0.0438,
+#'  calib.error = 0.0019)
 #'
 #' ##show results
 #' get_RLum(dose.rate)
@@ -118,12 +122,13 @@
 #' convert_Second2Gray(ExampleData.DeValues$BT998, dose.rate)
 #'
 #' ##(3) source rate prediction and plotting
-#' dose.rate <-  calc_SourceDoseRate(measurement.date = "2012-01-27",
-#'                                   calib.date = "2014-12-19",
-#'                                   calib.dose.rate = 0.0438,
-#'                                   calib.error = 0.0019,
-#'                                   predict = 1000)
-#' plot_RLum(dose.rate)
+#' dose.rate <-  calc_SourceDoseRate(
+#'  measurement.date = "2012-01-27",
+#'  calib.date = "2014-12-19",
+#'  calib.dose.rate = 0.0438,
+#'  calib.error = 0.0019,
+#'  predict = c(-1000,1000))
+#' plot(dose.rate, type = "l")
 #'
 #'##(4) export output to a LaTeX table (example using the package 'xtable')
 #'\dontrun{
@@ -171,8 +176,13 @@ calc_SourceDoseRate <- function(
   dose.rate.unit <- .validate_args(dose.rate.unit, c("Gy/s", "Gy/min"))
 
   # --- if predict is set
-  if(!is.null(predict) && predict > 1){
-    measurement.date <- seq(tail(measurement.date), by = 1, length = predict)
+  if(!is.null(predict) && max(predict) > 1){
+    if(length(predict) == 1)
+      measurement.date <- seq(tail(measurement.date), by = 1, length = predict)
+    else
+      measurement.date <- c(rev(seq(
+        tail(measurement.date), by = -1, length = abs(predict[1])
+      )), seq(tail(measurement.date)+1, by = 1, length = predict[2]-1))
   }
 
   # -- calc days since source calibration
@@ -180,8 +190,7 @@ calc_SourceDoseRate <- function(
 
 
   # -- calc dose rate of source at date of measurement, considering the chosen source-type
-
-  ##set halflife
+  ##set half-life
   halflife.years  <- switch(
     source.type,
     "Sr-90" = 28.90,
@@ -210,7 +219,6 @@ calc_SourceDoseRate <- function(
   }
 
   # Output --------------------------------------------------------------------------------------
-
   dose_rate <- data.frame(
     dose.rate = source.dose.rate,
     dose.rate.error = source.dose.rate.error,

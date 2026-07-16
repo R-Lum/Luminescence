@@ -139,6 +139,10 @@ and `analyse_FadingMeasurement()` (#1390; thanks to @andrzejbluszcz for
 providing the mathematical description, contributing code and checking the
 implementation).
 
+### `calc_SourceDoseRate()`
+
+* Extend the argument `predict` to handle backwards and forward prediction. 
+
 ### `convert_Second2Gray()`
 
 * Input validation was strengthened to avoid two possible crashes (#1537).

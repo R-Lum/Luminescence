@@ -36,6 +36,15 @@ test_that("check functionality", {
     predict = 150
   ))
   expect_silent(plot_RLum.Results(t))
+  
+  t <- expect_silent(calc_SourceDoseRate(
+    measurement.date = "2018-01-02",
+    calib.date = "2014-12-19",
+    calib.dose.rate = 0.0438,
+    calib.error = 0.0019,
+    predict = c(-100, 150)
+  ))
+  expect_silent(plot_RLum.Results(t))
 
   ##Gy/min as unit
   expect_silent(calc_SourceDoseRate(
