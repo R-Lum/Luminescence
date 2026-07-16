@@ -430,7 +430,17 @@ fit_DoseResponseCurve <- function(
   mode <- .validate_args(mode, c("interpolation", "extrapolation", "alternate"))
   fit.method_supported <- c("LIN", "QDR", "SSE", "SSE OR LIN",
                             "SSE+LIN", "DSE", "GOK", "OTOR", "OTORX")
-  fit.method <- .validate_args(fit.method, fit.method_supported)
+  fit.method_deprecated <- c(SSE = "EXP", "SSE OR LIN" = "EXP OR LIN",
+                             "SSE+LIN" = "EXP+LIN", DSE = "EXP+EXP")
+  fit.method <- .validate_args(fit.method, c(fit.method_supported, fit.method_deprecated))
+  fit.method <- unname(fit.method)
+  if (fit.method %in% fit.method_deprecated) {
+    new <- names(fit.method_deprecated[match(fit.method, fit.method_deprecated)])
+    .deprecated(sprintf("fit.method = \"%s\"", fit.method),
+                new = sprintf("fit.method = \"%s\"", new),
+                since = "1.3.0")
+    fit.method <- new
+  }
   if (fit.method == "DSE" && mode == "extrapolation")
     .throw_error("Mode 'extrapolation' for fitting method 'DSE' not supported")
   .validate_logical_scalar(fit.force_through_origin)

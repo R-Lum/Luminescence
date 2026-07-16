@@ -97,6 +97,10 @@ test_that("input validation", {
                  "'fit.weight' no longer accepts a logical value, reset automatically to NULL")
   expect_warning(fit_DoseResponseCurve(LxTxData, fit.weights = TRUE),
                  "'fit.weight' no longer accepts a logical value, reset automatically to inverse_var")
+  expect_warning(res <- fit_DoseResponseCurve(LxTxData, fit.method = "EXP"),
+                 "'fit.method = \"EXP\"' was deprecated in v1.3.0, use 'fit.method = \"SSE\"' instead")
+  expect_equal(res@data$De$Fit,
+               "SSE")
   })
 })
 

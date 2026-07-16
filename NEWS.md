@@ -38,6 +38,9 @@ affected functions.
     `SSE OR LIN`, respectively
   - `EXP+EXP` is now called `DSE` (double saturating exponential)
 
+The previous method names are still functional, but will now raise a
+deprecation warning.
+
 These changes also affect the following functions:
 `analyse_SAR.CWOSL()`, `analyse_SAR.TL()`, `analyse_baSAR()`,
 `analyse_pIRIRSequence()`, `analyse_Al2O3C_CrossTalk()`,
