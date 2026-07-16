@@ -19,7 +19,7 @@
 #' **Keyword: `LIN`**
 #'
 #' Fits a linear function to the data using [lm]:
-#' \deqn{y = mx + n}
+#' \deqn{y = mx + Di}
 #'
 #' **Keyword: `QDR`**
 #'
@@ -29,9 +29,9 @@
 #' **Keyword: `SSE` (formerly `EXP`)**
 #'
 #' Fits a single saturating exponential function of the form
-#' \deqn{y = a(1 - \exp(-\frac{(x+c)}{b}))}
+#' \deqn{y = N (1 - \exp(-\frac{x + Di}{D0}))}
 #'
-#' Parameters b and c are approximated by a linear fit using [lm]. Note: \eqn{b = D0}
+#' Parameters \eqn{D_0} and \eqn{D_i} are approximated by a linear fit using [lm].
 #'
 #' **Keyword: `SSE OR LIN` (formerly `EXP OR LIN`)**
 #'
@@ -42,7 +42,7 @@
 #'
 #' Tries to fit an exponential plus linear function of the form:
 #'
-#' \deqn{y = a(1 - \exp(-\frac{x + c}{b}) + (gx))}
+#' \deqn{y = N(1 - \exp(-\frac{x + Di}{D0}) + gx)}
 #' The \eqn{D_e} is calculated by iteration.
 #'
 #' **Note:** In the context of luminescence dating, this function has no physical meaning.
@@ -624,15 +624,18 @@ fit_DoseResponseCurve <- function(
 
   ## Define functions ---------
   ### SSE ------- (C++ version available)
-  fit.functionSSE <- function(a, b, c, x) a * (1 - exp(-(x + c) / b))
+  fit.functionSSE <- function(N, D0, Di, x)
+    N * (1 - exp(-(x + Di) / D0))
 
-  ### SSE+LIN ----------- (C++ version available)
-  fit.functionSSELIN <- function(a, b, c, g, x) a * (1 - exp(-(x + c) / b) + g * x)
+  ### SSE+LIN --- (C++ version available)
+  fit.functionSSELIN <- function(N, D0, Di, g, x)
+    N * (1 - exp(-(x + Di) / D0) + g * x)
 
-  ### DSE ---------- (C++ version available)
-  fit.functionDSE <- function(a1, a2, b1, b2, x) a1 * (1 - exp(-x / b1)) + a2 * (1 - exp(-x / b2))
+  ### DSE ------- (C++ version available)
+  fit.functionDSE <- function(a1, a2, b1, b2, x)
+    a1 * (1 - exp(-x / b1)) + a2 * (1 - exp(-x / b2))
 
-  ### GOK ---------------- (C++ version available)
+  ### GOK ------- (C++ version available)
   fit.functionGOK <- function(a, D0, c, d, x)
     a * (d - (1 + (1 / D0) * x * c)^(-1 / c))
 
@@ -730,7 +733,7 @@ fit_DoseResponseCurve <- function(
     g.MC <- suppressWarnings(rnorm(50, mean = g, sd = g / 1))
 
     ##set start vector (to avoid errors within the loop)
-    a.start <-   b.start <- c.start <- g.start <- NA
+    N.start <- D0.start <- Di.start <- g.start <- NA
   }
 
   ## QDR --------------------------------------------------------------------
@@ -822,22 +825,19 @@ fit_DoseResponseCurve <- function(
       ## the fitting more stable
 
       ## prepare what we can outside the loop
-      a.start <-  b.start <- c.start <- numeric(length(a.MC))
+      N.start <- D0.start <- Di.start <- numeric(length(a.MC))
 
-      lower_bounds <- c(a = 0, b = 1e-6, c = 0)
+      lower_bounds <- c(N = 0, D0 = 1e-6, Di = 0)
       control_settings <-  minpack.lm::nls.lm.control(
         maxiter = 500)
 
       ## loop for better attempt
       for (i in seq_along(a.MC)) {
-        ## get start list
-        start_list <- list(a = a.MC[i], b = b.MC[i], c = c.MC[i])
-
         ## run fit
         fit.initial <- suppressWarnings(try(minpack.lm::nlsLM(
-          formula = y ~ fit_functionSSE_cpp(a, b, c, x),
+          formula = y ~ fit_functionSSE_cpp(N, D0, Di, x),
           data = data,
-          start = start_list,
+          start = list(N = a.MC[i], D0 = b.MC[i], Di = c.MC[i]),
           trace = FALSE,
           algorithm = "LM",
           lower = lower_bounds,
@@ -847,16 +847,16 @@ fit_DoseResponseCurve <- function(
         if(!inherits(fit.initial, "try-error")){
           #get parameters out of it
           parameters <- coef(fit.initial)
-          a.start[i] <- as.numeric(parameters["a"])
-          b.start[i] <- as.numeric(parameters["b"])
-          c.start[i] <- as.numeric(parameters["c"])
+          N.start[i] <- as.numeric(parameters["N"])
+          D0.start[i] <- as.numeric(parameters["D0"])
+          Di.start[i] <- as.numeric(parameters["Di"])
         }
       }
 
       ##used median as start parameters for the final fitting
-      a <- median(a.start, na.rm = TRUE)
-      b <- mean(b.MC, na.rm = TRUE) # issue 1552
-      c <- median(c.start, na.rm = TRUE)
+      N <- median(N.start, na.rm = TRUE)
+      D0 <- mean(b.MC, na.rm = TRUE) # issue 1552
+      Di <- median(Di.start, na.rm = TRUE)
 
       ## set boundaries
       lower <- if (fit.bounds) c(0, 0, 0) else c(-Inf, -Inf, -Inf)
@@ -864,9 +864,9 @@ fit_DoseResponseCurve <- function(
 
       #FINAL Fit curve on given values
       fit <- try(minpack.lm::nlsLM(
-        formula = y ~ fit_functionSSE_cpp(a, b, c, x),
+        formula = y ~ fit_functionSSE_cpp(N, D0, Di, x),
         data = data,
-        start = list(a = a, b = b, c = 0),
+        start = list(N = N, D0 = D0, Di = 0),
         weights = fit.weights,
         trace = FALSE,
         algorithm = "LM",
@@ -894,18 +894,18 @@ fit_DoseResponseCurve <- function(
         .get_coef(fit)
 
         ## calculate D63 and D80 based on approximation in Mauz et al. (submitted)
-        D80 <- 1.609 * b
+        D80 <- 1.609 * D0
 
         #calculate De
         De <- NA
         if(mode == "interpolation"){
-          De <- suppressWarnings(-c - b * log(1 - object[1, 2] / a))
+          De <- suppressWarnings(-Di - D0 * log(1 - object[1, 2] / N))
         }else if (mode == "extrapolation"){
-          De <- suppressWarnings(-c-b*log(1-0/a))
+          De <- suppressWarnings(-Di - D0 * log(1 - 0 / N))
         }
 
         #print D01 value
-        D01 <- b
+        D01 <- D0
         .report_fit(De, sprintf(" | D01 = %.2f", D01))
 
         ## SSE MC -----
@@ -914,14 +914,14 @@ fit_DoseResponseCurve <- function(
         #	--take De_Error
 
         ## preallocate variable
-        var.b <- vector(mode="numeric", length=n.MC)
+        var.D0 <- vector(mode = "numeric", length = n.MC)
 
         #start loop
         for (i in 1:n.MC) {
           fit.MC <- try(minpack.lm::nlsLM(
-            formula = y ~ fit_functionSSE_cpp(a, b, c, x),
+            formula = y ~ fit_functionSSE_cpp(N, D0, Di, x),
             data = list(x = xy$x,y = data.MC[,i]),
-            start = list(a = a, b = b, c = c),
+            start = list(N = N, D0 = D0, Di = Di),
             weights = fit.weights,
             trace = FALSE,
             algorithm = "LM",
@@ -935,22 +935,22 @@ fit_DoseResponseCurve <- function(
           if (!inherits(fit.MC, "try-error") & mode != "alternate") {
             #get parameters out
             parameters <- coef(fit.MC)
-            var.a <- as.numeric(parameters["a"]) # Imax
-            var.b[i] <- as.numeric(parameters["b"]) # D0
-            var.c <- as.numeric(parameters["c"])
+            var.N <- as.numeric(parameters["N"])
+            var.D0[i] <- as.numeric(parameters["D0"])
+            var.Di <- as.numeric(parameters["Di"])
 
             #calculate x.natural for error calculation
             x.natural[i] <- suppressWarnings(
-                -var.c - var.b[i] * log(1 - data.MC.De[i] / var.a))
+                -var.Di - var.D0[i] * log(1 - data.MC.De[i] / var.N))
           }
 
         }#end for loop
 
         ##write D01.ERROR
-        D01.ERROR <- sd(var.b, na.rm = TRUE)
+        D01.ERROR <- sd(var.D0, na.rm = TRUE)
 
         ##remove values
-        rm(var.b)
+        rm(var.D0)
 
       }#endif::try-error fit
     }#endif:fit.method!="LIN"
@@ -1020,21 +1020,21 @@ fit_DoseResponseCurve <- function(
 
     ##try some start parameters from the input values to makes the fitting more stable
     for (i in seq_along(a.MC)) {
-      a <- a.MC[i]
-      b <- b.MC[i]
-      c <- c.MC[i]
+      N <- a.MC[i]
+      D0 <- b.MC[i]
+      Di <- c.MC[i]
       g <- max(0, g.MC[i])
 
       ##---------------------------------------------------------##
       ##start: with SSE function
       fit.SSE <- try({
         suppressWarnings(minpack.lm::nlsLM(
-        formula = y ~ fit_functionSSE_cpp(a, b, c, x),
+        formula = y ~ fit_functionSSE_cpp(N, D0, Di, x),
         data = data,
-        start = c(a=a,b=b,c=c),
+        start = c(N = N, D0 = D0, Di = Di),
         trace = FALSE,
         algorithm = "LM",
-        lower = c(a = 0, b = 10, c = 0),
+        lower = c(N = 0, D0 = 10, Di = 0),
         control = minpack.lm::nls.lm.control(
           maxiter=100)
       ))},
@@ -1047,9 +1047,9 @@ fit_DoseResponseCurve <- function(
 
       fit <- try({
         suppressWarnings(minpack.lm::nlsLM(
-          formula = y ~ fit_functionSSELIN_cpp(a, b, c, g, x),
+          formula = y ~ fit_functionSSELIN_cpp(N, D0, Di, g, x),
           data = data,
-          start = c(a=a,b=b,c=c,g=g),
+          start = c(N = N, D0 = D0, Di = Di, g = g),
           trace = FALSE,
           algorithm = "LM",
           lower = lower,
@@ -1061,24 +1061,24 @@ fit_DoseResponseCurve <- function(
       if(!inherits(fit, "try-error")){
         #get parameters out of it
         parameters <- coef(fit)
-        a.start[i] <- parameters[["a"]]
-        b.start[i] <- parameters[["b"]]
-        c.start[i] <- parameters[["c"]]
+        N.start[i] <- parameters[["N"]]
+        D0.start[i] <- parameters[["D0"]]
+        Di.start[i] <- parameters[["Di"]]
         g.start[i] <- parameters[["g"]]
       }
     }##end for loop
 
     ## used mean as start parameters for the final fitting
-    a <- median(a.start, na.rm = TRUE)
-    b <- median(b.start, na.rm = TRUE)
-    c <- median(c.start, na.rm = TRUE)
+    N <- median(N.start, na.rm = TRUE)
+    D0 <- median(D0.start, na.rm = TRUE)
+    Di <- median(Di.start, na.rm = TRUE)
     g <- median(g.start, na.rm = TRUE)
 
     ##perform final fitting
     fit <- try(suppressWarnings(minpack.lm::nlsLM(
-      formula = y ~ fit_functionSSELIN_cpp(a, b, c, g, x),
+      formula = y ~ fit_functionSSELIN_cpp(N, D0, Di, g, x),
       data = data,
-      start = list(a = a, b = b,c = c, g = g),
+      start = list(N = N, D0 = D0, Di = Di, g = g),
       weights = fit.weights,
       trace = FALSE,
       algorithm = "LM",
@@ -1098,8 +1098,8 @@ fit_DoseResponseCurve <- function(
 
       #problem: analytically it is not easy to calculate x,
       #use uniroot to solve that problem ... readjust function first
-      f.unirootSSELIN <- function(a, b, c, g, x, LnTn) {
-        fit_functionSSELIN_cpp(a, b, c, g, x) - LnTn
+      f.unirootSSELIN <- function(N, D0, Di, g, x, LnTn) {
+        fit_functionSSELIN_cpp(N, D0, Di, g, x) - LnTn
       }
 
       if (mode == "interpolation") {
@@ -1116,9 +1116,9 @@ fit_DoseResponseCurve <- function(
           f = f.unirootSSELIN,
           interval = c(min.val, max(xy$x) * 1.5),
           tol = 0.001,
-          a = a,
-          b = b,
-          c = c,
+          N = N,
+          D0 = D0,
+          Di = Di,
           g = g,
           LnTn = LnTn,
           extendInt = "yes",
@@ -1146,9 +1146,9 @@ fit_DoseResponseCurve <- function(
       for(i in  1:n.MC){
         ##perform MC fitting
         fit.MC <- try(suppressWarnings(minpack.lm::nlsLM(
-          formula = y ~ fit_functionSSELIN_cpp(a, b, c, g, x),
+          formula = y ~ fit_functionSSELIN_cpp(N, D0, Di, g, x),
           data = list(x=xy$x,y=data.MC[,i]),
-          start = list(a = a, b = b,c = c, g = g),
+          start = list(N = N, D0 = D0, Di = Di, g = g),
           weights = fit.weights,
           trace = FALSE,
           algorithm = "LM",
@@ -1166,9 +1166,9 @@ fit_DoseResponseCurve <- function(
               f = f.unirootSSELIN,
               interval = c(min.val, max(xy$x) * 1.5),
               tol = 0.001,
-              a = var.a,
-              b = var.b,
-              c = var.c,
+              N = var.N,
+              D0 = var.D0,
+              Di = var.Di,
               g = var.g,
               LnTn = data.MC.De[i]
             ),

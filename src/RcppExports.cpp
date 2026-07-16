@@ -89,31 +89,31 @@ BEGIN_RCPP
 END_RCPP
 }
 // fit_functionSSE_cpp
-NumericVector fit_functionSSE_cpp(double a, double b, double c, NumericVector x);
-RcppExport SEXP _Luminescence_fit_functionSSE_cpp(SEXP aSEXP, SEXP bSEXP, SEXP cSEXP, SEXP xSEXP) {
+NumericVector fit_functionSSE_cpp(double N, double D0, double Di, NumericVector x);
+RcppExport SEXP _Luminescence_fit_functionSSE_cpp(SEXP NSEXP, SEXP D0SEXP, SEXP DiSEXP, SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type a(aSEXP);
-    Rcpp::traits::input_parameter< double >::type b(bSEXP);
-    Rcpp::traits::input_parameter< double >::type c(cSEXP);
+    Rcpp::traits::input_parameter< double >::type N(NSEXP);
+    Rcpp::traits::input_parameter< double >::type D0(D0SEXP);
+    Rcpp::traits::input_parameter< double >::type Di(DiSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(fit_functionSSE_cpp(a, b, c, x));
+    rcpp_result_gen = Rcpp::wrap(fit_functionSSE_cpp(N, D0, Di, x));
     return rcpp_result_gen;
 END_RCPP
 }
 // fit_functionSSELIN_cpp
-NumericVector fit_functionSSELIN_cpp(double a, double b, double c, double g, NumericVector x);
-RcppExport SEXP _Luminescence_fit_functionSSELIN_cpp(SEXP aSEXP, SEXP bSEXP, SEXP cSEXP, SEXP gSEXP, SEXP xSEXP) {
+NumericVector fit_functionSSELIN_cpp(double N, double D0, double Di, double g, NumericVector x);
+RcppExport SEXP _Luminescence_fit_functionSSELIN_cpp(SEXP NSEXP, SEXP D0SEXP, SEXP DiSEXP, SEXP gSEXP, SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type a(aSEXP);
-    Rcpp::traits::input_parameter< double >::type b(bSEXP);
-    Rcpp::traits::input_parameter< double >::type c(cSEXP);
+    Rcpp::traits::input_parameter< double >::type N(NSEXP);
+    Rcpp::traits::input_parameter< double >::type D0(D0SEXP);
+    Rcpp::traits::input_parameter< double >::type Di(DiSEXP);
     Rcpp::traits::input_parameter< double >::type g(gSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(fit_functionSSELIN_cpp(a, b, c, g, x));
+    rcpp_result_gen = Rcpp::wrap(fit_functionSSELIN_cpp(N, D0, Di, g, x));
     return rcpp_result_gen;
 END_RCPP
 }

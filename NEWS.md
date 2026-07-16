@@ -35,7 +35,7 @@ affected functions.
   more rigorous (#1604):
   - `EXP` is now called `SSE` (single saturating exponential);
     similarly, `EXP+LIN` and `EXP OR LIN` are now `SSE+LIN` and
-    `SSE OR LIN`, respectively.
+    `SSE OR LIN`, respectively
   - `EXP+EXP` is now called `DSE` (double saturating exponential)
 
 These changes also affect the following functions:
@@ -44,8 +44,9 @@ These changes also affect the following functions:
 `analyse_Al2O3C_ITC()`, `calc_Huntley2006()`, `plot_GrowthCurve()`.
 
 Internally, the following model arguments have been renamed, but in
-general this won’t affect end users: - for `GOK`: the `b` parameter is
-now called `D0`
+general this won’t affect end users: - for `SSE`, `SSE+LIN` and
+`SSE OR LIN`: the `a`, `b` and `c` parameters are now called `N`, `D0`
+and `Di`, respectively - for `GOK`: the `b` parameter is now called `D0`
 
 - Furthermore, the output object data frame was expanded to support new
   parameters for `D63` and `D80` consistently for `OTOR` and `OTORX`.

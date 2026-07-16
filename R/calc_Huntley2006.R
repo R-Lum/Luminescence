@@ -527,9 +527,9 @@ calc_Huntley2006 <- function(
   if (fit.method == "SSE") {
     model <- LxTx.measured ~ a * theta(dosetime, rhop_i) *
       (1 - exp(-(dosetime + c) / D0))
-    start <- list(a = coef(fit_measured)[["a"]],
+    start <- list(a = coef(fit_measured)[["N"]],
                   D0 = D0.measured / readerDdot,
-                  c = coef(fit_measured)[["c"]])
+                  c = coef(fit_measured)[["Di"]])
     lower.bounds <- lower.bounds[1:3]
 
     ## c = 0 if force_through_origin
@@ -791,12 +791,14 @@ calc_Huntley2006 <- function(
 
   ## run this first model also for GOK as in general it provides more
   ## stable estimates that can be used as starting point for GOK
+  var.name.a <- if (fit.method == "SSE") "N" else "a"
+  var.name.c <- if (fit.method == "SSE") "Di" else "c"
   fit_unfaded <- try(minpack.lm::nlsLM(
       LxTx.unfaded ~ a * (1 - exp(-(dosetimeGray + c) / D0)),
       start = list(
-        a = coef(fit_simulated)[["a"]],
+        a = coef(fit_simulated)[[var.name.a]],
         D0 = D0.measured / readerDdot,
-        c = coef(fit_simulated)[["c"]]),
+        c = coef(fit_simulated)[[var.name.c]]),
         upper = if(force_through_origin) {
            c(a = Inf, D0 = max(dosetimeGray), c = 0)
           } else {

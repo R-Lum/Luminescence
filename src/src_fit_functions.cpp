@@ -16,12 +16,12 @@ using namespace Rcpp;
 // fit_DoseResponseCurve() =====================================================
 // fit.functionSSE equivalent
 // [[Rcpp::export]]
-NumericVector fit_functionSSE_cpp(double a, double b, double c, NumericVector x) {
+NumericVector fit_functionSSE_cpp(double N, double D0, double Di, NumericVector x) {
   int n = x.size();
   NumericVector y(n);
 
   for(int i = 0; i < n; ++i) {
-    y[i] = a * (1.0 - exp(-(x[i] + c) / b));
+    y[i] = N * (1.0 - std::exp(-(x[i] + Di) / D0));
   }
 
   return y;
@@ -29,12 +29,12 @@ NumericVector fit_functionSSE_cpp(double a, double b, double c, NumericVector x)
 
 // fit.functionSSELIN equivalent
 // [[Rcpp::export]]
-NumericVector fit_functionSSELIN_cpp(double a, double b, double c, double g, NumericVector x) {
+NumericVector fit_functionSSELIN_cpp(double N, double D0, double Di, double g, NumericVector x) {
   int n = x.size();
   NumericVector y(n);
 
   for (int i = 0; i < n; ++i) {
-    y[i] = a * (1.0 - std::exp(-(x[i] + c) / b) + g * x[i]);
+    y[i] = N * (1.0 - std::exp(-(x[i] + Di) / D0) + g * x[i]);
   }
 
   return y;

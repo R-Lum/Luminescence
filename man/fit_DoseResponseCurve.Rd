@@ -170,7 +170,7 @@ The solution is found by transforming the function or using \link[stats:uniroot]
 \strong{Keyword: \code{LIN}}
 
 Fits a linear function to the data using \link{lm}:
-\deqn{y = mx + n}
+\deqn{y = mx + Di}
 
 \strong{Keyword: \code{QDR}}
 
@@ -180,9 +180,9 @@ Fits a linear function with a quadratic term to the data using  \link{lm}:
 \strong{Keyword: \code{SSE} (formerly \code{EXP})}
 
 Fits a single saturating exponential function of the form
-\deqn{y = a(1 - \exp(-\frac{(x+c)}{b}))}
+\deqn{y = N (1 - \exp(-\frac{x + Di}{D0}))}
 
-Parameters b and c are approximated by a linear fit using \link{lm}. Note: \eqn{b = D0}
+Parameters \eqn{D_0} and \eqn{D_i} are approximated by a linear fit using \link{lm}.
 
 \strong{Keyword: \verb{SSE OR LIN} (formerly \verb{EXP OR LIN})}
 
@@ -193,7 +193,7 @@ a \code{LIN} fit is done instead, which always works.
 
 Tries to fit an exponential plus linear function of the form:
 
-\deqn{y = a(1 - \exp(-\frac{x + c}{b}) + (gx))}
+\deqn{y = N(1 - \exp(-\frac{x + Di}{D0}) + gx)}
 The \eqn{D_e} is calculated by iteration.
 
 \strong{Note:} In the context of luminescence dating, this function has no physical meaning.
