@@ -118,17 +118,17 @@ BEGIN_RCPP
 END_RCPP
 }
 // fit_functionDSE_cpp
-NumericVector fit_functionDSE_cpp(double a1, double a2, double b1, double b2, NumericVector x);
-RcppExport SEXP _Luminescence_fit_functionDSE_cpp(SEXP a1SEXP, SEXP a2SEXP, SEXP b1SEXP, SEXP b2SEXP, SEXP xSEXP) {
+NumericVector fit_functionDSE_cpp(double N1, double N2, double D01, double D02, NumericVector x);
+RcppExport SEXP _Luminescence_fit_functionDSE_cpp(SEXP N1SEXP, SEXP N2SEXP, SEXP D01SEXP, SEXP D02SEXP, SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type a1(a1SEXP);
-    Rcpp::traits::input_parameter< double >::type a2(a2SEXP);
-    Rcpp::traits::input_parameter< double >::type b1(b1SEXP);
-    Rcpp::traits::input_parameter< double >::type b2(b2SEXP);
+    Rcpp::traits::input_parameter< double >::type N1(N1SEXP);
+    Rcpp::traits::input_parameter< double >::type N2(N2SEXP);
+    Rcpp::traits::input_parameter< double >::type D01(D01SEXP);
+    Rcpp::traits::input_parameter< double >::type D02(D02SEXP);
     Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(fit_functionDSE_cpp(a1, a2, b1, b2, x));
+    rcpp_result_gen = Rcpp::wrap(fit_functionDSE_cpp(N1, N2, D01, D02, x));
     return rcpp_result_gen;
 END_RCPP
 }

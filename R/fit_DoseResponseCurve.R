@@ -52,7 +52,7 @@
 #'
 #' Tries to fit a double exponential function of the form
 #'
-#' \deqn{y = (a_1 (1 - \exp(-\frac{x}{b_1}))) + (a_2 (1 - \exp(-\frac{x}{b_2})))}
+#' \deqn{y = N_1 (1 - \exp(-\frac{x}{D0_1})) + N_2 (1 - \exp(-\frac{x}{D0_2}))}
 #'
 #' *This fitting procedure is not really robust against wrong start parameters.*
 #'
@@ -431,10 +431,8 @@ fit_DoseResponseCurve <- function(
   fit.method_supported <- c("LIN", "QDR", "SSE", "SSE OR LIN",
                             "SSE+LIN", "DSE", "GOK", "OTOR", "OTORX")
   fit.method <- .validate_args(fit.method, fit.method_supported)
-  if (fit.method == "EXP+EXP" && mode == "extrapolation") {
-    .throw_error("Mode 'extrapolation' for fitting method 'EXP+EXP' ",
-                 "not supported")
-  }
+  if (fit.method == "DSE" && mode == "extrapolation")
+    .throw_error("Mode 'extrapolation' for fitting method 'DSE' not supported")
   .validate_logical_scalar(fit.force_through_origin)
   .validate_class(fit.weights, c("character", "numeric"), null.ok = TRUE)
   .validate_logical_scalar(fit.includingRepeatedRegPoints)
@@ -632,8 +630,8 @@ fit_DoseResponseCurve <- function(
     N * (1 - exp(-(x + Di) / D0) + g * x)
 
   ### DSE ------- (C++ version available)
-  fit.functionDSE <- function(a1, a2, b1, b2, x)
-    a1 * (1 - exp(-x / b1)) + a2 * (1 - exp(-x / b2))
+  fit.functionDSE <- function(N1, N2, D01, D02, x)
+    N1 * (1 - exp(-x / D01)) + N2 * (1 - exp(-x / D02))
 
   ### GOK ------- (C++ version available)
   fit.functionGOK <- function(a, D0, c, d, x)
@@ -1194,21 +1192,23 @@ fit_DoseResponseCurve <- function(
   ## DSE --------------------------------------------------------------------
   else if (fit.method == "DSE") {
     ## initialise objects
-    a1.start <-  a2.start <- b1.start <- b2.start <- NA
+    N1.start <- N2.start <- D01.start <- D02.start <- NA
 
     ## set fit bounds
     lower <- if (fit.bounds) rep(0, 4) else rep(-Inf, 4)
 
     ## try to create some start parameters from the input values to make the fitting more stable
     for (i in seq_along(a.MC)) {
-      a1 <- a.MC[i]; a2 <- a1 / 2
-      b1 <- b.MC[i]; b2 <- b1 / 2
+      N1 <- a.MC[i]
+      N2 <- N1 / 2
+      D01 <- b.MC[i]
+      D02 <- D01 / 2
 
       fit.start <- try({
         minpack.lm::nlsLM(
-        formula = y ~ fit_functionDSE_cpp(a1, a2, b1, b2, x),
+        formula = y ~ fit_functionDSE_cpp(N1, N2, D01, D02, x),
         data = data,
-        start = list(a1 = a1,a2 = a2,b1 = b1,b2 = b2),
+        start = list(N1 = N1, N2 = N2, D01 = D01, D02 = D02),
         trace = FALSE,
         algorithm = "LM",
         lower = lower,
@@ -1218,10 +1218,10 @@ fit_DoseResponseCurve <- function(
       if (!inherits(fit.start, "try-error")) {
         #get parameters out of it
         parameters <- coef(fit.start)
-        a1.start[i] <- as.numeric((parameters["a1"]))
-        b1.start[i] <- as.numeric((parameters["b1"]))
-        a2.start[i] <- as.numeric((parameters["a2"]))
-        b2.start[i] <- as.numeric((parameters["b2"]))
+        N1.start[i] <- parameters["N1"]
+        N2.start[i] <- parameters["N2"]
+        D01.start[i] <- parameters["D01"]
+        D02.start[i] <- parameters["D02"]
       }
     }
 
@@ -1229,10 +1229,10 @@ fit_DoseResponseCurve <- function(
     fit <- try(minpack.lm::nlsLM(
       formula = .toFormula(fit.functionDSE, env = currn_env),
       data = data,
-      start = list(a1 = median(a1.start, na.rm = TRUE),
-                   a2 = median(a2.start, na.rm = TRUE),
-                   b1 = median(b1.start, na.rm = TRUE),
-                   b2 = median(b2.start, na.rm = TRUE)),
+      start = list(N1 = median(N1.start, na.rm = TRUE),
+                   N2 = median(N2.start, na.rm = TRUE),
+                   D01 = median(D01.start, na.rm = TRUE),
+                   D02 = median(D02.start, na.rm = TRUE)),
       weights = fit.weights,
       trace = FALSE,
       algorithm = "LM",
@@ -1245,26 +1245,22 @@ fit_DoseResponseCurve <- function(
       #get parameters out of it
       .get_coef(fit)
 
-      ##set D0 values
-      D01 <- round(b1,digits = 2)
-      D02 <- round(b2,digits = 2)
-
       #problem: analytically it is not easy to calculate x, use uniroot
       De <- NA
       if (mode == "interpolation") {
         f.unirootDSE <-
-          function(a1, a2, b1, b2, x, LnTn) {
-            fit_functionDSE_cpp(a1, a2, b1, b2, x) - LnTn
+          function(N1, N2, D01, D02, x, LnTn) {
+            fit_functionDSE_cpp(N1, N2, D01, D02, x) - LnTn
           }
 
         temp.De <-  try(uniroot(
           f = f.unirootDSE,
           interval = c(0, max(xy$x) * 1.5),
           tol = 0.001,
-          a1 = a1,
-          a2 = a2,
-          b1 = b1,
-          b2 = b2,
+          N1 = N1,
+          N2 = N2,
+          D01 = D01,
+          D02 = D02,
           LnTn = object[1, 2],
           extendInt = "yes",
           maxiter = 3000
@@ -1294,7 +1290,7 @@ fit_DoseResponseCurve <- function(
       }
 
       #set variables
-      var.b1 <- var.b2 <- vector(mode="numeric", length=n.MC)
+      var.D01 <- var.D02 <- vector(mode = "numeric", length = n.MC)
 
       ## start Monte Carlo loops
       for (i in 1:n.MC) {
@@ -1303,9 +1299,9 @@ fit_DoseResponseCurve <- function(
 
         ##perform final fitting
         fit.MC <- try(minpack.lm::nlsLM(
-          formula = y ~ fit_functionDSE_cpp(a1, a2, b1, b2, x),
+          formula = y ~ fit_functionDSE_cpp(N1, N2, D01, D02, x),
           data = list(x=xy$x,y=data.MC[,i]),
-          start = list(a1 = a1, a2 = a2, b1 = b1, b2 = b2),
+          start = list(N1 = N1, N2 = N2, D01 = D01, D02 = D02),
           weights = fit.weights,
           trace = FALSE,
           algorithm = "LM",
@@ -1316,20 +1312,18 @@ fit_DoseResponseCurve <- function(
         #get parameters out of it including error handling
         if (!inherits(fit.MC, "try-error")) {
           parameters <- coef(fit.MC)
-          var.a1 <- as.numeric(parameters["a1"])
-          var.a2 <- as.numeric(parameters["a2"])
-          var.b1[i] <- as.numeric(parameters["b1"])
-          var.b2[i] <- as.numeric(parameters["b2"])
+          var.D01[i] <- parameters["D01"]
+          var.D02[i] <- parameters["D02"]
 
           #problem: analytically it is not easy to calculate x, here an simple approximation is made
           temp.De.MC <-  try(uniroot(
             f = f.unirootDSE,
             interval = c(0,max(xy$x) * 1.5),
             tol = 0.001,
-            a1 = var.a1,
-            a2 = var.a2,
-            b1 = var.b1[i],
-            b2 = var.b2[i],
+            N1 = parameters["N1"],
+            N2 = parameters["N2"],
+            D01 = var.D01[i],
+            D02 = var.D02[i],
             LnTn = data.MC.De[i]
           ), silent = TRUE)
 
@@ -1339,12 +1333,13 @@ fit_DoseResponseCurve <- function(
         } #end if "try-error" MC simulation
       } #end for loop
 
-      ##write D01.ERROR
-      D01.ERROR <- sd(var.b1, na.rm = TRUE)
-      D02.ERROR <- sd(var.b2, na.rm = TRUE)
+      D01 <- round(D01, digits = 2)
+      D02 <- round(D02, digits = 2)
+      D01.ERROR <- sd(var.D01, na.rm = TRUE)
+      D02.ERROR <- sd(var.D02, na.rm = TRUE)
 
       ##remove values
-      rm(var.b1, var.b2)
+      rm(var.D01, var.D02)
 
     }else{
       .report_fit_failure(fit.method, mode)

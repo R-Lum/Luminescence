@@ -42,14 +42,14 @@ NumericVector fit_functionSSELIN_cpp(double N, double D0, double Di, double g, N
 
 // fit.functionDSE equivalent
 // [[Rcpp::export]]
-NumericVector fit_functionDSE_cpp(double a1, double a2, double b1, double b2, NumericVector x) {
+NumericVector fit_functionDSE_cpp(double N1, double N2, double D01, double D02, NumericVector x) {
   int n = x.size();
   NumericVector y(n);
 
   for (int i = 0; i < n; ++i) {
-    double exp1 = 1.0 - std::exp(-x[i] / b1);
-    double exp2 = 1.0 - std::exp(-x[i] / b2);
-    y[i] = a1 * exp1 + a2 * exp2;
+    double exp1 = 1.0 - std::exp(-x[i] / D01);
+    double exp2 = 1.0 - std::exp(-x[i] / D02);
+    y[i] = N1 * exp1 + N2 * exp2;
   }
 
   return y;

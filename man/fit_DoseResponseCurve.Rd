@@ -203,7 +203,7 @@ Therefore, no \eqn{D_0} value is returned.
 
 Tries to fit a double exponential function of the form
 
-\deqn{y = (a_1 (1 - \exp(-\frac{x}{b_1}))) + (a_2 (1 - \exp(-\frac{x}{b_2})))}
+\deqn{y = N_1 (1 - \exp(-\frac{x}{D0_1})) + N_2 (1 - \exp(-\frac{x}{D0_2}))}
 
 \emph{This fitting procedure is not really robust against wrong start parameters.}
 

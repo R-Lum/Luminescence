@@ -46,7 +46,9 @@ These changes also affect the following functions:
 Internally, the following model arguments have been renamed, but in
 general this won’t affect end users: - for `SSE`, `SSE+LIN` and
 `SSE OR LIN`: the `a`, `b` and `c` parameters are now called `N`, `D0`
-and `Di`, respectively - for `GOK`: the `b` parameter is now called `D0`
+and `Di`, respectively - for `DSE`: the `a1`, `a2`, `b1`, `b2`
+parameters are now called
+`N1,`N2`,`D01`and`D02`, respectively   - for`GOK`: the`b`parameter is now called`D0\`
 
 - Furthermore, the output object data frame was expanded to support new
   parameters for `D63` and `D80` consistently for `OTOR` and `OTORX`.
