@@ -1196,6 +1196,9 @@ fit_DoseResponseCurve <- function(
     ## initialise objects
     a1.start <-  a2.start <- b1.start <- b2.start <- NA
 
+    ## set fit bounds
+    lower <- if (fit.bounds) rep(0, 4) else rep(-Inf, 4)
+
     ## try to create some start parameters from the input values to make the fitting more stable
     for (i in seq_along(a.MC)) {
       a1 <- a.MC[i]; a2 <- a1 / 2
@@ -1208,7 +1211,7 @@ fit_DoseResponseCurve <- function(
         start = list(a1 = a1,a2 = a2,b1 = b1,b2 = b2),
         trace = FALSE,
         algorithm = "LM",
-        lower = c(a1 = 1e-6, a2 = 1e-6, b1 = 1e-6, b2 = 1e-6),
+        lower = lower,
         control = minpack.lm::nls.lm.control(maxiter = 500))
       }, silent = TRUE)
 
@@ -1222,20 +1225,14 @@ fit_DoseResponseCurve <- function(
       }
     }
 
-    ##use obtained parameters for fit input
-    a1.start <- median(a1.start, na.rm = TRUE)
-    b1.start <- median(b1.start, na.rm = TRUE)
-    a2.start <- median(a2.start, na.rm = TRUE)
-    b2.start <- median(b2.start, na.rm = TRUE)
-
-    ## set fit bounds
-    lower <- if (fit.bounds) rep(0, 4) else rep(-Inf, 4)
-
     ##perform final fitting
     fit <- try(minpack.lm::nlsLM(
       formula = .toFormula(fit.functionEXPEXP, env = currn_env),
       data = data,
-      start = list(a1 = a1, b1 = b1, a2 = a2, b2 = b2),
+      start = list(a1 = median(a1.start, na.rm = TRUE),
+                   a2 = median(a2.start, na.rm = TRUE),
+                   b1 = median(b1.start, na.rm = TRUE),
+                   b2 = median(b2.start, na.rm = TRUE)),
       weights = fit.weights,
       trace = FALSE,
       algorithm = "LM",
@@ -1308,7 +1305,7 @@ fit_DoseResponseCurve <- function(
         fit.MC <- try(minpack.lm::nlsLM(
           formula = y ~ fit_functionEXPEXP_cpp(a1, a2, b1, b2, x),
           data = list(x=xy$x,y=data.MC[,i]),
-          start = list(a1 = a1, b1 = b1, a2 = a2, b2 = b2),
+          start = list(a1 = a1, a2 = a2, b1 = b1, b2 = b2),
           weights = fit.weights,
           trace = FALSE,
           algorithm = "LM",

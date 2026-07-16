@@ -1968,12 +1968,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1787.14784791]
+                  "value": [1787.14784894]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [35.66309016]
+                  "value": [35.66452023]
                 },
                 {
                   "type": "double",
@@ -1983,7 +1983,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [443.12216459]
+                  "value": [443.12641797]
                 },
                 {
                   "type": "double",
@@ -1993,7 +1993,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [4639326.25581932]
+                  "value": [4407822.8505969]
                 },
                 {
                   "type": "double",
@@ -2063,7 +2063,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1774.94833286]
+                  "value": [1774.94687884]
                 },
                 {
                   "type": "character",
@@ -2078,39 +2078,39 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1740.89124425]
+                  "value": [1740.88637871]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1823.67087131]
+                  "value": [1823.67021799]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1698.41792774]
+                  "value": [1698.41090096]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1842.30712243]
+                  "value": [1842.30741741]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1787.14784791]
+                  "value": [1787.14784894]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1787.14784791]
+                  "value": [1787.14784894]
                 }
               ]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": ["NA", 1734.98901585, 1808.5870704, 1798.14652188, 1812.59863235, "NA", "NA", 1721.62539999, 1781.52435922, 1767.16733035]
+              "value": ["NA", 1734.98901575, 1808.58705069, 1798.14634135, 1812.59811933, "NA", "NA", 1721.61885041, 1781.52144976, 1767.16732456]
             },
             {
               "type": "list",
