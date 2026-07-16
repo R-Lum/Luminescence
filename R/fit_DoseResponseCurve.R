@@ -431,6 +431,10 @@ fit_DoseResponseCurve <- function(
   fit.method_supported <- c("LIN", "QDR", "EXP", "EXP OR LIN",
                             "EXP+LIN", "EXP+EXP", "GOK", "OTOR", "OTORX")
   fit.method <- .validate_args(fit.method, fit.method_supported)
+  if (fit.method == "EXP+EXP" && mode == "extrapolation") {
+    .throw_error("Mode 'extrapolation' for fitting method 'EXP+EXP' ",
+                 "not supported")
+  }
   .validate_logical_scalar(fit.force_through_origin)
   .validate_class(fit.weights, c("character", "numeric"), null.ok = TRUE)
   .validate_logical_scalar(fit.includingRepeatedRegPoints)
@@ -1276,10 +1280,6 @@ fit_DoseResponseCurve <- function(
 
         ##remove object
         rm(temp.De)
-
-      }else if (mode == "extrapolation"){
-        .throw_error("Mode 'extrapolation' for fitting method 'EXP+EXP' ",
-                     "not supported")
       }
 
       #print D0 and De value values
