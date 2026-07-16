@@ -95,7 +95,7 @@ test_that("graphical snapshot tests", {
     vdiffr::expect_doppelganger(var,
                                 fit_DoseResponseCurve(
                                     object = LxTxData,
-                                    fit.method = "EXP",
+                                    fit.method = "SSE",
                                     fit.weights = if (var == "NULL") NULL else var) |>
                                 plot_DoseResponseCurve(plot_extended = FALSE,
                                                        main = var,

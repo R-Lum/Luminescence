@@ -95,7 +95,7 @@
 #' analyse_SAR.TL(
 #'  object = object,
 #'  signal_integral = 210:220,
-#'  fit.method = "EXP OR LIN",
+#'  fit.method = "SSE OR LIN",
 #'  sequence.structure = c("SIGNAL", "BACKGROUND"))
 #'
 #' @export

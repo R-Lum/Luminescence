@@ -459,7 +459,7 @@
 <text x='446.32' y='43.65' style='font-size: 10.94px; font-family: sans;' textLength='7.91px' lengthAdjust='spacingAndGlyphs'>D</text>
 <text x='454.23' y='45.67' style='font-size: 7.66px; font-family: sans;' textLength='4.26px' lengthAdjust='spacingAndGlyphs'>e</text>
 <text x='461.03' y='43.65' style='font-size: 10.94px; font-family: sans;' textLength='8.50px' lengthAdjust='spacingAndGlyphs'>=</text>
-<text x='472.06' y='43.65' style='font-size: 10.94px; font-family: sans;' textLength='143.02px' lengthAdjust='spacingAndGlyphs'>1746.84 ± 3.6e+01  |  fit: EXP</text>
+<text x='472.06' y='43.65' style='font-size: 10.94px; font-family: sans;' textLength='143.02px' lengthAdjust='spacingAndGlyphs'>1746.84 ± 3.6e+01  |  fit: SSE</text>
 </g>
 <g clip-path='url(#cpNDYwLjY4fDYwMC43M3w0OS4yNXwxNjQuNzQ=)'>
 <circle cx='469.29' cy='60.74' r='2.15' style='stroke-width: 0.75; fill: #000000;' />

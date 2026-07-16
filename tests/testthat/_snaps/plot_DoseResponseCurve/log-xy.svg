@@ -200,7 +200,7 @@
 <text x='312.31' y='30.63' style='font-size: 7.68px; font-family: sans;' textLength='5.55px' lengthAdjust='spacingAndGlyphs'>D</text>
 <text x='317.86' y='32.05' style='font-size: 5.38px; font-family: sans;' textLength='2.99px' lengthAdjust='spacingAndGlyphs'>e</text>
 <text x='322.62' y='30.63' style='font-size: 7.68px; font-family: sans;' textLength='5.96px' lengthAdjust='spacingAndGlyphs'>=</text>
-<text x='330.36' y='30.63' style='font-size: 7.68px; font-family: sans;' textLength='100.37px' lengthAdjust='spacingAndGlyphs'>1737.71 ± 6.1e+01  |  fit: EXP</text>
+<text x='330.36' y='30.63' style='font-size: 7.68px; font-family: sans;' textLength='100.37px' lengthAdjust='spacingAndGlyphs'>1737.71 ± 6.1e+01  |  fit: SSE</text>
 </g>
 <g clip-path='url(#cpMjAyLjU2fDU0MC40OHwzNC41NnwzNDkuNDQ=)'>
 <circle cx='208.61' cy='42.62' r='1.51' style='stroke-width: 0.75; fill: #000000;' />

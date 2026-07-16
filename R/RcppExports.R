@@ -21,16 +21,16 @@ src_create_RLumDataCurve_matrix <- function(DATA, VERSION, NPOINTS, LTYPE, LOW, 
     .Call(`_Luminescence_create_RLumDataCurve_matrix`, DATA, VERSION, NPOINTS, LTYPE, LOW, HIGH, AN_TEMP, TOLDELAY, TOLON, TOLOFF)
 }
 
-fit_functionEXP_cpp <- function(a, b, c, x) {
-    .Call(`_Luminescence_fit_functionEXP_cpp`, a, b, c, x)
+fit_functionSSE_cpp <- function(a, b, c, x) {
+    .Call(`_Luminescence_fit_functionSSE_cpp`, a, b, c, x)
 }
 
-fit_functionEXPLIN_cpp <- function(a, b, c, g, x) {
-    .Call(`_Luminescence_fit_functionEXPLIN_cpp`, a, b, c, g, x)
+fit_functionSSELIN_cpp <- function(a, b, c, g, x) {
+    .Call(`_Luminescence_fit_functionSSELIN_cpp`, a, b, c, g, x)
 }
 
-fit_functionEXPEXP_cpp <- function(a1, a2, b1, b2, x) {
-    .Call(`_Luminescence_fit_functionEXPEXP_cpp`, a1, a2, b1, b2, x)
+fit_functionDSE_cpp <- function(a1, a2, b1, b2, x) {
+    .Call(`_Luminescence_fit_functionDSE_cpp`, a1, a2, b1, b2, x)
 }
 
 fit_functionGOK_cpp <- function(a, b, c, d, x) {

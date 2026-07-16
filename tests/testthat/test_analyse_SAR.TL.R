@@ -51,11 +51,11 @@ test_that("input validation", {
                "Signal ranges differ (225, 250), check sequence structure",
                fixed = TRUE)
 
-  expect_output(expect_null(
+  expect_null(expect_output(
       analyse_SAR.TL(object[1:4], fit.method = "ERROR",
                      signal_integral = 2:3,
                      sequence.structure = "SIGNAL"),
-      "'fit.method' should be one of 'LIN', 'QDR', 'EXP', 'EXP OR LIN'"))
+      "'fit.method' should be one of 'LIN', 'QDR', 'SSE', 'SSE OR LIN'"))
 
   ## deprecated argument
   expect_warning(analyse_SAR.TL(object, signal.integral = 2:3,

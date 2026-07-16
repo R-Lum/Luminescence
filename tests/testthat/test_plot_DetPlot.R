@@ -103,7 +103,7 @@ test_that("plot_DetPlot", {
     signal_integral = 1:3,
     background_integral = 900:1000,
     analyse_function.control = list(
-      fit.method = "EXP"),
+      fit.method = "SSE"),
     verbose = FALSE,
     n.channels = 1)),
     "RLum.Results")

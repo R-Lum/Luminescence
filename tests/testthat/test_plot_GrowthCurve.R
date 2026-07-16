@@ -14,7 +14,7 @@ test_that("input validation", {
       fixed = TRUE)
   expect_error(
       plot_GrowthCurve(LxTxData, fit.method = "error"),
-      "'fit.method' should be one of 'LIN', 'QDR', 'EXP', 'EXP OR LIN'")
+      "'fit.method' should be one of 'LIN', 'QDR', 'SSE', 'SSE OR LIN'")
   expect_error(
       plot_GrowthCurve(LxTxData, output.plotExtended = "error"),
       "'output.plotExtended' should be a single logical value")
@@ -84,16 +84,16 @@ test_that("main tests", {
   testthat::skip_on_cran()
 
   expect_output(plot_GrowthCurve(LxTxData,
-                                 fit.method = "EXP",
+                                 fit.method = "SSE",
                                  n.MC = 10))
   expect_output(plot_GrowthCurve(LxTxData,
                                  fit.method = "LIN",
                                  n.MC = 10))
   expect_output(plot_GrowthCurve(LxTxData,
-                                 fit.method = "EXP+LIN",
+                                 fit.method = "SSE+LIN",
                                  n.MC = 10))
   expect_output(plot_GrowthCurve(LxTxData,
-                                 fit.method = "EXP+EXP",
+                                 fit.method = "DSE",
                                  n.MC = 10))
   expect_output(plot_GrowthCurve(LxTxData,
                                  fit.method = "QDR",
@@ -107,7 +107,7 @@ test_that("main tests", {
 
   ## force through the origin
   expect_output(plot_GrowthCurve(LxTxData,
-                                 fit.method = "EXP+LIN",
+                                 fit.method = "SSE+LIN",
                                  fit.bounds = FALSE,
                                  fit.force_through_origin = TRUE,
                                  n.MC = 10))
@@ -130,11 +130,11 @@ test_that("additional tests", {
                                  mode = "extrapolation",
                                  n.MC = 10))
   expect_output(plot_GrowthCurve(LxTxData,
-                                 fit.method = "EXP",
+                                 fit.method = "SSE",
                                  mode = "extrapolation",
                                  n.MC = 10))
   expect_output(plot_GrowthCurve(LxTxData,
-                                 fit.method = "EXP+LIN",
+                                 fit.method = "SSE+LIN",
                                  mode = "extrapolation",
                                  n.MC = 10))
   expect_output(plot_GrowthCurve(LxTxData,
@@ -164,11 +164,11 @@ test_that("additional tests", {
                                  mode = "alternate",
                                  n.MC = 10))
   expect_output(plot_GrowthCurve(LxTxData,
-                                 fit.method = "EXP",
+                                 fit.method = "SSE",
                                  mode = "alternate",
                                  n.MC = 10))
   expect_silent(plot_GrowthCurve(LxTxData,
-                                 fit.method = "EXP+LIN",
+                                 fit.method = "SSE+LIN",
                                  mode = "alternate",
                                  verbose = FALSE,
                                  n.MC = 10))

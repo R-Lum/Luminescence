@@ -264,7 +264,7 @@ plot_DetPlot <- function(
      dose.points = NULL,
      dose_rate_source = NULL,
      mtext.outer = "",
-     fit.method = "EXP",
+     fit.method = "SSE",
      fit.force_through_origin = FALSE,
      trim_channels = FALSE,
      plot = FALSE,

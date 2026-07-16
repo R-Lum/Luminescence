@@ -245,7 +245,7 @@
 #' @param fit.method [character] (*with default*):
 #' equation used both for the fitting of the dose-response curve using function
 #' [Luminescence::fit_DoseResponseCurve] and then for the Bayesian modelling.
-#' Supported methods: `EXP`, `EXP+LIN` and `LIN`.
+#' Supported methods: `SSE`, `SSE+LIN` and `LIN`.
 #'
 #' @param fit.force_through_origin [logical] (*with default*):
 #' force fitting through origin
@@ -427,7 +427,7 @@ analyse_baSAR <- function(
   distribution = "cauchy",
   baSAR_model = NULL,
   n.MCMC = 100000,
-  fit.method = c("EXP", "EXP+LIN", "LIN"),
+  fit.method = c("SSE", "SSE+LIN", "LIN"),
   fit.force_through_origin = TRUE,
   fit.includingRepeatedRegPoints = TRUE,
   method_control = list(),
@@ -749,7 +749,7 @@ analyse_baSAR <- function(
                                                  "log_normal", "user_defined"))
   .validate_class(baSAR_model, "character", length = 1, null.ok = TRUE)
   .validate_positive_scalar(n.MCMC, int = TRUE)
-  fit.method <- .validate_args(fit.method, c("EXP", "EXP+LIN", "LIN"))
+  fit.method <- .validate_args(fit.method, c("SSE", "SSE+LIN", "LIN"))
   .validate_nonnegative_scalar(digits, int = TRUE)
   distribution_plot <- .validate_args(distribution_plot, c("kde", "abanico"),
                                       null.ok = TRUE) %||% ""
@@ -1485,7 +1485,7 @@ analyse_baSAR <- function(
 
   # Call baSAR-function -------------------------------------------------------------------------
 
-  ExpoGC <- as.numeric(grepl("EXP", fit.method))
+  ExpoGC <- as.numeric(grepl("SSE", fit.method))
   LinGC <- as.numeric(grepl("LIN", fit.method))
   GC_Origin <- as.numeric(fit.force_through_origin)
 

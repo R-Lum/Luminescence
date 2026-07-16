@@ -143,7 +143,7 @@ object <- set_RLum(class = "RLum.Analysis", records = object, protocol = "pIRIR"
 results <- analyse_pIRIRSequence(object,
      signal_integral = 1:2,
      background_integral = 900:1000,
-     fit.method = "EXP",
+     fit.method = "SSE",
      sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
      main = "Pseudo pIRIR data set based on quartz OSL",
      plot_singlePanels = TRUE)
@@ -157,7 +157,7 @@ pdf(file = tempfile, height = 18, width = 18)
   results <- analyse_pIRIRSequence(object,
          signal_integral = 1:2,
          background_integral = 900:1000,
-         fit.method = "EXP",
+         fit.method = "SSE",
          main = "Pseudo pIRIR data set based on quartz OSL")
 
   dev.off()

@@ -39,7 +39,7 @@
                   "value": ["cauchy"]
                 },
                 {
-                  "type": "integer",
+                  "type": "double",
                   "attributes": {},
                   "value": [3]
                 },
@@ -56,7 +56,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "double",
@@ -534,7 +534,7 @@
                   "value": ["cauchy"]
                 },
                 {
-                  "type": "integer",
+                  "type": "double",
                   "attributes": {},
                   "value": [3]
                 },
@@ -551,7 +551,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "double",

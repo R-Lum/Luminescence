@@ -1,9 +1,9 @@
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Title:   Collection of fit functions and models in C++
-// Author:  F2.1 Geophysical Parametrisation/Regionalisation, 
+// Author:  F2.1 Geophysical Parametrisation/Regionalisation,
 // LIAG - Institute for Applied Geophysics (Hannover, Germany)
 // Contact: sebastian.kreutzer@uni-heidelberg.de
-// Version: 0.1.0 [2025-04-19]
+// Version: 0.1.1 [2026-07-16]
 // The purpose of this function is the reduce the overhead when used in
 // with minpack.lm
 // This function was adapted with assistance from ChatGPT (OpenAI)
@@ -14,9 +14,9 @@
 using namespace Rcpp;
 
 // fit_DoseResponseCurve() =====================================================
-// fit.functionEXP equivalent
+// fit.functionSSE equivalent
 // [[Rcpp::export]]
-NumericVector fit_functionEXP_cpp(double a, double b, double c, NumericVector x) {
+NumericVector fit_functionSSE_cpp(double a, double b, double c, NumericVector x) {
   int n = x.size();
   NumericVector y(n);
 
@@ -26,9 +26,10 @@ NumericVector fit_functionEXP_cpp(double a, double b, double c, NumericVector x)
 
   return y;
 }
-// fit.functionEXPLIN equivalent
+
+// fit.functionSSELIN equivalent
 // [[Rcpp::export]]
-NumericVector fit_functionEXPLIN_cpp(double a, double b, double c, double g, NumericVector x) {
+NumericVector fit_functionSSELIN_cpp(double a, double b, double c, double g, NumericVector x) {
   int n = x.size();
   NumericVector y(n);
 
@@ -38,9 +39,10 @@ NumericVector fit_functionEXPLIN_cpp(double a, double b, double c, double g, Num
 
   return y;
 }
-// fit.functionEXPEXP equivalent
+
+// fit.functionDSE equivalent
 // [[Rcpp::export]]
-NumericVector fit_functionEXPEXP_cpp(double a1, double a2, double b1, double b2, NumericVector x) {
+NumericVector fit_functionDSE_cpp(double a1, double a2, double b1, double b2, NumericVector x) {
   int n = x.size();
   NumericVector y(n);
 
@@ -52,6 +54,7 @@ NumericVector fit_functionEXPEXP_cpp(double a1, double a2, double b1, double b2,
 
   return y;
 }
+
 // fit.functionGOK equivalent
 // [[Rcpp::export]]
 NumericVector fit_functionGOK_cpp(double a, double b, double c, double d, NumericVector x) {

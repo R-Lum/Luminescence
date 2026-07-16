@@ -31,6 +31,18 @@ strongly advise updating regardless. The old results can still be
 reproduced using option `fit.weights = "norm_inverse_std"` in the
 affected functions.
 
+- The `fit.method` parameters have undergone some renaming to make them
+  more rigorous (#1604):
+  - `EXP` is now called `SSE` (single saturating exponential);
+    similarly, `EXP+LIN` and `EXP OR LIN` are now `SSE+LIN` and
+    `SSE OR LIN`, respectively.
+  - `EXP+EXP` is now called `DSE` (double saturating exponential)
+
+These changes also affect the following functions:
+`analyse_SAR.CWOSL()`, `analyse_SAR.TL()`, `analyse_baSAR()`,
+`analyse_pIRIRSequence()`, `analyse_Al2O3C_CrossTalk()`,
+`analyse_Al2O3C_ITC()`, `calc_Huntley2006()`, `plot_GrowthCurve()`.
+
 - Furthermore, the output object data frame was expanded to support new
   parameters for `D63` and `D80` consistently for `OTOR` and `OTORX`.
   Along with this, we modified the uncertainty calculation for `Dc`,
