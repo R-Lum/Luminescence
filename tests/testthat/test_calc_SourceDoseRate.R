@@ -83,6 +83,13 @@ test_that("snapshot tests", {
                                            calib.error = 0.0019,
                                            predict = c(-10, 10)),
                        tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(calc_SourceDoseRate(measurement.date = c("2012-01-01", "2014-01-01"),
+                                           calib.date = "2014-12-19",
+                                           calib.dose.rate = 0.0438,
+                                           calib.error = 0.0019,
+                                           predict = 10),
+                       tolerance = snapshot.tolerance)
 })
 
 test_that("graphical snapshot tests", {
