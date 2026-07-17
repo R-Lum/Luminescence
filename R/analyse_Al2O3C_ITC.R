@@ -185,7 +185,7 @@ analyse_Al2O3C_ITC <- function(
   #set method control
   method_control_settings <- list(
     mode = "extrapolation",
-    fit.method = "EXP"
+    fit.method = "SSE"
   )
 
   ## modify on request

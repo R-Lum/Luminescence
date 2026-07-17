@@ -94,7 +94,7 @@
 plot_GrowthCurve <- function(
   object,
   mode = "interpolation",
-  fit.method = "EXP",
+  fit.method = "SSE",
   output.plot = TRUE,
   output.plotExtended = TRUE,
   plot_singlePanels = FALSE,

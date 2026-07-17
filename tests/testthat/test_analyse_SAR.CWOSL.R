@@ -208,7 +208,7 @@ test_that("check functionality", {
       signal.integral.max = NA,
       background.integral.min = NA,
       background.integral.max = NA,
-      fit.method = "EXP",
+      fit.method = "SSE",
       plot = FALSE,
       verbose = FALSE,
       fit.weights = NULL
@@ -221,7 +221,7 @@ test_that("check functionality", {
       object = object[1],
       signal_integral = NA,
       background_integral = 900:1000,
-      fit.method = "EXP",
+      fit.method = "SSE",
       plot = FALSE,
       verbose = FALSE,
       fit.weights = NULL
@@ -259,7 +259,7 @@ test_that("check functionality", {
       signal.integral.max = NA,
       background.integral.min = NA,
       background.integral.max = NA,
-      fit.method = "EXP",
+      fit.method = "SSE",
       plot = FALSE,
       verbose = FALSE
     )),
@@ -291,7 +291,7 @@ test_that("check functionality", {
       object = object[[1]],
       signal_integral = 1:2,
       background_integral = 900:1000,
-      fit.method = "EXP",
+      fit.method = "SSE",
       plot = TRUE,
       plot_singlePanels = TRUE
     ),
@@ -948,7 +948,7 @@ test_that("regression tests", {
   expect_message(analyse_SAR.CWOSL(object, signal_integral = 1:4,
                                    background_integral = 100:200,
                                    dose.points = 0:6),
-                 "[analyse_SAR.CWOSL()] ALQ: #1 | Fit failed for EXP (interpolation)",
+                 "[analyse_SAR.CWOSL()] ALQ: #1 | Fit failed for SSE (interpolation)",
                  fixed = TRUE)
   })
 

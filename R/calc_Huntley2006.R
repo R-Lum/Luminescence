@@ -17,7 +17,7 @@
 #'
 #' **Kars et al. (2008) -- Single saturating exponential**
 #'
-#' To apply the approach after Kars et al. (2008), use `fit.method = "EXP"`.
+#' To apply the approach after Kars et al. (2008), use `fit.method = "SSE"`.
 #'
 #' Firstly, the unfaded \eqn{D_0} value is determined through applying equation 5 of
 #' Kars et al. (2008) to the measured \eqn{\frac{L_x}{T_x}} data as a function of irradiation
@@ -153,8 +153,8 @@
 #' pre-exponential factor `A` (see details).
 #'
 #' @param fit.method [character] (*with default*):
-#' Fit function of the dose response curve. Can either be `"EXP"` (default) or
-#' `"GOK"`. Note that `"EXP"` (single saturating exponential) is the original
+#' Fit function of the dose response curve. Can either be `"SSE"` (default) or
+#' `"GOK"`. Note that `"SSE"` (single saturating exponential) is the original
 #' function the model after Huntley (2006) and Kars et al. (2008) was
 #' designed to use. The use of a general-order kinetics function (`"GOK"`)
 #' is an experimental adaptation of the model and should be used
@@ -167,7 +167,7 @@
 #' a best fit, but sometimes it may be useful to restrict the lower bounds to
 #' e.g. `c(0, 0, 0, 0)`. The values of the vectors are, respectively, for
 #' parameters `a`, `D0`, `c` and `d` in that order (parameter `d` is ignored
-#' when `fit.method = "EXP"`). More details can be found in
+#' when `fit.method = "SSE"`). More details can be found in
 #' [Luminescence::fit_DoseResponseCurve].
 #'
 #' @param cores [integer] (*with default*):
@@ -309,7 +309,7 @@ calc_Huntley2006 <- function(
     ddot = NULL,
     readerDdot = NULL,
     normalise = TRUE,
-    fit.method = c("EXP", "GOK"),
+    fit.method = c("SSE", "GOK"),
     lower.bounds = c(-Inf, -Inf, -Inf, -Inf),
     cores = 1,
     summary = TRUE,
@@ -323,7 +323,7 @@ calc_Huntley2006 <- function(
 
   .validate_class(data, "data.frame")
   .validate_class(LnTn, "data.frame", null.ok = TRUE)
-  fit.method <- .validate_args(fit.method, c("EXP", "GOK"))
+  fit.method <- .validate_args(fit.method, c("SSE", "GOK"))
   .validate_class(lower.bounds, "numeric", length = 4)
   .validate_logical_scalar(summary)
   .validate_logical_scalar(plot)
@@ -524,12 +524,12 @@ calc_Huntley2006 <- function(
   # create MC samples
   rhop_MC <- rnorm(n = settings$n.MC, mean = rhop[1], sd = rhop[2])
 
-  if (fit.method == "EXP") {
+  if (fit.method == "SSE") {
     model <- LxTx.measured ~ a * theta(dosetime, rhop_i) *
       (1 - exp(-(dosetime + c) / D0))
-    start <- list(a = coef(fit_measured)[["a"]],
+    start <- list(a = coef(fit_measured)[["N"]],
                   D0 = D0.measured / readerDdot,
-                  c = coef(fit_measured)[["c"]])
+                  c = coef(fit_measured)[["Di"]])
     lower.bounds <- lower.bounds[1:3]
 
     ## c = 0 if force_through_origin
@@ -666,7 +666,7 @@ calc_Huntley2006 <- function(
   A.pr.ddots <- A * pr * scaled.ddots
   inv.UFD0.K <- 1 / scaled.ddots / UFD0
   fun <- list(
-    EXP = function(k) A.pr.ddots[k] *
+    SSE = function(k) A.pr.ddots[k] *
         (1 - exp(-(natdosetime + c_val) * inv.UFD0.K[k])),
     GOK = function(k) A.pr.ddots[k] *
         (d_gok - (1 + inv.UFD0.K[k] * natdosetime * c_val)^(-1 / c_val)))
@@ -791,12 +791,14 @@ calc_Huntley2006 <- function(
 
   ## run this first model also for GOK as in general it provides more
   ## stable estimates that can be used as starting point for GOK
+  var.name.a <- if (fit.method == "SSE") "N" else "a"
+  var.name.c <- if (fit.method == "SSE") "Di" else "c"
   fit_unfaded <- try(minpack.lm::nlsLM(
       LxTx.unfaded ~ a * (1 - exp(-(dosetimeGray + c) / D0)),
       start = list(
-        a = coef(fit_simulated)[["a"]],
+        a = coef(fit_simulated)[[var.name.a]],
         D0 = D0.measured / readerDdot,
-        c = coef(fit_simulated)[["c"]]),
+        c = coef(fit_simulated)[[var.name.c]]),
         upper = if(force_through_origin) {
            c(a = Inf, D0 = max(dosetimeGray), c = 0)
           } else {
@@ -807,8 +809,8 @@ calc_Huntley2006 <- function(
       control = list(maxiter = settings$maxiter)), silent = TRUE)
 
   ## if this fit has failed, what we do depends on fit.method:
-  ## - for EXP, this error is irrecoverable
-  if (inherits(fit_unfaded, "try-error") && fit.method == "EXP") {
+  ## - for SSE, this error is irrecoverable
+  if (inherits(fit_unfaded, "try-error") && fit.method == "SSE") {
     .throw_error("Could not fit unfaded curve, check suitability of ",
                  "model and parameters")
   }

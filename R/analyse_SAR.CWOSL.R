@@ -302,7 +302,7 @@
 #' signal_integral = 1:2,
 #' background_integral = 900:1000,
 #' log = "x",
-#' fit.method = "EXP",
+#' fit.method = "SSE",
 #' plot_onePage = TRUE,
 #' rejection.criteria = list(
 #'   recycling.ratio = 10,
@@ -953,7 +953,7 @@ analyse_SAR.CWOSL<- function(
       Dc.LOWER = NA,
       Dc.UPPER = NA,
       D63 = NA,
-      D63.LOWER = NA, 
+      D63.LOWER = NA,
       D63.UPPER = NA,
       D80 = NA,
       D80.LOWER = NA,

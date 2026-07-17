@@ -27,7 +27,7 @@ test_that("input validation", {
                                         recordType = "error"),
                "'object' contains no records with recordType = 'error'")
   expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk,
-                                        method_control = "EXP"),
+                                        method_control = "SSE"),
                "'method_control' should be of class 'list'")
   expect_error(analyse_Al2O3C_CrossTalk(data_CrossTalk,
                                         irradiation_time_correction = FALSE),

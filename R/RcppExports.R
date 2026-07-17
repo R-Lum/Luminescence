@@ -21,20 +21,20 @@ src_create_RLumDataCurve_matrix <- function(DATA, VERSION, NPOINTS, LTYPE, LOW, 
     .Call(`_Luminescence_create_RLumDataCurve_matrix`, DATA, VERSION, NPOINTS, LTYPE, LOW, HIGH, AN_TEMP, TOLDELAY, TOLON, TOLOFF)
 }
 
-fit_functionEXP_cpp <- function(a, b, c, x) {
-    .Call(`_Luminescence_fit_functionEXP_cpp`, a, b, c, x)
+fit_functionSSE_cpp <- function(N, D0, Di, x) {
+    .Call(`_Luminescence_fit_functionSSE_cpp`, N, D0, Di, x)
 }
 
-fit_functionEXPLIN_cpp <- function(a, b, c, g, x) {
-    .Call(`_Luminescence_fit_functionEXPLIN_cpp`, a, b, c, g, x)
+fit_functionSSELIN_cpp <- function(N, D0, Di, g, x) {
+    .Call(`_Luminescence_fit_functionSSELIN_cpp`, N, D0, Di, g, x)
 }
 
-fit_functionEXPEXP_cpp <- function(a1, a2, b1, b2, x) {
-    .Call(`_Luminescence_fit_functionEXPEXP_cpp`, a1, a2, b1, b2, x)
+fit_functionDSE_cpp <- function(N1, N2, D01, D02, x) {
+    .Call(`_Luminescence_fit_functionDSE_cpp`, N1, N2, D01, D02, x)
 }
 
-fit_functionGOK_cpp <- function(a, b, c, d, x) {
-    .Call(`_Luminescence_fit_functionGOK_cpp`, a, b, c, d, x)
+fit_functionGOK_cpp <- function(a, D0, c, d, x) {
+    .Call(`_Luminescence_fit_functionGOK_cpp`, a, D0, c, d, x)
 }
 
 src_get_XSYG_curve_values <- function(s) {

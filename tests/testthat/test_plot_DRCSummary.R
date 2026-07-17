@@ -21,7 +21,7 @@ test_that("input validation", {
   err <- merge_RLum(list(results, results))
   err@data$data$Fit[2] <- "err"
   expect_error(plot_DRCSummary(err),
-               "Dose-response curves fitted using different equations: 'EXP', 'err'")
+               "Dose-response curves fitted using different equations: 'SSE', 'err'")
 })
 
 test_that("Test plotting", {

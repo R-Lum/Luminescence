@@ -27,7 +27,7 @@ test_that("input validation", {
                "'data' should have at least 2 columns")
 
   expect_error(calc_Huntley2006(data, fit.method = "test"),
-               "'fit.method' should be one of 'EXP' or 'GOK'")
+               "'fit.method' should be one of 'SSE' or 'GOK'")
   expect_error(calc_Huntley2006(data, fit.method = "GOK", lower.bounds = 0),
                "'lower.bounds' should be of class 'numeric' and have length 4")
 
@@ -118,7 +118,7 @@ test_that("Further tests calc_Huntley2006", {
         plot = TRUE, verbose = FALSE),
       tolerance = snapshot.tolerance)
 
-  ## check force through origin EXP with wrong mode settings
+  ## check force through origin SSE with wrong mode settings
   set.seed(1)
   expect_snapshot_RLum(
       calc_Huntley2006(
@@ -127,14 +127,14 @@ test_that("Further tests calc_Huntley2006", {
         ddot = ddot,
         readerDdot = readerDdot,
         n.MC = 100,
-        fit.method = "EXP",
+        fit.method = "SSE",
         fit.force_through_origin = TRUE,
         mode = "extrapolation",
         plot = FALSE,
         verbose = FALSE),
       tolerance = max(snapshot.tolerance, 1.0e-2))
 
-  ## EXP ... normal
+  ## SSE ... normal
   set.seed(1)
   expect_snapshot_RLum(
       calc_Huntley2006(
@@ -143,7 +143,7 @@ test_that("Further tests calc_Huntley2006", {
         ddot = ddot,
         readerDdot = readerDdot,
         n.MC = 100,
-        fit.method = "EXP",
+        fit.method = "SSE",
         fit.force_through_origin = TRUE,
         mode = "interpolation",
         plot = FALSE,
@@ -184,14 +184,14 @@ test_that("Further tests calc_Huntley2006", {
     ddot = c(6.96, 0.29),
     readerDdot = c(0.094, 0.01),
     normalise = FALSE,
-    fit.method = "EXP",
+    fit.method = "SSE",
     summary = TRUE,
     plot = TRUE,
     n.MC = 100),
     regexp = "\\[calc\\_Huntley2006\\(\\)\\] Ln\\/Tn is smaller than the minimum computed LxTx value.")
   })
 
-  ## failing to fit unfaded EXP model
+  ## failing to fit unfaded SSE model
   ## test derived from data provided by Salome Oehler
   input <- data.frame(dose = c(0, 1550, 9300, 37200, 71500,
                                0, 1550, 9300, 37200, 71500),
@@ -204,7 +204,7 @@ test_that("Further tests calc_Huntley2006", {
                                 rhop = c(6.5e-06, 2.0e-08),
                                 ddot = c(8.5, 1.5),
                                 fit.weights = "norm_inverse_std",
-                                fit.method = "EXP",
+                                fit.method = "SSE",
                                 mode = "extrapolation",
                                 readerDdot = c(0.154, 0.1),
                                 n.MC = 2),

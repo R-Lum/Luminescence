@@ -1380,7 +1380,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "logical",
@@ -2095,7 +2095,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "logical",

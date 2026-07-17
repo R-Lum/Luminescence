@@ -136,7 +136,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "character",
@@ -235,7 +235,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "character",
@@ -299,7 +299,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit:    EXP (interpolation) | De = 1737.71 | D01 = 1721.83"]
+              "value": ["Fit:    SSE (interpolation) | De = 1737.71 | D01 = 1721.83"]
             }
           ]
         },
@@ -458,7 +458,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "character",
@@ -557,7 +557,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "character",
@@ -621,7 +621,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit:    EXP (interpolation) | De = 1746.54 | D01 = 1869.09"]
+              "value": ["Fit:    SSE (interpolation) | De = 1746.54 | D01 = 1869.09"]
             }
           ]
         },
@@ -780,7 +780,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "character",
@@ -879,7 +879,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "character",
@@ -943,7 +943,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit:    EXP (interpolation) | De = 1737.71 | D01 = 1721.83"]
+              "value": ["Fit:    SSE (interpolation) | De = 1737.71 | D01 = 1721.83"]
             }
           ]
         },
@@ -1746,7 +1746,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP+LIN"]
+                  "value": ["SSE+LIN"]
                 },
                 {
                   "type": "character",
@@ -1845,7 +1845,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP+LIN"]
+                  "value": ["SSE+LIN"]
                 },
                 {
                   "type": "character",
@@ -1909,7 +1909,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: EXP+LIN (interpolation) | De = 1794.53"]
+              "value": ["Fit: SSE+LIN (interpolation) | De = 1794.53"]
             }
           ]
         },
@@ -2068,7 +2068,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP+EXP"]
+                  "value": ["DSE"]
                 },
                 {
                   "type": "character",
@@ -2167,7 +2167,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP+EXP"]
+                  "value": ["DSE"]
                 },
                 {
                   "type": "character",
@@ -2231,7 +2231,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit: EXP+EXP (interpolation) | De = 1787.15 | D01 = 549.02 | D02 = 3521.17"]
+              "value": ["Fit:    DSE (interpolation) | De = 1787.15 | D01 = 549.02 | D02 = 3521.17"]
             }
           ]
         },
@@ -4971,7 +4971,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "character",
@@ -5065,7 +5065,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "character",
@@ -5129,7 +5129,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit:    EXP (interpolation) | De = 3.49 | D01 = 1.39"]
+              "value": ["Fit:    SSE (interpolation) | De = 3.49 | D01 = 1.39"]
             }
           ]
         },
@@ -5288,7 +5288,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "character",
@@ -5382,7 +5382,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "character",
@@ -5446,7 +5446,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit:    EXP (extrapolation) | De = 5.76 | D01 = 1.86"]
+              "value": ["Fit:    SSE (extrapolation) | De = 5.76 | D01 = 1.86"]
             }
           ]
         },
@@ -5605,7 +5605,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "character",
@@ -5704,7 +5704,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "character",
@@ -5768,7 +5768,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit:    EXP (interpolation) | De = 1746.54 | D01 = 1869.09"]
+              "value": ["Fit:    SSE (interpolation) | De = 1746.54 | D01 = 1869.09"]
             }
           ]
         },
@@ -5927,7 +5927,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "character",
@@ -6026,7 +6026,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "character",
@@ -6090,7 +6090,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit:    EXP (interpolation) | De = 1737.71 | D01 = 1721.83"]
+              "value": ["Fit:    SSE (interpolation) | De = 1737.71 | D01 = 1721.83"]
             }
           ]
         },
@@ -6249,7 +6249,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "character",
@@ -6348,7 +6348,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "character",
@@ -6412,7 +6412,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit:    EXP (interpolation) | De = 1737.88 | D01 = 1766.07"]
+              "value": ["Fit:    SSE (interpolation) | De = 1737.88 | D01 = 1766.07"]
             }
           ]
         },
@@ -6571,7 +6571,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "character",
@@ -6670,7 +6670,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "character",
@@ -6734,7 +6734,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit:    EXP (interpolation) | De = 1737.88 | D01 = 1766.07"]
+              "value": ["Fit:    SSE (interpolation) | De = 1737.88 | D01 = 1766.07"]
             }
           ]
         },

@@ -7,7 +7,7 @@
 fit_DoseResponseCurve(
   object,
   mode = c("interpolation", "extrapolation", "alternate"),
-  fit.method = c("EXP", "LIN", "QDR", "EXP OR LIN", "EXP+LIN", "EXP+EXP", "GOK", "OTOR",
+  fit.method = c("SSE", "LIN", "QDR", "SSE OR LIN", "SSE+LIN", "DSE", "GOK", "OTOR",
     "OTORX"),
   fit.force_through_origin = FALSE,
   fit.weights = c("inverse_var", "inverse_std", "norm_inverse_std"),
@@ -48,13 +48,13 @@ Please note that for option \code{"interpolation"} the first point is considered
 as natural dose.}
 
 \item{fit.method}{\link{character} (\emph{with default}):
-function used for fitting. Possible options are: \code{LIN}, \code{QDR}, \code{EXP},
-\verb{EXP OR LIN}, \code{EXP+LIN}, \code{EXP+EXP} (not defined for extrapolation), \code{GOK},
+function used for fitting. Possible options are: \code{LIN}, \code{QDR}, \code{SSE},
+\verb{SSE OR LIN}, \code{SSE+LIN}, \code{DSE} (not defined for extrapolation), \code{GOK},
 \code{OTOR} and \code{OTORX}. See details.}
 
 \item{fit.force_through_origin}{\link{logical} (\emph{with default})
 allow to force the fitted function through the origin.
-For \code{method = "EXP+EXP"} the function will be fixed through
+For \code{method = "DSE"} the function will be fixed through
 the origin in either case, so this option will have no effect.}
 
 \item{fit.weights}{\link{character} \link{numeric} (\emph{with default}):
@@ -77,7 +77,7 @@ has to be inserted.}
 
 \item{fit.bounds}{\link{logical} (\emph{with default}):
 set lower fit bounds for all fitting parameters to 0. Limited to use
-with the fit methods \code{EXP}, \code{EXP+LIN}, \verb{EXP OR LIN}, \code{GOK}, \code{OTOR}, \code{OTORX}
+with the fit methods \code{SSE}, \code{SSE+LIN}, \verb{SSE OR LIN}, \code{GOK}, \code{OTOR}, \code{OTORX}
 Argument to be inserted for experimental application only!}
 
 \item{n.MC}{\link{integer} (\emph{with default}):
@@ -102,8 +102,8 @@ following elements:
 \strong{DATA.OBJECT} \tab \strong{TYPE} \tab \strong{DESCRIPTION} \cr
 \code{..$De} : \tab  \code{data.frame} \tab Table with De values \cr
 \code{..$De.MC} : \tab \code{numeric} \tab Table with De values from MC runs \cr
-\code{..$Fit} : \tab \link{nls} or \link{lm} \tab object from the fitting for \code{EXP}, \code{EXP+LIN} and \code{EXP+EXP}.
-In case of a resulting  linear fit when using \code{LIN}, \code{QDR} or \verb{EXP OR LIN} \cr
+\code{..$Fit} : \tab \link{nls} or \link{lm} \tab object from the fitting for \code{SSE}, \code{SSE+LIN} and \code{DSE}.
+In case of a resulting  linear fit when using \code{LIN}, \code{QDR} or \verb{SSE OR LIN} \cr
 \code{..Fit.Args} : \tab \code{list} \tab Arguments to the function \cr
 \code{..$Formula} : \tab \link{expression} \tab Fitting formula as R expression \cr
 }
@@ -126,8 +126,8 @@ This object is a \link{data.frame} with the following columns
 \code{De.Error} \tab \link{numeric} \tab standard error the equivalent dose \cr
 \code{D01} \tab \link{numeric} \tab \eqn{D_0} value, curvature parameter of the exponential \cr
 \code{D01.ERROR} \tab \link{numeric} \tab standard error of the \eqn{D_0} value\cr
-\code{D02} \tab \link{numeric} \tab 2nd \eqn{D_0} value, only for \code{EXP+EXP}\cr
-\code{D02.ERROR} \tab \link{numeric} \tab standard error for 2nd \eqn{D_0}; only for \code{EXP+EXP}\cr
+\code{D02} \tab \link{numeric} \tab 2nd \eqn{D_0} value, only for \code{DSE}\cr
+\code{D02.ERROR} \tab \link{numeric} \tab standard error for 2nd \eqn{D_0}; only for \code{DSE}\cr
 \code{R} \tab \link{numeric} \tab the material specific parameter \eqn{R} (only \code{OTOR} and \code{OTORX})\cr
 \code{R.LOWER} \tab \link{numeric} \tab lower 25\% quantile of \eqn{R}\cr
 \code{R.UPPER} \tab \link{numeric} \tab upper 75\% quantile of \eqn{R}\cr
@@ -137,7 +137,7 @@ This object is a \link{data.frame} with the following columns
 \code{D63} \tab \link{numeric} \tab the specific saturation level; only for \code{OTOR}, \code{OTORX} \cr
 \code{D63.LOWER} \ tab \link{numeric} \tab lower 25\% quantile of \code{D63}; only for \code{OTOR}, \code{OTORX} \cr
 \code{D63.UPPER} \ tab \link{numeric} \tab upper 75\% quantile of \code{D63}; only for \code{OTOR}, \code{OTORX} \cr
-\code{D80} \tab \link{numeric} \tab the specific saturation level; only for \code{EXP}, \code{OTOR}, \code{OTORX} \cr
+\code{D80} \tab \link{numeric} \tab the specific saturation level; only for \code{SSE}, \code{OTOR}, \code{OTORX} \cr
 \code{D80.LOWER} \ tab \link{numeric} \tab lower 25\% quantile of \code{D80}; only for \code{OTOR}, \code{OTORX} \cr
 \code{D80.UPPER} \ tab \link{numeric} \tab upper 75\% quantile of \code{D80}; only for \code{OTOR}, \code{OTORX} \cr
 \code{n_N} \tab \link{numeric} \tab saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (\code{N}) to the integral until \code{De} (\code{n}) (e.g.,  Guralnik et al., 2015)\cr
@@ -160,7 +160,7 @@ extrapolation to calculate the equivalent dose.
 \details{
 \subsection{Implemented fitting methods}{
 
-For all options (except for the \code{LIN}, \code{QDR} and the \verb{EXP OR LIN}),
+For all options (except for the \code{LIN}, \code{QDR} and the \verb{SSE OR LIN}),
 the \link[minpack.lm:nlsLM]{minpack.lm::nlsLM} function with the \code{LM} (Levenberg-Marquardt algorithm)
 algorithm is used. Note: For historical reasons for the Monte Carlo
 simulations partly the function \link{nls} using the \code{port} algorithm.
@@ -170,40 +170,40 @@ The solution is found by transforming the function or using \link[stats:uniroot]
 \strong{Keyword: \code{LIN}}
 
 Fits a linear function to the data using \link{lm}:
-\deqn{y = mx + n}
+\deqn{y = mx + Di}
 
 \strong{Keyword: \code{QDR}}
 
 Fits a linear function with a quadratic term to the data using  \link{lm}:
 \deqn{y = a + bx + cx^2}
 
-\strong{Keyword: \code{EXP}}
+\strong{Keyword: \code{SSE} (formerly \code{EXP})}
 
-Adapts a function of the form
-\deqn{y = a(1 - \exp(-\frac{(x+c)}{b}))}
+Fits a single saturating exponential function of the form
+\deqn{y = N (1 - \exp(-\frac{x + Di}{D0}))}
 
-Parameters b and c are approximated by a linear fit using \link{lm}. Note: \eqn{b = D0}
+Parameters \eqn{D_0} and \eqn{D_i} are approximated by a linear fit using \link{lm}.
 
-\strong{Keyword: \verb{EXP OR LIN}}
+\strong{Keyword: \verb{SSE OR LIN} (formerly \verb{EXP OR LIN})}
 
-Works for some cases where an \code{EXP} fit fails. If the \code{EXP} fit fails,
+Works for some cases where an \code{SSE} fit fails. If the \code{SSE} fit fails,
 a \code{LIN} fit is done instead, which always works.
 
-\strong{Keyword: \code{EXP+LIN}}
+\strong{Keyword: \code{SSE+LIN} (formerly \code{EXP+LIN})}
 
 Tries to fit an exponential plus linear function of the form:
 
-\deqn{y = a(1 - \exp(-\frac{x + c}{b}) + (gx))}
+\deqn{y = N(1 - \exp(-\frac{x + Di}{D0}) + gx)}
 The \eqn{D_e} is calculated by iteration.
 
 \strong{Note:} In the context of luminescence dating, this function has no physical meaning.
 Therefore, no \eqn{D_0} value is returned.
 
-\strong{Keyword: \code{EXP+EXP}}
+\strong{Keyword: \code{DSE} (formerly \code{EXP+EXP})}
 
 Tries to fit a double exponential function of the form
 
-\deqn{y = (a_1 (1 - \exp(-\frac{x}{b_1}))) + (a_2 (1 - \exp(-\frac{x}{b_2})))}
+\deqn{y = N_1 (1 - \exp(-\frac{x}{D0_1})) + N_2 (1 - \exp(-\frac{x}{D0_2}))}
 
 \emph{This fitting procedure is not really robust against wrong start parameters.}
 
@@ -212,12 +212,11 @@ Tries to fit a double exponential function of the form
 Tries to fit the general-order kinetics function following Guralnik et al. (2015)
 of the form
 
-\deqn{y = a (d - (1 + (\frac{1}{b}) x c)^{(-1/c)})}
+\deqn{y = a (d - (1 + (\frac{1}{D0}) x c)^{(-1 / c)})}
 
-where \eqn{c > 0} is a kinetic order modifier
-(not to be confused with \strong{c} in \code{EXP} or \code{EXP+LIN}!).
+where \eqn{c > 0} is a kinetic order modifier.
 
-\strong{Keyword: \code{OTOR}} (former \code{LambertW})
+\strong{Keyword: \code{OTOR}} (formerly \code{LambertW})
 
 This tries to fit a dose-response curve based on the Lambert W function
 and the one trap one recombination centre (OTOR) model according to Pagonis
@@ -302,11 +301,11 @@ Alternatively, the function returns highest probability density interval
 estimates as output, users may find more useful under certain circumstances.
 
 \strong{Note:} It may take some calculation time with increasing MC runs,
-especially for the composed functions (\code{EXP+LIN} and \code{EXP+EXP}).
+especially for the composed functions (\code{SSE+LIN} and \code{DSE}).
 }
 }
 \section{Function version}{
- 1.6.1
+ 1.7
 }
 
 \examples{

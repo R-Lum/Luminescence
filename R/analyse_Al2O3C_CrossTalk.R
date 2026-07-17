@@ -141,7 +141,7 @@ analyse_Al2O3C_CrossTalk <- function(
 
   #set method control
   method_control_settings <- list(
-    fit.method = "EXP"
+    fit.method = "SSE"
   )
 
   ##modify on request

@@ -1081,7 +1081,7 @@ NULL
 #' ## Calculate the De of the IR50 signal
 #' IR50_De <- fit_DoseResponseCurve(IR50_De.LxTx,
 #'                                 mode = "interpolation",
-#'                                 fit.method = "EXP")
+#'                                 fit.method = "SSE")
 #'
 #' ## Extract the calculated De and its error
 #' IR50_De.res <- get_RLum(IR50_De)

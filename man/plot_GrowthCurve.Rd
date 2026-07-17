@@ -7,7 +7,7 @@
 plot_GrowthCurve(
   object,
   mode = "interpolation",
-  fit.method = "EXP",
+  fit.method = "SSE",
   output.plot = TRUE,
   output.plotExtended = TRUE,
   plot_singlePanels = FALSE,
@@ -43,8 +43,8 @@ Please note that for option \code{"interpolation"} the first point is considered
 as natural dose.}
 
 \item{fit.method}{\link{character} (\emph{with default}):
-function used for fitting. Possible options are: \code{LIN}, \code{QDR}, \code{EXP},
-\verb{EXP OR LIN}, \code{EXP+LIN}, \code{EXP+EXP} (not defined for extrapolation), \code{GOK},
+function used for fitting. Possible options are: \code{LIN}, \code{QDR}, \code{SSE},
+\verb{SSE OR LIN}, \code{SSE+LIN}, \code{DSE} (not defined for extrapolation), \code{GOK},
 \code{OTOR} and \code{OTORX}. See details.}
 
 \item{output.plot}{\link{logical} (\emph{with default}):

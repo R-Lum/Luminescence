@@ -136,7 +136,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "character",
@@ -2141,7 +2141,7 @@
                 {
                   "type": "character",
                   "attributes": {},
-                  "value": ["EXP"]
+                  "value": ["SSE"]
                 },
                 {
                   "type": "character",

@@ -19,7 +19,7 @@ analyse_baSAR(
   distribution = "cauchy",
   baSAR_model = NULL,
   n.MCMC = 1e+05,
-  fit.method = c("EXP", "EXP+LIN", "LIN"),
+  fit.method = c("SSE", "SSE+LIN", "LIN"),
   fit.force_through_origin = TRUE,
   fit.includingRepeatedRegPoints = TRUE,
   method_control = list(),
@@ -115,7 +115,7 @@ number of iterations for the Markov chain Monte Carlo (MCMC) simulations}
 \item{fit.method}{\link{character} (\emph{with default}):
 equation used both for the fitting of the dose-response curve using function
 \link{fit_DoseResponseCurve} and then for the Bayesian modelling.
-Supported methods: \code{EXP}, \code{EXP+LIN} and \code{LIN}.}
+Supported methods: \code{SSE}, \code{SSE+LIN} and \code{LIN}.}
 
 \item{fit.force_through_origin}{\link{logical} (\emph{with default}):
 force fitting through origin}

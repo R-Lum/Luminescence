@@ -148,7 +148,7 @@ results_corr <- calc_Lamothe2003(
   dose_rate.source = c(0.184, 0.003),
   g_value =  c(2.36, 0.6),
   plot = TRUE,
-  fit.method = "EXP")
+  fit.method = "SSE")
 
 
 }
