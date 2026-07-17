@@ -15,6 +15,9 @@ test_that("input validation", {
   expect_error(calc_SourceDoseRate("2018-01-02", "2014-12-19", 0.0438, 0.0019,
                                    dose.rate.unit = "error"),
                "'dose.rate.unit' should be one of 'Gy/s' or 'Gy.min'")
+  expect_error(calc_SourceDoseRate("2018-01-02", "2014-12-19", 0.0438, 0.0019,
+                                   predict = NA),
+               "'predict' should be of class 'integer', 'numeric' or NULL and")
 })
 
 test_that("check functionality", {
@@ -53,6 +56,13 @@ test_that("check functionality", {
     calib.dose.rate = 0.0438,
     calib.error = 0.0019, dose.rate.unit = "Gy/min"
   ))
+
+  ## predict silently reset to NULL
+  expect_silent(calc_SourceDoseRate(
+    measurement.date = "2018-01-02",
+    calib.date = "2014-12-19",
+    calib.dose.rate = 0.0438,
+    calib.error = 0.0019, predict = c(1, NA)))
 })
 
 test_that("snapshot tests", {

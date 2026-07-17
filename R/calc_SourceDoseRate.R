@@ -53,10 +53,10 @@
 #' option allowing to predict the dose rate of the source over time in days
 #' set by the provided value. Starting date is the value set with
 #' `measurement.date`, e.g., `calc_SourceDoseRate(..., predict = 100)` calculates
-#' the source dose rate for the next 100 days. If predict is of length two, this 
-#' will be used to calculate the value per days backwards and forward. 
+#' the source dose rate for the next 100 days. If predict is of length two, this
+#' will be used to calculate the value per days backwards and forward.
 #' For instance: `predict = c(-100, 100)` will calculate 100 days backwards and
-#' 100 days forward. 
+#' 100 days forward.
 #'
 #' @return
 #' Returns an S4 object of type [Luminescence::RLum.Results-class].
@@ -169,6 +169,9 @@ calc_SourceDoseRate <- function(
         })
   }
   .validate_positive_scalar(calib.error)
+  .validate_class(predict, c("integer", "numeric"), length = 1:2, null.ok = TRUE)
+  if (anyNA(predict))
+    predict <- NULL
 
   ## source type and dose rate unit
   source.type <- .validate_args(source.type,
