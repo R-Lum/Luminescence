@@ -170,7 +170,7 @@ The solution is found by transforming the function or using \link[stats:uniroot]
 \strong{Keyword: \code{LIN}}
 
 Fits a linear function to the data using \link{lm}:
-\deqn{y = mx + Di}
+\deqn{y = mx + D_i}
 
 \strong{Keyword: \code{QDR}}
 
@@ -180,7 +180,7 @@ Fits a linear function with a quadratic term to the data using  \link{lm}:
 \strong{Keyword: \code{SSE} (formerly \code{EXP})}
 
 Fits a single saturating exponential function of the form
-\deqn{y = N (1 - \exp(-\frac{x + Di}{D0}))}
+\deqn{y = N (1 - \exp(-\frac{x + D_i}{D_0}))}
 
 Parameters \eqn{D_0} and \eqn{D_i} are approximated by a linear fit using \link{lm}.
 
@@ -193,7 +193,7 @@ a \code{LIN} fit is done instead, which always works.
 
 Tries to fit an exponential plus linear function of the form:
 
-\deqn{y = N(1 - \exp(-\frac{x + Di}{D0}) + gx)}
+\deqn{y = N(1 - \exp(-\frac{x + D_i}{D_0}) + gx)}
 The \eqn{D_e} is calculated by iteration.
 
 \strong{Note:} In the context of luminescence dating, this function has no physical meaning.
@@ -203,7 +203,7 @@ Therefore, no \eqn{D_0} value is returned.
 
 Tries to fit a double exponential function of the form
 
-\deqn{y = N_1 (1 - \exp(-\frac{x + Di}{D0_1})) + N_2 (1 - \exp(-\frac{x + Di}{D0_2}))}
+\deqn{y = N_1 (1 - \exp(-\frac{x + D_i}{D0_1})) + N_2 (1 - \exp(-\frac{x + D_i}{D0_2}))}
 
 \emph{This fitting procedure is not really robust against wrong start parameters.}
 
@@ -212,7 +212,7 @@ Tries to fit a double exponential function of the form
 Tries to fit the general-order kinetics function following Guralnik et al. (2015)
 of the form
 
-\deqn{y = a (d - (1 + (\frac{1}{D0}) x c)^{(-1 / c)})}
+\deqn{y = a (d - (1 + \frac{1}{D_0} x c)^{-1 / c})}
 
 where \eqn{c > 0} is a kinetic order modifier.
 
@@ -222,7 +222,7 @@ This tries to fit a dose-response curve based on the Lambert W function
 and the one trap one recombination centre (OTOR) model according to Pagonis
 et al. (2020). The function has the form:
 
-\deqn{y = (1 + (\mathcal{W}((R - 1) * \exp(R - 1 - ((x + D_{i}) / D_{c}))) / (1 - R))) * N}
+\deqn{y = (1 + (\mathcal{W}((R - 1) * \exp(R - 1 - (x + D_i) / D_c)) / (1 - R))) * N}
 
 with \eqn{W} the Lambert-W function (calculated using \link[lamW:lambertW0]{lamW::lambertW0}),
 \eqn{R} the dimensionless retrapping ratio, \eqn{N} the total concentration
@@ -240,7 +240,7 @@ This adapts extended OTOR (therefore: OTORX) model proposed by Lawless and
 Timar-Gabor (2024) accounting for retrapping (the equation implemented here
 is written slightly differently than in the original manuscript):
 
-\deqn{F_{OTORX} = 1 + \left[\mathcal{W}\left(-Q * \exp\left(-Q-(1-Q(1-\frac{1}{\exp(1)})) \frac{(D + D_i)}{D_{63}}\right)\right)\right] / Q}
+\deqn{F_{OTORX} = 1 + \left[\mathcal{W}\left(-Q * \exp\left(-Q-(1-Q(1-\frac{1}{\exp(1)})) \frac{D + D_i}{D_{63}}\right)\right)\right] / Q}
 
 with
 
