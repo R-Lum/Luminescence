@@ -186,7 +186,7 @@ Parameters \eqn{D_0} and \eqn{D_i} are approximated by a linear fit using \link{
 
 \strong{Keyword: \verb{SSE OR LIN} (formerly \verb{EXP OR LIN})}
 
-Works for some cases where an \code{SEE} fit fails. If the \code{SEE} fit fails,
+Works for some cases where an \code{SSE} fit fails. If the \code{SSE} fit fails,
 a \code{LIN} fit is done instead, which always works.
 
 \strong{Keyword: \code{SSE+LIN} (formerly \code{EXP+LIN})}
@@ -214,8 +214,7 @@ of the form
 
 \deqn{y = a (d - (1 + (\frac{1}{D0}) x c)^{(-1 / c)})}
 
-where \eqn{c > 0} is a kinetic order modifier
-(not to be confused with \strong{c} in \code{SEE} or \code{SSE+LIN}!).
+where \eqn{c > 0} is a kinetic order modifier.
 
 \strong{Keyword: \code{OTOR}} (formerly \code{LambertW})
 

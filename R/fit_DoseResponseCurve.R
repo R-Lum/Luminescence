@@ -35,7 +35,7 @@
 #'
 #' **Keyword: `SSE OR LIN` (formerly `EXP OR LIN`)**
 #'
-#' Works for some cases where an `SEE` fit fails. If the `SEE` fit fails,
+#' Works for some cases where an `SSE` fit fails. If the `SSE` fit fails,
 #' a `LIN` fit is done instead, which always works.
 #'
 #' **Keyword: `SSE+LIN` (formerly `EXP+LIN`)**
@@ -63,8 +63,7 @@
 #'
 #' \deqn{y = a (d - (1 + (\frac{1}{D0}) x c)^{(-1 / c)})}
 #'
-#' where \eqn{c > 0} is a kinetic order modifier
-#' (not to be confused with **c** in `SEE` or `SSE+LIN`!).
+#' where \eqn{c > 0} is a kinetic order modifier.
 #'
 #' **Keyword: `OTOR`** (formerly `LambertW`)
 #'
