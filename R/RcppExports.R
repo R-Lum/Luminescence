@@ -29,8 +29,8 @@ fit_functionSSELIN_cpp <- function(N, D0, Di, g, x) {
     .Call(`_Luminescence_fit_functionSSELIN_cpp`, N, D0, Di, g, x)
 }
 
-fit_functionDSE_cpp <- function(N1, N2, D01, D02, x) {
-    .Call(`_Luminescence_fit_functionDSE_cpp`, N1, N2, D01, D02, x)
+fit_functionDSE_cpp <- function(N1, N2, D01, D02, Di, x) {
+    .Call(`_Luminescence_fit_functionDSE_cpp`, N1, N2, D01, D02, Di, x)
 }
 
 fit_functionGOK_cpp <- function(a, D0, c, d, x) {

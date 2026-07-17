@@ -19,7 +19,7 @@
 #' **Keyword: `LIN`**
 #'
 #' Fits a linear function to the data using [lm]:
-#' \deqn{y = mx + Di}
+#' \deqn{y = mx + D_i}
 #'
 #' **Keyword: `QDR`**
 #'
@@ -29,7 +29,7 @@
 #' **Keyword: `SSE` (formerly `EXP`)**
 #'
 #' Fits a single saturating exponential function of the form
-#' \deqn{y = N (1 - \exp(-\frac{x + Di}{D0}))}
+#' \deqn{y = N (1 - \exp(-\frac{x + D_i}{D_0}))}
 #'
 #' Parameters \eqn{D_0} and \eqn{D_i} are approximated by a linear fit using [lm].
 #'
@@ -42,7 +42,7 @@
 #'
 #' Tries to fit an exponential plus linear function of the form:
 #'
-#' \deqn{y = N(1 - \exp(-\frac{x + Di}{D0}) + gx)}
+#' \deqn{y = N(1 - \exp(-\frac{x + D_i}{D_0}) + gx)}
 #' The \eqn{D_e} is calculated by iteration.
 #'
 #' **Note:** In the context of luminescence dating, this function has no physical meaning.
@@ -52,7 +52,7 @@
 #'
 #' Tries to fit a double exponential function of the form
 #'
-#' \deqn{y = N_1 (1 - \exp(-\frac{x}{D0_1})) + N_2 (1 - \exp(-\frac{x}{D0_2}))}
+#' \deqn{y = N_1 (1 - \exp(-\frac{x + D_i}{D0_1})) + N_2 (1 - \exp(-\frac{x + D_i}{D0_2}))}
 #'
 #' *This fitting procedure is not really robust against wrong start parameters.*
 #'
@@ -61,7 +61,7 @@
 #' Tries to fit the general-order kinetics function following Guralnik et al. (2015)
 #' of the form
 #'
-#' \deqn{y = a (d - (1 + (\frac{1}{D0}) x c)^{(-1 / c)})}
+#' \deqn{y = a (d - (1 + \frac{1}{D_0} x c)^{-1 / c})}
 #'
 #' where \eqn{c > 0} is a kinetic order modifier.
 #'
@@ -71,7 +71,7 @@
 #' and the one trap one recombination centre (OTOR) model according to Pagonis
 #' et al. (2020). The function has the form:
 #'
-#' \deqn{y = (1 + (\mathcal{W}((R - 1) * \exp(R - 1 - ((x + D_{i}) / D_{c}))) / (1 - R))) * N}
+#' \deqn{y = (1 + (\mathcal{W}((R - 1) * \exp(R - 1 - (x + D_i) / D_c)) / (1 - R))) * N}
 #'
 #' with \eqn{W} the Lambert-W function (calculated using [lamW::lambertW0]),
 #' \eqn{R} the dimensionless retrapping ratio, \eqn{N} the total concentration
@@ -89,7 +89,7 @@
 #' Timar-Gabor (2024) accounting for retrapping (the equation implemented here
 #' is written slightly differently than in the original manuscript):
 #'
-#' \deqn{F_{OTORX} = 1 + \left[\mathcal{W}\left(-Q * \exp\left(-Q-(1-Q(1-\frac{1}{\exp(1)})) \frac{(D + D_i)}{D_{63}}\right)\right)\right] / Q}
+#' \deqn{F_{OTORX} = 1 + \left[\mathcal{W}\left(-Q * \exp\left(-Q-(1-Q(1-\frac{1}{\exp(1)})) \frac{D + D_i}{D_{63}}\right)\right)\right] / Q}
 #'
 #' with
 #'
@@ -640,7 +640,7 @@ fit_DoseResponseCurve <- function(
 
   ### DSE ------- (C++ version available)
   fit.functionDSE <- function(N1, N2, D01, D02, x)
-    N1 * (1 - exp(-x / D01)) + N2 * (1 - exp(-x / D02))
+    N1 * (1 - exp(-(x + Di) / D01)) + N2 * (1 - exp(-(x + Di) / D02))
 
   ### GOK ------- (C++ version available)
   fit.functionGOK <- function(a, D0, c, d, x)
@@ -1201,10 +1201,10 @@ fit_DoseResponseCurve <- function(
   ## DSE --------------------------------------------------------------------
   else if (fit.method == "DSE") {
     ## initialise objects
-    N1.start <- N2.start <- D01.start <- D02.start <- NA
+    N1.start <- N2.start <- D01.start <- D02.start <- Di.start <- NA
 
     ## set fit bounds
-    lower <- if (fit.bounds) rep(0, 4) else rep(-Inf, 4)
+    lower <- if (fit.bounds) rep(0, 5) else rep(-Inf, 5)
 
     ## try to create some start parameters from the input values to make the fitting more stable
     for (i in seq_along(a.MC)) {
@@ -1212,12 +1212,13 @@ fit_DoseResponseCurve <- function(
       N2 <- N1 / 2
       D01 <- b.MC[i]
       D02 <- D01 / 2
+      Di <- c.MC[i]
 
       fit.start <- try({
         minpack.lm::nlsLM(
-        formula = y ~ fit_functionDSE_cpp(N1, N2, D01, D02, x),
+        formula = y ~ fit_functionDSE_cpp(N1, N2, D01, D02, Di, x),
         data = data,
-        start = list(N1 = N1, N2 = N2, D01 = D01, D02 = D02),
+        start = list(N1 = N1, N2 = N2, D01 = D01, D02 = D02, Di = Di),
         trace = FALSE,
         algorithm = "LM",
         lower = lower,
@@ -1231,6 +1232,7 @@ fit_DoseResponseCurve <- function(
         N2.start[i] <- parameters["N2"]
         D01.start[i] <- parameters["D01"]
         D02.start[i] <- parameters["D02"]
+        Di.start[i] <- parameters["Di"]
       }
     }
 
@@ -1241,7 +1243,8 @@ fit_DoseResponseCurve <- function(
       start = list(N1 = median(N1.start, na.rm = TRUE),
                    N2 = median(N2.start, na.rm = TRUE),
                    D01 = median(D01.start, na.rm = TRUE),
-                   D02 = median(D02.start, na.rm = TRUE)),
+                   D02 = median(D02.start, na.rm = TRUE),
+                   Di = median(Di.start, na.rm = TRUE)),
       weights = fit.weights,
       trace = FALSE,
       algorithm = "LM",
@@ -1258,8 +1261,8 @@ fit_DoseResponseCurve <- function(
       De <- NA
       if (mode == "interpolation") {
         f.unirootDSE <-
-          function(N1, N2, D01, D02, x, LnTn) {
-            fit_functionDSE_cpp(N1, N2, D01, D02, x) - LnTn
+          function(N1, N2, D01, D02, Di, x, LnTn) {
+            fit_functionDSE_cpp(N1, N2, D01, D02, Di, x) - LnTn
           }
 
         temp.De <-  try(uniroot(
@@ -1270,6 +1273,7 @@ fit_DoseResponseCurve <- function(
           N2 = N2,
           D01 = D01,
           D02 = D02,
+          Di = Di,
           LnTn = object[1, 2],
           extendInt = "yes",
           maxiter = 3000
@@ -1308,9 +1312,9 @@ fit_DoseResponseCurve <- function(
 
         ##perform final fitting
         fit.MC <- try(minpack.lm::nlsLM(
-          formula = y ~ fit_functionDSE_cpp(N1, N2, D01, D02, x),
+          formula = y ~ fit_functionDSE_cpp(N1, N2, D01, D02, Di, x),
           data = list(x=xy$x,y=data.MC[,i]),
-          start = list(N1 = N1, N2 = N2, D01 = D01, D02 = D02),
+          start = list(N1 = N1, N2 = N2, D01 = D01, D02 = D02, Di = Di),
           weights = fit.weights,
           trace = FALSE,
           algorithm = "LM",
@@ -1333,6 +1337,7 @@ fit_DoseResponseCurve <- function(
             N2 = parameters["N2"],
             D01 = var.D01[i],
             D02 = var.D02[i],
+            Di = parameters["Di"],
             LnTn = data.MC.De[i]
           ), silent = TRUE)
 
