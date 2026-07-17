@@ -36,7 +36,7 @@ test_that("check functionality", {
     predict = 150
   ))
   expect_silent(plot_RLum.Results(t))
-  
+
   t <- expect_silent(calc_SourceDoseRate(
     measurement.date = "2018-01-02",
     calib.date = "2014-12-19",
@@ -66,4 +66,41 @@ test_that("snapshot tests", {
                                            calib.error = 0.0019,
                                            predict = 10),
                        tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(calc_SourceDoseRate(measurement.date = "2018-01-02",
+                                           calib.date = "2014-12-19",
+                                           calib.dose.rate = 0.0438,
+                                           calib.error = 0.0019,
+                                           predict = c(-10, 10)),
+                       tolerance = snapshot.tolerance)
+})
+
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  set.seed(1)
+
+  SW({
+  vdiffr::expect_doppelganger("default",
+                              calc_SourceDoseRate(measurement.date = "2018-01-02",
+                                                  calib.date = "2014-12-19",
+                                                  calib.dose.rate = 0.0438,
+                                                  calib.error = 0.0019) |>
+                              plot_RLum.Results())
+  vdiffr::expect_doppelganger("predict",
+                              calc_SourceDoseRate(measurement.date = "2018-01-02",
+                                                  calib.date = "2014-12-19",
+                                                  calib.dose.rate = 0.0438,
+                                                  calib.error = 0.0019,
+                                                  predict = 10) |>
+                              plot_RLum.Results())
+  vdiffr::expect_doppelganger("predict interval",
+                              calc_SourceDoseRate(measurement.date = "2018-01-02",
+                                                  calib.date = "2014-12-19",
+                                                  calib.dose.rate = 0.0438,
+                                                  calib.error = 0.0019,
+                                                  predict = c(-20, 10)) |>
+                              plot_RLum.Results())
+  })
 })
