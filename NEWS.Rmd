@@ -224,6 +224,8 @@ point for the final fitting. However, this was not used, so those computations
 were effectively discarded. This has been fixed, and this should provide more
 robustness for this method (#1605).
 
+* Method "DSE" gains a `Di` parameter in the model for the offset (#1604).
+
 ### `fit_EmissionSpectra()`
 
 * The function no longer crashes if a `frame` argument of length 0 is used

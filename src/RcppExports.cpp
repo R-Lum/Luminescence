@@ -118,8 +118,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // fit_functionDSE_cpp
-NumericVector fit_functionDSE_cpp(double N1, double N2, double D01, double D02, NumericVector x);
-RcppExport SEXP _Luminescence_fit_functionDSE_cpp(SEXP N1SEXP, SEXP N2SEXP, SEXP D01SEXP, SEXP D02SEXP, SEXP xSEXP) {
+NumericVector fit_functionDSE_cpp(double N1, double N2, double D01, double D02, double Di, NumericVector x);
+RcppExport SEXP _Luminescence_fit_functionDSE_cpp(SEXP N1SEXP, SEXP N2SEXP, SEXP D01SEXP, SEXP D02SEXP, SEXP DiSEXP, SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -127,8 +127,9 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type N2(N2SEXP);
     Rcpp::traits::input_parameter< double >::type D01(D01SEXP);
     Rcpp::traits::input_parameter< double >::type D02(D02SEXP);
+    Rcpp::traits::input_parameter< double >::type Di(DiSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(fit_functionDSE_cpp(N1, N2, D01, D02, x));
+    rcpp_result_gen = Rcpp::wrap(fit_functionDSE_cpp(N1, N2, D01, D02, Di, x));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -167,7 +168,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_Luminescence_create_RLumDataCurve_matrix", (DL_FUNC) &_Luminescence_create_RLumDataCurve_matrix, 10},
     {"_Luminescence_fit_functionSSE_cpp", (DL_FUNC) &_Luminescence_fit_functionSSE_cpp, 4},
     {"_Luminescence_fit_functionSSELIN_cpp", (DL_FUNC) &_Luminescence_fit_functionSSELIN_cpp, 5},
-    {"_Luminescence_fit_functionDSE_cpp", (DL_FUNC) &_Luminescence_fit_functionDSE_cpp, 5},
+    {"_Luminescence_fit_functionDSE_cpp", (DL_FUNC) &_Luminescence_fit_functionDSE_cpp, 6},
     {"_Luminescence_fit_functionGOK_cpp", (DL_FUNC) &_Luminescence_fit_functionGOK_cpp, 5},
     {"_Luminescence_src_get_XSYG_curve_values", (DL_FUNC) &_Luminescence_src_get_XSYG_curve_values, 1},
     {NULL, NULL, 0}

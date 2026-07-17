@@ -52,7 +52,7 @@
 #'
 #' Tries to fit a double exponential function of the form
 #'
-#' \deqn{y = N_1 (1 - \exp(-\frac{x}{D0_1})) + N_2 (1 - \exp(-\frac{x}{D0_2}))}
+#' \deqn{y = N_1 (1 - \exp(-\frac{x + Di}{D0_1})) + N_2 (1 - \exp(-\frac{x + Di}{D0_2}))}
 #'
 #' *This fitting procedure is not really robust against wrong start parameters.*
 #'
@@ -640,7 +640,7 @@ fit_DoseResponseCurve <- function(
 
   ### DSE ------- (C++ version available)
   fit.functionDSE <- function(N1, N2, D01, D02, x)
-    N1 * (1 - exp(-x / D01)) + N2 * (1 - exp(-x / D02))
+    N1 * (1 - exp(-(x + Di) / D01)) + N2 * (1 - exp(-(x + Di) / D02))
 
   ### GOK ------- (C++ version available)
   fit.functionGOK <- function(a, D0, c, d, x)
@@ -1201,10 +1201,10 @@ fit_DoseResponseCurve <- function(
   ## DSE --------------------------------------------------------------------
   else if (fit.method == "DSE") {
     ## initialise objects
-    N1.start <- N2.start <- D01.start <- D02.start <- NA
+    N1.start <- N2.start <- D01.start <- D02.start <- Di.start <- NA
 
     ## set fit bounds
-    lower <- if (fit.bounds) rep(0, 4) else rep(-Inf, 4)
+    lower <- if (fit.bounds) rep(0, 5) else rep(-Inf, 5)
 
     ## try to create some start parameters from the input values to make the fitting more stable
     for (i in seq_along(a.MC)) {
@@ -1212,12 +1212,13 @@ fit_DoseResponseCurve <- function(
       N2 <- N1 / 2
       D01 <- b.MC[i]
       D02 <- D01 / 2
+      Di <- c.MC[i]
 
       fit.start <- try({
         minpack.lm::nlsLM(
-        formula = y ~ fit_functionDSE_cpp(N1, N2, D01, D02, x),
+        formula = y ~ fit_functionDSE_cpp(N1, N2, D01, D02, Di, x),
         data = data,
-        start = list(N1 = N1, N2 = N2, D01 = D01, D02 = D02),
+        start = list(N1 = N1, N2 = N2, D01 = D01, D02 = D02, Di = Di),
         trace = FALSE,
         algorithm = "LM",
         lower = lower,
@@ -1231,6 +1232,7 @@ fit_DoseResponseCurve <- function(
         N2.start[i] <- parameters["N2"]
         D01.start[i] <- parameters["D01"]
         D02.start[i] <- parameters["D02"]
+        Di.start[i] <- parameters["Di"]
       }
     }
 
@@ -1241,7 +1243,8 @@ fit_DoseResponseCurve <- function(
       start = list(N1 = median(N1.start, na.rm = TRUE),
                    N2 = median(N2.start, na.rm = TRUE),
                    D01 = median(D01.start, na.rm = TRUE),
-                   D02 = median(D02.start, na.rm = TRUE)),
+                   D02 = median(D02.start, na.rm = TRUE),
+                   Di = median(Di.start, na.rm = TRUE)),
       weights = fit.weights,
       trace = FALSE,
       algorithm = "LM",
@@ -1258,8 +1261,8 @@ fit_DoseResponseCurve <- function(
       De <- NA
       if (mode == "interpolation") {
         f.unirootDSE <-
-          function(N1, N2, D01, D02, x, LnTn) {
-            fit_functionDSE_cpp(N1, N2, D01, D02, x) - LnTn
+          function(N1, N2, D01, D02, Di, x, LnTn) {
+            fit_functionDSE_cpp(N1, N2, D01, D02, Di, x) - LnTn
           }
 
         temp.De <-  try(uniroot(
@@ -1270,6 +1273,7 @@ fit_DoseResponseCurve <- function(
           N2 = N2,
           D01 = D01,
           D02 = D02,
+          Di = Di,
           LnTn = object[1, 2],
           extendInt = "yes",
           maxiter = 3000
@@ -1308,9 +1312,9 @@ fit_DoseResponseCurve <- function(
 
         ##perform final fitting
         fit.MC <- try(minpack.lm::nlsLM(
-          formula = y ~ fit_functionDSE_cpp(N1, N2, D01, D02, x),
+          formula = y ~ fit_functionDSE_cpp(N1, N2, D01, D02, Di, x),
           data = list(x=xy$x,y=data.MC[,i]),
-          start = list(N1 = N1, N2 = N2, D01 = D01, D02 = D02),
+          start = list(N1 = N1, N2 = N2, D01 = D01, D02 = D02, Di = Di),
           weights = fit.weights,
           trace = FALSE,
           algorithm = "LM",
@@ -1333,6 +1337,7 @@ fit_DoseResponseCurve <- function(
             N2 = parameters["N2"],
             D01 = var.D01[i],
             D02 = var.D02[i],
+            Di = parameters["Di"],
             LnTn = data.MC.De[i]
           ), silent = TRUE)
 

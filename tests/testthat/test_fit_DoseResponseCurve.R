@@ -478,7 +478,7 @@ temp_OTORX_alt <-
    expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 0),16983)
    expect_equal(round(temp_SSELIN$De[[1]], digits = 1), 1793)
    expect_equal(round(sum(temp_SSELIN$De.MC, na.rm = TRUE), digits = 0), 18068)
-   expect_equal(round(temp_DSE$De[[1]], digits = 2), 1787.15)
+   expect_equal(round(temp_DSE$De[[1]], digits = 2), 1786.98)
    expect_equal(round(sum(temp_DSE$De.MC, na.rm = TRUE), digits = 0), 7303,
                 tolerance = 10)
    expect_equal(round(temp_QDR$De[[1]], digits = 1), 1646.8)

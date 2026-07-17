@@ -1968,37 +1968,32 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1787.14784894]
+                  "value": [1786.97501161]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [35.66452023]
+                  "value": [50.92878779]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [549.02]
+                  "value": [601.94]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [443.12641797]
+                  "value": [447.72444948]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [3521.17]
+                  "value": [3729.04]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [4407822.8505969]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": ["NA"]
+                  "value": [3320697.10392194]
                 },
                 {
                   "type": "double",
@@ -2058,12 +2053,17 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.55106278]
+                  "value": ["NA"]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1774.94687884]
+                  "value": [0.55111842]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [1794.17609412]
                 },
                 {
                   "type": "character",
@@ -2078,39 +2078,39 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1740.88637871]
+                  "value": [1725.75275535]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1823.67021799]
+                  "value": [1869.86179192]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1698.41090096]
+                  "value": [1704.05892188]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1842.30741741]
+                  "value": [1844.55231955]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1787.14784894]
+                  "value": [1786.97501161]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1787.14784894]
+                  "value": [1786.97501161]
                 }
               ]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": ["NA", 1734.98901575, 1808.58705069, 1798.14634135, 1812.59811933, "NA", "NA", 1721.61885041, 1781.52144976, 1767.16732456]
+              "value": [1869.89205658, 1734.7805655, 1808.39862439, 1797.10542642, 1811.68285747, 1876.55847882, 1777.32746452, 1720.08910813, 1780.24323185, 1765.68312752]
             },
             {
               "type": "list",
@@ -2231,7 +2231,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit:    DSE (interpolation) | De = 1787.15 | D01 = 549.02 | D02 = 3521.17"]
+              "value": ["Fit:    DSE (interpolation) | De = 1786.98 | D01 = 601.94 | D02 = 3729.04"]
             }
           ]
         },
