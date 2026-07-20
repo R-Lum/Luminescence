@@ -165,6 +165,10 @@ implementation).
 
 * Extend the argument `predict` to handle backwards and forward prediction. 
 
+* The function has been corrected so that, in case multiple measurement dates,
+the `predict` argument will be applied to the last date, as specified by the
+manual (#1609).
+
 ### `convert_Second2Gray()`
 
 * Input validation was strengthened to avoid two possible crashes (#1537).

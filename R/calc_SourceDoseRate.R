@@ -180,12 +180,13 @@ calc_SourceDoseRate <- function(
 
   # --- if predict is set
   if(!is.null(predict) && max(predict) > 1){
+    ## take the last date
+    start.date <- tail(measurement.date, 1)
     if(length(predict) == 1)
-      measurement.date <- seq(tail(measurement.date), by = 1, length = predict)
+      measurement.date <- seq(start.date, by = 1, length = predict)
     else
-      measurement.date <- c(rev(seq(
-        tail(measurement.date), by = -1, length = abs(predict[1])
-      )), seq(tail(measurement.date)+1, by = 1, length = predict[2]-1))
+      measurement.date <- c(rev(seq(start.date, by = -1, length = abs(predict[1]))),
+                            seq(start.date + 1, by = 1, length = abs(predict[2]) - 1))
   }
 
   # -- calc days since source calibration
