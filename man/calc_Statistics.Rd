@@ -6,7 +6,7 @@
 \usage{
 calc_Statistics(
   data,
-  weight.calc = c("square", "reciprocal"),
+  weight.calc = c("inverse_var", "inverse_std"),
   digits = NULL,
   n.MCM = NULL,
   na.rm = TRUE
@@ -17,8 +17,8 @@ calc_Statistics(
 for \link{data.frame} two columns: De (\code{data[, 1]}) and De error (\code{data[, 2]}).}
 
 \item{weight.calc}{\link{character} (\emph{with default}):
-type of weight calculation. One out of \code{"reciprocal"} (weight is 1/error),
-\code{"square"} (weight is 1/error^2). Default is \code{"square"}.}
+type of weight calculation, either \code{"inverse_var"} (weight is 1/error^2,
+default) or \code{"inverse_std"} (weight is 1/error).}
 
 \item{digits}{\link{integer} (\emph{with default}):
 number of decimal places to be used when rounding numbers. If set to \code{NULL}
@@ -50,7 +50,7 @@ values. See Dietze et al. (2016, Quaternary Geochronology) and the function
 \link{plot_AbanicoPlot} for details.
 }
 \section{Function version}{
- 0.1.7
+ 0.1.8
 }
 
 \examples{

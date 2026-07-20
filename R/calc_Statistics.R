@@ -17,8 +17,8 @@
 #' for [data.frame] two columns: De (`data[, 1]`) and De error (`data[, 2]`).
 #'
 #' @param weight.calc [character] (*with default*):
-#' type of weight calculation. One out of `"reciprocal"` (weight is 1/error),
-#' `"square"` (weight is 1/error^2). Default is `"square"`.
+#' type of weight calculation, either `"inverse_var"` (weight is 1/error^2,
+#' default) or `"inverse_std"` (weight is 1/error).
 #'
 #' @param digits [integer] (*with default*):
 #' number of decimal places to be used when rounding numbers. If set to `NULL`
@@ -33,7 +33,7 @@
 #'
 #' @return Returns a list with weighted and unweighted statistic measures.
 #'
-#' @section Function version: 0.1.7
+#' @section Function version: 0.1.8
 #'
 #' @keywords datagen
 #'
@@ -62,7 +62,7 @@
 #' @export
 calc_Statistics <- function(
   data,
-  weight.calc = c("square", "reciprocal"),
+  weight.calc = c("inverse_var", "inverse_std"),
   digits = NULL,
   n.MCM = NULL,
   na.rm = TRUE
@@ -103,10 +103,21 @@ calc_Statistics <- function(
     data[,2] <- rep(x = 10^-9, length(data[,2]))
   }
 
-  weight.calc <- .validate_args(weight.calc, c("square", "reciprocal"))
-  if(weight.calc == "reciprocal") {
+  ## deprecated names
+  deprecated <- c(inverse_var = "square", "inverse_std" = "reciprocal")
+  weight.calc <- .validate_args(weight.calc,
+                                c("inverse_var", "inverse_std", deprecated))
+  if (weight.calc %in% deprecated) {
+    new <- names(deprecated[match(weight.calc, deprecated)])
+    .deprecated(old = sprintf("weight.calc = \"%s\"", weight.calc),
+                new = sprintf("weight.calc = \"%s\"", new),
+                since = "1.3.0")
+    weight.calc <- new
+   }
+
+  if (weight.calc == "inverse_std") {
     S.weights <- 1 / data[,2]
-  } else if(weight.calc == "square") {
+  } else if (weight.calc == "inverse_var") {
     S.weights <- 1 / data[,2]^2
   }
 
