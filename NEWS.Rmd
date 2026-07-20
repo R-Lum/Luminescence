@@ -280,6 +280,10 @@ further customisation of the dose-response curve.
 object created by `analyse_SAR.CWOSL()` (#1592; thanks to @DirkMittelstrass
 for reporting).
 
+* The function broke with `Error in histogram$counts : object of type 'closure' is not subsettable`
+if the fit could not be established and the object `histogram` was exposed in the namespace by 
+another package; fixed.  
+
 ### `plot_DRTResults()`
 
 * The plotting of a list of inputs with `summary.pos = "sub"` was regressed

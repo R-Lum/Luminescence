@@ -32,7 +32,7 @@
 #' @return
 #' A plot (or a series of plots) is produced.
 #'
-#' @section Function version: 1.0.10
+#' @section Function version: 1.0.11
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -425,10 +425,12 @@ plot_DoseResponseCurve <- function(
         par(cex = 0.7 * plot_settings$cex)
 
       ## calculate histogram data
-      try(histogram <- hist(x.natural, plot = FALSE), silent = TRUE)
-
+      histogram <- try({
+        hist(x.natural, plot = FALSE)
+        }, silent = TRUE)
+      
       ## to avoid errors plot only if histogram exists
-      if (exists("histogram") && length(histogram$counts) > 2) {
+      if (!inherits(histogram, "try-error") && length(histogram$counts) > 2) {
         ## plot histogram
         histogram <- try(hist(
             x.natural,
