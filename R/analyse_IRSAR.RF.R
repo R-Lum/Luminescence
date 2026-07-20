@@ -1320,17 +1320,19 @@ analyse_IRSAR.RF<- function(
        .check_threshold("beta", "<=")
        .check_threshold("delta.phi", "<=")
     }
+  } else {
+    fit.lambda <- NA
+    class(fit.lambda) <- "try-error"
   }
 
   ##(99) check whether after sliding the
   ##TP$curves_bounds
   if (!is.null(TP$curves_bounds)) {
-    if(exists("slide")){
+    if (is.slide.method) {
       ## add one channel on the top to make sure that it works
       TP$curves_bounds$VALUE <- max(RF_nat.slid[RF_nat.lim,1]) + (RF_nat[2,1] - RF_nat[1,1])
        .check_threshold("curves_bounds", ">=", floor(max(RF_reg.x)))
-
-    }else if(exists("fit")){
+    } else {
       TP$curves_bounds$VALUE <- De.upper
       .check_threshold("curves_bounds", ">=", max(RF_reg.x))
     }
@@ -1741,14 +1743,6 @@ analyse_IRSAR.RF<- function(
   }#endif::plot
 
   # Return ------------------------------------------------------------------
-  ##catch up worst case scenarios ... means something went wrong
-  if (!exists("fit")) {
-    fit  <- list()
-    if (exists("fit.lambda")) {
-      fit <- fit.lambda
-    }
-  }
-  if(!exists("slide")){slide <- list()}
 
   ##generate unique identifier
   UID <- create_UID()
@@ -1770,9 +1764,12 @@ analyse_IRSAR.RF<- function(
     stringsAsFactors = FALSE
   )
 
-    if(!is.null(TP.data.frame)){
-      TP.data.frame$UID <- UID
-    }
+  if (method != "FIT") {
+    fit  <- if (!inherits(fit.lambda, "try-error")) fit.lambda else list()
+  }
+  if (!is.null(TP.data.frame)) {
+    TP.data.frame$UID <- UID
+  }
 
   ##produce results object
   set_RLum(
@@ -1782,7 +1779,7 @@ analyse_IRSAR.RF<- function(
         De.MC = De.MC,
         test_parameters = TP.data.frame,
         fit = fit,
-        slide = slide
+        slide = if (is.slide.method) slide else list()
       ),
       info = list(call = sys.call())
   )
