@@ -626,7 +626,7 @@ plot_DRTResults <- function(
   } else {
     if (mtext == "") {
       mtext(side = 3,
-            line = - i + 1,
+            line = length(label.text) - i,
             text = label.text[[i]],
             cex = cex * 0.8,
             col = col)

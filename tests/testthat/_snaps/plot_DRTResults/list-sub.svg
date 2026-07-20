@@ -73,7 +73,7 @@
 <polyline points='603.53,395.08 608.93,395.08 614.33,395.08 ' style='stroke-width: 0.75;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
-<text x='378.00' y='56.16' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='154.63px' lengthAdjust='spacingAndGlyphs'>mean = 2825.66 | median = 2841.32</text>
+<text x='378.00' y='41.76' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='154.63px' lengthAdjust='spacingAndGlyphs'>mean = 2825.66 | median = 2841.32</text>
 </g>
 <g clip-path='url(#cpNjYuMjR8Njg5Ljc2fDU5LjA0fDUwOS43Ng==)'>
 <circle cx='147.07' cy='352.28' r='3.24' style='stroke-width: 0.75; stroke: #DF536B; fill: #DF536B;' />
@@ -98,6 +98,6 @@
 <polyline points='603.53,491.35 608.93,491.35 614.33,491.35 ' style='stroke-width: 0.75; stroke: #DF536B;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
-<text x='378.00' y='70.56' text-anchor='middle' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='154.63px' lengthAdjust='spacingAndGlyphs'>mean = 2806.75 | median = 2826.99</text>
+<text x='378.00' y='56.16' text-anchor='middle' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='154.63px' lengthAdjust='spacingAndGlyphs'>mean = 2806.75 | median = 2826.99</text>
 </g>
 </svg>
