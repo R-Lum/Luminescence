@@ -760,8 +760,7 @@ fit_LMCurve<- function(
     ##  COMPOSE RETURN VALUES (data.frame)
     ##============================================================================##
 
-    ##write output table if values exists
-    if (exists("fit")){
+    ## write output table
       ## build column names according to a pattern
       pat <- c("Im%d", "xm%d", "b%d", "b%d.error",
                "n%02d", "n%02d.error", "cs%d", "rel_cs%d")
@@ -780,7 +779,6 @@ fit_LMCurve<- function(
       colnames(output.table)<-c("ID","sample_code","n.components",output.tableColNames,"pseudo-R^2")
 
       ##----------------------------------------------------------------------------##
-    }#endif::exists fit
 
   }else{
     output.table <- NA
