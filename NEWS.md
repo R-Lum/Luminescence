@@ -178,6 +178,14 @@ parameters are now called
   ensures that the source dose rates are computed consistently, rather
   than depending on R’s recycling rules for vectors (#1611).
 
+### `calc_Statistics()`
+
+- The values accepted by the `weight.calc` argument have been changed to
+  align to the terminology used in `fit_DoseResponseCurve()`. Therefore,
+  option `"square"` is now called `"inverse_var"`, and `"reciprocal"` is
+  now called `"inverse_std"`. The previous names will continue to work,
+  but will now raise a deprecation warning (#1615).
+
 ### `convert_Second2Gray()`
 
 - Input validation was strengthened to avoid two possible crashes

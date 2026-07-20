@@ -19,7 +19,7 @@ test_that("Test certain input scenarios", {
                  "All errors are NA or zero, automatically set to")
 
   df <- ExampleData.DeValues$BT998
-  expect_silent(calc_Statistics(df, weight.calc = "reciprocal"))
+  expect_silent(calc_Statistics(df, weight.calc = "inverse_std"))
 })
 
 test_that("input validation", {
@@ -35,13 +35,17 @@ test_that("input validation", {
   expect_error(calc_Statistics(data.frame(a = NA)),
                "'data' contains only NA values")
   expect_error(calc_Statistics(data = df, weight.calc = "error"),
-               "'weight.calc' should be one of 'square' or 'reciprocal'")
+               "'weight.calc' should be one of 'inverse_var', 'inverse_std'")
   expect_error(calc_Statistics(df, digits = 2.4),
                "'digits' should be a single positive integer value")
   expect_error(calc_Statistics(df, n.MCM = "error"),
                "'n.MCM' should be a single positive integer value")
   expect_error(calc_Statistics(df, na.rm = iris),
                "'na.rm' should be a single logical value")
+
+  ## deprecated names
+  expect_warning(calc_Statistics(df, weight.calc = "reciprocal"),
+                 "was deprecated in v1.3.0, use 'weight.calc = \"inverse_std\"")
 })
 
 test_that("snapshot tests", {
