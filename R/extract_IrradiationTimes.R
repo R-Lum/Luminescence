@@ -255,6 +255,7 @@ extract_IrradiationTimes <- function(
     ##select sequence and reduce the data set to really wanted values, note that no
     ##record selection was made!
     temp.sequence.list <- list(object)
+    file.XSYG <- NA
   }
 
   ## merge objects and restore originator
@@ -308,7 +309,7 @@ extract_IrradiationTimes <- function(
 
   ##add position number so far an XSYG file was the input
   POSITION <- NA
-  if(exists("file.XSYG")){
+  if (!is.na(file.XSYG)) {
     POSITION <- rep(temp.sequence.position, each = length_RLum(temp.sequence))
 
   } else {
@@ -409,7 +410,7 @@ extract_IrradiationTimes <- function(
    if(return_same_as_input[1]) {
      ## This odd mode we need to ensure that the function supports
      ## correctly all the odd modes with the automated import of XSYG files
-     if(exists(x = "temp.XSYG", envir = environment())) {
+     if (!is.na(file.XSYG)) {
        object <- lapply(temp.XSYG, function(x) x$Sequence.Object)
 
         ## make sure that the output is compatible

@@ -107,4 +107,11 @@ test_that("regression tests", {
   tmp@records[[1]]@info$position <- NULL
   expect_s4_class(extract_IrradiationTimes(tmp),
                   "RLum.Results")
+
+  ## issue 1617
+  assign("file.XSYG", NA, envir = .GlobalEnv)
+  on.exit(rm("file.XSYG", envir = .GlobalEnv), add = TRUE)
+  expect_s4_class(extract_IrradiationTimes(xsyg, txtProgressBar = FALSE,
+                                           return_same_as_input = TRUE),
+                  "RLum.Analysis")
 })
