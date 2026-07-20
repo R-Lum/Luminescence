@@ -289,7 +289,13 @@ parameters are now called
   `RLum.Results' object created by`analyse_SAR.CWOSL()\` (#1592; thanks
   to @DirkMittelstrass for reporting).
 
-## `plot_KDE()`
+### `plot_DRTResults()`
+
+- The plotting of a list of inputs with `summary.pos = "sub"` was
+  regressed in v1.2.0, resulting in the summary statistics being printed
+  one line down from their intended position (#1613).
+
+### `plot_KDE()`
 
 - The default background colour was incorrectly set to `NA`, which in
   some cases, such as when plotting to a png file or in RStudio (at
