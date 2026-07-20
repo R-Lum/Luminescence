@@ -340,3 +340,117 @@
       }
     }
 
+---
+
+    {
+      "type": "S4",
+      "attributes": {
+        "data": {
+          "type": "list",
+          "attributes": {
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["dose.rate", "parameters"]
+            }
+          },
+          "value": [
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["dose.rate", "dose.rate.error", "date"]
+                },
+                "class": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["data.frame"]
+                },
+                "row.names": {
+                  "type": "integer",
+                  "attributes": {},
+                  "value": [1, 2, 3, 4, 5]
+                }
+              },
+              "value": [
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.04702837, 0.04702528, 0.04702219, 0.04701911, 0.04701602]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [0.00204004, 0.00203991, 0.00203978, 0.00203964, 0.00203951]
+                },
+                {
+                  "type": "integer",
+                  "attributes": {
+                    "class": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Date"]
+                    }
+                  },
+                  "value": [15340, 15341, 15342, 15343, 15344]
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "attributes": {
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["source.type", "halflife", "dose.rate.unit"]
+                }
+              },
+              "value": [
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["Sr-90"]
+                },
+                {
+                  "type": "double",
+                  "attributes": {},
+                  "value": [28.9]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["Gy/s"]
+                }
+              ]
+            }
+          ]
+        },
+        "originator": {
+          "type": "character",
+          "attributes": {},
+          "value": ["calc_SourceDoseRate"]
+        },
+        "info": {
+          "type": "list",
+          "attributes": {},
+          "value": []
+        },
+        ".uid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        ".pid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        }
+      },
+      "value": {
+        "class": "RLum.Results",
+        "package": "Luminescence"
+      }
+    }
+

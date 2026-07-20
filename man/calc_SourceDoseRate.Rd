@@ -95,14 +95,11 @@ original .BIN file (using e.g., \code{BINfile <- Luminescence::read_BIN2R()} and
 Please be careful when using the option \code{predict}, especially when a
 multiple set for \code{measurement.date} and \code{calib.date} is provided. For the
 source dose rate prediction, the function takes the last \code{measurement.date}
-value and predicts from that the source dose rate for the number of days
+and \code{calib.date} values and predicts from that the source dose rate for the number of days
 requested, that is: the (multiple) original input will be replaced.
-However, the function does not change entries for the calibration dates,
-but mixes them up. Therefore, it is not recommended to use this option
-when multiple calibration dates (\code{calib.date}) are provided.
 }
 \section{Function version}{
- 0.3.5
+ 0.3.6
 }
 
 \examples{
@@ -142,7 +139,7 @@ xtable::xtable(get_RLum(dose.rate))
 
 }
 \references{
-NNDC, Brookhaven National Laboratory \verb{http://www.nndc.bnl.gov/}
+NNDC, Brookhaven National Laboratory \verb{https://www.nndc.bnl.gov/}
 }
 \seealso{
 \link{convert_Second2Gray}, \link{get_RLum}, \link{plot_RLum}
