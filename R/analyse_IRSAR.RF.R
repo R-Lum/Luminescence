@@ -538,6 +538,8 @@ analyse_IRSAR.RF<- function(
   .validate_class(method_control, "list", null.ok = TRUE)
   .validate_positive_scalar(n.MC, int = TRUE, null.ok = TRUE)
 
+  is.slide.method <- method %in% c("SLIDE", "VSLIDE")
+
   ##SELECT ONLY MEASURED CURVES
   ## (this is not really necessary but rather user friendly)
   if (length(suppressWarnings(get_RLum(object, curveType = "measured"))) > 0) {
@@ -551,9 +553,8 @@ analyse_IRSAR.RF<- function(
 
   ##check whether both curve have the same length, in this case we cannot proceed (sliding
   ##is not allowed)
-  if(length(unique(temp.sequence_structure[["x.max"]])) == 1 &&
-     grepl("SLIDE", method) &&
-     (is.null(RF_nat.lim) & is.null(RF_reg.lim))) {
+  if (is.slide.method && is.null(RF_nat.lim) && is.null(RF_reg.lim) &&
+      length(unique(temp.sequence_structure[["x.max"]])) == 1) {
     .throw_error("There is no further sliding space left. All curves have ",
                  "the same length and no limitation was set")
   }
@@ -754,7 +755,7 @@ analyse_IRSAR.RF<- function(
   RF_reg <- as.data.frame(rbindlist(lapply(object@records[reg.idx],
                                            function(x) as.data.frame(x@data))))
   ## correct of the onset of detection by using the first time value
-  if (grepl("SLIDE", method) && method_control.settings$correct_onset) {
+  if (is.slide.method && method_control.settings$correct_onset) {
       RF_reg[,1] <- RF_reg[,1] - RF_reg[1,1]
     }
 
@@ -766,7 +767,7 @@ analyse_IRSAR.RF<- function(
                                            function(x) as.data.frame(x@data))))
 
   ## correct the onset of detection by using the first time value
-  if (grepl("SLIDE", method) && method_control.settings$correct_onset) {
+  if (is.slide.method && method_control.settings$correct_onset) {
     RF_nat[,1] <- RF_nat[,1] - RF_nat[1,1]
   }
 
@@ -914,7 +915,7 @@ analyse_IRSAR.RF<- function(
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ## METHOD SLIDE - ANALYSIS
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-  else if(method == "SLIDE" || method == "VSLIDE"){
+  else if (is.slide.method) {
     ##convert to matrix (in fact above the matrix data were first transferred to
     ##data.frames ... here
     ##we correct this ... again)
@@ -1278,7 +1279,7 @@ analyse_IRSAR.RF<- function(
 
   ## (2) check slope of the residuals using a linear fit
   ##TP$residuals_slope
-  if ("residuals_slope" %in% names(TP) && exists("slide")) {
+  if ("residuals_slope" %in% names(TP) && is.slide.method) {
         TP$residuals_slope$VALUE <- abs(slide$trend.fit[2])
 
         .check_threshold("residuals_slope")
@@ -1316,9 +1317,7 @@ analyse_IRSAR.RF<- function(
        TP$delta.phi$VALUE <- temp.coef["delta.phi"]
 
        .check_threshold("lambda", "<=")
-
        .check_threshold("beta", "<=")
-
        .check_threshold("delta.phi", "<=")
     }
   }
@@ -1329,12 +1328,10 @@ analyse_IRSAR.RF<- function(
     if(exists("slide")){
       ## add one channel on the top to make sure that it works
       TP$curves_bounds$VALUE <- max(RF_nat.slid[RF_nat.lim,1]) + (RF_nat[2,1] - RF_nat[1,1])
-
        .check_threshold("curves_bounds", ">=", floor(max(RF_reg.x)))
 
     }else if(exists("fit")){
       TP$curves_bounds$VALUE <- De.upper
-
       .check_threshold("curves_bounds", ">=", max(RF_reg.x))
     }
   }
@@ -1539,7 +1536,7 @@ analyse_IRSAR.RF<- function(
     ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     ## PLOT - METHOD SLIDE
     ## ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    else if (method == "SLIDE" || method == "VSLIDE") {
+    else if (is.slide.method) {
       ##(0) density plot
       if (method_control.settings$show_density && !is.null(n.MC)) {
         ##showing the density makes only sense when we see at least 10 data points
@@ -1726,7 +1723,7 @@ analyse_IRSAR.RF<- function(
     }
 
     ## TODO: CONTROL PLOT! can be implemented in appropriate form in a later version
-    if (method %in% c("SLIDE", "VSLIDE") && method_control.settings$trace) {
+    if (is.slide.method && method_control.settings$trace) {
         par(new = TRUE)
         plot(
             RF_reg.limited[1:length(slide$squared_residuals),1],
