@@ -206,14 +206,6 @@ read_BIN2R <- function(
   .validate_logical_scalar(txtProgressBar)
   .validate_class(ignore.RECTYPE, c("logical", "numeric"), length = 1)
 
-  ##set file_link for internet downloads
-  on_exit <- function(){
-    ##close connection
-    if(exists("con") && !is.null(con)){
-      close(con)
-    }
-  }
-  on.exit(expr = on_exit(), add = TRUE)
 
   ## never show the progress bar if not verbose
   if (!verbose) {
@@ -227,6 +219,7 @@ read_BIN2R <- function(
 
   #open connection
   con <- file(file, "rb")
+  on.exit(close(con), add = TRUE)
 
   ##read data up to the end of con
   ##set ID
