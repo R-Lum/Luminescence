@@ -281,6 +281,7 @@ test_that("test edge cases", {
   expect_s4_class(analyse_IRSAR.RF(
       tmp,
       method = "SLIDE",
+      test_parameters = list(beta = NULL),
       verbose = FALSE),
       "RLum.Results")
 })
