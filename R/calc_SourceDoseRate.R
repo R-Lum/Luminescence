@@ -81,13 +81,10 @@
 #' Please be careful when using the option `predict`, especially when a
 #' multiple set for `measurement.date` and `calib.date` is provided. For the
 #' source dose rate prediction, the function takes the last `measurement.date`
-#' value and predicts from that the source dose rate for the number of days
+#' and `calib.date` values and predicts from that the source dose rate for the number of days
 #' requested, that is: the (multiple) original input will be replaced.
-#' However, the function does not change entries for the calibration dates,
-#' but mixes them up. Therefore, it is not recommended to use this option
-#' when multiple calibration dates (`calib.date`) are provided.
 #'
-#' @section Function version: 0.3.5
+#' @section Function version: 0.3.6
 #'
 #' @author
 #' Margret C. Fuchs, HZDR, Helmholtz-Institute Freiberg for Resource Technology (Germany) \cr
@@ -96,7 +93,7 @@
 #' @seealso [Luminescence::convert_Second2Gray], [Luminescence::get_RLum], [Luminescence::plot_RLum]
 #'
 #' @references
-#' NNDC, Brookhaven National Laboratory `http://www.nndc.bnl.gov/`
+#' NNDC, Brookhaven National Laboratory `https://www.nndc.bnl.gov/`
 #'
 #' @keywords manip
 #'
@@ -182,6 +179,7 @@ calc_SourceDoseRate <- function(
   if(!is.null(predict) && max(predict) > 1){
     ## take the last date
     start.date <- tail(measurement.date, 1)
+    calib.date <- tail(calib.date, 1)
     if(length(predict) == 1)
       measurement.date <- seq(start.date, by = 1, length = predict)
     else

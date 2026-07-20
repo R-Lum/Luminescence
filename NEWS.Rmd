@@ -169,6 +169,11 @@ implementation).
 the `predict` argument will be applied to the last date, as specified by the
 manual (#1609).
 
+* If multiple values are provided for `calib.date` when `predict` is used,
+only the last calibration date specified will be applied. This ensures that
+the source dose rates are computed consistently, rather than depending on R's
+recycling rules for vectors (#1611).
+
 ### `convert_Second2Gray()`
 
 * Input validation was strengthened to avoid two possible crashes (#1537).
