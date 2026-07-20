@@ -965,9 +965,6 @@ fit_DoseResponseCurve <- function(
     ## LIN ------------------------------------------------------------------
     ## two options: just linear fit or LIN fit after the SSE fit failed
 
-    #set fit object, if fit object was not set before
-    if (!exists("fit")) fit <- NA
-
     if ((fit.method == "SSE OR LIN" && inherits(fit, "try-error")) ||
         fit.method == "LIN") {
 
@@ -1347,6 +1344,8 @@ fit_DoseResponseCurve <- function(
         } #end if "try-error" MC simulation
       } #end for loop
 
+      if (txtProgressBar) close(pb)
+
       D01 <- round(D01, digits = 2)
       D02 <- round(D02, digits = 2)
       D01.ERROR <- sd(var.D01, na.rm = TRUE)
@@ -1358,9 +1357,6 @@ fit_DoseResponseCurve <- function(
     }else{
       .report_fit_failure(fit.method, mode)
     } #end if "try-error" Fit Method
-
-    ##close
-    if (txtProgressBar && exists("pb")) close(pb)
   }
 
   ## GOK --------------------------------------------------------------------
