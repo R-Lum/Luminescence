@@ -114,6 +114,12 @@ parameters are now called
 - The function no longer crashes if a list containing multiple empty
   objects is provided (#1598).
 
+### `analyse_IRSAR.RF()`
+
+- The `RF_nat.lim` and `RF_reg.lim` arguments are now checked to have
+  the expected length (1 or 2 elements) to avoid crashes that occurred
+  when they were misspecified (#1621).
+
 ### `analyse_SAR.CWOSL()`
 
 - The default value for the `background_integral` argument has changed
