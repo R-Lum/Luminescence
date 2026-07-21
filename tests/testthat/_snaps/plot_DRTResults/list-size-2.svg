@@ -79,8 +79,8 @@
 <line x1='608.93' y1='366.26' x2='608.93' y2='483.59' style='stroke-width: 0.75;' />
 <polyline points='614.33,366.26 608.93,366.26 603.53,366.26 ' style='stroke-width: 0.75;' />
 <polyline points='603.53,483.59 608.93,483.59 614.33,483.59 ' style='stroke-width: 0.75;' />
-<text x='89.33' y='54.61' style='font-size: 9.60px; font-family: sans;' textLength='72.33px' lengthAdjust='spacingAndGlyphs'>mean = 2825.66 </text>
-<text x='89.33' y='66.13' style='font-size: 9.60px; font-family: sans;' textLength='53.11px' lengthAdjust='spacingAndGlyphs'>sd.rel = 2.55</text>
+<text x='89.33' y='54.61' style='font-size: 9.60px; font-family: sans;' textLength='69.67px' lengthAdjust='spacingAndGlyphs'>mean = 2825.66</text>
+<text x='89.33' y='66.13' style='font-size: 9.60px; font-family: sans;' textLength='66.98px' lengthAdjust='spacingAndGlyphs'>rel. sd = 2.55 %</text>
 <circle cx='147.07' cy='172.72' r='3.24' style='stroke-width: 0.75; stroke: #DF536B; fill: #DF536B;' />
 <circle cx='262.53' cy='118.07' r='3.24' style='stroke-width: 0.75; stroke: #DF536B; fill: #DF536B;' />
 <line x1='147.07' y1='105.35' x2='147.07' y2='240.09' style='stroke-width: 0.75; stroke: #DF536B;' />
@@ -91,8 +91,8 @@
 <polyline points='257.13,188.13 262.53,188.13 267.93,188.13 ' style='stroke-width: 0.75; stroke: #DF536B;' />
 <text x='89.33' y='54.61' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
 <text x='89.33' y='66.13' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
-<text x='89.33' y='77.65' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='72.33px' lengthAdjust='spacingAndGlyphs'>mean = 3148.25 </text>
-<text x='89.33' y='89.17' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='53.11px' lengthAdjust='spacingAndGlyphs'>sd.rel = 1.93</text>
+<text x='89.33' y='77.65' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='69.67px' lengthAdjust='spacingAndGlyphs'>mean = 3148.25</text>
+<text x='89.33' y='89.17' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='66.98px' lengthAdjust='spacingAndGlyphs'>rel. sd = 1.93 %</text>
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 </g>

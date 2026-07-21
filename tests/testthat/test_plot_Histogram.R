@@ -44,7 +44,7 @@ test_that("check functionality", {
                                normal_curve = TRUE,
                                summary.pos = c(20, 0.017),
                                summary = c("n", "mean", "mean.weighted",
-                                           "median", "sdrel")))
+                                           "median", "sd.rel")))
 
   ## interactive
   expect_silent(plot_Histogram(df, interactive = TRUE,
@@ -70,7 +70,7 @@ test_that("graphical snapshot tests", {
                               plot_Histogram(df, normal_curve = TRUE))
   vdiffr::expect_doppelganger("Histogram summary sub",
                               plot_Histogram(df, summary.pos = "sub",
-                                             summary = c("n", "serel", "kurtosis")))
+                                             summary = c("n", "se.rel", "kurtosis")))
   vdiffr::expect_doppelganger("Histogram summary left",
                               plot_Histogram(df, summary.pos = "left",
                                              summary = c("mean", "skewness",

@@ -92,9 +92,9 @@ test_that("check functionality", {
     plot_RadialPlot(
       data = df,
       summary = c(
-        "n", "mean", "median", "mean.weighted", "median.weighted", "kdemax", "sdabs",
-        "sdrel", "seabs", "serel", "skewness", "kurtosis", "in.2s", "sdabs.weighted",
-        "sdrel.weighted", "seabs.weighted", "serel.weighted"),
+        "n", "mean", "median", "mean.weighted", "median.weighted", "kde.max",
+        "sd.abs", "sd.rel", "se.abs", "se.rel", "skewness", "kurtosis", "in.2s",
+        "sd.abs.weighted", "sd.rel.weighted", "se.abs.weighted", "se.rel.weighted"),
       log.z = FALSE))
 
   ## simple test - unlogged
@@ -191,7 +191,7 @@ test_that("graphical snapshot tests", {
                                               summary = c("mean", "in.2s", "skewness")))
   vdiffr::expect_doppelganger("summary line cex",
                               plot_RadialPlot(df, summary.pos = "topleft",
-                                              summary = "seabs.weighted",
+                                              summary = c("se.abs.weighted", "se.abs"),
                                               line = c(4.5, 6.5),
                                               line.label = c("4.5", "6.5"),
                                               cex = 2))

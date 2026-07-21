@@ -71,9 +71,9 @@
 <line x1='608.93' y1='275.78' x2='608.93' y2='387.76' style='stroke-width: 0.75;' />
 <polyline points='614.33,275.78 608.93,275.78 603.53,275.78 ' style='stroke-width: 0.75;' />
 <polyline points='603.53,387.76 608.93,387.76 614.33,387.76 ' style='stroke-width: 0.75;' />
-<text x='666.67' y='434.40' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='24.29px' lengthAdjust='spacingAndGlyphs'>n = 5 </text>
-<text x='666.67' y='445.92' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='72.33px' lengthAdjust='spacingAndGlyphs'>mean = 2825.66 </text>
-<text x='666.67' y='457.44' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='63.26px' lengthAdjust='spacingAndGlyphs'>sd.abs = 71.98</text>
+<text x='666.67' y='434.40' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='21.62px' lengthAdjust='spacingAndGlyphs'>n = 5</text>
+<text x='666.67' y='445.92' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='69.67px' lengthAdjust='spacingAndGlyphs'>mean = 2825.66</text>
+<text x='666.67' y='457.44' text-anchor='end' style='font-size: 9.60px; font-family: sans;' textLength='45.11px' lengthAdjust='spacingAndGlyphs'>sd = 71.98</text>
 <circle cx='147.07' cy='342.22' r='3.24' style='stroke-width: 0.75; stroke: #DF536B; fill: #DF536B;' />
 <circle cx='262.53' cy='259.56' r='3.24' style='stroke-width: 0.75; stroke: #DF536B; fill: #DF536B;' />
 <circle cx='378.00' cy='217.31' r='3.24' style='stroke-width: 0.75; stroke: #DF536B; fill: #DF536B;' />
@@ -97,9 +97,9 @@
 <text x='666.67' y='434.40' text-anchor='end' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
 <text x='666.67' y='445.92' text-anchor='end' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
 <text x='666.67' y='457.44' text-anchor='end' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
-<text x='666.67' y='468.96' text-anchor='end' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='24.29px' lengthAdjust='spacingAndGlyphs'>n = 5 </text>
-<text x='666.67' y='480.48' text-anchor='end' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='72.33px' lengthAdjust='spacingAndGlyphs'>mean = 2806.75 </text>
-<text x='666.67' y='492.00' text-anchor='end' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='68.60px' lengthAdjust='spacingAndGlyphs'>sd.abs = 200.59</text>
+<text x='666.67' y='468.96' text-anchor='end' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='21.62px' lengthAdjust='spacingAndGlyphs'>n = 5</text>
+<text x='666.67' y='480.48' text-anchor='end' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='69.67px' lengthAdjust='spacingAndGlyphs'>mean = 2806.75</text>
+<text x='666.67' y='492.00' text-anchor='end' style='font-size: 9.60px; fill: #DF536B; font-family: sans;' textLength='50.45px' lengthAdjust='spacingAndGlyphs'>sd = 200.59</text>
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 </g>

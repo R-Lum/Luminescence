@@ -90,7 +90,7 @@ one or more of the following keywords:
 \item \code{"median"} (median of the De values)
 \item \code{"sd.rel"} (relative standard deviation in percent)
 \item \code{"sd.abs"} (absolute standard deviation)
-\item \code{"se.rel"} (relative standard error)
+\item \code{"se.rel"} (relative standard error in percent)
 \item \code{"se.abs"} (absolute standard error)
 \item \code{"in.2s"} (percent of samples in 2-sigma range)
 \item \code{"kurtosis"} (kurtosis)

@@ -132,6 +132,6 @@
 <text x='43.20' y='283.91' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='10.67px' lengthAdjust='spacingAndGlyphs'>-2</text>
 <text x='43.20' y='240.51' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='43.20' y='197.10' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='6.67px' lengthAdjust='spacingAndGlyphs'>2</text>
-<text x='338.40' y='47.52' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='97.51px' lengthAdjust='spacingAndGlyphs'>n = 30 | kurtosis = 2.13</text>
+<text x='338.40' y='47.52' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='172.31px' lengthAdjust='spacingAndGlyphs'>n = 30 | rel. se = 2.04 % | kurtosis = 2.13</text>
 </g>
 </svg>

@@ -56,12 +56,12 @@ adds numerical output to the plot.  Can be one or more out of:
 \itemize{
 \item \code{"n"} (number of samples),
 \item \code{"mean"} (mean De value),
-\item \code{"weighted$mean"} (error-weighted mean),
+\item \code{"mean.weighted"} (error-weighted mean),
 \item \code{"median"} (median of the De values),
-\item \code{"weighted$median"} (error-weighted median),
+\item \code{"median.weighted"} (error-weighted median),
 \item \code{"sd.rel"} (relative standard deviation in percent),
 \item \code{"sd.abs"} (absolute standard deviation),
-\item \code{"se.rel"} (relative standard error) and
+\item \code{"se.rel"} (relative standard error in percent) and
 \item \code{"se.abs"} (absolute standard error)
 }
 
@@ -155,13 +155,13 @@ plot_DRTResults(
 plot_DRTResults(
   list(x.1, x.2),
   given.dose = 2800,
-  summary = c("n", "weighted$mean", "sd.abs"))
+  summary = c("n", "mean.weighted", "sd.abs"))
 
 ## plot the data with user-defined statistical measures as sub-header
 plot_DRTResults(
   list(x.1, x.2),
   given.dose = 2800,
-  summary = c("n", "weighted$mean", "sd.abs"),
+  summary = c("n", "mean.weighted", "sd.abs"),
   summary.pos = "sub")
 
 ## plot the data grouped by preheat temperatures

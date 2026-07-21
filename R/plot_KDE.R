@@ -24,7 +24,7 @@
 #' - `"median"` (median of the De values)
 #' - `"sd.rel"` (relative standard deviation in percent)
 #' - `"sd.abs"` (absolute standard deviation)
-#' - `"se.rel"` (relative standard error)
+#' - `"se.rel"` (relative standard error in percent)
 #' - `"se.abs"` (absolute standard error)
 #' - `"in.2s"` (percent of samples in 2-sigma range)
 #' - `"kurtosis"` (kurtosis)
@@ -261,7 +261,7 @@ plot_KDE <- function(
   colnames(De.stats) <- c("n",
                           "mean",
                           "median",
-                          "kdemax",
+                          "kde.max",
                           "sd.abs",
                           "sd.rel",
                           "se.abs",
@@ -273,6 +273,10 @@ plot_KDE <- function(
   De.global <- De.error.global <- NULL
   De.density <- NULL
   De.density.range <- matrix(nrow = length(data), ncol = 4)
+
+  ## placeholder for the summary label text
+  label.text <- list()
+  is.sub <- summary.pos[1] == "sub"
 
   ## loop through all data sets
   for(i in 1:length(data)) {
@@ -307,6 +311,23 @@ plot_KDE <- function(
     De.stats[i,11] <- statistics$skewness
     De.stats[i,12] <- statistics$kurtosis
 
+    ## convert to a list of lists, like the object produced by calc_Statistics
+    De.stats.list <- list(as.list(De.stats[i, ]))
+    names(De.stats.list) <- summary.method
+
+    ## compute the percent of samples in a 2-sigma range
+    De.stats.list[[summary.method]]["in.2s"] <-
+      sum(data[[i]][, 1] > (De.stats[i, 2] - 2 * De.stats[i, 5]) &
+          data[[i]][, 1] < (De.stats[i, 2] + 2 * De.stats[i, 5])) / nrow(data[[i]]) * 100
+
+    ## generate the summary label text
+    label.text[[i]] <- .create_StatisticalSummaryText(
+        De.stats.list,
+        keywords = paste0(summary.method, "$", summary),
+        sep = ifelse(is.sub, " | ", "\n"),
+        prefix = if (!is.sub) strrep("\n", (i - 1) * length(summary)) else ""
+    )
+
     ## calculate density
     if(nrow(data[[i]]) >= 2){
       De.density[[i]] <- density(data[[i]][, 1], kernel = "gaussian", bw = bw)
@@ -336,61 +357,6 @@ plot_KDE <- function(
                         max(De.density.range[,2]),
                         min(De.density.range[,3]),
                         max(De.density.range[,4]))
-
-  ## helper to generate an element of the statistical summary
-  .summary_line <- function(keyword, summary, val, label = keyword,
-                            percent = FALSE, sep = FALSE, digits = 2) {
-    ifelse(keyword %in% summary,
-           paste0(label, " = ", round(val, digits),
-                  if (percent) " %" else NULL, if (sep) " | " else  "\n"),
-           "")
-  }
-
-  ## initialize list
-  label.text <- NULL
-  is.sub <- summary.pos[1] == "sub"
-  for (i in 1:length(data)) {
-    summary.text <- character(0)
-    for (j in 1:length(summary)) {
-      summary.text <-
-        c(summary.text,
-          .summary_line("n", summary[j], De.stats[i, 1], sep = is.sub),
-          .summary_line("mean", summary[j], De.stats[i, 2], sep = is.sub),
-          .summary_line("median", summary[j], De.stats[i, 3], sep = is.sub),
-          .summary_line("kdemax", summary[j], De.stats[i, 4], sep = is.sub),
-          .summary_line("sd.abs", summary[j], De.stats[i, 5], sep = is.sub,
-                        label = "sd"),
-          .summary_line("sd.rel", summary[j], De.stats[i, 6], sep = is.sub,
-                        label = "rel. sd", percent = TRUE),
-          .summary_line("se.abs", summary[j], De.stats[i, 7], sep = is.sub,
-                        label = "se"),
-          .summary_line("se.rel", summary[j], De.stats[i, 8], sep = is.sub,
-                        label = "rel. se", percent = TRUE),
-          .summary_line("skewness", summary[j], De.stats[i, 11], sep = is.sub),
-          .summary_line("kurtosis", summary[j], De.stats[i, 12], sep = is.sub),
-          .summary_line("in.2s", summary[j],
-                        sum(data[[i]][, 1] > (De.stats[i, 2] - 2 *
-                                              De.stats[i, 5]) &
-                            data[[i]][, 1] < (De.stats[i, 2] + 2 *
-                                              De.stats[i, 5])) /
-                        nrow(data[[i]]) * 100, sep = is.sub,
-                        label = "in 2 sigma", percent = TRUE, digits = 1))
-    }
-
-    label.text[[i]] <- paste0(
-        if (is.sub) "" else strrep("\n", (i - 1) * length(summary)),
-        paste(summary.text, collapse = ""))
-    label.text[[i]] <- gsub("\n$", "", label.text[[i]])
-  }
-
-  ## remove outer vertical lines from string
-  if (is.sub) {
-    for (i in seq_along(label.text)) {
-      label.text[[i]] <- substr(x = label.text[[i]],
-                                start = 1,
-                                stop = nchar(label.text[[i]]) - 3)
-    }
-  }
 
   ## read out additional parameters -------------------------------------------
   main <- list(...)$main %||% expression(bold(paste(D[e], " distribution")))
