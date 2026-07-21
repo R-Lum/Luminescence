@@ -191,11 +191,11 @@
 <polygon points='87.33,168.00 90.97,161.70 83.70,161.70 ' style='stroke-width: 0.75; stroke: #DF536B; fill: none;' />
 <text x='98.13' y='153.53' style='font-size: 12.00px; font-family: sans;' textLength='33.36px' lengthAdjust='spacingAndGlyphs'>data 1</text>
 <text x='98.13' y='167.93' style='font-size: 12.00px; fill: #DF536B; font-family: sans;' textLength='33.36px' lengthAdjust='spacingAndGlyphs'>data 2</text>
-<text x='662.40' y='356.56' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='76.39px' lengthAdjust='spacingAndGlyphs'>rel. sd = 25.12</text>
-<text x='662.40' y='370.96' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='82.41px' lengthAdjust='spacingAndGlyphs'>abs. sd = 12.95</text>
+<text x='662.40' y='356.56' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='90.40px' lengthAdjust='spacingAndGlyphs'>rel. sd = 25.12 %</text>
+<text x='662.40' y='370.96' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='56.39px' lengthAdjust='spacingAndGlyphs'>sd = 12.95</text>
 <text x='662.40' y='356.56' text-anchor='end' style='font-size: 12.00px; fill: #DF536B; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
 <text x='662.40' y='370.96' text-anchor='end' style='font-size: 12.00px; fill: #DF536B; font-family: sans;' textLength='0.00px' lengthAdjust='spacingAndGlyphs'></text>
-<text x='662.40' y='385.36' text-anchor='end' style='font-size: 12.00px; fill: #DF536B; font-family: sans;' textLength='76.39px' lengthAdjust='spacingAndGlyphs'>rel. sd = 14.74</text>
-<text x='662.40' y='399.76' text-anchor='end' style='font-size: 12.00px; fill: #DF536B; font-family: sans;' textLength='82.41px' lengthAdjust='spacingAndGlyphs'>abs. sd = 16.69</text>
+<text x='662.40' y='385.36' text-anchor='end' style='font-size: 12.00px; fill: #DF536B; font-family: sans;' textLength='90.40px' lengthAdjust='spacingAndGlyphs'>rel. sd = 14.74 %</text>
+<text x='662.40' y='399.76' text-anchor='end' style='font-size: 12.00px; fill: #DF536B; font-family: sans;' textLength='56.39px' lengthAdjust='spacingAndGlyphs'>sd = 16.69</text>
 </g>
 </svg>

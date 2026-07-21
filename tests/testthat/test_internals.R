@@ -196,7 +196,7 @@ test_that("Test internals", {
                "mean = 5.5")
   expect_equal(.create_StatisticalSummaryText(stats,
                                               keywords = "weighted$mean"),
-               "weighted$mean = 1.89")
+               "mean = 1.89")
 
 
   # .unlist_RLum() ------------------------------------------------------------------------------

@@ -134,6 +134,7 @@
 <text x='86.40' y='270.82' text-anchor='end' style='font-size: 24.00px; font-family: sans;' textLength='21.34px' lengthAdjust='spacingAndGlyphs'>-2</text>
 <text x='86.40' y='234.76' text-anchor='end' style='font-size: 24.00px; font-family: sans;' textLength='13.35px' lengthAdjust='spacingAndGlyphs'>0</text>
 <text x='86.40' y='198.70' text-anchor='end' style='font-size: 24.00px; font-family: sans;' textLength='13.35px' lengthAdjust='spacingAndGlyphs'>2</text>
-<text x='115.20' y='116.11' style='font-size: 19.20px; font-family: sans;' textLength='192.70px' lengthAdjust='spacingAndGlyphs'>abs. weighted se = 0.1</text>
+<text x='115.20' y='116.11' style='font-size: 19.20px; font-family: sans;' textLength='151.06px' lengthAdjust='spacingAndGlyphs'>weighted se = 0.1</text>
+<text x='115.20' y='139.15' style='font-size: 19.20px; font-family: sans;' textLength='68.87px' lengthAdjust='spacingAndGlyphs'>se = 0.1</text>
 </g>
 </svg>

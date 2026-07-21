@@ -560,8 +560,8 @@ fancy_scientific <- function(l) {
 #' This function automatically generates the statistical summary text for the
 #' plot functions within the package.
 #'
-#' @param summary [data.frame] (**required**):
-#' output from function `calc_Statistics()`.
+#' @param summary [list] (**required**):
+#' a list of lists, as produced by `calc_Statistics()`.
 #'
 #' @param keywords [character] (*with default*):
 #' keywords supported by function `calc_Statistics()`.
@@ -580,6 +580,7 @@ fancy_scientific <- function(l) {
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @section Function version: 0.1.0
 #'
@@ -610,9 +611,17 @@ fancy_scientific <- function(l) {
     if (is.null(value))
       return(NULL)
 
-    ## construct string
-    paste(if (keywords_prefix == "unweighted") k_strip else k,
-          "=", round(value, digits))
+    ## improve label appearance
+    k_out <- k_strip
+    k_out <- gsub("in.2s", "in 2 sigma", k_out, fixed = TRUE)
+    k_out <- gsub("(.*)\\.weighted$", "weighted \\1", k_out)
+    k_out <- gsub("(.*)\\.abs$", "\\1", k_out)
+    k_out <- gsub("(.*)\\.rel$", "rel. \\1", k_out)
+
+    ## construct string and append the % sign to the relative measures
+    paste0(k_out, " = ", round(value, digits),
+           if (k_strip %in% c("sd.rel", "sd.rel.weighted",
+                              "se.rel", "se.rel.weighted", "in.2s")) " %")
   })
 
   ##remove NULL entries

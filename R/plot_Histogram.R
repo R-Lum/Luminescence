@@ -15,14 +15,14 @@
 #' - `"mean.weighted"` (error-weighted mean),
 #' - `"median"` (median of the De values),
 #' - `"median.weighted"` (error-weighted median),
-#' - `"sdrel"` (relative standard deviation in percent),
-#' - `"sdrel.weighted"` (error-weighted relative standard deviation in percent),
-#' - `"sdabs"` (absolute standard deviation),
-#' - `"sdabs.weighted"` (error-weighted absolute standard deviation),
-#' - `"serel"` (relative standard error),
-#' - `"serel.weighted"` (error-weighted relative standard error),
-#' - `"seabs"` (absolute standard error),
-#' - `"seabs.weighted"` (error-weighted absolute standard error),
+#' - `"sd.rel"` (relative standard deviation in percent),
+#' - `"sd.rel.weighted"` (error-weighted relative standard deviation in percent),
+#' - `"sd.abs"` (absolute standard deviation),
+#' - `"sd.abs.weighted"` (error-weighted absolute standard deviation),
+#' - `"se.rel"` (relative standard error in percent),
+#' - `"se.rel.weighted"` (error-weighted relative standard error in percent),
+#' - `"se.abs"` (absolute standard error),
+#' - `"se.abs.weighted"` (error-weighted absolute standard error),
 #' - `"kurtosis"` (kurtosis) and
 #' - `"skewness"` (skewness).
 #'
@@ -106,7 +106,7 @@
 #'                cex.global = 0.9,
 #'                pch = 2,
 #'                colour = c("grey", "black", "blue", "green"),
-#'                summary = c("n", "mean", "sdrel"),
+#'                summary = c("n", "mean", "sd.rel"),
 #'                summary.pos = "topleft",
 #'                main = "Histogram of De-values",
 #'                mtext = "Example data set",
@@ -282,6 +282,10 @@ plot_Histogram <- function(
                           "se.abs.weighted",
                           "se.rel.weighted")
 
+  ## placeholder for the summary label text
+  label.text <- list()
+  is.sub <- summary.pos[1] == "sub"
+
   for(i in 1:length(data)) {
     statistics <- calc_Statistics(data)
     De.stats[i,1] <- statistics$weighted$n
@@ -313,65 +317,17 @@ plot_Histogram <- function(
 
       De.stats[i,6] <- De.density$x[which.max(De.density$y)]
     }
-  }
 
-  ## helper to generate an element of the statistical summary
-  .summary_line <- function(keyword, summary, val, label = keyword,
-                            percent = FALSE, sep = FALSE, digits = 2) {
-    ifelse(keyword %in% summary,
-           paste0(label, " = ", round(val, digits),
-                  if (percent) " %" else NULL, if (sep) " | " else "\n"),
-           "")
-  }
+    ## convert to a list of lists, like the object produced by calc_Statistics
+    De.stats.list <- list(as.list(De.stats[i, ]))
+    names(De.stats.list) <- "unweighted" # dummy placeholder
 
-  ## initialize list
-  label.text <- NULL
-  is.sub <- summary.pos[1] == "sub"
-  for (i in 1:length(data)) {
-    summary.text <- character(0)
-    for (j in 1:length(summary)) {
-      summary.text <-
-        c(summary.text,
-          .summary_line("n", summary[j], De.stats[i, 1], sep = is.sub),
-          .summary_line("mean", summary[j], De.stats[i, 2], sep = is.sub),
-          .summary_line("mean.weighted", summary[j], De.stats[i, 3], sep = is.sub,
-                        label = "weighted mean"),
-          .summary_line("median", summary[j], De.stats[i, 4], sep = is.sub),
-          .summary_line("median.weighted", summary[j], De.stats[i, 5], sep = is.sub,
-                        label = "weighted median"),
-          .summary_line("kdemax", summary[j], De.stats[i, 6], sep = is.sub),
-          .summary_line("sdabs", summary[j], De.stats[i, 7], sep = is.sub,
-                        label = "sd"),
-          .summary_line("sdrel", summary[j], De.stats[i, 8], sep = is.sub,
-                        label = "rel. sd", percent = TRUE),
-          .summary_line("seabs", summary[j], De.stats[i, 9], sep = is.sub,
-                        label = "se"),
-          .summary_line("serel", summary[j], De.stats[i, 10], sep = is.sub,
-                        label = "rel. se", percent = TRUE),
-          .summary_line("skewness", summary[j], De.stats[i, 13], sep = is.sub),
-          .summary_line("kurtosis", summary[j], De.stats[i, 14], sep = is.sub),
-          .summary_line("sdabs.weighted", summary[j], De.stats[i, 15], sep = is.sub,
-                        label = "abs. weighted sd"),
-          .summary_line("sdrel.weighted", summary[j], De.stats[i, 16], sep = is.sub,
-                        label = "rel. weighted sd"),
-          .summary_line("seabs.weighted", summary[j], De.stats[i, 17], sep = is.sub,
-                        label = "abs. weighted se"),
-          .summary_line("serel.weighted", summary[j], De.stats[i, 18], sep = is.sub,
-                        label = "rel. weighted se"))
-    }
-    label.text[[i]] <- paste0(
-        if (is.sub) "" else strrep("\n", (i - 1) * length(summary)),
-        paste(summary.text, collapse = ""))
-    label.text[[i]] <- gsub("\n$", "", label.text[[i]])
-  }
-
-  ## remove outer vertical lines from string
-  if (is.sub) {
-    for (i in seq_along(label.text)) {
-      label.text[[i]] <- substr(x = label.text[[i]],
-                                start = 1,
-                                stop = nchar(label.text[[i]]) - 3)
-    }
+    ## generate the summary label text
+    label.text[[i]] <- .create_StatisticalSummaryText(
+        De.stats.list,
+        keywords = summary,
+        sep = ifelse(is.sub, " | ", "\n")
+    )
   }
 
   ## convert keywords into summary placement coordinates

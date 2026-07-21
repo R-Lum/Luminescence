@@ -47,12 +47,12 @@
 #' adds numerical output to the plot.  Can be one or more out of:
 #' - `"n"` (number of samples),
 #' - `"mean"` (mean De value),
-#' - `"weighted$mean"` (error-weighted mean),
+#' - `"mean.weighted"` (error-weighted mean),
 #' - `"median"` (median of the De values),
-#' - `"weighted$median"` (error-weighted median),
+#' - `"median.weighted"` (error-weighted median),
 #' - `"sd.rel"` (relative standard deviation in percent),
 #' - `"sd.abs"` (absolute standard deviation),
-#' - `"se.rel"` (relative standard error) and
+#' - `"se.rel"` (relative standard error in percent) and
 #' - `"se.abs"` (absolute standard error)
 #'
 #' and all other measures returned by the function [Luminescence::calc_Statistics].
@@ -143,13 +143,13 @@
 #' plot_DRTResults(
 #'   list(x.1, x.2),
 #'   given.dose = 2800,
-#'   summary = c("n", "weighted$mean", "sd.abs"))
+#'   summary = c("n", "mean.weighted", "sd.abs"))
 #'
 #' ## plot the data with user-defined statistical measures as sub-header
 #' plot_DRTResults(
 #'   list(x.1, x.2),
 #'   given.dose = 2800,
-#'   summary = c("n", "weighted$mean", "sd.abs"),
+#'   summary = c("n", "mean.weighted", "sd.abs"),
 #'   summary.pos = "sub")
 #'
 #' ## plot the data grouped by preheat temperatures
@@ -382,26 +382,24 @@ plot_DRTResults <- function(
     }
   )
 
-  ## calculate and paste statistical summary
-  if(summary.pos[1] != "sub") {
-    label.text <- lapply(1:length(values), function(i) {
-      .create_StatisticalSummaryText(
-        calc_Statistics(values[[i]]),
-        keywords = summary,
-        digits = 2,
-        sep = " \n",
-        prefix = strrep("\n", (i - 1) * length(summary))
+  ## placeholder for the summary label text
+  label.text <- list()
+  is.sub <- summary.pos[1] == "sub"
+
+  if (any(nchar(summary) > 0)) {
+    for (i in 1:length(values)) {
+      statistics <- calc_Statistics(values[[i]])
+      statistics$unweighted$mean.weighted <- statistics$weighted$mean
+      statistics$unweighted$median.weighted <- statistics$weighted$median
+
+      ## generate the summary label text
+      label.text[[i]] <- .create_StatisticalSummaryText(
+          statistics,
+          keywords = summary,
+          sep = ifelse(is.sub, " | ", "\n"),
+          prefix = if (!is.sub) strrep("\n", (i - 1) * length(summary)) else ""
       )
-    })
-  }else{
-    label.text <- lapply(values, function(x) {
-      .create_StatisticalSummaryText(
-        calc_Statistics(x),
-        keywords = summary,
-        digits = 2,
-        sep = " | "
-      )
-    })
+    }
   }
 
   ## keep track if the summary is in the bottom row as we may need to compute
@@ -608,6 +606,8 @@ plot_DRTResults <- function(
 
 .add_summary <- function(summary.pos, summary.pos_is_bottom, summary.adj,
                          label.text, mtext, i, cex, values, col) {
+  if (length(label.text) == 0)
+    return()
   oneinput <- length(values) == 1
   multicol <- oneinput && nrow(values[[1]] == length(col))
   col <- if (multicol) "black" else col[i]

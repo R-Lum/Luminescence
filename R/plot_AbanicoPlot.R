@@ -1044,7 +1044,7 @@ plot_AbanicoPlot <- function(
   colnames(De.stats) <- c("n",
                           "mean",
                           "median",
-                          "kdemax",
+                          "kde.max",
                           "sd.abs",
                           "sd.rel",
                           "se.abs",
@@ -1053,6 +1053,10 @@ plot_AbanicoPlot <- function(
                           "q.75",
                           "skewness",
                           "kurtosis")
+
+  ## placeholder for the summary label text
+  label.text <- list()
+  is.sub <- summary.pos[1] == "sub"
 
   for(i in 1:length(data)) {
     statistics <- calc_Statistics(data[[i]])[[summary.method]]
@@ -1087,58 +1091,24 @@ plot_AbanicoPlot <- function(
     if (!inherits(De.density, "try-error")) {
       De.stats[i, 4] <- De.density$x[which.max(De.density$y)]
     }
-  }
 
-  ## helper to generate an element of the statistical summary
-  .summary_line <- function(keyword, summary, val, label = keyword,
-                            percent = FALSE, sep = FALSE, digits = 2) {
-    ifelse(keyword %in% summary,
-           paste0(label, " = ", round(val, digits),
-                  if (percent) " %" else NULL, if (sep) " | " else "\n"),
-           "")
-  }
+    ## convert to a list of lists, like the object produced by calc_Statistics
+    De.stats.list <- list(as.list(De.stats[i, ]))
+    names(De.stats.list) <- summary.method
 
-  is.sub <- summary.pos[1] == "sub"
-  label.text <- list()
-  for (i in 1:length(data)) {
-    summary.text <- character(0)
-    for (j in 1:length(summary)) {
-      summary.text <-
-        c(summary.text,
-          .summary_line("n", summary[j], De.stats[i, 1], sep = is.sub),
-          .summary_line("mean", summary[j], De.stats[i, 2], sep = is.sub),
-          .summary_line("median", summary[j], De.stats[i, 3], sep = is.sub),
-          .summary_line("kdemax", summary[j], De.stats[i, 4], sep = is.sub),
-          .summary_line("sd.abs", summary[j], De.stats[i, 5], sep = is.sub,
-                        label = "abs. sd"),
-          .summary_line("sd.rel", summary[j], De.stats[i, 6], sep = is.sub,
-                        label = "rel. sd"),
-          .summary_line("se.abs", summary[j], De.stats[i, 7], sep = is.sub,
-                        label = "se"),
-          .summary_line("se.rel", summary[j], De.stats[i, 8], sep = is.sub,
-                        label = "rel. se", percent = TRUE),
-          .summary_line("skewness", summary[j], De.stats[i, 11], sep = is.sub),
-          .summary_line("kurtosis", summary[j], De.stats[i, 12], sep = is.sub),
-          .summary_line("in.2s", summary[j],
-                        sum(data[[i]][,7] > -2 & data[[i]][,7] < 2) /
-                        nrow(data[[i]]) * 100, sep = is.sub,
-                        label = "in 2 sigma", percent = TRUE, digits = 1))
-    }
-    label.text[[i]] <- paste0(
-        if (is.sub) "" else strrep("\n", (i - 1) * length(summary)),
-        paste(summary.text, collapse = ""))
-    label.text[[i]] <- gsub("\n$", "", label.text[[i]])
-  }
+    ## compute the percent of samples in a 2-sigma range
+    De.stats.list[[summary.method]]["in.2s"] <-
+      round(sum(data[[i]][,7] > -2 & data[[i]][, 7] < 2) / nrow(data[[i]]) * 100, 1)
 
-  ## remove outer vertical lines from string1
-  if (is.sub) {
-    for (i in seq_along(label.text)) {
-      label.text[[i]] <- substr(x = label.text[[i]],
-                                start = 1,
-                                stop = nchar(label.text[[i]]) - 3)
-      if (!is.null(line.mtext))
-        label.text[[i]] <- paste(label.text[[i]], "|", line.mtext[i])
-    }
+    ## generate the summary label text
+    label.text[[i]] <- .create_StatisticalSummaryText(
+        De.stats.list,
+        keywords = paste0(summary.method, "$", summary),
+        sep = ifelse(is.sub, " | ", "\n"),
+        prefix = if (!is.sub) strrep("\n", (i - 1) * length(summary)) else ""
+    )
+    if (is.sub && !is.null(line.mtext))
+      label.text[[i]] <- paste(label.text[[i]], "|", line.mtext[i])
   }
 
   limits.xy <- if (!rotate) list(limits.x, limits.y) else list(limits.y, limits.x)

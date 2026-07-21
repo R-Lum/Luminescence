@@ -112,6 +112,6 @@
 <line x1='523.26' y1='502.56' x2='523.26' y2='489.25' style='stroke-width: 0.38;' />
 <line x1='536.68' y1='502.56' x2='536.68' y2='489.25' style='stroke-width: 0.38;' />
 <line x1='565.99' y1='502.56' x2='565.99' y2='489.25' style='stroke-width: 0.38;' />
-<text x='374.40' y='56.16' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='181.37px' lengthAdjust='spacingAndGlyphs'>n = 62 | se.rel = 4 | kurtosis = 2.51</text>
+<text x='374.40' y='56.16' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='198.71px' lengthAdjust='spacingAndGlyphs'>n = 62 | rel. se = 4 % | kurtosis = 2.51</text>
 </g>
 </svg>
