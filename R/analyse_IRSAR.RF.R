@@ -10,11 +10,11 @@
 #'
 #' **General Sequence Structure** (according to Erfurt et al., 2003)
 #'
-#' 1. Measuring IR-RF intensity of the natural dose for a few seconds (\eqn{RF_{nat}})
+#' 1. Measure IR-RF intensity of the natural dose for a few seconds (\eqn{RF_{nat}})
 #' 2. Bleach the samples under solar conditions for at least 30 min without changing the geometry
-#' 3. Waiting for at least one hour
+#' 3. Wait for at least one hour
 #' 4. Regeneration of the IR-RF signal to at least the natural level (measuring (\eqn{RF_{reg}})
-#' 5. Fitting data with a stretched exponential function
+#' 5. Fit the data with a stretched exponential function
 #' 6. Calculate the palaeodose \eqn{D_{e}} using the parameters from the fitting
 #'
 #' Three methods are supported to obtain the \eqn{D_{e}}:
@@ -180,10 +180,10 @@
 #' **Note:** As this procedure requests more computation time, it is performed
 #' only if all three parameters are set.
 #'
-#' @param object [Luminescence::RLum.Analysis-class] or a [list] of [Luminescence::RLum.Analysis-class]-objects (**required**):
+#' @param object [Luminescence::RLum.Analysis-class] or a [list] of such objects (**required**):
 #' input object containing data for protocol analysis. The function expects to
 #' find at least two curves in the [Luminescence::RLum.Analysis-class] object: (1) `RF_nat`, (2) `RF_reg`.
-#' If a `list` is provided as input all other parameters can be provided as
+#' If a `list` is provided as input, all other parameters can be provided as
 #' `list` as well to gain full control.
 #'
 #' @param sequence_structure [vector] [character] (*with default*):
@@ -195,25 +195,22 @@
 #' steps are specified, the corresponding measurements are stacked.
 #'
 #' @param RF_nat.lim [vector] (*with default*):
-#' set minimum and maximum channel range for natural signal fitting and sliding.
-#' If only one value is provided this will be treated as minimum value and the
+#' minimum and maximum channel range for natural signal fitting and sliding.
+#' If only one value is provided, this will be treated as minimum value and the
 #' maximum limit will be added automatically.
 #'
 #' @param RF_reg.lim [vector] (*with default*):
-#' set minimum and maximum channel range for regenerated signal fitting and sliding.
-#' If only one value is provided this will be treated as minimum value and the
+#' minimum and maximum channel range for regenerated signal fitting and sliding.
+#' If only one value is provided, this will be treated as minimum value and the
 #' maximum limit will be added automatically.
 #'
-#' @param method [character] (*with default*): select method applied for the
-#' data analysis. Possible options are `"FIT"`, `"SLIDE"`, `"VSLIDE"`;
-#' `"NONE"` can be used to disable the analysis and plot the natural points
-#' at their original position.
+#' @param method [character] (*with default*):
+#' method to obtain the \eqn{D_e}, one of `"FIT"`, `"SLIDE"`, `"VSLIDE"` (see
+#' details); `"NONE"` can be used to disable the analysis and plot the natural
+#' points at their original position.
 #'
 #' @param method_control [list] (*optional*):
-#' parameters to control the method, that can be passed to the chosen method.
-#' These are for (1) `method = "FIT"`: `'trace'`, `'maxiter'`, `'warnOnly'`, `'minFactor'` and for
-#' (2) `method = "SLIDE"`: `'correct_onset'`, `'show_density'`,  `'show_fit'`, `'trace'`.
-#' See details.
+#' parameters to control the behaviour of the chosen method (see details).
 #'
 #' @param test_parameters [list] (*with default*):
 #' set test parameters. Supported parameters are: `curves_ratio`,

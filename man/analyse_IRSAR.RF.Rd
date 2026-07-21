@@ -20,10 +20,10 @@ analyse_IRSAR.RF(
 )
 }
 \arguments{
-\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} or a \link{list} of \link[=RLum.Analysis-class]{RLum.Analysis}-objects (\strong{required}):
+\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} or a \link{list} of such objects (\strong{required}):
 input object containing data for protocol analysis. The function expects to
 find at least two curves in the \link[=RLum.Analysis-class]{RLum.Analysis} object: (1) \code{RF_nat}, (2) \code{RF_reg}.
-If a \code{list} is provided as input all other parameters can be provided as
+If a \code{list} is provided as input, all other parameters can be provided as
 \code{list} as well to gain full control.}
 
 \item{sequence_structure}{\link{vector} \link{character} (\emph{with default}):
@@ -35,25 +35,22 @@ curves in \code{object}, it is recycled. If multiple \code{NATURAL} and \code{RE
 steps are specified, the corresponding measurements are stacked.}
 
 \item{RF_nat.lim}{\link{vector} (\emph{with default}):
-set minimum and maximum channel range for natural signal fitting and sliding.
-If only one value is provided this will be treated as minimum value and the
+minimum and maximum channel range for natural signal fitting and sliding.
+If only one value is provided, this will be treated as minimum value and the
 maximum limit will be added automatically.}
 
 \item{RF_reg.lim}{\link{vector} (\emph{with default}):
-set minimum and maximum channel range for regenerated signal fitting and sliding.
-If only one value is provided this will be treated as minimum value and the
+minimum and maximum channel range for regenerated signal fitting and sliding.
+If only one value is provided, this will be treated as minimum value and the
 maximum limit will be added automatically.}
 
-\item{method}{\link{character} (\emph{with default}): select method applied for the
-data analysis. Possible options are \code{"FIT"}, \code{"SLIDE"}, \code{"VSLIDE"};
-\code{"NONE"} can be used to disable the analysis and plot the natural points
-at their original position.}
+\item{method}{\link{character} (\emph{with default}):
+method to obtain the \eqn{D_e}, one of \code{"FIT"}, \code{"SLIDE"}, \code{"VSLIDE"} (see
+details); \code{"NONE"} can be used to disable the analysis and plot the natural
+points at their original position.}
 
 \item{method_control}{\link{list} (\emph{optional}):
-parameters to control the method, that can be passed to the chosen method.
-These are for (1) \code{method = "FIT"}: \code{'trace'}, \code{'maxiter'}, \code{'warnOnly'}, \code{'minFactor'} and for
-(2) \code{method = "SLIDE"}: \code{'correct_onset'}, \code{'show_density'},  \code{'show_fit'}, \code{'trace'}.
-See details.}
+parameters to control the behaviour of the chosen method (see details).}
 
 \item{test_parameters}{\link{list} (\emph{with default}):
 set test parameters. Supported parameters are: \code{curves_ratio},
@@ -179,11 +176,11 @@ signal.
 
 \strong{General Sequence Structure} (according to Erfurt et al., 2003)
 \enumerate{
-\item Measuring IR-RF intensity of the natural dose for a few seconds (\eqn{RF_{nat}})
+\item Measure IR-RF intensity of the natural dose for a few seconds (\eqn{RF_{nat}})
 \item Bleach the samples under solar conditions for at least 30 min without changing the geometry
-\item Waiting for at least one hour
+\item Wait for at least one hour
 \item Regeneration of the IR-RF signal to at least the natural level (measuring (\eqn{RF_{reg}})
-\item Fitting data with a stretched exponential function
+\item Fit the data with a stretched exponential function
 \item Calculate the palaeodose \eqn{D_{e}} using the parameters from the fitting
 }
 
