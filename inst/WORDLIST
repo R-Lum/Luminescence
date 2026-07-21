@@ -2,7 +2,6 @@ AEQUIVAL
 ANR
 Abanico
 Aberystwyth
-Accessor
 Acknowledgements
 Acta
 Adamiec
@@ -75,6 +74,7 @@ Carstensen
 Centre
 Chapot
 Characterisation
+Chauhan
 CobbleDoseRate
 Colour
 Combès
@@ -89,6 +89,7 @@ DOI
 DRAC
 DRC
 DRCs
+DSE
 DTU
 DTYPE
 Dau
@@ -124,6 +125,7 @@ FFM
 FI
 FLConsole
 FMM
+FWHM
 Freiberg
 Frouin
 Furetta
@@ -180,6 +182,7 @@ Institut
 Ioannides
 Isothermal
 Jacobian
+Jaiwal
 Jakob
 Jinmium
 Jokisch
@@ -189,6 +192,7 @@ Kadereit
 Kambhampati
 Kars
 Karsten
+Kaushal
 Kehl
 Kenzler
 Kinahan
@@ -253,10 +257,12 @@ Multicore
 Mungo
 Murari
 Médoc
+NCF
 NCL
 NIR
 NNDC
 NUTECH
+Nagar
 Namche
 Nanni
 Neudorf
@@ -435,7 +441,6 @@ Zeuchfeld
 Zilhao
 abanico
 absorber
-accessor
 al
 aliquot
 aliquots
@@ -445,7 +450,6 @@ analyse
 analysed
 analysing
 anhand
-arbitary
 artefact
 astr
 athermal
@@ -475,8 +479,10 @@ contrib
 crosstalk
 cts
 curveType
+customisation
 customise
 customised
+cutheat
 data's
 dataset
 datasets
@@ -499,6 +505,7 @@ eV
 eq
 et
 ethz
+favour
 fc
 feldspars
 frequentist
@@ -560,7 +567,6 @@ normalisation
 normalise
 normalised
 normalises
-nought
 ns
 nuclide
 onwards
@@ -576,6 +582,8 @@ pLM
 pPM
 packings
 palaeodose
+palaeodoses
+paleodoses
 pandoc
 parallelize
 pch
