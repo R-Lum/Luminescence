@@ -76,20 +76,6 @@ setClass("RLum.Analysis",
 ## as() ---------------------------------------------------------------------
 ##LIST
 ##COERCE RLum.Analyse >> list AND list >> RLum.Analysis
-#' as() - RLum-object coercion
-#'
-#' for `[RLum.Analysis-class]`
-#'
-#' **[Luminescence::RLum.Analysis-class]**
-#'
-#' \tabular{ll}{
-#'  **from** \tab **to**\cr
-#'   `list` \tab `list`\cr
-#' }
-#'
-#' Given that the [list] consists of [Luminescence::RLum.Analysis-class] objects.
-#'
-#' @name as
 setAs("list", "RLum.Analysis",
       function(from,to){
         new(to,

@@ -72,32 +72,6 @@ setClass("RLum.Data.Curve",
 ## as() ---------------------------------------------------------------------
 ##LIST
 ##COERCE RLum.Data.Curve >> list AND list >> RLum.Data.Curve
-#' as() - RLum-object coercion
-#'
-#' for `[RLum.Data.Curve-class]`
-#'
-#' **[Luminescence::RLum.Data.Curve-class]**
-#'
-#' \tabular{ll}{
-#'  **from** \tab **to**\cr
-#'   `list` \tab `list` \cr
-#'   `data.frame` \tab `data.frame`\cr
-#'   `matrix` \tab `matrix`
-#' }
-#'
-#' @param from [Luminescence::RLum-class], [list], [data.frame], [matrix] (**required**):
-#'  object to be coerced from
-#'
-#' @param to [character] (**required**):
-#' class name to be coerced to
-#'
-#' @seealso [methods::as]
-#'
-#' @note
-#' Due to the complex structure of the `RLum` objects itself a coercing to standard
-#' R data structures will be always loosely!
-#'
-#' @name as
 setAs("list", "RLum.Data.Curve",
       function(from,to){
         if (length(from) == 0)

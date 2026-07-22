@@ -66,19 +66,6 @@ setClass(
 ## as() ---------------------------------------------------------------------
 ##DATA.FRAME
 ##COERCE RLum.Data.Image >> data.frame AND data.frame >> RLum.Data.Image
-#' as()
-#'
-#' for `[RLum.Data.Image-class]`
-#'
-#' **[Luminescence::RLum.Data.Image-class]**
-#'
-#' \tabular{ll}{
-#'  **from** \tab **to**\cr
-#'   `data.frame` \tab `data.frame`\cr
-#'   `matrix` \tab `matrix`
-#' }
-#'
-#' @name as
 ## from data.frame ----
 setAs("data.frame", "RLum.Data.Image",
       function(from,to){
