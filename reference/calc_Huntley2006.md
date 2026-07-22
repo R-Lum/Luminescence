@@ -14,7 +14,7 @@ calc_Huntley2006(
   ddot = NULL,
   readerDdot = NULL,
   normalise = TRUE,
-  fit.method = c("EXP", "GOK"),
+  fit.method = c("SSE", "GOK"),
   lower.bounds = c(-Inf, -Inf, -Inf, -Inf),
   cores = 1,
   summary = TRUE,
@@ -110,8 +110,8 @@ calc_Huntley2006(
 - fit.method:
 
   [character](https://rdrr.io/r/base/character.html) (*with default*):
-  Fit function of the dose response curve. Can either be `"EXP"`
-  (default) or `"GOK"`. Note that `"EXP"` (single saturating
+  Fit function of the dose response curve. Can either be `"SSE"`
+  (default) or `"GOK"`. Note that `"SSE"` (single saturating
   exponential) is the original function the model after Huntley (2006)
   and Kars et al. (2008) was designed to use. The use of a general-order
   kinetics function (`"GOK"`) is an experimental adaptation of the model
@@ -127,7 +127,7 @@ calc_Huntley2006(
   appropriate for finding a best fit, but sometimes it may be useful to
   restrict the lower bounds to e.g. `c(0, 0, 0, 0)`. The values of the
   vectors are, respectively, for parameters `a`, `D0`, `c` and `d` in
-  that order (parameter `d` is ignored when `fit.method = "EXP"`). More
+  that order (parameter `d` is ignored when `fit.method = "SSE"`). More
   details can be found in
   [fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md).
 
@@ -185,14 +185,14 @@ object is returned:
 
 Slot: **@data**  
 
-|               |                                                      |                                                                                                                                                                                                        |
-|---------------|------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **OBJECT**    | **TYPE**                                             | **COMMENT**                                                                                                                                                                                            |
-| `results`     | [data.frame](https://rdrr.io/r/base/data.frame.html) | results of the of Kars et al. 2008 model                                                                                                                                                               |
-| `data`        | [data.frame](https://rdrr.io/r/base/data.frame.html) | original input data                                                                                                                                                                                    |
-| `Ln`          | [numeric](https://rdrr.io/r/base/numeric.html)       | Ln and its error                                                                                                                                                                                       |
-| `LxTx_tables` | `list`                                               | A `list` of `data.frames` containing data on dose, LxTx and LxTx error for each of the dose response curves. Note that these **do not** contain the natural `Ln` signal, which is provided separately. |
-| `fits`        | `list`                                               | A `list` of `nls` objects produced by [minpack.lm::nlsLM](https://rdrr.io/pkg/minpack.lm/man/nlsLM.html) when fitting the dose response curves                                                         |
+|  |  |  |
+|----|----|----|
+| **OBJECT** | **TYPE** | **COMMENT** |
+| `results` | [data.frame](https://rdrr.io/r/base/data.frame.html) | results of the of Kars et al. 2008 model |
+| `data` | [data.frame](https://rdrr.io/r/base/data.frame.html) | original input data |
+| `Ln` | [numeric](https://rdrr.io/r/base/numeric.html) | Ln and its error |
+| `LxTx_tables` | `list` | A `list` of `data.frames` containing data on dose, LxTx and LxTx error for each of the dose response curves. Note that these **do not** contain the natural `Ln` signal, which is provided separately. |
+| `fits` | `list` | A `list` of `nls` objects produced by [minpack.lm::nlsLM](https://rdrr.io/pkg/minpack.lm/man/nlsLM.html) when fitting the dose response curves |
 
 Slot: **@info**  
 
@@ -217,7 +217,7 @@ can be used to calculate the sample specific \\\rho\\' value.
 **Kars et al. (2008) – Single saturating exponential**
 
 To apply the approach after Kars et al. (2008), use
-`fit.method = "EXP"`.
+`fit.method = "SSE"`.
 
 Firstly, the unfaded \\D_0\\ value is determined through applying
 equation 5 of Kars et al. (2008) to the measured \\\frac{L_x}{T_x}\\
@@ -310,7 +310,7 @@ C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
 Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
 Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
 Comprehensive Luminescence Dating Data Analysis. R package version
-1.2.1. https://r-lum.github.io/Luminescence/
+1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -350,6 +350,7 @@ RLum Developer Team
 ## Examples
 
 ``` r
+
 ## Load example data (sample UNIL/NB123, see ?ExampleData.Fading)
 data("ExampleData.Fading", envir = environment())
 
@@ -386,21 +387,21 @@ kars <- calc_Huntley2006(
 #> 
 #>  -------------------------------
 #>  (n/N) [-]:   0.15 ± 0.02
-#>  (n/N)_SS [-]:    0.35 ± 0.05
+#>  (n/N)_SS [-]:    0.37 ± 0.08
 #> 
 #>  ---------- Measured -----------
-#>  DE [Gy]:     130.97 ± 12.96
-#>  D0 [Gy]:     539.01 ± 18.56
-#>  Age [ka]:    18.71 ± 2.07
+#>  DE [Gy]:     122.68 ± 12.92
+#>  D0 [Gy]:     488.72 ± 14.46
+#>  Age [ka]:    17.53 ± 2.04
 #> 
 #>  ---------- Un-faded -----------
-#>  D0 [Gy]:     638.66 ± 13.39
+#>  D0 [Gy]:     636.41 ± 13.34
 #> 
 #>  ---------- Simulated ----------
-#>  DE [Gy]:     246.52 ± 37.34
-#>  D0 [Gy]:     612.28 ± 5.63
-#>  Age [ka]:    35.22 ± 5.62
-#>  Age @2D0 [ka]:   174.94 ± 8.89
+#>  DE [Gy]:     232.64 ± 38.59
+#>  D0 [Gy]:     605.89 ± 6.89
+#>  Age [ka]:    33.23 ± 5.76
+#>  Age @2D0 [ka]:   173.11 ± 8.88
 #>  -------------------------------
 #> 
 

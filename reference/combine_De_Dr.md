@@ -169,19 +169,19 @@ Internally the functions `.calc_IndividualAgeModel()` and
 `.calc_BayesianCentraAgelModel()`. The parameter settings affect both
 models. Note: `method_control` expects a **named** list of parameters
 
-|                       |                                                    |                        |                                                                                                                        |
-|-----------------------|----------------------------------------------------|------------------------|------------------------------------------------------------------------------------------------------------------------|
-| **PARAMETER**         | **TYPE**                                           | **DEFAULT**            | **REMARKS**                                                                                                            |
-| `variable.names_IAM`  | [character](https://rdrr.io/r/base/character.html) | `c('A', 'a', 'sig_a')` | variables names to be monitored in the modelling process using the internal function `.calc_IndividualAgeModel()`      |
-| `variable.names_BCAM` | [character](https://rdrr.io/r/base/character.html) | `c('A', 'D_e')`        | variables names to be monitored in the modelling process using the internal function `.calc_BayesianCentraAgelModel()` |
-| `n.chains`            | [integer](https://rdrr.io/r/base/integer.html)     | `4`                    | number of MCMC chains                                                                                                  |
-| `n.adapt`             | [integer](https://rdrr.io/r/base/integer.html)     | `1000`                 | number of iterations for the adaptation                                                                                |
-| `n.iter`              | [integer](https://rdrr.io/r/base/integer.html)     | `5000`                 | number of iterations to monitor cf. [rjags::coda.samples](https://rdrr.io/pkg/rjags/man/coda.samples.html)             |
-| `thin`                | [numeric](https://rdrr.io/r/base/numeric.html)     | `1`                    | thinning interval for the monitoring cf. [rjags::coda.samples](https://rdrr.io/pkg/rjags/man/coda.samples.html)        |
-| `diag`                | [logical](https://rdrr.io/r/base/logical.html)     | `FALSE`                | additional terminal convergence diagnostic. `FALSE` if `verbose = FALSE`                                               |
-| `progress.bar`        | [logical](https://rdrr.io/r/base/logical.html)     | `FALSE`                | enable/disable progress bar. `FALSE` if `verbose = FALSE`                                                              |
-| `quiet`               | [logical](https://rdrr.io/r/base/logical.html)     | `TRUE`                 | silence terminal output. Set to `TRUE` if `verbose = FALSE`                                                            |
-| `return_mcmc`         | [logical](https://rdrr.io/r/base/logical.html)     | `FALSE`                | return additional MCMC diagnostic information                                                                          |
+|  |  |  |  |
+|----|----|----|----|
+| **PARAMETER** | **TYPE** | **DEFAULT** | **REMARKS** |
+| `variable.names_IAM` | [character](https://rdrr.io/r/base/character.html) | `c('A', 'a', 'sig_a')` | variables names to be monitored in the modelling process using the internal function `.calc_IndividualAgeModel()` |
+| `variable.names_BCAM` | [character](https://rdrr.io/r/base/character.html) | `c('A', 'D_e')` | variables names to be monitored in the modelling process using the internal function `.calc_BayesianCentraAgelModel()` |
+| `n.chains` | [integer](https://rdrr.io/r/base/integer.html) | `4` | number of MCMC chains |
+| `n.adapt` | [integer](https://rdrr.io/r/base/integer.html) | `1000` | number of iterations for the adaptation |
+| `n.iter` | [integer](https://rdrr.io/r/base/integer.html) | `5000` | number of iterations to monitor cf. [rjags::coda.samples](https://rdrr.io/pkg/rjags/man/coda.samples.html) |
+| `thin` | [numeric](https://rdrr.io/r/base/numeric.html) | `1` | thinning interval for the monitoring cf. [rjags::coda.samples](https://rdrr.io/pkg/rjags/man/coda.samples.html) |
+| `diag` | [logical](https://rdrr.io/r/base/logical.html) | `FALSE` | additional terminal convergence diagnostic. `FALSE` if `verbose = FALSE` |
+| `progress.bar` | [logical](https://rdrr.io/r/base/logical.html) | `FALSE` | enable/disable progress bar. `FALSE` if `verbose = FALSE` |
+| `quiet` | [logical](https://rdrr.io/r/base/logical.html) | `TRUE` | silence terminal output. Set to `TRUE` if `verbose = FALSE` |
+| `return_mcmc` | [logical](https://rdrr.io/r/base/logical.html) | `FALSE` | return additional MCMC diagnostic information |
 
 ## Function version
 
@@ -196,7 +196,7 @@ M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
 J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
 Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.2.1. https://r-lum.github.io/Luminescence/
+version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 

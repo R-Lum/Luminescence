@@ -8,13 +8,13 @@ functionality. See examples to reproduce the data interactively.
 
 A [list](https://rdrr.io/r/base/list.html) with 4 elements:
 
-|             |                                                                                                                                                       |
-|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Element** | **Content**                                                                                                                                           |
-| `$sample_1` | A [data.frame](https://rdrr.io/r/base/data.frame.html) with 3 columns (depth, intensity, error)                                                       |
-| `$sample_2` | A [data.frame](https://rdrr.io/r/base/data.frame.html) with 3 columns (depth, intensity, error)                                                       |
-| `$set_1`    | A [list](https://rdrr.io/r/base/list.html) of 4 [data.frame](https://rdrr.io/r/base/data.frame.html)s, each representing a sample with different ages |
-| `$set_2`    | A [list](https://rdrr.io/r/base/list.html) of 5 [data.frame](https://rdrr.io/r/base/data.frame.html)s, each representing a sample with different ages |
+|  |  |
+|----|----|
+| **Element** | **Content** |
+| `$sample_1` | A [data.frame](https://rdrr.io/r/base/data.frame.html) with 3 columns (depth, intensity, error) |
+| `$sample_2` | A [data.frame](https://rdrr.io/r/base/data.frame.html) with 3 columns (depth, intensity, error) |
+| `$set_1` | A [list](https://rdrr.io/r/base/list.html) of 4 [data.frame](https://rdrr.io/r/base/data.frame.html)s, each representing a sample with different ages |
+| `$set_2` | A [list](https://rdrr.io/r/base/list.html) of 5 [data.frame](https://rdrr.io/r/base/data.frame.html)s, each representing a sample with different ages |
 
 ## Source
 
@@ -57,6 +57,7 @@ Unpublished synthetic data
 ## Examples
 
 ``` r
+
 ## ExampleData.SurfaceExposure$sample_1
 sigmaphi <- 5e-10
 age <- 10000

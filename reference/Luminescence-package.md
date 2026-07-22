@@ -58,7 +58,7 @@ Markus Fuchs, Justus-Liebig-University Giessen, Germany
   package was supported by LabEx LaScArBx (ANR - n. ANR-10-LABX-52).
 
 - 01/2020-04/2022: Sebastian Kreutzer as maintainer of the package has
-  received funding from the European Union’s Horizon 2020 research and
+  received funding from the European Union's Horizon 2020 research and
   innovation programme under the Marie Skłodowska-Curie grant agreement
   No 844457 (CREDit), and could continue maintaining the package.
 
@@ -132,6 +132,10 @@ Useful links:
 contributor\]
 
 Authors:
+
+- Sebastian Kreutzer <maintainer_luminescence@r-luminescence.org>
+  ([ORCID](https://orcid.org/0000-0002-0734-2199)) \[translator, data
+  contributor\]
 
 - Christoph Burow ([ORCID](https://orcid.org/0000-0002-5023-4046))
   \[translator, data contributor\]

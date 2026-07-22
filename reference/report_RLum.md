@@ -98,15 +98,15 @@ The HTML report is created with
 [rmarkdown::render](https://pkgs.rstudio.com/rmarkdown/reference/render.html)
 and has the following structure:
 
-|                    |                                                                                    |
-|--------------------|------------------------------------------------------------------------------------|
-| **Section**        | **Description**                                                                    |
-| `Header`           | A summary of general characteristics of the object                                 |
-| `Object content`   | A comprehensive list of the complete structure and content of the provided object. |
-| `Object structure` | Summary of the objects structure given as a table                                  |
-| `File`             | Information on the saved RDS file                                                  |
-| `Session Info`     | Captured output from [`sessionInfo()`](https://rdrr.io/r/utils/sessionInfo.html)   |
-| `Plots`            | (*optional*) For `RLum-class` objects a variable number of plots                   |
+|  |  |
+|----|----|
+| **Section** | **Description** |
+| `Header` | A summary of general characteristics of the object |
+| `Object content` | A comprehensive list of the complete structure and content of the provided object. |
+| `Object structure` | Summary of the objects structure given as a table |
+| `File` | Information on the saved RDS file |
+| `Session Info` | Captured output from [`sessionInfo()`](https://rdrr.io/r/utils/sessionInfo.html) |
+| `Plots` | (*optional*) For `RLum-class` objects a variable number of plots |
 
 The structure of the report can be controlled individually by providing
 one or more of the following arguments (all `logical`):
@@ -125,23 +125,23 @@ Note that these arguments have higher precedence than `compact`.
 
 Further options that can be provided via the `...` argument:
 
-|               |                                                                                                                                                                                                                                                  |
-|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Argument**  | **Description**                                                                                                                                                                                                                                  |
-| `short_table` | If `TRUE` only show the first and last 5 rows of long tables.                                                                                                                                                                                    |
-| `theme`       | Specifies the Bootstrap theme to use for the report. Valid themes include `"default"`, `"cerulean"`, `"journal"`, `"flatly"`, `"readable"`, `"spacelab"`, `"united"`, `"cosmo"`, `"lumen"`, `"paper"`, `"sandstone"`, `"simplex"`, and `"yeti"`. |
-| `highlight`   | Specifies the syntax highlighting style. Supported styles include `"default"`, `"tango"`, `"pygments"`, `"kate"`, `"monochrome"`, `"espresso"`, `"zenburn"`, `"haddock"`, and `"textmate"`.                                                      |
-| `css`         | `TRUE` or `FALSE` to enable/disable custom CSS styling                                                                                                                                                                                           |
+|  |  |
+|----|----|
+| **Argument** | **Description** |
+| `short_table` | If `TRUE` only show the first and last 5 rows of long tables. |
+| `theme` | Specifies the Bootstrap theme to use for the report. Valid themes include `"default"`, `"cerulean"`, `"journal"`, `"flatly"`, `"readable"`, `"spacelab"`, `"united"`, `"cosmo"`, `"lumen"`, `"paper"`, `"sandstone"`, `"simplex"`, and `"yeti"`. |
+| `highlight` | Specifies the syntax highlighting style. Supported styles include `"default"`, `"tango"`, `"pygments"`, `"kate"`, `"monochrome"`, `"espresso"`, `"zenburn"`, `"haddock"`, and `"textmate"`. |
+| `css` | `TRUE` or `FALSE` to enable/disable custom CSS styling |
 
 The following arguments can be used to customise the report via CSS
 (Cascading Style Sheets):
 
-|                 |                                                                                 |
-|-----------------|---------------------------------------------------------------------------------|
-| **Argument**    | **Description**                                                                 |
-| `font_family`   | Define the font family of the HTML document (default: `"arial"`)                |
+|  |  |
+|----|----|
+| **Argument** | **Description** |
+| `font_family` | Define the font family of the HTML document (default: `"arial"`) |
 | `headings_size` | Size of the `<h1>` to `<h6>` tags used to define HTML headings (default: 166%). |
-| `content_color` | Colour of the object's content (default: \#a72925).                             |
+| `content_color` | Colour of the object's content (default: \#a72925). |
 
 Note that these arguments must all be of class
 [character](https://rdrr.io/r/base/character.html) and follow standard
@@ -181,11 +181,12 @@ Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
 Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
 ``` r
+
 if (FALSE) { # \dontrun{
 ## Example: RLum.Results ----
 

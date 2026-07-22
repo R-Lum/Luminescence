@@ -100,13 +100,13 @@ fit_OSLLifeTimes(
 
 **slot:** **`@data`**
 
-|                 |           |                                                                                                 |
-|-----------------|-----------|-------------------------------------------------------------------------------------------------|
-| **Element**     | **Type**  | **Description**                                                                                 |
-| `$data`         | `matrix`  | the final fit matrix                                                                            |
-| `$start_matrix` | `matrix`  | the start matrix used for the fitting                                                           |
-| `$total_counts` | `integer` | Photon count sum                                                                                |
-| `$fit`          | `nls`     | the fit object returned by [minpack.lm::nls.lm](https://rdrr.io/pkg/minpack.lm/man/nls.lm.html) |
+|  |  |  |
+|----|----|----|
+| **Element** | **Type** | **Description** |
+| `$data` | `matrix` | the final fit matrix |
+| `$start_matrix` | `matrix` | the start matrix used for the fitting |
+| `$total_counts` | `integer` | Photon count sum |
+| `$fit` | `nls` | the fit object returned by [minpack.lm::nls.lm](https://rdrr.io/pkg/minpack.lm/man/nls.lm.html) |
 
 **slot:** **`@info`**
 
@@ -181,17 +181,17 @@ weighted regression analysis. The default values is `TRUE`.
 
 **`method_control`**
 
-|                   |                                                |                                                                                                                                                                                                                      |
-|-------------------|------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Parameter**     | **Type**                                       | **Description**                                                                                                                                                                                                      |
-| `p`               | [numeric](https://rdrr.io/r/base/numeric.html) | controls the probability for the F statistic reference values. For a significance level of 5 % a value of 0.95 (the default) should be added, for 1 %, a value of 0.99 is sufficient: 1 \> p \> 0 (cf. stats::FDist) |
-| `seed`            | [numeric](https://rdrr.io/r/base/numeric.html) | set the seed for the random number generator, provide a value here to get reproducible results                                                                                                                       |
-| `DEoptim.trace`   | [logical](https://rdrr.io/r/base/logical.html) | enable/disable the tracing of the differential evolution (cf. [DEoptim::DEoptim.control](https://rdrr.io/pkg/DEoptim/man/DEoptim.control.html))                                                                      |
-| `DEoptim.itermax` | [logical](https://rdrr.io/r/base/logical.html) | control the number of the allowed generations (cf. [DEoptim::DEoptim.control](https://rdrr.io/pkg/DEoptim/man/DEoptim.control.html))                                                                                 |
-| `weights`         | [logical](https://rdrr.io/r/base/logical.html) | enable/disable the weighting for the start parameter estimation and fitting (see equations above). The default values is `TRUE`                                                                                      |
-| `nlsLM.trace`     | [logical](https://rdrr.io/r/base/logical.html) | enable/disable trace mode for the nls fitting ([minpack.lm::nlsLM](https://rdrr.io/pkg/minpack.lm/man/nlsLM.html)), can be used to identify convergence problems, default is `FALSE`                                 |
-| `nlsLM.upper`     | [logical](https://rdrr.io/r/base/logical.html) | enable/disable upper parameter boundary, default is `TRUE`                                                                                                                                                           |
-| `nlsLM.lower`     | [logical](https://rdrr.io/r/base/logical.html) | enable/disable lower parameter boundary, default is `TRUE`                                                                                                                                                           |
+|  |  |  |
+|----|----|----|
+| **Parameter** | **Type** | **Description** |
+| `p` | [numeric](https://rdrr.io/r/base/numeric.html) | controls the probability for the F statistic reference values. For a significance level of 5 % a value of 0.95 (the default) should be added, for 1 %, a value of 0.99 is sufficient: 1 \> p \> 0 (cf. [stats::FDist](https://rdrr.io/r/stats/Fdist.html)) |
+| `seed` | [numeric](https://rdrr.io/r/base/numeric.html) | set the seed for the random number generator, provide a value here to get reproducible results |
+| `DEoptim.trace` | [logical](https://rdrr.io/r/base/logical.html) | enable/disable the tracing of the differential evolution (cf. [DEoptim::DEoptim.control](https://rdrr.io/pkg/DEoptim/man/DEoptim.control.html)) |
+| `DEoptim.itermax` | [logical](https://rdrr.io/r/base/logical.html) | control the number of the allowed generations (cf. [DEoptim::DEoptim.control](https://rdrr.io/pkg/DEoptim/man/DEoptim.control.html)) |
+| `weights` | [logical](https://rdrr.io/r/base/logical.html) | enable/disable the weighting for the start parameter estimation and fitting (see equations above). The default values is `TRUE` |
+| `nlsLM.trace` | [logical](https://rdrr.io/r/base/logical.html) | enable/disable trace mode for the nls fitting ([minpack.lm::nlsLM](https://rdrr.io/pkg/minpack.lm/man/nlsLM.html)), can be used to identify convergence problems, default is `FALSE` |
+| `nlsLM.upper` | [logical](https://rdrr.io/r/base/logical.html) | enable/disable upper parameter boundary, default is `TRUE` |
+| `nlsLM.lower` | [logical](https://rdrr.io/r/base/logical.html) | enable/disable lower parameter boundary, default is `TRUE` |
 
 ## Function version
 
@@ -205,7 +205,7 @@ Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
 Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
-Dating Data Analysis. R package version 1.2.1.
+Dating Data Analysis. R package version 1.3.0.
 https://r-lum.github.io/Luminescence/
 
 ## References
@@ -241,6 +241,7 @@ Team
 ## Examples
 
 ``` r
+
 ##load example data
 data(ExampleData.TR_OSL, envir = environment())
 

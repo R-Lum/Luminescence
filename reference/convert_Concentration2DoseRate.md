@@ -90,7 +90,7 @@ Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
 J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
 D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -121,6 +121,7 @@ RLum Developer Team
 ## Examples
 
 ``` r
+
 ## create input template
 input <- convert_Concentration2DoseRate()
 #> [convert_Concentration2DoseRate()] Input template returned, please fill this data frame and use it as input to the function

@@ -62,16 +62,16 @@ transmission becomes:
 The following further non-common plotting parameters can be passed to
 the function:
 
-|                              |                |                                                                                                                  |
-|------------------------------|----------------|------------------------------------------------------------------------------------------------------------------|
-| **`Argument`**               | **`Datatype`** | **`Description`**                                                                                                |
-| `legend`                     | `logical`      | enable/disable legend                                                                                            |
-| `legend.pos`                 | `character`    | change legend position ([graphics::legend](https://rdrr.io/r/graphics/legend.html))                              |
-| `legend.text`                | `character`    | same as the argument `legend` in ([graphics::legend](https://rdrr.io/r/graphics/legend.html))                    |
-| `net_transmission.col`       | `col`          | colour of net transmission window polygon                                                                        |
-| `net_transmission.col_lines` | `col`          | colour of net transmission window polygon lines                                                                  |
-| `net_transmission.density`   | `numeric`      | specify line density in the transmission polygon                                                                 |
-| `grid`                       | `list`         | full list of arguments that can be passed to the function [graphics::grid](https://rdrr.io/r/graphics/grid.html) |
+|  |  |  |
+|----|----|----|
+| **`Argument`** | **`Datatype`** | **`Description`** |
+| `legend` | `logical` | enable/disable legend |
+| `legend.pos` | `character` | change legend position ([graphics::legend](https://rdrr.io/r/graphics/legend.html)) |
+| `legend.text` | `character` | same as the argument `legend` in ([graphics::legend](https://rdrr.io/r/graphics/legend.html)) |
+| `net_transmission.col` | `col` | colour of net transmission window polygon |
+| `net_transmission.col_lines` | `col` | colour of net transmission window polygon lines |
+| `net_transmission.density` | `numeric` | specify line density in the transmission polygon |
+| `grid` | `list` | full list of arguments that can be passed to the function [graphics::grid](https://rdrr.io/r/graphics/grid.html) |
 
 For further modifications standard additional R plot functions are
 recommend, e.g., the legend can be fully customised by disabling the
@@ -144,10 +144,10 @@ Returns an S4 object of type
 
 **@info**
 
-|            |                                          |                            |
-|------------|------------------------------------------|----------------------------|
-| **Object** | **Type**                                 | **Description**            |
-| `call`     | [call](https://rdrr.io/r/base/call.html) | the original function call |
+|  |  |  |
+|----|----|----|
+| **Object** | **Type** | **Description** |
+| `call` | [call](https://rdrr.io/r/base/call.html) | the original function call |
 
 ## Function version
 
@@ -172,11 +172,12 @@ C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
 Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
 Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
 Comprehensive Luminescence Dating Data Analysis. R package version
-1.2.1. https://r-lum.github.io/Luminescence/
+1.3.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
 ``` r
+
 ## (For legal reasons no real filter data are provided)
 
 ## Create filter sets

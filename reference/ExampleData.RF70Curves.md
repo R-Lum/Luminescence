@@ -17,13 +17,13 @@ objects
 
 **RF70Curves**
 
-|            |                                                                    |
-|------------|--------------------------------------------------------------------|
-| Lab:       | IRAMAT-CRP2A, CNRS-Université Bordeaux Montaigne, Bordeaux, France |
-| Lab-Code:  | BDX16648                                                           |
-| Location:  | Médoc, France (details see reference)                              |
-| Material:  | K-feldspar (100-200 \\\mu\\m)                                      |
-| Reference: | Kreutzer et al. (2018)                                             |
+|  |  |
+|----|----|
+| Lab: | IRAMAT-CRP2A, CNRS-Université Bordeaux Montaigne, Bordeaux, France |
+| Lab-Code: | BDX16648 |
+| Location: | Médoc, France (details see reference) |
+| Material: | K-feldspar (100-200 \\\mu\\m) |
+| Reference: | Kreutzer et al. (2018) |
 
 ## Version
 
@@ -46,6 +46,7 @@ Quaternary Geochronology 48, 108–120.
 ## Examples
 
 ``` r
+
 ##load data
 data(ExampleData.RF70Curves, envir = environment())
 

@@ -1,10 +1,10 @@
 # Fit and plot a dose-response curve for luminescence data (Lx/Tx against dose)
 
 A dose-response curve is produced for luminescence measurements using a
-regenerative or additive protocol as implemented in
+regenerative or additive protocol. This is a wrapper around
 [fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)
 and
-[plot_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/plot_DoseResponseCurve.md)
+[plot_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/plot_DoseResponseCurve.md).
 
 ## Usage
 
@@ -12,7 +12,7 @@ and
 plot_GrowthCurve(
   object,
   mode = "interpolation",
-  fit.method = "EXP",
+  fit.method = "SSE",
   output.plot = TRUE,
   output.plotExtended = TRUE,
   plot_singlePanels = FALSE,
@@ -29,15 +29,17 @@ plot_GrowthCurve(
   [data.frame](https://rdrr.io/r/base/data.frame.html) or a
   [list](https://rdrr.io/r/base/list.html) of such objects
   (**required**): data frame with columns for `Dose`, `LxTx`,
-  `LxTx.Error` and `TnTx`. The column for the test dose response is
-  optional, but requires `'TnTx'` as column name if used. For
-  exponential fits at least three dose points (including the natural)
-  should be provided. If `object` is a list, the function is called on
-  each of its elements. If `fit.method = "OTORX"` you have to provide
-  the test dose in the same unit as the dose in a column called
-  `Test_Dose`. The function searches explicitly for this column name.
-  Only the first value will be used assuming a constant test dose over
-  the measurement cycle.
+  `LxTx.Error` and `TnTx`.
+
+  The column for the test dose response is optional, but requires
+  `'TnTx'` as column name if used. For exponential fits at least three
+  dose points (including the natural) should be provided. If `object` is
+  a list, the function is called on each of its elements.
+
+  If `fit.method = "OTORX"` you have to provide the test dose in the
+  same unit as the dose in a column called `Test_Dose`. The function
+  searches explicitly for this column name. Only the first value will be
+  used assuming a constant test dose over the measurement cycle.
 
 - mode:
 
@@ -53,14 +55,14 @@ plot_GrowthCurve(
     points.
 
   Please note that for option `"interpolation"` the first point is
-  considered as natural dose
+  considered as natural dose.
 
 - fit.method:
 
   [character](https://rdrr.io/r/base/character.html) (*with default*):
-  function used for fitting. Possible options are: `LIN`, `QDR`, `EXP`,
-  `EXP OR LIN`, `EXP+LIN`, `EXP+EXP` (not defined for extrapolation),
-  `GOK`, `OTOR` and `OTORX`. See details.
+  function used for fitting. Possible options are: `LIN`, `QDR`, `SSE`,
+  `SSE OR LIN`, `SSE+LIN`, `DSE` (not defined for extrapolation), `GOK`,
+  `OTOR` and `OTORX`. See details.
 
 - output.plot:
 
@@ -70,11 +72,11 @@ plot_GrowthCurve(
 - output.plotExtended:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*): If
-  `TRUE`, 3 plots on one plot area are provided:
+  `TRUE` (default), 3 plots on one plot area are provided:
 
-  1.  growth curve,
+  1.  the dose-response curve,
 
-  2.  histogram from Monte Carlo error simulation and
+  2.  a histogram from Monte Carlo error simulation and
 
   3.  a test dose response plot.
 
@@ -94,17 +96,20 @@ plot_GrowthCurve(
 - n.MC:
 
   [integer](https://rdrr.io/r/base/integer.html) (*with default*):
-  number of MC runs for error calculation.
+  number of Monte Carlo simulations for error estimation.
 
 - ...:
 
   Further arguments to
   [fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)
-  (`fit_weights`, `fit_bounds`, `fit.force_through_origin`,
+  (`fit.force_through_origin`, `fit_weights`,
   `fit.includingRepeatedRegPoints`, `fit.NumberRegPoints`,
-  `fit.NumberRegPointsReal`, `n.MC`, `txtProgressBar`) and graphical
-  parameters to be passed (supported: `xlim`, `ylim`, `main`, `xlab`,
-  `ylab`).
+  `fit.NumberRegPointsReal`, `fit_bounds`, `txtProgressBar`) and to
+  [plot_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/plot_DoseResponseCurve.md)
+  (`xlim`, `ylim`, `main`, `mtext`, `xlab`, `ylab`, `log`, `legend`
+  (`TRUE/FALSE`), `legend.pos`, `reg_points_pch`, `density_polygon`
+  (`TRUE/FALSE`), `density_polygon_col`, `density_rug` (`TRUE`/`FALSE`),
+  `lwd_drc`, `col_drc`, `lty_drc`, `box` (`TRUE`/`FALSE`)).
 
 ## Value
 
@@ -112,7 +117,7 @@ Along with a plot (if wanted) the
 [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
 object produced by
 [fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)
-is returned.
+is returned invisibly.
 
 ## Function version
 
@@ -127,7 +132,7 @@ M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
 J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
 Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.2.1. https://r-lum.github.io/Luminescence/
+version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -160,29 +165,30 @@ RLum Developer Team
 ## Examples
 
 ``` r
+
 ##(1) plot growth curve for a dummy dataset
 data(ExampleData.LxTxData, envir = environment())
 plot_GrowthCurve(LxTxData)
-#> [fit_DoseResponseCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07
+#> [fit_DoseResponseCurve()] Fit:    SSE (interpolation) | De = 1737.71 | D01 = 1721.83
 
 
 ##(1b) horizontal plot arrangement
 layout(mat = matrix(c(1,1,2,3), ncol = 2))
 plot_GrowthCurve(LxTxData, plot_singlePanels = TRUE)
-#> [fit_DoseResponseCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07
+#> [fit_DoseResponseCurve()] Fit:    SSE (interpolation) | De = 1737.71 | D01 = 1721.83
 
 
 ##(2) plot the growth curve with pdf output - uncomment to use
 ##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")
 plot_GrowthCurve(LxTxData)
-#> [fit_DoseResponseCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07
+#> [fit_DoseResponseCurve()] Fit:    SSE (interpolation) | De = 1737.71 | D01 = 1721.83
 
 ##dev.off()
 
 ##(3) plot the growth curve with pdf output - uncomment to use, single output
 ##pdf(file = "~/Desktop/Growth_Curve_Dummy.pdf", paper = "special")
 temp <- plot_GrowthCurve(LxTxData, plot_singlePanels = TRUE)
-#> [fit_DoseResponseCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07
+#> [fit_DoseResponseCurve()] Fit:    SSE (interpolation) | De = 1737.71 | D01 = 1721.83
 ##dev.off()
 
 ##(4) plot resulting function for given interval x
@@ -197,7 +203,7 @@ plot(
 ##(5) plot using the 'extrapolation' mode
 LxTxData[1,2:3] <- c(0.5, 0.001)
 print(plot_GrowthCurve(LxTxData, mode = "extrapolation"))
-#> [fit_DoseResponseCurve()] Fit: EXP (extrapolation) | De = 109.74 | D01 = 2624.06
+#> [fit_DoseResponseCurve()] Fit:    SSE (extrapolation) | De = 139.25 | D01 = 3059.14
 
 #> 
 #>  [RLum.Results-class]
@@ -213,7 +219,7 @@ print(plot_GrowthCurve(LxTxData, mode = "extrapolation"))
 ##(6) plot using the 'alternate' mode
 LxTxData[1,2:3] <- c(0.5, 0.001)
 print(plot_GrowthCurve(LxTxData, mode = "alternate"))
-#> [fit_DoseResponseCurve()] Fit: EXP (alternate) | De = NA | D01 = 2624.06
+#> [fit_DoseResponseCurve()] Fit:    SSE (alternate) | De = NA | D01 = 3059.14
 
 #> 
 #>  [RLum.Results-class]

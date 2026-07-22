@@ -64,6 +64,7 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## Examples
 
 ``` r
+
 showClass("RLum.Data.Curve")
 #> Class "RLum.Data.Curve" [package "Luminescence"]
 #> 

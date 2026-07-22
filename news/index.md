@@ -1,6 +1,499 @@
 # Changelog
 
+## Changes in version 1.3.0 (2026-07-22)
+
+See also the [write-up for Luminescence v1.3.0 on the REPLAY
+website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/07/luminescence-release-1.3.0/).
+
+### Breaking changes
+
+#### `fit_DoseResponseCurve()`
+
+- In function `fit_DoseReponseCurve()` we modified how weights are
+  handled. Up to v1.2.1, the default for `fit.weights` used a normalised
+  inverse standard error approach, under the assumption that
+  uncertainties scale with the dose. In hindsight, this appears to be
+  short-sighted and not very well justified: individual relative
+  uncertainties typically do not scale with the dose, but are
+  independent except in exceptional cases. In consequence, we modified
+  what values `fit.weights` accepts to accommodate the old and new
+  approach. This has three immediate consequences:
+
+  - The allowed input for `fit.weights` is no longer `logical`, but
+    either `character` (`"inverse_var"`, `"inverse_std"`, or
+    `"norm_inverse_std"`), `numeric`, or `NULL` (no weights);
+  - The numerical output of `fit_DoseReponseCurve()` will differ, as the
+    new default use inverse variance instead;
+  - Users are now able to provide their own weights.
+
+  These changes affect the numerical output of the following functions:
+  [`fit_DoseResponseCurve()`](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md),
+  [`analyse_SAR.CWOSL()`](https://r-lum.github.io/Luminescence/reference/analyse_SAR.CWOSL.md),
+  [`analyse_SAR.TL()`](https://r-lum.github.io/Luminescence/reference/analyse_SAR.TL.md),
+  [`analyse_baSAR()`](https://r-lum.github.io/Luminescence/reference/analyse_baSAR.md),
+  [`analyse_pIRIRSequence()`](https://r-lum.github.io/Luminescence/reference/analyse_pIRIRSequence.md),
+  [`calc_Lamothe2003()`](https://r-lum.github.io/Luminescence/reference/calc_Lamothe2003.md),
+  [`calc_Huntley2006()`](https://r-lum.github.io/Luminescence/reference/calc_Huntley2006.md),
+  [`plot_DRCSummary()`](https://r-lum.github.io/Luminescence/reference/plot_DRCSummary.md),
+  [`plot_DetPlot()`](https://r-lum.github.io/Luminescence/reference/plot_DetPlot.md).
+
+  Although the changes in the numerical output may be inconvenient, we
+  strongly advise updating regardless. The old results can still be
+  reproduced using option `fit.weights = "norm_inverse_std"` in the
+  affected functions.
+
+- The `fit.method` parameters have undergone some renaming to make them
+  more rigorous
+  ([\#1604](https://github.com/R-Lum/Luminescence/issues/1604)):
+
+  - `EXP` is now called `SSE` (single saturating exponential);
+    similarly, `EXP+LIN` and `EXP OR LIN` are now `SSE+LIN` and
+    `SSE OR LIN`, respectively
+  - `EXP+EXP` is now called `DSE` (double saturating exponential)
+
+  The previous method names are still functional, but will now raise a
+  deprecation warning.
+
+  These changes also affect the following functions:
+  [`analyse_SAR.CWOSL()`](https://r-lum.github.io/Luminescence/reference/analyse_SAR.CWOSL.md),
+  [`analyse_SAR.TL()`](https://r-lum.github.io/Luminescence/reference/analyse_SAR.TL.md),
+  [`analyse_baSAR()`](https://r-lum.github.io/Luminescence/reference/analyse_baSAR.md),
+  [`analyse_pIRIRSequence()`](https://r-lum.github.io/Luminescence/reference/analyse_pIRIRSequence.md),
+  [`analyse_Al2O3C_CrossTalk()`](https://r-lum.github.io/Luminescence/reference/analyse_Al2O3C_CrossTalk.md),
+  [`analyse_Al2O3C_ITC()`](https://r-lum.github.io/Luminescence/reference/analyse_Al2O3C_ITC.md),
+  [`calc_Huntley2006()`](https://r-lum.github.io/Luminescence/reference/calc_Huntley2006.md),
+  [`plot_GrowthCurve()`](https://r-lum.github.io/Luminescence/reference/plot_GrowthCurve.md).
+
+- Internally, the following model parameters have been renamed so they
+  are consistent between models when they have a physical meaning
+  ([\#1604](https://github.com/R-Lum/Luminescence/issues/1604)):
+
+  - for `SSE`, `SSE+LIN` and `SSE OR LIN`: the `a`, `b` and `c`
+    parameters are now called `N`, `D0` and `Di`, respectively
+  - for `DSE`: the `a1`, `a2`, `b1`, `b2` parameters are now called
+    `N1,`N2`,`D01`and`D02\`, respectively
+  - for `GOK`: the `b` parameter is now called `D0`
+  - for `OTOR`: the `Dint` parameter is now called `Di`
+  - for `OTORX`: the `a` parameter is now called `Di`
+
+- The output object data frame was expanded to contain columns for the
+  `D63` and `D80` parameters used by `OTOR` and `OTORX`. Along with
+  this, we modified the uncertainty calculation for `Dc`, `R`, `D63`,
+  and `D80`: now we calculate the 25% and the 75% quantiles (in the
+  “LOWER” and “UPPER” columns for each of those parameters) instead of
+  returning the standard deviation, which did not make much sense. This
+  means that the column `R.ERROR` is no longer available. Please note
+  that the output table was also updated in
+  [`analyse_SAR.CWOSL()`](https://r-lum.github.io/Luminescence/reference/analyse_SAR.CWOSL.md)
+  and subsequent functions. As long as you access column values using
+  their names rather than indices, these changes should not affect your
+  existing scripts.
+
+#### Other breaking changes
+
+- In function
+  [`calc_MinDose()`](https://r-lum.github.io/Luminescence/reference/calc_MinDose.md)
+  we changed how the `sigmab` argument should be expressed in the
+  `log = FALSE` case. Up to v1.2.1, it was required to be specified in
+  the same absolute units used for the De values. From now on, it must
+  be expressed in relative units as a ratio (e.g. 0.2 for 20 %). This
+  makes the interpretation of the argument consistent between logged and
+  unlogged models
+  ([\#1548](https://github.com/R-Lum/Luminescence/issues/1548)).
+
+- Plotting an object generated by
+  [`analyse_SAR.CWOSL()`](https://r-lum.github.io/Luminescence/reference/analyse_SAR.CWOSL.md)
+  via
+  [`plot_RLum()`](https://r-lum.github.io/Luminescence/reference/plot_RLum.md)
+  (or just [`plot()`](https://rdrr.io/r/graphics/plot.default.html))
+  will no longer produce an abanico plot, but will redraw the plots
+  originally created by
+  [`analyse_SAR.CWOSL()`](https://r-lum.github.io/Luminescence/reference/analyse_SAR.CWOSL.md).
+  This will work only for objects generated by the current package
+  version, while the previous behaviour is maintained for objects
+  generated by version up to 1.2.1. In any case, Abanico plots can still
+  be created by calling
+  [`plot_AbanicoPlot()`](https://r-lum.github.io/Luminescence/reference/plot_AbanicoPlot.md)
+  directly
+  ([\#1589](https://github.com/R-Lum/Luminescence/issues/1589)).
+
+- The `summary` keywords accepted by the plotting functions have been
+  made uniformed throughout the package to match those used by
+  [`calc_Statistics()`](https://r-lum.github.io/Luminescence/reference/calc_Statistics.md)
+  ([\#1618](https://github.com/R-Lum/Luminescence/issues/1618)):
+
+  - the names `sdrel`, `sdabs`, `serel` and `seabs` that were used by
+    [`plot_Histogram()`](https://r-lum.github.io/Luminescence/reference/plot_Histogram.md)
+    and
+    [`plot_RadialPlot()`](https://r-lum.github.io/Luminescence/reference/plot_RadialPlot.md)
+    are no longer recognised, and will be silently ignored; they have
+    been replaced by `sd.rel`, `sd.abs`, `se.rel` and `se.abs`,
+    respectively.
+  - the names `weighted$mean` and `weighted$median` that were used by
+    [`plot_DRTResults()`](https://r-lum.github.io/Luminescence/reference/plot_DRTResults.md)
+    have been replaced by `mean.weighted` and `median.weighted`.
+
+### New functions
+
+- Function
+  [`analyse_SAR.NCF()`](https://r-lum.github.io/Luminescence/reference/analyse_SAR.NCF.md)
+  implements the natural sensitivity correction for the assessment of
+  single aliquot regeneration based palaeodoses, proposed originally by
+  Singhvi et al. (2011) and later implemented in Matlab by Kaushal et
+  al. (2022). This is currently in beta, pending more testing on real
+  data ([\#1091](https://github.com/R-Lum/Luminescence/issues/1091)).
+
+### Bugfixes and changes
+
+#### `analyse_baSAR()`
+
+- The function no longer crashes if a list containing multiple empty
+  objects is provided
+  ([\#1598](https://github.com/R-Lum/Luminescence/issues/1598)).
+
+#### `analyse_IRSAR.RF()`
+
+- The `RF_nat.lim` and `RF_reg.lim` arguments are now checked to have
+  the expected length (1 or 2 elements) to avoid crashes that occurred
+  when they were misspecified
+  ([\#1621](https://github.com/R-Lum/Luminescence/issues/1621)).
+
+#### `analyse_SAR.CWOSL()`
+
+- The default value for the `background_integral` argument has changed
+  from `NA` to `NULL`. In v1.2.0 `NA` acquired the distinct meaning “do
+  not subtract the background integral”, so using it as the implicit
+  default changed user-facing behaviour. Switching the default to `NULL`
+  restores the behaviour present up to v1.1.2, where integrals are
+  applied only when both signal and background integrals are provided,
+  and specifying only the signal integral results in no integrals being
+  applied ([\#1526](https://github.com/R-Lum/Luminescence/issues/1526)).
+
+- The `plot_singlePanels` argument produced no plots when set to 7 or 8
+  ([\#1558](https://github.com/R-Lum/Luminescence/issues/1558)).
+
+- The `dose.points` and `dose.points.test` arguments are now better
+  validated, and a clearer error message will be reported if
+  misspecified
+  ([\#1583](https://github.com/R-Lum/Luminescence/issues/1583)).
+
+#### `apply_EfficiencyCorrection()`
+
+- The argument `spectral.efficiency` now directly supports a CSV-file
+  input.
+
+#### `calc_Huntley2006()`
+
+- The function now requires at least 4 dose points (the natural dose,
+  which is removed before fitting, plus at least 3 others). With fewer
+  points, model fitting can fail or crash, as all models have 3
+  parameters
+  ([\#1572](https://github.com/R-Lum/Luminescence/issues/1572)).
+
+#### `calc_MinDose()`
+
+- If `init.values` is provided and `log = TRUE`, the `sigma` parameter
+  is now initialised as `sigma / mu` instead of `log(sigma)`. The
+  previous approach failed silently when `sigma < 1`, as the logarithm
+  produced out-of-bounds parameter values, with the effect of leaving
+  all parameters at their initial values
+  ([\#1527](https://github.com/R-Lum/Luminescence/issues/1527); thanks
+  to [@MarijnvanderMeij](https://github.com/MarijnvanderMeij) for
+  reporting and suggesting a fix).
+
+- The confidence intervals stored in the `RLum.Results` object are now
+  always in the natural units, independently of the `log` argument
+  ([\#1533](https://github.com/R-Lum/Luminescence/issues/1533); thanks
+  to [@MarijnvanderMeij](https://github.com/MarijnvanderMeij) for
+  reporting).
+
+#### `calc_OSLLxTxRatio()`
+
+- The `SN_RATIO_TnTx` value was wrongly returned as `Inf` if
+  `use_previousBG` was set to `TRUE` and `background_integral = NA`. Now
+  the function will return `NA` in this case, as stated in the function
+  documentation
+  ([\#1554](https://github.com/R-Lum/Luminescence/issues/1554)).
+
+- The computation of `LxTx` has been fixed to compute the contribution
+  of the `Tx` background correctly when `use_previousBG = TRUE`. This
+  should result in very minor differences if the background counts for
+  the `Lx` and `Tx` curves are similar
+  ([\#1565](https://github.com/R-Lum/Luminescence/issues/1565)).
+
+- The new `od_rates` argument activates an alternative approach for
+  error estimation of Lx/Tx ratios based on Bluszcz, Adamiec and Herr
+  (2015). This argument is also supported by
+  [`analyse_SAR.CWOSL()`](https://r-lum.github.io/Luminescence/reference/analyse_SAR.CWOSL.md),
+  [`analyse_pIRIRSequence()`](https://r-lum.github.io/Luminescence/reference/analyse_pIRIRSequence.md),
+  and
+  [`analyse_FadingMeasurement()`](https://r-lum.github.io/Luminescence/reference/analyse_FadingMeasurement.md)
+  ([\#1390](https://github.com/R-Lum/Luminescence/issues/1390); thanks
+  to [@andrzejbluszcz](https://github.com/andrzejbluszcz) for providing
+  the mathematical description, contributing code and checking the
+  implementation).
+
+#### `calc_SourceDoseRate()`
+
+- The `predict` argument has been extended to handle backwards and
+  forward prediction.
+
+- The function has been corrected so that, in case multiple measurement
+  dates, the `predict` argument will be applied to the last date, as
+  specified by the manual
+  ([\#1609](https://github.com/R-Lum/Luminescence/issues/1609)).
+
+- If multiple values are provided for `calib.date` when `predict` is
+  used, only the last calibration date specified will be applied. This
+  ensures that the source dose rates are computed consistently, rather
+  than depending on R’s recycling rules for vectors
+  ([\#1611](https://github.com/R-Lum/Luminescence/issues/1611)).
+
+#### `calc_Statistics()`
+
+- The values accepted by the `weight.calc` argument have been changed to
+  align to the terminology used in
+  [`fit_DoseResponseCurve()`](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md).
+  Therefore, option `"square"` is now called `"inverse_var"`, and
+  `"reciprocal"` is now called `"inverse_std"`. The previous names will
+  continue to work, but will now raise a deprecation warning
+  ([\#1615](https://github.com/R-Lum/Luminescence/issues/1615)).
+
+#### `convert_Second2Gray()`
+
+- Input validation was strengthened to avoid two possible crashes
+  ([\#1537](https://github.com/R-Lum/Luminescence/issues/1537)).
+
+#### `fit_DoseResponseCurve()`
+
+- Argument `fit.weights` now supports a `numeric` vector as input. This
+  gives more control over the fitting process and enables better
+  comparison with other software, such as Python’s SciPy. In this case,
+  the vector must be of the same length as the number of data points to
+  fit, which is typical the number of `LxTx` points
+  ([\#1536](https://github.com/R-Lum/Luminescence/issues/1536)).
+
+- The `fit.weights` argument was reimplemented to different approaches
+  for the weight computation. These can be specified by the keywords
+  `"inverse_var"` (the new default, corresponding to `1/sigma^2`),
+  `"inverse_std"` and `"norm_inverse_std"` (corresponding to the default
+  up to v1.2.1). Moreover, `NULL` disables weights, while a `numeric`
+  input enables the definition of own weights
+  ([\#1539](https://github.com/R-Lum/Luminescence/issues/1539)).
+
+- The `"QDR"` fit method is now less likely to fail due to an invalid
+  choice of the starting point for the
+  [`uniroot()`](https://rdrr.io/r/stats/uniroot.html) function
+  ([\#1541](https://github.com/R-Lum/Luminescence/issues/1541)).
+
+- The starting value of one of the parameters of the `SSE` model has
+  been tweaked to remove a dependency of the results from the random
+  values used during the Monte Carlo steps. This should make the results
+  more stable, in particular for `mode = "extrapolation"`. This change
+  may introduce some minor differences to the result of this function
+  and of other functions that depend on it
+  ([\#1550](https://github.com/R-Lum/Luminescence/issues/1550)).
+
+- Vectors containing the starting values for some fitting parameters
+  used during the Monte Carlo runs are no longer generated for
+  `fit.method = "QDR"` and `"GOK"`, as they were unused in those models.
+  This affects the state of the random number generator, so very minor
+  numerical differences in the results are to be expected
+  ([\#1568](https://github.com/R-Lum/Luminescence/issues/1568)).
+
+- The models used to generate sensible starting points for `"SSE"`,
+  “DSE”`,`“SSE+LIN”`,`“GOK”`,`“OTOR”`and`“OTORX”`models now consider the`LxTx\`
+  errors as weights, which may improve the fitting in cases when the
+  data to fit is highly irregular due to very large errors
+  ([\#1570](https://github.com/R-Lum/Luminescence/issues/1570)).
+
+- From the documentation, it was not always clear that the function
+  expects columns with values in a particular order and does not look up
+  column names (at least not all). Now the function is a little bit more
+  flexible and automatically orders columns in the required order if
+  column names that would somewhat match the expectations are used. As a
+  positive side effect, the LxTx table produced by
+  [`analyse_SAR.CWOSL()`](https://r-lum.github.io/Luminescence/reference/analyse_SAR.CWOSL.md)
+  can be now inserted as input without further modification.
+  ([\#1591](https://github.com/R-Lum/Luminescence/issues/1591); thanks
+  to [@DirkMittelstrass](https://github.com/DirkMittelstrass) for
+  reporting).
+
+- Minor adjustment of the terminal feedback for better text alignment.
+  Plus, remove reporting `Dc` for OTOR in favour of `D63` (`Dc` is still
+  accessible in the output).
+
+- Method “DSE” gains a `Di` parameter in the model for the offset
+  ([\#1604](https://github.com/R-Lum/Luminescence/issues/1604)).
+
+- Method “DSE” used to compute a starting point from 50 random points
+  generated from the input data with the goal of finding a robust
+  initialization point for the final fitting. However, this was not
+  used, so those computations were effectively discarded. This has been
+  fixed, and this should provide more robustness for this method
+  ([\#1605](https://github.com/R-Lum/Luminescence/issues/1605)).
+
+#### `fit_EmissionSpectra()`
+
+- The function no longer crashes if a `frame` argument of length 0 is
+  used ([\#1602](https://github.com/R-Lum/Luminescence/issues/1602)).
+
+#### `get_RLum()`
+
+- It is now possible to disable a potentially very long information
+  message reported when the `subset` argument returns an empty list by
+  setting `verbose = FALSE`. The `verbose` argument is also exposed in
+  the [`subset()`](https://rdrr.io/r/base/subset.html) method for
+  `RLum.Analysis` objects
+  ([\#1587](https://github.com/R-Lum/Luminescence/issues/1587); thanks
+  to [@DirkMittelstrass](https://github.com/DirkMittelstrass) for
+  highlighting the problem).
+
+#### `merge_RLum.Results()`
+
+- The function gained the `flatten` argument, which allows to control
+  whether list elements should be flattened into a single list when
+  merging ([\#1593](https://github.com/R-Lum/Luminescence/issues/1593)).
+
+#### `plot_AbanicoPlot()`
+
+- The summary text is no longer overprinted when multiple datasets are
+  given as input and `summary.pos` is one of `"left"`, `"center"` or
+  `"right"`
+  ([\#1575](https://github.com/R-Lum/Luminescence/issues/1575)).
+
+- The function no longer crashes when `z.0` is misspecified
+  ([\#1579](https://github.com/R-Lum/Luminescence/issues/1579)).
+
+#### `plot_DetPlot()`
+
+- The function now allows passing the `dose_rate_source` argument to the
+  analysis function via the `analyse_function.control` argument, as in
+  `analyse_function.control = list(dose_rate_source = 4.07)`
+  ([\#1561](https://github.com/R-Lum/Luminescence/issues/1561)).
+
+#### `plot_DoseResponseCurve()`
+
+- The error bars had been missing for `extrapolation` and `alternate`
+  mode since v1.1.0. This error was introduced with commit cf299831 and
+  remained unnoticed due to lack of graphical snapshots (a3ed7744).
+
+- Add `...` support for arguments `lwd_drc`, `lty_drc`, and `col_drc` to
+  enable further customisation of the dose-response curve.
+
+- The function can now print the dose-response curves from an
+  `RLum.Results' object created by`analyse_SAR.CWOSL()\`
+  ([\#1592](https://github.com/R-Lum/Luminescence/issues/1592); thanks
+  to [@DirkMittelstrass](https://github.com/DirkMittelstrass) for
+  reporting).
+
+- The function crashed with a
+  `object of type 'closure' is not subsettable` error if the fit could
+  not be established and an object named `histogram` was present in the
+  workspace or exposed in the namespace by another package.
+
+#### `plot_DRTResults()`
+
+- The plotting of a list of inputs with `summary.pos = "sub"` was
+  regressed in v1.2.0, resulting in the summary statistics being printed
+  one line down from their intended position
+  ([\#1613](https://github.com/R-Lum/Luminescence/issues/1613)).
+
+#### `plot_KDE()`
+
+- The default background colour was incorrectly set to `NA`, which in
+  some cases, such as when plotting to a png file or in RStudio (at
+  least on MacOS), corresponds to a transparent background. This could
+  cause the KDE plot to appear to be drawn over an existing plot
+  ([\#1556](https://github.com/R-Lum/Luminescence/issues/1556)).
+
+- The summary text is no longer overprinted when multiple datasets are
+  given as input and `summary.pos` is one of `"left"`, `"center"` or
+  `"right"`
+  ([\#1575](https://github.com/R-Lum/Luminescence/issues/1575)).
+
+#### `plot_RadialPlot()`
+
+- The summary text is no longer overprinted when multiple datasets are
+  given as input and `summary.pos` is one of `"left"`, `"center"` or
+  `"right"`
+  ([\#1575](https://github.com/R-Lum/Luminescence/issues/1575)).
+
+- The function no longer crashes if `centrality` is set to a numerical
+  value of length shorter than the number of input datasets
+  ([\#1577](https://github.com/R-Lum/Luminescence/issues/1577)).
+
+#### `plot_RLum.Results()`
+
+- The function can now plot objects generated by
+  [`fit_DoseResponseCurve()`](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)
+  instead of returning silently. This also allows using
+  [`plot_RLum()`](https://r-lum.github.io/Luminescence/reference/plot_RLum.md)
+  on those objects to obtain the same output of
+  [`plot_DoseResponseCurve()`](https://r-lum.github.io/Luminescence/reference/plot_DoseResponseCurve.md)
+  ([\#1550](https://github.com/R-Lum/Luminescence/issues/1550)).
+
+- Plotting an object produced by
+  [`calc_AliquotSize()`](https://r-lum.github.io/Luminescence/reference/calc_AliquotSize.md)
+  now supports that function’s full range of plot customisation
+  arguments via `...`
+  ([\#1585](https://github.com/R-Lum/Luminescence/issues/1585)).
+
+- Plotting an object generated by
+  [`analyse_SAR.CWOSL()`](https://r-lum.github.io/Luminescence/reference/analyse_SAR.CWOSL.md)
+  will no longer call
+  [`plot_AbanicoPlot()`](https://r-lum.github.io/Luminescence/reference/plot_AbanicoPlot.md)
+  but will redraw the plots originally created by
+  [`analyse_SAR.CWOSL()`](https://r-lum.github.io/Luminescence/reference/analyse_SAR.CWOSL.md)
+  ([\#1589](https://github.com/R-Lum/Luminescence/issues/1589)).
+
+#### `plot_RLum.Data.Spectrum()`
+
+- If the function was called with `plot.type = "interactive"`, the error
+  `plot.new has not been called yet` appeared in the terminal. This was
+  a regression introduced in v1.1.2, and has now been fixed.
+
+- If the column names are replaced by the index, the default y-axis
+  label is now preset to “Channel index”, but it can be overwritten
+  using the `ylab` function argument. This should avoid cases where the
+  user overlooks the warning and struggles to understand the axis
+  values.
+
+- The `plot.type = "transect"` now scales the y-axis automatically (can
+  be overwritten with `zlim`).
+
+- The `plot.type = "transect"` gained support for a few new arguments:
+  `add` (to add additional transects to an existing plot), `smooth`
+  (basic curve smoothing), `transect_mode` to control the integration
+  method (`sum` the default, `mean`, `median`, `min`, `max`)
+
+- For `plot.type = "multiple.lines"` the number of legend entries is
+  limited to 30 to avoid excessive overplotting; it can be overwritten
+  by setting `legend.text`.
+
+#### `plot_ViolinPlot()`
+
+- Numeric coordinates for `summary.pos` are now respected
+  ([\#1596](https://github.com/R-Lum/Luminescence/issues/1596)).
+
+#### `read_Daybreak2R()`
+
+- Information about irradiation doses are now more easily retrievable
+  from the `info` element
+  ([\#1563](https://github.com/R-Lum/Luminescence/issues/1563); thanks
+  to [@andrzejbluszcz](https://github.com/andrzejbluszcz) for the code
+  contribution).
+
+#### `remove_RLum()`
+
+- The function no longer accepts unnamed arguments
+  ([\#1529](https://github.com/R-Lum/Luminescence/issues/1529)).
+
+------------------------------------------------------------------------
+
 ## Changes in version 1.2.1 (2026-03-25)
+
+CRAN release: 2026-03-25
 
 See also the [write-up for Luminescence v1.2.1 on the REPLAY
 website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/03/luminescence-release-1.2.1/).
@@ -153,7 +646,9 @@ website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/03/lumin
 
 ------------------------------------------------------------------------
 
-## Changes in version 1.2.1 (2026-03-12)
+## Changes in version 1.2.0 (2026-03-12)
+
+CRAN release: 2026-03-12
 
 See also the [write-up for Luminescence v1.2.0 on the REPLAY
 website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/03/luminescence-release-1.2.0/).

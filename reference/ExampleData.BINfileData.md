@@ -20,25 +20,25 @@ list of vectors of the measured data (usually count values).
 
 **CWOSL.SAR.Data**
 
-|            |                                                                              |
-|------------|------------------------------------------------------------------------------|
-| Lab:       | Luminescence Laboratory Bayreuth                                             |
-| Lab-Code:  | BT607                                                                        |
-| Location:  | Saxony/Germany                                                               |
-| Material:  | Middle grain quartz measured on aluminium cups on a Risø TL/OSL DA-15 reader |
-| Reference: | unpublished                                                                  |
+|  |  |
+|----|----|
+| Lab: | Luminescence Laboratory Bayreuth |
+| Lab-Code: | BT607 |
+| Location: | Saxony/Germany |
+| Material: | Middle grain quartz measured on aluminium cups on a Risø TL/OSL DA-15 reader |
+| Reference: | unpublished |
 
 **TL.SAR.Data**
 
-|            |                                                                                              |
-|------------|----------------------------------------------------------------------------------------------|
-| Lab:       | Luminescence Laboratory of Cologne                                                           |
-| Lab-Code:  | LP1_5                                                                                        |
-| Location:  | Spain                                                                                        |
-| Material:  | Flint                                                                                        |
-| Setup:     | Risoe TL/OSL DA-20 reader (Filter: Semrock Brightline, HC475/50, N2, unpolished steel discs) |
-| Reference: | unpublished                                                                                  |
-| Remarks:   | dataset limited to one position                                                              |
+|  |  |
+|----|----|
+| Lab: | Luminescence Laboratory of Cologne |
+| Lab-Code: | LP1_5 |
+| Location: | Spain |
+| Material: | Flint |
+| Setup: | Risoe TL/OSL DA-20 reader (Filter: Semrock Brightline, HC475/50, N2, unpolished steel discs) |
+| Reference: | unpublished |
+| Remarks: | dataset limited to one position |
 
 ## Note
 
@@ -59,6 +59,7 @@ the package long time ago. In the meantime the BIN-file format changed.
 ## Examples
 
 ``` r
+
 ## show first 5 elements of the METADATA and DATA elements in the terminal
 data(ExampleData.BINfileData, envir = environment())
 CWOSL.SAR.Data@METADATA[1:5,]

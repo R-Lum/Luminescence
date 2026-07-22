@@ -9,8 +9,8 @@ object, including growth curve fitting.
 ``` r
 analyse_SAR.CWOSL(
   object,
-  signal_integral = NA,
-  background_integral = NA,
+  signal_integral = NULL,
+  background_integral = NULL,
   signal_integral_Tx = NULL,
   background_integral_Tx = NULL,
   integral_input = c("channel", "measurement"),
@@ -48,15 +48,17 @@ analyse_SAR.CWOSL(
   [integer](https://rdrr.io/r/base/integer.html) (**required**): vector
   of channels for the signal integral. It can be a
   [list](https://rdrr.io/r/base/list.html) of integers, if `object` is a
-  list. If set to `NA`, no integrals are taken into account and their
-  settings are ignored.
+  list. If set to `NULL` (default) or `NA`, no integrals are taken into
+  account and their settings are ignored.
 
 - background_integral:
 
   [integer](https://rdrr.io/r/base/integer.html) (**required**): vector
   of channels for the background integral. It can be a
   [list](https://rdrr.io/r/base/list.html) of integers, if `object` is a
-  list. If set to `NA`, no background integral is subtracted.
+  list. If set to `NULL` (default), no integrals are taken into account
+  and their settings are ignored. If set to `NA`, no background integral
+  is subtracted.
 
 - signal_integral_Tx:
 
@@ -89,9 +91,9 @@ analyse_SAR.CWOSL(
   the signal component to be evaluated. It requires that the object was
   processed by `OSLdecomposition::RLum.OSL_decomposition`. This argument
   can either be the name of the OSL component assigned by
-  `OSLdecomposition::RLum.OSL_global_fitting` or the index in the
-  descending order of decay rates. Then `"1"` selects the fastest
-  decaying component, `"2"` the second fastest and so on. Can be a
+  `OSLdecomposition::RLum.OSL_global_fitting` or the index in descending
+  order of decay rates. Then `"1"` selects the fastest decaying
+  component, `"2"` the second fastest and so on. Can be a
   [list](https://rdrr.io/r/base/list.html) of
   [integer](https://rdrr.io/r/base/integer.html)s or strings (or mixed)
   If object is a [list](https://rdrr.io/r/base/list.html) and this
@@ -134,7 +136,7 @@ analyse_SAR.CWOSL(
 
   - `recuperation_reference`
     [character](https://rdrr.io/r/base/character.html) (default:
-    `"Natural"`; set to, e.g., `"R1"` for other point)
+    `"Natural"`; set to, e.g., `"R1"` for another point)
 
   - `sn_reference` [character](https://rdrr.io/r/base/character.html)
     (default: `"Natural"`).
@@ -153,7 +155,7 @@ analyse_SAR.CWOSL(
 - dose.points:
 
   [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): a numeric
-  vector containing the dose points values. Using this argument
+  vector containing the dose point values. Using this argument
   overwrites dose point values extracted from other data. Can be a
   [list](https://rdrr.io/r/base/list.html) of
   [numeric](https://rdrr.io/r/base/numeric.html) vectors, if `object` is
@@ -168,9 +170,9 @@ analyse_SAR.CWOSL(
 
 - dose_rate_source:
 
-  [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): a
-  numerical value for the source dose rate, typically Gy/s. If set, the
-  x-axis default for the dose-response curve changes to `Dose [Gy]`.
+  [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): numerical
+  value for the source dose rate, typically in Gy/s. If set, the x-axis
+  default for the dose-response curve changes to `Dose [Gy]`.
 
 - trim_channels:
 
@@ -199,18 +201,21 @@ analyse_SAR.CWOSL(
 - plot_onePage:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  enable/disable one page plot output.
+  enable/disable plotting all subplots on one page.
 
 - plot_singlePanels:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*) or
-  [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): single
-  plot output (`TRUE/FALSE`) to allow for plotting the results in single
-  plot windows. If a [numeric](https://rdrr.io/r/base/numeric.html)
-  vector is provided the plots can be selected individually, i.e.
-  `plot_singlePanels = c(1,2,3,4)` will plot the TL and Lx, Tx curves
-  but not the legend (5) or the growth curve (6), (7) and (8) belong to
-  rejection criteria plots. Requires `plot = TRUE`.
+  [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): control
+  the plotting of subplots in single windows (one subplot per page).
+  Using a [numeric](https://rdrr.io/r/base/numeric.html) vector allows
+  to select the subplots individually; setting it to `TRUE` corresponds
+  to `plot_singlePanels = 1:8`. For example,
+  `plot_singlePanels = c(1,2,3,4)` will plot the TL and Lx, Tx curves;
+  `plot_singlePanels = c(5,6,7,8)` will plot the legend (5), the
+  dose-response curve (6), the rejection criteria (7), and either the
+  IRSL curve or the single grain (8). It is ignored if `plot = FALSE` or
+  `plot_onePage = TRUE`.
 
 - onlyLxTxTable:
 
@@ -235,12 +240,16 @@ analyse_SAR.CWOSL(
   [plot_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/plot_DoseResponseCurve.md)
   or
   [calc_OSLLxTxRatio](https://r-lum.github.io/Luminescence/reference/calc_OSLLxTxRatio.md)
-  (supported: `background.count.distribution`, `sigmab`, `sig0`).
-  **Note:** if you consider to use the early light subtraction method,
-  `sigmab` should be provided.
+  (the latter only supports `background.count.distribution`, `sigmab`,
+  `sig0`, `od_rates`). Additionally, supported are `legend.cex` and
+  `legend.pch` to modify the legend symbols. **Note:** If you consider
+  using the early light subtraction method, `sigmab` should be provided.
 
-  Additionally, supported are `legend.cex` and `legend.pch` to modify
-  the the legend symbols.
+  **Note:** `od_rates` can be used to treat uncertainties in Lx/Tx
+  according to Bluszcz et al. (2015) instead of the standard approach of
+  Galbraith (2002, 2014). See
+  [calc_OSLLxTxRatio](https://r-lum.github.io/Luminescence/reference/calc_OSLLxTxRatio.md)
+  for details.
 
 ## Value
 
@@ -269,17 +278,20 @@ object is returned containing the following elements:
   [formula](https://rdrr.io/r/stats/formula.html) formula that have been
   used for the growth curve fitting
 
+- .plot.data:
+
+  List used internally for plotting.
+
 The output should be accessed using the function
 [get_RLum](https://r-lum.github.io/Luminescence/reference/get_RLum.md).
 
-**The function currently does support only 'OSL', 'IRSL' and 'POSL'
-data!**
+**The function currently supports only 'OSL', 'IRSL' and 'POSL' data!**
 
 ## Details
 
-The function performs an analysis for a standard SAR protocol
-measurements introduced by Murray and Wintle (2000) with CW-OSL curves.
-For the calculation of the `Lx/Tx` value the function
+The function performs an analysis for standard SAR protocol measurements
+introduced by Murray and Wintle (2000) with CW-OSL curves. For the
+calculation of the `Lx/Tx` value the function
 [calc_OSLLxTxRatio](https://r-lum.github.io/Luminescence/reference/calc_OSLLxTxRatio.md)
 is used. To **change the way the Lx/Tx error is calculated** use
 arguments `background.count.distribution` and `sigmab`, which will be
@@ -288,16 +300,16 @@ passed to
 
 **What is part of a SAR sequence?**
 
-The function is rather picky when it comes down to accepted curve input
-(OSL, IRSL,...) and structure. A SAR sequence is basically a set of
+The function is rather picky when it comes to accepted curve input (OSL,
+IRSL,...) and structure. A SAR sequence is basically a set of
 \\L\_{x}/T\_{x}\\ curves. Hence, every second curve is considered a
 shine-down curve related to the test dose. It also means that the number
 of curves for \\L\_{x}\\ has to be equal to the number of \\T\_{x}\\
-curves, and that hot-bleach curves **do not** belong into a SAR
-sequence; at least not for the analysis. Other curves allowed and
-processed are preheat curves, or preheat curves measured as TL, and
-irradiation curves. The later one indicates the duration of the
-irradiation, the dose and test dose points, e.g., as part of XSYG files.
+curves, and that hot-bleach curves **do not** belong in a SAR sequence;
+at least not for the analysis. Other curves allowed and processed are
+preheat curves, or preheat curves measured as TL, and irradiation
+curves. The latter indicates the duration of the irradiation, the dose
+and test dose points, e.g., as part of XSYG files.
 
 **Argument `object` is of type `list`**
 
@@ -305,9 +317,9 @@ If the argument `object` is of type
 [list](https://rdrr.io/r/base/list.html) containing **only**
 [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
 objects, the function re-calls itself on each element in the list. This
-is useful if to analyse an entire measurement without writing separate
-for-loops. To gain in full control of the parameters (e.g.,
-`dose.points`) for every aliquot (corresponding to one
+is useful for analysing an entire measurement without writing separate
+for-loops. To gain full control of the parameters (e.g., `dose.points`)
+for every aliquot (corresponding to one
 [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
 object in the list), in this case the arguments can be provided as
 [list](https://rdrr.io/r/base/list.html). This `list` should be of
@@ -326,7 +338,7 @@ error message if the input data is misspecified.
 The function was originally designed to work just for 'OSL' curves,
 following the principles of the SAR protocol. An IRSL measurement
 protocol may follow this procedure, e.g., post-IR IRSL protocol (Thomsen
-et al., 2008). Therefore this functions has been enhanced to work with
+et al., 2008). Therefore this function has been enhanced to work with
 IRSL data, however, the function is only capable of analysing curves
 that follow the SAR protocol structure, i.e., to analyse a post-IR IRSL
 protocol, curve data have to be pre-selected by the user to fit the
@@ -354,7 +366,7 @@ default should not exceed 10%. The test dose error is calculated as
 detailed in
 [calc_OSLLxTxRatio](https://r-lum.github.io/Luminescence/reference/calc_OSLLxTxRatio.md).
 
-`[palaeodose.error]`: set the allowed error for the De value, which per
+`[palaeodose.error]`: set the allowed error for the De value, which by
 default should not exceed 10%.
 
 `[sn.ratio]`: set the allowed signal/noise ratio, which by default
@@ -364,8 +376,8 @@ curve, but this can be changed by specifying the `sn_reference` option.
 By default, the computed values are compared directly to the
 corresponding thresholds to establish their result status ("OK" or
 "FAILED"). By setting the option `consider.uncertainties = TRUE` in the
-`rejection.criteria` list, quantified uncertainties are considered into
-the computation of the test value prior before comparing it to the
+`rejection.criteria` list, quantified uncertainties are considered in
+the computation of the test value before comparing it to the
 threshold(currently supported only for `recycling.ratio`,
 `recuperation.rate` and `exceed.max.regpoint`). This reduces tests being
 marked as "FAILED" when the deviation from the threshold is smaller than
@@ -373,9 +385,9 @@ the uncertainty margin.
 
 **Irradiation times**
 
-The function makes two attempts to extra irradiation data (dose points)
-automatically from the input object, if the argument `dose.points` is
-not set (aka set to `NULL`).
+The function makes two attempts to extract irradiation data (dose
+points) automatically from the input object, if the argument
+`dose.points` is not set (aka set to `NULL`).
 
 1.  It searches in every curve for an info object called `IRR_TIME`. If
     this is found, any value set there is taken as dose point.
@@ -387,17 +399,17 @@ not set (aka set to `NULL`).
 
 ## Function version
 
-0.13.8
+1.0.0
 
 ## How to cite
 
 Kreutzer, S., Colombo, M., 2026. analyse_SAR.CWOSL(): Analyse SAR CW-OSL
-Measurements. Function version 0.13.8. In: Kreutzer, S., Burow, C.,
+Measurements. Function version 1.0.0. In: Kreutzer, S., Burow, C.,
 Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
 Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -415,6 +427,11 @@ Thomsen, K.J., Murray, A.S., Jain, M., Boetter-Jensen, L., 2008.
 Laboratory fading rates of various luminescence signals from
 feldspar-rich sediment extracts. Radiation Measurements 43, 1474-1486.
 doi:10.1016/j.radmeas.2008.06.002
+
+Bluszcz, A., Adamiec, G., Herr, A., 2015. Estimation of equivalent dose
+and its uncertainty in the OSL SAR protocol when count numbers do not
+follow a Poisson distribution. Radiation Measurements 81, 46-54.
+doi:10.1016/j.radmeas.2015.01.004
 
 ## See also
 
@@ -434,6 +451,7 @@ RLum Developer Team
 ## Examples
 
 ``` r
+
 ##load data
 ##ExampleData.BINfileData contains two BINfileData objects
 ##CWOSL.SAR.Data and TL.SAR.Data
@@ -448,7 +466,7 @@ object = object,
 signal_integral = 1:2,
 background_integral = 900:1000,
 log = "x",
-fit.method = "EXP",
+fit.method = "SSE",
 plot_onePage = TRUE,
 rejection.criteria = list(
   recycling.ratio = 10,
@@ -460,19 +478,21 @@ rejection.criteria = list(
   sn_reference = "Natural",
   exceed.max.regpoint = TRUE)
 )
-#> [analyse_SAR.CWOSL()] Fit: EXP (interpolation) | De = 1668.28 | D01 = 1982.52
+#> [analyse_SAR.CWOSL()] Fit:    SSE (interpolation) | De = 1666.01 | D01 = 1938.31
 
 
 ##show De results
 get_RLum(results)
-#>         De De.Error     D01 D01.ERROR D02 D02.ERROR  R R.ERROR Dc D63       n_N
-#> 1 1668.277 51.59927 1982.52  101.5512  NA        NA NA      NA NA  NA 0.4854792
-#>      De.MC Fit          Mode HPDI68_L HPDI68_U HPDI95_L HPDI95_U .De.plot
-#> 1 1671.506 EXP interpolation 1615.436  1720.59 1564.044 1766.447 1668.277
-#>    .De.raw RC.Status signal.range background.range signal.range.Tx
-#> 1 1668.277        OK          1:2         900:1000           NA:NA
+#>         De De.Error      D01 D01.ERROR D02 D02.ERROR  R R.LOWER R.UPPER Dc
+#> 1 1666.013  52.2285 1938.315  92.52959  NA        NA NA      NA      NA NA
+#>   Dc.LOWER Dc.UPPER D63 D63.LOWER D63.UPPER      D80 D80.LOWER D80.UPPER
+#> 1       NA       NA  NA        NA        NA 3118.749        NA        NA
+#>         n_N    De.MC Fit          Mode HPDI68_L HPDI68_U HPDI95_L HPDI95_U
+#> 1 0.4852609 1669.316 SSE interpolation  1612.75 1718.684 1559.783 1765.231
+#>   .De.plot  .De.raw RC.Status signal.range background.range signal.range.Tx
+#> 1 1666.013 1666.013        OK          1:2         900:1000           NA:NA
 #>   background.range.Tx ALQ POS GRAIN              UID
-#> 1               NA:NA   1   1     0 fed5ee3ed2f4c890
+#> 1               NA:NA   1   1     0 c6f38e9a1cfb9e2d
 
 ##show LnTnLxTx table
 get_RLum(results, data.object = "LnLxTnTx.table")
@@ -493,13 +513,13 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 #> 6       97.30345 5732.396       77.06892     76.616181      45.92334 1.61426805
 #> 7       14.03621 5989.356       78.55995      2.033984      51.91104 0.01629624
 #>    LxTx.Error Test_Dose              UID
-#> 1 0.070548235        -1 fed5ee3ed2f4c890
-#> 2 0.028478016        -1 fed5ee3ed2f4c890
-#> 3 0.052017292        -1 fed5ee3ed2f4c890
-#> 4 0.075831244        -1 fed5ee3ed2f4c890
-#> 5 0.081877711        -1 fed5ee3ed2f4c890
-#> 6 0.027552588        -1 fed5ee3ed2f4c890
-#> 7 0.002353254        -1 fed5ee3ed2f4c890
+#> 1 0.070548235        -1 c6f38e9a1cfb9e2d
+#> 2 0.028478016        -1 c6f38e9a1cfb9e2d
+#> 3 0.052017292        -1 c6f38e9a1cfb9e2d
+#> 4 0.075831244        -1 c6f38e9a1cfb9e2d
+#> 5 0.081877711        -1 c6f38e9a1cfb9e2d
+#> 6 0.027552588        -1 c6f38e9a1cfb9e2d
+#> 7 0.002353254        -1 c6f38e9a1cfb9e2d
 
 ## Run example with special case for
 ## the OTORX fit

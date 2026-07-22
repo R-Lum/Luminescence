@@ -26,30 +26,31 @@ Geochronometria 52, 107-125.
 
 **BT998**
 
-|                   |                                                                             |
-|-------------------|-----------------------------------------------------------------------------|
-| Lab:              | Luminescence Laboratory Bayreuth                                            |
-| Lab-Code:         | BT998                                                                       |
-| Location:         | Rottewitz (Saxony/Germany)                                                  |
-| Material:         | Fine grain quartz measured on aluminium discs on a Risø TL/OSL DA-15 reader |
-| Units:            | Values are given in seconds                                                 |
-| Dose Rate:        | Dose rate of the beta-source at measurement ca. 0.0438 Gy/s +/- 0.0019 Gy/s |
-| Measurement Date: | 2012-01-27                                                                  |
+|  |  |
+|----|----|
+| Lab: | Luminescence Laboratory Bayreuth |
+| Lab-Code: | BT998 |
+| Location: | Rottewitz (Saxony/Germany) |
+| Material: | Fine grain quartz measured on aluminium discs on a Risø TL/OSL DA-15 reader |
+| Units: | Values are given in seconds |
+| Dose Rate: | Dose rate of the beta-source at measurement ca. 0.0438 Gy/s +/- 0.0019 Gy/s |
+| Measurement Date: | 2012-01-27 |
 
 **CA1**
 
-|                   |                                                                                                     |
-|-------------------|-----------------------------------------------------------------------------------------------------|
-| Lab:              | Cologne Luminescence Laboratory (CLL)                                                               |
-| Lab-Code:         | C-L2941                                                                                             |
-| Location:         | Cueva Anton (Murcia/Spain)                                                                          |
-| Material:         | Coarse grain quartz (200-250 microns) measured on single grain discs on a Risoe TL/OSL DA-20 reader |
-| Units:            | Values are given in Gray                                                                            |
-| Measurement Date: | 2012                                                                                                |
+|  |  |
+|----|----|
+| Lab: | Cologne Luminescence Laboratory (CLL) |
+| Lab-Code: | C-L2941 |
+| Location: | Cueva Anton (Murcia/Spain) |
+| Material: | Coarse grain quartz (200-250 microns) measured on single grain discs on a Risoe TL/OSL DA-20 reader |
+| Units: | Values are given in Gray |
+| Measurement Date: | 2012 |
 
 ## Examples
 
 ``` r
+
 ##(1) plot values as histogram
 data(ExampleData.DeValues, envir = environment())
 plot_Histogram(ExampleData.DeValues$BT998, xlab = "De [s]")

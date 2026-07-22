@@ -110,11 +110,11 @@ object and the graphical output produced by
 
 **slot:** **`@data`**
 
-|             |              |                                                        |
-|-------------|--------------|--------------------------------------------------------|
-| **Element** | **Type**     | **Description**                                        |
-| `$data`     | `data.frame` | the fading corrected values                            |
-| `$fit`      | `nls`        | the object returned by the dose response curve fitting |
+|  |  |  |
+|----|----|----|
+| **Element** | **Type** | **Description** |
+| `$data` | `data.frame` | the fading corrected values |
+| `$fit` | `nls` | the object returned by the dose response curve fitting |
 
 '**slot:** **`@info`**
 
@@ -165,7 +165,7 @@ Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
 Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
-Dating Data Analysis. R package version 1.2.1.
+Dating Data Analysis. R package version 1.3.0.
 https://r-lum.github.io/Luminescence/
 
 ## References
@@ -199,6 +199,7 @@ RLum Developer Team
 ## Examples
 
 ``` r
+
 ##load data
 ##ExampleData.BINfileData contains two BINfileData objects
 ##CWOSL.SAR.Data and TL.SAR.Data
@@ -225,7 +226,7 @@ results_corr <- calc_Lamothe2003(
   dose_rate.source = c(0.184, 0.003),
   g_value =  c(2.36, 0.6),
   plot = TRUE,
-  fit.method = "EXP")
+  fit.method = "SSE")
 
 #> 
 #> [calc_Lamothe2003()] 
@@ -234,9 +235,9 @@ results_corr <- calc_Lamothe2003(
 #> 
 #>  Fading_C:        0.785  ±  0.055 
 #>  Corrected Ln/Tn:     5.515  ±  0.391 
-#>  Corrected De:        472.55  ±  65.38  Gy 
+#>  Corrected De:        474.99  ±  73.44  Gy 
 #> --------------------------------------------------------
-#>  Corrected Age:       281.95  ±  49.38  ka 
+#>  Corrected Age:       283.41  ±  53.35  ka 
 #> --------------------------------------------------------
 
 ```

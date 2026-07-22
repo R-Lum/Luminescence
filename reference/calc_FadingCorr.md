@@ -97,18 +97,18 @@ Returns an S4 object of type
 
 Slot: **`@data`**  
 
-|               |                                                      |                                                                   |
-|---------------|------------------------------------------------------|-------------------------------------------------------------------|
-| **Object**    | **Type**                                             | **Comment**                                                       |
-| `age.corr`    | [data.frame](https://rdrr.io/r/base/data.frame.html) | Corrected age                                                     |
-| `age.corr.MC` | [numeric](https://rdrr.io/r/base/numeric.html)       | MC simulation results with all possible ages from that simulation |
+|  |  |  |
+|----|----|----|
+| **Object** | **Type** | **Comment** |
+| `age.corr` | [data.frame](https://rdrr.io/r/base/data.frame.html) | Corrected age |
+| `age.corr.MC` | [numeric](https://rdrr.io/r/base/numeric.html) | MC simulation results with all possible ages from that simulation |
 
 Slot: **`@info`**  
 
-|            |                                                    |                            |
-|------------|----------------------------------------------------|----------------------------|
-| **Object** | **Type**                                           | **Comment**                |
-| `info`     | [character](https://rdrr.io/r/base/character.html) | the original function call |
+|  |  |  |
+|----|----|----|
+| **Object** | **Type** | **Comment** |
+| `info` | [character](https://rdrr.io/r/base/character.html) | the original function call |
 
 ## Details
 
@@ -216,7 +216,7 @@ Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
 Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -239,6 +239,7 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## Examples
 
 ``` r
+
 ##run the examples given in the appendix of Huntley and Lamothe, 2001
 
 ##(1) faded age: 100 a
@@ -264,7 +265,7 @@ results <- calc_FadingCorr(
 #>  observations:       100
 #>  ----------------------------------------------
 #>  Age (faded):        0.1 ka ± 0 ka
-#>  Age (corr.):        0.1169 ka ± 0.0041 ka
+#>  Age (corr.):        0.1169 ka ± 0.0039 ka
 #>  ---------------------------------------------- 
 
 ##(2) faded age: 1 ka
@@ -290,7 +291,7 @@ results <- calc_FadingCorr(
 #>  observations:       100
 #>  ----------------------------------------------
 #>  Age (faded):        1 ka ± 0 ka
-#>  Age (corr.):        1.2486 ka ± 0.0644 ka
+#>  Age (corr.):        1.2486 ka ± 0.0605 ka
 #>  ---------------------------------------------- 
 
 ##(3) faded age: 10.0 ka
@@ -316,13 +317,13 @@ results <- calc_FadingCorr(
 #>  observations:       100
 #>  ----------------------------------------------
 #>  Age (faded):        10 ka ± 0 ka
-#>  Age (corr.):        13.402 ka ± 1.0204 ka
+#>  Age (corr.):        13.402 ka ± 0.9675 ka
 #>  ---------------------------------------------- 
 
 ##access the last output
 get_RLum(results)
 #>      AGE AGE.ERROR AGE_FADED AGE_FADED.ERROR  G_VALUE G_VALUE.ERROR      KAPPA
-#> 1 13.402    1.0204        10               0 5.312393      1.011901 0.02307143
+#> 1 13.402    0.9675        10               0 5.312393      1.011901 0.02307143
 #>   KAPPA.ERROR           TC   TC.G_VALUE n.MC OBSERVATIONS SEED
 #> 1  0.00439463 8.213721e-05 5.475814e-06  100          100   NA
 ```

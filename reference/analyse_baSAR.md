@@ -26,7 +26,7 @@ analyse_baSAR(
   distribution = "cauchy",
   baSAR_model = NULL,
   n.MCMC = 1e+05,
-  fit.method = c("EXP", "EXP+LIN", "LIN"),
+  fit.method = c("SSE", "SSE+LIN", "LIN"),
   fit.force_through_origin = TRUE,
   fit.includingRepeatedRegPoints = TRUE,
   method_control = list(),
@@ -177,8 +177,8 @@ analyse_baSAR(
   equation used both for the fitting of the dose-response curve using
   function
   [fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)
-  and then for the Bayesian modelling. Supported methods: `EXP`,
-  `EXP+LIN` and `LIN`.
+  and then for the Bayesian modelling. Supported methods: `SSE`,
+  `SSE+LIN` and `LIN`.
 
 - fit.force_through_origin:
 
@@ -253,13 +253,13 @@ Function returns results numerically and graphically:
 
 **slot:** **`@data`**
 
-|                     |              |                                                                                                                 |
-|---------------------|--------------|-----------------------------------------------------------------------------------------------------------------|
-| **Element**         | **Type**     | **Description**                                                                                                 |
-| `$summary`          | `data.frame` | statistical summary, including the central dose                                                                 |
-| `$mcmc`             | `mcmc`       | [coda::mcmc.list](https://rdrr.io/pkg/coda/man/mcmc.list.html) object including raw output                      |
-| `$models`           | `character`  | implemented models used in the baSAR-model core                                                                 |
-| `$input_object`     | `data.frame` | summarising table (same format as the XLS-file) including, e.g., Lx/Tx values                                   |
+|  |  |  |
+|----|----|----|
+| **Element** | **Type** | **Description** |
+| `$summary` | `data.frame` | statistical summary, including the central dose |
+| `$mcmc` | `mcmc` | [coda::mcmc.list](https://rdrr.io/pkg/coda/man/mcmc.list.html) object including raw output |
+| `$models` | `character` | implemented models used in the baSAR-model core |
+| `$input_object` | `data.frame` | summarising table (same format as the XLS-file) including, e.g., Lx/Tx values |
 | `$removed_aliquots` | `data.frame` | table with removed aliquots (e.g., `NaN`, or `Inf` `Lx`/`Tx` values). If nothing was removed `NULL` is returned |
 
 **slot:** **`@info`**
@@ -391,14 +391,14 @@ manually excluded based on previous runs.
 These are arguments that can be passed directly to the Bayesian
 calculation core, supported arguments are:
 
-|                  |                                                    |                                                                                                                                                                                                   |
-|------------------|----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Parameter**    | **Type**                                           | **Description**                                                                                                                                                                                   |
-| `lower_centralD` | [numeric](https://rdrr.io/r/base/numeric.html)     | sets the lower bound for the expected De range. Change it only if you know what you are doing!                                                                                                    |
-| `upper_centralD` | [numeric](https://rdrr.io/r/base/numeric.html)     | sets the upper bound for the expected De range. Change it only if you know what you are doing!                                                                                                    |
-| `n.chains`       | [integer](https://rdrr.io/r/base/integer.html)     | sets number of parallel chains for the model (default = 3) (cf. [rjags::jags.model](https://rdrr.io/pkg/rjags/man/jags.model.html))                                                               |
-| `inits`          | [list](https://rdrr.io/r/base/list.html)           | option to set initialisation values (cf. [rjags::jags.model](https://rdrr.io/pkg/rjags/man/jags.model.html))                                                                                      |
-| `thin`           | [numeric](https://rdrr.io/r/base/numeric.html)     | thinning interval for monitoring the Bayesian process (cf. [rjags::jags.model](https://rdrr.io/pkg/rjags/man/jags.model.html))                                                                    |
+|  |  |  |
+|----|----|----|
+| **Parameter** | **Type** | **Description** |
+| `lower_centralD` | [numeric](https://rdrr.io/r/base/numeric.html) | sets the lower bound for the expected De range. Change it only if you know what you are doing! |
+| `upper_centralD` | [numeric](https://rdrr.io/r/base/numeric.html) | sets the upper bound for the expected De range. Change it only if you know what you are doing! |
+| `n.chains` | [integer](https://rdrr.io/r/base/integer.html) | sets number of parallel chains for the model (default = 3) (cf. [rjags::jags.model](https://rdrr.io/pkg/rjags/man/jags.model.html)) |
+| `inits` | [list](https://rdrr.io/r/base/list.html) | option to set initialisation values (cf. [rjags::jags.model](https://rdrr.io/pkg/rjags/man/jags.model.html)) |
+| `thin` | [numeric](https://rdrr.io/r/base/numeric.html) | thinning interval for monitoring the Bayesian process (cf. [rjags::jags.model](https://rdrr.io/pkg/rjags/man/jags.model.html)) |
 | `variable.names` | [character](https://rdrr.io/r/base/character.html) | set the variables to be monitored during the MCMC run, default: `'central_D'`, `'sigma_D'`, `'D'`, `'Q'`, `'a'`, `'b'`, `'c'`, `'g'`. Note: only variables present in the model can be monitored. |
 
 **User defined models**  
@@ -448,22 +448,22 @@ A: This is correct and allowed (cf. JAGS manual)
 This list summarizes the additional arguments that can be passed to the
 internally used functions.
 
-|                                 |                                                                                                    |                                   |                                                  |
-|---------------------------------|----------------------------------------------------------------------------------------------------|-----------------------------------|--------------------------------------------------|
-| **Supported argument**          | **Corresponding function**                                                                         | **Default**                       | **Short description**                            |
-| `threshold`                     | [verify_SingleGrainData](https://r-lum.github.io/Luminescence/reference/verify_SingleGrainData.md) | `30`                              | change rejection threshold for curve selection   |
-| `skip`                          | [data.table::fread](https://rdrr.io/pkg/data.table/man/fread.html)                                 | `0`                               | number of rows to be skipped during import       |
-| `n.records`                     | [read_BIN2R](https://r-lum.github.io/Luminescence/reference/read_BIN2R.md)                         | `NULL`                            | limit records during BIN-file import             |
-| `duplicated.rm`                 | [read_BIN2R](https://r-lum.github.io/Luminescence/reference/read_BIN2R.md)                         | `TRUE`                            | remove duplicated records in the BIN-file        |
-| `pattern`                       | [read_BIN2R](https://r-lum.github.io/Luminescence/reference/read_BIN2R.md)                         | `TRUE`                            | select BIN-file by name pattern                  |
-| `position`                      | [read_BIN2R](https://r-lum.github.io/Luminescence/reference/read_BIN2R.md)                         | `NULL`                            | limit import to a specific position              |
-| `background.count.distribution` | [calc_OSLLxTxRatio](https://r-lum.github.io/Luminescence/reference/calc_OSLLxTxRatio.md)           | `"non-poisson"`                   | set assumed count distribution                   |
-| `fit.weights`                   | [fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)   | `TRUE`                            | enable/disable fit weights                       |
-| `fit.bounds`                    | [fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)   | `TRUE`                            | enable/disable fit bounds                        |
-| `n.MC`                          | [fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)   | `100`                             | number of MC runs for error calculation          |
-| `plot_drc`                      | [plot_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/plot_DoseResponseCurve.md) | `TRUE`                            | enable/disable dose response curve plot          |
-| `plot_extended`                 | [plot_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/plot_DoseResponseCurve.md) | `TRUE`                            | enable/disable extended dose response curve plot |
-| `recordType`                    | [get_RLum](https://r-lum.github.io/Luminescence/reference/get_RLum.md)                             | `c(OSL (UVVIS), irradiation (NA)` | helps for the curve selection                    |
+|  |  |  |  |
+|----|----|----|----|
+| **Supported argument** | **Corresponding function** | **Default** | **Short description** |
+| `threshold` | [verify_SingleGrainData](https://r-lum.github.io/Luminescence/reference/verify_SingleGrainData.md) | `30` | change rejection threshold for curve selection |
+| `skip` | [data.table::fread](https://rdrr.io/pkg/data.table/man/fread.html) | `0` | number of rows to be skipped during import |
+| `n.records` | [read_BIN2R](https://r-lum.github.io/Luminescence/reference/read_BIN2R.md) | `NULL` | limit records during BIN-file import |
+| `duplicated.rm` | [read_BIN2R](https://r-lum.github.io/Luminescence/reference/read_BIN2R.md) | `TRUE` | remove duplicated records in the BIN-file |
+| `pattern` | [read_BIN2R](https://r-lum.github.io/Luminescence/reference/read_BIN2R.md) | `TRUE` | select BIN-file by name pattern |
+| `position` | [read_BIN2R](https://r-lum.github.io/Luminescence/reference/read_BIN2R.md) | `NULL` | limit import to a specific position |
+| `background.count.distribution` | [calc_OSLLxTxRatio](https://r-lum.github.io/Luminescence/reference/calc_OSLLxTxRatio.md) | `"non-poisson"` | set assumed count distribution |
+| `fit.weights` | [fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md) | `NULL` | enable/disable fit weights |
+| `fit.bounds` | [fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md) | `TRUE` | enable/disable fit bounds |
+| `n.MC` | [fit_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md) | `100` | number of MC runs for error calculation |
+| `plot_drc` | [plot_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/plot_DoseResponseCurve.md) | `TRUE` | enable/disable dose response curve plot |
+| `plot_extended` | [plot_DoseResponseCurve](https://r-lum.github.io/Luminescence/reference/plot_DoseResponseCurve.md) | `TRUE` | enable/disable extended dose response curve plot |
+| `recordType` | [get_RLum](https://r-lum.github.io/Luminescence/reference/get_RLum.md) | `c(OSL (UVVIS), irradiation (NA)` | helps for the curve selection |
 
 ## Note
 
@@ -492,7 +492,7 @@ Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
 Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
-Dating Data Analysis. R package version 1.2.1.
+Dating Data Analysis. R package version 1.3.0.
 https://r-lum.github.io/Luminescence/
 
 ## References
@@ -543,6 +543,7 @@ The underlying Bayesian model based on a contribution by Combès et al.,
 ## Examples
 
 ``` r
+
 ##(1) load package test data set
 data(ExampleData.BINfileData, envir = environment())
 

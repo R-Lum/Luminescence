@@ -25,6 +25,7 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## Examples
 
 ``` r
+
 showClass("RLum.Data")
 #> Virtual Class "RLum.Data" [package "Luminescence"]
 #> 

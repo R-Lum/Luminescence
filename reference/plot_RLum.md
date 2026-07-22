@@ -40,12 +40,12 @@ objects. Depending on the input object, the corresponding plot function
 will be selected. Allowed arguments can be found in the documentations
 of each plot function.
 
-|                                                                                                |                                                                                                  |                                                                                                      |
-|------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
-| **object**                                                                                     | **corresponding plot function**                                                                  | [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)           |
+|  |  |  |
+|----|----|----|
+| **object** | **corresponding plot function** | [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md) |
 | [plot_RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/plot_RLum.Data.Curve.md) | [RLum.Data.Spectrum](https://r-lum.github.io/Luminescence/reference/RLum.Data.Spectrum-class.md) | [plot_RLum.Data.Spectrum](https://r-lum.github.io/Luminescence/reference/plot_RLum.Data.Spectrum.md) |
-| [RLum.Data.Image](https://r-lum.github.io/Luminescence/reference/RLum.Data.Image-class.md)     | [plot_RLum.Data.Image](https://r-lum.github.io/Luminescence/reference/plot_RLum.Data.Image.md)   | [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)               |
-| [plot_RLum.Analysis](https://r-lum.github.io/Luminescence/reference/plot_RLum.Analysis.md)     | [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)             | [plot_RLum.Results](https://r-lum.github.io/Luminescence/reference/plot_RLum.Results.md)             |
+| [RLum.Data.Image](https://r-lum.github.io/Luminescence/reference/RLum.Data.Image-class.md) | [plot_RLum.Data.Image](https://r-lum.github.io/Luminescence/reference/plot_RLum.Data.Image.md) | [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md) |
+| [plot_RLum.Analysis](https://r-lum.github.io/Luminescence/reference/plot_RLum.Analysis.md) | [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md) | [plot_RLum.Results](https://r-lum.github.io/Luminescence/reference/plot_RLum.Results.md) |
 
 ## Function version
 
@@ -74,7 +74,7 @@ C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
 Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 

@@ -94,6 +94,14 @@ are summed up. To select a transect use the `xlim` argument, e.g.
 `xlim = c(300,310)` plot along the summed up count values of channel 300
 to 310.
 
+- `add`: default is `FALSE`: adds the plot to an existing plot
+
+- `smooth`: default is `FALSE`: performs a simple curve smoothing
+
+- `transect_mode`: default is `sum`: sets the integration mode for the
+  transect along the wavelength axis. Other allowed values are `mean`,
+  `mean`, `min`, `max`
+
 **Further arguments that will be passed (depending on the plot type)**
 
 `xlab`, `ylab`, `zlab`, `xlim`, `ylim`, `zlim`, `main`, `mtext`, `box`,
@@ -266,7 +274,7 @@ Not all additional arguments (`...`) will be passed similarly!
 
 ## Function version
 
-0.6.13
+0.6.17
 
 ## See also
 
@@ -286,17 +294,18 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## How to cite
 
 Kreutzer, S., 2026. plot_RLum.Data.Spectrum(): Plot function for an
-RLum.Data.Spectrum S4 class object. Function version 0.6.13. In:
+RLum.Data.Spectrum S4 class object. Function version 0.6.17. In:
 Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
 Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
-Dating Data Analysis. R package version 1.2.1.
+Dating Data Analysis. R package version 1.3.0.
 https://r-lum.github.io/Luminescence/
 
 ## Examples
 
 ``` r
+
 ##load example data
 data(ExampleData.XSYG, envir = environment())
 

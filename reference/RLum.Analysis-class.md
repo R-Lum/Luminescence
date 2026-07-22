@@ -49,6 +49,7 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## Examples
 
 ``` r
+
 ## show method
 showClass("RLum.Analysis")
 #> Class "RLum.Analysis" [package "Luminescence"]

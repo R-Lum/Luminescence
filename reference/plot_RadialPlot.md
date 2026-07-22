@@ -72,9 +72,10 @@ plot_RadialPlot(
 
   - `"mean.weighted"` and
 
-  - `"median.weighted"` or a
+  - `"median.weighted"`, or a
 
-  - numeric value used for the standardisation.
+  - numeric value used for the standardisation of the same length as the
+    number of input data sets (it is ignored otherwise).
 
 - mtext:
 
@@ -205,22 +206,23 @@ specifying one or more of the following keywords:
 
 - `"median.weighted"` (error-weighted median),
 
-- `"sdrel"` (relative standard deviation in percent),
+- `"sd.rel"` (relative standard deviation in percent),
 
-- `"sdrel.weighted"` (error-weighted relative standard deviation in
+- `"sd.rel.weighted"` (error-weighted relative standard deviation in
   percent),
 
-- `"sdabs"` (absolute standard deviation),
+- `"sd.abs"` (absolute standard deviation),
 
-- `"sdabs.weighted"` (error-weighted absolute standard deviation),
+- `"sd.abs.weighted"` (error-weighted absolute standard deviation),
 
-- `"serel"` (relative standard error),
+- `"se.rel"` (relative standard error in percent),
 
-- `"serel.weighted"` (error-weighted relative standard error),
+- `"se.rel.weighted"` (error-weighted relative standard error in
+  percent),
 
-- `"seabs"` (absolute standard error),
+- `"se.abs"` (absolute standard error),
 
-- `"seabs.weighted"` (error-weighted absolute standard error),
+- `"se.abs.weighted"` (error-weighted absolute standard error),
 
 - `"in.2s"` (percent of samples in 2-sigma range),
 
@@ -240,7 +242,7 @@ Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
 Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -289,6 +291,7 @@ Team
 ## Examples
 
 ``` r
+
 ## load example data
 data(ExampleData.DeValues, envir = environment())
 ExampleData.DeValues <- convert_Second2Gray(
@@ -304,7 +307,7 @@ plot_RadialPlot(
   log.z = FALSE)
 
 
-## store the the plot parameters
+## store the plot parameters
 plot1 <- plot_RadialPlot(
   data = ExampleData.DeValues,
   log.z = FALSE)

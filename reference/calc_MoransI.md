@@ -116,7 +116,7 @@ Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
 Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
 Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
 Comprehensive Luminescence Dating Data Analysis. R package version
-1.2.1. https://r-lum.github.io/Luminescence/
+1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -135,6 +135,7 @@ Luc Steinbuch, Wageningen University & Research (The Netherlands)
 ## Examples
 
 ``` r
+
 ## Test a fictional sample with spatial correlation
 calc_MoransI(object = c(1:100))
 #> [1] 0.8888889
@@ -142,9 +143,9 @@ calc_MoransI(object = c(1:100))
 ## Test some fictional samples without spatial correlation;
 ## note the randomness with each repetition
 calc_MoransI(object = rnorm(n = 100))
-#> [1] -0.08025038
+#> [1] -0.04929752
 calc_MoransI(object = rnorm(n = 100))
-#> [1] 0.0160456
+#> [1] -0.07036266
 calc_MoransI(object = rnorm(n = 100))
-#> [1] 0.01742978
+#> [1] 0.09935323
 ```

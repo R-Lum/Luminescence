@@ -14,9 +14,10 @@ calc_OSLLxTxRatio(
   signal_integral_Tx = NULL,
   background_integral_Tx = NULL,
   integral_input = c("channel", "measurement"),
-  background.count.distribution = "non-poisson",
+  background.count.distribution = c("non-poisson", "poisson"),
   use_previousBG = FALSE,
   sigmab = NULL,
+  od_rates = NULL,
   sig0 = 0,
   digits = NULL,
   ...
@@ -53,7 +54,7 @@ calc_OSLLxTxRatio(
   [integer](https://rdrr.io/r/base/integer.html) (**required**): vector
   of channels for the background integral. If set to `NA`, no background
   integral is subtracted; in this case, `sigmab.LnLx` (unless manually
-  set) and the signal-to-noise ratio for Ln/Lx`will be`NA\`.
+  set) and the signal-to-noise ratio for `Ln/Lx` will be `NA`.
 
 - signal_integral_Tx:
 
@@ -82,7 +83,8 @@ calc_OSLLxTxRatio(
   [character](https://rdrr.io/r/base/character.html) (*with default*):
   sets the count distribution assumed for the error calculation.
   Possible arguments are `"poisson"` or `"non-poisson"` (default). See
-  details for further information.
+  details for further information. It is ignored if `od_rates` is
+  provided.
 
 - use_previousBG:
 
@@ -96,9 +98,19 @@ calc_OSLLxTxRatio(
   [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): option to
   set a manual value for the overdispersion (for `LnTx` and `TnTx`),
   used for the `Lx/Tx` error calculation. The value should be provided
-  as absolute squared count values, e.g. `sigmab = c(300,300)`.
-  **Note:** If only one value is provided this value is taken for both
-  (`LnTx` and `TnTx`) signals.
+  as absolute squared count values, e.g. `sigmab = c(300,300)`. Despite
+  its name it is an additional variance (above Poisson variance), not a
+  dispersion. **Note:** If only one value is provided this value is
+  taken for both (`LnTx` and `TnTx`) signals.
+
+- od_rates:
+
+  [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): a vector
+  of three elements: the dark count rate (or background count rate), the
+  background count overdispersion, and the photon count overdispersion.
+  If set, an alternative way of computing the overdispersion will be
+  used (see details). It is ignored (with a warning) if `sigmab` is
+  provided.
 
 - sig0:
 
@@ -142,6 +154,7 @@ following structure:
     .. $ sigmab.LnTx
     .. $ sigmab.TnTx
     .. $ k
+    .. $ od_rates
 
 **@info**
 
@@ -154,25 +167,95 @@ and background integrals; the signal integral limits have to be lower
 than the background integral limits. If a
 [vector](https://rdrr.io/r/base/vector.html) is given as input instead
 of a [data.frame](https://rdrr.io/r/base/data.frame.html), an artificial
-[data.frame](https://rdrr.io/r/base/data.frame.html) is produced. The
-error calculation is done according to Galbraith (2002).
+[data.frame](https://rdrr.io/r/base/data.frame.html) is produced.
+
+The error calculation is done according to Galbraith (2002, 2014) or to
+Bluszcz et a. (2015) depending on the presence of `od_rates` argument.
 
 **Please note:** In cases where the calculation results in `NaN` values
 (for example due to zero-signal, and therefore a division of 0 by 0),
 these `NaN` values are replaced by 0.
 
+**`background.count.distribution`**
+
+This argument allows selecting the distribution assumption that is used
+for the error calculation. According to Galbraith (2002, 2014) the
+background counts may be overdispersed (i.e. not follow a Poisson
+distribution, which is assumed for the photomultiplier counts). In that
+case (might be the normal case) the overdispersion has to be accounted
+for by estimating \\\sigma_B^2\\ (i.e. the overdispersion value).
+Therefore the relative standard error is calculated as:
+
+- `poisson` \$\$rse(\mu\_{S}) \approx \sqrt{(Y\_{0} + Y\_{1}/k^2) /
+  (Y\_{0} - Y\_{1}/k)} \$\$
+
+- `non-poisson` \$\$rse(\mu\_{S}) \approx \sqrt{(Y\_{0} + Y\_{1}/k^2 +
+  \sigma_B^2(1+1/k)) / (Y\_{0} - Y\_{1}/k)} \$\$
+
+If `background_integral = NA`, then in both cases the relative standard
+error simplifies to:
+
+\$\$rse(\mu\_{S}) \approx \sqrt{Y\_{0}} / Y\_{0}\$\$
+
 **`sigmab`**
 
-The default value of `sigmab` is calculated assuming the background is
-constant and **would not** applicable when the background varies as,
-e.g., as observed for the early light subtraction method.
+The default value of `sigmab` (\\\sigma_B^2\\) is calculated assuming
+the background is constant and **would not** be applicable when the
+background varies, e.g., as observed for the early light subtraction
+method.
+
+**Note:** When using the early background subtraction method in
+combination with the 'non-poisson' distribution argument, the
+corresponding `Lx/Tx` error may considerably increase due to a high
+`sigmab` value. Please check whether this is valid for your data set; if
+necessary, consider providing a custom value using the `sigmab`
+argument.
+
+**`od_rates`**
+
+Setting the `od_rates` argument activates the error calculation
+according to Bluszcz et al. (2015). The argument expects a 3-element
+vector:
+
+- `B_DC` is the PMT-specific dark count rate as pulses per second (not
+  per channel)
+
+- `k_DC` is the PMT-specific dispersion excess factor for dark counts
+
+- `k_ph` is the PMT-specific dispersion excess factor for photon counts
+
+The dark count rate and the dispersion excess factors have to be known
+in advance, and can be obtained by direct experiments performed in
+laboratory conditions, essentially the same as the routine measurement
+conditions (for examples see: Bluszcz et al. (2015), Carter et al.
+(2018)). The photon count overdispersion \\k\_{ph}\\ needs a photon
+source with a constant photon emission rate and independent photon
+emissions (so the number of photons emitted in a fixed time is a Poisson
+variable). Note that \\B\_{DC}\\ must be non-negative, while \\k\_{DC}\\
+and \\k\_{ph}\\ must be positive (for readers with no pulse divider,
+they should be greater or equal to 1).
+
+Under the assumption of statistically independent background
+(\\N\_{DC}\\) and photon counts (\\N\_{ph}\\), the total number of
+counts (say, a certain integral \\N\\ of the OSL curve over time \\t\\)
+is:
+
+\$\$N = N\_{ph} + N\_{DC}\$\$
+
+and has the following variance:
+
+\$\$ s^2(N) = k\_{ph}^2 N\_{ph} + K\_{DC}^2 N\_{DC} = k\_{ph}^2 (N -
+B\_{DC} t) + k\_{DC}^2 B\_{DC} t = k\_{ph}^2 N + (k\_{DC}^2 - k\_{ph}^2)
+B\_{DC} t \$\$
+
+The `LnLx.Error` and `TnTx.Error` are computed as \\\sqrt{s^2(N)}\\.
 
 **`sig0`**
 
-This argument allows to add an extra component of error to the final
-`Lx/Tx` error value. The input will be treated as factor that is
-multiplied with the already calculated `LxTx` and the result is add up
-by:
+This argument allows adding an extra component of error to the final
+`Lx/Tx` error value. The input will be treated as a factor that is
+multiplied by the already calculated `LxTx` and the result is added
+according to:
 
 \$\$se(LxTx) = \sqrt{se(LxTx)^2 + (LxTx \* sig0)^2}\$\$
 
@@ -183,39 +266,10 @@ For convenience, the function returns the signal-to-noise ratio
 signal divided by the background signal counts normalised to the `k`
 value (see below).
 
-**`background.count.distribution`**
-
-This argument allows selecting the distribution assumption that is used
-for the error calculation. According to Galbraith (2002, 2014) the
-background counts may be overdispersed (i.e. do not follow a Poisson
-distribution, which is assumed for the photomultiplier counts). In that
-case (might be the normal case) it has to be accounted for the
-overdispersion by estimating \\\sigma^2\\ (i.e. the overdispersion
-value). Therefore the relative standard error is calculated as:
-
-- `poisson` \$\$rse(\mu\_{S}) \approx \sqrt{Y\_{0} + Y\_{1}/k^2) /
-  (Y\_{0} - Y\_{1}/k)} \$\$
-
-- `non-poisson` \$\$rse(\mu\_{S}) \approx \sqrt{Y\_{0} + Y\_{1}/k^2 +
-  \sigma^2(1+1/k)) / (Y\_{0} - Y\_{1}/k)} \$\$
-
-If `background_integral = NA`, then in both cases the relative standard
-error simplifies to:
-
-\$\$rse(\mu\_{S}) \approx \sqrt{Y\_{0}} / Y\_{0}\$\$
-
-**Please note** that when using the early background subtraction method
-in combination with the 'non-poisson' distribution argument, the
-corresponding `Lx/Tx` error may considerably increase due to a high
-`sigmab` value. Please check whether this is valid for your data set and
-if necessary consider to provide an own `sigmab` value using the
-corresponding argument `sigmab`.
-
 ## Note
 
 The results of this function have been cross-checked with the Analyst
-(version 3.24b). Access to the results object via
-[get_RLum](https://r-lum.github.io/Luminescence/reference/get_RLum.md).
+(version 3.24b).
 
 **Caution:** If you are using early light subtraction (EBG), please
 either provide your own `sigmab` value or use
@@ -227,13 +281,14 @@ either provide your own `sigmab` value or use
 
 ## How to cite
 
-Kreutzer, S., Colombo, M., 2026. calc_OSLLxTxRatio(): Calculate Lx/Tx
-ratio for CW-OSL curves. Function version 0.9.8. In: Kreutzer, S.,
-Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
-J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
-D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
-Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
+Kreutzer, S., Colombo, M., Bluszcz, A., 2026. calc_OSLLxTxRatio():
+Calculate Lx/Tx ratio for CW-OSL curves. Function version 0.9.8. In:
+Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
+M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
+Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
+Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.3.0.
+https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -248,6 +303,17 @@ Galbraith, R.F., 2014. A further note on the variance of a
 background-corrected OSL count. Ancient TL, 31 (2), 1-3.
 [doi:10.26034/la.atl.2014.477](https://doi.org/10.26034/la.atl.2014.477)
 
+Bluszcz, A., Adamiec, G., Herr, A., 2015. Estimation of equivalent dose
+and its uncertainty in the OSL SAR protocol when count numbers do not
+follow a Poisson distribution. Radiation Measurements 81, 46-54.
+[doi:10.1016/j.radmeas.2015.01.004](https://doi.org/10.1016/j.radmeas.2015.01.004)
+
+Carter, J., Cresswell, A.J., Kinnaird, T.C., Carmichael, L.A., Murphy,
+S., Sanderson, D.C.W., 2018. Non-Poisson variations in photomultipliers
+and implications for luminescence dating. Radiation Measurements 120,
+267-273.
+[doi:10.1016/j.radmeas.2018.05.010](https://doi.org/10.1016/j.radmeas.2018.05.010)
+
 ## See also
 
 [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md),
@@ -258,12 +324,14 @@ background-corrected OSL count. Ancient TL, 31 (2), 1-3.
 
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
 LIAG - Institute for Applied Geophysics (Germany)  
-Marco Colombo, Institute of Geography, Heidelberg University (Germany) ,
-RLum Developer Team
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)  
+Andrzej Bluszcz, Silesian University of Technology, Gliwice (Poland)  
+, RLum Developer Team
 
 ## Examples
 
 ``` r
+
 ##load data
 data(ExampleData.LxTxOSLData, envir = environment())
 

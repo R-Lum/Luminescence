@@ -86,7 +86,10 @@ calc_SourceDoseRate(
   option allowing to predict the dose rate of the source over time in
   days set by the provided value. Starting date is the value set with
   `measurement.date`, e.g., `calc_SourceDoseRate(..., predict = 100)`
-  calculates the source dose rate for the next 100 days.
+  calculates the source dose rate for the next 100 days. If predict is
+  of length two, this will be used to calculate the value per days
+  backwards and forward. For instance: `predict = c(-100, 100)` will
+  calculate 100 days backwards and 100 days forward.
 
 ## Value
 
@@ -115,31 +118,28 @@ A plot method of the output is provided via
 Please be careful when using the option `predict`, especially when a
 multiple set for `measurement.date` and `calib.date` is provided. For
 the source dose rate prediction, the function takes the last
-`measurement.date` value and predicts from that the source dose rate for
-the number of days requested, that is: the (multiple) original input
-will be replaced. However, the function does not change entries for the
-calibration dates, but mixes them up. Therefore, it is not recommended
-to use this option when multiple calibration dates (`calib.date`) are
-provided.
+`measurement.date` and `calib.date` values and predicts from that the
+source dose rate for the number of days requested, that is: the
+(multiple) original input will be replaced.
 
 ## Function version
 
-0.3.4
+0.3.6
 
 ## How to cite
 
 Fuchs, M.C., Kreutzer, S., 2026. calc_SourceDoseRate(): Calculation of
 the source dose rate via the date of measurement. Function version
-0.3.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
+0.3.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
 C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
 Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
 Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
 Comprehensive Luminescence Dating Data Analysis. R package version
-1.2.1. https://r-lum.github.io/Luminescence/
+1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
-NNDC, Brookhaven National Laboratory `http://www.nndc.bnl.gov/`
+NNDC, Brookhaven National Laboratory `https://www.nndc.bnl.gov/`
 
 ## See also
 
@@ -157,12 +157,14 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## Examples
 
 ``` r
+
 ##(1) Simple function usage
 ##Basic calculation of the dose rate for a specific date
-dose.rate <-  calc_SourceDoseRate(measurement.date = "2012-01-27",
-                                  calib.date = "2014-12-19",
-                                  calib.dose.rate = 0.0438,
-                                  calib.error = 0.0019)
+dose.rate <-  calc_SourceDoseRate(
+ measurement.date = "2012-01-27",
+ calib.date = "2014-12-19",
+ calib.dose.rate = 0.0438,
+ calib.error = 0.0019)
 
 ##show results
 get_RLum(dose.rate)
@@ -204,12 +206,13 @@ convert_Second2Gray(ExampleData.DeValues$BT998, dose.rate)
 #> 25 128.18    4.090
 
 ##(3) source rate prediction and plotting
-dose.rate <-  calc_SourceDoseRate(measurement.date = "2012-01-27",
-                                  calib.date = "2014-12-19",
-                                  calib.dose.rate = 0.0438,
-                                  calib.error = 0.0019,
-                                  predict = 1000)
-plot_RLum(dose.rate)
+dose.rate <-  calc_SourceDoseRate(
+ measurement.date = "2012-01-27",
+ calib.date = "2014-12-19",
+ calib.dose.rate = 0.0438,
+ calib.error = 0.0019,
+ predict = c(-1000,1000))
+plot(dose.rate, type = "l")
 
 
 ##(4) export output to a LaTeX table (example using the package 'xtable')

@@ -127,13 +127,13 @@ The following arguments can be provided via `method_control`. Please
 note that arguments provided via `method_control` are not further
 tested, i.e., if the function crashes your input was probably wrong.
 
-|              |                                                    |                                                                                                                                                                                                                                                              |
-|--------------|----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **ARGUMENT** | **TYPE**                                           | **DESCRIPTION**                                                                                                                                                                                                                                              |
-| `upper`      | named [vector](https://rdrr.io/r/base/vector.html) | sets upper fitting boundaries, if provided boundaries for all arguments are required, e.g., `c(A = 0, C = 0, W = 0, c = 0)`                                                                                                                                  |
-| `lower`      | names [vector](https://rdrr.io/r/base/vector.html) | set lower fitting boundaries (see `upper` for details)                                                                                                                                                                                                       |
-| `trace`      | [logical](https://rdrr.io/r/base/logical.html)     | enable/disable progression trace for [minpack.lm::nlsLM](https://rdrr.io/pkg/minpack.lm/man/nlsLM.html)                                                                                                                                                      |
-| `weights`    | [numeric](https://rdrr.io/r/base/numeric.html)     | option to provide own weights for the fitting, the length of this vector needs to be equal to the number for rows of the input `data.frame`. If set to `NULL` no weights are applied. The weights are defined by the third column of the input `data.frame`. |
+|  |  |  |
+|----|----|----|
+| **ARGUMENT** | **TYPE** | **DESCRIPTION** |
+| `upper` | named [vector](https://rdrr.io/r/base/vector.html) | sets upper fitting boundaries, if provided boundaries for all arguments are required, e.g., `c(A = 0, C = 0, W = 0, c = 0)` |
+| `lower` | names [vector](https://rdrr.io/r/base/vector.html) | set lower fitting boundaries (see `upper` for details) |
+| `trace` | [logical](https://rdrr.io/r/base/logical.html) | enable/disable progression trace for [minpack.lm::nlsLM](https://rdrr.io/pkg/minpack.lm/man/nlsLM.html) |
+| `weights` | [numeric](https://rdrr.io/r/base/numeric.html) | option to provide own weights for the fitting, the length of this vector needs to be equal to the number for rows of the input `data.frame`. If set to `NULL` no weights are applied. The weights are defined by the third column of the input `data.frame`. |
 
 ## Function version
 
@@ -147,7 +147,7 @@ Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
 Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -168,6 +168,7 @@ RLum Developer Team
 ## Examples
 
 ``` r
+
 ##create short example dataset
 data <- data.frame(
   T = c(25, 40, 50, 60, 70, 80, 90, 100, 110),

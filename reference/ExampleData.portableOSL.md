@@ -22,6 +22,7 @@ a sample.
 ## Examples
 
 ``` r
+
 data(ExampleData.portableOSL, envir = environment())
 plot_RLum(ExampleData.portableOSL)
 

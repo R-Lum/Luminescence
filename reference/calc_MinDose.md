@@ -21,14 +21,15 @@ If `par=3` (default) the 3-parameter minimum age model is applied, where
 
 In the original version of the minimum dose model, which is applied if
 `log = TRUE` (default), the basic data are the natural logarithms of the
-De estimates and relative standard errors of the De estimates. The value
-for `sigmab` must be provided as a ratio (e.g, 0.2 for 20 %).
+De estimates and relative standard errors of the De estimates.
 
 If `log=FALSE`, the modified un-logged model will be applied instead.
 This has essentially the same form as the original version, but `gamma`
 and `sigma` are in Gy and `gamma` becomes the minimum true dose in the
-population. **Note:** the un-logged model requires `sigmab` to be in the
-same absolute unit as the provided De values (seconds or Gray).
+population.
+
+In either case, the value for `sigmab` must be provided as a ratio (e.g,
+0.2 for 20 %).
 
 While the original (logged) version of the minimum dose model may be
 appropriate for most samples (i.e. De distributions), the modified
@@ -64,7 +65,7 @@ and `sigmab.sd`, respectively. The bandwidth of the kernel density
 estimate can be specified with `bs.h`. By default, this is calculated
 as:
 
-\$\$h = (2\*\sigma\_{DE})/\sqrt{n}\$\$
+\$\$h = 2\sigma\_{DE} / \sqrt{n}\$\$
 
 **Multicore support**
 
@@ -90,8 +91,8 @@ log-likelihood from the best fit), so it will be V-shaped for cases
 where the quadratic approximation works well `[...]`." (Bolker 2016).
 
 For more details on the profile likelihood calculations and plots please
-see the vignettes of the `bbmle` package (also available here:
-<https://CRAN.R-project.org/package=bbmle>.
+see the vignettes of the `bbmle` package (also available at
+<https://CRAN.R-project.org/package=bbmle>).
 
 ## Usage
 
@@ -126,11 +127,13 @@ calc_MinDose(
   [numeric](https://rdrr.io/r/base/numeric.html) (**required**):
   additional spread in De values, representing the expected
   overdispersion in the data should the sample be well-bleached
-  (Cunningham & Wallinga 2012, p. 100). **Note:** For the logged model
-  (`log = TRUE`) this value must be a fraction, e.g. 0.2 (= 20 %). If
-  the un-logged model is used (`log = FALSE`), `sigmab` must be provided
-  in the same absolute units of the De values (seconds or Gray). See
-  details.
+  (Cunningham & Wallinga 2012, p. 100). This value must be expressed as
+  a ratio, e.g. 0.2 (for 20 %), independently of the `log` argument.
+
+  **Note:** Up to v1.2.1, it was required that the unlogged model
+  specified `sigmab` in the same absolute units of the De values
+  (seconds or Gray). This is no longer the case, and an error will be
+  thrown if values of `sigmab` greater than 1 are assigned.
 
 - log:
 
@@ -147,7 +150,8 @@ calc_MinDose(
 - bootstrap:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*): apply
-  the recycled bootstrap approach of Cunningham & Wallinga (2012).
+  the recycled bootstrap approach of Cunningham & Wallinga 2012. See
+  details for default values and options to modify them.
 
 - init.values:
 
@@ -260,17 +264,17 @@ internal warning messages.
 
 ## Function version
 
-0.5.0
+0.6.0
 
 ## How to cite
 
 Burow, C., Colombo, M., 2026. calc_MinDose(): (Un-)logged minimum age
-model (MAM) after Galbraith et al. (1999). Function version 0.5.0. In:
+model (MAM) after Galbraith et al. (1999). Function version 0.6.0. In:
 Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
 Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
-Dating Data Analysis. R package version 1.2.1.
+Dating Data Analysis. R package version 1.3.0.
 https://r-lum.github.io/Luminescence/
 
 ## References
@@ -345,6 +349,7 @@ Developer Team
 ## Examples
 
 ``` r
+
 ## Load example data
 data(ExampleData.DeValues, envir = environment())
 

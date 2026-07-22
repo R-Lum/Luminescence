@@ -69,12 +69,13 @@ S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M.,
 Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
 Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
-Dating Data Analysis. R package version 1.2.1.
+Dating Data Analysis. R package version 1.3.0.
 https://r-lum.github.io/Luminescence/
 
 ## Examples
 
 ``` r
+
 ##merge different RLum objects from the example data
 data(ExampleData.RLum.Analysis, envir = environment())
 data(ExampleData.BINfileData, envir = environment())

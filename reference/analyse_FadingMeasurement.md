@@ -133,14 +133,14 @@ object is returned:
 
 Slot: **@data**
 
-|                  |              |                                                                                                  |
-|------------------|--------------|--------------------------------------------------------------------------------------------------|
-| **OBJECT**       | **TYPE**     | **COMMENT**                                                                                      |
-| `fading_results` | `data.frame` | results of the fading measurement in a table                                                     |
-| `fit`            | `lm`         | object returned by the used linear fitting function [stats::lm](https://rdrr.io/r/stats/lm.html) |
-| `rho_prime`      | `data.frame` | results of rho' estimation after Kars et al. (2008)                                              |
-| `LxTx_table`     | `data.frame` | Lx/Tx table, if curve data had been provided                                                     |
-| `irr.times`      | `integer`    | vector with the irradiation times in seconds                                                     |
+|  |  |  |
+|----|----|----|
+| **OBJECT** | **TYPE** | **COMMENT** |
+| `fading_results` | `data.frame` | results of the fading measurement in a table |
+| `fit` | `lm` | object returned by the used linear fitting function [stats::lm](https://rdrr.io/r/stats/lm.html) |
+| `rho_prime` | `data.frame` | results of rho' estimation after Kars et al. (2008) |
+| `LxTx_table` | `data.frame` | Lx/Tx table, if curve data had been provided |
+| `irr.times` | `integer` | vector with the irradiation times in seconds |
 
 Slot: **@info**
 
@@ -233,7 +233,7 @@ M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
 J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
 Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.2.1. https://r-lum.github.io/Luminescence/
+version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -271,6 +271,7 @@ Christoph Burow, University of Cologne (Germany) , RLum Developer Team
 ## Examples
 
 ``` r
+
 ## load example data (sample UNIL/NB123, see ?ExampleData.Fading)
 data("ExampleData.Fading", envir = environment())
 

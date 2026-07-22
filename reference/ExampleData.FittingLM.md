@@ -10,11 +10,11 @@ Two objects (data.frames) with two columns (time and counts).
 
 ## Source
 
-|           |                                                                                              |
-|-----------|----------------------------------------------------------------------------------------------|
-| Lab:      | Luminescence Laboratory Bayreuth                                                             |
-| Lab-Code: | BT900                                                                                        |
-| Location: | Norway                                                                                       |
+|  |  |
+|----|----|
+| Lab: | Luminescence Laboratory Bayreuth |
+| Lab-Code: | BT900 |
+| Location: | Norway |
 | Material: | Beach deposit, coarse grain quartz measured on aluminium discs on a Risø TL/OSL DA-15 reader |
 
 ## References
@@ -26,6 +26,7 @@ south-eastern coast of Norway. Quaternary Geochronology 10, 195-200.
 ## Examples
 
 ``` r
+
 ##show LM data
 data(ExampleData.FittingLM, envir = environment())
 plot(values.curve,log="x")

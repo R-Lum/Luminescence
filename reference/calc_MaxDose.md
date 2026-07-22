@@ -35,11 +35,13 @@ calc_MaxDose(
   [numeric](https://rdrr.io/r/base/numeric.html) (**required**):
   additional spread in De values, representing the expected
   overdispersion in the data should the sample be well-bleached
-  (Cunningham & Wallinga 2012, p. 100). **Note:** For the logged model
-  (`log = TRUE`) this value must be a fraction, e.g. 0.2 (= 20 %). If
-  the un-logged model is used (`log = FALSE`), `sigmab` must be provided
-  in the same absolute units of the De values (seconds or Gray). See
-  details.
+  (Cunningham & Wallinga 2012, p. 100). This value must be expressed as
+  a ratio, e.g. 0.2 (for 20 %), independently of the `log` argument.
+
+  **Note:** Up to v1.2.1, it was required that the unlogged model
+  specified `sigmab` in the same absolute units of the De values
+  (seconds or Gray). This is no longer the case, and an error will be
+  thrown if values of `sigmab` greater than 1 are assigned.
 
 - log:
 
@@ -56,7 +58,8 @@ calc_MaxDose(
 - bootstrap:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*): apply
-  the recycled bootstrap approach of Cunningham & Wallinga (2012).
+  the recycled bootstrap approach of Cunningham & Wallinga 2012. See
+  details for default values and options to modify them.
 
 - init.values:
 
@@ -129,7 +132,7 @@ Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
 Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -195,6 +198,7 @@ Team
 ## Examples
 
 ``` r
+
 ## load example data
 data(ExampleData.DeValues, envir = environment())
 

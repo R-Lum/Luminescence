@@ -94,11 +94,11 @@ output object contain the following slots:
 
 **`@data`**
 
-|                    |                                                                                              |                                       |
-|--------------------|----------------------------------------------------------------------------------------------|---------------------------------------|
-| **Object**         | **Type**                                                                                     | **Description**                       |
-| `lifetimes`        | [array](https://rdrr.io/r/base/array.html) or [numeric](https://rdrr.io/r/base/numeric.html) | calculated lifetimes                  |
-| `profiling_matrix` | [matrix](https://rdrr.io/r/base/matrix.html)                                                 | profiling matrix used for the MC runs |
+|  |  |  |
+|----|----|----|
+| **Object** | **Type** | **Description** |
+| `lifetimes` | [array](https://rdrr.io/r/base/array.html) or [numeric](https://rdrr.io/r/base/numeric.html) | calculated lifetimes |
+| `profiling_matrix` | [matrix](https://rdrr.io/r/base/matrix.html) | profiling matrix used for the MC runs |
 
 **`@info`**
 
@@ -150,7 +150,7 @@ Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
 Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
-Dating Data Analysis. R package version 1.2.1.
+Dating Data Analysis. R package version 1.3.0.
 https://r-lum.github.io/Luminescence/
 
 ## References
@@ -172,6 +172,7 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## Examples
 
 ``` r
+
 ##EXAMPLE 1
 ##calculation for two trap-depths with similar frequency factor for different temperatures
 E <- c(1.66, 1.70)
@@ -217,10 +218,10 @@ calc_ThermalLifetime(
 #> 
 #>  profiling = TRUE
 #>  --------------------------
-#>  mean:    1.021904e+01 Ma
-#>  sd:  1.217352e+00 Ma
-#>  min:     6.882699e+00 Ma
-#>  max:     1.511764e+01 Ma
+#>  mean:    1.019528e+01 Ma
+#>  sd:  1.245221e+00 Ma
+#>  min:     6.831023e+00 Ma
+#>  max:     1.554349e+01 Ma
 #>  --------------------------
 #>  (1000 lifetimes calculated in total)
 

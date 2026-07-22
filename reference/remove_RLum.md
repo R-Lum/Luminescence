@@ -27,8 +27,11 @@ remove_RLum(object, ...)
 
   parameters to be passed to
   [get_RLum](https://r-lum.github.io/Luminescence/reference/get_RLum.md).
-  The arguments `get.index` and `drop` are preset and have no effect
-  when provided
+  Only the following named arguments are supported: `record.id`,
+  `recordType`, `curveType`, `RLum.type`, `protocol`, `info.object` and
+  `subset`. Arguments `get.index` and `drop` are preset to `TRUE` and
+  `FALSE`, respectively, and cannot be overridden. Other named arguments
+  are ignored, while unnamed arguments are not supported.
 
 ## Value
 
@@ -66,7 +69,7 @@ M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N.,
 Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J.,
 Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A.,
 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
-package version 1.2.1. https://r-lum.github.io/Luminescence/
+package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 

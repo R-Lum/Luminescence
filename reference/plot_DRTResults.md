@@ -77,17 +77,17 @@ plot_DRTResults(
 
   - `"mean"` (mean De value),
 
-  - `"weighted$mean"` (error-weighted mean),
+  - `"mean.weighted"` (error-weighted mean),
 
   - `"median"` (median of the De values),
 
-  - `"weighted$median"` (error-weighted median),
+  - `"median.weighted"` (error-weighted median),
 
   - `"sd.rel"` (relative standard deviation in percent),
 
   - `"sd.abs"` (absolute standard deviation),
 
-  - `"se.rel"` (relative standard error) and
+  - `"se.rel"` (relative standard error in percent) and
 
   - `"se.abs"` (absolute standard error)
 
@@ -167,7 +167,7 @@ C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
 Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -189,6 +189,7 @@ Michael Dietze, GFZ Potsdam (Germany) , RLum Developer Team
 ## Examples
 
 ``` r
+
 ## read example data set and misapply them for this plot type
 data(ExampleData.DeValues, envir = environment())
 
@@ -230,14 +231,14 @@ plot_DRTResults(
 plot_DRTResults(
   list(x.1, x.2),
   given.dose = 2800,
-  summary = c("n", "weighted$mean", "sd.abs"))
+  summary = c("n", "mean.weighted", "sd.abs"))
 
 
 ## plot the data with user-defined statistical measures as sub-header
 plot_DRTResults(
   list(x.1, x.2),
   given.dose = 2800,
-  summary = c("n", "weighted$mean", "sd.abs"),
+  summary = c("n", "mean.weighted", "sd.abs"),
   summary.pos = "sub")
 
 

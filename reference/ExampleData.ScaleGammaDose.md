@@ -17,6 +17,7 @@ A [`data.frame`](https://rdrr.io/r/base/data.frame.html). Please see
 ## Examples
 
 ``` r
+
 ## Load data
 data("ExampleData.ScaleGammaDose", envir = environment())
 ```

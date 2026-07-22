@@ -13,8 +13,8 @@ tune_Data(data, decrease.error = 0, increase.data = 0)
 - data:
 
   [data.frame](https://rdrr.io/r/base/data.frame.html) (**required**):
-  input values, structure: data (`values[,1]`) and data error
-  (`values [,2]`) are required
+  input values, structure: values (`data[, 1]`) and error (`data[, 2]`)
+  are required.
 
 - decrease.error:
 
@@ -24,12 +24,12 @@ tune_Data(data, decrease.error = 0, increase.data = 0)
 - increase.data:
 
   [numeric](https://rdrr.io/r/base/numeric.html): factor by which the
-  error is decreased, ranges between 0 and `Inf`.
+  error is decreased, ranges between 0 and 1000.
 
 ## Value
 
-Returns a [data.frame](https://rdrr.io/r/base/data.frame.html) with
-tuned values.
+Returns a 2-column [data.frame](https://rdrr.io/r/base/data.frame.html)
+with tuned values.
 
 ## Note
 
@@ -37,7 +37,7 @@ You should not use this function to improve your poor data set!
 
 ## Function version
 
-0.5.0
+0.5.1
 
 ## Author
 
@@ -46,16 +46,17 @@ Michael Dietze, GFZ Potsdam (Germany) , RLum Developer Team
 ## How to cite
 
 Dietze, M., 2026. tune_Data(): Tune data for experimental purpose.
-Function version 0.5.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
+Function version 0.5.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
 J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
 Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.2.1. https://r-lum.github.io/Luminescence/
+version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
 ``` r
+
 ## load example data set
 data(ExampleData.DeValues, envir = environment())
 x <- ExampleData.DeValues$CA1
@@ -68,7 +69,7 @@ plot_AbanicoPlot(data = x,
 ## decrease error by 10 %
 plot_AbanicoPlot(data = tune_Data(x, decrease.error = 0.1),
                  summary = c("n", "mean"))
-#> Warning: [tune_Data()] Dear runner, these activities on your Linux machine have been tracked and will be submitted to the R.Lum data base. Cheating does not pay off! [2026-03-25 11:16:42.244727]
+#> Warning: [tune_Data()] Dear runner, these activities on your Linux machine have been tracked and will be submitted to the R.Lum data base. Cheating does not pay off! [2026-07-22 15:58:53.444268]
 
 
 ## increase sample size by 200 %

@@ -118,16 +118,16 @@ For further details see references below.
 
 **Other methods** Arguments supported through `...`
 
-|                   |                      |                                                    |                                                                                  |
-|-------------------|----------------------|----------------------------------------------------|----------------------------------------------------------------------------------|
-| METHOD            | ARGUMENT             | TYPE                                               | REMARKS                                                                          |
-| `"smooth"`        | `kind`               | [character](https://rdrr.io/r/base/character.html) | see [stats::smooth](https://rdrr.io/r/stats/smooth.html)                         |
-|                   | `twiceit`            | [logical](https://rdrr.io/r/base/logical.html)     | see [stats::smooth](https://rdrr.io/r/stats/smooth.html)                         |
-| `"smooth.spline"` | `spar`               | [numeric](https://rdrr.io/r/base/numeric.html)     | see [stats::smooth.spline](https://rdrr.io/r/stats/smooth.spline.html)           |
-| `"smooth_RLum"`   | `k`                  | [numeric](https://rdrr.io/r/base/numeric.html)     | see [smooth_RLum](https://r-lum.github.io/Luminescence/reference/smooth_RLum.md) |
-|                   | `fill`               | [numeric](https://rdrr.io/r/base/numeric.html)     | see [smooth_RLum](https://r-lum.github.io/Luminescence/reference/smooth_RLum.md) |
-|                   | `align`              | [character](https://rdrr.io/r/base/character.html) | see [smooth_RLum](https://r-lum.github.io/Luminescence/reference/smooth_RLum.md) |
-|                   | `method_smooth_RLum` | [character](https://rdrr.io/r/base/character.html) | see [smooth_RLum](https://r-lum.github.io/Luminescence/reference/smooth_RLum.md) |
+|  |  |  |  |
+|----|----|----|----|
+| METHOD | ARGUMENT | TYPE | REMARKS |
+| `"smooth"` | `kind` | [character](https://rdrr.io/r/base/character.html) | see [stats::smooth](https://rdrr.io/r/stats/smooth.html) |
+|  | `twiceit` | [logical](https://rdrr.io/r/base/logical.html) | see [stats::smooth](https://rdrr.io/r/stats/smooth.html) |
+| `"smooth.spline"` | `spar` | [numeric](https://rdrr.io/r/base/numeric.html) | see [stats::smooth.spline](https://rdrr.io/r/stats/smooth.spline.html) |
+| `"smooth_RLum"` | `k` | [numeric](https://rdrr.io/r/base/numeric.html) | see [smooth_RLum](https://r-lum.github.io/Luminescence/reference/smooth_RLum.md) |
+|  | `fill` | [numeric](https://rdrr.io/r/base/numeric.html) | see [smooth_RLum](https://r-lum.github.io/Luminescence/reference/smooth_RLum.md) |
+|  | `align` | [character](https://rdrr.io/r/base/character.html) | see [smooth_RLum](https://r-lum.github.io/Luminescence/reference/smooth_RLum.md) |
+|  | `method_smooth_RLum` | [character](https://rdrr.io/r/base/character.html) | see [smooth_RLum](https://r-lum.github.io/Luminescence/reference/smooth_RLum.md) |
 
 **Best practice**
 
@@ -157,7 +157,7 @@ C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
 Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
 Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
 Comprehensive Luminescence Dating Data Analysis. R package version
-1.2.1. https://r-lum.github.io/Luminescence/
+1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -181,6 +181,7 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## Examples
 
 ``` r
+
 ##(1) - use with your own data and combine (uncomment for usage)
 ## run two times the default method and smooth with another method
 ## your.spectrum <- apply_CosmicRayRemoval(your.spectrum, method = "Pych")

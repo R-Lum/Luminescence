@@ -27,19 +27,20 @@ Multi-OSL-thermochronometry of feldspar. Quaternary Geochronology 33,
 
 **Details**
 
-|                          |                                                                       |
-|--------------------------|-----------------------------------------------------------------------|
-| Lab:                     | University of Lausanne                                                |
-| Lab-Code:                | UNIL/NB123                                                            |
-| Location:                | Namche Barwa (eastern Himalayas)                                      |
-| Material:                | Coarse grained (180-212 microns) potassium feldspar                   |
-| Units:                   | Values are given in seconds                                           |
-| Lab Dose Rate:           | Dose rate of the beta-source at measurement ca. 0.1335 +/- 0.004 Gy/s |
-| Environmental Dose Rate: | 7.00 +/- 0.92 Gy/ka (includes internal dose rate)                     |
+|  |  |
+|----|----|
+| Lab: | University of Lausanne |
+| Lab-Code: | UNIL/NB123 |
+| Location: | Namche Barwa (eastern Himalayas) |
+| Material: | Coarse grained (180-212 microns) potassium feldspar |
+| Units: | Values are given in seconds |
+| Lab Dose Rate: | Dose rate of the beta-source at measurement ca. 0.1335 +/- 0.004 Gy/s |
+| Environmental Dose Rate: | 7.00 +/- 0.92 Gy/ka (includes internal dose rate) |
 
 ## Examples
 
 ``` r
+
 ## Load example data
 data("ExampleData.Fading", envir = environment())
 
@@ -84,7 +85,7 @@ gval
 #>               T_0.5_PREDICTED T_0.5_PREDICTED.LOWER T_0.5_PREDICTED.UPPER
 #> G_VALUE_2DAYS    395648134315           18339400088           18339400088
 #>                            UID
-#> G_VALUE_2DAYS 143bc9b250686433
+#> G_VALUE_2DAYS 49b4e7706d61228d
 rhop
 #>            FIT         MEAN           SD      Q_0.025       Q_0.16       Q_0.84
 #> 1 3.912967e-06 3.912967e-06 6.027167e-07 2.757662e-06 3.236705e-06 4.522956e-06
@@ -97,8 +98,8 @@ IR50_De.LxTx <- ExampleData.Fading$equivalentDose.data$IR50
 ## Calculate the De of the IR50 signal
 IR50_De <- fit_DoseResponseCurve(IR50_De.LxTx,
                                 mode = "interpolation",
-                                fit.method = "EXP")
-#> [fit_DoseResponseCurve()] Fit: EXP (interpolation) | De = 977.38 | D01 = 4022.47
+                                fit.method = "SSE")
+#> [fit_DoseResponseCurve()] Fit:    SSE (interpolation) | De = 915.50 | D01 = 3647.13
 
 ## Extract the calculated De and its error
 IR50_De.res <- get_RLum(IR50_De)
@@ -121,7 +122,7 @@ IR50_Age.corr <- calc_FadingCorr(IR50_Age, g_value = IR50_fading.res)
 #>  n.MC:           10000
 #>  observations:       10000
 #>  ----------------------------------------------
-#>  Age (faded):        139.6261 ka ± 14.6489 ka
-#>  Age (corr.):        288.1629 ka ± 61.3833 ka
+#>  Age (faded):        130.785 ka ± 13.7305 ka
+#>  Age (corr.):        269.0593 ka ± 56.9665 ka
 #>  ---------------------------------------------- 
 ```

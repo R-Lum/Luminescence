@@ -23,11 +23,15 @@ apply_EfficiencyCorrection(object, spectral.efficiency)
 
 - spectral.efficiency:
 
-  [data.frame](https://rdrr.io/r/base/data.frame.html) (**required**):
-  data frame with 2 columns containing wavelengths and relative spectral
-  response values (values between 0 and 1). The provided data will be
-  used to correct all spectra if `object` is a
-  [list](https://rdrr.io/r/base/list.html).
+  [data.frame](https://rdrr.io/r/base/data.frame.html) or
+  [character](https://rdrr.io/r/base/character.html) (**required**):
+  either a data frame with 2 columns containing wavelengths and relative
+  spectral response values (values between 0 and 1); or a character
+  string specifying the path to a CSV file (with a header row), which
+  the function will attempt to import via
+  [utils::read.csv](https://rdrr.io/r/utils/read.table.html). When
+  `object` is a [list](https://rdrr.io/r/base/list.html), the provided
+  data will be used to correct all spectra.
 
 ## Value
 
@@ -52,7 +56,7 @@ system (e.g., spectrometer, camera ...).
 
 ## Function version
 
-0.2.1
+0.3.0
 
 ## See also
 
@@ -70,16 +74,17 @@ Team
 
 Kreutzer, S., Friedrich, J., 2026. apply_EfficiencyCorrection(): Apply
 spectral efficiency correction to RLum.Data.Spectrum objects. Function
-version 0.2.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C.,
+version 0.3.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C.,
 Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A.,
 Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J.,
 Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
 Comprehensive Luminescence Dating Data Analysis. R package version
-1.2.1. https://r-lum.github.io/Luminescence/
+1.3.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
 ``` r
+
 ##(1) - use with your own data (uncomment for usage)
 ## spectral.efficiency <- read.csv("your data")
 ##

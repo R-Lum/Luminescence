@@ -103,7 +103,7 @@ Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
 Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -126,6 +126,7 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## Examples
 
 ``` r
+
 results <- calc_gSGC(data = data.frame(
 LnTn =  2.361, LnTn.error = 0.087,
 Lr1Tr1 = 2.744, Lr1Tr1.error = 0.091,
@@ -141,10 +142,10 @@ Dr1 = 34.4))
 #>  f(D):        0.787 * (1 - exp(-D /73.9)) + c * D + 0.01791
 #>  n.MC:        100
 #>  ------------------------------ 
-#>  De:     28.43 ± 1.61
+#>  De:     28.43 ± 1.71
 #>  ------------------------------ 
 
 get_RLum(results, data.object = "De")
 #>         DE DE.ERROR       ETA
-#> 1 28.42881 1.613598 0.1325632
+#> 1 28.42881 1.710913 0.1325632
 ```

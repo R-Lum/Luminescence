@@ -91,11 +91,11 @@ The function returns
 
 **slot:** `@data`
 
-|                   |              |                                                 |
-|-------------------|--------------|-------------------------------------------------|
-| **Element**       | **Type**     | **Description**                                 |
-| `$unique_pairs`   | `data.frame` | the unique position and grain pairs             |
-| `$selection_id`   | `numeric`    | the selection as record ID                      |
+|  |  |  |
+|----|----|----|
+| **Element** | **Type** | **Description** |
+| `$unique_pairs` | `data.frame` | the unique position and grain pairs |
+| `$selection_id` | `numeric` | the selection as record ID |
 | `$selection_full` | `data.frame` | implemented models used in the baSAR-model core |
 
 **slot:** `@info`
@@ -179,11 +179,12 @@ M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
 J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
 Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.2.1. https://r-lum.github.io/Luminescence/
+version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
 ``` r
+
 ##01 - basic example I
 ##just show how to apply the function
 data(ExampleData.XSYG, envir = environment())

@@ -75,15 +75,15 @@ object containing the following elements:
   [list](https://rdrr.io/r/base/list.html): a named list containing the
   following elements in slot `@data`:
 
-  |               |                                                      |                                                  |
-  |---------------|------------------------------------------------------|--------------------------------------------------|
+  |  |  |  |
+  |----|----|----|
   | `$highlights` | [data.frame](https://rdrr.io/r/base/data.frame.html) | summary of 25 most important input/output fields |
-  | `$header`     | [character](https://rdrr.io/r/base/character.html)   | HTTP header from the DRAC server response        |
-  | `$labels`     | [data.frame](https://rdrr.io/r/base/data.frame.html) | descriptive headers of all input/output fields   |
-  | `$content`    | [data.frame](https://rdrr.io/r/base/data.frame.html) | complete DRAC input/output table                 |
-  | `$input`      | [data.frame](https://rdrr.io/r/base/data.frame.html) | DRAC input table                                 |
-  | `$output`     | [data.frame](https://rdrr.io/r/base/data.frame.html) | DRAC output table                                |
-  | `references`  | [list](https://rdrr.io/r/base/list.html)             | A list of bib entries of used references         |
+  | `$header` | [character](https://rdrr.io/r/base/character.html) | HTTP header from the DRAC server response |
+  | `$labels` | [data.frame](https://rdrr.io/r/base/data.frame.html) | descriptive headers of all input/output fields |
+  | `$content` | [data.frame](https://rdrr.io/r/base/data.frame.html) | complete DRAC input/output table |
+  | `$input` | [data.frame](https://rdrr.io/r/base/data.frame.html) | DRAC input table |
+  | `$output` | [data.frame](https://rdrr.io/r/base/data.frame.html) | DRAC output table |
+  | `references` | [list](https://rdrr.io/r/base/list.html) | A list of bib entries of used references |
 
 - data:
 
@@ -114,7 +114,7 @@ Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
 J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
 D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -138,6 +138,7 @@ Christoph Burow, University of Cologne (Germany) , RLum Developer Team
 ## Examples
 
 ``` r
+
 ## (1) Method using the DRAC spreadsheet
 
 file <-  "/PATH/TO/DRAC_Input_Template.csv"

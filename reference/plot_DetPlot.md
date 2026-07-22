@@ -34,7 +34,7 @@ plot_DetPlot(
 - object:
 
   [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
-  (**required**): input object containing data for analysis Can be
+  (**required**): input object containing data for analysis. Can be
   provided as a [list](https://rdrr.io/r/base/list.html) of such
   objects.
 
@@ -87,8 +87,8 @@ plot_DetPlot(
   [analyse_pIRIRSequence](https://r-lum.github.io/Luminescence/reference/analyse_pIRIRSequence.md)).
   The arguments must be provided as named
   [list](https://rdrr.io/r/base/list.html), e.g.,
-  `list(dose.points = c(0,10,20,30,0,10)` will set the regeneration dose
-  points.
+  `list(dose.points = c(0, 10, 20, 30, 0, 10)` will set the regeneration
+  dose points.
 
 - n.channels:
 
@@ -111,12 +111,12 @@ plot_DetPlot(
 
 - multicore:
 
-  [logical](https://rdrr.io/r/base/logical.html) (*with default*) :
+  [logical](https://rdrr.io/r/base/logical.html) (*with default*):
   enable/disable multi core calculation if `object` is a
   [list](https://rdrr.io/r/base/list.html) of
   [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
   objects. Can be an [integer](https://rdrr.io/r/base/integer.html)
-  specifying the number of cores
+  specifying the number of cores to use.
 
 - verbose:
 
@@ -148,11 +148,11 @@ object with the produced \\D_e\\ values
 
 `@data`:
 
-|                       |              |                                            |
-|-----------------------|--------------|--------------------------------------------|
-| **Object**            | **Type**     | **Description**                            |
-| `De.values`           | `data.frame` | table with De values                       |
-| `signal_integral.seq` | `numeric`    | integral sequence used for the calculation |
+|  |  |  |
+|----|----|----|
+| **Object** | **Type** | **Description** |
+| `De.values` | `data.frame` | table with De values |
+| `signal_integral.seq` | `numeric` | integral sequence used for the calculation |
 
 `@info`:
 
@@ -163,48 +163,46 @@ object with the produced \\D_e\\ values
 
 ## Details
 
-**method**
+The original method presented by Bailey et al. (2003) shifts the signal
+integrals and slightly extends them to account for changes in counting
+statistics, producing sequences such as `c(1:3, 3:5, 5:7)`. Here we
+provide an additional method that expands the signal integral
+consecutively by its chosen length, producing sequences like
+`c(1:3, 1:5, 1:7)` instead.
 
-The original method presented by Bailey et al., 2003 shifted the signal
-integrals and slightly extended them accounting for changes in the
-counting statistics. Example: `c(1:3, 3:5, 5:7)`. However, here also
-another method is provided allowing to expand the signal integral by
-consecutively expanding the integral by its chosen length. Example:
-`c(1:3, 1:5, 1:7)`
-
-Note that in both cases the integral limits are overlap. The finally
-applied limits are part of the function output.
+Note that in both cases the integral limits overlap. The finally applied
+limits are part of the function output.
 
 **analyse_function.control**
 
 The argument `analyse_function.control` currently supports the following
-arguments: `sequence.structure`, `dose.points`, `mtext.outer`,
-`fit.method`, `fit.force_through_origin`, `plot`, `plot_singlePanels`
+arguments: `sequence.structure`, `dose.points`, `dose_rate_source`,
+`mtext.outer`, `fit.method`, `fit.force_through_origin`,
+`trim_channels`, `plot` and `plot_singlePanels`.
 
 ## Note
 
-The entire analysis is based on the used analysis functions, namely
+The entire analysis relies on the functions
 [analyse_SAR.CWOSL](https://r-lum.github.io/Luminescence/reference/analyse_SAR.CWOSL.md)
 and
 [analyse_pIRIRSequence](https://r-lum.github.io/Luminescence/reference/analyse_pIRIRSequence.md).
-However, the integrity checks of this function are not that thoughtful
-as in these functions itself. It means, that every sequence should be
-checked carefully before running long calculations using several
-hundreds of channels.
+However, the integrity checks here are less rigorous than in those
+functions: therefore, every sequence should be checked carefully before
+running long calculations over hundreds of channels.
 
 ## Function version
 
-0.1.10
+0.1.11
 
 ## How to cite
 
 Kreutzer, S., 2026. plot_DetPlot(): Create De(t) plot. Function version
-0.1.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
+0.1.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
 C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
 Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
 Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
 Comprehensive Luminescence Dating Data Analysis. R package version
-1.2.1. https://r-lum.github.io/Luminescence/
+1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -227,6 +225,7 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## Examples
 
 ``` r
+
 if (FALSE) { # \dontrun{
 ##load data
 ##ExampleData.BINfileData contains two BINfileData objects

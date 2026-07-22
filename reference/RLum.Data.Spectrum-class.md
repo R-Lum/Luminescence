@@ -55,6 +55,7 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## Examples
 
 ``` r
+
 showClass("RLum.Data.Spectrum")
 #> Class "RLum.Data.Spectrum" [package "Luminescence"]
 #> 

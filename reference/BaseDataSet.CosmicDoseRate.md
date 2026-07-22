@@ -5,11 +5,11 @@ calculation
 
 ## Format
 
-|                           |                                                                                                                                                                                                                                        |
-|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|  |  |
+|----|----|
 | `values.cosmic.Softcomp`: | data frame containing cosmic dose rates for shallow depths (\< 167 g cm^-2) obtained using the "AGE" program by Rainer Gruen (cf. Gruen 2009). These data essentially reproduce the graph shown in Fig. 1 of Prescott & Hutton (1988). |
-| `values.factor.Altitude`: | data frame containing altitude factors for adjusting geomagnetic field-change factors. Values were read from Fig. 1 in Prescott & Hutton (1994).                                                                                       |
-| `values.par.FJH`:         | data frame containing values for parameters F, J and H (read from Fig. 2 in Prescott & Hutton 1994) used in the expression                                                                                                             |
+| `values.factor.Altitude`: | data frame containing altitude factors for adjusting geomagnetic field-change factors. Values were read from Fig. 1 in Prescott & Hutton (1994). |
+| `values.par.FJH`: | data frame containing values for parameters F, J and H (read from Fig. 2 in Prescott & Hutton 1994) used in the expression |
 
 \$\$Dc = D0\*(F + J \exp((altitude/1000)/H))\$\$
 
@@ -99,6 +99,7 @@ variations. Radiation Measurements 23, pp. 497-500.
 ## Examples
 
 ``` r
+
 ##load data
 data(BaseDataSet.CosmicDoseRate)
 ```

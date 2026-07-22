@@ -105,22 +105,22 @@ object containing the following elements is returned:
 
 The `$summary` data.frame contains the following columns:
 
-|                       |                                                    |                                          |
-|-----------------------|----------------------------------------------------|------------------------------------------|
-| **Column**            | **Type**                                           | **Description**                          |
-| AVERAGE_DOSE          | [numeric](https://rdrr.io/r/base/numeric.html)     | the obtained average dose                |
-| AVERAGE_DOSE.SE       | [numeric](https://rdrr.io/r/base/numeric.html)     | the average dose error                   |
-| SIGMA_D               | [numeric](https://rdrr.io/r/base/numeric.html)     | sigma                                    |
-| SIGMA_D.SE            | [numeric](https://rdrr.io/r/base/numeric.html)     | standard error of the sigma              |
-| IC_AVERAGE_DOSE.LEVEL | [character](https://rdrr.io/r/base/character.html) | confidence level average dose            |
-| IC_AVERAGE_DOSE.LOWER | [character](https://rdrr.io/r/base/character.html) | lower quantile of average dose           |
-| IC_AVERAGE_DOSE.UPPER | [character](https://rdrr.io/r/base/character.html) | upper quantile of average dose           |
-| IC_SIGMA_D.LEVEL      | [integer](https://rdrr.io/r/base/integer.html)     | confidence level sigma                   |
-| IC_SIGMA_D.LOWER      | [character](https://rdrr.io/r/base/character.html) | lower sigma quantile                     |
-| IC_SIGMA_D.UPPER      | [character](https://rdrr.io/r/base/character.html) | upper sigma quantile                     |
-| L_MAX                 | [character](https://rdrr.io/r/base/character.html) | maximum likelihood value                 |
-| de                    | [numeric](https://rdrr.io/r/base/numeric.html)     | same as `AVERAGE_DOSE` (internal use)    |
-| de_err                | [numeric](https://rdrr.io/r/base/numeric.html)     | same as `AVERAGE_DOSE.SE` (internal use) |
+|  |  |  |
+|----|----|----|
+| **Column** | **Type** | **Description** |
+| AVERAGE_DOSE | [numeric](https://rdrr.io/r/base/numeric.html) | the obtained average dose |
+| AVERAGE_DOSE.SE | [numeric](https://rdrr.io/r/base/numeric.html) | the average dose error |
+| SIGMA_D | [numeric](https://rdrr.io/r/base/numeric.html) | sigma |
+| SIGMA_D.SE | [numeric](https://rdrr.io/r/base/numeric.html) | standard error of the sigma |
+| IC_AVERAGE_DOSE.LEVEL | [character](https://rdrr.io/r/base/character.html) | confidence level average dose |
+| IC_AVERAGE_DOSE.LOWER | [character](https://rdrr.io/r/base/character.html) | lower quantile of average dose |
+| IC_AVERAGE_DOSE.UPPER | [character](https://rdrr.io/r/base/character.html) | upper quantile of average dose |
+| IC_SIGMA_D.LEVEL | [integer](https://rdrr.io/r/base/integer.html) | confidence level sigma |
+| IC_SIGMA_D.LOWER | [character](https://rdrr.io/r/base/character.html) | lower sigma quantile |
+| IC_SIGMA_D.UPPER | [character](https://rdrr.io/r/base/character.html) | upper sigma quantile |
+| L_MAX | [character](https://rdrr.io/r/base/character.html) | maximum likelihood value |
+| de | [numeric](https://rdrr.io/r/base/numeric.html) | same as `AVERAGE_DOSE` (internal use) |
+| de_err | [numeric](https://rdrr.io/r/base/numeric.html) | same as `AVERAGE_DOSE.SE` (internal use) |
 
 The function returns two different plot panels.
 
@@ -146,7 +146,7 @@ M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N.,
 Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J.,
 Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A.,
 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
-package version 1.2.1. https://r-lum.github.io/Luminescence/
+package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -180,6 +180,7 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## Examples
 
 ``` r
+
 ## load example data
 data(ExampleData.DeValues, envir = environment())
 
@@ -201,14 +202,14 @@ AD <- calc_AverageDose(ExampleData.DeValues$CA1[1:56, ], sigma_m = 0.1)
 #> --------------------------------------------------
 #>                          IC_delta      IC_sigma_d
 #> level                        0.95          0.9500
-#> CredibleIntervalInf         60.39          0.2172
-#> CredibleIntervalSup         69.93          0.4029
+#> CredibleIntervalInf         60.55          0.2132
+#> CredibleIntervalSup         70.00          0.3899
 #> --------------------------------------------------
 #> 
 #> >> Results <<
 #> ----------------------------------------------------------
-#> Average dose:      65.3597   se(Aver. dose):  2.4517
-#> sigma_d:   0.3092    se(sigma_d):     0.0477
+#> Average dose:      65.3597   se(Aver. dose):  2.5109
+#> sigma_d:   0.3092    se(sigma_d):     0.0458
 #> ----------------------------------------------------------
 
 

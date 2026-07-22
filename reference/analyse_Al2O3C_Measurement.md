@@ -126,12 +126,12 @@ Function returns results numerically and graphically:
 
 **slot:** **`@data`**
 
-|                    |              |                                                              |
-|--------------------|--------------|--------------------------------------------------------------|
-| **Element**        | **Type**     | **Description**                                              |
-| `$data`            | `data.frame` | the estimated equivalent dose                                |
-| `$data_table`      | `data.frame` | full dose and signal table                                   |
-| `test_parameters`  | `data.frame` | results with test parameters                                 |
+|  |  |  |
+|----|----|----|
+| **Element** | **Type** | **Description** |
+| `$data` | `data.frame` | the estimated equivalent dose |
+| `$data_table` | `data.frame` | full dose and signal table |
+| `test_parameters` | `data.frame` | results with test parameters |
 | `data_TDcorrected` | `data.frame` | travel dosimeter corrected results (only if TD was provided) |
 
 **Note:** If correction the irradiation time and the cross-talk
@@ -200,7 +200,7 @@ S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M.,
 Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
 Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
-Dating Data Analysis. R package version 1.2.1.
+Dating Data Analysis. R package version 1.3.0.
 https://r-lum.github.io/Luminescence/
 
 ## References

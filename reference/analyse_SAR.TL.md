@@ -139,7 +139,7 @@ M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
 J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
 Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.2.1. https://r-lum.github.io/Luminescence/
+version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -166,6 +166,7 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## Examples
 
 ``` r
+
 ##load data
 data(ExampleData.BINfileData, envir = environment())
 
@@ -176,10 +177,10 @@ object <- Risoe.BINfileData2RLum.Analysis(TL.SAR.Data, pos=3)
 analyse_SAR.TL(
  object = object,
  signal_integral = 210:220,
- fit.method = "EXP OR LIN",
+ fit.method = "SSE OR LIN",
  sequence.structure = c("SIGNAL", "BACKGROUND"))
 
-#> [fit_DoseResponseCurve()] Fit: EXP OR LIN (interpolation) | De = 415.65 | D01 = 11207248.85
+#> [fit_DoseResponseCurve()] Fit: SSE OR LIN (interpolation) | De = 421.28 | D01 = 1984509.25
 #> 
 #>  [RLum.Results-class]
 #>   originator: analyse_SAR.TL()

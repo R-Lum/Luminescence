@@ -10,10 +10,10 @@ and extrapolation to calculate the equivalent dose.
 fit_DoseResponseCurve(
   object,
   mode = c("interpolation", "extrapolation", "alternate"),
-  fit.method = c("EXP", "LIN", "QDR", "EXP OR LIN", "EXP+LIN", "EXP+EXP", "GOK", "OTOR",
+  fit.method = c("SSE", "LIN", "QDR", "SSE OR LIN", "SSE+LIN", "DSE", "GOK", "OTOR",
     "OTORX"),
   fit.force_through_origin = FALSE,
-  fit.weights = TRUE,
+  fit.weights = c("inverse_var", "inverse_std", "norm_inverse_std"),
   fit.includingRepeatedRegPoints = TRUE,
   fit.NumberRegPoints = NULL,
   fit.NumberRegPointsReal = NULL,
@@ -32,15 +32,17 @@ fit_DoseResponseCurve(
   [data.frame](https://rdrr.io/r/base/data.frame.html) or a
   [list](https://rdrr.io/r/base/list.html) of such objects
   (**required**): data frame with columns for `Dose`, `LxTx`,
-  `LxTx.Error` and `TnTx`. The column for the test dose response is
-  optional, but requires `'TnTx'` as column name if used. For
-  exponential fits at least three dose points (including the natural)
-  should be provided. If `object` is a list, the function is called on
-  each of its elements. If `fit.method = "OTORX"` you have to provide
-  the test dose in the same unit as the dose in a column called
-  `Test_Dose`. The function searches explicitly for this column name.
-  Only the first value will be used assuming a constant test dose over
-  the measurement cycle.
+  `LxTx.Error` and `TnTx`.
+
+  The column for the test dose response is optional, but requires
+  `'TnTx'` as column name if used. For exponential fits at least three
+  dose points (including the natural) should be provided. If `object` is
+  a list, the function is called on each of its elements.
+
+  If `fit.method = "OTORX"` you have to provide the test dose in the
+  same unit as the dose in a column called `Test_Dose`. The function
+  searches explicitly for this column name. Only the first value will be
+  used assuming a constant test dose over the measurement cycle.
 
 - mode:
 
@@ -56,27 +58,32 @@ fit_DoseResponseCurve(
     points.
 
   Please note that for option `"interpolation"` the first point is
-  considered as natural dose
+  considered as natural dose.
 
 - fit.method:
 
   [character](https://rdrr.io/r/base/character.html) (*with default*):
-  function used for fitting. Possible options are: `LIN`, `QDR`, `EXP`,
-  `EXP OR LIN`, `EXP+LIN`, `EXP+EXP` (not defined for extrapolation),
-  `GOK`, `OTOR` and `OTORX`. See details.
+  function used for fitting. Possible options are: `LIN`, `QDR`, `SSE`,
+  `SSE OR LIN`, `SSE+LIN`, `DSE` (not defined for extrapolation), `GOK`,
+  `OTOR` and `OTORX`. See details.
 
 - fit.force_through_origin:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*) allow
-  to force the fitted function through the origin. For
-  `method = "EXP+EXP"` the function will be fixed through the origin in
-  either case, so this option will have no effect.
+  to force the fitted function through the origin. For `method = "DSE"`
+  the function will be fixed through the origin in either case, so this
+  option will have no effect.
 
 - fit.weights:
 
-  [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  option whether the fitting is done with or without weights. See
-  details.
+  [character](https://rdrr.io/r/base/character.html)
+  [numeric](https://rdrr.io/r/base/numeric.html) (*with default*):
+  weighting approach to be used for the fitting. Options are
+  `inverse_var` (default), `inverse_std`, `norm_inverse_std`, a
+  [numeric](https://rdrr.io/r/base/numeric.html) vector, or `NULL` (no
+  weighting). If the input is a numeric vector, it must have length
+  equal to the number of data points to fit (usually the `LxTx` values).
+  See details.
 
 - fit.includingRepeatedRegPoints:
 
@@ -99,14 +106,14 @@ fit_DoseResponseCurve(
 - fit.bounds:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*): set
-  lower fit bounds for all fitting parameters to 0. Limited for the use
-  with the fit methods `EXP`, `EXP+LIN`, `EXP OR LIN`, `GOK`, `OTOR`,
-  `OTORX` Argument to be inserted for experimental application only!
+  lower fit bounds for all fitting parameters to 0. Limited to use with
+  the fit methods `SSE`, `SSE+LIN`, `SSE OR LIN`, `GOK`, `OTOR`, `OTORX`
+  Argument to be inserted for experimental application only!
 
 - n.MC:
 
   [integer](https://rdrr.io/r/base/integer.html) (*with default*):
-  number of Monte Carlo simulations for error estimation, see details.
+  number of Monte Carlo simulations for error estimation.
 
 - txtProgressBar:
 
@@ -132,22 +139,22 @@ elements:
 
 **Overview elements**
 
-|                 |                                                                                  |                                                                                                                                       |
-|-----------------|----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
-| **DATA.OBJECT** | **TYPE**                                                                         | **DESCRIPTION**                                                                                                                       |
-| `..$De` :       | `data.frame`                                                                     | Table with De values                                                                                                                  |
-| `..$De.MC` :    | `numeric`                                                                        | Table with De values from MC runs                                                                                                     |
-| `..$Fit` :      | [nls](https://rdrr.io/r/stats/nls.html) or [lm](https://rdrr.io/r/stats/lm.html) | object from the fitting for `EXP`, `EXP+LIN` and `EXP+EXP`. In case of a resulting linear fit when using `LIN`, `QDR` or `EXP OR LIN` |
-| `..Fit.Args` :  | `list`                                                                           | Arguments to the function                                                                                                             |
-| `..$Formula` :  | [expression](https://rdrr.io/r/base/expression.html)                             | Fitting formula as R expression                                                                                                       |
+|  |  |  |
+|----|----|----|
+| **DATA.OBJECT** | **TYPE** | **DESCRIPTION** |
+| `..$De` : | `data.frame` | Table with De values |
+| `..$De.MC` : | `numeric` | Table with De values from MC runs |
+| `..$Fit` : | [nls](https://rdrr.io/r/stats/nls.html) or [lm](https://rdrr.io/r/stats/lm.html) | object from the fitting for `SSE`, `SSE+LIN` and `DSE`. In case of a resulting linear fit when using `LIN`, `QDR` or `SSE OR LIN` |
+| `..Fit.Args` : | `list` | Arguments to the function |
+| `..$Formula` : | [expression](https://rdrr.io/r/base/expression.html) | Fitting formula as R expression |
 
 The `@info` slot contains the following elements:
 
-|                  |             |                            |
-|------------------|-------------|----------------------------|
-| **DATA.OBJECT**  | **TYPE**    | **DESCRIPTION**            |
-| `..$fit_messag`: | `character` | The fit message reported   |
-| `..$call` :      | `call`      | The original function call |
+|                   |             |                            |
+|-------------------|-------------|----------------------------|
+| **DATA.OBJECT**   | **TYPE**    | **DESCRIPTION**            |
+| `..$fit_message`: | `character` | The fit message reported   |
+| `..$call` :       | `call`      | The original function call |
 
 If `object` is a list, then the function returns a list of
 [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
@@ -157,34 +164,41 @@ objects as defined above.
 [data.frame](https://rdrr.io/r/base/data.frame.html) with the following
 columns
 
-|             |                                                    |                                                                                                                                                                                                          |
-|-------------|----------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `De`        | [numeric](https://rdrr.io/r/base/numeric.html)     | equivalent dose                                                                                                                                                                                          |
-| `De.Error`  | [numeric](https://rdrr.io/r/base/numeric.html)     | standard error the equivalent dose                                                                                                                                                                       |
-| `D01`       | [numeric](https://rdrr.io/r/base/numeric.html)     | \\D_0\\ value, curvature parameter of the exponential                                                                                                                                                    |
-| `D01.ERROR` | [numeric](https://rdrr.io/r/base/numeric.html)     | standard error of the \\D_0\\ value                                                                                                                                                                      |
-| `D02`       | [numeric](https://rdrr.io/r/base/numeric.html)     | 2nd \\D_0\\ value, only for `EXP+EXP`                                                                                                                                                                    |
-| `D02.ERROR` | [numeric](https://rdrr.io/r/base/numeric.html)     | standard error for 2nd \\D_0\\; only for `EXP+EXP`                                                                                                                                                       |
-| `R`         | [numeric](https://rdrr.io/r/base/numeric.html)     | the material specific parameter \\R\\                                                                                                                                                                    |
-| `R.ERROR`   | [numeric](https://rdrr.io/r/base/numeric.html)     | the uncertainty of R \\R\\                                                                                                                                                                               |
-| `Dc`        | [numeric](https://rdrr.io/r/base/numeric.html)     | value indicating saturation level; only for `OTOR`                                                                                                                                                       |
-| `D63`       | [numeric](https://rdrr.io/r/base/numeric.html)     | the specific saturation level; only for `OTORX`                                                                                                                                                          |
-| `n_N`       | [numeric](https://rdrr.io/r/base/numeric.html)     | saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (`N`) to the integral until `De` (`n`) (e.g., Guralnik et al., 2015) |
-| `De.MC`     | [numeric](https://rdrr.io/r/base/numeric.html)     | equivalent dose derived by Monte-Carlo simulation; ideally identical to `De`                                                                                                                             |
-| `Fit`       | [character](https://rdrr.io/r/base/character.html) | applied fit function                                                                                                                                                                                     |
-| `Mode`      | [character](https://rdrr.io/r/base/character.html) | mode used in fitting                                                                                                                                                                                     |
-| `HPDI68_L`  | [numeric](https://rdrr.io/r/base/numeric.html)     | highest probability density of approximated equivalent dose probability curve representing the lower boundary of 68% probability                                                                         |
-| `HPDI68_U`  | [numeric](https://rdrr.io/r/base/numeric.html)     | same as `HPDI68_L` for the upper bound                                                                                                                                                                   |
-| `HPDI95_L`  | [numeric](https://rdrr.io/r/base/numeric.html)     | same as `HPDI68_L` but for 95% probability                                                                                                                                                               |
-| `HPDI95_U`  | [numeric](https://rdrr.io/r/base/numeric.html)     | same as `HPDI95_L` but for the upper bound                                                                                                                                                               |
-| `.De.plot`  | [numeric](https://rdrr.io/r/base/numeric.html)     | equivalent dose used internally for plotting                                                                                                                                                             |
-| `.De.raw`   | [numeric](https://rdrr.io/r/base/numeric.html)     | equivalent dose reported 'as is', that is containing infinities and negative values if they could be calculated. Bear in mind that negative values are meaningless and may be arbitrary.                 |
+|  |  |  |
+|----|----|----|
+| `De` | [numeric](https://rdrr.io/r/base/numeric.html) | equivalent dose |
+| `De.Error` | [numeric](https://rdrr.io/r/base/numeric.html) | standard error the equivalent dose |
+| `D01` | [numeric](https://rdrr.io/r/base/numeric.html) | \\D_0\\ value, curvature parameter of the exponential |
+| `D01.ERROR` | [numeric](https://rdrr.io/r/base/numeric.html) | standard error of the \\D_0\\ value |
+| `D02` | [numeric](https://rdrr.io/r/base/numeric.html) | 2nd \\D_0\\ value, only for `DSE` |
+| `D02.ERROR` | [numeric](https://rdrr.io/r/base/numeric.html) | standard error for 2nd \\D_0\\; only for `DSE` |
+| `R` | [numeric](https://rdrr.io/r/base/numeric.html) | the material specific parameter \\R\\ (only `OTOR` and `OTORX`) |
+| `R.LOWER` | [numeric](https://rdrr.io/r/base/numeric.html) | lower 25% quantile of \\R\\ |
+| `R.UPPER` | [numeric](https://rdrr.io/r/base/numeric.html) | upper 75% quantile of \\R\\ |
+| `Dc` | [numeric](https://rdrr.io/r/base/numeric.html) | value indicating saturation level; only for `OTOR` |
+| `Dc.LOWER` | [numeric](https://rdrr.io/r/base/numeric.html) | lower 25% quantile for `Dc`; only for `OTOR` |
+| `Dc.UPPER` | [numeric](https://rdrr.io/r/base/numeric.html) | upper 75% quantile for `Dc`; only for `OTOR` |
+| `D63` | [numeric](https://rdrr.io/r/base/numeric.html) | the specific saturation level; only for `OTOR`, `OTORX` |
+| `D63.LOWER` \\ tab [numeric](https://rdrr.io/r/base/numeric.html) | lower 25% quantile of `D63`; only for `OTOR`, `OTORX` | `D63.UPPER` \\ tab [numeric](https://rdrr.io/r/base/numeric.html) |
+| upper 75% quantile of `D63`; only for `OTOR`, `OTORX` | `D80` | [numeric](https://rdrr.io/r/base/numeric.html) |
+| the specific saturation level; only for `SSE`, `OTOR`, `OTORX` | `D80.LOWER` \\ tab [numeric](https://rdrr.io/r/base/numeric.html) | lower 25% quantile of `D80`; only for `OTOR`, `OTORX` |
+| `D80.UPPER` \\ tab [numeric](https://rdrr.io/r/base/numeric.html) | upper 75% quantile of `D80`; only for `OTOR`, `OTORX` | `n_N` |
+| [numeric](https://rdrr.io/r/base/numeric.html) | saturation level of dose-response curve derived via integration from the used function; it compares the full integral of the curves (`N`) to the integral until `De` (`n`) (e.g., Guralnik et al., 2015) | `De.MC` |
+| [numeric](https://rdrr.io/r/base/numeric.html) | equivalent dose derived by Monte-Carlo simulation; ideally identical to `De` | `Fit` |
+| [character](https://rdrr.io/r/base/character.html) | applied fit function | `Mode` |
+| [character](https://rdrr.io/r/base/character.html) | mode used in fitting | `HPDI68_L` |
+| [numeric](https://rdrr.io/r/base/numeric.html) | highest probability density of the approximated equivalent dose probability curve representing the lower boundary of 68% probability | `HPDI68_U` |
+| [numeric](https://rdrr.io/r/base/numeric.html) | same as `HPDI68_L` for the upper bound | `HPDI95_L` |
+| [numeric](https://rdrr.io/r/base/numeric.html) | same as `HPDI68_L` but for 95% probability | `HPDI95_U` |
+| [numeric](https://rdrr.io/r/base/numeric.html) | same as `HPDI95_L` but for the upper bound | `.De.plot` |
+| [numeric](https://rdrr.io/r/base/numeric.html) | equivalent dose used internally for plotting | `.De.raw` |
+| [numeric](https://rdrr.io/r/base/numeric.html) | equivalent dose reported 'as is', that is, containing infinities and negative values if they could be calculated. Bear in mind that negative values are meaningless and may be arbitrary. |  |
 
 ## Details
 
 ### Implemented fitting methods
 
-For all options (except for the `LIN`, `QDR` and the `EXP OR LIN`), the
+For all options (except for the `LIN`, `QDR` and the `SSE OR LIN`), the
 [minpack.lm::nlsLM](https://rdrr.io/pkg/minpack.lm/man/nlsLM.html)
 function with the `LM` (Levenberg-Marquardt algorithm) algorithm is
 used. Note: For historical reasons for the Monte Carlo simulations
@@ -197,41 +211,42 @@ The solution is found by transforming the function or using
 **Keyword: `LIN`**
 
 Fits a linear function to the data using
-[lm](https://rdrr.io/r/stats/lm.html): \$\$y = mx + n\$\$
+[lm](https://rdrr.io/r/stats/lm.html): \$\$y = mx + D_i\$\$
 
 **Keyword: `QDR`**
 
 Fits a linear function with a quadratic term to the data using
 [lm](https://rdrr.io/r/stats/lm.html): \$\$y = a + bx + cx^2\$\$
 
-**Keyword: `EXP`**
+**Keyword: `SSE` (formerly `EXP`)**
 
-Adapts a function of the form \$\$y = a(1 - \exp(-\frac{(x+c)}{b}))\$\$
+Fits a single saturating exponential function of the form \$\$y = N (1 -
+\exp(-\frac{x + D_i}{D_0}))\$\$
 
-Parameters b and c are approximated by a linear fit using
-[lm](https://rdrr.io/r/stats/lm.html). Note: \\b = D0\\
+Parameters \\D_0\\ and \\D_i\\ are approximated by a linear fit using
+[lm](https://rdrr.io/r/stats/lm.html).
 
-**Keyword: `EXP OR LIN`**
+**Keyword: `SSE OR LIN` (formerly `EXP OR LIN`)**
 
-Works for some cases where an `EXP` fit fails. If the `EXP` fit fails, a
+Works for some cases where an `SSE` fit fails. If the `SSE` fit fails, a
 `LIN` fit is done instead, which always works.
 
-**Keyword: `EXP+LIN`**
+**Keyword: `SSE+LIN` (formerly `EXP+LIN`)**
 
 Tries to fit an exponential plus linear function of the form:
 
-\$\$y = a(1 - \exp(-\frac{x + c}{b}) + (gx))\$\$ The \\D_e\\ is
+\$\$y = N(1 - \exp(-\frac{x + D_i}{D_0}) + gx)\$\$ The \\D_e\\ is
 calculated by iteration.
 
 **Note:** In the context of luminescence dating, this function has no
 physical meaning. Therefore, no \\D_0\\ value is returned.
 
-**Keyword: `EXP+EXP`**
+**Keyword: `DSE` (formerly `EXP+EXP`)**
 
 Tries to fit a double exponential function of the form
 
-\$\$y = (a_1 (1 - \exp(-\frac{x}{b_1}))) + (a_2 (1 -
-\exp(-\frac{x}{b_2})))\$\$
+\$\$y = N_1 (1 - \exp(-\frac{x + D_i}{D0_1})) + N_2 (1 - \exp(-\frac{x +
+D_i}{D0_2}))\$\$
 
 *This fitting procedure is not really robust against wrong start
 parameters.*
@@ -241,29 +256,28 @@ parameters.*
 Tries to fit the general-order kinetics function following Guralnik et
 al. (2015) of the form
 
-\$\$y = a (d - (1 + (\frac{1}{b}) x c)^{(-1/c)})\$\$
+\$\$y = a (d - (1 + \frac{1}{D_0} x c)^{-1 / c})\$\$
 
-where \\c \> 0\\ is a kinetic order modifier (not to be confused with
-**c** in `EXP` or `EXP+LIN`!).
+where \\c \> 0\\ is a kinetic order modifier.
 
-**Keyword: `OTOR`** (former `LambertW`)
+**Keyword: `OTOR`** (formerly `LambertW`)
 
 This tries to fit a dose-response curve based on the Lambert W function
 and the one trap one recombination centre (OTOR) model according to
 Pagonis et al. (2020). The function has the form:
 
-\$\$y = (1 + (\mathcal{W}((R - 1) \* \exp(R - 1 - ((x + D\_{int}) /
-D\_{c}))) / (1 - R))) \* N\$\$
+\$\$y = (1 + (\mathcal{W}((R - 1) \* \exp(R - 1 - (x + D_i) / D_c)) /
+(1 - R))) \* N\$\$
 
-with \\W\\ the Lambert W function (calculated using
-[lamW::lambertW0](https://rdrr.io/pkg/lamW/man/lamW-package.html)),
-\\R\\ the dimensionless retrapping ratio, \\N\\ the total concentration
-of trappings states in cm\\^{-3}\\, \\D\_{c} = N/R\\ a constant, and
-\\D\_{int}\\ is the offset on the x-axis. Note that \\R\\ and \\D\_{c}\\
-have a valid physical interpretation only when saturation is reached.
-Please note that finding the root in `mode = "extrapolation"` is a
-non-easy task due to the shape of the function and the results might be
-unexpected.
+with \\W\\ the Lambert-W function (calculated using
+[lamW::lambertW0](https://rdrr.io/pkg/lamW/man/lamW.html)), \\R\\ the
+dimensionless retrapping ratio, \\N\\ the total concentration of
+trappings states in cm\\^{-3}\\, \\D\_{c} = N/R\\ a constant, and
+\\D\_{i}\\ is the offset on the x-axis (not part of the original formula
+in Pagonis et al. 2020). Note that \\R\\ and \\D\_{c}\\ have a valid
+physical interpretation only when saturation is reached. Please note
+that finding the root in `mode = "extrapolation"` is a non-easy task due
+to the shape of the function and the results might be unexpected.
 
 **Keyword: `OTORX`**
 
@@ -273,8 +287,8 @@ implemented here is written slightly differently than in the original
 manuscript):
 
 \$\$F\_{OTORX} = 1 + \left\[\mathcal{W}\left(-Q \*
-\exp\left(-Q-(1-Q(1-\frac{1}{\exp(1)})) \frac{(D +
-a)}{D\_{63}}\right)\right)\right\] / Q\$\$
+\exp\left(-Q-(1-Q(1-\frac{1}{\exp(1)})) \frac{D +
+D_i}{D\_{63}}\right)\right)\right\] / Q\$\$
 
 with
 
@@ -282,14 +296,14 @@ with
 
 where \\A_m\\ and \\A_n\\ are rate constants for the recombination and
 the trapping of electrons (\\N\\), respectively. \\D\_{63}\\ corresponds
-to the value at which the trap occupation corresponds to the 63% of the
-saturation value. \\a\\ is in an offset. If set to zero, the curve will
+to the value at which the trap occupation corresponds to 63% of the
+saturation value. \\D_i\\ is an offset: if set to zero, the curve will
 be forced through the origin as in the original publication.
 
 For the implementation the calculation reads further
 
-\$\$y = \frac{F\_{OTORX}(((D + a)/D\_{63}), Q)}{F\_{OTORX}((D\_{test} +
-a)/D\_{63}, Q)}\$\$
+\$\$y = \frac{F\_{OTORX}(((D + D_i)/D\_{63}),
+Q)}{F\_{OTORX}((D\_{test} + D_i)/D\_{63}, Q)}\$\$
 
 with \\D\_{test}\\ being the test dose in the same unit (usually s or
 Gy) as the regeneration dose points. This value is essential and needs
@@ -300,51 +314,65 @@ see Lawless and Timar-Gabor (2024).
 The fit also returns the parameter \\R\\ know from `OTOR`, which is
 derived as \\R = 1 - Q\\.
 
-*Note: The offset adder \\a\\ is not part of the formula in Timar-Gabor
-(2024) and can be set to zero with the option
+*Note: The offset adder \\D_i\\ is not part of the formula in
+Timar-Gabor (2024) and can be set to zero with the option
 `fit.force_through_origin = TRUE`*
 
 **Fit weighting**
 
-If the option `fit.weights = TRUE` is chosen, weights are calculated
-using provided signal errors (\\\frac{L_x}{T_x}\\ error):
-\$\$fit.weights = \frac{\frac{1}{error}}{\Sigma{\frac{1}{error}}}\$\$
+- `"inverse_var"` (inverse variance weighting - current default) \$\$w_i
+  = \frac{1}{\sigma_i^2}\$\$
+
+- `"inverse_std"` (inverse standard error) \$\$w_i =
+  \frac{1}{\sigma_i}\$\$
+
+- `"norm_inverse_std"` (normalised inverse standard error weighting -
+  default up to v1.2.1) \$\$w_i =
+  \frac{\frac{1}{\sigma_i}}{\Sigma{\frac{1}{\sigma_i}}}\$\$ *Although
+  used until Luminescence v1.2.1, this method is no longer recommended,
+  as it does not align with the mathematical approach used in common nls
+  fitting methods.*
+
+If the option `fit.weights = NULL` all weights are set to 1, which
+disables weighting altogether. If `fit.weights` is a
+[numeric](https://rdrr.io/r/base/numeric.html) vector of correct length
+(same number of rows as the input `LxTx`), then those fit weights are
+used. This may be helpful to compare different fitting algorithms that
+have implemented fit weights differently.
 
 **Error estimation using Monte Carlo simulation**
 
-Error estimation is done using a parametric bootstrapping approach. A
-set of \\\frac{L_x}{T_x}\\ values is constructed by randomly drawing
-curve data sampled from normal distributions. The normal distribution is
-defined by the input values (`mean = value`, `sd = value.error`). Then,
-a dose-response curve fit is attempted for each dataset resulting in a
-new distribution of single `De` values. The standard deviation of this
-distribution becomes then the error of the `De`. With increasing
-iterations, the error value becomes more stable. However, naturally the
-error will not decrease with more MC runs.
+Error estimation is done using a parametric bootstrap. A set of
+\\\frac{L_x}{T_x}\\ values is constructed by randomly drawing curve data
+from normal distributions defined by the input values (`mean = value`,
+`sd = value.error`). A dose-response curve is then fitted for each
+sampled dataset using the chosen fitting method, producing a
+distribution of single `De` values. The standard deviation of this
+distribution is taken as the error of the `De`. With more iterations
+(`n.MC`) the error estimate stabilizes. However, naturally the error
+will not decrease with more MC runs.
 
 Alternatively, the function returns highest probability density interval
 estimates as output, users may find more useful under certain
 circumstances.
 
 **Note:** It may take some calculation time with increasing MC runs,
-especially for the composed functions (`EXP+LIN` and `EXP+EXP`).  
-Each error estimation is done with the function of the chosen fitting
-method.
+especially for the composed functions (`SSE+LIN` and `DSE`).
 
 ## Function version
 
-1.4.5
+1.7
 
 ## How to cite
 
 Kreutzer, S., Dietze, M., Colombo, M., 2026. fit_DoseResponseCurve():
 Fit a dose-response curve for luminescence data (Lx/Tx against dose).
-Function version 1.4.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
+Function version 1.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
 J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
 Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.2.1. https://r-lum.github.io/Luminescence/
+version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -377,47 +405,50 @@ function. Journal of Luminescence 225, 117333.
 [minpack.lm::nlsLM](https://rdrr.io/pkg/minpack.lm/man/nlsLM.html),
 [lm](https://rdrr.io/r/stats/lm.html),
 [uniroot](https://rdrr.io/r/stats/uniroot.html),
-[lamW::lambertW0](https://rdrr.io/pkg/lamW/man/lamW-package.html)
+[lamW::lambertW0](https://rdrr.io/pkg/lamW/man/lamW.html)
 
 ## Author
 
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
 LIAG - Institute for Applied Geophysics (Germany)  
-Michael Dietze, GFZ Potsdam (Germany)  
+Michael Dietze, RWTH Aachen (Germany)  
 Marco Colombo, Institute of Geography, Heidelberg University (Germany) ,
 RLum Developer Team
 
 ## Examples
 
 ``` r
+
 ##(1) fit growth curve for a dummy data.set and show De value
 data(ExampleData.LxTxData, envir = environment())
 temp <- fit_DoseResponseCurve(LxTxData)
-#> [fit_DoseResponseCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07
+#> [fit_DoseResponseCurve()] Fit:    SSE (interpolation) | De = 1737.71 | D01 = 1721.83
 get_RLum(temp)
-#>         De De.Error      D01 D01.ERROR D02 D02.ERROR  R R.ERROR Dc D63
-#> 1 1737.881 57.33287 1766.074  89.83273  NA        NA NA      NA NA  NA
+#>         De De.Error      D01 D01.ERROR D02 D02.ERROR  R R.LOWER R.UPPER Dc
+#> 1 1737.707 62.49229 1721.831  79.09111  NA        NA NA      NA      NA NA
+#>   Dc.LOWER Dc.UPPER D63 D63.LOWER D63.UPPER      D80 D80.LOWER D80.UPPER
+#> 1       NA       NA  NA        NA        NA 2770.426        NA        NA
 #>         n_N    De.MC Fit          Mode HPDI68_L HPDI68_U HPDI95_L HPDI95_U
-#> 1 0.5271352 1732.322 EXP interpolation 1672.881 1790.875 1612.221 1846.549
+#> 1 0.5284827 1742.485 SSE interpolation 1671.255 1803.028  1615.91 1864.523
 #>   .De.plot  .De.raw
-#> 1 1737.881 1737.881
+#> 1 1737.707 1737.707
 
 ##(1b) to access the fitting value try
 get_RLum(temp, data.object = "Fit")
 #> Nonlinear regression model
-#>   model: y ~ a * (1 - exp(-(x + c)/b))
+#>   model: y ~ N * (1 - exp(-(x + Di)/D0))
 #>    data: data
-#>        a        b        c 
-#>    6.806 1766.074    5.051 
-#>  weighted residual sum-of-squares: 0.0004268
+#>        N       D0       Di 
+#>    6.707 1721.831    4.641 
+#>  weighted residual sum-of-squares: 6.374
 #> 
-#> Number of iterations to convergence: 4 
+#> Number of iterations to convergence: 8 
 #> Achieved convergence tolerance: 1.49e-08
 
 ##(2) fit using the 'extrapolation' mode
 LxTxData[1,2:3] <- c(0.5, 0.001)
 print(fit_DoseResponseCurve(LxTxData, mode = "extrapolation"))
-#> [fit_DoseResponseCurve()] Fit: EXP (extrapolation) | De = 109.74 | D01 = 2624.06
+#> [fit_DoseResponseCurve()] Fit:    SSE (extrapolation) | De = 139.25 | D01 = 3059.14
 #> 
 #>  [RLum.Results-class]
 #>   originator: fit_DoseResponseCurve()
@@ -432,7 +463,7 @@ print(fit_DoseResponseCurve(LxTxData, mode = "extrapolation"))
 ##(3) fit using the 'alternate' mode
 LxTxData[1,2:3] <- c(0.5, 0.001)
 print(fit_DoseResponseCurve(LxTxData, mode = "alternate"))
-#> [fit_DoseResponseCurve()] Fit: EXP (alternate) | De = NA | D01 = 2624.06
+#> [fit_DoseResponseCurve()] Fit:    SSE (alternate) | De = NA | D01 = 3059.14
 #> 
 #>  [RLum.Results-class]
 #>   originator: fit_DoseResponseCurve()
@@ -452,16 +483,16 @@ results <- fit_DoseResponseCurve(
  QNL84_2_unbleached,
  mode = "extrapolation",
  verbose = FALSE)
-#> Warning: [fit_DoseResponseCurve()] Error column invalid or 0, 'fit.weights' ignored
+#> Warning: [fit_DoseResponseCurve()] Error column invalid, infinite, or contains 0, 'fit.weights' reset to NULL
 
 #calculate confidence interval for the parameters
 #as alternative error estimation
 confint(results$Fit, level = 0.68)
 #> Waiting for profiling to be done...
-#>           16%         84%
-#> a 140543.3024 146731.8471
-#> b    374.0861    425.5679
-#> c    116.3499    133.3474
+#>            16%         84%
+#> N  140543.3023 146731.8470
+#> D0    374.0861    425.5679
+#> Di    116.3499    133.3474
 
 if (FALSE) { # \dontrun{
 ##(5) special case the OTORX model with test dose column

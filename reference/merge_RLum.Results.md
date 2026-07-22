@@ -9,7 +9,7 @@ e.g., for [data.frame](https://rdrr.io/r/base/data.frame.html) and
 ## Usage
 
 ``` r
-merge_RLum.Results(objects)
+merge_RLum.Results(objects, flatten = TRUE)
 ```
 
 ## Arguments
@@ -19,6 +19,11 @@ merge_RLum.Results(objects)
   [list](https://rdrr.io/r/base/list.html) (**required**): a list of
   [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
   objects
+
+- flatten:
+
+  [logical](https://rdrr.io/r/base/logical.html) (*with default*):
+  whether list elements should be flattened before merging.
 
 ## Details
 
@@ -33,7 +38,7 @@ The `originator` is taken from the first element and not reset to
 
 ## Function version
 
-0.2.1
+0.3
 
 ## Author
 
@@ -43,9 +48,9 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## How to cite
 
 Kreutzer, S., 2026. merge_RLum.Results(): Merge function for
-RLum.Results S4-class objects. Function version 0.2.1. In: Kreutzer, S.,
+RLum.Results S4-class objects. Function version 0.3. In: Kreutzer, S.,
 Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
 J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
 D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/

@@ -24,6 +24,7 @@ of Luminescence 213, 376-387.
 ## Examples
 
 ``` r
+
 ##(1) curves
 data(ExampleData.TR_OSL, envir = environment())
 plot_RLum(ExampleData.TR_OSL)

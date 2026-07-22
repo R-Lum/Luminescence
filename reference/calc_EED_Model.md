@@ -113,14 +113,14 @@ estimation of the parameters `kappa` and `sigma_distr`. If set to
 
 **Method control parameters**
 
-|              |              |              |                                                                                       |
-|--------------|--------------|--------------|---------------------------------------------------------------------------------------|
-| **ARGUMENT** | **FUNCTION** | **DEFAULT**  | **DESCRIPTION**                                                                       |
-| `lower`      | \-           | `c(0.1,0,0)` | set lower bounds for kappa, sigma, and the expected De in auto mode                   |
-| `upper`      | \-           | `c(1000,2)`  | set upper bounds for kappa, sigma, and the expected De in auto mode                   |
-| `iter_max`   | \-           | `1000`       | maximum number for iterations for used to find kappa and sigma                        |
-| `trace`      | \-           | `FALSE`      | enable/disable terminal trace mode; overwritten by global argument `verbose`          |
-| `trace_plot` | \-           | `FALSE`      | enable/disable additional trace plot output; overwritten by global argument `verbose` |
+|  |  |  |  |
+|----|----|----|----|
+| **ARGUMENT** | **FUNCTION** | **DEFAULT** | **DESCRIPTION** |
+| `lower` | \- | `c(0.1,0,0)` | set lower bounds for kappa, sigma, and the expected De in auto mode |
+| `upper` | \- | `c(1000,2)` | set upper bounds for kappa, sigma, and the expected De in auto mode |
+| `iter_max` | \- | `1000` | maximum number for iterations for used to find kappa and sigma |
+| `trace` | \- | `FALSE` | enable/disable terminal trace mode; overwritten by global argument `verbose` |
+| `trace_plot` | \- | `FALSE` | enable/disable additional trace plot output; overwritten by global argument `verbose` |
 
 ## Function version
 
@@ -134,7 +134,7 @@ C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
 Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -163,6 +163,7 @@ LIAG - Institute for Applied Geophysics (Germany)
 ## Examples
 
 ``` r
+
 data(ExampleData.MortarData, envir = environment())
 calc_EED_Model(
  data = MortarData,
@@ -174,8 +175,8 @@ calc_EED_Model(
 #> 
 #> ------------------------------------ 
 #> 
-#>  Maximal Individual Equivalent Dose integrated:  20.93 Gy
-#>  Averaged Corrected Equivalent Dose:  11.44 ± 0.65 Gy
+#>  Maximal Individual Equivalent Dose integrated:  24.75 Gy
+#>  Averaged Corrected Equivalent Dose:  11.45 ± 0.66 Gy
 
 
 #> 

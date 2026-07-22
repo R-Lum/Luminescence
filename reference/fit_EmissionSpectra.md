@@ -98,13 +98,13 @@ fit_EmissionSpectra(
 
 **slot:** **`@data`**
 
-|             |          |                                                                                                             |
-|-------------|----------|-------------------------------------------------------------------------------------------------------------|
-| **Element** | **Type** | **Description**                                                                                             |
-| `$data`     | `matrix` | the final fit matrix                                                                                        |
-| `$fit`      | `nls`    | the fit object returned by [minpack.lm::nls.lm](https://rdrr.io/pkg/minpack.lm/man/nls.lm.html)             |
-| `$fit_info` | `list`   | a few additional parameters that can be used to assess the quality of the fit                               |
-| `$df_plot`  | `list`   | values of all curves in the plot for each frame analysed (only if `method_control$export.plot.data = TRUE`) |
+|  |  |  |
+|----|----|----|
+| **Element** | **Type** | **Description** |
+| `$data` | `matrix` | the final fit matrix |
+| `$fit` | `nls` | the fit object returned by [minpack.lm::nls.lm](https://rdrr.io/pkg/minpack.lm/man/nls.lm.html) |
+| `$fit_info` | `list` | a few additional parameters that can be used to assess the quality of the fit |
+| `$df_plot` | `list` | values of all curves in the plot for each frame analysed (only if `method_control$export.plot.data = TRUE`) |
 
 **slot:** **`@info`**
 
@@ -174,14 +174,14 @@ then fix the number of components and run at least 10,000 iterations
 
 **Supported `method_control` settings**
 
-|                    |                                                |             |                                                                                                            |
-|--------------------|------------------------------------------------|-------------|------------------------------------------------------------------------------------------------------------|
-| **Parameter**      | **Type**                                       | **Default** | **Description**                                                                                            |
-| `max.runs`         | [integer](https://rdrr.io/r/base/integer.html) | `10000`     | maximum allowed search iterations, if exceed the searching stops                                           |
-| `graining`         | [numeric](https://rdrr.io/r/base/numeric.html) | `15`        | control over how coarse or fine the spectrum is split into search intervals for the peak finding algorithm |
-| `norm`             | [logical](https://rdrr.io/r/base/logical.html) | `TRUE`      | normalise data to the highest count value before fitting                                                   |
-| `export.plot.data` | [logical](https://rdrr.io/r/base/logical.html) | `FALSE`     | enable/disable export of the values of all curves in the plot for each frame analysed                      |
-| `trace`            | [logical](https://rdrr.io/r/base/logical.html) | `FALSE`     | enable/disable the tracing of the minimisation routine                                                     |
+|  |  |  |  |
+|----|----|----|----|
+| **Parameter** | **Type** | **Default** | **Description** |
+| `max.runs` | [integer](https://rdrr.io/r/base/integer.html) | `10000` | maximum allowed search iterations, if exceed the searching stops |
+| `graining` | [numeric](https://rdrr.io/r/base/numeric.html) | `15` | control over how coarse or fine the spectrum is split into search intervals for the peak finding algorithm |
+| `norm` | [logical](https://rdrr.io/r/base/logical.html) | `TRUE` | normalise data to the highest count value before fitting |
+| `export.plot.data` | [logical](https://rdrr.io/r/base/logical.html) | `FALSE` | enable/disable export of the values of all curves in the plot for each frame analysed |
+| `trace` | [logical](https://rdrr.io/r/base/logical.html) | `FALSE` | enable/disable the tracing of the minimisation routine |
 
 ## Function version
 
@@ -210,12 +210,13 @@ S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M.,
 Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
 Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
-Dating Data Analysis. R package version 1.2.1.
+Dating Data Analysis. R package version 1.3.0.
 https://r-lum.github.io/Luminescence/
 
 ## Examples
 
 ``` r
+
 ##load example data
 data(ExampleData.XSYG, envir = environment())
 
@@ -233,16 +234,14 @@ results <- fit_EmissionSpectra(
 #> >> Treating dataset >> 5 <<
 #> >> Wavelength scale detected ...
 #> >> Wavelength to energy scale conversion ...   [OK]
-#> >> Searching components ...            [-]>> Searching components ...            [-]>> Searching components ...            [/]>> Searching components ...            [-]>> Searching components ...            [/]>> Searching components ...            [-]>> Searching components ...            [-]>> Searching components ...            [-]>> Searching components ...            [-]>> Searching components ...            [/]>> Searching components ...             [OK]
+#> >> Searching components ...            [-]>> Searching components ...            [/]>> Searching components ...            [-]>> Searching components ...            [-]>> Searching components ...            [-]>> Searching components ...            [-]>> Searching components ...            [-]>> Searching components ...            [/]>> Searching components ...            [-]>> Searching components ...            [\]>> Searching components ...             [OK]
 #> 
-#> >> Fitting results (3 component model):
+#> >> Fitting results (1 component model):
 #> -------------------------------------------------------------------------
-#>            mu      SE(mu)      sigma   SE(sigma)          C       SE(C)
-#> [1,] 2.167089 0.002648088 0.05967535 0.003529950 0.05488346 0.011627649
-#> [2,] 2.296782 0.008115817 0.10243860 0.005019236 0.16338915 0.014156724
-#> [3,] 2.770252 0.003037348 0.31994834 0.002807038 0.56341011 0.004735947
+#>            mu      SE(mu)    sigma   SE(sigma)         C      SE(C)
+#> [1,] 2.578408 0.006164017 0.374836 0.005834808 0.7750802 0.01085093
 #> -------------------------------------------------------------------------
-#> SE: standard error | SSR: 7.787e-01| R^2: 0.993 | R^2_adj: 0.007
+#> SE: standard error | SSR: 2.164e+01 | R^2: 0.807 | R^2_adj: 0.1938
 #> (use the output in $fit for a more detailed analysis)
 #> 
 

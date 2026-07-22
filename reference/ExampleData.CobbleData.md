@@ -19,6 +19,7 @@ for detailed information on the structure of the
 ## Examples
 
 ``` r
+
 ## Load data
 data("ExampleData.CobbleData", envir = environment())
 ```

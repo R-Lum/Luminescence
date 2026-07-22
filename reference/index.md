@@ -99,6 +99,9 @@
 - [`analyse_SAR.CWOSL()`](https://r-lum.github.io/Luminescence/reference/analyse_SAR.CWOSL.md)
   : Analyse SAR CW-OSL Measurements
 
+- [`analyse_SAR.NCF()`](https://r-lum.github.io/Luminescence/reference/analyse_SAR.NCF.md)
+  : Compute SAR palaeodoses using natural sensitivity correction (NCF)
+
 - [`analyse_SAR.TL()`](https://r-lum.github.io/Luminescence/reference/analyse_SAR.TL.md)
   : Analyse SAR TL measurements
 
@@ -120,9 +123,6 @@
 
 - [`apply_EfficiencyCorrection()`](https://r-lum.github.io/Luminescence/reference/apply_EfficiencyCorrection.md)
   : Apply spectral efficiency correction to RLum.Data.Spectrum objects
-
-- [`as`](https://r-lum.github.io/Luminescence/reference/as.md) : as() -
-  RLum-object coercion
 
 - [`bin_RLum.Data()`](https://r-lum.github.io/Luminescence/reference/bin_RLum.Data.md)
   : Channel binning for RLum.Data-class objects

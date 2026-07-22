@@ -12,7 +12,7 @@ plot_AbanicoPlot(
   data,
   na.rm = TRUE,
   log.z = TRUE,
-  z.0 = c("mean.weighted", "mean.weighted", "median"),
+  z.0 = c("mean.weighted", "mean", "median"),
   dispersion = c("qr", "sd", "2sd"),
   plot.ratio = 0.75,
   rotate = FALSE,
@@ -89,9 +89,9 @@ plot_AbanicoPlot(
 
   [character](https://rdrr.io/r/base/character.html) or
   [numeric](https://rdrr.io/r/base/numeric.html) (*with default*):
-  User-defined central value, used for centring of data. One out of
-  `"mean"`, `"mean.weighted"` and `"median"` or a numeric value (not its
-  logarithm). Default is `"mean.weighted"`.
+  User-defined central value used for centring of data. One of
+  `"mean.weighted"` (default), `"mean"`and `"median"`, or a single
+  numeric value (not its logarithm).
 
 - dispersion:
 
@@ -99,15 +99,15 @@ plot_AbanicoPlot(
   measure of dispersion, used for drawing the scatter polygon. One out
   of
 
-  - `"qr"` (quartile range, default),
+  - `"qr"` (quartile range, default)
 
-  - `"pnn"` (symmetric percentile range with `nn` the lower percentile,
-    e.g. `"p05"` indicating the range between 5 and 95 %, or `"p10"`
-    indicating the range between 10 and 90 %), or
+  - `"sd"` (standard deviation)
 
-  - `"sd"` (standard deviation) and
+  - `"2sd"` (2 standard deviations)
 
-  - `"2sd"` (2 standard deviations),
+  - `"pNN"` (symmetric percentile range, with `NN` being the lower
+    percentile, e.g. `"p05"` indicates the range between 5 and 95 %, or
+    `"p10"` indicates the range between 10 and 90 %)
 
   The default is `"qr"`. Note that `"sd"` and `"2sd"` are only
   meaningful in combination with `"z.0 = 'mean'"` because the unweighted
@@ -415,7 +415,7 @@ Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
 Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
-Dating Data Analysis. R package version 1.2.1.
+Dating Data Analysis. R package version 1.3.0.
 https://r-lum.github.io/Luminescence/
 
 ## References
@@ -449,6 +449,7 @@ Developer Team
 ## Examples
 
 ``` r
+
 ## load example data and recalculate to Gray
 data(ExampleData.DeValues, envir = environment())
 ExampleData.DeValues <- ExampleData.DeValues$CA1
@@ -470,7 +471,7 @@ str(plot1)
 #>  $ xlim         : num [1:2] 0 16.1
 #>  $ ylim         : num [1:2] -36.8 15.9
 #>  $ zlim         : num [1:2] 17.4 132.9
-#>  $ polar.box    : num [1:4] 0 16.1 -20.5 12.2
+#>  $ polar.box    : num [1:4] 0 16.1 16.1 16.1
 #>  $ cartesian.box: num [1:4] 16.6 20.4 -20.5 12.2
 #>  $ plot.ratio   : num 0.788
 #>  $ data         :List of 1

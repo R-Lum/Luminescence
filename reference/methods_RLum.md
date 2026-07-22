@@ -315,6 +315,7 @@ mostly just surrogates for existing functions in the package.
 ## Examples
 
 ``` r
+
 ##load example data
 data(ExampleData.RLum.Analysis, envir = environment())
 

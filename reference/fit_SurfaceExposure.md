@@ -140,14 +140,14 @@ Function returns results numerically and graphically:
 
 **slot:** **`@data`**
 
-|             |              |                                                                                                   |
-|-------------|--------------|---------------------------------------------------------------------------------------------------|
-| **Element** | **Type**     | **Description**                                                                                   |
-| `$summary`  | `data.frame` | summary of the fitting results                                                                    |
-| `$data`     | `data.frame` | the original input data                                                                           |
-| `$fit`      | `nls`        | the fitting object produced by [minpack.lm::nlsLM](https://rdrr.io/pkg/minpack.lm/man/nlsLM.html) |
-| `$args`     | `character`  | arguments of the call                                                                             |
-| `$call`     | `call`       | the original function call                                                                        |
+|  |  |  |
+|----|----|----|
+| **Element** | **Type** | **Description** |
+| `$summary` | `data.frame` | summary of the fitting results |
+| `$data` | `data.frame` | the original input data |
+| `$fit` | `nls` | the fitting object produced by [minpack.lm::nlsLM](https://rdrr.io/pkg/minpack.lm/man/nlsLM.html) |
+| `$args` | `character` | arguments of the call |
+| `$call` | `call` | the original function call |
 
 **slot:** **`@info`**
 
@@ -209,7 +209,7 @@ Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
 J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
 D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -234,6 +234,7 @@ Christoph Burow, University of Cologne (Germany) , RLum Developer Team
 ## Examples
 
 ``` r
+
 ## Load example data
 data("ExampleData.SurfaceExposure")
 

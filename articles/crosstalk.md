@@ -16,8 +16,9 @@ research and the shown functions, we define “neighboring” as rook-wise
 discs have a regular grid of 10x10 grain locations.
 
 ``` r
+
 library(Luminescence)
-#> Welcome to the R package Luminescence version 1.2.1 [Built: 2026-03-25 11:14:22 UTC]
+#> Welcome to the R package Luminescence version 1.3.0 [Built: 2026-07-22 15:56:38 UTC]
 #> Luminescence data to Bayesian process: 'Don't you ever touch me again.'
 ```
 
@@ -29,6 +30,7 @@ randomly selecting from two normal distributions. The prefix “vn\_”
 means: a vector of numbers:
 
 ``` r
+
 
 vn_simulated <- sample(x = c(rnorm(n = 30, mean = 2000, sd = 500),
                              rnorm(n = 70, mean = 20, sd = 1)),
@@ -56,6 +58,7 @@ Let’s visualize the disc/position:
 
 ``` r
 
+
 par(mar = c(1, 4, 6, 4))
 
 plot_SingleGrainDisc(object = vn_simulated,
@@ -70,6 +73,7 @@ ordered simulated disc:
 
 ``` r
 
+
 calc_MoransI(object = vn_simulated)
 #> [1] -0.002584057
 
@@ -80,6 +84,7 @@ calc_MoransI(object = vn_simulated, compute_pseudo_p = TRUE)
 what changes if we add a serious amount, say 10%, of crosstalk?
 
 ``` r
+
 
 vn_simulated_with_crosstalk <- apply_Crosstalk(object = vn_simulated,
                                               n_crosstalk = 0.10)
@@ -98,6 +103,7 @@ hist(vn_simulated_with_crosstalk,
 
 ``` r
 
+
 plot_SingleGrainDisc(object = vn_simulated_with_crosstalk,
           main = "Simulated signal with crosstalk (measurement disc)")
 ```
@@ -105,6 +111,7 @@ plot_SingleGrainDisc(object = vn_simulated_with_crosstalk,
 ![](crosstalk_files/figure-html/add_crosstalk-2.png)
 
 ``` r
+
 
 calc_MoransI(object = vn_simulated_with_crosstalk)
 #> [1] 0.176199
@@ -116,6 +123,7 @@ calc_MoransI(object = vn_simulated_with_crosstalk, compute_pseudo_p = TRUE)
 Let’s try several amounts of simulated crosstalk:
 
 ``` r
+
 
 
 df_MoransI <- data.frame(crosstalk = seq(from = 0,
@@ -167,6 +175,7 @@ legend(x = "topleft",
 
 ``` r
 
+
 plot(x = df_MoransI$crosstalk,
      y = df_MoransI$pseudo_p,
      xlab = "Amount of added crosstalk",
@@ -186,6 +195,7 @@ A way to visualise spatial auto-correlation is the Moran scatterplot:
 ``` r
 
 
+
 plot_MoranScatterplot(object = vn_simulated,
            main = "Moran scatterplot, simulated signal without crosstalk")
 ```
@@ -193,6 +203,7 @@ plot_MoranScatterplot(object = vn_simulated,
 ![](crosstalk_files/figure-html/show_%60disc_extended_moran_scatterplot-1.png)
 
 ``` r
+
 
 vn_simulated_with_crosstalk <- apply_Crosstalk(object = vn_simulated,
                                               n_crosstalk = 0.25)
@@ -221,6 +232,7 @@ the package):
 
 ``` r
 
+
     vn_simulated_with_holes <- c(rnorm(30, mean = 10, sd = 5),
                               rnorm(30, mean = 500, sd = 50),
                               rep(NA, times = 40)
@@ -244,6 +256,7 @@ in the background:
 
 ``` r
 
+
     plot_SingleGrainDisc(object = vn_simulated_with_holes,
               show_neighbours = TRUE,
               show_location_ids = TRUE)
@@ -265,6 +278,7 @@ with weight 1/sqrt(2) to a full disc (note that the standard relative
 weight for rook borders is set to one):
 
 ``` r
+
 
 df_Neighbours_with_diag <- Luminescence:::.get_Neighbours(object = vn_simulated)
 
@@ -304,6 +318,7 @@ frame of neighbours:
 
 ``` r
 
+
 vn_values_to_show <-
       sample(x = c(rnorm(n = 30, mean = 2000, sd = 500),
                    rnorm(n = 70, mean = 20, sd = 1)),
@@ -332,6 +347,7 @@ plot_SingleGrainDisc(object = vn_values_to_show,
 
 ``` r
 
+
 calc_MoransI(object = vn_values_to_show,
              ignore_borders = TRUE)
 #> [1] 0.1406872
@@ -340,6 +356,7 @@ calc_MoransI(object = vn_values_to_show,
 ## Plot disc options
 
 ``` r
+
 
 plot_SingleGrainDisc(object = vn_simulated,
           main = "",
@@ -356,6 +373,7 @@ logarithmic scale in plotting (note that the default is “square root”):
 
 ``` r
 
+
 plot_SingleGrainDisc(object = vn_simulated,
           main = "Linear scale",
           legend = TRUE,
@@ -368,6 +386,7 @@ plot_SingleGrainDisc(object = vn_simulated,
 ![](crosstalk_files/figure-html/show_disc_scales-1.png)
 
 ``` r
+
 
 
 plot_SingleGrainDisc(object = vn_simulated,
@@ -384,6 +403,7 @@ plot_SingleGrainDisc(object = vn_simulated,
 ## Moran scatterplot options
 
 ``` r
+
 
 
 vn_simulated <- c(rnorm(75, mean = 10, sd = 5),
@@ -403,6 +423,7 @@ plot_MoranScatterplot(object = vn_simulated,
 ``` r
 
 
+
 plot_MoranScatterplot(object = vn_simulated_with_crosstalk,
                       main = "With crosstalk")
 ```
@@ -410,6 +431,7 @@ plot_MoranScatterplot(object = vn_simulated_with_crosstalk,
 ![](crosstalk_files/figure-html/show_scatterplot_options-2.png)
 
 ``` r
+
 
 
 ## Layout options
@@ -424,6 +446,7 @@ plot_MoranScatterplot(object = vn_simulated_with_crosstalk,
 ![](crosstalk_files/figure-html/show_scatterplot_options-3.png)
 
 ``` r
+
 
 plot_MoranScatterplot(object = vn_simulated_with_crosstalk,
            pch = "show_n_neighbours",
@@ -442,6 +465,7 @@ The function
 can return many intermediate calculation numbers:
 
 ``` r
+
 
 
 calc_MoransI(object = 1:100,
@@ -476,6 +500,7 @@ values are indeed spatially smoothed, but the average increases) but the
 spatial autocorrelation strongly increases:
 
 ``` r
+
 
 vn_simulated <- sample(x = c(rnorm(n = 30, mean = 2000, sd = 500),
                              rnorm(n = 70, mean = 20, sd = 1)),

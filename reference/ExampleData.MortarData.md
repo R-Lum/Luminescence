@@ -18,6 +18,7 @@ unpublished data
 ## Examples
 
 ``` r
+
 ##load data
 data(ExampleData.MortarData, envir = environment())
 

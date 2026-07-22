@@ -62,10 +62,10 @@ convert_Second2Gray(
 
   [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md),
   [data.frame](https://rdrr.io/r/base/data.frame.html) or
-  [numeric](https://rdrr.io/r/base/numeric.html) (**required**):
-  `RLum.Results` needs to be originated from the function
-  [calc_SourceDoseRate](https://r-lum.github.io/Luminescence/reference/calc_SourceDoseRate.md),
-  for `vector` dose rate in Gy/s and dose rate error in Gy/s.
+  [numeric](https://rdrr.io/r/base/numeric.html) (**required**): for
+  `RLum.Results`, it needs to be originated from
+  [calc_SourceDoseRate](https://r-lum.github.io/Luminescence/reference/calc_SourceDoseRate.md);
+  for `vector`, dose rate and dose rate error (in Gy/s).
 
 - error.propagation:
 
@@ -98,7 +98,7 @@ M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
 J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
 Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.2.1. https://r-lum.github.io/Luminescence/
+version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -119,11 +119,12 @@ Technology (Germany) , RLum Developer Team
 ## Examples
 
 ``` r
-##(A) for known source dose rate at date of measurement
-## - load De data from the example data help file
+## load De data from the example data help file
 data(ExampleData.DeValues, envir = environment())
+
+##(A) for known source dose rate at date of measurement
 ## - convert De(s) to De(Gy)
-convert_Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
+convert_Second2Gray(ExampleData.DeValues$BT998, c(0.0438, 0.0019))
 #>        De De.error
 #> 1  151.48    5.334
 #> 2  152.08    5.144
@@ -150,7 +151,6 @@ convert_Second2Gray(ExampleData.DeValues$BT998, c(0.0438,0.0019))
 #> 23 126.34    4.317
 #> 24 115.49    3.479
 #> 25 119.58    3.815
-
 
 ##(B) for source dose rate calibration data
 ## - calculate source dose rate first

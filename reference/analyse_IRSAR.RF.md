@@ -28,12 +28,11 @@ analyse_IRSAR.RF(
 - object:
 
   [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
-  or a [list](https://rdrr.io/r/base/list.html) of
-  [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)-objects
+  or a [list](https://rdrr.io/r/base/list.html) of such objects
   (**required**): input object containing data for protocol analysis.
   The function expects to find at least two curves in the
   [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
-  object: (1) `RF_nat`, (2) `RF_reg`. If a `list` is provided as input
+  object: (1) `RF_nat`, (2) `RF_reg`. If a `list` is provided as input,
   all other parameters can be provided as `list` as well to gain full
   control.
 
@@ -51,32 +50,29 @@ analyse_IRSAR.RF(
 
 - RF_nat.lim:
 
-  [vector](https://rdrr.io/r/base/vector.html) (*with default*): set
-  minimum and maximum channel range for natural signal fitting and
-  sliding. If only one value is provided this will be treated as minimum
-  value and the maximum limit will be added automatically.
+  [vector](https://rdrr.io/r/base/vector.html) (*with default*): minimum
+  and maximum channel range for natural signal fitting and sliding. If
+  only one value is provided, this will be treated as minimum value and
+  the maximum limit will be added automatically.
 
 - RF_reg.lim:
 
-  [vector](https://rdrr.io/r/base/vector.html) (*with default*): set
-  minimum and maximum channel range for regenerated signal fitting and
-  sliding. If only one value is provided this will be treated as minimum
-  value and the maximum limit will be added automatically.
+  [vector](https://rdrr.io/r/base/vector.html) (*with default*): minimum
+  and maximum channel range for regenerated signal fitting and sliding.
+  If only one value is provided, this will be treated as minimum value
+  and the maximum limit will be added automatically.
 
 - method:
 
   [character](https://rdrr.io/r/base/character.html) (*with default*):
-  select method applied for the data analysis. Possible options are
-  `"FIT"`, `"SLIDE"`, `"VSLIDE"`; `"NONE"` can be used to disable the
-  analysis and plot the natural points at their original position.
+  method to obtain the \\D_e\\, one of `"FIT"`, `"SLIDE"`, `"VSLIDE"`
+  (see details); `"NONE"` can be used to disable the analysis and plot
+  the natural points at their original position.
 
 - method_control:
 
   [list](https://rdrr.io/r/base/list.html) (*optional*): parameters to
-  control the method, that can be passed to the chosen method. These are
-  for (1) `method = "FIT"`: `'trace'`, `'maxiter'`, `'warnOnly'`,
-  `'minFactor'` and for (2) `method = "SLIDE"`: `'correct_onset'`,
-  `'show_density'`, `'show_fit'`, `'trace'`. See details.
+  control the behaviour of the chosen method (see details).
 
 - test_parameters:
 
@@ -135,20 +131,20 @@ The function returns numerical output and an (*optional*) plot.
 
 `[.. $data : data.frame]`
 
-|                 |             |                                                                    |
-|-----------------|-------------|--------------------------------------------------------------------|
-| **Column**      | **Type**    | **Description**                                                    |
-| `DE`            | `numeric`   | the obtained equivalent dose                                       |
-| `DE.ERROR`      | `numeric`   | (only `method = "SLIDE"`) standard deviation obtained from MC runs |
-| `DE.LOWER`      | `numeric`   | 2.5% quantile for De values obtained by MC runs                    |
-| `DE.UPPER`      | `numeric`   | 97.5% quantile for De values obtained by MC runs                   |
-| `DE.STATUS`     | `character` | test parameter status                                              |
-| `RF_NAT.LIM`    | `character` | used `RF_nat` curve limits                                         |
-| `RF_REG.LIM`    | `character` | used `RF_reg` curve limits                                         |
-| `POSITION`      | `integer`   | (*optional*) position of the curves                                |
-| `DATE`          | `character` | (*optional*) measurement date                                      |
-| `SEQUENCE_NAME` | `character` | (*optional*) sequence name                                         |
-| `UID`           | `character` | unique data set ID                                                 |
+|  |  |  |
+|----|----|----|
+| **Column** | **Type** | **Description** |
+| `DE` | `numeric` | the obtained equivalent dose |
+| `DE.ERROR` | `numeric` | (only `method = "SLIDE"`) standard deviation obtained from MC runs |
+| `DE.LOWER` | `numeric` | 2.5% quantile for De values obtained by MC runs |
+| `DE.UPPER` | `numeric` | 97.5% quantile for De values obtained by MC runs |
+| `DE.STATUS` | `character` | test parameter status |
+| `RF_NAT.LIM` | `character` | used `RF_nat` curve limits |
+| `RF_REG.LIM` | `character` | used `RF_reg` curve limits |
+| `POSITION` | `integer` | (*optional*) position of the curves |
+| `DATE` | `character` | (*optional*) measurement date |
+| `SEQUENCE_NAME` | `character` | (*optional*) sequence name |
+| `UID` | `character` | unique data set ID |
 
 `[.. $De.MC : numeric]`
 
@@ -156,16 +152,16 @@ A `numeric` vector with all the De values obtained by the MC runs.
 
 `[.. $test_parameters : data.frame]`
 
-|                 |             |                                                                         |
-|-----------------|-------------|-------------------------------------------------------------------------|
-| **Column**      | **Type**    | **Description**                                                         |
-| `POSITION`      | `numeric`   | aliquot position                                                        |
-| `PARAMETER`     | `character` | test parameter name                                                     |
-| `THRESHOLD`     | `numeric`   | set test parameter threshold value                                      |
-| `VALUE`         | `numeric`   | the calculated test parameter value (to be compared with the threshold) |
-| `STATUS`        | `character` | test parameter status either `"OK"` or `"FAILED"`                       |
-| `SEQUENCE_NAME` | `character` | name of the sequence, so far available                                  |
-| `UID`           | `character` | unique data set ID                                                      |
+|  |  |  |
+|----|----|----|
+| **Column** | **Type** | **Description** |
+| `POSITION` | `numeric` | aliquot position |
+| `PARAMETER` | `character` | test parameter name |
+| `THRESHOLD` | `numeric` | set test parameter threshold value |
+| `VALUE` | `numeric` | the calculated test parameter value (to be compared with the threshold) |
+| `STATUS` | `character` | test parameter status either `"OK"` or `"FAILED"` |
+| `SEQUENCE_NAME` | `character` | name of the sequence, so far available |
+| `UID` | `character` | unique data set ID |
 
 `[.. $fit : data.frame]`
 
@@ -178,24 +174,25 @@ A [list](https://rdrr.io/r/base/list.html) with data produced during the
 sliding. Some elements are previously reported with the summary object
 data. List elements are:
 
-|                     |           |                                                                                                                                                                                                                                                                                   |
-|---------------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Element**         | **Type**  | **Description**                                                                                                                                                                                                                                                                   |
-| `De`                | `numeric` | the final De obtained with the sliding approach                                                                                                                                                                                                                                   |
-| `De.MC`             | `numeric` | all De values obtained by the MC runs                                                                                                                                                                                                                                             |
-| `residuals`         | `numeric` | the obtained residuals for each channel of the curve                                                                                                                                                                                                                              |
-| `trend.fit`         | `lm`      | fitting results produced by the fitting of the residuals                                                                                                                                                                                                                          |
-| `RF_nat.slid`       | `matrix`  | the slid `RF_nat` curve                                                                                                                                                                                                                                                           |
-| `t_n.id`            | `numeric` | the index of the t_n offset                                                                                                                                                                                                                                                       |
-| `I_n`               | `numeric` | the vertical intensity offset if a vertical slide was applied                                                                                                                                                                                                                     |
-| `algorithm_error`   | `numeric` | the vertical sliding suffers from a systematic effect induced by the used algorithm. The returned value is the standard deviation of all obtained De values while expanding the vertical sliding range. It can be added as systematic error to the final De error; so far wanted. |
-| `vslide_range`      | `numeric` | the range used for the vertical sliding                                                                                                                                                                                                                                           |
-| `num_slide_windows` | `integer` | the number of windows used for the vertical sliding                                                                                                                                                                                                                               |
-| `squared_residuals` | `numeric` | the squared residuals (horizontal sliding)                                                                                                                                                                                                                                        |
+|  |  |  |
+|----|----|----|
+| **Element** | **Type** | **Description** |
+| `De` | `numeric` | the final De obtained with the sliding approach |
+| `De.MC` | `numeric` | all De values obtained by the MC runs |
+| `residuals` | `numeric` | the obtained residuals for each channel of the curve |
+| `trend.fit` | `lm` | fitting results produced by the fitting of the residuals |
+| `RF_nat.slid` | `matrix` | the slid `RF_nat` curve |
+| `t_n.id` | `numeric` | the index of the t_n offset |
+| `I_n` | `numeric` | the vertical intensity offset if a vertical slide was applied |
+| `algorithm_error` | `numeric` | the vertical sliding suffers from a systematic effect induced by the used algorithm. The returned value is the standard deviation of all obtained De values while expanding the vertical sliding range. It can be added as systematic error to the final De error; so far wanted. |
+| `vslide_range` | `numeric` | the range used for the vertical sliding |
+| `num_slide_windows` | `integer` | the number of windows used for the vertical sliding |
+| `squared_residuals` | `numeric` | the squared residuals (horizontal sliding) |
 
 **slot:** **`@info`**
 
-The original function call (methods::language-object)
+The original function call
+([methods::language](https://rdrr.io/r/methods/LanguageClasses.html)-object)
 
 The output (`data`) should be accessed using the function
 [get_RLum](https://r-lum.github.io/Luminescence/reference/get_RLum.md).
@@ -214,18 +211,18 @@ RF signal.
 
 **General Sequence Structure** (according to Erfurt et al., 2003)
 
-1.  Measuring IR-RF intensity of the natural dose for a few seconds
+1.  Measure IR-RF intensity of the natural dose for a few seconds
     (\\RF\_{nat}\\)
 
 2.  Bleach the samples under solar conditions for at least 30 min
     without changing the geometry
 
-3.  Waiting for at least one hour
+3.  Wait for at least one hour
 
 4.  Regeneration of the IR-RF signal to at least the natural level
     (measuring (\\RF\_{reg}\\)
 
-5.  Fitting data with a stretched exponential function
+5.  Fit the data with a stretched exponential function
 
 6.  Calculate the palaeodose \\D\_{e}\\ using the parameters from the
     fitting
@@ -443,7 +440,7 @@ M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
 J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
 Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.2.1. https://r-lum.github.io/Luminescence/
+version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -542,6 +539,7 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## Examples
 
 ``` r
+
 ##load data
 data(ExampleData.RLum.Analysis, envir = environment())
 
@@ -554,7 +552,7 @@ get_RLum(results, data.object = "data")
 #>       DE DE.ERROR DE.LOWER DE.UPPER DE.STATUS RF_NAT.LIM RF_REG.LIM POSITION
 #> 1 623.25       NA   600.63    635.8        OK        1:5      1:524       NA
 #>   DATE SEQUENCE_NAME              UID
-#> 1   NA            NA 93e8ace04c18defe
+#> 1   NA            NA e4276950e25ff91d
 get_RLum(results, data.object = "test_parameters")
 #>   POSITION          PARAMETER THRESHOLD        VALUE STATUS SEQUENCE_NAME
 #> 1       NA       curves_ratio     1.001 6.845685e-01     OK            NA
@@ -566,14 +564,14 @@ get_RLum(results, data.object = "test_parameters")
 #> 7       NA               beta        NA 5.418718e-01     OK            NA
 #> 8       NA          delta.phi        NA 2.103400e+03     OK            NA
 #>                UID
-#> 1 93e8ace04c18defe
-#> 2 93e8ace04c18defe
-#> 3 93e8ace04c18defe
-#> 4 93e8ace04c18defe
-#> 5 93e8ace04c18defe
-#> 6 93e8ace04c18defe
-#> 7 93e8ace04c18defe
-#> 8 93e8ace04c18defe
+#> 1 e4276950e25ff91d
+#> 2 e4276950e25ff91d
+#> 3 e4276950e25ff91d
+#> 4 e4276950e25ff91d
+#> 5 e4276950e25ff91d
+#> 6 e4276950e25ff91d
+#> 7 e4276950e25ff91d
+#> 8 e4276950e25ff91d
 
 ##(2) perform analysis using the method 'SLIDE'
 data(ExampleData.RF70Curves, envir = environment())

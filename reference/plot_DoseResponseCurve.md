@@ -27,11 +27,11 @@ plot_DoseResponseCurve(
 - plot_extended:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*): If
-  `TRUE`, 3 plots on one plot area are provided:
+  `TRUE` (default), 3 plots on one plot area are provided:
 
-  1.  growth curve,
+  1.  the dose-response curve,
 
-  2.  histogram from Monte Carlo error simulation and
+  2.  a histogram from Monte Carlo error simulation and
 
   3.  a test dose response plot.
 
@@ -54,8 +54,8 @@ plot_DoseResponseCurve(
   `xlim`, `ylim`, `xlab`, `ylab`, `log` (not valid for objects fitted
   with `mode = "extrapolation"`), `legend` (`TRUE/FALSE`), `legend.pos`,
   `reg_points_pch`, `density_polygon` (`TRUE/FALSE`),
-  `density_polygon_col`, `density_rug` (`TRUE`/`FALSE`), `box`
-  (`TRUE`/`FALSE`).
+  `density_polygon_col`, `density_rug` (`TRUE`/`FALSE`), `lwd_drc`,
+  `col_drc`,`lty_drc`, `box` (`TRUE`/`FALSE`).
 
 ## Value
 
@@ -63,18 +63,18 @@ A plot (or a series of plots) is produced.
 
 ## Function version
 
-1.0.8
+1.0.11
 
 ## How to cite
 
 Kreutzer, S., Dietze, M., Colombo, M., 2026. plot_DoseResponseCurve():
 Plot a dose-response curve for luminescence data (Lx/Tx against dose).
-Function version 1.0.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
+Function version 1.0.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
 J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
 Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.2.1. https://r-lum.github.io/Luminescence/
+version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -106,10 +106,11 @@ RLum Developer Team
 ## Examples
 
 ``` r
+
 ##(1) plot dose-response curve for a dummy dataset
 data(ExampleData.LxTxData, envir = environment())
 fit <- fit_DoseResponseCurve(LxTxData)
-#> [fit_DoseResponseCurve()] Fit: EXP (interpolation) | De = 1737.88 | D01 = 1766.07
+#> [fit_DoseResponseCurve()] Fit:    SSE (interpolation) | De = 1737.71 | D01 = 1721.83
 plot_DoseResponseCurve(fit)
 
 

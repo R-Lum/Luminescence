@@ -14,13 +14,13 @@ Data frame with 1000 observations on the following 2 variables:
 
 **ExampleData.CW_OSL_Curve**
 
-|            |                                                                               |
-|------------|-------------------------------------------------------------------------------|
-| Lab:       | Luminescence Laboratory Bayreuth                                              |
-| Lab-Code:  | BT607                                                                         |
-| Location:  | Saxony/Germany                                                                |
-| Material:  | Middle grain quartz measured on aluminium cups on a Risø TL/OSL DA-15 reader. |
-| Reference: | unpublished data                                                              |
+|  |  |
+|----|----|
+| Lab: | Luminescence Laboratory Bayreuth |
+| Lab-Code: | BT607 |
+| Location: | Saxony/Germany |
+| Material: | Middle grain quartz measured on aluminium cups on a Risø TL/OSL DA-15 reader. |
+| Reference: | unpublished data |
 
 **CW_Curve.BosWallinga2012**
 
@@ -45,6 +45,7 @@ components. Radiation Measurements 47, 752-758.
 ## Examples
 
 ``` r
+
 data(ExampleData.CW_OSL_Curve, envir = environment())
 plot(ExampleData.CW_OSL_Curve)
 

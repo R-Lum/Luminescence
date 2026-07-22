@@ -35,7 +35,7 @@ calc_IEU(data, a, b, interval, decimal.point = 2, plot = TRUE, ...)
 
 - decimal.point:
 
-  [numeric](https://rdrr.io/r/base/numeric.html) (*with default*):
+  [integer](https://rdrr.io/r/base/integer.html) (*with default*):
   number of decimal points for rounding calculations (e.g. 2)
 
 - plot:
@@ -97,7 +97,7 @@ Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
 J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
 D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -129,6 +129,7 @@ RLum Developer Team
 ## Examples
 
 ``` r
+
 ## load data
 data(ExampleData.DeValues, envir = environment())
 

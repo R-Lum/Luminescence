@@ -9,7 +9,7 @@ error-weighted approaches.
 ``` r
 calc_Statistics(
   data,
-  weight.calc = c("square", "reciprocal"),
+  weight.calc = c("inverse_var", "inverse_std"),
   digits = NULL,
   n.MCM = NULL,
   na.rm = TRUE
@@ -29,8 +29,8 @@ calc_Statistics(
 - weight.calc:
 
   [character](https://rdrr.io/r/base/character.html) (*with default*):
-  type of weight calculation. One out of `"reciprocal"` (weight is
-  1/error), `"square"` (weight is 1/error^2). Default is `"square"`.
+  type of weight calculation, either `"inverse_var"` (weight is
+  1/error^2, default) or `"inverse_std"` (weight is 1/error).
 
 - digits:
 
@@ -70,7 +70,7 @@ for details.
 
 ## Function version
 
-0.1.7
+0.1.8
 
 ## Author
 
@@ -79,16 +79,17 @@ Michael Dietze, GFZ Potsdam (Germany) , RLum Developer Team
 ## How to cite
 
 Dietze, M., 2026. calc_Statistics(): Function to calculate statistic
-measures. Function version 0.1.7. In: Kreutzer, S., Burow, C., Dietze,
+measures. Function version 0.1.8. In: Kreutzer, S., Burow, C., Dietze,
 M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N.,
 Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J.,
 Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A.,
 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
-package version 1.2.1. https://r-lum.github.io/Luminescence/
+package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
 ``` r
+
 ## load example data
 data(ExampleData.DeValues, envir = environment())
 

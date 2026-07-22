@@ -213,7 +213,7 @@ Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
 J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
 D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -243,6 +243,7 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## Examples
 
 ``` r
+
 ##load data
 data(ExampleData.CW_OSL_Curve, envir = environment())
 
@@ -259,8 +260,8 @@ fit <- fit_CWCurve(ExampleData.CW_OSL_Curve,
 #> y ~ I0.1 * lambda.1 * exp(-lambda.1 * x) + I0.2 * lambda.2 * exp(-lambda.2 * x) + I0.3 * lambda.3 * exp(-lambda.3 * x)
 #> 
 #>          I0 I0.error     lambda lambda.error           cs cs.rel
-#> c1 2387.620       NA 4.59053773           NA 5.389394e-17 1.0000
-#> c2 1053.489       NA 1.95936140           NA 2.300334e-17 0.4268
+#> c1 2387.620       NA 4.59053788           NA 5.389394e-17 1.0000
+#> c2 1053.489       NA 1.95936159           NA 2.300334e-17 0.4268
 #> c3 2816.631       NA 0.02054732           NA 2.412301e-19 0.0045
 #> ------------------------------------------------------------------------------
 #> pseudo-R^2 =  0.9995 

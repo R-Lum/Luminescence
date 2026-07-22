@@ -63,89 +63,89 @@ it does not follow (in its sequential arrangement) the manual provided
 by the manufacturer, but an own structure accounting for the different
 versions.
 
-|         |                   |               |       |                                                                                      |
-|---------|-------------------|---------------|-------|--------------------------------------------------------------------------------------|
-| **\#**  | **Name**          | **Data Type** | **V** | **Description**                                                                      |
-| `[,1]`  | `ID`              | `numeric`     | RLum  | Unique record ID (same ID as in slot `DATA`)                                         |
-| `[,2]`  | `SEL`             | `logic`       | RLum  | Record selection, not part official BIN-format, triggered by TAG                     |
-| `[,3]`  | `VERSION`         | `raw`         | 03-08 | BIN-file version number                                                              |
-| `[,4]`  | `LENGTH`          | `integer`     | 03-08 | Length of this record                                                                |
-| `[,5]`  | `PREVIOUS`        | `integer`     | 03-08 | Length of previous record                                                            |
-| `[,6]`  | `NPOINTS`         | `integer`     | 03-08 | Number of data points in the record                                                  |
-| `[,7]`  | `RECTYPE`         | `integer`     | 08    | Record type                                                                          |
-| `[,8]`  | `RUN`             | `integer`     | 03-08 | Run number                                                                           |
-| `[,9]`  | `SET`             | `integer`     | 03-08 | Set number                                                                           |
-| `[,10]` | `POSITION`        | `integer`     | 03-08 | Position number                                                                      |
-| `[,11]` | `GRAIN`           | `integer`     | 03-04 | Grain number                                                                         |
-| `[,12]` | `GRAINNUMBER`     | `integer`     | 05-08 | Grain number                                                                         |
-| `[,13]` | `CURVENO`         | `integer`     | 05-08 | Curve number                                                                         |
-| `[,14]` | `XCOORD`          | `integer`     | 03-08 | X position of a single grain                                                         |
-| `[,15]` | `YCOORD`          | `integer`     | 03-08 | Y position of a single grain                                                         |
-| `[,16]` | `SAMPLE`          | `factor`      | 03-08 | Sample name                                                                          |
-| `[,17]` | `COMMENT`         | `factor`      | 03-08 | Comment name                                                                         |
-| `[,18]` | `SYSTEMID`        | `integer`     | 03-08 | Risø system id                                                                       |
-| `[,19]` | `FNAME`           | `factor`      | 05-08 | File name (*.bin/*.binx)                                                             |
-| `[,20]` | `USER`            | `factor`      | 03-08 | User name                                                                            |
-| `[,21]` | `TIME`            | `character`   | 03-08 | Data collection time (`hh-mm-ss`)                                                    |
-| `[,22]` | `DATE`            | `factor`      | 03-08 | Data collection date (`ddmmyy`)                                                      |
-| `[,23]` | `DTYPE`           | `character`   | 03-08 | Data type                                                                            |
-| `[,24]` | `BL_TIME`         | `numeric`     | 03-08 | Bleaching time                                                                       |
-| `[,25]` | `BL_UNIT`         | `integer`     | 03-08 | Bleaching unit (mJ, J, s, min, h)                                                    |
-| `[,26]` | `NORM1`           | `numeric`     | 03-08 | Normalisation factor (1)                                                             |
-| `[,27]` | `NORM2`           | `numeric`     | 03-08 | Normalisation factor (2)                                                             |
-| `[,28]` | `NORM3`           | `numeric`     | 03-08 | Normalisation factor (3)                                                             |
-| `[,29]` | `BG`              | `numeric`     | 03-08 | Background level                                                                     |
-| `[,30]` | `SHIFT`           | `integer`     | 03-08 | Number of channels to shift data                                                     |
-| `[,31]` | `TAG`             | `integer`     | 03-08 | Tag, triggers `SEL`                                                                  |
-| `[,32]` | `LTYPE`           | `character`   | 03-08 | Luminescence type                                                                    |
-| `[,33]` | `LIGHTSOURCE`     | `character`   | 03-08 | Light source                                                                         |
-| `[,34]` | `LPOWER`          | `numeric`     | 03-08 | Optical stimulation power                                                            |
-| `[,35]` | `LIGHTPOWER`      | `numeric`     | 05-08 | Optical stimulation power                                                            |
-| `[,36]` | `LOW`             | `numeric`     | 03-08 | Low (temperature, time, wavelength)                                                  |
-| `[,37]` | `HIGH`            | `numeric`     | 03-08 | High (temperature, time, wavelength)                                                 |
-| `[,38]` | `RATE`            | `numeric`     | 03-08 | Rate (heating rate, scan rate)                                                       |
-| `[,39]` | `TEMPERATURE`     | `integer`     | 03-08 | Sample temperature                                                                   |
-| `[,40]` | `MEASTEMP`        | `integer`     | 05-08 | Measured temperature                                                                 |
-| `[,41]` | `AN_TEMP`         | `numeric`     | 03-08 | Annealing temperature                                                                |
-| `[,42]` | `AN_TIME`         | `numeric`     | 03-08 | Annealing time                                                                       |
-| `[,43]` | `TOLDELAY`        | `integer`     | 03-08 | TOL 'delay' channels                                                                 |
-| `[,44]` | `TOLON`           | `integer`     | 03-08 | TOL 'on' channels                                                                    |
-| `[,45]` | `TOLOFF`          | `integer`     | 03-08 | TOL 'off' channels                                                                   |
-| `[,46]` | `IRR_TIME`        | `numeric`     | 03-08 | Irradiation time                                                                     |
-| `[,47]` | `IRR_TYPE`        | `integer`     | 03-08 | Irradiation type (alpha, beta or gamma)                                              |
-| `[,48]` | `IRR_UNIT`        | `integer`     | 03-04 | Irradiation unit (Gy, rad, s, min, h)                                                |
-| `[,49]` | `IRR_DOSERATE`    | `numeric`     | 05-08 | Irradiation dose rate (Gy/s)                                                         |
-| `[,50]` | `IRR_DOSERATEERR` | `numeric`     | 06-08 | Irradiation dose rate error (Gy/s)                                                   |
-| `[,51]` | `TIMESINCEIRR`    | `integer`     | 05-08 | Time since irradiation (s)                                                           |
-| `[,52]` | `TIMETICK`        | `numeric`     | 05-08 | Time tick for pulsing (s)                                                            |
-| `[,53]` | `ONTIME`          | `integer`     | 05-08 | On-time for pulsing (in time ticks)                                                  |
-| `[,54]` | `OFFTIME`         | `integer`     | 03    | Off-time for pulsed stimulation (in s)                                               |
-| `[,55]` | `STIMPERIOD`      | `integer`     | 05-08 | Stimulation period (on+off in time ticks)                                            |
-| `[,56]` | `GATE_ENABLED`    | `raw`         | 05-08 | PMT signal gating enabled                                                            |
-| `[,57]` | `ENABLE_FLAGS`    | `raw`         | 05-08 | PMT signal gating enabled                                                            |
-| `[,58]` | `GATE_START`      | `integer`     | 05-08 | Start gating (in time ticks)                                                         |
-| `[,59]` | `GATE_STOP`       | `integer`     | 05-08 | Stop gating (in time ticks), `'Gateend'` for version 04, here only GATE_STOP is used |
-| `[,60]` | `PTENABLED`       | `raw`         | 05-08 | Photon time enabled                                                                  |
-| `[,61]` | `DTENABLED`       | `raw`         | 05-08 | PMT dead time correction enabled                                                     |
-| `[,62]` | `DEADTIME`        | `numeric`     | 05-08 | PMT dead time (s)                                                                    |
-| `[,63]` | `MAXLPOWER`       | `numeric`     | 05-08 | Stimulation power to 100 percent (mW/cm^2)                                           |
-| `[,64]` | `XRF_ACQTIME`     | `numeric`     | 05-08 | XRF acquisition time (s)                                                             |
-| `[,65]` | `XRF_HV`          | `numeric`     | 05-08 | XRF X-ray high voltage (V)                                                           |
-| `[,66]` | `XRF_CURR`        | `integer`     | 05-08 | XRF X-ray current (µA)                                                               |
-| `[,67]` | `XRF_DEADTIMEF`   | `numeric`     | 05-08 | XRF dead time fraction                                                               |
-| `[,68]` | `DETECTOR_ID`     | `raw`         | 07-08 | Detector ID                                                                          |
-| `[,69]` | `LOWERFILTER_ID`  | `integer`     | 07-08 | Lower filter ID in reader                                                            |
-| `[,70]` | `UPPERFILTER_ID`  | `integer`     | 07-08 | Upper filter ID in reader                                                            |
-| `[,71]` | `ENOISEFACTOR`    | `numeric`     | 07-08 | Excess noise filter, usage unknown                                                   |
-| `[,72]` | `MARKPOS_X1`      | `numeric`     | 08    | Coordinates marker position 1                                                        |
-| `[,73]` | `MARKPOS_Y1`      | `numeric`     | 08    | Coordinates marker position 1                                                        |
-| `[,74]` | `MARKPOS_X2`      | `numeric`     | 08    | Coordinates marker position 2                                                        |
-| `[,75]` | `MARKPOS_Y2`      | `numeric`     | 08    | Coordinates marker position 2                                                        |
-| `[,76]` | `MARKPOS_X3`      | `numeric`     | 08    | Coordinates marker position 3                                                        |
-| `[,77]` | `MARKPOS_Y3`      | `numeric`     | 08    | Coordinates marker position 3                                                        |
-| `[,78]` | `EXTR_START`      | `numeric`     | 08    | usage unknown                                                                        |
-| `[,79]` | `EXTR_END`        | `numeric`     | 08    | usage unknown                                                                        |
-| `[,80]` | `SEQUENCE`        | `character`   | 03-04 | Sequence name                                                                        |
+|  |  |  |  |  |
+|----|----|----|----|----|
+| **\#** | **Name** | **Data Type** | **V** | **Description** |
+| `[,1]` | `ID` | `numeric` | RLum | Unique record ID (same ID as in slot `DATA`) |
+| `[,2]` | `SEL` | `logic` | RLum | Record selection, not part official BIN-format, triggered by TAG |
+| `[,3]` | `VERSION` | `raw` | 03-08 | BIN-file version number |
+| `[,4]` | `LENGTH` | `integer` | 03-08 | Length of this record |
+| `[,5]` | `PREVIOUS` | `integer` | 03-08 | Length of previous record |
+| `[,6]` | `NPOINTS` | `integer` | 03-08 | Number of data points in the record |
+| `[,7]` | `RECTYPE` | `integer` | 08 | Record type |
+| `[,8]` | `RUN` | `integer` | 03-08 | Run number |
+| `[,9]` | `SET` | `integer` | 03-08 | Set number |
+| `[,10]` | `POSITION` | `integer` | 03-08 | Position number |
+| `[,11]` | `GRAIN` | `integer` | 03-04 | Grain number |
+| `[,12]` | `GRAINNUMBER` | `integer` | 05-08 | Grain number |
+| `[,13]` | `CURVENO` | `integer` | 05-08 | Curve number |
+| `[,14]` | `XCOORD` | `integer` | 03-08 | X position of a single grain |
+| `[,15]` | `YCOORD` | `integer` | 03-08 | Y position of a single grain |
+| `[,16]` | `SAMPLE` | `factor` | 03-08 | Sample name |
+| `[,17]` | `COMMENT` | `factor` | 03-08 | Comment name |
+| `[,18]` | `SYSTEMID` | `integer` | 03-08 | Risø system id |
+| `[,19]` | `FNAME` | `factor` | 05-08 | File name (*.bin/*.binx) |
+| `[,20]` | `USER` | `factor` | 03-08 | User name |
+| `[,21]` | `TIME` | `character` | 03-08 | Data collection time (`hh-mm-ss`) |
+| `[,22]` | `DATE` | `factor` | 03-08 | Data collection date (`ddmmyy`) |
+| `[,23]` | `DTYPE` | `character` | 03-08 | Data type |
+| `[,24]` | `BL_TIME` | `numeric` | 03-08 | Bleaching time |
+| `[,25]` | `BL_UNIT` | `integer` | 03-08 | Bleaching unit (mJ, J, s, min, h) |
+| `[,26]` | `NORM1` | `numeric` | 03-08 | Normalisation factor (1) |
+| `[,27]` | `NORM2` | `numeric` | 03-08 | Normalisation factor (2) |
+| `[,28]` | `NORM3` | `numeric` | 03-08 | Normalisation factor (3) |
+| `[,29]` | `BG` | `numeric` | 03-08 | Background level |
+| `[,30]` | `SHIFT` | `integer` | 03-08 | Number of channels to shift data |
+| `[,31]` | `TAG` | `integer` | 03-08 | Tag, triggers `SEL` |
+| `[,32]` | `LTYPE` | `character` | 03-08 | Luminescence type |
+| `[,33]` | `LIGHTSOURCE` | `character` | 03-08 | Light source |
+| `[,34]` | `LPOWER` | `numeric` | 03-08 | Optical stimulation power |
+| `[,35]` | `LIGHTPOWER` | `numeric` | 05-08 | Optical stimulation power |
+| `[,36]` | `LOW` | `numeric` | 03-08 | Low (temperature, time, wavelength) |
+| `[,37]` | `HIGH` | `numeric` | 03-08 | High (temperature, time, wavelength) |
+| `[,38]` | `RATE` | `numeric` | 03-08 | Rate (heating rate, scan rate) |
+| `[,39]` | `TEMPERATURE` | `integer` | 03-08 | Sample temperature |
+| `[,40]` | `MEASTEMP` | `integer` | 05-08 | Measured temperature |
+| `[,41]` | `AN_TEMP` | `numeric` | 03-08 | Annealing temperature |
+| `[,42]` | `AN_TIME` | `numeric` | 03-08 | Annealing time |
+| `[,43]` | `TOLDELAY` | `integer` | 03-08 | TOL 'delay' channels |
+| `[,44]` | `TOLON` | `integer` | 03-08 | TOL 'on' channels |
+| `[,45]` | `TOLOFF` | `integer` | 03-08 | TOL 'off' channels |
+| `[,46]` | `IRR_TIME` | `numeric` | 03-08 | Irradiation time |
+| `[,47]` | `IRR_TYPE` | `integer` | 03-08 | Irradiation type (alpha, beta or gamma) |
+| `[,48]` | `IRR_UNIT` | `integer` | 03-04 | Irradiation unit (Gy, rad, s, min, h) |
+| `[,49]` | `IRR_DOSERATE` | `numeric` | 05-08 | Irradiation dose rate (Gy/s) |
+| `[,50]` | `IRR_DOSERATEERR` | `numeric` | 06-08 | Irradiation dose rate error (Gy/s) |
+| `[,51]` | `TIMESINCEIRR` | `integer` | 05-08 | Time since irradiation (s) |
+| `[,52]` | `TIMETICK` | `numeric` | 05-08 | Time tick for pulsing (s) |
+| `[,53]` | `ONTIME` | `integer` | 05-08 | On-time for pulsing (in time ticks) |
+| `[,54]` | `OFFTIME` | `integer` | 03 | Off-time for pulsed stimulation (in s) |
+| `[,55]` | `STIMPERIOD` | `integer` | 05-08 | Stimulation period (on+off in time ticks) |
+| `[,56]` | `GATE_ENABLED` | `raw` | 05-08 | PMT signal gating enabled |
+| `[,57]` | `ENABLE_FLAGS` | `raw` | 05-08 | PMT signal gating enabled |
+| `[,58]` | `GATE_START` | `integer` | 05-08 | Start gating (in time ticks) |
+| `[,59]` | `GATE_STOP` | `integer` | 05-08 | Stop gating (in time ticks), `'Gateend'` for version 04, here only GATE_STOP is used |
+| `[,60]` | `PTENABLED` | `raw` | 05-08 | Photon time enabled |
+| `[,61]` | `DTENABLED` | `raw` | 05-08 | PMT dead time correction enabled |
+| `[,62]` | `DEADTIME` | `numeric` | 05-08 | PMT dead time (s) |
+| `[,63]` | `MAXLPOWER` | `numeric` | 05-08 | Stimulation power to 100 percent (mW/cm^2) |
+| `[,64]` | `XRF_ACQTIME` | `numeric` | 05-08 | XRF acquisition time (s) |
+| `[,65]` | `XRF_HV` | `numeric` | 05-08 | XRF X-ray high voltage (V) |
+| `[,66]` | `XRF_CURR` | `integer` | 05-08 | XRF X-ray current (µA) |
+| `[,67]` | `XRF_DEADTIMEF` | `numeric` | 05-08 | XRF dead time fraction |
+| `[,68]` | `DETECTOR_ID` | `raw` | 07-08 | Detector ID |
+| `[,69]` | `LOWERFILTER_ID` | `integer` | 07-08 | Lower filter ID in reader |
+| `[,70]` | `UPPERFILTER_ID` | `integer` | 07-08 | Upper filter ID in reader |
+| `[,71]` | `ENOISEFACTOR` | `numeric` | 07-08 | Excess noise filter, usage unknown |
+| `[,72]` | `MARKPOS_X1` | `numeric` | 08 | Coordinates marker position 1 |
+| `[,73]` | `MARKPOS_Y1` | `numeric` | 08 | Coordinates marker position 1 |
+| `[,74]` | `MARKPOS_X2` | `numeric` | 08 | Coordinates marker position 2 |
+| `[,75]` | `MARKPOS_Y2` | `numeric` | 08 | Coordinates marker position 2 |
+| `[,76]` | `MARKPOS_X3` | `numeric` | 08 | Coordinates marker position 3 |
+| `[,77]` | `MARKPOS_Y3` | `numeric` | 08 | Coordinates marker position 3 |
+| `[,78]` | `EXTR_START` | `numeric` | 08 | usage unknown |
+| `[,79]` | `EXTR_END` | `numeric` | 08 | usage unknown |
+| `[,80]` | `SEQUENCE` | `character` | 03-04 | Sequence name |
 
 V = BIN-file version (RLum means that it does not depend on a specific
 BIN-file version)
@@ -236,15 +236,15 @@ temperature is lower than the target temperature.*
     representation in R is a nested
     [list](https://rdrr.io/r/base/list.html).
 
-|        |             |               |       |                                                                                |
-|--------|-------------|---------------|-------|--------------------------------------------------------------------------------|
-| **\#** | **Name**    | **Data Type** | **V** | **Description**                                                                |
-| `[,1]` | `NOFPOINTS` | `numeric`     | 08    | number of points in the definition (e.g., if the ROI is a rectangle: 4)        |
-| `[,2]` | `USEDFOR`   | `logical`     | 08    | samples for which the ROI is used for; a maximum of 48 samples are allowed.    |
-| `[,3]` | `SHOWNFOR`  | `logical`     | 08    | samples for which the ROI is shown for; a maximum of 48 samples are allowed.   |
-| `[,4]` | `COLOR`     | `numeric`     | 08    | The colour values of the ROI.                                                  |
-| `[,5]` | `X`         | `numeric`     | 08    | The x coordinates used to draw the ROI geometry (up to 50 points are allowed). |
-| `[,6]` | `Y`         | `numeric`     | 08    | The y coordinates used to draw the ROI geometry (up to 50 points are allowed). |
+|  |  |  |  |  |
+|----|----|----|----|----|
+| **\#** | **Name** | **Data Type** | **V** | **Description** |
+| `[,1]` | `NOFPOINTS` | `numeric` | 08 | number of points in the definition (e.g., if the ROI is a rectangle: 4) |
+| `[,2]` | `USEDFOR` | `logical` | 08 | samples for which the ROI is used for; a maximum of 48 samples are allowed. |
+| `[,3]` | `SHOWNFOR` | `logical` | 08 | samples for which the ROI is shown for; a maximum of 48 samples are allowed. |
+| `[,4]` | `COLOR` | `numeric` | 08 | The colour values of the ROI. |
+| `[,5]` | `X` | `numeric` | 08 | The x coordinates used to draw the ROI geometry (up to 50 points are allowed). |
+| `[,6]` | `Y` | `numeric` | 08 | The y coordinates used to draw the ROI geometry (up to 50 points are allowed). |
 
 (information on the BIN/BINX file format are kindly provided by Risø,
 DTU Nutech)
@@ -266,7 +266,7 @@ C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
 Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -295,6 +295,7 @@ based on information provided by Torben Lapp and Karsten Bracht Nielsen
 ## Examples
 
 ``` r
+
 showClass("Risoe.BINfileData")
 #> Class "Risoe.BINfileData" [package "Luminescence"]
 #> 

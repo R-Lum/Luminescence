@@ -171,7 +171,7 @@ C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
 Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -204,6 +204,7 @@ RLum Developer Team
 ## Examples
 
 ``` r
+
 ## Estimate the amount of grains on a small aliquot
 calc_AliquotSize(grain.size = c(100,150), sample.diameter = 1, MC.iter = 100)
 #> 
@@ -217,12 +218,12 @@ calc_AliquotSize(grain.size = c(100,150), sample.diameter = 1, MC.iter = 100)
 #> 
 #>  --------------- Monte Carlo Estimates -------------------
 #>  number of iterations (n)     : 100
-#>  median                       : 39
-#>  mean                         : 42
-#>  standard deviation (mean)    : 19
-#>  standard error (mean)        : 1.9
-#>  95% CI from t-test (mean)    : 38 - 45
-#>  standard error from CI (mean): 2
+#>  median                       : 41
+#>  mean                         : 43
+#>  standard deviation (mean)    : 21
+#>  standard error (mean)        : 2.1
+#>  95% CI from t-test (mean)    : 39 - 48
+#>  standard error from CI (mean): 2.1
 #>  ---------------------------------------------------------
 
 

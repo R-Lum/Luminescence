@@ -1,7 +1,8 @@
 # Plot function for an RLum.Results S4 class object
 
 The function provides a standardised plot output for data of an
-RLum.Results S4 class object
+`RLum.Results` S4 class object, redirecting to specialised functions if
+necessary.
 
 ## Usage
 
@@ -14,7 +15,7 @@ plot_RLum.Results(object, single = TRUE, ...)
 - object:
 
   [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
-  (**required**): S4 object of class `RLum.Results`
+  (**required**): S4 object of class `RLum.Results`.
 
 - single:
 
@@ -33,7 +34,7 @@ Returns multiple plots.
 
 ## Details
 
-The function produces a multiple plot output. A file output is
+The function may produce multiple plots, in which case a file output is
 recommended (e.g., [pdf](https://rdrr.io/r/grDevices/pdf.html)).
 
 ## Note
@@ -44,7 +45,7 @@ Only plotting of `RLum.Results` objects are supported.
 
 ## Function version
 
-0.2.1
+0.2.2
 
 ## See also
 
@@ -60,12 +61,12 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## How to cite
 
 Burow, C., Kreutzer, S., 2026. plot_RLum.Results(): Plot function for an
-RLum.Results S4 class object. Function version 0.2.1. In: Kreutzer, S.,
+RLum.Results S4 class object. Function version 0.2.2. In: Kreutzer, S.,
 Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
 J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
 D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
@@ -126,6 +127,5 @@ grains<- calc_AliquotSize(grain.size = c(100,150), sample.diameter = 1, plot = F
 
 ##plot
 plot_RLum.Results(grains)
-
 
 ```

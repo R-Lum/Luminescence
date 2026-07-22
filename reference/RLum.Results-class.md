@@ -39,6 +39,7 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## Examples
 
 ``` r
+
 showClass("RLum.Results")
 #> Class "RLum.Results" [package "Luminescence"]
 #> 
@@ -83,7 +84,7 @@ get_RLum(dose.rate)
 #>    dose.rate dose.rate.error       date
 #> 1 0.04694815     0.002036563 2012-01-27
 
-##get parameters used for the calcualtion from the same object
+## get parameters used for the calculation from the same object
 get_RLum(dose.rate, data.object = "parameters")
 #> $source.type
 #> [1] "Sr-90"

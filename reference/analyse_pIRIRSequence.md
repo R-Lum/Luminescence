@@ -29,7 +29,7 @@ analyse_pIRIRSequence(
   or [list](https://rdrr.io/r/base/list.html) of
   [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
   objects (**required**): input object containing data for analysis. If
-  a [list](https://rdrr.io/r/base/list.html) is provided the functions
+  a [list](https://rdrr.io/r/base/list.html) is provided the function
   tries to iterate over each element in the list.
 
 - signal_integral:
@@ -54,7 +54,7 @@ analyse_pIRIRSequence(
 - dose.points:
 
   [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): a numeric
-  vector containing the dose points values. Using this argument
+  vector containing the dose point values. Using this argument
   overwrites dose point values in the signal curves.
 
 - sequence.structure:
@@ -75,7 +75,7 @@ analyse_pIRIRSequence(
 - plot_singlePanels:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  enable/disable plotting of the results in a single windows for each
+  enable/disable plotting of the results in a single window for each
   plot. Ignored if `plot = FALSE`.
 
 - ...:
@@ -97,14 +97,14 @@ Plots (*optional*) and an
 [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
 object is returned containing the following elements:
 
-|                           |                                                      |                                                      |
-|---------------------------|------------------------------------------------------|------------------------------------------------------|
-| **DATA.OBJECT**           | **TYPE**                                             | **DESCRIPTION**                                      |
-| `..$data` :               | `data.frame`                                         | Table with De values                                 |
-| `..$LnLxTnTx.table` :     | `data.frame`                                         | with the `LnLxTnTx` values                           |
-| `..$rejection.criteria` : | [data.frame](https://rdrr.io/r/base/data.frame.html) | rejection criteria                                   |
-| `..$Formula` :            | [list](https://rdrr.io/r/base/list.html)             | Function used for fitting of the dose response curve |
-| `..$call` :               | [call](https://rdrr.io/r/base/call.html)             | the original function call                           |
+|  |  |  |
+|----|----|----|
+| **DATA.OBJECT** | **TYPE** | **DESCRIPTION** |
+| `..$data` : | `data.frame` | Table with De values |
+| `..$LnLxTnTx.table` : | `data.frame` | with the `LnLxTnTx` values |
+| `..$rejection.criteria` : | [data.frame](https://rdrr.io/r/base/data.frame.html) | rejection criteria |
+| `..$Formula` : | [list](https://rdrr.io/r/base/list.html) | Function used for fitting of the dose response curve |
+| `..$call` : | [call](https://rdrr.io/r/base/call.html) | the original function call |
 
 The output should be accessed using the function
 [get_RLum](https://r-lum.github.io/Luminescence/reference/get_RLum.md).
@@ -112,8 +112,7 @@ The output should be accessed using the function
 ## Details
 
 To allow post-IR IRSL protocol (Thomsen et al., 2008) measurement
-analyses, this function has been written as extended wrapper for
-function
+analyses, this function has been written as an extended wrapper for
 [analyse_SAR.CWOSL](https://r-lum.github.io/Luminescence/reference/analyse_SAR.CWOSL.md),
 thus facilitating an entire sequence analysis in one run. With this, its
 functionality is strictly limited by the functionality provided by
@@ -158,7 +157,7 @@ C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
 Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.2.1. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -190,6 +189,7 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## Examples
 
 ``` r
+
 ### NOTE: For this example existing example data are used. These data are non pIRIR data.
 ###
 ##(1) Compile example data set based on existing example data (SAR quartz measurement)
@@ -218,23 +218,23 @@ object <- set_RLum(class = "RLum.Analysis", records = object, protocol = "pIRIR"
 results <- analyse_pIRIRSequence(object,
      signal_integral = 1:2,
      background_integral = 900:1000,
-     fit.method = "EXP",
+     fit.method = "SSE",
      sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
      main = "Pseudo pIRIR data set based on quartz OSL",
      plot_singlePanels = TRUE)
 
+#> [analyse_SAR.CWOSL()] Fit:    SSE (interpolation) | De = 1666.01 | D01 = 1938.31
 
-
-
-
-#> [analyse_SAR.CWOSL()] Fit: EXP (interpolation) | De = 1668.28 | D01 = 1982.52
 
 
 
 
 
 
-#> [analyse_SAR.CWOSL()] Fit: EXP (interpolation) | De = 1668.28 | D01 = 1982.52
+#> [analyse_SAR.CWOSL()] Fit:    SSE (interpolation) | De = 1666.01 | D01 = 1938.31
+
+
+
 
 
 
@@ -251,7 +251,7 @@ pdf(file = tempfile, height = 18, width = 18)
   results <- analyse_pIRIRSequence(object,
          signal_integral = 1:2,
          background_integral = 900:1000,
-         fit.method = "EXP",
+         fit.method = "SSE",
          main = "Pseudo pIRIR data set based on quartz OSL")
 
   dev.off()

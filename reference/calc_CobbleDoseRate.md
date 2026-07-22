@@ -51,33 +51,33 @@ adjacent sediment for each slice of the cobble.
 
 **The input table layout**
 
-|                   |             |                                                                                                                                        |
-|-------------------|-------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| COLUMN            | DATA TYPE   | DESCRIPTION                                                                                                                            |
-| `Distance`        | `numeric`   | distance from the surface of the cobble to the top of each rock slice in mm. The distance for each slice will be listed in this column |
-| `DistanceError`   | `numeric`   | Error on the distance in mm                                                                                                            |
-| `Thickness`       | `numeric`   | Thickness of each slice in mm                                                                                                          |
-| `ThicknessError`  | `numeric`   | uncertainty of the thickness in mm.                                                                                                    |
-| `Mineral`         | `character` | `'FS'` for feldspar, `'Q'` for quartz, depending which mineral in the cobble is used for dating                                        |
-| `Cobble_K`        | `numeric`   | K nuclide content in % of the bulk cobble                                                                                              |
-| `Cobble_K_SE`     | `numeric`   | error on K nuclide content in % of the bulk cobble                                                                                     |
-| `Cobble_Th`       | `numeric`   | Th nuclide content in ppm of the bulk cobble                                                                                           |
-| `Cobble_Th_SE`    | `numeric`   | error on Th nuclide content in ppm of the bulk cobble                                                                                  |
-| `Cobble_U`        | `numeric`   | U nuclide content in ppm of the bulk cobble                                                                                            |
-| `Cobble_U_SE`     | `numeric`   | error on U nuclide content in ppm of the bulk cobble                                                                                   |
-| `GrainSize`       | `numeric`   | average grain size in µm of the grains used for dating                                                                                 |
-| `Density`         | `numeric`   | Density of the cobble. Default is 2.7 g cm^-3                                                                                          |
-| `CobbleDiameter`  | `numeric`   | Diameter of the cobble in cm.                                                                                                          |
-| `Sed_K`           | `numeric`   | K nuclide content in % of the sediment matrix                                                                                          |
-| `Sed_K_SE`        | `numeric`   | error on K nuclide content in % of the sediment matrix                                                                                 |
-| `Sed_Th`          | `numeric`   | Th nuclide content in ppm of the sediment matrix                                                                                       |
-| `Sed_Th_SE`       | `numeric`   | error on Th nuclide content in ppm of the sediment matrix                                                                              |
-| `Sed_U`           | `numeric`   | U nuclide content in ppm of the sediment matrix                                                                                        |
-| `Sed_U_SE`        | `numeric`   | error on U nuclide content in ppm of the sediment matrix                                                                               |
-| `GrainSize_Sed`   | `numeric`   | average grain size of the sediment matrix                                                                                              |
-| `Density_Sed`     | `numeric`   | average density of the sediment matrix                                                                                                 |
-| `WaterContent`    | `numeric`   | mean water content of the sediment matrix in %                                                                                         |
-| `WaterContent_SE` | `numeric`   | relative error on water content                                                                                                        |
+|  |  |  |
+|----|----|----|
+| COLUMN | DATA TYPE | DESCRIPTION |
+| `Distance` | `numeric` | distance from the surface of the cobble to the top of each rock slice in mm. The distance for each slice will be listed in this column |
+| `DistanceError` | `numeric` | Error on the distance in mm |
+| `Thickness` | `numeric` | Thickness of each slice in mm |
+| `ThicknessError` | `numeric` | uncertainty of the thickness in mm. |
+| `Mineral` | `character` | `'FS'` for feldspar, `'Q'` for quartz, depending which mineral in the cobble is used for dating |
+| `Cobble_K` | `numeric` | K nuclide content in % of the bulk cobble |
+| `Cobble_K_SE` | `numeric` | error on K nuclide content in % of the bulk cobble |
+| `Cobble_Th` | `numeric` | Th nuclide content in ppm of the bulk cobble |
+| `Cobble_Th_SE` | `numeric` | error on Th nuclide content in ppm of the bulk cobble |
+| `Cobble_U` | `numeric` | U nuclide content in ppm of the bulk cobble |
+| `Cobble_U_SE` | `numeric` | error on U nuclide content in ppm of the bulk cobble |
+| `GrainSize` | `numeric` | average grain size in µm of the grains used for dating |
+| `Density` | `numeric` | Density of the cobble. Default is 2.7 g cm^-3 |
+| `CobbleDiameter` | `numeric` | Diameter of the cobble in cm. |
+| `Sed_K` | `numeric` | K nuclide content in % of the sediment matrix |
+| `Sed_K_SE` | `numeric` | error on K nuclide content in % of the sediment matrix |
+| `Sed_Th` | `numeric` | Th nuclide content in ppm of the sediment matrix |
+| `Sed_Th_SE` | `numeric` | error on Th nuclide content in ppm of the sediment matrix |
+| `Sed_U` | `numeric` | U nuclide content in ppm of the sediment matrix |
+| `Sed_U_SE` | `numeric` | error on U nuclide content in ppm of the sediment matrix |
+| `GrainSize_Sed` | `numeric` | average grain size of the sediment matrix |
+| `Density_Sed` | `numeric` | average density of the sediment matrix |
+| `WaterContent` | `numeric` | mean water content of the sediment matrix in % |
+| `WaterContent_SE` | `numeric` | relative error on water content |
 
 **Water content** The water content provided by the user should be
 calculated according to:
@@ -96,7 +96,7 @@ Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
 Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
-Dating Data Analysis. R package version 1.2.1.
+Dating Data Analysis. R package version 1.3.0.
 https://r-lum.github.io/Luminescence/
 
 ## References

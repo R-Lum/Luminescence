@@ -41,6 +41,7 @@ Zeitschrift fuer Geomorphologie 58, 5-26. doi:
 ## Examples
 
 ``` r
+
 ##load data
 data(ExampleData.RLum.Analysis, envir = environment())
 

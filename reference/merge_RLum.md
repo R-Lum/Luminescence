@@ -7,13 +7,13 @@ will be selected. Allowed arguments can be found in the documentation of
 each merge function. Empty list elements (`NULL`) are automatically
 removed from the input list.
 
-|                                                                                                  |     |                                                                                                        |
-|--------------------------------------------------------------------------------------------------|-----|--------------------------------------------------------------------------------------------------------|
-| **object**                                                                                       |     | **corresponding merge function**                                                                       |
-| [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)       | -\> | [merge_RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/merge_RLum.Data.Curve.md)       |
+|  |  |  |
+|----|----|----|
+| **object** |  | **corresponding merge function** |
+| [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md) | -\> | [merge_RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/merge_RLum.Data.Curve.md) |
 | [RLum.Data.Spectrum](https://r-lum.github.io/Luminescence/reference/RLum.Data.Spectrum-class.md) | -\> | [merge_RLum.Data.Spectrum](https://r-lum.github.io/Luminescence/reference/merge_RLum.Data.Spectrum.md) |
-| [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)           | -\> | [merge_RLum.Analysis](https://r-lum.github.io/Luminescence/reference/merge_RLum.Analysis.md)           |
-| [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)             | -\> | [merge_RLum.Results](https://r-lum.github.io/Luminescence/reference/merge_RLum.Results.md)             |
+| [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md) | -\> | [merge_RLum.Analysis](https://r-lum.github.io/Luminescence/reference/merge_RLum.Analysis.md) |
+| [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md) | -\> | [merge_RLum.Results](https://r-lum.github.io/Luminescence/reference/merge_RLum.Results.md) |
 
 ## Usage
 
@@ -71,11 +71,12 @@ M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N.,
 Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J.,
 Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A.,
 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
-package version 1.2.1. https://r-lum.github.io/Luminescence/
+package version 1.3.0. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
 ``` r
+
 ##Example based using data and from the calc_CentralDose() function
 
 ##load example data

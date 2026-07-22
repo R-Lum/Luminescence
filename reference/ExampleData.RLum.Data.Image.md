@@ -35,6 +35,7 @@ Princeton Instruments (TM) camera fitted on Risø DA-20 TL/OSL reader.
 ## Examples
 
 ``` r
+
 ##load data
 data(ExampleData.RLum.Data.Image, envir = environment())
 
