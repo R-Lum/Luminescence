@@ -57,5 +57,5 @@ plot_RLum(TL.Spectrum)
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
-}
+, RLum Developer Team}
 \keyword{classes}

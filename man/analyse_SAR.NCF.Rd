@@ -115,7 +115,12 @@ results <- analyse_SAR.NCF(
  background_integral = 100:250,
  dose_rate_source = 0.1)
 
+} 
+
+\section{How to cite}{
+Colombo, M., Kreutzer, S., 2026. analyse_SAR.NCF(): Compute SAR palaeodoses using natural sensitivity correction (NCF). Function version 0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Kaushal, R.K., Chauhan, N., Singhvi, A.K., 2022. Luminescence dating of
 quartz: A MATLAB-based program for computation of SAR paleodoses using
@@ -133,6 +138,6 @@ Geochronometria, 38 (3), 231-241. \doi{10.2478/s13386-011-0028-3}
 \author{
 Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
 Sebastian Kreutzer, LIAG Institute for Applied Geophysics (Germany)
-}
+, RLum Developer Team}
 \keyword{datagen}
 \keyword{plot}

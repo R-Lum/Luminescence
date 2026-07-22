@@ -61,5 +61,5 @@ set_RLum(class = "RLum.Data.Curve")
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
-}
+, RLum Developer Team}
 \keyword{classes}

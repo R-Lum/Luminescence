@@ -65,6 +65,6 @@ remove_RLum(sar, subset = "NPOINTS == 250")
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
-}
+, RLum Developer Team}
 \keyword{classes}
 \keyword{methods}
