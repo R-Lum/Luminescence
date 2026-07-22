@@ -101,13 +101,13 @@ more details.
   framework of the PhD thesis by Sebastian Kreutzer, while he was funded
   through the DFG programme “Rekonstruktion der Umweltbedingungen des
   Spätpleistozäns in Mittelsachsen anhand von Löss-Paläobodensequenzen”
-  ([GEPRIS id: 46526743](https://gepris.dfg.de/gepris/projekt/46526743))
+  ([GEPRIS id: 46526743](https://gepris.dfg.de/project/46526743))
 
 - 2014-2018: Cooperation and personal exchange between the developers is
   gratefully funded by the DFG in the framework of the program
   “Scientific Networks”. Project title: “RLum.Network: Ein
   Wissenschaftsnetzwerk zur Analyse von Lumineszenzdaten mit R” ([GEPRIS
-  id: 250974974](https://gepris.dfg.de/gepris/projekt/250974974))
+  id: 250974974](https://gepris.dfg.de/project/250974974))
 
 - 05/2014-12/2019: The work of Sebastian Kreutzer as maintainer of the
   package was supported by LabEx LaScArBx (ANR - n. ANR-10-LABX-52).
@@ -120,13 +120,12 @@ more details.
 
 - since 03/2023: Sebastian Kreutzer as maintainer of the package
   receives funding from the DFG Heisenberg programme [No
-  505822867](https://gepris.dfg.de/gepris/projekt/505822867).
+  505822867](https://gepris.dfg.de/project/505822867).
 
 - since 08/2024 the future and sustainable development of
   `'Luminescence'` towards better reproducibility and usability is
   supported through the DFG programme “REPLAY: REProducible Luminescence
-  Data AnalYses” [No
-  528704761](https://gepris.dfg.de/gepris/projekt/528704761?language=en)
+  Data AnalYses” [No 528704761](https://gepris.dfg.de/project/528704761)
   led by Dr Sebastian Kreutzer (PI at Heidelberg University, DE (until
   2025), LIAG - Institute for Applied Geophysics, Hannover, DE (from
   2026)) and Dr Thomas Kolb (PI at Justus-Liebig-University Giessen,
