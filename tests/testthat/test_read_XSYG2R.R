@@ -151,7 +151,8 @@ test_that("test import of XSYG files", {
   
   ## check broken file
   expect_warning(
-    read_XSYG2R(test_path("_data/xsyg-tests/XSYG_file_broken.xsyg"), txtProgressBar = FALSE, verbose = FALSE))
+    read_XSYG2R(test_path("_data/xsyg-tests/XSYG_broken_2.xsyg"), 
+                txtProgressBar = FALSE, verbose = FALSE))
   
 })
 
