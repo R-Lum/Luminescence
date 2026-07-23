@@ -18,4 +18,8 @@ header-includes:
 
 ## Bugfixes and changes
 
+### `read_XSYG2R()`
+
+* Prevent function from crashing if it found an empty `<sequence />` node. This happens 
+if the reader encounters an empty position and would then automatically move on to the next. 
 

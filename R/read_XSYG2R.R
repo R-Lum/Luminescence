@@ -155,7 +155,7 @@
 #' **So far, no image data import is provided!** \cr
 #' Corresponding values in the XSXG file are skipped.
 #'
-#' @section Function version: 0.8.2
+#' @section Function version: 0.8.3
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -395,18 +395,19 @@ read_XSYG2R <- function(
     ###----------------------------------------------------------------------
     ##LOOP
     ##read records >> records are combined to one RLum.Analysis object
-    sequence.object <- unlist(lapply(1:XML::xmlSize(sequence), function(i) {
+    sequence.object <- unlist(lapply(seq_len(XML::xmlSize(sequence)), function(i) {
+      ## sequence becomes the record
       record <- sequence[[i]]
 
       ## the XSYG file might be broken due to a machine error during the measurement
       recordType <- try(XML::xmlAttrs(record)["recordType"], silent = TRUE)
-      if (inherits(recordType, "try-error"))
+      
+      if (any(inherits(recordType, "try-error")))
           return(NULL) # nocov
 
       ## create a fallback, the function should not fail
-      if (is.null(recordType) || is.na(recordType)) {
+      if (is.null(recordType) || is.na(recordType))
         recordType <- "not_set"
-      }
 
       ## correct record type in depending on the stimulator
       xml.size <- XML::xmlSize(record)
