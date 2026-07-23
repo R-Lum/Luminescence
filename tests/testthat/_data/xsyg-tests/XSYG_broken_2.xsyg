@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Sample state="finished" parentID="0" name="Luminescence" user="admin" startDate="20160224155037" sampleCarrier="" lexsygID="14-16-01-0008" lexStudioVersion="Lexstudio2 v1.4.9" firmwareVersion="unknown" os="Microsoft Windows NT 6.1.7601 Service Pack 1" comment="" savePath="">
+  <Sequence state="started" parentID="1002241550370" name="Luminescence" position="1" slot="unknown" comment="" protocol="" mineral="" />
+  <Sequence state="finished" parentID="1002241550370" name="Luminescence" position="2" comment="" startDate="20160224155038" protocol="SAR" mineral="Q">
+   <Record state="finished" parentID="2007211854482" name="unknown" startDate="20260721185605">
+   </Record>
+  </Sequence>
+</Sample>
