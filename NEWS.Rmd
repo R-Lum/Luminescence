@@ -10,8 +10,9 @@ header-includes:
 
 # Changes in version `r RLumBuild::.get_pkg_version()` (`r Sys.Date()`)
 
-## Breaking changes
+**This version requires R >=4.5.0**
 
+## Breaking changes
 
 ## New functions
 
