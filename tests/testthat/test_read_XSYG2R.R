@@ -148,12 +148,13 @@ test_that("test import of XSYG files", {
       verbose = FALSE
     )[[1]],
     class = "RLum.Analysis")
-  
+
   ## check broken file
   expect_warning(
-    read_XSYG2R(test_path("_data/xsyg-tests/XSYG_broken_2.xsyg"), 
-                txtProgressBar = FALSE, verbose = FALSE))
-  
+      t <- read_XSYG2R(test_path("_data/xsyg-tests/XSYG_broken_2.xsyg"),
+                       txtProgressBar = FALSE, verbose = FALSE, fastForward = TRUE),
+      "1 incomplete sequence\\(s\\) removed")
+  expect_length(t[[1]]@records, 1)
 })
 
 test_that("regression tests", {
