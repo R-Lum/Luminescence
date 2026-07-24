@@ -95,7 +95,7 @@ test_that("input validation", {
                "Could not fit simulated curve, check suitability of model")
 })
 
-test_that("Further tests calc_Huntley2006", {
+test_that("snapshot tests", {
   testthat::skip_on_cran()
 
   os <- tolower(Sys.info()[["sysname"]])
@@ -165,6 +165,10 @@ test_that("Further tests calc_Huntley2006", {
         plot = FALSE,
         verbose = FALSE),
       tolerance = if (os == "darwin") 1.7e-1 else max(snapshot.tolerance, 1.5e-3))
+})
+
+test_that("Further tests", {
+  testthat::skip_on_cran()
 
   ## check warning for failed fits
   ## dataset provided by Christine Neudorf

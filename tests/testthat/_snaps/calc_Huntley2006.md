@@ -1,4 +1,4 @@
-# Further tests calc_Huntley2006
+# snapshot tests
 
     {
       "type": "S4",
