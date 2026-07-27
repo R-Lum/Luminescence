@@ -77,7 +77,7 @@ test_that("input validation", {
   SW({
   expect_warning(calc_Huntley2006(data[, 1:2], rhop = rhop, n.MC = 2,
                                   ddot = ddot, readerDdot = readerDdot,
-                                  fit.method = "GOK"),
+                                  fit.method = "GOK", plot = FALSE),
                  "'data' has only two columns: we assume that the errors")
   })
 
@@ -115,7 +115,7 @@ test_that("snapshot tests", {
         n.MC = 100,
         fit.method = "GOK",
         mode = "extrapolation",
-        plot = TRUE, verbose = FALSE),
+        plot = FALSE, verbose = FALSE),
       tolerance = snapshot.tolerance)
 
   ## check force through origin SSE with wrong mode settings
@@ -308,7 +308,7 @@ test_that("regression tests", {
   expect_s4_class(
       calc_Huntley2006(data, rhop = c(4e-6, 5e-7), ddot = c(7, 0.004),
                        readerDdot = c(0.134, 0.0067), n.MC = 1,
-                       mode = "extrapolation", verbose = FALSE),
+                       mode = "extrapolation", plot = FALSE, verbose = FALSE),
       "RLum.Results")
 
   ## issue 1048
@@ -317,5 +317,5 @@ test_that("regression tests", {
       calc_Huntley2006(data, rhop = c(1e-7, 5e-7), ddot = c(7, 0.004),
                        readerDdot = c(0.134, 0.0067), n.MC = 1,
                        mode = "extrapolation", verbose = FALSE,
-                       plot_all_DRC = FALSE))
+                       plot_all_DRC = FALSE, plot = TRUE))
 })

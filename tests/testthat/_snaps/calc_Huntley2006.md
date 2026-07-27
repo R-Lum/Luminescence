@@ -680,7 +680,7 @@
                 {
                   "type": "logical",
                   "attributes": {},
-                  "value": [true]
+                  "value": [false]
                 },
                 {
                   "type": "logical",
