@@ -167,7 +167,35 @@ test_that("snapshot tests", {
       tolerance = if (os == "darwin") 1.7e-1 else max(snapshot.tolerance, 1.5e-3))
 })
 
-test_that("Further tests", {
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  set.seed(1)
+
+  SW({
+  vdiffr::expect_doppelganger("interpolation SSE",
+                              calc_Huntley2006(data = data,
+                                               rhop = rhop,
+                                               ddot = ddot,
+                                               readerDdot = readerDdot,
+                                               fit.method = "SSE",
+                                               mode = "interpolation",
+                                               plot_all_DRC = FALSE,
+                                               n.MC = 50))
+  vdiffr::expect_doppelganger("extrapolation GOK",
+                              calc_Huntley2006(data = data,
+                                               rhop = rhop,
+                                               ddot = ddot,
+                                               readerDdot = readerDdot,
+                                               fit.method = "GOK",
+                                               mode = "extrapolation",
+                                               plot_all_DRC = FALSE,
+                                               n.MC = 50))
+  })
+})
+
+test_that("further tests", {
   testthat::skip_on_cran()
 
   ## check warning for failed fits
