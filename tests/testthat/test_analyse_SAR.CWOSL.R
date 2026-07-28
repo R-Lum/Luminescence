@@ -964,6 +964,17 @@ test_that("regression tests", {
 
   ## issue 1592
   expect_silent(plot_DoseResponseCurve(res.orig))
+
+  ## issue 1623
+  data <- object
+  data[[1]]@records <- lapply(data[[1]]@records, function(curve) {
+    curve@info$IRR_TIME <- 0
+    curve
+  })
+  expect_message(analyse_SAR.CWOSL(data, signal_integral = 1:4,
+                                   background_integral = 150:250,
+                                   verbose = FALSE, plot = FALSE),
+                 "Error: All points have the same dose, NULL returned")
 })
 
 test_that("deprecated arguments", {
