@@ -1040,7 +1040,12 @@ analyse_SAR.CWOSL<- function(
 
   ## get grain numbers
   GRAIN <- unique(vapply(object@records,
-                         function(x) x@info$GRAIN %||% NA,
+                         function(x) {
+                              ## case insensitive matching
+                              idx <- match("grain", tolower(names(x@info)))
+                              if (is.na(idx)) return(NA)
+                              x@info[[idx]]
+                            },
                          FUN.VALUE = numeric(1)))[1]
 
   ## Results object ---------------------------------------------------------
