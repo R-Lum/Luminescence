@@ -577,12 +577,14 @@ test_that("check functionality", {
 
   ## simulate the info object of an XSYG file (issue 1625)
   data <- object[[1]]
-  data@records[[1]]@info$POSITION <- NULL
+  data@records[[1]]@info[c("POSITION", "GRAIN")] <- NULL
   data@records[[1]]@info$position <- 12
+  data@records[[1]]@info$grain <- 33
   res <- analyse_SAR.CWOSL(data, signal_integral = 1:4,
                            background_integral = 150:250,
                            verbose = FALSE, plot = FALSE)
   expect_equal(res@data$data$POS, 12)
+  expect_equal(res@data$data$GRAIN, 33)
 })
 
 test_that("advance tests run", {

@@ -18,9 +18,9 @@
   would fail if any such result was present. This was a regression
   introduced in v1.1.1 (#1623).
 
-- The `POS` column in the `$data` field of the result object is now
-  correctly populated also for XSYG files, instead of being set to `NA`
-  (#1625).
+- The `POS` and `GRAIN` columns in the `$data` field of the result
+  object are now correctly populated also for XSYG files, instead of
+  being set to `NA`. This was a regression introduced in v1.1.2 (#1625).
 
 ### `read_XSYG2R()`
 
