@@ -574,6 +574,15 @@ test_that("check functionality", {
       plot = FALSE, verbose = FALSE)
   expect_equal(res$rejection.criteria$Status[1:2],
                c("OK", "OK"))
+
+  ## simulate the info object of an XSYG file (issue 1625)
+  data <- object[[1]]
+  data@records[[1]]@info$POSITION <- NULL
+  data@records[[1]]@info$position <- 12
+  res <- analyse_SAR.CWOSL(data, signal_integral = 1:4,
+                           background_integral = 150:250,
+                           verbose = FALSE, plot = FALSE)
+  expect_equal(res@data$data$POS, 12)
 })
 
 test_that("advance tests run", {

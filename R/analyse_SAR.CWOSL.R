@@ -1030,7 +1030,12 @@ analyse_SAR.CWOSL<- function(
 
   ## get position numbers
   POSITION <- unique(vapply(object@records,
-                            function(x) x@info$POSITION %||% NA,
+                            function(x) {
+                              ## case insensitive matching
+                              idx <- match("position", tolower(names(x@info)))
+                              if (is.na(idx)) return(NA)
+                              x@info[[idx]]
+                            },
                             FUN.VALUE = numeric(1)))[1]
 
   ## get grain numbers
