@@ -19,6 +19,13 @@ header-includes:
 
 ## Bugfixes and changes
 
+### `analyse_SAR.CWOSL()`
+
+* The ordering of columns in the `$data` field of the result object was
+different from expected when `fit_DoseResponseCurve()` returned `NULL`, which
+meant that merging the results from multiple aliquots would fail if any such
+result was present. This was a regression introduced in v1.1.1 (#1623).
+
 ### `read_XSYG2R()`
 
 * Prevent function from crashing if it found an empty `<sequence />` node. This happens 

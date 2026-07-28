@@ -966,7 +966,6 @@ analyse_SAR.CWOSL<- function(
       HPDI68_U = NA,
       HPDI95_L = NA,
       HPDI95_U = NA,
-      RC.Status = NA,
       .De.plot = NA,
       .De.raw = NA)
 
