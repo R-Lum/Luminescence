@@ -145,26 +145,18 @@ calc_SourceDoseRate <- function(
   .set_function_name("calc_SourceDoseRate")
   on.exit(.unset_function_name(), add = TRUE)
 
+  .as_date <- function(x) {
+    name <- .first_argument()
+    .validate_class(x, c("Date", "character"), name = name)
+    tryCatch(as.Date(x),
+             error = function(e) .throw_error(name, " could not be converted to a Date, ",
+                                              e$message))
+  }
+
   if (missing(measurement.date))
     measurement.date <- Sys.Date()
-  .validate_class(measurement.date, c("Date", "character"))
-  if (is.character(measurement.date)) {
-    measurement.date <- tryCatch(
-        as.Date(measurement.date),
-        error = function(e) {
-          .throw_error("'measurement.date' could not be converted to a Date, ",
-                       e$message)
-        })
-  }
-  .validate_class(calib.date, c("Date", "character"))
-  if (is.character(calib.date)) {
-    calib.date <- tryCatch(
-        as.Date(calib.date),
-        error = function(e) {
-          .throw_error("'calib.date' could not be converted to a Date, ",
-                       e$message)
-        })
-  }
+  measurement.date <- .as_date(measurement.date)
+  calib.date <- .as_date(calib.date)
   .validate_positive_scalar(calib.error)
   .validate_class(predict, c("integer", "numeric"), length = 1:2, null.ok = TRUE)
   if (anyNA(predict))
