@@ -100,3 +100,12 @@ test_that("graphical snapshot tests", {
                                                sigmab = 0.3))
   })
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 1628
+  expect_s4_class(calc_CentralDose(data.frame(De = rep(10, 3), err = 1:3),
+                                   log = FALSE, verbose = FALSE),
+                  "RLum.Results")
+})
