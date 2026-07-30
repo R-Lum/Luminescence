@@ -231,7 +231,6 @@ calc_CentralDose <- function(
 
   # profile log likelihood
   Lmax <- llik
-  llik <- 0
   sig0 <- max(0, sigma - 8 * sesigma)
   sig1 <- sigma + 9.5 * sesigma
   sig <- try(seq(sig0, sig1, sig1 / 1000), silent = TRUE)
@@ -239,13 +238,15 @@ calc_CentralDose <- function(
   if (!inherits(sig, "try-error")) {
     # TODO: rewrite this loop as a function and maximise with mle2 ll is the actual
     # log likelihood, llik is a vector of all ll
-    for (s in sig) {
-      wu <- 1 / (s^2 + su^2)
+    llik <- numeric(length(sig))
+    for (i in seq_along(sig)) {
+      wu <- 1 / (sig[i]^2 + su^2)
       mu <- sum(wu * yu)/sum(wu)
-      ll <- 0.5 * sum(log(wu)) - 0.5 * sum(wu * (yu - mu)^2)
-      llik <- c(llik, ll)
+      llik[i] <- 0.5 * sum(log(wu)) - 0.5 * sum(wu * (yu - mu)^2)
     }
-    llik <- llik[-1] - Lmax
+    llik <- llik - Lmax
+  } else {
+    llik <- 0
   }
 
   ## ============================================================================##
