@@ -24,7 +24,7 @@
 #' \tabular{rlll}{
 #'  **#** \tab **Source type** \tab **T.1/2** \tab **Reference** \cr
 #'  `[1]` \tab Sr-90 \tab 28.90 y \tab NNDC, Brookhaven National Laboratory \cr
-#'  `[2]` \tab Am-214 \tab 432.6 y \tab NNDC, Brookhaven National Laboratory \cr
+#'  `[2]` \tab Am-241 \tab 432.6 y \tab NNDC, Brookhaven National Laboratory \cr
 #'  `[3]` \tab Co-60 \tab 5.274 y \tab NNDC, Brookhaven National Laboratory \cr
 #'  `[4]` \tab Cs-137 \tab 30.08 y \tab NNDC, Brookhaven National Laboratory}
 #'
@@ -42,7 +42,7 @@
 #' error of dose rate at date of calibration Gy/s or Gy/min.
 #'
 #' @param source.type [character] (*with default*):
-#' specify irradiation source (`Sr-90`, `Co-60`, `Cs-137`, `Am-214`),
+#' specify irradiation source (`Sr-90`, `Co-60`, `Cs-137`, `Am-241`),
 #' see details for further information.
 #'
 #' @param dose.rate.unit [character] (*with default*):
@@ -138,7 +138,7 @@ calc_SourceDoseRate <- function(
   calib.date,
   calib.dose.rate,
   calib.error,
-  source.type = c("Sr-90", "Am-214", "Co-60", "Cs-137"),
+  source.type = c("Sr-90", "Am-241", "Co-60", "Cs-137"),
   dose.rate.unit = c("Gy/s", "Gy/min"),
   predict = NULL
 ) {
@@ -164,7 +164,7 @@ calc_SourceDoseRate <- function(
 
   ## source type and dose rate unit
   source.type <- .validate_args(source.type,
-                                c("Sr-90", "Am-214", "Co-60", "Cs-137"))
+                                c("Sr-90", "Am-241", "Co-60", "Cs-137"))
   dose.rate.unit <- .validate_args(dose.rate.unit, c("Gy/s", "Gy/min"))
 
   # --- if predict is set

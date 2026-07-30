@@ -27,6 +27,12 @@
 - The function no longer crashes when the De values are identical and
   `log = FALSE` (#1628).
 
+### `calc_SourceDoseRate()`
+
+- Source type `"Am-241"` was misspelled in the documentation and in the
+  function as `"Am-214"` and has now been corrected. The latter form is
+  no longer accepted (#1630).
+
 ### `read_XSYG2R()`
 
 - Prevent function from crashing if it found an empty `<sequence />`
