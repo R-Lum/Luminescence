@@ -30,6 +30,11 @@ result was present. This was a regression introduced in v1.1.1 (#1623).
 now correctly populated also for XSYG files, instead of being set to `NA`.
 This was a regression introduced in v1.1.2 (#1625).
 
+### `calc_CentralDose()`
+
+* The function no longer crashes when the De values are identical and
+`log = FALSE` (#1628).
+
 ### `read_XSYG2R()`
 
 * Prevent function from crashing if it found an empty `<sequence />` node. This happens 

@@ -280,7 +280,8 @@ calc_CentralDose <- function(
   ## RETURN VALUES
   ## ============================================================================##
 
-  if(!log)  sig <- sig / delta
+  if (!log && !inherits(sig, "try-error"))
+    sig <- sig / delta
 
   summary <- data.frame(
     de = out.delta,
