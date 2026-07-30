@@ -179,10 +179,6 @@ calc_SourceDoseRate <- function(
                             seq(start.date + 1, by = 1, length = abs(predict[2]) - 1))
   }
 
-  # -- calc days since source calibration
-  decay.days <- measurement.date - calib.date
-
-
   # -- calc dose rate of source at date of measurement, considering the chosen source-type
   ##set half-life
   halflife.years  <- switch(
@@ -194,12 +190,12 @@ calc_SourceDoseRate <- function(
     )
 
   halflife.days  <- halflife.years * .const$year_d
+  decay.days <- as.numeric(measurement.date - calib.date)
 
   # N(t) = N(0)*e^((lambda * t) with lambda = log(2)/T1.2)
-  measurement.dose.rate <- (calib.dose.rate) *
-    exp((-log(2) / halflife.days) * as.numeric(decay.days))
-  measurement.dose.rate.error <- (calib.error) *
-    exp((-log(2) / halflife.days) * as.numeric(decay.days))
+  decay.factor <- exp(-log(2) / halflife.days * decay.days)
+  measurement.dose.rate <- calib.dose.rate * decay.factor
+  measurement.dose.rate.error <- calib.error * decay.factor
 
   # -- convert to input unit to [Gy/s]
   if(dose.rate.unit == "Gy/min"){
