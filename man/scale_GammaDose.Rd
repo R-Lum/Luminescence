@@ -2,13 +2,13 @@
 % Please edit documentation in R/scale_GammaDose.R
 \name{scale_GammaDose}
 \alias{scale_GammaDose}
-\title{Calculate the gamma dose deposited within a sample taking layer-to-layer
-variations in radioactivity into account (according to Aitken, 1985)}
+\title{Calculate the gamma dose deposited within a sample accounting for layer-to-layer
+variations in radioactivity}
 \usage{
 scale_GammaDose(
   data,
   conversion_factors = c("Cresswelletal2018", "Guerinetal2011", "AdamiecAitken1998",
-    "Liritzisetal2013")[1],
+    "Liritzisetal2013"),
   fractional_gamma_dose = "Aitken1985",
   verbose = TRUE,
   plot = TRUE,
@@ -120,38 +120,41 @@ received by the sample in the target layer.
 }
 \description{
 This function calculates the gamma dose deposited in a luminescence sample
-taking into account layer-to-layer variations in sediment radioactivity.
+taking into account layer-to-layer variations in sediment radioactivity
+according to Aitken, 1985.
 The function scales user inputs of uranium, thorium and potassium based on
 input parameters for sediment density, water content and given layer
 thicknesses and distances to the sample.
 
 \strong{User Input}
 
-To calculate the gamma dose which is deposited in a sample, the user needs
-to provide information on those samples influencing the luminescence sample.
-As a rule of thumb, all sediment layers within at least 30 cm radius from
-the luminescence sample taken should be taken into account when calculating
+To calculate the gamma dose deposited in a sample, the user needs to
+provide sediment information that may influence the luminescence sample.
+As a rule of thumb, all sediment layers within at least a 30 cm radius from
+the luminescence sample should be taken into account when calculating
 the gamma dose rate. However, the actual range of gamma radiation might be
-different, depending on the emitting radioelement, the water content and the
-sediment density of each layer (Aitken, 1985). Therefore the user is
-advised to provide as much detail as possible and physically sensible.
+different, depending on the emitting radioelements, the water content and
+the sediment density of each layer (Aitken, 1985). Therefore, the user is
+advised to provide as much detail as possible that is physically sensible.
 
-The function requires a \link{data.frame} that is to be structured
-in columns and rows, with samples listed in rows. The first column contains
-information on the layer/sample ID, the second on the thickness (in cm) of
-each layer, whilst column 3 should contain \code{NA} for all layers that are not
-sampled for OSL/TL. For the layer the OSL/TL sample was taken from a numerical
-value must be provided, which is the distance (in cm) measured from \strong{bottom}
-of the layer of interest. If the whole layer was sampled insert \code{0}. If the
-sample was taken from \emph{within} the layer, insert a numerical value \verb{>0},
-which describes the distance from the middle of the sample to the bottom of
-the layer in cm. Columns 4 to 9 should contain radionuclide concentrations
-and their standard errors for
-potassium (in \%), thorium (in ppm) and uranium (in ppm). Columns 10 and 11
-give information on the water content and its uncertainty (standard error)
-in \%. The layer density (in g/cm3) should be given in column 12. No cell
-should be left blank. Please ensure to keep the column titles as given in
-the example dataset (\code{data('ExampleData.ScaleGammaDose')}, see examples).
+The function requires a \link{data.frame} with the samples listed in rows. In
+order, the columns should contain:
+\itemize{
+\item Column 1 contains information on the layer/sample ID.
+\item Column 2 gives the thickness (in cm) of each layer.
+\item Column 3: for the layer from which the OSL/TL sample was taken, the
+distance (in cm) measured from the middle of the sample to the \strong{bottom}
+of the layer of interest must be provided. If the whole layer was sampled,
+insert 0. All layers that are not sampled for OSL/TL should be set to \code{NA}.
+\item Columns 4 to 9 contain radionuclide concentrations and their standard
+errors for potassium (in \%), thorium (in ppm) and uranium (in ppm).
+\item Columns 10 and 11 give information on the water content and its standard
+error in \%.
+\item Column 12 contains the layer density (in g/cm³).
+}
+
+No cell should be left blank. Please ensure that the column names match
+those given in the example dataset, see \code{data('ExampleData.ScaleGammaDose')}.
 
 The user can decide which dose rate
 conversion factors should be used to calculate the gamma dose rates.
@@ -167,7 +170,8 @@ The options are:
 
 The water content provided by the user should be calculated according to:
 
-\deqn{ ( Wet weight [g] - Dry weight [g] ) / Dry weight [g] * 100 }
+\deqn{ \frac{\mathrm{Wet\ weight [g]} - \mathrm{Dry\ weight [g]}}
+            {\mathrm{Dry\ weight [g]}} * 100 }
 
 \strong{Calculations}
 
@@ -203,8 +207,8 @@ is able to scale the gamma dose rate accurately for distant layers when the
 density and water content is not constant for the entire section.
 }
 \note{
-\strong{This function has BETA status. If possible, results should be}
-\strong{cross-checked.}
+This function has \strong{BETA} status. If possible, results should be
+cross-checked.
 }
 \section{Function version}{
  0.1.4
@@ -221,10 +225,9 @@ been very helpful when writing this function.
 
 # Load example data
 data("ExampleData.ScaleGammaDose", envir = environment())
-x <- ExampleData.ScaleGammaDose
 
 # Scale gamma dose rate
-results <- scale_GammaDose(data = x,
+results <- scale_GammaDose(data = ExampleData.ScaleGammaDose,
                            conversion_factors = "Cresswelletal2018",
                            fractional_gamma_dose = "Aitken1985",
                            verbose = TRUE,
