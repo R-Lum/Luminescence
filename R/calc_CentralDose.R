@@ -233,9 +233,10 @@ calc_CentralDose <- function(
   Lmax <- llik
   sig0 <- max(0, sigma - 8 * sesigma)
   sig1 <- sigma + 9.5 * sesigma
-  sig <- try(seq(sig0, sig1, sig1 / 1000), silent = TRUE)
+  sig <- tryCatch(seq(sig0, sig1, sig1 / 1000),
+                  error = function(e) NA)
 
-  if (!inherits(sig, "try-error")) {
+  if (!anyNA(sig)) {
     # TODO: rewrite this loop as a function and maximise with mle2 ll is the actual
     # log likelihood, llik is a vector of all ll
     llik <- numeric(length(sig))
@@ -281,7 +282,7 @@ calc_CentralDose <- function(
   ## RETURN VALUES
   ## ============================================================================##
 
-  if (!log && !inherits(sig, "try-error"))
+  if (!log && !anyNA(sig))
     sig <- sig / delta
 
   summary <- data.frame(
@@ -302,7 +303,7 @@ calc_CentralDose <- function(
       data = data,
       args = args,
       profile = data.frame(
-        sig = if(!inherits(sig, "try-error")) sig else NA,
+        sig = sig,
         llik = llik)
     ),
     info = list(
@@ -311,7 +312,7 @@ calc_CentralDose <- function(
   )
 
   ## =========## PLOTTING
-  if (plot && !inherits(sig, "try-error"))
+  if (plot && !anyNA(sig))
     try(plot_RLum.Results(newRLumResults.calc_CentralDose, ...))
 
   invisible(newRLumResults.calc_CentralDose)
