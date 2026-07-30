@@ -11,7 +11,10 @@ test_that("input validation", {
                "'calib.date' could not be converted to a Date, character string")
   expect_error(calc_SourceDoseRate("2018-01-02", "2014-12-19", 0.0438, 0.0019,
                                    source.type = "error"),
-               "'source.type' should be one of 'Sr-90', 'Am-214', 'Co-60' or")
+               "'source.type' should be one of 'Sr-90', 'Am-241', 'Co-60' or")
+  expect_error(calc_SourceDoseRate("2018-01-02", "2014-12-19", 0.0438, 0.0019,
+                                   source.type = "Am-214"),
+               "'source.type' should be one of 'Sr-90', 'Am-241', 'Co-60' or")
   expect_error(calc_SourceDoseRate("2018-01-02", "2014-12-19", 0.0438, 0.0019,
                                    dose.rate.unit = "error"),
                "'dose.rate.unit' should be one of 'Gy/s' or 'Gy.min'")
