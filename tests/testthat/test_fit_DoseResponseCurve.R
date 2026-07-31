@@ -82,7 +82,11 @@ test_that("input validation", {
                  "Fitting a non-linear least-squares model requires at least 3")
   expect_warning(fit_DoseResponseCurve(LxTxData[1:3, ], fit.method = "GOK",
                                        verbose = FALSE),
-                 "Fitting a non-linear least-squares model requires at least 4")
+                 "requires at least 4 dose points besides the natural, 'fit.method'")
+  expect_warning(fit_DoseResponseCurve(LxTxData[1:3, ], fit.method = "GOK",
+                                       mode = "extrapolation",
+                                       verbose = FALSE),
+                 "requires at least 4 dose points, 'fit.method' changed to")
 
   ## wrong combination of fit.method and mode
   expect_error(

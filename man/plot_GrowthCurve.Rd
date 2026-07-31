@@ -21,8 +21,7 @@ plot_GrowthCurve(
 data frame with columns for \code{Dose}, \code{LxTx}, \code{LxTx.Error} and \code{TnTx}.
 
 The column for the test dose response is optional, but requires \code{'TnTx'} as
-column name if used. For exponential fits at least three dose points
-(including the natural) should be provided. If \code{object} is a list,
+column name if used. If \code{object} is a list,
 the function is called on each of its elements.
 
 If \code{fit.method = "OTORX"} you have  to provide the test dose in the same unit

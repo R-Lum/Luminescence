@@ -157,8 +157,7 @@
 #' data frame with columns for `Dose`, `LxTx`, `LxTx.Error` and `TnTx`.
 #'
 #' The column for the test dose response is optional, but requires `'TnTx'` as
-#' column name if used. For exponential fits at least three dose points
-#' (including the natural) should be provided. If `object` is a list,
+#' column name if used. If `object` is a list,
 #' the function is called on each of its elements.
 #'
 #' If `fit.method = "OTORX"` you have  to provide the test dose in the same unit
@@ -676,8 +675,10 @@ fit_DoseResponseCurve <- function(
   ## to fit, the nls() function gets trapped in an infinite loop
   if (!fit.method %in% c("LIN", "QDR") && nrow(data) < num.params) {
     fit.method <- "LIN"
-    msg <- paste("Fitting a non-linear least-squares model requires at least",
-                 num.params, "dose points, 'fit.method' changed to 'LIN'")
+    msg <- paste0("Fitting a non-linear least-squares model requires at least ",
+                  num.params, " dose points",
+                  if (mode == "interpolation") " besides the natural",
+                  ", 'fit.method' changed to 'LIN'")
     .throw_warning(msg)
     if (verbose)
       .throw_message(msg, error = FALSE)
