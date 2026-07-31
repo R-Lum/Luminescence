@@ -668,6 +668,7 @@ fit_DoseResponseCurve <- function(
 
   ## number of parameters in the non-linear models
   num.params <- switch(fit.method,
+                       "QDR" = 3,
                        "SSE" = 3,
                        "SSE OR LIN" = 3,
                        "DSE" = 5,
@@ -675,7 +676,7 @@ fit_DoseResponseCurve <- function(
 
   ## if the number of data points is smaller than the number of parameters
   ## to fit, the nls() function gets trapped in an infinite loop
-  if (!fit.method %in% c("LIN", "QDR") && nrow(data) < num.params) {
+  if (fit.method != "LIN" && nrow(data) < num.params) {
     fit.method <- "LIN"
     msg <- paste0("Fitting a non-linear least-squares model requires at least ",
                   num.params, " dose points",
