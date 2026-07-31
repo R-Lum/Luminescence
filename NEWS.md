@@ -38,6 +38,13 @@
 - If the (optional) `TnTx` column contains only `NA`s, the column is
   ignored instead of causing the entire dataset to be dropped (#1632).
 
+- The number of parameters for `fit.method = "DSE"` has been corrected
+  to 5. This fixes a regression introduced in v1.3.0, where a new `Di`
+  parameter was added to the `"DSE"` method without updating its
+  parameter count. This has no user-visible effect other than changing
+  the number of dose points under which the function switches to using
+  the`"LIN"` method (#1634).
+
 ### `read_XSYG2R()`
 
 - Prevent function from crashing if it found an empty `<sequence />`

@@ -667,9 +667,11 @@ fit_DoseResponseCurve <- function(
   data <- xy
 
   ## number of parameters in the non-linear models
-  num.params <- 4
-  if (fit.method %in% c("SSE", "SSE OR LIN"))
-    num.params <- 3
+  num.params <- switch(fit.method,
+                       "SSE" = 3,
+                       "SSE OR LIN" = 3,
+                       "DSE" = 5,
+                       4)
 
   ## if the number of data points is smaller than the number of parameters
   ## to fit, the nls() function gets trapped in an infinite loop
