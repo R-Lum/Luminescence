@@ -41,6 +41,11 @@ This was a regression introduced in v1.1.2 (#1625).
 function as `"Am-214"` and has now been corrected. The latter form is no
 longer accepted (#1630).
 
+### `fit_DoseResponseCurve()`
+
+* If the (optional) `TnTx` column contains only `NA`s, the column is ignored
+instead of causing the entire dataset to be dropped (#1632).
+
 ### `read_XSYG2R()`
 
 * Prevent function from crashing if it found an empty `<sequence />` node. This happens 

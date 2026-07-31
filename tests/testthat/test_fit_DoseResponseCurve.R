@@ -435,6 +435,12 @@ temp_OTORX <-
     verbose = FALSE,
     n.MC = 10
   )
+
+  ## TnTx column containing only NAs
+  LxTxData$TnTx <- NA
+  expect_s4_class(fit_DoseResponseCurve(LxTxData),
+                  "RLum.Results")
+
 ## test reference dataset from
 ## (https://raw.githubusercontent.com/jll2/LumDRC/refs/heads/main/otorx.py)
 LxTxData_alt <- data.frame(
