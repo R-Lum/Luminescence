@@ -878,6 +878,11 @@ test_that("regression tests", {
   expect_warning(fit_DoseResponseCurve(LxTxData[1:5, ], fit.method = "DSE",
                                        verbose = FALSE),
                  "requires at least 5 dose points besides the natural, 'fit.method'")
+
+  ## issue 1636
+  expect_warning(fit_DoseResponseCurve(LxTxData[1:3, ], fit.method = "QDR",
+                                       verbose = FALSE),
+                 "requires at least 3 dose points besides the natural, 'fit.method'")
 })
 
 test_that("test internal functions", {
