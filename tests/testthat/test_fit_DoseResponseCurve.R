@@ -761,6 +761,8 @@ temp_OTORX_alt <-
                    LxTx_X = c(2, 1, 1, 10, 1))
   expect_output(fit_DoseResponseCurve(df, fit.method = "SSE"),
                 "De = NaN")
+  expect_output(fit_DoseResponseCurve(rbind(df, c(3, 2, 3)), fit.method = "DSE"),
+                "Fit failed for DSE")
 })
 
 test_that("regression tests", {
