@@ -496,6 +496,11 @@ fit_DoseResponseCurve <- function(
     return(NULL)
   }
 
+  ## ignore the TnTx column if it only contains NAs
+  if (ncol(object) >= 4 && all(is.na(object[[4]]))) {
+    object[[4]] <- NULL
+  }
+
   ## count and exclude NA values and print result
   if (sum(!stats::complete.cases(object)) > 0) {
     .throw_warning(sum(!stats::complete.cases(object)),
