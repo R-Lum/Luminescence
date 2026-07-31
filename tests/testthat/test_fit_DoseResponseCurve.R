@@ -871,6 +871,11 @@ test_that("regression tests", {
     object = fit_DoseResponseCurve(results$LnLxTnTx.table, verbose = FALSE),
     class = "RLum.Results")
   expect_equal(results$data$De, t$De$De)
+
+  ## issue 1634
+  expect_warning(fit_DoseResponseCurve(LxTxData[1:5, ], fit.method = "DSE",
+                                       verbose = FALSE),
+                 "requires at least 5 dose points besides the natural, 'fit.method'")
 })
 
 test_that("test internal functions", {
