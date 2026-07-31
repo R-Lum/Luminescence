@@ -154,11 +154,11 @@
 #' especially for the composed functions (`SSE+LIN` and `DSE`).
 #'
 #' @param object [data.frame] or a [list] of such objects (**required**):
-#' data frame with columns for `Dose`, `LxTx`, `LxTx.Error` and `TnTx`.
+#' data frame with columns for `Dose`, `LxTx`, `LxTx.Error` and `TnTx`
+#' (optional). If these column names are used, then they can be passed in
+#' whatever order; otherwise columns are taken by position.
 #'
-#' The column for the test dose response is optional, but requires `'TnTx'` as
-#' column name if used. If `object` is a list,
-#' the function is called on each of its elements.
+#' If `object` is a list, the function is called on each of its elements.
 #'
 #' If `fit.method = "OTORX"` you have  to provide the test dose in the same unit
 #' as the dose in a column called `Test_Dose`. The function searches explicitly

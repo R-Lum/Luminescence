@@ -18,11 +18,11 @@ plot_GrowthCurve(
 }
 \arguments{
 \item{object}{\link{data.frame} or a \link{list} of such objects (\strong{required}):
-data frame with columns for \code{Dose}, \code{LxTx}, \code{LxTx.Error} and \code{TnTx}.
+data frame with columns for \code{Dose}, \code{LxTx}, \code{LxTx.Error} and \code{TnTx}
+(optional). If these column names are used, then they can be passed in
+whatever order; otherwise columns are taken by position.
 
-The column for the test dose response is optional, but requires \code{'TnTx'} as
-column name if used. If \code{object} is a list,
-the function is called on each of its elements.
+If \code{object} is a list, the function is called on each of its elements.
 
 If \code{fit.method = "OTORX"} you have  to provide the test dose in the same unit
 as the dose in a column called \code{Test_Dose}. The function searches explicitly
