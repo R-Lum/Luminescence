@@ -1,5 +1,22 @@
 # snapshot tests
 
+    
+    [calc_FuchsLang2001]
+    
+    ----------- meta data --------------
+     cvThreshold:             5 %
+     used values:             22
+    ----------- dose estimate ----------
+     mean:                    2866.11
+     sd:                      157.35
+     weighted mean:           2846.66
+     weighted sd:             20.58
+     se:                      33.55
+    ------------------------------------
+    
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -190,6 +207,23 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    
+    [calc_FuchsLang2001]
+    
+    ----------- meta data --------------
+     cvThreshold:             5 %
+     used values:             1
+    ----------- dose estimate ----------
+     mean:                    3628.78
+     sd:                      221.43
+     weighted mean:           3785.36
+     weighted sd:             155.36
+     se:                      221.43
+    ------------------------------------
+    
 
 ---
 

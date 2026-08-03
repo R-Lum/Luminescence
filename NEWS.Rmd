@@ -60,3 +60,8 @@ switches to using the "LIN" method (#1634, #1636).
 * Prevent function from crashing if it found an empty `<sequence />` node. This happens 
 if the reader encounters an empty position and would then automatically move on to the next. 
 
+
+## Other changes
+
+* We have expanded the family of snapshot tests by testing the function
+output in more cases, going from 12 to over 50 output snapshots (#1638).

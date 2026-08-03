@@ -45,11 +45,13 @@ test_that("snapshot tests", {
   SW({
   ## check for standard input
   expect_snapshot_RLum(convert_Activity2Concentration(data_activity),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
 
   ## check for concentration input
   expect_snapshot_RLum(convert_Activity2Concentration(data_abundance,
                                                       input_unit = "abundance"),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
   })
 })

@@ -1,5 +1,26 @@
 # snapshot tests
 
+    
+     [calc_AliquotSize]
+    
+     ---------------------------------------------------------
+     mean grain size (microns)  : 115
+     sample diameter (mm)       : 1
+     packing density            : 0.65
+     number of grains           : 49
+    
+     --------------- Monte Carlo Estimates -------------------
+     number of iterations (n)     : 20
+     median                       : 48
+     mean                         : 50
+     standard deviation (mean)    : 21
+     standard error (mean)        : 4.7
+     95% CI from t-test (mean)    : 40 - 60
+     standard error from CI (mean): 5
+     ---------------------------------------------------------
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -374,6 +395,19 @@
 
 ---
 
+    
+     [calc_AliquotSize]
+    
+     ---------------------------------------------------------
+     mean grain size (microns)  : 150
+     sample diameter (mm)       : 8
+     mean counted grains        : 2572
+     mean packing density       : 0.904
+     standard deviation         : 0.101
+     ---------------------------------------------------------
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -484,7 +518,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["grain.size", "sample.diameter", "grains.counted", "MC.iter", "plot", "verbose"]
+                  "value": ["grain.size", "sample.diameter", "grains.counted", "MC.iter", "plot"]
                 }
               },
               "value": [
@@ -512,11 +546,6 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [false]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [false]
                 }
               ]
             }
@@ -538,6 +567,27 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    
+     [calc_AliquotSize]
+    
+     ---------------------------------------------------------
+     mean grain size (microns)  : 115
+     sample diameter (mm)       : 7
+     packing density            : 0.65
+     number of grains           : 2408
+    
+     --------------- Monte Carlo Estimates -------------------
+     number of iterations (n)     : 20
+     median                       : 2655
+     mean                         : 2602
+     standard deviation (mean)    : 590
+     standard error (mean)        : 132
+     95% CI from t-test (mean)    : 2326 - 2878
+     standard error from CI (mean): 140.9
+     ---------------------------------------------------------
 
 ---
 
@@ -917,6 +967,27 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    
+     [calc_AliquotSize]
+    
+     ---------------------------------------------------------
+     mean grain size (microns)  : 0.001
+     sample diameter (mm)       : 7
+     packing density            : 0.65
+     number of grains           : 3.185e+13
+    
+     --------------- Monte Carlo Estimates -------------------
+     number of iterations (n)     : 10
+     median                       : 3.077014e+13
+     mean                         : 3.019793e+13
+     standard deviation (mean)    : 9.284061e+12
+     standard error (mean)        : 2.935878e+12
+     95% CI from t-test (mean)    : 2.355651e+13 - 3.683934e+13
+     standard error from CI (mean): 3.388478e+12
+     ---------------------------------------------------------
 
 ---
 

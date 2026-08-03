@@ -1,5 +1,16 @@
 # snapshot tests
 
+      NUCLIDE ACTIVIY (Bq/kg) ACTIVIY ERROR (Bq/kg) ABUND. (mug/g or mass. %)
+    1   U-238              40                     4                 3.2398475
+    2  Th-232              80                     8                19.6469710
+    3    K-40             100                    10                 0.3222668
+      ABUND. ERROR (mug/g or mass. %)
+    1                      0.32398475
+    2                      1.96469710
+    3                      0.03222668
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -94,6 +105,17 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+      NUCLIDE ACTIVIY (Bq/kg) ACTIVIY ERROR (Bq/kg) ABUND. (mug/g or mass. %)
+    1   U-238        49.38504             1.2346260                         4
+    2  Th-232        32.57500             0.4071874                         8
+    3    K-40       310.30195            31.0301946                         1
+      ABUND. ERROR (mug/g or mass. %)
+    1                             0.1
+    2                             0.1
+    3                             0.1
 
 ---
 

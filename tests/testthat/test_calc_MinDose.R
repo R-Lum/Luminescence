@@ -117,35 +117,41 @@ test_that("snapshot tests", {
   set.seed(1)
   snapshot.tolerance <- 6.5e-5 # TODO(mcol): reset to 1.5e-6 for R4.7
 
-  expect_snapshot_RLum(temp, tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(temp,
+                       tolerance = snapshot.tolerance)
   SW({
   expect_snapshot_RLum(calc_MinDose(data = ExampleData.DeValues$CA1 / 100,
                                     sigmab = 0.2, gamma.upper = 4, par = 4,
                                     log.output = TRUE, plot = FALSE),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
-  })
   expect_snapshot_RLum(calc_MinDose(data = ExampleData.DeValues$CA1,
                                     sigmab = 0.0103, log = FALSE,
-                                    verbose = FALSE, plot = FALSE),
+                                    plot = FALSE),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
 
   ## bootstrap = TRUE
   suppressWarnings( # Not enough bootstrap replicates for loess fitting
   expect_snapshot_RLum(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                                     bootstrap = TRUE, bs.M = 10, bs.N = 5,
-                                    verbose = FALSE, plot = FALSE),
+                                    plot = FALSE),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
   )
   expect_snapshot_RLum(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.2,
                                     invert = TRUE, bootstrap = TRUE,
                                     bs.M = 20, bs.N = 5, bs.h = 10,
-                                    verbose = FALSE, plot = FALSE),
+                                    plot = FALSE),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
   expect_snapshot_RLum(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.09,
                                     bootstrap = TRUE, log = FALSE, par = 4,
                                     bs.M = 20, bs.N = 5, bs.h = 10,
-                                    verbose = FALSE, plot = FALSE),
+                                    plot = FALSE),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
+  })
 })
 
 test_that("output snapshot tests", {
@@ -160,18 +166,6 @@ test_that("output snapshot tests", {
   expect_snapshot_output(res <- calc_MinDose(data = ExampleData.DeValues$CA1 / 100,
                                              sigmab = 0.2, gamma.upper = 4, par = 4,
                                              log.output = TRUE, plot = FALSE))
-  expect_snapshot_output(res <- calc_MinDose(data = ExampleData.DeValues$CA1,
-                                             sigmab = 0.0103, log = FALSE,
-                                             plot = FALSE))
-  suppressWarnings( # Not enough bootstrap replicates for loess fitting
-  expect_snapshot_output(res <- calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
-                                             bootstrap = TRUE, bs.M = 10, bs.N = 5,
-                                             plot = FALSE))
-  )
-  expect_snapshot_output(res <- calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.2,
-                                             invert = TRUE, bootstrap = TRUE,
-                                             bs.M = 20, bs.N = 5, bs.h = 10,
-                                             plot = FALSE))
   expect_snapshot_output(res <- calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.2,
                                              init.values = list(mu = 30, p0 = 0.01,
                                                                 sigma = 0.5, gamma = 30),

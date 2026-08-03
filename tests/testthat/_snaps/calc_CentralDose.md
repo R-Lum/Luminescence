@@ -386,6 +386,26 @@
 
 ---
 
+    
+     [calc_CentralDose]
+    
+    ----------- meta data ----------------
+     n:                       9
+     log:                     FALSE
+    ----------- dose estimate ------------
+     abs. central dose:       5.46
+     abs. SE:                 1.56
+     rel. SE [%]:             28.48
+    ----------- overdispersion -----------
+     abs. OD:                 4.8e-17
+     abs. SE:                 8.9e+16
+     OD [%]:                  8.8e-16
+     SE [%]:                  1.6e+18
+    -------------------------------------
+    
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -576,6 +596,26 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    
+     [calc_CentralDose]
+    
+    ----------- meta data ----------------
+     n:                       4
+     log:                     TRUE
+    ----------- dose estimate ------------
+     abs. central dose:       4e-22
+     abs. SE:                 1e+28
+     rel. SE [%]:             2.5e+51
+    ----------- overdispersion -----------
+     abs. OD:                 0.00
+     abs. SE:                 Inf
+     OD [%]:                  0.00
+     SE [%]:                  -
+    -------------------------------------
+    
 
 ---
 

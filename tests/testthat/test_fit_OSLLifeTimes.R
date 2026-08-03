@@ -100,6 +100,7 @@ test_that("check functionality", {
     plot = FALSE,
     method_control = list(DEoptim.itermax = 15),
     n.components = 1),
+    expect_snapshot_output = TRUE,
     tolerance = snapshot.tolerance)
 
   ##simple list
@@ -108,6 +109,7 @@ test_that("check functionality", {
     log = "x",
     method_control = list(DEoptim.itermax = 25),
     n.components = 1),
+    expect_snapshot_output = TRUE,
     tolerance = snapshot.tolerance)
   })
 
@@ -137,6 +139,7 @@ test_that("check functionality", {
     verbose = TRUE,
     plot = FALSE,
     n.components = NULL),
+    expect_snapshot_output = TRUE,
     tolerance = snapshot.tolerance)
   })
 

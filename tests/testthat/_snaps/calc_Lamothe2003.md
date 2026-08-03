@@ -1,5 +1,19 @@
 # snapshot tests
 
+    
+    [calc_Lamothe2003()] 
+    
+     Used g_value:		 2.36  ±  0.6 %/decade 
+    
+     Fading_C:		 0.785  ±  0.055 
+     Corrected Ln/Tn:	 5.513  ±  0.39 
+     Corrected De:		 473.72  ±  75.28  Gy 
+    --------------------------------------------------------
+     Corrected Age:		 282.65  ±  54.21  ka 
+    --------------------------------------------------------
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -144,6 +158,21 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    
+    [calc_Lamothe2003()] 
+    
+     Used g_value:		 2.356  ±  0.6 %/decade 
+     tc for g_value:	 1200  s
+    
+     Fading_C:		 0.786  ±  0.055 
+     Corrected Ln/Tn:	 5.51  ±  0.39 
+     Corrected De:		 473.21  ±  69.19  Gy 
+    --------------------------------------------------------
+     Corrected Age:		 282.35  ±  51.22  ka 
+    --------------------------------------------------------
 
 ---
 

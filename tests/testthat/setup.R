@@ -3,7 +3,9 @@
 ##
 
 ## the ... can be used to set the tolerance
-expect_snapshot_RLum <- function(object, ...) {
+expect_snapshot_RLum <- function(object, ..., expect_snapshot_output = FALSE) {
+  if (expect_snapshot_output)
+    expect_snapshot_output(ignore <- object)
   if (inherits(object, "list")) {
     for (idx in seq_along(object))
       expect_snapshot_RLum(object[[idx]], ...)

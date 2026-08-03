@@ -41,6 +41,7 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(calc_EED_Model(
       MortarData,
       expected_dose = 11.7),
+      expect_snapshot_output = TRUE,
       tolerance = snapshot.tolerance)
   })
 })

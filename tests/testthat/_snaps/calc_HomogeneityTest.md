@@ -1,5 +1,20 @@
 # check values from output example
 
+    
+     [calc_HomogeneityTest()]
+    
+     ---------------------------------
+     n:                  7
+     ---------------------------------
+     mu:                 3.7727
+     G-value:            19.2505
+     Degrees of freedom: 6
+     P-value:            0.0038
+     ---------------------------------
+    
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -138,6 +153,21 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    
+     [calc_HomogeneityTest()]
+    
+     ---------------------------------
+     n:                  7
+     ---------------------------------
+     mu:                 40.9645
+     G-value:            22.415
+     Degrees of freedom: 6
+     P-value:            0.001
+     ---------------------------------
+    
 
 ---
 

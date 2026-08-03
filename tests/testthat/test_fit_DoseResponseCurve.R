@@ -241,6 +241,7 @@ test_that("snapshot tests", {
       LxTxData,
       fit.method = "DSE",
       verbose = TRUE,
+      txtProgressBar = FALSE,
       n.MC = 10
   ), tolerance = snapshot.tolerance)
 
@@ -248,6 +249,7 @@ test_that("snapshot tests", {
       LxTxData,
       fit.method = "QDR",
       verbose = TRUE,
+      txtProgressBar = FALSE,
       n.MC = 10
   ), tolerance = snapshot.tolerance)
 
@@ -270,6 +272,7 @@ test_that("snapshot tests", {
       fit.method = "QDR",
       mode = "extrapolation",
       verbose = TRUE,
+      txtProgressBar = FALSE,
       n.MC = 10
   ), tolerance = 2.0e-5)
 
@@ -279,6 +282,7 @@ test_that("snapshot tests", {
       mode = "extrapolation",
       fit.force_through_origin = TRUE,
       verbose = TRUE,
+      txtProgressBar = FALSE,
       n.MC = 10
   ), tolerance = 5.0e-5)
 
