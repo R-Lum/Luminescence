@@ -52,26 +52,35 @@ test_that("input validation", {
                  "This request produced an empty list of records")
 })
 
+test_that("snapshot tests", {
+  skip_on_cran()
+
+  set.seed(1)
+  snapshot.tolerance <- 1.5e-4
+
+  SW({ # warning: TL peak shift detected for aliquot position 1
+  expect_snapshot_RLum(analyse_Al2O3C_Measurement(data_CrossTalk),
+                       expect_snapshot_output = TRUE,
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(analyse_Al2O3C_Measurement(data_CrossTalk,
+                                                  calculate_TL_dose = TRUE),
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(analyse_Al2O3C_Measurement(data_CrossTalk,
+                        test_parameter = list(list(stimulation_power = 0.1),
+                                              list(stimulation_power = 0.2))),
+                       tolerance = snapshot.tolerance)
+  })
+})
+
 test_that("check functionality", {
   skip_on_cran()
 
   ## run analysis
-  SW({ # warning: TL peak shift detected for aliquot position 1
-  expect_s4_class(analyse_Al2O3C_Measurement(data_CrossTalk),
-                  "RLum.Results")
-  expect_s4_class(analyse_Al2O3C_Measurement(data_CrossTalk,
-                                             calculate_TL_dose = TRUE),
-                  "RLum.Results")
-  expect_output(analyse_Al2O3C_Measurement(data_CrossTalk,
-                        test_parameter = list(stimulation_power = 0.03)))
-  expect_output(analyse_Al2O3C_Measurement(data_CrossTalk,
-                        test_parameter = list(list(stimulation_power = 0.1),
-                                              list(stimulation_power = 0.2))))
-  })
+  expect_warning(expect_output(analyse_Al2O3C_Measurement(data_CrossTalk,
+                               test_parameter = list(stimulation_power = 0.03))),
+                 "TL peak shift detected for aliquot position 1, check the curves")
   expect_output(analyse_Al2O3C_Measurement(data_CrossTalk[[2]],
                         test_parameter = list(stimulation_power = 0.01)))
-  expect_output(analyse_Al2O3C_Measurement(data_CrossTalk[[2]],
-                                           dose_points = list(3)))
 
   ## tests without TL curves
   SW({
@@ -120,6 +129,9 @@ test_that("graphical snapshot tests", {
   SW({
   vdiffr::expect_doppelganger("defaults",
                               analyse_Al2O3C_Measurement(osl[2]))
+  vdiffr::expect_doppelganger("dose_points",
+                              analyse_Al2O3C_Measurement(data_CrossTalk[[2]],
+                                                         dose_points = list(3)))
   })
 })
 

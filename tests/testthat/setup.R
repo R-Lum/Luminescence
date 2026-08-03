@@ -47,6 +47,9 @@ expect_snapshot_RLum <- function(object, ..., expect_snapshot_output = FALSE) {
       if ("UID" %in% names(object@data$data))
         object@data$data$UID <- NULL
     }
+    if ("data_table" %in% names(object@data)) { # analyse_Al2O3C_Measurement()
+      object@data$data_table$UID <- NULL
+    }
     if ("data_uncor" %in% names(object@data)) { # analyse_SAR.NCF()
       object@data$data_uncor$UID <- NULL
       object@data$LnLxTnTx.table_uncor$UID <- NULL
