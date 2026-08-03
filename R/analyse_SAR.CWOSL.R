@@ -591,7 +591,7 @@ analyse_SAR.CWOSL<- function(
     }
   }
 
-  if (is.null(signal_integral) || .strict_na(signal_integral) ||
+  if (is.null(signal_integral) || identical(signal_integral, NA) ||
       is.null(background_integral)) {
     signal_integral <- background_integral <- NA
     signal_integral_Tx <- background_integral_Tx <- NULL
@@ -622,7 +622,7 @@ analyse_SAR.CWOSL<- function(
                                               min = max(signal_integral) + 1,
                                               max = channel.length)
 
-    if (length(background_integral) == 1 && !.strict_na(background_integral)) {
+    if (length(background_integral) == 1 && !identical(background_integral, NA)) {
       ## we subtract 25 to avoid warnings from calc_OSLLxTxRatio()
       background_integral <- background_integral - 25:0
       .throw_warning("Background integral should contain at least two values, reset to ",
@@ -647,10 +647,10 @@ analyse_SAR.CWOSL<- function(
     if (!is.null(signal_integral_Tx) && is.null(background_integral_Tx)) {
       background_integral_Tx <- background_integral
       .throw_warning("'background_integral_Tx' set automatically to ",
-                     if (.strict_na(background_integral_Tx)) NA
+                     if (identical(background_integral_Tx, NA)) NA
                      else .format_range(background_integral_Tx))
     }
-    if (length(background_integral_Tx) == 1 && !.strict_na(background_integral_Tx)) {
+    if (length(background_integral_Tx) == 1 && !identical(background_integral_Tx, NA)) {
       background_integral_Tx <- background_integral_Tx - 25:0
       .throw_warning("Background integral limits for Tx curves cannot be equal, reset to ",
                      .format_range(background_integral_Tx))

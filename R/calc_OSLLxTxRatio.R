@@ -364,7 +364,7 @@ calc_OSLLxTxRatio <- function(
   }
 
   # Alternate mode ----------------------------------------------------------
-  if (.strict_na(signal_integral)) {
+  if (identical(signal_integral, NA)) {
     LnLx <- sum(Lx.data[,2])
     TnTx <- sum(Tx.data[,2])
 
@@ -453,7 +453,7 @@ calc_OSLLxTxRatio <- function(
   Lx.curve <- Lx.data[,2]
   Lx.signal <- sum(Lx.curve[signal_integral])                #Y.0
   Lx.BG.counts <- sum(Lx.curve[background_integral])
-  Lx.background <- if (.strict_na(background_integral)) 0
+  Lx.background <- if (identical(background_integral, NA)) 0
                    else Lx.BG.counts / k                     # Y.1, mu.B
 
   LnLx <- Lx.signal - Lx.background
@@ -463,7 +463,7 @@ calc_OSLLxTxRatio <- function(
   Tx.signal <- sum(Tx.curve[signal_integral_Tx])
   Tx.BG.counts <- if (use_previousBG) Lx.BG.counts
                   else sum(Tx.curve[background_integral_Tx])
-  Tx.background <- if (.strict_na(background_integral_Tx)) 0
+  Tx.background <- if (identical(background_integral_Tx, NA)) 0
                    else if (use_previousBG) Lx.background
                    else Tx.BG.counts / k.Tx
 
@@ -480,8 +480,8 @@ calc_OSLLxTxRatio <- function(
   ## Y.1 (total counts over m later channels)
   Y.0 <- Lx.signal
   Y.0_TnTx <- Tx.signal
-  Y.1 <- if (.strict_na(background_integral)) 0 else Lx.BG.counts
-  Y.1_TnTx <- if (.strict_na(background_integral_Tx)) 0
+  Y.1 <- if (identical(background_integral, NA)) 0 else Lx.BG.counts
+  Y.1_TnTx <- if (identical(background_integral_Tx, NA)) 0
               else if (use_previousBG) Lx.BG.counts
               else Tx.BG.counts
 
@@ -504,7 +504,7 @@ calc_OSLLxTxRatio <- function(
     } else {
       ## warn if m is < 25, as suggested by Rex Galbraith (low number of
       ## degrees of freedom)
-      if (m < 25 && !.strict_na(background_integral)) { # shouldn't be it k? - dof = k - 1
+      if (m < 25 && !identical(background_integral, NA)) { # shouldn't be it k? - dof = k - 1
         .throw_warning("Number of background channels for ", what, " < 25, ",
                        "error estimation might not be reliable")
       }
@@ -556,9 +556,9 @@ calc_OSLLxTxRatio <- function(
   }
 
   poisson <- background.count.distribution == "poisson"
-  used.sigmab.LnLx <- if (poisson || .strict_na(background_integral)) 0
+  used.sigmab.LnLx <- if (poisson || identical(background_integral, NA)) 0
                       else sigmab.LnLx
-  used.sigmab.TnTx <- if (poisson || .strict_na(background_integral_Tx)) 0
+  used.sigmab.TnTx <- if (poisson || identical(background_integral_Tx, NA)) 0
                       else sigmab.TnTx
 
   LnLx.relError <- rse(Y.0, Y.1, k, used.sigmab.LnLx)
@@ -612,9 +612,9 @@ calc_OSLLxTxRatio <- function(
     Net_LnLx.Error = LnLx.Error,
     Net_TnTx = TnTx,
     Net_TnTx.Error = TnTx.Error,
-    SN_RATIO_LnLx = if (.strict_na(background_integral)) NA_real_
+    SN_RATIO_LnLx = if (identical(background_integral, NA)) NA_real_
                     else Lx.signal / Lx.background,
-    SN_RATIO_TnTx = if (.strict_na(background_integral_Tx)) NA_real_
+    SN_RATIO_TnTx = if (identical(background_integral_Tx, NA)) NA_real_
                     else Tx.signal / Tx.background)
 
   ## ------------------------------------------------------------------------

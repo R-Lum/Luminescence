@@ -681,6 +681,8 @@ test_that("Test internals", {
                "'integral' should be of class 'integer', 'numeric' or NA")
   expect_error(.validate_integral(integral <- NA, na.ok = FALSE),
                "'integral' should be of class 'integer' or 'numeric'")
+  expect_error(.validate_integral(integral <- NA_real_, na.ok = TRUE),
+               "'integral' contains no elements between 1 and Inf")
   expect_error(.validate_integral(integral <- -9:0),
                "'integral' contains no elements between 1 and Inf")
   expect_error(.validate_integral(integral <- 1:10, min = 50, max = 100),
@@ -731,6 +733,9 @@ test_that("Test internals", {
                "'integral' should be of class 'integer' or 'numeric'")
   expect_error(.convert_to_channels(tl, integral <- NA),
                "'integral' should be of class 'integer' or 'numeric'")
+  expect_error(.convert_to_channels(tl, integral <- NA_real_, na.ok = TRUE,
+                                    unit = "temperature"),
+               "'integral' contains no elements in 1.8:450.0")
   expect_error(.convert_to_channels(tl, integral <- list(200:210, NA), list.ok = FALSE),
                "'integral' should be of class 'integer' or 'numeric'")
   expect_error(.convert_to_channels(tl, integral <- list(200:210, NA), list.ok = TRUE),
@@ -800,16 +805,6 @@ test_that("Test internals", {
                list(1, 1, 1))
   expect_equal(.listify(letters, length = 5),
                .listify(list(letters), length = 5))
-
-
-  ## .strict_na() -----------------------------------------------------------
-  expect_true(.strict_na(NA))
-  expect_true(.strict_na(NA_real_))
-  expect_false(.strict_na(NULL))
-  expect_false(.strict_na(c(1, NA)))
-  expect_false(.strict_na(c(NA, NA)))
-  expect_false(.strict_na(matrix()))
-  expect_false(.strict_na(set_RLum("RLum.Data.Curve")))
 
   ## .collapse() ------------------------------------------------------------
   expect_equal(.collapse(1:3),

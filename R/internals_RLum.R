@@ -1515,7 +1515,7 @@ SW <- function(expr) {
   ## - else: the download was successful, so we continue with `url_file`
   url_file <- tempfile("url_file_", fileext = paste0(".", ext[1]))
   url_file <- .download_file(file, destfile = url_file, verbose = verbose)
-  if (.strict_na(url_file)) {
+  if (identical(url_file, NA)) {
     return(NULL)
   }
   if (!is.null(url_file)) {
@@ -1649,7 +1649,7 @@ SW <- function(expr) {
 .validate_integral <- function(integral, int = TRUE, min = ifelse(int, 1, 0), max = Inf,
                                null.ok = FALSE, list.ok = FALSE, na.ok = FALSE,
                                name = NULL) {
-  if (null.ok && is.null(integral) || na.ok && .strict_na(integral))
+  if (null.ok && is.null(integral) || na.ok && identical(integral, NA))
     return(integral)
   name <- name %||% .first_argument()
   .validate_class(integral, c("integer", "numeric", if (list.ok) "list"),
@@ -1700,7 +1700,7 @@ SW <- function(expr) {
 .convert_to_channels <- function(x.range, integral, unit,
                                  null.ok = FALSE, na.ok = FALSE,
                                  list.ok = FALSE, name = NULL) {
-  if (null.ok && is.null(integral) || na.ok && .strict_na(integral))
+  if (null.ok && is.null(integral) || na.ok && identical(integral, NA))
     return(integral)
 
   name <- name %||% .first_argument(idx = 2)
@@ -1714,6 +1714,8 @@ SW <- function(expr) {
   }
 
   integral <- integral[!is.na(integral)]
+  if (length(integral) == 0)
+    .throw_error(name, " contains no elements in ", .format_range(x.range))
   if (min(integral) > max(x.range) || max(integral) < min(x.range))
     .throw_warning("Conversion of ", name, " from ", unit,
                    " to channels failed: expected values in ",
@@ -1767,20 +1769,6 @@ SW <- function(expr) {
   if (!inherits(x, "list"))
     x <- list(x)
   rep(x, length = length)
-}
-
-#' Check that a given object is exactly `NA`
-#'
-#' @param x (**required**): The object to check.
-#'
-#' @return
-#' Whether the object is exactly `NA`.
-#'
-#' @noRd
-.strict_na <- function(x) {
-  if (length(x) != 1 || is.recursive(x) || is.array(x))
-    return(FALSE)
-  is.na(x)
 }
 
 #' Comma-separated string concatenation
