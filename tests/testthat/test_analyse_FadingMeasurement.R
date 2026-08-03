@@ -83,15 +83,6 @@ test_that("input validation", {
 test_that("check functionality", {
   testthat::skip_on_cran()
 
-  ## run routine analysis
-  SW({
-  expect_s4_class(analyse_FadingMeasurement(
-    fading_data,
-    plot = TRUE,
-    verbose = TRUE,
-    n.MC = 10), class = "RLum.Results")
-  })
-
   ## test merging of objects if combined in a list
   ## this crashed before and was fixed
   expect_s4_class(merge_RLum(
@@ -134,17 +125,31 @@ test_that("check functionality", {
       "deprecated in v1.2.0, use 'signal_integral' and 'background_integral'")
 })
 
-test_that("test XSYG file fading data", {
+test_that("snapshot tests", {
   testthat::skip_on_cran()
 
+  set.seed(1)
+  snapshot.tolerance <- 4.0e-5
+
   SW({
-  expect_s4_class(analyse_FadingMeasurement(
-    object,
-    signal_integral = 1:2,
-    background_integral = 10:40,
-    structure = "Lx"
-  ), "RLum.Results")
+  expect_snapshot_RLum(analyse_FadingMeasurement(fading_data,
+                                                 plot = TRUE,
+                                                 verbose = TRUE,
+                                                 n.MC = 10),
+                       expect_snapshot_output = TRUE,
+                       tolerance = snapshot.tolerance)
+
+  expect_snapshot_RLum(analyse_FadingMeasurement(object,
+                                                 signal_integral = 1:2,
+                                                 background_integral = 10:40,
+                                                 structure = "Lx"),
+                       expect_snapshot_output = TRUE,
+                       tolerance = snapshot.tolerance)
   })
+})
+
+test_that("test XSYG file fading data", {
+  testthat::skip_on_cran()
 
   SW({
   expect_s4_class(analyse_FadingMeasurement(

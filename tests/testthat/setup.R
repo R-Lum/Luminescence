@@ -54,6 +54,12 @@ expect_snapshot_RLum <- function(object, ..., expect_snapshot_output = FALSE) {
       object@data$data_uncor$UID <- NULL
       object@data$LnLxTnTx.table_uncor$UID <- NULL
     }
+    if ("fading_results" %in% names(object@data)) { # analyse_FadingMeasurement()
+      object@data$fading_results$UID <- NULL
+    }
+    if ("LxTx_table" %in% names(object@data)) { # analyse_FadingMeasurement()
+      object@data$LxTx_table$UID <- NULL
+    }
     if ("Fit" %in% names(object@data))
       object@data$Fit <- NULL
     if ("Formula" %in% names(object@data))
