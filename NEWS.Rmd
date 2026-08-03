@@ -19,6 +19,12 @@ header-includes:
 
 ## Bugfixes and changes
 
+### `analyse_Al2O3C_Measurement()`
+
+* The function now better validates the `dose_points` argument so that it no
+longer generate an incorrect data frame if it's specified as a list for a
+non-list object (#1640).
+
 ### `analyse_SAR.CWOSL()`
 
 * The ordering of columns in the `$data` field of the result object was

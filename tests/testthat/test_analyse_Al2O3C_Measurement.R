@@ -16,6 +16,8 @@ test_that("input validation", {
                "'object' cannot be an empty list")
   expect_error(analyse_Al2O3C_Measurement(list(data_CrossTalk, "error")),
                "All elements of 'object' should be of class 'RLum.Analysis'")
+  expect_error(analyse_Al2O3C_Measurement(data_CrossTalk[[1]], dose_points = list(3)),
+               "'dose_points' should be of class 'numeric'")
   expect_error(analyse_Al2O3C_Measurement(data_CrossTalk, plot = c(TRUE, FALSE)),
                "'plot' should be a single logical value")
   suppressWarnings(
@@ -41,6 +43,9 @@ test_that("input validation", {
   expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
                                           cross_talk_correction = set_RLum("RLum.Results")),
                "'cross_talk_correction' has an unsupported originator")
+  expect_error(analyse_Al2O3C_Measurement(data_CrossTalk,
+                                          calculate_TL_dose = data.frame()),
+               "should be a single logical value")
 
   expect_error(analyse_Al2O3C_Measurement(osl, signal_integral = 1000),
                "'signal_integral' contains no elements between 1 and 99")
@@ -131,7 +136,7 @@ test_that("graphical snapshot tests", {
                               analyse_Al2O3C_Measurement(osl[2]))
   vdiffr::expect_doppelganger("dose_points",
                               analyse_Al2O3C_Measurement(data_CrossTalk[[2]],
-                                                         dose_points = list(3)))
+                                                         dose_points = 3))
   })
 })
 
