@@ -1,5 +1,47 @@
 # snapshot tests
 
+    
+     [scale_GammaDose()]
+    
+     ----
+     Conversion factors: Liritzisetal2013 
+     Gamma dose fractions: Aitken1985 
+     Target layer: A 
+    
+     ---- Infinite matrix gamma dose rate per layer ----
+    
+           ID   K (Gy/ka)  Th (Gy/ka)   U (Gy/ka) Total (Gy/ka)
+    1 E_upper 0.402±0.200 0.403±0.154 0.164±0.056         0.969
+    2 D_upper 0.361±0.176 0.168±0.057 0.112±0.033         0.641
+    3 C_upper 0.321±0.139 0.251±0.085 0.155±0.062         0.728
+    4 B_upper 0.470±0.297 0.430±0.244 0.190±0.114         1.090
+    5       A 0.371±0.256 0.327±0.200 0.216±0.132         0.914
+    6 B_lower 0.472±0.287 0.432±0.234 0.189±0.125         1.093
+    7 C_lower 0.469±0.267 0.311±0.148 0.223±0.124         1.004
+    8 D_lower 0.276±0.129 0.191±0.047 0.129±0.057         0.596
+    9 E_lower 0.434±0.195 0.430±0.159 0.181±0.088         1.045
+    
+     ---- Scaled gamma dose rate for target layer: A  ----
+    
+            ID   K (Gy/ka)  Th (Gy/ka)   U (Gy/ka) Contribution (%)
+    1  E_upper 0.001±0.000 0.001±0.000 0.000±0.000              0.2
+    2  D_upper 0.005±0.003 0.002±0.001 0.001±0.000              1.0
+    3  C_upper 0.034±0.015 0.025±0.008 0.015±0.006              7.9
+    4  B_upper 0.044±0.028 0.039±0.022 0.017±0.010             10.8
+    5        A 0.209±0.144 0.190±0.116 0.129±0.079             57.1
+    6  B_lower 0.068±0.041 0.061±0.033 0.026±0.017             16.8
+    7  C_lower 0.014±0.008 0.009±0.004 0.006±0.003              3.1
+    8  D_lower 0.007±0.003 0.004±0.001 0.003±0.001              1.5
+    9  E_lower 0.007±0.003 0.006±0.002 0.002±0.001              1.6
+    10   TOTAL 0.388±0.153 0.336±0.123 0.200±0.082            100.0
+    
+     ----
+     Infinite matrix gamma dose rate:	 0.914 ± 0.351 Gy/ka 
+     Scaled gamma dose rate:		 0.924 ± 0.213 Gy/ka
+    
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -637,7 +679,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["data", "conversion_factors", "fractional_gamma_dose", "plot", "plot_singlePanels", "verbose"]
+                  "value": ["data", "conversion_factors", "fractional_gamma_dose", "plot", "plot_singlePanels"]
                 }
               },
               "value": [
@@ -655,11 +697,6 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["Aitken1985"]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [true]
                 },
                 {
                   "type": "logical",
@@ -701,6 +738,48 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    
+     [scale_GammaDose()]
+    
+     ----
+     Conversion factors: Guerinetal2011 
+     Gamma dose fractions: Aitken1985 
+     Target layer: A 
+    
+     ---- Infinite matrix gamma dose rate per layer ----
+    
+           ID   K (Gy/ka)  Th (Gy/ka)   U (Gy/ka) Total (Gy/ka)
+    1 E_upper 0.401±0.200 0.401±0.153 0.164±0.056         0.966
+    2 D_upper 0.360±0.176 0.168±0.057 0.112±0.033         0.639
+    3 C_upper 0.320±0.138 0.250±0.085 0.155±0.062         0.726
+    4 B_upper 0.469±0.296 0.428±0.243 0.190±0.114         1.087
+    5       A 0.370±0.255 0.325±0.199 0.215±0.132         0.911
+    6 B_lower 0.471±0.286 0.430±0.233 0.189±0.125         1.090
+    7 C_lower 0.468±0.266 0.310±0.147 0.223±0.124         1.001
+    8 D_lower 0.275±0.129 0.190±0.047 0.129±0.057         0.594
+    9 E_lower 0.432±0.194 0.428±0.158 0.180±0.088         1.041
+    
+     ---- Scaled gamma dose rate for target layer: A  ----
+    
+            ID   K (Gy/ka)  Th (Gy/ka)   U (Gy/ka) Contribution (%)
+    1  E_upper 0.001±0.000 0.001±0.000 0.000±0.000              0.2
+    2  D_upper 0.005±0.003 0.002±0.001 0.001±0.000              1.0
+    3  C_upper 0.034±0.015 0.024±0.008 0.015±0.006              7.9
+    4  B_upper 0.043±0.027 0.039±0.022 0.017±0.010             10.8
+    5        A 0.208±0.144 0.189±0.116 0.129±0.079             57.1
+    6  B_lower 0.068±0.041 0.060±0.033 0.026±0.017             16.8
+    7  C_lower 0.014±0.008 0.009±0.004 0.006±0.003              3.1
+    8  D_lower 0.007±0.003 0.004±0.001 0.003±0.001              1.5
+    9  E_lower 0.007±0.003 0.006±0.002 0.002±0.001              1.6
+    10   TOTAL 0.387±0.153 0.335±0.123 0.199±0.082            100.0
+    
+     ----
+     Infinite matrix gamma dose rate:	 0.911 ± 0.350 Gy/ka 
+     Scaled gamma dose rate:		 0.921 ± 0.212 Gy/ka
+    
 
 ---
 
@@ -1341,7 +1420,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["data", "conversion_factors", "fractional_gamma_dose", "plot", "verbose"]
+                  "value": ["data", "conversion_factors", "fractional_gamma_dose", "plot"]
                 }
               },
               "value": [
@@ -1364,11 +1443,6 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [true]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [false]
                 }
               ]
             }
@@ -1400,6 +1474,48 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    
+     [scale_GammaDose()]
+    
+     ----
+     Conversion factors: AdamiecAitken1998 
+     Gamma dose fractions: Aitken1985 
+     Target layer: A 
+    
+     ---- Infinite matrix gamma dose rate per layer ----
+    
+           ID   K (Gy/ka)  Th (Gy/ka)   U (Gy/ka) Total (Gy/ka)
+    1 E_upper 0.391±0.195 0.398±0.152 0.166±0.057         0.955
+    2 D_upper 0.351±0.171 0.167±0.057 0.113±0.034         0.631
+    3 C_upper 0.312±0.135 0.249±0.084 0.157±0.063         0.718
+    4 B_upper 0.457±0.289 0.425±0.241 0.192±0.116         1.075
+    5       A 0.361±0.249 0.323±0.198 0.218±0.134         0.903
+    6 B_lower 0.459±0.279 0.428±0.232 0.191±0.127         1.078
+    7 C_lower 0.457±0.259 0.308±0.146 0.226±0.126         0.991
+    8 D_lower 0.268±0.126 0.189±0.047 0.130±0.058         0.588
+    9 E_lower 0.422±0.189 0.426±0.157 0.183±0.089         1.030
+    
+     ---- Scaled gamma dose rate for target layer: A  ----
+    
+            ID   K (Gy/ka)  Th (Gy/ka)   U (Gy/ka) Contribution (%)
+    1  E_upper 0.001±0.000 0.001±0.000 0.000±0.000              0.2
+    2  D_upper 0.005±0.003 0.002±0.001 0.001±0.000              1.0
+    3  C_upper 0.033±0.014 0.024±0.008 0.015±0.006              7.9
+    4  B_upper 0.042±0.027 0.039±0.022 0.017±0.010             10.8
+    5        A 0.203±0.140 0.188±0.115 0.131±0.080             57.2
+    6  B_lower 0.066±0.040 0.060±0.032 0.027±0.018             16.8
+    7  C_lower 0.014±0.008 0.009±0.004 0.006±0.003              3.1
+    8  D_lower 0.007±0.003 0.004±0.001 0.003±0.001              1.5
+    9  E_lower 0.006±0.003 0.006±0.002 0.002±0.001              1.6
+    10   TOTAL 0.378±0.149 0.333±0.122 0.202±0.083            100.0
+    
+     ----
+     Infinite matrix gamma dose rate:	 0.903 ± 0.345 Gy/ka 
+     Scaled gamma dose rate:		 0.912 ± 0.210 Gy/ka
+    
 
 ---
 
@@ -2040,7 +2156,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["data", "conversion_factors", "fractional_gamma_dose", "plot", "verbose"]
+                  "value": ["data", "conversion_factors", "fractional_gamma_dose", "plot"]
                 }
               },
               "value": [
@@ -2058,11 +2174,6 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["Aitken1985"]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [false]
                 },
                 {
                   "type": "logical",

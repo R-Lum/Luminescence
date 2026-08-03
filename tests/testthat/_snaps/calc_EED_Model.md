@@ -1,5 +1,18 @@
 # snapshot tests
 
+    
+    [calc_EED_Model()]
+    
+    >> Running automated parameter estimation... 
+    >> min. variance: 0.0003997361
+    >> kappa:  14.99273  | sigma:  0.3797014
+    ------------------------------------ 
+    
+     Maximal Individual Equivalent Dose integrated:  25.77 Gy
+     Averaged Corrected Equivalent Dose:  11.53 ± 0.61 Gy
+
+---
+
     {
       "type": "S4",
       "attributes": {

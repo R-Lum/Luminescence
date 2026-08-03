@@ -72,12 +72,14 @@ test_that("snapshot tests", {
                        tolerance = snapshot.tolerance)
 
   expect_snapshot_RLum(calc_CentralDose(temp_NA, log = FALSE),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
 
   ## more coverage
   df <- data.frame(De = c(1e-160, 1e-156, 1e-120, 4e-22),
                    De.err = c(1e5, 1e40, 1e12, 1e28))
   expect_snapshot_RLum(calc_CentralDose(df),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
   })
 })

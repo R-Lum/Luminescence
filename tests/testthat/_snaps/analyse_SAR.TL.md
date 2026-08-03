@@ -1,5 +1,10 @@
 # snapshot tests
 
+    [fit_DoseResponseCurve()] Fit failed for SSE (interpolation)
+    [fit_DoseResponseCurve()] Fit failed for SSE (interpolation)
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -226,6 +231,10 @@
 
 ---
 
+    [fit_DoseResponseCurve()] Fit failed for SSE (interpolation)
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -449,6 +458,10 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    [fit_DoseResponseCurve()] Fit:    SSE (interpolation) | De = 36.05 | D01 = 1166.06
 
 ---
 

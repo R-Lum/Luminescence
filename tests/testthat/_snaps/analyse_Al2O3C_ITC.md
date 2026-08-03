@@ -1,5 +1,14 @@
 # snapshot tests
 
+    
+    [analyse_Al2O3C_ITC()]
+    
+     Used fit method:		 SSE
+     Time correction value:	 2.598 ± 0.033
+    
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -173,6 +182,15 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    
+    [analyse_Al2O3C_ITC()]
+    
+     Used fit method:		 SSE
+     Time correction value:	 2.508 ± 0.03
+    
 
 ---
 

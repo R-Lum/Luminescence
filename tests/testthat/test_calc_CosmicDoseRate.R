@@ -76,6 +76,7 @@ test_that("check functionality", {
       calc_CosmicDoseRate(depth = 2.78, density = 1.7,
                           latitude = 38.06451, longitude = 1.49646,
                           altitude = 364, error = 10),
+      expect_snapshot_output = TRUE,
       tolerance = snapshot.tolerance)
 
   ## length(depth) > length(density), half.depth
@@ -84,16 +85,19 @@ test_that("check functionality", {
                           corr.fieldChanges = TRUE, est.age = 20,
                           latitude = 28.06451, longitude = 1.49646,
                           altitude = 364, half.depth = TRUE),
+      expect_snapshot_output = TRUE,
       tolerance = snapshot.tolerance)
 
   expect_snapshot_RLum(
       calc_CosmicDoseRate(depth = c(1.78, 0.12), density = c(0.7, 0.2),
                           latitude = 120, longitude = 30, altitude = 1200),
+      expect_snapshot_output = TRUE,
       tolerance = snapshot.tolerance)
 
   expect_snapshot_RLum(
       calc_CosmicDoseRate(depth = c(1.78, 0.12), density = c(0.2, 0.2),
                           latitude = 30, longitude = 120, altitude = 120),
+      expect_snapshot_output = TRUE,
       tolerance = snapshot.tolerance)
   })
 })

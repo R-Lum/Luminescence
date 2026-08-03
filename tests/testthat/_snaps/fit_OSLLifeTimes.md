@@ -1,5 +1,35 @@
 # check functionality
 
+    
+    [fit_OSLLifeTime()]
+    
+    (1) Start parameter and component adapation
+    ---------------------(start adaption)---------------------
+    
+    >> + adaption for 1 comp. :  Inf (calc.) <>  3 (ref.) >> [add comp.] >> [forced stop]
+    ----------------------(end adaption)----------------------
+    
+    
+    >> Applied component matrix
+                      A      tau
+    Comp.1 1.891061e+12 1192.893
+    
+    
+    (2) Fitting results (sorted by ascending tau)
+    -------------------------------------------------------------------------
+              Estimate   Std. Error   t value      Pr(>|t|)
+    A.1   2.118737e+10 9.710554e+07 218.18915  0.000000e+00
+    tau.1 8.791460e+01 3.167935e+00  27.75139 1.196441e-143
+    -------------------------------------------------------------------------
+    
+    (3) Further information
+    -------------------------------------------------------------------------
+    Photon count sum:  3.831e+13 
+    Durbin-Watson residual statistic:  0.77 [ <>        ]
+    
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -109,6 +139,63 @@
 
 ---
 
+    
+    [fit_OSLLifeTime()]
+    
+    (1) Start parameter and component adapation
+    ---------------------(start adaption)---------------------
+    
+    >> + adaption for 1 comp. :  Inf (calc.) <>  3 (ref.) >> [add comp.] >> [forced stop]
+    ----------------------(end adaption)----------------------
+    
+    
+    >> Applied component matrix
+                      A    tau
+    Comp.1 2.032205e+12 110.38
+    
+    
+    (2) Fitting results (sorted by ascending tau)
+    -------------------------------------------------------------------------
+              Estimate   Std. Error   t value      Pr(>|t|)
+    A.1   2.118738e+10 9.710555e+07 218.18918  0.000000e+00
+    tau.1 8.791437e+01 3.167918e+00  27.75146 1.194747e-143
+    -------------------------------------------------------------------------
+    
+    (3) Further information
+    -------------------------------------------------------------------------
+    Photon count sum:  3.831e+13 
+    Durbin-Watson residual statistic:  0.77 [ <>        ]
+    
+    
+    [fit_OSLLifeTime()]
+    
+    (1) Start parameter and component adapation
+    ---------------------(start adaption)---------------------
+    
+    >> + adaption for 1 comp. :  Inf (calc.) <>  3 (ref.) >> [add comp.] >> [forced stop]
+    ----------------------(end adaption)----------------------
+    
+    
+    >> Applied component matrix
+                      A      tau
+    Comp.1 2.032644e+12 114.5974
+    
+    
+    (2) Fitting results (sorted by ascending tau)
+    -------------------------------------------------------------------------
+              Estimate   Std. Error   t value      Pr(>|t|)
+    A.1   2.118737e+10 9.710554e+07 218.18915  0.000000e+00
+    tau.1 8.791460e+01 3.167934e+00  27.75139 1.196436e-143
+    -------------------------------------------------------------------------
+    
+    (3) Further information
+    -------------------------------------------------------------------------
+    Photon count sum:  3.831e+13 
+    Durbin-Watson residual statistic:  0.77 [ <>        ]
+    
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -215,6 +302,37 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    
+    [fit_OSLLifeTime()]
+    
+    (1) Start parameter and component adapation
+    ---------------------(start adaption)---------------------
+    
+    >> + adaption for 1 comp. :  Inf (calc.) <>  3.04 (ref.) >> [add comp.]
+    >> + adaption for 2 comp. :  1.74 (calc.) <>  3.04 (ref.) >> [stop]
+    ----------------------(end adaption)----------------------
+    
+    
+    >> Applied component matrix
+                      A      tau
+    Comp.1 3.163387e+12 3.206027
+    
+    
+    (2) Fitting results (sorted by ascending tau)
+    -------------------------------------------------------------------------
+              Estimate   Std. Error  t value      Pr(>|t|)
+    A.1   3.164919e+10 7.339904e+08 43.11936 1.344716e-102
+    tau.1 3.197360e+00 2.430472e-01 13.15530  8.144879e-29
+    -------------------------------------------------------------------------
+    
+    (3) Further information
+    -------------------------------------------------------------------------
+    Photon count sum:  4.7075e+12 
+    Durbin-Watson residual statistic:  0.36 [<>         ]
+    
 
 ---
 

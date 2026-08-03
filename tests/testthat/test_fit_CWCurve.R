@@ -47,6 +47,7 @@ test_that("snapshot tests", {
                                    n.components.max = 3,
                                    fit.method = "LM",
                                    plot = FALSE),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
 
   ## RLum.Data.Curve object
@@ -54,8 +55,8 @@ test_that("snapshot tests", {
                                    n.components.max = 2,
                                    fit.calcError = TRUE,
                                    method_control = list(export.comp.contrib.matrix = TRUE),
-                                   verbose = FALSE,
                                    plot = FALSE),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
   })
 })

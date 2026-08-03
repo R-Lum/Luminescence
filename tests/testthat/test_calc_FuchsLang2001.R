@@ -28,14 +28,15 @@ test_that("snapshot tests", {
 
   expect_snapshot_RLum(temp <- calc_FuchsLang2001(data = ExampleData.DeValues$BT998,
                                           cvThreshold = 5,
-                                          plot = FALSE,
-                                          verbose = FALSE),
+                                          plot = FALSE),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
 
   ## using an RLum.Results object as input
   SW({
   expect_snapshot_RLum(calc_FuchsLang2001(data = temp, startDeValue = 24,
                                           plot = FALSE),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
   })
 })

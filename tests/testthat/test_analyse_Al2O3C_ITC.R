@@ -69,10 +69,12 @@ test_that("snapshot tests", {
 
   SW({
   expect_snapshot_RLum(analyse_Al2O3C_ITC(data_ITC),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
   expect_snapshot_RLum(analyse_Al2O3C_ITC(list(data_ITC),
                                           signal_integral = 2,
                                           method_control = list(fit.method = "SSE")),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
   })
 })

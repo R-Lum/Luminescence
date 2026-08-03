@@ -1,5 +1,30 @@
 # check functionality
 
+    
+    
+     [calc_CosmicDoseRate]
+    
+     ---------------------------------------------------------
+     depth (m)              : 2.78
+     density (g cm^-3)      : 1.7
+     latitude (N deg.)      : 38.06451
+     longitude (E deg.)     : 1.49646
+     altitude (m)           : 364
+     ---------------------------------------------------------
+     total absorber (g cm^-2)       : 472.6
+    
+     cosmic dose rate (Gy ka^-1)    : 0.1518
+      [@sea-level & 55 deg. N G.lat]
+    
+     geomagnetic latitude (deg.)    : 41.1
+    
+     cosmic dose rate (Gy ka^-1)    : 0.161 +- 0.0161
+      [corrected]                 
+     ---------------------------------------------------------
+    
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -168,6 +193,20 @@
 
 ---
 
+    corr.fac: 1  diff.one: 0  alt.fac: 1.281314 
+    corr.fac: 1  diff.one: 0  alt.fac: 1.281314 
+    
+    
+     [calc_CosmicDoseRate]
+    
+     Calculating cosmic dose rate for 2 samples.
+    
+      depth (m) d0 (Gy/ka) dc (Gy/ka) dc_error (Gy/ka)
+    1      2.78     0.1781     0.1850           0.0185
+    2      3.12     0.1746     0.1814           0.0181
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -333,6 +372,31 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    
+    
+     [calc_CosmicDoseRate]
+    
+     ---------------------------------------------------------
+     depth (m)              : 1.78 0.12
+     density (g cm^-3)      : 0.7 0.2
+     latitude (N deg.)      : 120
+     longitude (E deg.)     : 30
+     altitude (m)           : 1200
+     ---------------------------------------------------------
+     total absorber (g cm^-2)       : 127
+    
+     cosmic dose rate (Gy ka^-1)    : 0.1921
+      [@sea-level & 55 deg. N G.lat]
+    
+     geomagnetic latitude (deg.)    : 59.7
+    
+     cosmic dose rate (Gy ka^-1)    : 0.2417 +- 0.0242
+      [corrected]                 
+     ---------------------------------------------------------
+    
 
 ---
 
@@ -511,6 +575,31 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    
+    
+     [calc_CosmicDoseRate]
+    
+     ---------------------------------------------------------
+     depth (m)              : 1.78 0.12
+     density (g cm^-3)      : 0.2 0.2
+     latitude (N deg.)      : 30
+     longitude (E deg.)     : 120
+     altitude (m)           : 120
+     ---------------------------------------------------------
+     total absorber (g cm^-2)       : 38
+    
+     cosmic dose rate (Gy ka^-1)    : 0.2275
+      [@sea-level & 55 deg. N G.lat]
+    
+     geomagnetic latitude (deg.)    : 18.4
+    
+     cosmic dose rate (Gy ka^-1)    : 0.2154 +- 0.0215
+      [corrected]                 
+     ---------------------------------------------------------
+    
 
 ---
 

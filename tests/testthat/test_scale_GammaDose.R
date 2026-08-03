@@ -76,8 +76,8 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(scale_GammaDose(data = ExampleData.ScaleGammaDose,
                                        conversion_factors = "Liritzisetal2013",
                                        fractional_gamma_dose = "Aitken1985",
-                                       plot = TRUE, plot_singlePanels = TRUE,
-                                       verbose = TRUE),
+                                       plot = TRUE, plot_singlePanels = TRUE),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
   })
 
@@ -85,14 +85,16 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(scale_GammaDose(data = ExampleData.ScaleGammaDose,
                                        conversion_factors = "Guerinetal2011",
                                        fractional_gamma_dose = "Aitken1985",
-                                       plot = TRUE, verbose = FALSE),
+                                       plot = TRUE),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
 
   ## Conversion factors: AdamiecAitken1998
   expect_snapshot_RLum(scale_GammaDose(data = ExampleData.ScaleGammaDose,
                                        conversion_factors = "AdamiecAitken1998",
                                        fractional_gamma_dose = "Aitken1985",
-                                       plot = FALSE, verbose = FALSE),
+                                       plot = FALSE),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
 })
 

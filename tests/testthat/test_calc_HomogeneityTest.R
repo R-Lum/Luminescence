@@ -23,7 +23,8 @@ test_that("check values from output example", {
 
   snapshot.tolerance <- 1.5e-6
 
-  expect_snapshot_RLum(temp <- calc_HomogeneityTest(df, verbose = FALSE),
+  expect_snapshot_RLum(temp <- calc_HomogeneityTest(df),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
 
   ## using an RLum.Results object as input
@@ -35,6 +36,7 @@ test_that("check values from output example", {
   ##test the unlogged version
   SW({
   expect_snapshot_RLum(calc_HomogeneityTest(df, log = FALSE),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
   })
 

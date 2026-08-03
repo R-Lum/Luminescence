@@ -44,6 +44,7 @@ test_that("check functionality", {
     n.components = 2,
     grain.probability = TRUE,
     verbose = TRUE),
+    expect_snapshot_output = TRUE,
     tolerance = snapshot.tolerance)
   })
 

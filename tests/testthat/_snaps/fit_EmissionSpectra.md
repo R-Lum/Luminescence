@@ -1,5 +1,47 @@
 # snapshot tests
 
+    
+    [fit_EmissionSpectra()]
+    
+    >> Treating dataset >> 5 <<
+    >> Wavelength scale detected ...
+    >> Wavelength to energy scale conversion ... 	[OK]
+    
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[\]
+    >> Searching components ... 			[/]
+    >> Searching components ... 			[\]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[\]
+    >> Searching components ... 			[\]
+    >> Searching components ... 			[\]
+    >> Searching components ... 			 [OK]
+    
+    >> Fitting results (3 component model):
+    -------------------------------------------------------------------------
+               mu      SE(mu)     sigma   SE(sigma)          C       SE(C)
+    [1,] 2.167088 0.002648052 0.0596749 0.003529904 0.05488238 0.011627225
+    [2,] 2.296782 0.008115488 0.1024383 0.005019089 0.16338997 0.014156265
+    [3,] 2.770252 0.003037320 0.3199484 0.002807020 0.56341039 0.004735906
+    -------------------------------------------------------------------------
+    SE: standard error | SSR: 7.787e-01 | R^2: 0.993 | R^2_adj: 0.007
+    (use the output in $fit for a more detailed analysis)
+    
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -165,6 +207,30 @@
 
 ---
 
+    
+    [fit_EmissionSpectra()]
+    
+    >> Treating dataset >> 5 <<
+    >> Wavelength to energy scale conversion ... 	[OK]
+    
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[\]
+    >> Searching components ... 			[/]
+    >> Searching components ... 			[/]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			 [OK]
+    
+    >> Fitting results (1 component model):
+    -------------------------------------------------------------------------
+               mu      SE(mu)     sigma   SE(sigma)         C      SE(C)
+    [1,] 2.578402 0.006163982 0.3748339 0.005834778 0.7750762 0.01085087
+    -------------------------------------------------------------------------
+    SE: standard error | SSR: 2.164e+01 | R^2: 0.807 | R^2_adj: 0.1938
+    (use the output in $fit for a more detailed analysis)
+    
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -280,6 +346,49 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    
+    [fit_EmissionSpectra()]
+    
+    >> Treating dataset >> <<
+    
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			 [FAILED]
+    [fit_EmissionSpectra()]
+    
+    >> Treating dataset >> <<
+    
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			 [FAILED]
+    [fit_EmissionSpectra()]
+    
+    >> Treating dataset >> <<
+    
+    >> Searching components ... 			[/]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			[\]
+    >> Searching components ... 			[-]
+    >> Searching components ... 			 [OK]
+    
+    >> Fitting results (1 component model):
+    -------------------------------------------------------------------------
+         mu   SE(mu)    sigma SE(sigma) C    SE(C)
+    [1,] -5 45.08444 9.158067  23.89828 1 4.709385
+    -------------------------------------------------------------------------
+    SE: standard error | SSR: 5.346e+01 | R^2: -0.173 | R^2_adj: 1.1766
+    (use the output in $fit for a more detailed analysis)
+    
 
 ---
 

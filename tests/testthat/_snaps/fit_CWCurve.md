@@ -1,5 +1,21 @@
 # snapshot tests
 
+    
+    [fit_CWCurve()]
+    
+    Fitting was finally done using a 3-component function (max=3):
+    ------------------------------------------------------------------------------
+    y ~ I0.1 * lambda.1 * exp(-lambda.1 * x) + I0.2 * lambda.2 * exp(-lambda.2 * x) + I0.3 * lambda.3 * exp(-lambda.3 * x)
+    
+             I0 I0.error     lambda lambda.error           cs cs.rel
+    c1 2387.619       NA 4.59053828           NA 5.389395e-17 1.0000
+    c2 1053.489       NA 1.95936217           NA 2.300335e-17 0.4268
+    c3 2816.630       NA 0.02054733           NA 2.412302e-19 0.0045
+    ------------------------------------------------------------------------------
+    pseudo-R^2 =  0.9995 
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -185,6 +201,22 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    
+    [fit_CWCurve()]
+    
+    Fitting was finally done using a 2-component function (max=2):
+    ------------------------------------------------------------------------------
+    y ~ I0.1 * lambda.1 * exp(-lambda.1 * x) + I0.2 * lambda.2 * exp(-lambda.2 * x)
+    
+              I0  I0.error    lambda lambda.error           cs cs.rel
+    c1 2962.7170 105.00474 4.1806027    0.1065816 4.908121e-17  1.000
+    c2  721.5027  85.56454 0.8025819    0.2051725 9.422491e-18  0.192
+    (errors quoted as 1-sigma values)
+    ------------------------------------------------------------------------------
+    pseudo-R^2 =  0.9995 
 
 ---
 
