@@ -44,14 +44,16 @@ test_that("check class and length of output", {
   testthat::skip_on_cran()
 
   set.seed(1)
+  snapshot.tolerance <- 1.5e-6
+
   expect_snapshot_RLum(ADM,
-                       tolerance = 1.5e-6)
-  expect_output(
+                       tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(
       calc_AverageDose(ExampleData.DeValues$CA1[1:56, ],
                        sigma_m = 0.9,
-                       plot = FALSE,
-                       verbose = TRUE)
-  )
+                       plot = FALSE),
+      expect_snapshot_output = TRUE,
+      tolerance = snapshot.tolerance)
 
   results <- get_RLum(ADM)
 
