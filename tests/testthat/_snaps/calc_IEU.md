@@ -132,11 +132,6 @@
                 {
                   "type": "list",
                   "attributes": {
-                    "names": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["Rank.number", "De", "De.Error", "Z", "EXT.top", "EXT", "INT", "R", "R.Error"]
-                    },
                     "row.names": {
                       "type": "integer",
                       "attributes": {},
@@ -146,6 +141,11 @@
                       "type": "character",
                       "attributes": {},
                       "value": ["data.frame"]
+                    },
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Rank.number", "De", "De.Error", "Z", "EXT.top", "EXT", "INT", "R", "R.Error"]
                     }
                   },
                   "value": [
@@ -480,11 +480,6 @@
                 {
                   "type": "list",
                   "attributes": {
-                    "names": {
-                      "type": "character",
-                      "attributes": {},
-                      "value": ["Rank.number", "De", "De.Error", "Z", "EXT.top", "EXT", "INT", "R", "R.Error"]
-                    },
                     "row.names": {
                       "type": "integer",
                       "attributes": {},
@@ -494,6 +489,11 @@
                       "type": "character",
                       "attributes": {},
                       "value": ["data.frame"]
+                    },
+                    "names": {
+                      "type": "character",
+                      "attributes": {},
+                      "value": ["Rank.number", "De", "De.Error", "Z", "EXT.top", "EXT", "INT", "R", "R.Error"]
                     }
                   },
                   "value": [

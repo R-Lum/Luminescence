@@ -16,11 +16,6 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["DE", "DE.ERROR", "ETA"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -30,6 +25,11 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["DE", "DE.ERROR", "ETA"]
                 }
               },
               "value": [
@@ -177,11 +177,6 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["DE", "DE.ERROR", "ETA"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -191,6 +186,11 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["DE", "DE.ERROR", "ETA"]
                 }
               },
               "value": [
@@ -338,11 +338,6 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["DE", "DE.ERROR", "ETA"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -352,6 +347,11 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["DE", "DE.ERROR", "ETA"]
                 }
               },
               "value": [
@@ -499,11 +499,6 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["DE", "DE.ERROR", "ETA"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -513,6 +508,11 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["DE", "DE.ERROR", "ETA"]
                 }
               },
               "value": [

@@ -16,11 +16,6 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["De", "De.Error", "RC.Status"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -30,6 +25,11 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["De", "De.Error", "RC.Status"]
                 }
               },
               "value": [
@@ -53,15 +53,15 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "net_LnLx", "net_LnLx.Error", "net_TnTx", "net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
                   "value": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "net_LnLx", "net_LnLx.Error", "net_TnTx", "net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
                 },
                 "class": {
                   "type": "character",
@@ -150,15 +150,15 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["criterion", "value", "threshold", "status"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
                   "value": [1, 2, 3, 4]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["criterion", "value", "threshold", "status"]
                 },
                 "class": {
                   "type": "character",
@@ -242,11 +242,6 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["De", "De.Error", "RC.Status"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -256,6 +251,11 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["De", "De.Error", "RC.Status"]
                 }
               },
               "value": [
@@ -279,15 +279,15 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "net_LnLx", "net_LnLx.Error", "net_TnTx", "net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
                   "value": [1, 2, 3, 4, 5, 6, 7]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["Name", "Repeated", "Dose", "LnLx", "LnLx.BG", "TnTx", "TnTx.BG", "net_LnLx", "net_LnLx.Error", "net_TnTx", "net_TnTx.Error", "SN_RATIO_LnLx", "SN_RATIO_TnTx", "LxTx", "LxTx.Error"]
                 },
                 "class": {
                   "type": "character",
@@ -376,15 +376,15 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["criterion", "value", "threshold", "status"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
                   "value": [1, 2]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["criterion", "value", "threshold", "status"]
                 },
                 "class": {
                   "type": "character",
@@ -602,15 +602,15 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["criterion", "value", "threshold", "status"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
                   "value": [1, 2]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["criterion", "value", "threshold", "status"]
                 },
                 "class": {
                   "type": "character",
@@ -828,15 +828,15 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["criterion", "value", "threshold", "status"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
                   "value": [1, 2]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["criterion", "value", "threshold", "status"]
                 },
                 "class": {
                   "type": "character",
@@ -1049,15 +1049,15 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["criterion", "value", "threshold", "status"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
                   "value": [1, 2, 3, 4, 5, 6, 7]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["criterion", "value", "threshold", "status"]
                 },
                 "class": {
                   "type": "character",

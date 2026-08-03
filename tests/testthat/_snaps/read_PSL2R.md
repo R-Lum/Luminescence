@@ -1218,11 +1218,6 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["RUN", "NAME", "STIM", "ON_OFF", "CYCLE"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -1232,6 +1227,11 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["RUN", "NAME", "STIM", "ON_OFF", "CYCLE"]
                 }
               },
               "value": [
@@ -3611,11 +3611,6 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["RUN", "NAME", "STIM", "ON_OFF", "CYCLE"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -3625,6 +3620,11 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["RUN", "NAME", "STIM", "ON_OFF", "CYCLE"]
                 }
               },
               "value": [
@@ -3734,11 +3734,6 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["RUN", "NAME", "STIM", "ON_OFF", "CYCLE"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -3748,6 +3743,11 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["RUN", "NAME", "STIM", "ON_OFF", "CYCLE"]
                 }
               },
               "value": [

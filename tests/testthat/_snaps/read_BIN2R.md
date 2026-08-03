@@ -6,15 +6,15 @@
         "METADATA": {
           "type": "list",
           "attributes": {
-            "names": {
-              "type": "character",
-              "attributes": {},
-              "value": ["ID", "SEL", "VERSION", "LENGTH", "PREVIOUS", "NPOINTS", "RECTYPE", "RUN", "SET", "POSITION", "GRAIN", "GRAINNUMBER", "CURVENO", "XCOORD", "YCOORD", "SAMPLE", "COMMENT", "SYSTEMID", "FNAME", "USER", "TIME", "DATE", "DTYPE", "BL_TIME", "BL_UNIT", "NORM1", "NORM2", "NORM3", "BG", "SHIFT", "TAG", "LTYPE", "LIGHTSOURCE", "LPOWER", "LIGHTPOWER", "LOW", "HIGH", "RATE", "TEMPERATURE", "MEASTEMP", "AN_TEMP", "AN_TIME", "TOLDELAY", "TOLON", "TOLOFF", "IRR_TIME", "IRR_TYPE", "IRR_UNIT", "IRR_DOSERATE", "IRR_DOSERATEERR", "TIMESINCEIRR", "TIMETICK", "ONTIME", "OFFTIME", "STIMPERIOD", "GATE_ENABLED", "ENABLE_FLAGS", "GATE_START", "GATE_STOP", "PTENABLED", "DTENABLED", "DEADTIME", "MAXLPOWER", "XRF_ACQTIME", "XRF_HV", "XRF_CURR", "XRF_DEADTIMEF", "DETECTOR_ID", "LOWERFILTER_ID", "UPPERFILTER_ID", "ENOISEFACTOR", "MARKPOS_X1", "MARKPOS_Y1", "MARKPOS_X2", "MARKPOS_Y2", "MARKPOS_X3", "MARKPOS_Y3", "EXTR_START", "EXTR_END", "SEQUENCE"]
-            },
             "row.names": {
               "type": "integer",
               "attributes": {},
               "value": [1, 2]
+            },
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["ID", "SEL", "VERSION", "LENGTH", "PREVIOUS", "NPOINTS", "RECTYPE", "RUN", "SET", "POSITION", "GRAIN", "GRAINNUMBER", "CURVENO", "XCOORD", "YCOORD", "SAMPLE", "COMMENT", "SYSTEMID", "FNAME", "USER", "TIME", "DATE", "DTYPE", "BL_TIME", "BL_UNIT", "NORM1", "NORM2", "NORM3", "BG", "SHIFT", "TAG", "LTYPE", "LIGHTSOURCE", "LPOWER", "LIGHTPOWER", "LOW", "HIGH", "RATE", "TEMPERATURE", "MEASTEMP", "AN_TEMP", "AN_TIME", "TOLDELAY", "TOLON", "TOLOFF", "IRR_TIME", "IRR_TYPE", "IRR_UNIT", "IRR_DOSERATE", "IRR_DOSERATEERR", "TIMESINCEIRR", "TIMETICK", "ONTIME", "OFFTIME", "STIMPERIOD", "GATE_ENABLED", "ENABLE_FLAGS", "GATE_START", "GATE_STOP", "PTENABLED", "DTENABLED", "DEADTIME", "MAXLPOWER", "XRF_ACQTIME", "XRF_HV", "XRF_CURR", "XRF_DEADTIMEF", "DETECTOR_ID", "LOWERFILTER_ID", "UPPERFILTER_ID", "ENOISEFACTOR", "MARKPOS_X1", "MARKPOS_Y1", "MARKPOS_X2", "MARKPOS_Y2", "MARKPOS_X3", "MARKPOS_Y3", "EXTR_START", "EXTR_END", "SEQUENCE"]
             },
             "class": {
               "type": "character",
@@ -494,11 +494,6 @@
         "METADATA": {
           "type": "list",
           "attributes": {
-            "names": {
-              "type": "character",
-              "attributes": {},
-              "value": ["ID", "SEL", "VERSION", "LENGTH", "PREVIOUS", "NPOINTS", "RECTYPE", "RUN", "SET", "POSITION", "GRAIN", "GRAINNUMBER", "CURVENO", "XCOORD", "YCOORD", "SAMPLE", "COMMENT", "SYSTEMID", "FNAME", "USER", "TIME", "DATE", "DTYPE", "BL_TIME", "BL_UNIT", "NORM1", "NORM2", "NORM3", "BG", "SHIFT", "TAG", "LTYPE", "LIGHTSOURCE", "LPOWER", "LIGHTPOWER", "LOW", "HIGH", "RATE", "TEMPERATURE", "MEASTEMP", "AN_TEMP", "AN_TIME", "TOLDELAY", "TOLON", "TOLOFF", "IRR_TIME", "IRR_TYPE", "IRR_UNIT", "IRR_DOSERATE", "IRR_DOSERATEERR", "TIMESINCEIRR", "TIMETICK", "ONTIME", "OFFTIME", "STIMPERIOD", "GATE_ENABLED", "ENABLE_FLAGS", "GATE_START", "GATE_STOP", "PTENABLED", "DTENABLED", "DEADTIME", "MAXLPOWER", "XRF_ACQTIME", "XRF_HV", "XRF_CURR", "XRF_DEADTIMEF", "DETECTOR_ID", "LOWERFILTER_ID", "UPPERFILTER_ID", "ENOISEFACTOR", "MARKPOS_X1", "MARKPOS_Y1", "MARKPOS_X2", "MARKPOS_Y2", "MARKPOS_X3", "MARKPOS_Y3", "EXTR_START", "EXTR_END", "SEQUENCE"]
-            },
             "row.names": {
               "type": "integer",
               "attributes": {},
@@ -508,6 +503,11 @@
               "type": "character",
               "attributes": {},
               "value": ["data.frame"]
+            },
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["ID", "SEL", "VERSION", "LENGTH", "PREVIOUS", "NPOINTS", "RECTYPE", "RUN", "SET", "POSITION", "GRAIN", "GRAINNUMBER", "CURVENO", "XCOORD", "YCOORD", "SAMPLE", "COMMENT", "SYSTEMID", "FNAME", "USER", "TIME", "DATE", "DTYPE", "BL_TIME", "BL_UNIT", "NORM1", "NORM2", "NORM3", "BG", "SHIFT", "TAG", "LTYPE", "LIGHTSOURCE", "LPOWER", "LIGHTPOWER", "LOW", "HIGH", "RATE", "TEMPERATURE", "MEASTEMP", "AN_TEMP", "AN_TIME", "TOLDELAY", "TOLON", "TOLOFF", "IRR_TIME", "IRR_TYPE", "IRR_UNIT", "IRR_DOSERATE", "IRR_DOSERATEERR", "TIMESINCEIRR", "TIMETICK", "ONTIME", "OFFTIME", "STIMPERIOD", "GATE_ENABLED", "ENABLE_FLAGS", "GATE_START", "GATE_STOP", "PTENABLED", "DTENABLED", "DEADTIME", "MAXLPOWER", "XRF_ACQTIME", "XRF_HV", "XRF_CURR", "XRF_DEADTIMEF", "DETECTOR_ID", "LOWERFILTER_ID", "UPPERFILTER_ID", "ENOISEFACTOR", "MARKPOS_X1", "MARKPOS_Y1", "MARKPOS_X2", "MARKPOS_Y2", "MARKPOS_X3", "MARKPOS_Y3", "EXTR_START", "EXTR_END", "SEQUENCE"]
             }
           },
           "value": [
@@ -982,11 +982,6 @@
         "METADATA": {
           "type": "list",
           "attributes": {
-            "names": {
-              "type": "character",
-              "attributes": {},
-              "value": ["ID", "SEL", "VERSION", "LENGTH", "PREVIOUS", "NPOINTS", "RECTYPE", "RUN", "SET", "POSITION", "GRAIN", "GRAINNUMBER", "CURVENO", "XCOORD", "YCOORD", "SAMPLE", "COMMENT", "SYSTEMID", "FNAME", "USER", "TIME", "DATE", "DTYPE", "BL_TIME", "BL_UNIT", "NORM1", "NORM2", "NORM3", "BG", "SHIFT", "TAG", "LTYPE", "LIGHTSOURCE", "LPOWER", "LIGHTPOWER", "LOW", "HIGH", "RATE", "TEMPERATURE", "MEASTEMP", "AN_TEMP", "AN_TIME", "TOLDELAY", "TOLON", "TOLOFF", "IRR_TIME", "IRR_TYPE", "IRR_UNIT", "IRR_DOSERATE", "IRR_DOSERATEERR", "TIMESINCEIRR", "TIMETICK", "ONTIME", "OFFTIME", "STIMPERIOD", "GATE_ENABLED", "ENABLE_FLAGS", "GATE_START", "GATE_STOP", "PTENABLED", "DTENABLED", "DEADTIME", "MAXLPOWER", "XRF_ACQTIME", "XRF_HV", "XRF_CURR", "XRF_DEADTIMEF", "DETECTOR_ID", "LOWERFILTER_ID", "UPPERFILTER_ID", "ENOISEFACTOR", "MARKPOS_X1", "MARKPOS_Y1", "MARKPOS_X2", "MARKPOS_Y2", "MARKPOS_X3", "MARKPOS_Y3", "EXTR_START", "EXTR_END", "SEQUENCE"]
-            },
             "row.names": {
               "type": "integer",
               "attributes": {},
@@ -996,6 +991,11 @@
               "type": "character",
               "attributes": {},
               "value": ["data.frame"]
+            },
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["ID", "SEL", "VERSION", "LENGTH", "PREVIOUS", "NPOINTS", "RECTYPE", "RUN", "SET", "POSITION", "GRAIN", "GRAINNUMBER", "CURVENO", "XCOORD", "YCOORD", "SAMPLE", "COMMENT", "SYSTEMID", "FNAME", "USER", "TIME", "DATE", "DTYPE", "BL_TIME", "BL_UNIT", "NORM1", "NORM2", "NORM3", "BG", "SHIFT", "TAG", "LTYPE", "LIGHTSOURCE", "LPOWER", "LIGHTPOWER", "LOW", "HIGH", "RATE", "TEMPERATURE", "MEASTEMP", "AN_TEMP", "AN_TIME", "TOLDELAY", "TOLON", "TOLOFF", "IRR_TIME", "IRR_TYPE", "IRR_UNIT", "IRR_DOSERATE", "IRR_DOSERATEERR", "TIMESINCEIRR", "TIMETICK", "ONTIME", "OFFTIME", "STIMPERIOD", "GATE_ENABLED", "ENABLE_FLAGS", "GATE_START", "GATE_STOP", "PTENABLED", "DTENABLED", "DEADTIME", "MAXLPOWER", "XRF_ACQTIME", "XRF_HV", "XRF_CURR", "XRF_DEADTIMEF", "DETECTOR_ID", "LOWERFILTER_ID", "UPPERFILTER_ID", "ENOISEFACTOR", "MARKPOS_X1", "MARKPOS_Y1", "MARKPOS_X2", "MARKPOS_Y2", "MARKPOS_X3", "MARKPOS_Y3", "EXTR_START", "EXTR_END", "SEQUENCE"]
             }
           },
           "value": [
@@ -1470,11 +1470,6 @@
         "METADATA": {
           "type": "list",
           "attributes": {
-            "names": {
-              "type": "character",
-              "attributes": {},
-              "value": ["ID", "SEL", "VERSION", "LENGTH", "PREVIOUS", "NPOINTS", "RECTYPE", "RUN", "SET", "POSITION", "GRAIN", "GRAINNUMBER", "CURVENO", "XCOORD", "YCOORD", "SAMPLE", "COMMENT", "SYSTEMID", "FNAME", "USER", "TIME", "DATE", "DTYPE", "BL_TIME", "BL_UNIT", "NORM1", "NORM2", "NORM3", "BG", "SHIFT", "TAG", "LTYPE", "LIGHTSOURCE", "LPOWER", "LIGHTPOWER", "LOW", "HIGH", "RATE", "TEMPERATURE", "MEASTEMP", "AN_TEMP", "AN_TIME", "TOLDELAY", "TOLON", "TOLOFF", "IRR_TIME", "IRR_TYPE", "IRR_UNIT", "IRR_DOSERATE", "IRR_DOSERATEERR", "TIMESINCEIRR", "TIMETICK", "ONTIME", "OFFTIME", "STIMPERIOD", "GATE_ENABLED", "ENABLE_FLAGS", "GATE_START", "GATE_STOP", "PTENABLED", "DTENABLED", "DEADTIME", "MAXLPOWER", "XRF_ACQTIME", "XRF_HV", "XRF_CURR", "XRF_DEADTIMEF", "DETECTOR_ID", "LOWERFILTER_ID", "UPPERFILTER_ID", "ENOISEFACTOR", "MARKPOS_X1", "MARKPOS_Y1", "MARKPOS_X2", "MARKPOS_Y2", "MARKPOS_X3", "MARKPOS_Y3", "EXTR_START", "EXTR_END", "SEQUENCE"]
-            },
             "row.names": {
               "type": "integer",
               "attributes": {},
@@ -1484,6 +1479,11 @@
               "type": "character",
               "attributes": {},
               "value": ["data.frame"]
+            },
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["ID", "SEL", "VERSION", "LENGTH", "PREVIOUS", "NPOINTS", "RECTYPE", "RUN", "SET", "POSITION", "GRAIN", "GRAINNUMBER", "CURVENO", "XCOORD", "YCOORD", "SAMPLE", "COMMENT", "SYSTEMID", "FNAME", "USER", "TIME", "DATE", "DTYPE", "BL_TIME", "BL_UNIT", "NORM1", "NORM2", "NORM3", "BG", "SHIFT", "TAG", "LTYPE", "LIGHTSOURCE", "LPOWER", "LIGHTPOWER", "LOW", "HIGH", "RATE", "TEMPERATURE", "MEASTEMP", "AN_TEMP", "AN_TIME", "TOLDELAY", "TOLON", "TOLOFF", "IRR_TIME", "IRR_TYPE", "IRR_UNIT", "IRR_DOSERATE", "IRR_DOSERATEERR", "TIMESINCEIRR", "TIMETICK", "ONTIME", "OFFTIME", "STIMPERIOD", "GATE_ENABLED", "ENABLE_FLAGS", "GATE_START", "GATE_STOP", "PTENABLED", "DTENABLED", "DEADTIME", "MAXLPOWER", "XRF_ACQTIME", "XRF_HV", "XRF_CURR", "XRF_DEADTIMEF", "DETECTOR_ID", "LOWERFILTER_ID", "UPPERFILTER_ID", "ENOISEFACTOR", "MARKPOS_X1", "MARKPOS_Y1", "MARKPOS_X2", "MARKPOS_Y2", "MARKPOS_X3", "MARKPOS_Y3", "EXTR_START", "EXTR_END", "SEQUENCE"]
             }
           },
           "value": [
@@ -1958,11 +1958,6 @@
         "METADATA": {
           "type": "list",
           "attributes": {
-            "names": {
-              "type": "character",
-              "attributes": {},
-              "value": ["ID", "SEL", "VERSION", "LENGTH", "PREVIOUS", "NPOINTS", "RECTYPE", "RUN", "SET", "POSITION", "GRAIN", "GRAINNUMBER", "CURVENO", "XCOORD", "YCOORD", "SAMPLE", "COMMENT", "SYSTEMID", "FNAME", "USER", "TIME", "DATE", "DTYPE", "BL_TIME", "BL_UNIT", "NORM1", "NORM2", "NORM3", "BG", "SHIFT", "TAG", "LTYPE", "LIGHTSOURCE", "LPOWER", "LIGHTPOWER", "LOW", "HIGH", "RATE", "TEMPERATURE", "MEASTEMP", "AN_TEMP", "AN_TIME", "TOLDELAY", "TOLON", "TOLOFF", "IRR_TIME", "IRR_TYPE", "IRR_UNIT", "IRR_DOSERATE", "IRR_DOSERATEERR", "TIMESINCEIRR", "TIMETICK", "ONTIME", "OFFTIME", "STIMPERIOD", "GATE_ENABLED", "ENABLE_FLAGS", "GATE_START", "GATE_STOP", "PTENABLED", "DTENABLED", "DEADTIME", "MAXLPOWER", "XRF_ACQTIME", "XRF_HV", "XRF_CURR", "XRF_DEADTIMEF", "DETECTOR_ID", "LOWERFILTER_ID", "UPPERFILTER_ID", "ENOISEFACTOR", "MARKPOS_X1", "MARKPOS_Y1", "MARKPOS_X2", "MARKPOS_Y2", "MARKPOS_X3", "MARKPOS_Y3", "EXTR_START", "EXTR_END", "SEQUENCE"]
-            },
             "row.names": {
               "type": "integer",
               "attributes": {},
@@ -1972,6 +1967,11 @@
               "type": "character",
               "attributes": {},
               "value": ["data.frame"]
+            },
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["ID", "SEL", "VERSION", "LENGTH", "PREVIOUS", "NPOINTS", "RECTYPE", "RUN", "SET", "POSITION", "GRAIN", "GRAINNUMBER", "CURVENO", "XCOORD", "YCOORD", "SAMPLE", "COMMENT", "SYSTEMID", "FNAME", "USER", "TIME", "DATE", "DTYPE", "BL_TIME", "BL_UNIT", "NORM1", "NORM2", "NORM3", "BG", "SHIFT", "TAG", "LTYPE", "LIGHTSOURCE", "LPOWER", "LIGHTPOWER", "LOW", "HIGH", "RATE", "TEMPERATURE", "MEASTEMP", "AN_TEMP", "AN_TIME", "TOLDELAY", "TOLON", "TOLOFF", "IRR_TIME", "IRR_TYPE", "IRR_UNIT", "IRR_DOSERATE", "IRR_DOSERATEERR", "TIMESINCEIRR", "TIMETICK", "ONTIME", "OFFTIME", "STIMPERIOD", "GATE_ENABLED", "ENABLE_FLAGS", "GATE_START", "GATE_STOP", "PTENABLED", "DTENABLED", "DEADTIME", "MAXLPOWER", "XRF_ACQTIME", "XRF_HV", "XRF_CURR", "XRF_DEADTIMEF", "DETECTOR_ID", "LOWERFILTER_ID", "UPPERFILTER_ID", "ENOISEFACTOR", "MARKPOS_X1", "MARKPOS_Y1", "MARKPOS_X2", "MARKPOS_Y2", "MARKPOS_X3", "MARKPOS_Y3", "EXTR_START", "EXTR_END", "SEQUENCE"]
             }
           },
           "value": [
@@ -2446,11 +2446,6 @@
         "METADATA": {
           "type": "list",
           "attributes": {
-            "names": {
-              "type": "character",
-              "attributes": {},
-              "value": ["ID", "SEL", "VERSION", "LENGTH", "PREVIOUS", "NPOINTS", "RECTYPE", "RUN", "SET", "POSITION", "GRAIN", "GRAINNUMBER", "CURVENO", "XCOORD", "YCOORD", "SAMPLE", "COMMENT", "SYSTEMID", "FNAME", "USER", "TIME", "DATE", "DTYPE", "BL_TIME", "BL_UNIT", "NORM1", "NORM2", "NORM3", "BG", "SHIFT", "TAG", "LTYPE", "LIGHTSOURCE", "LPOWER", "LIGHTPOWER", "LOW", "HIGH", "RATE", "TEMPERATURE", "MEASTEMP", "AN_TEMP", "AN_TIME", "TOLDELAY", "TOLON", "TOLOFF", "IRR_TIME", "IRR_TYPE", "IRR_UNIT", "IRR_DOSERATE", "IRR_DOSERATEERR", "TIMESINCEIRR", "TIMETICK", "ONTIME", "OFFTIME", "STIMPERIOD", "GATE_ENABLED", "ENABLE_FLAGS", "GATE_START", "GATE_STOP", "PTENABLED", "DTENABLED", "DEADTIME", "MAXLPOWER", "XRF_ACQTIME", "XRF_HV", "XRF_CURR", "XRF_DEADTIMEF", "DETECTOR_ID", "LOWERFILTER_ID", "UPPERFILTER_ID", "ENOISEFACTOR", "MARKPOS_X1", "MARKPOS_Y1", "MARKPOS_X2", "MARKPOS_Y2", "MARKPOS_X3", "MARKPOS_Y3", "EXTR_START", "EXTR_END", "SEQUENCE"]
-            },
             "row.names": {
               "type": "integer",
               "attributes": {},
@@ -2460,6 +2455,11 @@
               "type": "character",
               "attributes": {},
               "value": ["data.frame"]
+            },
+            "names": {
+              "type": "character",
+              "attributes": {},
+              "value": ["ID", "SEL", "VERSION", "LENGTH", "PREVIOUS", "NPOINTS", "RECTYPE", "RUN", "SET", "POSITION", "GRAIN", "GRAINNUMBER", "CURVENO", "XCOORD", "YCOORD", "SAMPLE", "COMMENT", "SYSTEMID", "FNAME", "USER", "TIME", "DATE", "DTYPE", "BL_TIME", "BL_UNIT", "NORM1", "NORM2", "NORM3", "BG", "SHIFT", "TAG", "LTYPE", "LIGHTSOURCE", "LPOWER", "LIGHTPOWER", "LOW", "HIGH", "RATE", "TEMPERATURE", "MEASTEMP", "AN_TEMP", "AN_TIME", "TOLDELAY", "TOLON", "TOLOFF", "IRR_TIME", "IRR_TYPE", "IRR_UNIT", "IRR_DOSERATE", "IRR_DOSERATEERR", "TIMESINCEIRR", "TIMETICK", "ONTIME", "OFFTIME", "STIMPERIOD", "GATE_ENABLED", "ENABLE_FLAGS", "GATE_START", "GATE_STOP", "PTENABLED", "DTENABLED", "DEADTIME", "MAXLPOWER", "XRF_ACQTIME", "XRF_HV", "XRF_CURR", "XRF_DEADTIMEF", "DETECTOR_ID", "LOWERFILTER_ID", "UPPERFILTER_ID", "ENOISEFACTOR", "MARKPOS_X1", "MARKPOS_Y1", "MARKPOS_X2", "MARKPOS_Y2", "MARKPOS_X3", "MARKPOS_Y3", "EXTR_START", "EXTR_END", "SEQUENCE"]
             }
           },
           "value": [

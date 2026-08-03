@@ -16,11 +16,6 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["SAMPLE", "ALQ", "TIME", "LxTx", "LxTx_ERROR"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -30,6 +25,11 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["SAMPLE", "ALQ", "TIME", "LxTx", "LxTx_ERROR"]
                 }
               },
               "value": [
@@ -63,11 +63,6 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["SAMPLE", "TEMP", "TIME", "LxTx", "LxTx_ERROR"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -77,6 +72,11 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["SAMPLE", "TEMP", "TIME", "LxTx", "LxTx_ERROR"]
                 }
               },
               "value": [
@@ -110,11 +110,6 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["SAMPLE", "ALQ", "TIME", "LxTx", "LxTx_ERROR"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -124,6 +119,11 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["SAMPLE", "ALQ", "TIME", "LxTx", "LxTx_ERROR"]
                 }
               },
               "value": [

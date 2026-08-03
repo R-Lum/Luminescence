@@ -86,22 +86,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [473.7171905]
+                  "value": [473.71718926]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [75.28404286]
+                  "value": [75.28404313]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [282.64748836]
+                  "value": [282.64748763]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [54.21428409]
+                  "value": [54.21428418]
                 },
                 {
                   "type": "logical",
@@ -233,22 +233,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [473.21116516]
+                  "value": [473.21116405]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [69.18829953]
+                  "value": [69.18829931]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [282.34556394]
+                  "value": [282.34556328]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [51.22208859]
+                  "value": [51.22208844]
                 },
                 {
                   "type": "logical",

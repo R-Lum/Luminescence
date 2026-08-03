@@ -592,11 +592,6 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["de", "de_err", "OD", "OD_err", "rel_OD", "rel_OD_err", "Lmax"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -606,6 +601,11 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["de", "de_err", "OD", "OD_err", "rel_OD", "rel_OD_err", "Lmax"]
                 }
               },
               "value": [
@@ -649,11 +649,6 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["ED", "ED_Error"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -663,6 +658,11 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["ED", "ED_Error"]
                 }
               },
               "value": [
@@ -713,11 +713,6 @@
             {
               "type": "list",
               "attributes": {
-                "names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["sig", "llik"]
-                },
                 "row.names": {
                   "type": "integer",
                   "attributes": {},
@@ -727,6 +722,11 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["sig", "llik"]
                 }
               },
               "value": [

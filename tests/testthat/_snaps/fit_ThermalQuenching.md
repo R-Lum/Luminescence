@@ -21,15 +21,15 @@
                   "attributes": {},
                   "value": ["A", "A_X", "C", "C_X", "W", "W_X", "c", "c_X", "n.MC"]
                 },
-                "row.names": {
-                  "type": "character",
-                  "attributes": {},
-                  "value": ["A"]
-                },
                 "class": {
                   "type": "character",
                   "attributes": {},
                   "value": ["data.frame"]
+                },
+                "row.names": {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["A"]
                 }
               },
               "value": [
