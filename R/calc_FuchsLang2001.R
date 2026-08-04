@@ -101,6 +101,10 @@ calc_FuchsLang2001 <- function(
   }
   .validate_positive_scalar(cvThreshold)
   .validate_positive_scalar(startDeValue, int = TRUE)
+  if (startDeValue > nrow(data)) {
+    .throw_error("'startDeValue' exceeds the number of rows in 'data' (",
+                 nrow(data), ")")
+  }
   .validate_logical_scalar(plot)
 
   # Deal with extra arguments -----------------------------------------------
