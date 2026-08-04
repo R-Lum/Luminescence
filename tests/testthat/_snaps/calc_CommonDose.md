@@ -1,5 +1,20 @@
 # snapshot tests
 
+    
+     [calc_CommonDose]
+    
+    ----------- meta data --------------
+     n:                       62
+     log:                     TRUE
+    ----------- dose estimate ----------
+     common dose:             65.94
+     SE:                      6.36
+     rel. SE [%]:             9.64
+    ------------------------------------
+    
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -130,6 +145,21 @@
 
 ---
 
+    
+     [calc_CommonDose]
+    
+    ----------- meta data --------------
+     n:                       62
+     log:                     FALSE
+    ----------- dose estimate ----------
+     common dose:             48.05
+     SE:                      0.66
+     rel. SE [%]:             1.38
+    ------------------------------------
+    
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -257,6 +287,21 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    
+     [calc_CommonDose]
+    
+    ----------- meta data --------------
+     n:                       62
+     log:                     FALSE
+    ----------- dose estimate ----------
+     common dose:             49.98
+     SE:                      0.71
+     rel. SE [%]:             1.42
+    ------------------------------------
+    
 
 ---
 

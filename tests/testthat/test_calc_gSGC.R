@@ -55,20 +55,23 @@ test_that("snapshot tests", {
   set.seed(seed = 1)
   snapshot.tolerance <- 1.5e-6
 
-  expect_snapshot_RLum(calc_gSGC(df, plot = FALSE, verbose = FALSE),
+  expect_snapshot_RLum(calc_gSGC(df, plot = FALSE),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
 
   ## apply some random values for more coverage
   df1 <- data.frame(LnTn = 0.361, LnTn.error = 2.087,
                     Lr1Tr1 = 0.744, Lr1Tr1.error = 10.091,
                     Dr1 = 0.4)
-  expect_snapshot_RLum(calc_gSGC(df1, plot = TRUE, verbose = FALSE),
+  expect_snapshot_RLum(calc_gSGC(df1, plot = FALSE),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
 
   df2 <- data.frame(LnTn = 10.361, LnTn.error = 0.087,
                     Lr1Tr1 = 0.044, Lr1Tr1.error = 0.091,
                     Dr1 = 0.04)
-  expect_snapshot_RLum(calc_gSGC(df2, plot = TRUE, verbose = FALSE),
+  expect_snapshot_RLum(calc_gSGC(df2, plot = FALSE),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
 
   df3 <- data.frame(LnTn = 521440.0361, LnTn.error = 0.087,

@@ -93,6 +93,7 @@ test_that("snapshot tests", {
                                    method_control = list(
                                        export.comp.contrib.matrix = TRUE),
                                    plot.BG = TRUE, bg.subtraction = "linear"),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
 
   suppressWarnings(
@@ -120,12 +121,14 @@ test_that("snapshot tests", {
                                    method_control = list(
                                        export.comp.contrib.matrix = TRUE),
                                    fit.calcError = TRUE),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
   expect_snapshot_RLum(fit_LMCurve(values.curve, object.bg = values.curveBG,
                                    plot.BG = TRUE, input.dataType = "pLM",
                                    method_control = list(
                                        export.comp.contrib.matrix = TRUE),
                                    bg.subtraction = "channel"),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
   })
 })

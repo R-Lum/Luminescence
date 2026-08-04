@@ -1,5 +1,17 @@
 # snapshot tests
 
+    
+    [calc_ThermalLifetime()]
+    
+    	mean:	 1.354649e+03 Ma
+    	sd:	 1.515822e+03 Ma
+    	min:	 1.094723e+02 Ma (@ 20 °C)
+    	max:	 5.743187e+03 Ma (@ 10 °C)
+    	--------------------------
+    	(22 lifetimes calculated in total)
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -90,6 +102,20 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    
+    [calc_ThermalLifetime()]
+    
+    	profiling = TRUE
+    	--------------------------
+    	mean:	 1.023766e+01 Ma
+    	sd:	 1.229966e+00 Ma
+    	min:	 6.86845e+00 Ma
+    	max:	 1.48863e+01 Ma
+    	--------------------------
+    	(1000 lifetimes calculated in total)
 
 ---
 

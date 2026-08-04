@@ -1,5 +1,26 @@
 # snapshot tests
 
+    
+    
+    [calc_FadingCorr()]
+    
+     >> Fading correction according to Huntley & Lamothe (2001)
+     >> g-value re-calculated for the given tc
+    
+     .. used g-value:	4.802 ± 0.992 %/decade
+     .. used tc:		8.214e-07 ka
+     .. used kappa:		0.0209 ± 0.0043
+     ----------------------------------------------
+     seed: 			 NA
+     n.MC: 			20
+     observations: 		20
+     ----------------------------------------------
+     Age (faded):		1 ka ± 0 ka
+     Age (corr.):		1.3854 ka ± 0.1038 ka
+     ---------------------------------------------- 
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -142,6 +163,27 @@
 
 ---
 
+    
+    
+    [calc_FadingCorr()]
+    
+     >> Fading correction according to Huntley & Lamothe (2001)
+     >> g-value re-calculated for the given tc
+    
+     .. used g-value:	5.312 ± 1.012 %/decade
+     .. used tc:		8.214e-05 ka
+     .. used kappa:		0.0231 ± 0.0044
+     ----------------------------------------------
+     seed: 			 NA
+     n.MC: 			20
+     observations: 		20
+     ----------------------------------------------
+     Age (faded):		10 ka ± 0 ka
+     Age (corr.):		13.402 ka ± 0.7532 ka
+     ---------------------------------------------- 
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -281,6 +323,27 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    
+    
+    [calc_FadingCorr()]
+    
+     >> Fading correction according to Huntley & Lamothe (2001)
+     >> g-value re-calculated for the given tc
+    
+     .. used g-value:	5.478 ± 0.706 %/decade
+     .. used tc:		1.198e-05 ka
+     .. used kappa:		0.0238 ± 0.0031
+     ----------------------------------------------
+     seed: 			 11
+     n.MC: 			1000
+     observations: 		585
+     ----------------------------------------------
+     Age (faded):		1 ka ± 6 ka
+     Age (corr.):		1.3382 ka ± 5.4639 ka
+     ---------------------------------------------- 
 
 ---
 
