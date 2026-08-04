@@ -40,15 +40,13 @@ test_that("check functionality", {
   ))
 
   ## enable plot and verbose (using default values for coverage)
-  SW({
-  expect_message(calc_IEU(
+  expect_output(calc_IEU(
     ExampleData.DeValues$CA1,
     a = 0.2,
     b = 1.9,
     interval = 1,
-    trace = TRUE
-  ))
-  })
+    trace = TRUE),
+    "Iteration of Dbar")
 })
 
 test_that("snapshot tests", {
@@ -61,8 +59,8 @@ test_that("snapshot tests", {
       a = 0.25,
       b = 1.29,
       interval = 1,
-      verbose = FALSE,
       plot = FALSE),
+      expect_snapshot_output = TRUE,
       tolerance = snapshot.tolerance)
 
   ##provide RLum.Results
@@ -72,7 +70,8 @@ test_that("snapshot tests", {
       a = 0.12,
       b = 2.14,
       interval = 0.9,
-      verbose = FALSE, plot = FALSE),
+      plot = FALSE),
+      expect_snapshot_output = TRUE,
       tolerance = snapshot.tolerance)
 })
 

@@ -226,9 +226,9 @@ calc_FastRatio <- function(object,
           sigmaF <- get_RLum(fitCW.res)$cs1
           sigmaM <- get_RLum(fitCW.res)$cs2
           if (settings$verbose) {
-            message("\n [calc_FitCWCurve()]\n")
-            message("New value for sigmaF: ", format(sigmaF, digits = 3, nsmall = 2))
-            message("New value for sigmaM: ", format(sigmaM, digits = 3, nsmall = 2))
+            cat("\n[calc_FitCWCurve()]\n")
+            cat("New value for sigmaF: ", format(sigmaF, digits = 3, nsmall = 2), "\n")
+            cat("New value for sigmaM: ", format(sigmaM, digits = 3, nsmall = 2), "\n")
           }
         }
 

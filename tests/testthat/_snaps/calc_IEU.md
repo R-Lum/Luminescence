@@ -1,5 +1,16 @@
 # snapshot tests
 
+    
+     [calc_IEU] 
+    
+     Dbar: 63.81 
+     IEU.De (Gy): 63.81 
+     IEU.Error (Gy): 2.55 Number of De: 56 
+     a: 0.2500 
+     b: 1.2900
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -345,6 +356,17 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    
+     [calc_IEU] 
+    
+     Dbar: 25.25 
+     IEU.De (Gy): 25.25 
+     IEU.Error (Gy): 3.39 Number of De: 3 
+     a: 0.1200 
+     b: 2.1400
 
 ---
 
