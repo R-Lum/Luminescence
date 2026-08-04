@@ -853,7 +853,8 @@ setMethod(
                      .collapse(valid.names))
       }
       if (length(slot) > 1) {
-        message("[sort_RLum()]: Only the first 'slot' field will be used in sorting")
+        .throw_message("Only the first 'slot' field will be used in sorting",
+                       error = FALSE)
         slot <- slot[1]
       }
     }

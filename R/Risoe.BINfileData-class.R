@@ -571,7 +571,8 @@ setMethod(
                    .collapse(valid.names))
     }
     if (length(info_element) > 1) {
-      message("[sort_RLum()]: Only the first field will be used in sorting")
+      .throw_message("Only the first field will be used in sorting",
+                     error = FALSE)
       info_element <- info_element[1]
     }
     .validate_logical_scalar(decreasing)
