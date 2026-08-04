@@ -33,6 +33,12 @@
 - The function no longer crashes when the De values are identical and
   `log = FALSE` (#1628).
 
+### `calc_FuchsLang2001()`
+
+- The function now returns an error if `startDeValue` exceeds the number
+  of rows in the input data set, instead of returning only `NA`s in the
+  result table (#1645).
+
 ### `calc_SourceDoseRate()`
 
 - Source type `"Am-241"` was misspelled in the documentation and in the
