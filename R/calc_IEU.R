@@ -168,7 +168,7 @@ calc_IEU <- function(
     n <- Max + 1
 
     if (trace) {
-      message(sprintf("[Iteration of Dbar] \n Dbar: %.4f \n IEU.De: %.4f \n IEU.Error: %.4f \n n: %i \n R: %.4f \n",
+      cat(sprintf("[Iteration of Dbar] \n Dbar: %.4f \n IEU.De: %.4f \n IEU.Error: %.4f \n n: %i \n R: %.4f \n",
                       Dbar, IEU.De, IEU.Error, n, Below$R))
     }
 
@@ -268,7 +268,7 @@ calc_IEU <- function(
   ## TERMINAL OUTPUT
   ##==========================================================================##
   if (verbose) {
-    message(sprintf(
+    cat(sprintf(
       "\n [calc_IEU] \n\n Dbar: %.2f \n IEU.De (Gy): %.2f \n IEU.Error (Gy): %.2f Number of De: %.0f \n a: %.4f \n b: %.4f",
       Table.Results[1], Table.Results[2], Table.Results[3],
       Table.Results[4], Table.Results[5], Table.Results[6]))

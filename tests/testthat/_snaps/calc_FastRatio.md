@@ -271,6 +271,10 @@
 ---
 
     
+    [calc_FitCWCurve()]
+    New value for sigmaF:  6.34e-17 
+    New value for sigmaM:  2.71e-17 
+    
     [calc_FastRatio()]
     
      -------------------------------

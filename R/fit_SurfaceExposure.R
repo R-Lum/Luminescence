@@ -596,11 +596,11 @@ fit_SurfaceExposure <- function(
     cat("\n")
 
     if (!is.null(age)) {
-      message("To apply the estimated parameters to a sample of unknown age run:\n\n",
-              "fit_SurfaceExposure(data = ", capture.output(results$args[[1]]),
-              ", sigmaphi = ", signif(unique(results$summary$sigmaphi), 3),
-              ", mu = c(", .collapse(signif(results$summary$mu, 3), quote = FALSE),
-              "))\n")
+      cat("To apply the estimated parameters to a sample of unknown age run:\n",
+          "    fit_SurfaceExposure(data = ", capture.output(results$args[[1]]),
+          ", sigmaphi = ", signif(unique(results$summary$sigmaphi), 3),
+          ", mu = c(", .collapse(signif(results$summary$mu, 3), quote = FALSE),
+          "))\n", sep = "")
     }
   }
 

@@ -367,6 +367,8 @@
      age (a):	 10000 
      sigmaphi:	 5e-10 
     
+    To apply the estimated parameters to a sample of unknown age run:
+        fit_SurfaceExposure(data = data.table(d2), sigmaphi = 5e-10, mu = c(0.904))
 
 ---
 
