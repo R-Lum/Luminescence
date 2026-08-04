@@ -1,5 +1,7 @@
 ## load data
 data(ExampleData.CW_OSL_Curve, envir = environment())
+data(ExampleData.XSYG, envir = environment())
+sar <- OSL.SARMeasurement$Sequence.Object
 
 test_that("input validation", {
   testthat::skip_on_cran()
@@ -106,8 +108,7 @@ test_that("check functionality", {
 
   SW({
   ## RLum.Analysis object
-  data(ExampleData.XSYG, envir = environment())
-  calc_FastRatio(OSL.SARMeasurement$Sequence.Object)
+  calc_FastRatio(sar)
 
   expect_warning(calc_FastRatio(get_RLum(TL.Spectrum)),
                  "L3 contains more counts (566) than L2 (562)",
@@ -128,8 +129,11 @@ test_that("graphical snapshot tests", {
   testthat::skip_if_not_installed("vdiffr")
 
   SW({
-  vdiffr::expect_doppelganger("FastRatio defaults",
+  vdiffr::expect_doppelganger("defaults",
                               calc_FastRatio(ExampleData.CW_OSL_Curve))
+  vdiffr::expect_doppelganger("dead channels",
+                              calc_FastRatio(sar[[1]],
+                                             dead_channels = c(200, 250)))
   })
 })
 
