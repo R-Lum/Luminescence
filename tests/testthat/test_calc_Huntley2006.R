@@ -115,7 +115,8 @@ test_that("snapshot tests", {
         n.MC = 100,
         fit.method = "GOK",
         mode = "extrapolation",
-        plot = FALSE, verbose = FALSE),
+        plot = FALSE),
+      expect_snapshot_output = TRUE,
       tolerance = snapshot.tolerance)
 
   ## check force through origin SSE with wrong mode settings
@@ -130,8 +131,8 @@ test_that("snapshot tests", {
         fit.method = "SSE",
         fit.force_through_origin = TRUE,
         mode = "extrapolation",
-        plot = FALSE,
-        verbose = FALSE),
+        plot = FALSE),
+      expect_snapshot_output = TRUE,
       tolerance = max(snapshot.tolerance, 1.0e-2))
 
   ## SSE ... normal
@@ -146,8 +147,8 @@ test_that("snapshot tests", {
         fit.method = "SSE",
         fit.force_through_origin = TRUE,
         mode = "interpolation",
-        plot = FALSE,
-        verbose = FALSE),
+        plot = FALSE),
+      expect_snapshot_output = TRUE,
       tolerance = snapshot.tolerance)
 
   ## GOK normal
@@ -162,8 +163,8 @@ test_that("snapshot tests", {
         fit.method = "GOK",
         fit.force_through_origin = TRUE,
         mode = "interpolation",
-        plot = FALSE,
-        verbose = FALSE),
+        plot = FALSE),
+      expect_snapshot_output = TRUE,
       tolerance = if (os == "darwin") 1.7e-1 else max(snapshot.tolerance, 1.5e-3))
 })
 

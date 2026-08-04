@@ -1,5 +1,34 @@
 # snapshot tests
 
+    
+    
+    [calc_Huntley2006()]
+    
+     -------------------------------
+     (n/N) [-]:	 0.15 ± 0.02
+     (n/N)_SS [-]:	 0.37 ± 0.09
+    
+     ---------- Measured -----------
+     DE [Gy]:	 0.19 ± 0
+     D0 [Gy]:	 519.2 ± 20.41
+     c [-]:		 0.49 ± 0.81
+     Age [ka]:	 0.03 ± 0
+    
+     ---------- Un-faded -----------
+     D0 [Gy]:	 599.06 ± 14.52
+     c [-]:		 0.2 ± 0.06
+    
+     ---------- Simulated ----------
+     DE [Gy]:	 3.86 ± 0.03
+     D0 [Gy]:	 523.19 ± 4.43
+     c [-]:		 0.38 ± 0.01
+     Age [ka]:	 0.55 ± 0.03
+     Age @2D0 [ka]:	 149.48 ± 7.58
+     -------------------------------
+    
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -638,7 +667,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["data", "rhop", "ddot", "readerDdot", "n.MC", "fit.method", "mode", "plot", "verbose"]
+                  "value": ["data", "rhop", "ddot", "readerDdot", "n.MC", "fit.method", "mode", "plot"]
                 }
               },
               "value": [
@@ -681,11 +710,6 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [false]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [false]
                 }
               ]
             }
@@ -707,6 +731,32 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    
+    
+    [calc_Huntley2006()]
+    
+     -------------------------------
+     (n/N) [-]:	 0.15 ± 0.02
+     (n/N)_SS [-]:	 0.38 ± 0.08
+    
+     ---------- Measured -----------
+     DE [Gy]:	 0 ± 0
+     D0 [Gy]:	 485.81 ± 13.55
+     Age [ka]:	 0 ± NaN
+    
+     ---------- Un-faded -----------
+     D0 [Gy]:	 622.93 ± 14
+    
+     ---------- Simulated ----------
+     DE [Gy]:	 0 ± 0
+     D0 [Gy]:	 519.56 ± 2.83
+     Age [ka]:	 0 ± NaN
+     Age @2D0 [ka]:	 148.45 ± 7.47
+     -------------------------------
+    
 
 ---
 
@@ -1348,7 +1398,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["data", "rhop", "ddot", "readerDdot", "n.MC", "fit.method", "fit.force_through_origin", "mode", "plot", "verbose"]
+                  "value": ["data", "rhop", "ddot", "readerDdot", "n.MC", "fit.method", "fit.force_through_origin", "mode", "plot"]
                 }
               },
               "value": [
@@ -1396,11 +1446,6 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [false]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [false]
                 }
               ]
             }
@@ -1422,6 +1467,32 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    
+    
+    [calc_Huntley2006()]
+    
+     -------------------------------
+     (n/N) [-]:	 0.15 ± 0.02
+     (n/N)_SS [-]:	 0.38 ± 0.08
+    
+     ---------- Measured -----------
+     DE [Gy]:	 122.35 ± 12.1
+     D0 [Gy]:	 485.81 ± 13.68
+     Age [ka]:	 17.48 ± 1.94
+    
+     ---------- Un-faded -----------
+     D0 [Gy]:	 622.93 ± 14
+    
+     ---------- Simulated ----------
+     DE [Gy]:	 281.86 ± 34.58
+     D0 [Gy]:	 519.56 ± 2.82
+     Age [ka]:	 40.27 ± 5.33
+     Age @2D0 [ka]:	 148.45 ± 7.47
+     -------------------------------
+    
 
 ---
 
@@ -2063,7 +2134,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["data", "rhop", "ddot", "readerDdot", "n.MC", "fit.method", "fit.force_through_origin", "mode", "plot", "verbose"]
+                  "value": ["data", "rhop", "ddot", "readerDdot", "n.MC", "fit.method", "fit.force_through_origin", "mode", "plot"]
                 }
               },
               "value": [
@@ -2111,11 +2182,6 @@
                   "type": "logical",
                   "attributes": {},
                   "value": [false]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [false]
                 }
               ]
             }
@@ -2137,6 +2203,35 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    
+    
+    [calc_Huntley2006()]
+    
+     -------------------------------
+     (n/N) [-]:	 0.14 ± 0.02
+     (n/N)_SS [-]:	 0.37 ± 0.09
+    
+     ---------- Measured -----------
+     DE [Gy]:	 122.08 ± 12.62
+     D0 [Gy]:	 517.89 ± 23.25
+     c [-]:		 0.51 ± 1.53
+     Age [ka]:	 17.44 ± 2
+    
+     ---------- Un-faded -----------
+     D0 [Gy]:	 590.12 ± 14.56
+     c [-]:		 0.22 ± 0.06
+    
+     ---------- Simulated ----------
+     DE [Gy]:	 277.68 ± 41.77
+     D0 [Gy]:	 500.69 ± 3.78
+     c [-]:		 0.49 ± 0.01
+     Age [ka]:	 39.67 ± 6.29
+     Age @2D0 [ka]:	 143.06 ± 7.23
+     -------------------------------
+    
 
 ---
 
@@ -2778,7 +2873,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["data", "rhop", "ddot", "readerDdot", "n.MC", "fit.method", "fit.force_through_origin", "mode", "plot", "verbose"]
+                  "value": ["data", "rhop", "ddot", "readerDdot", "n.MC", "fit.method", "fit.force_through_origin", "mode", "plot"]
                 }
               },
               "value": [
@@ -2821,11 +2916,6 @@
                   "type": "character",
                   "attributes": {},
                   "value": ["interpolation"]
-                },
-                {
-                  "type": "logical",
-                  "attributes": {},
-                  "value": [false]
                 },
                 {
                   "type": "logical",

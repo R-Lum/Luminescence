@@ -856,6 +856,39 @@
 
 ---
 
+    
+    [fit_LMCurve()]
+    
+    Fitting was done using a 3-component function:
+    
+          xm.1       xm.2       xm.3       Im.1       Im.2       Im.3 
+      50.00499  263.28899 1603.23315  185.61129   32.42956  399.20330 
+    
+    (equation used for fitting according to Kitis & Pagonis, 2008)
+    ------------------------------------------------------------------------------
+    (1) Corresponding values according to the equation in Bulur, 1996 for b and n0:
+    
+    b1 = 1.599681e+00 ± NA 
+    n01 = 1.530259e+04 ± NA 
+    
+    b2 = 5.770249e-02 ± NA 
+    n02 = 1.407735e+04 ± NA 
+    
+    b3 = 1.556204e-03 ± NA 
+    n03 = 1.055208e+06 ± NA 
+    
+    cs from component.1 = 1.878e-17 cm^2	 >> relative:  1 
+    cs from component.2 = 6.774e-19 cm^2	 >> relative:  0.0361 
+    cs from component.3 = 1.827e-20 cm^2	 >> relative:  0.001 
+    
+    (stimulation intensity value used for calculation:  8.517725e+16  1/s 1/cm^2)
+    (errors quoted as 1-sigma uncertainties)
+    ------------------------------------------------------------------------------
+    
+    pseudo-R^2 = 0.934 
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -1284,6 +1317,39 @@
 
 ---
 
+    
+    [fit_LMCurve()]
+    
+    Fitting was done using a 3-component function:
+    
+          xm.1       xm.2       xm.3       Im.1       Im.2       Im.3 
+      49.00509  204.34969 1591.66300  169.43653   23.01176  405.46223 
+    
+    (equation used for fitting according to Kitis & Pagonis, 2008)
+    ------------------------------------------------------------------------------
+    (1) Corresponding values according to the equation in Bulur, 1996 for b and n0:
+    
+    b1 = 1.665626e+00 ± 3.657807e-02 
+    n01 = 1.368975e+04 ± 3.181591e+03 
+    
+    b2 = 9.57882e-02 ± 1.353015e-01 
+    n02 = 7.753022e+03 ± 1.193679e+03 
+    
+    b3 = 1.578911e-03 ± 8.575633e-06 
+    n03 = 1.064017e+06 ± 6.481309e+03 
+    
+    cs from component.1 = 1.955e-17 cm^2	 >> relative:  1 
+    cs from component.2 = 1.125e-18 cm^2	 >> relative:  0.0575 
+    cs from component.3 = 1.854e-20 cm^2	 >> relative:  9e-04 
+    
+    (stimulation intensity value used for calculation:  8.517725e+16  1/s 1/cm^2)
+    (errors quoted as 1-sigma uncertainties)
+    ------------------------------------------------------------------------------
+    
+    pseudo-R^2 = 0.9437 
+
+---
+
     {
       "type": "S4",
       "attributes": {
@@ -1709,6 +1775,39 @@
         "package": "Luminescence"
       }
     }
+
+---
+
+    
+    [fit_LMCurve()]
+    
+    Fitting was done using a 3-component function:
+    
+          xm.1       xm.2       xm.3       Im.1       Im.2       Im.3 
+      49.46368  237.91620 1592.07571  168.29701   21.03106  405.13467 
+    
+    (equation used for fitting according to Kitis & Pagonis, 2008)
+    ------------------------------------------------------------------------------
+    (1) Corresponding values according to the equation in Bulur, 1996 for b and n0:
+    
+    b1 = 1.634885e+00 ± NA 
+    n01 = 1.372493e+04 ± NA 
+    
+    b2 = 7.066623e-02 ± NA 
+    n02 = 8.249593e+03 ± NA 
+    
+    b3 = 1.578093e-03 ± NA 
+    n03 = 1.063434e+06 ± NA 
+    
+    cs from component.1 = 1.919e-17 cm^2	 >> relative:  1 
+    cs from component.2 = 8.296e-19 cm^2	 >> relative:  0.0432 
+    cs from component.3 = 1.853e-20 cm^2	 >> relative:  0.001 
+    
+    (stimulation intensity value used for calculation:  8.517725e+16  1/s 1/cm^2)
+    (errors quoted as 1-sigma uncertainties)
+    ------------------------------------------------------------------------------
+    
+    pseudo-R^2 = 0.9155 
 
 ---
 

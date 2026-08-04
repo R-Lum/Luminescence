@@ -56,14 +56,17 @@ test_that("snapshot tests", {
 
   expect_snapshot_RLum(calc_CommonDose(
       ExampleData.DeValues$CA1, sigmab = 0.75,
-      plot = FALSE, verbose = FALSE),
+      plot = FALSE),
+      expect_snapshot_output = TRUE,
       tolerance = snapshot.tolerance)
   expect_snapshot_RLum(calc_CommonDose(
       ExampleData.DeValues$CA1, sigmab = 0.25, log = FALSE,
-      plot = FALSE, verbose = FALSE),
+      plot = FALSE),
+      expect_snapshot_output = TRUE,
       tolerance = snapshot.tolerance)
   expect_snapshot_RLum(calc_CommonDose(
       ExampleData.DeValues$CA1, sigmab = 1.25, log = FALSE,
-      plot = FALSE, verbose = FALSE),
+      plot = FALSE),
+      expect_snapshot_output = TRUE,
       tolerance = snapshot.tolerance)
 })

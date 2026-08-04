@@ -110,15 +110,16 @@ test_that("check values from output example 1", {
 test_that("snapshot tests", {
   testthat::skip_on_cran()
 
+  set.seed(1)
   snapshot.tolerance <- 1.5e-4
 
-  set.seed(1)
   expect_snapshot_RLum(calc_FadingCorr(
       age.faded = c(1, 0),
       g_value = c(5.0, 1.0),
       tc = 25920,
       tc.g_value = 172800,
-      n.MC = 20, verbose = FALSE),
+      n.MC = 20),
+      expect_snapshot_output = TRUE,
       tolerance = snapshot.tolerance)
 
   expect_snapshot_RLum(calc_FadingCorr(
@@ -126,13 +127,15 @@ test_that("snapshot tests", {
       g_value = c(5.0, 1.0),
       tc = 2592000,
       tc.g_value = 172800,
-      n.MC = 20, verbose = FALSE),
+      n.MC = 20),
+      expect_snapshot_output = TRUE,
       tolerance = snapshot.tolerance)
 
   expect_snapshot_RLum(calc_FadingCorr(
       age.faded = c(1, 6),
       g_value = c(5.37778156709913, 0.70382588155986),
       tc = 378000, tc.g_value = 172800,
-      n.MC = 1000, seed = 11, verbose = FALSE),
+      n.MC = 1000, seed = 11),
+      expect_snapshot_output = TRUE,
       tolerance = snapshot.tolerance)
 })

@@ -59,8 +59,8 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(calc_ThermalLifetime(E = c(1.66, 1.70),
                                             s = 1e+13,
                                             T = 10:20,
-                                            output_unit = "Ma",
-                                            verbose = FALSE),
+                                            output_unit = "Ma"),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
 
   ## Example 2: profiling of thermal life time for E and s and their standard error
@@ -69,8 +69,8 @@ test_that("snapshot tests", {
                                             T = 20,
                                             profiling = TRUE,
                                             output_unit = "Ma",
-                                            verbose = FALSE,
                                             plot = FALSE),
+                       expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
 })
 
