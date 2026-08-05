@@ -1815,6 +1815,22 @@ SW <- function(expr) {
   paste(format(rng, nsmall = nsmall, trim = TRUE), collapse = sep)
 }
 
+#' Compress consecutive values of an integer vector into ranges
+#'
+#' @param vals [integer] (**required**): An integer vector.
+#'
+#' @return
+#' A character vector, where each element is a range over consecutive values.
+#'
+#' @noRd
+.compress_ranges <- function(vals) {
+  runs <- split(vals, cumsum(c(1, diff(vals) != 1)))
+  unname(vapply(runs, function(r) {
+    if (length(r) == 1) as.character(r)
+    else .format_range(r)
+  }, character(1)))
+}
+
 #' Shorten a filename
 #'
 #' Shorten a filename to the given width by cutting out characters from the

@@ -838,6 +838,18 @@ test_that("Test internals", {
   expect_equal(.format_range(c(0.53, 1.39, 1.14), nsmall = 3),
                "0.530:1.390")
 
+  ## .compress_ranges() _____________________________________________________
+  expect_equal(.compress_ranges(1),
+               "1")
+  expect_equal(.compress_ranges(c(1, NA)),
+               "1")
+  expect_equal(.compress_ranges(c(-1, 0, 1)),
+               "-1:1")
+  expect_equal(.compress_ranges(c(1, 3, 4)),
+               c("1", "3:4"))
+  expect_equal(.compress_ranges(c(1, 3, 5)),
+               c("1", "3", "5"))
+
   ## .shorten_filename() ----------------------------------------------------
   expect_equal(.shorten_filename("/path/to/filename"),
                "/path/to/filename")
