@@ -5,6 +5,17 @@
 \name{as}
 \alias{as}
 \title{as() - RLum-object coercion}
+\usage{
+\S4method{coerce}{list,RLum.Analysis}(from, to = "RLum.Analysis", strict = TRUE)
+
+\S4method{coerce}{list,RLum.Data.Curve}(from, to = "RLum.Data.Curve", strict = TRUE)
+
+\S4method{coerce}{data.frame,RLum.Data.Image}(from, to = "RLum.Data.Image", strict = TRUE)
+
+\S4method{coerce}{data.frame,RLum.Data.Spectrum}(from, to = "RLum.Data.Spectrum", strict = TRUE)
+
+\S4method{coerce}{list,RLum.Results}(from, to = "RLum.Results", strict = TRUE)
+}
 \arguments{
 \item{from}{\link[=RLum-class]{RLum}, \link{list}, \link{data.frame}, \link{matrix} (\strong{required}):
 object to be coerced from}
