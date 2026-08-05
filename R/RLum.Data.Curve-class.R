@@ -98,6 +98,7 @@ setClass("RLum.Data.Curve",
 #' R data structures will be always loosely!
 #'
 #' @name as
+#' @aliases coerce,list,RLum.Data.Curve-method
 setAs("list", "RLum.Data.Curve",
       function(from,to){
         if (length(from) == 0)

@@ -79,6 +79,7 @@ setClass(
 #' }
 #'
 #' @name as
+#' @aliases coerce,data.frame,RLum.Data.Image-method
 ## from data.frame ----
 setAs("data.frame", "RLum.Data.Image",
       function(from,to){

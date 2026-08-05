@@ -89,7 +89,9 @@ setClass("RLum.Analysis",
 #'
 #' Given that the [list] consists of [Luminescence::RLum.Analysis-class] objects.
 #'
+#' @param strict Unused.
 #' @name as
+#' @aliases coerce,list,RLum.Analysis-method
 setAs("list", "RLum.Analysis",
       function(from,to){
         new(to,
@@ -145,11 +147,11 @@ setMethod("show",
                   vapply(seq_along(object@records),  function(i) {
                     ## take care of NULL objects and keep this output the rest
                     o <- object@records[[i]] %||% return("<NULL object>")
-                    
+
                     if (inherits(object@records[[i]], x)) {
-                      if (i %% temp.width == 0 & i != length(object@records)) 
+                      if (i %% temp.width == 0 & i != length(object@records))
                         assign(x = "linebreak", value = TRUE, envir = env)
-              
+
                       ##FIRST
                       first <-  paste0("#", i, " ", object@records[[i]]@recordType)
 

@@ -80,6 +80,7 @@ setClass(
 #' Given that the [list] consists of [Luminescence::RLum.Results-class] objects.
 #'
 #' @name as
+#' @aliases coerce,list,RLum.Results-method
 setAs("list", "RLum.Results",
       function(from,to){
         new(to,
