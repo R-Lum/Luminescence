@@ -89,6 +89,7 @@ setClass(
 #' }
 #'
 #' @name as
+#' @aliases coerce,data.frame,RLum.Data.Spectrum-method
 setAs("data.frame", "RLum.Data.Spectrum",
       function(from,to){
 

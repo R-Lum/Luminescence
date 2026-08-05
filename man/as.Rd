@@ -4,6 +4,11 @@
 %   R/RLum.Data.Spectrum-class.R, R/RLum.Results-class.R
 \name{as}
 \alias{as}
+\alias{coerce,list,RLum.Analysis-method}
+\alias{coerce,list,RLum.Data.Curve-method}
+\alias{coerce,data.frame,RLum.Data.Image-method}
+\alias{coerce,data.frame,RLum.Data.Spectrum-method}
+\alias{coerce,list,RLum.Results-method}
 \title{as() - RLum-object coercion}
 \usage{
 \S4method{coerce}{list,RLum.Analysis}(from, to = "RLum.Analysis", strict = TRUE)
@@ -22,6 +27,8 @@ object to be coerced from}
 
 \item{to}{\link{character} (\strong{required}):
 class name to be coerced to}
+
+\item{strict}{Unused.}
 }
 \description{
 for \verb{[RLum.Analysis-class]}
