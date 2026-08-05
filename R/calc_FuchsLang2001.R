@@ -124,87 +124,76 @@ calc_FuchsLang2001 <- function(
   ##2. estimate D[e]
   # set variables
   usedDeValues <- data.frame(De = NA, De_Error = NA, cv = NA)
-  endDeValue <- startDeValue[1]
+  endDeValue <- startDeValue
+  cv.col <- NULL
 
-  # if the first D[e] values are not used write this information in the data.frame
-  if (startDeValue[1] != 1) {
-    n <- abs(1 - startDeValue[1])
-
-    #  write used D[e] values in data.frame
-    usedDeValues[1:n, 1] <- data_ordered[1:n, 1]
-    usedDeValues[1:n, 2] <- data_ordered[1:n, 2]
-    usedDeValues[1:n, 3] <- "skipped"
+  ## write skipped values
+  if (startDeValue > 1) {
+    idx.skipped <- seq(startDeValue - 1)
+    usedDeValues[idx.skipped, 1:2] <- data_ordered[idx.skipped, 1:2]
+    cv.col[idx.skipped] <- "skipped"
   }
 
   ##=================================================================================================##
   ##LOOP FOR MODEL
   ##=================================================================================================##
   # repeat loop (run at least one time)
-  repeat {
-    #calculate mean, sd and cv
-    mean<-round(mean(data_ordered[startDeValue:endDeValue,1]),digits=2) #calculate mean from ordered D[e] values
-    sd<-round(sd(data_ordered[startDeValue:endDeValue,1]),digits=2)		#calculate sd from ordered D[e] values
+  for (endDeValue in startDeValue:nrow(data_ordered)) {
+    ## calculate mean, sd and cv from ordered De values
+    Des <- data_ordered[startDeValue:endDeValue, 1]
+    mean <- round(mean(Des), digits = 2)
+    sd <- round(sd(Des), digits = 2)
     cv <- round(sd / mean * 100, digits = 2) #calculate coefficient of variation
 
     ## avoid crashes if the both mean and sd are zero
     if (is.na(cv))
       cv <- 0
 
+    ## write used De values
+    usedDeValues[endDeValue, 1:2] <- data_ordered[endDeValue, 1:2]
+
     # break if cv > cvThreshold
-    if (cv > cvThreshold[1] & endDeValue > startDeValue) {
+    if (cv > cvThreshold && endDeValue > startDeValue) {
+
       # if the first two D[e] values give a cv > cvThreshold, than skip the first D[e] value
       if (endDeValue-startDeValue<2) {
-        #  write used D[e] values in data.frame
-        usedDeValues[endDeValue, 1] <- data_ordered[endDeValue, 1]
-        usedDeValues[endDeValue, 2] <- data_ordered[endDeValue, 2]
-        usedDeValues[endDeValue - 1, 3] <- "not used"
+        cv.col[endDeValue - 1] <- "not used"
 
         # go to the next D[e] value
         startDeValue <- startDeValue + 1
-
       } else {
-        usedDeValues[endDeValue, 1] <- data_ordered[endDeValue, 1]
-        usedDeValues[endDeValue, 2] <- data_ordered[endDeValue, 2]
-        usedDeValues[endDeValue, 3] <- paste("#", cv, "%")
-
+        cv.col[endDeValue] <- paste("#", cv, "%")
         break #break loop
       }
 
-    }#EndIf
-    else {
-
-      # write used D[e] values in data.frame
-      usedDeValues[endDeValue,1]<-data_ordered[endDeValue,1]
-      usedDeValues[endDeValue,2]<-data_ordered[endDeValue,2]
-      usedDeValues[endDeValue,3] <- paste(cv, "%")
-
-    }#EndElse
-
-    # go the next D[e] value until the maximum number is reached
-    if (endDeValue<length(data_ordered[,1])) {
-      endDeValue<-endDeValue+1
-    } else {break}
-
-  }#EndRepeat
+    } else {
+      cv.col[endDeValue] <- paste(cv, "%")
+    }
+  }
 
   ##=================================================================================================##
   ##ADDITIONAL CALCULATIONS and TERMINAL OUTPUT
   ##=================================================================================================##
 
   # additional calculate weighted mean
-  w <- 1 / (data_ordered[startDeValue:endDeValue, 2]) ^ 2 #weights for weighted mean
-  weighted_mean <- round(stats::weighted.mean(data_ordered[startDeValue:endDeValue, 1], w),
+  usedValues <- data_ordered[startDeValue:endDeValue, ]
+  w <- 1 / usedValues[, 2]^2 # weights for weighted mean
+  weighted_mean <- round(stats::weighted.mean(usedValues[, 1], w),
                          digits = 2)
   weighted_sd <- round(sqrt(1 / sum(w)), digits = 2)
-  n.usedDeValues <- endDeValue - startDeValue + 1
+  n.usedDeValues <- nrow(usedValues)
+
+  ## append column
+  usedDeValues[1:length(cv.col), 3] <- cv.col
+  rownames(usedDeValues) <- NULL
 
   # standard error
-  se <- round(sd / sqrt(endDeValue - startDeValue + 1), digits = 2)
+  se <- round(sd / sqrt(n.usedDeValues), digits = 2)
 
   if(verbose){
     cat("\n[calc_FuchsLang2001]")
     cat("\n\n----------- meta data --------------")
-    cat("\n cvThreshold:            ", cvThreshold[1], "%")
+    cat("\n cvThreshold:            ", cvThreshold, "%")
     cat("\n used values:            ", n.usedDeValues)
     cat("\n----------- dose estimate ----------")
     cat("\n mean:                   ", mean)
@@ -228,7 +217,7 @@ calc_FuchsLang2001 <- function(
   )
 
   args <- list(cvThreshold = cvThreshold, startDeValue = startDeValue)
-  newRLumResults.calc_FuchsLang2001 <- set_RLum(
+  results <- set_RLum(
     class = "RLum.Results",
     data = list(
       summary = summary,
@@ -242,9 +231,9 @@ calc_FuchsLang2001 <- function(
   ##=========##
   ## PLOTTING
   if(plot) {
-    try(plot_RLum.Results(newRLumResults.calc_FuchsLang2001, ...),
+    try(plot_RLum.Results(results, ...),
         outFile = stdout()) # redirect error messages so they can be silenced
   }#endif::plot
 
-  invisible(newRLumResults.calc_FuchsLang2001)
+  results
 }
