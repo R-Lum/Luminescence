@@ -843,7 +843,7 @@ test_that("Test internals", {
                "1")
   expect_equal(.compress_ranges(c(1, NA)),
                "1")
-  expect_equal(.compress_ranges(c(-1, 1)),
+  expect_equal(.compress_ranges(c(-1, 0, 1)),
                "-1:1")
   expect_equal(.compress_ranges(c(1, 3, 4)),
                c("1", "3:4"))
