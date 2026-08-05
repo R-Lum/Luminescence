@@ -41,6 +41,10 @@ test_that("snapshot tests", {
                                           plot = FALSE),
                        expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
+  expect_snapshot_output(calc_FuchsLang2001(data = temp, startDeValue = 23,
+                                            plot = FALSE)@data$usedDeValues)
+  expect_snapshot_output(calc_FuchsLang2001(data = temp, startDeValue = 25,
+                                            plot = FALSE)@data$usedDeValues)
   })
 })
 

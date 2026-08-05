@@ -418,3 +418,89 @@
       }
     }
 
+---
+
+    
+    [calc_FuchsLang2001]
+    
+    ----------- meta data --------------
+     cvThreshold:             5 %
+     used values:             3
+    ----------- dose estimate ----------
+     mean:                    3571.99
+     sd:                      184.91
+     weighted mean:           3538.61
+     weighted sd:             74.25
+     se:                      106.76
+    ------------------------------------
+    
+            De De_Error       cv
+    1  2529.17    84.49  skipped
+    2  2636.69    79.43  skipped
+    3  2707.77    92.44  skipped
+    4  2730.19    87.11  skipped
+    5  2762.91    95.60  skipped
+    6  2818.30   102.07  skipped
+    7  2822.90    96.51  skipped
+    8  2823.68    97.30  skipped
+    9  2833.03    94.28  skipped
+    10 2841.32    97.16  skipped
+    11 2847.06    92.31  skipped
+    12 2855.14   105.70  skipped
+    13 2884.46    96.52  skipped
+    14 2884.46    98.57  skipped
+    15 2901.19   100.37  skipped
+    16 2917.18    98.85  skipped
+    17 2924.21   100.63  skipped
+    18 2935.88    97.13  skipped
+    19 2991.98   114.68  skipped
+    20 3001.33   101.55  skipped
+    21 3108.41   105.20  skipped
+    22 3297.22   105.98  skipped
+    23 3458.40   121.77      0 %
+    24 3472.21   117.45   0.28 %
+    25 3785.36   155.36 # 5.18 %
+
+---
+
+    
+    [calc_FuchsLang2001]
+    
+    ----------- meta data --------------
+     cvThreshold:             5 %
+     used values:             1
+    ----------- dose estimate ----------
+     mean:                    3785.36
+     sd:                      NA
+     weighted mean:           3785.36
+     weighted sd:             155.36
+     se:                      NA
+    ------------------------------------
+    
+            De De_Error      cv
+    1  2529.17    84.49 skipped
+    2  2636.69    79.43 skipped
+    3  2707.77    92.44 skipped
+    4  2730.19    87.11 skipped
+    5  2762.91    95.60 skipped
+    6  2818.30   102.07 skipped
+    7  2822.90    96.51 skipped
+    8  2823.68    97.30 skipped
+    9  2833.03    94.28 skipped
+    10 2841.32    97.16 skipped
+    11 2847.06    92.31 skipped
+    12 2855.14   105.70 skipped
+    13 2884.46    96.52 skipped
+    14 2884.46    98.57 skipped
+    15 2901.19   100.37 skipped
+    16 2917.18    98.85 skipped
+    17 2924.21   100.63 skipped
+    18 2935.88    97.13 skipped
+    19 2991.98   114.68 skipped
+    20 3001.33   101.55 skipped
+    21 3108.41   105.20 skipped
+    22 3297.22   105.98 skipped
+    23 3458.40   121.77 skipped
+    24 3472.21   117.45 skipped
+    25 3785.36   155.36     0 %
+
