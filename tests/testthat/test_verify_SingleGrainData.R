@@ -33,11 +33,11 @@ test_that("check functionality", {
   ## RLum.Analysis object
   expect_message(res <- verify_SingleGrainData(object, cleanup = TRUE,
                                               cleanup_level = "curve",
-                                              threshold = 100),
-                "RLum.Analysis object reduced to records")
+                                              threshold = 10),
+                "RLum.Analysis object reduced to records: 1, 3, 5:10, 12:14")
   expect_s4_class(res, "RLum.Analysis")
   expect_equal(res@originator, "verify_SingleGrainData")
-  expect_length(res@records, 5)
+  expect_length(res@records, 11)
 
   expect_message(res <- verify_SingleGrainData(object, cleanup = TRUE,
                                               cleanup_level = "curve",
@@ -88,9 +88,9 @@ test_that("check functionality", {
   expect_null(suppressWarnings(verify_SingleGrainData(t, cleanup = TRUE, threshold = 20000)))
 
   ## Risoe.BINfileData
-  expect_output(res <- verify_SingleGrainData(CWOSL.SAR.Data, cleanup = TRUE,
-                                              cleanup_level = "curve"),
-                       "Risoe.BINfileData object reduced to records")
+  expect_message(res <- verify_SingleGrainData(CWOSL.SAR.Data, cleanup = TRUE,
+                                               cleanup_level = "curve"),
+                 "Risoe.BINfileData object reduced to records: 1:3, 5:600, 625:696, record index reset")
   expect_s4_class(res, "Risoe.BINfileData")
 
   ## use_fft

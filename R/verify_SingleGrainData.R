@@ -270,11 +270,10 @@ verify_SingleGrainData <- function(
         object@METADATA <- object@METADATA[selection_id,]
         object@METADATA$ID <- 1:length(object@DATA)
 
-        ##print message
         if(verbose){
-          cat("\n[verify_SingleGrainData()] Risoe.BINfileData object reduced to records:\n",
-              .collapse(selection_id, quote = FALSE))
-          cat("\n\n[verify_SingleGrainData()] Risoe.BINfileData object record index reset.\n")
+          .throw_message("Risoe.BINfileData object reduced to records: ",
+                         .collapse(.compress_ranges(selection_id), quote = FALSE),
+                         ", record index reset", error = FALSE)
         }
         cleaned <- object
       }
@@ -345,9 +344,10 @@ verify_SingleGrainData <- function(
     if (cleanup && !anyNA(selection_id)) {
       ##print message
       if(verbose && cleanup_level == "curve"){
-        sid <- .collapse(selection_id, quote = FALSE)
         .throw_message("RLum.Analysis object reduced to records: ",
-                       if (!nzchar(sid)) "<none>" else sid, error = FALSE)
+                       if (length(selection_id) == 0) "<none>"
+                       else .collapse(.compress_ranges(selection_id), quote = FALSE),
+                       error = FALSE)
       }
 
       ##selected wanted elements

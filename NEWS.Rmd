@@ -72,6 +72,10 @@ switches to using the "LIN" method (#1634, #1636).
 * Prevent function from crashing if it found an empty `<sequence />` node. This happens 
 if the reader encounters an empty position and would then automatically move on to the next. 
 
+### `verify_SingleGrainData()`
+
+* The message reported when `cleanup = TRUE` is used is now shorter and more
+readable as it compresses consecutive record indices into a range (#1647).
 
 ## Other changes
 
