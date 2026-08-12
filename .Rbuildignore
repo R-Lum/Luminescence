@@ -59,5 +59,15 @@
 .*~$
 
 
-# -- Package 'Luminescence' stuff -- 
+# -- Package 'Luminescence' stuff --
 ^Luminescence\..*$
+
+# -- Exclude Python port (grows alongside the R package, see pyproject.toml) --
+^src/luminescence$
+^pyproject\.toml$
+^uv\.lock$
+^\.venv$
+^tests/python$
+^tools$
+^\.ruff_cache$
+^\.pytest_cache$

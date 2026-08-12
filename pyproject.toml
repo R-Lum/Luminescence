@@ -1,0 +1,142 @@
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pyluminescence"
+version = "0.1.0.dev0"
+description = "Comprehensive luminescence dating data analysis (Python port of the R package 'Luminescence')"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Dennis Handy", email = "dhandy1@uni-koeln.de" },
+]
+keywords = [
+    "luminescence-dating",
+    "OSL",
+    "TL",
+    "geochronology",
+    "dosimetry",
+]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.12",
+    "pandas>=2.1",
+    "matplotlib>=3.8",
+    "lxml>=5.0",
+    "httpx>=0.27",
+]
+
+[project.optional-dependencies]
+bayes = ["pymc>=5.10", "arviz>=0.17"]
+plotly = ["plotly>=5.18"]
+tiff = ["tifffile>=2024.1.30"]
+speed = ["numba>=0.59"]
+all = [
+    "pyluminescence[bayes]",
+    "pyluminescence[plotly]",
+    "pyluminescence[tiff]",
+    "pyluminescence[speed]",
+]
+
+[project.urls]
+Repository = "https://github.com/Cologne-Geomorphological-Software-Lab/Luminescence"
+Upstream = "https://github.com/R-Lum/Luminescence"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.8.0",
+    "basedpyright>=1.20",
+    "hypothesis>=6.100",
+]
+
+# -- Build ----------------------------------------------------------------
+# The Python package coexists with the R package in this repository; the
+# wheel must only ever contain src/luminescence.
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/luminescence"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/luminescence",
+    "tests/python",
+    "README.md",
+    "LICENSE",
+]
+
+# -- Quality tooling --------------------------------------------------------
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests/python"]
+extend-exclude = ["R", "man", "inst", "vignettes"]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "N",   # pep8-naming
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "SIM", # flake8-simplify
+    "S",   # flake8-bandit
+    "NPY", # numpy rules
+    "PD",  # pandas-vet
+    "RUF", # ruff-specific
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/python/**" = [
+    "S101", # asserts are the point of tests
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["luminescence"]
+
+[tool.basedpyright]
+pythonVersion = "3.12"
+typeCheckingMode = "strict"
+include = ["src", "tests/python"]
+# The scientific stack (pandas, matplotlib, scipy) ships incomplete type
+# information; unknown-type reporting there drowns out real findings.
+reportMissingTypeStubs = false
+reportUnknownMemberType = false
+reportUnknownArgumentType = false
+reportUnknownVariableType = false
+
+# -- Tests ------------------------------------------------------------------
+
+[tool.pytest.ini_options]
+testpaths = ["tests/python"]
+addopts = "-ra --strict-markers"
+markers = [
+    "live: tests that contact external services (DRAC); opt-in only",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["src/luminescence"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+]

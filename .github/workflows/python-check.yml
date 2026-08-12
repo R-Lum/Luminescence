@@ -1,0 +1,59 @@
+name: python-check
+
+on:
+  push:
+    branches: [master, main, 'dev_*']
+    paths:
+      - 'src/luminescence/**'
+      - 'tests/python/**'
+      - 'pyproject.toml'
+      - 'uv.lock'
+      - '.github/workflows/python-check.yml'
+  pull_request:
+    branches: [master, main, 'dev_*']
+    paths:
+      - 'src/luminescence/**'
+      - 'tests/python/**'
+      - 'pyproject.toml'
+      - 'uv.lock'
+      - '.github/workflows/python-check.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - run: uv sync --group dev
+      - run: uv run ruff check .
+      - run: uv run ruff format --check .
+      - run: uv run basedpyright
+
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-latest, python: '3.12' }
+          - { os: ubuntu-latest, python: '3.13' }
+          - { os: windows-latest, python: '3.13' }
+          - { os: macos-latest, python: '3.13' }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          python-version: ${{ matrix.python }}
+      # bayes (PyMC) is exercised by a separate nightly job once Phase 6 lands
+      - run: uv sync --group dev --extra plotly --extra tiff --extra speed
+      - run: uv run pytest --cov=luminescence --cov-report=term-missing -m "not live"

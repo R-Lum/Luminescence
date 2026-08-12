@@ -1,21 +1,89 @@
-# Local R stuff
-/.Rproj.user/*
-/*.RData
-*.Rhistory
-*.Rproj
-*.Rbuildignore
-*.DS_Store
-.Rproj.user
-.Rprofile
-Rlum.Experiment/
+# ---------------------------------------------------------------------------
+# Python
+# ---------------------------------------------------------------------------
 
-# emacs stuff
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions / build artifacts
+*.so
+*.pyd
+build/
+dist/
+wheels/
+*.egg-info/
+*.egg
+MANIFEST
+
+# Virtual environments
+.venv/
+venv/
+env/
+.python-version
+
+# Package managers
+# (uv.lock / poetry.lock should usually be committed for applications --
+#  remove the line below if this project pins its dependencies)
+pip-wheel-metadata/
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+.tox/
+.nox/
+.hypothesis/
+
+# Type checkers / linters
+.mypy_cache/
+.ruff_cache/
+.pytype/
+.pyre/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Documentation builds (Sphinx / MkDocs)
+docs/_build/
+site/
+
+# Profiling
+*.prof
+
+# ---------------------------------------------------------------------------
+# Editors / IDEs / OS
+# ---------------------------------------------------------------------------
+
+# VS Code / PyCharm
+.vscode/
+.idea/
+
+# emacs
 *~
 .#*
 \#*#
 .*.swp
 
-# Package related local stuff
+# macOS / Windows
+*.DS_Store
+Thumbs.db
+
+# ---------------------------------------------------------------------------
+# R (legacy, kann nach Abschluss der Migration entfernt werden)
+# ---------------------------------------------------------------------------
+/.Rproj.user/*
+/*.RData
+*.Rhistory
+*.Rproj
+*.Rbuildignore
+.Rproj.user
+.Rprofile
+Rlum.Experiment/
+
 packrat/
 packrat/lib*/
 packrat/src/
