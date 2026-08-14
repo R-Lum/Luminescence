@@ -20,7 +20,7 @@
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <text transform='translate(18.72,185.12) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='119.42px' lengthAdjust='spacingAndGlyphs'>Standardised estimate</text>
 <polygon points='64.80,202.13 64.80,168.11 480.60,168.11 480.60,202.13 ' style='stroke-width: 0.75; stroke: none; fill: #999999;' />
-<polygon points='619.20,547.43 619.20,42.13 1173.60,42.13 1173.60,547.43 ' style='stroke-width: 0.75; stroke: none; fill: #FFFFFF;' />
+<polygon points='619.20,547.43 619.20,42.13 1173.60,42.13 1173.60,547.43 ' style='stroke-width: 0.75; stroke: none; fill: none;' />
 <polygon points='64.80,185.12 501.39,158.50 514.49,157.71 619.20,157.71 619.20,216.73 514.49,216.73 501.39,215.81 ' style='stroke-width: 0.75; stroke: none; fill: #BFBFBF; fill-opacity: 0.60;' />
 <polyline points='64.80,185.12 501.39,347.11 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
 <polyline points='514.49,347.11 619.20,347.11 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />

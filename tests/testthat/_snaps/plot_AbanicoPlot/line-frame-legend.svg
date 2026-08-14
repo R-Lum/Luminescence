@@ -21,7 +21,7 @@
 <text transform='translate(18.72,258.84) rotate(-90)' text-anchor='middle' style='font-size: 14.40px; font-family: sans;' textLength='143.30px' lengthAdjust='spacingAndGlyphs'>Standardised estimate</text>
 <polygon points='64.80,266.11 64.80,251.56 480.60,321.89 480.60,336.44 ' style='stroke-width: 0.75; stroke: none; fill: #4F94CD;' />
 <polygon points='64.80,266.11 64.80,251.56 480.60,220.29 480.60,234.83 ' style='stroke-width: 0.75; stroke: none; fill: #CD8500;' />
-<polygon points='619.20,539.24 619.20,-39.68 1173.60,-39.68 1173.60,539.24 ' style='stroke-width: 0.75; stroke: none; fill: #FFFFFF;' />
+<polygon points='619.20,539.24 619.20,-39.68 1173.60,-39.68 1173.60,539.24 ' style='stroke-width: 0.75; stroke: none; fill: none;' />
 <polygon points='64.80,258.84 501.39,314.18 514.49,315.84 619.20,315.84 619.20,345.73 514.49,345.73 501.39,343.19 ' style='stroke-width: 0.75; stroke: none; fill: #63B8FF;' />
 <polygon points='64.80,258.84 501.39,202.08 514.49,200.37 619.20,200.37 619.20,244.62 514.49,244.62 501.39,245.03 ' style='stroke-width: 0.75; stroke: none; fill: #FFA500;' />
 <polyline points='64.80,258.84 501.39,338.19 ' style='stroke-width: 0.75; stroke: #CCCCCC;' />
