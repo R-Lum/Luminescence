@@ -39,10 +39,14 @@ test_that("check functionality", {
   expect_equal(res@originator, "verify_SingleGrainData")
   expect_length(res@records, 11)
 
+  ## threshold too high, empty object generated
   expect_message(res <- verify_SingleGrainData(object, cleanup = TRUE,
                                               cleanup_level = "curve",
                                               threshold = 10000),
                 "RLum.Analysis object reduced to records: <none>")
+  expect_length(res@records, 0)
+  expect_s4_class(res, "RLum.Analysis")
+  expect_equal(res@originator, "read_XSYG2R")
   expect_length(res@records, 0)
 
   ## check for empty object in a list
@@ -60,15 +64,6 @@ test_that("check functionality", {
   )
   expect_warning(verify_SingleGrainData(object_empty),
                  "Cannot process empty RLum.Analysis objects, NULL returned")
-
-  ## threshold too high, empty object generated
-  expect_message(res <- verify_SingleGrainData(object, cleanup = TRUE,
-                                              cleanup_level = "curve",
-                                              threshold = 2000),
-                "RLum.Analysis object reduced to records")
-  expect_s4_class(res, "RLum.Analysis")
-  expect_equal(res@originator, "read_XSYG2R")
-  expect_length(res@records, 0)
 
   ## threshold too high on a list
   expect_message(res <- verify_SingleGrainData(list(object), cleanup = TRUE,
