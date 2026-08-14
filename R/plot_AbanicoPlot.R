@@ -1214,10 +1214,6 @@ plot_AbanicoPlot <- function(
     shift.lines <- 1
   }
 
-  ## extract original plot parameters
-  bg.original <- par()$bg
-  par(bg = layout$abanico$colour$background)
-
   ## setup plot area
   par(mar = if (!rotate) c(4.5, 4.5, shift.lines + 1.5, 7) else c(4, 4, shift.lines + 5, 4),
       xpd = TRUE,
@@ -1285,7 +1281,6 @@ plot_AbanicoPlot <- function(
     polygon.rot(x = par()$usr[2] * c(1, 1, 2, 2),
                 y = c(min(ellipse[, 2]), max(ellipse[, 2]),
                       max(ellipse[, 2]), min(ellipse[, 2])) * 2,
-            col = bg.original,
             lty = 0)
 
     ## optionally, plot dispersion polygon

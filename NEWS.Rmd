@@ -67,6 +67,11 @@ evaluation of the model fit. In both cases, this has no user-visible effect
 other than changing the number of dose points under which the function
 switches to using the "LIN" method (#1634, #1636).
 
+### `plot_AbanicoPlot`
+
+* The default background colour was incorrectly set to `NA`, which in some
+very specific cases would cause some overplotting, at least on MacOS (#1649).
+
 ### `read_XSYG2R()`
 
 * Prevent function from crashing if it found an empty `<sequence />` node. This happens 
