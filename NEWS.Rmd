@@ -76,6 +76,7 @@ very specific cases would cause some overplotting, at least on MacOS (#1649).
 
 * Prevent function from crashing if it found an empty `<sequence />` node. This happens 
 if the reader encounters an empty position and would then automatically move on to the next. 
+* The interactive mode now has correct x and y-axis labels.  
 
 ### `verify_SingleGrainData()`
 

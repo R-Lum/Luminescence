@@ -239,7 +239,7 @@
 #' @return
 #' Returns a plot object and, optionally, a list with plot calculus data.
 #'
-#' @section Function version: 0.1.21
+#' @section Function version: 0.1.22
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -2036,12 +2036,12 @@ plot_AbanicoPlot <- function(
       mode = "text",
       yaxis = "y"
     )
-
     # Central Line ----
-    central.line <- data.frame(x = c(-100, data$xlim[2]*1/0.75), y = c(0, 0))
-    central.line.text <- paste0("Central value: ",
-                                format(exp(z.central.global), digits = 2, nsmall = 1))
-
+    central.line <- data.frame(
+      x = c(-100, data$xlim[2]*1/0.75), y = c(0, 0))
+    central.line.text <- paste0(
+      "Central value: ",
+      format(exp(z.central.global), digits = 2, nsmall = 1))
     IAP <- plotly::add_trace(
       IAP,
       data = central.line,
@@ -2065,41 +2065,57 @@ plot_AbanicoPlot <- function(
     KDE.y <- (KDE[[1]][ ,1] - z.central.global) * min(ellipse[,1])
     KDE.curve <- data.frame(x = KDE.x, y = KDE.y)
     KDE.curve <- KDE.curve[KDE.curve$x != xy.0, ]
-    KDE.text <- paste0("Value:",
-                       format(exp(KDE.curve$x), digits = 2, nsmall = 1), "<br />",
-                       "Density:",
-                       format(KDE.curve$y, digits = 2, nsmall = 1))
+    KDE.text <- paste0(
+      "Value:",
+       format(exp(KDE.curve$x), digits = 2, nsmall = 1), "<br />",
+        "Density:",
+       format(KDE.curve$y, digits = 2, nsmall = 1))
 
-    IAP <- plotly::add_trace(IAP, data = KDE.curve,
-                             x = ~x, y = ~y, name = "KDE",
-                             type = "scatter", mode = "lines",
-                             hoverinfo = "text",
-                             text = KDE.text,
-                             line = list(color = "red"),
-                             yaxis = "y")
-
+    IAP <- plotly::add_trace(
+      IAP,
+      data = KDE.curve,
+      x = ~ x,
+      y = ~ y,
+      name = "KDE",
+      type = "scatter",
+      mode = "lines",
+      hoverinfo = "text",
+      text = KDE.text,
+      line = list(color = "red"),
+      yaxis = "y"
+    )
     # set layout ----
     IAP <- plotly::layout(
       IAP,
       hovermode = "closest",
       dragmode = "pan",
-      xaxis = list(range = c(data$xlim[1], data$xlim[2] * 1/0.65),
-      zeroline = FALSE,
-      showgrid = FALSE,
-      tickmode = "array",
-      tickvals = x.axis.ticks),
-      yaxis = list(range = data$ylim,
-      zeroline = FALSE,
-      showline = FALSE,
-      showgrid = FALSE,
-      tickmode = "array",
-      tickvals = c(-2, 0, 2)),
-      shapes = list(list(type = "rect", # 2 sigma bar
-                                             x0 = 0, y0 = -2,
-                                             x1 = bars.x[3], y1 = 2,
-                                             xref = "x", yref = "y",
-                                             fillcolor = "grey",
-                                             opacity = 0.2))
+      xaxis = list(
+        title = xlab[2],
+        range = c(data$xlim[1], data$xlim[2] * 1/0.65),
+        zeroline = FALSE,
+        showgrid = TRUE,
+        tickmode = "array",
+        tickvals = x.axis.ticks),
+      yaxis = list(
+        title = ylab,
+        range = data$ylim,
+        zeroline = FALSE,
+        showline = FALSE,
+        showgrid = FALSE,
+        tickmode = "array",
+        tickvals = c(-2, 0, 2)),
+      shapes = list(list(
+        type = "rect",
+        # 2 sigma bar
+        x0 = 0,
+        y0 = -2,
+        x1 = bars.x[3],
+        y1 = 2,
+        xref = "x",
+        yref = "y",
+        fillcolor = "grey",
+        opacity = 0.2
+      ))
     )
 
     # show and return interactive plot ----
