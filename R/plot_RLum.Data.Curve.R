@@ -254,8 +254,11 @@ plot_RLum.Data.Curve<- function(
           annotations = list(plot_settings$mtext)
         )
 
-        ## print and return
-        suppressMessages(print(p))
+        ## print and return only if hidden shiny 
+        ## flag is not set
+        if(is.null(list(...)$.shiny))
+          suppressMessages(print(p))
+        
         on.exit(return(p), add = TRUE)
 
   } else {
