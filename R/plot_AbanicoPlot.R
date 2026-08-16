@@ -2003,13 +2003,19 @@ plot_AbanicoPlot <- function(
     # minor z-tick lines
     for (i in 1:length(minor.ticks.y)) {
       minor.tick <- data.frame(x = minor.ticks.x, y = rep(minor.ticks.y[i], 2))
-      IAP <- plotly::add_trace(IAP, data = minor.tick,
-                               x = ~x, y = ~y, showlegend = FALSE,
-                               type = "scatter", mode = "lines",
-                               hoverinfo = "none", text = "",
-                               line = list(color = "black",
-                                           width = 1),
-                               yaxis = "y")
+      IAP <- plotly::add_trace(
+        IAP,
+        data = minor.tick,
+        x = ~ x,
+        y = ~ y,
+        showlegend = FALSE,
+        type = "scatter",
+        mode = "lines",
+        hoverinfo = "none",
+        text = "",
+        line = list(color = "black", width = 1),
+        yaxis = "y"
+      )
     }
 
     # z-tick label
@@ -2017,26 +2023,42 @@ plot_AbanicoPlot <- function(
     tick.pos <- data.frame(x = major.ticks.x[2],
                            y = major.ticks.y)
 
-    IAP <- plotly::add_trace(IAP, data = tick.pos,
-                             x = ~x, y = ~y, showlegend = FALSE,
-                             hoverinfo = "none",
-                             text = tick.text, textposition = "right",
-                             type = "scatter", mode = "text",
-                             yaxis = "y")
+    IAP <- plotly::add_trace(
+      IAP,
+      data = tick.pos,
+      x = ~ x,
+      y = ~ y,
+      showlegend = FALSE,
+      hoverinfo = "none",
+      text = tick.text,
+      textposition = "right",
+      type = "scatter",
+      mode = "text",
+      yaxis = "y"
+    )
 
     # Central Line ----
     central.line <- data.frame(x = c(-100, data$xlim[2]*1/0.75), y = c(0, 0))
     central.line.text <- paste0("Central value: ",
                                 format(exp(z.central.global), digits = 2, nsmall = 1))
 
-    IAP <- plotly::add_trace(IAP, data = central.line,
-                             x = ~x, y = ~y, name = "Central line",
-                             type = "scatter", mode = "lines",
-                             hoverinfo = "text", text = central.line.text,
-                             yaxis = "y",
-                             line = list(color = "black",
-                                         width = 0.5,
-                                         dash = 2))
+    IAP <- plotly::add_trace(
+      IAP,
+      data = central.line,
+      x = ~ x,
+      y = ~ y,
+      name = "Central line",
+      type = "scatter",
+      mode = "lines",
+      hoverinfo = "text",
+      text = central.line.text,
+      yaxis = "y",
+      line = list(
+        color = "black",
+        width = 0.5,
+        dash = 2
+      )
+    )
 
     # KDE plot ----
     KDE.x <- xy.0 + KDE[[1]][, 2] * KDE.scale
@@ -2057,21 +2079,22 @@ plot_AbanicoPlot <- function(
                              yaxis = "y")
 
     # set layout ----
-    IAP <- plotly::layout(IAP,
-                          hovermode = "closest",
-                          dragmode = "pan",
-                          xaxis = list(range = c(data$xlim[1], data$xlim[2] * 1/0.65),
-                                       zeroline = FALSE,
-                                       showgrid = FALSE,
-                                       tickmode = "array",
-                                       tickvals = x.axis.ticks),
-                          yaxis = list(range = data$ylim,
-                                       zeroline = FALSE,
-                                       showline = FALSE,
-                                       showgrid = FALSE,
-                                       tickmode = "array",
-                                       tickvals = c(-2, 0, 2)),
-                          shapes = list(list(type = "rect", # 2 sigma bar
+    IAP <- plotly::layout(
+      IAP,
+      hovermode = "closest",
+      dragmode = "pan",
+      xaxis = list(range = c(data$xlim[1], data$xlim[2] * 1/0.65),
+      zeroline = FALSE,
+      showgrid = FALSE,
+      tickmode = "array",
+      tickvals = x.axis.ticks),
+      yaxis = list(range = data$ylim,
+      zeroline = FALSE,
+      showline = FALSE,
+      showgrid = FALSE,
+      tickmode = "array",
+      tickvals = c(-2, 0, 2)),
+      shapes = list(list(type = "rect", # 2 sigma bar
                                              x0 = 0, y0 = -2,
                                              x1 = bars.x[3], y1 = 2,
                                              xref = "x", yref = "y",
