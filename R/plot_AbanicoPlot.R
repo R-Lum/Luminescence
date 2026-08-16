@@ -2080,8 +2080,9 @@ plot_AbanicoPlot <- function(
     )
 
     # show and return interactive plot ----
-    #print(plotly::subplot(IAP, IAP.kde))
-    print(IAP)
+    if(is.null(list(...)$.shiny))
+      print(IAP)
+    
     return(IAP)
   }
 
