@@ -87,3 +87,10 @@ readable as it compresses consecutive record indices into a range (#1647).
 
 * We have expanded the family of snapshot tests by testing the function
 output in more cases, going from 12 to over 70 output snapshots (#1638).
+
+## Internals
+
+* The functions `plot_AbanicoPlot()` and `plot_RLum.Data.Curve()` gained
+a hidden `…` flag `.shiny` if set and in combination with `interactive = TRUE`, 
+the `plotly` object is returned instead of printed. This was mainly added
+to better support the interactive functionality within `’RLumShiny’`.
