@@ -199,7 +199,7 @@ calc_CentralDose <- function(
 
     # print iterations
     if (options$trace)
-      print(round(c(delta, sigma), 4))
+      cat(sprintf("%3d %.6f %.6f\n", j, delta, sigma))
 
     ## don't let sigma become zero
     if (sigma < 1e-16)
