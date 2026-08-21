@@ -80,7 +80,7 @@ read_RF2R <- function(
   if (!type %in% c("macro", "rlumimage"))
     .throw_error("Could not find a supported file format in the header line")
   if ((type == "macro" && !version %in% c("17-10-2018", "27-11-2018", "0.1.0")) ||
-      (type == "rlumimage" && !version %in% c("0.0.1"))) {
+      (type == "rlumimage" && !version %in% paste0("0.0.", 0:1))) {
     .throw_error("Format version ", version, " not supported for type '", type, "'")
   }
 
