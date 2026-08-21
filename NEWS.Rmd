@@ -25,6 +25,14 @@ header-includes:
 longer generate an incorrect data frame if it's specified as a list for a
 non-list object (#1640).
 
+### `analyse_IRSAR.RF()`
+
+* The colour of the regeneration points was changed to black so guarantee
+greater contrast against the natural points, which should improve readability
+for people with red-green colour blindness and for black-and-white printing.
+Moreover, point colours can now be freely customised via the new `col_nat`
+and `col_reg` parameters (#1655; thanks to @DirkMittelstrass for reporting).
+
 ### `analyse_SAR.CWOSL()`
 
 * The ordering of columns in the `$data` field of the result object was
