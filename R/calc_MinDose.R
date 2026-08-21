@@ -349,6 +349,9 @@ calc_MinDose <- function(
     .throw_error("'data' should have 2 columns")
   }
 
+  ## restrict to the first two columns
+  data <- data[, 1:2]
+
   if (!all(stats::complete.cases(data))) {
     .throw_message("Warning: Input data contained NA/NaN values, ",
                    "which were removed prior to calculations", error = FALSE)

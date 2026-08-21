@@ -48,6 +48,12 @@
   of rows in the input data set, instead of returning only `NA`s in the
   result table (#1645).
 
+### `calc_MinDose()`
+
+- The removal of missing values now happens only after restricting the
+  input to the first two columns, so `NA` values in unrelated columns no
+  longer affect the operation of the function (#1659).
+
 ### `calc_SourceDoseRate()`
 
 - Source type `"Am-241"` was misspelled in the documentation and in the
