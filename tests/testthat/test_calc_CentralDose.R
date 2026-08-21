@@ -36,6 +36,8 @@ test_that("input validation", {
                  "'na.rm' is deprecated, missing values are always")
   expect_message(calc_CentralDose(temp_NA),
                  "NA values removed from dataset")
+  expect_error(calc_CentralDose(temp_NA[1:2, ]),
+               "After NA removal, 'data' was left with fewer than two rows")
   })
 })
 
