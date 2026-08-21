@@ -29,7 +29,7 @@
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
-#' @section Function version: 0.1.2
+#' @section Function version: 0.1.3
 #'
 #' @keywords IO
 #'
@@ -74,12 +74,15 @@ read_RF2R <- function(
 
   ##read first line to ensure the format
   vers_str <-  readLines(file, 1)
-  version_supported <- c("17-10-2018", "27-11-2018", "0.1.0")
-  version_found <- regmatches(vers_str,
-                              regexpr("(?<=macro\\_version=)[0-9-.]+", vers_str, perl = TRUE))
+  type <- gsub("^<(macro|rlumimage)_version=.*$", "\\1", vers_str)
+  version <- gsub("^<(macro|rlumimage)_version=([0-9]+([.-][0-9]+)*)(\\s+[^>]*)?>$", "\\2", vers_str)
 
-  if (!any(version_found %in% version_supported))
-    .throw_error("File format not supported")
+  if (!type %in% c("macro", "rlumimage"))
+    .throw_error("Could not find a supported file format in the header line")
+  if ((type == "macro" && !version %in% c("17-10-2018", "27-11-2018", "0.1.0")) ||
+      (type == "rlumimage" && !version %in% c("0.0.1"))) {
+    .throw_error("Format version ", version, " not supported for type '", type, "'")
+  }
 
   ## Import -----------------------------------------------------------------
 

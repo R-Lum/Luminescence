@@ -34,7 +34,7 @@ This functions provides an easy import to process the data seamlessly with the R
 The output of the function can be passed to function \link{analyse_IRSAR.RF}.
 }
 \section{Function version}{
- 0.1.2
+ 0.1.3
 }
 
 \examples{
