@@ -1,3 +1,9 @@
+## load data
+file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
+macro <- readLines(file)
+rlumimage <- gsub("macro_version", "rlumimage_version",
+                  gsub("17-10-2018", "0.0.1", macro))
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
@@ -16,13 +22,16 @@ test_that("input validation", {
 test_that("check functionality", {
   testthat::skip_on_cran()
 
-  ##load file path
-  file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
-
   ##simple import
   SW({
   expect_type(read_RF2R(file), type = "list")
   })
+
+  file.rlumimage <- "RF_rlumimage.Rf"
+  writeLines(rlumimage, file.rlumimage)
+  expect_type(read_RF2R(file.rlumimage, verbose = FALSE),
+              "list")
+  file.remove(file.rlumimage)
 
   ##import list
   expect_type(expect_message(read_RF2R(list(file, "test"), verbose = FALSE),
@@ -35,10 +44,20 @@ test_that("check functionality", {
 
   ## create a file with unsupported version
   file.wrong <- "RF_wrong_version.Rf"
-  writeLines(gsub("17-10-2018", "wrong-version", readLines(file)),
+  writeLines(gsub("macro_version", "unknown_version", macro),
              file.wrong)
   expect_error(read_RF2R(file.wrong),
-               "File format not supported")
+               "Could not find a supported file format in the header line")
+
+  writeLines(gsub("17-10-2018", "99-99-99", macro),
+             file.wrong)
+  expect_error(read_RF2R(file.wrong),
+               "Format version 99-99-99 not supported for type 'macro'")
+
+  writeLines(gsub("0.0.1", "99-99-99", rlumimage),
+             file.wrong)
+  expect_error(read_RF2R(file.wrong),
+               "Format version 99-99-99 not supported for type 'rlumimage'")
   file.remove(file.wrong)
 
   ## create a file with malformed header
