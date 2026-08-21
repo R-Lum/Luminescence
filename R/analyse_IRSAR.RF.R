@@ -240,7 +240,8 @@
 #' Currently supported arguments are `main`, `mtext`, `xlab`, `ylab`,
 #' `xlim`, `ylim`, `log`, `legend` (`TRUE/FALSE`),
 #' `legend.pos`, `legend.text` (passes argument to x,y in
-#' [graphics::legend]), `xaxt`, `verbose` (`TRUE/FALSE`).
+#' [graphics::legend]), `col_nat` (colour of natural points), `col_reg`
+#' (colour of regenerated points), `xaxt`, `verbose` (`TRUE/FALSE`).
 #'
 #' @return
 #' The function returns numerical output and an (*optional*) plot.
@@ -331,7 +332,7 @@
 #' measurements (natural vs. regenerated signal), which is in contrast to the
 #' findings by Buylaert et al. (2012).
 #'
-#' @section Function version: 0.7.10
+#' @section Function version: 0.7.11
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -725,6 +726,9 @@ analyse_IRSAR.RF<- function(
   ##get channel resolution (should be equal for all curves, but if not the mean is taken)
   resolution.RF <- round(mean((temp.sequence_structure$x.max/temp.sequence_structure$n.channels)),digits=1)
 
+  ## get internal colour definition
+  col <- get("col", pos = .LuminescenceEnv)
+
   plot.settings <- list(
     main = "IR-RF",
     xlab = "Time [s]",
@@ -734,6 +738,8 @@ analyse_IRSAR.RF<- function(
     legend = TRUE,
     legend.text = c("RF_nat","RF_reg"),
     legend.pos = "top",
+    col_nat = col[2],
+    col_reg = col[1],
     xaxt = "s"
     ##xlim and ylim see below as they has to be modified differently
   )
@@ -1362,9 +1368,6 @@ analyse_IRSAR.RF<- function(
     par.default <- .par_defaults()
     on.exit(par(par.default), add = TRUE)
 
-    ##get internal colour definition
-    col <- get("col", pos = .LuminescenceEnv)
-
     if (!plot_reduced && method != "NONE") {
         graphics::layout(matrix(c(1, 2), 2, 1, byrow = TRUE), 2, c(1.3, 0.4), TRUE)
         par(mar = c(0, 4, 3, 1))
@@ -1384,7 +1387,7 @@ analyse_IRSAR.RF<- function(
           plot.settings$legend.pos,
           legend = plot.settings$legend.text,
           pch = c(19, 3),
-          col = c("red", col[10]),
+          col = c(plot.settings$col_nat, plot.settings$col_reg),
           horiz = TRUE,
           bty = "n",
           cex = 0.9)
@@ -1446,13 +1449,13 @@ analyse_IRSAR.RF<- function(
     points(RF_reg[-(min(RF_reg.lim):max(RF_reg.lim)),1:2], pch=3, col=col[19])
 
     ##(2) plot points that has been used for the fitting
-    points(RF_reg.x,RF_reg.y, pch=3, col=col[10])
+    points(RF_reg.x, RF_reg.y, pch = 3, col = plot.settings$col_reg)
 
     ##show natural points if no analysis was done
     if (method == "NONE") {
       ##add points
       points(RF_nat, pch = 20, col = "grey")
-      points(RF_nat.limited, pch = 20, col = "red")
+      points(RF_nat.limited, pch = 20, col = plot.settings$col_nat)
 
       ## subtitle
       if ("mtext" %in% names(extraArgs)) {
@@ -1504,7 +1507,7 @@ analyse_IRSAR.RF<- function(
 
       ##add points
       points(RF_nat, pch = 20, col = col[19])
-      points(RF_nat.limited, pch = 20, col = col[2])
+      points(RF_nat.limited, pch = 20, col = plot.settings$col_nat)
 
       .draw_legend()
       .draw_fit_range()
@@ -1576,8 +1579,8 @@ analyse_IRSAR.RF<- function(
       )
 
       ##(2) add used points
-      points(RF_nat.slid[min(RF_nat.lim):max(RF_nat.lim),], pch = 21, col = col[2],
-             bg = col[2])
+      points(RF_nat.slid[min(RF_nat.lim):max(RF_nat.lim), ], pch = 19,
+             col = plot.settings$col_nat)
 
       ##(3) add line to show the connection between the first point and the De
       lines(x = c(RF_nat.slid[1,1], RF_nat.slid[1,1]),

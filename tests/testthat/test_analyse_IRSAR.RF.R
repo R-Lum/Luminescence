@@ -170,6 +170,8 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("vslide",
                               analyse_IRSAR.RF(IRSAR.RF.Data,
                                                method = "VSLIDE",
+                                               col_nat = "seagreen",
+                                               col_reg = "orchid",
                                                n.MC = NULL))
   vdiffr::expect_doppelganger("none subtitle log",
                               analyse_IRSAR.RF(IRSAR.RF.Data,
