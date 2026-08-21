@@ -22,8 +22,12 @@
   guarantee greater contrast against the natural points, which should
   improve readability for people with red-green colour blindness and for
   black-and-white printing. Moreover, point colours can now be freely
-  customised via the new `col_nat` and `col_reg` parameters (#1655;
+  customised via the new `col_nat` and `col_reg` parameters (#1654;
   thanks to @DirkMittelstrass for reporting).
+
+- The plot is no longer constrained to keep a fixed aspect ratio, so
+  that it can occupy more of the available space (#1654; thanks to
+  @DirkMittelstrass for reporting).
 
 ### `analyse_SAR.CWOSL()`
 

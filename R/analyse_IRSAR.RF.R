@@ -1369,7 +1369,7 @@ analyse_IRSAR.RF<- function(
     on.exit(par(par.default), add = TRUE)
 
     if (!plot_reduced && method != "NONE") {
-        graphics::layout(matrix(c(1, 2), 2, 1, byrow = TRUE), 2, c(1.3, 0.4), TRUE)
+        graphics::layout(matrix(c(1, 2), 2, 1, byrow = TRUE), 2, c(1.3, 0.4), FALSE)
         par(mar = c(0, 4, 3, 1))
     }
     par(cex = plot.settings[["cex"]])
@@ -1644,16 +1644,17 @@ analyse_IRSAR.RF<- function(
           xlim = xlim,
           ylim = if (fit.error) c(-1, 1) else range(residuals),
           xlab = plot.settings$xlab,
-          ylab = "E",
+          ylab = "",
           xaxt = plot.settings$xaxt,
           yaxt = "n",
           type = "p",
           log = gsub("y", "", plot.settings$log)
       )
+      mtext("E", side = 2, line = 1)
 
       if (!fit.error) {
         ## add axis for 0 ... means if the 0 is not visible there is labelling
-        axis(side = 4, at = 0, labels = 0)
+        axis(side = 4, at = 0, labels = 0, line = -1)
 
         ## add residual points
         if (method == "FIT") {
