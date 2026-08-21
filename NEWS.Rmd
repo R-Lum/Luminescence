@@ -41,6 +41,11 @@ This was a regression introduced in v1.1.2 (#1625).
 * The function no longer crashes when the De values are identical and
 `log = FALSE` (#1628).
 
+* The removal of missing values now happens only after restricting the input
+to the first two columns, so `NA` values in unrelated columns no longer affect
+the operation of the function (#1653; thanks to @DirkMittelstrass for
+reporting).
+
 ### `calc_FuchsLang2001()`
 
 * The function now returns an error if `startDeValue` exceeds the number of

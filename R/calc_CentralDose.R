@@ -47,7 +47,7 @@
 #'
 #' The output should be accessed using the function [Luminescence::get_RLum].
 #'
-#' @section Function version: 1.5
+#' @section Function version: 1.6
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
@@ -115,20 +115,25 @@ calc_CentralDose <- function(
   }
   .validate_nonnegative_scalar(sigmab)
 
-  ##remove NA values
-  if (anyNA(data)) {
-    .throw_message(length(which(is.na(data))), " NA values removed from dataset",
-                   error = FALSE)
-    data <- na.exclude(data)
-  }
-
   ## check that we have enough data available
   if(ncol(data) < 2 || nrow(data) < 2)
     .throw_error("'data' should have at least two columns and two rows")
 
-  ##extract only the first two columns and set column names
-  data <- data[,1:2]
+  ## extract only the first two columns and set column names
+  data <- data[, 1:2]
   colnames(data) <- c("ED", "ED_Error")
+
+  ## remove NA values
+  if (anyNA(data)) {
+    .throw_message(length(which(is.na(data))), " NA values removed from dataset",
+                   error = FALSE)
+    data <- na.exclude(data)
+    if (nrow(data) < 2)
+      .throw_error("After NA removal, 'data' was left with fewer than two rows")
+
+    ## drop the na.action attribute
+    attr(data, "na.action") <- NULL
+  }
 
   ## don't allow log transformation if there are non-positive values
   .validate_logical_scalar(log)
