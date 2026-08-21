@@ -133,6 +133,7 @@ analyse_SAR.NCF <- function(
     return(results)
   }
 
+  .validate_class(object, "RLum.Analysis", extra = "a 'list' of such objects")
   .validate_positive_scalar(TL_peak_range)
   .validate_class(method_control, "list", null.ok = TRUE)
 
