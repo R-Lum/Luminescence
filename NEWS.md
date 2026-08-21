@@ -28,6 +28,10 @@
   object are now correctly populated also for XSYG files, instead of
   being set to `NA`. This was a regression introduced in v1.1.2 (#1625).
 
+### `analyse_SAR.NCF()`
+
+- The ‘object’ argument is now better validated (#1657).
+
 ### `calc_CentralDose()`
 
 - The function no longer crashes when the De values are identical and
