@@ -235,11 +235,14 @@
 #' Supported are: `main`, `sub`, `ylab`, `xlab`, `zlab`, `zlim`, `ylim`, `cex`,
 #' `lty`, `lwd`, `pch`, `col`, `at`, `breaks`. `xlab` must be
 #' a vector of length two, specifying the upper and lower x-axis labels.
+#' 
+#' Please note that in the interactive mode, if you are using an expression, 
+#' the `zlab` must use HTML tags, such as `D<sub>e</sub>` for `D[e]`.
 #'
 #' @return
 #' Returns a plot object and, optionally, a list with plot calculus data.
 #'
-#' @section Function version: 0.1.22
+#' @section Function version: 0.1.23
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -1938,11 +1941,11 @@ plot_AbanicoPlot <- function(
   if (interactive) {
     .require_suggested_package("plotly", "The interactive abanico plot")
 
-    ## tidy data ----
+    ### tidy data ----
     data <- plot.output
     kde <- data.frame(x = data$KDE[[1]][ ,2], y = data$KDE[[1]][ ,1])
 
-    # radial scatter plot ----
+    ### radial scatter plot ----
     point.text <- paste0("Measured value:<br />",
                          data$data.global$De, " &plusmn; ",
                          data$data.global$error, "<br />",
@@ -2036,7 +2039,7 @@ plot_AbanicoPlot <- function(
       mode = "text",
       yaxis = "y"
     )
-    # Central Line ----
+    ### Central Line ----
     central.line <- data.frame(
       x = c(-100, data$xlim[2]*1/0.75), y = c(0, 0))
     central.line.text <- paste0(
@@ -2060,7 +2063,7 @@ plot_AbanicoPlot <- function(
       )
     )
 
-    # KDE plot ----
+    ### KDE plot ----
     KDE.x <- xy.0 + KDE[[1]][, 2] * KDE.scale
     KDE.y <- (KDE[[1]][ ,1] - z.central.global) * min(ellipse[,1])
     KDE.curve <- data.frame(x = KDE.x, y = KDE.y)
@@ -2084,11 +2087,21 @@ plot_AbanicoPlot <- function(
       line = list(color = "red"),
       yaxis = "y"
     )
-    # set layout ----
+    
+    ### set layout -----------------
+    ## fall back to character
+    zlab.text <- if (is.expression(zlab)) "D" else as.character(zlab)
+
+    ## subtitle content, one line per data set (as in the base "sub" summary)
+    summary.text <- paste(unlist(label.text), collapse = " | ")
+
     IAP <- plotly::layout(
       IAP,
+      title = list(
+        text = if (is.expression(main)) "D" else as.character(main)),
       hovermode = "closest",
       dragmode = "pan",
+      showlegend = FALSE,
       xaxis = list(
         title = xlab[2],
         range = c(data$xlim[1], data$xlim[2] * 1/0.65),
@@ -2115,10 +2128,31 @@ plot_AbanicoPlot <- function(
         yref = "y",
         fillcolor = "grey",
         opacity = 0.2
-      ))
+      )),
+      annotations = list(
+        list(
+          x = 1.02, 
+          y = 0,
+          xref = "paper", 
+          yref = "y",
+          text = zlab.text,
+          showarrow = FALSE, 
+          textangle = 90, 
+          align = "left"),
+        list(
+          x = 0, 
+          y = 1,
+          xref = "paper", 
+          yref = "paper",
+          text = unlist(label.text),
+          showarrow = FALSE, 
+          textangle = 0, 
+          align = "center")),
+      
+      showlegend = FALSE
     )
 
-    # show and return interactive plot ----
+    ### show and return interactive plot ----
     if(is.null(list(...)$.shiny))
       print(IAP)
     
