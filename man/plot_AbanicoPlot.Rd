@@ -201,7 +201,10 @@ create an interactive abanico plot (requires the \code{'plotly'} package)}
 \item{...}{Further plot arguments to pass (see \link[graphics:plot.default]{graphics::plot.default}).
 Supported are: \code{main}, \code{sub}, \code{ylab}, \code{xlab}, \code{zlab}, \code{zlim}, \code{ylim}, \code{cex},
 \code{lty}, \code{lwd}, \code{pch}, \code{col}, \code{at}, \code{breaks}. \code{xlab} must be
-a vector of length two, specifying the upper and lower x-axis labels.}
+a vector of length two, specifying the upper and lower x-axis labels.
+
+Please note that in the interactive mode, if you are using an expression,
+the \code{zlab} must use HTML tags, such as \verb{D<sub>e</sub>} for \code{D[e]}.}
 }
 \value{
 Returns a plot object and, optionally, a list with plot calculus data.
@@ -290,7 +293,7 @@ documentation of \code{axis}. Specifying tick positions manually overrides a
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.21
+ 0.1.23
 }
 
 \examples{
