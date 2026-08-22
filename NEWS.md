@@ -100,7 +100,7 @@
   MacOS (#1649).
 
 - The interactive plotting mode (`interactive = TRUE`) is more complete
-  and renders a usable plot.
+  and renders a usable plot (#1664)
 
 ### `read_RF2R()`
 
