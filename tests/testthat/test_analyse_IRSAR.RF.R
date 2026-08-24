@@ -172,6 +172,7 @@ test_that("graphical snapshot tests", {
                                                method = "VSLIDE",
                                                col_nat = "seagreen",
                                                col_reg = "orchid",
+                                               log = "y",
                                                yaxis_scientific = TRUE,
                                                n.MC = NULL))
   vdiffr::expect_doppelganger("none subtitle log",
