@@ -888,11 +888,12 @@ calc_Huntley2006 <- function(
     }
 
     xlim <- range(pretty(c(dosetimeGray, De.sim), n = 15))
+    dosetimeGrayNonNeg <- dosetimeGray[dosetimeGray >= 0]
 
     # Create figure after Kars et al. (2008) contrasting the dose response curves
     ## open plot window ------------
     plot(
-      x = dosetimeGray[dosetimeGray >= 0],
+      x = dosetimeGrayNonNeg,
       y = LxTx_measured$LxTx,
       main = plot.settings$main,
       xlab = plot.settings$xlab,
@@ -906,9 +907,9 @@ calc_Huntley2006 <- function(
     abline(v = 0, h = 0, col = "gray")
 
     # LxTx error bars
-    segments(x0 = dosetimeGray[dosetimeGray >= 0],
+    segments(x0 = dosetimeGrayNonNeg,
              y0 = LxTx_measured$LxTx + LxTx_measured$LxTx.Error,
-             x1 = dosetimeGray[dosetimeGray >= 0],
+             x1 = dosetimeGrayNonNeg,
              y1 = LxTx_measured$LxTx - LxTx_measured$LxTx.Error,
              col = "black")
 
@@ -1005,15 +1006,15 @@ calc_Huntley2006 <- function(
 
     lines(xNew, yNew, col  = "black", lty = 5)
 
-    points(x = dosetimeGray[dosetimeGray >= 0],
+    points(x = dosetimeGrayNonNeg,
            y = LxTx_unfaded$LxTx,
            col = "black")
 
     # LxTx error bars
     segments(
-      x0 = dosetimeGray[dosetimeGray >= 0],
+      x0 = dosetimeGrayNonNeg,
       y0 = LxTx_unfaded$LxTx + LxTx_unfaded$LxTx.Error,
-      x1 = dosetimeGray[dosetimeGray >= 0],
+      x1 = dosetimeGrayNonNeg,
       y1 = LxTx_unfaded$LxTx - LxTx_unfaded$LxTx.Error,
       col = "black")
 
