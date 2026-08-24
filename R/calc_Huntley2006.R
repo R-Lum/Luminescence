@@ -1085,51 +1085,35 @@ calc_Huntley2006 <- function(
 
   ## Console output ------------------------------------------------------------
   if (settings$verbose) {
-    cat("\n\n[calc_Huntley2006()]\n")
-    cat("\n -------------------------------")
-    cat("\n (n/N) [-]:\t",
-        round(results@data$results$nN, 2), "\u00b1",
-        round(results@data$results$nN.error, 2))
-    cat("\n (n/N)_SS [-]:\t",
-        round(results@data$results$nN_SS, 2),"\u00b1",
-        round(results@data$results$nN_SS.error, 2))
-    cat("\n\n ---------- Measured -----------")
-    cat("\n DE [Gy]:\t",
-        round(results@data$results$Meas_De, 2), "\u00b1",
-        round(results@data$results$Meas_De.error, 2))
-    cat("\n D0 [Gy]:\t",
-        round(results@data$results$Meas_D0, 2), "\u00b1",
-        round(results@data$results$Meas_D0.error, 2))
+    .cat_result <- function(label, val, err) {
+      cat(sprintf("\n %-15s", label), round(val, 2), "\u00b1", round(err, 2))
+    }
     .cat_gok_c <- function(fit) {
       if (fit.method[1] == "GOK") {
-        cat("\n c [-]:\t\t",
-            round(summary(fit)$coefficients["c", "Estimate"], 2), "\u00b1",
-            round(summary(fit)$coefficients["c", "Std. Error"], 2))
+        c.coef <- summary(fit)$coefficients["c", ]
+        .cat_result("c [-]:", c.coef["Estimate"], c.coef["Std. Error"])
       }
     }
+    R <- results@data$results
+
+    cat("\n\n[calc_Huntley2006()]\n")
+    cat("\n -------------------------------")
+    .cat_result("(n/N) [-]:", R$nN, R$nN.error)
+    .cat_result("(n/N)_SS [-]:", R$nN_SS, R$nN_SS.error)
+    cat("\n\n ---------- Measured -----------")
+    .cat_result("DE [Gy]:", R$Meas_De, R$Meas_De.error)
+    .cat_result("D0 [Gy]:", R$Meas_D0, R$Meas_D0.error)
     .cat_gok_c(fit_measured)
-    cat("\n Age [ka]:\t",
-        round(results@data$results$Meas_Age, 2), "\u00b1",
-        round(results@data$results$Meas_Age.error, 2))
+    .cat_result("Age [ka]:", R$Meas_Age, R$Meas_Age.error)
     cat("\n\n ---------- Un-faded -----------")
-    cat("\n D0 [Gy]:\t",
-        round(results@data$results$Unfaded_D0, 2), "\u00b1",
-        round(results@data$results$Unfaded_D0.error, 2))
+    .cat_result("D0 [Gy]:", R$Unfaded_D0, R$Unfaded_D0.error)
     .cat_gok_c(fit_unfaded)
     cat("\n\n ---------- Simulated ----------")
-    cat("\n DE [Gy]:\t",
-        round(results@data$results$Sim_De, 2), "\u00b1",
-        round(results@data$results$Sim_De.error, 2))
-    cat("\n D0 [Gy]:\t",
-        round(results@data$results$Sim_D0, 2), "\u00b1",
-        round(results@data$results$Sim_D0.error, 2))
+    .cat_result("DE [Gy]:", R$Sim_De, R$Sim_De.error)
+    .cat_result("D0 [Gy]:", R$Sim_D0, R$Sim_D0.error)
     .cat_gok_c(fit_simulated)
-    cat("\n Age [ka]:\t",
-        round(results@data$results$Sim_Age, 2), "\u00b1",
-        round(results@data$results$Sim_Age.error, 2))
-    cat("\n Age @2D0 [ka]:\t",
-        round(results@data$results$Sim_Age_2D0, 2), "\u00b1",
-        round(results@data$results$Sim_Age_2D0.error, 2))
+    .cat_result("Age [ka]:", R$Sim_Age, R$Sim_Age.error)
+    .cat_result("Age @2D0 [ka]:", R$Sim_Age_2D0, R$Sim_Age_2D0.error)
     cat("\n -------------------------------\n\n")
   }
 
