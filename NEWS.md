@@ -47,7 +47,7 @@
 
 ### `analyse_SAR.NCF()`
 
-- The ‘object’ argument is now better validated (#1657).
+- The `object` argument is now better validated (#1657).
 
 ### `calc_CentralDose()`
 
@@ -99,7 +99,7 @@
   MacOS (#1649).
 
 - The interactive plotting mode (`interactive = TRUE`) is more complete
-  and renders a usable plot (#1664)
+  and renders a usable plot (#1664).
 
 ### `read_RF2R()`
 
@@ -108,10 +108,9 @@
 
 ### `read_XSYG2R()`
 
-- Prevent function from crashing if it found an empty `<sequence />`
-  node. This happens if the reader encounters an empty position and
-  would then automatically move on to the next.
-- The interactive mode now has correct x and y-axis labels.
+- The function no longer when an empty `<sequence />` node is found.
+  Such a node may be present if the reader encounters an empty position
+  and would then automatically move on to the next.
 
 ### `verify_SingleGrainData()`
 
@@ -127,8 +126,8 @@
 
 ## Internals
 
-- The functions `plot_AbanicoPlot()` and `plot_RLum.Data.Curve()` gained
-  a hidden `…` flag `.shiny` if set and in combination with
-  `interactive = TRUE`, the `plotly` object is returned instead of
-  printed. This was mainly added to better support the interactive
-  functionality within `’RLumShiny’`.
+- Functions `plot_AbanicoPlot()` and `plot_RLum.Data.Curve()` gained a
+  hidden `.shiny` flag which can be set in combination with
+  `interactive = TRUE` to return the `plotly` object instead of printing
+  it. This was added to improve the interactive functionality within the
+  ’RLumShiny’ package.
