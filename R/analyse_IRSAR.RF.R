@@ -241,7 +241,8 @@
 #' `xlim`, `ylim`, `log`, `legend` (`TRUE/FALSE`),
 #' `legend.pos`, `legend.text` (passes argument to x,y in
 #' [graphics::legend]), `col_nat` (colour of natural points), `col_reg`
-#' (colour of regenerated points), `xaxt`, `verbose` (`TRUE/FALSE`).
+#' (colour of regenerated points), `yaxis_scientific` (`TRUE/FALSE`),
+#' `xaxt`, `verbose` (`TRUE/FALSE`).
 #'
 #' @return
 #' The function returns numerical output and an (*optional*) plot.
@@ -314,7 +315,6 @@
 #'  `squared_residuals` \tab `numeric` \tab the squared residuals (horizontal sliding)
 #' }
 #'
-#'
 #' **slot:** **`@info`**
 #'
 #' The original function call ([methods::language-class]-object)
@@ -332,7 +332,7 @@
 #' measurements (natural vs. regenerated signal), which is in contrast to the
 #' findings by Buylaert et al. (2012).
 #'
-#' @section Function version: 0.7.11
+#' @section Function version: 0.7.12
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -740,6 +740,7 @@ analyse_IRSAR.RF<- function(
     legend.pos = "top",
     col_nat = col[2],
     col_reg = col[1],
+    yaxis_scientific = FALSE,
     xaxt = "s"
     ##xlim and ylim see below as they has to be modified differently
   )
@@ -1441,9 +1442,10 @@ analyse_IRSAR.RF<- function(
       .throw_warning(mtext.message)
     }
 
-    ##use scientific format for y-axis
-    labels <- axis(2, labels = FALSE)
-    axis(side = 2, at = labels, labels = format(labels, scientific = TRUE))
+    ## optionally use scientific format for y-axis
+    labels <- grDevices::axisTicks(par("usr")[3:4], ylog)
+    axis(side = 2, at = labels,
+         labels = format(labels, scientific = plot.settings$yaxis_scientific))
 
     ##(1) plot points that have been not selected
     points(RF_reg[-(min(RF_reg.lim):max(RF_reg.lim)),1:2], pch=3, col=col[19])
