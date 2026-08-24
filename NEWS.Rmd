@@ -37,6 +37,9 @@ and `col_reg` parameters (#1654; thanks to @DirkMittelstrass for reporting).
 can occupy more of the available space (#1654; thanks to @DirkMittelstrass
 for reporting).
 
+* The y-axis no longer enforces the labels to be in scientific format. The
+previous behaviour can be restored by setting `yaxis_scientific = TRUE`.
+
 ### `analyse_SAR.CWOSL()`
 
 * The ordering of columns in the `$data` field of the result object was

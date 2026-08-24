@@ -81,7 +81,8 @@ Currently supported arguments are \code{main}, \code{mtext}, \code{xlab}, \code{
 \code{xlim}, \code{ylim}, \code{log}, \code{legend} (\code{TRUE/FALSE}),
 \code{legend.pos}, \code{legend.text} (passes argument to x,y in
 \link[graphics:legend]{graphics::legend}), \code{col_nat} (colour of natural points), \code{col_reg}
-(colour of regenerated points), \code{xaxt}, \code{verbose} (\code{TRUE/FALSE}).}
+(colour of regenerated points), \code{yaxis_scientific} (\code{TRUE/FALSE}),
+\code{xaxt}, \code{verbose} (\code{TRUE/FALSE}).}
 }
 \value{
 The function returns numerical output and an (\emph{optional}) plot.
@@ -353,7 +354,7 @@ measurements (natural vs. regenerated signal), which is in contrast to the
 findings by Buylaert et al. (2012).
 }
 \section{Function version}{
- 0.7.11
+ 0.7.12
 }
 
 \examples{
