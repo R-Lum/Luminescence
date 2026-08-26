@@ -16,6 +16,7 @@ analyse_IRSAR.RF(
   txtProgressBar = TRUE,
   plot = TRUE,
   plot_reduced = FALSE,
+  cores = 1,
   ...
 )
 }
@@ -75,6 +76,12 @@ enable/disable the plot output.}
 provides a reduced plot output if enabled to allow common R plot combinations,
 e.g., \code{par(mfrow(...))}. If \code{TRUE} no residual plot
 is returned; it has no effect if \code{plot = FALSE}}
+
+\item{cores}{\link{integer}, \link{numeric} (\emph{with default}):
+number of cores allocated for parallel processing of the Monte-Carlo runs.
+The default value corresponds to single-threaded computation; the
+recommended values is \code{NULL}, which assigns all but two of the available
+logical CPU cores.}
 
 \item{...}{further arguments that will be passed to the plot output.
 Currently supported arguments are \code{main}, \code{mtext}, \code{xlab}, \code{ylab},
@@ -274,10 +281,6 @@ windows tested when sliding: the higher the value (up to a maximum of 10),
 the more time is spent in searching the global optimum. The default setting
 attempts to strike a balance between quality of the fit and computation
 speed.
-\item \code{cores} (\link{numeric} or \link{character}, default: \code{NULL}): number of cores
-allocated for a parallel processing of the Monte-Carlo runs. The default
-value corresponds to single-threaded computation; the recommended values is
-\code{"auto"}, which assigns all but two of the available cores.
 }
 
 \strong{Error estimation}
@@ -354,7 +357,7 @@ measurements (natural vs. regenerated signal), which is in contrast to the
 findings by Buylaert et al. (2012).
 }
 \section{Function version}{
- 0.7.12
+ 0.7.13
 }
 
 \examples{

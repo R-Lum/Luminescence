@@ -1586,9 +1586,8 @@ SW <- function(expr) {
 
 #' @title Validate the originator of an RLum object
 #'
-#' @param object [Luminescence::RLum-class] (**required**): object whose
-#' originator should be
-#'        checked.
+#' @param object [Luminescence::RLum-class] (**required**):
+#' object whose originator should be checked.
 #' @inheritParams .validate_args
 #'
 #' @return
@@ -1613,6 +1612,31 @@ SW <- function(expr) {
 #' @noRd
 .check_originator <- function(object, choices) {
   .hasSlot(object, "originator") && object@originator %in% choices
+}
+
+#' @title Validate and compute the number of cores to use
+#'
+#' @param cores [integer], [numeric] (**required**):
+#' Number of cores or `NULL`.
+#'
+#' @return
+#' An integer value corresponding to the minimum between the requested and the
+#' available cores, or the number of available cores - 2 if `cores = NULL`.
+#'
+#' @noRd
+.validate_cores <- function(cores) {
+  .validate_positive_scalar(cores, int = TRUE, null.ok = TRUE, name = "'cores'")
+  available.cores <- parallel::detectCores()
+
+  if (is.null(cores))
+    return(max(available.cores - 2, 1))
+
+  ## numeric input
+  if (cores > available.cores) {
+    .throw_warning("Number of cores limited to the maximum ",
+                   "available (", available.cores, ")")
+  }
+  min(cores, available.cores)
 }
 
 #' Validate a vector used for signal and background integrals

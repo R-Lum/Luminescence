@@ -14,7 +14,7 @@ calc_MinDose(
   level = 0.95,
   log.output = FALSE,
   plot = TRUE,
-  multicore = FALSE,
+  cores = 1,
   ...
 )
 }
@@ -62,11 +62,11 @@ values of the final parameter estimates and confidence intervals.}
 \item{plot}{\link{logical} (\emph{with default}):
 enable/disable the plot output.}
 
-\item{multicore}{\link{logical} (\emph{with default}):
-parallelize the computation of the bootstrap by creating a multicore cluster
-(only considered if \code{bootstrap = TRUE}). By default, it uses all available
-logical CPU cores, but this can be changed with the \code{cores} argument. Note
-that this feature is experimental and may not work on all systems.}
+\item{cores}{\link{integer}, \link{numeric} (\emph{with default}):
+number of cores allocated for parallel processing of the bootstrap step
+(only considered if \code{bootstrap = TRUE}). The default value corresponds to
+single-threaded computation; the recommended value is \code{NULL}, which assigns
+all but two of the available logical CPU cores.}
 
 \item{...}{(\emph{optional}) further arguments for bootstrapping
 (\code{bs.M}, \code{bs.N}, \code{bs.h}, \code{sigmab.sd}). See details for their usage.
@@ -74,7 +74,6 @@ Further arguments are
 \itemize{
 \item \code{verbose}: enable/disable output to the terminal
 \item \code{debug}: enable/disable extended console output
-\item \code{cores}: number of cores to be used when \code{multicore=TRUE}
 }}
 }
 \value{
@@ -161,12 +160,11 @@ with \code{bs.h}. By default, this is calculated as:
 
 \strong{Multicore support}
 
-Parallel processing can be enabled by setting \code{multicore = TRUE}. By default,
-the number of logical CPU cores is detected automatically, but it can be
-overridden with the \code{cores} argument. Multicore processing is supported
+Parallel processing can be enabled by setting the \code{cores} argument to a
+value greater than 1 (or to \code{NULL} to use all but two of the available
+logical CPU cores). Multicore processing is supported
 only when \code{bootstrap = TRUE}, and spawns one R process per core to compute
-MAM estimates for each of the \code{N * M} bootstrap replicates. Note that this
-feature is experimental and may not work on all systems. Performance gains
+MAM estimates for each of the \code{N * M} bootstrap replicates. Performance gains
 grow with the number of bootstrap replicates, but each additional core (R
 process) increases memory usage. When memory is insufficient, overall
 performance can degrade severely.
@@ -196,7 +194,7 @@ model with \code{debug=TRUE} which provides extended console output and
 forwards all internal warning messages.
 }
 \section{Function version}{
- 0.6.0
+ 0.6.1
 }
 
 \examples{

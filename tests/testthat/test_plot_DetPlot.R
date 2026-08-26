@@ -54,7 +54,7 @@ test_that("plot_DetPlot", {
       fit.method = "LIN",
       trim_channels = TRUE
     ),
-    multicore = 2,
+    cores = 2,
     n.channels = 2,
     verbose = TRUE,
     plot = FALSE),
@@ -85,7 +85,7 @@ test_that("plot_DetPlot", {
       fit.method = "LIN",
       trim_channels = TRUE
     ),
-    multicore = FALSE,
+    cores = 1,
     n.channels = 2,
     verbose = TRUE,
     plot = FALSE),
@@ -198,6 +198,22 @@ test_that("plot_DetPlot", {
       "'integral_input' is not supported with old argument names"),
       "were deprecated in v1.2.0, use 'signal_integral' and 'background_integral'")
   })
+
+  expect_message(expect_warning(expect_s4_class(plot_DetPlot(
+    object = list(x = object, y = object),
+    method = "shift",
+    signal_integral = 1:3,
+    background_integral = 900:1000,
+    analyse_function.control = list(
+      fit.method = "LIN",
+      trim_channels = TRUE
+    ),
+    multicore = 2,
+    n.channels = 2,
+    plot = FALSE),
+    "RLum.Results"),
+    "'multicore' was deprecated in v1.3.1, use 'cores' instead"),
+    "Running multicore session using .* cores")
 })
 
 test_that("graphical snapshot tests", {

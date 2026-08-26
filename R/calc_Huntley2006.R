@@ -170,9 +170,11 @@
 #' when `fit.method = "SSE"`). More details can be found in
 #' [Luminescence::fit_DoseResponseCurve].
 #'
-#' @param cores [integer] (*with default*):
-#' The number of cores to use. This will be capped to the number of available
-#' cores if set to too high.
+#' @param cores [integer], [numeric] (*with default*):
+#' number of cores allocated for parallel processing of the Monte-Carlo runs.
+#' The default value corresponds to single-threaded computation; the
+#' recommended values is `NULL`, which assigns all but two of the available
+#' logical CPU cores.
 #'
 #' @param summary [logical] (*with default*):
 #' If `TRUE` (the default) various parameters provided by the user
@@ -220,7 +222,7 @@
 #' `args` \tab `list` \tab arguments of the original function call \cr
 #' }
 #'
-#' @section Function version: 0.4.7
+#' @section Function version: 0.4.8
 #'
 #' @author
 #' Georgina E. King, University of Lausanne (Switzerland) \cr
@@ -247,7 +249,6 @@
 #'
 #' King, G.E., Herman, F., Lambert, R., Valla, P.G., Guralnik, B., 2016.
 #' Multi-OSL-thermochronometry of feldspar. Quaternary Geochronology 33, 76-87. doi:10.1016/j.quageo.2016.01.004
-#'
 #'
 #' **Further reading**
 #'
@@ -410,8 +411,7 @@ calc_Huntley2006 <- function(
   .validate_class(readerDdot, "numeric", length = 2)
 
   ## set up the parallel cluster
-  .validate_positive_scalar(cores, int = TRUE)
-  cores <- min(cores, parallel::detectCores())
+  cores <- .validate_cores(cores)
   cl <- parallel::makeCluster(cores)
   on.exit(parallel::stopCluster(cl), add = TRUE)
 

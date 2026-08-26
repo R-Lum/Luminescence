@@ -59,7 +59,7 @@ test_that("input validation", {
                             bootstrap = TRUE, bs.h = -1),
                "'bs.h' should be a single positive value")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
-                            cores = -1, multicore = TRUE),
+                            cores = -1),
                "'cores' should be a single positive integer value")
 })
 
