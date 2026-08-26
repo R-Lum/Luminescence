@@ -33,7 +33,7 @@
   The previous behaviour can be restored by setting
   `yaxis_scientific = TRUE` (#1665).
 
-- The `cores` argument no longer accepts “‘auto’” as valid input: the
+- The `cores` argument no longer accepts `"auto"` as valid input: the
   same functionality (using all but two of the available cores) can now
   be achieved by setting `cores = NULL` (#1668).
 
@@ -151,4 +151,4 @@
   hidden `.shiny` flag which can be set in combination with
   `interactive = TRUE` to return the `plotly` object instead of printing
   it. This was added to improve the interactive functionality within the
-  ’RLumShiny’ package.
+  `RLumShiny` package.
