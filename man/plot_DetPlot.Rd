@@ -16,7 +16,7 @@ plot_DetPlot(
   n.channels = NULL,
   show_ShineDownCurve = TRUE,
   respect_RC.Status = FALSE,
-  multicore = TRUE,
+  cores = NULL,
   verbose = TRUE,
   plot = TRUE,
   ...
@@ -71,10 +71,10 @@ enable/disable shine down curve in the plot output.}
 remove De values with 'FAILED' RC.Status from the plot (cf. \link{analyse_SAR.CWOSL}
 and \link{analyse_pIRIRSequence}).}
 
-\item{multicore}{\link{logical} (\emph{with default}):
-enable/disable multi core calculation if \code{object} is a \link{list} of
-\link[=RLum.Analysis-class]{RLum.Analysis} objects. Can be an \link{integer} specifying
-the number of cores to use.}
+\item{cores}{\link{integer}, \link{numeric} (\emph{with default}):
+number of cores allocated for parallel processing when \code{object} is a \link{list}
+of objects. The default value (\code{NULL}) assigns all but two of the available
+logical CPU cores.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enable/disable output to the terminal.}
@@ -139,7 +139,7 @@ should be checked carefully before running long calculations over hundreds
 of channels.
 }
 \section{Function version}{
- 0.1.11
+ 0.1.12
 }
 
 \examples{

@@ -67,12 +67,11 @@
 #'
 #' **Multicore support**
 #'
-#' Parallel processing can be enabled by setting `multicore = TRUE`. By default,
-#' the number of logical CPU cores is detected automatically, but it can be
-#' overridden with the `cores` argument. Multicore processing is supported
+#' Parallel processing can be enabled by setting the `cores` argument to a
+#' value greater than 1 (or to `NULL` to use all but two of the available
+#' logical CPU cores). Multicore processing is supported
 #' only when `bootstrap = TRUE`, and spawns one R process per core to compute
-#' MAM estimates for each of the `N * M` bootstrap replicates. Note that this
-#' feature is experimental and may not work on all systems. Performance gains
+#' MAM estimates for each of the `N * M` bootstrap replicates. Performance gains
 #' grow with the number of bootstrap replicates, but each additional core (R
 #' process) increases memory usage. When memory is insufficient, overall
 #' performance can degrade severely.
@@ -134,18 +133,17 @@
 #' @param plot [logical] (*with default*):
 #' enable/disable the plot output.
 #'
-#' @param multicore [logical] (*with default*):
-#' parallelize the computation of the bootstrap by creating a multicore cluster
-#' (only considered if `bootstrap = TRUE`). By default, it uses all available
-#' logical CPU cores, but this can be changed with the `cores` argument. Note
-#' that this feature is experimental and may not work on all systems.
+#' @param cores [integer], [numeric] (*with default*):
+#' number of cores allocated for parallel processing of the bootstrap step
+#' (only considered if `bootstrap = TRUE`). The default value corresponds to
+#' single-threaded computation; the recommended value is `NULL`, which assigns
+#' all but two of the available logical CPU cores.
 #'
 #' @param ... (*optional*) further arguments for bootstrapping
 #' (`bs.M`, `bs.N`, `bs.h`, `sigmab.sd`). See details for their usage.
 #' Further arguments are
 #' - `verbose`: enable/disable output to the terminal
 #' - `debug`: enable/disable extended console output
-#' - `cores`: number of cores to be used when `multicore=TRUE`
 #'
 #' @return Returns a plot (*optional*) and terminal output. In addition an
 #' [Luminescence::RLum.Results-class] object is returned containing the
@@ -173,7 +171,7 @@
 #' model with `debug=TRUE` which provides extended console output and
 #' forwards all internal warning messages.
 #'
-#' @section Function version: 0.6.0
+#' @section Function version: 0.6.1
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
@@ -333,7 +331,7 @@ calc_MinDose <- function(
   level = 0.95,
   log.output = FALSE,
   plot = TRUE,
-  multicore = FALSE,
+  cores = 1,
   ...
 ) {
   .set_function_name("calc_MinDose")
@@ -387,13 +385,18 @@ calc_MinDose <- function(
   .validate_logical_scalar(bootstrap)
   .validate_logical_scalar(log.output)
   .validate_logical_scalar(plot)
-  .validate_logical_scalar(multicore)
+  cores <- .validate_cores(cores)
 
   ##============================================================================##
   ## ... ARGUMENTS
   ##============================================================================##
 
   extraArgs <- list(...)
+
+  ## deprecated argument
+  if ("multicore" %in% ...names()) {
+    .deprecated("multicore", "cores", since = "1.3.1")
+  }
 
   ## check if this function is called by calc_MaxDose()
   if ("invert" %in% names(extraArgs)) {
@@ -451,14 +454,8 @@ calc_MinDose <- function(
     debug <- FALSE
   }
 
-  if (multicore && "cores" %in% names(extraArgs)) {
-    cores <- .validate_positive_scalar(extraArgs$cores,
-                                       int = TRUE, name = "'cores'")
-  } else {
-    cores <- ifelse(multicore, parallel::detectCores(), 1)
-    if (multicore && verbose)
-      message("Logical CPU cores detected: ", cores) # nocov
-  }
+  if (cores > 1 && verbose)
+    .throw_message("Logical CPU cores detected: ", cores, error = FALSE)
 
   ## remove non-positive values if using log-transformation
   if (log) {
@@ -814,7 +811,7 @@ calc_MinDose <- function(
               " cores, this may take a while...")
     }
 
-    if (multicore) {
+    if (cores > 1) {
       cl <- parallel::makeCluster(cores)
       mle <- parallel::parLapply(cl, replicates, Get_mle)
       parallel::stopCluster(cl)

@@ -789,6 +789,19 @@ test_that("Test internals", {
                                             ext = c("e1", "e2", "e3"), throw.error = FALSE)),
                  "File extension 'R' is not supported, only 'e1', 'e2' and 'e3'")
 
+  ## .validate_cores() ------------------------------------------------------
+  expect_equal(.validate_cores(NULL),
+               max(parallel::detectCores() - 2, 1))
+  expect_equal(.validate_cores(2),
+               2)
+  expect_warning(expect_equal(.validate_cores(2000),
+                              parallel::detectCores()),
+                 "Number of cores limited to the maximum available")
+  expect_error(.validate_cores(-1),
+               "'cores' should be a single positive integer value")
+  expect_error(.validate_cores(c(2, 3)),
+               "'cores' should be a single positive integer value")
+
   ## .require_suggested_package() -------------------------------------------
   expect_true(.require_suggested_package("utils"))
   expect_error(.require_suggested_package("error"),
