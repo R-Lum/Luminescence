@@ -507,6 +507,7 @@ analyse_IRSAR.RF<- function(
         txtProgressBar = txtProgressBar,
         plot = plot,
         plot_reduced = plot_reduced,
+        cores = cores,
         main = temp_main[[x]],
         ...)
     })
