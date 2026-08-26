@@ -679,18 +679,17 @@ calc_MinDose <- function(
                    prof.upper = prof.upper)
   }
 
-  prof <- suppressWarnings(.fit_profile(maxsteps = 100))
-  if (!inherits(prof, "profile.mle2")) {
-    cnt <- 1
-    while (!inherits(prof, "profile.mle2")) {
-      if (cnt > 10)
-        .throw_error("Couldn't find a converging fit for the profile log-likelihood")
-      if (verbose)
-        message("## Trying to find a better fit (", cnt, "/10) ##")
-      prof <- suppressWarnings(.fit_profile(maxsteps = 100 - (cnt - 1) * 10))
-      cnt <- cnt + 1
-    }
+  max.steps <- seq(100, 10, by = -10)
+  prof <- NULL
+  for (i in seq_along(max.steps)) {
+    prof <- suppressWarnings(.fit_profile(maxsteps = max.steps[i]))
+    if (inherits(prof, "profile.mle2"))
+      break
+    if (verbose)
+      message("## Profiling attempt ", i, "/", length(max.steps), " failed ##")
   }
+  if (!inherits(prof, "profile.mle2"))
+    .throw_error("Couldn't find a converging fit for the profile log-likelihood")
 
   ## delete rows where z = -Inf/Inf or NaN
   for (p in c("gamma", "sigma", "p0", if (par == 4) "mu")) {
