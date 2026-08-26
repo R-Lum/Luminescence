@@ -116,9 +116,9 @@
 #' details for default values and options to modify them.
 #'
 #' @param init.values [numeric] (*optional*):
-#' a named list with starting values for `gamma`, `sigma`, `p0` and `mu`
-#' (e.g. `list(gamma=100, sigma=1.5, p0=0.1, mu=100)`). If no values are
-#' provided, reasonable values will be estimated from the data.
+#' a named list with starting positive values for `gamma`, `sigma`, `p0` and
+#' `mu` (e.g. `list(gamma=100, sigma=1.5, p0=0.1, mu=100)`). If set to `NULL`,
+#' reasonable values will be estimated from the data.
 #' **Note:** the initial values must always be given in the absolute units.
 #' If a logged model is applied (`log = TRUE`), the provided `init.values`
 #' are automatically log-transformed.
@@ -373,6 +373,10 @@ calc_MinDose <- function(
                    "in 'init.values'. Missing parameters: ",
                    toString(mis.names))
     }
+    .validate_positive_scalar(init.values$gamma, name = "'init.values$gamma'")
+    .validate_positive_scalar(init.values$sigma, name = "'init.values$sigma'")
+    .validate_positive_scalar(init.values$p0, name = "'init.values$p0'")
+    .validate_positive_scalar(init.values$mu, name = "'init.values$mu'")
   }
 
   ## par can only be 3 or 4

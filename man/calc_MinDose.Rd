@@ -45,9 +45,9 @@ apply the recycled bootstrap approach of Cunningham & Wallinga 2012. See
 details for default values and options to modify them.}
 
 \item{init.values}{\link{numeric} (\emph{optional}):
-a named list with starting values for \code{gamma}, \code{sigma}, \code{p0} and \code{mu}
-(e.g. \code{list(gamma=100, sigma=1.5, p0=0.1, mu=100)}). If no values are
-provided, reasonable values will be estimated from the data.
+a named list with starting positive values for \code{gamma}, \code{sigma}, \code{p0} and
+\code{mu} (e.g. \code{list(gamma=100, sigma=1.5, p0=0.1, mu=100)}). If set to \code{NULL},
+reasonable values will be estimated from the data.
 \strong{Note:} the initial values must always be given in the absolute units.
 If a logged model is applied (\code{log = TRUE}), the provided \code{init.values}
 are automatically log-transformed.}

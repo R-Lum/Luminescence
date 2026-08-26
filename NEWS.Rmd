@@ -92,6 +92,10 @@ Its functionality has been replaced by the `cores` argument, which can be set
 to either a numeric value or to `NULL` to use all but two of the available
 cores (#1668).
 
+* The function now validates that the initial parameter values supplied via
+`init.values` are strictly positive, as non-positive values may cause
+unrecoverable crashes duringfitting (#1670).
+
 ### `calc_SourceDoseRate()`
 
 * Source type `"Am-241"` was misspelled in the documentation and in the

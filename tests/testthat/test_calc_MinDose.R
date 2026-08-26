@@ -31,6 +31,14 @@ test_that("input validation", {
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                             init.values = list(p0 = 0, p1 = 1, p2 = 2, mu = 3)),
                "Missing parameters: gamma, sigma")
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                            init.values = list(gamma = -1, sigma = 2, p0 = 3, mu = 0)),
+               "'init.values$gamma' should be a single positive value",
+               fixed = TRUE)
+  expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
+                            init.values = list(gamma = 1, sigma = 2, p0 = 3, mu = 0)),
+               "'init.values$mu' should be a single positive value",
+               fixed = TRUE)
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1, par = "error"),
                "'par' should be a single positive integer value")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1, par = 2),
