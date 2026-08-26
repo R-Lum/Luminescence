@@ -40,12 +40,10 @@
 #' **Initial values and boundaries**
 #'
 #' The log-likelihood calculations use the [nlminb] function for box-constrained
-#' optimisation using PORT routines.  Accordingly, initial values for the four
-#' parameters can be specified via `init.values`. If no values are
-#' provided for `init.values`, reasonable starting values are estimated
-#' from the input data.  If the final estimates of *gamma*, *mu*,
-#' *sigma* and *p0* are totally off target, consider providing custom
-#' starting values via `init.values`.
+#' optimisation using PORT routines. By default, initial values for the four
+#' parameters are estimated from the input data. If the final estimates
+#' of *gamma*, *mu*, *sigma* and *p0* are totally off target, consider
+#' providing custom starting values via `init.values`.
 #'
 #' The boundaries for individual model parameters need not be specified
 #' explicitly. To override the default boundary values, provide arguments
@@ -116,9 +114,9 @@
 #' details for default values and options to modify them.
 #'
 #' @param init.values [numeric] (*optional*):
-#' a named list with starting values for `gamma`, `sigma`, `p0` and `mu`
-#' (e.g. `list(gamma=100, sigma=1.5, p0=0.1, mu=100)`). If no values are
-#' provided, reasonable values will be estimated from the data.
+#' a named list with starting positive values for `gamma`, `sigma`, `p0` and
+#' `mu` (e.g. `list(gamma=100, sigma=1.5, p0=0.1, mu=100)`). If set to `NULL`
+#' (default), reasonable values will be estimated from the data.
 #' **Note:** the initial values must always be given in the absolute units.
 #' If a logged model is applied (`log = TRUE`), the provided `init.values`
 #' are automatically log-transformed.
@@ -171,7 +169,7 @@
 #' model with `debug=TRUE` which provides extended console output and
 #' forwards all internal warning messages.
 #'
-#' @section Function version: 0.6.1
+#' @section Function version: 0.6.2
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
@@ -373,6 +371,10 @@ calc_MinDose <- function(
                    "in 'init.values'. Missing parameters: ",
                    toString(mis.names))
     }
+    .validate_positive_scalar(init.values$gamma, name = "'init.values$gamma'")
+    .validate_positive_scalar(init.values$sigma, name = "'init.values$sigma'")
+    .validate_positive_scalar(init.values$p0, name = "'init.values$p0'")
+    .validate_positive_scalar(init.values$mu, name = "'init.values$mu'")
   }
 
   ## par can only be 3 or 4
