@@ -87,7 +87,7 @@
 
 - The function now validates that the initial parameter values supplied
   via `init.values` are strictly positive, as non-positive values may
-  cause unrecoverable crashes duringfitting (#1670).
+  cause unrecoverable crashes during fitting (#1670).
 
 ### `calc_SourceDoseRate()`
 

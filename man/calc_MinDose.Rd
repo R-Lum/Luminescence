@@ -46,8 +46,8 @@ details for default values and options to modify them.}
 
 \item{init.values}{\link{numeric} (\emph{optional}):
 a named list with starting positive values for \code{gamma}, \code{sigma}, \code{p0} and
-\code{mu} (e.g. \code{list(gamma=100, sigma=1.5, p0=0.1, mu=100)}). If set to \code{NULL},
-reasonable values will be estimated from the data.
+\code{mu} (e.g. \code{list(gamma=100, sigma=1.5, p0=0.1, mu=100)}). If set to \code{NULL}
+(default), reasonable values will be estimated from the data.
 \strong{Note:} the initial values must always be given in the absolute units.
 If a logged model is applied (\code{log = TRUE}), the provided \code{init.values}
 are automatically log-transformed.}
@@ -133,12 +133,10 @@ samples containing negative, zero or near-zero De estimates (Arnold et al.
 \strong{Initial values and boundaries}
 
 The log-likelihood calculations use the \link{nlminb} function for box-constrained
-optimisation using PORT routines.  Accordingly, initial values for the four
-parameters can be specified via \code{init.values}. If no values are
-provided for \code{init.values}, reasonable starting values are estimated
-from the input data.  If the final estimates of \emph{gamma}, \emph{mu},
-\emph{sigma} and \emph{p0} are totally off target, consider providing custom
-starting values via \code{init.values}.
+optimisation using PORT routines. By default, initial values for the four
+parameters are estimated from the input data. If the final estimates
+of \emph{gamma}, \emph{mu}, \emph{sigma} and \emph{p0} are totally off target, consider
+providing custom starting values via \code{init.values}.
 
 The boundaries for individual model parameters need not be specified
 explicitly. To override the default boundary values, provide arguments
@@ -194,7 +192,7 @@ model with \code{debug=TRUE} which provides extended console output and
 forwards all internal warning messages.
 }
 \section{Function version}{
- 0.6.1
+ 0.6.2
 }
 
 \examples{
