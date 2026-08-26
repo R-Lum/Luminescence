@@ -28,12 +28,11 @@
 #'
 #' @inheritParams calc_MinDose
 #'
-#' @param ... further arguments for bootstrapping (`bs.M, bs.N, bs.h, sigmab.sd`).
-#' See details for their usage.
+#' @param ... Further arguments passed to [Luminescence::calc_MinDose].
 #'
 #' @return Please see [Luminescence::calc_MinDose].
 #'
-#' @section Function version: 0.3.2
+#' @section Function version: 0.3.3
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
@@ -97,14 +96,10 @@
 calc_MaxDose<- function(
   data,
   sigmab,
-  log=TRUE,
-  par=3,
-  bootstrap=FALSE,
-  init.values = NULL,
   plot=TRUE,
   ...
 ){
-  res<- calc_MinDose(data, sigmab, log, par, bootstrap, init.values, plot=FALSE, invert=TRUE, ...)
+  res <- calc_MinDose(data, sigmab, plot = FALSE, invert = TRUE, ...)
   res@originator<- "calc_MaxDose"
   if (plot) {
     try(plot_RLum.Results(res, ...),

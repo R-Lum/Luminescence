@@ -139,11 +139,11 @@
 #' single-threaded computation; the recommended value is `NULL`, which assigns
 #' all but two of the available logical CPU cores.
 #'
-#' @param ... (*optional*) further arguments for bootstrapping
-#' (`bs.M`, `bs.N`, `bs.h`, `sigmab.sd`). See details for their usage.
-#' Further arguments are
-#' - `verbose`: enable/disable output to the terminal
-#' - `debug`: enable/disable extended console output
+#' @param ... Further arguments:
+#' - `bs.M`, `bs.N`, `bs.h`, `sigmab.sd`: arguments for bootstrapping, see
+#' details for their usage.
+#' - `verbose`: enable/disable output to the terminal.
+#' - `debug`: enable/disable extended console output.
 #'
 #' @return Returns a plot (*optional*) and terminal output. In addition an
 #' [Luminescence::RLum.Results-class] object is returned containing the

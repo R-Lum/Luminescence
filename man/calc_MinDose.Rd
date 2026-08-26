@@ -68,12 +68,12 @@ number of cores allocated for parallel processing of the bootstrap step
 single-threaded computation; the recommended value is \code{NULL}, which assigns
 all but two of the available logical CPU cores.}
 
-\item{...}{(\emph{optional}) further arguments for bootstrapping
-(\code{bs.M}, \code{bs.N}, \code{bs.h}, \code{sigmab.sd}). See details for their usage.
-Further arguments are
+\item{...}{Further arguments:
 \itemize{
-\item \code{verbose}: enable/disable output to the terminal
-\item \code{debug}: enable/disable extended console output
+\item \code{bs.M}, \code{bs.N}, \code{bs.h}, \code{sigmab.sd}: arguments for bootstrapping, see
+details for their usage.
+\item \code{verbose}: enable/disable output to the terminal.
+\item \code{debug}: enable/disable extended console output.
 }}
 }
 \value{

@@ -4,16 +4,7 @@
 \alias{calc_MaxDose}
 \title{Apply the maximum age model to a given De distribution}
 \usage{
-calc_MaxDose(
-  data,
-  sigmab,
-  log = TRUE,
-  par = 3,
-  bootstrap = FALSE,
-  init.values = NULL,
-  plot = TRUE,
-  ...
-)
+calc_MaxDose(data, sigmab, plot = TRUE, ...)
 }
 \arguments{
 \item{data}{\link[=RLum.Results-class]{RLum.Results} or \link{data.frame} (\strong{required}):
@@ -30,30 +21,10 @@ of the \code{log} argument.
 is no longer the case, and an error will be thrown if values of \code{sigmab}
 greater than 1 are assigned.}
 
-\item{log}{\link{logical} (\emph{with default}):
-whether the logged minimum dose model should be fit to De data (\code{TRUE} by
-default).}
-
-\item{par}{\link{numeric} (\emph{with default}):
-number of parameters in the minimum age model, either 3 (default) or 4.}
-
-\item{bootstrap}{\link{logical} (\emph{with default}):
-apply the recycled bootstrap approach of Cunningham & Wallinga 2012. See
-details for default values and options to modify them.}
-
-\item{init.values}{\link{numeric} (\emph{optional}):
-a named list with starting values for \code{gamma}, \code{sigma}, \code{p0} and \code{mu}
-(e.g. \code{list(gamma=100, sigma=1.5, p0=0.1, mu=100)}). If no values are
-provided, reasonable values will be estimated from the data.
-\strong{Note:} the initial values must always be given in the absolute units.
-If a logged model is applied (\code{log = TRUE}), the provided \code{init.values}
-are automatically log-transformed.}
-
 \item{plot}{\link{logical} (\emph{with default}):
 enable/disable the plot output.}
 
-\item{...}{further arguments for bootstrapping (\verb{bs.M, bs.N, bs.h, sigmab.sd}).
-See details for their usage.}
+\item{...}{Further arguments passed to \link{calc_MinDose}.}
 }
 \value{
 Please see \link{calc_MinDose}.
@@ -90,7 +61,7 @@ When all calculations are done the results are then converted as follows
 Please see \link{calc_MinDose}.
 }
 \section{Function version}{
- 0.3.2
+ 0.3.3
 }
 
 \examples{
