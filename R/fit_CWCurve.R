@@ -324,7 +324,7 @@ fit_CWCurve<- function(
 
     }else if(fit.method == "port"){
       ##try fit simple
-      fit.try<-suppressWarnings(try(nls(fit.formula.simple(n.components),
+      fit.try <- suppressWarnings(try(stats::nls(fit.formula.simple(n.components),
                                         data=values,
                                         trace = fit.trace,
                                         algorithm="port",
@@ -375,7 +375,7 @@ fit_CWCurve<- function(
 
       }else{
         ##try fit
-        fit.try<-suppressWarnings(try(nls(fit.formula(n.components),
+        fit.try <- suppressWarnings(try(stats::nls(fit.formula(n.components),
                                           trace=fit.trace,
                                           data=values,
                                           algorithm="port",
@@ -460,7 +460,7 @@ fit_CWCurve<- function(
     ## ---------------------------------------------
     ##coefficient of determination after law
 
-    RSS <- sum(residuals(fit)^2) #residual sum of squares
+    RSS <- sum(stats::residuals(fit)^2) # residual sum of squares
     TSS <- sum((y - mean(y))^2) #total sum of squares
     pR<-round(1-RSS/TSS,digits=4)
 
@@ -704,7 +704,7 @@ fit_CWCurve<- function(
       ##==lower plot==##
       ##plot residuals
       par(mar=c(4.2,4,0,0))
-      plot_check2 <- try(plot(x,residuals(fit),
+      plot_check2 <- try(plot(x, stats::residuals(fit),
            xlim=c(min(x),max(x)),
            xlab=xlab,
            type="l",

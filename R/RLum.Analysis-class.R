@@ -333,7 +333,7 @@ setMethod("get_RLum",
                   # add missing info elements and set NA
                   if (!all(info_el %in% names(val))) {
                     new <- info_el[!info_el %in% names(val)]
-                    val <- c(val, setNames(rep("", length(new)), new))
+                    val <- c(val, stats::setNames(rep("", length(new)), new))
                   }
 
                  # order the named char vector by its names so we don't mix up the columns

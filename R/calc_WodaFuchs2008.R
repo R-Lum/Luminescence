@@ -154,7 +154,7 @@ calc_WodaFuchs2008 <- function(
   }
 
   ## fit normal distribution to data
-  fit <-	nls(H_c ~ (A / sqrt(2 * pi * sigma^2)) *
+  fit <- stats::nls(H_c ~ (A / sqrt(2 * pi * sigma^2)) *
                exp(-(H_m - class_center)^2 / (2 * sigma^2)),
              start = c(A = mean(H_m),
                        sigma = bin_width),

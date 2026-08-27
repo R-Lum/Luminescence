@@ -331,8 +331,8 @@ analyse_Al2O3C_CrossTalk <- function(
         ##add points
         points(x = APPARENT_DOSE, pch = 20, col = rgb(0,0,0,0.3))
 
-        ##add linear model
-        lines(sort(APPARENT_DOSE$POSITION), predict(fit), col = "red")
+      ## add linear model
+      lines(sort(APPARENT_DOSE$POSITION), stats::predict(fit), col = "red")
 
       ##add colour legend
       shape::emptyplot(c(-1.2, 1.2), frame.plot = FALSE)

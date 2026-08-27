@@ -285,7 +285,7 @@ plot_RLum.Results<- function(
       ### LOESS PLOT
       if (!anyNA(object@data$bootstrap$loess.fit)) {
       pairs<- object@data$bootstrap$pairs$gamma
-      pred<- predict(object@data$bootstrap$loess.fit)
+      pred <- stats::predict(object@data$bootstrap$loess.fit)
       loess<- cbind(pairs[,1], pred)
       loess<- loess[order(loess[,1]),]
 
@@ -680,7 +680,7 @@ plot_RLum.Results<- function(
       nls.fit <- get_RLum(fit, "fit")
       if (!inherits(fit, "try-error") && isTRUE(object@data$args$fitCW.curve)) {
           lines(curve[(res$dead.channels.start + 1):(nrow(curve) - res$dead.channels.end), 1],
-                predict(nls.fit), col = "red", lty = 1)
+                stats::predict(nls.fit), col = "red", lty = 1)
 
           ##plot curve for additional parameters
           col_components <- c("red", "green", "blue")

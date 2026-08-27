@@ -791,7 +791,7 @@ calc_MinDose <- function(
 
       ## fit polynomial to log(y), then exponentiate back
       fit <- stats::lm(log(y) ~ poly(x, degree, raw = TRUE), na.action = na.exclude)
-      f <- exp(predict(fit, newdata = data.frame(x)))
+      f <- exp(stats::predict(fit, newdata = data.frame(x)))
 
       ## vector of points to interpolate fit
       xi <- seq(min(x, na.rm = TRUE), max(x, na.rm = TRUE), length.out = 100)
@@ -987,7 +987,7 @@ calc_MinDose <- function(
       conf_log[which(rownames(conf_log) == "p0"), ] <- "-"
       conf_print <- cbind(conf_print, conf_log)
       ncols <- ncol(conf_print) / 2
-      conf_print <- rbind(setNames(data.frame(as.list(rep("", ncols)),
+      conf_print <- rbind(stats::setNames(data.frame(as.list(rep("", ncols)),
                                               as.list(rep("(logged)", ncols)),
                                               row.names = ""),
                                    colnames(conf_print)),

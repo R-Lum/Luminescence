@@ -327,7 +327,7 @@ calc_MoransI <- function(object,
            no = df_neighbour$west)
 
   df_neighbour <- rbind(df_neighbour[,1:2],
-                        setNames(df_neighbour[,c(1,3)],
+                        stats::setNames(df_neighbour[, c(1, 3)],
                                  nm = names(df_neighbour)[1:2])
   )
 

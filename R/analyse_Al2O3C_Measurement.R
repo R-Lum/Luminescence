@@ -354,7 +354,7 @@ analyse_Al2O3C_Measurement <- function(
       ## carousel position
       interval <- ifelse(length(POSITION) > 1, "confidence", "none")
       cross_talk_correction <-
-        as.numeric(predict(cross_talk_correction$fit,
+        as.numeric(stats::predict(cross_talk_correction$fit,
                            newdata = data.frame(x = POSITION),
                            interval = interval))
 

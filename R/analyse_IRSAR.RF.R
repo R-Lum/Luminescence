@@ -841,7 +841,7 @@ analyse_IRSAR.RF<- function(
     ##start fitting loop for MC runs
     for (i in seq_len(n.MC)) {
       start.MC["lambda"] <- lambda.MC[i]
-      fit.MC <- try(nls(
+      fit.MC <- try(stats::nls(
         fit.function,
         trace = FALSE,
         data = list(x = RF_reg.x, y = RF_reg.y),
@@ -871,7 +871,7 @@ analyse_IRSAR.RF<- function(
       fit.MC.results <- sapply(stats::na.omit(fit.MC.results), median)
 
       ##try final fitting
-      fit <- try(nls(
+      fit <- try(stats::nls(
         fit.function,
         trace = method_control.settings$trace,
         data = data.frame(x = RF_reg.x, y = RF_reg.y),
@@ -896,7 +896,7 @@ analyse_IRSAR.RF<- function(
     fit.parameters.results <- NA
     if (!inherits(fit,"try-error")) {
       fit.parameters.results <- coef(fit)
-      residuals <- residuals(fit)
+      residuals <- stats::residuals(fit)
     }
 
     ##calculate De value

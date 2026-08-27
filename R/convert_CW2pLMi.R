@@ -315,7 +315,7 @@ convert_CW2pLMi<- function(
   ## select values to extrapolate and predict (extrapolate) values based on
   ## the fitted function
   x.i <- data.frame(x = df[1:(min(temp.sel.id) - 1), 1])
-  y.i <- predict(fit.lm, x.i)
+  y.i <- stats::predict(fit.lm, x.i)
 
   ## replace NA values by extrapolated values
   df[1:length(y.i), 2] <- y.i

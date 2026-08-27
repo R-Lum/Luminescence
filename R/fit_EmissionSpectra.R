@@ -464,9 +464,9 @@ fit_EmissionSpectra <- function(
   ##TODO ... should be improved, its works, but maybe there are better solutions
   if (length(fit) != 0) {
     ##obtain the fit with the best fit
-    best_fit <- vapply(fit, function(x) sum(residuals(x) ^ 2), numeric(1))
+    best_fit <- vapply(fit, function(x) sum(stats::residuals(x)^2), numeric(1))
     fit <- fit[[which.min(best_fit)]]
-    df_plot$SUM <- predict(fit)
+    df_plot$SUM <- stats::predict(fit)
 
     ## more parameters
     SSR <- min(best_fit)
@@ -474,7 +474,6 @@ fit_EmissionSpectra <- function(
     R2 <- 1 - SSR/SST
     R2adj <- ((1 - R2) * (nrow(df) - 1)) /
       (nrow(df) - length(coef(fit)) - 1)
-
   }else{
     fit <- NA
   }
@@ -608,7 +607,7 @@ fit_EmissionSpectra <- function(
     ## SCREEN 2 -----
     par(mar = c(5, 4.5, 0, 2))
     plot(NA, NA,
-      ylim = range(residuals(fit)),
+      ylim = range(stats::residuals(fit)),
       xlab = plot_settings$xlab,
       type = "b",
       pch = 20,
@@ -629,7 +628,7 @@ fit_EmissionSpectra <- function(
             border = FALSE, col = rgb(0.8,0.8,0.8))
 
     ## add points
-    points(df[[1]],residuals(fit), pch = 20, col = rgb(0,0,0,0.3))
+    points(df[[1]], stats::residuals(fit), pch = 20, col = rgb(0, 0, 0, 0.3))
 
     ## add zero line
     abline(h = 0, lty = 2)

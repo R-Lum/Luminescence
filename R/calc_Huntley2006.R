@@ -352,14 +352,14 @@ calc_Huntley2006 <- function(
 
       # case 1: only one LnTn value
       if (nrow(LnTn) == 1) {
-        LnTn <- setNames(cbind(0, LnTn), names(data))
+        LnTn <- stats::setNames(cbind(0, LnTn), names(data))
 
         # case 2: >1 LnTn value
       } else {
         LnTn_mean <- mean(LnTn[ ,1])
         LnTn_sd <- sd(LnTn[ ,1])
         LnTn_error <- max(LnTn_sd, LnTn[ ,2])
-        LnTn <- setNames(data.frame(0, LnTn_mean, LnTn_error), names(data))
+        LnTn <- stats::setNames(data.frame(0, LnTn_mean, LnTn_error), names(data))
       }
     data <- rbind(LnTn, data)
   }
@@ -370,7 +370,8 @@ calc_Huntley2006 <- function(
     } else {
       .extract <- function(row_idx) {
         do.call(rbind, lapply(seq(1, ncol(data), 3), function(col)
-          setNames(data[row_idx, col:c(col+2)], c("dose", "LxTx", "LxTxError"))))
+          stats::setNames(data[row_idx, col:(col + 2)],
+                          c("dose", "LxTx", "LxTxError"))))
       }
 
       ## extract the LnTn values (assumed to be in the first row)
@@ -917,7 +918,7 @@ calc_Huntley2006 <- function(
 
     # re-calculate the measured dose response curve in Gray
     xNew <- seq(par()$usr[1],par()$usr[2], length.out = 200)
-    yNew <- predict(GC.measured@data$Fit, list(x = xNew))
+    yNew <- stats::predict(GC.measured@data$Fit, list(x = xNew))
     if (normalise)
       yNew <- yNew / A
 
@@ -928,12 +929,13 @@ calc_Huntley2006 <- function(
     polygon(x = c(natdosetimeGray, rev(natdosetimeGray)),
             y = c(LxTx_simulated$LxTx + LxTx_simulated$LxTx.Error,
                   rev(LxTx_simulated$LxTx - LxTx_simulated$LxTx.Error)),
-            col = adjustcolor("grey", alpha.f = 0.5), border = NA)
+            col = grDevices::adjustcolor("grey", alpha.f = 0.5),
+            border = NA)
 
     ## add simulated curve -------
     xNew <- seq(if (mode_is_extrapolation) par()$usr[1] else 0,
                 par()$usr[2], length.out = 200)
-    yNew <- predict(GC.simulated@data$Fit, list(x = xNew))
+    yNew <- stats::predict(GC.simulated@data$Fit, list(x = xNew))
     if (normalise)
       yNew <- yNew / A
     points(
@@ -1002,7 +1004,7 @@ calc_Huntley2006 <- function(
     }
 
     # add unfaded DRC --------
-    yNew <- predict(fit_unfaded, list(dosetimeGray = xNew))
+    yNew <- stats::predict(fit_unfaded, list(dosetimeGray = xNew))
     if (normalise)
       yNew <- yNew / A
 

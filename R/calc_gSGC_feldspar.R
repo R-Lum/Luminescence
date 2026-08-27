@@ -158,7 +158,7 @@ calc_gSGC_feldspar <- function(
 
     ## uniroot solution
     temp <- try({
-        uniroot(
+      stats::uniroot(
           f,
           interval = c(0.1, 3000),
           tol = 0.001,
@@ -199,7 +199,7 @@ calc_gSGC_feldspar <- function(
         # now use the randomly generated parameters to calculate De's with uniroot
         for (j in 1:n.MC){
           temp2 <- try({
-              uniroot(
+              stats::uniroot(
                 f,
                 interval = c(0.1, 3000),
                 tol = 0.001,

@@ -501,7 +501,7 @@ fit_SurfaceExposure <- function(
       }
 
       newx <- seq(range(oldx)[1], range(oldx)[2], length.out = 10000)
-      newy <- suppressWarnings(predict(fit, newdata = list(x = newx)))
+      newy <- suppressWarnings(stats::predict(fit, newdata = list(x = newx)))
 
       if (coord_flip) {
         tmp <- newx

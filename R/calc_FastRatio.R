@@ -234,7 +234,7 @@ calc_FastRatio <- function(object,
 
         if (fitCW.curve) {
           nls <- get_RLum(fitCW.res, "fit")
-          A[ ,2] <- predict(nls)
+          A[, 2] <- stats::predict(nls)
         }
       } else {
         settings["fit"] <- list(NULL)
@@ -313,8 +313,8 @@ calc_FastRatio <- function(object,
     # optional: predict the counts from the fitted curve
     if (fitCW.curve && !inherits(fitCW.res, "try-error")) {
         nls <- get_RLum(fitCW.res, "fit")
-        Cts_L2 <- predict(nls, list(x = t_L2))
-        Cts_L3 <- mean(predict(nls, list(x = c(t_L3_start, t_L3_end))))
+        Cts_L2 <- stats::predict(nls, list(x = t_L2))
+        Cts_L3 <- mean(stats::predict(nls, list(x = c(t_L3_start, t_L3_end))))
     }
 
     # Warn if counts are not in decreasing order
