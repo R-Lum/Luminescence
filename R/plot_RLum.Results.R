@@ -248,10 +248,11 @@ plot_RLum.Results<- function(
         # set margins (bottom, left, top, right)
         par(mar=c(5,5,0,3))
 
+        resids <- stats::residuals(poly.fits[[i]])
         plot(x = pairs[,1],
-             y = residuals(poly.fits[[i]]),
-             ylim = c(min(residuals(poly.fits[[i]])) * 1.2,
-                      as.double(quantile(residuals(poly.fits[[i]]), probs = 0.99))),
+             y = resids,
+             ylim = c(min(resids) * 1.2,
+                      as.double(stats::quantile(resids, probs = 0.99))),
              xlim=range(pretty(pairs[,1])),
              xaxt = "n",
              bty = "l",
@@ -266,7 +267,7 @@ plot_RLum.Results<- function(
         abline(h = 0, lty=2)
 
         # calculate residual sum of squares (RSS) and add to plot
-        rss<- sum(residuals(poly.fits[[i]])^2)
+        rss <- sum(resids^2)
         mtext(text = paste("RSS =",round(rss,3)), adj = 1,
               side = 3, line = -2,
               cex = if (single) 0.6 else 0.8)
