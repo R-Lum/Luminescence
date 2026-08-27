@@ -319,4 +319,19 @@ test_that("regression tests", {
                        readerDdot = c(0.134, 0.0067), n.MC = 1,
                        mode = "extrapolation", verbose = FALSE,
                        plot_all_DRC = FALSE, plot = TRUE))
+
+  ## issue 1672
+  df <- data.frame(dose = c(151.4, 152.0, 165.8, 136.1, 144.4, 123.4, 123.6, 127.0,
+                          124.4, 118.6, 128.0, 110.7, 121.0, 124.0, 124.7, 123.6,
+                          128.5, 131.4, 127.7, 131.0, 126.3, 115.4, 119.5, 331.6),
+                 LxTx = c(5.334, 5.144, 6.805, 4.608, 4.642, 4.471, 4.227, 4.396,
+                          4.256, 4.049, 4.408, 3.701, 4.187, 4.129, 4.043, 4.262,
+                          4.254, 4.448, 4.330, 5.023, 4.317, 3.479, 3.815, 13.61),
+                 LxTx.error = 0.5)
+  set.seed(1)
+  expect_s4_class(suppressWarnings(
+      calc_Huntley2006(df, rhop = c(4e-5, 5e-7),
+                       ddot = c(8, 0.04), readerDdot = c(0.01, 0.06),
+                       mode = "extrapolation", n.MC = 1, verbose = FALSE)),
+      "RLum.Results")
 })
