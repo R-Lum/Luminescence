@@ -77,7 +77,7 @@ all but two of the available logical CPU cores.}
 details for their usage.
 \item \code{verbose}: enable/disable output to the terminal.
 \item \code{debug}: enable/disable extended console output.
-\item \link{calc_MaxDose} supports all named argument of \link{calc_MinDose}.
+\item all named argument of \link{calc_MinDose} can be passed to \link{calc_MaxDose}.
 }}
 }
 \value{

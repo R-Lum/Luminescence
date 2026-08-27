@@ -163,7 +163,7 @@
 #' details for their usage.
 #' - `verbose`: enable/disable output to the terminal.
 #' - `debug`: enable/disable extended console output.
-#' - [calc_MaxDose] supports all named argument of [calc_MinDose].
+#' - all named argument of [calc_MinDose] can be passed to [calc_MaxDose].
 #'
 #' @return Returns a plot (*optional*) and terminal output. In addition an
 #' [Luminescence::RLum.Results-class] object is returned containing the
