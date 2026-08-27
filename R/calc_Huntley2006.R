@@ -883,7 +883,9 @@ calc_Huntley2006 <- function(
 
     # Find a good estimate of the x-axis limits
     if (mode_is_extrapolation && !force_through_origin) {
-      dosetimeGray <- c(-De.measured - De.measured.error, dosetimeGray)
+      ## subtract a tiny quantity to ensure that the first element is negative
+      ## also when both De.measured and De.measured.error are 0 (#1672)
+      dosetimeGray <- c(-De.measured - De.measured.error - 1e-300, dosetimeGray)
       De.measured <- -De.measured
     }
 

@@ -81,6 +81,9 @@ table (#1645).
 * The `cores` argument now can be set to `NULL` to use all but two of the
 available cores (#1668).
 
+* The function no longer crashes when plotting in extrapolation mode if both
+`De.measured` and `De.measured.error` are 0 (#1672).
+
 ### `calc_MinDose()`
 
 * The removal of missing values now happens only after restricting the input
