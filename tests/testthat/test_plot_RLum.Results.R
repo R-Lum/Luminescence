@@ -82,7 +82,7 @@ test_that("check functionality", {
   ## analyse_IRSAR.RF
   data(ExampleData.RLum.Analysis, envir = environment())
   d8 <- analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE", n.MC = 10,
-                         plot = FALSE, txtProgressBar = FALSE)
+                         plot = FALSE, verbose = FALSE)
   SW({
   expect_warning(plot_RLum.Results(d8))
   })
