@@ -77,6 +77,10 @@
 - The function no longer crashes when plotting in extrapolation mode if
   both `De.measured` and `De.measured.error` are 0 (#1672).
 
+### `calc_MaxDose()`
+
+- The function is now documented alongside `calc_MinDose()` (#1674).
+
 ### `calc_MinDose()`
 
 - The removal of missing values now happens only after restricting the

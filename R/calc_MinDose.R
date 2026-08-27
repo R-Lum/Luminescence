@@ -1,8 +1,9 @@
-#' @title (Un-)logged minimum age model (MAM) after Galbraith et al. (1999)
+#' @title Apply the minimum (maximum) age model to a given De distribution
 #'
 #' @description
 #' Function to fit the (un-)logged three or four parameter minimum dose model
-#' (MAM-3/4) to De data.
+#' (MAM-3/4) and maximum dose model to De data after Galbraith et al. (1999)
+#' and Olley et al. (2006).
 #'
 #' **Parameters**
 #'
@@ -13,7 +14,7 @@
 #' `sigma`: \tab spread in ages above the minimum \cr
 #' `p0`: \tab proportion of grains at gamma \cr }
 #'
-#' If `par=3` (default) the 3-parameter minimum age model is applied,
+#' If `par=3` (default) the 3-parameter model is applied,
 #' where `gamma=mu`. For `par=4` the 4-parameter model is applied instead.
 #'
 #' **(Un-)logged model**
@@ -36,6 +37,26 @@
 #' modified (un-logged) version is specially designed for modern-age and young
 #' samples containing negative, zero or near-zero De estimates (Arnold et al.
 #' 2009, p. 323).
+#'
+#' **Maximum dose model**
+#'
+#' To estimate the maximum dose population and its standard error, the minimum
+#' age model of Galbraith et al. (1999) is adapted. The measured De values are
+#' transformed as follows:
+#'
+#' 1. convert De values to natural logs
+#' 2. multiply the logged data by -1 to create a mirror image of the De distribution
+#' 3. shift De values along x-axis by the smallest x-value found to obtain only positive values
+#' 4. combine in quadrature the measurement error associated with each De value
+#' with a relative error specified by `sigmab`
+#' 5. apply the MAM to these data
+#'
+#' When all calculations are done the results are then converted back as follows:
+#' 1. subtract the x-offset
+#' 2. multiply the natural logs by -1
+#' 3. take the exponent to obtain the maximum dose estimate in Gy
+#'
+#' Only a logged maximum dose model is supported.
 #'
 #' **Initial values and boundaries**
 #'
@@ -107,7 +128,7 @@
 #' default).
 #'
 #' @param par [numeric] (*with default*):
-#' number of parameters in the minimum age model, either 3 (default) or 4.
+#' number of parameters in the model, either 3 (default) or 4.
 #'
 #' @param bootstrap [logical] (*with default*):
 #' apply the recycled bootstrap approach of Cunningham & Wallinga 2012. See
@@ -142,6 +163,7 @@
 #' details for their usage.
 #' - `verbose`: enable/disable output to the terminal.
 #' - `debug`: enable/disable extended console output.
+#' - all named argument of [calc_MinDose] can be passed to [calc_MaxDose].
 #'
 #' @return Returns a plot (*optional*) and terminal output. In addition an
 #' [Luminescence::RLum.Results-class] object is returned containing the
@@ -178,8 +200,8 @@
 #' The bootstrap approach is based on a MATLAB script by Alastair Cunningham,
 #' who helped with implementation and cross-checking.
 #'
-#' @seealso [Luminescence::calc_CentralDose], [Luminescence::calc_CommonDose], [Luminescence::calc_FiniteMixture],
-#' [Luminescence::calc_FuchsLang2001], [Luminescence::calc_MaxDose]
+#' @seealso [Luminescence::calc_CentralDose], [Luminescence::calc_CommonDose],
+#' [Luminescence::calc_FiniteMixture], [Luminescence::calc_FuchsLang2001]
 #'
 #' @references
 #' Arnold, L.J., Roberts, R.G., Galbraith, R.F. & DeLong, S.B.,
@@ -316,8 +338,12 @@
 #'
 #' # Show the fitted values of the polynomials
 #' summary(bs$poly.fits$poly.three$fitted.values)
+#'
+#' # apply the maximum dose model
+#' calc_MaxDose(ExampleData.DeValues$CA1, sigmab = 0.2, par = 3)
 #' }
 #'
+#' @order 1
 #' @export
 calc_MinDose <- function(
   data,
