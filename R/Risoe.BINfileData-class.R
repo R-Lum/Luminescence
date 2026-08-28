@@ -566,7 +566,7 @@ setMethod(
     ## input validation
     .validate_class(info_element, "character")
     valid.names <- colnames(object@METADATA)
-    if (!all(info_element %in% valid.names)) {
+    if (length(info_element) == 0 || !all(info_element %in% valid.names)) {
       .throw_error("Invalid 'info_element' name, valid names are: ",
                    .collapse(valid.names))
     }

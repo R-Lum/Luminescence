@@ -58,7 +58,7 @@
 #' BIN/BINX-file may not fully compatible, at least not similar to the ones
 #' directly produced by the Risø readers!
 #'
-#' @section Function version: 0.5.4
+#' @section Function version: 0.5.5
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -106,7 +106,7 @@ write_R2BIN <- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, "Risoe.BINfileData")
-  .validate_class(file, "character")
+  .validate_class(file, "character", length = 1)
   .validate_logical_scalar(verbose)
   .validate_logical_scalar(txtProgressBar)
 
