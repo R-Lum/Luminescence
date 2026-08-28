@@ -161,6 +161,9 @@ plot_RLum.Results<- function(
       # get De-llik pairs
       pairs<- object@data$bootstrap$pairs$gamma
 
+      ## sort De and likelihoods by De (increasing) and remove NAs
+      pairs <- stats::na.omit(pairs[order(pairs[, 1]), ])
+
       # get polynomial fit objects
       poly.fits <- list(three = object@data$bootstrap$poly.fits$poly.three,
                         four = object@data$bootstrap$poly.fits$poly.four,
@@ -191,12 +194,6 @@ plot_RLum.Results<- function(
 
         # set margins (bottom, left, top, right)
         par(mar=c(0,5,5,3))
-
-        # sort De and likelihoods by De (increasing)
-        pairs<- pairs[order(pairs[,1]),]
-
-        # remove invalid NA values
-        pairs <- stats::na.omit(pairs)
 
         plot(x=pairs[,1],
              y=pairs[,2],
