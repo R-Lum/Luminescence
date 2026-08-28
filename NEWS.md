@@ -156,6 +156,10 @@
   more readable as it compresses consecutive record indices into a range
   (#1647).
 
+### `write_R2BIN()`
+
+- The `file` argument is now better validated (#1680).
+
 ## Other changes
 
 - We have expanded the family of snapshot tests by testing the function

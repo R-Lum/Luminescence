@@ -107,6 +107,8 @@ write_R2BIN <- function(
 
   .validate_class(object, "Risoe.BINfileData")
   .validate_class(file, "character", length = 1)
+  if (is.na(file) || nchar(file) == 0)
+    .throw_error("'file' must be a valid character string")
   .validate_logical_scalar(verbose)
   .validate_logical_scalar(txtProgressBar)
 
