@@ -92,10 +92,12 @@ test_that("check functionality", {
 test_that("input validation", {
   testthat::skip_on_cran()
 
-  expect_error(write_R2BIN(object = new, file = FALSE),
-               "'file' should be of class 'character'")
   expect_error(write_R2BIN(object = "a", file = ""),
                "'object' should be of class 'Risoe.BINfileData'")
+  expect_error(write_R2BIN(object = new, file = FALSE),
+               "'file' should be of class 'character' and have length 1")
+  expect_error(write_R2BIN(object = new, file = character()),
+               "'file' should be of class 'character' and have length 1")
   expect_error(suppressWarnings(write_R2BIN(object = set_Risoe.BINfileData(), file = "")))
 
   temp <- new

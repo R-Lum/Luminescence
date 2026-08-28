@@ -176,10 +176,14 @@ test_that("sort_RLum", {
   ## input validation
   expect_error(sort_RLum(sar, slot = NA),
                "'slot' should be of class 'character' or NULL")
+  expect_error(sort_RLum(sar, slot = character()),
+               "Invalid 'slot' name, valid names are:")
   expect_error(sort_RLum(sar, slot = c("curveType", "error")),
                "Invalid 'slot' name, valid names are:")
   expect_error(sort_RLum(sar, info_element = NA),
                "'info_element' should be of class 'character' or NULL")
+  expect_error(sort_RLum(sar, info_element = character()),
+               "Invalid 'info_element' name, valid names are:")
   expect_error(sort_RLum(sar, info_element = c("position", "error")),
                "Invalid 'info_element' name, valid names are:")
   expect_error(sort_RLum(sar, slot = NULL, info_element = NULL),

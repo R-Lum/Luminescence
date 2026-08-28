@@ -850,7 +850,7 @@ setMethod(
     .validate_class(slot, "character", null.ok = TRUE)
     if (!is.null(slot)) {
       valid.names <- slotNames(object@records[[1]])
-      if (!all(slot %in% valid.names)) {
+      if (length(slot) == 0 || !all(slot %in% valid.names)) {
         .throw_error("Invalid 'slot' name, valid names are: ",
                      .collapse(valid.names))
       }
@@ -866,7 +866,7 @@ setMethod(
       valid.names <- c(
         "XY_LENGTH", "NCOL", "X_MIN", "X_MAX", "Y_MIN", "Y_MAX",
         names(object@records[[1]]@info))
-      if (!all(info_element %in% valid.names)) {
+      if (length(info_element) == 0 || !all(info_element %in% valid.names)) {
         .throw_error("Invalid 'info_element' name, valid names are: ",
                      .collapse(valid.names))
       }
