@@ -100,6 +100,12 @@ test_that("check functionality", {
                        expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
 
+  ## Ch_L3 values equal to the last channel
+  expect_snapshot_RLum(calc_FastRatio(ExampleData.CW_OSL_Curve, plot = FALSE,
+                                      Ch_L3 = c(1000, 1000)),
+                       expect_snapshot_output = TRUE,
+                       tolerance = snapshot.tolerance)
+
   SW({
   ## RLum.Analysis object
   calc_FastRatio(sar)
@@ -163,10 +169,4 @@ test_that("regression tests", {
   ## issue 932
   expect_warning(expect_null(calc_FastRatio(matrix(rnorm(5), 1, 5))),
                  "Calculated time/channel for L2 is too small")
-
-  ## issue 1682
-  expect_s4_class(
-      calc_FastRatio(ExampleData.CW_OSL_Curve, Ch_L3 = c(1000, 1000),
-                     verbose = FALSE),
-      "RLum.Results")
 })
