@@ -94,6 +94,8 @@ test_that("input validation", {
 
   expect_error(write_R2BIN(object = "a", file = ""),
                "'object' should be of class 'Risoe.BINfileData'")
+  expect_error(write_R2BIN(set_Risoe.BINfileData()),
+              "'object' cannot be an empty Risoe.BINfileData")
   expect_error(write_R2BIN(object = new, file = FALSE),
                "'file' should be of class 'character' and have length 1")
   expect_error(write_R2BIN(object = new, file = character()),
@@ -102,9 +104,13 @@ test_that("input validation", {
                "'file' must be a valid character string")
   expect_error(write_R2BIN(object = new, file = NA_character_),
                "'file' must be a valid character string")
-  expect_error(suppressWarnings(write_R2BIN(set_Risoe.BINfileData(), file = "a")),
-               "Writing BIN-files in format version (NA) is currently not supported",
+  temp <- new
+  temp@METADATA$VERSION <- "01"
+  expect_error(write_R2BIN(temp, file = "a"),
+               "Writing BIN-files in format version '01' is currently not supported",
                fixed = TRUE)
+  expect_error(write_R2BIN(object = new, file = "test", version = iris),
+               "'version' should be of class 'character' or 'numeric' and have")
 
   temp <- new
   temp@METADATA <- temp@METADATA[, 1:79]

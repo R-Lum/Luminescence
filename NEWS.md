@@ -158,7 +158,7 @@
 
 ### `write_R2BIN()`
 
-- The `file` argument is now better validated (#1680).
+- Arguments `file` and `version` are now better validated (#1680).
 
 ## Other changes
 
