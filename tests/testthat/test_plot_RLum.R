@@ -60,6 +60,12 @@ test_that("graphical snapshot tests", {
   SW({
   vdiffr::expect_doppelganger("RLum.Analysis main",
                               plot_RLum(obj, main = list("a", "b")))
+  vdiffr::expect_doppelganger("RLum.Analysis mtext",
+                              plot_RLum(obj, mtext = list("left", "right")))
+  vdiffr::expect_doppelganger("RLum.Analysis recycling",
+                              plot_RLum(merge_RLum(list(obj, obj)),
+                                        main = list("Left", "Right"),
+                                        mtext = list("left", "right")))
   vdiffr::expect_doppelganger("RLum.Analysis list main",
                               plot_RLum(list(obj, obj), main = list("a", "b")))
   vdiffr::expect_doppelganger("RLum.Analysis list mtext sub",
