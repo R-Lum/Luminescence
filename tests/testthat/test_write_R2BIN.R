@@ -98,6 +98,10 @@ test_that("input validation", {
                "'file' should be of class 'character' and have length 1")
   expect_error(write_R2BIN(object = new, file = character()),
                "'file' should be of class 'character' and have length 1")
+  expect_error(write_R2BIN(object = new, file = ""),
+               "'file' must be a valid character string")
+  expect_error(write_R2BIN(object = new, file = NA_character_),
+               "'file' must be a valid character string")
   expect_error(suppressWarnings(write_R2BIN(object = set_Risoe.BINfileData(), file = "")))
 
   temp <- new
