@@ -102,7 +102,9 @@ test_that("input validation", {
                "'file' must be a valid character string")
   expect_error(write_R2BIN(object = new, file = NA_character_),
                "'file' must be a valid character string")
-  expect_error(suppressWarnings(write_R2BIN(object = set_Risoe.BINfileData(), file = "")))
+  expect_error(suppressWarnings(write_R2BIN(set_Risoe.BINfileData(), file = "a")),
+               "Writing BIN-files in format version (NA) is currently not supported",
+               fixed = TRUE)
 
   temp <- new
   temp@METADATA <- temp@METADATA[, 1:79]
