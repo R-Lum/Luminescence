@@ -96,7 +96,7 @@ required to reduce the fast and medium quartz OSL components to \code{x} and
 and end). The fast ratio is then calculated from: \eqn{(L1-L3)/(L2-L3)}.
 }
 \section{Function version}{
- 0.1.1
+ 0.1.2
 }
 
 \examples{
@@ -131,5 +131,6 @@ due to unstable signal components. Quaternary Geochronology 4, 353-362.
 \author{
 Georgina E. King, University of Bern (Switzerland) \cr
 Julie A. Durcan, University of Oxford (United Kingdom) \cr
-Christoph Burow, University of Cologne (Germany)
+Christoph Burow, University of Cologne (Germany) \cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 }

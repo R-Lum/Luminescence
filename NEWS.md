@@ -63,6 +63,16 @@
   longer affect the operation of the function (#1653; thanks to
   @DirkMittelstrass for reporting).
 
+### `calc_FastRatio()`
+
+- Some code that adjusted the `Ch_L3` setting has been removed because
+  it had become largely superfluous since v0.9.25. Users should see no
+  impact, except in the unlikely case when both elements of `Ch_L3` are
+  set to the last channel. In that case, the computation will now
+  respect the user input instead of automatically moving the start of
+  `Ch_L3` back by 5 channels. That behaviour was an undocumented
+  leftover from when user inputs were not validated (#1682).
+
 ### `calc_FuchsLang2001()`
 
 - The function now returns an error if `startDeValue` exceeds the number
