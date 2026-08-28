@@ -72,12 +72,13 @@
 #' \item{args}{[list] of used arguments}
 #' \item{call}{[call] the function call}
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @author
 #' Georgina E. King, University of Bern (Switzerland) \cr
 #' Julie A. Durcan, University of Oxford (United Kingdom) \cr
-#' Christoph Burow, University of Cologne (Germany)
+#' Christoph Burow, University of Cologne (Germany) \cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @references
 #' Durcan, J.A. & Duller, G.A.T., 2011. The fast ratio: A rapid measure for testing
@@ -265,7 +266,11 @@ calc_FastRatio <- function(object,
       t_L3_end <- A[Ch_L3[2], 1]
     }
 
-    ## Channel number(s) of L2 and L3
+    ## Counts in channels L1, L2, L3
+    ## L1 ----
+    Cts_L1 <- A[Ch_L1, 2]
+
+    ## L2 ----
     if (is.null(Ch_L2))
       Ch_L2 <- which.min(abs(A[,1] - t_L2))
 
@@ -277,14 +282,6 @@ calc_FastRatio <- function(object,
       return(NULL)
     }
 
-    Ch_L3st<- which.min(abs(A[,1] - t_L3_start))
-    Ch_L3end <- which.min(abs(A[,1] - t_L3_end))
-
-    ## Counts in channels L1, L2, L3
-    # L1 ----
-    Cts_L1 <- A[Ch_L1, 2]
-
-    # L2 ----
     if (Ch_L2 > nrow(A)) {
       msg <- sprintf(paste("The calculated channel for L2 (%i) exceeds",
                            "the number of available channels (%i),",
@@ -295,19 +292,9 @@ calc_FastRatio <- function(object,
     }
     Cts_L2 <- A[Ch_L2, 2]
 
-    # L3 ----
-    if (Ch_L3st >= nrow(A) | Ch_L3end > nrow(A)) {
-      msg <- sprintf(paste("The calculated channels for L3 (%i, %i) exceed",
-                           "the number of available channels (%i).",
-                           "\nThe background has instead been estimated from the last",
-                           "5 channels."), Ch_L3st, Ch_L3end, nrow(A))
-      settings$info <- modifyList(settings$info, list(L3 = msg))
-      .throw_warning(msg)
-      Ch_L3st <- max(nrow(A) - 5, 1)
-      Ch_L3end <- nrow(A)
-      t_L3_start <- A[Ch_L3st,1]
-      t_L3_end <- A[Ch_L3end,1]
-    }
+    ## L3 ----
+    Ch_L3st <- which.min(abs(A[, 1] - t_L3_start))
+    Ch_L3end <- which.min(abs(A[, 1] - t_L3_end))
     Cts_L3 <- mean(A[Ch_L3st:Ch_L3end, 2])
 
     # optional: predict the counts from the fitted curve

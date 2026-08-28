@@ -82,12 +82,6 @@ test_that("input validation", {
                                             Ch_L2 = 2000)),
                  "The calculated channel for L2 (2000) exceeds the number",
                  fixed = TRUE)
-  SW({
-  expect_warning(calc_FastRatio(ExampleData.CW_OSL_Curve,
-                                Ch_L3 = c(1000, 1000)),
-                 "The calculated channels for L3 (1000, 1000) exceed",
-                 fixed = TRUE)
-  })
 })
 
 test_that("check functionality", {
@@ -169,4 +163,10 @@ test_that("regression tests", {
   ## issue 932
   expect_warning(expect_null(calc_FastRatio(matrix(rnorm(5), 1, 5))),
                  "Calculated time/channel for L2 is too small")
+
+  ## issue 1682
+  expect_s4_class(
+      calc_FastRatio(ExampleData.CW_OSL_Curve, Ch_L3 = c(1000, 1000),
+                     verbose = FALSE),
+      "RLum.Results")
 })
