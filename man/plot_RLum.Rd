@@ -14,9 +14,9 @@ according to its \code{RLum} class, after removing non-RLum objects.}
 
 \item{...}{further arguments and graphical parameters to pass to the
 specific plot functions. The only arguments that are supported directly are
-\code{main} (plot title) and \code{mtext} (plot subtitle). Here \code{main} can be provided
-as a list and the arguments in the
-list will dispatched to the plots if \code{object} is of type \code{list} as well.}
+\code{main} (plot title) and \code{mtext} (subtitle). They may be lists, in which
+case each element is dispatched to the plots (with recycling )if \code{object}
+is also a list.}
 }
 \value{
 Produces a plot depending on the input object.
@@ -40,7 +40,7 @@ found in the documentations of each plot function.
 }
 }
 \section{Function version}{
- 0.5
+ 0.6
 }
 
 \examples{
