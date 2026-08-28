@@ -318,7 +318,7 @@ calc_FastRatio <- function(object,
     if (!is.na(FR)) {
 
       # number of channels the background was derived from
-      nBG <- abs(Ch_L3end - Ch_L3st)
+      nBG <- abs(Ch_L3end - Ch_L3st + 1)
 
       # relative standard errors
       rse_L1 <- sqrt(Cts_L1 + Cts_L3 / nBG) / (Cts_L1 - Cts_L3)
