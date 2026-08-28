@@ -73,6 +73,12 @@
   `Ch_L3` back by 5 channels. That behaviour was an undocumented
   leftover from when user inputs were not validated (#1682).
 
+- The number of background channels was counted as one fewer than the
+  number used, causing the computed errors to be larger than expected.
+  This error has been present since 2016, and its impact on the results
+  produced depends on the number of background channels used, with the
+  inflation of errors decreasing as the backround region grows (#1684).
+
 ### `calc_FuchsLang2001()`
 
 - The function now returns an error if `startDeValue` exceeds the number

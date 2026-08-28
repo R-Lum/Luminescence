@@ -76,12 +76,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [119.74415449]
+                  "value": [119.74315039]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [29.5575577]
+                  "value": [29.55730985]
                 },
                 {
                   "type": "integer",
@@ -350,12 +350,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.86125225]
+                  "value": [1.86108978]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [5.91248761]
+                  "value": [5.91197151]
                 },
                 {
                   "type": "integer",
@@ -559,8 +559,8 @@
     
      -------------------------------
      Fast Ratio		: 369.20
-      ˪ Absolute error	: Inf
-      ˪ Relative error (%)	: Inf
+      ˪ Absolute error	: 123.12
+      ˪ Relative error (%)	: 33.35
      Channels		: 1000
      Channel width (s)	: 0.04
      Dead channels start	: 0
@@ -630,12 +630,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": ["Inf"]
+                  "value": [123.11697238]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": ["Inf"]
+                  "value": [33.34695893]
                 },
                 {
                   "type": "integer",
