@@ -202,6 +202,9 @@ test_that("graphical snapshot tests", {
                                               zlim = c(15, 143),
                                               pch = 1,
                                               summary = ""))
+  vdiffr::expect_doppelganger("single column",
+                              expect_message(plot_RadialPlot(data.frame(x = c(-0.1, -1.2, 10))),
+                                             "Small standardised estimate scatter"))
   vdiffr::expect_doppelganger("regression 1044",
                               plot_RadialPlot(ExampleData.DeValues$CA1,
                                               xlim = c(0, 21.2),
