@@ -230,6 +230,8 @@
   x <- x[ox]
   w <- w[ox]
   p <- cumsum(w) / sum(w)
+  if (any(is.nan(p)))
+    return(NA_real_)
   n <- sum(p < 0.5)
   if (p[n + 1] > 0.5)
     return(x[n + 1])
