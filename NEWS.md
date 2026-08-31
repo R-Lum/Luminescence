@@ -159,6 +159,11 @@
   argument, which can be set to either a numeric value or to `NULL` to
   use all but two of the available cores (#1668).
 
+### `plot_RadialPlot()`
+
+- The function no longer crashes when the error column contains NA
+  values. This was a regression introduced in v1.2.0 (#1689).
+
 ### `plot_RLum()`
 
 - The handling of `mtext` has been improved so that, when speccified as

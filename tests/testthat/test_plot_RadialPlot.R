@@ -169,6 +169,8 @@ test_that("check functionality", {
 
   expect_warning(plot_RadialPlot(data.frame(c(12, 2, 7), c(0, 2, 3))),
                  "Error values cannot be zero or NA, reset to 1e-09")
+  expect_warning(plot_RadialPlot(data.frame(c(0.1, 1, 10), b = c(1, 2, NA))),
+                 "Error values cannot be zero or NA, reset to 1e-09")
   expect_message(expect_warning(plot_RadialPlot(data.frame(1:5, NA)),
                                 "Error values cannot be zero or NA, reset to"),
                  "Small standardised estimate scatter, toggle off y.ticks?")
