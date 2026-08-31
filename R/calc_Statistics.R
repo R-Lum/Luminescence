@@ -1,17 +1,23 @@
 #' @title Function to calculate statistic measures
 #'
-#' @description This function calculates a number of descriptive statistics for estimates
+#' @description
+#' This function calculates a number of descriptive statistics for estimates
 #' with a given standard error (SE), most fundamentally using error-weighted approaches.
 #'
-#' @details The option to use Monte Carlo Methods (`n.MCM`) allows calculating
+#' @details
+#' If the error column of `data` is missing or only contains 0, the weighted
+#' statistics will match the unweighted ones. If only some errors are 0, then
+#' the weighted statistics will contain `NA` values.
+#'
+#' The option to use Monte Carlo Methods (`n.MCM`) allows calculating
 #' all descriptive statistics based on random values. The distribution of these
 #' random values is based on the Normal distribution with `De` values as
 #' means and `De_error` values as one standard deviation. Increasing the
 #' number of MCM-samples linearly increases computation time. On a Lenovo X230
 #' machine evaluation of 25 Aliquots with n.MCM = 1000 takes 0.01 s, with
 #' n = 100000, ca. 1.65 s. It might be useful to work with logarithms of these
-#' values. See Dietze et al. (2016, Quaternary Geochronology) and the function
-#' [Luminescence::plot_AbanicoPlot] for details.
+#' values. See Dietze et al. (2016) and [Luminescence::plot_AbanicoPlot] for
+#' details.
 #'
 #' @param data [data.frame] or [Luminescence::RLum.Results-class] object (**required**):
 #' for [data.frame] two columns: De (`data[, 1]`) and De error (`data[, 2]`).
@@ -38,6 +44,11 @@
 #' @keywords datagen
 #'
 #' @author Michael Dietze, GFZ Potsdam (Germany)
+#'
+#' @references
+#' Dietze, M., Kreutzer, S., Burow, C., Fuchs, M.C., Fischer, M., Schmidt, C., 2016.
+#' The abanico plot: visualising chronometric data with individual standard errors.
+#' Quaternary Geochronology 31, 1-7. \doi{10.1016/j.quageo.2015.09.003}
 #'
 #' @examples
 #'

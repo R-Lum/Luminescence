@@ -121,11 +121,12 @@
 
 ### `calc_Statistics()`
 
-- As a regression introduced in v1.1.2, the function incorrectly ignored
-  the error column whenever only some error values were exactly 0, which
-  led to miscalculated weighted statistics. Weighted mean and weighted
-  median are now set to `NA` in such cases, restoring the previous
-  behaviour (#1686).
+- The function incorrectly ignored the error column whenever only some
+  error values were exactly 0, which led to miscalculated weighted
+  statistics. This was due to a regression introduced in v1.1.2;
+  weighted mean, weighted median and the corresponding standard error
+  and standard deviation are now set to `NA` in such cases, restoring
+  the previous behaviour (#1686).
 
 ### `fit_DoseResponseCurve()`
 
