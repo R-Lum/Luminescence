@@ -28,8 +28,8 @@
 #'
 #' @param data [data.frame] or [Luminescence::RLum.Results-class] object (**required**):
 #' for `data.frame`: two columns: De (`data[,1]`) and De error (`data[,2]`).
-#' If the error column is missing or only contains `NA` values, then the error
-#' at each measurement is assumed to be 10^-9.
+#' If the error column is missing or only contains `NA` values, then `se` is
+#' set to `FALSE`, and the weighted statistics will match the unweighted ones.
 #'
 #' @param na.rm [logical] (*with default*):
 #' excludes `NA` values from the data set prior to any further operations.
@@ -41,7 +41,9 @@
 #' global scaling factor.
 #'
 #' @param se [logical] (*with default*):
-#' plots standard error points over the histogram, default is `TRUE`.
+#' plots standard error points over the histogram, default is `TRUE`. It is
+#' silently reset to `FALSE` if the error column in `data` is missing or only
+#' contains `NA` values.
 #'
 #' @param rug [logical] (*with default*):
 #' adds rugs to the histogram, default is `TRUE`.
@@ -166,7 +168,7 @@ plot_Histogram <- function(
 
   ## handle error-free data sets
   if (length(data) < 2 || all(is.na(data[, 2]))) {
-    data[, 2] <- 1e-9
+    data[, 2] <- 1
     se <- FALSE
   }
 
