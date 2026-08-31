@@ -41,7 +41,8 @@
 #' @param data [data.frame] or [Luminescence::RLum.Results-class] object (**required**):
 #' for `data.frame`: either two columns: De (`data[,1]`) and De error
 #' (`data[,2]`), or one: De (`values[,1]`). If a single-column data frame
-#' is provided, De error is assumed to be 10^-9 for all measurements.
+#' is provided, De error is assumed to be 10^-9 for all measurements, and
+#' `y.ticks` is silently reset to `FALSE`.
 #' To plot several data sets in one plot, the data sets must be provided as
 #' `list`, e.g. `list(data.1, data.2)`.
 #'
@@ -318,10 +319,10 @@ plot_RadialPlot <- function(
                         name = paste0("Input 'data[[", i, "]]'"))
 
       ## if `data[[i]]` is a single-column data frame, append a second
-      ## column with a small non-zero value (10^-9 for consistency with
-      ## what `calc_Statistics() does)
+      ## column with a small non-zero value
       if (ncol(data[[i]]) < 2) {
         data[[i]] <- data.frame(data[[i]], 10^-9)
+        y.ticks <- FALSE
       } else {
         if (ncol(data[[i]]) > 2) {
           ## keep only the first two columns
@@ -492,7 +493,7 @@ plot_RadialPlot <- function(
   data.global$std.estimate.plot <- unlist(lapply(data, function(x) x[, 8]))
 
   ## print warning for too small scatter
-  if (max(abs(1 / data.global[, 6])) < 0.02) {
+  if (max(abs(1 / data.global[, 6])) < 0.02 && y.ticks) {
     .throw_message("Small standardised estimate scatter, toggle off y.ticks?",
                    error = FALSE)
   }

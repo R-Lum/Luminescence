@@ -31,7 +31,8 @@ plot_RadialPlot(
 \item{data}{\link{data.frame} or \link[=RLum.Results-class]{RLum.Results} object (\strong{required}):
 for \code{data.frame}: either two columns: De (\code{data[,1]}) and De error
 (\code{data[,2]}), or one: De (\code{values[,1]}). If a single-column data frame
-is provided, De error is assumed to be 10^-9 for all measurements.
+is provided, De error is assumed to be 10^-9 for all measurements, and
+\code{y.ticks} is silently reset to \code{FALSE}.
 To plot several data sets in one plot, the data sets must be provided as
 \code{list}, e.g. \code{list(data.1, data.2)}.}
 

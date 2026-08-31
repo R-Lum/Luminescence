@@ -105,8 +105,7 @@ test_that("check functionality", {
       log.z = FALSE))
 
   ## single-column data frame
-  expect_message(plot_RadialPlot(data.frame(x = c(-0.1, -1.2, 10))),
-                 "Small standardised estimate scatter")
+  expect_silent(plot_RadialPlot(data.frame(x = c(-0.1, -1.2, 10))))
 
   ## data frame with more than 2 columns
   expect_silent(plot_RadialPlot(cbind(df, df)))
@@ -203,8 +202,7 @@ test_that("graphical snapshot tests", {
                                               pch = 1,
                                               summary = ""))
   vdiffr::expect_doppelganger("single column",
-                              expect_message(plot_RadialPlot(data.frame(x = c(-0.1, -1.2, 10))),
-                                             "Small standardised estimate scatter"))
+                              plot_RadialPlot(data.frame(x = c(-0.1, -1.2, 10))))
   vdiffr::expect_doppelganger("regression 1044",
                               plot_RadialPlot(ExampleData.DeValues$CA1,
                                               xlim = c(0, 21.2),
