@@ -63,9 +63,6 @@ test_that("check functionality", {
   ## numeric vector
   expect_silent(plot_KDE(df[, 1]))
 
-  ## single-column data.frame
-  expect_silent(plot_KDE(df[, 1, drop = FALSE]))
-
   ## RLum.Results object
   expect_silent(plot_KDE(calc_CommonDose(df, plot = FALSE, verbose = FALSE)))
 
@@ -111,6 +108,8 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("not values.cumulative",
                               plot_KDE(data = df,
                                        values.cumulative = FALSE))
+  vdiffr::expect_doppelganger("single column",
+                              plot_KDE(df[, 1, drop = FALSE]))
   vdiffr::expect_doppelganger("rug",
                               plot_KDE(list(df, data.frame(c(23, 24), c(3, 3))),
                                        summary.pos = "top",
