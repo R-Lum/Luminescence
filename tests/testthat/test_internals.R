@@ -81,6 +81,10 @@ test_that("Test internals", {
   ## .weighted.median() -----------------------------------------------------
   expect_equal(.weighted.median(1:10, w = rep(1, 10)),
                median(1:10))
+  expect_equal(.weighted.median(1:10, w = c(1:9, Inf)),
+               NA_real_)
+  expect_equal(.weighted.median(1:10, w = c(NaN, 2:10)),
+               NA_real_)
   expect_equal(.weighted.median(1:5, w = c(0.15, 0.1, 0.2, 0.3, 0.25)),
                4)
   expect_equal(.weighted.median(c(1:5, NA), w = c(0.15, 0.1, 0.2, 0.3, 0.25, 1)),

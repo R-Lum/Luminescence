@@ -33,7 +33,7 @@
 #'
 #' @return Returns a list with weighted and unweighted statistic measures.
 #'
-#' @section Function version: 0.1.8
+#' @section Function version: 0.1.9
 #'
 #' @keywords datagen
 #'
@@ -88,19 +88,9 @@ calc_Statistics <- function(
   }
 
   ## handle error-free data sets
-  if(ncol(data) == 1) {
-    data <- cbind(data, rep(NA, length(data)))
-  }
-
-  ## replace Na values in error by 0
-  data[is.na(data[,2]),2] <- 0
-
-  ## replace zeros by a small value
-  if (any(data[, 2] == 0)) {
-    if (sum(data[, 2]) == 0) {
-      .throw_warning("All errors are NA or zero, automatically set to 10^-9")
-    }
-    data[,2] <- rep(x = 10^-9, length(data[,2]))
+  if (ncol(data) == 1 || all(data[, 2] == 0)) {
+    .throw_warning("All errors are NA or zero, automatically set to 10^-9")
+    data[, 2] <- 1e-9
   }
 
   ## deprecated names
@@ -122,7 +112,6 @@ calc_Statistics <- function(
   }
 
   S.weights <- S.weights / sum(S.weights)
-
   .validate_positive_scalar(digits, int = TRUE, null.ok = TRUE)
   .validate_positive_scalar(n.MCM, int = TRUE, null.ok = TRUE)
 

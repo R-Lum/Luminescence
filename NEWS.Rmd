@@ -124,6 +124,13 @@ unrecoverable crashes during fitting (#1670).
 function as `"Am-214"` and has now been corrected. The latter form is no
 longer accepted (#1630).
 
+### `calc_Statistics()`
+
+* As a regression introduced in v1.1.2, the function incorrectly ignored the
+error column whenever only some error values were exactly 0, which led to
+miscalculated weighted statistics. Weighted mean and weighted median are now
+set to `NA` in such cases, restoring the previous behaviour (#1686).
+
 ### `fit_DoseResponseCurve()`
 
 * If the (optional) `TnTx` column contains only `NA`s, the column is ignored
