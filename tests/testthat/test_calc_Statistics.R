@@ -11,12 +11,12 @@ test_that("Test certain input scenarios", {
   df <- ExampleData.DeValues$BT998
   df[, 2] <- NULL
   expect_warning(calc_Statistics(df),
-                 "All errors are NA or zero, automatically set to")
+                 "All errors are NA or zero, weighted statistics will match")
 
   df <- ExampleData.DeValues$BT998
   df[,2] <- 0
   expect_warning(calc_Statistics(df),
-                 "All errors are NA or zero, automatically set to")
+                 "All errors are NA or zero, weighted statistics will match")
 
   df <- ExampleData.DeValues$BT998
   expect_silent(calc_Statistics(df, weight.calc = "inverse_std"))

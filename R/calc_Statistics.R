@@ -98,10 +98,11 @@ calc_Statistics <- function(
     }
   }
 
-  ## handle error-free data sets
+  ## handle error-free data sets by setting the errors to the same value
   if (ncol(data) == 1 || all(data[, 2] == 0)) {
-    .throw_warning("All errors are NA or zero, automatically set to 10^-9")
-    data[, 2] <- 1e-9
+    .throw_warning("All errors are NA or zero, weighted statistics will match ",
+                   "the unweighted ones")
+    data[, 2] <- 1
   }
 
   ## deprecated names
