@@ -331,8 +331,9 @@ plot_RadialPlot <- function(
 
         ## if all errors are NA, we set them to 0 so we correct them in the
         ## next block
-        if (all(is.na(data[[i]][, 2]))) {
-          data[[i]][, 2] <- 0
+        na.idx <- is.na(data[[i]][, 2])
+        if (any(na.idx)) {
+          data[[i]][na.idx, 2] <- 0
         }
 
         ## don't let the error be NA or zero: we set it to the smallest between
