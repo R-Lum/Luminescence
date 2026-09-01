@@ -6,7 +6,6 @@
 \usage{
 plot_Histogram(
   data,
-  na.rm = TRUE,
   mtext = "",
   cex.global = 1,
   se = TRUE,
@@ -23,10 +22,8 @@ plot_Histogram(
 \item{data}{\link{data.frame} or \link[=RLum.Results-class]{RLum.Results} object (\strong{required}):
 for \code{data.frame}: two columns: De (\code{data[,1]}) and De error (\code{data[,2]}).
 If the error column is missing or only contains \code{NA} values, then \code{se} is
-set to \code{FALSE}, and the weighted statistics will match the unweighted ones.}
-
-\item{na.rm}{\link{logical} (\emph{with default}):
-excludes \code{NA} values from the data set prior to any further operations.}
+set to \code{FALSE}, and the weighted statistics will match the unweighted ones.
+In any other case, rows with \code{NA} values will be removed prior to plotting.}
 
 \item{mtext}{\link{character} (\emph{optional}):
 further sample information (\link{mtext}).}

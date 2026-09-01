@@ -85,7 +85,8 @@
 #' @param data [data.frame] or [Luminescence::RLum.Results-class] object (**required**):
 #' for `data.frame` two columns: De (`data[,1]`) and De error (`data[,2]`).
 #'  To plot several data sets in one plot the data sets must be provided as
-#'  `list`, e.g. `list(data.1, data.2)`.\cr
+#'  `list`, e.g. `list(data.1, data.2)`. Rows with `NA` values will be removed
+#' prior to plotting.\cr
 #' For some [Luminescence::RLum.Results-class] objects, one or more lines (and
 #' corresponding labels) are drawn automatically:
 #' - [Luminescence::calc_AverageDose] (ADM)
@@ -95,9 +96,6 @@
 #' - [Luminescence::calc_FiniteMixture]
 #' Alternative labels can be set via the `line.label` option. This behaviour
 #' can be suppressed altogether by setting `line = NA`.
-#'
-#' @param na.rm [logical] (*with default*):
-#' exclude `NA` values from the data set prior to any further operations.
 #'
 #' @param log.z [logical] (*with default*):
 #' display the z-axis in logarithmic scale (`TRUE` by default). The setting is
@@ -443,7 +441,6 @@
 #' @export
 plot_AbanicoPlot <- function(
   data,
-  na.rm = TRUE,
   log.z = TRUE,
   z.0 = c("mean.weighted", "mean", "median"),
   dispersion = c("qr", "sd", "2sd"),
@@ -537,17 +534,14 @@ plot_AbanicoPlot <- function(
   if (!is.null(line.mtext) && mtext == "" && summary.pos != "sub")
     mtext <- line.mtext
 
-  ## optionally, remove NA-values
-  .validate_logical_scalar(na.rm)
-  if (na.rm) {
-    for(i in seq_along(data)) {
+  ## remove NA-values
+  for (i in seq_along(data)) {
       n.NA <- sum(!stats::complete.cases(data[[i]]))
       if (n.NA > 0) {
         .throw_message("Data set ", i, ": ", n.NA, " NA value",
                        ifelse(n.NA > 1, "s", ""), " excluded", error = FALSE)
         data[[i]] <- na.exclude(data[[i]])
       }
-    }
   }
 
   ##AFTER NA removal, we should check the data set carefully again ...

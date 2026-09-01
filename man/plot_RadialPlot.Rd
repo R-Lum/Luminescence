@@ -6,7 +6,6 @@
 \usage{
 plot_RadialPlot(
   data,
-  na.rm = TRUE,
   log.z = TRUE,
   central.value = NULL,
   centrality = c("mean.weighted", "mean.weighted", "median", "median.weighted"),
@@ -32,12 +31,10 @@ plot_RadialPlot(
 for \code{data.frame}: either two columns: De (\code{data[,1]}) and De error
 (\code{data[,2]}), or one: De (\code{values[,1]}). If a single-column data frame
 is provided, De error is assumed to be 10^-9 for all measurements, and
-\code{y.ticks} is silently reset to \code{FALSE}.
+\code{y.ticks} is silently reset to \code{FALSE}. Rows with \code{NA} values will be
+removed prior to plotting.
 To plot several data sets in one plot, the data sets must be provided as
 \code{list}, e.g. \code{list(data.1, data.2)}.}
-
-\item{na.rm}{\link{logical} (\emph{with default}):
-excludes \code{NA} values from the data set prior to any further operations.}
 
 \item{log.z}{\link{logical} (\emph{with default}):
 Option to display the z-axis in logarithmic scale. Default is \code{TRUE}.}

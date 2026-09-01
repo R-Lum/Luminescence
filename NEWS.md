@@ -10,6 +10,16 @@
 
 ## Bugfixes and changes
 
+- Support for the `na.rm` argument has been removed from the following
+  functions as it was not working:
+  - `plot_AbanicoPlot()`
+  - `plot_Histogram()`
+  - `plot_KDE()`
+  - `plot_RadialPlot()`
+  - `plot_ViolinPlot()`
+
+  If set, the argument will be silently ignored (#1692).
+
 ### `analyse_Al2O3C_Measurement()`
 
 - The function now better validates the `dose_points` argument so that

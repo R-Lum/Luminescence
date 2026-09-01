@@ -24,7 +24,7 @@
 #' @param data [numeric] or [Luminescence::RLum.Results-class] (**required**):
 #' input data for plotting. Alternatively a [data.frame] or a [matrix] can
 #' be provided, but only the first column will be considered by the
-#' function.
+#' function. Rows with `NA` values will be removed prior to plotting.
 #'
 #' @param boxplot [logical] (*with default*):
 #' enable/disable the boxplot.
@@ -41,9 +41,6 @@
 #' Alternatively, the keyword `"sub"` may be specified to place the summary
 #' below the plot header. However, this latter option in only possible if
 #' `mtext` is not used.
-#'
-#' @param na.rm [logical] (*with default*):
-#' exclude `NA` values from the data set prior to any further operations.
 #'
 #' @param ... further arguments and graphical parameters passed to
 #' [plot.default], [stats::density] and [boxplot]. See details for further
@@ -88,7 +85,6 @@ plot_ViolinPlot <- function(
   rug = TRUE,
   summary = c("n", "median"),
   summary.pos = "sub",
-  na.rm = TRUE,
   ...
 ) {
   .set_function_name("plot_ViolinPlot")
@@ -120,14 +116,11 @@ plot_ViolinPlot <- function(
   }
   .validate_class(data, "numeric", name = "All elements of 'data'")
 
-    ##Remove NA values
-    if(na.rm){
-      data <- na.exclude(data)
-
-      if(length(attr(data, "na.action")) > 0){
-        .throw_warning(length(attr(data, "na.action")), " NA values removed")
-      }
-    }
+  ## remove NA values
+  data <- na.exclude(data)
+  if (length(attr(data, "na.action")) > 0) {
+    .throw_warning(length(attr(data, "na.action")), " NA values removed")
+  }
 
   ##stop if only one or 0 values are left in data
   if(length(data) == 0){
