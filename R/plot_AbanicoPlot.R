@@ -753,29 +753,9 @@ plot_AbanicoPlot <- function(
   }, De.add = De.add)
 
   ## generate global data set
-  data.global <- cbind(data[[1]], 1)
-  colnames(data.global) <- rep("", 10)
-
-  if(length(data) > 1) {
-    for(i in 2:length(data)) {
-      data.add <- cbind(data[[i]], i)
-      colnames(data.add) <- rep("", 10)
-      data.global <- rbind(data.global,
-                           data.add)
-    }
-  }
-
-  ## create column names
-  colnames(data.global) <- c("De",
-                             "error",
-                             "z",
-                             "se",
-                             "z.central",
-                             "precision",
-                             "std.estimate",
-                             "std.estimate.plot",
-                             "weights",
-                             "data set")
+  data.global <- do.call(rbind, lapply(seq_along(data), function(i) {
+    cbind(data[[i]], i)
+  }))
 
   ## calculate global data statistics
   stats.global <- calc_Statistics(data = data.global[,3:4])
@@ -791,25 +771,15 @@ plot_AbanicoPlot <- function(
                                z.0)
   }
 
-  ## create column names
-  for(i in 1:length(data)) {
-    colnames(data[[i]]) <- c("De",
-                             "error",
-                             "z",
-                             "se",
-                             "z.central",
-                             "precision",
-                             "std.estimate",
-                             "std.estimate.plot",
-                             "weights")
-  }
-
   ## re-calculate standardised estimate for plotting
-  for(i in 1:length(data)) {
+  col.names <- c("De", "error", "z", "se", "z.central", "precision",
+                 "std.estimate", "std.estimate.plot", "weights")
+  for (i in seq_along(data)) {
     data[[i]][,8] <- (data[[i]][,3] - z.central.global) / data[[i]][,4]
+    colnames(data[[i]]) <- col.names
   }
-
   data.global[, 8] <- unlist(lapply(data, function(x) x[, 8]))
+  colnames(data.global) <- c(col.names, "idx.dataset")
 
   ## print message for too small scatter
   if(max(abs(1 / data.global[6])) < 0.02) {
@@ -865,8 +835,7 @@ plot_AbanicoPlot <- function(
   } else {
     y.span <- (mean(data.global[,1]) * 10) / (sd(data.global[,1]) * 100)
     y.span <- ifelse(y.span > 1, 0.98, y.span)
-    limits.y <- c(-(1 + y.span) * max(abs(data.global[,7])),
-                  (1 + y.span) * max(abs(data.global[,7])))
+    limits.y <- (1 + y.span) * max(abs(data.global$std.estimate)) * c(-1, 1)
   }
 
   cex <- extraArgs$cex %||% 1
@@ -1845,7 +1814,7 @@ plot_AbanicoPlot <- function(
     for (i in 1:length(rug.y)) {
       lines.rot(x = rug.x,
                 y = rep(rug.y[i], 2),
-                col = value.rug[data.global[i, 10]])
+                col = value.rug[data.global$idx.dataset[i]])
     }
   }
 
