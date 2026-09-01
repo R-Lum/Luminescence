@@ -87,6 +87,10 @@ test_that("input validation", {
 
   expect_warning(plot_AbanicoPlot(ExampleData.DeValues, xlim = c(2, 12)),
                  "Lower x-axis limit was 2, reset to zero")
+
+  ## infinite values
+  expect_warning(plot_AbanicoPlot(data.frame(c(1:3, Inf), c(Inf, 1:3))),
+                 "Inf values found in data set 1, removed")
 })
 
 test_that("Test examples from the example page", {

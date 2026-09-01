@@ -344,7 +344,16 @@ plot_RadialPlot <- function(
           data[[i]][is.zero, 2] <- min.value
           .throw_warning("Error values cannot be zero or NA, reset to ", min.value)
         }
+
+      ## find the Inf values in each of the two columns and remove the
+      ## corresponding rows if needed
+      inf.idx <- unlist(lapply(data[[i]], function(x) which(is.infinite(x))))
+      if (length(inf.idx) > 0) {
+        inf.row <- sort(unique(inf.idx))
+        .throw_warning("Inf values found in data set ", i, ", removed")
+        data[[i]] <- data[[i]][-inf.row, ]
       }
+    }
   }
 
   valid.pos <- c("left", "center", "right", "topleft", "top", "topright",

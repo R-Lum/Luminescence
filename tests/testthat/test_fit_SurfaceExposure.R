@@ -32,6 +32,9 @@ test_that("input validation", {
                "'plot' should be a single logical value")
   expect_error(fit_SurfaceExposure(data.frame(NA, 1:5)),
                "After NA removal, nothing is left from the data set")
+  expect_error(expect_warning(fit_SurfaceExposure(data.frame(1:5, Inf)),
+                              "Inf values found in 'data', replaced by NA"),
+               "After NA removal, nothing is left from the data set")
   expect_error(fit_SurfaceExposure(data = d1, sigmaphi = 5e-10, mu = 0.9,
                                    verbose = NULL),
                "'verbose' should be a single logical value")

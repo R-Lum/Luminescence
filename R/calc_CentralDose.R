@@ -123,6 +123,14 @@ calc_CentralDose <- function(
   data <- data[, 1:2]
   colnames(data) <- c("ED", "ED_Error")
 
+  ## replace infinite values
+  if (any(is.infinite(unlist(data)))) {
+    .throw_warning("Inf values found in 'data', replaced by NA")
+    for (i in 1:ncol(data)) {
+      data[is.infinite(data[, i]), i] <- NA
+    }
+  }
+
   ## remove NA values
   if (anyNA(data)) {
     .throw_message(length(which(is.na(data))), " NA values removed from dataset",

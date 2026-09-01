@@ -206,6 +206,14 @@ calc_FastRatio <- function(object,
                          drop = FALSE])
     A[ ,1] <- A[ ,1] - A[1,1]
 
+    ## replace infinite values
+    if (any(is.infinite(unlist(A)))) {
+      .throw_warning("Inf values found in 'object', replaced by NA")
+      for (i in 1:ncol(A)) {
+        A[is.infinite(A[, i]), i] <- NA
+      }
+    }
+
     ## remove missing values
     A <- na.exclude(A[, 1:2])
     if (nrow(A) == 0)

@@ -518,6 +518,15 @@ plot_AbanicoPlot <- function(
       data[[i]] <- get_RLum(data[[i]], "data")
     }
 
+    ## find the Inf values in each of the two columns and remove the
+    ## corresponding rows if needed
+    inf.idx <- unlist(lapply(data[[i]], function(x) which(is.infinite(x))))
+    if (length(inf.idx) > 0) {
+      inf.row <- sort(unique(inf.idx))
+      .throw_warning("Inf values found in data set ", i, ", removed")
+      data[[i]] <- data[[i]][-inf.row, ]
+    }
+
       if (ncol(data[[i]]) < 2) {
         .throw_error("Data set ", i, " has fewer than 2 columns: data ",
                      "without errors cannot be displayed")
