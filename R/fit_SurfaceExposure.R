@@ -312,6 +312,14 @@ fit_SurfaceExposure <- function(
   else
     wi <- rep(1, times = nrow(data))
 
+  ## replace infinite values
+  if (any(is.infinite(unlist(data)))) {
+    .throw_warning("Inf values found in 'data', replaced by NA")
+    for (i in 1:ncol(data)) {
+      data[is.infinite(data[, i]), i] <- NA
+    }
+  }
+
   ## remove rows with NA
   if (anyNA(data)) {
     data <- data[stats::complete.cases(data), ]

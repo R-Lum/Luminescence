@@ -38,6 +38,9 @@ test_that("input validation", {
                  "NA values removed from dataset")
   expect_error(calc_CentralDose(temp_NA[1:2, ]),
                "After NA removal, 'data' was left with fewer than two rows")
+  expect_error(expect_message(calc_CentralDose(data.frame(a = -1:1, b = Inf)),
+                              "Inf values found in 'data', replaced by NA"),
+               "After NA removal, 'data' was left with fewer than two rows")
   })
 })
 

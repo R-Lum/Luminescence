@@ -134,6 +134,8 @@ test_that("graphical snapshot tests", {
                               plot_DRTResults(list(df, rbind(df, df) * 1.05)))
   vdiffr::expect_doppelganger("errors NA",
                               plot_DRTResults(data.frame(1:5, NA)))
+  vdiffr::expect_doppelganger("infinities",
+                              plot_DRTResults(data.frame(c(1, Inf, 2, 3), Inf)))
   })
 })
 
