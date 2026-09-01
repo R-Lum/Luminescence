@@ -168,7 +168,8 @@
 
 - The handling of `mtext` has been improved so that, when specified as a
   list, each element is dispatched (with recycling) to each object being
-  plotted, making `mtext` behave like the `main` argument (#1676).
+  plotted, making `mtext` behave like the `main` argument. This was a
+  regression introduced in v1.2.0 (#1676).
 
 ### `read_RF2R()`
 
