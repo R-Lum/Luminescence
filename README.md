@@ -2,9 +2,6 @@
 
 # Luminescence <img width=120px src="man/figures/Luminescence_logo.png" align="right" />
 
-[![Project Status: Active – The project has reached a stable, usable
-state and is being actively
-developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![CRAN](https://www.r-pkg.org/badges/version/Luminescence)](https://CRAN.R-project.org/package=Luminescence)
 [![R-CMD-check](https://github.com/R-Lum/Luminescence/actions/workflows/R-CMD-check.yml/badge.svg)](https://github.com/R-Lum/Luminescence/actions)
 [![Coverage
@@ -13,11 +10,8 @@ Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https:/
 [![CRAN
 DOI](https://img.shields.io/badge/DOI-10.32614/CRAN.package.Luminescence-1f57b6?style=flat&link=https://doi.org/10.32614/CRAN.package.Luminescence)](https://doi.org/10.32614/CRAN.package.Luminescence)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.596252.svg)](https://doi.org/10.5281/zenodo.596252)
-
 [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
 [![Downloads](https://cranlogs.r-pkg.org/badges/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
-[![Downloads](https://cranlogs.r-pkg.org/badges/last-week/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
-[![Downloads](https://cranlogs.r-pkg.org/badges/last-day/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
 
 The R package `'Luminescence'` by the R-Luminescence Group provides a
 collection of various R functions for luminescence dating data analysis.
