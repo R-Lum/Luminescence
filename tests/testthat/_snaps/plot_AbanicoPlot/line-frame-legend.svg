@@ -187,6 +187,9 @@
 <polygon points='108.74,254.84 113.10,247.28 104.37,247.28 ' style='stroke-width: 0.75; stroke: #8B5A00; fill: none;' />
 <polygon points='120.90,251.25 125.27,243.69 116.54,243.69 ' style='stroke-width: 0.75; stroke: #8B5A00; fill: none;' />
 <polygon points='108.65,252.15 113.01,244.59 104.29,244.59 ' style='stroke-width: 0.75; stroke: #8B5A00; fill: none;' />
+<text x='453.97' y='385.12' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='23.36px' lengthAdjust='spacingAndGlyphs'>19.7</text>
+<text x='101.45' y='249.86' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='30.03px' lengthAdjust='spacingAndGlyphs'>154.8</text>
+<text x='131.16' y='261.75' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='23.36px' lengthAdjust='spacingAndGlyphs'>91.9</text>
 <polyline points='514.49,399.04 514.49,109.58 ' style='stroke-width: 0.75;' />
 <polygon points='64.80,109.58 619.20,109.58 619.20,399.04 64.80,399.04 ' style='stroke-width: 0.60; fill: none;' />
 <polygon points='75.60,113.81 79.24,120.11 71.96,120.11 ' style='stroke-width: 0.75; stroke: #36648B; fill: none;' />

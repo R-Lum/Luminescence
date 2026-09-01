@@ -185,10 +185,6 @@ test_that("Test examples from the example page", {
                    ylab = "Scatter",
                    zlab = "Equivalent dose [Gy]"))
 
-  ## now with minimum, maximum and median value indicated
-  expect_silent(plot_AbanicoPlot(data = ExampleData.DeValues,
-                   stats = c("min", "max", "median")))
-
   ## now with another statistical summary
   expect_silent(plot_AbanicoPlot(data = ExampleData.DeValues,
                    summary = c("mean.weighted", "median"),
@@ -400,6 +396,7 @@ test_that("Test graphical snapshot", {
                                                  polygon.col = c("steelblue1", "orange1"),
                                                  pch = c(2, 6),
                                                  angle = c(30, 50),
+                                                 stats = c("min", "max", "median"),
                                                  summary = c("n", "in.2s", "median")))
     vdiffr::expect_doppelganger("line frame legend rotated",
                                 plot_AbanicoPlot(data = data.list,
@@ -414,6 +411,7 @@ test_that("Test graphical snapshot", {
                                                  z.0 = "mean",
                                                  pch = c(2, 6),
                                                  angle = c(30, 50),
+                                                 stats = c("min", "max"),
                                                  summary.pos = "right",
                                                  summary = c("sd.rel", "sd.abs")))
     vdiffr::expect_doppelganger("CAM",
