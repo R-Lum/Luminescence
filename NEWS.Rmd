@@ -17,6 +17,18 @@ header-includes:
 ## New functions
 
 
+## Deprecations
+
+* The following S3 methods are deprecated and will be removed in v1.4.0
+(#1694):
+- `as.list.RLum.Analysis()` `as.list.RLum.Data.Curve()`,
+`as.list.RLum.Data.Image()`, `as.list.RLum.Data.Spectrum()`,
+`as.list.RLum.Results()`: use `as.list()` instead;
+- `names.RLum.Analysis()` `names.RLum.Data.Curve()`, `names.RLum.Data.Image()`,
+`names.RLum.Data.Spectrum()`, `names.RLum.Results()`: use `names()` instead;
+- `plot.RLum.Analysis()` `plot.RLum.Data.Curve()`, `plot.RLum.Data.Image()`,
+`plot.RLum.Data.Spectrum()`, `plot.RLum.Results()`: use `plot()` instead.
+
 ## Bugfixes and changes
 
 * Support for the `na.rm` argument has been removed from the following
