@@ -64,6 +64,8 @@ test_that("input validation", {
                "'legend.pos' should have length 2")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, legend.pos = c(5, NA)),
                "'legend.pos' cannot contain missing values")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, stats = NA),
+               "'stats' should be of class 'character' or NULL and have length")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, frame = NULL),
                "'frame' should be one of '0', '1', '2' or '3'")
 
@@ -379,6 +381,7 @@ test_that("Test graphical snapshot", {
                       ExampleData.DeValues[31:62,] * 1.3)
     vdiffr::expect_doppelganger("summary top",
                                 plot_AbanicoPlot(data = data.list,
+                                                 stats = "median",
                                                  summary.pos = "top",
                                                  summary = c("n", "in.2s", "median")))
     vdiffr::expect_doppelganger("line frame legend",
@@ -411,12 +414,13 @@ test_that("Test graphical snapshot", {
                                                  z.0 = "mean",
                                                  pch = c(2, 6),
                                                  angle = c(30, 50),
-                                                 stats = c("min", "max"),
+                                                 stats = c("min", "max", "other"),
                                                  summary.pos = "right",
                                                  summary = c("sd.rel", "sd.abs")))
     vdiffr::expect_doppelganger("CAM",
                                 plot_AbanicoPlot(data = CAM,
                                                  line.col = "darkseagreen",
+                                                 stats = "nonexistent",
                                                  summary.pos = "bottomleft"))
     vdiffr::expect_doppelganger("CAM cex",
                                 plot_AbanicoPlot(data = CAM, cex = 2))

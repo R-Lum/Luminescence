@@ -643,11 +643,13 @@ plot_AbanicoPlot <- function(
     legend.pos <- .validate_args(legend.pos, valid.pos)
   }
 
+  .validate_class(stats, "character", null.ok = TRUE, length = 1:3)
   summary.method <- .validate_args(summary.method, c("MCM", "weighted", "unweighted"))
   frame <- .validate_args(frame, c(0, 1, 2, 3))
 
   ## check/set layout definitions
-  layout <- get_Layout(layout = list(...)$layout %||% "default")
+  extraArgs <- list(...)
+  layout <- get_Layout(layout = extraArgs$layout %||% "default")
 
   if (is.null(bar))
     bar <- rep(TRUE, length(data))
@@ -680,11 +682,6 @@ plot_AbanicoPlot <- function(
 
   ## create preliminary global data set
   De.global <- unlist(lapply(data, function(x) x[, 1]))
-
-  ## additional arguments
-  extraArgs <- list(...)
-  breaks <- extraArgs$breaks %||% "Sturges"
-  fun <- isTRUE(list(...)$fun)
 
   ## check/set bw-parameter
   for(i in 1:length(data)) {
@@ -724,7 +721,7 @@ plot_AbanicoPlot <- function(
   ## calculate and append statistical measures --------------------------------
 
   ## append optional weights for KDE curve
-  use.weights <- "weights" %in% names(extraArgs) && extraArgs$weights
+  use.weights <- isTRUE(extraArgs$weights)
 
   ## compute statistics and append all additional columns
   data <- lapply(seq_along(data), function(i, De.add) {
@@ -788,8 +785,8 @@ plot_AbanicoPlot <- function(
   }
 
   ## read out additional arguments---------------------------------------------
-  extraArgs <- list(...)
 
+  breaks <- extraArgs$breaks %||% "Sturges"
   main <- extraArgs$main %||% expression(D[e] * " " * "distribution")
   sub <- extraArgs$sub %||% ""
 
@@ -842,6 +839,7 @@ plot_AbanicoPlot <- function(
   lty <- extraArgs$lty %||% rep(rep(2, length(data)), length(bar))
   lwd <- extraArgs$lwd %||% rep(rep(1, length(data)), length(bar))
   pch <- extraArgs$pch %||% rep(20, length(data))
+  fun <- isTRUE(extraArgs$fun)
 
   if("col" %in% names(extraArgs)) {
     bar.col <- extraArgs$col
@@ -974,28 +972,6 @@ plot_AbanicoPlot <- function(
   ellipse <- cbind(ellipse.x, ellipse.y)
   if (rotate)
     ellipse <- ellipse[, 2:1]
-
-  ## calculate statistical labels
-  stats.data <- matrix(nrow = 3, ncol = 3)
-  data.stats <- as.numeric(data.global[,1])
-
-  if ("min" %in% stats) {
-    stats.data[1, 3] <- data.stats[data.stats == min(data.stats)][1]
-    stats.data[1, 1] <- data.global[data.stats == stats.data[1, 3], 6][1]
-    stats.data[1, 2] <- data.global[data.stats == stats.data[1, 3], 8][1]
-  }
-
-  if ("max" %in% stats) {
-    stats.data[2, 3] <- data.stats[data.stats == max(data.stats)][1]
-    stats.data[2, 1] <- data.global[data.stats == stats.data[2, 3], 6][1]
-    stats.data[2, 2] <- data.global[data.stats == stats.data[2, 3], 8][1]
-  }
-
-  if ("median" %in% stats) {
-    stats.data[3, 3] <- data.stats[data.stats == quantile(data.stats, 0.5, type = 3)]
-    stats.data[3, 1] <- data.global[data.stats == stats.data[3, 3], 6][1]
-    stats.data[3, 2] <- data.global[data.stats == stats.data[3, 3], 8][1]
-  }
 
   ## index to pick according to the value of the rotate argument
   rotate.idx <- if (!rotate) 1 else 2
@@ -1275,37 +1251,24 @@ plot_AbanicoPlot <- function(
       }
     }
 
-    ## optionally, add minor grid lines
-    if (grid.minor != "none") {
-      for (i in 1:length(tick.values.minor)) {
+    ## optionally, add minor and major grid lines
+    .add.grid <- function(tick.values, grid.col) {
+      for (i in 1:length(tick.values)) {
+        y.val <- (tick.values[i] - z.central.global) * min.ellipse
         lines.rot(x = c(limits.x[1], min.ellipse),
-              y = c(0, tick.values.minor[i] - z.central.global) *
-                min.ellipse,
-              col = grid.minor,
+              y = c(0, y.val),
+              col = grid.col,
               lwd = 1)
         lines.rot(x = c(xy.0, y.max),
-              y = c(tick.values.minor[i] - z.central.global,
-                    tick.values.minor[i] - z.central.global) * min.ellipse,
-              col = grid.minor,
+              y = c(y.val, y.val),
+              col = grid.col,
               lwd = 1)
       }
     }
-
-    ## optionally, add major grid lines
-    if (grid.major != "none") {
-      for (i in 1:length(tick.values.major)) {
-        lines.rot(x = c(limits.x[1], min.ellipse),
-              y = c(0, tick.values.major[i] - z.central.global) *
-                min.ellipse,
-              col = grid.major,
-              lwd = 1)
-        lines.rot(x = c(xy.0, y.max),
-              y = c(tick.values.major[i] - z.central.global,
-                    tick.values.major[i] - z.central.global) * min.ellipse,
-              col = grid.major,
-              lwd = 1)
-      }
-    }
+    if (grid.minor != "none")
+      .add.grid(tick.values.minor, grid.minor)
+    if (grid.major != "none")
+      .add.grid(tick.values.major, grid.major)
 
     ## optionally, plot lines for each bar
     if (lwd[1] > 0 && lty[1] > 0 && !isFALSE(bar[1])) {
@@ -1324,15 +1287,14 @@ plot_AbanicoPlot <- function(
   ## optionally add KDE plot
   if (kde) {
     ## calculate max KDE value for axis label
-    KDE.max.plot <- 0
-    for (x in data) {
+    KDE.max.plot <- max(vapply(data, function(x) {
       KDE.plot <- density(x[, 1],
                           kernel = "gaussian",
                           bw = bw,
                           from = limits.z[1],
                           to = limits.z[2])
-      KDE.max.plot <- max(KDE.plot$y, KDE.max.plot)
-    }
+      max(KDE.plot$y)
+    }, numeric(1)), 0)
     KDE.scale <- (y.max - xy.0) / (KDE.max * 1.05)
 
     ## plot KDE lines
@@ -1727,27 +1689,27 @@ plot_AbanicoPlot <- function(
     for (i in 1:length(data)) {
       ## calculate boxplot data without plotting
       boxplot.data <- graphics::boxplot(data[[i]][, 3], plot = FALSE)
-      stats <- (boxplot.data$stats[, 1] - z.central.global) * min.ellipse
+      stat <- (boxplot.data$stats[, 1] - z.central.global) * min.ellipse
 
       ## draw median line
       lines.rot(x = box.x,
-                y = c(stats[3], stats[3]),
+                y = c(stat[3], stat[3]),
                 lwd = 2,
                 col = kde.line[i])
 
       ## draw p25-p75-polygon
       polygon.rot(x = rep(box.x, each = 2),
-                  y = c(stats[2], stats[4], stats[4], stats[2]),
+                  y = c(stat[2], stat[4], stat[4], stat[2]),
                   border = kde.line[i])
 
       ## draw lower whisker
       lines.rot(x = c(rep(mean(box.x), 2), box.x),
-                y = c(stats[2], stats[1], stats[1], stats[1]),
+                y = c(stat[2], stat[1], stat[1], stat[1]),
                 col = kde.line[i])
 
       ## draw upper whisker
       lines.rot(x = c(rep(mean(box.x), 2), box.x),
-                y = c(stats[4], stats[5], stats[5], stats[5]),
+                y = c(stat[4], stat[5], stat[5], stat[5]),
                 col = kde.line[i])
 
       ## draw outlier points
@@ -1796,15 +1758,32 @@ plot_AbanicoPlot <- function(
   }
 
   ## optionally add stats, i.e. min, max, median sample text
-  if (length(stats) > 0) {
-    text.rot(x = stats.data[, 1],
-             y = stats.data[, 2],
-             pos = 2,
-             labels = round(stats.data[, 3], 1),
-             family = layout$abanico$font.type$stats,
-             font = .font_style(layout$abanico$font.deco$stats),
-             cex = layout$abanico$font.size$stats / 12,
-             col = layout$abanico$colour$stats)
+  if (!is.null(stats)) {
+    ## supported functions
+    label.fun <- list(min = min,
+                      max = max,
+                      median = function(x) unname(quantile(x, 0.5, type = 3)))
+    label.fun <- label.fun[names(label.fun) %in% stats]
+
+    ## calculate label positions by applying the specified function
+    stats.data <- vapply(label.fun, function(fun) {
+      value <- fun(data.global[, 1])
+      idx <- data.global[, 1] == value
+      c(x = data.global[idx, 6][1],
+        y = data.global[idx, 8][1],
+        value = value)
+    }, numeric(3))
+
+    if (ncol(stats.data) > 0) {
+      text.rot(x = stats.data["x", ],
+               y = stats.data["y", ],
+               labels = round(stats.data["value", ], 1),
+               pos = 2,
+               family = layout$abanico$font.type$stats,
+               font = .font_style(layout$abanico$font.deco$stats),
+               cex = layout$abanico$font.size$stats / 12,
+               col = layout$abanico$colour$stats)
+    }
   }
 
   ## optionally add rug
@@ -2110,24 +2089,24 @@ plot_AbanicoPlot <- function(
       )),
       annotations = list(
         list(
-          x = 1.02, 
+          x = 1.02,
           y = 0,
-          xref = "paper", 
+          xref = "paper",
           yref = "y",
           text = zlab.text,
-          showarrow = FALSE, 
-          textangle = 90, 
+          showarrow = FALSE,
+          textangle = 90,
           align = "left"),
         list(
-          x = 0, 
+          x = 0,
           y = 1,
-          xref = "paper", 
+          xref = "paper",
           yref = "paper",
           text = unlist(label.text),
-          showarrow = FALSE, 
-          textangle = 0, 
+          showarrow = FALSE,
+          textangle = 0,
           align = "center")),
-      
+
       showlegend = FALSE
     )
 
