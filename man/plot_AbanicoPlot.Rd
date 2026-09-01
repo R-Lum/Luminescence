@@ -61,7 +61,8 @@ can be suppressed altogether by setting \code{line = NA}.
 exclude \code{NA} values from the data set prior to any further operations.}
 
 \item{log.z}{\link{logical} (\emph{with default}):
-Option to display the z-axis in logarithmic scale. Default is \code{TRUE}.}
+display the z-axis in logarithmic scale (\code{TRUE} by default). The setting is
+automatically reset to \code{FALSE} if any zero values appear in the De column.}
 
 \item{z.0}{\link{character} or \link{numeric} (\emph{with default}):
 User-defined central value used for centring of data. One of \code{"mean.weighted"}

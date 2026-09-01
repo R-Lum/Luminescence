@@ -304,7 +304,7 @@ test_that("more coverage", {
   expect_warning(
     object = plot_AbanicoPlot(
     data = data.frame(x = c(0,1), y = c(0.1, 0.1))),
-    "Found zero values in x-column of dataset 1, 'log.z' set to FALSE")
+    "Zeros found in x-column of dataset 1, 'log.z' set to FALSE")
 
   ## handling of negative values; before it produced wrong plots
  expect_silent(plot_AbanicoPlot(data = data.frame(

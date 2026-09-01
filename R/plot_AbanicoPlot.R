@@ -100,7 +100,8 @@
 #' exclude `NA` values from the data set prior to any further operations.
 #'
 #' @param log.z [logical] (*with default*):
-#' Option to display the z-axis in logarithmic scale. Default is `TRUE`.
+#' display the z-axis in logarithmic scale (`TRUE` by default). The setting is
+#' automatically reset to `FALSE` if any zero values appear in the De column.
 #'
 #' @param z.0 [character] or [numeric] (*with default*):
 #' User-defined central value used for centring of data. One of `"mean.weighted"`
@@ -235,8 +236,8 @@
 #' Supported are: `main`, `sub`, `ylab`, `xlab`, `zlab`, `zlim`, `ylim`, `cex`,
 #' `lty`, `lwd`, `pch`, `col`, `at`, `breaks`. `xlab` must be
 #' a vector of length two, specifying the upper and lower x-axis labels.
-#' 
-#' Please note that in the interactive mode, if you are using an expression, 
+#'
+#' Please note that in the interactive mode, if you are using an expression,
 #' the `zlab` must use HTML tags, such as `D<sub>e</sub>` for `D[e]`.
 #'
 #' @return
@@ -580,7 +581,7 @@ plot_AbanicoPlot <- function(
   if (log.z) {
     for(i in 1:length(data)) {
       if(any(data[[i]][[1]] == 0)) {
-        .throw_warning("Found zero values in x-column of dataset ", i,
+        .throw_warning("Zeros found in x-column of dataset ", i,
                        ", 'log.z' set to FALSE")
         log.z <- FALSE
       }
@@ -2087,7 +2088,7 @@ plot_AbanicoPlot <- function(
       line = list(color = "red"),
       yaxis = "y"
     )
-    
+
     ### set layout -----------------
     ## fall back to character
     zlab.text <- if (is.expression(zlab)) "D" else as.character(zlab)
@@ -2155,7 +2156,7 @@ plot_AbanicoPlot <- function(
     ### show and return interactive plot ----
     if(is.null(list(...)$.shiny))
       print(IAP)
-    
+
     return(IAP)
   }
 
