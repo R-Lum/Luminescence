@@ -10,7 +10,6 @@ plot_ViolinPlot(
   rug = TRUE,
   summary = c("n", "median"),
   summary.pos = "sub",
-  na.rm = TRUE,
   ...
 )
 }
@@ -18,7 +17,7 @@ plot_ViolinPlot(
 \item{data}{\link{numeric} or \link[=RLum.Results-class]{RLum.Results} (\strong{required}):
 input data for plotting. Alternatively a \link{data.frame} or a \link{matrix} can
 be provided, but only the first column will be considered by the
-function.}
+function. Rows with \code{NA} values will be removed prior to plotting.}
 
 \item{boxplot}{\link{logical} (\emph{with default}):
 enable/disable the boxplot.}
@@ -35,9 +34,6 @@ optional position keywords (cf. \link{legend}) for the statistical summary.
 Alternatively, the keyword \code{"sub"} may be specified to place the summary
 below the plot header. However, this latter option in only possible if
 \code{mtext} is not used.}
-
-\item{na.rm}{\link{logical} (\emph{with default}):
-exclude \code{NA} values from the data set prior to any further operations.}
 
 \item{...}{further arguments and graphical parameters passed to
 \link{plot.default}, \link[stats:density]{stats::density} and \link{boxplot}. See details for further

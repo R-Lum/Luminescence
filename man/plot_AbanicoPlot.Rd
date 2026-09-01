@@ -6,7 +6,6 @@
 \usage{
 plot_AbanicoPlot(
   data,
-  na.rm = TRUE,
   log.z = TRUE,
   z.0 = c("mean.weighted", "mean", "median"),
   dispersion = c("qr", "sd", "2sd"),
@@ -44,7 +43,8 @@ plot_AbanicoPlot(
 \item{data}{\link{data.frame} or \link[=RLum.Results-class]{RLum.Results} object (\strong{required}):
 for \code{data.frame} two columns: De (\code{data[,1]}) and De error (\code{data[,2]}).
 To plot several data sets in one plot the data sets must be provided as
-\code{list}, e.g. \code{list(data.1, data.2)}.\cr
+\code{list}, e.g. \code{list(data.1, data.2)}. Rows with \code{NA} values will be removed
+prior to plotting.\cr
 For some \link[=RLum.Results-class]{RLum.Results} objects, one or more lines (and
 corresponding labels) are drawn automatically:
 \itemize{
@@ -56,9 +56,6 @@ corresponding labels) are drawn automatically:
 Alternative labels can be set via the \code{line.label} option. This behaviour
 can be suppressed altogether by setting \code{line = NA}.
 }}
-
-\item{na.rm}{\link{logical} (\emph{with default}):
-exclude \code{NA} values from the data set prior to any further operations.}
 
 \item{log.z}{\link{logical} (\emph{with default}):
 display the z-axis in logarithmic scale (\code{TRUE} by default). The setting is

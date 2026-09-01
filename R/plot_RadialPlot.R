@@ -42,12 +42,10 @@
 #' for `data.frame`: either two columns: De (`data[,1]`) and De error
 #' (`data[,2]`), or one: De (`values[,1]`). If a single-column data frame
 #' is provided, De error is assumed to be 10^-9 for all measurements, and
-#' `y.ticks` is silently reset to `FALSE`.
+#' `y.ticks` is silently reset to `FALSE`. Rows with `NA` values will be
+#' removed prior to plotting.
 #' To plot several data sets in one plot, the data sets must be provided as
 #' `list`, e.g. `list(data.1, data.2)`.
-#'
-#' @param na.rm [logical] (*with default*):
-#' excludes `NA` values from the data set prior to any further operations.
 #'
 #' @param log.z [logical] (*with default*):
 #' Option to display the z-axis in logarithmic scale. Default is `TRUE`.
@@ -265,7 +263,6 @@
 #' @export
 plot_RadialPlot <- function(
   data,
-  na.rm = TRUE,
   log.z = TRUE,
   central.value = NULL,
   centrality = c("mean.weighted", "mean.weighted", "median", "median.weighted"),
@@ -395,14 +392,11 @@ plot_RadialPlot <- function(
                    "more than one data set (group) is provided")
   }
 
-  ## optionally, remove NA-values
-  .validate_logical_scalar(na.rm)
-  if (na.rm) {
-    for(i in 1:length(data)) {
+  ## remove NA-values
+  for (i in 1:length(data)) {
       data[[i]] <- na.exclude(data[[i]])
       if (nrow(data[[i]]) == 0)
         .throw_error("After NA removal, nothing is left from data set ", i)
-    }
   }
 
   ## create preliminary global data set

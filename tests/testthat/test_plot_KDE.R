@@ -15,7 +15,7 @@ test_that("input validation", {
                               "Inf values removed in rows: 1 in data.frame 1"),
                "Your input is empty due to Inf removal")
   expect_error(plot_KDE(df, df),
-               "'na.rm' should be a single logical value")
+               "'values.cumulative' should be a single logical value")
   expect_error(plot_KDE(df, summary.method = "error"),
                "'summary.method' should be one of 'MCM', 'weighted' or 'unweighted'")
   expect_error(plot_KDE(df, summary = 5),
