@@ -83,7 +83,7 @@ was an undocumented leftover from when user inputs were not validated (#1682).
 used, causing the computed errors to be marginally larger than expected. This
 error has been present since 2016, and its impact on the results produced
 depends on the number of background channels used, with the inflation of
-errors decreasing as the size of the backround region grows (#1684).
+errors decreasing as the size of the background region grows (#1684).
 
 ### `calc_FuchsLang2001()`
 
@@ -168,7 +168,7 @@ This was a regression introduced in v1.2.0 (#1689).
 
 ### `plot_RLum()`
 
-* The handling of `mtext` has been improved so that, when speccified as a
+* The handling of `mtext` has been improved so that, when specified as a
 list, each element is dispatched (with recycling) to each object being
 plotted, making `mtext` behave like the `main` argument (#1676).
 
