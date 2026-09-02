@@ -319,7 +319,7 @@
 #'
 #' **slot:** **`@info`**
 #'
-#' The original function call ([methods::language-class]-object)
+#' The original function call
 #'
 #' The output (`data`) should be accessed using the function [Luminescence::get_RLum].
 #'

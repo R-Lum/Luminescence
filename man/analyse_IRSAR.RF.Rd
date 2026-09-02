@@ -164,7 +164,7 @@ vertical sliding range. It can be added as systematic error to the final De erro
 
 \strong{slot:} \strong{\verb{@info}}
 
-The original function call (\link[methods:language-class]{methods::language}-object)
+The original function call
 
 The output (\code{data}) should be accessed using the function \link{get_RLum}.
 
