@@ -122,7 +122,7 @@ Efron, B., Tibshirani, R., 1986. Bootstrap Methods for Standard Errors, Confiden
 and Other Measures of Statistical Accuracy. Statistical Science 1, 54-75.
 }
 \seealso{
-\link{read.table}, \link[graphics:hist]{graphics::hist}
+\link[graphics:hist]{graphics::hist}
 }
 \author{
 Claire Christophe, IRAMAT-CRP2A, Université de Nantes (France)\cr

@@ -48,7 +48,7 @@
 #' Guillaume Guérin, IRAMAT-CRP2A, Université Bordeaux Montaigne, (France)\cr
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
-#' @seealso [read.table], [graphics::hist]
+#' @seealso [graphics::hist]
 #'
 #' @return
 #' The function produces numerical output and an optional plot. In addition,
