@@ -29,6 +29,12 @@ test_that("input validation", {
   expect_error(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
                                      merge.method = "error"),
                "'merge.method' should be one of 'mean', 'median', 'sum', 'sd'")
+  expect_error(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
+                                     method.info = "error"),
+               "'method.info' should be a single positive integer value or NULL")
+  expect_error(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
+                                     method.info = 10),
+               "'method.info' cannot exceed the number of objects being merged")
   expect_error(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3_types)),
                "Objects cannot be merged, different record types found")
 

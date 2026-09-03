@@ -33,6 +33,9 @@ merge_RLum.Data.Spectrum <- function(
                                  c("mean", "median", "sum", "sd", "var",
                                    "min", "max", "append", "-", "*", "/"))
   .validate_positive_scalar(method.info, int = TRUE, null.ok = TRUE)
+  if (!is.null(method.info) && method.info > num.objects)
+    .throw_error("'method.info' cannot exceed the number of objects being merged (",
+                 num.objects, ")")
   .validate_positive_scalar(max.temp.diff)
 
   ## Merge objects ----------------------------------------------------------

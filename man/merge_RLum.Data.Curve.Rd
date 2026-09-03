@@ -28,14 +28,13 @@ list of objects to be merged.}
 \item{merge.method}{\link{character} (\strong{required}):
 method for combining of the objects, e.g. \code{'mean'} (default), \code{'median'},
 \code{'sum'}, see details for
-further information and allowed methods.  Note: Elements in slot info will
-be taken from the first object in the list.}
+further information and allowed methods.}
 
 \item{method.info}{\link{numeric} (\emph{optional}):
 allows to specify how info elements of the input objects are combined,
 e.g. \code{1} means that just the elements from the first object are kept,
 \code{2} keeps only the info elements from the 2 object etc.
-If set to \code{NULL}, all elements are combined.}
+If set to \code{NULL} (default), all elements are combined.}
 
 \item{max.temp.diff}{\link{numeric} (\emph{with default}):
 maximum difference in the time/temperature values between the spectra to

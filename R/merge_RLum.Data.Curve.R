@@ -67,14 +67,13 @@
 #' @param merge.method [character] (**required**):
 #' method for combining of the objects, e.g. `'mean'` (default), `'median'`,
 #' `'sum'`, see details for
-#' further information and allowed methods.  Note: Elements in slot info will
-#' be taken from the first object in the list.
+#' further information and allowed methods.
 #'
 #' @param method.info [numeric] (*optional*):
 #' allows to specify how info elements of the input objects are combined,
 #' e.g. `1` means that just the elements from the first object are kept,
 #' `2` keeps only the info elements from the 2 object etc.
-#' If set to `NULL`, all elements are combined.
+#' If set to `NULL` (default), all elements are combined.
 #'
 #' @param max.temp.diff [numeric] (*with default*):
 #' maximum difference in the time/temperature values between the spectra to
@@ -139,6 +138,9 @@ merge_RLum.Data.Curve<- function(
   ## Integrity checks -------------------------------------------------------
   .validate_class(object, "list")
   .validate_positive_scalar(method.info, int = TRUE, null.ok = TRUE)
+  if (!is.null(method.info) && method.info > length(object))
+    .throw_error("'method.info' cannot exceed the number of objects being merged (",
+                 length(object), ")")
 
   ##(1) check if object is of class RLum.Data.Curve
   temp.recordType.test <- sapply(object, function(x) {
