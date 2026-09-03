@@ -1,50 +1,53 @@
-#' @title Merge function for RLum.Data.Curve S4 class objects
+#' @title Merge RLum.Data objects
 #'
-#' @description This function allows to merge [Luminescence::RLum.Data.Curve-class] objects in different
-#' ways without modifying the original objects. Merging is always applied on
-#' the 2nd column of the object's data matrix.
+#' @description
+#' This function allows to merge [Luminescence::RLum.Data.Curve-class] and
+#' [Luminescence::RLum.Data.Spectrum-class] objects in different ways without
+#' modifying the original objects. For `RLum.Data.Curve` objects, merging is
+#' always applied on the 2nd column of the object's data matrix.
 #'
 #' **Supported merge operations are:**
 #'
 #' `"mean"` (default)
 #'
-#' The mean over the count values is calculated using the function
-#' [rowMeans].
+#' The mean over the count/cell values is calculated using [rowMeans].
 #'
 #' `"median"`
 #'
-#' The median over the count values is calculated using the function
+#' The median over the count/cell values is calculated using
 #' [matrixStats::rowMedians].
 #'
 #' `"sum"`
 #'
-#' All count values will be summed up using the function [rowSums].
+#' All count/cell values will be summed up using [rowSums].
 #'
 #' `"sd"`
 #'
-#' The standard deviation over the count values is calculated using the function
+#' The standard deviation over the count/cell values is calculated using
 #' [matrixStats::rowSds].
 #'
 #' `"var"`
 #'
-#' The variance over the count values is calculated using the function
+#' The variance over the count/cell values is calculated using
 #' [matrixStats::rowVars].
 #'
 #' `"min"`
 #'
-#' The min values from the count values is chosen using the function
-#' [matrixStats::rowMins][matrixStats::rowRanges].
+#' The min values from the count/cell values is calculated using
+#' [matrixStats::rowMins].
 #'
 #' `"max"`
 #'
-#' The max values from the count values is chosen using the function
-#' [matrixStats::rowMins][matrixStats::rowRanges].
+#' The max values from the count/cell values is calculated using
+#' [matrixStats::rowMins].
 #'
 #' `"append"`
 #'
-#' Appends count values of all curves to one combined data curve. The channel width
-#' is automatically re-calculated, but requires a constant channel width of the
-#' original data.
+#' Appends count/cell values of all objects to one combined data object. The
+#' channel width is automatically re-calculated, but requires a constant channel
+#' width of the original data. Note: for [Luminescence::RLum.Data.Spectrum-class]
+#' objects, this method is only available when all objects have the same number
+#' of columns.
 #'
 #' `"-"`
 #'
@@ -58,14 +61,14 @@
 #'
 #' Values of the first object are divided by row sums of the last objects.
 #'
-#' @param object [list] of [Luminescence::RLum.Data.Curve-class] (**required**):
+#' @param object [list] of [Luminescence::RLum.Data.Curve-class] or [Luminescence::RLum.Data.Spectrum-class] (**required**):
 #' list of objects to be merged.
 #'
 #' @param merge.method [character] (**required**):
 #' method for combining of the objects, e.g. `'mean'` (default), `'median'`,
 #' `'sum'`, see details for
 #' further information and allowed methods.  Note: Elements in slot info will
-#' be taken from the first curve in the list.
+#' be taken from the first object in the list.
 #'
 #' @param method.info [numeric] (*optional*):
 #' allows to specify how info elements of the input objects are combined,
@@ -73,7 +76,14 @@
 #' `2` keeps only the info elements from the 2 object etc.
 #' If set to `NULL`, all elements are combined.
 #'
-#' @return Returns an [Luminescence::RLum.Data.Curve-class] object.
+#' @param max.temp.diff [numeric] (*with default*):
+#' maximum difference in the time/temperature values between the spectra to
+#' be merged: when differences exceed this threshold value, the merging
+#' occurs but a warning is raised.
+#' Only used for [Luminescence::RLum.Data.Spectrum-class] objects.
+#'
+#' @return Returns an [Luminescence::RLum.Data.Curve-class] or
+#' [Luminescence::RLum.Data.Spectrum-class] object, depending on the input.
 #'
 #' @note
 #' The information from the slot `recordType` is taken from the first
@@ -82,34 +92,38 @@
 #'
 #' @section S3-generic support:
 #'
-#' This function is fully operational via S3-generics:
+#' These functions are fully operational via S3-generics:
 #' ``+``, ``-``, ``/``, ``*``, `merge`
 #'
 #' @section Function version: 0.2.2
 #'
 #' @author
-#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
 #'
-#' @seealso [Luminescence::merge_RLum], [Luminescence::RLum.Data.Curve-class]
+#' @seealso [Luminescence::merge_RLum],
+#' [Luminescence::RLum.Data.Curve-class],
+#' [Luminescence::RLum.Data.Spectrum-class]
 #'
 #' @keywords utilities internal
 #'
 #' @examples
 #'
-#' ##load example data
+#' ## load example data
 #' data(ExampleData.XSYG, envir = environment())
 #'
-#' ##grep first and 3d TL curves
+#' ## grep first and third TL curves
 #' TL.curves  <- get_RLum(OSL.SARMeasurement$Sequence.Object, recordType = "TL (UVVIS)")
 #' TL.curve.1 <- TL.curves[[1]]
 #' TL.curve.3 <- TL.curves[[3]]
 #'
-#' ##plot single curves
+#' ## plot single curves
 #' plot_RLum(TL.curve.1)
 #' plot_RLum(TL.curve.3)
 #'
-#' ##subtract the 1st curve from the 2nd and plot
-#' TL.curve.merged <- merge_RLum.Data.Curve(list(TL.curve.3, TL.curve.1), merge.method = "/")
+#' ## subtract the 1st curve from the 3rd and plot
+#' TL.curve.merged <- merge_RLum.Data.Curve(list(TL.curve.3, TL.curve.1),
+#'                                          merge.method = "/")
 #' plot_RLum(TL.curve.merged)
 #'
 #' @export
