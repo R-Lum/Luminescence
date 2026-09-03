@@ -244,10 +244,7 @@ import(data.table)
 import(methods)
 import(utils)
 importFrom(Rcpp,evalCpp)
-importFrom(grDevices,
-  adjustcolor,
-  rgb
-)
+importFrom(grDevices,rgb)
 importFrom(graphics,
   abline,
   axTicks,
@@ -272,14 +269,9 @@ importFrom(stats,
   dnorm,
   median,
   na.exclude,
-  nls,
-  predict,
   quantile,
-  residuals,
   rnorm,
   runif,
-  sd,
-  setNames,
-  uniroot
+  sd
 )
 useDynLib(Luminescence, .registration = TRUE)

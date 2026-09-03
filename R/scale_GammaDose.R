@@ -446,7 +446,7 @@ scale_GammaDose <- function(
 
 
   ## Generate output object
-  op <- setNames(vector(mode = "list", length = 17),
+  op <- stats::setNames(vector(mode = "list", length = 17),
                  nm = c("K","K_se","Th","Th_se","U","U_se","sum","sum_se",
                         "K_inf","K_inf_se","Th_inf","Th_inf_se","U_inf","U_inf_se","sum_inf","sum_inf_se",
                         "contrib"))

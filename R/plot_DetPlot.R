@@ -74,10 +74,10 @@
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
 #'
-#' @param multicore [logical] (*with default*):
-#' enable/disable multi core calculation if `object` is a [list] of
-#' [Luminescence::RLum.Analysis-class] objects. Can be an [integer] specifying
-#' the number of cores to use.
+#' @param cores [integer], [numeric] (*with default*):
+#' number of cores allocated for parallel processing when `object` is a [list]
+#' of objects. The default value (`NULL`) assigns all but two of the available
+#' logical CPU cores.
 #'
 #' @param plot [logical] (*with default*):
 #' enable/disable the plot output.
@@ -114,7 +114,7 @@
 #' should be checked carefully before running long calculations over hundreds
 #' of channels.
 #'
-#' @section Function version: 0.1.11
+#' @section Function version: 0.1.12
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -156,7 +156,7 @@ plot_DetPlot <- function(
   n.channels = NULL,
   show_ShineDownCurve = TRUE,
   respect_RC.Status = FALSE,
-  multicore = TRUE,
+  cores = NULL,
   verbose = TRUE,
   plot = TRUE,
   ...
@@ -166,6 +166,11 @@ plot_DetPlot <- function(
 
 # SELF CALL ---------------------------------------------------------------
   if(inherits(object, "list")) {
+    ## deprecated argument
+    if ("multicore" %in% ...names()) {
+      .deprecated("multicore", "cores", since = "1.3.1")
+    }
+
    ## remove all RLum.Analysis objects
    object <- .rm_nonRLum(x = object, class = "RLum.Analysis")
 
@@ -173,18 +178,13 @@ plot_DetPlot <- function(
    f_def <- sys.call(sys.parent(n = -1))
    args_default <- as.list(f_def)[-(1:2)]
 
-    ## detect cores
-    .validate_class(multicore, c("logical", "numeric", "integer"), length = 1)
-    cores <- if (isTRUE(multicore)) {
-               min(parallel::detectCores(), length(object))
-             } else {
-               max(multicore, 1)
-             }
-
     ## function that calls plot_DetPlot() on each element of the list
     nested.fun <- function(x) {
       do.call(plot_DetPlot, c(list(object = x), args_default))
     }
+
+    ## detect cores
+    cores <- .validate_cores(cores)
 
     if (cores > 1) {
       ## run in parallel

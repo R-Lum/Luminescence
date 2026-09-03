@@ -400,32 +400,32 @@
             {
               "type": "double",
               "attributes": {},
-              "value": [5.5]
+              "value": ["NA"]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": [5.5]
+              "value": ["NA"]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": [3.02765035]
+              "value": ["NA"]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": [55.04818826]
+              "value": ["NA"]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": [0.95742711]
+              "value": ["NA"]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": [17.4077656]
+              "value": ["NA"]
             },
             {
               "type": "double",

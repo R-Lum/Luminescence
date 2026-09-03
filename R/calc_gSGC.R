@@ -180,7 +180,7 @@ for(i in 1:nrow(data)){
     LnTn.error <- data[i,"LnTn.error"]
 
   ##calculate mean value
-  temp <- try(uniroot(
+  temp <- try(stats::uniroot(
       f,
       interval = c(0.1,450),
       tol = 0.001,
@@ -220,8 +220,8 @@ for(i in 1:nrow(data)){
 
       ##run uniroot to get the De
       temp.MC.matrix[,7] <- vapply(X = 1:n.MC, FUN = function(x){
-
-        uniroot(f,
+        stats::uniroot(
+                f,
                 interval = c(0.1,450),
                 tol = 0.001,
                 A = temp.MC.matrix[x,3],
@@ -235,7 +235,6 @@ for(i in 1:nrow(data)){
                 extendInt = 'yes',
                 maxiter = 1000
                 )$root
-
       }, FUN.VALUE = numeric(1))
 
       ##calculate also the normalisation factor

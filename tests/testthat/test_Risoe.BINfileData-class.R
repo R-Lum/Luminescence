@@ -49,6 +49,8 @@ test_that("sort_RLum", {
   ## input validation
   expect_error(sort_RLum(obj),
                "'info_element' should be of class 'character'")
+  expect_error(sort_RLum(obj, info_element = character()),
+               "Invalid 'info_element' name, valid names are:")
   expect_error(sort_RLum(obj, info_element = c("ID", "error")),
                "Invalid 'info_element' name, valid names are:")
   expect_error(sort_RLum(obj, info_element = "ID", decreasing = "error"),

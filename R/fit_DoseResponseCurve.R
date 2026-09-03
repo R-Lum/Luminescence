@@ -773,7 +773,7 @@ fit_DoseResponseCurve <- function(
       success <- TRUE
       if (mode != "alternate") {
         De.fs <- function(fit, x, y) {
-          predict(fit, newdata = data.frame(x)) - y
+          stats::predict(fit, newdata = data.frame(x)) - y
         }
 
         ## for uniroot() to work, the values at the endpoints (lower and upper)
@@ -789,7 +789,7 @@ fit_DoseResponseCurve <- function(
           value.lower <- temp
         }
 
-        De.uniroot <- try(uniroot(De.fs, fit = fit, y = y,
+        De.uniroot <- try(stats::uniroot(De.fs, fit = fit, y = y,
                                   lower = lower, upper = upper),
                           silent = TRUE)
 
@@ -1125,7 +1125,7 @@ fit_DoseResponseCurve <- function(
 
       De <- NA
       if (mode != "alternate") {
-        temp.De <-  try(uniroot(
+        temp.De <- try(stats::uniroot(
           f = f.unirootSSELIN,
           interval = c(min.val, max(xy$x) * 1.5),
           tol = 0.001,
@@ -1175,7 +1175,7 @@ fit_DoseResponseCurve <- function(
 
           #problem: analytically it is not easy to calculate x,
           #use uniroot to solve this problem
-          temp.De.MC <- try(uniroot(
+          temp.De.MC <- try(stats::uniroot(
               f = f.unirootSSELIN,
               interval = c(min.val, max(xy$x) * 1.5),
               tol = 0.001,
@@ -1271,7 +1271,7 @@ fit_DoseResponseCurve <- function(
             fit_functionDSE_cpp(N1, N2, D01, D02, Di, x) - LnTn
           }
 
-        temp.De <-  try(uniroot(
+        temp.De <- try(stats::uniroot(
           f = f.unirootDSE,
           interval = c(0, max(xy$x) * 1.5),
           tol = 0.001,
@@ -1335,7 +1335,7 @@ fit_DoseResponseCurve <- function(
           var.D02[i] <- parameters["D02"]
 
           #problem: analytically it is not easy to calculate x, here an simple approximation is made
-          temp.De.MC <-  try(uniroot(
+          temp.De.MC <- try(stats::uniroot(
             f = f.unirootDSE,
             interval = c(0,max(xy$x) * 1.5),
             tol = 0.001,

@@ -25,14 +25,14 @@
 #'
 #' @param ... further arguments and graphical parameters to pass to the
 #' specific plot functions. The only arguments that are supported directly are
-#' `main` (plot title) and `mtext` (plot subtitle). Here `main` can be provided
-#' as a list and the arguments in the
-#' list will dispatched to the plots if `object` is of type `list` as well.
+#' `main` (plot title) and `mtext` (subtitle). They may be lists, in which
+#' case each element is dispatched to the plots (with recycling )if `object`
+#' is also a list.
 #'
 #' @return
 #' Produces a plot depending on the input object.
 #'
-#' @section Function version: 0.5
+#' @section Function version: 0.6
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -93,7 +93,10 @@ plot_RLum <- function(
   ## allow for different subtitles
   mtext <- NULL
   if (!is.null(extraArgs$mtext)) {
-    mtext <- rep_len(extraArgs$mtext, length(object))
+    mtext <- if (orig.list)
+               .listify(extraArgs$mtext, length(object))
+             else
+               list(extraArgs$mtext)
   } else if (orig.list && inherits(object[[1]], "RLum.Analysis")) {
     mtext <- paste("Record:", 1:length(object))
   }

@@ -72,12 +72,13 @@
 #' \item{args}{[list] of used arguments}
 #' \item{call}{[call] the function call}
 #'
-#' @section Function version: 0.1.1
+#' @section Function version: 0.1.2
 #'
 #' @author
 #' Georgina E. King, University of Bern (Switzerland) \cr
 #' Julie A. Durcan, University of Oxford (United Kingdom) \cr
-#' Christoph Burow, University of Cologne (Germany)
+#' Christoph Burow, University of Cologne (Germany) \cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
 #' @references
 #' Durcan, J.A. & Duller, G.A.T., 2011. The fast ratio: A rapid measure for testing
@@ -205,6 +206,14 @@ calc_FastRatio <- function(object,
                          drop = FALSE])
     A[ ,1] <- A[ ,1] - A[1,1]
 
+    ## replace infinite values
+    if (any(is.infinite(unlist(A)))) {
+      .throw_warning("Inf values found in 'object', replaced by NA")
+      for (i in 1:ncol(A)) {
+        A[is.infinite(A[, i]), i] <- NA
+      }
+    }
+
     ## remove missing values
     A <- na.exclude(A[, 1:2])
     if (nrow(A) == 0)
@@ -234,7 +243,7 @@ calc_FastRatio <- function(object,
 
         if (fitCW.curve) {
           nls <- get_RLum(fitCW.res, "fit")
-          A[ ,2] <- predict(nls)
+          A[, 2] <- stats::predict(nls)
         }
       } else {
         settings["fit"] <- list(NULL)
@@ -265,7 +274,11 @@ calc_FastRatio <- function(object,
       t_L3_end <- A[Ch_L3[2], 1]
     }
 
-    ## Channel number(s) of L2 and L3
+    ## Counts in channels L1, L2, L3
+    ## L1 ----
+    Cts_L1 <- A[Ch_L1, 2]
+
+    ## L2 ----
     if (is.null(Ch_L2))
       Ch_L2 <- which.min(abs(A[,1] - t_L2))
 
@@ -277,14 +290,6 @@ calc_FastRatio <- function(object,
       return(NULL)
     }
 
-    Ch_L3st<- which.min(abs(A[,1] - t_L3_start))
-    Ch_L3end <- which.min(abs(A[,1] - t_L3_end))
-
-    ## Counts in channels L1, L2, L3
-    # L1 ----
-    Cts_L1 <- A[Ch_L1, 2]
-
-    # L2 ----
     if (Ch_L2 > nrow(A)) {
       msg <- sprintf(paste("The calculated channel for L2 (%i) exceeds",
                            "the number of available channels (%i),",
@@ -295,26 +300,16 @@ calc_FastRatio <- function(object,
     }
     Cts_L2 <- A[Ch_L2, 2]
 
-    # L3 ----
-    if (Ch_L3st >= nrow(A) | Ch_L3end > nrow(A)) {
-      msg <- sprintf(paste("The calculated channels for L3 (%i, %i) exceed",
-                           "the number of available channels (%i).",
-                           "\nThe background has instead been estimated from the last",
-                           "5 channels."), Ch_L3st, Ch_L3end, nrow(A))
-      settings$info <- modifyList(settings$info, list(L3 = msg))
-      .throw_warning(msg)
-      Ch_L3st <- max(nrow(A) - 5, 1)
-      Ch_L3end <- nrow(A)
-      t_L3_start <- A[Ch_L3st,1]
-      t_L3_end <- A[Ch_L3end,1]
-    }
+    ## L3 ----
+    Ch_L3st <- which.min(abs(A[, 1] - t_L3_start))
+    Ch_L3end <- which.min(abs(A[, 1] - t_L3_end))
     Cts_L3 <- mean(A[Ch_L3st:Ch_L3end, 2])
 
     # optional: predict the counts from the fitted curve
     if (fitCW.curve && !inherits(fitCW.res, "try-error")) {
         nls <- get_RLum(fitCW.res, "fit")
-        Cts_L2 <- predict(nls, list(x = t_L2))
-        Cts_L3 <- mean(predict(nls, list(x = c(t_L3_start, t_L3_end))))
+        Cts_L2 <- stats::predict(nls, list(x = t_L2))
+        Cts_L3 <- mean(stats::predict(nls, list(x = c(t_L3_start, t_L3_end))))
     }
 
     # Warn if counts are not in decreasing order
@@ -331,7 +326,7 @@ calc_FastRatio <- function(object,
     if (!is.na(FR)) {
 
       # number of channels the background was derived from
-      nBG <- abs(Ch_L3end - Ch_L3st)
+      nBG <- abs(Ch_L3end - Ch_L3st + 1)
 
       # relative standard errors
       rse_L1 <- sqrt(Cts_L1 + Cts_L3 / nBG) / (Cts_L1 - Cts_L3)

@@ -71,6 +71,9 @@ test_that("input validation", {
                "After NA removal, nothing is left from the data set")
   expect_error(calc_FastRatio(data.frame(1:4, NA)),
                "After NA removal, nothing is left from the data set")
+  expect_error(expect_warning(calc_FastRatio(data.frame(1:4, Inf)),
+                              "Inf values found in 'object', replaced by NA"),
+               "After NA removal, nothing is left from the data set")
   expect_error(calc_FastRatio(ExampleData.CW_OSL_Curve, verbose = NA),
                "'verbose' should be a single logical value")
 
@@ -82,12 +85,6 @@ test_that("input validation", {
                                             Ch_L2 = 2000)),
                  "The calculated channel for L2 (2000) exceeds the number",
                  fixed = TRUE)
-  SW({
-  expect_warning(calc_FastRatio(ExampleData.CW_OSL_Curve,
-                                Ch_L3 = c(1000, 1000)),
-                 "The calculated channels for L3 (1000, 1000) exceed",
-                 fixed = TRUE)
-  })
 })
 
 test_that("check functionality", {
@@ -103,6 +100,12 @@ test_that("check functionality", {
   ## fitCW.sigma and fitCW.curve
   expect_snapshot_RLum(calc_FastRatio(ExampleData.CW_OSL_Curve, plot = FALSE,
                                       fitCW.sigma = TRUE, fitCW.curve = TRUE),
+                       expect_snapshot_output = TRUE,
+                       tolerance = snapshot.tolerance)
+
+  ## Ch_L3 values equal to the last channel
+  expect_snapshot_RLum(calc_FastRatio(ExampleData.CW_OSL_Curve, plot = FALSE,
+                                      Ch_L3 = c(1000, 1000)),
                        expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
 

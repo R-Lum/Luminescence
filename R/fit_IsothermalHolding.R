@@ -406,7 +406,10 @@ fit_IsothermalHolding <- function(
       for (c in seq_along(isoT)) {
         ## only plot the fitted lines if the fit had worked
         if (inherits(fit_list[[i]][[c]], "nls")) {
-          y <- predict(fit_list[[i]][[c]], newdata = data.frame(x = x), interval = "confidence", se.fit = TRUE)
+          y <- stats::predict(fit_list[[i]][[c]],
+                              newdata = data.frame(x = x),
+                              interval = "confidence",
+                              se.fit = TRUE)
           lines(
             x = x,
             y = y,

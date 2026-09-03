@@ -11,12 +11,12 @@ test_that("Test certain input scenarios", {
   df <- ExampleData.DeValues$BT998
   df[, 2] <- NULL
   expect_warning(calc_Statistics(df),
-                 "All errors are NA or zero, automatically set to")
+                 "All errors are NA or zero, weighted statistics will match")
 
   df <- ExampleData.DeValues$BT998
   df[,2] <- 0
   expect_warning(calc_Statistics(df),
-                 "All errors are NA or zero, automatically set to")
+                 "All errors are NA or zero, weighted statistics will match")
 
   df <- ExampleData.DeValues$BT998
   expect_silent(calc_Statistics(df, weight.calc = "inverse_std"))
@@ -33,6 +33,8 @@ test_that("input validation", {
   expect_error(calc_Statistics(data.frame()),
                "'data' cannot be an empty data.frame")
   expect_error(calc_Statistics(data.frame(a = NA)),
+               "'data' contains only NA values")
+  expect_error(calc_Statistics(data.frame(a = 1:10, b = NA)),
                "'data' contains only NA values")
   expect_error(calc_Statistics(data = df, weight.calc = "error"),
                "'weight.calc' should be one of 'inverse_var', 'inverse_std'")

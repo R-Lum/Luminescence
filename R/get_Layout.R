@@ -336,7 +336,7 @@ get_Layout <- function(
             value.bar  = 1, # De value error bar colour
             value.rug = 1, # De value rug colour
             poly.line  = NA, # polygon line colour
-            poly.fill  = adjustcolor("grey75", alpha.f = 0.6), # polygon fill colour
+            poly.fill  = grDevices::adjustcolor("grey75", alpha.f = 0.6), # polygon fill colour
             bar.line   = NA, # polygon line colour
             bar.fill   = "grey60", # bar fill colour
             kde.line   = 1,
@@ -531,7 +531,7 @@ get_Layout <- function(
             value.bar  = 1, # De value error bar colour
             value.rug  = 1, # De value rug colour
             poly.line  = NA, # polygon line colour
-            poly.fill  = adjustcolor("grey75", alpha.f = 0.6), # polygon fill colour
+            poly.fill  = grDevices::adjustcolor("grey75", alpha.f = 0.6), # polygon fill colour
             bar.line   = NA, # polygon line colour
             bar.fill   = "grey60", # bar fill colour
             kde.line   = 1,
@@ -623,9 +623,9 @@ get_Layout <- function(
             value.rug       = 1, # De value rug colour
             boxplot.line    = 1, # boxplot line colour
             boxplot.fill    = NULL, # boxplot fill colour
-            mean.line       = adjustcolor(col = 1,
+            mean.line       = grDevices::adjustcolor(col = 1,
                                           alpha.f = 0.4), # mean line colour
-            sd.bar          = adjustcolor(col = 1,
+            sd.bar          = grDevices::adjustcolor(col = 1,
                                           alpha.f = 0.4), # sd bar colour
             background      = NULL),
 

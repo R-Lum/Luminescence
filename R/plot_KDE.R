@@ -45,12 +45,10 @@
 #' for `data.frame`: either two columns: De (`values[,1]`) and De error
 #' (`values[,2]`), or one: De (`values[,1]`). If a numeric vector or a
 #' single-column data frame is provided, De error is assumed to be 10^-9
-#' for all measurements and error bars are not drawn.
+#' for all measurements and error bars are not drawn. Rows with `NA` values
+#' will be removed prior to plotting.
 #' For plotting multiple data sets, these must be provided as
 #' `list` (e.g. `list(dataset1, dataset2)`).
-#'
-#' @param na.rm [logical] (*with default*):
-#' exclude `NA` values from the data set prior to any further operation.
 #'
 #' @param values.cumulative [logical] (*with default*):
 #' show cumulative individual data.
@@ -155,7 +153,6 @@
 #' @export
 plot_KDE <- function(
   data,
-  na.rm = TRUE,
   values.cumulative = TRUE,
   order = TRUE,
   boxplot = TRUE,
@@ -228,7 +225,6 @@ plot_KDE <- function(
   if(length(data) == 0)
     .throw_error("Your input is empty due to Inf removal")
 
-  .validate_logical_scalar(na.rm)
   .validate_logical_scalar(values.cumulative)
   .validate_logical_scalar(order)
   .validate_logical_scalar(boxplot)
@@ -280,8 +276,7 @@ plot_KDE <- function(
 
   ## loop through all data sets
   for(i in 1:length(data)) {
-    ## optionally, remove NA values
-    if (na.rm) {
+    ## remove NA values
       na.idx <- which(is.na(data[[i]][, 1]))
       n.NA <- length(na.idx)
       if (n.NA > 0) {
@@ -289,7 +284,6 @@ plot_KDE <- function(
                         n.NA, ifelse(n.NA > 1, "s", ""), i))
         data[[i]] <- data[[i]][-na.idx, ]
       }
-    }
 
     ## optionally, order data ascending
     if (order) {
@@ -297,7 +291,7 @@ plot_KDE <- function(
     }
 
     ## calculate statistics
-    statistics <- calc_Statistics(data[[i]], na.rm = na.rm)[[summary.method]]
+    statistics <- calc_Statistics(data[[i]])[[summary.method]]
 
     De.stats[i,1] <- statistics$n
     De.stats[i,2] <- statistics$mean

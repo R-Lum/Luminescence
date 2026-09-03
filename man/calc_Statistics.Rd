@@ -39,6 +39,10 @@ This function calculates a number of descriptive statistics for estimates
 with a given standard error (SE), most fundamentally using error-weighted approaches.
 }
 \details{
+If the error column of \code{data} is missing or only contains 0, the weighted
+statistics will match the unweighted ones. If only some errors are 0, then
+the weighted statistics will contain \code{NA} values.
+
 The option to use Monte Carlo Methods (\code{n.MCM}) allows calculating
 all descriptive statistics based on random values. The distribution of these
 random values is based on the Normal distribution with \code{De} values as
@@ -46,11 +50,11 @@ means and \code{De_error} values as one standard deviation. Increasing the
 number of MCM-samples linearly increases computation time. On a Lenovo X230
 machine evaluation of 25 Aliquots with n.MCM = 1000 takes 0.01 s, with
 n = 100000, ca. 1.65 s. It might be useful to work with logarithms of these
-values. See Dietze et al. (2016, Quaternary Geochronology) and the function
-\link{plot_AbanicoPlot} for details.
+values. See Dietze et al. (2016) and \link{plot_AbanicoPlot} for
+details.
 }
 \section{Function version}{
- 0.1.8
+ 0.1.9
 }
 
 \examples{
@@ -73,6 +77,11 @@ x <- as.data.frame(cbind(rnorm(n = 10^5, mean = 0, sd = 1),
 str(calc_Statistics(x))
 }
 
+}
+\references{
+Dietze, M., Kreutzer, S., Burow, C., Fuchs, M.C., Fischer, M., Schmidt, C., 2016.
+The abanico plot: visualising chronometric data with individual standard errors.
+Quaternary Geochronology 31, 1-7. \doi{10.1016/j.quageo.2015.09.003}
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany)

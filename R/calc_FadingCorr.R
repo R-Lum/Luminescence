@@ -259,7 +259,7 @@ calc_FadingCorr <- function(
 
   ##calculate mean value
   temp <-
-    try(suppressWarnings(uniroot(
+    try(suppressWarnings(stats::uniroot(
       f,
       interval = interval,
       tol = 0.0001,
@@ -321,7 +321,7 @@ calc_FadingCorr <- function(
 
     ##calculate for all values
     tempMC[i:j] <- suppressWarnings(vapply(X = 1:length(age.fadedMC), FUN = function(x) {
-      temp <- try(uniroot(
+      temp <- try(stats::uniroot(
         f,
         interval = interval,
         tol = 0.001,

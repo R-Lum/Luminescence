@@ -342,16 +342,19 @@ plot_DRTResults <- function(
     }
   }
 
+  ## find ranges of x values across all datasets
+  ## x_range[1, ] contains the minima, x_range[2, ] the maxima
+  x.range <- vapply(values, function(x) {
+    range(x[is.finite(x[, 1]), 1], na.rm = TRUE)
+  }, numeric(2))
+
   ##correct ylim for data set which exceed boundaries
-  if ((max(sapply(values, function(x) max(x[, 1], na.rm = TRUE))) > 1.25 ||
-       min(sapply(values, function(x) min(x[, 1], na.rm = TRUE))) < 0.75) &&
-       (!"ylim" %in% names(extraArgs))) {
-    ylim <- c(
-        ## append a 0 element to the errors to avoid crashing if all errors are NA
-        min(sapply(values, function(x) min(x[, 1], na.rm = TRUE) -
-                                       max(c(x[, 2], 0), na.rm = TRUE))),
-        max(sapply(values, function(x) max(x[, 1], na.rm = TRUE) +
-                                       max(c(x[, 2], 0), na.rm = TRUE))))
+  if (!"ylim" %in% names(extraArgs) &&
+      (max(x.range[2, ]) > 1.25 || min(x.range[1, ]) < 0.75)) {
+    err <- vapply(values, function(x) {
+      max(c(x[is.finite(x[, 2]), 2], 0), na.rm = TRUE)
+    }, numeric(1))
+    ylim <- c(min(x.range[1, ] - err), max(x.range[2, ] + err))
   }
 
   ## optionally group data by preheat temperature
