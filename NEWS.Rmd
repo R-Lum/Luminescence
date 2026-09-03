@@ -100,7 +100,7 @@ switches to using the "LIN" method (#1634, #1636).
 very specific cases would cause some overplotting, at least on MacOS (#1649).
 
 * The interactive plotting mode (`interactive = TRUE`) is more complete and
-renders a usable plot (#1664)
+renders a usable plot (#1664, #1696)
 
 ### `read_RF2R()`
 
