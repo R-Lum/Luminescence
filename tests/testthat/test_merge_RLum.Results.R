@@ -45,4 +45,30 @@ test_that("check functionality", {
   expect_snapshot_RLum(merge_RLum.Results(lapply(list(roi, roi),
                                                  function(x) extract_ROI(a, x)),
                                           flatten = FALSE))
+
+  ## vector elements
+  r1 <- set_RLum("RLum.Results", data = list(res = c(1, 2)))
+  r2 <- set_RLum("RLum.Results", data = list(res = c(3, 4, 5)))
+  expect_snapshot_RLum(merge_RLum.Results(list(r1, r2)))
+
+  ## matrix with a custom attribute
+  m1 <- matrix(1:4, nrow = 2); attr(m1, "myattr") <- "a"
+  m2 <- matrix(5:8, nrow = 2); attr(m2, "myattr") <- "b"
+  r1 <- set_RLum("RLum.Results", data = list(res = m1))
+  r2 <- set_RLum("RLum.Results", data = list(res = m2))
+  out <- merge_RLum.Results(list(r1, r2))@data$res
+  expect_identical(attributes(out)$myattr,
+                   c("a", "b"))
+  attr(out, "myattr") <- NULL
+  expect_equal(out, rbind(m1, m2))
+
+  ## data.frame with a custom attribute and row names
+  d1 <- data.frame(a = 1, b = 2); attr(d1, "myattr") <- "x"; row.names(d1) <- "A"
+  d2 <- data.frame(a = 3, b = 4); attr(d2, "myattr") <- "y"; row.names(d2) <- "B"
+  r1 <- set_RLum("RLum.Results", data = list(res = d1))
+  r2 <- set_RLum("RLum.Results", data = list(res = d2))
+  out <- merge_RLum.Results(list(r1, r2))@data$res
+  expect_identical(attributes(out)$myattr,
+                   c("x", "y"))
+  expect_identical(rownames(out), c("1", "2"))
 })
