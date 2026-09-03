@@ -103,10 +103,6 @@
 #' the more time is spent in searching the global optimum. The default setting
 #' attempts to strike a balance between quality of the fit and computation
 #' speed.
-#' - `cores` ([numeric] or [character], default: `NULL`): number of cores
-#' allocated for a parallel processing of the Monte-Carlo runs. The default
-#' value corresponds to single-threaded computation; the recommended values is
-#' `"auto"`, which assigns all but two of the available cores.
 #'
 #' **Error estimation**
 #'
@@ -236,12 +232,19 @@
 #' e.g., `par(mfrow(...))`. If `TRUE` no residual plot
 #' is returned; it has no effect if `plot = FALSE`
 #'
+#' @param cores [integer], [numeric] (*with default*):
+#' number of cores allocated for parallel processing of the Monte-Carlo runs.
+#' The default value corresponds to single-threaded computation; the
+#' recommended values is `NULL`, which assigns all but two of the available
+#' logical CPU cores.
+#'
 #' @param ... further arguments that will be passed to the plot output.
 #' Currently supported arguments are `main`, `mtext`, `xlab`, `ylab`,
 #' `xlim`, `ylim`, `log`, `legend` (`TRUE/FALSE`),
 #' `legend.pos`, `legend.text` (passes argument to x,y in
 #' [graphics::legend]), `col_nat` (colour of natural points), `col_reg`
-#' (colour of regenerated points), `xaxt`, `verbose` (`TRUE/FALSE`).
+#' (colour of regenerated points), `yaxis_scientific` (`TRUE/FALSE`),
+#' `xaxt`, `verbose` (`TRUE/FALSE`).
 #'
 #' @return
 #' The function returns numerical output and an (*optional*) plot.
@@ -314,10 +317,9 @@
 #'  `squared_residuals` \tab `numeric` \tab the squared residuals (horizontal sliding)
 #' }
 #'
-#'
 #' **slot:** **`@info`**
 #'
-#' The original function call ([methods::language-class]-object)
+#' The original function call
 #'
 #' The output (`data`) should be accessed using the function [Luminescence::get_RLum].
 #'
@@ -332,7 +334,7 @@
 #' measurements (natural vs. regenerated signal), which is in contrast to the
 #' findings by Buylaert et al. (2012).
 #'
-#' @section Function version: 0.7.11
+#' @section Function version: 0.7.13
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -451,6 +453,7 @@ analyse_IRSAR.RF<- function(
   txtProgressBar = TRUE,
   plot = TRUE,
   plot_reduced = FALSE,
+  cores = 1,
   ...
 ) {
   .set_function_name("analyse_IRSAR.RF")
@@ -504,6 +507,7 @@ analyse_IRSAR.RF<- function(
         txtProgressBar = txtProgressBar,
         plot = plot,
         plot_reduced = plot_reduced,
+        cores = cores,
         main = temp_main[[x]],
         ...)
     })
@@ -662,8 +666,7 @@ analyse_IRSAR.RF<- function(
     show_fit = FALSE,
     n.MC = if(is.null(n.MC)) NULL else 1000,
     vslide_range = if(method[1] == "VSLIDE") "auto" else NULL,
-    num_slide_windows = 3,
-    cores = NULL
+    num_slide_windows = 3
   )
 
   ##modify list if necessary
@@ -740,6 +743,7 @@ analyse_IRSAR.RF<- function(
     legend.pos = "top",
     col_nat = col[2],
     col_reg = col[1],
+    yaxis_scientific = FALSE,
     xaxt = "s"
     ##xlim and ylim see below as they has to be modified differently
   )
@@ -837,7 +841,7 @@ analyse_IRSAR.RF<- function(
     ##start fitting loop for MC runs
     for (i in seq_len(n.MC)) {
       start.MC["lambda"] <- lambda.MC[i]
-      fit.MC <- try(nls(
+      fit.MC <- try(stats::nls(
         fit.function,
         trace = FALSE,
         data = list(x = RF_reg.x, y = RF_reg.y),
@@ -867,7 +871,7 @@ analyse_IRSAR.RF<- function(
       fit.MC.results <- sapply(stats::na.omit(fit.MC.results), median)
 
       ##try final fitting
-      fit <- try(nls(
+      fit <- try(stats::nls(
         fit.function,
         trace = method_control.settings$trace,
         data = data.frame(x = RF_reg.x, y = RF_reg.y),
@@ -892,7 +896,7 @@ analyse_IRSAR.RF<- function(
     fit.parameters.results <- NA
     if (!inherits(fit,"try-error")) {
       fit.parameters.results <- coef(fit)
-      residuals <- residuals(fit)
+      residuals <- stats::residuals(fit)
     }
 
     ##calculate De value
@@ -1115,42 +1119,14 @@ analyse_IRSAR.RF<- function(
       })
 
       ##set parallel calculation if wanted
-      if (is.null(method_control.settings$cores)) {
-        cores <- 1
-
-      } else {
-        available.cores <- parallel::detectCores()
-        requested.cores <- method_control.settings$cores[1]
-
-        ##case 'auto'
-        if (requested.cores == "auto") {
-          cores <- max(available.cores - 2, 1) # nocov
-
-        } else if (is.numeric(requested.cores)) {
-          .validate_positive_scalar(requested.cores, int = TRUE,
-                                    name = "method_control.settings$cores")
-          if (requested.cores > available.cores) {
-            ##assign all they have, it is not our problem
-            # nocov start
-            .throw_warning("Number of cores limited to the maximum ",
-                           "available (", available.cores, ")")
-            # nocov end
-          }
-          cores <- min(requested.cores, available.cores)
-
-        }else{
-          .throw_message("Invalid value for control argument 'cores', ",
-                         "value set to 1")
-          cores <- 1
-        }
-
-        if (verbose)
-          .throw_message("Using ", cores, ifelse(cores == 1, " core", " cores"),
-                         " ...", error = FALSE)
+      cores <- .validate_cores(cores)
+      if (verbose) {
+        .throw_message("Using ", cores, ifelse(cores == 1, " core", " cores"),
+                       " ...", error = FALSE)
       }
 
       ## SINGLE CORE -----
-      if (cores[1] == 1) {
+      if (cores == 1) {
         if(txtProgressBar){
           ##progress bar
           cat("\n\t Run Monte Carlo loops for error estimation\n")
@@ -1441,9 +1417,10 @@ analyse_IRSAR.RF<- function(
       .throw_warning(mtext.message)
     }
 
-    ##use scientific format for y-axis
-    labels <- axis(2, labels = FALSE)
-    axis(side = 2, at = labels, labels = format(labels, scientific = TRUE))
+    ## optionally use scientific format for y-axis
+    labels <- grDevices::axisTicks(par("usr")[3:4], ylog)
+    axis(side = 2, at = labels,
+         labels = format(labels, scientific = plot.settings$yaxis_scientific))
 
     ##(1) plot points that have been not selected
     points(RF_reg[-(min(RF_reg.lim):max(RF_reg.lim)),1:2], pch=3, col=col[19])

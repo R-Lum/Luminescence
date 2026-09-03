@@ -598,7 +598,7 @@ fit_OSLLifeTimes <- function(
     rm(temp_rownames)
 
     ##calculate Durbin-Watson statistic
-    R <- residuals(fit)
+    R <- stats::residuals(fit)
     D <- round(sum((R - c(0,R[-length(R)]))^2) / sum(R^2),2)
     rm(R)
   } else {
@@ -735,7 +735,7 @@ if(plot) {
       par(mar = c(5, 4.5, 0, 2))
       plot(
         x = df[[1]],
-        y = residuals(fit),
+        y = stats::residuals(fit),
         xlab = plot_settings$xlab,
         type = "b",
         pch = 20,

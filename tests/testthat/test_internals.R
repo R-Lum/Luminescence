@@ -81,6 +81,10 @@ test_that("Test internals", {
   ## .weighted.median() -----------------------------------------------------
   expect_equal(.weighted.median(1:10, w = rep(1, 10)),
                median(1:10))
+  expect_equal(.weighted.median(1:10, w = c(1:9, Inf)),
+               NA_real_)
+  expect_equal(.weighted.median(1:10, w = c(NaN, 2:10)),
+               NA_real_)
   expect_equal(.weighted.median(1:5, w = c(0.15, 0.1, 0.2, 0.3, 0.25)),
                4)
   expect_equal(.weighted.median(c(1:5, NA), w = c(0.15, 0.1, 0.2, 0.3, 0.25, 1)),
@@ -788,6 +792,19 @@ test_that("Test internals", {
   expect_message(expect_null(.validate_file(test_path("test_read_BIN2R.R"),
                                             ext = c("e1", "e2", "e3"), throw.error = FALSE)),
                  "File extension 'R' is not supported, only 'e1', 'e2' and 'e3'")
+
+  ## .validate_cores() ------------------------------------------------------
+  expect_equal(.validate_cores(NULL),
+               max(parallel::detectCores() - 2, 1))
+  expect_equal(.validate_cores(2),
+               2)
+  expect_warning(expect_equal(.validate_cores(2000),
+                              parallel::detectCores()),
+                 "Number of cores limited to the maximum available")
+  expect_error(.validate_cores(-1),
+               "'cores' should be a single positive integer value")
+  expect_error(.validate_cores(c(2, 3)),
+               "'cores' should be a single positive integer value")
 
   ## .require_suggested_package() -------------------------------------------
   expect_true(.require_suggested_package("utils"))

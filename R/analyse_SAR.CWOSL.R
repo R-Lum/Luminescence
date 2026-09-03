@@ -852,7 +852,7 @@ analyse_SAR.CWOSL<- function(
 
     ## calculate value and set names
     RecyclingRatio <- t(
-        setNames(round(ratio, 4),
+        stats::setNames(round(ratio, 4),
           nm = paste0("Recycling ratio (", repeated$Name, "/", previous$Name, ")")))
   }
 
@@ -894,7 +894,7 @@ analyse_SAR.CWOSL<- function(
     }
     labels <- paste0("Recuperation rate (", recuperation_reference, ") ",
                      seq_along(R0))
-    Recuperation <- t(setNames(ratio, labels))
+    Recuperation <- t(stats::setNames(ratio, labels))
   }
 
   recuperation.threshold <- rep(rejection.criteria$recuperation.rate / 100,

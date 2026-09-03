@@ -16,6 +16,7 @@ analyse_IRSAR.RF(
   txtProgressBar = TRUE,
   plot = TRUE,
   plot_reduced = FALSE,
+  cores = 1,
   ...
 )
 }
@@ -76,12 +77,19 @@ provides a reduced plot output if enabled to allow common R plot combinations,
 e.g., \code{par(mfrow(...))}. If \code{TRUE} no residual plot
 is returned; it has no effect if \code{plot = FALSE}}
 
+\item{cores}{\link{integer}, \link{numeric} (\emph{with default}):
+number of cores allocated for parallel processing of the Monte-Carlo runs.
+The default value corresponds to single-threaded computation; the
+recommended values is \code{NULL}, which assigns all but two of the available
+logical CPU cores.}
+
 \item{...}{further arguments that will be passed to the plot output.
 Currently supported arguments are \code{main}, \code{mtext}, \code{xlab}, \code{ylab},
 \code{xlim}, \code{ylim}, \code{log}, \code{legend} (\code{TRUE/FALSE}),
 \code{legend.pos}, \code{legend.text} (passes argument to x,y in
 \link[graphics:legend]{graphics::legend}), \code{col_nat} (colour of natural points), \code{col_reg}
-(colour of regenerated points), \code{xaxt}, \code{verbose} (\code{TRUE/FALSE}).}
+(colour of regenerated points), \code{yaxis_scientific} (\code{TRUE/FALSE}),
+\code{xaxt}, \code{verbose} (\code{TRUE/FALSE}).}
 }
 \value{
 The function returns numerical output and an (\emph{optional}) plot.
@@ -156,7 +164,7 @@ vertical sliding range. It can be added as systematic error to the final De erro
 
 \strong{slot:} \strong{\verb{@info}}
 
-The original function call (\link[methods:language-class]{methods::language}-object)
+The original function call
 
 The output (\code{data}) should be accessed using the function \link{get_RLum}.
 
@@ -273,10 +281,6 @@ windows tested when sliding: the higher the value (up to a maximum of 10),
 the more time is spent in searching the global optimum. The default setting
 attempts to strike a balance between quality of the fit and computation
 speed.
-\item \code{cores} (\link{numeric} or \link{character}, default: \code{NULL}): number of cores
-allocated for a parallel processing of the Monte-Carlo runs. The default
-value corresponds to single-threaded computation; the recommended values is
-\code{"auto"}, which assigns all but two of the available cores.
 }
 
 \strong{Error estimation}
@@ -353,7 +357,7 @@ measurements (natural vs. regenerated signal), which is in contrast to the
 findings by Buylaert et al. (2012).
 }
 \section{Function version}{
- 0.7.11
+ 0.7.13
 }
 
 \examples{

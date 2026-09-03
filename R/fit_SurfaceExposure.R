@@ -312,6 +312,14 @@ fit_SurfaceExposure <- function(
   else
     wi <- rep(1, times = nrow(data))
 
+  ## replace infinite values
+  if (any(is.infinite(unlist(data)))) {
+    .throw_warning("Inf values found in 'data', replaced by NA")
+    for (i in 1:ncol(data)) {
+      data[is.infinite(data[, i]), i] <- NA
+    }
+  }
+
   ## remove rows with NA
   if (anyNA(data)) {
     data <- data[stats::complete.cases(data), ]
@@ -501,7 +509,7 @@ fit_SurfaceExposure <- function(
       }
 
       newx <- seq(range(oldx)[1], range(oldx)[2], length.out = 10000)
-      newy <- suppressWarnings(predict(fit, newdata = list(x = newx)))
+      newy <- suppressWarnings(stats::predict(fit, newdata = list(x = newx)))
 
       if (coord_flip) {
         tmp <- newx

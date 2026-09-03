@@ -170,9 +170,11 @@
 #' when `fit.method = "SSE"`). More details can be found in
 #' [Luminescence::fit_DoseResponseCurve].
 #'
-#' @param cores [integer] (*with default*):
-#' The number of cores to use. This will be capped to the number of available
-#' cores if set to too high.
+#' @param cores [integer], [numeric] (*with default*):
+#' number of cores allocated for parallel processing of the Monte-Carlo runs.
+#' The default value corresponds to single-threaded computation; the
+#' recommended values is `NULL`, which assigns all but two of the available
+#' logical CPU cores.
 #'
 #' @param summary [logical] (*with default*):
 #' If `TRUE` (the default) various parameters provided by the user
@@ -220,7 +222,7 @@
 #' `args` \tab `list` \tab arguments of the original function call \cr
 #' }
 #'
-#' @section Function version: 0.4.7
+#' @section Function version: 0.4.8
 #'
 #' @author
 #' Georgina E. King, University of Lausanne (Switzerland) \cr
@@ -247,7 +249,6 @@
 #'
 #' King, G.E., Herman, F., Lambert, R., Valla, P.G., Guralnik, B., 2016.
 #' Multi-OSL-thermochronometry of feldspar. Quaternary Geochronology 33, 76-87. doi:10.1016/j.quageo.2016.01.004
-#'
 #'
 #' **Further reading**
 #'
@@ -351,14 +352,14 @@ calc_Huntley2006 <- function(
 
       # case 1: only one LnTn value
       if (nrow(LnTn) == 1) {
-        LnTn <- setNames(cbind(0, LnTn), names(data))
+        LnTn <- stats::setNames(cbind(0, LnTn), names(data))
 
         # case 2: >1 LnTn value
       } else {
         LnTn_mean <- mean(LnTn[ ,1])
         LnTn_sd <- sd(LnTn[ ,1])
         LnTn_error <- max(LnTn_sd, LnTn[ ,2])
-        LnTn <- setNames(data.frame(0, LnTn_mean, LnTn_error), names(data))
+        LnTn <- stats::setNames(data.frame(0, LnTn_mean, LnTn_error), names(data))
       }
     data <- rbind(LnTn, data)
   }
@@ -369,7 +370,8 @@ calc_Huntley2006 <- function(
     } else {
       .extract <- function(row_idx) {
         do.call(rbind, lapply(seq(1, ncol(data), 3), function(col)
-          setNames(data[row_idx, col:c(col+2)], c("dose", "LxTx", "LxTxError"))))
+          stats::setNames(data[row_idx, col:(col + 2)],
+                          c("dose", "LxTx", "LxTxError"))))
       }
 
       ## extract the LnTn values (assumed to be in the first row)
@@ -410,8 +412,7 @@ calc_Huntley2006 <- function(
   .validate_class(readerDdot, "numeric", length = 2)
 
   ## set up the parallel cluster
-  .validate_positive_scalar(cores, int = TRUE)
-  cores <- min(cores, parallel::detectCores())
+  cores <- .validate_cores(cores)
   cl <- parallel::makeCluster(cores)
   on.exit(parallel::stopCluster(cl), add = TRUE)
 
@@ -883,16 +884,19 @@ calc_Huntley2006 <- function(
 
     # Find a good estimate of the x-axis limits
     if (mode_is_extrapolation && !force_through_origin) {
-      dosetimeGray <- c(-De.measured - De.measured.error, dosetimeGray)
+      ## subtract a tiny quantity to ensure that the first element is negative
+      ## also when both De.measured and De.measured.error are 0 (#1672)
+      dosetimeGray <- c(-De.measured - De.measured.error - 1e-300, dosetimeGray)
       De.measured <- -De.measured
     }
 
     xlim <- range(pretty(c(dosetimeGray, De.sim), n = 15))
+    dosetimeGrayNonNeg <- dosetimeGray[dosetimeGray >= 0]
 
     # Create figure after Kars et al. (2008) contrasting the dose response curves
     ## open plot window ------------
     plot(
-      x = dosetimeGray[dosetimeGray >= 0],
+      x = dosetimeGrayNonNeg,
       y = LxTx_measured$LxTx,
       main = plot.settings$main,
       xlab = plot.settings$xlab,
@@ -906,15 +910,15 @@ calc_Huntley2006 <- function(
     abline(v = 0, h = 0, col = "gray")
 
     # LxTx error bars
-    segments(x0 = dosetimeGray[dosetimeGray >= 0],
+    segments(x0 = dosetimeGrayNonNeg,
              y0 = LxTx_measured$LxTx + LxTx_measured$LxTx.Error,
-             x1 = dosetimeGray[dosetimeGray >= 0],
+             x1 = dosetimeGrayNonNeg,
              y1 = LxTx_measured$LxTx - LxTx_measured$LxTx.Error,
              col = "black")
 
     # re-calculate the measured dose response curve in Gray
     xNew <- seq(par()$usr[1],par()$usr[2], length.out = 200)
-    yNew <- predict(GC.measured@data$Fit, list(x = xNew))
+    yNew <- stats::predict(GC.measured@data$Fit, list(x = xNew))
     if (normalise)
       yNew <- yNew / A
 
@@ -925,12 +929,13 @@ calc_Huntley2006 <- function(
     polygon(x = c(natdosetimeGray, rev(natdosetimeGray)),
             y = c(LxTx_simulated$LxTx + LxTx_simulated$LxTx.Error,
                   rev(LxTx_simulated$LxTx - LxTx_simulated$LxTx.Error)),
-            col = adjustcolor("grey", alpha.f = 0.5), border = NA)
+            col = grDevices::adjustcolor("grey", alpha.f = 0.5),
+            border = NA)
 
     ## add simulated curve -------
     xNew <- seq(if (mode_is_extrapolation) par()$usr[1] else 0,
                 par()$usr[2], length.out = 200)
-    yNew <- predict(GC.simulated@data$Fit, list(x = xNew))
+    yNew <- stats::predict(GC.simulated@data$Fit, list(x = xNew))
     if (normalise)
       yNew <- yNew / A
     points(
@@ -999,21 +1004,21 @@ calc_Huntley2006 <- function(
     }
 
     # add unfaded DRC --------
-    yNew <- predict(fit_unfaded, list(dosetimeGray = xNew))
+    yNew <- stats::predict(fit_unfaded, list(dosetimeGray = xNew))
     if (normalise)
       yNew <- yNew / A
 
     lines(xNew, yNew, col  = "black", lty = 5)
 
-    points(x = dosetimeGray[dosetimeGray >= 0],
+    points(x = dosetimeGrayNonNeg,
            y = LxTx_unfaded$LxTx,
            col = "black")
 
     # LxTx error bars
     segments(
-      x0 = dosetimeGray[dosetimeGray >= 0],
+      x0 = dosetimeGrayNonNeg,
       y0 = LxTx_unfaded$LxTx + LxTx_unfaded$LxTx.Error,
-      x1 = dosetimeGray[dosetimeGray >= 0],
+      x1 = dosetimeGrayNonNeg,
       y1 = LxTx_unfaded$LxTx - LxTx_unfaded$LxTx.Error,
       col = "black")
 
@@ -1084,51 +1089,35 @@ calc_Huntley2006 <- function(
 
   ## Console output ------------------------------------------------------------
   if (settings$verbose) {
-    cat("\n\n[calc_Huntley2006()]\n")
-    cat("\n -------------------------------")
-    cat("\n (n/N) [-]:\t",
-        round(results@data$results$nN, 2), "\u00b1",
-        round(results@data$results$nN.error, 2))
-    cat("\n (n/N)_SS [-]:\t",
-        round(results@data$results$nN_SS, 2),"\u00b1",
-        round(results@data$results$nN_SS.error, 2))
-    cat("\n\n ---------- Measured -----------")
-    cat("\n DE [Gy]:\t",
-        round(results@data$results$Meas_De, 2), "\u00b1",
-        round(results@data$results$Meas_De.error, 2))
-    cat("\n D0 [Gy]:\t",
-        round(results@data$results$Meas_D0, 2), "\u00b1",
-        round(results@data$results$Meas_D0.error, 2))
+    .cat_result <- function(label, val, err) {
+      cat(sprintf("\n %-15s", label), round(val, 2), "\u00b1", round(err, 2))
+    }
     .cat_gok_c <- function(fit) {
       if (fit.method[1] == "GOK") {
-        cat("\n c [-]:\t\t",
-            round(summary(fit)$coefficients["c", "Estimate"], 2), "\u00b1",
-            round(summary(fit)$coefficients["c", "Std. Error"], 2))
+        c.coef <- summary(fit)$coefficients["c", ]
+        .cat_result("c [-]:", c.coef["Estimate"], c.coef["Std. Error"])
       }
     }
+    R <- results@data$results
+
+    cat("\n\n[calc_Huntley2006()]\n")
+    cat("\n -------------------------------")
+    .cat_result("(n/N) [-]:", R$nN, R$nN.error)
+    .cat_result("(n/N)_SS [-]:", R$nN_SS, R$nN_SS.error)
+    cat("\n\n ---------- Measured -----------")
+    .cat_result("DE [Gy]:", R$Meas_De, R$Meas_De.error)
+    .cat_result("D0 [Gy]:", R$Meas_D0, R$Meas_D0.error)
     .cat_gok_c(fit_measured)
-    cat("\n Age [ka]:\t",
-        round(results@data$results$Meas_Age, 2), "\u00b1",
-        round(results@data$results$Meas_Age.error, 2))
+    .cat_result("Age [ka]:", R$Meas_Age, R$Meas_Age.error)
     cat("\n\n ---------- Un-faded -----------")
-    cat("\n D0 [Gy]:\t",
-        round(results@data$results$Unfaded_D0, 2), "\u00b1",
-        round(results@data$results$Unfaded_D0.error, 2))
+    .cat_result("D0 [Gy]:", R$Unfaded_D0, R$Unfaded_D0.error)
     .cat_gok_c(fit_unfaded)
     cat("\n\n ---------- Simulated ----------")
-    cat("\n DE [Gy]:\t",
-        round(results@data$results$Sim_De, 2), "\u00b1",
-        round(results@data$results$Sim_De.error, 2))
-    cat("\n D0 [Gy]:\t",
-        round(results@data$results$Sim_D0, 2), "\u00b1",
-        round(results@data$results$Sim_D0.error, 2))
+    .cat_result("DE [Gy]:", R$Sim_De, R$Sim_De.error)
+    .cat_result("D0 [Gy]:", R$Sim_D0, R$Sim_D0.error)
     .cat_gok_c(fit_simulated)
-    cat("\n Age [ka]:\t",
-        round(results@data$results$Sim_Age, 2), "\u00b1",
-        round(results@data$results$Sim_Age.error, 2))
-    cat("\n Age @2D0 [ka]:\t",
-        round(results@data$results$Sim_Age_2D0, 2), "\u00b1",
-        round(results@data$results$Sim_Age_2D0.error, 2))
+    .cat_result("Age [ka]:", R$Sim_Age, R$Sim_Age.error)
+    .cat_result("Age @2D0 [ka]:", R$Sim_Age_2D0, R$Sim_Age_2D0.error)
     cat("\n -------------------------------\n\n")
   }
 

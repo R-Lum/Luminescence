@@ -722,7 +722,7 @@ calc_FiniteMixture <- function(
         # draw coloured polygons under curve
         polygon(x = c(0, min(dens), dens, 0),
                 y = c(0, 0, 0:max.dose, max.dose),
-                col = adjustcolor(col.n[j], alpha.f = 0.66),
+                col = grDevices::adjustcolor(col.n[j], alpha.f = 0.66),
                 yaxt = "n", border = poly.border, xpd = FALSE, lty = 2, lwd = 1.5)
       }
     }##EndOf::Component loop

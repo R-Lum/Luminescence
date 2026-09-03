@@ -58,7 +58,7 @@
 #' BIN/BINX-file may not fully compatible, at least not similar to the ones
 #' directly produced by the Risø readers!
 #'
-#' @section Function version: 0.5.4
+#' @section Function version: 0.5.5
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -106,7 +106,10 @@ write_R2BIN <- function(
   ## Integrity checks -------------------------------------------------------
 
   .validate_class(object, "Risoe.BINfileData")
-  .validate_class(file, "character")
+  .validate_not_empty(object)
+  .validate_class(file, "character", length = 1)
+  if (is.na(file) || nchar(file) == 0)
+    .throw_error("'file' must be a valid character string")
   .validate_logical_scalar(verbose)
   .validate_logical_scalar(txtProgressBar)
 
@@ -188,6 +191,7 @@ write_R2BIN <- function(
     version <- as.raw(max(as.numeric(object@METADATA[,"VERSION"])))
     version.original <- version
   }else{
+    .validate_class(version, c("character", "numeric"), length = 1)
     version.original <- as.raw(max(as.numeric(object@METADATA[,"VERSION"])))
     version <- as.raw(version)
     object@METADATA[["VERSION"]] <- version
@@ -212,8 +216,8 @@ write_R2BIN <- function(
   ##Check if the BINfile object contains of unsupported versions
   if (!as.raw(object@METADATA$VERSION[1]) %in% VERSION.supported ||
       !version %in% VERSION.supported) {
-    .throw_error("Writing BIN-files in format version (",
-                 object@METADATA[1, "VERSION"], ") is currently not supported, ",
+    .throw_error("Writing BIN-files in format version '",
+                 object@METADATA[1, "VERSION"], "' is currently not supported, ",
                  "supported version numbers are: ",
                  .collapse(VERSION.supported))
   }

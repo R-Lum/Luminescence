@@ -1418,7 +1418,7 @@ analyse_baSAR <- function(
     cols_list <- list()
     for (k in seq_along(fileBIN.list)) {
       for (sel.disc.grain in Disc_Grain.list[[k]]) {
-        col <- setNames(numeric(8 + 3 * max_cycles), nms)
+        col <- stats::setNames(numeric(8 + 3 * max_cycles), nms)
         col[1] <- k
         col[2] <- sel.disc.grain$disc
         col[3] <- if (Mono_grain) sel.disc.grain$grain else 0L

@@ -87,9 +87,12 @@ test_that("input validation", {
   ## Error in `.check_ncores(length(names))`: 4 simultaneous processes spawned
   if (FALSE) {
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
-                                  method_control = list(cores = 10000)),
+                                  cores = 10000),
                  "Number of cores limited to the maximum available")
   }
+  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
+                                cores = "4"),
+               "'cores' should be a single positive integer value or NULL")
 
   ## vslide_range
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
@@ -114,10 +117,6 @@ test_that("input validation", {
   expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
                                   method_control = list(num_slide_windows = 20)),
                  "should be between 1 and 10, reset to 10")
-
-  expect_message(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
-                                  method_control = list(cores = "4")),
-                 "Invalid value for control argument 'cores'")
   })
 })
 
@@ -172,6 +171,8 @@ test_that("graphical snapshot tests", {
                                                method = "VSLIDE",
                                                col_nat = "seagreen",
                                                col_reg = "orchid",
+                                               log = "y",
+                                               yaxis_scientific = TRUE,
                                                n.MC = NULL))
   vdiffr::expect_doppelganger("none subtitle log",
                               analyse_IRSAR.RF(IRSAR.RF.Data,
@@ -225,14 +226,14 @@ test_that("test edge cases", {
     list(object),
     method = "SLIDE",
     method_control = list(vslide_range = 'auto', correct_onset = FALSE,
-                          show_fit = TRUE, trace = TRUE, n.MC = 2,
-                          cores = 2),
+                          show_fit = TRUE, trace = TRUE, n.MC = 2),
     RF_nat.lim = 2,
     RF_reg.lim = 2,
     plot = TRUE,
     main = "Title",
     mtext = "Subtitle",
     log = "x",
+    cores = 2,
     txtProgressBar = FALSE),
     "RLum.Results"),
     "Threshold exceeded for: 'curves_ratio'")
@@ -240,7 +241,7 @@ test_that("test edge cases", {
 
   ## this RF_nat.lim after
   ##  'length = 2' in coercion to 'logical(1)' error
-  expect_s4_class(suppressWarnings(analyse_IRSAR.RF(
+  expect_message(expect_s4_class(suppressWarnings(analyse_IRSAR.RF(
     object,
     method = "SLIDE",
     method_control = list(vslide_range = 'auto', correct_onset = FALSE),
@@ -248,7 +249,9 @@ test_that("test edge cases", {
     #RF_reg.lim = c(),
     plot = TRUE,
     txtProgressBar = FALSE
-  )), "RLum.Results")
+  )),
+  "RLum.Results"),
+  "Using 1 core")
 
   expect_s4_class(suppressWarnings(analyse_IRSAR.RF(
     object,

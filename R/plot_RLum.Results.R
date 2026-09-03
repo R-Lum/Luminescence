@@ -161,6 +161,9 @@ plot_RLum.Results<- function(
       # get De-llik pairs
       pairs<- object@data$bootstrap$pairs$gamma
 
+      ## sort De and likelihoods by De (increasing) and remove NAs
+      pairs <- stats::na.omit(pairs[order(pairs[, 1]), ])
+
       # get polynomial fit objects
       poly.fits <- list(three = object@data$bootstrap$poly.fits$poly.three,
                         four = object@data$bootstrap$poly.fits$poly.four,
@@ -191,12 +194,6 @@ plot_RLum.Results<- function(
 
         # set margins (bottom, left, top, right)
         par(mar=c(0,5,5,3))
-
-        # sort De and likelihoods by De (increasing)
-        pairs<- pairs[order(pairs[,1]),]
-
-        # remove invalid NA values
-        pairs <- stats::na.omit(pairs)
 
         plot(x=pairs[,1],
              y=pairs[,2],
@@ -248,10 +245,11 @@ plot_RLum.Results<- function(
         # set margins (bottom, left, top, right)
         par(mar=c(5,5,0,3))
 
+        resids <- stats::residuals(poly.fits[[i]])
         plot(x = pairs[,1],
-             y = residuals(poly.fits[[i]]),
-             ylim = c(min(residuals(poly.fits[[i]])) * 1.2,
-                      as.double(quantile(residuals(poly.fits[[i]]), probs = 0.99))),
+             y = resids,
+             ylim = c(min(resids) * 1.2,
+                      as.double(stats::quantile(resids, probs = 0.99))),
              xlim=range(pretty(pairs[,1])),
              xaxt = "n",
              bty = "l",
@@ -266,7 +264,7 @@ plot_RLum.Results<- function(
         abline(h = 0, lty=2)
 
         # calculate residual sum of squares (RSS) and add to plot
-        rss<- sum(residuals(poly.fits[[i]])^2)
+        rss <- sum(resids^2)
         mtext(text = paste("RSS =",round(rss,3)), adj = 1,
               side = 3, line = -2,
               cex = if (single) 0.6 else 0.8)
@@ -284,7 +282,7 @@ plot_RLum.Results<- function(
       ### LOESS PLOT
       if (!anyNA(object@data$bootstrap$loess.fit)) {
       pairs<- object@data$bootstrap$pairs$gamma
-      pred<- predict(object@data$bootstrap$loess.fit)
+      pred <- stats::predict(object@data$bootstrap$loess.fit)
       loess<- cbind(pairs[,1], pred)
       loess<- loess[order(loess[,1]),]
 
@@ -679,7 +677,7 @@ plot_RLum.Results<- function(
       nls.fit <- get_RLum(fit, "fit")
       if (!inherits(fit, "try-error") && isTRUE(object@data$args$fitCW.curve)) {
           lines(curve[(res$dead.channels.start + 1):(nrow(curve) - res$dead.channels.end), 1],
-                predict(nls.fit), col = "red", lty = 1)
+                stats::predict(nls.fit), col = "red", lty = 1)
 
           ##plot curve for additional parameters
           col_components <- c("red", "green", "blue")

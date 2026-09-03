@@ -24,8 +24,12 @@ test_that("input validation", {
                "After NA removal, nothing is left from data set 1")
   expect_error(plot_RadialPlot(data.frame(1, 3)),
                "At least two data points are required")
-  expect_error(plot_RadialPlot(df, na.rm = -1),
-               "'na.rm' should be a single logical value")
+  expect_error(expect_warning(plot_RadialPlot(data.frame(1:3, Inf)),
+                              "Inf values found in data set 1, removed"),
+               "After NA removal, nothing is left from data set 1")
+  expect_error(expect_warning(plot_RadialPlot(data.frame(1:3, c(Inf, 3, Inf))),
+                              "Inf values found in data set 1, removed"),
+               "At least two data points are required")
   expect_error(plot_RadialPlot(df, central.value = -1),
                "'central.value' should be a single positive value or NULL")
   expect_error(plot_RadialPlot(df, xlab = "x"),
@@ -105,8 +109,7 @@ test_that("check functionality", {
       log.z = FALSE))
 
   ## single-column data frame
-  expect_message(plot_RadialPlot(data.frame(x = c(-0.1, -1.2, 10))),
-                 "Small standardised estimate scatter")
+  expect_silent(plot_RadialPlot(data.frame(x = c(-0.1, -1.2, 10))))
 
   ## data frame with more than 2 columns
   expect_silent(plot_RadialPlot(cbind(df, df)))
@@ -170,6 +173,8 @@ test_that("check functionality", {
 
   expect_warning(plot_RadialPlot(data.frame(c(12, 2, 7), c(0, 2, 3))),
                  "Error values cannot be zero or NA, reset to 1e-09")
+  expect_warning(plot_RadialPlot(data.frame(c(0.1, 1, 10), b = c(1, 2, NA))),
+                 "Error values cannot be zero or NA, reset to 1e-09")
   expect_message(expect_warning(plot_RadialPlot(data.frame(1:5, NA)),
                                 "Error values cannot be zero or NA, reset to"),
                  "Small standardised estimate scatter, toggle off y.ticks?")
@@ -202,6 +207,8 @@ test_that("graphical snapshot tests", {
                                               zlim = c(15, 143),
                                               pch = 1,
                                               summary = ""))
+  vdiffr::expect_doppelganger("single column",
+                              plot_RadialPlot(data.frame(x = c(-0.1, -1.2, 10))))
   vdiffr::expect_doppelganger("regression 1044",
                               plot_RadialPlot(ExampleData.DeValues$CA1,
                                               xlim = c(0, 21.2),

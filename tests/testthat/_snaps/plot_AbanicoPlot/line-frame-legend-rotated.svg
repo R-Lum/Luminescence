@@ -185,6 +185,8 @@
 <polygon points='374.61,489.20 378.97,481.64 370.24,481.64 ' style='stroke-width: 0.75; stroke: #DF536B; fill: none;' />
 <polygon points='380.13,479.72 384.50,472.16 375.77,472.16 ' style='stroke-width: 0.75; stroke: #DF536B; fill: none;' />
 <polygon points='378.26,489.27 382.63,481.71 373.90,481.71 ' style='stroke-width: 0.75; stroke: #DF536B; fill: none;' />
+<text x='205.39' y='212.29' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='23.36px' lengthAdjust='spacingAndGlyphs'>19.7</text>
+<text x='371.06' y='486.98' text-anchor='end' style='font-size: 12.00px; font-family: sans;' textLength='30.03px' lengthAdjust='spacingAndGlyphs'>154.8</text>
 <polyline points='192.00,167.99 586.07,167.99 ' style='stroke-width: 0.75;' />
 <polygon points='369.90,518.40 586.07,178.20 586.07,86.40 192.00,86.40 192.00,178.20 350.10,518.40 ' style='stroke-width: 0.60; fill: none;' />
 <polygon points='87.33,145.20 90.97,151.50 83.70,151.50 ' style='stroke-width: 0.75; fill: none;' />
