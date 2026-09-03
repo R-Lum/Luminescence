@@ -168,7 +168,15 @@ evaluation of the model fit. In both cases, this has no user-visible effect
 other than changing the number of dose points under which the function
 switches to using the "LIN" method (#1634, #1636).
 
-### `plot_AbanicoPlot`
+### `merge_RLum.Analysis()`
+
+- Argument `objects` has been renamed to `object` (#1697).
+
+### `merge_RLum.Results()`
+
+- Argument `objects` has been renamed to `object` (#1697).
+
+### `plot_AbanicoPlot()`
 
 * The default background colour was incorrectly set to `NA`, which in some
 very specific cases would cause some overplotting, at least on MacOS (#1649).

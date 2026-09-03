@@ -8,11 +8,11 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(merge_RLum.Analysis(),
-               "'objects' should be of class 'list'")
+               "'object' should be of class 'list'")
   expect_error(merge_RLum.Analysis(o1),
-               "'objects' should be of class 'list'")
+               "'object' should be of class 'list'")
   expect_error(merge_RLum.Analysis(list()),
-               "'objects' cannot be an empty list")
+               "'object' cannot be an empty list")
   expect_error(merge_RLum.Analysis(list(c1)),
                "At least one input object in the list has to be of class")
   expect_error(merge_RLum.Analysis(list(NULL)),

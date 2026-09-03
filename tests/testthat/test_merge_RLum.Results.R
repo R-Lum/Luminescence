@@ -7,11 +7,11 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(merge_RLum.Results("error"),
-               "'objects' should be of class 'list'")
+               "'object' should be of class 'list'")
   expect_error(merge_RLum.Results(list(res, "error")),
                "All elements of 'object' should be of class 'RLum.Results'")
   expect_message(expect_null(merge_RLum.Results(list())),
-                 "'objects' contains no data, NULL returned")
+                 "'object' contains no data, NULL returned")
   expect_error(merge_RLum.Results(list(res), flatten = NA),
                "'flatten' should be a single logical value")
 

@@ -9,37 +9,37 @@
 #'
 #' @note The `originator` is taken from the first element and not reset to [Luminescence::merge_RLum]
 #'
-#' @param objects [list] (**required**):
+#' @param object [list] (**required**):
 #' a list of [Luminescence::RLum.Results-class] objects
 #'
 #' @param flatten [logical] (*with default*):
 #' whether list elements should be flattened before merging.
 #'
-#' @section Function version: 0.3
+#' @section Function version: 0.3.1
 #'
-#' @keywords internal
+#' @keywords utilities internal
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
 #' @export
 merge_RLum.Results <- function(
-  objects,
+  object,
   flatten = TRUE
 ) {
   .set_function_name("merge_RLum.Results")
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-  .validate_class(objects, "list")
-  if (length(objects) == 0) {
-    .throw_message("'objects' contains no data, NULL returned")
+  .validate_class(object, "list")
+  if (length(object) == 0) {
+    .throw_message("'object' contains no data, NULL returned")
     return(NULL)
   }
   .validate_logical_scalar(flatten)
 
   ## check if objects in the list are of type RLum.Results
-  temp.originator <- vapply(objects, function(x) {
+  temp.originator <- vapply(object, function(x) {
     .validate_class(x, "RLum.Results", name = "All elements of 'object'")
     x@originator
   }, character(1))
@@ -53,11 +53,11 @@ merge_RLum.Results <- function(
   ## ------------------------------------------------------------------------
   ## merge each data element of the first object with the corresponding
   ## elements of all other objects
-  data <- objects[[1]]@data
+  data <- object[[1]]@data
   for (i in seq_along(data)) {
 
-    ## extract the elements from all all objects
-    elements <- lapply(objects, function(x) x@data[[i]])
+    ## extract the elements from all objects
+    elements <- lapply(object, function(x) x@data[[i]])
 
     ## data.frame, matrix or numeric vector
     if (inherits(elements[[1]], c("data.frame", "matrix", "numeric"))) {
@@ -83,7 +83,6 @@ merge_RLum.Results <- function(
       ## operation and combine attributes with the same name
       ## remove attributes that stem from the object itself
       attr_names <- setdiff(names(attr_list), names(attributes(data[[i]])))
-
       if (length(attr_names) > 0) {
         for (n in unique(attr_names)) {
           values <- unlist(lapply(elements, attr, which = n), use.names = FALSE)
@@ -106,9 +105,9 @@ merge_RLum.Results <- function(
   ## the originator is not reset
   set_RLum(
       class = "RLum.Results",
-      originator = objects[[1]]@originator,
+      originator = object[[1]]@originator,
       data = data,
-      info = unlist(lapply(objects, function(x) x@info), recursive = FALSE),
-      .pid = unlist(lapply(objects, function(x) x@.uid))
+      info = unlist(lapply(object, function(x) x@info), recursive = FALSE),
+      .pid = unlist(lapply(object, function(x) x@.uid))
   )
 }

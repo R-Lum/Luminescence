@@ -4,10 +4,10 @@
 \alias{merge_RLum.Results}
 \title{Merge function for RLum.Results S4-class objects}
 \usage{
-merge_RLum.Results(objects, flatten = TRUE)
+merge_RLum.Results(object, flatten = TRUE)
 }
 \arguments{
-\item{objects}{\link{list} (\strong{required}):
+\item{object}{\link{list} (\strong{required}):
 a list of \link[=RLum.Results-class]{RLum.Results} objects}
 
 \item{flatten}{\link{logical} (\emph{with default}):
@@ -26,10 +26,11 @@ not of similar name as the default attributes of, e.g., a \link{data.frame}
 The \code{originator} is taken from the first element and not reset to \link{merge_RLum}
 }
 \section{Function version}{
- 0.3
+ 0.3.1
 }
 
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 }
 \keyword{internal}
+\keyword{utilities}
