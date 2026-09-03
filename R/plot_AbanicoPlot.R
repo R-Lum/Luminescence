@@ -239,7 +239,7 @@
 #' @return
 #' Returns a plot object and, optionally, a list with plot calculus data.
 #'
-#' @section Function version: 0.1.22
+#' @section Function version: 0.1.23
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -1938,33 +1938,42 @@ plot_AbanicoPlot <- function(
   if (interactive) {
     .require_suggested_package("plotly", "The interactive abanico plot")
 
-    ## tidy data ----
+    ### tidy data ----------------
     data <- plot.output
     kde <- data.frame(x = data$KDE[[1]][ ,2], y = data$KDE[[1]][ ,1])
 
-    # radial scatter plot ----
+    ### radial scatter plot --
     point.text <- paste0("Measured value:<br />",
                          data$data.global$De, " &plusmn; ",
                          data$data.global$error, "<br />",
                          "P(",format(data$data.global$precision,  digits = 2, nsmall = 1),", ",
                          format(data$data.global$std.estimate,  digits = 2, nsmall = 1),")")
-    IAP <- plotly::plot_ly(data = data$data.global,
-                           x = data$data.global$precision,
-                           y = data$data.global$std.estimate,
-                           type = "scatter", mode = "markers",
-                           hoverinfo = "text", text = point.text,
-                           name = "Points",
-                           yaxis = "y")
+    IAP <- plotly::plot_ly(
+      data = data$data.global,
+      x = data$data.global$precision,
+      y = data$data.global$std.estimate,
+      type = "scatter",
+      mode = "markers",
+      hoverinfo = "text",
+      text = point.text,
+      name = "Points",
+      yaxis = "y"
+    )
 
     ellipse <- as.data.frame(ellipse)
-    IAP <- plotly::add_trace(IAP, data = ellipse,
-                             x = ~ellipse.x, y = ~ellipse.y,
-                             type = "scatter", mode = "lines",
-                             hoverinfo = "none", text = "",
-                             name = "z-axis (left)",
-                             line = list(color = "black",
-                                         width = 1),
-                             yaxis = "y")
+    IAP <- plotly::add_trace(
+      IAP,
+      data = ellipse,
+      x = ~ ellipse.x,
+      y = ~ ellipse.y,
+      type = "scatter",
+      mode = "lines",
+      hoverinfo = "none",
+      text = "",
+      name = "z-axis (left)",
+      line = list(color = "black", width = 1),
+      yaxis = "y"
+    )
 
     ellipse.right <- ellipse
     ellipse.right$ellipse.x <- ellipse.right$ellipse.x * 1/0.75
@@ -1991,13 +2000,13 @@ plot_AbanicoPlot <- function(
     # major z-tick lines
     for (i in 1:length(major.ticks.y)) {
       major.tick <- data.frame(x = major.ticks.x, y = rep(major.ticks.y[i], 2))
-      IAP <- plotly::add_trace(IAP, data = major.tick,
-                               x = ~x, y = ~y, showlegend = FALSE,
-                               type = "scatter", mode = "lines",
-                               hoverinfo = "none", text = "",
-                               line = list(color = "black",
-                                           width = 1),
-                               yaxis = "y")
+      IAP <- plotly::add_trace(
+        IAP, data = major.tick,
+        x = ~x, y = ~y, showlegend = FALSE,
+        type = "scatter", mode = "lines",
+        hoverinfo = "none", text = "",
+        line = list(color = "black", width = 1),
+        yaxis = "y")
     }
 
     # minor z-tick lines
@@ -2085,10 +2094,19 @@ plot_AbanicoPlot <- function(
       yaxis = "y"
     )
     # set layout ----
+    ## fall back to character
+    zlab.text <- if (is.expression(zlab)) "D" else as.character(zlab)
+    
+    ## subtitle content, one line per data set (as in the base "sub" summary)
+    summary.text <- paste(unlist(label.text), collapse = " | ")
+    
     IAP <- plotly::layout(
       IAP,
+      title = list(
+        text = if (is.expression(main)) "D" else as.character(main)),
       hovermode = "closest",
-      dragmode = "pan",
+      dragmode = "zoom",
+      showlegend = FALSE,
       xaxis = list(
         title = xlab[2],
         range = c(data$xlim[1], data$xlim[2] * 1/0.65),
@@ -2115,7 +2133,28 @@ plot_AbanicoPlot <- function(
         yref = "y",
         fillcolor = "grey",
         opacity = 0.2
-      ))
+      )),
+      annotations = list(
+        list(
+          x = 1.02,
+          y = 0,
+          xref = "paper",
+          yref = "y",
+          text = zlab.text,
+          showarrow = FALSE,
+          textangle = 90,
+          align = "left"),
+        list(
+          x = 0,
+          y = 1,
+          xref = "paper",
+          yref = "paper",
+          text = unlist(label.text),
+          showarrow = FALSE,
+          textangle = 0,
+          align = "center")),
+      
+      showlegend = FALSE
     )
 
     # show and return interactive plot ----

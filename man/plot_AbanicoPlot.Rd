@@ -290,7 +290,7 @@ documentation of \code{axis}. Specifying tick positions manually overrides a
 \code{zlim}-definition.
 }
 \section{Function version}{
- 0.1.21
+ 0.1.23
 }
 
 \examples{
