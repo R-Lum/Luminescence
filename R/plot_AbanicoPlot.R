@@ -1903,23 +1903,32 @@ plot_AbanicoPlot <- function(
                          data$data.global$error, "<br />",
                          "P(",format(data$data.global$precision,  digits = 2, nsmall = 1),", ",
                          format(data$data.global$std.estimate,  digits = 2, nsmall = 1),")")
-    IAP <- plotly::plot_ly(data = data$data.global,
-                           x = data$data.global$precision,
-                           y = data$data.global$std.estimate,
-                           type = "scatter", mode = "markers",
-                           hoverinfo = "text", text = point.text,
-                           name = "Points",
-                           yaxis = "y")
+    IAP <- plotly::plot_ly(
+      data = data$data.global,
+      x = data$data.global$precision,
+      y = data$data.global$std.estimate,
+      type = "scatter",
+      mode = "markers",
+      hoverinfo = "text",
+      text = point.text,
+      name = "Points",
+      yaxis = "y"
+    )
 
     ellipse <- as.data.frame(ellipse)
-    IAP <- plotly::add_trace(IAP, data = ellipse,
-                             x = ~ellipse.x, y = ~ellipse.y,
-                             type = "scatter", mode = "lines",
-                             hoverinfo = "none", text = "",
-                             name = "z-axis (left)",
-                             line = list(color = "black",
-                                         width = 1),
-                             yaxis = "y")
+    IAP <- plotly::add_trace(
+      IAP,
+      data = ellipse,
+      x = ~ ellipse.x,
+      y = ~ ellipse.y,
+      type = "scatter",
+      mode = "lines",
+      hoverinfo = "none",
+      text = "",
+      name = "z-axis (left)",
+      line = list(color = "black", width = 1),
+      yaxis = "y"
+    )
 
     ellipse.right <- ellipse
     ellipse.right$ellipse.x <- ellipse.right$ellipse.x * 1/0.75
@@ -1946,13 +1955,13 @@ plot_AbanicoPlot <- function(
     # major z-tick lines
     for (i in 1:length(major.ticks.y)) {
       major.tick <- data.frame(x = major.ticks.x, y = rep(major.ticks.y[i], 2))
-      IAP <- plotly::add_trace(IAP, data = major.tick,
-                               x = ~x, y = ~y, showlegend = FALSE,
-                               type = "scatter", mode = "lines",
-                               hoverinfo = "none", text = "",
-                               line = list(color = "black",
-                                           width = 1),
-                               yaxis = "y")
+      IAP <- plotly::add_trace(
+        IAP, data = major.tick,
+        x = ~x, y = ~y, showlegend = FALSE,
+        type = "scatter", mode = "lines",
+        hoverinfo = "none", text = "",
+        line = list(color = "black", width = 1),
+        yaxis = "y")
     }
 
     # minor z-tick lines
@@ -2052,7 +2061,7 @@ plot_AbanicoPlot <- function(
       title = list(
         text = if (is.expression(main)) "D" else as.character(main)),
       hovermode = "closest",
-      dragmode = "pan",
+      dragmode = "zoom",
       showlegend = FALSE,
       xaxis = list(
         title = xlab[2],
@@ -2100,7 +2109,7 @@ plot_AbanicoPlot <- function(
           showarrow = FALSE,
           textangle = 0,
           align = "center")),
-
+      
       showlegend = FALSE
     )
 
