@@ -32,7 +32,7 @@ can result in an empty object.
 Remove records from an RLum-class object in a convenient way using
 \link{get_RLum} for the selection.
 }
-\section{Functions}{
+\section{Methods (by class)}{
 \itemize{
 \item \code{remove_RLum(list)}: Returns a list of \link[=RLum-class]{RLum} objects where the selected records are stripped
 

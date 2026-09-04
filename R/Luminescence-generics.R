@@ -45,9 +45,9 @@
 #' @keywords utilities
 #'
 #' @export
-setGeneric("bin_RLum.Data", function(object, ...) {
+setGeneric("bin_RLum.Data", function(object, ...)
   standardGeneric("bin_RLum.Data")
-})
+)
 
 
 ## get_RLum() ---------------------------------------------------------------
@@ -92,9 +92,9 @@ setGeneric("bin_RLum.Data", function(object, ...) {
 #' temp.get <- get_RLum(object = temp1)
 #'
 #' @export
-setGeneric("get_RLum", function(object, ...) {
+setGeneric("get_RLum", function(object, ...)
   standardGeneric("get_RLum")
-})
+)
 
 #' @describeIn get_RLum
 #' Returns a list of [Luminescence::RLum-class] objects that had been passed to
@@ -204,9 +204,9 @@ setMethod("get_RLum", signature = "NULL",
 #' @keywords utilities
 #'
 #' @export
-setGeneric("remove_RLum", function(object, ...) {
+setGeneric("remove_RLum", function(object, ...)
   standardGeneric("remove_RLum")
-})
+)
 
 #' @describeIn remove_RLum
 #' Returns a list of [Luminescence::RLum-class] objects where the selected records are stripped
@@ -255,9 +255,9 @@ setMethod("remove_RLum", signature = "list",
 #' @keywords utilities
 #'
 #' @export
-setGeneric("length_RLum", function(object) {
+setGeneric("length_RLum", function(object)
   standardGeneric("length_RLum")
-})
+)
 
 
 ## melt_RLum() --------------------------------------------------------------
@@ -285,9 +285,9 @@ setGeneric("length_RLum", function(object) {
 #' @keywords utilities
 #'
 #' @export
-setGeneric("melt_RLum", function(object, ...) {
+setGeneric("melt_RLum", function(object, ...)
   standardGeneric("melt_RLum")
-})
+)
 
 #' @describeIn melt_RLum
 #' Returns a list of melted [Luminescence::RLum-class] objects; non-RLum objects are silently
@@ -379,21 +379,21 @@ setMethod("melt_RLum", signature = "list",
 #'
 #' @rdname metadata
 #' @export
-setGeneric("add_metadata<-", function(object, ..., value) {
+setGeneric("add_metadata<-", function(object, ..., value)
   standardGeneric("add_metadata<-")
-})
+)
 
 #' @rdname metadata
 #' @export
-setGeneric("rename_metadata<-", function(object, ..., value) {
+setGeneric("rename_metadata<-", function(object, ..., value)
   standardGeneric("rename_metadata<-")
-})
+)
 
 #' @rdname metadata
 #' @export
-setGeneric("replace_metadata<-", function(object, ..., value) {
+setGeneric("replace_metadata<-", function(object, ..., value)
   standardGeneric("replace_metadata<-")
-})
+)
 
 
 ## names_RLum() -------------------------------------------------------------
@@ -422,9 +422,9 @@ setGeneric("replace_metadata<-", function(object, ..., value) {
 #' @keywords utilities
 #'
 #' @export
-setGeneric("names_RLum", function(object) {
+setGeneric("names_RLum", function(object)
   standardGeneric("names_RLum")
-})
+)
 
 #' @describeIn names_RLum
 #' Returns a list of names of the [Luminescence::RLum-class] objects that had been passed to
@@ -470,9 +470,9 @@ setMethod("names_RLum", signature = "list",
 #' @keywords utilities
 #'
 #' @export
-setGeneric("replicate_RLum", function(object, times = 1) {
+setGeneric("replicate_RLum", function(object, times = 1)
    standardGeneric("replicate_RLum")
-})
+)
 
 
 ## set_Risoe.BINfileData() --------------------------------------------------
@@ -505,9 +505,9 @@ setGeneric("replicate_RLum", function(object, times = 1) {
 #'
 #' @export
 setGeneric("set_Risoe.BINfileData", function(METADATA = data.frame(),
-                                             DATA = list(), .RESERVED = list()) {
+                                             DATA = list(), .RESERVED = list())
   standardGeneric("set_Risoe.BINfileData")
-})
+)
 
 
 ## set_RLum() ---------------------------------------------------------------
@@ -660,9 +660,9 @@ NULL
 #' @keywords utilities
 #'
 #' @export
-setGeneric("smooth_RLum", function(object, ...) {
+setGeneric("smooth_RLum", function(object, ...)
   standardGeneric("smooth_RLum")
-})
+)
 
 #' @describeIn smooth_RLum
 #' Returns a list of [Luminescence::RLum-class] objects that had been passed to
@@ -830,9 +830,9 @@ setMethod("normalise_RLum", signature = "list",
 #' @keywords utilities
 #'
 #' @export
-setGeneric("sort_RLum", function(object, ...) {
+setGeneric("sort_RLum", function(object, ...)
   standardGeneric("sort_RLum")
-})
+)
 
 #' @describeIn sort_RLum
 #' Returns a list of sorted [Luminescence::RLum-class] objects.
@@ -887,9 +887,9 @@ setMethod("sort_RLum", signature = "list",
 #' structure_RLum(OSL.SARMeasurement$Sequence.Object)
 #'
 #' @export
-setGeneric("structure_RLum", function(object, ...) {
+setGeneric("structure_RLum", function(object, ...)
   standardGeneric("structure_RLum")
-})
+)
 
 #' @describeIn structure_RLum
 #' Returns a list of data frames containing the structure of each [Luminescence::RLum-class]
@@ -931,9 +931,9 @@ setMethod("structure_RLum", signature = "list",
 #' @keywords utilities
 #'
 #' @export
-setGeneric("view", function(object, ... ) {
+setGeneric("view", function(object, ... )
   standardGeneric("view")
-})
+)
 
 ## ensure that we can use the internal RStudio view function
 ## https://stackoverflow.com/questions/48234850/how-to-use-r-studio-view-function-programatically-in-a-package

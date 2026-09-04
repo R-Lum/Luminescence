@@ -61,7 +61,7 @@ The function provides a generalised access point for specific
 function will be selected. The smoothing is performed in the internal
 function \code{.smoothing()}.
 }
-\section{Functions}{
+\section{Methods (by class)}{
 \itemize{
 \item \code{smooth_RLum(list)}: Returns a list of \link[=RLum-class]{RLum} objects that had been passed to
 \link{smooth_RLum}

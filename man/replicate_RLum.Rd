@@ -23,7 +23,7 @@ A \link{list} with the object repeated.
 The function replicates \link[=RLum-class]{RLum} objects and returns a list of such
 objects.
 }
-\section{Functions}{
+\section{Methods (by class)}{
 \itemize{
 \item \code{replicate_RLum(RLum)}: Replication method for \link[=RLum-class]{RLum} objects.
 

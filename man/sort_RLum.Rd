@@ -43,7 +43,7 @@ The function provides a generalised access point for specific \link[=RLum-class]
 and \link[=Risoe.BINfileData-class]{Risoe.BINfileData} objects. Depending on the input object,
 the corresponding function will be selected.
 }
-\section{Functions}{
+\section{Methods (by class)}{
 \itemize{
 \item \code{sort_RLum(list)}: Returns a list of sorted \link[=RLum-class]{RLum} objects.
 

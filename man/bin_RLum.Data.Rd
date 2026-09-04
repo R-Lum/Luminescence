@@ -41,7 +41,7 @@ The function provides a generalised access point for specific
 \link[=RLum.Data-class]{RLum.Data} objects. Depending on the input object, the corresponding
 function will be selected.
 }
-\section{Functions}{
+\section{Methods (by class)}{
 \itemize{
 \item \code{bin_RLum.Data(RLum.Data.Curve)}: Allows binning of RLum.Data.Curve data.
 

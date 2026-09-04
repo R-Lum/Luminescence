@@ -28,7 +28,7 @@ A flat \link{data.frame}.
 \description{
 Melt RLum-class objects into a flat data.frame
 }
-\section{Functions}{
+\section{Methods (by class)}{
 \itemize{
 \item \code{melt_RLum(list)}: Returns a list of melted \link[=RLum-class]{RLum} objects; non-RLum objects are silently
 removed.

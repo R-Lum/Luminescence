@@ -35,7 +35,7 @@ index of the element to display.}
 Invokes the \link[utils:View]{utils::View} function tailored to objects in the package.
 If started from RStudio, it uses the RStudio viewer.
 }
-\section{Functions}{
+\section{Methods (by class)}{
 \itemize{
 \item \code{view(RLum.Analysis)}: View method for \link[=RLum.Analysis-class]{RLum.Analysis} objects.
 

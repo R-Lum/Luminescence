@@ -119,7 +119,7 @@ The function provides a generalised access point for specific
 \link[=RLum-class]{RLum} objects. Depending on the input object, the corresponding
 function will be selected.
 }
-\section{Functions}{
+\section{Methods (by class)}{
 \itemize{
 \item \code{get_RLum(list)}: Returns a list of \link[=RLum-class]{RLum} objects that had been passed to
 \link{get_RLum}
