@@ -17,18 +17,6 @@ header-includes:
 ## New functions
 
 
-## Deprecations
-
-* The following S3 methods are deprecated and will be removed in v1.4.0
-(#1694):
-- `as.list.RLum.Analysis()` `as.list.RLum.Data.Curve()`,
-`as.list.RLum.Data.Image()`, `as.list.RLum.Data.Spectrum()`,
-`as.list.RLum.Results()`: use `as.list()` instead;
-- `names.RLum.Analysis()` `names.RLum.Data.Curve()`, `names.RLum.Data.Image()`,
-`names.RLum.Data.Spectrum()`, `names.RLum.Results()`: use `names()` instead;
-- `plot.RLum.Analysis()` `plot.RLum.Data.Curve()`, `plot.RLum.Data.Image()`,
-`plot.RLum.Data.Spectrum()`, `plot.RLum.Results()`: use `plot()` instead.
-
 ## Bugfixes and changes
 
 * Support for the `na.rm` argument has been removed from the following
@@ -237,6 +225,26 @@ readable as it compresses consecutive record indices into a range (#1647).
 
 * We have expanded the family of snapshot tests by testing the function
 output in more cases, going from 12 to over 70 output snapshots (#1638).
+
+* We are in the process of streamlining the set of S3 methods that we export.
+This will not bring any loss of functionality, but will reduce some redundancy
+in the internal code. We don't think that there are active users of these
+specific functions and, in most cases, these are of interest only to package
+developers. Therefore, the following S3 methods are deprecated and will be
+removed in v1.4.0 (#1694).
+
+  | Deprecated                                                                         | Replacement       |
+  |------------------------------------------------------------------------------------|-------------------|
+  | `as.data.frame.RLum.Data.*`                                                        | `as.data.frame()` |
+  | `as.list.RLum.Analysis`, `as.list.RLum.Data.*`, `as.list.RLum.Results`             | `as.list()`       |
+  | `as.matrix.RLum.Data.*`                                                            | `as.matrix()`     |
+  | `dim.RLum.Data.*`                                                                  | `dim()`           |
+  | `hist.RLum.Analysis`, `hist.RLum.Data.*`, `hist.RLum.Results`                      | `hist()`          |
+  | `length_RLum`, `length.RLum.Analysis`, `length.RLum.Data.*`, `length.RLum.Results` | `length()`        |
+  | `merge.RLum.Analysis`, `merge.RLum.Data.*`, `merge.RLum.Results`                   | `merge_RLum()`    |
+  | `names_RLum`, `names.RLum.Analysis`, `names.RLum.Data.*`, `names.RLum.Results`     | `names()`         |
+  | `plot.RLum.Analysis`, `plot.RLum.Data.*`, `plot.RLum.Results`                      | `plot()`          |
+  | `summary.RLum.Data.*`                                                              | `summary()`       |
 
 ## Internals
 
