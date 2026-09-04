@@ -81,6 +81,8 @@
 #' occurs but a warning is raised.
 #' Only used for [Luminescence::RLum.Data.Spectrum-class] objects.
 #'
+#' @param ... currently not used.
+#'
 #' @return Returns an [Luminescence::RLum.Data.Curve-class] or
 #' [Luminescence::RLum.Data.Spectrum-class] object, depending on the input.
 #'
@@ -94,7 +96,7 @@
 #' These functions are fully operational via S3-generics:
 #' ``+``, ``-``, ``/``, ``*``, `merge`
 #'
-#' @section Function version: 0.2.2
+#' @section Function version: 0.2.3
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -130,7 +132,8 @@ merge_RLum.Data.Curve<- function(
   object,
   merge.method = c("mean", "median", "sum", "sd", "var", "max", "min",
                    "append", "-", "*", "/"),
-  method.info = NULL
+  method.info = NULL,
+  ...
 ) {
   .set_function_name("merge_RLum.Data.Curve")
   on.exit(.unset_function_name(), add = TRUE)

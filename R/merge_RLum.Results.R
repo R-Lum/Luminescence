@@ -15,7 +15,9 @@
 #' @param flatten [logical] (*with default*):
 #' whether list elements should be flattened before merging.
 #'
-#' @section Function version: 0.3.1
+#' @param ... currently not used.
+#'
+#' @section Function version: 0.3.2
 #'
 #' @keywords utilities internal
 #'
@@ -25,7 +27,8 @@
 #' @export
 merge_RLum.Results <- function(
   object,
-  flatten = TRUE
+  flatten = TRUE,
+  ...
 ) {
   .set_function_name("merge_RLum.Results")
   on.exit(.unset_function_name(), add = TRUE)

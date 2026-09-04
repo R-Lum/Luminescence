@@ -5,7 +5,8 @@ merge_RLum.Data.Spectrum <- function(
   merge.method = c("mean", "median", "sum", "sd", "var", "min", "max",
                    "append", "-", "*", "/"),
   method.info = NULL,
-  max.temp.diff = 0.1
+  max.temp.diff = 0.1,
+  ...
 ) {
   .set_function_name("merge_RLum.Data.Spectrum")
   on.exit(.unset_function_name(), add = TRUE)

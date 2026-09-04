@@ -4,12 +4,14 @@
 \alias{merge_RLum.Analysis}
 \title{Merge function for RLum.Analysis S4 class objects}
 \usage{
-merge_RLum.Analysis(object)
+merge_RLum.Analysis(object, ...)
 }
 \arguments{
 \item{object}{\link{list} of \link[=RLum.Analysis-class]{RLum.Analysis} (\strong{required}):
 list of S4 objects of class \code{RLum.Analysis}. Furthermore other objects of
 class \link[=RLum-class]{RLum} can be added, see details.}
+
+\item{...}{currently not used.}
 }
 \value{
 Returns an \link[=RLum.Analysis-class]{RLum.Analysis} object ordered according to the order
@@ -29,7 +31,7 @@ The information for the slot 'protocol' is taken from the first
 least one object of type \link[=RLum.Analysis-class]{RLum.Analysis} has to be provided.
 }
 \section{Function version}{
- 0.2.2
+ 0.2.3
 }
 
 \examples{

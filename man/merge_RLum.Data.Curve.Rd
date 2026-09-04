@@ -10,7 +10,8 @@ merge_RLum.Data.Curve(
   object,
   merge.method = c("mean", "median", "sum", "sd", "var", "max", "min", "append", "-",
     "*", "/"),
-  method.info = NULL
+  method.info = NULL,
+  ...
 )
 
 merge_RLum.Data.Spectrum(
@@ -18,7 +19,8 @@ merge_RLum.Data.Spectrum(
   merge.method = c("mean", "median", "sum", "sd", "var", "min", "max", "append", "-",
     "*", "/"),
   method.info = NULL,
-  max.temp.diff = 0.1
+  max.temp.diff = 0.1,
+  ...
 )
 }
 \arguments{
@@ -35,6 +37,8 @@ allows to specify how info elements of the input objects are combined,
 e.g. \code{1} means that just the elements from the first object are kept,
 \code{2} keeps only the info elements from the 2 object etc.
 If set to \code{NULL} (default), all elements are combined.}
+
+\item{...}{currently not used.}
 
 \item{max.temp.diff}{\link{numeric} (\emph{with default}):
 maximum difference in the time/temperature values between the spectra to
@@ -120,7 +124,7 @@ These functions are fully operational via S3-generics:
 }
 
 \section{Function version}{
- 0.2.2
+ 0.2.3
 }
 
 \examples{

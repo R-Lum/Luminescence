@@ -12,6 +12,8 @@
 #' list of S4 objects of class `RLum.Analysis`. Furthermore other objects of
 #' class [Luminescence::RLum-class] can be added, see details.
 #'
+#' @param ... currently not used.
+#'
 #' @return
 #' Returns an [Luminescence::RLum.Analysis-class] object ordered according to the order
 #' provided with the input list.
@@ -21,7 +23,7 @@
 #' [Luminescence::RLum.Analysis-class] object in the input list. Therefore at
 #' least one object of type [Luminescence::RLum.Analysis-class] has to be provided.
 #'
-#' @section Function version: 0.2.2
+#' @section Function version: 0.2.3
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -46,7 +48,8 @@
 #'
 #' @export
 merge_RLum.Analysis<- function(
-  object
+  object,
+  ...
 ) {
   .set_function_name("merge_RLum.Analysis")
   on.exit(.unset_function_name(), add = TRUE)
