@@ -15,7 +15,7 @@
 #' [Luminescence::RLum.Results-class] \tab -> \tab [Luminescence::merge_RLum.Results]
 #' }
 #'
-#' @param objects [list] of [Luminescence::RLum-class] (**required**):
+#' @param object [list] of [Luminescence::RLum-class] (**required**):
 #' list of S4 object of class `RLum`.
 #'
 #' @param ... further arguments that one might want to pass to the specific merge function
@@ -28,7 +28,7 @@
 #' @note
 #' So far merging of [Luminescence::RLum.Data.Image-class] objects is not supported.
 #'
-#' @section Function version: 0.1.3
+#' @section Function version: 0.1.4
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -53,34 +53,40 @@
 #' temp2 <- calc_CentralDose(ExampleData.DeValues$CA1)
 #'
 #' ##merge the results and store them in a new object
-#' temp.merged <- get_RLum(merge_RLum(objects = list(temp1, temp2)))
+#' temp.merged <- get_RLum(merge_RLum(object = list(temp1, temp2)))
 #'
 #' @export
 merge_RLum<- function(
-  objects,
+  object,
   ...
 ) {
   .set_function_name("merge_RLum")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## Integrity checks -------------------------------------------------------
-  .validate_class(objects, "list")
+  ## deprecated argument
+  if ("objects" %in% ...names()) {
+    object <- list(...)$objects
+    .deprecated(old = "objects", new = "object", since = "1.3.1")
+  }
 
-    ##we are friendly and remove all empty list elements, this helps a lot if we place things
-    ##we DO NOT provide a warning as this lowers the computation speed in particular cases.
-    objects <- .rm_NULL_elements(objects)
+  ## Integrity checks -------------------------------------------------------
+  .validate_class(object, "list")
+
+  ##we are friendly and remove all empty list elements, this helps a lot if we place things
+  ##we DO NOT provide a warning as this lowers the computation speed in particular cases.
+  object <- .rm_NULL_elements(object)
 
   ## if the list is empty we do nothing
-  if (length(objects) < 1) {
+  if (length(object) < 1) {
     .throw_warning("Nothing was merged as the object list was found ",
                    "to be empty or contains only one object")
     return(NULL)
   }
 
   ## check if objects are of class RLum
-  temp.class.test <- unique(sapply(objects, function(x) {
+  temp.class.test <- unique(sapply(object, function(x) {
        .validate_class(x, "RLum",
-                       name = "All elements of 'objects'")
+                       name = "All elements of 'object'")
         is(x)[1]
       }))
 
@@ -97,10 +103,10 @@ merge_RLum<- function(
   ## select which merge function should be used
   switch(
         objects.class,
+        RLum.Analysis = merge_RLum.Analysis(object, ...),
+        RLum.Data.Curve = merge_RLum.Data.Curve(object, ...),
         RLum.Data.Image = .throw_error("Merging of 'RLum.Data.Image' objects is currently not supported"),
-        RLum.Data.Spectrum = merge_RLum.Data.Spectrum(objects, ...),
-        RLum.Data.Curve = merge_RLum.Data.Curve(objects, ...),
-        RLum.Analysis = merge_RLum.Analysis(objects, ...),
-        RLum.Results = merge_RLum.Results(objects, ...)
+        RLum.Data.Spectrum = merge_RLum.Data.Spectrum(object, ...),
+        RLum.Results = merge_RLum.Results(object, ...)
       )
 }

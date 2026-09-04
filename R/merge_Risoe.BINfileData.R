@@ -29,10 +29,10 @@
 #' `position.number.append.gap = 1` it will become:
 #' `1,3,5,7,9,11,13,15,17`.
 #'
-#' @param objects [character] or [Luminescence::Risoe.BINfileData-class] (**required**):
+#' @param object [character] or [Luminescence::Risoe.BINfileData-class] (**required**):
 #' Character vector with path and files names with ".bin" or ".binx" extension
-#' (e.g. `input.objects = c("path/file1.bin", "path/file2.bin")` or a list of
-#' [Luminescence::Risoe.BINfileData-class] objects (e.g. `input.objects = c(object1, object2)`).
+#' (e.g. `object = c("path/file1.bin", "path/file2.bin")` or a list of
+#' [Luminescence::Risoe.BINfileData-class] objects (e.g. `object = c(object1, object2)`).
 #'
 #' @param output.file [character] (*optional*):
 #' File output path and name. If no value is given, a [Luminescence::Risoe.BINfileData-class]
@@ -83,7 +83,7 @@
 #'
 #' @export
 merge_Risoe.BINfileData <- function(
-  objects,
+  object,
   output.file,
   keep.position.number = FALSE,
   position.number.append.gap = 0,
@@ -95,34 +95,38 @@ merge_Risoe.BINfileData <- function(
 
   ## deprecated argument
   if ("input.objects" %in% ...names()) {
-    objects <- list(...)$input.objects
-    .deprecated(old = "input.objects", new = "objects", since = "1.2.0")
+    object <- list(...)$input.objects
+    .deprecated(old = "input.objects", new = "object", since = "1.2.0")
+  }
+  if ("objects" %in% ...names()) {
+    object <- list(...)$objects
+    .deprecated(old = "objects", new = "object", since = "1.3.1")
   }
 
   ## Integrity checks -------------------------------------------------------
-  .validate_class(objects, c("character", "list"))
+  .validate_class(object, c("character", "list"))
   .validate_logical_scalar(keep.position.number)
   .validate_logical_scalar(verbose)
-  if (length(objects) < 2) {
+  if (length(object) < 2) {
     .throw_message("At least two input objects are needed, nothing done",
                    error = FALSE)
-    return(objects)
+    return(object)
   }
 
   ## Import files -----------------------------------------------------------
-  if (is.character(objects)) {
-    for (i in 1:length(objects)) {
-      .validate_file(objects[[i]], ext = c("bin", "binx"),
+  if (is.character(object)) {
+    for (i in 1:length(object)) {
+      .validate_file(object[[i]], ext = c("bin", "binx"),
                      scan.dir = FALSE, verbose = verbose)
     }
-    temp <- lapply(objects, read_BIN2R, verbose = verbose)
+    temp <- lapply(object, read_BIN2R, verbose = verbose)
 
   }else{
-    for (i in 1:length(objects)) {
-      .validate_class(objects[[i]], "Risoe.BINfileData",
-                      name = "All elements of 'objects'")
+    for (i in 1:length(object)) {
+      .validate_class(object[[i]], "Risoe.BINfileData",
+                      name = "All elements of 'object'")
     }
-    temp <- objects
+    temp <- object
   }
 
   # Get POSITION values -------------------------------------------------------
@@ -153,7 +157,7 @@ merge_Risoe.BINfileData <- function(
                          temp[[1]]@.RESERVED else list()
 
   ## loop over the remaining input objects
-  for (i in 2:length(objects)) {
+  for (i in 2:length(object)) {
     temp.new.METADATA <- rbind(temp.new.METADATA, temp[[i]]@METADATA)
     temp.new.DATA <- c(temp.new.DATA, temp[[i]]@DATA)
     if (".RESERVED" %in% slotNames(temp[[i]])) {
