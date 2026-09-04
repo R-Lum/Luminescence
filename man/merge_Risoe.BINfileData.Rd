@@ -5,7 +5,7 @@
 \title{Merge Risoe.BINfileData objects or Risoe BIN-files}
 \usage{
 merge_Risoe.BINfileData(
-  objects,
+  object,
   output.file,
   keep.position.number = FALSE,
   position.number.append.gap = 0,
@@ -14,10 +14,10 @@ merge_Risoe.BINfileData(
 )
 }
 \arguments{
-\item{objects}{\link{character} or \link[=Risoe.BINfileData-class]{Risoe.BINfileData} (\strong{required}):
+\item{object}{\link{character} or \link[=Risoe.BINfileData-class]{Risoe.BINfileData} (\strong{required}):
 Character vector with path and files names with ".bin" or ".binx" extension
-(e.g. \code{input.objects = c("path/file1.bin", "path/file2.bin")} or a list of
-\link[=Risoe.BINfileData-class]{Risoe.BINfileData} objects (e.g. \code{input.objects = c(object1, object2)}).}
+(e.g. \code{object = c("path/file1.bin", "path/file2.bin")} or a list of
+\link[=Risoe.BINfileData-class]{Risoe.BINfileData} objects (e.g. \code{object = c(object1, object2)}).}
 
 \item{output.file}{\link{character} (\emph{optional}):
 File output path and name. If no value is given, a \link[=Risoe.BINfileData-class]{Risoe.BINfileData}

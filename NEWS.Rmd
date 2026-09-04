@@ -168,6 +168,16 @@ evaluation of the model fit. In both cases, this has no user-visible effect
 other than changing the number of dose points under which the function
 switches to using the "LIN" method (#1634, #1636).
 
+### `merge_Risoe.BINfileData()`
+
+- Argument `objects` has been renamed to `object`. The older name will still
+work, but it generates a deprecation warning (#1697).
+
+### `merge_RLum()`
+
+- Argument `objects` has been renamed to `object`. The older name will still
+work, but it generates a deprecation warning (#1697).
+
 ### `merge_RLum.Analysis()`
 
 - Argument `objects` has been renamed to `object` (#1697).

@@ -9,9 +9,9 @@ test_that("input validation", {
   expect_error(merge_Risoe.BINfileData(c("data", "data2")),
                "File 'data' does not exist")
   expect_error(merge_Risoe.BINfileData(list("data", "data2")),
-               "All elements of 'objects' should be of class 'Risoe.BINfileData'")
+               "All elements of 'object' should be of class 'Risoe.BINfileData'")
   expect_error(merge_Risoe.BINfileData(c(FALSE, FALSE)),
-               "'objects' should be of class 'character' or 'list'")
+               "'object' should be of class 'character' or 'list'")
   expect_error(merge_Risoe.BINfileData(c(o1, o2), verbose = NA),
                "'verbose' should be a single logical value")
 })
@@ -21,7 +21,7 @@ test_that("check functionality", {
 
   ## nothing done
   input <- "data"
-  expect_message(res <- merge_Risoe.BINfileData(objects = input),
+  expect_message(res <- merge_Risoe.BINfileData(object = input),
                  "At least two input objects are needed, nothing done")
   expect_equal(res, input)
 
@@ -36,7 +36,9 @@ test_that("check functionality", {
 
   ## deprecated argument
   expect_warning(merge_Risoe.BINfileData(input.objects = c(o1, o2)),
-                 "'input.objects' was deprecated in v1.2.0, use 'objects'")
+                 "'input.objects' was deprecated in v1.2.0, use 'object'")
+  expect_warning(merge_Risoe.BINfileData(objects = c(o1, o2)),
+                 "'objects' was deprecated in v1.3.1, use 'object'")
 })
 
 test_that("snapshot tests", {

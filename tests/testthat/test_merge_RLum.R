@@ -12,10 +12,10 @@ test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(merge_RLum("error"),
-               "[merge_RLum()] 'objects' should be of class 'list'",
+               "[merge_RLum()] 'object' should be of class 'list'",
                fixed = TRUE)
   expect_error(merge_RLum(list(o1, o2, "test")),
-               "All elements of 'objects' should be of class 'RLum'")
+               "All elements of 'object' should be of class 'RLum'")
   expect_error(merge_RLum(list(r1, c1)),
                "Objects cannot be merged, different classes found: 'RLum.Results'")
   expect_error(merge_RLum(list(ExampleData.RLum.Data.Image)),
@@ -23,6 +23,10 @@ test_that("input validation", {
 
   expect_warning(merge_RLum(list(NULL)),
                  "Nothing was merged as the object list was found to be empty")
+
+  ## deprecated argument
+  expect_warning(merge_RLum(objects = list(o1, o2)),
+                 "'objects' was deprecated in v1.3.1, use 'object'")
 })
 
 test_that("check functionality", {

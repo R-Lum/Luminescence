@@ -4,10 +4,10 @@
 \alias{merge_RLum}
 \title{General merge function for RLum-class objects}
 \usage{
-merge_RLum(objects, ...)
+merge_RLum(object, ...)
 }
 \arguments{
-\item{objects}{\link{list} of \link[=RLum-class]{RLum} (\strong{required}):
+\item{object}{\link{list} of \link[=RLum-class]{RLum} (\strong{required}):
 list of S4 object of class \code{RLum}.}
 
 \item{...}{further arguments that one might want to pass to the specific merge function}
@@ -36,7 +36,7 @@ Empty list elements (\code{NULL}) are automatically removed from the input list.
 So far merging of \link[=RLum.Data.Image-class]{RLum.Data.Image} objects is not supported.
 }
 \section{Function version}{
- 0.1.3
+ 0.1.4
 }
 
 \examples{
@@ -53,7 +53,7 @@ temp1 <- calc_CentralDose(ExampleData.DeValues$CA1)
 temp2 <- calc_CentralDose(ExampleData.DeValues$CA1)
 
 ##merge the results and store them in a new object
-temp.merged <- get_RLum(merge_RLum(objects = list(temp1, temp2)))
+temp.merged <- get_RLum(merge_RLum(object = list(temp1, temp2)))
 
 }
 \seealso{
