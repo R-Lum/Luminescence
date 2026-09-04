@@ -233,18 +233,18 @@
   of interest only to package developers. Therefore, the following S3
   methods are deprecated and will be removed in v1.4.0 (#1694).
 
-  | Deprecated                                                                         | Replacement       |
-  |------------------------------------------------------------------------------------|-------------------|
-  | `as.data.frame.RLum.Data.*`                                                        | `as.data.frame()` |
-  | `as.list.RLum.Analysis`, `as.list.RLum.Data.*`, `as.list.RLum.Results`             | `as.list()`       |
-  | `as.matrix.RLum.Data.*`                                                            | `as.matrix()`     |
-  | `dim.RLum.Data.*`                                                                  | `dim()`           |
-  | `hist.RLum.Analysis`, `hist.RLum.Data.*`, `hist.RLum.Results`                      | `hist()`          |
-  | `length_RLum`, `length.RLum.Analysis`, `length.RLum.Data.*`, `length.RLum.Results` | `length()`        |
-  | `merge.RLum.Analysis`, `merge.RLum.Data.*`, `merge.RLum.Results`                   | `merge_RLum()`    |
-  | `names_RLum`, `names.RLum.Analysis`, `names.RLum.Data.*`, `names.RLum.Results`     | `names()`         |
-  | `plot.RLum.Analysis`, `plot.RLum.Data.*`, `plot.RLum.Results`                      | `plot()`          |
-  | `summary.RLum.Data.*`                                                              | `summary()`       |
+  | Deprecated                     | Replacement       |
+  |--------------------------------|-------------------|
+  | `as.data.frame.RLum.Data.*`    | `as.data.frame()` |
+  | `as.list.RLum.*`               | `as.list()`       |
+  | `as.matrix.RLum.Data.*`        | `as.matrix()`     |
+  | `dim.RLum.Data.*`              | `dim()`           |
+  | `hist.RLum.*`                  | `hist()`          |
+  | `length_RLum`, `length.RLum.*` | `length()`        |
+  | `merge_RLum.*`, `merge.RLum.*` | `merge_RLum()`    |
+  | `names_RLum`, `names.RLum.*`   | `names()`         |
+  | `plot.RLum.*`                  | `plot()`          |
+  | `summary.RLum.Data.*`          | `summary()`       |
 
 ## Internals
 
