@@ -246,9 +246,10 @@ plot_DRTResults <- function(
     .validate_class(values[[i]], c("data.frame", "RLum.Results"),
                     name = "'object'")
     if (inherits(values[[i]], "RLum.Results")) {
-      val <- get_RLum(values[[i]])[, 1:2] %||% NA
+      val <- get_RLum(values[[i]]) %||% NA
       values[[i]] <- val
-    } else if (ncol(values[[i]]) < 2) {
+    }
+    if (NCOL(values[[i]]) < 2) {
       .throw_error("'object' should have 2 columns")
     } else {
       ## mark for removal if all De values are missing

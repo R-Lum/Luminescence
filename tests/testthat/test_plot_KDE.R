@@ -120,3 +120,11 @@ test_that("graphical snapshot tests", {
                               plot_KDE(data = df, layout = "journal"))
   })
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 1700
+  obj <- set_RLum("RLum.Results", data = list(data = data.frame(1:10)))
+  expect_silent(plot_KDE(obj))
+})

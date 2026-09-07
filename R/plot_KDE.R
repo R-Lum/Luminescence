@@ -184,7 +184,7 @@ plot_KDE <- function(
 
     ## extract RLum.Results
     if (inherits(data[[i]], "RLum.Results")) {
-      data[[i]] <- get_RLum(data[[i]], "data")[,1:2]
+      data[[i]] <- get_RLum(data[[i]], "data")
     }
 
       ## ensure that the dataset it not degenerate

@@ -67,3 +67,14 @@ test_that("snapshot tests", {
   expect_snapshot_plain(calc_Statistics(data.frame(1:10, 0:9)),
                         tolerance = snapshot.tolerance)
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 1700
+  obj <- set_RLum("RLum.Results", data = list(data = data.frame(1:10)))
+  expect_warning(calc_Statistics(obj),
+                 "All errors are NA or zero, weighted statistics will match")
+  obj@data$data <- cbind(obj@data$data, 1, NA)
+  expect_silent(calc_Statistics(obj))
+})

@@ -86,13 +86,13 @@ calc_Statistics <- function(
   .validate_class(data, c("RLum.Results", "data.frame"))
   .validate_not_empty(data)
   if (inherits(data, "RLum.Results")) {
-    data <- get_RLum(data, "data")[, 1:2]
+    data <- get_RLum(data, "data")
   }
 
   ##strip na values
   .validate_logical_scalar(na.rm)
   if(na.rm){
-    data <- na.exclude(data)
+    data <- na.exclude(data[, 1:min(ncol(data), 2), drop = FALSE])
     if (nrow(data) == 0) {
       .throw_error("'data' contains only NA values")
     }

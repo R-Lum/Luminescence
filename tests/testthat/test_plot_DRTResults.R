@@ -54,7 +54,10 @@ test_that("input validation", {
   expect_error(plot_DRTResults(data.frame(NA, 1:4)),
                      "No valid records in 'object'")
   expect_error(plot_DRTResults(list(empty, empty)),
-                     "No valid records in 'object'")
+               "'object' should have 2 columns")
+  obj <- set_RLum("RLum.Results", data = list(data = data.frame(1:10)))
+  expect_error(plot_DRTResults(obj),
+               "'object' should have 2 columns")
 })
 
 test_that("check functionality", {

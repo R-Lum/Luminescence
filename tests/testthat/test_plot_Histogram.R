@@ -89,4 +89,8 @@ test_that("regression tests", {
   ## issue 744
   expect_silent(plot_Histogram(df[, 1, drop = FALSE]))
   expect_silent(plot_Histogram(cbind(df[, 1, drop = FALSE], NA)))
+
+  ## issue 1700
+  obj <- set_RLum("RLum.Results", data = list(data = data.frame(1:10)))
+  expect_silent(plot_Histogram(obj))
 })
