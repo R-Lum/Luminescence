@@ -18,7 +18,6 @@ plot_RLum.Data.Spectrum(
   rug = TRUE,
   limit_counts = NULL,
   xaxis.energy = FALSE,
-  legend.text = NULL,
   plot = TRUE,
   ...
 )
@@ -92,10 +91,6 @@ is used to perform the conversion.
 
 \strong{Note:} Besides being used in setting the axis, with this option the
 the spectrum is recalculated in terms of intensity, see details.}
-
-\item{legend.text}{\link{character} (\emph{with default}):
-possibility to provide own legend text. This argument is only considered for
-plot types providing a legend, e.g. \code{plot.type = "transect"}.}
 
 \item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output. If
 the plot output is disabled, the \link{matrix} used for the plotting and the
@@ -202,14 +197,14 @@ wavelength axis. Other allowed values are \code{mean}, \code{mean}, \code{min}, 
 \code{box}, \code{pch}, \code{type} (\code{"single"}, \code{"multiple.lines"}, \code{"interactive"}),
 \code{col}, \code{border}, \code{lwd}, \code{bty}, \code{showscale} (\code{"interactive"}, \code{"image"})
 \code{contour}, \code{contour.col} (\code{"image"}), \code{labcex} (\code{"image"}, \code{"contour"}),
-\code{n_breaks} (\code{"image"}), \code{legend} (\code{TRUE}/\code{FALSE}),
+\code{n_breaks} (\code{"image"}), \code{legend} (\code{TRUE}/\code{FALSE}), \code{legend.text} (\code{"multiple.lines"}),
 \code{legend.pos} (\code{"image"}), \code{legend.horiz} (\code{TRUE}/\code{FALSE} | \code{"image"})
 }
 \note{
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.6.17
+ 0.6.18
 }
 
 \examples{

@@ -87,7 +87,7 @@
 #' `box`, `pch`, `type` (`"single"`, `"multiple.lines"`, `"interactive"`),
 #' `col`, `border`, `lwd`, `bty`, `showscale` (`"interactive"`, `"image"`)
 #' `contour`, `contour.col` (`"image"`), `labcex` (`"image"`, `"contour"`),
-#' `n_breaks` (`"image"`), `legend` (`TRUE`/`FALSE`),
+#' `n_breaks` (`"image"`), `legend` (`TRUE`/`FALSE`), `legend.text` (`"multiple.lines"`), 
 #' `legend.pos` (`"image"`), `legend.horiz` (`TRUE`/`FALSE` | `"image"`)
 #'
 #' @param object [Luminescence::RLum.Data.Spectrum-class] or [matrix] (**required**):
@@ -159,10 +159,6 @@
 #' **Note:** Besides being used in setting the axis, with this option the
 #' the spectrum is recalculated in terms of intensity, see details.
 #'
-#' @param legend.text [character] (*with default*):
-#' possibility to provide own legend text. This argument is only considered for
-#' plot types providing a legend, e.g. `plot.type = "transect"`.
-#'
 #' @param plot [logical] (*with default*): enable/disable the plot output. If
 #' the plot output is disabled, the [matrix] used for the plotting and the
 #' calculated colour values (as attributes) are returned. This way, the
@@ -179,7 +175,7 @@
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.6.17
+#' @section Function version: 0.6.18
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -268,7 +264,6 @@ plot_RLum.Data.Spectrum <- function(
   rug = TRUE,
   limit_counts = NULL,
   xaxis.energy = FALSE,
-  legend.text = NULL,
   plot = TRUE,
   ...
 ) {
@@ -390,13 +385,14 @@ plot_RLum.Data.Spectrum <- function(
   plot_settings <- modifyList(
     x = list(
       legend = TRUE,
+      legend.text = NULL,
       legend.pos = "topright",
       legend.horiz = FALSE,
       n_breaks = 50
     ),
-    val = extraArgs)
-
-
+    val = extraArgs, 
+    keep.null = TRUE)
+  
   # prepare values for plot ---------------------------------------------------
   ##copy data
   temp.xyz <- object@data
@@ -1015,7 +1011,8 @@ if(plot){
     }
 
     ##change graphic settings
-    par(mar = c(3.1, 3.1, 2, 7), xpd = TRUE)
+    if(plot_settings$legend)
+     par(mar = c(3.1, 3.1, 2, 7), xpd = TRUE)
 
     ##grep zlim
     if (!"zlim" %in% names(extraArgs))
@@ -1087,18 +1084,18 @@ if(plot){
     if(box) graphics::box()
 
     ##for missing values - legend.text
-    if (is.null(legend.text)) {
+    if (is.null(plot_settings$legend.text)) {
       ## limit number of entries show to avoid excessive overplotting
       num.frames <- length(frames)
       sel <- seq.int(1, num.frames, length.out = min(num.frames, 30))
-      legend.text <- paste(round(y[sel], digits = 1), zlab)
+      plot_settings[["legend.text"]] <- paste(round(y[sel], digits = 1), zlab)
     }
 
     ##legend
     if(plot_settings$legend) {
       legend(x = par()$usr[2],
              y = par()$usr[4],
-             legend = legend.text,
+             legend = plot_settings$legend.text,
              lwd= lwd,
              lty = frames,
              bty = "n",

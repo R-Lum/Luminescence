@@ -292,6 +292,28 @@ test_that("graphical snapshot tests", {
                                                       bg.channels = 2,
                                                       bin.cols = 1,
                                                       xaxis.energy = TRUE))
+  vdiffr::expect_doppelganger("multiple no legend",
+                              plot_RLum.Data.Spectrum(TL.Spectrum,
+                                                      plot.type = "multiple.lines",
+                                                      xlim = c(1.4, 4),
+                                                      ylim = c(0, 300),
+                                                      bg.spectrum = bg.spectrum,
+                                                      bg.channels = 2,
+                                                      bin.cols = 1,
+                                                      legend = FALSE,
+                                                      xaxis.energy = TRUE))
+  
+  vdiffr::expect_doppelganger("multiple different legend",
+                              plot_RLum.Data.Spectrum(TL.Spectrum,
+                                                      plot.type = "multiple.lines",
+                                                      xlim = c(1.4, 4),
+                                                      ylim = c(0, 300),
+                                                      bg.spectrum = bg.spectrum,
+                                                      bg.channels = 2,
+                                                      bin.cols = 1,
+                                                      legend.text = "test",
+                                                      xaxis.energy = TRUE))
+  
   vdiffr::expect_doppelganger("multiple large",
                               plot_RLum.Data.Spectrum(large,
                                                       plot.type = "multiple.lines"))
