@@ -390,9 +390,7 @@ plot_RLum.Data.Spectrum <- function(
       legend.horiz = FALSE,
       n_breaks = 50
     ),
-    val = extraArgs, 
-    keep.null = TRUE)
-  
+    val = extraArgs)
   # prepare values for plot ---------------------------------------------------
   ##copy data
   temp.xyz <- object@data
