@@ -207,10 +207,11 @@
 ### `plot_RLum.Data.Spectrum()`
 
 - The setting `legend = FALSE` did not work as advertised and did not
-  remove the legend, e.g., in `plot.type = "multiple.lines"`; fixed (#)
+  remove the legend, e.g., in `plot.type = "multiple.lines"`; fixed
+  (#1702)
 
 - The argument `legend.text` was remove from the function definition but
-  is still available through the `...` argument (#)
+  is still available through the `...` argument (#1702)
 
 ### `read_RF2R()`
 
