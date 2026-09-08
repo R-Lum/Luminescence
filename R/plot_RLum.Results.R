@@ -362,8 +362,8 @@ plot_RLum.Results<- function(
         # nocov end
       } else {
 
-        x<- seq(mean-5*sd, mean+5*sd, 0.001)
-        y<- dnorm(seq(mean-5*sd, mean+5*sd, 0.001), mean, sd)
+        x <- seq(mean - 5 * sd, mean + 5 * sd, length.out = 1000)
+        y <- dnorm(x, mean, sd)
         # normalise y-values
         if (max(y) != 0)
           y <- y / max(y)
