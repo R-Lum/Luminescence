@@ -115,6 +115,7 @@ plot_RLum.Results<- function(
       if (object@data$args$par == 4)
         profiles@profile$mu$par.vals[ ,"mu"] <- exp(profiles@profile$mu$par.vals[ ,"mu"])
     }
+    N <- object@data$args$bs.N
 
     if (single)
       par(mfrow=c(2, 2))
@@ -162,7 +163,8 @@ plot_RLum.Results<- function(
       pairs<- object@data$bootstrap$pairs$gamma
 
       ## sort De and likelihoods by De (increasing) and remove NAs
-      pairs <- stats::na.omit(pairs[order(pairs[, 1]), ])
+      if (!is.null(pairs))
+        pairs <- stats::na.omit(pairs[order(pairs[, 1]), ])
 
       # get polynomial fit objects
       poly.fits <- list(three = object@data$bootstrap$poly.fits$poly.three,
@@ -190,6 +192,9 @@ plot_RLum.Results<- function(
       }
 
       for (i in 1:length(poly.fits)) {
+        if (is.null(poly.fits[[i]]))
+          next
+
         ## ----- LIKELIHOODS
 
         # set margins (bottom, left, top, right)
@@ -323,6 +328,7 @@ plot_RLum.Results<- function(
 
       mtext(text = "Normalised likelihood / density", side = 2, line = 2.5, adj = 0)
 
+      if (N > 0) {
       # set the polynomial to plot
       poly.curve<- poly.curves[[1]] # three degree poly
 
@@ -346,14 +352,13 @@ plot_RLum.Results<- function(
 
       if (all(x > max(xlim)) || all(x < min(xlim)))
         .throw_warning("Bootstrap estimates out of x-axis range")
-
+      } # end if (N > 0)
 
       ### ----- PLOT MAM SINGLE ESTIMATE
 
       # symmetric errors, might not be appropriate
       mean<- object@data$summary$de
       sd<- object@data$summary$de_err
-
 
       if (anyNA(c(mean, sd))) {
         ## no longer reachable since #1353
@@ -432,13 +437,13 @@ plot_RLum.Results<- function(
       # add legend
       legend("bottomright",
              bty = "n",
-             col = c("grey80", "red", "blue", "black"),
+             col = c(ifelse(N > 0, "grey80", NA), "red", "blue", "black"),
              pch = c(NA,NA,NA,16),
              lty = c(1,1,1,1),
              lwd=c(10,2,2,2),
-             legend = c("Bootstrap likelihood", "Profile likelihood (gaussian fit)",
-                        "Profile likelihood", "Grain / aliquot")
-      )
+             legend = c(ifelse(N > 0, "Bootstrap likelihood", ""),
+                        "Profile likelihood (gaussian fit)",
+                        "Profile likelihood", "Grain / aliquot"))
     }##EndOf::Bootstrap_plotting
   }#EndOf::CASE1_MinimumAgeModel-3
 

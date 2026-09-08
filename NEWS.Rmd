@@ -128,6 +128,11 @@ cores (#1668).
 `init.values` are strictly positive, as non-positive values may cause
 unrecoverable crashes during fitting (#1670).
 
+* It is now possible to disable the second-level bootstrap entirely by setting 
+`bs.N = 0`. This setting corresponds to a classic bootstrap, as opposed to the
+recycled boostrap that would otherwise be run by default (#1525; thanks to
+@MarijnvanderMeij for reporting).
+
 ### `calc_SourceDoseRate()`
 
 * Source type `"Am-241"` was misspelled in the documentation and in the
