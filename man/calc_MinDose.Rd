@@ -173,7 +173,7 @@ explicitly. To override the default boundary values, provide arguments
 
 \strong{Bootstrap}
 
-When \code{bootstrap=TRUE} the function applies the bootstrapping method as
+When \code{bootstrap = TRUE} the function applies the bootstrapping method as
 described in Cunningham & Wallinga (2012). The minimum age model produces
 \code{bs.M} first-level bootstrap replicates (1000 by default) and \code{bs.N}
 second-level replicates (\code{3 * bs.M} by default), with an uncertainty
@@ -183,6 +183,11 @@ respectively. The bandwidth of the kernel density estimate can be specified
 with \code{bs.h}. By default, this is calculated as:
 
 \deqn{h = 2\sigma_{DE} / \sqrt{n}}
+
+\strong{Note:} Setting \code{bs.N} to 0 corresponds to a classic bootstrap, which
+bypasses some of the computations required for the full approach by
+Cunningham & Wallinga (2012), such as polynomial smoothing. This may be
+sufficient when no subsequent Bayesian analysis is required.
 
 \strong{Multicore support}
 

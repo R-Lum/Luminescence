@@ -73,7 +73,7 @@
 #'
 #' **Bootstrap**
 #'
-#' When `bootstrap=TRUE` the function applies the bootstrapping method as
+#' When `bootstrap = TRUE` the function applies the bootstrapping method as
 #' described in Cunningham & Wallinga (2012). The minimum age model produces
 #' `bs.M` first-level bootstrap replicates (1000 by default) and `bs.N`
 #' second-level replicates (`3 * bs.M` by default), with an uncertainty
@@ -83,6 +83,11 @@
 #' with `bs.h`. By default, this is calculated as:
 #'
 #' \deqn{h = 2\sigma_{DE} / \sqrt{n}}
+#'
+#' **Note:** Setting `bs.N` to 0 corresponds to a classic bootstrap, which
+#' bypasses some of the computations required for the full approach by
+#' Cunningham & Wallinga (2012), such as polynomial smoothing. This may be
+#' sufficient when no subsequent Bayesian analysis is required.
 #'
 #' **Multicore support**
 #'
@@ -454,9 +459,10 @@ calc_MinDose <- function(
 
   # second level bootstrap
   if ("bs.N" %in% names(extraArgs)) {
-    N <- .validate_positive_scalar(as.integer(extraArgs$bs.N),
-                                   int = TRUE, name= "'bs.N'")
-    N <- max(N, 2) # issue 1355
+    N <- .validate_nonnegative_scalar(as.integer(extraArgs$bs.N),
+                                      int = TRUE, name= "'bs.N'")
+    if (N > 0)
+      N <- max(N, 2) # issue 1355
   } else {
     N <- 3*M
   }
@@ -755,7 +761,7 @@ calc_MinDose <- function(
   ##============================================================================##
   if (bootstrap) {
 
-    # Function that produces N+M replicates from the original data set using
+    # Function that produces replicates from the original data set using
     # randomly sampled indices with replacement and adding a randomly drawn
     # sigmab error
     create_Replicates <- function(R, e) {
@@ -808,16 +814,16 @@ calc_MinDose <- function(
     # nocov end
 
     ## START BOOTSTRAP ----
-    msg <- sprintf(paste("\n [calc_MinDose] \n\nRecycled Bootstrap",
-                         "\n\nParameters:",
+    msg <- sprintf(paste("%s bootstrap parameters:",
                          "\n M = %d",
                          "\n N = %d",
                          "\n sigmab = %.2f \U00B1 %.2f",
                          "\n h = %.2f",
                          "\n\nCreating %d bootstrap replicates..."),
+                   ifelse(N > 0, "Recycled", "Classic"),
                    M, N, sigmab, sigmab.sd, h, N+M)
     if (verbose)
-      message(msg)
+      .throw_message(msg, error = FALSE)
 
     # Draw N+M samples from a normally distributed sigmab
     sigmab.bs <- rnorm(N + M, sigmab, sigmab.sd)
@@ -846,7 +852,8 @@ calc_MinDose <- function(
       mle <- lapply(replicates, Get_mle)
     }
 
-    # Final bootstrap calculations
+    ## Recycled bootstrap calculations
+    if (N > 0) {
     if (verbose)
       message("Calculating likelihoods...")
 
@@ -905,6 +912,12 @@ calc_MinDose <- function(
       .throw_warning("Not enough bootstrap replicates for loess fitting, try ",
                      "increasing `bs.M`")
     }
+    } # end if (N > 0)
+    else {
+      ## classic bootstrap (N == 0)
+      theta <- sapply(mle, save_Gamma, log = log)
+      pairs <- data.frame(theta = theta)
+    }
 
     ## extract the parameters from the bootstrap replicates
     mle <- rbindlist(lapply(mle[N + 1:M], extract_estimates, log = log))
@@ -921,7 +934,6 @@ calc_MinDose <- function(
 
     ## standard deviation over the De values from the bootstrap replicates
     gamma_err <- sd(pairs[, "theta"])
-
   }#EndOf::Bootstrap
 
   ## ========================================================================
@@ -1017,7 +1029,7 @@ calc_MinDose <- function(
   if (invert)
     prof@profile$gamma$par.vals[ ,"gamma"] <- rev((prof@profile$gamma$par.vals[ ,"gamma"] - x.offset)*-1)
 
-  if (!bootstrap)
+  if (!bootstrap || N == 0)
     pairs <- poly.three <- poly.four <- poly.five <- poly.six <- loess <- NULL
 
   results <- set_RLum(
@@ -1037,7 +1049,7 @@ calc_MinDose <- function(
                                    poly.four = poly.four,
                                    poly.five = poly.five,
                                    poly.six = poly.six),
-                  loess.fit = loess)))
+                  loess.fit = loess %||% NA)))
 
   ##=========##
   ## PLOTTING

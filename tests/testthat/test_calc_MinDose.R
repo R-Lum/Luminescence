@@ -62,7 +62,7 @@ test_that("input validation", {
                "'bs.M' should be a single positive integer value")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                             bootstrap = TRUE, bs.N = -1),
-               "'bs.N' should be a single positive integer value")
+               "'bs.N' should be a single non-negative integer value")
   expect_error(calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1,
                             bootstrap = TRUE, bs.h = -1),
                "'bs.h' should be a single positive value")
@@ -86,6 +86,10 @@ test_that("check functionality", {
   ## RLum.Results object
   calc_MinDose(temp, sigmab = 0.1, verbose = FALSE, log = FALSE, par = 4,
                init.values = list(gamma = 54, sigma = 1, p0 = 0.01, mu = 70))
+
+  ## disable second-level bootstrapping
+  calc_MinDose(ExampleData.DeValues$CA1, sigmab = 0.1, verbose = FALSE,
+                            bootstrap = TRUE, bs.M = 20, bs.N = 0)
 
   ## missing values
   data.na <- ExampleData.DeValues$CA1
@@ -196,6 +200,10 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("small sigmab",
                               calc_MinDose(ExampleData.DeValues$CA1,
                                            sigmab = 0.009))
+  vdiffr::expect_doppelganger("classic bootstrap",
+                              calc_MinDose(ExampleData.DeValues$CA1,
+                                           sigmab = 0.1, bootstrap = TRUE,
+                                           bs.M = 10, bs.N = 0))
   })
 })
 
