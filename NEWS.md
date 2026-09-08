@@ -125,7 +125,7 @@
 
 - It is now possible to disable the second-level bootstrap entirely by
   setting `bs.N = 0`. This setting corresponds to a classic bootstrap,
-  as opposed to the recycled boostrap that would otherwise be run by
+  as opposed to the recycled bootstrap that would otherwise be run by
   default (#1525; thanks to @MarijnvanderMeij for reporting).
 
 ### `calc_SourceDoseRate()`
