@@ -431,3 +431,10 @@ test_that("Test graphical snapshot", {
                                                  frame = 0))
   })
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 1705
+  expect_silent(plot_AbanicoPlot(list(ExampleData.DeValues, iris[1:10, ])))
+})

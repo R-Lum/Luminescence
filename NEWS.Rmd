@@ -187,6 +187,9 @@ very specific cases would cause some overplotting, at least on MacOS (#1649).
 * The interactive plotting mode (`interactive = TRUE`) is more complete and
 renders a usable plot (#1664, #1696)
 
+* The function no longer crashes when using a list of data frames with
+different column names (#1705).
+
 ### `plot_DetPlot()`
 
 * The `multicore` argument has been deprecated and is no longer functional.
