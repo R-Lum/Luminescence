@@ -188,6 +188,10 @@
 - The function no longer crashes when using a list of data frames with
   different column names (#1705).
 
+- A misspecified `bw` argument now reverts to the default value of
+  `"SJ"` recommemded by base R, instead of the historical setting of
+  `"nrd0"` (#1708).
+
 ### `plot_DetPlot()`
 
 - The `multicore` argument has been deprecated and is no longer
