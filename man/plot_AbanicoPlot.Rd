@@ -34,7 +34,6 @@ plot_AbanicoPlot(
   line.label = NULL,
   grid.col = NULL,
   frame = 1,
-  bw = "SJ",
   interactive = FALSE,
   ...
 )
@@ -127,7 +126,9 @@ One or more out of the following:
 Option to add a rug to the KDE part, to indicate the location of individual values.}
 
 \item{kde}{\link{logical} (\emph{with default}):
-Option to add a KDE plot to the dispersion part, default is \code{TRUE}.}
+Option to add a KDE plot to the dispersion part (\code{TRUE} by default). The
+smoothing bandwidth can be controlled by setting the \code{bw} argument (\code{"SJ"}
+by default; see \link[stats:density]{stats::density} for details).}
 
 \item{hist}{\link{logical} (\emph{with default}):
 Option to add a histogram to the dispersion part. Only meaningful when only
@@ -192,15 +193,12 @@ option to modify the plot frame type. Can be one out of
 
 Default is \code{1}.}
 
-\item{bw}{\link{character} (\emph{with default}):
-bin-width for KDE, choose a numeric value for manual setting.}
-
 \item{interactive}{\link{logical} (\emph{with default}):
 create an interactive abanico plot (requires the \code{'plotly'} package)}
 
 \item{...}{Further plot arguments to pass (see \link[graphics:plot.default]{graphics::plot.default}).
 Supported are: \code{main}, \code{sub}, \code{ylab}, \code{xlab}, \code{zlab}, \code{zlim}, \code{ylim}, \code{cex},
-\code{lty}, \code{lwd}, \code{pch}, \code{col}, \code{at}, \code{breaks}. \code{xlab} must be
+\code{lty}, \code{lwd}, \code{pch}, \code{col}, \code{at}, \code{bw}, \code{breaks}. \code{xlab} must be
 a vector of length two, specifying the upper and lower x-axis labels.
 
 Please note that in the interactive mode, if you are using an expression,
@@ -298,7 +296,7 @@ documentation of \code{axis}. Specifying tick positions manually overrides a
 }
 }
 \section{Function version}{
- 0.1.23
+ 0.1.24
 }
 
 \examples{

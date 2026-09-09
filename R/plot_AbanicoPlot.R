@@ -167,7 +167,9 @@
 #' Option to add a rug to the KDE part, to indicate the location of individual values.
 #'
 #' @param kde [logical] (*with default*):
-#' Option to add a KDE plot to the dispersion part, default is `TRUE`.
+#' Option to add a KDE plot to the dispersion part (`TRUE` by default). The
+#' smoothing bandwidth can be controlled by setting the `bw` argument (`"SJ"`
+#' by default; see [stats::density] for details).
 #'
 #' @param hist [logical] (*with default*):
 #' Option to add a histogram to the dispersion part. Only meaningful when only
@@ -230,15 +232,12 @@
 #'
 #' Default is `1`.
 #'
-#' @param bw [character] (*with default*):
-#' bin-width for KDE, choose a numeric value for manual setting.
-#'
 #' @param interactive [logical] (*with default*):
 #' create an interactive abanico plot (requires the `'plotly'` package)
 #'
 #' @param ... Further plot arguments to pass (see [graphics::plot.default]).
 #' Supported are: `main`, `sub`, `ylab`, `xlab`, `zlab`, `zlim`, `ylim`, `cex`,
-#' `lty`, `lwd`, `pch`, `col`, `at`, `breaks`. `xlab` must be
+#' `lty`, `lwd`, `pch`, `col`, `at`, `bw`, `breaks`. `xlab` must be
 #' a vector of length two, specifying the upper and lower x-axis labels.
 #'
 #' Please note that in the interactive mode, if you are using an expression,
@@ -247,7 +246,7 @@
 #' @return
 #' Returns a plot object and, optionally, a list with plot calculus data.
 #'
-#' @section Function version: 0.1.23
+#' @section Function version: 0.1.24
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -475,7 +474,6 @@ plot_AbanicoPlot <- function(
   line.label = NULL,
   grid.col = NULL,
   frame = 1,
-  bw = "SJ",
   interactive = FALSE,
   ...
 ) {
@@ -684,13 +682,14 @@ plot_AbanicoPlot <- function(
   De.global <- unlist(lapply(data, function(x) x[, 1]))
 
   ## check/set bw-parameter
+  bw <- extraArgs$bw %||% "SJ"
   for(i in 1:length(data)) {
     bw.test <- try(density(x = data[[i]][,1],
                            bw = bw),
                    silent = TRUE)
     if (inherits(bw.test, "try-error")) {
-      bw <- "nrd0"
-      .throw_warning("Option for 'bw' not valid, reset to 'nrd0'")
+      bw <- "SJ"
+      .throw_warning("Option for 'bw' not valid, reset to 'SJ'")
     }
   }
 
