@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_AbanicoPlot.R
 \name{plot_AbanicoPlot}
 \alias{plot_AbanicoPlot}
-\title{Function to create an Abanico Plot.}
+\title{Function to create an abanico plot}
 \usage{
 plot_AbanicoPlot(
   data,
@@ -130,8 +130,10 @@ Option to add a rug to the KDE part, to indicate the location of individual valu
 Option to add a KDE plot to the dispersion part, default is \code{TRUE}.}
 
 \item{hist}{\link{logical} (\emph{with default}):
-Option to add a histogram to the dispersion part. Only meaningful when not
-more than one data set is plotted.}
+Option to add a histogram to the dispersion part. Only meaningful when only
+one data set is plotted. The number of cells in the histogram can be
+controlled by setting the \code{breaks} argument (see \link[graphics:hist]{graphics::hist} for
+details).}
 
 \item{dots}{\link{logical} (\emph{with default}):
 Option to add a dot plot to the dispersion part. If number of dots exceeds
@@ -208,12 +210,12 @@ the \code{zlab} must use HTML tags, such as \verb{D<sub>e</sub>} for \code{D[e]}
 Returns a plot object and, optionally, a list with plot calculus data.
 }
 \description{
-A plot is produced which allows comprehensive presentation of data precision
-and its dispersion around a central value as well as illustration of a
+The abanico plot provides a comprehensive presentation of data precision
+and its dispersion around a central value, and can also display a
 kernel density estimate, histogram and/or dot plot of the dose values.
 }
 \details{
-The Abanico Plot is a combination of the classic Radial Plot
+The abanico plot is a combination of the classic radial plot
 \link{plot_RadialPlot} and a kernel density estimate plot (e.g
 \link{plot_KDE}. It allows straightforward visualisation of data precision,
 error scatter around a user-defined central value and the combined
@@ -222,21 +224,26 @@ seconds, equivalent dose, years). The principle of the plot is shown in
 Galbraith & Green (1990). The function authors are thankful for the
 thought-provoking figure in this article.
 
-The semi circle (z-axis) of the classic Radial Plot is bent to a straight
+The semi circle (z-axis) of the classic radial plot is bent to a straight
 line here, which actually is the basis for combining this polar (radial)
 part of the plot with any other Cartesian visualisation method
 (KDE, histogram, PDF and so on). Note that the plot allows displaying
 two measures of distribution. One is the 2-sigma
 bar, which illustrates the spread in value errors, and the other is the
-polygon, which stretches over both parts of the Abanico Plot (polar and
+polygon, which stretches over both parts of the abanico plot (polar and
 Cartesian) and illustrates the actual spread in the values themselves.
 
 Since the 2-sigma-bar is a polygon, it can be (and is) filled with shaded
 lines. To change density (lines per inch, default is 15) and angle (default
 is 45 degrees) of the shading lines, specify these parameters. See
-\code{?polygon()} for further help.
+\link[graphics:polygon]{graphics::polygon} for further help.
 
-The Abanico Plot supports other than the weighted mean as measure of
+The proportion of the polar part and the cartesian part of the abanico plot
+can be modified for display reasons (\code{plot.ratio = 0.75}). By default,
+the polar part spreads over 75 \% and leaves 25 \% for the part that
+shows the KDE graph.
+
+The abanico plot supports other than the weighted mean as measure of
 centrality. When it is obvious that the data
 is not (log-)normally distributed, the mean (weighted or not) cannot be a
 valid measure of centrality and hence central dose. Accordingly, the median
@@ -244,15 +251,11 @@ and the weighted median can be chosen as well to represent a proper measure
 of centrality (e.g. \code{centrality = "median.weighted"}). Also
 user-defined numeric values (e.g. from the central age model) can be used if
 this appears appropriate.
-
-The proportion of the polar part and the cartesian part of the Abanico Plot
-can be modified for display reasons (\code{plot.ratio = 0.75}). By default,
-the polar part spreads over 75 \% and leaves 25 \% for the part that
-shows the KDE graph.
+\subsection{Statistics summary}{
 
 A statistic summary, i.e. a collection of statistic measures of
 centrality and dispersion (and further measures) can be added by specifying
-one or more of the following keywords:
+one or more of the following keywords in the \code{summary} argument:
 \itemize{
 \item \code{"n"} (number of samples)
 \item \code{"mean"} (mean De value)
@@ -276,6 +279,9 @@ measures in three different ways: \code{unweighted}, \code{weighted} and
 \code{MCM-based} (i.e., based on Monte Carlo Methods). By default, the
 MCM-based version is used. If you wish to use another method, indicate this
 with the appropriate keyword using the argument \code{summary.method}.
+}
+
+\subsection{Other arguments}{
 
 The optional parameter \code{layout} allows more sophisticated ways to modify
 the entire plot. Each element of the plot can be addressed and its properties
@@ -289,6 +295,7 @@ It is possible for the z-scale to specify where ticks are to be drawn
 by using the parameter \code{at}, e.g. \code{at = seq(80, 200, 20)}, cf. function
 documentation of \code{axis}. Specifying tick positions manually overrides a
 \code{zlim}-definition.
+}
 }
 \section{Function version}{
  0.1.23
