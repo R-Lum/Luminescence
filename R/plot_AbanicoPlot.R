@@ -720,6 +720,7 @@ plot_AbanicoPlot <- function(
   ## compute statistics and append all additional columns
   data <- lapply(seq_along(data), function(i, De.add) {
     x <- data[[i]]
+    colnames(x) <- c("De", "De.Error")
     z <- if (log.z) log(x[, 1]) else x[, 1]
     se <- if (log.z) x[, 2] / (x[, 1] + De.add) else x[, 2]
 
@@ -2109,7 +2110,7 @@ plot_AbanicoPlot <- function(
           showarrow = FALSE,
           textangle = 0,
           align = "center")),
-      
+
       showlegend = FALSE
     )
 
