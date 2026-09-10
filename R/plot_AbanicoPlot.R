@@ -549,27 +549,18 @@ plot_AbanicoPlot <- function(
   }
 
   ##AFTER NA removal, we should check the data set carefully again ...
-  nrows <- sapply(data, nrow)
+  nrows.zero <- sapply(data, nrow) == 0
   ##(1)
   ##check if there is still data left in the entire set
-  if (all(nrows == 0)) {
+  if (all(nrows.zero)) {
     .throw_message("'data' is empty, nothing plotted")
     return(NULL)
   }
   ##(2)
-  ##check for sets with only 1 row or 0 rows at all
-  if (any(nrows < 2)) {
-    ##select problematic sets and remove the entries from the list
-    NArm.id <- which(nrows <= 1)
-    data[NArm.id] <- NULL
-    .throw_warning("Data set ", toString(NArm.id),
-                   " empty or consisting of only 1 row, removed")
-
-    ##unfortunately, the data set might become now empty at all
-    if(length(data) == 0){
-      .throw_message("After removing invalid entries, nothing is plotted")
-      return(NULL)
-    }
+  ## remove sets with 0 rows
+  if (any(nrows.zero)) {
+    data[nrows.zero] <- NULL
+    .throw_warning("Data set ", toString(which(nrows.zero)), " empty, removed")
   }
 
   ## check for zero-error values
@@ -810,6 +801,7 @@ plot_AbanicoPlot <- function(
   } else {
     z.span <- (mean(data.global[,1]) * 0.5) / (sd(data.global[,1]) * 100)
     z.span <- ifelse(z.span > 1, 0.9, z.span)
+    if (is.na(z.span)) z.span <- 0.5  # arbitrary value
     limits.z <- c((0.9 - z.span) * min(data.global[[1]]),
                   (1.1 + z.span) * max(data.global[[1]]))
   }
@@ -831,6 +823,7 @@ plot_AbanicoPlot <- function(
   } else {
     y.span <- (mean(data.global[,1]) * 10) / (sd(data.global[,1]) * 100)
     y.span <- ifelse(y.span > 1, 0.98, y.span)
+    if (is.na(y.span)) y.span <- 0.5  # arbitrary value
     limits.y <- (1 + y.span) * max(abs(data.global$std.estimate)) * c(-1, 1)
   }
 
@@ -1139,12 +1132,14 @@ plot_AbanicoPlot <- function(
   KDE.bw <- numeric(length(data))
 
   for(i in 1:length(data)) {
-    KDE.i <- density(x = data[[i]][,3],
+    z.vals <- data[[i]][, 3]
+    KDE.i <- tryCatch(density(x = z.vals,
                      kernel = "gaussian",
                      bw = bw,
                      from = ellipse.values[1],
                      to = ellipse.values[2],
-                     weights = data[[i]]$weights)
+                     weights = data[[i]]$weights),
+                     error = function(e) list(x = z.vals, y = NA, bw = NA))
     KDE.bw[i] <- KDE.i$bw
     KDE[[i]] <- rbind(c(min(KDE.i$x), 0),
                       cbind(KDE.i$x, KDE.i$y),

@@ -83,9 +83,7 @@ test_that("check functionality", {
   data(ExampleData.RLum.Analysis, envir = environment())
   d8 <- analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE", n.MC = 10,
                          plot = FALSE, verbose = FALSE)
-  SW({
-  expect_warning(plot_RLum.Results(d8))
-  })
+  expect_silent(plot_RLum.Results(d8))
 
   ## no valid originator
   expect_silent(plot_RLum.Results(set_RLum("RLum.Results",

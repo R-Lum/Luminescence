@@ -193,6 +193,11 @@ different column names (#1705).
 * A misspecified `bw` argument now reverts to the default value of `"SJ"`
 recommemded by base R, instead of the historical setting of `"nrd0"` (#1708).
 
+* Datasets containing only one non-missing observation are no longer removed
+and are now plotted, but no density curve is drawn for them unless a numeric
+value is provided for the `bw` (bandwidth) argument (#1707; thanks to Annette
+Kadereit for reporting).
+
 ### `plot_DetPlot()`
 
 * The `multicore` argument has been deprecated and is no longer functional.
