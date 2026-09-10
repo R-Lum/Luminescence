@@ -640,6 +640,14 @@ plot_AbanicoPlot <- function(
   extraArgs <- list(...)
   layout <- get_Layout(layout = extraArgs$layout %||% "default")
 
+  ## subset per-dataset arguments to account for removed datasets
+  if (any(nrows.zero)) {
+    for (arg in c("col", "lty", "lwd", "pch")) {
+      if (arg %in% names(extraArgs))
+        extraArgs[[arg]] <- extraArgs[[arg]][!nrows.zero]
+    }
+  }
+
   if (is.null(bar))
     bar <- rep(TRUE, length(data))
 
@@ -845,7 +853,7 @@ plot_AbanicoPlot <- function(
   } else {
     .init_color <- function(key) {
       val <- layout$abanico$colour[[key]]
-      if (length(val) == 1) 1:length(data) else val
+      if (length(val) == 1) which(!nrows.zero) else val
     }
 
     bar.col <- .init_color("bar.fill")

@@ -197,6 +197,10 @@
   unless a numeric value is provided for the `bw` (bandwidth) argument
   (#1707; thanks to Annette Kadereit for reporting).
 
+- Plot colours are now respected when one of the input data frames is
+  automatically removed because it contains no non-missing observations
+  (#1707; thanks to Annette Kadereit for reporting).
+
 ### `plot_DetPlot()`
 
 - The `multicore` argument has been deprecated and is no longer
