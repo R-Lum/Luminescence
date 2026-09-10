@@ -1158,7 +1158,7 @@ plot_AbanicoPlot <- function(
   KDE.bw <- mean(KDE.bw, na.rm = TRUE)
 
   ## calculate KDE width
-  KDE.max <- max(vapply(KDE, function(x) max(x[, 2]), numeric(1)))
+  KDE.max <- max(vapply(KDE, function(x) max(x[, 2], na.rm = TRUE), numeric(1)))
 
   ## optionally adjust KDE width for boxplot option
   if (boxplot) {
