@@ -534,16 +534,23 @@ plot_AbanicoPlot <- function(
       }
 
       data[[i]] <- data[[i]][, 1:2]
-  }
 
-  ## remove NA-values
-  for (i in seq_along(data)) {
-      n.NA <- sum(!stats::complete.cases(data[[i]]))
-      if (n.NA > 0) {
-        .throw_message("Data set ", i, ": ", n.NA, " NA value",
-                       ifelse(n.NA > 1, "s", ""), " excluded", error = FALSE)
-        data[[i]] <- na.exclude(data[[i]])
+    ## remove NA-values
+    n.NA <- sum(!stats::complete.cases(data[[i]]))
+    if (n.NA > 0) {
+      .throw_message("Data set ", i, ": ", n.NA, " NA value",
+                     ifelse(n.NA > 1, "s", ""), " excluded", error = FALSE)
+      data[[i]] <- na.exclude(data[[i]])
+    }
+
+    ## check for zero-error values
+    if (any(data[[i]][, 2] == 0)) {
+      data[[i]] <- data[[i]][data[[i]][, 2] > 0, ]
+      if (nrow(data[[i]]) < 1) {
+        .throw_error("Data set ", i, " contains only values with zero errors")
       }
+      .throw_warning("Values with zero errors cannot be displayed and were removed")
+    }
   }
 
   ##AFTER NA removal, we should check the data set carefully again ...
@@ -559,17 +566,6 @@ plot_AbanicoPlot <- function(
   if (any(nrows.zero)) {
     data[nrows.zero] <- NULL
     .throw_warning("Data set ", toString(which(nrows.zero)), " empty, removed")
-  }
-
-  ## check for zero-error values
-  for(i in 1:length(data)) {
-    if (any(data[[i]][, 2] == 0)) {
-      data[[i]] <- data[[i]][data[[i]][,2] > 0,]
-      if (nrow(data[[i]]) < 1){
-        .throw_error("Data set contains only values with zero errors")
-      }
-      .throw_warning("Values with zero errors cannot be displayed and were removed")
-    }
   }
 
   ## check for 0 values in dataset for log

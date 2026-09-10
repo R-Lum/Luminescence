@@ -86,7 +86,7 @@ test_that("input validation", {
                  "Values with zero errors cannot be displayed and were removed")
   data.zeros[, 2] <- 0
   expect_error(plot_AbanicoPlot(data.zeros),
-               "Data set contains only values with zero errors")
+               "Data set 1 contains only values with zero errors")
 
   expect_warning(plot_AbanicoPlot(ExampleData.DeValues, xlim = c(2, 12)),
                  "Lower x-axis limit was 2, reset to zero")
