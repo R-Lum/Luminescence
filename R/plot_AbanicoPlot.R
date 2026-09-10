@@ -1144,7 +1144,14 @@ plot_AbanicoPlot <- function(
                      from = ellipse.values[1],
                      to = ellipse.values[2],
                      weights = data[[i]]$weights),
-                     error = function(e) list(x = z.vals, y = NA, bw = NA))
+                     error = function(e) {
+                       if (length(z.vals) < 2 && kde) {
+                         .throw_warning("Data set ", i, " contains a single point, ",
+                                        "its density curve cannot be plotted ",
+                                        "unless a numeric value for 'bw' is provided")
+                       }
+                       list(x = z.vals, y = NA, bw = NA)
+                     })
     KDE.bw[i] <- KDE.i$bw
     KDE[[i]] <- rbind(c(min(KDE.i$x), 0),
                       cbind(KDE.i$x, KDE.i$y),
