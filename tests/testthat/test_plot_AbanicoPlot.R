@@ -73,6 +73,10 @@ test_that("input validation", {
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, bw = iris),
                "'bw' should be of class 'numeric' or 'character'")
 
+  ## zero-rows dataset
+  expect_warning(plot_AbanicoPlot(list(iris[0, ], iris[1:2])),
+                 "Data set 1 empty, removed")
+
   ## zero-error values
   data.zeros <- ExampleData.DeValues
   data.zeros[2, 2] <- 0
