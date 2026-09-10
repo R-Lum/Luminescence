@@ -21,11 +21,6 @@ test_that("input validation", {
   expect_message(expect_null(plot_AbanicoPlot(ExampleData.DeValues[0, ])),
                  "Error: 'data' is empty, nothing plotted")
 
-  expect_warning(expect_message(
-      expect_null(plot_AbanicoPlot(ExampleData.DeValues[1, ])),
-      "Error: After removing invalid entries, nothing is plotted"),
-      "Data set 1 empty or consisting of only 1 row, removed")
-
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, plot = FALSE),
                "'plot.ratio' should be a single positive value")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, xlab = "x"),
@@ -373,6 +368,8 @@ test_that("Test graphical snapshot", {
                                                  summary.method = "weighted",
                                                  summary = c("sd.abs", "se.abs",
                                                              "median")))
+    vdiffr::expect_doppelganger("single value",
+                                plot_AbanicoPlot(ExampleData.DeValues[1, ]))
     vdiffr::expect_doppelganger("plot ratio",
                                 plot_AbanicoPlot(ExampleData.DeValues,
                                                  plot.ratio = 0.1))
