@@ -374,6 +374,9 @@ test_that("Test graphical snapshot", {
                                                              "median")))
     vdiffr::expect_doppelganger("single value",
                                 plot_AbanicoPlot(ExampleData.DeValues[1, ]))
+    vdiffr::expect_doppelganger("single value list",
+                                plot_AbanicoPlot(list(ExampleData.DeValues[1, ],
+                                                      iris[1:3, ])))
     vdiffr::expect_doppelganger("plot ratio",
                                 plot_AbanicoPlot(ExampleData.DeValues,
                                                  plot.ratio = 0.1))
