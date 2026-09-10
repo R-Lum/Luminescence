@@ -384,6 +384,12 @@ test_that("Test graphical snapshot", {
     vdiffr::expect_doppelganger("plot ratio",
                                 plot_AbanicoPlot(ExampleData.DeValues,
                                                  plot.ratio = 0.1))
+    vdiffr::expect_doppelganger("boxplot issue 1713",
+                                plot_AbanicoPlot(list(data.frame(De = c(7.25, 2.11),
+                                                                 err = c(1.46, 0.95)),
+                                                      data.frame(De = c(7.27, 6.94),
+                                                                 err = c(1.52, 0.83))),
+                                                 boxplot = TRUE))
 
     data.list <- list(ExampleData.DeValues[1:30,],
                       ExampleData.DeValues[31:62,] * 1.3)
