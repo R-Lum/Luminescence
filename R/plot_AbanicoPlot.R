@@ -683,10 +683,9 @@ plot_AbanicoPlot <- function(
 
   ## check/set bw-parameter
   bw <- extraArgs$bw %||% "SJ"
-  for(i in 1:length(data)) {
-    bw.test <- try(density(x = data[[i]][,1],
-                           bw = bw),
-                   silent = TRUE)
+  .validate_class(bw, c("numeric", "character"))
+  if (length(De.global) > 1) {
+    bw.test <- try(density(x = De.global, bw = bw), silent = TRUE)
     if (inherits(bw.test, "try-error")) {
       bw <- "SJ"
       .throw_warning("Option for 'bw' not valid, reset to 'SJ'")
@@ -1011,6 +1010,7 @@ plot_AbanicoPlot <- function(
                           "q.75",
                           "skewness",
                           "kurtosis")
+  De.densities <- vector("list", length(data))
 
   ## placeholder for the summary label text
   label.text <- list()
@@ -1037,17 +1037,16 @@ plot_AbanicoPlot <- function(
       De.stats[i,2:4] <- exp(De.stats[i,2:4]) - De.add
     }
 
-    ## kdemax - here a little doubled as it appears below again
-    De.density <- try(density(x = data[[i]][,1],
+    ## kdemax
+    De.densities[[i]] <- try(density(x = data[[i]][,1],
                               kernel = "gaussian",
                               bw = bw,
                               from = limits.z[1],
                               to = limits.z[2]),
                       silent = TRUE)
 
-    De.stats[i, 4] <- NA
-    if (!inherits(De.density, "try-error")) {
-      De.stats[i, 4] <- De.density$x[which.max(De.density$y)]
+    if (!inherits(De.densities[[i]], "try-error")) {
+      De.stats[i, 4] <- De.densities[[i]]$x[which.max(De.densities[[i]]$y)]
     }
 
     ## convert to a list of lists, like the object produced by calc_Statistics
@@ -1287,14 +1286,10 @@ plot_AbanicoPlot <- function(
   ## optionally add KDE plot
   if (kde) {
     ## calculate max KDE value for axis label
-    KDE.max.plot <- max(vapply(data, function(x) {
-      KDE.plot <- density(x[, 1],
-                          kernel = "gaussian",
-                          bw = bw,
-                          from = limits.z[1],
-                          to = limits.z[2])
-      max(KDE.plot$y)
-    }, numeric(1)), 0)
+    KDE.max.plot <- max(vapply(De.densities, function(d) {
+      if (is.null(d) || inherits(d, "try-error")) return(NA_real_)
+      max(d$y)
+    }, numeric(1)), 0, na.rm = TRUE)
     KDE.scale <- (y.max - xy.0) / (KDE.max * 1.05)
 
     ## plot KDE lines

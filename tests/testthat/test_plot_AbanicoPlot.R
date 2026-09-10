@@ -75,6 +75,8 @@ test_that("input validation", {
                "'zlim' should be of class 'numeric'")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, zlim = c(-10, 10)),
                "'zlim' should only contain positive values when 'log.z = TRUE'")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, bw = iris),
+               "'bw' should be of class 'numeric' or 'character'")
 
   ## zero-error values
   data.zeros <- ExampleData.DeValues
