@@ -418,6 +418,12 @@ test_that("Test graphical snapshot", {
                                                  stats = c("min", "max", "other"),
                                                  summary.pos = "right",
                                                  summary = c("sd.rel", "sd.abs")))
+    vdiffr::expect_doppelganger("removed lty lwd pch",
+                                plot_AbanicoPlot(list(iris[0, ],
+                                                      ExampleData.DeValues[1:9, ]),
+                                                 lty = c(2, 3),
+                                                 lwd = c(1, 3),
+                                                 pch = c(20, 3)))
     vdiffr::expect_doppelganger("CAM",
                                 plot_AbanicoPlot(data = CAM,
                                                  line.col = "darkseagreen",
