@@ -202,6 +202,11 @@ Kadereit for reporting).
 automatically removed because it contains no non-missing observations (#1707;
 thanks to Annette Kadereit for reporting).
 
+* The logic for the positioning of the boxplot has been slightly revised to
+avoid cases in which the boxplot was plotted over one of the axes or even
+completely outside of the visible area (#1713; thanks to Annette Kadereit for
+reporting).
+
 ### `plot_DetPlot()`
 
 * The `multicore` argument has been deprecated and is no longer functional.

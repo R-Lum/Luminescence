@@ -222,12 +222,12 @@
 <circle cx='252.73' cy='142.98' r='3.60' style='stroke-width: 0.75; fill: #000000;' />
 <circle cx='312.50' cy='128.73' r='3.60' style='stroke-width: 0.75; fill: #000000;' />
 <circle cx='271.60' cy='132.30' r='3.60' style='stroke-width: 0.75; fill: #000000;' />
-<polyline points='513.84,159.75 530.22,159.75 ' style='stroke-width: 1.50;' />
-<polygon points='513.84,200.65 513.84,133.35 530.22,133.35 530.22,200.65 ' style='stroke-width: 0.75; fill: none;' />
-<polyline points='522.03,200.65 522.03,277.81 513.84,277.81 530.22,277.81 ' style='stroke-width: 0.75;' />
-<polyline points='522.03,133.35 522.03,84.94 513.84,84.94 530.22,84.94 ' style='stroke-width: 0.75;' />
-<circle cx='522.03' cy='345.77' r='4.32' style='stroke-width: 0.75;' />
-<circle cx='522.03' cy='304.43' r='4.32' style='stroke-width: 0.75;' />
+<polyline points='514.28,159.75 530.50,159.75 ' style='stroke-width: 1.50;' />
+<polygon points='514.28,200.65 514.28,133.35 530.50,133.35 530.50,200.65 ' style='stroke-width: 0.75; fill: none;' />
+<polyline points='522.39,200.65 522.39,277.81 514.28,277.81 530.50,277.81 ' style='stroke-width: 0.75;' />
+<polyline points='522.39,133.35 522.39,84.94 514.28,84.94 530.50,84.94 ' style='stroke-width: 0.75;' />
+<circle cx='522.39' cy='345.77' r='4.32' style='stroke-width: 0.75;' />
+<circle cx='522.39' cy='304.43' r='4.32' style='stroke-width: 0.75;' />
 <text x='497.39' y='361.77' text-anchor='middle' style='font-size: 16.80px; font-family: sans;' textLength='4.36px' lengthAdjust='spacingAndGlyphs'>|</text>
 <text x='497.39' y='303.77' text-anchor='middle' style='font-size: 16.80px; font-family: sans;' textLength='4.36px' lengthAdjust='spacingAndGlyphs'>|</text>
 <text x='497.39' y='274.78' text-anchor='middle' style='font-size: 16.80px; font-family: sans;' textLength='4.36px' lengthAdjust='spacingAndGlyphs'>|</text>

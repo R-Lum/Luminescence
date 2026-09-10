@@ -1687,7 +1687,7 @@ plot_AbanicoPlot <- function(
   ## optionally add box plot
   if (boxplot) {
 
-    box.x <- c(min.ellipse + KDE.max * 0.85, xy.0 + KDE.max * 0.95)
+    box.x <- xy.0 + (xy.0 - min.ellipse) * c(1.7, 3)
     for (i in 1:length(data)) {
       ## calculate boxplot data without plotting
       boxplot.data <- graphics::boxplot(data[[i]][, 3], plot = FALSE)
