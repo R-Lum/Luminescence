@@ -535,8 +535,6 @@ plot_AbanicoPlot <- function(
 
       data[[i]] <- data[[i]][, 1:2]
   }
-  if (!is.null(line.mtext) && mtext == "" && summary.pos != "sub")
-    mtext <- line.mtext
 
   ## remove NA-values
   for (i in seq_along(data)) {
@@ -714,6 +712,9 @@ plot_AbanicoPlot <- function(
 
     De.global <- De.global + De.add
   }
+
+  if (!is.null(line.mtext) && mtext == "" && summary.pos != "sub")
+    mtext <- line.mtext
 
   ## calculate and append statistical measures --------------------------------
 
