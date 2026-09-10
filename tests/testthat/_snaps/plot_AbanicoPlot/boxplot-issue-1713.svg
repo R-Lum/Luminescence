@@ -139,14 +139,14 @@
 <circle cx='169.99' cy='169.39' r='1.80' style='stroke-width: 0.75; fill: #000000;' />
 <circle cx='291.32' cy='112.29' r='1.80' style='stroke-width: 0.75; stroke: #DF536B; fill: #DF536B;' />
 <circle cx='460.80' cy='114.48' r='1.80' style='stroke-width: 0.75; stroke: #DF536B; fill: #DF536B;' />
-<polyline points='2351.59,211.86 2584.18,211.86 ' style='stroke-width: 1.50;' />
-<polygon points='2351.59,316.92 2351.59,106.80 2584.18,106.80 2584.18,316.92 ' style='stroke-width: 0.75; fill: none;' />
-<polyline points='2467.88,316.92 2467.88,316.92 2351.59,316.92 2584.18,316.92 ' style='stroke-width: 0.75;' />
-<polyline points='2467.88,106.80 2467.88,106.80 2351.59,106.80 2584.18,106.80 ' style='stroke-width: 0.75;' />
-<polyline points='2351.59,110.28 2584.18,110.28 ' style='stroke-width: 1.50; stroke: #DF536B;' />
-<polygon points='2351.59,114.24 2351.59,106.33 2584.18,106.33 2584.18,114.24 ' style='stroke-width: 0.75; stroke: #DF536B; fill: none;' />
-<polyline points='2467.88,114.24 2467.88,114.24 2351.59,114.24 2584.18,114.24 ' style='stroke-width: 0.75; stroke: #DF536B;' />
-<polyline points='2467.88,106.33 2467.88,106.33 2351.59,106.33 2584.18,106.33 ' style='stroke-width: 0.75; stroke: #DF536B;' />
+<polyline points='514.28,211.86 530.50,211.86 ' style='stroke-width: 1.50;' />
+<polygon points='514.28,316.92 514.28,106.80 530.50,106.80 530.50,316.92 ' style='stroke-width: 0.75; fill: none;' />
+<polyline points='522.39,316.92 522.39,316.92 514.28,316.92 530.50,316.92 ' style='stroke-width: 0.75;' />
+<polyline points='522.39,106.80 522.39,106.80 514.28,106.80 530.50,106.80 ' style='stroke-width: 0.75;' />
+<polyline points='514.28,110.28 530.50,110.28 ' style='stroke-width: 1.50; stroke: #DF536B;' />
+<polygon points='514.28,114.24 514.28,106.33 530.50,106.33 530.50,114.24 ' style='stroke-width: 0.75; stroke: #DF536B; fill: none;' />
+<polyline points='522.39,114.24 522.39,114.24 514.28,114.24 530.50,114.24 ' style='stroke-width: 0.75; stroke: #DF536B;' />
+<polyline points='522.39,106.33 522.39,106.33 514.28,106.33 530.50,106.33 ' style='stroke-width: 0.75; stroke: #DF536B;' />
 <polyline points='493.07,337.08 493.07,88.31 ' style='stroke-width: 0.75;' />
 <polygon points='64.80,119.43 480.60,88.31 619.20,88.31 619.20,337.08 480.60,337.08 64.80,119.43 ' style='stroke-width: 0.60; fill: none;' />
 <text x='342.00' y='47.52' text-anchor='middle' style='font-size: 10.00px; font-family: sans;' textLength='110.45px' lengthAdjust='spacingAndGlyphs'>n = 2 | in 2 sigma = 50 %</text>
