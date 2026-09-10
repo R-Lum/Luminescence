@@ -189,6 +189,7 @@ test_that("graphical snapshot tests", {
   testthat::skip_on_cran()
   testthat::skip_if_not_installed("vdiffr")
 
+  set.seed(1)
   SW({
   vdiffr::expect_doppelganger("default",
                               calc_MinDose(ExampleData.DeValues$CA1,
