@@ -220,6 +220,11 @@
   argument, which can be set to either a numeric value or to `NULL` to
   use all but two of the available cores (#1668).
 
+### `plot_DoseResponseCurve()`
+
+- The size of the repeated point has been slightly increased to make it
+  more distinguishable (#1722).
+
 ### `plot_KDE()`
 
 - The plot title is no longer drawn in a bold font, and the spacing

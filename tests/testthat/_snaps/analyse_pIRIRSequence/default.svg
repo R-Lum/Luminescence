@@ -340,7 +340,7 @@
 <line x1='557.60' y1='180.88' x2='557.60' y2='179.37' style='stroke-width: 0.75;' />
 <line x1='444.17' y1='216.83' x2='444.17' y2='216.32' style='stroke-width: 0.75;' />
 <line x1='419.86' y1='231.37' x2='419.86' y2='231.33' style='stroke-width: 0.75;' />
-<polygon points='444.17,213.63 446.71,218.04 441.62,218.04 ' style='stroke-width: 0.75; fill: none;' />
+<polygon points='444.17,213.04 447.22,218.33 441.11,218.33 ' style='stroke-width: 0.75; fill: none;' />
 <polyline points='414.24,191.47 509.85,191.47 ' style='stroke-width: 0.94; stroke: #FF3000; stroke-dasharray: 5.00,5.00;' />
 <polyline points='509.85,233.97 509.85,191.47 ' style='stroke-width: 0.94; stroke: #FF3000; stroke-dasharray: 5.00,5.00;' />
 <circle cx='509.85' cy='191.47' r='2.08' style='stroke-width: 0.75; fill: #FF3000;' />
@@ -902,7 +902,7 @@
 <line x1='557.60' y1='318.02' x2='557.60' y2='316.51' style='stroke-width: 0.75;' />
 <line x1='444.17' y1='353.97' x2='444.17' y2='353.46' style='stroke-width: 0.75;' />
 <line x1='419.86' y1='368.51' x2='419.86' y2='368.47' style='stroke-width: 0.75;' />
-<polygon points='444.17,350.77 446.71,355.18 441.62,355.18 ' style='stroke-width: 0.75; fill: none;' />
+<polygon points='444.17,350.19 447.22,355.48 441.11,355.48 ' style='stroke-width: 0.75; fill: none;' />
 <polyline points='414.24,328.62 509.85,328.62 ' style='stroke-width: 0.94; stroke: #FF3000; stroke-dasharray: 5.00,5.00;' />
 <polyline points='509.85,371.11 509.85,328.62 ' style='stroke-width: 0.94; stroke: #FF3000; stroke-dasharray: 5.00,5.00;' />
 <circle cx='509.85' cy='328.62' r='2.08' style='stroke-width: 0.75; fill: #FF3000;' />

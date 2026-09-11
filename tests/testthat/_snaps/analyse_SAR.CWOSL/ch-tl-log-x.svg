@@ -334,7 +334,7 @@
 <line x1='601.77' y1='59.94' x2='601.77' y2='56.93' style='stroke-width: 0.75;' />
 <line x1='566.81' y1='148.72' x2='566.81' y2='147.59' style='stroke-width: 0.75;' />
 <line x1='443.69' y1='188.99' x2='443.69' y2='188.86' style='stroke-width: 0.75;' />
-<polygon points='566.81,145.64 569.00,149.41 564.63,149.41 ' style='stroke-width: 0.75; fill: none;' />
+<polygon points='566.81,145.13 569.43,149.67 564.20,149.67 ' style='stroke-width: 0.75; fill: none;' />
 <polyline points='437.35,86.83 592.93,86.83 ' style='stroke-width: 0.94; stroke: #FF3000; stroke-dasharray: 5.00,5.00;' />
 <polyline points='592.93,195.84 592.93,86.83 ' style='stroke-width: 0.94; stroke: #FF3000; stroke-dasharray: 5.00,5.00;' />
 <circle cx='592.93' cy='86.83' r='1.78' style='stroke-width: 0.75; fill: #FF3000;' />
