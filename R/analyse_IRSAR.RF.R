@@ -1403,14 +1403,11 @@ analyse_IRSAR.RF<- function(
     )
 
     if(De.status == "FAILED"){
+      idx.failed <- which(TP.data.frame$STATUS == "FAILED")
+      mtext.message <- sprintf("Threshold exceeded for: %s, see manual for details",
+                               .collapse(TP.data.frame$PARAMETER[idx.failed],
+                                         last_sep = " and "))
 
-      ##build list of failed TP
-      mtext.message <- paste0(
-        "Threshold exceeded for: ",
-        .collapse(TP.data.frame$PARAMETER[TP.data.frame$STATUS == "FAILED"]),
-                  ". For details see manual.")
-
-      ##print mtext
       mtext(text = mtext.message,
             side = 3, outer = TRUE, col = "red",
             cex = plot.settings$mtext.cex)

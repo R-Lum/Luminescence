@@ -55,6 +55,9 @@ previous behaviour can be restored by setting `yaxis_scientific = TRUE`
 functionality (using all but two of the available cores) can now be achieved
 by setting `cores = NULL` (#1668).
 
+* A warning message shown in case of failure of the test parameters has been
+improved to avoid reporting a spurious `NA` (#1715).
+
 ### `analyse_SAR.CWOSL()`
 
 * The ordering of columns in the `$data` field of the result object was

@@ -220,7 +220,11 @@ test_that("test edge cases", {
     plot = TRUE,
     RF_reg = c(1, 400),
     txtProgressBar = FALSE),
-    "Threshold exceeded for: 'curves_bounds'")
+    "Threshold exceeded for: 'curves_bounds', see manual for details")
+
+  ## issue 1715
+  expect_warning(analyse_IRSAR.RF(object, method = "FIT"),
+                 "Threshold exceeded for: 'curves_ratio', see manual for")
 
   expect_warning(expect_s4_class(analyse_IRSAR.RF(
     list(object),
