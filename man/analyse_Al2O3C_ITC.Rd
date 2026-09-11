@@ -48,7 +48,9 @@ enable/disable output to the terminal.}
 \item{plot}{\link{logical} (\emph{with default}):
 enable/disable the plot output.}
 
-\item{...}{further arguments that can be passed to the plot output}
+\item{...}{further arguments and graphical parameters to control the plot
+output. Supported are: \code{xlab}, \code{ylab}, \code{main}, \code{xlim}, \code{ylim}, \code{pt.cex} (point size),
+\code{legend.pos}, \code{legend.text}, and \code{mtext}.}
 }
 \value{
 Function returns results numerically and graphically:
@@ -107,7 +109,7 @@ handled using the argument \code{method_control} only, e.g.,
 }
 }
 \section{Function version}{
- 0.1.2
+ 0.1.3
 }
 
 \examples{

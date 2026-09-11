@@ -117,12 +117,15 @@
 #' @param line.label [character]:
 #' labels for the additional lines.
 #'
-#' @param ... Further plot arguments to pass. `xlab` must be a vector of
-#' length 2, specifying the upper and lower x-axes labels.
+#' @param ... further arguments and graphical parameters to control the plot
+#' output. Supported are: `main`, `sub`, `xlab`, `ylab`, `zlab`, `xlim`, `ylim`,
+#' `zlim`, `cex`, `pt.cex` (point size), `lty`, `lwd`, `pch`, `col`, `tcl`, `show`, and
+#' `fun`. `xlab` must be a vector of length 2, specifying the upper and lower
+#' x-axes labels.
 #'
 #' @return Returns a plot object.
 #'
-#' @section Function version: 0.5.11
+#' @section Function version: 0.5.12
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -528,11 +531,13 @@ plot_RadialPlot <- function(
   }
 
   cex <- extraArgs$cex %||% 1
+  pt.cex <- extraArgs$pt.cex %||% 1
   lty <- extraArgs$lty %||% rep(2, length(data))
   lwd <- extraArgs$lwd %||% rep(1, length(data))
   pch <- extraArgs$pch %||% rep(1, length(data))
   col <- extraArgs$col %||% 1:length(data)
   .validate_positive_scalar(cex)
+  .validate_positive_scalar(pt.cex)
   .validate_length(lty, length(data))
   .validate_length(lwd, length(data))
   .validate_length(pch, length(data))
@@ -1022,6 +1027,7 @@ plot_RadialPlot <- function(
     for(i in 1:length(data)) {
       points(data[[i]][,6][data[[i]][,6] <= limits.x[2]],
              data[[i]][,8][data[[i]][,6] <= limits.x[2]],
+             cex = pt.cex,
              col = col[i],
              pch = pch[i])
     }

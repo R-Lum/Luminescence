@@ -205,6 +205,7 @@ test_that("graphical snapshot tests", {
                                               central.value = 69.9,
                                               xlim = c(0, 16),
                                               zlim = c(15, 143),
+                                              pt.cex = 2,
                                               pch = 1,
                                               summary = ""))
   vdiffr::expect_doppelganger("single column",

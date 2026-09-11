@@ -55,7 +55,9 @@
 #' @param plot [logical] (*with default*):
 #' enable/disable the plot output.
 #'
-#' @param ... further arguments that can be passed to the plot output
+#' @param ... further arguments and graphical parameters to control the plot
+#' output. Supported are: `xlab`, `ylab`, `main`, `xlim`, `ylim`, `pt.cex` (point size),
+#' `legend.pos`, `legend.text`, and `mtext`.
 #'
 #' @return
 #' Function returns results numerically and graphically:
@@ -86,7 +88,7 @@
 #'
 #' - A dose response curve with the marked correction values
 #'
-#' @section Function version: 0.1.2
+#' @section Function version: 0.1.3
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -266,6 +268,7 @@ analyse_Al2O3C_ITC <- function(
       main = "Irradiation Time Correction",
       xlim = c(-5, max(df$DOSE)),
       ylim = c(0,max(df$net_SIGNAL)),
+      pt.cex = 1,
       legend.pos = "right",
       legend.text = "dose points",
       mtext = ""
@@ -287,7 +290,8 @@ analyse_Al2O3C_ITC <- function(
     abline(h = 0)
 
     ##add dose points
-    points(x = df$DOSE, y = df$net_SIGNAL)
+    points(x = df$DOSE, y = df$net_SIGNAL,
+           cex = plot_settings$pt.cex)
 
     ##add dose response curve
     x <- seq(min(plot_settings$xlim), max(plot_settings$xlim), length.out = 100)

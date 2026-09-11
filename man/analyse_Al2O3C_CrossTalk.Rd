@@ -49,7 +49,8 @@ See details for further explanations.}
 \item{plot}{\link{logical} (\emph{with default}):
 enable/disable the plot output.}
 
-\item{...}{further arguments that can be passed to the plot output}
+\item{...}{further arguments and graphical parameters to control the plot
+output. Supported are: \code{main}, \code{mtext}, and \code{pt.cex} (point size).}
 }
 \value{
 Function returns results numerically and graphically:
@@ -86,7 +87,7 @@ The function provides the analysis of cross-talk measurements
 on a FI lexsyg SMART reader using Al2O3:C chips.
 }
 \section{Function version}{
- 0.1.4
+ 0.1.5
 }
 
 \examples{

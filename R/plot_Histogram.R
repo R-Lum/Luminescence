@@ -71,17 +71,16 @@
 #' @param interactive [logical] (*with default*):
 #' create an interactive histogram plot (requires the 'plotly' package)
 #'
-#' @param ... further arguments and graphical parameters passed to [plot] or
-#' [hist]. If y-axis labels are provided, these must be specified as a vector
-#' of length 2 since the plot features two axes
-#' (e.g. `ylab = c("axis label 1", "axis label 2")`). Y-axes limits
-#' (`ylim`) must be provided as vector of length four, with the first two
+#' @param ... further arguments and graphical parameters to control the plot
+#' output (see [plot] and [hist]). Supported are: `main`, `xlab`, `ylab`,
+#' `xlim`, `ylim`, `breaks`, `pch`, `pt.cex` (point size), and `fun`. If y-axis labels are
+#' provided, these must be specified as a vector of length 2 since the plot
+#' features two axes (e.g. `ylab = c("axis label 1", "axis label 2")`). Y-axes
+#' limits (`ylim`) must be provided as vector of length four, with the first two
 #' elements specifying the left axes limits and the latter two elements giving
 #' the right axis limits.
 #'
-#' @note The input data is not restricted to a special type.
-#'
-#' @section Function version: 0.4.5
+#' @section Function version: 0.4.6
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -206,6 +205,7 @@ plot_Histogram <- function(
       ylab = c("Frequency", "Standard error"),
       xlim = range(breaks_calc),
       pch = 1,
+      pt.cex = 1,
       fun = FALSE
   ), extraArgs)
 
@@ -353,6 +353,7 @@ plot_Histogram <- function(
          ylim = ylim.plot[3:4],
          pch = settings$pch,
          col = colour[4],
+         cex = settings$pt.cex,
          main = "",
          xlab = "",
          ylab = "",

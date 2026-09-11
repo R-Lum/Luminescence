@@ -79,11 +79,12 @@ Alternatively a vector specifying the plot to be drawn, e.g.,
 \code{plot_singlePanels = c(3,4)} draws only the last two plots in separate
 windows.}
 
-\item{...}{further arguments that can be passed to internally used functions.
-Supported arguments: \code{xlab}, \code{log}, \code{mtext}, \code{plot.trend} (enable/disable
-trend blue line), and \code{xlim} for the two first curve plots, and \code{ylim} for
-the fading curve plot. For further plot customization please use the
-numerical output of the functions for own plots.}
+\item{...}{further arguments and graphical parameters to control the plot
+output. Supported are: \code{xlab}, \code{log}, \code{mtext}, \code{pt.cex} (point size), \code{plot.trend}
+(enable/disable the trend blue line), \code{xlim} (for the two first curve
+plots), and \code{ylim} (for the fading curve plot). For further plot
+customization please use the numerical output of the functions for own
+plots.}
 }
 \value{
 An \link[=RLum.Results-class]{RLum.Results} object is returned:
@@ -171,7 +172,7 @@ a maximum of five pause steps are plotted to avoid graphically overloaded plots.
 However, \emph{all} pause times are taken into consideration for the analysis.
 }
 \section{Function version}{
- 0.1.27
+ 0.1.28
 }
 
 \examples{

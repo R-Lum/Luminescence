@@ -12,6 +12,7 @@
 
 - Support for the `na.rm` argument has been removed from the following
   functions as it was not working:
+
   - `plot_AbanicoPlot()`
   - `plot_Histogram()`
   - `plot_KDE()`
@@ -19,6 +20,22 @@
   - `plot_ViolinPlot()`
 
   If set, the argument will be silently ignored (#1692).
+
+- Support for the `pt.cex` parameter to control the size of points
+  independently of `cex` has been added to the following functions
+  (#1720):
+
+  - `analyse_Al2O3C_CrossTalk()`
+  - `analyse_Al2O3C_ITC()`
+  - `analyse_FadingMeasurement()`
+  - `analyse_IRSAR.RF()`
+  - `plot_AbanicoPlot()`
+  - `plot_DoseResponseCurve()`
+  - `plot_DRCSummary()`
+  - `plot_DRTResults()`
+  - `plot_Histogram()`
+  - `plot_KDE()`
+  - `plot_RadialPlot()`
 
 ### `analyse_Al2O3C_Measurement()`
 
@@ -196,7 +213,7 @@
   different column names (#1705).
 
 - A misspecified `bw` argument now reverts to the default value of
-  `"SJ"` recommemded by base R, instead of the historical setting of
+  `"SJ"` recommended by base R, instead of the historical setting of
   `"nrd0"` (#1708).
 
 - Datasets containing only one non-missing observation are no longer

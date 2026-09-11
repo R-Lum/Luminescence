@@ -434,6 +434,7 @@ test_that("Test graphical snapshot", {
     vdiffr::expect_doppelganger("removed lty lwd pch",
                                 plot_AbanicoPlot(list(iris[0, ],
                                                       ExampleData.DeValues[1:9, ]),
+                                                 pt.cex = 2,
                                                  lty = c(2, 3),
                                                  lwd = c(1, 3),
                                                  pch = c(20, 3)))

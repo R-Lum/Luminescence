@@ -82,6 +82,7 @@ test_that("graphical snapshot tests", {
   SW({
   vdiffr::expect_doppelganger("dose points natural",
                               plot_DRCSummary(results,
+                                              pt.cex = 1.4,
                                               show_dose_points = TRUE,
                                               show_natural = TRUE))
   vdiffr::expect_doppelganger("dose_rate",

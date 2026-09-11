@@ -60,7 +60,10 @@ See \link{calc_Statistics} for details.}
 \item{bw}{\link{character}, \link{numeric} (\emph{with default}):
 bin-width, chose a numeric value for manual setting.}
 
-\item{...}{further arguments and graphical parameters passed to \link{plot}.}
+\item{...}{further arguments and graphical parameters to control the plot
+output (see \link{plot}). Supported are: \code{main}, \code{sub}, \code{mtext}, \code{layout}, \code{xlab},
+\code{ylab}, \code{xlim}, \code{ylim}, \code{log}, \code{cex}, \code{pt.cex} (point size), \code{lty}, \code{lwd}, \code{col}, and
+\code{fun}.}
 }
 \description{
 Plot a kernel density estimate of measurement values in combination with the
@@ -110,7 +113,7 @@ The plot output is no 'probability density' plot (cf. the discussion
 of Berger and Galbraith in Ancient TL; see references)!
 }
 \section{Function version}{
- 3.6.1
+ 3.6.2
 }
 
 \examples{

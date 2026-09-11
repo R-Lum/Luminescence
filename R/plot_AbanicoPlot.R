@@ -235,10 +235,11 @@
 #' @param interactive [logical] (*with default*):
 #' create an interactive abanico plot (requires the `'plotly'` package)
 #'
-#' @param ... Further plot arguments to pass (see [graphics::plot.default]).
-#' Supported are: `main`, `sub`, `ylab`, `xlab`, `zlab`, `zlim`, `ylim`, `cex`,
-#' `lty`, `lwd`, `pch`, `col`, `at`, `bw`, `breaks`. `xlab` must be
-#' a vector of length two, specifying the upper and lower x-axis labels.
+#' @param ... further arguments and graphical parameters to control the plot
+#' output (see [graphics::plot.default]). Supported are: `main`, `sub`, `ylab`,
+#' `xlab`, `zlab`, `zlim`, `ylim`, `cex`, `pt.cex` (point size), `lty`, `lwd`, `pch`, `col`,
+#' `at`, `bw`, and `breaks`. `xlab` must be a vector of length two, specifying
+#' the upper and lower x-axis labels.
 #'
 #' Please note that in the interactive mode, if you are using an expression,
 #' the `zlab` must use HTML tags, such as `D<sub>e</sub>` for `D[e]`.
@@ -246,7 +247,7 @@
 #' @return
 #' Returns a plot object and, optionally, a list with plot calculus data.
 #'
-#' @section Function version: 0.1.24
+#' @section Function version: 0.1.25
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -1588,7 +1589,7 @@ plot_AbanicoPlot <- function(
                y = data[[i]][, 8][data[[i]][, 6] <= limits.x[2]],
              col = value.dot[i],
              pch = pch[i],
-             cex = layout$abanico$dimension$pch / 100)
+             cex = extraArgs$pt.cex)
   }
 
   ## compute data for histogram and dot plot

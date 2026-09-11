@@ -88,5 +88,9 @@ test_that("graphical snapshot tests", {
   SW({
     vdiffr::expect_doppelganger("default",
                                 analyse_Al2O3C_ITC(data_ITC))
+    vdiffr::expect_doppelganger("signal_integral pt.cex",
+                                analyse_Al2O3C_ITC(data_ITC,
+                                                   signal_integral = 1:10,
+                                                   pt.cex = 1.5))
   })
 })

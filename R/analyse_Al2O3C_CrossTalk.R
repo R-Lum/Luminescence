@@ -35,7 +35,8 @@
 #' @param plot [logical] (*with default*):
 #' enable/disable the plot output.
 #'
-#' @param ... further arguments that can be passed to the plot output
+#' @param ... further arguments and graphical parameters to control the plot
+#' output. Supported are: `main`, `mtext`, and `pt.cex` (point size).
 #'
 #' @return
 #' Function returns results numerically and graphically:
@@ -66,7 +67,7 @@
 #'
 #' - An overview of the obtained apparent dose values
 #'
-#' @section Function version: 0.1.4
+#' @section Function version: 0.1.5
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -243,7 +244,8 @@ analyse_Al2O3C_CrossTalk <- function(
     ##settings
     plot_settings <- list(
       main = "Sample Carousel Crosstalk",
-      mtext = ""
+      mtext = "",
+      pt.cex = 1
     )
 
       ##modify on request
@@ -328,8 +330,11 @@ analyse_Al2O3C_CrossTalk <- function(
            frame.plot = FALSE,
            type = "l")
 
-        ##add points
-        points(x = APPARENT_DOSE, pch = 20, col = rgb(0,0,0,0.3))
+      ## add points
+      points(x = APPARENT_DOSE,
+             cex = plot_settings$pt.cex,
+             pch = 20,
+             col = rgb(0,0,0,0.3))
 
       ## add linear model
       lines(sort(APPARENT_DOSE$POSITION), stats::predict(fit), col = "red")

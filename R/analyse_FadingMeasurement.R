@@ -124,11 +124,12 @@
 #' `plot_singlePanels = c(3,4)` draws only the last two plots in separate
 #' windows.
 #'
-#' @param ... further arguments that can be passed to internally used functions.
-#' Supported arguments: `xlab`, `log`, `mtext`, `plot.trend` (enable/disable
-#' trend blue line), and `xlim` for the two first curve plots, and `ylim` for
-#' the fading curve plot. For further plot customization please use the
-#' numerical output of the functions for own plots.
+#' @param ... further arguments and graphical parameters to control the plot
+#' output. Supported are: `xlab`, `log`, `mtext`, `pt.cex` (point size), `plot.trend`
+#' (enable/disable the trend blue line), `xlim` (for the two first curve
+#' plots), and `ylim` (for the fading curve plot). For further plot
+#' customization please use the numerical output of the functions for own
+#' plots.
 #'
 #' @return
 #' An [Luminescence::RLum.Results-class] object is returned:
@@ -151,7 +152,7 @@
 #' `call` \tab `call` \tab the original function call\cr
 #' }
 #'
-#' @section Function version: 0.1.27
+#' @section Function version: 0.1.28
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
 #' Christoph Burow, University of Cologne (Germany)
@@ -661,6 +662,7 @@ analyse_FadingMeasurement <- function(
       xlab = "Stimulation time [s]",
       ylim = NULL,
       xlim = NULL,
+      pt.cex = 1,
       log = "",
       mtext = "",
       plot.trend = TRUE
@@ -847,6 +849,7 @@ analyse_FadingMeasurement <- function(
         ##add points
         points(x = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
                y = LxTx_table[["LxTx_NORM"]],
+               cex = plot_settings$pt.cex,
                pch = 21,
                bg = "grey")
 

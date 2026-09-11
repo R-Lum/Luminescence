@@ -321,6 +321,7 @@ test_that("graphical snapshot tests", {
                               analyse_FadingMeasurement(object,
                                                         signal_integral = 1:2,
                                                         background_integral = 10:40,
+                                                        pt.cex = 1.4,
                                                         structure = "Lx",
                                                         t_star = "half_complex",
                                                         n.MC = 10))

@@ -64,11 +64,12 @@ text, normal distribution curve, standard error points
 \item{interactive}{\link{logical} (\emph{with default}):
 create an interactive histogram plot (requires the 'plotly' package)}
 
-\item{...}{further arguments and graphical parameters passed to \link{plot} or
-\link{hist}. If y-axis labels are provided, these must be specified as a vector
-of length 2 since the plot features two axes
-(e.g. \code{ylab = c("axis label 1", "axis label 2")}). Y-axes limits
-(\code{ylim}) must be provided as vector of length four, with the first two
+\item{...}{further arguments and graphical parameters to control the plot
+output (see \link{plot} and \link{hist}). Supported are: \code{main}, \code{xlab}, \code{ylab},
+\code{xlim}, \code{ylim}, \code{breaks}, \code{pch}, \code{pt.cex} (point size), and \code{fun}. If y-axis labels are
+provided, these must be specified as a vector of length 2 since the plot
+features two axes (e.g. \code{ylab = c("axis label 1", "axis label 2")}). Y-axes
+limits (\code{ylim}) must be provided as vector of length four, with the first two
 elements specifying the left axes limits and the latter two elements giving
 the right axis limits.}
 }
@@ -100,11 +101,8 @@ one or more of the following keywords:
 \item \code{"skewness"} (skewness).
 }
 }
-\note{
-The input data is not restricted to a special type.
-}
 \section{Function version}{
- 0.4.5
+ 0.4.6
 }
 
 \examples{

@@ -33,12 +33,13 @@ single plot windows. Ignored if \code{plot_extended = FALSE}.}
 \item{verbose}{\link{logical} (\emph{with default}):
 enable/disable output to the terminal.}
 
-\item{...}{Further graphical parameters to be passed (supported:
-\code{main}, \code{mtext}, \code{xlim}, \code{ylim}, \code{xlab}, \code{ylab}, \code{log}
-(not valid for objects fitted with \code{mode = "extrapolation"}), \code{legend} (\code{TRUE/FALSE}),
-\code{legend.pos}, \code{reg_points_pch}, \code{density_polygon} (\code{TRUE/FALSE}),
-\code{density_polygon_col}, \code{density_rug} (\code{TRUE}/\code{FALSE}), \code{lwd_drc}, \code{col_drc},\code{lty_drc},
-\code{box} (\code{TRUE}/\code{FALSE}).}
+\item{...}{further arguments and graphical parameters to control the plot
+output. Supported are: \code{main}, \code{mtext}, \code{xlim}, \code{ylim}, \code{xlab}, \code{ylab},
+\code{cex}, \code{pt.cex} (point size), \code{mar}, \code{mgp}, \code{tcl}, \code{log} (not valid for objects fitted
+with \code{mode = "extrapolation"}), \code{legend} (\code{TRUE/FALSE}), \code{legend.pos},
+\code{reg_points_pch}, \code{density_polygon} (\code{TRUE/FALSE}), \code{density_polygon_col},
+\code{density_rug} (\code{TRUE}/\code{FALSE}), \code{lwd_drc}, \code{col_drc}, \code{lty_drc}, and \code{box}
+(\code{TRUE}/\code{FALSE}).}
 }
 \value{
 A plot (or a series of plots) is produced.
@@ -48,7 +49,7 @@ A dose-response curve is produced for luminescence measurements using a
 regenerative or additive protocol as implemented in \link{fit_DoseResponseCurve}.
 }
 \section{Function version}{
- 1.0.11
+ 1.0.12
 }
 
 \examples{
