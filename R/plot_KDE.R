@@ -350,9 +350,9 @@ plot_KDE <- function(
   extraArgs <- list(...)
   mtext <- extraArgs$mtext %||% ""
   layout <- get_Layout(layout = extraArgs$layout %||% "default")
-  main <- extraArgs$main %||% expression(bold(paste(D[e], " distribution")))
+  main <- extraArgs$main %||% expression(D[e] * " " * "distribution")
   sub <- extraArgs$sub
-  xlab <- extraArgs$xlab %||% expression(paste(D[e], " [Gy]"))
+  xlab <- extraArgs$xlab %||% expression(D[e] * " " * "[Gy]")
   ylab <- extraArgs$ylab %||% c("Density", "Cumulative frequency")
   xlim.plot <- extraArgs$xlim %||% c(min(c(De.global - De.error.global),
                                          De.density.range[1],
