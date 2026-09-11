@@ -71,6 +71,12 @@
 - A warning message shown in case of failure of the test parameters has
   been improved to avoid reporting a spurious `NA` (#1715).
 
+### `analyse_pIRIRSequence()`
+
+- The function no longer crashes when presented with an empty
+  `RLum.Analysis` object (#1725; thanks to Annette Kadereit for
+  reporting).
+
 ### `analyse_SAR.CWOSL()`
 
 - The ordering of columns in the `$data` field of the result object was
