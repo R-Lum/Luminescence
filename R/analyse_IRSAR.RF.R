@@ -734,7 +734,7 @@ analyse_IRSAR.RF<- function(
 
   plot.settings <- list(
     main = "IR-RF",
-    xlab = "Time [s]",
+    xlab = "Irradiation time [s]",
     ylab = paste0("IR-RF [cts/", resolution.RF," s]"),
     log = "",
     cex = 1,

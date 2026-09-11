@@ -43,7 +43,7 @@
 <text x='641.24' y='528.48' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='30.03px' lengthAdjust='spacingAndGlyphs'>500.0</text>
 <polygon points='59.04,502.56 689.76,502.56 689.76,59.04 59.04,59.04 ' style='stroke-width: 0.75; fill: none;' />
 <text x='374.40' y='34.48' text-anchor='middle' style='font-size: 14.40px; font-weight: bold; font-family: sans;' textLength='38.40px' lengthAdjust='spacingAndGlyphs'>IR-RF</text>
-<text x='374.40' y='557.28' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='42.67px' lengthAdjust='spacingAndGlyphs'>Time [s]</text>
+<text x='374.40' y='557.28' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='95.37px' lengthAdjust='spacingAndGlyphs'>Irradiation time [s]</text>
 <text transform='translate(12.96,280.80) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='86.70px' lengthAdjust='spacingAndGlyphs'>IR-RF [cts/1.3 s]</text>
 <line x1='59.04' y1='472.08' x2='59.04' y2='124.58' style='stroke-width: 0.75;' />
 <line x1='59.04' y1='472.08' x2='51.84' y2='472.08' style='stroke-width: 0.75;' />
