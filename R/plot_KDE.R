@@ -244,12 +244,6 @@ plot_KDE <- function(
   if (is.numeric(bw))
     .validate_positive_scalar(bw)
 
-  ## set mtext output
-  mtext <- list(...)$mtext %||% ""
-
-  ## check/set layout definitions
-  layout <- get_Layout(layout = list(...)$layout %||% "default")
-
   ## data preparation steps ---------------------------------------------------
 
   ## calculate statistics, density and global data
@@ -353,11 +347,14 @@ plot_KDE <- function(
                         max(De.density.range[,4]))
 
   ## read out additional parameters -------------------------------------------
-  main <- list(...)$main %||% expression(bold(paste(D[e], " distribution")))
-  sub <- list(...)$sub
-  xlab <- list(...)$xlab %||% expression(paste(D[e], " [Gy]"))
-  ylab <- list(...)$ylab %||% c("Density", "Cumulative frequency")
-  xlim.plot <- list(...)$xlim %||% c(min(c(De.global - De.error.global),
+  extraArgs <- list(...)
+  mtext <- extraArgs$mtext %||% ""
+  layout <- get_Layout(layout = extraArgs$layout %||% "default")
+  main <- extraArgs$main %||% expression(bold(paste(D[e], " distribution")))
+  sub <- extraArgs$sub
+  xlab <- extraArgs$xlab %||% expression(paste(D[e], " [Gy]"))
+  ylab <- extraArgs$ylab %||% c("Density", "Cumulative frequency")
+  xlim.plot <- extraArgs$xlim %||% c(min(c(De.global - De.error.global),
                                          De.density.range[1],
                                          na.rm = TRUE),
                                      max(c(De.global + De.error.global),
@@ -365,7 +362,7 @@ plot_KDE <- function(
                                          na.rm = TRUE))
 
   if ("ylim" %in% ...names()) {
-    ylim.plot <- list(...)$ylim
+    ylim.plot <- extraArgs$ylim
     .validate_class(ylim.plot, "numeric", length = 4, name = "'ylim'")
   } else if (!is.na(De.density.range[1])) {
       ylim.plot <- c(De.density.range[3],
@@ -379,20 +376,20 @@ plot_KDE <- function(
                      max(De.stats[,1]))
   }
 
-  log.option <- list(...)$log %||% ""
-  lty <- list(...)$lty %||% rep(1, length(data))
-  lwd <- list(...)$lwd %||% rep(1, length(data))
-  cex <- list(...)$cex %||% 1
-  fun <- isTRUE(list(...)$fun)
+  log.option <- extraArgs$log %||% ""
+  lty <- extraArgs$lty %||% rep(1, length(data))
+  lwd <- extraArgs$lwd %||% rep(1, length(data))
+  cex <- extraArgs$cex %||% 1
+  fun <- isTRUE(extraArgs$fun)
 
   if ("col" %in% ...names()) {
-    col.stats <- list(...)$col
-    col.kde.line <- list(...)$col
+    col.stats <- extraArgs$col
+    col.kde.line <- extraArgs$col
     col.kde.fill <- NA
-    col.value.dot <- list(...)$col
-    col.value.bar <- list(...)$col
-    col.value.rug <- list(...)$col
-    col.boxplot.line <- list(...)$col
+    col.value.dot <- extraArgs$col
+    col.value.bar <- extraArgs$col
+    col.value.rug <- extraArgs$col
+    col.boxplot.line <- extraArgs$col
     col.boxplot.fill <- NA
   } else {
     .set_colour_value <- function(layout_value) {
