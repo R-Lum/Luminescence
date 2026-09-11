@@ -39,6 +39,10 @@
   that it can occupy more of the available space (#1654; thanks to
   @DirkMittelstrass for reporting).
 
+- The default x-axis label was changed from `"Time"` to
+  `"Irradiation time"`, (#1654; thanks to @DirkMittelstrass for
+  reporting).
+
 - The y-axis no longer enforces the labels to be in scientific format.
   The previous behaviour can be restored by setting
   `yaxis_scientific = TRUE` (#1665).
