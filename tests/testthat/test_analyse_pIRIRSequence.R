@@ -198,6 +198,12 @@ test_that("input validation", {
                  "'sequence.structure' changed to c('IR50', 'pIRIR225')",
                  fixed = TRUE)
   })
+
+  expect_message(expect_null(analyse_pIRIRSequence(set_RLum("RLum.Analysis"),
+                                                   signal_integral = 1:2,
+                                                   background_integral = 100:200,
+                                                   sequence.structure = c("IR50"))),
+                 "'object' contains no records, NULL returned")
 })
 
 test_that("check class and length of output", {

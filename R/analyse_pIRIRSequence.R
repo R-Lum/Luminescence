@@ -310,7 +310,7 @@ analyse_pIRIRSequence <- function(
 
   ## try to account for a very common mistake
   idx.TL <- grepl("TL", sequence.structure, fixed = TRUE)
-  if (length(idx.TL) > 0 &&
+  if (sum(idx.TL) > 0 &&
       !any(grepl("TL", temp.sequence.structure$recordType, fixed = TRUE))) {
     sequence.structure <- sequence.structure[-idx.TL]
     .throw_warning("'sequence.structure' contains 'TL' but your sequence does ",
@@ -344,6 +344,11 @@ analyse_pIRIRSequence <- function(
     temp.sequence.structure$protocol.step <- rep(sequence.structure, num.cycles)
 
     .throw_warning(length(rm.id), " records have been removed due to EXCLUDE")
+  }
+
+  if (length(object) == 0) {
+    .throw_message("'object' contains no records, NULL returned")
+    return(NULL)
   }
 
 ##============================================================================##
