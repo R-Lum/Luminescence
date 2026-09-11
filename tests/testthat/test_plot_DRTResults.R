@@ -124,6 +124,7 @@ test_that("graphical snapshot tests", {
                                               summary = c("mean", "sd.abs")))
   vdiffr::expect_doppelganger("list sub",
                               plot_DRTResults(df.list,
+                                              pt.cex = 1.5,
                                               summary.pos = "sub",
                                               summary = c("mean", "median")))
   vdiffr::expect_doppelganger("list bottomright",

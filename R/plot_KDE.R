@@ -83,13 +83,16 @@
 #' @param bw [character], [numeric] (*with default*):
 #' bin-width, chose a numeric value for manual setting.
 #'
-#' @param ... further arguments and graphical parameters passed to [plot].
+#' @param ... further arguments and graphical parameters to control the plot
+#' output (see [plot]). Supported are: `main`, `sub`, `mtext`, `layout`, `xlab`,
+#' `ylab`, `xlim`, `ylim`, `log`, `cex`, `pt.cex` (point size), `lty`, `lwd`, `col`, and
+#' `fun`.
 #'
 #' @note
 #' The plot output is no 'probability density' plot (cf. the discussion
 #' of Berger and Galbraith in Ancient TL; see references)!
 #'
-#' @section Function version: 3.6.1
+#' @section Function version: 3.6.2
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -373,6 +376,7 @@ plot_KDE <- function(
   lty <- extraArgs$lty %||% rep(1, length(data))
   lwd <- extraArgs$lwd %||% rep(1, length(data))
   cex <- extraArgs$cex %||% 1
+  pt.cex <- extraArgs$pt.cex %||% 1
   fun <- isTRUE(extraArgs$fun)
 
   if ("col" %in% ...names()) {
@@ -688,7 +692,8 @@ plot_KDE <- function(
       ## add De measurements
       points(data[[i]][,1], 1:De.stats[i,1],
              col = col.value.dot[i],
-             pch = 20)
+             pch = 20,
+             cex = pt.cex)
     }
   }
 

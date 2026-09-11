@@ -78,6 +78,7 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("normal_curve summary center",
                               plot_Histogram(df, summary.pos = "center",
                                              normal_curve = TRUE,
+                                             pt.cex = 2,
                                              summary = c("mean", "skewness",
                                                          "median.weighted")))
   })

@@ -51,11 +51,11 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpNjYuMjR8Njg5Ljc2fDU5LjA0fDUwOS43Ng==)'>
-<circle cx='147.07' cy='276.92' r='2.16' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='262.53' cy='232.34' r='2.16' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='378.00' cy='258.56' r='2.16' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='493.47' cy='266.43' r='2.16' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='608.93' cy='342.46' r='2.16' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='147.07' cy='276.92' r='2.70' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='262.53' cy='232.34' r='2.70' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='378.00' cy='258.56' r='2.70' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='493.47' cy='266.43' r='2.70' style='stroke-width: 0.75; fill: #000000;' />
+<circle cx='608.93' cy='342.46' r='2.70' style='stroke-width: 0.75; fill: #000000;' />
 <line x1='147.07' y1='221.97' x2='147.07' y2='331.86' style='stroke-width: 0.75;' />
 <polyline points='152.47,221.97 147.07,221.97 141.67,221.97 ' style='stroke-width: 0.75;' />
 <polyline points='141.67,331.86 147.07,331.86 152.47,331.86 ' style='stroke-width: 0.75;' />
@@ -76,11 +76,11 @@
 <text x='378.00' y='41.76' text-anchor='middle' style='font-size: 9.60px; font-family: sans;' textLength='154.63px' lengthAdjust='spacingAndGlyphs'>mean = 2825.66 | median = 2841.32</text>
 </g>
 <g clip-path='url(#cpNjYuMjR8Njg5Ljc2fDU5LjA0fDUwOS43Ng==)'>
-<circle cx='147.07' cy='352.28' r='3.24' style='stroke-width: 0.75; stroke: #DF536B; fill: #DF536B;' />
-<circle cx='262.53' cy='274.59' r='3.24' style='stroke-width: 0.75; stroke: #DF536B; fill: #DF536B;' />
-<circle cx='378.00' cy='234.88' r='3.24' style='stroke-width: 0.75; stroke: #DF536B; fill: #DF536B;' />
-<circle cx='493.47' cy='134.37' r='3.24' style='stroke-width: 0.75; stroke: #DF536B; fill: #DF536B;' />
-<circle cx='608.93' cy='434.43' r='3.24' style='stroke-width: 0.75; stroke: #DF536B; fill: #DF536B;' />
+<circle cx='147.07' cy='352.28' r='4.05' style='stroke-width: 0.75; stroke: #DF536B; fill: #DF536B;' />
+<circle cx='262.53' cy='274.59' r='4.05' style='stroke-width: 0.75; stroke: #DF536B; fill: #DF536B;' />
+<circle cx='378.00' cy='234.88' r='4.05' style='stroke-width: 0.75; stroke: #DF536B; fill: #DF536B;' />
+<circle cx='493.47' cy='134.37' r='4.05' style='stroke-width: 0.75; stroke: #DF536B; fill: #DF536B;' />
+<circle cx='608.93' cy='434.43' r='4.05' style='stroke-width: 0.75; stroke: #DF536B; fill: #DF536B;' />
 <line x1='147.07' y1='297.34' x2='147.07' y2='407.23' style='stroke-width: 0.75; stroke: #DF536B;' />
 <polyline points='152.47,297.34 147.07,297.34 141.67,297.34 ' style='stroke-width: 0.75; stroke: #DF536B;' />
 <polyline points='141.67,407.23 147.07,407.23 152.47,407.23 ' style='stroke-width: 0.75; stroke: #DF536B;' />

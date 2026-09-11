@@ -78,9 +78,9 @@
 #' @param na.rm [logical] (*with default*):
 #' whether `NA` values should be removed from the input data before plotting.
 #'
-#' @param ... further arguments and graphical parameters passed to [plot],
-#' supported are:
-#' `xlab`, `ylab`, `xlim`, `ylim`, `main`, `cex`, `las` and `pch`.
+#' @param ... further arguments and graphical parameters to control the plot
+#' output (see [plot]). Supported are: `xlab`, `ylab`, `xlim`, `ylim`, `main`,
+#' `cex`, `pt.cex` (point size), `las`, and `pch`.
 #'
 #' @return A plot is returned.
 #'
@@ -88,7 +88,7 @@
 #' Further data and plot arguments can be added by using the appropriate R
 #' commands.
 #'
-#' @section Function version: 0.1.17
+#' @section Function version: 0.1.18
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -305,6 +305,7 @@ plot_DRTResults <- function(
   xlim <- extraArgs$xlim %||% (c(0, max(n.values)) + 0.5)
   ylim <- extraArgs$ylim %||% c(0.75, 1.25) # check below for further corrections if boundaries exceed set range
   cex <- extraArgs$cex %||% 1
+  pt.cex <- extraArgs$pt.cex %||% 1.2
   pch <- extraArgs$pch %||% abs(seq(from = 20, to = -100))
   las <- extraArgs$las %||% 0
   fun <- isTRUE(extraArgs$fun)
@@ -446,7 +447,7 @@ plot_DRTResults <- function(
                y = values[[i]][,1],
                pch = if (oneinput && nrow(values[[i]]) == length(pch)) pch else pch[i],
                col = if (multicol) col else col[i],
-               cex = 1.2)
+               cex = pt.cex)
 
         suppressWarnings( # zero-length arrow is of indeterminate angle and so skipped
         graphics::arrows(1:nrow(values[[i]]),
@@ -471,7 +472,7 @@ plot_DRTResults <- function(
                y = values.preheat[[i]][,1],
                pch = pch[i],
                col = col[i],
-               cex = 1.2)
+               cex = pt.cex)
 
         suppressWarnings( # zero-length arrow is of indeterminate angle and so skipped
         graphics::arrows(values.preheat[[i]][,3],

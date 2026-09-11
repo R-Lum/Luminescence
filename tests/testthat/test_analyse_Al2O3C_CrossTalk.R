@@ -99,6 +99,22 @@ test_that("snapshot tests", {
       tolerance = snapshot.tolerance)
 })
 
+test_that("graphical snapshot tests", {
+  testthat::skip_on_cran()
+  testthat::skip_if_not_installed("vdiffr")
+
+  set.seed(1)
+
+  SW({
+  vdiffr::expect_doppelganger("default",
+                              analyse_Al2O3C_CrossTalk(data_CrossTalk))
+  vdiffr::expect_doppelganger("signal_integral pt.cex",
+                              analyse_Al2O3C_CrossTalk(data_CrossTalk,
+                                                       signal_integral = 1:10,
+                                                       pt.cex = 1.5))
+  })
+})
+
 test_that("regression tests", {
   skip_on_cran()
 

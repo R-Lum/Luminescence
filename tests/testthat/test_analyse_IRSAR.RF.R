@@ -172,6 +172,7 @@ test_that("graphical snapshot tests", {
                                                col_nat = "seagreen",
                                                col_reg = "orchid",
                                                log = "y",
+                                               pt.cex = 1.2,
                                                yaxis_scientific = TRUE,
                                                n.MC = NULL))
   vdiffr::expect_doppelganger("none subtitle log",
@@ -179,6 +180,7 @@ test_that("graphical snapshot tests", {
                                                method = "None",
                                                mtext = "Subtitle",
                                                log = "xy",
+                                               pt.cex = 1.5,
                                                n.MC = 10,
                                                txtProgressBar = FALSE))
   })

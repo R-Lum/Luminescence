@@ -36,9 +36,9 @@ of the natural \code{Lx/Tx} values.}
 one curve object. Large numbers slow down the plotting process and are
 usually not needed.}
 
-\item{...}{Further arguments and graphical parameters to be passed.
-In particular: \code{main}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{lty}, \code{lwd}, \code{pch},
-\code{col.pch}, \code{col.lty}, \code{mtext}}
+\item{...}{further arguments and graphical parameters to control the plot
+output. Supported are: \code{main}, \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{lty}, \code{lwd},
+\code{pch}, \code{col.pch}, \code{col.lty}, \code{mtext}, and \code{pt.cex} (point size).}
 }
 \value{
 An \link[=RLum.Results-class]{RLum.Results} object is returned:
@@ -73,7 +73,7 @@ use option \code{source_dose_rate} or perform your SAR analysis with the dose
 points in Gy (better axis scaling).
 }
 \section{Function version}{
- 0.2.4
+ 0.2.5
 }
 
 \examples{

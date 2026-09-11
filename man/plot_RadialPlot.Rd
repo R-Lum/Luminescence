@@ -108,8 +108,11 @@ colour of the additional lines.}
 \item{line.label}{\link{character}:
 labels for the additional lines.}
 
-\item{...}{Further plot arguments to pass. \code{xlab} must be a vector of
-length 2, specifying the upper and lower x-axes labels.}
+\item{...}{further arguments and graphical parameters to control the plot
+output. Supported are: \code{main}, \code{sub}, \code{xlab}, \code{ylab}, \code{zlab}, \code{xlim}, \code{ylim},
+\code{zlim}, \code{cex}, \code{pt.cex} (point size), \code{lty}, \code{lwd}, \code{pch}, \code{col}, \code{tcl}, \code{show}, and
+\code{fun}. \code{xlab} must be a vector of length 2, specifying the upper and lower
+x-axes labels.}
 }
 \value{
 Returns a plot object.
@@ -157,7 +160,7 @@ one or more of the following keywords:
 }
 }
 \section{Function version}{
- 0.5.11
+ 0.5.12
 }
 
 \examples{

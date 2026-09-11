@@ -32,11 +32,11 @@
 #' one curve object. Large numbers slow down the plotting process and are
 #' usually not needed.
 #'
-#'@param ... Further arguments and graphical parameters to be passed.
-#'In particular: `main`, `xlab`, `ylab`, `xlim`, `ylim`, `lty`, `lwd`, `pch`,
-#'`col.pch`, `col.lty`, `mtext`
+#' @param ... further arguments and graphical parameters to control the plot
+#' output. Supported are: `main`, `xlab`, `ylab`, `xlim`, `ylim`, `lty`, `lwd`,
+#' `pch`, `col.pch`, `col.lty`, `mtext`, and `pt.cex` (point size).
 #'
-#'@section Function version: 0.2.4
+#' @section Function version: 0.2.5
 #'
 #'@return An [Luminescence::RLum.Results-class] object is returned:
 #'
@@ -186,6 +186,7 @@ if(inherits(object, "list")){
     lty = 1,
     lwd = 1,
     pch = 20,
+    pt.cex = 1,
     col.lty = rgb(0,0,0,0.5),
     col.pch = rgb(0,0,0,0.5)
   ), val = list(...), keep.null = TRUE)
@@ -228,6 +229,7 @@ if(inherits(object, "list")){
       points(
         x = LxTx[[i]]$Dose[1],
         y = LxTx[[i]]$LxTx[1],
+        cex = plot_settings$pt.cex,
         col = plot_settings$col.pch[[i]],
         pch = plot_settings$pch[[i]]
       )
@@ -242,6 +244,7 @@ if(inherits(object, "list")){
       points(
         x = LxTx[[i]]$Dose[-1],
         y = LxTx[[i]]$LxTx[-1],
+        cex = plot_settings$pt.cex,
         col = plot_settings$col.pch[[i]],
         pch = plot_settings$pch[[i]]
       )

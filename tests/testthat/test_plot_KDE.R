@@ -112,6 +112,7 @@ test_that("graphical snapshot tests", {
                               plot_KDE(df[, 1, drop = FALSE]))
   vdiffr::expect_doppelganger("rug",
                               plot_KDE(list(df, data.frame(c(23, 24), c(3, 3))),
+                                       pt.cex = 2,
                                        summary.pos = "top",
                                        summary = c("mean", "in.2s", "skewness")))
   vdiffr::expect_doppelganger("rug many points",

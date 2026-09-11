@@ -88,9 +88,9 @@ i.e. parameters provided via \code{par()} work.}
 \item{na.rm}{\link{logical} (\emph{with default}):
 whether \code{NA} values should be removed from the input data before plotting.}
 
-\item{...}{further arguments and graphical parameters passed to \link{plot},
-supported are:
-\code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{main}, \code{cex}, \code{las} and \code{pch}.}
+\item{...}{further arguments and graphical parameters to control the plot
+output (see \link{plot}). Supported are: \code{xlab}, \code{ylab}, \code{xlim}, \code{ylim}, \code{main},
+\code{cex}, \code{pt.cex} (point size), \code{las}, and \code{pch}.}
 }
 \value{
 A plot is returned.
@@ -113,7 +113,7 @@ Further data and plot arguments can be added by using the appropriate R
 commands.
 }
 \section{Function version}{
- 0.1.17
+ 0.1.18
 }
 
 \examples{

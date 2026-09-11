@@ -62,7 +62,8 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("extrapolation-gok",
                               plot_DoseResponseCurve(fit.extra.gok))
   vdiffr::expect_doppelganger("alternate",
-                              plot_DoseResponseCurve(fit.alt))
+                              plot_DoseResponseCurve(fit.alt,
+                                                     pt.cex = 2))
   vdiffr::expect_doppelganger("cex.global",
                               plot_DoseResponseCurve(fit, legend = FALSE,
                                                      density_polygon_col = "azure",

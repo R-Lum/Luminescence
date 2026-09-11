@@ -238,13 +238,13 @@
 #' recommended values is `NULL`, which assigns all but two of the available
 #' logical CPU cores.
 #'
-#' @param ... further arguments that will be passed to the plot output.
-#' Currently supported arguments are `main`, `mtext`, `xlab`, `ylab`,
-#' `xlim`, `ylim`, `log`, `legend` (`TRUE/FALSE`),
-#' `legend.pos`, `legend.text` (passes argument to x,y in
+#' @param ... further arguments and graphical parameters to control the plot
+#' output. Supported are: `main`, `mtext`, `xlab`, `ylab`, `xlim`, `ylim`,
+#' `cex`, `pt.cex` (point size), `log`, `legend` (`TRUE/FALSE`),
+#' `legend.pos`, `legend.text` (passes argument to `x`, `y` in
 #' [graphics::legend]), `col_nat` (colour of natural points), `col_reg`
-#' (colour of regenerated points), `yaxis_scientific` (`TRUE/FALSE`),
-#' `xaxt`, `verbose` (`TRUE/FALSE`).
+#' (colour of regenerated points), `yaxis_scientific` (`TRUE/FALSE`), `xaxt`,
+#' and `verbose` (`TRUE/FALSE`).
 #'
 #' @return
 #' The function returns numerical output and an (*optional*) plot.
@@ -334,7 +334,7 @@
 #' measurements (natural vs. regenerated signal), which is in contrast to the
 #' findings by Buylaert et al. (2012).
 #'
-#' @section Function version: 0.7.13
+#' @section Function version: 0.7.14
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -738,6 +738,7 @@ analyse_IRSAR.RF<- function(
     ylab = paste0("IR-RF [cts/", resolution.RF," s]"),
     log = "",
     cex = 1,
+    pt.cex = 1,
     legend = TRUE,
     legend.text = c("RF_nat","RF_reg"),
     legend.pos = "top",
@@ -1420,16 +1421,28 @@ analyse_IRSAR.RF<- function(
          labels = format(labels, scientific = plot.settings$yaxis_scientific))
 
     ##(1) plot points that have been not selected
-    points(RF_reg[-(min(RF_reg.lim):max(RF_reg.lim)),1:2], pch=3, col=col[19])
+    points(RF_reg[-(min(RF_reg.lim):max(RF_reg.lim)), 1:2],
+           cex = plot.settings$pt.cex,
+           pch = 3,
+           col = col[19])
 
     ##(2) plot points that has been used for the fitting
-    points(RF_reg.x, RF_reg.y, pch = 3, col = plot.settings$col_reg)
+    points(RF_reg.x, RF_reg.y,
+           cex = plot.settings$pt.cex,
+           pch = 3,
+           col = plot.settings$col_reg)
 
     ##show natural points if no analysis was done
     if (method == "NONE") {
       ##add points
-      points(RF_nat, pch = 20, col = "grey")
-      points(RF_nat.limited, pch = 20, col = plot.settings$col_nat)
+      points(RF_nat,
+             cex = plot.settings$pt.cex,
+             pch = 20,
+             col = "grey")
+      points(RF_nat.limited,
+             cex = plot.settings$pt.cex,
+             pch = 20,
+             col = plot.settings$col_nat)
 
       ## subtitle
       if ("mtext" %in% names(extraArgs)) {
@@ -1480,8 +1493,14 @@ analyse_IRSAR.RF<- function(
                       col = "grey")
 
       ##add points
-      points(RF_nat, pch = 20, col = col[19])
-      points(RF_nat.limited, pch = 20, col = plot.settings$col_nat)
+      points(RF_nat,
+             cex = plot.settings$pt.cex,
+             pch = 20,
+             col = col[19])
+      points(RF_nat.limited,
+             cex = plot.settings$pt.cex,
+             pch = 20,
+             col = plot.settings$col_nat)
 
       .draw_legend()
       .draw_fit_range()
@@ -1549,11 +1568,13 @@ analyse_IRSAR.RF<- function(
       ##(1) plot unused points in grey ... unused points are points outside of the set limit
       points(
         matrix(RF_nat.slid[-(min(RF_nat.lim):max(RF_nat.lim)),1:2], ncol = 2),
+        cex = plot.settings$pt.cex,
         pch = 21, col = col[19]
       )
 
       ##(2) add used points
       points(RF_nat.slid[min(RF_nat.lim):max(RF_nat.lim), ], pch = 19,
+             cex = plot.settings$pt.cex,
              col = plot.settings$col_nat)
 
       ##(3) add line to show the connection between the first point and the De
@@ -1632,12 +1653,16 @@ analyse_IRSAR.RF<- function(
 
         ## add residual points
         if (method == "FIT") {
-          points(RF_reg.x, residuals, pch = 20, col = "grey")
+          points(RF_reg.x, residuals,
+                 cex = plot.settings$pt.cex,
+                 pch = 20, col = "grey")
         } else {
           temp.points.diff <- max(length(min(RF_nat.lim):max(RF_nat.lim)) -
                                   length(residuals), 0)
           points(RF_nat.slid[c(min(RF_nat.lim):(max(RF_nat.lim) - temp.points.diff)), 1],
-                 residuals, pch = 20, col = rgb(0, 0, 0, 0.4))
+                 residuals,
+                 cex = plot.settings$pt.cex,
+                 pch = 20, col = rgb(0, 0, 0, 0.4))
 
           ## add residual indicator (should circle around 0)
           col.ramp <- grDevices::colorRampPalette(c(col[19], "white", col[19]))

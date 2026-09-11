@@ -22,17 +22,18 @@
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
 #'
-#' @param ... Further graphical parameters to be passed (supported:
-#' `main`, `mtext`, `xlim`, `ylim`, `xlab`, `ylab`, `log`
-#' (not valid for objects fitted with `mode = "extrapolation"`), `legend` (`TRUE/FALSE`),
-#' `legend.pos`, `reg_points_pch`, `density_polygon` (`TRUE/FALSE`),
-#' `density_polygon_col`, `density_rug` (`TRUE`/`FALSE`), `lwd_drc`, `col_drc`,`lty_drc`,
-#' `box` (`TRUE`/`FALSE`).
+#' @param ... further arguments and graphical parameters to control the plot
+#' output. Supported are: `main`, `mtext`, `xlim`, `ylim`, `xlab`, `ylab`,
+#' `cex`, `pt.cex` (point size), `mar`, `mgp`, `tcl`, `log` (not valid for objects fitted
+#' with `mode = "extrapolation"`), `legend` (`TRUE/FALSE`), `legend.pos`,
+#' `reg_points_pch`, `density_polygon` (`TRUE/FALSE`), `density_polygon_col`,
+#' `density_rug` (`TRUE`/`FALSE`), `lwd_drc`, `col_drc`, `lty_drc`, and `box`
+#' (`TRUE`/`FALSE`).
 #'
 #' @return
 #' A plot (or a series of plots) is produced.
 #'
-#' @section Function version: 1.0.11
+#' @section Function version: 1.0.12
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -170,6 +171,7 @@ plot_DoseResponseCurve <- function(
       mgp = c(2, 0.7, 0),
       tcl = -0.4,
       cex = 1,
+      pt.cex = 1,
       mtext = if (mode != "alternate")
                 substitute(D[e] == De,
                            list(De = sprintf("%.2f \uB1 %.1e  |  fit: %s",
@@ -233,6 +235,7 @@ plot_DoseResponseCurve <- function(
       xy[1:fit.args$fit.NumberRegPointsReal, ],
       ylim = plot_settings$ylim,
       xlim = plot_settings$xlim,
+      cex = plot_settings$pt.cex,
       log = plot_settings$log,
       pch = plot_settings$reg_points_pch[1],
       xlab = plot_settings$xlab,
@@ -282,6 +285,7 @@ plot_DoseResponseCurve <- function(
         points(
           x = sample[1, 1:2],
           col = 2,
+          cex = plot_settings$pt.cex,
           pch = plot_settings$reg_points_pch[1])
         segments(sample[1, 1], sample[1, 2] - sample[1, 3],
                  sample[1, 1], sample[1, 2] + sample[1, 3], col = col[2])
@@ -293,7 +297,7 @@ plot_DoseResponseCurve <- function(
         bg = col[2],
         pch = 21,
         col = "black",
-        cex = 1.1)
+        cex = plot_settings$pt.cex * 1.1)
     }
 
     ## repeated Point
@@ -301,7 +305,7 @@ plot_DoseResponseCurve <- function(
     points(
         x = xy[idx.rep, 1],
         y = xy[idx.rep, 2],
-        cex = 1.2,
+        cex = plot_settings$pt.cex * 1.2,
         pch = plot_settings$reg_points_pch[3])
 
        ## LINES	#Insert Ln/Tn
@@ -327,10 +331,9 @@ plot_DoseResponseCurve <- function(
           col = "black",
           pch = 21,
           bg = col[2],
-          cex = 1.1)
+          cex = plot_settings$pt.cex * 1.1)
         },
         silent = TRUE)
-
       if (plot_settings$density_polygon[1] & length(x.natural) > 1 &&
           !all(is.na(x.natural))) {
           ##calculate density De.MC
@@ -377,7 +380,7 @@ plot_DoseResponseCurve <- function(
         x = xy[idx.0, 1],
         y = xy[idx.0, 2],
         pch = plot_settings$reg_points_pch[2],
-        cex = 1.5)
+        cex = plot_settings$pt.cex * 1.5)
 
       if(plot_settings$density_rug[1])
         suppressWarnings(graphics::rug(x = x.natural, side = 3))
