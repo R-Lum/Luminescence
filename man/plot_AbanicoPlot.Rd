@@ -66,7 +66,8 @@ User-defined central value used for centring of data. One of \code{"mean.weighte
 logarithm).}
 
 \item{dispersion}{\link{character} (\emph{with default}):
-measure of dispersion, used for drawing the scatter polygon. One out of
+measure of dispersion used to draw the scatter polygon. Can be one of the
+following:
 \itemize{
 \item \code{"qr"} (quartile range, default)
 \item \code{"sd"} (standard deviation)
@@ -114,12 +115,12 @@ optional position coordinates or keyword (e.g. \code{"topright"})
 for the legend to be plotted.}
 
 \item{stats}{\link{character}:
-additional labels of statistically important values in the plot.
-One or more out of the following:
+additional labels of statistically important values in the plot. Can be one
+or more of the following:
 \itemize{
-\item \code{"min"},
-\item \code{"max"},
-\item \code{"median"}.
+\item \code{"min"}
+\item \code{"max"}
+\item \code{"median"}
 }}
 
 \item{rug}{\link{logical} (\emph{with default}):
@@ -143,16 +144,16 @@ space in the dispersion part, a square indicates this.}
 \item{boxplot}{\link{logical} (\emph{with default}):
 Option to add a boxplot to the dispersion part, default is \code{FALSE}.}
 
-\item{y.axis}{\link{logical} (\emph{with default}): Option to hide standard y-axis
-labels and show 0 only.
-Useful for data with small scatter. If you want to suppress the y-axis entirely
-please use \code{yaxt == 'n'} (the standard \link[graphics:par]{graphics::par} setting) instead.}
+\item{y.axis}{\link{logical} (\emph{with default}):
+option to hide standard y-axis labels and show 0 only, useful for data with
+small scatter. To suppress the y-axis entirely, use \code{yaxt == 'n'} (the
+standard \link[graphics:par]{graphics::par} setting) instead.}
 
 \item{error.bars}{\link{logical} (\emph{with default}):
 Option to show De-errors as error bars on De-points. Useful in combination
-with \verb{y.axis = FALSE, bar.col = "none"}.}
+with \verb{y.axis = FALSE, bar = FALSE}.}
 
-\item{bar}{\link{numeric} (\emph{with default}):
+\item{bar}{\link{numeric} or \link{logical} (\emph{with default}):
 option to add one or more dispersion bars (i.e., bar showing the 2-sigma range)
 centred at the defined values. By default a bar is drawn according to \code{"z.0"}.
 To omit the bar set \code{"bar = FALSE"}.}
@@ -183,22 +184,20 @@ colour of the grid lines (originating at \verb{[0,0]} and stretching to
 the z-scale). To disable grid lines use \code{FALSE}. Default is \code{"grey"}.}
 
 \item{frame}{\link{numeric} (\emph{with default}):
-option to modify the plot frame type. Can be one out of
+the plot frame type, one of the following:
 \itemize{
-\item \code{0} (no frame),
-\item \code{1} (frame originates at 0,0 and runs along min/max isochrons),
-\item \code{2} (frame embraces the 2-sigma bar),
-\item \code{3} (frame embraces the entire plot as a rectangle).
-}
-
-Default is \code{1}.}
+\item 0: no frame
+\item 1: frame originates at 0,0 and runs along min/max isochrons (default)
+\item 2: frame embraces the 2-sigma bar
+\item 3: frame embraces the entire plot as a rectangle
+}}
 
 \item{interactive}{\link{logical} (\emph{with default}):
-create an interactive abanico plot (requires the \code{'plotly'} package)}
+create an interactive abanico plot (requires the \code{'plotly'} package).}
 
 \item{...}{further arguments and graphical parameters to control the plot
-output (see \link[graphics:plot.default]{graphics::plot.default}). Supported are: \code{main}, \code{sub}, \code{ylab},
-\code{xlab}, \code{zlab}, \code{zlim}, \code{ylim}, \code{cex}, \code{pt.cex} (point size), \code{lty}, \code{lwd}, \code{pch}, \code{col},
+output. Supported are: \code{main}, \code{sub}, \code{ylab}, \code{xlab}, \code{zlab}, \code{xlim},
+\code{ylim}, \code{zlim}, \code{cex}, \code{pt.cex} (point size), \code{lty}, \code{lwd}, \code{pch}, \code{col},
 \code{at}, \code{bw}, and \code{breaks}. \code{xlab} must be a vector of length two, specifying
 the upper and lower x-axis labels.
 
@@ -259,13 +258,15 @@ one or more of the following keywords in the \code{summary} argument:
 \item \code{"n"} (number of samples)
 \item \code{"mean"} (mean De value)
 \item \code{"median"} (median of the De values)
-\item \code{"sd.rel"} (relative standard deviation in percent)
 \item \code{"sd.abs"} (absolute standard deviation)
-\item \code{"se.rel"} (relative standard error)
+\item \code{"sd.rel"} (relative standard deviation in percent)
 \item \code{"se.abs"} (absolute standard error)
+\item \code{"se.rel"} (relative standard error)
 \item \code{"in.2s"} (percent of samples in 2-sigma range)
-\item \code{"kurtosis"} (kurtosis)
+\item \code{"q.25"} (25\% percentile)
+\item \code{"q.75"} (75\% percentile)
 \item \code{"skewness"} (skewness)
+\item \code{"kurtosis"} (kurtosis)
 }
 
 \strong{Note:} the input data for the statistic summary is sent to the function

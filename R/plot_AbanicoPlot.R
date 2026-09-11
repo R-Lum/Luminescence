@@ -52,13 +52,15 @@
 #' - `"n"` (number of samples)
 #' - `"mean"` (mean De value)
 #' - `"median"` (median of the De values)
-#' - `"sd.rel"` (relative standard deviation in percent)
 #' - `"sd.abs"` (absolute standard deviation)
-#' - `"se.rel"` (relative standard error)
+#' - `"sd.rel"` (relative standard deviation in percent)
 #' - `"se.abs"` (absolute standard error)
+#' - `"se.rel"` (relative standard error)
 #' - `"in.2s"` (percent of samples in 2-sigma range)
-#' - `"kurtosis"` (kurtosis)
+#' - `"q.25"` (25% percentile)
+#' - `"q.75"` (75% percentile)
 #' - `"skewness"` (skewness)
+#' - `"kurtosis"` (kurtosis)
 #'
 #' **Note:** the input data for the statistic summary is sent to the function
 #' [Luminescence::calc_Statistics] depending on the log-option for the z-scale. If
@@ -111,7 +113,8 @@
 #' logarithm).
 #'
 #' @param dispersion [character] (*with default*):
-#' measure of dispersion, used for drawing the scatter polygon. One out of
+#' measure of dispersion used to draw the scatter polygon. Can be one of the
+#' following:
 #' - `"qr"` (quartile range, default)
 #' - `"sd"` (standard deviation)
 #' - `"2sd"` (2 standard deviations)
@@ -157,11 +160,11 @@
 #' for the legend to be plotted.
 #'
 #' @param stats [character]:
-#' additional labels of statistically important values in the plot.
-#' One or more out of the following:
-#' - `"min"`,
-#' - `"max"`,
-#' - `"median"`.
+#' additional labels of statistically important values in the plot. Can be one
+#' or more of the following:
+#' - `"min"`
+#' - `"max"`
+#' - `"median"`
 #'
 #' @param rug [logical] (*with default*):
 #' Option to add a rug to the KDE part, to indicate the location of individual values.
@@ -184,16 +187,16 @@
 #' @param boxplot [logical] (*with default*):
 #' Option to add a boxplot to the dispersion part, default is `FALSE`.
 #'
-#' @param y.axis [logical] (*with default*): Option to hide standard y-axis
-#' labels and show 0 only.
-#' Useful for data with small scatter. If you want to suppress the y-axis entirely
-#' please use `yaxt == 'n'` (the standard [graphics::par] setting) instead.
+#' @param y.axis [logical] (*with default*):
+#' option to hide standard y-axis labels and show 0 only, useful for data with
+#' small scatter. To suppress the y-axis entirely, use `yaxt == 'n'` (the
+#' standard [graphics::par] setting) instead.
 #'
 #' @param error.bars [logical] (*with default*):
 #' Option to show De-errors as error bars on De-points. Useful in combination
-#' with `y.axis = FALSE, bar.col = "none"`.
+#' with `y.axis = FALSE, bar = FALSE`.
 #'
-#' @param bar [numeric] (*with default*):
+#' @param bar [numeric] or [logical] (*with default*):
 #' option to add one or more dispersion bars (i.e., bar showing the 2-sigma range)
 #' centred at the defined values. By default a bar is drawn according to `"z.0"`.
 #' To omit the bar set `"bar = FALSE"`.
@@ -224,20 +227,18 @@
 #' the z-scale). To disable grid lines use `FALSE`. Default is `"grey"`.
 #'
 #' @param frame [numeric] (*with default*):
-#' option to modify the plot frame type. Can be one out of
-#' - `0` (no frame),
-#' - `1` (frame originates at 0,0 and runs along min/max isochrons),
-#' - `2` (frame embraces the 2-sigma bar),
-#' - `3` (frame embraces the entire plot as a rectangle).
-#'
-#' Default is `1`.
+#' the plot frame type, one of the following:
+#' - 0: no frame
+#' - 1: frame originates at 0,0 and runs along min/max isochrons (default)
+#' - 2: frame embraces the 2-sigma bar
+#' - 3: frame embraces the entire plot as a rectangle
 #'
 #' @param interactive [logical] (*with default*):
-#' create an interactive abanico plot (requires the `'plotly'` package)
+#' create an interactive abanico plot (requires the `'plotly'` package).
 #'
 #' @param ... further arguments and graphical parameters to control the plot
-#' output (see [graphics::plot.default]). Supported are: `main`, `sub`, `ylab`,
-#' `xlab`, `zlab`, `zlim`, `ylim`, `cex`, `pt.cex` (point size), `lty`, `lwd`, `pch`, `col`,
+#' output. Supported are: `main`, `sub`, `ylab`, `xlab`, `zlab`, `xlim`,
+#' `ylim`, `zlim`, `cex`, `pt.cex` (point size), `lty`, `lwd`, `pch`, `col`,
 #' `at`, `bw`, and `breaks`. `xlab` must be a vector of length two, specifying
 #' the upper and lower x-axis labels.
 #'
