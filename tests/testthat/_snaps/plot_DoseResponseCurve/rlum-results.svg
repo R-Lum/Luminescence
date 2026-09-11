@@ -85,7 +85,7 @@
 <line x1='521.95' y1='98.97' x2='521.95' y2='90.66' style='stroke-width: 0.75;' />
 <line x1='269.23' y1='264.78' x2='269.23' y2='262.10' style='stroke-width: 0.75;' />
 <line x1='215.08' y1='337.04' x2='215.08' y2='336.85' style='stroke-width: 0.75;' />
-<polygon points='269.23,260.08 272.14,265.12 266.32,265.12 ' style='stroke-width: 0.75; fill: none;' />
+<polygon points='269.23,259.41 272.72,265.46 265.74,265.46 ' style='stroke-width: 0.75; fill: none;' />
 <polyline points='202.56,140.55 424.19,140.55 ' style='stroke-width: 0.94; stroke: #FF3000; stroke-dasharray: 5.00,5.00;' />
 <polyline points='424.19,349.44 424.19,140.55 ' style='stroke-width: 0.94; stroke: #FF3000; stroke-dasharray: 5.00,5.00;' />
 <circle cx='424.19' cy='140.55' r='2.38' style='stroke-width: 0.75; fill: #FF3000;' />

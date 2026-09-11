@@ -301,6 +301,7 @@ plot_DoseResponseCurve <- function(
     points(
         x = xy[idx.rep, 1],
         y = xy[idx.rep, 2],
+        cex = 1.2,
         pch = plot_settings$reg_points_pch[3])
 
        ## LINES	#Insert Ln/Tn
@@ -428,7 +429,7 @@ plot_DoseResponseCurve <- function(
       histogram <- try({
         hist(x.natural, plot = FALSE)
         }, silent = TRUE)
-      
+
       ## to avoid errors plot only if histogram exists
       if (!inherits(histogram, "try-error") && length(histogram$counts) > 2) {
         ## plot histogram
