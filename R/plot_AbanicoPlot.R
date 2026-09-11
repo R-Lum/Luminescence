@@ -606,25 +606,10 @@ plot_AbanicoPlot <- function(
                                  extra = "a percentile of the form 'pNN' (e.g. 'p05')")
   .validate_length(dispersion, 1)
 
-  valid.pos <- c("left", "center", "right", "topleft", "top", "topright",
-                 "bottomleft", "bottom", "bottomright")
   .validate_class(summary, "character")
-  if (is.numeric(summary.pos)) {
-    .validate_length(summary.pos, 2)
-    if (anyNA(summary.pos))
-      .throw_error("'summary.pos' cannot contain missing values")
-  }
-  else {
-    summary.pos <- .validate_args(summary.pos, c("sub", valid.pos))
-  }
+  summary.pos <- .validate_position(summary.pos, sub = TRUE)
   .validate_class(legend, "character", null.ok = TRUE)
-  if (is.numeric(legend.pos)) {
-    .validate_length(legend.pos, 2)
-    if (anyNA(legend.pos))
-      .throw_error("'legend.pos' cannot contain missing values")
-  } else {
-    legend.pos <- .validate_args(legend.pos, valid.pos)
-  }
+  legend.pos <- .validate_position(legend.pos)
 
   .validate_class(stats, "character", null.ok = TRUE, length = 1:3)
   summary.method <- .validate_args(summary.method, c("MCM", "weighted", "unweighted"))

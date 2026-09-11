@@ -231,15 +231,8 @@ plot_KDE <- function(
   .validate_logical_scalar(rug)
   summary.method <- .validate_args(summary.method, c("MCM", "weighted", "unweighted"))
   .validate_class(summary, "character")
-  if (is.numeric(summary.pos)) {
-    .validate_length(summary.pos, 2)
-  }
-  else {
-    summary.pos <- .validate_args(summary.pos,
-                                  c("sub", "left", "center", "right",
-                                    "topleft", "top", "topright",
-                                    "bottomleft", "bottom", "bottomright"))
-  }
+  summary.pos <- .validate_position(summary.pos, sub = TRUE)
+
   .validate_class(bw, c("character", "numeric"), length = 1)
   if (is.numeric(bw))
     .validate_positive_scalar(bw)

@@ -218,22 +218,10 @@ plot_DRTResults <- function(
   }
 
   .validate_class(mtext, "character", length = 1)
-  valid.pos <- c("left", "center", "right", "topleft", "top", "topright",
-                 "bottomleft", "bottom", "bottomright")
   .validate_class(summary, "character")
-  if (is.numeric(summary.pos)) {
-    .validate_length(summary.pos, 2)
-  }
-  else {
-    summary.pos <- .validate_args(summary.pos, c("sub", valid.pos))
-  }
+  summary.pos <- .validate_position(summary.pos, sub = TRUE)
   .validate_class(legend, "character", null.ok = TRUE)
-  if (is.numeric(legend.pos)) {
-    .validate_length(legend.pos, 2)
-  }
-  else {
-    legend.pos <- .validate_args(legend.pos, valid.pos)
-  }
+  legend.pos <- .validate_position(legend.pos)
   .validate_logical_scalar(par.local)
   .validate_logical_scalar(na.rm)
 

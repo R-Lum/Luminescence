@@ -169,6 +169,8 @@ plot_NRt <- function(data, log = "", smooth = c("none", "spline", "rmean"), k = 
   .validate_class(log, "character", length = 1)
 
   smooth <- .validate_args(smooth, c("none", "spline", "rmean"))
+  .validate_logical_scalar(legend)
+  legend.pos <- .validate_position(legend.pos)
 
   ## BASIC SETTINGS ------
   natural <- curves[[1]]

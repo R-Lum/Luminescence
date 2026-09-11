@@ -333,6 +333,7 @@ fit_LMCurve<- function(
   .validate_logical_scalar(plot.residuals)
   .validate_logical_scalar(plot.contribution)
   .validate_logical_scalar(legend)
+  legend.pos <- .validate_position(legend.pos)
   .validate_class(method_control, "list")
 
   ## remove missing values

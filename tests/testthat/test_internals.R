@@ -645,6 +645,26 @@ test_that("Test internals", {
   expect_error(.validate_logical_scalar(NA, name = "The variable"),
                "The variable should be a single logical value")
 
+  ## .validate_position() ---------------------------------------------------
+  expect_equal(.validate_position("topleft"),
+               "topleft")
+  expect_equal(.validate_position(c("left", "right")),
+               "left")
+  expect_equal(.validate_position("sub", sub = TRUE),
+               "sub")
+  expect_equal(.validate_position(c(1, 2)),
+               c(1, 2))
+  expect_error(.validate_position("sub"),
+               "'NA' should be one of 'left', 'center', 'right', 'topleft'")
+  expect_error(.validate_position(c("left", "error")),
+               "contains multiple values but not all of them match 'choices'")
+  expect_error(.validate_position(summary.pos <- 1),
+               "'summary.pos' should have length 2")
+  expect_error(.validate_position(1, name = "'summary.pos'"),
+               "'summary.pos' should have length 2")
+  expect_error(.validate_position(c(NA, 5), name = "A position"),
+               "A position cannot contain missing values")
+
   ## .validate_originator() ----------------------------------------------------
   expect_error(.validate_originator(set_RLum("RLum.Analysis"), "orig"),
                "'NA' has an unsupported originator (expected 'orig', but found",

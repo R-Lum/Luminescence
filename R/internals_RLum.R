@@ -1452,6 +1452,34 @@ SW <- function(expr) {
                    name = name %||% .first_argument(), extra = extra)
 }
 
+#' @title Validate a plot position (keyword or coordinates)
+#'
+#' @param pos [character] or [numeric] (**required**):
+#' The position to validate, either a keyword or a vector of length two.
+#'
+#' @param sub [logical] (*with default*):
+#' Whether the keyword `"sub"` is a valid choice (`FALSE` by default).
+#'
+#' @return
+#' The validated position.
+#'
+#' @inheritParams .validate_args
+#'
+#' @noRd
+.validate_position <- function(pos, sub = FALSE, name = NULL) {
+  valid.pos <- c("left", "center", "right", "topleft", "top", "topright",
+                 "bottomleft", "bottom", "bottomright")
+  name <- name %||% .first_argument()
+  if (is.numeric(pos)) {
+    .validate_length(pos, 2, name = name)
+    if (anyNA(pos))
+      .throw_error(name, " cannot contain missing values")
+  } else {
+    pos <- .validate_args(pos, c(if (sub) "sub", valid.pos), name = name)
+  }
+  pos
+}
+
 #' @title Validate a filename
 #'
 #' @param file [character], [list] (**required**):

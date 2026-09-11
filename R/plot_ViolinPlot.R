@@ -97,16 +97,7 @@ plot_ViolinPlot <- function(
   .validate_logical_scalar(boxplot)
   .validate_logical_scalar(rug)
   .validate_class(summary, "character")
-  if (is.numeric(summary.pos)) {
-    .validate_length(summary.pos, 2)
-    summary.pos <- t(summary.pos)
-  }
-  else {
-    summary.pos <- .validate_args(summary.pos,
-                                  c("sub", "left", "center", "right",
-                                    "topleft", "top", "topright",
-                                    "bottomleft", "bottom", "bottomright"))
-  }
+  summary.pos <- .validate_position(summary.pos, sub = TRUE)
 
   if (inherits(data, "RLum.Results")) {
     data <- get_RLum(data, "data")
@@ -222,6 +213,6 @@ plot_ViolinPlot <- function(
 
   ##add stat.text
   if (!is.sub) {
-      legend(summary.pos, legend = stat.text, bty = "n")
+    legend(t(summary.pos), legend = stat.text, bty = "n")
   }
 }

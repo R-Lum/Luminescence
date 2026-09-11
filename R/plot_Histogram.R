@@ -148,15 +148,7 @@ plot_Histogram <- function(
   .validate_class(mtext, "character", length = 1)
   .validate_class(cex.global, "numeric")
   .validate_class(summary, "character")
-  if (is.numeric(summary.pos)) {
-    .validate_length(summary.pos, 2)
-  }
-  else {
-    summary.pos <- .validate_args(summary.pos,
-                                  c("sub", "left", "center", "right",
-                                    "topleft", "top", "topright",
-                                    "bottomleft", "bottom", "bottomright"))
-  }
+  summary.pos <- .validate_position(summary.pos, sub = TRUE)
   .validate_logical_scalar(se)
   .validate_logical_scalar(rug)
   .validate_logical_scalar(normal_curve)
