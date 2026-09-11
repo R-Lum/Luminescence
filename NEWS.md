@@ -216,6 +216,12 @@
   argument, which can be set to either a numeric value or to `NULL` to
   use all but two of the available cores (#1668).
 
+### `plot_KDE()`
+
+- The plot title is no longer drawn in a bold font, and the spacing
+  between words in title and x-axis label has been refined so that the
+  words no longer look attached (#1717).
+
 ### `plot_RadialPlot()`
 
 - The function no longer crashes when the error column contains NA
