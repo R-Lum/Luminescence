@@ -194,6 +194,12 @@
   iteration again. This turned out to be a simple typo, with minimal
   impact (#1727).
 
+- The Monte Carlo error estimation considered spurious contributions
+  from iterations that failed to fit. This was caused by the result
+  vector being initialised to 0 instead of `NA`, which resulted in a
+  slight overestimation of errors when any MC model failed to fit
+  (#1730).
+
 ### `merge_Risoe.BINfileData()`
 
 - Argument `objects` has been renamed to `object`. The older name will
