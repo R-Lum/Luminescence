@@ -88,6 +88,13 @@
   `RLum.Analysis` object (#1725; thanks to Annette Kadereit for
   reporting).
 
+- The check on the window size now occurs also if
+  `plot_singlePanels = TRUE`. This avoids hard failures on Linux when
+  both `plot_singlePanels` and `plot_onePage` are set to `TRUE` and the
+  window size is too small. On Windows, it seems that instead of a hard
+  error, the function would silently stop working (#1734; thanks to
+  Annette Kadereit for reporting).
+
 ### `analyse_SAR.CWOSL()`
 
 - The ordering of columns in the `$data` field of the result object was

@@ -274,12 +274,13 @@ analyse_pIRIRSequence <- function(
   ## trigger our check
   min.size <- ceiling(11 * cex)
   dev.size <- round(grDevices::dev.size("in"), 5)
-  if (plot && !plot_singlePanels && any(dev.size < min.size)) {
+  if (plot && any(dev.size < min.size)) {
     plot <- FALSE
     msg <- paste0("Argument 'plot' reset to 'FALSE': the smallest plot ",
                   "size required is IN x IN in (at cex = ", cex, "). ",
-                  "Consider plotting via `pdf(..., width = IN, height = IN)` ",
-                  "or setting `plot_singlePanels = TRUE`.")
+                  "Consider plotting via `pdf(..., width = IN, height = IN)`",
+                  if (!plot_singlePanels) " or setting `plot_singlePanels = TRUE`",
+                  ".")
     .throw_warning(gsub(x = msg, "IN", min.size))
   }
 

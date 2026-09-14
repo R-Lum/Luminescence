@@ -83,8 +83,8 @@ test_that("check plot stuff", {
   dev.off()
   unlink(pdf.out)
 
-  ## this should not throw any warning with plot_singlePanels = TRUE
-  expect_silent(analyse_pIRIRSequence(
+  ## the warning should not suggest to set plot_singlePanels = TRUE
+  expect_warning(analyse_pIRIRSequence(
     object,
     signal_integral = 1:2,
     background_integral = 900:1000,
@@ -93,7 +93,9 @@ test_that("check plot stuff", {
     main = "Pseudo pIRIR data set based on quartz OSL",
     plot = TRUE,
     plot_singlePanels = TRUE,
-    verbose = FALSE))
+    verbose = FALSE),
+    "Consider plotting via `pdf(..., width = 8, height = 8)`.",
+    fixed = TRUE)
 
   ## integral_input
   set.seed(1)
@@ -199,11 +201,13 @@ test_that("input validation", {
                  fixed = TRUE)
   })
 
-  expect_message(expect_null(analyse_pIRIRSequence(set_RLum("RLum.Analysis"),
+  expect_warning(expect_message(expect_null(
+                             analyse_pIRIRSequence(set_RLum("RLum.Analysis"),
                                                    signal_integral = 1:2,
                                                    background_integral = 100:200,
                                                    sequence.structure = c("IR50"))),
-                 "'object' contains no records, NULL returned")
+                 "'object' contains no records, NULL returned"),
+                 "or setting `plot_singlePanels = TRUE`")
 })
 
 test_that("check class and length of output", {
