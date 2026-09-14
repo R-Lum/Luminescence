@@ -21,29 +21,32 @@ Risoe.BINfileData2RLum.Analysis(
 \item{object}{\link[=Risoe.BINfileData-class]{Risoe.BINfileData} (\strong{required}):
 object to convert.}
 
-\item{pos}{\link{numeric} (\emph{optional}): position number of the \code{Risoe.BINfileData}
-object for which the curves are stored in the \link[=RLum.Analysis-class]{RLum.Analysis} object.
+\item{pos}{\link{numeric} (\emph{optional}):
+position number of the \code{Risoe.BINfileData} object for which the curves are
+converted into an \link[=RLum.Analysis-class]{RLum.Analysis} object.
 If \code{length(pos) > 1}, a list of \code{RLum.Analysis} objects is returned.
 If nothing is provided every position will be converted.
 If the position is not valid \code{NULL} is returned.}
 
 \item{grain}{\link{vector}, \link{numeric} (\emph{optional}):
 grain number from the measurement to limit the converted data set
-(e.g., \code{grain = c(1:48)}). Please be aware that this option may lead to
+(e.g., \code{grain = 1:48}). Please be aware that this option may lead to
 unwanted effects, as the output is strictly limited to the chosen grain
-number for all position numbers.}
+number for all position numbers. Invalid grain numbers are skipped with a
+warning. Records with \code{NA} as grain are always included, as some readers
+report \code{NA} instead of a grain number.}
 
 \item{run}{\link{vector}, \link{numeric} (\emph{optional}):
 run number from the measurement to limit the converted data set
-(e.g., \code{run = c(1:48)}).}
+(e.g., \code{run = 1:48}).}
 
 \item{set}{\link{vector}, \link{numeric} (\emph{optional}):
 set number from the measurement to limit the converted data set
-(e.g., \code{set = c(1:48)}).}
+(e.g., \code{set = 1:48}).}
 
 \item{ltype}{\link{vector}, \link{character} (\emph{optional}):
 curve type to limit the converted data. Commonly allowed values are:
-\code{IRSL}, \code{OSL}, \code{TL}, \code{RIR}, \code{RBR} and \code{USER}
+\code{"IRSL"}, \code{"OSL"}, \code{"TL"}, \code{"RIR"}, \code{"RBR"} and \code{"USER"}
 (see also \link[=Risoe.BINfileData-class]{Risoe.BINfileData}).}
 
 \item{dtype}{\link{vector}, \link{character} (\emph{optional}):
@@ -51,18 +54,23 @@ data type to limit the converted data. Commonly allowed values are
 listed in \link[=Risoe.BINfileData-class]{Risoe.BINfileData}.}
 
 \item{protocol}{\link{character} (\emph{optional}):
-sets protocol type for analysis object. Value may be used by subsequent
-analysis functions.}
+protocol type to be set in the analysis object. This value may be used by
+subsequent analysis functions.}
 
 \item{keep.empty}{\link{logical} (\emph{with default}):
 If \code{TRUE} (default) an \code{RLum.Analysis} object is returned even if it does
 not contain any records. Set to \code{FALSE} to discard all empty objects.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
-enable/disable the progress bar.}
+enable/disable the progress bar. The progress bar is disabled automatically
+if fewer than two positions are converted.}
 }
 \value{
-Returns an \link[=RLum.Analysis-class]{RLum.Analysis} object.
+Returns an \link[=RLum.Analysis-class]{RLum.Analysis} object if exactly one
+position and one grain number were converted, and a list of \code{RLum.Analysis}
+objects (one per position/grain combination) otherwise. Returns \code{NULL} if
+no valid position is provided or if all objects are discarded by
+\code{keep.empty = FALSE}.
 }
 \description{
 Converts values from one specific position of a \link[=Risoe.BINfileData-class]{Risoe.BINfileData}

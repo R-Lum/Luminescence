@@ -12,29 +12,32 @@
 #' @param object [Luminescence::Risoe.BINfileData-class] (**required**):
 #' object to convert.
 #'
-#' @param pos [numeric] (*optional*): position number of the `Risoe.BINfileData`
-#' object for which the curves are stored in the [Luminescence::RLum.Analysis-class] object.
+#' @param pos [numeric] (*optional*):
+#' position number of the `Risoe.BINfileData` object for which the curves are
+#' converted into an [Luminescence::RLum.Analysis-class] object.
 #' If `length(pos) > 1`, a list of `RLum.Analysis` objects is returned.
 #' If nothing is provided every position will be converted.
 #' If the position is not valid `NULL` is returned.
 #'
 #' @param grain [vector], [numeric] (*optional*):
 #' grain number from the measurement to limit the converted data set
-#' (e.g., `grain = c(1:48)`). Please be aware that this option may lead to
+#' (e.g., `grain = 1:48`). Please be aware that this option may lead to
 #' unwanted effects, as the output is strictly limited to the chosen grain
-#' number for all position numbers.
+#' number for all position numbers. Invalid grain numbers are skipped with a
+#' warning. Records with `NA` as grain are always included, as some readers
+#' report `NA` instead of a grain number.
 #'
 #' @param run [vector], [numeric] (*optional*):
 #' run number from the measurement to limit the converted data set
-#' (e.g., `run = c(1:48)`).
+#' (e.g., `run = 1:48`).
 #'
 #' @param set [vector], [numeric] (*optional*):
 #' set number from the measurement to limit the converted data set
-#' (e.g., `set = c(1:48)`).
+#' (e.g., `set = 1:48`).
 #'
 #' @param ltype [vector], [character] (*optional*):
 #' curve type to limit the converted data. Commonly allowed values are:
-#' `IRSL`, `OSL`, `TL`, `RIR`, `RBR` and `USER`
+#' `"IRSL"`, `"OSL"`, `"TL"`, `"RIR"`, `"RBR"` and `"USER"`
 #' (see also [Luminescence::Risoe.BINfileData-class]).
 #'
 #' @param dtype [vector], [character] (*optional*):
@@ -42,17 +45,23 @@
 #' listed in [Luminescence::Risoe.BINfileData-class].
 #'
 #' @param protocol [character] (*optional*):
-#' sets protocol type for analysis object. Value may be used by subsequent
-#' analysis functions.
+#' protocol type to be set in the analysis object. This value may be used by
+#' subsequent analysis functions.
 #'
 #' @param keep.empty [logical] (*with default*):
 #' If `TRUE` (default) an `RLum.Analysis` object is returned even if it does
 #' not contain any records. Set to `FALSE` to discard all empty objects.
 #'
 #' @param txtProgressBar [logical] (*with default*):
-#' enable/disable the progress bar.
+#' enable/disable the progress bar. The progress bar is disabled automatically
+#' if fewer than two positions are converted.
 #'
-#' @return Returns an [Luminescence::RLum.Analysis-class] object.
+#' @return
+#' Returns an [Luminescence::RLum.Analysis-class] object if exactly one
+#' position and one grain number were converted, and a list of `RLum.Analysis`
+#' objects (one per position/grain combination) otherwise. Returns `NULL` if
+#' no valid position is provided or if all objects are discarded by
+#' `keep.empty = FALSE`.
 #'
 #' @note
 #' The `protocol` argument of the [Luminescence::RLum.Analysis-class]
@@ -161,22 +170,23 @@ Risoe.BINfileData2RLum.Analysis<- function(
                    .collapse(dtype.valid, quote = TRUE))
   }
 
-    # Select values and convert them-----------------------------------------------------------
-    ##set progressbar to false if only one position is provided
-    if(txtProgressBar & length(pos)<2){
-      txtProgressBar <- FALSE
-    }
+  ## Select values and convert them -----------------------------------------
+
+  ## switch off the progress bar if only one position is provided
+  if (txtProgressBar && length(pos) < 2) {
+    txtProgressBar <- FALSE
+  }
+
+  ## set progress bar
+  if (txtProgressBar) {
+    pb <- txtProgressBar(min = min(pos), max = max(pos), char = "=", style = 3)
+  }
 
     ##This loop does:
     ## (a) iterating over all possible positions
     ## (b) consider grains in all possible positions
     ## (c) consider other selections
     ## (d) create the RLum.Analysis objects
-
-    ##set progress bar
-    if(txtProgressBar){
-      pb <- txtProgressBar(min=min(pos),max=max(pos), char="=", style=3)
-    }
 
   ## convert metadata object to data.table
   metadata.dt <- as.data.table(object@METADATA[, sel.cols])
