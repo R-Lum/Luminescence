@@ -103,7 +103,12 @@ This was a regression introduced in v1.1.2 (#1625).
 
 ### `analyse_SAR.NCF()`
 
-* The `object` argument is now better validated (#1657).
+* The `object` argument is now better validated (#1657, 1732).
+
+### `analyse_SAR.TL()`
+
+* The function no longer crashes if the input object contains no TL curves
+(#1732).
 
 ### `calc_CentralDose()`
 
@@ -206,6 +211,11 @@ iterations that failed to fit. This was caused by the result vector being
 initialised to 0 instead of `NA`, which resulted in a slight overestimation of
 errors when any MC model failed to fit (#1730).
 
+### `fit_OSLLifeTimes()`
+
+* The function no longer crashes when using a list containing an empty
+`RLum.Analysis` object (#1732).
+
 ### `merge_Risoe.BINfileData()`
 
 - Argument `objects` has been renamed to `object`. The older name will still
@@ -218,7 +228,10 @@ work, but it generates a deprecation warning (#1697).
 
 ### `merge_RLum.Analysis()`
 
-- Argument `objects` has been renamed to `object` (#1697).
+* Argument `objects` has been renamed to `object` (#1697).
+
+* The function no longer crashes when using a list containing an empty
+`RLum.Analysis` object (#1732).
 
 ### `merge_RLum.Results()`
 

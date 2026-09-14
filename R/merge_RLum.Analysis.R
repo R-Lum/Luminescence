@@ -23,7 +23,7 @@
 #' [Luminescence::RLum.Analysis-class] object in the input list. Therefore at
 #' least one object of type [Luminescence::RLum.Analysis-class] has to be provided.
 #'
-#' @section Function version: 0.2.3
+#' @section Function version: 0.2.4
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -96,7 +96,7 @@ merge_RLum.Analysis<- function(
   set_RLum(
     class = "RLum.Analysis",
     originator = "merge_RLum.Analysis",
-    records = temp.element.list,
+    records = temp.element.list %||% list(),
     protocol = temp.meta.data.first,
     info = unlist(lapply(object, function(x) {
       x@info

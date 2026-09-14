@@ -35,6 +35,11 @@ test_that("input validation", {
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, verbose = NA),
                "'verbose' should be a single logical value")
 
+  empty <- set_RLum(class = "RLum.Analysis")
+  expect_warning(expect_null(fit_OSLLifeTimes(list(empty))),
+                 "Nothing was merged as the object list was found to be empty")
+  expect_warning(expect_null(fit_OSLLifeTimes(list(empty), spurious_arg = 1:3)),
+                 "Nothing was merged as the object list was found to be empty")
   empty <- set_RLum(class = "RLum.Data.Curve")
   expect_error(fit_OSLLifeTimes(empty),
                "recordType 'NA' not supported for input object")

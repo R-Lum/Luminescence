@@ -65,7 +65,7 @@
 #'
 #' No TL curves will be removed from the input object without further warning.
 #'
-#' @section Function version: 0.3.4
+#' @section Function version: 0.3.5
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -177,9 +177,12 @@ analyse_SAR.TL <- function(
     .throw_error("'sequence.structure' contains no 'SIGNAL' entry")
   }
 
-  ##Remove non TL-curves from object by selecting TL curves
-  object@records <- get_RLum(object, recordType = "TL",
-                             recursive = FALSE)
+  ## Remove non TL-curves from object by selecting TL curves
+  tl.curves <- suppressWarnings(get_RLum(object, recordType = "TL",
+                                         recursive = FALSE))
+  if (length(tl.curves) == 0)
+    .throw_error("'object' contains no TL curves")
+  object@records <- tl.curves
 
   ##ANALYSE SEQUENCE OBJECT STRUCTURE
 

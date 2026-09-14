@@ -79,7 +79,7 @@
 #' @note
 #' This function is a beta version.
 #'
-#' @section Function version: 0.1.0
+#' @section Function version: 0.1.1
 #'
 #' @author
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
@@ -134,6 +134,7 @@ analyse_SAR.NCF <- function(
   }
 
   .validate_class(object, "RLum.Analysis", extra = "a 'list' of such objects")
+  .validate_not_empty(object)
   .validate_positive_scalar(TL_peak_range)
   .validate_class(method_control, "list", null.ok = TRUE)
 
