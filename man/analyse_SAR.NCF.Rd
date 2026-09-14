@@ -101,7 +101,7 @@ in the graphical output.
 This function is a beta version.
 }
 \section{Function version}{
- 0.1.0
+ 0.1.1
 }
 
 \examples{

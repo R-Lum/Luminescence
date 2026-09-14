@@ -102,7 +102,12 @@
 
 ### `analyse_SAR.NCF()`
 
-- The `object` argument is now better validated (#1657).
+- The `object` argument is now better validated (#1657, 1732).
+
+### `analyse_SAR.TL()`
+
+- The function no longer crashes if the input object contains no TL
+  curves (#1732).
 
 ### `calc_CentralDose()`
 
@@ -211,6 +216,11 @@
   slight overestimation of errors when any MC model failed to fit
   (#1730).
 
+### `fit_OSLLifeTimes()`
+
+- The function no longer crashes when using a list containing an empty
+  `RLum.Analysis` object (#1732).
+
 ### `merge_Risoe.BINfileData()`
 
 - Argument `objects` has been renamed to `object`. The older name will
@@ -224,6 +234,9 @@
 ### `merge_RLum.Analysis()`
 
 - Argument `objects` has been renamed to `object` (#1697).
+
+- The function no longer crashes when using a list containing an empty
+  `RLum.Analysis` object (#1732).
 
 ### `merge_RLum.Results()`
 

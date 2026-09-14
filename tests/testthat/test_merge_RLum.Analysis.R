@@ -29,3 +29,14 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(merge_RLum.Analysis(list(o1)))
   expect_snapshot_RLum(merge_RLum.Analysis(list(o1@records[[2]], o1, c1)))
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 1732
+  expect_warning(res <- merge_RLum.Analysis(list(set_RLum("RLum.Analysis"))),
+                 "This 'RLum.Analysis' object has no records, NULL returned")
+  expect_s4_class(res,
+                  "RLum.Analysis")
+  expect_length(res, 0)
+})

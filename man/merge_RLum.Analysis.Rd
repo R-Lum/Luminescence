@@ -31,7 +31,7 @@ The information for the slot 'protocol' is taken from the first
 least one object of type \link[=RLum.Analysis-class]{RLum.Analysis} has to be provided.
 }
 \section{Function version}{
- 0.2.3
+ 0.2.4
 }
 
 \examples{

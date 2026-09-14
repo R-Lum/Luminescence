@@ -131,7 +131,7 @@
 #' A plot showing the original data and the fit so far possible. The lower plot shows the
 #' residuals of the fit.
 #'
-#' @section Function version: 0.1.6
+#' @section Function version: 0.1.7
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -214,7 +214,7 @@ fit_OSLLifeTimes <- function(
     })
 
     ## make sure we organise this list (not nice but it works)
-    arg_list <- lapply(1:length(object), function(x){
+    arg_list <- lapply(seq_along(object), function(x) {
       args <- lapply(arg_list, function(y) y[[x]])
       names(args) <- arg_names
       args
@@ -222,7 +222,7 @@ fit_OSLLifeTimes <- function(
   }
 
   ##run function
-  temp_results <- lapply(1:length(object), function(x){
+  temp_results <- lapply(seq_len(length(object)), function(x) {
     temp <- try(do.call(what = fit_OSLLifeTimes,
         c(list(
          object = object[[x]],

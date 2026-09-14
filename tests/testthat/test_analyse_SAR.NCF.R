@@ -7,6 +7,8 @@ test_that("input validation", {
 
   expect_error(analyse_SAR.NCF(iris),
                "'object' should be of class 'RLum.Analysis' or a 'list' of such")
+  expect_error(analyse_SAR.NCF(set_RLum("RLum.Analysis")),
+               "'object' cannot be an empty RLum.Analysis")
 
   data(ExampleData.BINfileData, envir = environment())
   object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1:2)

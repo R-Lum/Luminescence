@@ -23,6 +23,8 @@ test_that("input validation", {
   expect_error(analyse_SAR.TL(object, signal_integral = 1:2,
                               sequence.structure = "EXCLUDE"),
                "'sequence.structure' contains no 'SIGNAL' entry")
+  expect_error(analyse_SAR.TL(set_RLum("RLum.Analysis"), signal_integral = 1:3),
+               "'object' contains no TL curves")
   expect_error(analyse_SAR.TL(object, dose.points = c(2, 2),
                               signal_integral = 210:220,
                               sequence.structure = c("SIGNAL", "BACKGROUND")),
