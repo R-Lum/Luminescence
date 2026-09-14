@@ -703,6 +703,10 @@ fit_DoseResponseCurve <- function(
       writeLines(paste("[fit_DoseResponseCurve()]", fit_message))
   }
 
+  .compute_D80 <- function(D63, R) {
+    D63 * (0.809 + 0.800 * R) / (0.368 + 0.632 * R)
+  }
+
   ##START PARAMETER ESTIMATION
   ##general setting of start parameters for fitting
 
@@ -1531,7 +1535,7 @@ fit_DoseResponseCurve <- function(
 
           ## return D63 based on formula in the appendix of Mauz et al. (submitted)
           D63 <- (0.367 + 0.633 * R) * Dc
-          D80 <- D63 * (0.809 + 0.800 * R) / (0.368 + 0.632 * R)
+          D80 <- .compute_D80(D63, R)
 
           ## report terminal line
           .report_fit(De, sprintf(" | R = %.2f | D63 = %.2f", R, D63))
@@ -1625,8 +1629,8 @@ fit_DoseResponseCurve <- function(
           D63.UPPER <- D63.ERROR[2]
 
           ## calculate D80 the same way
-          D80.LOWER <- D63.LOWER * (0.809 + 0.800 * R.LOWER) / (0.368 + 0.632 * R.LOWER)
-          D80.UPPER <- D63.UPPER * (0.809 + 0.800 * R.UPPER) / (0.368 + 0.632 * R.UPPER)
+          D80.LOWER <- .compute_D80(D63.LOWER, R.LOWER)
+          D80.UPPER <- .compute_D80(D63.UPPER, R.UPPER)
 
           ##remove values
           rm(var.Dc)
