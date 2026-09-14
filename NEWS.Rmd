@@ -186,6 +186,11 @@ evaluation of the model fit. In both cases, this has no user-visible effect
 other than changing the number of dose points under which the function
 switches to using the "LIN" method (#1634, #1636).
 
+* When the root finding step failed during the Monte Carlo simulation for
+`fit.method = "OTORX"` and `mode = "extrapolation"`, the function incorrectly
+reverted to the `OTOR` model before attempting that iteration again. This
+turned out to be a simple typo, with minimal impact (#1727).
+
 ### `merge_Risoe.BINfileData()`
 
 - Argument `objects` has been renamed to `object`. The older name will still

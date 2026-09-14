@@ -1795,7 +1795,7 @@ fit_DoseResponseCurve <- function(
             if(inherits(try, "try-error")){
               try <- try(suppressWarnings(stats::optimize(
                 f = function(x, Q, D63, c, Di) {
-                  fit.functionOTOR(x, Q, D63, c, Di)},
+                  fit.functionOTORX(x, Q, D63, c, Di)},
                 interval = c(-max(object[[1]]), 0),
                 Q = var.Q[i],
                 D63 = var.D63[i],
