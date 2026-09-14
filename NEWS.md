@@ -37,6 +37,17 @@
   - `plot_KDE()`
   - `plot_RadialPlot()`
 
+- The Monte Carlo error estimation in `fit_DoseResponseCurve()` was
+  slightly overestimated when any MC model failed to fit. As a way to
+  establish whether an analysis run with `Luminescence <= 1.3.0` is
+  affected by this error, you can count the number of failed MC runs in
+  the `results` object by running `sum(is.na(results$De.MC))`. A value
+  greater than 0 means that the error estimation is affected;
+  quantifying by how much is not possible without rerunning the analysis
+  with v1.3.1, but the size of the effect grows with the proportion of
+  failed runs (`sum(is.na(results$De.MC)) / length(results$De.MC)`)
+  (#1730).
+
 ### `analyse_Al2O3C_Measurement()`
 
 - The function now better validates the `dose_points` argument so that
