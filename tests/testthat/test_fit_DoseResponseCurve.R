@@ -887,6 +887,13 @@ test_that("regression tests", {
   expect_warning(fit_DoseResponseCurve(LxTxData[1:3, ], fit.method = "QDR",
                                        verbose = FALSE),
                  "requires at least 3 dose points besides the natural, 'fit.method'")
+
+  ## issue 1730
+  set.seed(2)
+  fit <- fit_DoseResponseCurve(df_odd, mode = "interpolation",
+                               verbose = FALSE, n.MC = 10)
+  expect_equal(sum(is.na(fit$De.MC)), 6)
+  expect_equal(fit$De$D01.ERROR, 1.369969, tolerance = 5.0e-3)
 })
 
 test_that("test internal functions", {

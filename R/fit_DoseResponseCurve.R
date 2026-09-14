@@ -615,7 +615,7 @@ fit_DoseResponseCurve <- function(
   }
 
   #1.3 set x.natural
-  x.natural <- rep(NA_real_, n.MC)
+  x.natural <- rep_len(NA_real_, n.MC)
 
   ##1.4 set initialise variables
   De <- De.Error <- D01 <- R <- R.LOWER <- R.UPPER <- Dc <- Dc.LOWER <- Dc.UPPER <- NA_real_
@@ -934,7 +934,7 @@ fit_DoseResponseCurve <- function(
         #	--take De_Error
 
         ## preallocate variable
-        var.D0 <- vector(mode = "numeric", length = n.MC)
+        var.D0 <- rep_len(NA_real_, n.MC)
 
         #start loop
         for (i in 1:n.MC) {
@@ -948,8 +948,7 @@ fit_DoseResponseCurve <- function(
             lower = lower,
             upper = upper,
             control = minpack.lm::nls.lm.control(maxiter = 500)
-          ), silent = TRUE
-          )
+          ), silent = TRUE)
 
           #get parameters out of it including error handling
           if (!inherits(fit.MC, "try-error") & mode != "alternate") {
@@ -971,7 +970,6 @@ fit_DoseResponseCurve <- function(
 
         ##remove values
         rm(var.D0)
-
       }#endif::try-error fit
     }#endif:fit.method!="LIN"
 
@@ -1313,7 +1311,7 @@ fit_DoseResponseCurve <- function(
       }
 
       #set variables
-      var.D01 <- var.D02 <- vector(mode = "numeric", length = n.MC)
+      var.D01 <- var.D02 <- rep_len(NA_real_, n.MC)
 
       ## start Monte Carlo loops
       for (i in 1:n.MC) {
@@ -1416,7 +1414,7 @@ fit_DoseResponseCurve <- function(
       #	--take De_Error
 
       ## preallocate variable
-      var.D0 <- vector(mode = "numeric", length = n.MC)
+      var.D0 <- rep_len(NA_real_, n.MC)
 
       #start loop
       for (i in 1:n.MC) {
@@ -1545,7 +1543,7 @@ fit_DoseResponseCurve <- function(
           #	--Fit many curves and calculate a new De +/- De_Error
           #	--take De_Error
           #set variables
-          var.Dc <- var.R <- vector(mode = "numeric", length = n.MC)
+          var.Dc <- var.R <- rep_len(NA_real_, n.MC)
 
           #start loop
           for (i in 1:n.MC) {
@@ -1740,7 +1738,7 @@ fit_DoseResponseCurve <- function(
       #	--Fit many curves and calculate a new De +/- De_Error
       #	--take De_Error
       #set variables
-      var.D63 <- var.Q <- vector(mode = "numeric", length = n.MC)
+      var.D63 <- var.Q <- rep_len(NA_real_, n.MC)
 
       #start loop
       for (i in 1:n.MC) {

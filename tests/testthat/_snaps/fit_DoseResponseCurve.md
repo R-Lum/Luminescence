@@ -4886,7 +4886,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.96299818]
+                  "value": [1.70609606]
                 },
                 {
                   "type": "logical",
