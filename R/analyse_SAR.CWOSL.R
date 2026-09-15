@@ -64,7 +64,8 @@
 #' `Lx/Tx` values of the zero regeneration point with the `Ln/Tn` value (the
 #' `Lx/Tx` ratio of the natural signal). For methodological background see
 #' Aitken and Smith (1988). As a variant, `recuperation_reference` can be
-#' specified to select another dose point as reference instead of `Ln/Tn`.
+#' specified to select another dose point as reference instead of `Ln/Tn`
+#' (e.g. `"R1"`; `"Rmax"` selects the point with highest dose as reference).
 #'
 #' `[testdose.error]`: set the allowed error for the test dose, which by
 #' default should not exceed 10%. The test dose error is calculated as
@@ -160,7 +161,8 @@
 #' * `exceed.max.regpoint` [logical] (default: `FALSE`)
 #' * `consider.uncertainties` [logical] (default: `FALSE`)
 #' * `recuperation_reference` [character] (default: `"Natural"`; set to, e.g.,
-#'   `"R1"` for another point)
+#'   `"R1"` for another point; use `"Rmax"` to select the point with highest
+#'   dose as reference)
 #' * `sn_reference` [character] (default: `"Natural"`).
 #'
 #' Example: `rejection.criteria = list(recycling.ratio = 10)`.
@@ -253,7 +255,7 @@
 #'
 #' **The function currently supports only 'OSL', 'IRSL' and 'POSL' data!**
 #'
-#' @section Function version: 1.0.0
+#' @section Function version: 1.0.1
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany) \cr
@@ -875,15 +877,26 @@ analyse_SAR.CWOSL<- function(
 
   ## Calculate Recuperation Rate --------------------------------------------
   Recuperation <- NA
-  if (!recuperation_reference %in% LnLxTnTx$Name) {
-      .throw_error("Recuperation reference invalid, valid values are: ",
-                   .collapse(LnLxTnTx[, "Name"]))
+  valid.references <- c(LnLxTnTx$Name, "Rmax")
+  if (!recuperation_reference %in% valid.references) {
+    .throw_error("Invalid 'recuperation_reference', valid values are: ",
+                 .collapse(valid.references))
   }
 
   ## Recuperation Rate (capable of handling multiple type of recuperation values)
   if ("R0" %in% LnLxTnTx$Name) {
     idx.R0 <- LnLxTnTx$Name == "R0"
-    idx.Rref <- LnLxTnTx$Name == recuperation_reference
+    if (recuperation_reference == "Rmax") {
+      idx.Rref <- which(LnLxTnTx$Dose == max(LnLxTnTx$Dose))
+      if (length(idx.Rref) > 1) {
+        idx.Rref <- idx.Rref[1]
+        .throw_warning("'recuperation_reference = \"Rmax\"' matched multiple curve, ",
+                       "the first will be used (", LnLxTnTx$Name[idx.Rref], ")")
+      }
+    } else {
+      idx.Rref <- LnLxTnTx$Name == recuperation_reference
+    }
+
     R0 <- LnLxTnTx$LxTx[idx.R0]
     Rref <- LnLxTnTx$LxTx[idx.Rref]
     ratio <- R0 / Rref

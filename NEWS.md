@@ -107,6 +107,10 @@
   object are now correctly populated also for XSYG files, instead of
   being set to `NA`. This was a regression introduced in v1.1.2 (#1625).
 
+- It is now possible to set `recuperation_reference = "Rmax"` to select
+  the point with highest dose as reference in the calculation of the
+  recuperation rate (#1740; thanks to Annette Kadereit for reporting).
+
 ### `analyse_SAR.NCF()`
 
 - The `object` argument is now better validated (#1657, 1732).
