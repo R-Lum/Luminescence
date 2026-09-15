@@ -122,7 +122,13 @@ plot_RLum.Data.Curve<- function(
   if (!is.na(object@recordType)) {
     recordType.stripped <- gsub(" \\(.*)", "", object@recordType[1])
     if (recordType.stripped %in% c("OSL", "IRSL", "RL", "RF", "LM-OSL", "RBR")) {
-        lab.unit <- "s"
+      ## read the irradiation unit for BIN/BINX files version 03-04
+      lab.unit <- switch(as.character(object@info$IRR_UNIT %||% ""),
+                         "1" = "Gy",
+                         "2" = "rad",
+                         "4" = "min",
+                         "5" = "h",
+                         "s")
         lab.xlab <- "Stimulation time"
     } else if (recordType.stripped == "TL") {
         lab.unit <- "\u00B0C"
@@ -254,11 +260,11 @@ plot_RLum.Data.Curve<- function(
           annotations = list(plot_settings$mtext)
         )
 
-        ## print and return only if hidden shiny 
+        ## print and return only if hidden shiny
         ## flag is not set
         if(is.null(list(...)$.shiny))
           suppressMessages(print(p))
-        
+
         on.exit(return(p), add = TRUE)
 
   } else {
