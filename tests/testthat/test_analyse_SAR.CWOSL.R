@@ -315,7 +315,24 @@ test_that("check functionality", {
         exceed.max.regpoint = FALSE),
       plot = TRUE
     ),
-    "Recuperation reference invalid, valid values are: 'Natural', 'R1', 'R2'")
+    "Invalid 'recuperation_reference', valid values are: 'Natural', 'R1', 'R2'")
+
+  ## repeated point with highest dose
+  obj.rep <- object[[1]]
+  obj.rep@records[[14]]@info$IRR_TIME <- 2550
+  expect_warning(
+    analyse_SAR.CWOSL(
+      object = obj.rep,
+      signal_integral = 1:2,
+      background_integral = 900:1000,
+      fit.method = "LIN",
+      rejection.criteria = list(
+          recuperation.rate = 1,
+          recuperation_reference = "Rmax"),
+      plot = FALSE,
+      verbose = FALSE),
+    "'recuperation_reference = \"Rmax\"' matched multiple curve, the first will be used (R3)",
+    fixed = TRUE)
 
   expect_error(
     analyse_SAR.CWOSL(
@@ -880,6 +897,7 @@ test_that("graphical snapshot tests", {
                                   signal_integral = 1:2,
                                   background_integral = 900:1000,
                                   rejection.criteria = list(recycling.ratio = NA,
+                                                            recuperation_reference = "Rmax",
                                                             sn.ratio = NA,
                                                             consider.uncertainties = TRUE),
                                   plot_onePage = TRUE))
