@@ -301,6 +301,11 @@ list, each element is dispatched (with recycling) to each object being
 plotted, making `mtext` behave like the `main` argument. This was a regression
 introduced in v1.2.0 (#1676).
 
+### `plot_RLum.Data.Curve()`
+
+* If the `IRR_UNIT` field is present in a BIN file (version 03 or 04), this
+is used as unit measure in the axis labels instead of seconds (#1721).
+
 ### `plot_RLum.Data.Spectrum()`
 
 * The setting `legend = FALSE` did not work as advertised and did not remove

@@ -1,6 +1,10 @@
 ## create dataset
 data(ExampleData.CW_OSL_Curve, envir = environment())
+data(ExampleData.BINfileData, envir = environment())
 temp <- as(ExampleData.CW_OSL_Curve, "RLum.Data.Curve")
+osl.bin <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)@records[[2]]
+osl.bin.gy <- osl.bin
+osl.bin.gy@info$IRR_UNIT <- 1
 
 test_that("input validation", {
   testthat::skip_on_cran()
@@ -74,5 +78,9 @@ test_that("graphical snapshot tests", {
                               plot_RLum.Data.Curve(temp, auto_scale = TRUE,
                                                    ylim = c(1, 200),
                                                    mtext = "Test", cex = 2))
+  vdiffr::expect_doppelganger("bin",
+                              plot_RLum.Data.Curve(osl.bin))
+  vdiffr::expect_doppelganger("bin gy",
+                              plot_RLum.Data.Curve(osl.bin.gy))
   })
 })
