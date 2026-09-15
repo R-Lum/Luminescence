@@ -426,6 +426,9 @@ fit_DoseResponseCurve <- function(
   .validate_class(object, c("data.frame", "matrix", "list"))
   .validate_not_empty(object)
   mode <- .validate_args(mode, c("interpolation", "extrapolation", "alternate"))
+  interpolation <- mode == "interpolation"
+  extrapolation <- mode == "extrapolation"
+  alternate <- mode == "alternate"
   fit.method_supported <- c("LIN", "QDR", "SSE", "SSE OR LIN",
                             "SSE+LIN", "DSE", "GOK", "OTOR", "OTORX")
   fit.method_deprecated <- c(SSE = "EXP", "SSE OR LIN" = "EXP OR LIN",
@@ -439,7 +442,7 @@ fit_DoseResponseCurve <- function(
                 since = "1.3.0")
     fit.method <- new
   }
-  if (fit.method == "DSE" && mode == "extrapolation")
+  if (fit.method == "DSE" && extrapolation)
     .throw_error("Mode 'extrapolation' for fitting method 'DSE' not supported")
   .validate_logical_scalar(fit.force_through_origin)
   .validate_class(fit.weights, c("character", "numeric"), null.ok = TRUE)
@@ -544,7 +547,7 @@ fit_DoseResponseCurve <- function(
   ## 1.1 Produce data.frame from input values
 
   ## for interpolation the first point is considered as natural dose
-  first.idx <- ifelse(mode == "interpolation", 2, 1)
+  first.idx <- ifelse(interpolation, 2, 1)
   last.idx <- fit.NumberRegPoints + 1
 
   xy <- object[first.idx:last.idx, 1:2]
@@ -604,13 +607,13 @@ fit_DoseResponseCurve <- function(
       FUN.VALUE = numeric(n.MC)
     ), nrow = n.MC))
 
-  if (mode == "interpolation") {
+  if (interpolation) {
     #1.3 Do the same for the natural signal
     data.MC.De <-
       sample(rnorm(10000, mean = object[1, 2], sd = abs(object[1, 3])),
              n.MC,
              replace = TRUE)
-  } else if (mode == "extrapolation") {
+  } else if (extrapolation) {
     data.MC.De <- rep(0, n.MC)
   }
 
@@ -680,7 +683,7 @@ fit_DoseResponseCurve <- function(
     fit.method <- "LIN"
     msg <- paste0("Fitting a non-linear least-squares model requires at least ",
                   num.params, " dose points",
-                  if (mode == "interpolation") " besides the natural",
+                  if (interpolation) " besides the natural",
                   ", 'fit.method' changed to 'LIN'")
     .throw_warning(msg)
     if (verbose)
@@ -763,9 +766,9 @@ fit_DoseResponseCurve <- function(
       y ~ I(x) + I(x^2),
       stats::reformulate(".", intercept = !fit.force_through_origin))
 
-    if (mode == "interpolation") {
+    if (interpolation) {
       y <- object[1, 2]
-    } else if (mode == "extrapolation") {
+    } else if (extrapolation) {
       y <- 0
     }
     upper <- max(object[, 1]) * 1.5
@@ -775,7 +778,7 @@ fit_DoseResponseCurve <- function(
 
       ## solve and get De
       success <- TRUE
-      if (mode != "alternate") {
+      if (!alternate) {
         De.fs <- function(fit, x, y) {
           stats::predict(fit, newdata = data.frame(x)) - y
         }
@@ -918,9 +921,9 @@ fit_DoseResponseCurve <- function(
 
         #calculate De
         De <- NA
-        if(mode == "interpolation"){
+        if (interpolation) {
           De <- suppressWarnings(-Di - D0 * log(1 - object[1, 2] / N))
-        }else if (mode == "extrapolation"){
+        } else if (extrapolation) {
           De <- suppressWarnings(-Di - D0 * log(1 - 0 / N))
         }
 
@@ -951,7 +954,7 @@ fit_DoseResponseCurve <- function(
           ), silent = TRUE)
 
           #get parameters out of it including error handling
-          if (!inherits(fit.MC, "try-error") & mode != "alternate") {
+          if (!inherits(fit.MC, "try-error") && !alternate) {
             #get parameters out
             parameters <- coef(fit.MC)
             var.N <- as.numeric(parameters["N"])
@@ -989,7 +992,7 @@ fit_DoseResponseCurve <- function(
         De.fs <- function(fit, y) (y - coef(fit)[1]) / coef(fit)[2]
 
       y <- object[1, 2]
-      if (mode == "extrapolation")
+      if (extrapolation)
         y <- 0
 
       .fit_lin_model <- function(model, data, y) {
@@ -997,7 +1000,7 @@ fit_DoseResponseCurve <- function(
 
         ## solve and get De
         De <- NA
-        if (mode != "alternate")
+        if (!alternate)
           De <- De.fs(fit, y)
 
         return(list(fit = fit, De = unname(De)))
@@ -1117,16 +1120,16 @@ fit_DoseResponseCurve <- function(
         fit_functionSSELIN_cpp(N, D0, Di, g, x) - LnTn
       }
 
-      if (mode == "interpolation") {
+      if (interpolation) {
         LnTn <- object[1, 2]
         min.val <- 0
-      } else if (mode == "extrapolation") {
+      } else if (extrapolation) {
         LnTn <- 0
         min.val <- -1e6
       }
 
       De <- NA
-      if (mode != "alternate") {
+      if (!alternate) {
         temp.De <- try(stats::uniroot(
           f = f.unirootSSELIN,
           interval = c(min.val, max(xy$x) * 1.5),
@@ -1267,7 +1270,7 @@ fit_DoseResponseCurve <- function(
 
       #problem: analytically it is not easy to calculate x, use uniroot
       De <- NA
-      if (mode == "interpolation") {
+      if (interpolation) {
         f.unirootDSE <-
           function(N1, N2, D01, D02, Di, x, LnTn) {
             fit_functionDSE_cpp(N1, N2, D01, D02, Di, x) - LnTn
@@ -1433,7 +1436,7 @@ fit_DoseResponseCurve <- function(
         )}, silent = TRUE)
 
         # get parameters out of it including error handling
-        if (!inherits(fit.MC, "try-error") && mode != "alternate") {
+        if (!inherits(fit.MC, "try-error") && !alternate) {
           # get parameters out
           parameters<-coef(fit.MC)
           var.a <- as.numeric(parameters["a"]) #Imax
@@ -1460,7 +1463,7 @@ fit_DoseResponseCurve <- function(
   ## OTOR ---------------------------------------------------------------
   else if (fit.method == "OTOR") {
     Di_lower <- 0.01
-    if(mode == "extrapolation")
+    if (extrapolation)
       Di_lower <- 50 ##TODO - fragile ... however it is only used by a few
 
     ## set bounds
@@ -1489,7 +1492,7 @@ fit_DoseResponseCurve <- function(
 
           #calculate De
           De <- NA
-          if(mode == "interpolation"){
+          if (interpolation) {
              De <- try(suppressWarnings(stats::uniroot(
                f = function(x, R, Dc, N, Di, LnTn) {
                  fit.functionOTOR(R, Dc, N, Di, x) - LnTn},
@@ -1500,7 +1503,7 @@ fit_DoseResponseCurve <- function(
                Di = Di,
                LnTn = object[1, 2])$root), silent = TRUE)
 
-          }else if (mode == "extrapolation"){
+          } else if (extrapolation) {
             De <- try(suppressWarnings(stats::uniroot(
               f = function(x, R, Dc, N, Di) {
                 fit.functionOTOR(R, Dc, N, Di, x)},
@@ -1570,7 +1573,7 @@ fit_DoseResponseCurve <- function(
               var.Di <- as.numeric(parameters["Di"])
 
               # calculate x.natural for error calculation
-              if(mode == "interpolation"){
+              if (interpolation) {
                 try <- try({
                   suppressWarnings(stats::uniroot(
                   f = function(x, R, Dc, N, Di, LnTn) {
@@ -1583,7 +1586,7 @@ fit_DoseResponseCurve <- function(
                   LnTn = data.MC.De[i])$root)
                 }, silent = TRUE)
 
-              } else if (mode == "extrapolation"){
+              } else if (extrapolation) {
                 try <- try(
                   suppressWarnings(stats::uniroot(
                     f = function(x, R, Dc, N, Di) {
@@ -1655,7 +1658,7 @@ fit_DoseResponseCurve <- function(
     upper <- c(Inf, Inf, Inf, Inf)
 
       ## correct boundaries for origin forced through zero
-      if (fit.force_through_origin[1] & mode == "interpolation")
+      if (fit.force_through_origin && interpolation)
         lower[4] <- upper[4] <- 0
 
     fit <- try(minpack.lm::nlsLM(
@@ -1688,7 +1691,7 @@ fit_DoseResponseCurve <- function(
 
       #calculate De
       De <- NA
-      if(mode == "interpolation"){
+      if (interpolation) {
         De <- try(suppressWarnings(stats::uniroot(
           f = function(x, Q, D63, c, Di, LnTn) {
             fit.functionOTORX(x, Q, D63, c, Di) - LnTn},
@@ -1699,7 +1702,7 @@ fit_DoseResponseCurve <- function(
           Di = Di,
           LnTn = object[1, 2])$root), silent = TRUE)
 
-      }else if (mode == "extrapolation"){
+      } else if (extrapolation) {
         De <- try(suppressWarnings(stats::uniroot(
           f = function(x, Q, D63, c, Di) {
             fit.functionOTORX(x, Q, D63, c, Di)},
@@ -1765,7 +1768,7 @@ fit_DoseResponseCurve <- function(
           var.Di <- as.numeric(parameters["Di"])
 
           # calculate x.natural for error calculation
-          if(mode == "interpolation"){
+          if (interpolation) {
             try <- try(
               suppressWarnings(stats::uniroot(
                 f = function(x, Q, D63, c, Di, LnTn) {
@@ -1778,7 +1781,7 @@ fit_DoseResponseCurve <- function(
                 LnTn = data.MC.De[i])$root),
               silent = TRUE)
 
-          }else if(mode == "extrapolation"){
+          } else if (extrapolation) {
             try <- try(
               suppressWarnings(stats::uniroot(
                 f = function(x, Q, D63, c, Di, LnTn) {
@@ -1830,11 +1833,11 @@ fit_DoseResponseCurve <- function(
 
   ## get De values from Monte Carlo simulation
   De.MC <- De.MC.NA <- x.natural
-  if (mode == "interpolation") {
+  if (interpolation) {
     ## censor negative values
     De.MC <- pmax(x.natural, 0)
     De.MC.NA[x.natural < 0] <- NA
-  } else if (mode == "extrapolation") {
+  } else if (extrapolation) {
     ## always return positive values
     De.MC <- De.MC.NA <- x.natural <- abs(x.natural)
   }
@@ -1886,7 +1889,7 @@ fit_DoseResponseCurve <- function(
   ## account for the fact that we can still calculate a De that is negative
   ## even it does not make sense for interpolation
   De.raw <- De
-  if (mode == "interpolation" && !is.na(De) && De < 0) {
+  if (interpolation && !is.na(De) && De < 0) {
     De <- NA
   }
 
