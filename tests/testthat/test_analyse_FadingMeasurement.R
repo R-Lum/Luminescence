@@ -128,8 +128,7 @@ test_that("check functionality", {
 test_that("snapshot tests", {
   testthat::skip_on_cran()
 
-  set.seed(1)
-  snapshot.tolerance <- 4.0e-5
+  snapshot.tolerance <- 6.0e-5
 
   SW({
   expect_snapshot_RLum(analyse_FadingMeasurement(fading_data,

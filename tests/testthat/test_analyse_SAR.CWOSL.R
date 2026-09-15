@@ -1,5 +1,4 @@
 ## load data
-set.seed(1)
 data(ExampleData.BINfileData, envir = environment())
 object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1:2)
 decomposed <- readRDS(test_path("_data/OSLdecomposed_1.2.0.rds"))

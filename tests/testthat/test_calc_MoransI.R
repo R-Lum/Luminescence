@@ -40,8 +40,6 @@ test_that("input validation", {
 test_that("check functionality", {
   testthat::skip_on_cran()
 
-  set.seed(1)
-
   expect_snapshot_plain(calc_MoransI(obj))
   expect_snapshot_plain(calc_MoransI(1:100, ignore_borders = TRUE))
   expect_snapshot_plain(calc_MoransI(obj, return_intermediate_values = TRUE))

@@ -60,7 +60,6 @@ test_that("input validation", {
 test_that("snapshot tests", {
   skip_on_cran()
 
-  set.seed(1)
   snapshot.tolerance <- 1.5e-4
 
   SW({ # warning: TL peak shift detected for aliquot position 1

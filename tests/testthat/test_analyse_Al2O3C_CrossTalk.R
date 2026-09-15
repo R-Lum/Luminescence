@@ -65,7 +65,6 @@ test_that("check functionality", {
 test_that("snapshot tests", {
   skip_on_cran()
 
-  set.seed(1)
   snapshot.tolerance <- 1.7e-5
 
   ## run analysis

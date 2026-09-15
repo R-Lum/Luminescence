@@ -80,17 +80,17 @@
 <line x1='563.62' y1='502.56' x2='563.62' y2='59.04' style='stroke-width: 0.75; stroke: #D3D3D3; stroke-dasharray: 1.00,3.00;' />
 <line x1='626.69' y1='502.56' x2='626.69' y2='59.04' style='stroke-width: 0.75; stroke: #D3D3D3; stroke-dasharray: 1.00,3.00;' />
 <circle cx='115.60' cy='408.24' r='2.70' style='stroke-width: 0.75; stroke: #FF0000;' />
-<line x1='113.74' y1='408.24' x2='117.47' y2='408.24' style='stroke-width: 0.75;' />
-<rect x='110.43' y='488.22' width='1.17' height='2.64' style='stroke-width: 0.75; stroke: #000000; stroke-opacity: 0.50; fill: #000000; fill-opacity: 0.20;' />
-<rect x='111.60' y='482.94' width='1.17' height='7.92' style='stroke-width: 0.75; stroke: #000000; stroke-opacity: 0.50; fill: #000000; fill-opacity: 0.20;' />
-<rect x='112.77' y='459.18' width='1.17' height='31.68' style='stroke-width: 0.75; stroke: #000000; stroke-opacity: 0.50; fill: #000000; fill-opacity: 0.20;' />
-<rect x='113.94' y='445.98' width='1.17' height='44.88' style='stroke-width: 0.75; stroke: #000000; stroke-opacity: 0.50; fill: #000000; fill-opacity: 0.20;' />
-<rect x='115.10' y='419.58' width='1.17' height='71.28' style='stroke-width: 0.75; stroke: #000000; stroke-opacity: 0.50; fill: #000000; fill-opacity: 0.20;' />
-<rect x='116.27' y='435.42' width='1.17' height='55.44' style='stroke-width: 0.75; stroke: #000000; stroke-opacity: 0.50; fill: #000000; fill-opacity: 0.20;' />
-<rect x='117.44' y='461.82' width='1.17' height='29.04' style='stroke-width: 0.75; stroke: #000000; stroke-opacity: 0.50; fill: #000000; fill-opacity: 0.20;' />
-<rect x='118.61' y='480.30' width='1.17' height='10.56' style='stroke-width: 0.75; stroke: #000000; stroke-opacity: 0.50; fill: #000000; fill-opacity: 0.20;' />
-<rect x='119.78' y='482.94' width='1.17' height='7.92' style='stroke-width: 0.75; stroke: #000000; stroke-opacity: 0.50; fill: #000000; fill-opacity: 0.20;' />
-<rect x='120.94' y='488.22' width='1.17' height='2.64' style='stroke-width: 0.75; stroke: #000000; stroke-opacity: 0.50; fill: #000000; fill-opacity: 0.20;' />
-<polyline points='111.02,488.22 112.18,482.94 113.35,459.18 114.52,445.98 115.69,419.58 116.86,435.42 118.02,461.82 119.19,480.30 120.36,482.94 121.53,488.22 ' style='stroke-width: 0.75;' />
+<line x1='113.46' y1='408.24' x2='117.75' y2='408.24' style='stroke-width: 0.75;' />
+<rect x='109.26' y='485.58' width='1.17' height='5.28' style='stroke-width: 0.75; stroke: #000000; stroke-opacity: 0.50; fill: #000000; fill-opacity: 0.20;' />
+<rect x='110.43' y='482.94' width='1.17' height='7.92' style='stroke-width: 0.75; stroke: #000000; stroke-opacity: 0.50; fill: #000000; fill-opacity: 0.20;' />
+<rect x='111.60' y='488.22' width='1.17' height='2.64' style='stroke-width: 0.75; stroke: #000000; stroke-opacity: 0.50; fill: #000000; fill-opacity: 0.20;' />
+<rect x='112.77' y='456.54' width='1.17' height='34.32' style='stroke-width: 0.75; stroke: #000000; stroke-opacity: 0.50; fill: #000000; fill-opacity: 0.20;' />
+<rect x='113.94' y='435.42' width='1.17' height='55.44' style='stroke-width: 0.75; stroke: #000000; stroke-opacity: 0.50; fill: #000000; fill-opacity: 0.20;' />
+<rect x='115.10' y='430.14' width='1.17' height='60.72' style='stroke-width: 0.75; stroke: #000000; stroke-opacity: 0.50; fill: #000000; fill-opacity: 0.20;' />
+<rect x='116.27' y='445.98' width='1.17' height='44.88' style='stroke-width: 0.75; stroke: #000000; stroke-opacity: 0.50; fill: #000000; fill-opacity: 0.20;' />
+<rect x='117.44' y='464.46' width='1.17' height='26.40' style='stroke-width: 0.75; stroke: #000000; stroke-opacity: 0.50; fill: #000000; fill-opacity: 0.20;' />
+<rect x='118.61' y='467.10' width='1.17' height='23.76' style='stroke-width: 0.75; stroke: #000000; stroke-opacity: 0.50; fill: #000000; fill-opacity: 0.20;' />
+<rect x='119.78' y='488.22' width='1.17' height='2.64' style='stroke-width: 0.75; stroke: #000000; stroke-opacity: 0.50; fill: #000000; fill-opacity: 0.20;' />
+<polyline points='109.85,485.58 111.02,482.94 112.18,488.22 113.35,456.54 114.52,435.42 115.69,430.14 116.86,445.98 118.02,464.46 119.19,467.10 120.36,488.22 ' style='stroke-width: 0.75;' />
 </g>
 </svg>

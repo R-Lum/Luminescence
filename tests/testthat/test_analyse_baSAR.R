@@ -239,7 +239,6 @@ test_that("input validation", {
 test_that("Full check of analyse_baSAR function", {
   skip_on_cran()
 
-    set.seed(1)
     ##(3) run analysis
     ##please not that the here selected parameters are
     ##chosen for performance, not for reliability
