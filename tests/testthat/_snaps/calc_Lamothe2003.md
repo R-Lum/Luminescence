@@ -169,9 +169,9 @@
     
      Fading_C:		 0.786  ±  0.055 
      Corrected Ln/Tn:	 5.51  ±  0.39 
-     Corrected De:		 473.21  ±  69.19  Gy 
+     Corrected De:		 473.21  ±  75.05  Gy 
     --------------------------------------------------------
-     Corrected Age:		 282.35  ±  51.22  ka 
+     Corrected Age:		 282.35  ±  54.08  ka 
     --------------------------------------------------------
 
 ---
@@ -262,22 +262,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [473.21116405]
+                  "value": [473.21116367]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [69.18829931]
+                  "value": [75.04873689]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [282.34556328]
+                  "value": [282.34556305]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [51.22208844]
+                  "value": [54.07982724]
                 },
                 {
                   "type": "logical",

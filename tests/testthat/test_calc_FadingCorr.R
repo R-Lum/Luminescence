@@ -110,7 +110,6 @@ test_that("check values from output example 1", {
 test_that("snapshot tests", {
   testthat::skip_on_cran()
 
-  set.seed(1)
   snapshot.tolerance <- 1.5e-4
 
   expect_snapshot_RLum(calc_FadingCorr(

@@ -126,7 +126,6 @@ test_that("check functionality", {
 test_that("snapshot tests", {
   testthat::skip_on_cran()
 
-  set.seed(1)
   snapshot.tolerance <- 6.5e-5 # TODO(mcol): reset to 1.5e-6 for R4.7
 
   expect_snapshot_RLum(temp,

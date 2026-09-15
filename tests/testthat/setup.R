@@ -4,6 +4,7 @@
 
 ## the ... can be used to set the tolerance
 expect_snapshot_RLum <- function(object, ..., expect_snapshot_output = FALSE) {
+  set.seed(list(...)$seed %||% 1)
   if (expect_snapshot_output)
     expect_snapshot_output(ignore <- object)
   if (inherits(object, "list")) {
@@ -102,11 +103,13 @@ expect_snapshot_RLum <- function(object, ..., expect_snapshot_output = FALSE) {
 
 ## wrapper for Risoe.BINfileData objects
 expect_snapshot_Risoe <- function(object, ...) {
+  set.seed(list(...)$seed %||% 1)
   attr(object, ".S3Class") <- NULL
   expect_snapshot_value(object, style = "json2", ...)
 }
 
 ## wrapper for plain R objects, such as lists, data.frames, etc
 expect_snapshot_plain <- function(object, ...) {
+  set.seed(list(...)$seed %||% 1)
   expect_snapshot_value(object, style = "json2", ...)
 }

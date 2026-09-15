@@ -94,7 +94,6 @@ test_that("snapshot tests", {
   snapshot.tolerance <- 5.0e-1
 
   SW({
-  set.seed(1)
   expect_snapshot_RLum(fit_EmissionSpectra(
     object = TL.Spectrum,
     frame = 5,
@@ -107,7 +106,6 @@ test_that("snapshot tests", {
     tolerance = snapshot.tolerance)
 
   ## input_scale
-  set.seed(1)
   expect_snapshot_RLum(
       fit_EmissionSpectra(object = TL.Spectrum, frame = 5,
                           input_scale = "wavelength", plot = FALSE,
@@ -116,10 +114,10 @@ test_that("snapshot tests", {
       tolerance = snapshot.tolerance)
 
   ## for matrix input -------
-  set.seed(17)
   expect_snapshot_RLum(
       fit_EmissionSpectra(object = mat, plot = FALSE,
                           method_control = list(max.runs = 5)),
+      seed = 17,
       expect_snapshot_output = TRUE,
       tolerance = snapshot.tolerance)
   })

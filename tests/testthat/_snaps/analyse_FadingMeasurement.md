@@ -286,11 +286,11 @@
     ---------------------------------------------------
     T_0.5 interpolated:	 NA
     T_0.5 predicted:	 2.3e+02
-    g-value:		 124.13 ± 74779.69 (%/decade)
-    g-value (norm. 2 days):	 -40.52 ± -30.56 (%/decade)
+    g-value:		 124.13 ± 435928 (%/decade)
+    g-value (norm. 2 days):	 -40.52 ± -30.55 (%/decade)
     ---------------------------------------------------
-    rho':			 6.79e-05 ± 0.000266
-    log10(rho'):		 -4.17 ± 1.7
+    rho':			 5.95e-05 ± 0.000252
+    log10(rho'):		 -4.23 ± 1.84
     ---------------------------------------------------
 
 ---
@@ -336,32 +336,32 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-1619.33011452]
+                  "value": [40389.81526263]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [74779.6904548]
+                  "value": [435928.02602689]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-27458.34128927]
+                  "value": [-63757.77412415]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-11586.80921895]
+                  "value": [-12967.86688374]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [10176.17878618]
+                  "value": [7596.62972162]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [46280.5025858]
+                  "value": [33717.98729012]
                 },
                 {
                   "type": "double",
@@ -376,7 +376,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-30.55843727]
+                  "value": [-30.54809531]
                 },
                 {
                   "type": "double",
@@ -423,37 +423,37 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.00006786]
+                  "value": [0.0000595]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.00006786]
+                  "value": [0.0000595]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.00026601]
+                  "value": [0.0002518]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-0.00008835]
+                  "value": [-0.0000985]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-0.00006891]
+                  "value": [-0.00006568]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.00008078]
+                  "value": [0.00008114]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.00108387]
+                  "value": [0.00109244]
                 }
               ]
             },

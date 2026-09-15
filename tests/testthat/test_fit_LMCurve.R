@@ -59,7 +59,6 @@ test_that("snapshot tests", {
   snapshot.tolerance <- 1.5e-4
 
   SW({
-  set.seed(1)
   fit <- fit_LMCurve(values.curve, object.bg = values.curveBG,
                      n.components = 3, log = "x",
                      method_control = list(
@@ -88,7 +87,6 @@ test_that("snapshot tests", {
       "Error: Fitting failed, plot without fit produced")
   expect_equal(fit@data$component_matrix, NA)
 
-  set.seed(1)
   expect_snapshot_RLum(fit_LMCurve(values.curve, object.bg = values.curveBG,
                                    method_control = list(
                                        export.comp.contrib.matrix = TRUE),

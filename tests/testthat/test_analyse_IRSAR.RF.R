@@ -123,7 +123,6 @@ test_that("input validation", {
 test_that("snapshot tests", {
   testthat::skip_on_cran()
 
-  set.seed(1)
   expect_snapshot_RLum(analyse_IRSAR.RF(IRSAR.RF.Data, method = "FIT",
                                         plot = FALSE))
   SW({

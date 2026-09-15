@@ -131,7 +131,6 @@ test_that("regression tests", {
   ## issue 147 --------------------------------------------------------------
 
   SW({
-  set.seed(1)
   expect_snapshot_RLum(
     analyse_SAR.TL(object, sequence.structure = c("SIGNAL", "BACKGROUND"),
                    signal_integral = 2:3),

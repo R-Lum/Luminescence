@@ -52,7 +52,6 @@ test_that("check functionality", {
 test_that("snapshot tests", {
   testthat::skip_on_cran()
 
-  set.seed(seed = 1)
   snapshot.tolerance <- 1.5e-6
 
   expect_snapshot_RLum(calc_gSGC(df, plot = FALSE),
@@ -82,6 +81,7 @@ test_that("snapshot tests", {
 
   ## graphical snapshot tests
   testthat::skip_if_not_installed("vdiffr")
+  set.seed(1)
 
   SW({
   vdiffr::expect_doppelganger("calc_gSGC expected",

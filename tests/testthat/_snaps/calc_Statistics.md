@@ -328,27 +328,27 @@
             {
               "type": "double",
               "attributes": {},
-              "value": [2950.32]
+              "value": [2950.99]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": [2885.34]
+              "value": [2885.62]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": [295.7]
+              "value": [295.07]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": [10.02]
+              "value": [10]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": [59.14]
+              "value": [59.01]
             },
             {
               "type": "double",
@@ -358,12 +358,12 @@
             {
               "type": "double",
               "attributes": {},
-              "value": [1.28]
+              "value": [1.29]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": [4.7]
+              "value": [4.76]
             }
           ]
         }

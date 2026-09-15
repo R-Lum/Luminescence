@@ -98,7 +98,6 @@ test_that("check functionality", {
 
   ## Test different inputs
   ##simple run
-  set.seed(1)
   SW({
   expect_snapshot_RLum(fit_OSLLifeTimes(
     object = ExampleData.TR_OSL,

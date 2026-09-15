@@ -43,7 +43,6 @@ test_that("input validation", {
 test_that("check class and length of output", {
   testthat::skip_on_cran()
 
-  set.seed(1)
   snapshot.tolerance <- 1.5e-6
 
   expect_snapshot_RLum(ADM,

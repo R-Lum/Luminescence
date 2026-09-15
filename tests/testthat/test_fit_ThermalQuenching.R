@@ -58,7 +58,6 @@ test_that("check functionality", {
 test_that("add snapshot tests", {
   testthat::skip_on_cran()
 
-  set.seed(1)
   snapshot.tolerance <- 1.5e-6
 
   SW({

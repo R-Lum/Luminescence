@@ -36,7 +36,6 @@ test_that("snapshot tests", {
 
   snapshot.tolerance <- 1.5e-6
 
-  set.seed(1)
   SW({
   expect_snapshot_RLum(calc_EED_Model(
       MortarData,

@@ -105,7 +105,6 @@ test_that("snapshot tests", {
                                "windows" = 8.0e-2)
 
   ## check extrapolation
-  set.seed(1)
   expect_snapshot_RLum(
       calc_Huntley2006(
         data = data,
@@ -120,7 +119,6 @@ test_that("snapshot tests", {
       tolerance = snapshot.tolerance)
 
   ## check force through origin SSE with wrong mode settings
-  set.seed(1)
   expect_snapshot_RLum(
       calc_Huntley2006(
         data = data,
@@ -136,7 +134,6 @@ test_that("snapshot tests", {
       tolerance = max(snapshot.tolerance, 1.0e-2))
 
   ## SSE ... normal
-  set.seed(1)
   expect_snapshot_RLum(
       calc_Huntley2006(
         data = data,
@@ -152,7 +149,6 @@ test_that("snapshot tests", {
       tolerance = snapshot.tolerance)
 
   ## GOK normal
-  set.seed(1)
   expect_snapshot_RLum(
       calc_Huntley2006(
         data = data,
