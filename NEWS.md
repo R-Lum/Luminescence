@@ -82,6 +82,11 @@
 - A warning message shown in case of failure of the test parameters has
   been improved to avoid reporting a spurious `NA` (#1715).
 
+- The function used to crash during plotting if any the extremes of the
+  confidence interval built around the De value was computed as `NaN`.
+  This was a very old (and presumably extremely rare) crash that
+  affected only `method = "FIT"` (#1744).
+
 ### `analyse_pIRIRSequence()`
 
 - The function no longer crashes when presented with an empty
