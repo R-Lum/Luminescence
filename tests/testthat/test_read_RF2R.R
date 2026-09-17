@@ -73,7 +73,6 @@ test_that("snapshot tests", {
   file.wrong <- "RF_wrong_header.Rf"
   writeLines(gsub("grain_d=20", "grain_d=", readLines(file)),
              file.wrong)
-  expect_message(expect_snapshot_plain(read_RF2R(file.wrong, verbose = FALSE)[[1]]@info),
-                 "Error: Header extraction failed")
+  expect_snapshot_plain(read_RF2R(file.wrong, verbose = FALSE)[[1]]@info)
   file.remove(file.wrong)
 })

@@ -256,7 +256,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["ROI", "x", "y", "width", "height", "area", ""]
+          "value": ["ROI", "x", "y", "width", "height", "area", "macro_version", "imagej_version", "ID", "source_nat", "source_reg", "source_background", "image_width", "image_height", "running_median", "background_substraction", "image_alignment", "translation_x", "translation_y", "rotation", "grain_threshold"]
         }
       },
       "value": [
@@ -291,9 +291,79 @@
           "value": ["96765"]
         },
         {
-          "type": "logical",
+          "type": "character",
           "attributes": {},
-          "value": [null]
+          "value": ["17-10-2018"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["1.52h99"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["P10c_natural.tif_2018-10-22_145700"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["P10c_natural.tif"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["P10c_bleached.tif"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["none"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["390"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["390"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["5"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["0"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["1"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["0.8863"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["-1.5723"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["0.1136"]
+        },
+        {
+          "type": "character",
+          "attributes": {},
+          "value": ["10"]
         }
       ]
     }

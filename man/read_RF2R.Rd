@@ -21,27 +21,26 @@ enable/disable output to the terminal.}
 Returns an S4 \link[=RLum.Analysis-class]{RLum.Analysis} object containing
 \link[=RLum.Data.Curve-class]{RLum.Data.Curve} objects for each curve. Results are
 returned as a list when multiple files are processed or \code{file} is a list.
+The header may contain \code{key = "value"} pairs, which will be stored in the
+\code{info} slot; incomplete pairs are silently dropped.
 }
 \description{
 Import files produced by the IR-RF 'ImageJ' macro (\code{SR-RF.ijm};
 Mittelstraß and Kreutzer, 2021) into R and create a list of
-\link[=RLum.Analysis-class]{RLum.Analysis} objects
+\link[=RLum.Analysis-class]{RLum.Analysis} objects.
 }
 \details{
 The results of spatially resolved IR-RF data are summarised in
 so-called RF-files (Mittelstraß and Kreutzer, 2021).
-This functions provides an easy import to process the data seamlessly with the R package 'Luminescence'.
 The output of the function can be passed to function \link{analyse_IRSAR.RF}.
 }
 \section{Function version}{
- 0.1.3
+ 0.1.4
 }
 
 \examples{
-
-##Import
 file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
-temp <- read_RF2R(file)
+object <- read_RF2R(file)
 
 }
 \references{
@@ -53,6 +52,7 @@ single-grain K-feldspar dating using CCD imaging. Geochronology 3, 299–319. \d
 \link{analyse_IRSAR.RF}
 }
 \author{
-Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
 }
 \keyword{IO}

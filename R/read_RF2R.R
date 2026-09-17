@@ -1,12 +1,13 @@
 #' @title Import RF-files to R
 #'
-#' @description Import files produced by the IR-RF 'ImageJ' macro (`SR-RF.ijm`;
+#' @description
+#' Import files produced by the IR-RF 'ImageJ' macro (`SR-RF.ijm`;
 #' Mittelstraß and Kreutzer, 2021) into R and create a list of
-#' [Luminescence::RLum.Analysis-class] objects
+#' [Luminescence::RLum.Analysis-class] objects.
 #'
-#' @details The results of spatially resolved IR-RF data are summarised in
+#' @details
+#' The results of spatially resolved IR-RF data are summarised in
 #' so-called RF-files (Mittelstraß and Kreutzer, 2021).
-#' This functions provides an easy import to process the data seamlessly with the R package 'Luminescence'.
 #' The output of the function can be passed to function [Luminescence::analyse_IRSAR.RF].
 #'
 #' @param file [character] (**required**):
@@ -23,24 +24,27 @@
 #' Returns an S4 [Luminescence::RLum.Analysis-class] object containing
 #' [Luminescence::RLum.Data.Curve-class] objects for each curve. Results are
 #' returned as a list when multiple files are processed or `file` is a list.
+#' The header may contain `key = "value"` pairs, which will be stored in the
+#' `info` slot; incomplete pairs are silently dropped.
 #'
 #' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data.Curve-class],
 #' [Luminescence::analyse_IRSAR.RF]
 #'
-#' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+#' @author
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
 #'
-#' @section Function version: 0.1.3
+#' @section Function version: 0.1.4
 #'
 #' @keywords IO
 #'
-#' @references Mittelstraß, D., Kreutzer, S., 2021. Spatially resolved infrared radiofluorescence:
+#' @references
+#' Mittelstraß, D., Kreutzer, S., 2021. Spatially resolved infrared radiofluorescence:
 #' single-grain K-feldspar dating using CCD imaging. Geochronology 3, 299–319. \doi{10.5194/gchron-3-299-2021}
 #'
 #' @examples
-#'
-#' ##Import
 #' file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
-#' temp <- read_RF2R(file)
+#' object <- read_RF2R(file)
 #'
 #' @export
 read_RF2R <- function(
@@ -96,28 +100,27 @@ read_RF2R <- function(
   ##import the entire file
   temp <- readLines(file, warn = FALSE)
 
-# Extract information -------------------------------------------------------------------------
+  ## Extract information ----------------------------------------------------
+  .extract_header <- function(x) {
+    header <- gsub(pattern = "[<>]", replacement = "", x = x)
 
-    ##extract header (here as function; that might be useful in future)
-    .extract_header <- function(x){
-      x <- gsub(pattern = "<", replacement = "", fixed = TRUE, x = x)
-      x <- gsub(pattern = ">", replacement = "", fixed = TRUE, x = x)
-      header <- strsplit(x = x, split = " ", fixed = TRUE)[[1]]
-      header <- unlist(strsplit(x = header, split = "=", fixed = TRUE))
+    ## this silently drops incomplete key-value pairs
+    parts <- regmatches(header, gregexpr('(?:\\w+)=(".*?"|[^[:space:]]+)',
+                                         header, perl = TRUE))[[1]]
 
-      header_names <- header[seq(1, length(header), by = 2)]
-      header <-  as.list(header[seq(2, length(header), by = 2)])
-      names(header) <- header_names
-      return(header)
-    }
+    ## split into key-value pairs
+    kv <- do.call(rbind, strsplit(parts, "=", fixed = TRUE))
 
-    header <- try(.extract_header(temp[1]), silent = TRUE)
+    ## remove quotation marks if present
+    vals <- gsub('^"(.*)"$', '\\1', kv[, 2])
+    setNames(as.list(vals), kv[, 1])
+  }
 
-    ##test the header
-    if(inherits(header, 'try-error')){
-      .throw_message("Header extraction failed, trying to continue without ...")
-      header <- NA
-    }
+  header <- tryCatch(.extract_header(temp[1]),
+                     error = function(e) {
+                       .throw_message("Header extraction failed, continuing without it")
+                       NA
+                     })
 
     ##extract tag boundaries framed by tags +++++++++++++++++++
     ##the 2nd line corrects the inner boundaries
