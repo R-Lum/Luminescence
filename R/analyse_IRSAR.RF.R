@@ -509,6 +509,7 @@ analyse_IRSAR.RF<- function(
         plot_reduced = plot_reduced,
         cores = cores,
         main = temp_main[[x]],
+        .call.idx = x, # to suppress output about cores
         ...)
     })
 
@@ -717,6 +718,7 @@ analyse_IRSAR.RF<- function(
 
   ## control terminal output
   verbose <- extraArgs$verbose %||% TRUE
+  call.idx <- extraArgs$.call.idx %||% 1
 
   ## don't show the progress bar if not verbose
   if (!verbose)
@@ -1121,7 +1123,7 @@ analyse_IRSAR.RF<- function(
 
       ##set parallel calculation if wanted
       cores <- .validate_cores(cores)
-      if (verbose) {
+      if (verbose && call.idx == 1) {
         .throw_message("Using ", cores, ifelse(cores == 1, " core", " cores"),
                        " ...", error = FALSE)
       }
