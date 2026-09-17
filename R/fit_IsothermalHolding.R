@@ -62,7 +62,7 @@
 #' @examples
 #' # example code ##TODO
 #'
-#' @export
+#' @noRd
 fit_IsothermalHolding <- function(
     data,
     rhop,

@@ -60,7 +60,7 @@
 #' @examples
 #' # example code ##TODO
 #'
-#' @export
+#' @noRd
 analyse_ThermochronometryData <- function(
   object,
   ITL_model = c("GOK", "BTS"),
