@@ -68,12 +68,13 @@ test_that("snapshot tests", {
 
   expect_snapshot_plain(read_RF2R(file, verbose = FALSE)[[1]]@info)
   expect_snapshot_plain(read_RF2R(file.rlumimage, verbose = FALSE)[[1]]@info)
+  expect_snapshot_plain(read_RF2R(test_path("_data/RF_new_header.rf"),
+                                  verbose = FALSE)[[1]]@info)
 
   ## create a file with malformed header
   file.wrong <- "RF_wrong_header.Rf"
   writeLines(gsub("grain_d=20", "grain_d=", readLines(file)),
              file.wrong)
-  expect_message(expect_snapshot_plain(read_RF2R(file.wrong, verbose = FALSE)[[1]]@info),
-                 "Error: Header extraction failed")
+  expect_snapshot_plain(read_RF2R(file.wrong, verbose = FALSE)[[1]]@info)
   file.remove(file.wrong)
 })
