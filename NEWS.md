@@ -2,12 +2,6 @@
 
 # Changes in version 1.3.0.9000-4 (2026-09-17)
 
-**This version requires R \>=4.5.0**
-
-## Breaking changes
-
-## New functions
-
 ## Bugfixes and changes
 
 - Support for the `na.rm` argument has been removed from the following
@@ -37,27 +31,47 @@
   - `plot_KDE()`
   - `plot_RadialPlot()`
 
-- The Monte Carlo error estimation in `fit_DoseResponseCurve()` was
-  slightly overestimated when any MC model failed to fit. As a way to
-  establish whether an analysis run with `Luminescence <= 1.3.0` is
-  affected by this error, you can count the number of failed MC runs in
-  the `results` object by running `sum(is.na(results$De.MC))`. A value
+- We are in the process of streamlining the set of S3 methods that we
+  export. This will not bring any loss of functionality, but will reduce
+  some redundancy in the internal code. We don’t think that there are
+  active users of these specific functions and, in most cases, these are
+  of interest only to package developers. Therefore, the following S3
+  methods are deprecated and will be removed in v1.4.0 (#1694).
+
+  | Deprecated                     | Replacement       |
+  |--------------------------------|-------------------|
+  | `as.data.frame.RLum.Data.*`    | `as.data.frame()` |
+  | `as.list.RLum.*`               | `as.list()`       |
+  | `as.matrix.RLum.Data.*`        | `as.matrix()`     |
+  | `dim.RLum.Data.*`              | `dim()`           |
+  | `hist.RLum.*`                  | `hist()`          |
+  | `length_RLum`, `length.RLum.*` | `length()`        |
+  | `merge_RLum.*`, `merge.RLum.*` | `merge_RLum()`    |
+  | `names_RLum`, `names.RLum.*`   | `names()`         |
+  | `plot.RLum.*`                  | `plot()`          |
+  | `summary.RLum.Data.*`          | `summary()`       |
+
+- The Monte Carlo error in `fit_DoseResponseCurve()` was slightly
+  overestimated when any MC model failed to fit. As a way to establish
+  whether an analysis run with `Luminescence <= 1.3.0` is affected by
+  this issue, you can count the number of failed MC runs in the
+  `results` object by running `sum(is.na(results$De.MC))`. A value
   greater than 0 means that the error estimation is affected;
   quantifying by how much is not possible without rerunning the analysis
   with v1.3.1, but the size of the effect grows with the proportion of
-  failed runs (`sum(is.na(results$De.MC)) / length(results$De.MC)`)
-  (#1730).
+  failed runs (`sum(is.na(results$De.MC)) / length(results$De.MC)`), and
+  in non-pathological cases it should be very small (#1730).
 
 ### `analyse_Al2O3C_Measurement()`
 
 - The function now better validates the `dose_points` argument so that
-  it no longer generate an incorrect data frame if it’s specified as a
-  list for a non-list object (#1640).
+  it no longer generates an incorrect data frame if the argument is
+  provided as a list when the main input is a non-list object (#1640).
 
 ### `analyse_IRSAR.RF()`
 
-- The colour of the regeneration points was changed to black so
-  guarantee greater contrast against the natural points, which should
+- The colour of the regeneration points was changed to black to
+  guarantee greater contrast against the natural points. This should
   improve readability for people with red-green colour blindness and for
   black-and-white printing. Moreover, point colours can now be freely
   customised via the new `col_nat` and `col_reg` parameters (#1654;
@@ -96,9 +110,9 @@
 - The check on the window size now occurs also if
   `plot_singlePanels = TRUE`. This avoids hard failures on Linux when
   both `plot_singlePanels` and `plot_onePage` are set to `TRUE` and the
-  window size is too small. On Windows, it seems that instead of a hard
-  error, the function would silently stop working (#1734; thanks to
-  Annette Kadereit for reporting).
+  window size is too small; on Windows, it seems that instead of a hard
+  error, the function would silently stop working with those settings
+  (#1734; thanks to Annette Kadereit for reporting).
 
 ### `analyse_SAR.CWOSL()`
 
@@ -203,7 +217,7 @@
   statistics. This was due to a regression introduced in v1.1.2;
   weighted mean, weighted median and the corresponding standard error
   and standard deviation are now set to `NA` in such cases, restoring
-  the previous behaviour (#1686).
+  the original behaviour (#1686).
 
 ### `fit_DoseResponseCurve()`
 
@@ -265,14 +279,14 @@
   MacOS (#1649).
 
 - The interactive plotting mode (`interactive = TRUE`) is more complete
-  and renders a usable plot (#1664, \#1696)
+  and renders a usable plot (#1664, \#1696).
 
 - The function no longer crashes when using a list of data frames with
   different column names (#1705).
 
 - A misspecified `bw` argument now reverts to the default value of
-  `"SJ"` recommended by base R, instead of the historical setting of
-  `"nrd0"` (#1708).
+  `"SJ"` recommended by base R, instead of the historical (and somewhat
+  deprecated) setting of `"nrd0"` (#1708).
 
 - Datasets containing only one non-missing observation are no longer
   removed and are now plotted, but no density curve is drawn for them
@@ -308,7 +322,7 @@
 
 ### `plot_RadialPlot()`
 
-- The function no longer crashes when the error column contains NA
+- The function no longer crashes when the error column contains `NA`
   values. This was a regression introduced in v1.2.0 (#1689).
 
 ### `plot_RLum()`
@@ -327,11 +341,10 @@
 ### `plot_RLum.Data.Spectrum()`
 
 - The setting `legend = FALSE` did not work as advertised and did not
-  remove the legend, e.g., in `plot.type = "multiple.lines"`; fixed
-  (#1702)
+  remove the legend, e.g., in `plot.type = "multiple.lines"` (#1702).
 
-- The argument `legend.text` was remove from the function definition but
-  is still available through the `...` argument (#1702)
+- The argument `legend.text` was removed from the function definition
+  but it’s still available through the `...` argument (#1702).
 
 ### `read_RF2R()`
 
@@ -346,9 +359,9 @@
 
 ### `read_XSYG2R()`
 
-- The function no longer when an empty `<sequence />` node is found.
-  Such a node may be present if the reader encounters an empty position
-  and would then automatically move on to the next.
+- The function no longer crashes when an empty `<sequence />` node is
+  found. Such a node may be present if the reader encounters an empty
+  position and would then automatically move on to the next.
 
 ### `verify_SingleGrainData()`
 
@@ -363,30 +376,7 @@
 ## Other changes
 
 - We have expanded the family of snapshot tests by testing the function
-  output in more cases, going from 12 to over 70 output snapshots
-  (#1638).
-
-- We are in the process of streamlining the set of S3 methods that we
-  export. This will not bring any loss of functionality, but will reduce
-  some redundancy in the internal code. We don’t think that there are
-  active users of these specific functions and, in most cases, these are
-  of interest only to package developers. Therefore, the following S3
-  methods are deprecated and will be removed in v1.4.0 (#1694).
-
-  | Deprecated                     | Replacement       |
-  |--------------------------------|-------------------|
-  | `as.data.frame.RLum.Data.*`    | `as.data.frame()` |
-  | `as.list.RLum.*`               | `as.list()`       |
-  | `as.matrix.RLum.Data.*`        | `as.matrix()`     |
-  | `dim.RLum.Data.*`              | `dim()`           |
-  | `hist.RLum.*`                  | `hist()`          |
-  | `length_RLum`, `length.RLum.*` | `length()`        |
-  | `merge_RLum.*`, `merge.RLum.*` | `merge_RLum()`    |
-  | `names_RLum`, `names.RLum.*`   | `names()`         |
-  | `plot.RLum.*`                  | `plot()`          |
-  | `summary.RLum.Data.*`          | `summary()`       |
-
-## Internals
+  output in more cases, going from 12 to 85 output snapshots (#1638).
 
 - Functions `plot_AbanicoPlot()` and `plot_RLum.Data.Curve()` gained a
   hidden `.shiny` flag which can be set in combination with
