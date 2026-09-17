@@ -868,10 +868,11 @@ analyse_IRSAR.RF<- function(
     }
 
     ##FINAL fitting after successful MC
-    if (length(stats::na.omit(fit.MC.results)) != 0) {
+    fit.MC.results <- stats::na.omit(fit.MC.results)
+    if (length(fit.MC.results) != 0) {
 
       ##choose median as final fit version
-      fit.MC.results <- sapply(stats::na.omit(fit.MC.results), median)
+      fit.MC.results <- sapply(fit.MC.results, median)
 
       ##try final fitting
       fit <- try(stats::nls(
