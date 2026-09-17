@@ -104,7 +104,8 @@ read_RF2R <- function(
   .extract_header <- function(x) {
     header <- gsub(pattern = "[<>]", replacement = "", x = x)
 
-    ## this silently drops incomplete key-value pairs
+    ## supports quoted strings with spaces and unquoted strings with no spaces,
+    ## incomplete key-value pairs are silently dropped
     parts <- regmatches(header, gregexpr('(?:\\w+)=(".*?"|[^[:space:]]+)',
                                          header, perl = TRUE))[[1]]
 
@@ -113,14 +114,10 @@ read_RF2R <- function(
 
     ## remove quotation marks if present
     vals <- gsub('^"(.*)"$', '\\1', kv[, 2])
-    setNames(as.list(vals), kv[, 1])
+    stats::setNames(as.list(vals), kv[, 1])
   }
 
-  header <- tryCatch(.extract_header(temp[1]),
-                     error = function(e) {
-                       .throw_message("Header extraction failed, continuing without it")
-                       NA
-                     })
+  header <- .extract_header(temp[1])
 
     ##extract tag boundaries framed by tags +++++++++++++++++++
     ##the 2nd line corrects the inner boundaries
