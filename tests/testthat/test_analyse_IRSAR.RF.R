@@ -325,9 +325,15 @@ test_that("regression tests", {
   ## issue 1055
   expect_silent(analyse_IRSAR.RF(IRSAR.RF.Data, method = "FIT", n.MC = NULL))
 
-  ## issue 1745
+  ## issue 1744
   obj <- read_RF2R(system.file("extdata", "RF_file.rf", package = "Luminescence"),
                    verbose = FALSE)[1:2]
+  expect_silent(analyse_IRSAR.RF(obj, method = "FIT",
+                                 txtProgressBar = FALSE,
+                                 plot = TRUE))
+
+  ## issue 1745
+  ## same obj as issue 1744
   expect_silent(expect_message(analyse_IRSAR.RF(obj, method = "VSLIDE",
                                                 txtProgressBar = FALSE,
                                                 plot = FALSE),

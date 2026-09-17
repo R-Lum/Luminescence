@@ -1522,7 +1522,7 @@ analyse_IRSAR.RF<- function(
       }
 
       ##Insert fit and result
-      if (!is.na(De) && max(De, De.upper) > max(RF_reg.x)) {
+      if (!is.na(De) && max(De, De.upper, na.rm = TRUE) > max(RF_reg.x)) {
         .draw_De_mtext(col = "red")
         De.status <- "VALUE OUT OF BOUNDS"
       } else{
