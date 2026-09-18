@@ -859,7 +859,7 @@ analyse_IRSAR.RF<- function(
     if (length(fit.MC.results) != 0) {
       ##choose median as final fit version
       fit.MC.results <- apply(fit.MC.results, MARGIN = 2, FUN = median)
-  
+      
       ##try final fitting
       fit <- try(minpack.lm::nlsLM(
         formula = fit.function,
