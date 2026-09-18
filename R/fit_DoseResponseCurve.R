@@ -766,11 +766,7 @@ fit_DoseResponseCurve <- function(
       y ~ I(x) + I(x^2),
       stats::reformulate(".", intercept = !fit.force_through_origin))
 
-    if (interpolation) {
-      y <- object[1, 2]
-    } else if (extrapolation) {
-      y <- 0
-    }
+    y <- if (interpolation) object[1, 2] else 0
     upper <- max(object[, 1]) * 1.5
 
     .fit_qdr_model <- function(model, data, y) {
@@ -921,10 +917,9 @@ fit_DoseResponseCurve <- function(
 
         #calculate De
         De <- NA
-        if (interpolation) {
-          De <- suppressWarnings(-Di - D0 * log(1 - object[1, 2] / N))
-        } else if (extrapolation) {
-          De <- suppressWarnings(-Di - D0 * log(1 - 0 / N))
+        if (interpolation || extrapolation) {
+          LnTn <- if (interpolation) object[1, 2] else 0
+          De <- suppressWarnings(-Di - D0 * log(1 - LnTn / N))
         }
 
         #print D01 value
@@ -991,9 +986,7 @@ fit_DoseResponseCurve <- function(
       else
         De.fs <- function(fit, y) (y - coef(fit)[1]) / coef(fit)[2]
 
-      y <- object[1, 2]
-      if (extrapolation)
-        y <- 0
+      y <- if (interpolation) object[1, 2] else 0
 
       .fit_lin_model <- function(model, data, y) {
         fit <- stats::lm(model, data = data, weights = fit.weights)
@@ -1399,14 +1392,13 @@ fit_DoseResponseCurve <- function(
       .get_coef(fit)
 
       #calculate De
-      y <- object[1, 2]
-      De <- switch(
-        mode,
-        interpolation = suppressWarnings(
-          -(D0 * (( (a * d - y) / a)^c - 1) * ((a * d - y)/a)^-c ) / c),
-        extrapolation = suppressWarnings(
-          -(D0 * (( (a * d - 0) / a)^c - 1) * ((a * d - 0)/a)^-c ) / c),
-        NA)
+      De <- NA
+      if (interpolation || extrapolation) {
+        y <- if (interpolation) object[1, 2] else 0
+        De <-
+        suppressWarnings(
+          -(D0 * (( (a * d - y) / a)^c - 1) * ((a * d - y)/a)^-c ) / c)
+      }
 
       #print D01 value
       D01 <- D0
