@@ -19,3 +19,9 @@ header-includes:
 
 ## Bugfixes and changes
 
+### `analyse_IRSAR.RF()`
+
+* Swap fitting using `nls()` and the `port` algorithm with `minpack.lm::nlsLM()` 
+along with some code tunings. This should have no user-visible effects other 
+than better and more reliable fitting in the case where `method = "FIT"` was chosen (#1748).
+
