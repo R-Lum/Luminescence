@@ -726,7 +726,7 @@ analyse_IRSAR.RF<- function(
   ##=========================================================================
   ##get channel resolution (should be equal for all curves, but if not the mean is taken)
   resolution.RF <- round(
-    mean((temp.sequence_structure$x.max/temp.sequence_structure$n.channels)),
+    mean(temp.sequence_structure$x.max / temp.sequence_structure$n.channels),
     digits = 1)
 
   ## get internal colour definition
