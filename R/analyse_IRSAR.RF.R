@@ -72,11 +72,10 @@
 #' `method_control = list(trace = TRUE)`. Supported parameters are:
 #'
 #' *For FIT*
-#' - `trace` ([logical], default: `FALSE`): as in [nls]; shows sum of squared
-#' residuals.
-#' - `maxiter` ([integer], default: 500): as in [nls].
-#' - `warnOnly` ([logical], default: `FALSE`): as in [nls].
-#' - `minFactor` ([numeric], default: `1 / 4096`): as in [nls].
+#' - `trace` ([logical], default: `FALSE`): as in [minpack.lm::nlsLM];
+#'  shows sum of squared residuals.
+#' - `maxiter` ([integer], default: 500): as in [minpack.lm::nlsLM].
+#' - `factor` ([numeric], default: `100`): as in [minpack.lm::nls.lm.control].
 #'
 #' *For SLIDE or VSLIDE*
 #' - `trace` ([logical], default: `FALSE`): as in [nls]; shows sum of squared
@@ -334,7 +333,7 @@
 #' measurements (natural vs. regenerated signal), which is in contrast to the
 #' findings by Buylaert et al. (2012).
 #'
-#' @section Function version: 0.7.14
+#' @section Function version: 0.8.1
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -660,8 +659,7 @@ analyse_IRSAR.RF<- function(
     trace = FALSE,
     trace_vslide = FALSE,
     maxiter = 500,
-    warnOnly = FALSE,
-    minFactor = 1 / 4096,
+    factor = 100,
     correct_onset = TRUE,
     show_density = TRUE,
     show_fit = FALSE,
@@ -672,7 +670,6 @@ analyse_IRSAR.RF<- function(
 
   ##modify list if necessary
   if (!is.null(method_control)) {
-
     ##check whether this arguments are supported at all
     unsupported.idx <- which(!names(method_control) %in%
                              names(method_control.settings))
@@ -818,10 +815,9 @@ analyse_IRSAR.RF<- function(
     ## + phi.0 >> initial IR-RF flux
     ## + delta.phi >> dose dependent change of the IR-RF flux
     ## + lambda >> exponential parameter
-    ## + beta >> dispersive factor
+    ## + beta >> dispersion factor
 
     # set start parameter estimation ------------------------------------------
-
     fit.parameters.start <- c(
       phi.0 = max(RF_reg.y),
       delta.phi = 1.5 * (max(RF_reg.y) - min(RF_reg.y)),
@@ -830,9 +826,7 @@ analyse_IRSAR.RF<- function(
     )
 
   if(method == "FIT"){
-
     # start nls fitting -------------------------------------------------------
-
     ##Monte Carlo approach for fitting
     fit.MC.results <- data.frame()
 
@@ -844,21 +838,16 @@ analyse_IRSAR.RF<- function(
     ##start fitting loop for MC runs
     for (i in seq_len(n.MC)) {
       start.MC["lambda"] <- lambda.MC[i]
-      fit.MC <- try(stats::nls(
-        fit.function,
+      fit.MC <- try(minpack.lm::nlsLM(
+        formula = fit.function,
         trace = FALSE,
         data = list(x = RF_reg.x, y = RF_reg.y),
-        algorithm = "port",
-        stats::nls.control(
-          maxiter = 100,
-          warnOnly = FALSE,
-          minFactor = 1 / 1024
-        ),
+        control = minpack.lm::nls.lm.control(
+          maxiter = 100),
         start = start.MC,
         lower = lower,
         upper = upper),
-      silent = TRUE
-      )
+      silent = TRUE)
 
       if (!inherits(fit.MC, "try-error")) {
         fit.MC.coefs <- coef(fit.MC)
@@ -870,25 +859,23 @@ analyse_IRSAR.RF<- function(
     ##FINAL fitting after successful MC
     fit.MC.results <- stats::na.omit(fit.MC.results)
     if (length(fit.MC.results) != 0) {
-
       ##choose median as final fit version
       fit.MC.results <- sapply(fit.MC.results, median)
-
+  
       ##try final fitting
-      fit <- try(stats::nls(
-        fit.function,
-        trace = method_control.settings$trace,
+      fit <- try(minpack.lm::nlsLM(
+        formula = fit.function,
         data = data.frame(x = RF_reg.x, y = RF_reg.y),
-        algorithm = "port",
-        stats::nls.control(
+        trace = method_control.settings$trace,
+        control = minpack.lm::nls.lm.control(
           maxiter = method_control.settings$maxiter,
-          warnOnly = method_control.settings$warnOnly,
-          minFactor = method_control.settings$minFactor
+          factor = method_control.settings$factor
+          
         ),
         start = fit.MC.results,
         lower = lower,
         upper = upper),
-      silent = FALSE
+      silent = TRUE
       )
     }else{
       fit <- NA
@@ -906,6 +893,7 @@ analyse_IRSAR.RF<- function(
     ##calculate De value
     if (!is.na(fit.parameters.results[1])) {
       RF_nat.vals <- c(RF_nat.mean, RF_nat.error.lower, RF_nat.error.upper)
+      
       De.vals <- suppressWarnings(round(log(
           -((RF_nat.vals - fit.parameters.results["phi.0"]) /
             -fit.parameters.results["delta.phi"]
@@ -916,7 +904,8 @@ analyse_IRSAR.RF<- function(
       De.lower <- De.vals[2]
       De.upper <- De.vals[3]
 
-      ##This could be solved with a MC simulation, but for this the code has to be adjusted
+      ##This could be solved with a MC simulation, but for this the code has 
+      ##to be adjusted
       ##The question is: Where the parameters are coming from?
       ##TODO
       De.error <- NA
@@ -1281,12 +1270,13 @@ analyse_IRSAR.RF<- function(
   ##(4) decay parameter
   ##TP$lambda
   if (all(c("lambda", "beta", "delta.phi") %in% names(TP))) {
-
     fit.lambda <- try(minpack.lm::nlsLM(
         fit.function,
         data = data.frame(x = RF_reg.x, y = RF_reg.y),
         algorithm = "LM",
         start = fit.parameters.start,
+        control = minpack.lm::nls.lm.control(
+          maxiter = 100),
         lower = lower,
         upper = upper),
     silent = TRUE
