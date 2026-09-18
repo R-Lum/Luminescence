@@ -1525,7 +1525,7 @@ has been updated so that any decrease in coverage will be marked as a failure
 
 ---
 
-# Older releases
+# Older releases (before 1.2.0)
 
 * [Write-up for Luminescence 1.1.2](https://replay.geog.uni-heidelberg.de/post/2025/12/luminescence-release-1.1.2/)
 * [Write-up for Luminescence 1.1.1](https://replay.geog.uni-heidelberg.de/post/2025/09/luminescence-release-1.1.1/)

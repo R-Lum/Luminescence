@@ -1615,7 +1615,7 @@ for more information and advice on how to deal with these changes.
 
 ------------------------------------------------------------------------
 
-# Older releases
+# Older releases (before 1.2.0)
 
 - [Write-up for Luminescence
   1.1.2](https://replay.geog.uni-heidelberg.de/post/2025/12/luminescence-release-1.1.2/)
