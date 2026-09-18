@@ -218,7 +218,7 @@ To obtain the palaeodose
 
 \deqn{D_{e} = \ln(-(\phi(D) - \phi_{0})/(-\lambda\phi)^{1/\beta}+1)/-\lambda}
 
-The fitting is done using the \code{port} algorithm of the \link{nls} function.
+The fitting is done using the \code{LM} algorithm of the \link[minpack.lm:nlsLM]{minpack.lm::nlsLM} function.
 
 \strong{\code{method = "SLIDE"}}
 
@@ -248,11 +248,10 @@ which can however be modified using the \code{method_control} argument, e.g.,
 
 \emph{For FIT}
 \itemize{
-\item \code{trace} (\link{logical}, default: \code{FALSE}): as in \link{nls}; shows sum of squared
-residuals.
-\item \code{maxiter} (\link{integer}, default: 500): as in \link{nls}.
-\item \code{warnOnly} (\link{logical}, default: \code{FALSE}): as in \link{nls}.
-\item \code{minFactor} (\link{numeric}, default: \code{1 / 4096}): as in \link{nls}.
+\item \code{trace} (\link{logical}, default: \code{FALSE}): as in \link[minpack.lm:nlsLM]{minpack.lm::nlsLM};
+shows sum of squared residuals.
+\item \code{maxiter} (\link{integer}, default: 500): as in \link[minpack.lm:nlsLM]{minpack.lm::nlsLM}.
+\item \code{factor} (\link{numeric}, default: \code{100}): as in \link[minpack.lm:nls.lm.control]{minpack.lm::nls.lm.control}.
 }
 
 \emph{For SLIDE or VSLIDE}
@@ -357,7 +356,7 @@ measurements (natural vs. regenerated signal), which is in contrast to the
 findings by Buylaert et al. (2012).
 }
 \section{Function version}{
- 0.7.14
+ 0.8.1
 }
 
 \examples{
