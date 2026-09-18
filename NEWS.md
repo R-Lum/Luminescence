@@ -6,6 +6,20 @@
 
 ## Breaking changes
 
+The following S3 methods (deprecated in v1.3.1) have been removed
+(#1694):
+
+- `as.data.frame.RLum.Data.*` (use `as.data.frame()` instead)
+- `as.list.RLum.*` (use `as.list()` instead)
+- `as.matrix.RLum.Data.* (use`as.matrix()\` instead)
+
 ## New functions
 
 ## Bugfixes and changes
+
+### `analyse_IRSAR.RF()`
+
+- Swap fitting using `nls()` and the `port` algorithm with
+  `minpack.lm::nlsLM()` along with some code tunings. This should have
+  no user-visible effects other than better and more reliable fitting in
+  the case where `method = "FIT"` was chosen (#1748).

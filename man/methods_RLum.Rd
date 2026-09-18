@@ -36,17 +36,10 @@
 \alias{names.RLum.Results}
 \alias{names.Risoe.BINfileData}
 \alias{row.names.RLum.Data.Spectrum}
-\alias{as.data.frame.RLum.Data.Curve}
-\alias{as.data.frame.RLum.Data.Spectrum}
+\alias{as.data.frame.RLum.Data}
 \alias{as.data.frame.Risoe.BINfileData}
-\alias{as.list.RLum.Results}
-\alias{as.list.RLum.Data.Curve}
-\alias{as.list.RLum.Data.Image}
-\alias{as.list.RLum.Data.Spectrum}
-\alias{as.list.RLum.Analysis}
-\alias{as.matrix.RLum.Data.Curve}
-\alias{as.matrix.RLum.Data.Spectrum}
-\alias{as.matrix.RLum.Data.Image}
+\alias{as.list.RLum}
+\alias{as.matrix.RLum.Data}
 \alias{merge.RLum}
 \alias{unlist.RLum.Analysis}
 \alias{+.RLum.Data.Curve}
@@ -68,7 +61,7 @@
 \alias{$.RLum.Data.Curve}
 \alias{$.RLum.Analysis}
 \alias{$.RLum.Results}
-\title{methods_RLum}
+\title{Methods for S3-generics implemented for the package 'Luminescence'.}
 \usage{
 \method{plot}{list}(x, y, ...)
 
@@ -138,27 +131,13 @@ bin(x, ...)
 
 \method{row.names}{RLum.Data.Spectrum}(x, ...)
 
-\method{as.data.frame}{RLum.Data.Curve}(x, row.names = NULL, optional = FALSE, ...)
-
-\method{as.data.frame}{RLum.Data.Spectrum}(x, row.names = NULL, optional = FALSE, ...)
+\method{as.data.frame}{RLum.Data}(x, row.names = NULL, optional = FALSE, ...)
 
 \method{as.data.frame}{Risoe.BINfileData}(x, row.names = NULL, optional = FALSE, ...)
 
-\method{as.list}{RLum.Results}(x, ...)
+\method{as.list}{RLum}(x, ...)
 
-\method{as.list}{RLum.Data.Curve}(x, ...)
-
-\method{as.list}{RLum.Data.Image}(x, ...)
-
-\method{as.list}{RLum.Data.Spectrum}(x, ...)
-
-\method{as.list}{RLum.Analysis}(x, ...)
-
-\method{as.matrix}{RLum.Data.Curve}(x, ...)
-
-\method{as.matrix}{RLum.Data.Spectrum}(x, ...)
-
-\method{as.matrix}{RLum.Data.Image}(x, ...)
+\method{as.matrix}{RLum.Data}(x, ...)
 
 \method{merge}{RLum}(x, y, ...)
 
@@ -250,7 +229,6 @@ column of the data matrix in the \link[=RLum.Data.Curve-class]{RLum.Data.Curve} 
 numeric value which replace the value in the \link[=RLum.Data.Curve-class]{RLum.Data.Curve} object}
 }
 \description{
-Methods for S3-generics implemented for the package 'Luminescence'.
 This document summarises all implemented S3-generics. The name of the function
 is given before the first dot, after the dot the name of the object that is
 supported by this method is given, e.g. \code{plot.RLum.Data.Curve} can be called
@@ -274,7 +252,7 @@ surrogates for existing functions in the package.
 data(ExampleData.RLum.Analysis, envir = environment())
 
 
-##combine curve is various ways
+## combine curves in various ways
 curve1 <- IRSAR.RF.Data[[1]]
 curve2 <-  IRSAR.RF.Data[[1]]
 curve1 + curve2
