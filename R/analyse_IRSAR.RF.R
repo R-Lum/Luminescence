@@ -853,7 +853,7 @@ analyse_IRSAR.RF<- function(
     })
     
     ## combine results, a little bit traditionally
-    fit.MC.results <- fit.MC.results[!vapply(fit.MC.results, is.null, logical(1))]
+    fit.MC.results <- .rm_NULL_elements(fit.MC.results)
     fit.MC.results <- do.call(rbind, fit.MC.results)
     
     if (length(fit.MC.results) != 0) {
@@ -908,7 +908,6 @@ analyse_IRSAR.RF<- function(
       De.error <- NA
     }
   }
-
 
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ## METHOD SLIDE - ANALYSIS
