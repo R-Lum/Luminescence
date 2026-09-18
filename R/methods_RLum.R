@@ -20,9 +20,8 @@
 
 ##  INTRODUCED WITH 0.5.0 ##
 
-#' methods_RLum
-#'
 #' Methods for S3-generics implemented for the package 'Luminescence'.
+#'
 #' This document summarises all implemented S3-generics. The name of the function
 #' is given before the first dot, after the dot the name of the object that is
 #' supported by this method is given, e.g. `plot.RLum.Data.Curve` can be called
@@ -136,7 +135,8 @@ plot.RLum.Data.Image <- function(x, y, ...) plot_RLum(object = x, ...)
 #' @export
 plot.Risoe.BINfileData <- function(x, y, ...) plot_Risoe.BINfileData(data = x, ...)
 
-# hist() -----------------------------------------------------------------------
+
+## hist() -------------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @export
@@ -155,7 +155,8 @@ hist.RLum.Data.Curve <- function(x, ...) hist(as(get_RLum(x),"matrix")[,2])
 hist.RLum.Analysis <- function(x, ...) lapply(1:length_RLum(x), function(z){
   hist(as(get_RLum(x, record.id = z, ...),"matrix")[,2])})
 
-# summary() --------------------------------------------------------------------
+
+## summary() ----------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @method summary RLum.Results
@@ -179,7 +180,8 @@ summary.RLum.Data.Image <- function(object, ...) summary(object@data)
 #' @export
 summary.RLum.Data.Curve <- function(object, ...) summary(object@data, ...)
 
-# subset() ---------------------------------------------------------------------
+
+## subset() -----------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @method subset Risoe.BINfileData
@@ -237,7 +239,7 @@ subset.RLum.Analysis <- function(x, subset = NULL, ...) {
                          env = parent.frame(), verbose = list(...)$verbose %||% TRUE))
 }
 
-# bin() ------------------------------------------------------------------------
+## bin() --------------------------------------------------------------------
 #' @rdname methods_RLum
 #' @export
 bin <- function(x, ...) {
@@ -254,7 +256,7 @@ bin.RLum.Data.Spectrum <- function(x, bin_size.row = 1, bin_size.col = 1, ...){
   bin_RLum.Data(x, bin_size.row = bin_size.row, bin_size.col = bin_size.col)
 }
 
-# length() ---------------------------------------------------------------------
+## length() -----------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @export
@@ -272,7 +274,7 @@ length.RLum.Data.Curve <- function(x, ...) length_RLum(x)
 #' @export
 length.Risoe.BINfileData <- function(x, ...) length(x@METADATA$ID)
 
-# dim() ------------------------------------------------------------------------
+## dim() --------------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @export
@@ -282,14 +284,15 @@ dim.RLum.Data.Curve <- function(x) dim(as(x, "matrix"))
 #' @export
 dim.RLum.Data.Spectrum <- function(x) dim(as(x, "matrix"))
 
-# rep() -------------------------------------------------------------------
+
+## rep() --------------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @export
 rep.RLum <- function(x, ...) replicate_RLum(x, ...)
 
 
-# names() -----------------------------------------------------------------
+## names() ------------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @export
@@ -316,23 +319,18 @@ names.RLum.Results <- function(x, ...) names_RLum(x)
 names.Risoe.BINfileData <- function(x)  as.character(x@METADATA$LTYPE)
 
 
-# row.name() --------------------------------------------------------------
+## row.names() --------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @export
 row.names.RLum.Data.Spectrum <- function(x, ...) rownames(as(x, "matrix"))
 
 
-# as.data.frame() ---------------------------------------------------------
+## as.data.frame() ----------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @export
-as.data.frame.RLum.Data.Curve <- function(x, row.names = NULL, optional = FALSE, ...) as(x, "data.frame")
-
-#' @rdname methods_RLum
-#' @export
-as.data.frame.RLum.Data.Spectrum <- function(x,  row.names = NULL, optional = FALSE, ...) as(x, "data.frame")
-# for RLum.Results ... makes no sense and may yield in unpredictable behaviour
+as.data.frame.RLum.Data <- function(x, row.names = NULL, optional = FALSE, ...) as(x, "data.frame")
 
 #' @rdname methods_RLum
 #' @export
@@ -352,53 +350,28 @@ as.data.frame.Risoe.BINfileData <- function(x,  row.names = NULL, optional = FAL
 }
 
 
-# as.list() ---------------------------------------------------------------
+## as.list() ----------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @export
-as.list.RLum.Results <- function(x, ...) as(x, "list")
+as.list.RLum <- function(x, ...) as(x, "list")
+
+
+## as.matrix() --------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @export
-as.list.RLum.Data.Curve <- function(x, ...) as(x, "list")
-
-#' @rdname methods_RLum
-#' @export
-as.list.RLum.Data.Image <- function(x, ...) as(x, "list")
-
-#' @rdname methods_RLum
-#' @export
-as.list.RLum.Data.Spectrum <- function(x, ...) as(x, "list")
-
-#' @rdname methods_RLum
-#' @export
-as.list.RLum.Analysis <- function(x, ...) as(x, "list")
+as.matrix.RLum.Data <- function(x, ...) as(x, "matrix")
 
 
-# as.matrix() -------------------------------------------------------------
-
-#' @rdname methods_RLum
-#' @export
-as.matrix.RLum.Data.Curve <- function(x, ...) as(x, "matrix")
-
-#' @rdname methods_RLum
-#' @export
-as.matrix.RLum.Data.Spectrum <- function(x, ...) as(x, "matrix")
-
-#' @rdname methods_RLum
-#' @export
-as.matrix.RLum.Data.Image <- function(x, ...) as(x, "matrix")
-# for RLum.Results ... makes no sense and may yield in unpredictable behaviour
-
-
-# merge() -----------------------------------------------------------------
+## merge() ------------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @export
 merge.RLum <- function(x, y, ...) merge_RLum(append(list(...), values = c(x, y)))
 
 
-# unlist() ----------------------------------------------------------------
+## unlist() -----------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @method unlist RLum.Analysis
@@ -413,13 +386,13 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
 }
 
 
-# `+` ---------------------------------------------------------------------
+## `+` ----------------------------------------------------------------------
 
 #' @rdname methods_RLum
 #'
 #' @examples
 #'
-#' ##combine curve is various ways
+#' ## combine curves in various ways
 #' curve1 <- IRSAR.RF.Data[[1]]
 #' curve2 <-  IRSAR.RF.Data[[1]]
 #' curve1 + curve2
@@ -435,7 +408,7 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
 `+.RLum.Data.Spectrum` <- function(x, y) merge_RLum(list(x, y), merge.method = "sum")
 
 
-# `-` ---------------------------------------------------------------------
+## `-` ----------------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @export
@@ -446,7 +419,7 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
 `-.RLum.Data.Spectrum` <- function(x, y) merge_RLum(list(x, y), merge.method = "-")
 
 
-# `*` ---------------------------------------------------------------------
+## `*` ----------------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @export
@@ -457,7 +430,7 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
 `*.RLum.Data.Spectrum` <- function(x, y) merge_RLum(list(x, y), merge.method = "*")
 
 
-# `/` ---------------------------------------------------------------------
+## `/` ----------------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @export
@@ -468,7 +441,7 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
 `/.RLum.Data.Spectrum` <- function(x, y) merge_RLum(list(x, y), merge.method = "/")
 
 
-# `[` ---------------------------------------------------------------------
+## `[` ----------------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @export
@@ -497,7 +470,7 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
 `[.RLum.Results` <- function(x, i, drop = TRUE) {get_RLum(x, data.object = i, drop = drop)}
 
 
-# `[<-` -------------------------------------------------------------------
+## `[<-` --------------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @export
@@ -507,7 +480,7 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
 }
 
 
-# `[[` --------------------------------------------------------------------
+## `[[` ---------------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @export
@@ -524,7 +497,7 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
 `[[.RLum.Results` <- function(x, i) {get_RLum(x, data.object = i)}
 
 
-# `$` ---------------------------------------------------------------------
+## `$` ----------------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @export
