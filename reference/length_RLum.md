@@ -32,7 +32,7 @@ length_RLum(object)
 An [integer](https://rdrr.io/r/base/integer.html) indicating the length
 of the object.
 
-## Functions
+## Methods (by class)
 
 - `length_RLum(RLum.Analysis)`: Returns the number of records stored in
   the object.
@@ -67,6 +67,6 @@ Kreutzer, S., 2026. length_RLum(): Length retrieval function for
 RLum-class objects. Function version 0.1.0. In: Kreutzer, S., Burow, C.,
 Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/

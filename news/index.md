@@ -1,9 +1,475 @@
 # Changelog
 
+## Changes in version 1.3.1 (2026-09-18)
+
+CRAN release: 2026-09-18
+
+See also the [write-up for Luminescence v1.3.1 on the REPLAY
+website](https://replay.geog.uni-heidelberg.de/post/2026/09/luminescence-release-1.3.1/).
+
+### Bugfixes and changes
+
+- Support for the `na.rm` argument has been removed from the following
+  functions as it was not working:
+
+  - [`plot_AbanicoPlot()`](https://r-lum.github.io/Luminescence/reference/plot_AbanicoPlot.md)
+  - [`plot_Histogram()`](https://r-lum.github.io/Luminescence/reference/plot_Histogram.md)
+  - [`plot_KDE()`](https://r-lum.github.io/Luminescence/reference/plot_KDE.md)
+  - [`plot_RadialPlot()`](https://r-lum.github.io/Luminescence/reference/plot_RadialPlot.md)
+  - [`plot_ViolinPlot()`](https://r-lum.github.io/Luminescence/reference/plot_ViolinPlot.md)
+
+  If set, the argument will be silently ignored
+  ([\#1692](https://github.com/R-Lum/Luminescence/issues/1692)).
+
+- Support for the `pt.cex` parameter to control the size of points
+  independently of `cex` has been added to the following functions
+  ([\#1720](https://github.com/R-Lum/Luminescence/issues/1720)):
+
+  - [`analyse_Al2O3C_CrossTalk()`](https://r-lum.github.io/Luminescence/reference/analyse_Al2O3C_CrossTalk.md)
+  - [`analyse_Al2O3C_ITC()`](https://r-lum.github.io/Luminescence/reference/analyse_Al2O3C_ITC.md)
+  - [`analyse_FadingMeasurement()`](https://r-lum.github.io/Luminescence/reference/analyse_FadingMeasurement.md)
+  - [`analyse_IRSAR.RF()`](https://r-lum.github.io/Luminescence/reference/analyse_IRSAR.RF.md)
+  - [`plot_AbanicoPlot()`](https://r-lum.github.io/Luminescence/reference/plot_AbanicoPlot.md)
+  - [`plot_DoseResponseCurve()`](https://r-lum.github.io/Luminescence/reference/plot_DoseResponseCurve.md)
+  - [`plot_DRCSummary()`](https://r-lum.github.io/Luminescence/reference/plot_DRCSummary.md)
+  - [`plot_DRTResults()`](https://r-lum.github.io/Luminescence/reference/plot_DRTResults.md)
+  - [`plot_Histogram()`](https://r-lum.github.io/Luminescence/reference/plot_Histogram.md)
+  - [`plot_KDE()`](https://r-lum.github.io/Luminescence/reference/plot_KDE.md)
+  - [`plot_RadialPlot()`](https://r-lum.github.io/Luminescence/reference/plot_RadialPlot.md)
+
+- We are in the process of streamlining the set of S3 methods that we
+  export. This will not bring any loss of functionality, but will reduce
+  some redundancy in the internal code. We don’t think that there are
+  active users of these specific functions and, in most cases, these are
+  of interest only to package developers. Therefore, the following S3
+  methods are deprecated and will be removed in v1.4.0
+  ([\#1694](https://github.com/R-Lum/Luminescence/issues/1694)).
+
+  | Deprecated | Replacement |
+  |----|----|
+  | `as.data.frame.RLum.Data.*` | [`as.data.frame()`](https://rdrr.io/r/base/as.data.frame.html) |
+  | `as.list.RLum.*` | [`as.list()`](https://rdrr.io/r/base/list.html) |
+  | `as.matrix.RLum.Data.*` | [`as.matrix()`](https://rdrr.io/r/base/matrix.html) |
+  | `dim.RLum.Data.*` | [`dim()`](https://rdrr.io/r/base/dim.html) |
+  | `hist.RLum.*` | [`hist()`](https://rdrr.io/r/graphics/hist.html) |
+  | `length_RLum`, `length.RLum.*` | [`length()`](https://rdrr.io/r/base/length.html) |
+  | `merge_RLum.*`, `merge.RLum.*` | [`merge_RLum()`](https://r-lum.github.io/Luminescence/reference/merge_RLum.md) |
+  | `names_RLum`, `names.RLum.*` | [`names()`](https://rdrr.io/r/base/names.html) |
+  | `plot.RLum.*` | [`plot()`](https://rdrr.io/r/graphics/plot.default.html) |
+  | `summary.RLum.Data.*` | [`summary()`](https://rdrr.io/r/base/summary.html) |
+
+- The Monte Carlo error in
+  [`fit_DoseResponseCurve()`](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)
+  was slightly overestimated when any MC model failed to fit. As a way
+  to establish whether an analysis run with `Luminescence <= 1.3.0` is
+  affected by this issue, you can count the number of failed MC runs in
+  the `results` object by running `sum(is.na(results$De.MC))`. A value
+  greater than 0 means that the error estimation is affected;
+  quantifying by how much is not possible without rerunning the analysis
+  with v1.3.1, but the size of the effect grows with the proportion of
+  failed runs (`sum(is.na(results$De.MC)) / length(results$De.MC)`), and
+  in non-pathological cases it should be very small
+  ([\#1730](https://github.com/R-Lum/Luminescence/issues/1730)).
+
+#### `analyse_Al2O3C_Measurement()`
+
+- The function now better validates the `dose_points` argument so that
+  it no longer generates an incorrect data frame if the argument is
+  provided as a list when the main input is a non-list object
+  ([\#1640](https://github.com/R-Lum/Luminescence/issues/1640)).
+
+#### `analyse_IRSAR.RF()`
+
+- The colour of the regeneration points was changed to black to
+  guarantee greater contrast against the natural points. This should
+  improve readability for people with red-green colour blindness and for
+  black-and-white printing. Moreover, point colours can now be freely
+  customised via the new `col_nat` and `col_reg` parameters
+  ([\#1654](https://github.com/R-Lum/Luminescence/issues/1654); thanks
+  to [@DirkMittelstrass](https://github.com/DirkMittelstrass) for
+  reporting).
+
+- The plot is no longer constrained to keep a fixed aspect ratio, so
+  that it can occupy more of the available space
+  ([\#1654](https://github.com/R-Lum/Luminescence/issues/1654); thanks
+  to [@DirkMittelstrass](https://github.com/DirkMittelstrass) for
+  reporting).
+
+- The default x-axis label was changed from `"Time"` to
+  `"Irradiation time"`,
+  ([\#1654](https://github.com/R-Lum/Luminescence/issues/1654); thanks
+  to [@DirkMittelstrass](https://github.com/DirkMittelstrass) for
+  reporting).
+
+- The y-axis no longer enforces the labels to be in scientific format.
+  The previous behaviour can be restored by setting
+  `yaxis_scientific = TRUE`
+  ([\#1665](https://github.com/R-Lum/Luminescence/issues/1665)).
+
+- The `cores` argument no longer accepts `"auto"` as valid input: the
+  same functionality (using all but two of the available cores) can now
+  be achieved by setting `cores = NULL`
+  ([\#1668](https://github.com/R-Lum/Luminescence/issues/1668)).
+
+- A warning message shown in case of failure of the test parameters has
+  been improved to avoid reporting a spurious `NA`
+  ([\#1715](https://github.com/R-Lum/Luminescence/issues/1715)).
+
+- The function used to crash during plotting if any the extremes of the
+  confidence interval built around the De value was computed as `NaN`.
+  This was a very old (and presumably extremely rare) crash that
+  affected only `method = "FIT"`
+  ([\#1744](https://github.com/R-Lum/Luminescence/issues/1744)).
+
+#### `analyse_pIRIRSequence()`
+
+- The function no longer crashes when presented with an empty
+  `RLum.Analysis` object
+  ([\#1725](https://github.com/R-Lum/Luminescence/issues/1725); thanks
+  to Annette Kadereit for reporting).
+
+- The check on the window size now occurs also if
+  `plot_singlePanels = TRUE`. This avoids hard failures on Linux when
+  both `plot_singlePanels` and `plot_onePage` are set to `TRUE` and the
+  window size is too small; on Windows, it seems that instead of a hard
+  error, the function would silently stop working with those settings
+  ([\#1734](https://github.com/R-Lum/Luminescence/issues/1734); thanks
+  to Annette Kadereit for reporting).
+
+#### `analyse_SAR.CWOSL()`
+
+- The ordering of columns in the `$data` field of the result object was
+  different from expected when
+  [`fit_DoseResponseCurve()`](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)
+  returned `NULL`, which meant that merging the results from multiple
+  aliquots would fail if any such result was present. This was a
+  regression introduced in v1.1.1
+  ([\#1623](https://github.com/R-Lum/Luminescence/issues/1623)).
+
+- The `POS` and `GRAIN` columns in the `$data` field of the result
+  object are now correctly populated also for XSYG files, instead of
+  being set to `NA`. This was a regression introduced in v1.1.2
+  ([\#1625](https://github.com/R-Lum/Luminescence/issues/1625)).
+
+- It is now possible to set `recuperation_reference = "Rmax"` to select
+  the point with highest dose as reference in the calculation of the
+  recuperation rate
+  ([\#1740](https://github.com/R-Lum/Luminescence/issues/1740); thanks
+  to Annette Kadereit for reporting).
+
+#### `analyse_SAR.NCF()`
+
+- The `object` argument is now better validated
+  ([\#1657](https://github.com/R-Lum/Luminescence/issues/1657), 1732).
+
+#### `analyse_SAR.TL()`
+
+- The function no longer crashes if the input object contains no TL
+  curves ([\#1732](https://github.com/R-Lum/Luminescence/issues/1732)).
+
+#### `calc_CentralDose()`
+
+- The function no longer crashes when the De values are identical and
+  `log = FALSE`
+  ([\#1628](https://github.com/R-Lum/Luminescence/issues/1628)).
+
+- The removal of missing values now happens only after restricting the
+  input to the first two columns, so `NA` values in unrelated columns no
+  longer affect the operation of the function
+  ([\#1653](https://github.com/R-Lum/Luminescence/issues/1653); thanks
+  to [@DirkMittelstrass](https://github.com/DirkMittelstrass) for
+  reporting).
+
+#### `calc_FastRatio()`
+
+- Some code that adjusted the `Ch_L3` setting has been removed because
+  it had become largely superfluous since v0.9.25. Users should see no
+  impact, except in the unlikely case when both elements of `Ch_L3` are
+  set to the last channel. In that case, the computation will now
+  respect the user input instead of automatically moving the start of
+  `Ch_L3` back by 5 channels. That behaviour was an undocumented
+  leftover from when user inputs were not validated
+  ([\#1682](https://github.com/R-Lum/Luminescence/issues/1682)).
+
+- The number of background channels was counted as one fewer than the
+  number used, causing the computed errors to be marginally larger than
+  expected. This error has been present since 2016, and its impact on
+  the results produced depends on the number of background channels
+  used, with the inflation of errors decreasing as the size of the
+  background region grows
+  ([\#1684](https://github.com/R-Lum/Luminescence/issues/1684)).
+
+#### `calc_FuchsLang2001()`
+
+- The function now returns an error if `startDeValue` exceeds the number
+  of rows in the input data set, instead of returning only `NA`s in the
+  result table
+  ([\#1645](https://github.com/R-Lum/Luminescence/issues/1645)).
+
+#### `calc_Huntley2006()`
+
+- The `cores` argument now can be set to `NULL` to use all but two of
+  the available cores
+  ([\#1668](https://github.com/R-Lum/Luminescence/issues/1668)).
+
+- The function no longer crashes when plotting in extrapolation mode if
+  both `De.measured` and `De.measured.error` are 0
+  ([\#1672](https://github.com/R-Lum/Luminescence/issues/1672)).
+
+#### `calc_MaxDose()`
+
+- The function is now documented alongside
+  [`calc_MinDose()`](https://r-lum.github.io/Luminescence/reference/calc_MinDose.md)
+  ([\#1674](https://github.com/R-Lum/Luminescence/issues/1674)).
+
+#### `calc_MinDose()`
+
+- The removal of missing values now happens only after restricting the
+  input to the first two columns, so `NA` values in unrelated columns no
+  longer affect the operation of the function
+  ([\#1659](https://github.com/R-Lum/Luminescence/issues/1659)).
+
+- The `multicore` argument has been deprecated and is no longer
+  functional. Its functionality has been replaced by the `cores`
+  argument, which can be set to either a numeric value or to `NULL` to
+  use all but two of the available cores
+  ([\#1668](https://github.com/R-Lum/Luminescence/issues/1668)).
+
+- The function now validates that the initial parameter values supplied
+  via `init.values` are strictly positive, as non-positive values may
+  cause unrecoverable crashes during fitting
+  ([\#1670](https://github.com/R-Lum/Luminescence/issues/1670)).
+
+- It is now possible to disable the second-level bootstrap entirely by
+  setting `bs.N = 0`. This setting corresponds to a classic bootstrap,
+  as opposed to the recycled bootstrap that would otherwise be run by
+  default ([\#1525](https://github.com/R-Lum/Luminescence/issues/1525);
+  thanks to [@MarijnvanderMeij](https://github.com/MarijnvanderMeij) for
+  reporting).
+
+#### `calc_SourceDoseRate()`
+
+- Source type `"Am-241"` was misspelled in the documentation and in the
+  function as `"Am-214"` and has now been corrected. The latter form is
+  no longer accepted
+  ([\#1630](https://github.com/R-Lum/Luminescence/issues/1630)).
+
+#### `calc_Statistics()`
+
+- The function incorrectly ignored the error column whenever only some
+  error values were exactly 0, which led to miscalculated weighted
+  statistics. This was due to a regression introduced in v1.1.2;
+  weighted mean, weighted median and the corresponding standard error
+  and standard deviation are now set to `NA` in such cases, restoring
+  the original behaviour
+  ([\#1686](https://github.com/R-Lum/Luminescence/issues/1686)).
+
+#### `fit_DoseResponseCurve()`
+
+- If the (optional) `TnTx` column contains only `NA`s, the column is
+  ignored instead of causing the entire dataset to be dropped
+  ([\#1632](https://github.com/R-Lum/Luminescence/issues/1632)).
+
+- The number of parameters for `fit.method = "DSE"` and `"QDR"` has been
+  corrected to 5 and 3, respectively. For `"DSE"` this was a regression
+  introduced in v1.3.0, when a new `Di` parameter was added to the
+  `"DSE"` method without updating its parameter count; for `"QDR"`, the
+  behaviour regressed in v1.0.0, when
+  [`predict()`](https://rdrr.io/r/stats/predict.html) was introduced to
+  replace the manual evaluation of the model fit. In both cases, this
+  has no user-visible effect other than changing the number of dose
+  points under which the function switches to using the “LIN” method
+  ([\#1634](https://github.com/R-Lum/Luminescence/issues/1634),
+  [\#1636](https://github.com/R-Lum/Luminescence/issues/1636)).
+
+- When the root finding step failed during the Monte Carlo simulation
+  for `fit.method = "OTORX"` and `mode = "extrapolation"`, the function
+  incorrectly reverted to the `OTOR` model before attempting that
+  iteration again. This turned out to be a simple typo, with minimal
+  impact ([\#1727](https://github.com/R-Lum/Luminescence/issues/1727)).
+
+- The Monte Carlo error estimation considered spurious contributions
+  from iterations that failed to fit. This was caused by the result
+  vector being initialised to 0 instead of `NA`, which resulted in a
+  slight overestimation of errors when any MC model failed to fit
+  ([\#1730](https://github.com/R-Lum/Luminescence/issues/1730)).
+
+#### `fit_OSLLifeTimes()`
+
+- The function no longer crashes when using a list containing an empty
+  `RLum.Analysis` object
+  ([\#1732](https://github.com/R-Lum/Luminescence/issues/1732)).
+
+#### `merge_Risoe.BINfileData()`
+
+- Argument `objects` has been renamed to `object`. The older name will
+  still work, but it generates a deprecation warning
+  ([\#1697](https://github.com/R-Lum/Luminescence/issues/1697)).
+
+#### `merge_RLum()`
+
+- Argument `objects` has been renamed to `object`. The older name will
+  still work, but it generates a deprecation warning
+  ([\#1697](https://github.com/R-Lum/Luminescence/issues/1697)).
+
+#### `merge_RLum.Analysis()`
+
+- Argument `objects` has been renamed to `object`
+  ([\#1697](https://github.com/R-Lum/Luminescence/issues/1697)).
+
+- The function no longer crashes when using a list containing an empty
+  `RLum.Analysis` object
+  ([\#1732](https://github.com/R-Lum/Luminescence/issues/1732)).
+
+#### `merge_RLum.Results()`
+
+- Argument `objects` has been renamed to `object`
+  ([\#1697](https://github.com/R-Lum/Luminescence/issues/1697)).
+
+#### `plot_AbanicoPlot()`
+
+- The default background colour was incorrectly set to `NA`, which in
+  some very specific cases would cause some overplotting, at least on
+  MacOS ([\#1649](https://github.com/R-Lum/Luminescence/issues/1649)).
+
+- The interactive plotting mode (`interactive = TRUE`) is more complete
+  and renders a usable plot
+  ([\#1664](https://github.com/R-Lum/Luminescence/issues/1664),
+  [\#1696](https://github.com/R-Lum/Luminescence/issues/1696)).
+
+- The function no longer crashes when using a list of data frames with
+  different column names
+  ([\#1705](https://github.com/R-Lum/Luminescence/issues/1705)).
+
+- A misspecified `bw` argument now reverts to the default value of
+  `"SJ"` recommended by base R, instead of the historical (and somewhat
+  deprecated) setting of `"nrd0"`
+  ([\#1708](https://github.com/R-Lum/Luminescence/issues/1708)).
+
+- Datasets containing only one non-missing observation are no longer
+  removed and are now plotted, but no density curve is drawn for them
+  unless a numeric value is provided for the `bw` (bandwidth) argument
+  ([\#1707](https://github.com/R-Lum/Luminescence/issues/1707); thanks
+  to Annette Kadereit for reporting).
+
+- Plot colours are now respected when one of the input data frames is
+  automatically removed because it contains no non-missing observations
+  ([\#1707](https://github.com/R-Lum/Luminescence/issues/1707); thanks
+  to Annette Kadereit for reporting).
+
+- The logic for the positioning of the boxplot has been slightly revised
+  to avoid cases in which the boxplot was plotted over one of the axes
+  or even completely outside of the visible area
+  ([\#1713](https://github.com/R-Lum/Luminescence/issues/1713); thanks
+  to Annette Kadereit for reporting).
+
+#### `plot_DetPlot()`
+
+- The `multicore` argument has been deprecated and is no longer
+  functional. Its functionality has been replaced by the `cores`
+  argument, which can be set to either a numeric value or to `NULL` to
+  use all but two of the available cores
+  ([\#1668](https://github.com/R-Lum/Luminescence/issues/1668)).
+
+#### `plot_DoseResponseCurve()`
+
+- The size of the repeated point has been slightly increased to make it
+  more distinguishable
+  ([\#1722](https://github.com/R-Lum/Luminescence/issues/1722)).
+
+#### `plot_KDE()`
+
+- The plot title is no longer drawn in a bold font, and the spacing
+  between words in title and x-axis label has been refined so that the
+  words no longer look attached
+  ([\#1717](https://github.com/R-Lum/Luminescence/issues/1717)).
+
+#### `plot_RadialPlot()`
+
+- The function no longer crashes when the error column contains `NA`
+  values. This was a regression introduced in v1.2.0
+  ([\#1689](https://github.com/R-Lum/Luminescence/issues/1689)).
+
+#### `plot_RLum()`
+
+- The handling of `mtext` has been improved so that, when specified as a
+  list, each element is dispatched (with recycling) to each object being
+  plotted, making `mtext` behave like the `main` argument. This was a
+  regression introduced in v1.2.0
+  ([\#1676](https://github.com/R-Lum/Luminescence/issues/1676)).
+
+#### `plot_RLum.Data.Curve()`
+
+- If the `IRR_UNIT` field is present in a BIN file (version 03 or 04),
+  this is used as unit measure in the axis labels instead of seconds
+  ([\#1721](https://github.com/R-Lum/Luminescence/issues/1721)).
+
+#### `plot_RLum.Data.Spectrum()`
+
+- The setting `legend = FALSE` did not work as advertised and did not
+  remove the legend, e.g., in `plot.type = "multiple.lines"`
+  ([\#1702](https://github.com/R-Lum/Luminescence/issues/1702)).
+
+- The argument `legend.text` was removed from the function definition
+  but it’s still available through the `...` argument
+  ([\#1702](https://github.com/R-Lum/Luminescence/issues/1702)).
+
+#### `read_RF2R()`
+
+- Headers generated by the upcoming `'RLumImage'` package are now
+  supported
+  ([\#1655](https://github.com/R-Lum/Luminescence/issues/1655); thanks
+  to [@DirkMittelstrass](https://github.com/DirkMittelstrass) for
+  reporting).
+
+- Header parsing is now more robust and supports quoted strings
+  containing spaces. Malformed header values no longer cause all headers
+  to be lost: valid values are now stored in the `info` slot, while
+  malformed entries are silently dropped and no longer produce a message
+  ([\#1742](https://github.com/R-Lum/Luminescence/issues/1742); thanks
+  to [@DirkMittelstrass](https://github.com/DirkMittelstrass) for
+  reporting).
+
+#### `read_XSYG2R()`
+
+- The function no longer crashes when an empty `<sequence />` node is
+  found. Such a node may be present if the reader encounters an empty
+  position and would then automatically move on to the next.
+
+#### `verify_SingleGrainData()`
+
+- The message reported when `cleanup = TRUE` is used is now shorter and
+  more readable as it compresses consecutive record indices into a range
+  ([\#1647](https://github.com/R-Lum/Luminescence/issues/1647)).
+
+#### `write_R2BIN()`
+
+- Arguments `file` and `version` are now better validated
+  ([\#1680](https://github.com/R-Lum/Luminescence/issues/1680)).
+
+### Other changes
+
+- We have expanded the family of snapshot tests by testing the function
+  output in more cases, going from 12 to 85 output snapshots
+  ([\#1638](https://github.com/R-Lum/Luminescence/issues/1638)).
+
+- Functions
+  [`plot_AbanicoPlot()`](https://r-lum.github.io/Luminescence/reference/plot_AbanicoPlot.md)
+  and
+  [`plot_RLum.Data.Curve()`](https://r-lum.github.io/Luminescence/reference/plot_RLum.Data.Curve.md)
+  gained a hidden `.shiny` flag which can be set in combination with
+  `interactive = TRUE` to return the `plotly` object instead of printing
+  it. This was added to improve the interactive functionality within the
+  `RLumShiny` package.
+
+------------------------------------------------------------------------
+
 ## Changes in version 1.3.0 (2026-07-22)
 
+CRAN release: 2026-07-22
+
 See also the [write-up for Luminescence v1.3.0 on the REPLAY
-website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/07/luminescence-release-1.3.0/).
+website](https://replay.geog.uni-heidelberg.de/post/2026/07/luminescence-release-1.3.0/).
 
 ### Breaking changes
 
@@ -118,7 +584,7 @@ website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/07/lumin
   ([\#1589](https://github.com/R-Lum/Luminescence/issues/1589)).
 
 - The `summary` keywords accepted by the plotting functions have been
-  made uniformed throughout the package to match those used by
+  uniformed throughout the package to match those used by
   [`calc_Statistics()`](https://r-lum.github.io/Luminescence/reference/calc_Statistics.md)
   ([\#1618](https://github.com/R-Lum/Luminescence/issues/1618)):
 
@@ -292,7 +758,7 @@ website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/07/lumin
   more stable, in particular for `mode = "extrapolation"`. This change
   may introduce some minor differences to the result of this function
   and of other functions that depend on it
-  ([\#1550](https://github.com/R-Lum/Luminescence/issues/1550)).
+  ([\#1552](https://github.com/R-Lum/Luminescence/issues/1552)).
 
 - Vectors containing the starting values for some fitting parameters
   used during the Monte Carlo runs are no longer generated for
@@ -302,10 +768,10 @@ website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/07/lumin
   ([\#1568](https://github.com/R-Lum/Luminescence/issues/1568)).
 
 - The models used to generate sensible starting points for `"SSE"`,
-  “DSE”`,`“SSE+LIN”`,`“GOK”`,`“OTOR”`and`“OTORX”`models now consider the`LxTx\`
-  errors as weights, which may improve the fitting in cases when the
-  data to fit is highly irregular due to very large errors
-  ([\#1570](https://github.com/R-Lum/Luminescence/issues/1570)).
+  `"DSE"`, `"SSE+LIN"`, `"GOK"`, `"OTOR"` and `"OTORX"` models now
+  consider the `LxTx` errors as weights, which may improve the fitting
+  in cases when the data to fit is highly irregular due to very large
+  errors ([\#1570](https://github.com/R-Lum/Luminescence/issues/1570)).
 
 - From the documentation, it was not always clear that the function
   expects columns with values in a particular order and does not look up
@@ -382,7 +848,8 @@ website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/07/lumin
   enable further customisation of the dose-response curve.
 
 - The function can now print the dose-response curves from an
-  `RLum.Results' object created by`analyse_SAR.CWOSL()\`
+  `RLum.Results` object created by
+  [`analyse_SAR.CWOSL()`](https://r-lum.github.io/Luminescence/reference/analyse_SAR.CWOSL.md)
   ([\#1592](https://github.com/R-Lum/Luminescence/issues/1592); thanks
   to [@DirkMittelstrass](https://github.com/DirkMittelstrass) for
   reporting).
@@ -496,7 +963,7 @@ website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/07/lumin
 CRAN release: 2026-03-25
 
 See also the [write-up for Luminescence v1.2.1 on the REPLAY
-website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/03/luminescence-release-1.2.1/).
+website](https://replay.geog.uni-heidelberg.de/post/2026/03/luminescence-release-1.2.1/).
 
 ### Bugfixes and changes
 
@@ -651,7 +1118,7 @@ website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/03/lumin
 CRAN release: 2026-03-12
 
 See also the [write-up for Luminescence v1.2.0 on the REPLAY
-website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/03/luminescence-release-1.2.0/).
+website](https://replay.geog.uni-heidelberg.de/post/2026/03/luminescence-release-1.2.0/).
 
 ### Breaking changes
 
@@ -708,7 +1175,7 @@ website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/03/lumin
   [\#1436](https://github.com/R-Lum/Luminescence/issues/1436)).
 
 See [this post on the REPLAY
-website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2026/01/upcoming-breaking-changes-in-luminescence/)
+website](https://replay.geog.uni-heidelberg.de/post/2026/01/upcoming-breaking-changes-in-luminescence/)
 for more information and advice on how to deal with these changes.
 
 ### New functions
@@ -1240,7 +1707,7 @@ for more information and advice on how to deal with these changes.
 - When the input data is an `RLum.Results` object generated by
   [`calc_AverageDose()`](https://r-lum.github.io/Luminescence/reference/calc_AverageDose.md),
   [`calc_CentralDose()`](https://r-lum.github.io/Luminescence/reference/calc_CentralDose.md),
-  [`calc_MaxDose()`](https://r-lum.github.io/Luminescence/reference/calc_MaxDose.md),
+  [`calc_MaxDose()`](https://r-lum.github.io/Luminescence/reference/calc_MinDose.md),
   [`calc_MinDose()`](https://r-lum.github.io/Luminescence/reference/calc_MinDose.md)
   or
   [`calc_FiniteMixture()`](https://r-lum.github.io/Luminescence/reference/calc_FiniteMixture.md),
@@ -1465,1480 +1932,3 @@ for more information and advice on how to deal with these changes.
   ([\#548](https://github.com/R-Lum/Luminescence/issues/548)).
 
 ------------------------------------------------------------------------
-
-## Changes in version 1.1.2 (2025-12-12)
-
-CRAN release: 2025-12-12
-
-See also the [write-up for Luminescence v1.1.2 on the REPLAY
-website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2025/12/luminescence-release-1.1.2/).
-
-**This package version requires R \>= 4.4**
-
-### Removed functions and deprecations
-
-- The functions `CW2pHMi()`, `CW2pLM()`, `CW2pLMi()` and `CW2pPMi()`
-  (deprecated since 1.0.0) have been removed, but their functionality
-  remains in the corresponding `convert_CW2*()` functions
-  ([\#992](https://github.com/R-Lum/Luminescence/issues/992)).
-
-- Functions `github_commits()`, `github_branches()` and
-  `github_issues()` are now deprecated and will be removed in a future
-  release ([\#1026](https://github.com/R-Lum/Luminescence/issues/1026)).
-
-- Functions `is.RLum()`, `is.RLum.Data()`, `is.RLum.Data.Curve()`,
-  `is.RLum.Data.Spectrum()`, `is.RLum.Data.Image()`,
-  `is.RLum.Analysis()` and `is.RLum.Results()`, and are now deprecated
-  and will be removed in a future release. The best way of testing
-  whether an object is of a given type is by using the
-  [`inherits()`](https://rdrr.io/r/base/class.html) function, as in
-  `inherits(object, "RLum.Data.Curve")`
-  ([\#1034](https://github.com/R-Lum/Luminescence/issues/1034)).
-
-### Bugfixes and changes
-
-#### `analyse_Al2O3C_CrossTalk()`
-
-- The function no longer crashes if `dose_point` is misspecified
-  ([\#1073](https://github.com/R-Lum/Luminescence/issues/1073)).
-
-- The function no longer crashes when called on an `RLum.Analysis`
-  object rather than on a list of them
-  ([\#1182](https://github.com/R-Lum/Luminescence/issues/1182)).
-
-#### `analyse_Al2O3C_Measurement()`
-
-- The function no longer crashes when called on RLum.Analysis objects
-  that do not contain records of type `"OSL (UVVIS)"` or `"TL (UVVIS)"`
-  ([\#1232](https://github.com/R-Lum/Luminescence/issues/1232)).
-
-#### `analyse_baSAR()`
-
-- The function no longer crashes if all objects in the input list are
-  removed because empty
-  ([\#1041](https://github.com/R-Lum/Luminescence/issues/1041)).
-
-- The dose response curves are no longer overplotted when there are
-  fewer than 1000 MCMC iterations
-  ([\#1058](https://github.com/R-Lum/Luminescence/issues/1058)).
-
-#### `analyse_FadingMeasurement()`
-
-- The function no longer crashes when called on an object with missing
-  originator
-  ([\#1130](https://github.com/R-Lum/Luminescence/issues/1130),
-  [\#1154](https://github.com/R-Lum/Luminescence/issues/1154)).
-
-- When called with a list containing object with multiple classes, the
-  message produced reports the correct number of objects removed from
-  the analysis
-  ([\#1132](https://github.com/R-Lum/Luminescence/issues/1132)).
-
-- The function no longer crashes if the normalisation term is zero,
-  which should never happen in real-life analyses, but it may occur if
-  the input data is somewhat malformed
-  ([\#1144](https://github.com/R-Lum/Luminescence/issues/1144)).
-
-- The function no longer crashes when attempting to remove undesired
-  objects from a list-like class that overloads the `[<-` S3 method
-  ([\#1236](https://github.com/R-Lum/Luminescence/issues/1236)).
-
-#### `analyse_IRSAR.RF()`
-
-- The function no longer crashes when `n.MC = NULL` is used with the
-  `FIT` method
-  ([\#1055](https://github.com/R-Lum/Luminescence/issues/1055)).
-
-- The function has been optimized to be faster during the bootstrap and
-  sliding phases for the `SLIDE` and `VSLIDE` methods, with speed-ups in
-  the region of 45%
-  ([\#1210](https://github.com/R-Lum/Luminescence/issues/1210),
-  [\#1230](https://github.com/R-Lum/Luminescence/issues/1230)).
-
-#### `analyse_pIRIRSequence()`
-
-- The names in the curves legend are no longer cut off
-  ([\#1206](https://github.com/R-Lum/Luminescence/issues/1206)).
-
-- Labels and legend in the rejection criteria plot are better positioned
-  and no longer cut off
-  ([\#1208](https://github.com/R-Lum/Luminescence/issues/1208)).
-
-- The dashed lines in the summarised DRC plot have been extended to
-  reach the outer box instead of leaving small white gaps at the
-  extremes
-  ([\#1215](https://github.com/R-Lum/Luminescence/issues/1215)).
-
-- The space around the plots when using `plot_singlePanels = FALSE` has
-  been reduced, so that plots can be a bit more detailed
-  ([\#1219](https://github.com/R-Lum/Luminescence/issues/1219)).
-
-#### `analyse_portableOSL()`
-
-- The size of the contour labels for `mode = "surface"` can now be
-  controlled with the `...` argument `labcex` and scale with `cex`
-  ([\#1075](https://github.com/R-Lum/Luminescence/issues/1075)).
-
-- The size of the interpolation grid can be controlled via the `...`
-  arguments `nx` and `ny`
-  ([\#1077](https://github.com/R-Lum/Luminescence/issues/1077)).
-
-- The `coord` argument is now better validated to avoid a crash in case
-  of misspecification
-  ([\#1097](https://github.com/R-Lum/Luminescence/issues/1097)).
-
-#### `analyse_SAR.CWOSL()`
-
-- Empty subplots are inserted when `onlyLxTxTable = TRUE` to preserve
-  the usual plot ordering. This prevents a crash that would otherwise
-  occur if the option was set from
-  [`analyse_pIRIRSequence()`](https://r-lum.github.io/Luminescence/reference/analyse_pIRIRSequence.md)
-  ([\#1186](https://github.com/R-Lum/Luminescence/issues/1186)).
-
-- The function crashed when applied to an object generated by
-  `OSLdecomposition::RLum.OSL_decomposition()` with `plot = TRUE`; this
-  was a regression introduced in v1.1.0
-  ([\#1188](https://github.com/R-Lum/Luminescence/issues/1188); thanks
-  to [@DirkMittelstrass](https://github.com/DirkMittelstrass) for
-  reporting).
-
-- The visualisation of the ‘Checks’ (former rejection criteria) was not
-  very intuitive. To improve the situation, we now display correct
-  inequality symbols, such as `<=` or `>=` instead of `<>` (which was
-  meant to be understood as a comparator). Furthermore, the recycling
-  ratio now shows better the threshold depending on whether the ratio is
-  smaller or larger than one.
-
-- The function crashed if the `rejection.criteria` list specified a
-  `NULL` value for `recuperation_reference`
-  ([\#1204](https://github.com/R-Lum/Luminescence/issues/1204)).
-
-- The space around the plots when using `plot_onePage = TRUE` has been
-  reduced, so that plots can be a bit more detailed
-  ([\#1219](https://github.com/R-Lum/Luminescence/issues/1219)).
-
-- The labels in the rejection criteria plot are now shortened only when
-  the available horizontal space is not wide enough
-  ([\#1222](https://github.com/R-Lum/Luminescence/issues/1222)).
-
-#### `bin_RLum.Data()`
-
-- Validation of the `bin_size` (for `RLum.Data.Curve`), `bin_size.row`
-  and `bin_size.col` (for `RLum.Data.Spectrum`) has been made stricter,
-  so that invalid values produce an error
-  ([\#1104](https://github.com/R-Lum/Luminescence/issues/1104)).
-
-#### `calc_AliquotSize()`
-
-- The function no longer hangs when `grain.size` is set to a small value
-  and its minimum and maximum values are the same
-  ([\#1114](https://github.com/R-Lum/Luminescence/issues/1114)).
-
-- The number of MC iteration is now correctly reported in the plot
-  subtitle
-  ([\#1115](https://github.com/R-Lum/Luminescence/issues/1115)).
-
-- The function now validates the `MC.iter` argument to avoid an ugly
-  crash if a non-positive value is provided
-  ([\#1124](https://github.com/R-Lum/Luminescence/issues/1124)).
-
-- The function now better validates its `grain.size` argument
-  ([\#1152](https://github.com/R-Lum/Luminescence/issues/1152)).
-
-#### `calc_CentralDose()`
-
-- The profile log-likelihood plot is now cut at a log-likelihood of
-  -100, so that for profiles with log-likelihoods more negative than
-  that don’t get too squashed in the region of interest
-  ([\#1227](https://github.com/R-Lum/Luminescence/issues/1227); thanks
-  to [@DirkMittelstrass](https://github.com/DirkMittelstrass) for
-  reporting).
-
-#### `calc_CosmicDoseRate()`
-
-- The function is now more robust against `NA` values in its input
-  arguments
-  ([\#1101](https://github.com/R-Lum/Luminescence/issues/1101)).
-
-#### `calc_EED_Model()`
-
-- A crash that occurred with a small number of simulation was fixed
-  ([\#1051](https://github.com/R-Lum/Luminescence/issues/1051)).
-
-- The error message in case of failed surface interpolation is now
-  clearer and more complete
-  ([\#1053](https://github.com/R-Lum/Luminescence/issues/1053)).
-
-#### `calc_FadingCorr()`
-
-- The function produces an error if `g_value` is an `RLum.Results`
-  object with an unsupported originator instead of returning `NULL`
-  ([\#1136](https://github.com/R-Lum/Luminescence/issues/1136)).
-
-#### `calc_FiniteMixture()`
-
-- The function no longer crashes if the De column contains zeros or
-  missing values
-  ([\#1146](https://github.com/R-Lum/Luminescence/issues/1146),
-  [\#1148](https://github.com/R-Lum/Luminescence/issues/1148)).
-
-- The legend for the components is positioned consistently also at `cex`
-  values other than 1 and is drawn also when `pdf.colors = "gray"`
-  ([\#1175](https://github.com/R-Lum/Luminescence/issues/1175)).
-
-#### `calc_HomogeneityTest()`
-
-- The function ignores all columns after the first two, as they could
-  lead to crashes if they contained non-numeric values
-  ([\#1224](https://github.com/R-Lum/Luminescence/issues/1224)).
-
-#### `calc_Huntley()`
-
-- A warning raised in rare occasions if the number of Monte Carlo
-  iterations is very small has been fixed
-  ([\#1048](https://github.com/R-Lum/Luminescence/issues/1048)).
-
-#### `calc_OSLLxTxRatio()`
-
-- The `Lx.data` and `Tx.data` arguments are now better validated
-  ([\#1178](https://github.com/R-Lum/Luminescence/issues/1178)).
-
-#### `calc_SourceDoseRate()`
-
-- The function returns a clearer error message if dates are specified in
-  an unexpected or ambiguous format
-  ([\#1162](https://github.com/R-Lum/Luminescence/issues/1162)).
-
-#### `calc_Statistics()`
-
-- The function could crash if an error was exactly zero. This affected
-  also the plotting functions that use
-  [`calc_Statistics()`](https://r-lum.github.io/Luminescence/reference/calc_Statistics.md)
-  ([\#1160](https://github.com/R-Lum/Luminescence/issues/1160)).
-
-#### `combine_De_Dr()`
-
-- It is now possible to control the random seeds used by the JAGS MCMC
-  chains via the `method_control` argument
-  ([\#1038](https://github.com/R-Lum/Luminescence/issues/1038)).
-
-#### `fit_CWCurve()`
-
-- If model fitting failed but an object named `fit` was present in the
-  workspace, the function tried to use that one, which would lead to a
-  crash or to unexpected results
-  ([\#1081](https://github.com/R-Lum/Luminescence/issues/1081)).
-
-- The `output.table` field of the `RLum.Results` object returned now
-  contains only columns corresponding to the components effectively
-  fitted ([\#1083](https://github.com/R-Lum/Luminescence/issues/1083)).
-
-#### `fit_EmissionSpectra()`
-
-- The function makes better use of the plot area, leaving smaller
-  margins around the plot
-  ([\#1011](https://github.com/R-Lum/Luminescence/issues/1011)).
-
-#### `fit_OSLLifeTimes()`
-
-- The function throws a warning when the fit fails
-  ([\#1005](https://github.com/R-Lum/Luminescence/issues/1005)).
-
-- The function makes better use of the plot area, leaving smaller
-  margins around the plot
-  ([\#1011](https://github.com/R-Lum/Luminescence/issues/1011)).
-
-#### `install_DevelopmentVersion()`
-
-- The function has been refactored so that it no longer depends on the
-  deprecated `github_branches()` function
-  ([\#1079](https://github.com/R-Lum/Luminescence/issues/1079)).
-
-#### `plot_AbanicoPlot()`
-
-- A warning was raised if the function returned early (for example due
-  to invalid inputs) and the graphical device was off
-  ([\#1001](https://github.com/R-Lum/Luminescence/issues/1001)).
-
-- The function now validates the `frame` argument in order to avoid
-  crashing on misspecified values
-  ([\#1036](https://github.com/R-Lum/Luminescence/issues/1036)).
-
-- The function no longer crashes when a small `plot.ratio` value is
-  specified
-  ([\#1062](https://github.com/R-Lum/Luminescence/issues/1062)).
-
-- The function now validates the `zlim` argument to avoid a crash if
-  negative values are used with `log.z = TRUE`
-  ([\#1063](https://github.com/R-Lum/Luminescence/issues/1063)).
-
-- The legend text now scales better at high `cex` values
-  ([\#1066](https://github.com/R-Lum/Luminescence/issues/1066)).
-
-- If `summary.pos` contains multiple valid positions, the first one is
-  used rather than generating warnings and not showing the summary
-  ([\#1093](https://github.com/R-Lum/Luminescence/issues/1093)).
-
-#### `plot_DoseResponseCurve()`
-
-- The plot symbols are now correctly assigned for
-  `mode = "extrapolation"` and in the legend. If `reg_points_pch` is
-  specified, it must now be a vector of 3 elements, corresponding to the
-  symbols to use for normal points, point 0 and repeated points,
-  respectively
-  ([\#1072](https://github.com/R-Lum/Luminescence/issues/1072)).
-
-- The baseline line in the sensitivity plot has been extended to reach
-  the outer box instead of leaving small white gaps at the extremes
-  ([\#1213](https://github.com/R-Lum/Luminescence/issues/1213)).
-
-- The space around the plots has been reduced, so that plots can be a
-  bit more detailed
-  ([\#1219](https://github.com/R-Lum/Luminescence/issues/1219)).
-
-#### `plot_DRTResponse()`
-
-- The function now suppresses the warnings generated by
-  [`graphics::arrows()`](https://rdrr.io/r/graphics/arrows.html) when
-  datasets having wildly different distributions are plotted
-  ([\#1184](https://github.com/R-Lum/Luminescence/issues/1184)).
-
-#### `plot_Histogram()`
-
-- Since version 1.0.0, setting `summary.pos` to one of “left”, “center”
-  or “right” and `normal_curve = TRUE` resulted in the summary table not
-  being visible
-  ([\#1118](https://github.com/R-Lum/Luminescence/issues/1118)).
-
-#### `plot_KDE()`
-
-- Space at the bottom of the plot is no longer added when the boxplot is
-  not plotted because `values.cumulative = FALSE`
-  ([\#1110](https://github.com/R-Lum/Luminescence/issues/1110)).
-
-- The plot title and subtitle now respect the `cex` option
-  ([\#1112](https://github.com/R-Lum/Luminescence/issues/1112)).
-
-- The function now better validates its input arguments
-  ([\#1158](https://github.com/R-Lum/Luminescence/issues/1158)).
-
-#### `plot_RadialPlot()`
-
-- The function avoids some possible overprinting at the extremes of the
-  z-axis labels and draws lines at the extremes of the ellipse
-  ([\#1013](https://github.com/R-Lum/Luminescence/issues/1013)).
-
-- The appearance of the y-axis ticks has been improved in the case when
-  the y-axis is particularly narrow
-  ([\#1060](https://github.com/R-Lum/Luminescence/issues/1060)).
-
-- If `summary.pos` contains multiple valid positions, use the first one
-  rather than generating warnings and not showing the summary
-  ([\#1093](https://github.com/R-Lum/Luminescence/issues/1093)).
-
-- The functionality of the `stats` argument had regressed in version
-  1.1.1, and now has been restored
-  ([\#1106](https://github.com/R-Lum/Luminescence/issues/1106)).
-
-- The function better validates the `zlim` argument, to avoid crashes on
-  misspecified axis limits if `log.z = TRUE`
-  ([\#1140](https://github.com/R-Lum/Luminescence/issues/1140)).
-
-- The function now always returns invisibly the list of plot parameters,
-  independently of the value of the `output` argument. This change made
-  that argument redundant, so it was removed. This should have no impact
-  on users; if specified, it will be ignored
-  ([\#1142](https://github.com/R-Lum/Luminescence/issues/1142)).
-
-- The function stops with an error instead of crashing if the input
-  contains only 1 data point
-  ([\#1150](https://github.com/R-Lum/Luminescence/issues/1150)).
-
-- The function reports a message instead of throwing a warning when
-  adding a line with negative value if `log.z = TRUE`
-  ([\#1164](https://github.com/R-Lum/Luminescence/issues/1164),
-  [\#1168](https://github.com/R-Lum/Luminescence/issues/1168)).
-
-- The summary text and line labels now scale better at high `cex` values
-  ([\#1170](https://github.com/R-Lum/Luminescence/issues/1170)).
-
-- The function no lonver crashes if `central.value` is a non-positive
-  value when `log.z = TRUE`
-  ([\#1173](https://github.com/R-Lum/Luminescence/issues/1173)).
-
-- Some graphical artifacts related to the 2-sigma bar, which would
-  appear for extreme settings of the `central.value` argument have been
-  fixed ([\#1194](https://github.com/R-Lum/Luminescence/issues/1194)).
-
-#### `plot_RLum.Analysis()`
-
-- Setting `records_max` to a value larger than the number of curves no
-  longer generates spurious legend entries
-  ([\#1017](https://github.com/R-Lum/Luminescence/issues/1017)).
-
-- The function now supports plotting of `RLum.Data.Image` objects
-  contained in its records
-  ([\#1028](https://github.com/R-Lum/Luminescence/issues/1028)).
-
-#### `plot_RLum.Data.Image()`
-
-- The function now supports the `...` argument `mtext`
-  ([\#1031](https://github.com/R-Lum/Luminescence/issues/1031)).
-
-- The positioning of axis ticks and labels in raster and contour plots
-  of low-resolution images has been improved, and pixel numbering starts
-  consistently from 1
-  ([\#1191](https://github.com/R-Lum/Luminescence/issues/1191)).
-
-- The function gained support for the arguments `digits` and
-  `scientific`. Moreover, it is possible to specify multiple plot titles
-  in `main`. Thanks to [@Zink-Antoine](https://github.com/Zink-Antoine)
-  for the contribution
-  ([\#1197](https://github.com/R-Lum/Luminescence/issues/1197)).
-
-#### `plot_RLum.Data.Spectrum()`
-
-- The function doesn’t crash anymore if `bg.spectrum` is used and `ylim`
-  specifies an interval that doesn’t contain any background channels
-  ([\#1019](https://github.com/R-Lum/Luminescence/issues/1019)).
-
-- The function doesn’t crash anymore if the value of `frames` given is
-  too large when `plot.type = "multiple.lines"`
-  ([\#1021](https://github.com/R-Lum/Luminescence/issues/1021)).
-
-- The legend text now scales better at high `cex` values
-  ([\#1068](https://github.com/R-Lum/Luminescence/issues/1068)).
-
-- The function now makes better use of the plot area by setting smaller
-  margins and reducing the spacing between axis elements
-  ([\#1070](https://github.com/R-Lum/Luminescence/issues/1070)).
-
-#### `read_PSL2R()`
-
-- The function gained a `pattern` argument to refine the list of files
-  to read when a directory path is specified
-  ([\#1099](https://github.com/R-Lum/Luminescence/issues/1099)).
-
-#### `read_SPE2R()`
-
-- The function no longer crashes if `frame.range` is misspecified
-  ([\#1138](https://github.com/R-Lum/Luminescence/issues/1138)).
-
-#### `subset.Risoe.BINfileData()`
-
-- The function also updates the `.RESERVED` slot (if present) to keep
-  only the elements selected
-  ([\#1089](https://github.com/R-Lum/Luminescence/issues/1089)).
-
-#### `verify_SingleGrainData()`
-
-- The function crashed on empty `RLum.Analysis-class` objects. Now a
-  warning and `NULL` is returned.
-
-### Other changes
-
-- The `ExampleData.portableOSL` file has been updated with surface
-  coordinates
-  ([\#1095](https://github.com/R-Lum/Luminescence/issues/1095)).
-
-- Documentation for all example data (including synthetic datasets) is
-  now more easily findable from RStudio
-  ([\#1166](https://github.com/R-Lum/Luminescence/issues/1166); thanks
-  to [@DirkMittelstrass](https://github.com/DirkMittelstrass) for
-  reporting).
-
-------------------------------------------------------------------------
-
-## Changes in version 1.1.1 (2025-09-11)
-
-CRAN release: 2025-09-11
-
-See also the [write-up for Luminescence v1.1.1 on the REPLAY
-website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2025/09/luminescence-release-1.1.1/).
-
-### New functions
-
-- [`correct_PMTLinearity()`](https://r-lum.github.io/Luminescence/reference/correct_PMTLinearity.md):
-  A helper function to correct luminescence signals measured with a PMT
-  for count linearity
-  ([\#920](https://github.com/R-Lum/Luminescence/issues/920)).
-
-### Removed functions and deprecations
-
-- Functions `calc_Kars2008()` (defunct since 0.9.26),
-  `Analyse_SAR.OSLdata()` (since 1.0.0), `PSL2Risoe.BINfileData()`
-  (since 1.0.0) and `Second2Gray()` (since 1.0.0) have been removed from
-  the package. Their functionality can be found in functions
-  [`calc_Huntley2006()`](https://r-lum.github.io/Luminescence/reference/calc_Huntley2006.md),
-  [`analyse_SAR.CWOSL()`](https://r-lum.github.io/Luminescence/reference/analyse_SAR.CWOSL.md),
-  [`convert_PSL2Risoe.BINfileData()`](https://r-lum.github.io/Luminescence/reference/convert_PSL2Risoe.BINfileData.md)
-  and
-  [`convert_Second2Gray()`](https://r-lum.github.io/Luminescence/reference/convert_Second2Gray.md),
-  respectively.
-
-- Function `get_Risoe.BINfileData()` has been removed as it was not used
-  and provided no benefits to the user
-  ([\#945](https://github.com/R-Lum/Luminescence/issues/945)).
-
-### Bugfixes and changes
-
-### `add_metadata<-()`
-
-- The function throws an error if trying to assign a `NULL` value
-  instead of silently ignoring it
-  ([\#946](https://github.com/R-Lum/Luminescence/issues/946)).
-
-#### `analyse_Al2O3C_ITC()`
-
-- The function returns early if the fitting of the dose response curve
-  fails ([\#979](https://github.com/R-Lum/Luminescence/issues/979)).
-
-#### `analyse_Al2O3C_Measurement()`
-
-- The function allows to specify the `cross_talk_argument` as a numeric
-  vector of length 3, as was already documented
-  ([\#930](https://github.com/R-Lum/Luminescence/issues/930)).
-
-#### `analyse_SAR.CWOSL()`
-
-- The function crashed if any of the curves had `NA` as its `recordType`
-  ([\#867](https://github.com/R-Lum/Luminescence/issues/867)).
-
-#### `apply_CosmicRayRemoval()`
-
-- The `method` argument of
-  [`smooth_RLum()`](https://r-lum.github.io/Luminescence/reference/smooth_RLum.md)
-  was not reachable via `...` as the
-  [`apply_CosmicRayRemoval()`](https://r-lum.github.io/Luminescence/reference/apply_CosmicRayRemoval.md)
-  already has an argument called `method`. Now the `...` argument is
-  called `method_smooth_RLum` and works as expected (9b27467).
-
-- The function crashed if method = “Pych”`and`MARGIN = 1\` were
-  specified. The function now better validates its inputs and no longer
-  returns invisibly but normally
-  ([\#987](https://github.com/R-Lum/Luminescence/issues/987)).
-
-#### `calc_AliquotSize()`
-
-- The legend text now scales better at non-default cex settings
-  ([\#849](https://github.com/R-Lum/Luminescence/issues/849)).
-
-#### `calc_Huntley2006()`
-
-- If the user set the `n.MC` argument, this was also used in the fitting
-  of the dose response curve. This was not the expected behaviour, and
-  resulted in poor performance (a 2x slowdown for `n.MC = 10000`). This
-  regression was introduced in version 1.0.0
-  ([\#867](https://github.com/R-Lum/Luminescence/issues/867)).
-
-#### `calc_MaxDose()`
-
-- The function crashed if `sigmab` was set to a very small value
-  ([\#898](https://github.com/R-Lum/Luminescence/issues/898)).
-
-#### `calc_MinDose()`
-
-- The function crashed when bootstrapping with `bs.M = 1`. Now the
-  `bs.M` parameter is silently reset to 2 in that case, although such
-  low values are discouraged as they may trigger a warning during loess
-  fitting ([\#900](https://github.com/R-Lum/Luminescence/issues/900)).
-
-- The function crashed when all rows in the input data set contained
-  `NA` values
-  ([\#915](https://github.com/R-Lum/Luminescence/issues/915)).
-
-#### `calc_Statistics()`
-
-- The computation of the weighted median is now correct, while before it
-  corresponded to the simple (unweighted) median
-  ([\#905](https://github.com/R-Lum/Luminescence/issues/905)).
-
-#### `fit_CWCurve()`
-
-- The function hanged on particularly small datasets as it tried to fit
-  too many components for the available data
-  ([\#953](https://github.com/R-Lum/Luminescence/issues/953)).
-
-#### `fit_DoseResponseCurve()`
-
-- The object returned now contains an additional `.De.raw` column to
-  store the calculated De value computed by the fitting function “as
-  is”, without setting meaningless results to `NA`. The `De` and
-  `.De.raw` columns differ only for `mode = "interpolation"`, where the
-  first sets the De to `NA` if negative, while the latter doesn’t. It is
-  then up to the user to decide what to do with those values, bearing in
-  mind that they may be arbitrary when negative
-  ([\#957](https://github.com/R-Lum/Luminescence/issues/957)).
-
-- The message reported for `fit.method = "QDR"` now states correctly
-  whether the fit succeeded or failed
-  ([\#961](https://github.com/R-Lum/Luminescence/issues/961)).
-
-- The computation of De.MC, De.Error and HPDI for
-  `mode = "interpolation"` has been modified to account correctly for
-  possible negative De values resulting from the fit
-  ([\#963](https://github.com/R-Lum/Luminescence/issues/963)).
-
-- Previously, a single `NA` value in the Monte Carlo results prevented
-  the computation of Highest Density Intervals (HPDI). This limitation
-  has been removed, and now HPDIs are reported in more cases
-  ([\#976](https://github.com/R-Lum/Luminescence/issues/976)).
-
-- The columns of the `results$De` data frame are now reported in a
-  different order; an additional “Mode” column reports the value of the
-  `mode` argument; columns meant for internal use have been moved to the
-  end and their names are now prefixed with `.`
-  ([\#974](https://github.com/R-Lum/Luminescence/issues/974)).
-
-#### `fit_LMCurve()`
-
-- The automatic correction of the x-axis limits when `log = "x"` is
-  specified and the lowest value is set to `0` threw the correct warning
-  but actually did nothing (38e4324).
-
-#### `fit_OSLLifeTimes()`
-
-- The function ensures that the `signal_range` argument doesn’t contain
-  negative values instead of crashing
-  ([\#896](https://github.com/R-Lum/Luminescence/issues/896)).
-
-#### `get_RLum()`
-
-- The function doesn’t crash anymore on `RLum.Analysis` objects if using
-  the `record.id` argument removes all available records
-  ([\#873](https://github.com/R-Lum/Luminescence/issues/873)).
-
-- An internal optimization increased the performance of the function.
-  The difference is not perceivable on single calls to
-  [`get_RLum()`](https://r-lum.github.io/Luminescence/reference/get_RLum.md),
-  but the change brings a visible speed up when
-  [`merge_RLum()`](https://r-lum.github.io/Luminescence/reference/merge_RLum.md)
-  is called over a sufficiently large number of `RLum.Analysis` objects
-  ([\#875](https://github.com/R-Lum/Luminescence/issues/875)).
-
-#### `merge_Risoe.BINfileData()`
-
-- The function gained argument `verbose` to allow disabling the output
-  from
-  [`read_BIN2R()`](https://r-lum.github.io/Luminescence/reference/read_BIN2R.md)
-  and
-  [`write_R2BIN()`](https://r-lum.github.io/Luminescence/reference/write_R2BIN.md)
-  ([\#950](https://github.com/R-Lum/Luminescence/issues/950)).
-
-#### `plot_AbanicoPlot()`
-
-- The positioning of the y-axis label has been improved to be centred
-  around the zero line
-  ([\#847](https://github.com/R-Lum/Luminescence/issues/847)). The
-  z-axis tickmarks and labels are better drawn at non-default cex values
-  ([\#865](https://github.com/R-Lum/Luminescence/issues/865)).
-
-- The minor grid lines were drawn incorrectly in a rotated plot
-  ([\#849](https://github.com/R-Lum/Luminescence/issues/849)).
-
-- Some plot elements didn’t scale correctly at non-default cex values
-  ([\#861](https://github.com/R-Lum/Luminescence/issues/861),
-  [\#879](https://github.com/R-Lum/Luminescence/issues/879)).
-
-- The `frame` argument is now respected also when the plot is rotated
-  ([\#863](https://github.com/R-Lum/Luminescence/issues/863)).
-
-- The weighted median is computed correctly when `summary = "median"`
-  and `summary.method = "weighted"` are used
-  ([\#905](https://github.com/R-Lum/Luminescence/issues/905)).
-
-#### `plot_DoseResponseCurve()`
-
-- We added support for the `log` graphical parameter, which can be used
-  if the fit was obtained with mode other than `"extrapolation"`
-  ([\#820](https://github.com/R-Lum/Luminescence/issues/820)).
-
-- The normal curve drawn as part of the histogram plot could appear very
-  jagged or even as a straight line, as it could happen that too few
-  points were actually used when drawing the curve
-  ([\#843](https://github.com/R-Lum/Luminescence/issues/843)).
-
-- The legend symbols did not match anymore the plotted regeneration/dose
-  points. This also affected functions such as
-  [`analyse_SAR.CWOSL()`](https://r-lum.github.io/Luminescence/reference/analyse_SAR.CWOSL.md)
-  and
-  [`analyse_pIRIRSequence()`](https://r-lum.github.io/Luminescence/reference/analyse_pIRIRSequence.md)
-  (9ba54e65).
-
-- The legend positioning can now be controlled via the `...` argument
-  `legend.pos`
-  ([\#959](https://github.com/R-Lum/Luminescence/issues/959)).
-
-#### `plot_DRCSummary()`
-
-- The dose-response curve is now plotted as expected, after a regression
-  in 1.1.0 caused the function to produce an empty plot
-  ([\#969](https://github.com/R-Lum/Luminescence/issues/969)).
-
-#### `plot_DRTResults()`
-
-- Points didn’t scale correctly at non-default `cex` values
-  ([\#879](https://github.com/R-Lum/Luminescence/issues/879)).
-
-- Option `summary = "weighted$median"` is now officially supported
-  ([\#905](https://github.com/R-Lum/Luminescence/issues/905)).
-
-#### `plot_Histogram()`
-
-- Option `summary = "median.weighted"` is now officially supported
-  ([\#905](https://github.com/R-Lum/Luminescence/issues/905)).
-
-#### `plot_KDE()`
-
-- Outlier points didn’t scale correctly at non-default `cex` values
-  ([\#879](https://github.com/R-Lum/Luminescence/issues/879)).
-
-- The weighted median is computed correctly when `summary = "median"`
-  and `summary.method = "weighted"` are used
-  ([\#905](https://github.com/R-Lum/Luminescence/issues/905)).
-
-#### `plot_RadialPlot()`
-
-- Option `summary = "median.weighted"` is now officially supported
-  ([\#905](https://github.com/R-Lum/Luminescence/issues/905)).
-
-#### `plot_Risoe.BINfileData()`
-
-- Input arguments are validate more strictly to avoid unexpected crashes
-  in case of misspecification
-  ([\#964](https://github.com/R-Lum/Luminescence/issues/964)).
-
-- The x-axis label for TL curves now reports temperature rather than
-  time, consistently with the data shown
-  ([\#971](https://github.com/R-Lum/Luminescence/issues/971)).
-
-#### `plot_RLum.Analysis()`
-
-- The legend text now scales better at non-default `cex` settings
-  ([\#854](https://github.com/R-Lum/Luminescence/issues/854)).
-
-#### `plot_RLum.Data.Curve()`
-
-- The function gained a new logical argument `interactive` that enables
-  interactive plotting of curves using
-  [`plotly::plot_ly()`](https://rdrr.io/pkg/plotly/man/plot_ly.html). It
-  requires the suggested package `'plotly'` to be installed (e4746eaa).
-
-#### `plot_RLum.Data.Spectrum()`
-
-- Types `image` and `contour` gained more control of the contour line
-  labels through the argument `labcex`.
-
-- For plot types `"image"` and `"multiple.lines"` the `...` logical
-  argument `legend` was added.
-
-- Plot type `"image"` further gained a legend with support through `...`
-  for `legend.pos`, `legend.horiz` and `n_breaks` to control the number
-  of colours in the graphic.
-
-#### `read_BIN2R()`
-
-- The `FNAME` metadata field is no longer left empty if the BIN-file
-  didn’t specify one, but it’s populated with the BIN-file name without
-  extension. This is the behaviour that was present up to version
-  0.9.26, but version 1.0.0 had regressed it
-  ([\#928](https://github.com/R-Lum/Luminescence/issues/928)).
-
-#### `read_XSYG2R()`
-
-- Add support for the new function
-  [`correct_PMTLinearity()`](https://r-lum.github.io/Luminescence/reference/correct_PMTLinearity.md)
-  ([\#920](https://github.com/R-Lum/Luminescence/issues/920)).
-
-#### `smooth_RLum()`
-
-- Add support for the Poisson smoother of Carter et al. (2018), which
-  can be accessed by setting `method = "Carter_etal_2018"`. This is
-  helpful to ensure that the dark-background counts signals measured by
-  a photomultiplier tube follow a Poisson statistic, and smooths
-  non-conforming values according to an average over four neighbours
-  ([\#921](https://github.com/R-Lum/Luminescence/issues/921)).
-
-#### `trim_RLum.Data()`
-
-- The function crashed if both values specified in the `trim_range`
-  argument exceeded the number of channels available
-  ([\#871](https://github.com/R-Lum/Luminescence/issues/871)).
-
-#### `use_DRAC()`
-
-- Report the message produced by the DRAC server more reliably in case
-  of error ([\#982](https://github.com/R-Lum/Luminescence/issues/982)).
-
-------------------------------------------------------------------------
-
-## Changes in version 1.1.0 (2025-06-11)
-
-CRAN release: 2025-06-11
-
-See also the [write-up for Luminescence v1.1.0 on the REPLAY
-website](https://replay.geog.uni-heidelberg.de/REPLAY-website/post/2025/06/luminescence-release-1.1.0/).
-
-### New functions
-
-- [`remove_SignalBackground()`](https://r-lum.github.io/Luminescence/reference/remove_SignalBackground.md):
-  A user-friendly method to subtract background signals from various
-  curves in `RLum.Analysis` objects without resorting to
-  [`lapply()`](https://rdrr.io/r/base/lapply.html) loops. Depending on
-  the record type, the function identifies pairs of curves; for
-  instance, if in a sequence, a `TL` curve is immediately followed by
-  another `TL` curve, the second curve is recognised as the background
-  signal, subtracted using
-  [`merge_RLum()`](https://r-lum.github.io/Luminescence/reference/merge_RLum.md)
-  and subsequently removed from the object (if desired). Alternatively,
-  a set of potential background curves can be specified.
-
-- [`remove_RLum()`](https://r-lum.github.io/Luminescence/reference/remove_RLum.md):
-  This function further completes the set of methods that can handle and
-  modify `RLum-class` objects. It operates on `RLum.Analysis` objects or
-  a `list` of such objects to remove unwanted records from datasets.
-  Although the function calls
-  [`get_RLum()`](https://r-lum.github.io/Luminescence/reference/get_RLum.md)
-  and relies on its functionality, the new implementation facilitates a
-  more logical workflow and analysis pipeline.
-
-- [`.as.latex.table()`](https://r-lum.github.io/Luminescence/reference/dot-as.latex.table.md):
-  Converts `RLum.Results` objects where suitable to `LaTeX` ready
-  tables, for instance, objects produced by
-  [`use_DRAC()`](https://r-lum.github.io/Luminescence/reference/use_DRAC.md).
-  The function has been present in the package as an internal function
-  for many years; now it is exported and better linked to make it
-  discoverable.
-
-### New datasets
-
-- `RF70Curves` is a new dataset consisting of two IR-RF curves measured
-  with the RF70 protocol. This new dataset provides a more realistic
-  example for
-  [`analyse_IRSAR.RF()`](https://r-lum.github.io/Luminescence/reference/analyse_IRSAR.RF.md).
-
-### Breaking changes
-
-- Function `get_Quote()` is no longer exported, but remains available as
-  an internal function. This is unlikely to affect any user of the
-  package, as the function was only meant to report a random quote at
-  startup ([\#644](https://github.com/R-Lum/Luminescence/issues/644)).
-
-- In the functions
-  [`fit_DoseResponseCurve()`](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)
-  and
-  [`plot_GrowthCurve()`](https://r-lum.github.io/Luminescence/reference/plot_GrowthCurve.md),
-  the `fit.method` option `LambertW` was replaced by the more correct
-  term `OTOR`.
-
-- Argument `cex.global` has been removed from
-  [`plot_DoseResponseCurve()`](https://r-lum.github.io/Luminescence/reference/plot_DoseResponseCurve.md)
-  (and consequently also from
-  [`plot_GrowthCurve()`](https://r-lum.github.io/Luminescence/reference/plot_GrowthCurve.md)),
-  and if set it will be silently ignored. Users can set the `cex`
-  graphical parameter via `...` in its place
-  ([\#831](https://github.com/R-Lum/Luminescence/issues/831)).
-
-- The `fit.method` and `fit.advanced` arguments of function
-  [`fit_LMCurve()`](https://r-lum.github.io/Luminescence/reference/fit_LMCurve.md)
-  have been removed. The default fitting method has been changed from
-  `port` to `LM`, and support for the `port` algorithm has been removed.
-  From now on, argument `fit.method` is silently ignored, unless
-  `fit.method = 'port'` is used, in which case a deprecation warning is
-  thrown ([\#793](https://github.com/R-Lum/Luminescence/issues/793)).
-
-- The fundamental physical constants used in the package (such as
-  Boltzmann constant, Planck constant, etc.) have been uniformed to
-  those reported in the [NIST Reference on Constants, Units and
-  Uncertainty](https://physics.nist.gov/cuu/Constants/). This may affect
-  the numerical results of the following functions:
-  [`calc_FastRatio()`](https://r-lum.github.io/Luminescence/reference/calc_FastRatio.md),
-  [`calc_Huntley2006()`](https://r-lum.github.io/Luminescence/reference/calc_Huntley2006.md),
-  [`calc_SourceDoseRate()`](https://r-lum.github.io/Luminescence/reference/calc_SourceDoseRate.md),
-  [`calc_ThermalLifetime()`](https://r-lum.github.io/Luminescence/reference/calc_ThermalLifetime.md),
-  [`convert_Activity2Concentration()`](https://r-lum.github.io/Luminescence/reference/convert_Activity2Concentration.md),
-  [`convert_Wavelength2Energy()`](https://r-lum.github.io/Luminescence/reference/convert_Wavelength2Energy.md),
-  [`fit_CWCurve()`](https://r-lum.github.io/Luminescence/reference/fit_CWCurve.md),
-  [`fit_LMCurve()`](https://r-lum.github.io/Luminescence/reference/fit_LMCurve.md),
-  [`fit_SurfaceExposure()`](https://r-lum.github.io/Luminescence/reference/fit_SurfaceExposure.md),
-  [`fit_ThermalQuenching()`](https://r-lum.github.io/Luminescence/reference/fit_ThermalQuenching.md)
-  ([\#693](https://github.com/R-Lum/Luminescence/issues/693)).
-
-### Bugfixes and changes
-
-#### `analyse_baSAR()`
-
-- The function crashed if only one aliquot was kept
-  ([\#834](https://github.com/R-Lum/Luminescence/issues/834)).
-
-#### `analyse_FadingMeasurement()`
-
-- The function crashed if the number of `Lx` and `Tx` curves was not
-  equal when `structure = c("Lx", "Tx")`, which is the default. The
-  check that the number of points within each pair of curves has also
-  been improved, and the function now produces more helpful error
-  messages ([\#616](https://github.com/R-Lum/Luminescence/issues/616)).
-
-- The function tests are now less rigorous for different `Lx` and `Tx`
-  sizes. While they should match, numerical rounding issues in the data
-  returned by the measurement devices could previously result in
-  rejection of records, although this had no actual meaning for the data
-  analysis.
-
-#### `analyse_IRSAR.RF()`
-
-- The legend and subtitle texts now scale better at non-default cex
-  settings ([\#803](https://github.com/R-Lum/Luminescence/issues/803)).
-
-- The printing of progress bars and messages to the terminal can now be
-  controlled via the `...` argument `verbose`. Previously this could
-  only be done via the `txtProgressBar` argument (which is still
-  supported), but the new option makes the interface consistent with
-  most other functions
-  ([\#805](https://github.com/R-Lum/Luminescence/issues/805)).
-
-- The `mtext` and `cex` options are respected if `method = "None"`
-  ([\#807](https://github.com/R-Lum/Luminescence/issues/807)).
-
-- The residual plot correctly respects the logarithmic transformation of
-  the x-axis when `log = "x"` or `log = "xy"` are specified
-  ([\#814](https://github.com/R-Lum/Luminescence/issues/814),
-  [\#825](https://github.com/R-Lum/Luminescence/issues/825)).
-
-- The function now deals correctly also with input objects containing
-  multiple curves
-  ([\#816](https://github.com/R-Lum/Luminescence/issues/816)).
-
-- The residual indicator rectangle, which is drawn when `method` is
-  either `SLIDE` or `VSLIDE`, is also drawn when `log = "x"`
-  ([\#821](https://github.com/R-Lum/Luminescence/issues/821)).
-
-- The plotting of the density is silently disabled if `n.MC = NULL`,
-  which avoids a spurious warning
-  ([\#823](https://github.com/R-Lum/Luminescence/issues/823)).
-
-#### `analyse_pIRIRSequence()`
-
-- The function now respects the `cex` graphical argument, and its plot
-  output has been subtly improved thanks to various fixes that have
-  occurred especially in
-  [`plot_DoseResponseCurve()`](https://r-lum.github.io/Luminescence/reference/plot_DoseResponseCurve.md)
-  ([\#831](https://github.com/R-Lum/Luminescence/issues/831)).
-
-#### `analyse_portableOSL()`
-
-- The function now returns an error if `mode` is something other than
-  `"profile"` or `"surface"`.
-
-- The `mode` argument was not respected when operating over a list of
-  objects ([\#673](https://github.com/R-Lum/Luminescence/issues/673)).
-
-- The function crashed when using `mode = "surface"` if the plotting
-  limits were too tight and left only one point
-  ([\#675](https://github.com/R-Lum/Luminescence/issues/675)).
-
-- The check on the validity of the `signal.integral` argument has been
-  improved, and now it occurs only once, so at most one warning is
-  raised if the argument is set to a value exceeding the valid range
-  ([\#678](https://github.com/R-Lum/Luminescence/issues/678),
-  [\#680](https://github.com/R-Lum/Luminescence/issues/680)).
-
-- The function returns a clearer message when no x-coordinates were
-  measured and `mode = "surface"` was used
-  ([\#682](https://github.com/R-Lum/Luminescence/issues/682)).
-
-- The `cex` and `type` graphical parameters can now configured via the
-  `...` argument
-  ([\#684](https://github.com/R-Lum/Luminescence/issues/684)).
-
-- The expected sequence pattern of the input object is validated more
-  thoroughly to avoid crashes in case of misspecification
-  ([\#687](https://github.com/R-Lum/Luminescence/issues/687)).
-
-- The graphical `...` argument `contour` never produced a meaningful
-  contour plot due to an internal error
-  ([\#686](https://github.com/R-Lum/Luminescence/issues/686)). Along,
-  arguments `contour_nlevels` and `contour_col` are now supported
-  through `...` to better control the number and colour of contour
-  lines.
-
-#### `analyse_SAR.CWOSL()`
-
-- Add support for `fit.method = 'OTORX'` following the changes in
-  [`fit_DoseResponseCurve()`](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md);
-  this change includes the new argument `dose.points.test` that is only
-  of use in combination with the `OTORX` fit.
-
-- Add new graphical output if the measurements were single grain
-  measurements, in such case a disc with the position and grain number
-  marked in shown. This plot replaces the IRSL curve check plot, but
-  only for single grain data
-  ([\#797](https://github.com/R-Lum/Luminescence/issues/797)).
-
-- The rejection criteria plot was rewritten and now provides an easier
-  to grasp visual feedback
-  ([\#797](https://github.com/R-Lum/Luminescence/issues/797),
-  [\#798](https://github.com/R-Lum/Luminescence/issues/798)).
-
-- The `IRSL`/`Single Grain` panel swapped place with the rejection
-  criteria panel; the plot numbers remained unchanged to avoid
-  regression.
-
-- More code optimisation for better readability
-  ([\#802](https://github.com/R-Lum/Luminescence/issues/802))
-
-#### `analyse_SAR.TL()`
-
-- A check on the `sequence.structure` argument ensures that a “SIGNAL”
-  entry has been specified
-  ([\#779](https://github.com/R-Lum/Luminescence/issues/779)).
-
-#### `calc_AliquotSize()`
-
-- The new argument `sample_carrier.diameter` allows to specify a value
-  for the diameter of the sample carrier, which up to now was hardcoded
-  to the very common 9.8 mm size
-  ([\#623](https://github.com/R-Lum/Luminescence/issues/623)).
-
-- Several graphical parameters can now configured via `...` arguments,
-  so that the plot appearance can be fully customized
-  ([\#671](https://github.com/R-Lum/Luminescence/issues/671)).
-
-#### `calc_AverageDose()`
-
-- A bug in the implementation prevented the default plot settings from
-  being modified via `...` as advertised. Now custom settings are
-  respected ([\#658](https://github.com/R-Lum/Luminescence/issues/658)).
-
-#### `calc_FiniteMixture()`
-
-- The function doesn’t crash anymore if the `n.components` argument
-  specifies non-consecutive values
-  ([\#691](https://github.com/R-Lum/Luminescence/issues/691)).
-
-- The function sometimes failed to plot some of the densities when the
-  number of components was set to a value of 8 or more
-  ([\#704](https://github.com/R-Lum/Luminescence/issues/704)).
-
-- The density plots would not always be coloured completely, but
-  especially for high values of `sigmab` there would be an unfilled area
-  at the base of the densities
-  ([\#706](https://github.com/R-Lum/Luminescence/issues/706)).
-
-- If the very first iteration over the components during plotting was
-  skipped, then the function crashed as a quantity computed only in that
-  iteration was not available. This happened for very specific
-  combinations of `sigmab` and `n.components`
-  ([\#708](https://github.com/R-Lum/Luminescence/issues/708)).
-
-- Another crash occurred when height of the largest density curve could
-  not be estimated due to the presence of too many `NA` values in the
-  intermediate computations
-  ([\#710](https://github.com/R-Lum/Luminescence/issues/710)).
-
-- The check for significance of each component added to the model has
-  been corrected to be more statistically rigorous
-  ([\#703](https://github.com/R-Lum/Luminescence/issues/703)).
-
-- Blank gaps appearing to the sides of the proportion of components plot
-  for high number of components have been removed
-  ([\#713](https://github.com/R-Lum/Luminescence/issues/713)), as well
-  as extra slices appearing due to rounding errors
-  ([\#715](https://github.com/R-Lum/Luminescence/issues/715)).
-
-- The plot can be better configured via the new `plot.criteria` argument
-  to control whether the statistical criteria curves should be drawn.
-  Moreover, support for the `...` options has been added: `cex` to
-  control the overall scaling, `main.densities`, `main.proportions` and
-  `main.criteria` to set the subplot titles
-  ([\#717](https://github.com/R-Lum/Luminescence/issues/717)).
-
-- Plots are now generated even when results contain `NA` values, as they
-  in general don’t affect the plot. However, when that happens we report
-  it in the plot subtitle
-  ([\#718](https://github.com/R-Lum/Luminescence/issues/718)).
-
-#### `calc_Huntley2006()`
-
-- Support was added for multicore computations via the `cores` argument,
-  and for the nls-fitting control options `maxiter` and `trace`.
-
-- The fitting of the simulated curve with the GOK model has been made
-  more robust: when an initial fit of the model fails, the fit is
-  attempted again with 10 different values for `D0` and the best fit is
-  used. This should reduce the number of occasions in which the error
-  message “Could not fit simulated model curve, check suitability of
-  model and parameters” is reported
-  ([\#660](https://github.com/R-Lum/Luminescence/issues/660)).
-
-- The function crashed if all simulated Lx/Tx values were identical and
-  approximately zero, which could happen if the `rhop` argument was set
-  to a large enough value
-  ([\#725](https://github.com/R-Lum/Luminescence/issues/725)).
-
-- An error message has been improved so that it doesn’t suggest setting
-  the ‘fit.bounds = FALSE’ argument if it has already been set
-  ([\#729](https://github.com/R-Lum/Luminescence/issues/729)).
-
-- The computation of the x-axis limits has been improved to avoid having
-  too much unused horizontal space, especially for
-  `mode = "extrapolation"`
-  ([\#731](https://github.com/R-Lum/Luminescence/issues/731)).
-
-- The scaling of the plot can now be controlled via the `cex` argument
-  ([\#735](https://github.com/R-Lum/Luminescence/issues/735)).
-
-- The plot margins are set more precisely and avoid the summary text to
-  be cut off
-  ([\#737](https://github.com/R-Lum/Luminescence/issues/737)).
-
-#### `calc_MinDose()`
-
-- The function now warns if the number of bootstrap replicates is too
-  low to perform the loess fitting
-  ([\#721](https://github.com/R-Lum/Luminescence/issues/721)).
-
-#### `calc_OSLLxTxRatio()`
-
-- The function returned a warning for wrong integral settings for the
-  `Tx` curve even if no `Tx` curve was provided.
-
-- The function does not check any more of different object types for
-  `Lx.data` and `Tx.data` but validate objects for allowed types (this
-  should have no user-visible effects).
-
-#### `convert_Concentration2DoseRate()`
-
-- The function validates its input values more thoroughly
-  ([\#613](https://github.com/R-Lum/Luminescence/issues/613)).
-
-#### `extract_IrradiationTimes()`
-
-- The function tries a little bit harder to extract the correct duration
-  of TL steps, rendering the data output hopefully a little bit more
-  intelligible
-  ([\#651](https://github.com/R-Lum/Luminescence/issues/651)).
-
-- The function gained a new argument called `return_same_as_input`, with
-  default value of `FALSE`. If set to `TRUE`, the input object (usually
-  an `RLum.Analysis` object or a `list` of them) is returned with
-  updated info elements for `IRR_TIME` and `TIMESINCEIRR`. This makes
-  the `RLum.Analysis` object compatible with functions that explicitly
-  search for those two objects, such as those in the
-  `'OSLdecomposition'` package
-  ([\#752](https://github.com/R-Lum/Luminescence/issues/752)).
-
-#### `fit_DoseResponseCurve()`
-
-- The function now allocates less memory for storing intermediate values
-  ([\#610](https://github.com/R-Lum/Luminescence/issues/610)).
-
-- Add initial support for `OTORX` fitting following Lawless and
-  Timar-Gabor 2024
-  ([\#677](https://github.com/R-Lum/Luminescence/issues/677)). The code
-  implementation follows the Python reference by
-  [jll2](https://github.com/jll2/LumDRC/blob/main/otorx.py) with an
-  addition for an allowed offset parameter `a` set if
-  `fit.force_through_origin = FALSE`. This also enables to support
-  `mode = "extrapolation"` (thanks to John Lawless for his input).
-
-- The code of the function was optimised in several places to improve
-  code readability and reduce redundant calls.
-
-- The models for `EXP`, `EXP+LIN`, `EXP+EXP` and `GOK` are now available
-  in C++. This cut the required computation times in half in benchmark
-  scenarios. More importantly, this performance scales with the number
-  of Monte Carlo runs.
-
-#### `fit_EmissionSpectra()`
-
-- Fix crash when attempting to plot a frame with non-positive counts
-  ([\#761](https://github.com/R-Lum/Luminescence/issues/761)).
-
-#### `fit_LMCurve()`
-
-- If the user asks logarithmic scaling in the y-axis, using either
-  `log = "y"` or `log = "xy"`, this is now ignored when plotting
-  residuals and component contributions
-  ([\#755](https://github.com/R-Lum/Luminescence/issues/755)).
-
-- The plot has been slightly reworked to reduce the cases of “margin too
-  large” errors and to work better at high settings of `cex`
-  ([\#757](https://github.com/R-Lum/Luminescence/issues/757)).
-
-- Missing values in the input data are now silently removed
-  ([\#759](https://github.com/R-Lum/Luminescence/issues/759),
-  [\#763](https://github.com/R-Lum/Luminescence/issues/763)).
-
-- The plotting of residuals, component contributions and legend can now
-  be disabled, and the legend position can be controlled
-  ([\#785](https://github.com/R-Lum/Luminescence/issues/785)).
-
-- The error computed when using option `fit.calcError = TRUE` is now
-  returned correctly, instead of being left to `NA`
-  ([\#789](https://github.com/R-Lum/Luminescence/issues/789)).
-
-- Argument `bg.subtraction` also accepts the option `"none"` to disable
-  background subtraction even if `values.bg` is provided
-  ([\#795](https://github.com/R-Lum/Luminescence/issues/795)).
-
-#### `fit_SurfaceExposure()`
-
-- It is now possible to specify different values for the light
-  attenuation coefficient `mu` when a list of input data is provided
-  ([\#667](https://github.com/R-Lum/Luminescence/issues/667)).
-
-#### `fit_ThermalQuenching()`
-
-- The `trace` option, which can be specified via the `method_control`
-  argument, is now respected.
-
-- The model now get internally reformulated into a mathematically
-  equivalent expression that is easier to fit. This should reduce the
-  number of occasions when the function fails to find a valid solution
-  and improve the uncertainty estimation
-  ([\#696](https://github.com/R-Lum/Luminescence/issues/696)).
-
-#### `get_RLum()`
-
-- The argument `subset` can now be provided as a character that
-  represents a logical expression. Before, it always required a logical
-  expression, but this may lead to odd effects due to the early
-  evaluation happening in R and might not be wanted. Providing `subset`
-  as a character is now a viable workaround in those situations.
-
-#### `import_Data()`
-
-- The function uses the most common formats (BINX and XSYG) before
-  trying all others.
-
-#### `merge_RLum.Data.Curve()`
-
-- The function does no longer stops for differing channel resolutions,
-  but it does issue a warning. The user is responsible for the
-  consequences.
-
-#### `plot_DetPlot()`
-
-- The logic for multicore support was incorrect, which resulted in
-  always starting a parallel cluster even when `multicore = FALSE`
-  ([\#742](https://github.com/R-Lum/Luminescence/issues/742)).
-
-#### `plot_DoseResponseCurve()`
-
-- The response curve always tries to the get the 0 point in the mode
-  `interpolation` and `alternate`
-  ([\#677](https://github.com/R-Lum/Luminescence/issues/677)).
-
-- Minor graphical polish to limit overplotting and also plot a density
-  curve for the `L_n/T_n` signal.
-
-- If `mode = "alternate"`, the message that the equivalent dose could
-  not be fitted is no longer shown.
-
-- Argument `cex.global` has been removed and will be silently ignored
-  ([\#831](https://github.com/R-Lum/Luminescence/issues/831)).
-
-#### `plot_DRCSummary()`
-
-- Add support for `fit.method = 'OTORX'` following the change in
-  [`fit_DoseResponseCurve()`](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)
-  ([\#677](https://github.com/R-Lum/Luminescence/issues/677)).
-
-#### `plot_DRTResults()`
-
-- The summary and legend texts now scale better at non-default cex
-  settings ([\#765](https://github.com/R-Lum/Luminescence/issues/765)).
-
-- Argument `given.dose` is better validated against misspecifications,
-  and setting it to 0 is equivalent to leaving it at its default `NULL`
-  value, which corresponds to avoiding data normalization
-  ([\#767](https://github.com/R-Lum/Luminescence/issues/767),
-  [\#799](https://github.com/R-Lum/Luminescence/issues/799)).
-
-- The function crashed when multiple inputs were used with
-  `boxplot = TRUE` and all preheat values were identical
-  ([\#769](https://github.com/R-Lum/Luminescence/issues/769)).
-
-- Plot title, summary text and legend are now better positioned
-  ([\#773](https://github.com/R-Lum/Luminescence/issues/773),
-  [\#774](https://github.com/R-Lum/Luminescence/issues/774),
-  [\#781](https://github.com/R-Lum/Luminescence/issues/781)).
-
-- A bug in the way colours and symbols are assigned to plot points has
-  been fixed
-  ([\#777](https://github.com/R-Lum/Luminescence/issues/777)).
-
-- The horizontal axis doesn’t include anymore a spurious extra tick that
-  didn’t correspond to any aliquot
-  ([\#783](https://github.com/R-Lum/Luminescence/issues/783)).
-
-#### `plot_GrowthCurve()`
-
-- Add support for `fit.method = 'OTORX'` following the change in
-  [`fit_DoseResponseCurve()`](https://r-lum.github.io/Luminescence/reference/fit_DoseResponseCurve.md)
-  ([\#677](https://github.com/R-Lum/Luminescence/issues/677)).
-
-- Argument `cex.global` has been removed and will be silently ignored
-  ([\#831](https://github.com/R-Lum/Luminescence/issues/831)).
-
-#### `plot_Histogram()`
-
-- The function now doesn’t produce warnings when the input consists of a
-  single-column data frame, as it assumes that the De error is 10^-9
-  ([\#744](https://github.com/R-Lum/Luminescence/issues/744)).
-
-- The right margin is now smaller when errors are not plotted, as there
-  is no need to leave space for the standard error axis
-  ([\#748](https://github.com/R-Lum/Luminescence/issues/748)).
-
-- The summary text now scales better at non-default cex settings
-  ([\#750](https://github.com/R-Lum/Luminescence/issues/750)).
-
-#### `plot_KDE()`
-
-- The function validates its input values more thoroughly
-  ([\#635](https://github.com/R-Lum/Luminescence/issues/635)).
-
-- Setting `summary.pos` to one of “left”, “center” or “right” resulted
-  in the summary table not being visible
-  ([\#642](https://github.com/R-Lum/Luminescence/issues/642)).
-
-- Argument `output` has been removed, and it will be ignored if set
-  ([\#700](https://github.com/R-Lum/Luminescence/issues/700)).
-
-#### `plot_RadialPlot()`
-
-- The function validates its input values more thoroughly
-  ([\#639](https://github.com/R-Lum/Luminescence/issues/639)).
-
-- The legend text now scales better at non-default cex settings
-  ([\#746](https://github.com/R-Lum/Luminescence/issues/746)).
-
-#### `plot_RLum.Data.Curve()`
-
-- We added comprehensive support for base R plotting arguments utilised
-  by [`plot.default()`](https://rdrr.io/r/graphics/plot.default.html)
-  and [`par()`](https://rdrr.io/r/graphics/par.html). This enhancement
-  ensures that all available arguments are fully supported
-  ([\#646](https://github.com/R-Lum/Luminescence/issues/646)).
-
-- The function gained a new logical argument named `auto_scale`. When
-  set in conjunction with either `xlim` or `ylim`, this argument
-  automatically adjusts the plot range to align with the corresponding
-  settings for `xlim` or `ylim`. For instance, if a user intends to plot
-  OSL curves but initially selects the `xlim` range `c(10:30)` to
-  examine the background, the initial count values may be excessively
-  large, resulting in limited visibility. With the introduction of the
-  `auto_scale` option, the `ylim` values are automatically adjusted to
-  compensate for this scenario. The `auto_scale` argument is also
-  accessible through
-  [`plot_RLum.Analysis()`](https://r-lum.github.io/Luminescence/reference/plot_RLum.Analysis.md)
-  and
-  [`plot_RLum()`](https://r-lum.github.io/Luminescence/reference/plot_RLum.md)
-  ([\#646](https://github.com/R-Lum/Luminescence/issues/646)).
-
-#### `plot_RLum.Data.Spectrum()`
-
-- The channel-wise background subtraction was essentially broken if a
-  background spectrum with the same setting was provided. The function
-  always calculated the arithmetic mean. This was fixed, and the manual
-  updated accordingly.
-
-- If a background spectrum was provided, the behaviour of the plot
-  output was sometimes hard to understand without knowledge of the
-  underlying code. This behaviour was improved and now `ylim` will also
-  affect the background spectrum if `bg.channels = NULL` (the default).
-
-- The function could crash if column names were missing and the
-  1bg.spectrum\` argument was used
-  ([\#726](https://github.com/R-Lum/Luminescence/issues/726)).
-
-#### `read_TIFF2R()`
-
-- The argument `file` can now be provided as a `list` or a character
-  vector.
-
-- The function gained a new logical argument called `merge2stack` that
-  can be used if `file` is either a `list` or a character vector of
-  length \> 1. If set to `TRUE`, images are combined into one image
-  stack.
-
-#### `read_XSYG2R()`
-
-- A redundant computation has been removed, and the function is now
-  marginally faster on files where the detector is not a spectrometer
-  ([\#753](https://github.com/R-Lum/Luminescence/issues/753)).
-
-- Prepare import for an updated version of LexStudio2 (\>=v2.31.1) where
-  the horizontal hardware binning finally works after \>10 years, but
-  the changes introduce a lot of `NaN` values that would cause a crash
-  of the function.
-
-- Minor code refactoring for a small speed boost if spectrometer
-  measurements are imported.
-
-#### `scale_GammaDose()`
-
-- Argument `plot_singlePanels` now works as documented, that is it
-  produces all plots in a single page when set to `FALSE` (default), and
-  one plot per page when set to `TRUE`
-  ([\#698](https://github.com/R-Lum/Luminescence/issues/698)).
-
-#### `sort_RLum()`
-
-- The sorting mechanism for `RLum.Analysis` objects has been enhanced.
-  It now enables sorting based on multiple parameters, including sorting
-  all available `info_elements` in a prioritised manner
-  ([\#606](https://github.com/R-Lum/Luminescence/issues/606),
-  [\#620](https://github.com/R-Lum/Luminescence/issues/620)).
-
-- Sorting now works on a list of `RLum.Analysis` objects. If the list
-  contains elements of a different type, they are passed through
-  unchanged. The output is again a list
-  ([\#620](https://github.com/R-Lum/Luminescence/issues/620)).
-
-#### `structure_RLum()`
-
-- The function now returns a less messy data frame because it
-  encapsulates `.pid` and `info` as lists within the data frame. The
-  function is primarily used internally to facilitate a rapid
-  exploration of `RLum.Analysis` object structures. However, the change
-  may potentially break existing code in extremely rare circumstances.
-
-#### `template_DRAC()`
-
-- The function now throws messages instead of warnings for wanted
-  coercions; however, it will be hard on failed coercions that would
-  cause
-  [`use_DRAC()`](https://r-lum.github.io/Luminescence/reference/use_DRAC.md)
-  to fail.
-
-#### `use_DRAC()`
-
-- The function now checks for DRAC specific URL parts if a custom URL is
-  provided; this avoids long searches for unspecific errors.
-
-- Due to the internal masking of submitted values, the initial row order
-  got mixed up; regression from
-  [\#438](https://github.com/R-Lum/Luminescence/issues/438). The order
-  is maintained and the row index corrected; in other words, the masking
-  should now be again invisible to the user.
-
-#### `verify_SingleGrainData()`
-
-- The function crashed if an object originating from
-  [`read_XSYG2R()`](https://r-lum.github.io/Luminescence/reference/read_XSYG2R.md)
-  contained positions in its `info` field
-  ([\#740](https://github.com/R-Lum/Luminescence/issues/740)).
-
-#### `write_R2TIFF()`
-
-- The function now supports the export of more than one image slice.
-
-### Internals
-
-- The internal function `create_UID()` has undergone further
-  optimisation for speed, resulting in a significant performance
-  improvement. Additionally, it now generates a hash value with a
-  consistent length instead of a time stamp with a random number.

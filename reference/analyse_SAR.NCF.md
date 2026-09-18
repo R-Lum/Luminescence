@@ -124,18 +124,18 @@ This function is a beta version.
 
 ## Function version
 
-0.1.0
+0.1.1
 
 ## How to cite
 
 Colombo, M., Kreutzer, S., 2026. analyse_SAR.NCF(): Compute SAR
 palaeodoses using natural sensitivity correction (NCF). Function version
-0.1.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
+0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
 C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
 Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
-Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
+Steinbuch, L., de Boer, A., Bluszcz, A., 2026. Luminescence:
 Comprehensive Luminescence Dating Data Analysis. R package version
-1.3.0. https://r-lum.github.io/Luminescence/
+1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

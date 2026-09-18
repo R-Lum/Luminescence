@@ -3,7 +3,7 @@
 Import files produced by the IR-RF 'ImageJ' macro (`SR-RF.ijm`;
 Mittelstraß and Kreutzer, 2021) into R and create a list of
 [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
-objects
+objects.
 
 ## Usage
 
@@ -36,29 +36,30 @@ Returns an S4
 object containing
 [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md)
 objects for each curve. Results are returned as a list when multiple
-files are processed or `file` is a list.
+files are processed or `file` is a list. The header may contain
+`key = "value"` pairs, which will be stored in the `info` slot;
+incomplete pairs are silently dropped.
 
 ## Details
 
 The results of spatially resolved IR-RF data are summarised in so-called
-RF-files (Mittelstraß and Kreutzer, 2021). This functions provides an
-easy import to process the data seamlessly with the R package
-'Luminescence'. The output of the function can be passed to function
+RF-files (Mittelstraß and Kreutzer, 2021). The output of the function
+can be passed to function
 [analyse_IRSAR.RF](https://r-lum.github.io/Luminescence/reference/analyse_IRSAR.RF.md).
 
 ## Function version
 
-0.1.2
+0.1.4
 
 ## How to cite
 
-Kreutzer, S., 2026. read_RF2R(): Import RF-files to R. Function version
-0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
-C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
-Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
-Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
-Comprehensive Luminescence Dating Data Analysis. R package version
-1.3.0. https://r-lum.github.io/Luminescence/
+Kreutzer, S., Colombo, M., 2026. read_RF2R(): Import RF-files to R.
+Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
+M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
+A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
+J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A., 2026.
+Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
+version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -76,15 +77,15 @@ Geochronology 3, 299–319.
 ## Author
 
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation,
-LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
+LIAG - Institute for Applied Geophysics (Germany)  
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)  
+, RLum Developer Team
 
 ## Examples
 
 ``` r
-
-##Import
 file <- system.file("extdata", "RF_file.rf", package = "Luminescence")
-temp <- read_RF2R(file)
+object <- read_RF2R(file)
 #> 
 #> [read_RF2R()] Importing ...
 #>  path:  /home/runner/work/_temp/Library/Luminescence/extdata

@@ -85,7 +85,7 @@ gval
 #>               T_0.5_PREDICTED T_0.5_PREDICTED.LOWER T_0.5_PREDICTED.UPPER
 #> G_VALUE_2DAYS    395648134315           18339400088           18339400088
 #>                            UID
-#> G_VALUE_2DAYS 49b4e7706d61228d
+#> G_VALUE_2DAYS 5902ee93642da248
 rhop
 #>            FIT         MEAN           SD      Q_0.025       Q_0.16       Q_0.84
 #> 1 3.912967e-06 3.912967e-06 6.027167e-07 2.757662e-06 3.236705e-06 4.522956e-06

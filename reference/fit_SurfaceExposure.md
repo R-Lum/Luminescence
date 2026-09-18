@@ -207,9 +207,9 @@ Burow, C., 2026. fit_SurfaceExposure(): Nonlinear Least Squares Fit for
 OSL surface exposure data. Function version 0.1.0. In: Kreutzer, S.,
 Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
 J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
-D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -340,8 +340,7 @@ results <- fit_SurfaceExposure(
 #>  sigmaphi:    5e-10 
 #> 
 #> To apply the estimated parameters to a sample of unknown age run:
-#> 
-#> fit_SurfaceExposure(data = set_1, sigmaphi = 5e-10, mu = c(0.901, 0.901, 0.901, 0.901))
+#>     fit_SurfaceExposure(data = set_1, sigmaphi = 5e-10, mu = c(0.901, 0.901, 0.901, 0.901))
 get_RLum(results)
 #>     age age_error sigmaphi sigmaphi_error        mu    mu_error
 #> 1 1e+03        NA    5e-10             NA 0.9009494 0.001612274
@@ -390,8 +389,7 @@ results <- fit_SurfaceExposure(
 #>  sigmaphi:    5e-10 
 #> 
 #> To apply the estimated parameters to a sample of unknown age run:
-#> 
-#> fit_SurfaceExposure(data = set_2, sigmaphi = 5e-10, mu = c(0.899, 0.899, 0.899, 0.899, 0.899))
+#>     fit_SurfaceExposure(data = set_2, sigmaphi = 5e-10, mu = c(0.899, 0.899, 0.899, 0.899, 0.899))
 get_RLum(results)
 #>     age age_error sigmaphi sigmaphi_error        mu    mu_error
 #> 1 1e+02        NA    5e-10             NA 0.8986586 0.002323746

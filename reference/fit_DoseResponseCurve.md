@@ -32,12 +32,11 @@ fit_DoseResponseCurve(
   [data.frame](https://rdrr.io/r/base/data.frame.html) or a
   [list](https://rdrr.io/r/base/list.html) of such objects
   (**required**): data frame with columns for `Dose`, `LxTx`,
-  `LxTx.Error` and `TnTx`.
+  `LxTx.Error` and `TnTx` (optional). If these column names are used,
+  then they can be passed in whatever order; otherwise columns are taken
+  by position.
 
-  The column for the test dose response is optional, but requires
-  `'TnTx'` as column name if used. For exponential fits at least three
-  dose points (including the natural) should be provided. If `object` is
-  a list, the function is called on each of its elements.
+  If `object` is a list, the function is called on each of its elements.
 
   If `fit.method = "OTORX"` you have to provide the test dose in the
   same unit as the dose in a column called `Test_Dose`. The function
@@ -370,9 +369,9 @@ Fit a dose-response curve for luminescence data (Lx/Tx against dose).
 Function version 1.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
-J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
+J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A., 2026.
 Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.3.0. https://r-lum.github.io/Luminescence/
+version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -425,11 +424,11 @@ temp <- fit_DoseResponseCurve(LxTxData)
 #> [fit_DoseResponseCurve()] Fit:    SSE (interpolation) | De = 1737.71 | D01 = 1721.83
 get_RLum(temp)
 #>         De De.Error      D01 D01.ERROR D02 D02.ERROR  R R.LOWER R.UPPER Dc
-#> 1 1737.707 62.49229 1721.831  79.09111  NA        NA NA      NA      NA NA
+#> 1 1737.707 62.56468 1721.831  74.83994  NA        NA NA      NA      NA NA
 #>   Dc.LOWER Dc.UPPER D63 D63.LOWER D63.UPPER      D80 D80.LOWER D80.UPPER
 #> 1       NA       NA  NA        NA        NA 2770.426        NA        NA
 #>         n_N    De.MC Fit          Mode HPDI68_L HPDI68_U HPDI95_L HPDI95_U
-#> 1 0.5284827 1742.485 SSE interpolation 1671.255 1803.028  1615.91 1864.523
+#> 1 0.5284827 1742.539 SSE interpolation 1673.613 1803.945 1613.661 1865.635
 #>   .De.plot  .De.raw
 #> 1 1737.707 1737.707
 

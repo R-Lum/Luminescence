@@ -19,7 +19,7 @@ Hintze and Nelson (1998)."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +40,7 @@ Hintze and Nelson (1998)."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Create a violin plot</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.3.0/R/plot_ViolinPlot.R" class="external-link"><code>R/plot_ViolinPlot.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.3.1/R/plot_ViolinPlot.R" class="external-link"><code>R/plot_ViolinPlot.R</code></a></small>
       <div class="d-none name"><code>plot_ViolinPlot.Rd</code></div>
     </div>
 
@@ -62,7 +62,6 @@ Hintze and Nelson (1998).</p>
 <span>  rug <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  summary <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"median"</span><span class="op">)</span>,</span>
 <span>  summary.pos <span class="op">=</span> <span class="st">"sub"</span>,</span>
-<span>  na.rm <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -75,7 +74,7 @@ Hintze and Nelson (1998).</p>
 <dd><p><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> or <a href="RLum.Results-class.html">RLum.Results</a> (<strong>required</strong>):
 input data for plotting. Alternatively a <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> or a <a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a> can
 be provided, but only the first column will be considered by the
-function.</p></dd>
+function. Rows with <code>NA</code> values will be removed prior to plotting.</p></dd>
 
 
 <dt id="arg-boxplot">boxplot<a class="anchor" aria-label="anchor" href="#arg-boxplot"></a></dt>
@@ -100,11 +99,6 @@ optional position keywords (cf. <a href="https://rdrr.io/r/graphics/legend.html"
 Alternatively, the keyword <code>"sub"</code> may be specified to place the summary
 below the plot header. However, this latter option in only possible if
 <code>mtext</code> is not used.</p></dd>
-
-
-<dt id="arg-na-rm">na.rm<a class="anchor" aria-label="anchor" href="#arg-na-rm"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-exclude <code>NA</code> values from the data set prior to any further operations.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -136,7 +130,7 @@ this kind of plot, namely <code>'vioplot'</code> (see references for details).</
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2026. plot_ViolinPlot(): Create a violin plot. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2026. plot_ViolinPlot(): Create a violin plot. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

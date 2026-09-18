@@ -155,9 +155,9 @@ Kreutzer, S., 2026. analyse_pIRIRSequence(): Analyse post-IR IRSL
 measurement sequences. Function version 0.2.8. In: Kreutzer, S., Burow,
 C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -222,25 +222,9 @@ results <- analyse_pIRIRSequence(object,
      sequence.structure = c("TL", "pseudoIRSL1", "pseudoIRSL2"),
      main = "Pseudo pIRIR data set based on quartz OSL",
      plot_singlePanels = TRUE)
-
+#> Warning: [analyse_pIRIRSequence()] Argument 'plot' reset to 'FALSE': the smallest plot size required is 8 x 8 in (at cex = 0.7). Consider plotting via `pdf(..., width = 8, height = 8)`.
 #> [analyse_SAR.CWOSL()] Fit:    SSE (interpolation) | De = 1666.01 | D01 = 1938.31
-
-
-
-
-
-
-
 #> [analyse_SAR.CWOSL()] Fit:    SSE (interpolation) | De = 1666.01 | D01 = 1938.31
-
-
-
-
-
-
-
-
-
 
 
 ##(3) Perform pIRIR analysis (for this example with quartz OSL data!)

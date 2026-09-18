@@ -15,12 +15,12 @@ and
 ## Usage
 
 ``` r
-merge_RLum.Analysis(objects)
+merge_RLum.Analysis(object, ...)
 ```
 
 ## Arguments
 
-- objects:
+- object:
 
   [list](https://rdrr.io/r/base/list.html) of
   [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
@@ -28,6 +28,10 @@ merge_RLum.Analysis(objects)
   Furthermore other objects of class
   [RLum](https://r-lum.github.io/Luminescence/reference/RLum-class.md)
   can be added, see details.
+
+- ...:
+
+  currently not used.
 
 ## Value
 
@@ -45,7 +49,7 @@ has to be provided.
 
 ## Function version
 
-0.2.1
+0.2.4
 
 ## See also
 
@@ -64,12 +68,12 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## How to cite
 
 Kreutzer, S., 2026. merge_RLum.Analysis(): Merge function for
-RLum.Analysis S4 class objects. Function version 0.2.1. In: Kreutzer,
+RLum.Analysis S4 class objects. Function version 0.2.4. In: Kreutzer,
 S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M.,
 Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
-Dating Data Analysis. R package version 1.3.0.
+de Boer, A., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.3.1.
 https://r-lum.github.io/Luminescence/
 
 ## Examples

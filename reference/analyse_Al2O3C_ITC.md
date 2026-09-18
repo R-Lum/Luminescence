@@ -77,7 +77,9 @@ analyse_Al2O3C_ITC(
 
 - ...:
 
-  further arguments that can be passed to the plot output
+  further arguments and graphical parameters to control the plot output.
+  Supported are: `xlab`, `ylab`, `main`, `xlim`, `ylim`, `pt.cex` (point
+  size), `legend.pos`, `legend.text`, and `mtext`.
 
 ## Value
 
@@ -136,17 +138,17 @@ default parameters and can be handled using the argument
 
 ## Function version
 
-0.1.2
+0.1.3
 
 ## How to cite
 
 Kreutzer, S., 2026. analyse_Al2O3C_ITC(): Al2O3 Irradiation Time
-Correction Analysis. Function version 0.1.2. In: Kreutzer, S., Burow,
+Correction Analysis. Function version 0.1.3. In: Kreutzer, S., Burow,
 C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

@@ -131,9 +131,10 @@ plot_DRTResults(
 
 - ...:
 
-  further arguments and graphical parameters passed to
-  [plot](https://rdrr.io/r/graphics/plot.default.html), supported are:
-  `xlab`, `ylab`, `xlim`, `ylim`, `main`, `cex`, `las` and `pch`.
+  further arguments and graphical parameters to control the plot output
+  (see [plot](https://rdrr.io/r/graphics/plot.default.html)). Supported
+  are: `xlab`, `ylab`, `xlim`, `ylim`, `main`, `cex`, `pt.cex` (point
+  size), `las`, and `pch`.
 
 ## Value
 
@@ -157,17 +158,17 @@ commands.
 
 ## Function version
 
-0.1.17
+0.1.18
 
 ## How to cite
 
 Kreutzer, S., Dietze, M., 2026. plot_DRTResults(): Visualise dose
-recovery test results. Function version 0.1.17. In: Kreutzer, S., Burow,
+recovery test results. Function version 0.1.18. In: Kreutzer, S., Burow,
 C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

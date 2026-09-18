@@ -24,7 +24,7 @@ and the slot `BINfile@METADATA$DATE`).
 |--------|-----------------|-----------|--------------------------------------|
 | **\#** | **Source type** | **T.1/2** | **Reference**                        |
 | `[1]`  | Sr-90           | 28.90 y   | NNDC, Brookhaven National Laboratory |
-| `[2]`  | Am-214          | 432.6 y   | NNDC, Brookhaven National Laboratory |
+| `[2]`  | Am-241          | 432.6 y   | NNDC, Brookhaven National Laboratory |
 | `[3]`  | Co-60           | 5.274 y   | NNDC, Brookhaven National Laboratory |
 | `[4]`  | Cs-137          | 30.08 y   | NNDC, Brookhaven National Laboratory |
 
@@ -36,7 +36,7 @@ calc_SourceDoseRate(
   calib.date,
   calib.dose.rate,
   calib.error,
-  source.type = c("Sr-90", "Am-214", "Co-60", "Cs-137"),
+  source.type = c("Sr-90", "Am-241", "Co-60", "Cs-137"),
   dose.rate.unit = c("Gy/s", "Gy/min"),
   predict = NULL
 )
@@ -70,7 +70,7 @@ calc_SourceDoseRate(
 - source.type:
 
   [character](https://rdrr.io/r/base/character.html) (*with default*):
-  specify irradiation source (`Sr-90`, `Co-60`, `Cs-137`, `Am-214`), see
+  specify irradiation source (`Sr-90`, `Co-60`, `Cs-137`, `Am-241`), see
   details for further information.
 
 - dose.rate.unit:
@@ -133,9 +133,9 @@ the source dose rate via the date of measurement. Function version
 0.3.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
 C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
 Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
-Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
+Steinbuch, L., de Boer, A., Bluszcz, A., 2026. Luminescence:
 Comprehensive Luminescence Dating Data Analysis. R package version
-1.3.0. https://r-lum.github.io/Luminescence/
+1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

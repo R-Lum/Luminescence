@@ -11,7 +11,7 @@ extrapolation to calculate the equivalent dose."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ extrapolation to calculate the equivalent dose."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Fit a dose-response curve for luminescence data (Lx/Tx against dose)</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.3.0/R/fit_DoseResponseCurve.R" class="external-link"><code>R/fit_DoseResponseCurve.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.3.1/R/fit_DoseResponseCurve.R" class="external-link"><code>R/fit_DoseResponseCurve.R</code></a></small>
       <div class="d-none name"><code>fit_DoseResponseCurve.Rd</code></div>
     </div>
 
@@ -68,11 +68,10 @@ extrapolation to calculate the equivalent dose.</p>
 
 <dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> or a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of such objects (<strong>required</strong>):
-data frame with columns for <code>Dose</code>, <code>LxTx</code>, <code>LxTx.Error</code> and <code>TnTx</code>.</p>
-<p>The column for the test dose response is optional, but requires <code>'TnTx'</code> as
-column name if used. For exponential fits at least three dose points
-(including the natural) should be provided. If <code>object</code> is a list,
-the function is called on each of its elements.</p>
+data frame with columns for <code>Dose</code>, <code>LxTx</code>, <code>LxTx.Error</code> and <code>TnTx</code>
+(optional). If these column names are used, then they can be passed in
+whatever order; otherwise columns are taken by position.</p>
+<p>If <code>object</code> is a list, the function is called on each of its elements.</p>
 <p>If <code>fit.method = "OTORX"</code> you have  to provide the test dose in the same unit
 as the dose in a column called <code>Test_Dose</code>. The function searches explicitly
 for this column name. Only the first value will be used assuming a constant
@@ -279,7 +278,7 @@ especially for the composed functions (<code>SSE+LIN</code> and <code>DSE</code>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Dietze, M., Colombo, M., 2026. fit_DoseResponseCurve(): Fit a dose-response curve for luminescence data (Lx/Tx against dose). Function version 1.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Dietze, M., Colombo, M., 2026. fit_DoseResponseCurve(): Fit a dose-response curve for luminescence data (Lx/Tx against dose). Function version 1.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -314,11 +313,11 @@ Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span> [fit_DoseResponseCurve()] Fit:    SSE (interpolation) | De = 1737.71 | D01 = 1721.83</span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">temp</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         De De.Error      D01 D01.ERROR D02 D02.ERROR  R R.LOWER R.UPPER Dc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1737.707 62.49229 1721.831  79.09111  NA        NA NA      NA      NA NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 1737.707 62.56468 1721.831  74.83994  NA        NA NA      NA      NA NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Dc.LOWER Dc.UPPER D63 D63.LOWER D63.UPPER      D80 D80.LOWER D80.UPPER</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       NA       NA  NA        NA        NA 2770.426        NA        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         n_N    De.MC Fit          Mode HPDI68_L HPDI68_U HPDI95_L HPDI95_U</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.5284827 1742.485 SSE interpolation 1671.255 1803.028  1615.91 1864.523</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.5284827 1742.539 SSE interpolation 1673.613 1803.945 1613.661 1865.635</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .De.plot  .De.raw</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 1737.707 1737.707</span>
 <span class="r-in"><span></span></span>

@@ -111,9 +111,9 @@ Burow, C., Kreutzer, S., 2026. read_PSL2R(): Import SUERC portable OSL
 Reader PSL files into R. Function version 0.1.2. In: Kreutzer, S.,
 Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
 J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
-D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
@@ -153,7 +153,7 @@ print(str(psl, max.level = 3))
 #>   .. ..$ Time                 : chr "4:45:12"
 #>   .. ..$ Sample               : chr "L11"
 #>   .. ..$ Sequence             :'data.frame': 5 obs. of  5 variables:
-#>   ..@ .uid      : chr "8b0d81c684c6380d"
+#>   ..@ .uid      : chr "777739c5d6decd12"
 #>   ..@ .pid      : chr NA
 #> NULL
 plot(psl, combine = TRUE)

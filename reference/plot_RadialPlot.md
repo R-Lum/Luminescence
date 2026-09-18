@@ -8,7 +8,6 @@ scale.
 ``` r
 plot_RadialPlot(
   data,
-  na.rm = TRUE,
   log.z = TRUE,
   central.value = NULL,
   centrality = c("mean.weighted", "mean.weighted", "median", "median.weighted"),
@@ -39,14 +38,10 @@ plot_RadialPlot(
   object (**required**): for `data.frame`: either two columns: De
   (`data[,1]`) and De error (`data[,2]`), or one: De (`values[,1]`). If
   a single-column data frame is provided, De error is assumed to be
-  10^-9 for all measurements. To plot several data sets in one plot, the
-  data sets must be provided as `list`, e.g. `list(data.1, data.2)`.
-
-- na.rm:
-
-  [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  excludes `NA` values from the data set prior to any further
-  operations.
+  10^-9 for all measurements, and `y.ticks` is silently reset to
+  `FALSE`. Rows with `NA` values will be removed prior to plotting. To
+  plot several data sets in one plot, the data sets must be provided as
+  `list`, e.g. `list(data.1, data.2)`.
 
 - log.z:
 
@@ -166,7 +161,10 @@ plot_RadialPlot(
 
 - ...:
 
-  Further plot arguments to pass. `xlab` must be a vector of length 2,
+  further arguments and graphical parameters to control the plot output.
+  Supported are: `main`, `sub`, `xlab`, `ylab`, `zlab`, `xlim`, `ylim`,
+  `zlim`, `cex`, `pt.cex` (point size), `lty`, `lwd`, `pch`, `col`,
+  `tcl`, `show`, and `fun`. `xlab` must be a vector of length 2,
   specifying the upper and lower x-axes labels.
 
 ## Value
@@ -232,17 +230,17 @@ specifying one or more of the following keywords:
 
 ## Function version
 
-0.5.11
+0.5.12
 
 ## How to cite
 
 Dietze, M., Kreutzer, S., 2026. plot_RadialPlot(): Function to create a
-Radial Plot. Function version 0.5.11. In: Kreutzer, S., Burow, C.,
+Radial Plot. Function version 0.5.12. In: Kreutzer, S., Burow, C.,
 Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

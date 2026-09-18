@@ -47,7 +47,6 @@ specifying one or more of the following keywords:
 ``` r
 plot_Histogram(
   data,
-  na.rm = TRUE,
   mtext = "",
   cex.global = 1,
   se = TRUE,
@@ -69,14 +68,9 @@ plot_Histogram(
   [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
   object (**required**): for `data.frame`: two columns: De (`data[,1]`)
   and De error (`data[,2]`). If the error column is missing or only
-  contains `NA` values, then the error at each measurement is assumed to
-  be 10^-9.
-
-- na.rm:
-
-  [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  excludes `NA` values from the data set prior to any further
-  operations.
+  contains `NA` values, then `se` is set to `FALSE`, and the weighted
+  statistics will match the unweighted ones. In any other case, rows
+  with `NA` values will be removed prior to plotting.
 
 - mtext:
 
@@ -92,7 +86,9 @@ plot_Histogram(
 - se:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*): plots
-  standard error points over the histogram, default is `TRUE`.
+  standard error points over the histogram, default is `TRUE`. It is
+  silently reset to `FALSE` if the error column in `data` is missing or
+  only contains `NA` values.
 
 - rug:
 
@@ -139,23 +135,20 @@ plot_Histogram(
 
 - ...:
 
-  further arguments and graphical parameters passed to
-  [plot](https://rdrr.io/r/graphics/plot.default.html) or
-  [hist](https://rdrr.io/r/graphics/hist.html). If y-axis labels are
-  provided, these must be specified as a vector of length 2 since the
-  plot features two axes (e.g.
-  `ylab = c("axis label 1", "axis label 2")`). Y-axes limits (`ylim`)
-  must be provided as vector of length four, with the first two elements
-  specifying the left axes limits and the latter two elements giving the
-  right axis limits.
-
-## Note
-
-The input data is not restricted to a special type.
+  further arguments and graphical parameters to control the plot output
+  (see [plot](https://rdrr.io/r/graphics/plot.default.html) and
+  [hist](https://rdrr.io/r/graphics/hist.html)). Supported are: `main`,
+  `xlab`, `ylab`, `xlim`, `ylim`, `breaks`, `pch`, `pt.cex` (point
+  size), and `fun`. If y-axis labels are provided, these must be
+  specified as a vector of length 2 since the plot features two axes
+  (e.g. `ylab = c("axis label 1", "axis label 2")`). Y-axes limits
+  (`ylim`) must be provided as vector of length four, with the first two
+  elements specifying the left axes limits and the latter two elements
+  giving the right axis limits.
 
 ## Function version
 
-0.4.5
+0.4.6
 
 ## See also
 
@@ -171,12 +164,12 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## How to cite
 
 Dietze, M., Kreutzer, S., 2026. plot_Histogram(): Plot a histogram with
-separate error plot. Function version 0.4.5. In: Kreutzer, S., Burow,
+separate error plot. Function version 0.4.6. In: Kreutzer, S., Burow,
 C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## Examples
 

@@ -17,7 +17,6 @@ plot_ViolinPlot(
   rug = TRUE,
   summary = c("n", "median"),
   summary.pos = "sub",
-  na.rm = TRUE,
   ...
 )
 ```
@@ -31,7 +30,8 @@ plot_ViolinPlot(
   (**required**): input data for plotting. Alternatively a
   [data.frame](https://rdrr.io/r/base/data.frame.html) or a
   [matrix](https://rdrr.io/r/base/matrix.html) can be provided, but only
-  the first column will be considered by the function.
+  the first column will be considered by the function. Rows with `NA`
+  values will be removed prior to plotting.
 
 - boxplot:
 
@@ -59,11 +59,6 @@ plot_ViolinPlot(
   summary. Alternatively, the keyword `"sub"` may be specified to place
   the summary below the plot header. However, this latter option in only
   possible if `mtext` is not used.
-
-- na.rm:
-
-  [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  exclude `NA` values from the data set prior to any further operations.
 
 - ...:
 
@@ -106,9 +101,9 @@ Kreutzer, S., 2026. plot_ViolinPlot(): Create a violin plot. Function
 version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C.,
 Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A.,
 Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J.,
-Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
-Comprehensive Luminescence Dating Data Analysis. R package version
-1.3.0. https://r-lum.github.io/Luminescence/
+Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A., 2026.
+Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
+version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

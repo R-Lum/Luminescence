@@ -108,8 +108,9 @@ to 310.
 `pch`, `type` (`"single"`, `"multiple.lines"`, `"interactive"`), `col`,
 `border`, `lwd`, `bty`, `showscale` (`"interactive"`, `"image"`)
 `contour`, `contour.col` (`"image"`), `labcex` (`"image"`, `"contour"`),
-`n_breaks` (`"image"`), `legend` (`TRUE`/`FALSE`), `legend.pos`
-(`"image"`), `legend.horiz` (`TRUE`/`FALSE` \| `"image"`)
+`n_breaks` (`"image"`), `legend` (`TRUE`/`FALSE`), `legend.text`
+(`"multiple.lines"`), `legend.pos` (`"image"`), `legend.horiz`
+(`TRUE`/`FALSE` \| `"image"`)
 
 ## Usage
 
@@ -128,7 +129,6 @@ plot_RLum.Data.Spectrum(
   rug = TRUE,
   limit_counts = NULL,
   xaxis.energy = FALSE,
-  legend.text = NULL,
   plot = TRUE,
   ...
 )
@@ -241,13 +241,6 @@ plot_RLum.Data.Spectrum(
   **Note:** Besides being used in setting the axis, with this option the
   the spectrum is recalculated in terms of intensity, see details.
 
-- legend.text:
-
-  [character](https://rdrr.io/r/base/character.html) (*with default*):
-  possibility to provide own legend text. This argument is only
-  considered for plot types providing a legend, e.g.
-  `plot.type = "transect"`.
-
 - plot:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
@@ -274,7 +267,7 @@ Not all additional arguments (`...`) will be passed similarly!
 
 ## Function version
 
-0.6.17
+0.6.18
 
 ## See also
 
@@ -294,12 +287,12 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## How to cite
 
 Kreutzer, S., 2026. plot_RLum.Data.Spectrum(): Plot function for an
-RLum.Data.Spectrum S4 class object. Function version 0.6.17. In:
+RLum.Data.Spectrum S4 class object. Function version 0.6.18. In:
 Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
-Dating Data Analysis. R package version 1.3.0.
+de Boer, A., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.3.1.
 https://r-lum.github.io/Luminescence/
 
 ## Examples

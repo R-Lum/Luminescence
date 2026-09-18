@@ -133,9 +133,12 @@ calc_Huntley2006(
 
 - cores:
 
-  [integer](https://rdrr.io/r/base/integer.html) (*with default*): The
-  number of cores to use. This will be capped to the number of available
-  cores if set to too high.
+  [integer](https://rdrr.io/r/base/integer.html),
+  [numeric](https://rdrr.io/r/base/numeric.html) (*with default*):
+  number of cores allocated for parallel processing of the Monte-Carlo
+  runs. The default value corresponds to single-threaded computation;
+  the recommended values is `NULL`, which assigns all but two of the
+  available logical CPU cores.
 
 - summary:
 
@@ -299,18 +302,18 @@ Please verify your results carefully.
 
 ## Function version
 
-0.4.7
+0.4.8
 
 ## How to cite
 
 King, G.E., Burow, C., Kreutzer, S., Colombo, M., 2026.
 calc_Huntley2006(): Apply the Huntley (2006) model. Function version
-0.4.7. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
+0.4.8. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
 C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
 Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
-Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
+Steinbuch, L., de Boer, A., Bluszcz, A., 2026. Luminescence:
 Comprehensive Luminescence Dating Data Analysis. R package version
-1.3.0. https://r-lum.github.io/Luminescence/
+1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -386,22 +389,22 @@ kars <- calc_Huntley2006(
 #> [calc_Huntley2006()]
 #> 
 #>  -------------------------------
-#>  (n/N) [-]:   0.15 ± 0.02
-#>  (n/N)_SS [-]:    0.37 ± 0.08
+#>  (n/N) [-]:      0.15 ± 0.02
+#>  (n/N)_SS [-]:   0.37 ± 0.08
 #> 
 #>  ---------- Measured -----------
-#>  DE [Gy]:     122.68 ± 12.92
-#>  D0 [Gy]:     488.72 ± 14.46
-#>  Age [ka]:    17.53 ± 2.04
+#>  DE [Gy]:        122.68 ± 12.92
+#>  D0 [Gy]:        488.72 ± 14.46
+#>  Age [ka]:       17.53 ± 2.04
 #> 
 #>  ---------- Un-faded -----------
-#>  D0 [Gy]:     636.41 ± 13.34
+#>  D0 [Gy]:        636.41 ± 13.34
 #> 
 #>  ---------- Simulated ----------
-#>  DE [Gy]:     232.64 ± 38.59
-#>  D0 [Gy]:     605.89 ± 6.89
-#>  Age [ka]:    33.23 ± 5.76
-#>  Age @2D0 [ka]:   173.11 ± 8.88
+#>  DE [Gy]:        232.64 ± 38.59
+#>  D0 [Gy]:        605.89 ± 6.89
+#>  Age [ka]:       33.23 ± 5.76
+#>  Age @2D0 [ka]:  173.11 ± 8.88
 #>  -------------------------------
 #> 
 

@@ -10,6 +10,25 @@ for `[RLum.Data.Spectrum-class]`
 
 for `[RLum.Results-class]`
 
+## Usage
+
+``` r
+# S4 method for class 'list,RLum.Analysis'
+coerce(from, to = "RLum.Analysis", strict = TRUE)
+
+# S4 method for class 'list,RLum.Data.Curve'
+coerce(from, to = "RLum.Data.Curve", strict = TRUE)
+
+# S4 method for class 'data.frame,RLum.Data.Image'
+coerce(from, to = "RLum.Data.Image", strict = TRUE)
+
+# S4 method for class 'data.frame,RLum.Data.Spectrum'
+coerce(from, to = "RLum.Data.Spectrum", strict = TRUE)
+
+# S4 method for class 'list,RLum.Results'
+coerce(from, to = "RLum.Results", strict = TRUE)
+```
+
 ## Arguments
 
 - from:
@@ -24,6 +43,10 @@ for `[RLum.Results-class]`
 
   [character](https://rdrr.io/r/base/character.html) (**required**):
   class name to be coerced to
+
+- strict:
+
+  Unused.
 
 ## Details
 

@@ -56,6 +56,10 @@ Returns a list with weighted and unweighted statistic measures.
 
 ## Details
 
+If the error column of `data` is missing or only contains 0, the
+weighted statistics will match the unweighted ones. If only some errors
+are 0, then the weighted statistics will contain `NA` values.
+
 The option to use Monte Carlo Methods (`n.MCM`) allows calculating all
 descriptive statistics based on random values. The distribution of these
 random values is based on the Normal distribution with `De` values as
@@ -63,28 +67,34 @@ means and `De_error` values as one standard deviation. Increasing the
 number of MCM-samples linearly increases computation time. On a Lenovo
 X230 machine evaluation of 25 Aliquots with n.MCM = 1000 takes 0.01 s,
 with n = 100000, ca. 1.65 s. It might be useful to work with logarithms
-of these values. See Dietze et al. (2016, Quaternary Geochronology) and
-the function
+of these values. See Dietze et al. (2016) and
 [plot_AbanicoPlot](https://r-lum.github.io/Luminescence/reference/plot_AbanicoPlot.md)
 for details.
 
 ## Function version
 
-0.1.8
-
-## Author
-
-Michael Dietze, GFZ Potsdam (Germany) , RLum Developer Team
+0.1.9
 
 ## How to cite
 
 Dietze, M., 2026. calc_Statistics(): Function to calculate statistic
-measures. Function version 0.1.8. In: Kreutzer, S., Burow, C., Dietze,
+measures. Function version 0.1.9. In: Kreutzer, S., Burow, C., Dietze,
 M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N.,
 Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J.,
-Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A.,
+Galharret, J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A.,
 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
-package version 1.3.0. https://r-lum.github.io/Luminescence/
+package version 1.3.1. https://r-lum.github.io/Luminescence/
+
+## References
+
+Dietze, M., Kreutzer, S., Burow, C., Fuchs, M.C., Fischer, M., Schmidt,
+C., 2016. The abanico plot: visualising chronometric data with
+individual standard errors. Quaternary Geochronology 31, 1-7.
+[doi:10.1016/j.quageo.2015.09.003](https://doi.org/10.1016/j.quageo.2015.09.003)
+
+## Author
+
+Michael Dietze, GFZ Potsdam (Germany) , RLum Developer Team
 
 ## Examples
 

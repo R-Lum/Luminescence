@@ -11,7 +11,7 @@ fit_DoseResponseCurve and plot_DoseResponseCurve."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@ fit_DoseResponseCurve and plot_DoseResponseCurve."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Fit and plot a dose-response curve for luminescence data (Lx/Tx against dose)</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.3.0/R/plot_GrowthCurve.R" class="external-link"><code>R/plot_GrowthCurve.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.3.1/R/plot_GrowthCurve.R" class="external-link"><code>R/plot_GrowthCurve.R</code></a></small>
       <div class="d-none name"><code>plot_GrowthCurve.Rd</code></div>
     </div>
 
@@ -63,11 +63,10 @@ regenerative or additive protocol. This is a wrapper around
 
 <dl><dt id="arg-object">object<a class="anchor" aria-label="anchor" href="#arg-object"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> or a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of such objects (<strong>required</strong>):
-data frame with columns for <code>Dose</code>, <code>LxTx</code>, <code>LxTx.Error</code> and <code>TnTx</code>.</p>
-<p>The column for the test dose response is optional, but requires <code>'TnTx'</code> as
-column name if used. For exponential fits at least three dose points
-(including the natural) should be provided. If <code>object</code> is a list,
-the function is called on each of its elements.</p>
+data frame with columns for <code>Dose</code>, <code>LxTx</code>, <code>LxTx.Error</code> and <code>TnTx</code>
+(optional). If these column names are used, then they can be passed in
+whatever order; otherwise columns are taken by position.</p>
+<p>If <code>object</code> is a list, the function is called on each of its elements.</p>
 <p>If <code>fit.method = "OTORX"</code> you have  to provide the test dose in the same unit
 as the dose in a column called <code>Test_Dose</code>. The function searches explicitly
 for this column name. Only the first value will be used assuming a constant
@@ -142,7 +141,7 @@ produced by <a href="fit_DoseResponseCurve.html">fit_DoseResponseCurve</a> is re
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Dietze, M., Colombo, M., 2026. plot_GrowthCurve(): Fit and plot a dose-response curve for luminescence data (Lx/Tx against dose). Function version 1.2.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Dietze, M., Colombo, M., 2026. plot_GrowthCurve(): Fit and plot a dose-response curve for luminescence data (Lx/Tx against dose). Function version 1.2.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

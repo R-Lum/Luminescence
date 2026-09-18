@@ -49,9 +49,9 @@ Dietze, M., 2026. tune_Data(): Tune data for experimental purpose.
 Function version 0.5.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
-J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
+J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A., 2026.
 Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.3.0. https://r-lum.github.io/Luminescence/
+version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
@@ -69,7 +69,7 @@ plot_AbanicoPlot(data = x,
 ## decrease error by 10 %
 plot_AbanicoPlot(data = tune_Data(x, decrease.error = 0.1),
                  summary = c("n", "mean"))
-#> Warning: [tune_Data()] Dear runner, these activities on your Linux machine have been tracked and will be submitted to the R.Lum data base. Cheating does not pay off! [2026-07-22 15:58:53.444268]
+#> Warning: [tune_Data()] Dear runner, these activities on your Linux machine have been tracked and will be submitted to the R.Lum data base. Cheating does not pay off! [2026-09-18 08:26:23.932974]
 
 
 ## increase sample size by 200 %

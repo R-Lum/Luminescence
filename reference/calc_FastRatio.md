@@ -155,17 +155,18 @@ the following elements:
 
 ## Function version
 
-0.1.1
+0.1.2
 
 ## How to cite
 
-King, G.E., Durcan, J., Burow, C., 2026. calc_FastRatio(): Calculate the
-Fast Ratio for CW-OSL curves. Function version 0.1.1. In: Kreutzer, S.,
-Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
-J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
-D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
-Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
+King, G.E., Durcan, J., Burow, C., Colombo, M., 2026. calc_FastRatio():
+Calculate the Fast Ratio for CW-OSL curves. Function version 0.1.2. In:
+Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
+M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
+Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
+de Boer, A., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.3.1.
+https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -196,7 +197,9 @@ Geochronology 4, 353-362.
 
 Georgina E. King, University of Bern (Switzerland)  
 Julie A. Durcan, University of Oxford (United Kingdom)  
-Christoph Burow, University of Cologne (Germany) , RLum Developer Team
+Christoph Burow, University of Cologne (Germany)  
+Marco Colombo, Institute of Geography, Heidelberg University (Germany) ,
+RLum Developer Team
 
 ## Examples
 
@@ -243,7 +246,7 @@ res <- calc_FastRatio(ExampleData.CW_OSL_Curve)
 # show the summary table
 get_RLum(res)
 #>   fast.ratio fast.ratio.se fast.ratio.rse channels channel.width
-#> 1    405.122      119.7442       29.55756     1000          0.04
+#> 1    405.122      119.7432       29.55731     1000          0.04
 #>   dead.channels.start dead.channels.end  sigmaF   sigmaM           I0
 #> 1                   0                 0 2.6e-17 4.28e-18 7.240066e+16
 #>   stimulation.power wavelength t_L1     t_L2 t_L3_start t_L3_end Ch_L1 Ch_L2

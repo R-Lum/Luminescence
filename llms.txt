@@ -1,8 +1,5 @@
 # Luminescence ![](reference/figures/Luminescence_logo.png)
 
-[![Project Status: Active – The project has reached a stable, usable
-state and is being actively
-developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![CRAN](https://www.r-pkg.org/badges/version/Luminescence)](https://CRAN.R-project.org/package=Luminescence)
 [![R-CMD-check](https://github.com/R-Lum/Luminescence/actions/workflows/R-CMD-check.yml/badge.svg)](https://github.com/R-Lum/Luminescence/actions)
 [![Coverage
@@ -11,11 +8,8 @@ Status](https://img.shields.io/codecov/c/github/R-Lum/Luminescence.svg)](https:/
 [![CRAN
 DOI](https://img.shields.io/badge/DOI-10.32614/CRAN.package.Luminescence-1f57b6?style=flat&link=https://doi.org/10.32614/CRAN.package.Luminescence)](https://doi.org/10.32614/CRAN.package.Luminescence)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.596252.svg)](https://doi.org/10.5281/zenodo.596252)
-
 [![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
 [![Downloads](https://cranlogs.r-pkg.org/badges/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
-[![Downloads](https://cranlogs.r-pkg.org/badges/last-week/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
-[![Downloads](https://cranlogs.r-pkg.org/badges/last-day/Luminescence)](https://www.r-pkg.org/pkg/Luminescence)
 
 The R package `'Luminescence'` by the R-Luminescence Group provides a
 collection of various R functions for luminescence dating data analysis.
@@ -267,6 +261,13 @@ more details.
 - [`apply_EfficiencyCorrection()`](https://r-lum.github.io/Luminescence/reference/apply_EfficiencyCorrection.md)
   : Apply spectral efficiency correction to RLum.Data.Spectrum objects
 
+- [`coerce(`*`<list>`*`,`*`<RLum.Analysis>`*`)`](https://r-lum.github.io/Luminescence/reference/as.md)
+  [`coerce(`*`<list>`*`,`*`<RLum.Data.Curve>`*`)`](https://r-lum.github.io/Luminescence/reference/as.md)
+  [`coerce(`*`<data.frame>`*`,`*`<RLum.Data.Image>`*`)`](https://r-lum.github.io/Luminescence/reference/as.md)
+  [`coerce(`*`<data.frame>`*`,`*`<RLum.Data.Spectrum>`*`)`](https://r-lum.github.io/Luminescence/reference/as.md)
+  [`coerce(`*`<list>`*`,`*`<RLum.Results>`*`)`](https://r-lum.github.io/Luminescence/reference/as.md)
+  : as() - RLum-object coercion
+
 - [`bin_RLum.Data()`](https://r-lum.github.io/Luminescence/reference/bin_RLum.Data.md)
   : Channel binning for RLum.Data-class objects
 
@@ -319,11 +320,9 @@ more details.
 - [`calc_Lamothe2003()`](https://r-lum.github.io/Luminescence/reference/calc_Lamothe2003.md)
   : Apply fading correction after Lamothe et al., 2003
 
-- [`calc_MaxDose()`](https://r-lum.github.io/Luminescence/reference/calc_MaxDose.md)
-  : Apply the maximum age model to a given De distribution
-
 - [`calc_MinDose()`](https://r-lum.github.io/Luminescence/reference/calc_MinDose.md)
-  : (Un-)logged minimum age model (MAM) after Galbraith et al. (1999)
+  [`calc_MaxDose()`](https://r-lum.github.io/Luminescence/reference/calc_MinDose.md)
+  : Apply the minimum (maximum) age model to a given De distribution
 
 - [`calc_MoransI()`](https://r-lum.github.io/Luminescence/reference/calc_MoransI.md)
   : Calculate Moran's I
@@ -485,7 +484,7 @@ more details.
   : Normalisation of RLum-class objects
 
 - [`plot_AbanicoPlot()`](https://r-lum.github.io/Luminescence/reference/plot_AbanicoPlot.md)
-  : Function to create an Abanico Plot.
+  : Function to create an abanico plot
 
 - [`plot_DRCSummary()`](https://r-lum.github.io/Luminescence/reference/plot_DRCSummary.md)
   : Create a Dose-Response Curve Summary Plot
@@ -607,9 +606,8 @@ more details.
   evaluation
 
 - [`scale_GammaDose()`](https://r-lum.github.io/Luminescence/reference/scale_GammaDose.md)
-  : Calculate the gamma dose deposited within a sample taking
-  layer-to-layer variations in radioactivity into account (according to
-  Aitken, 1985)
+  : Calculate the gamma dose deposited within a sample accounting for
+  layer-to-layer variations in radioactivity
 
 - [`set_RLum()`](https://r-lum.github.io/Luminescence/reference/set_RLum.md)
   : General setter function for RLum-class objects

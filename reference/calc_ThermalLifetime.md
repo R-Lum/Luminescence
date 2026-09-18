@@ -149,8 +149,8 @@ Lifetime using the Arrhenius equation. Function version 0.1.0. In:
 Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
-Dating Data Analysis. R package version 1.3.0.
+de Boer, A., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.3.1.
 https://r-lum.github.io/Luminescence/
 
 ## References
@@ -218,10 +218,10 @@ calc_ThermalLifetime(
 #> 
 #>  profiling = TRUE
 #>  --------------------------
-#>  mean:    1.019528e+01 Ma
-#>  sd:  1.245221e+00 Ma
-#>  min:     6.831023e+00 Ma
-#>  max:     1.554349e+01 Ma
+#>  mean:    1.023973e+01 Ma
+#>  sd:  1.21385e+00 Ma
+#>  min:     7.100183e+00 Ma
+#>  max:     1.518045e+01 Ma
 #>  --------------------------
 #>  (1000 lifetimes calculated in total)
 

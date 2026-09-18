@@ -42,7 +42,7 @@ Risoe.BINfileData2RLum.Analysis(
 
   [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): position
   number of the `Risoe.BINfileData` object for which the curves are
-  stored in the
+  converted into an
   [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
   object. If `length(pos) > 1`, a list of `RLum.Analysis` objects is
   returned. If nothing is provided every position will be converted. If
@@ -53,30 +53,32 @@ Risoe.BINfileData2RLum.Analysis(
   [vector](https://rdrr.io/r/base/vector.html),
   [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): grain
   number from the measurement to limit the converted data set (e.g.,
-  `grain = c(1:48)`). Please be aware that this option may lead to
-  unwanted effects, as the output is strictly limited to the chosen
-  grain number for all position numbers.
+  `grain = 1:48`). Please be aware that this option may lead to unwanted
+  effects, as the output is strictly limited to the chosen grain number
+  for all position numbers. Invalid grain numbers are skipped with a
+  warning. Records with `NA` as grain are always included, as some
+  readers report `NA` instead of a grain number.
 
 - run:
 
   [vector](https://rdrr.io/r/base/vector.html),
   [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): run
   number from the measurement to limit the converted data set (e.g.,
-  `run = c(1:48)`).
+  `run = 1:48`).
 
 - set:
 
   [vector](https://rdrr.io/r/base/vector.html),
   [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): set
   number from the measurement to limit the converted data set (e.g.,
-  `set = c(1:48)`).
+  `set = 1:48`).
 
 - ltype:
 
   [vector](https://rdrr.io/r/base/vector.html),
   [character](https://rdrr.io/r/base/character.html) (*optional*): curve
-  type to limit the converted data. Commonly allowed values are: `IRSL`,
-  `OSL`, `TL`, `RIR`, `RBR` and `USER` (see also
+  type to limit the converted data. Commonly allowed values are:
+  `"IRSL"`, `"OSL"`, `"TL"`, `"RIR"`, `"RBR"` and `"USER"` (see also
   [Risoe.BINfileData](https://r-lum.github.io/Luminescence/reference/Risoe.BINfileData-class.md)).
 
 - dtype:
@@ -89,9 +91,9 @@ Risoe.BINfileData2RLum.Analysis(
 
 - protocol:
 
-  [character](https://rdrr.io/r/base/character.html) (*optional*): sets
-  protocol type for analysis object. Value may be used by subsequent
-  analysis functions.
+  [character](https://rdrr.io/r/base/character.html) (*optional*):
+  protocol type to be set in the analysis object. This value may be used
+  by subsequent analysis functions.
 
 - keep.empty:
 
@@ -102,13 +104,17 @@ Risoe.BINfileData2RLum.Analysis(
 - txtProgressBar:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  enable/disable the progress bar.
+  enable/disable the progress bar. The progress bar is disabled
+  automatically if fewer than two positions are converted.
 
 ## Value
 
 Returns an
 [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
-object.
+object if exactly one position and one grain number were converted, and
+a list of `RLum.Analysis` objects (one per position/grain combination)
+otherwise. Returns `NULL` if no valid position is provided or if all
+objects are discarded by `keep.empty = FALSE`.
 
 ## Note
 
@@ -138,9 +144,9 @@ Risoe.BINfileData object to an RLum.Analysis object. Function version
 0.4.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
 C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
 Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
-Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
+Steinbuch, L., de Boer, A., Bluszcz, A., 2026. Luminescence:
 Comprehensive Luminescence Dating Data Analysis. R package version
-1.3.0. https://r-lum.github.io/Luminescence/
+1.3.1. https://r-lum.github.io/Luminescence/
 
 ## Examples
 

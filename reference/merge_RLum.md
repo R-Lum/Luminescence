@@ -11,19 +11,19 @@ removed from the input list.
 |----|----|----|
 | **object** |  | **corresponding merge function** |
 | [RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/RLum.Data.Curve-class.md) | -\> | [merge_RLum.Data.Curve](https://r-lum.github.io/Luminescence/reference/merge_RLum.Data.Curve.md) |
-| [RLum.Data.Spectrum](https://r-lum.github.io/Luminescence/reference/RLum.Data.Spectrum-class.md) | -\> | [merge_RLum.Data.Spectrum](https://r-lum.github.io/Luminescence/reference/merge_RLum.Data.Spectrum.md) |
+| [RLum.Data.Spectrum](https://r-lum.github.io/Luminescence/reference/RLum.Data.Spectrum-class.md) | -\> | [merge_RLum.Data.Spectrum](https://r-lum.github.io/Luminescence/reference/merge_RLum.Data.Curve.md) |
 | [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md) | -\> | [merge_RLum.Analysis](https://r-lum.github.io/Luminescence/reference/merge_RLum.Analysis.md) |
 | [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md) | -\> | [merge_RLum.Results](https://r-lum.github.io/Luminescence/reference/merge_RLum.Results.md) |
 
 ## Usage
 
 ``` r
-merge_RLum(objects, ...)
+merge_RLum(object, ...)
 ```
 
 ## Arguments
 
-- objects:
+- object:
 
   [list](https://rdrr.io/r/base/list.html) of
   [RLum](https://r-lum.github.io/Luminescence/reference/RLum-class.md)
@@ -49,7 +49,7 @@ objects is not supported.
 
 ## Function version
 
-0.1.3
+0.1.4
 
 ## See also
 
@@ -66,12 +66,12 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## How to cite
 
 Kreutzer, S., 2026. merge_RLum(): General merge function for RLum-class
-objects. Function version 0.1.3. In: Kreutzer, S., Burow, C., Dietze,
+objects. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze,
 M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N.,
 Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J.,
-Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A.,
+Galharret, J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A.,
 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
-package version 1.3.0. https://r-lum.github.io/Luminescence/
+package version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
@@ -124,5 +124,5 @@ temp2 <- calc_CentralDose(ExampleData.DeValues$CA1)
 #> 
 
 ##merge the results and store them in a new object
-temp.merged <- get_RLum(merge_RLum(objects = list(temp1, temp2)))
+temp.merged <- get_RLum(merge_RLum(object = list(temp1, temp2)))
 ```

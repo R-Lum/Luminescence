@@ -57,7 +57,6 @@ controlled via the `summary.method` argument.
 ``` r
 plot_KDE(
   data,
-  na.rm = TRUE,
   values.cumulative = TRUE,
   order = TRUE,
   boxplot = TRUE,
@@ -81,13 +80,9 @@ plot_KDE(
   (`values[,1]`) and De error (`values[,2]`), or one: De (`values[,1]`).
   If a numeric vector or a single-column data frame is provided, De
   error is assumed to be 10^-9 for all measurements and error bars are
-  not drawn. For plotting multiple data sets, these must be provided as
-  `list` (e.g. `list(dataset1, dataset2)`).
-
-- na.rm:
-
-  [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  exclude `NA` values from the data set prior to any further operation.
+  not drawn. Rows with `NA` values will be removed prior to plotting.
+  For plotting multiple data sets, these must be provided as `list`
+  (e.g. `list(dataset1, dataset2)`).
 
 - values.cumulative:
 
@@ -144,8 +139,10 @@ plot_KDE(
 
 - ...:
 
-  further arguments and graphical parameters passed to
-  [plot](https://rdrr.io/r/graphics/plot.default.html).
+  further arguments and graphical parameters to control the plot output
+  (see [plot](https://rdrr.io/r/graphics/plot.default.html)). Supported
+  are: `main`, `sub`, `mtext`, `layout`, `xlab`, `ylab`, `xlim`, `ylim`,
+  `log`, `cex`, `pt.cex` (point size), `lty`, `lwd`, `col`, and `fun`.
 
 ## Note
 
@@ -154,7 +151,7 @@ Berger and Galbraith in Ancient TL; see references)!
 
 ## Function version
 
-3.6.1
+3.6.2
 
 ## See also
 
@@ -170,12 +167,12 @@ LIAG - Institute for Applied Geophysics (Germany) , RLum Developer Team
 ## How to cite
 
 Dietze, M., Kreutzer, S., 2026. plot_KDE(): Plot kernel density estimate
-with statistics. Function version 3.6.1. In: Kreutzer, S., Burow, C.,
+with statistics. Function version 3.6.2. In: Kreutzer, S., Burow, C.,
 Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## Examples
 

@@ -29,12 +29,11 @@ plot_GrowthCurve(
   [data.frame](https://rdrr.io/r/base/data.frame.html) or a
   [list](https://rdrr.io/r/base/list.html) of such objects
   (**required**): data frame with columns for `Dose`, `LxTx`,
-  `LxTx.Error` and `TnTx`.
+  `LxTx.Error` and `TnTx` (optional). If these column names are used,
+  then they can be passed in whatever order; otherwise columns are taken
+  by position.
 
-  The column for the test dose response is optional, but requires
-  `'TnTx'` as column name if used. For exponential fits at least three
-  dose points (including the natural) should be provided. If `object` is
-  a list, the function is called on each of its elements.
+  If `object` is a list, the function is called on each of its elements.
 
   If `fit.method = "OTORX"` you have to provide the test dose in the
   same unit as the dose in a column called `Test_Dose`. The function
@@ -130,9 +129,9 @@ plot a dose-response curve for luminescence data (Lx/Tx against dose).
 Function version 1.2.3. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
-J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
+J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A., 2026.
 Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.3.0. https://r-lum.github.io/Luminescence/
+version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

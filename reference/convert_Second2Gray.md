@@ -96,9 +96,9 @@ Converting equivalent dose values from seconds (s) to Gray (Gy).
 Function version 0.6.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
-J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
+J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A., 2026.
 Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.3.0. https://r-lum.github.io/Luminescence/
+version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

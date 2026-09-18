@@ -1,16 +1,14 @@
-# Function to create an Abanico Plot.
+# Function to create an abanico plot
 
-A plot is produced which allows comprehensive presentation of data
-precision and its dispersion around a central value as well as
-illustration of a kernel density estimate, histogram and/or dot plot of
-the dose values.
+The abanico plot provides a comprehensive presentation of data precision
+and its dispersion around a central value, and can also display a kernel
+density estimate, histogram and/or dot plot of the dose values.
 
 ## Usage
 
 ``` r
 plot_AbanicoPlot(
   data,
-  na.rm = TRUE,
   log.z = TRUE,
   z.0 = c("mean.weighted", "mean", "median"),
   dispersion = c("qr", "sd", "2sd"),
@@ -39,7 +37,6 @@ plot_AbanicoPlot(
   line.label = NULL,
   grid.col = NULL,
   frame = 1,
-  bw = "SJ",
   interactive = FALSE,
   ...
 )
@@ -53,7 +50,8 @@ plot_AbanicoPlot(
   [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
   object (**required**): for `data.frame` two columns: De (`data[,1]`)
   and De error (`data[,2]`). To plot several data sets in one plot the
-  data sets must be provided as `list`, e.g. `list(data.1, data.2)`.  
+  data sets must be provided as `list`, e.g. `list(data.1, data.2)`.
+  Rows with `NA` values will be removed prior to plotting.  
   For some
   [RLum.Results](https://r-lum.github.io/Luminescence/reference/RLum.Results-class.md)
   objects, one or more lines (and corresponding labels) are drawn
@@ -65,7 +63,7 @@ plot_AbanicoPlot(
   - [calc_CentralDose](https://r-lum.github.io/Luminescence/reference/calc_CentralDose.md)
     (CDM)
 
-  - [calc_MaxDose](https://r-lum.github.io/Luminescence/reference/calc_MaxDose.md)
+  - [calc_MaxDose](https://r-lum.github.io/Luminescence/reference/calc_MinDose.md)
     (MDM)
 
   - [calc_MinDose](https://r-lum.github.io/Luminescence/reference/calc_MinDose.md)
@@ -75,15 +73,12 @@ plot_AbanicoPlot(
     Alternative labels can be set via the `line.label` option. This
     behaviour can be suppressed altogether by setting `line = NA`.
 
-- na.rm:
-
-  [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  exclude `NA` values from the data set prior to any further operations.
-
 - log.z:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  Option to display the z-axis in logarithmic scale. Default is `TRUE`.
+  display the z-axis in logarithmic scale (`TRUE` by default). The
+  setting is automatically reset to `FALSE` if any zero values appear in
+  the De column.
 
 - z.0:
 
@@ -96,8 +91,8 @@ plot_AbanicoPlot(
 - dispersion:
 
   [character](https://rdrr.io/r/base/character.html) (*with default*):
-  measure of dispersion, used for drawing the scatter polygon. One out
-  of
+  measure of dispersion used to draw the scatter polygon. Can be one of
+  the following:
 
   - `"qr"` (quartile range, default)
 
@@ -169,14 +164,14 @@ plot_AbanicoPlot(
 - stats:
 
   [character](https://rdrr.io/r/base/character.html): additional labels
-  of statistically important values in the plot. One or more out of the
-  following:
+  of statistically important values in the plot. Can be one or more of
+  the following:
 
-  - `"min"`,
+  - `"min"`
 
-  - `"max"`,
+  - `"max"`
 
-  - `"median"`.
+  - `"median"`
 
 - rug:
 
@@ -187,13 +182,18 @@ plot_AbanicoPlot(
 - kde:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  Option to add a KDE plot to the dispersion part, default is `TRUE`.
+  Option to add a KDE plot to the dispersion part (`TRUE` by default).
+  The smoothing bandwidth can be controlled by setting the `bw` argument
+  (`"SJ"` by default; see
+  [stats::density](https://rdrr.io/r/stats/density.html) for details).
 
 - hist:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
   Option to add a histogram to the dispersion part. Only meaningful when
-  not more than one data set is plotted.
+  only one data set is plotted. The number of cells in the histogram can
+  be controlled by setting the `breaks` argument (see
+  [graphics::hist](https://rdrr.io/r/graphics/hist.html) for details).
 
 - dots:
 
@@ -209,20 +209,21 @@ plot_AbanicoPlot(
 - y.axis:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  Option to hide standard y-axis labels and show 0 only. Useful for data
-  with small scatter. If you want to suppress the y-axis entirely please
-  use `yaxt == 'n'` (the standard
-  [graphics::par](https://rdrr.io/r/graphics/par.html) setting) instead.
+  option to hide standard y-axis labels and show 0 only, useful for data
+  with small scatter. To suppress the y-axis entirely, use `yaxt == 'n'`
+  (the standard [graphics::par](https://rdrr.io/r/graphics/par.html)
+  setting) instead.
 
 - error.bars:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
   Option to show De-errors as error bars on De-points. Useful in
-  combination with `y.axis = FALSE, bar.col = "none"`.
+  combination with `y.axis = FALSE, bar = FALSE`.
 
 - bar:
 
-  [numeric](https://rdrr.io/r/base/numeric.html) (*with default*):
+  [numeric](https://rdrr.io/r/base/numeric.html) or
+  [logical](https://rdrr.io/r/base/logical.html) (*with default*):
   option to add one or more dispersion bars (i.e., bar showing the
   2-sigma range) centred at the defined values. By default a bar is
   drawn according to `"z.0"`. To omit the bar set `"bar = FALSE"`.
@@ -274,36 +275,34 @@ plot_AbanicoPlot(
 
 - frame:
 
-  [numeric](https://rdrr.io/r/base/numeric.html) (*with default*):
-  option to modify the plot frame type. Can be one out of
+  [numeric](https://rdrr.io/r/base/numeric.html) (*with default*): the
+  plot frame type, one of the following:
 
-  - `0` (no frame),
+  - 0: no frame
 
-  - `1` (frame originates at 0,0 and runs along min/max isochrons),
+  - 1: frame originates at 0,0 and runs along min/max isochrons
+    (default)
 
-  - `2` (frame embraces the 2-sigma bar),
+  - 2: frame embraces the 2-sigma bar
 
-  - `3` (frame embraces the entire plot as a rectangle).
-
-  Default is `1`.
-
-- bw:
-
-  [character](https://rdrr.io/r/base/character.html) (*with default*):
-  bin-width for KDE, choose a numeric value for manual setting.
+  - 3: frame embraces the entire plot as a rectangle
 
 - interactive:
 
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  create an interactive abanico plot (requires the `'plotly'` package)
+  create an interactive abanico plot (requires the `'plotly'` package).
 
 - ...:
 
-  Further plot arguments to pass (see
-  [graphics::plot.default](https://rdrr.io/r/graphics/plot.default.html)).
-  Supported are: `main`, `sub`, `ylab`, `xlab`, `zlab`, `zlim`, `ylim`,
-  `cex`, `lty`, `lwd`, `pch`, `col`, `at`, `breaks`. `xlab` must be a
-  vector of length two, specifying the upper and lower x-axis labels.
+  further arguments and graphical parameters to control the plot output.
+  Supported are: `main`, `sub`, `ylab`, `xlab`, `zlab`, `xlim`, `ylim`,
+  `zlim`, `cex`, `pt.cex` (point size), `lty`, `lwd`, `pch`, `col`,
+  `at`, `bw`, and `breaks`. `xlab` must be a vector of length two,
+  specifying the upper and lower x-axis labels.
+
+  Please note that in the interactive mode, if you are using an
+  expression, the `zlab` must use HTML tags, such as `D<sub>e</sub>` for
+  `D[e]`.
 
 ## Value
 
@@ -311,7 +310,7 @@ Returns a plot object and, optionally, a list with plot calculus data.
 
 ## Details
 
-The Abanico Plot is a combination of the classic Radial Plot
+The abanico plot is a combination of the classic radial plot
 [plot_RadialPlot](https://r-lum.github.io/Luminescence/reference/plot_RadialPlot.md)
 and a kernel density estimate plot (e.g
 [plot_KDE](https://r-lum.github.io/Luminescence/reference/plot_KDE.md).
@@ -322,21 +321,28 @@ equivalent dose, years). The principle of the plot is shown in Galbraith
 & Green (1990). The function authors are thankful for the
 thought-provoking figure in this article.
 
-The semi circle (z-axis) of the classic Radial Plot is bent to a
+The semi circle (z-axis) of the classic radial plot is bent to a
 straight line here, which actually is the basis for combining this polar
 (radial) part of the plot with any other Cartesian visualisation method
 (KDE, histogram, PDF and so on). Note that the plot allows displaying
 two measures of distribution. One is the 2-sigma bar, which illustrates
 the spread in value errors, and the other is the polygon, which
-stretches over both parts of the Abanico Plot (polar and Cartesian) and
+stretches over both parts of the abanico plot (polar and Cartesian) and
 illustrates the actual spread in the values themselves.
 
 Since the 2-sigma-bar is a polygon, it can be (and is) filled with
 shaded lines. To change density (lines per inch, default is 15) and
 angle (default is 45 degrees) of the shading lines, specify these
-parameters. See `?polygon()` for further help.
+parameters. See
+[graphics::polygon](https://rdrr.io/r/graphics/polygon.html) for further
+help.
 
-The Abanico Plot supports other than the weighted mean as measure of
+The proportion of the polar part and the cartesian part of the abanico
+plot can be modified for display reasons (`plot.ratio = 0.75`). By
+default, the polar part spreads over 75 % and leaves 25 % for the part
+that shows the KDE graph.
+
+The abanico plot supports other than the weighted mean as measure of
 centrality. When it is obvious that the data is not (log-)normally
 distributed, the mean (weighted or not) cannot be a valid measure of
 centrality and hence central dose. Accordingly, the median and the
@@ -345,14 +351,12 @@ centrality (e.g. `centrality = "median.weighted"`). Also user-defined
 numeric values (e.g. from the central age model) can be used if this
 appears appropriate.
 
-The proportion of the polar part and the cartesian part of the Abanico
-Plot can be modified for display reasons (`plot.ratio = 0.75`). By
-default, the polar part spreads over 75 % and leaves 25 % for the part
-that shows the KDE graph.
+### Statistics summary
 
 A statistic summary, i.e. a collection of statistic measures of
 centrality and dispersion (and further measures) can be added by
-specifying one or more of the following keywords:
+specifying one or more of the following keywords in the `summary`
+argument:
 
 - `"n"` (number of samples)
 
@@ -360,19 +364,23 @@ specifying one or more of the following keywords:
 
 - `"median"` (median of the De values)
 
-- `"sd.rel"` (relative standard deviation in percent)
-
 - `"sd.abs"` (absolute standard deviation)
 
-- `"se.rel"` (relative standard error)
+- `"sd.rel"` (relative standard deviation in percent)
 
 - `"se.abs"` (absolute standard error)
 
+- `"se.rel"` (relative standard error)
+
 - `"in.2s"` (percent of samples in 2-sigma range)
 
-- `"kurtosis"` (kurtosis)
+- `"q.25"` (25% percentile)
+
+- `"q.75"` (75% percentile)
 
 - `"skewness"` (skewness)
+
+- `"kurtosis"` (kurtosis)
 
 **Note:** the input data for the statistic summary is sent to the
 function
@@ -388,6 +396,8 @@ calculates these statistic measures in three different ways:
 Methods). By default, the MCM-based version is used. If you wish to use
 another method, indicate this with the appropriate keyword using the
 argument `summary.method`.
+
+### Other arguments
 
 The optional parameter `layout` allows more sophisticated ways to modify
 the entire plot. Each element of the plot can be addressed and its
@@ -405,17 +415,17 @@ documentation of `axis`. Specifying tick positions manually overrides a
 
 ## Function version
 
-0.1.21
+0.1.25
 
 ## How to cite
 
 Dietze, M., Kreutzer, S., Colombo, M., 2026. plot_AbanicoPlot():
-Function to create an Abanico Plot.. Function version 0.1.21. In:
+Function to create an abanico plot. Function version 0.1.25. In:
 Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
 M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
 Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
-Dating Data Analysis. R package version 1.3.0.
+de Boer, A., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
+Dating Data Analysis. R package version 1.3.1.
 https://r-lum.github.io/Luminescence/
 
 ## References
@@ -496,7 +506,7 @@ str(plot1)
 #>   ..$ std.estimate     : num [1:62] -10.58 -11.1 -9.15 -9.09 -6.64 ...
 #>   ..$ std.estimate.plot: num [1:62] -10.58 -11.1 -9.15 -9.09 -6.64 ...
 #>   ..$ weights          : num [1:62] 0.0161 0.0161 0.0161 0.0161 0.0161 ...
-#>   ..$ data set         : num [1:62] 1 1 1 1 1 1 1 1 1 1 ...
+#>   ..$ idx.dataset      : int [1:62] 1 1 1 1 1 1 1 1 1 1 ...
 #>  $ KDE          :List of 1
 #>   ..$ : num [1:514, 1:2] 2.86 2.86 2.86 2.87 2.87 ...
 #>  $ par          :List of 66
@@ -505,7 +515,7 @@ str(plot1)
 #>   ..$ adj      : num 0.5
 #>   ..$ ann      : logi TRUE
 #>   ..$ ask      : logi FALSE
-#>   ..$ bg       : chr "transparent"
+#>   ..$ bg       : chr "white"
 #>   ..$ bty      : chr "o"
 #>   ..$ cex      : num 1
 #>   ..$ cex.axis : num 1

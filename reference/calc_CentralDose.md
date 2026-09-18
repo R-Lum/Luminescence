@@ -90,18 +90,18 @@ The output should be accessed using the function
 
 ## Function version
 
-1.5
+1.6
 
 ## How to cite
 
 Burow, C., 2026. calc_CentralDose(): Apply the central age model (CAM)
 after Galbraith et al. (1999) to a given De distribution. Function
-version 1.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C.,
+version 1.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C.,
 Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A.,
 Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J.,
-Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
-Comprehensive Luminescence Dating Data Analysis. R package version
-1.3.0. https://r-lum.github.io/Luminescence/
+Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A., 2026.
+Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
+version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

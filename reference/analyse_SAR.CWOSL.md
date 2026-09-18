@@ -136,7 +136,8 @@ analyse_SAR.CWOSL(
 
   - `recuperation_reference`
     [character](https://rdrr.io/r/base/character.html) (default:
-    `"Natural"`; set to, e.g., `"R1"` for another point)
+    `"Natural"`; set to, e.g., `"R1"` for another point; use `"Rmax"` to
+    select the point with highest dose as reference)
 
   - `sn_reference` [character](https://rdrr.io/r/base/character.html)
     (default: `"Natural"`).
@@ -358,7 +359,8 @@ point.
 (the `Lx/Tx` ratio of the natural signal). For methodological background
 see Aitken and Smith (1988). As a variant, `recuperation_reference` can
 be specified to select another dose point as reference instead of
-`Ln/Tn`.
+`Ln/Tn` (e.g. `"R1"`; `"Rmax"` selects the point with highest dose as
+reference).
 
 `[testdose.error]`: set the allowed error for the test dose, which by
 default should not exceed 10%. The test dose error is calculated as
@@ -399,17 +401,17 @@ points) automatically from the input object, if the argument
 
 ## Function version
 
-1.0.0
+1.0.1
 
 ## How to cite
 
 Kreutzer, S., Colombo, M., 2026. analyse_SAR.CWOSL(): Analyse SAR CW-OSL
-Measurements. Function version 1.0.0. In: Kreutzer, S., Burow, C.,
+Measurements. Function version 1.0.1. In: Kreutzer, S., Burow, C.,
 Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -492,7 +494,7 @@ get_RLum(results)
 #>   .De.plot  .De.raw RC.Status signal.range background.range signal.range.Tx
 #> 1 1666.013 1666.013        OK          1:2         900:1000           NA:NA
 #>   background.range.Tx ALQ POS GRAIN              UID
-#> 1               NA:NA   1   1     0 c6f38e9a1cfb9e2d
+#> 1               NA:NA   1   1     0 1fdf781afcab0c2f
 
 ##show LnTnLxTx table
 get_RLum(results, data.object = "LnLxTnTx.table")
@@ -513,13 +515,13 @@ get_RLum(results, data.object = "LnLxTnTx.table")
 #> 6       97.30345 5732.396       77.06892     76.616181      45.92334 1.61426805
 #> 7       14.03621 5989.356       78.55995      2.033984      51.91104 0.01629624
 #>    LxTx.Error Test_Dose              UID
-#> 1 0.070548235        -1 c6f38e9a1cfb9e2d
-#> 2 0.028478016        -1 c6f38e9a1cfb9e2d
-#> 3 0.052017292        -1 c6f38e9a1cfb9e2d
-#> 4 0.075831244        -1 c6f38e9a1cfb9e2d
-#> 5 0.081877711        -1 c6f38e9a1cfb9e2d
-#> 6 0.027552588        -1 c6f38e9a1cfb9e2d
-#> 7 0.002353254        -1 c6f38e9a1cfb9e2d
+#> 1 0.070548235        -1 1fdf781afcab0c2f
+#> 2 0.028478016        -1 1fdf781afcab0c2f
+#> 3 0.052017292        -1 1fdf781afcab0c2f
+#> 4 0.075831244        -1 1fdf781afcab0c2f
+#> 5 0.081877711        -1 1fdf781afcab0c2f
+#> 6 0.027552588        -1 1fdf781afcab0c2f
+#> 7 0.002353254        -1 1fdf781afcab0c2f
 
 ## Run example with special case for
 ## the OTORX fit

@@ -13,7 +13,7 @@ Example: legend.pos for legend position, legend for legend text."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +34,7 @@ Example: legend.pos for legend position, legend for legend text."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Create De(t) plot</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.3.0/R/plot_DetPlot.R" class="external-link"><code>R/plot_DetPlot.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.3.1/R/plot_DetPlot.R" class="external-link"><code>R/plot_DetPlot.R</code></a></small>
       <div class="d-none name"><code>plot_DetPlot.Rd</code></div>
     </div>
 
@@ -59,7 +59,7 @@ Example: <code>legend.pos</code> for legend position, <code>legend</code> for le
 <span>  n.channels <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  show_ShineDownCurve <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  respect_RC.Status <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  multicore <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  cores <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  plot <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
@@ -138,11 +138,11 @@ remove De values with 'FAILED' RC.Status from the plot (cf. <a href="analyse_SAR
 and <a href="analyse_pIRIRSequence.html">analyse_pIRIRSequence</a>).</p></dd>
 
 
-<dt id="arg-multicore">multicore<a class="anchor" aria-label="anchor" href="#arg-multicore"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-enable/disable multi core calculation if <code>object</code> is a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of
-<a href="RLum.Analysis-class.html">RLum.Analysis</a> objects. Can be an <a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a> specifying
-the number of cores to use.</p></dd>
+<dt id="arg-cores">cores<a class="anchor" aria-label="anchor" href="#arg-cores"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/integer.html" class="external-link">integer</a>, <a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a> (<em>with default</em>):
+number of cores allocated for parallel processing when <code>object</code> is a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a>
+of objects. The default value (<code>NULL</code>) assigns all but two of the available
+logical CPU cores.</p></dd>
 
 
 <dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
@@ -196,11 +196,11 @@ of channels.</p>
     </div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.1.11</p>
+    <p>0.1.12</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., 2026. plot_DetPlot(): Create De(t) plot. Function version 0.1.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., 2026. plot_DetPlot(): Create De(t) plot. Function version 0.1.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>

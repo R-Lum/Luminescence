@@ -50,12 +50,13 @@ plot_DoseResponseCurve(
 
 - ...:
 
-  Further graphical parameters to be passed (supported: `main`, `mtext`,
-  `xlim`, `ylim`, `xlab`, `ylab`, `log` (not valid for objects fitted
-  with `mode = "extrapolation"`), `legend` (`TRUE/FALSE`), `legend.pos`,
-  `reg_points_pch`, `density_polygon` (`TRUE/FALSE`),
-  `density_polygon_col`, `density_rug` (`TRUE`/`FALSE`), `lwd_drc`,
-  `col_drc`,`lty_drc`, `box` (`TRUE`/`FALSE`).
+  further arguments and graphical parameters to control the plot output.
+  Supported are: `main`, `mtext`, `xlim`, `ylim`, `xlab`, `ylab`, `cex`,
+  `pt.cex` (point size), `mar`, `mgp`, `tcl`, `log` (not valid for
+  objects fitted with `mode = "extrapolation"`), `legend`
+  (`TRUE/FALSE`), `legend.pos`, `reg_points_pch`, `density_polygon`
+  (`TRUE/FALSE`), `density_polygon_col`, `density_rug` (`TRUE`/`FALSE`),
+  `lwd_drc`, `col_drc`, `lty_drc`, and `box` (`TRUE`/`FALSE`).
 
 ## Value
 
@@ -63,18 +64,18 @@ A plot (or a series of plots) is produced.
 
 ## Function version
 
-1.0.11
+1.0.12
 
 ## How to cite
 
 Kreutzer, S., Dietze, M., Colombo, M., 2026. plot_DoseResponseCurve():
 Plot a dose-response curve for luminescence data (Lx/Tx against dose).
-Function version 1.0.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
+Function version 1.0.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
-J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
+J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A., 2026.
 Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.3.0. https://r-lum.github.io/Luminescence/
+version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

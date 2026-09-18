@@ -101,9 +101,9 @@ Kreutzer, S., 2026. calc_gSGC(): Calculate De value based on the gSGC by
 Li et al., 2015. Function version 0.1.3. In: Kreutzer, S., Burow, C.,
 Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -142,10 +142,10 @@ Dr1 = 34.4))
 #>  f(D):        0.787 * (1 - exp(-D /73.9)) + c * D + 0.01791
 #>  n.MC:        100
 #>  ------------------------------ 
-#>  De:     28.43 ± 1.71
+#>  De:     28.43 ± 1.86
 #>  ------------------------------ 
 
 get_RLum(results, data.object = "De")
 #>         DE DE.ERROR       ETA
-#> 1 28.42881 1.710913 0.1325632
+#> 1 28.42881 1.857211 0.1325632
 ```

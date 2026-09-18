@@ -57,9 +57,9 @@ NA, NA, , , 2026. sTeve(): sTeve - sophisticated tool for efficient data
 validation and evaluation. In: Kreutzer, S., Burow, C., Dietze, M.,
 Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N.,
 Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J.,
-Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A.,
+Galharret, J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A.,
 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
-package version 1.3.0. https://r-lum.github.io/Luminescence/
+package version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## Examples
 

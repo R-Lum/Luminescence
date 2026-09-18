@@ -102,17 +102,17 @@ There are furthermore ignored by the function
 
 ## Function version
 
-0.5.4
+0.5.5
 
 ## How to cite
 
 Kreutzer, S., 2026. write_R2BIN(): Export Risoe.BINfileData into Risø
-BIN/BINX-file. Function version 0.5.4. In: Kreutzer, S., Burow, C.,
+BIN/BINX-file. Function version 0.5.5. In: Kreutzer, S., Burow, C.,
 Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -152,8 +152,8 @@ temp_file <- tempfile(pattern = "output", fileext = ".binx")
 write_R2BIN(temp, file = temp_file)
 #> 
 #> [write_R2BIN()] Exporting ...
-#>  path:  /tmp/RtmpR2jT0r
-#>  file:  output1b633c7ca2e.binx
+#>  path:  /tmp/RtmptKh8Y0
+#>  file:  output1afe635b274c.binx
 #>  n_rec: 2
 #>   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%
 #>   >> 2 records written successfully

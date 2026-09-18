@@ -17,7 +17,7 @@ and end). The fast ratio is then calculated from: \((L1-L3)/(L2-L3)\)."></head><
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,7 +38,7 @@ and end). The fast ratio is then calculated from: \((L1-L3)/(L2-L3)\)."></head><
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Calculate the Fast Ratio for CW-OSL curves</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.3.0/R/calc_FastRatio.R" class="external-link"><code>R/calc_FastRatio.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.3.1/R/calc_FastRatio.R" class="external-link"><code>R/calc_FastRatio.R</code></a></small>
       <div class="d-none name"><code>calc_FastRatio.Rd</code></div>
     </div>
 
@@ -181,11 +181,11 @@ The slot <code>data</code> contains a <a href="https://rdrr.io/r/base/list.html"
 </dl></div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.1.1</p>
+    <p>0.1.2</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>King, G.E., Durcan, J., Burow, C., 2026. calc_FastRatio(): Calculate the Fast Ratio for CW-OSL curves. Function version 0.1.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/</p>
+    <p>King, G.E., Durcan, J., Burow, C., Colombo, M., 2026. calc_FastRatio(): Calculate the Fast Ratio for CW-OSL curves. Function version 0.1.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -208,7 +208,8 @@ due to unstable signal components. Quaternary Geochronology 4, 353-362.</p>
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
     <p>Georgina E. King, University of Bern (Switzerland) <br>
 Julie A. Durcan, University of Oxford (United Kingdom) <br>
-Christoph Burow, University of Cologne (Germany)
+Christoph Burow, University of Cologne (Germany) <br>
+Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 , RLum Developer Team</p>
     </div>
 
@@ -256,7 +257,7 @@ Christoph Burow, University of Cologne (Germany)
 <span class="r-in"><span><span class="co"># show the summary table</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   fast.ratio fast.ratio.se fast.ratio.rse channels channel.width</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    405.122      119.7442       29.55756     1000          0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1    405.122      119.7432       29.55731     1000          0.04</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   dead.channels.start dead.channels.end  sigmaF   sigmaM           I0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                   0                 0 2.6e-17 4.28e-18 7.240066e+16</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   stimulation.power wavelength t_L1     t_L2 t_L3_start t_L3_end Ch_L1 Ch_L2</span>

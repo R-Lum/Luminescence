@@ -9,7 +9,7 @@ object, including growth curve fitting."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,7 +30,7 @@ object, including growth curve fitting."></head><body>
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Analyse SAR CW-OSL Measurements</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.3.0/R/analyse_SAR.CWOSL.R" class="external-link"><code>R/analyse_SAR.CWOSL.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.3.1/R/analyse_SAR.CWOSL.R" class="external-link"><code>R/analyse_SAR.CWOSL.R</code></a></small>
       <div class="d-none name"><code>analyse_SAR.CWOSL.Rd</code></div>
     </div>
 
@@ -141,7 +141,8 @@ Note: <em>unnamed</em> list elements are ignored.</p>
 <li><p><code>exceed.max.regpoint</code> <a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (default: <code>FALSE</code>)</p></li>
 <li><p><code>consider.uncertainties</code> <a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (default: <code>FALSE</code>)</p></li>
 <li><p><code>recuperation_reference</code> <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (default: <code>"Natural"</code>; set to, e.g.,
-<code>"R1"</code> for another point)</p></li>
+<code>"R1"</code> for another point; use <code>"Rmax"</code> to select the point with highest
+dose as reference)</p></li>
 <li><p><code>sn_reference</code> <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> (default: <code>"Natural"</code>).</p></li>
 </ul><p>Example: <code>rejection.criteria = list(recycling.ratio = 10)</code>.</p>
 <p>All numerical criteria can be set to <code>NA</code>, in which case values are
@@ -311,7 +312,8 @@ curves. Only one curve type can be analysed at the same time: either the
 <code>Lx/Tx</code> values of the zero regeneration point with the <code>Ln/Tn</code> value (the
 <code>Lx/Tx</code> ratio of the natural signal). For methodological background see
 Aitken and Smith (1988). As a variant, <code>recuperation_reference</code> can be
-specified to select another dose point as reference instead of <code>Ln/Tn</code>.</p>
+specified to select another dose point as reference instead of <code>Ln/Tn</code>
+(e.g. <code>"R1"</code>; <code>"Rmax"</code> selects the point with highest dose as reference).</p>
 <p><code>[testdose.error]</code>: set the allowed error for the test dose, which by
 default should not exceed 10%. The test dose error is calculated as
 <code>Tx_net.error/Tx_net</code>. The calculation of the \(T_{n}\) error is detailed
@@ -340,11 +342,11 @@ function does <strong>not</strong> overwrite values preset in <code>IRR_TIME</co
 </ol></div>
     <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>1.0.0</p>
+    <p>1.0.1</p>
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Kreutzer, S., Colombo, M., 2026. analyse_SAR.CWOSL(): Analyse SAR CW-OSL Measurements. Function version 1.0.0. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Kreutzer, S., Colombo, M., 2026. analyse_SAR.CWOSL(): Analyse SAR CW-OSL Measurements. Function version 1.0.1. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -420,7 +422,7 @@ Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span>   .De.plot  .De.raw RC.Status signal.range background.range signal.range.Tx</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 1666.013 1666.013        OK          1:2         900:1000           NA:NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   background.range.Tx ALQ POS GRAIN              UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1               NA:NA   1   1     0 c6f38e9a1cfb9e2d</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1               NA:NA   1   1     0 1fdf781afcab0c2f</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">##show LnTnLxTx table</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_RLum.html">get_RLum</a></span><span class="op">(</span><span class="va">results</span>, data.object <span class="op">=</span> <span class="st">"LnLxTnTx.table"</span><span class="op">)</span></span></span>
@@ -441,13 +443,13 @@ Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6       97.30345 5732.396       77.06892     76.616181      45.92334 1.61426805</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7       14.03621 5989.356       78.55995      2.033984      51.91104 0.01629624</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    LxTx.Error Test_Dose              UID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.070548235        -1 c6f38e9a1cfb9e2d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.028478016        -1 c6f38e9a1cfb9e2d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.052017292        -1 c6f38e9a1cfb9e2d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.075831244        -1 c6f38e9a1cfb9e2d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.081877711        -1 c6f38e9a1cfb9e2d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.027552588        -1 c6f38e9a1cfb9e2d</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7 0.002353254        -1 c6f38e9a1cfb9e2d</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 0.070548235        -1 1fdf781afcab0c2f</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 0.028478016        -1 1fdf781afcab0c2f</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 0.052017292        -1 1fdf781afcab0c2f</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 0.075831244        -1 1fdf781afcab0c2f</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 0.081877711        -1 1fdf781afcab0c2f</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 0.027552588        -1 1fdf781afcab0c2f</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 0.002353254        -1 1fdf781afcab0c2f</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Run example with special case for</span></span></span>
 <span class="r-in"><span><span class="co">## the OTORX fit</span></span></span>

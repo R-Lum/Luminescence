@@ -19,6 +19,7 @@ analyse_IRSAR.RF(
   txtProgressBar = TRUE,
   plot = TRUE,
   plot_reduced = FALSE,
+  cores = 1,
   ...
 )
 ```
@@ -108,14 +109,25 @@ analyse_IRSAR.RF(
   e.g., `par(mfrow(...))`. If `TRUE` no residual plot is returned; it
   has no effect if `plot = FALSE`
 
+- cores:
+
+  [integer](https://rdrr.io/r/base/integer.html),
+  [numeric](https://rdrr.io/r/base/numeric.html) (*with default*):
+  number of cores allocated for parallel processing of the Monte-Carlo
+  runs. The default value corresponds to single-threaded computation;
+  the recommended values is `NULL`, which assigns all but two of the
+  available logical CPU cores.
+
 - ...:
 
-  further arguments that will be passed to the plot output. Currently
-  supported arguments are `main`, `mtext`, `xlab`, `ylab`, `xlim`,
-  `ylim`, `log`, `legend` (`TRUE/FALSE`), `legend.pos`, `legend.text`
-  (passes argument to x,y in
-  [graphics::legend](https://rdrr.io/r/graphics/legend.html)), `xaxt`,
-  `verbose` (`TRUE/FALSE`).
+  further arguments and graphical parameters to control the plot output.
+  Supported are: `main`, `mtext`, `xlab`, `ylab`, `xlim`, `ylim`, `cex`,
+  `pt.cex` (point size), `log`, `legend` (`TRUE/FALSE`), `legend.pos`,
+  `legend.text` (passes argument to `x`, `y` in
+  [graphics::legend](https://rdrr.io/r/graphics/legend.html)), `col_nat`
+  (colour of natural points), `col_reg` (colour of regenerated points),
+  `yaxis_scientific` (`TRUE/FALSE`), `xaxt`, and `verbose`
+  (`TRUE/FALSE`).
 
 ## Value
 
@@ -192,7 +204,6 @@ data. List elements are:
 **slot:** **`@info`**
 
 The original function call
-([methods::language](https://rdrr.io/r/methods/LanguageClasses.html)-object)
 
 The output (`data`) should be accessed using the function
 [get_RLum](https://r-lum.github.io/Luminescence/reference/get_RLum.md).
@@ -336,13 +347,6 @@ parameters are:
   in searching the global optimum. The default setting attempts to
   strike a balance between quality of the fit and computation speed.
 
-- `cores` ([numeric](https://rdrr.io/r/base/numeric.html) or
-  [character](https://rdrr.io/r/base/character.html), default: `NULL`):
-  number of cores allocated for a parallel processing of the Monte-Carlo
-  runs. The default value corresponds to single-threaded computation;
-  the recommended values is `"auto"`, which assigns all but two of the
-  available cores.
-
 **Error estimation**
 
 For **`method = "FIT"`**, the \\D\_{e}\\ error range is obtained by
@@ -430,17 +434,17 @@ the findings by Buylaert et al. (2012).
 
 ## Function version
 
-0.7.10
+0.7.14
 
 ## How to cite
 
 Kreutzer, S., 2026. analyse_IRSAR.RF(): Analyse IRSAR RF measurements.
-Function version 0.7.10. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
+Function version 0.7.14. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
-J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
+J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A., 2026.
 Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.3.0. https://r-lum.github.io/Luminescence/
+version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -552,7 +556,7 @@ get_RLum(results, data.object = "data")
 #>       DE DE.ERROR DE.LOWER DE.UPPER DE.STATUS RF_NAT.LIM RF_REG.LIM POSITION
 #> 1 623.25       NA   600.63    635.8        OK        1:5      1:524       NA
 #>   DATE SEQUENCE_NAME              UID
-#> 1   NA            NA e4276950e25ff91d
+#> 1   NA            NA 02e5aa014df82055
 get_RLum(results, data.object = "test_parameters")
 #>   POSITION          PARAMETER THRESHOLD        VALUE STATUS SEQUENCE_NAME
 #> 1       NA       curves_ratio     1.001 6.845685e-01     OK            NA
@@ -564,14 +568,14 @@ get_RLum(results, data.object = "test_parameters")
 #> 7       NA               beta        NA 5.418718e-01     OK            NA
 #> 8       NA          delta.phi        NA 2.103400e+03     OK            NA
 #>                UID
-#> 1 e4276950e25ff91d
-#> 2 e4276950e25ff91d
-#> 3 e4276950e25ff91d
-#> 4 e4276950e25ff91d
-#> 5 e4276950e25ff91d
-#> 6 e4276950e25ff91d
-#> 7 e4276950e25ff91d
-#> 8 e4276950e25ff91d
+#> 1 02e5aa014df82055
+#> 2 02e5aa014df82055
+#> 3 02e5aa014df82055
+#> 4 02e5aa014df82055
+#> 5 02e5aa014df82055
+#> 6 02e5aa014df82055
+#> 7 02e5aa014df82055
+#> 8 02e5aa014df82055
 
 ##(2) perform analysis using the method 'SLIDE'
 data(ExampleData.RF70Curves, envir = environment())
@@ -579,6 +583,7 @@ results <- analyse_IRSAR.RF(
 object = RF70Curves,
 method = "SLIDE",
  n.MC = 1)
+#> [analyse_IRSAR.RF()] Using 1 core ...
 #> 
 #>   Run Monte Carlo loops for error estimation
 #>   |                                                                              |                                                                      |   0%  |                                                                              |======================================================================| 100%

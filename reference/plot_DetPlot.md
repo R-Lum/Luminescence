@@ -22,7 +22,7 @@ plot_DetPlot(
   n.channels = NULL,
   show_ShineDownCurve = TRUE,
   respect_RC.Status = FALSE,
-  multicore = TRUE,
+  cores = NULL,
   verbose = TRUE,
   plot = TRUE,
   ...
@@ -109,14 +109,13 @@ plot_DetPlot(
   and
   [analyse_pIRIRSequence](https://r-lum.github.io/Luminescence/reference/analyse_pIRIRSequence.md)).
 
-- multicore:
+- cores:
 
-  [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  enable/disable multi core calculation if `object` is a
-  [list](https://rdrr.io/r/base/list.html) of
-  [RLum.Analysis](https://r-lum.github.io/Luminescence/reference/RLum.Analysis-class.md)
-  objects. Can be an [integer](https://rdrr.io/r/base/integer.html)
-  specifying the number of cores to use.
+  [integer](https://rdrr.io/r/base/integer.html),
+  [numeric](https://rdrr.io/r/base/numeric.html) (*with default*):
+  number of cores allocated for parallel processing when `object` is a
+  [list](https://rdrr.io/r/base/list.html) of objects. The default value
+  (`NULL`) assigns all but two of the available logical CPU cores.
 
 - verbose:
 
@@ -192,17 +191,17 @@ running long calculations over hundreds of channels.
 
 ## Function version
 
-0.1.11
+0.1.12
 
 ## How to cite
 
 Kreutzer, S., 2026. plot_DetPlot(): Create De(t) plot. Function version
-0.1.11. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
+0.1.12. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt,
 C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
 Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
-Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence:
+Steinbuch, L., de Boer, A., Bluszcz, A., 2026. Luminescence:
 Comprehensive Luminescence Dating Data Analysis. R package version
-1.3.0. https://r-lum.github.io/Luminescence/
+1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

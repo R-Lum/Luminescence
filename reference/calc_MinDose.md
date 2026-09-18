@@ -1,7 +1,8 @@
-# (Un-)logged minimum age model (MAM) after Galbraith et al. (1999)
+# Apply the minimum (maximum) age model to a given De distribution
 
 Function to fit the (un-)logged three or four parameter minimum dose
-model (MAM-3/4) to De data.
+model (MAM-3/4) and maximum dose model to De data after Galbraith et al.
+(1999) and Olley et al. (2006).
 
 **Parameters**
 
@@ -14,8 +15,8 @@ This model has four parameters:
 | `sigma`: | spread in ages above the minimum              |
 | `p0`:    | proportion of grains at gamma                 |
 
-If `par=3` (default) the 3-parameter minimum age model is applied, where
-`gamma=mu`. For `par=4` the 4-parameter model is applied instead.
+If `par=3` (default) the 3-parameter model is applied, where `gamma=mu`.
+For `par=4` the 4-parameter model is applied instead.
 
 **(Un-)logged model**
 
@@ -37,16 +38,44 @@ appropriate for most samples (i.e. De distributions), the modified
 samples containing negative, zero or near-zero De estimates (Arnold et
 al. 2009, p. 323).
 
+**Maximum dose model**
+
+To estimate the maximum dose population and its standard error, the
+minimum age model of Galbraith et al. (1999) is adapted. The measured De
+values are transformed as follows:
+
+1.  convert De values to natural logs
+
+2.  multiply the logged data by -1 to create a mirror image of the De
+    distribution
+
+3.  shift De values along x-axis by the smallest x-value found to obtain
+    only positive values
+
+4.  combine in quadrature the measurement error associated with each De
+    value with a relative error specified by `sigmab`
+
+5.  apply the MAM to these data
+
+When all calculations are done the results are then converted back as
+follows:
+
+1.  subtract the x-offset
+
+2.  multiply the natural logs by -1
+
+3.  take the exponent to obtain the maximum dose estimate in Gy
+
+Only a logged maximum dose model is supported.
+
 **Initial values and boundaries**
 
 The log-likelihood calculations use the
 [nlminb](https://rdrr.io/r/stats/nlminb.html) function for
-box-constrained optimisation using PORT routines. Accordingly, initial
-values for the four parameters can be specified via `init.values`. If no
-values are provided for `init.values`, reasonable starting values are
-estimated from the input data. If the final estimates of *gamma*, *mu*,
-*sigma* and *p0* are totally off target, consider providing custom
-starting values via `init.values`.
+box-constrained optimisation using PORT routines. By default, initial
+values for the four parameters are estimated from the input data. If the
+final estimates of *gamma*, *mu*, *sigma* and *p0* are totally off
+target, consider providing custom starting values via `init.values`.
 
 The boundaries for individual model parameters need not be specified
 explicitly. To override the default boundary values, provide arguments
@@ -55,7 +84,7 @@ explicitly. To override the default boundary values, provide arguments
 
 **Bootstrap**
 
-When `bootstrap=TRUE` the function applies the bootstrapping method as
+When `bootstrap = TRUE` the function applies the bootstrapping method as
 described in Cunningham & Wallinga (2012). The minimum age model
 produces `bs.M` first-level bootstrap replicates (1000 by default) and
 `bs.N` second-level replicates (`3 * bs.M` by default), with an
@@ -67,17 +96,21 @@ as:
 
 \$\$h = 2\sigma\_{DE} / \sqrt{n}\$\$
 
+**Note:** Setting `bs.N` to 0 corresponds to a classic bootstrap, which
+bypasses some of the computations required for the full approach by
+Cunningham & Wallinga (2012), such as polynomial smoothing. This may be
+sufficient when no subsequent Bayesian analysis is required.
+
 **Multicore support**
 
-Parallel processing can be enabled by setting `multicore = TRUE`. By
-default, the number of logical CPU cores is detected automatically, but
-it can be overridden with the `cores` argument. Multicore processing is
-supported only when `bootstrap = TRUE`, and spawns one R process per
-core to compute MAM estimates for each of the `N * M` bootstrap
-replicates. Note that this feature is experimental and may not work on
-all systems. Performance gains grow with the number of bootstrap
-replicates, but each additional core (R process) increases memory usage.
-When memory is insufficient, overall performance can degrade severely.
+Parallel processing can be enabled by setting the `cores` argument to a
+value greater than 1 (or to `NULL` to use all but two of the available
+logical CPU cores). Multicore processing is supported only when
+`bootstrap = TRUE`, and spawns one R process per core to compute MAM
+estimates for each of the `N * M` bootstrap replicates. Performance
+gains grow with the number of bootstrap replicates, but each additional
+core (R process) increases memory usage. When memory is insufficient,
+overall performance can degrade severely.
 
 **Likelihood profiles**
 
@@ -107,9 +140,11 @@ calc_MinDose(
   level = 0.95,
   log.output = FALSE,
   plot = TRUE,
-  multicore = FALSE,
+  cores = 1,
   ...
 )
+
+calc_MaxDose(data, sigmab, plot = TRUE, ...)
 ```
 
 ## Arguments
@@ -144,8 +179,7 @@ calc_MinDose(
 - par:
 
   [numeric](https://rdrr.io/r/base/numeric.html) (*with default*):
-  number of parameters in the minimum age model, either 3 (default) or
-  4.
+  number of parameters in the model, either 3 (default) or 4.
 
 - bootstrap:
 
@@ -156,12 +190,12 @@ calc_MinDose(
 - init.values:
 
   [numeric](https://rdrr.io/r/base/numeric.html) (*optional*): a named
-  list with starting values for `gamma`, `sigma`, `p0` and `mu` (e.g.
-  `list(gamma=100, sigma=1.5, p0=0.1, mu=100)`). If no values are
-  provided, reasonable values will be estimated from the data. **Note:**
-  the initial values must always be given in the absolute units. If a
-  logged model is applied (`log = TRUE`), the provided `init.values` are
-  automatically log-transformed.
+  list with starting positive values for `gamma`, `sigma`, `p0` and `mu`
+  (e.g. `list(gamma=100, sigma=1.5, p0=0.1, mu=100)`). If set to `NULL`
+  (default), reasonable values will be estimated from the data.
+  **Note:** the initial values must always be given in the absolute
+  units. If a logged model is applied (`log = TRUE`), the provided
+  `init.values` are automatically log-transformed.
 
 - level:
 
@@ -179,26 +213,27 @@ calc_MinDose(
   [logical](https://rdrr.io/r/base/logical.html) (*with default*):
   enable/disable the plot output.
 
-- multicore:
+- cores:
 
-  [logical](https://rdrr.io/r/base/logical.html) (*with default*):
-  parallelize the computation of the bootstrap by creating a multicore
-  cluster (only considered if `bootstrap = TRUE`). By default, it uses
-  all available logical CPU cores, but this can be changed with the
-  `cores` argument. Note that this feature is experimental and may not
-  work on all systems.
+  [integer](https://rdrr.io/r/base/integer.html),
+  [numeric](https://rdrr.io/r/base/numeric.html) (*with default*):
+  number of cores allocated for parallel processing of the bootstrap
+  step (only considered if `bootstrap = TRUE`). The default value
+  corresponds to single-threaded computation; the recommended value is
+  `NULL`, which assigns all but two of the available logical CPU cores.
 
 - ...:
 
-  (*optional*) further arguments for bootstrapping (`bs.M`, `bs.N`,
-  `bs.h`, `sigmab.sd`). See details for their usage. Further arguments
-  are
+  Further arguments:
 
-  - `verbose`: enable/disable output to the terminal
+  - `bs.M`, `bs.N`, `bs.h`, `sigmab.sd`: arguments for bootstrapping,
+    see details for their usage.
 
-  - `debug`: enable/disable extended console output
+  - `verbose`: enable/disable output to the terminal.
 
-  - `cores`: number of cores to be used when `multicore=TRUE`
+  - `debug`: enable/disable extended console output.
+
+  - all named argument of calc_MinDose can be passed to calc_MaxDose.
 
 ## Value
 
@@ -264,18 +299,18 @@ internal warning messages.
 
 ## Function version
 
-0.6.0
+0.6.2
 
 ## How to cite
 
-Burow, C., Colombo, M., 2026. calc_MinDose(): (Un-)logged minimum age
-model (MAM) after Galbraith et al. (1999). Function version 0.6.0. In:
-Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer,
-M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M.,
-Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L.,
-Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence
-Dating Data Analysis. R package version 1.3.0.
-https://r-lum.github.io/Luminescence/
+Burow, C., Colombo, M., 2026. calc_MinDose(): Apply the minimum
+(maximum) age model to a given De distribution. Function version 0.6.2.
+In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C.,
+Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S.,
+Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M.,
+Steinbuch, L., de Boer, A., Bluszcz, A., 2026. Luminescence:
+Comprehensive Luminescence Dating Data Analysis. R package version
+1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 
@@ -334,8 +369,7 @@ a reproducible distribution?. Ancient TL 26, 3-10.
 [calc_CentralDose](https://r-lum.github.io/Luminescence/reference/calc_CentralDose.md),
 [calc_CommonDose](https://r-lum.github.io/Luminescence/reference/calc_CommonDose.md),
 [calc_FiniteMixture](https://r-lum.github.io/Luminescence/reference/calc_FiniteMixture.md),
-[calc_FuchsLang2001](https://r-lum.github.io/Luminescence/reference/calc_FuchsLang2001.md),
-[calc_MaxDose](https://r-lum.github.io/Luminescence/reference/calc_MaxDose.md)
+[calc_FuchsLang2001](https://r-lum.github.io/Luminescence/reference/calc_FuchsLang2001.md)
 
 ## Author
 
@@ -473,5 +507,8 @@ plot(bs$poly.fits$poly.three, ask = FALSE)
 
 # Show the fitted values of the polynomials
 summary(bs$poly.fits$poly.three$fitted.values)
+
+# apply the maximum dose model
+calc_MaxDose(ExampleData.DeValues$CA1, sigmab = 0.2, par = 3)
 } # }
 ```

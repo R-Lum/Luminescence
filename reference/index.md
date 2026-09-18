@@ -124,6 +124,13 @@
 - [`apply_EfficiencyCorrection()`](https://r-lum.github.io/Luminescence/reference/apply_EfficiencyCorrection.md)
   : Apply spectral efficiency correction to RLum.Data.Spectrum objects
 
+- [`coerce(`*`<list>`*`,`*`<RLum.Analysis>`*`)`](https://r-lum.github.io/Luminescence/reference/as.md)
+  [`coerce(`*`<list>`*`,`*`<RLum.Data.Curve>`*`)`](https://r-lum.github.io/Luminescence/reference/as.md)
+  [`coerce(`*`<data.frame>`*`,`*`<RLum.Data.Image>`*`)`](https://r-lum.github.io/Luminescence/reference/as.md)
+  [`coerce(`*`<data.frame>`*`,`*`<RLum.Data.Spectrum>`*`)`](https://r-lum.github.io/Luminescence/reference/as.md)
+  [`coerce(`*`<list>`*`,`*`<RLum.Results>`*`)`](https://r-lum.github.io/Luminescence/reference/as.md)
+  : as() - RLum-object coercion
+
 - [`bin_RLum.Data()`](https://r-lum.github.io/Luminescence/reference/bin_RLum.Data.md)
   : Channel binning for RLum.Data-class objects
 
@@ -176,11 +183,9 @@
 - [`calc_Lamothe2003()`](https://r-lum.github.io/Luminescence/reference/calc_Lamothe2003.md)
   : Apply fading correction after Lamothe et al., 2003
 
-- [`calc_MaxDose()`](https://r-lum.github.io/Luminescence/reference/calc_MaxDose.md)
-  : Apply the maximum age model to a given De distribution
-
 - [`calc_MinDose()`](https://r-lum.github.io/Luminescence/reference/calc_MinDose.md)
-  : (Un-)logged minimum age model (MAM) after Galbraith et al. (1999)
+  [`calc_MaxDose()`](https://r-lum.github.io/Luminescence/reference/calc_MinDose.md)
+  : Apply the minimum (maximum) age model to a given De distribution
 
 - [`calc_MoransI()`](https://r-lum.github.io/Luminescence/reference/calc_MoransI.md)
   : Calculate Moran's I
@@ -342,7 +347,7 @@
   : Normalisation of RLum-class objects
 
 - [`plot_AbanicoPlot()`](https://r-lum.github.io/Luminescence/reference/plot_AbanicoPlot.md)
-  : Function to create an Abanico Plot.
+  : Function to create an abanico plot
 
 - [`plot_DRCSummary()`](https://r-lum.github.io/Luminescence/reference/plot_DRCSummary.md)
   : Create a Dose-Response Curve Summary Plot
@@ -464,9 +469,8 @@
   evaluation
 
 - [`scale_GammaDose()`](https://r-lum.github.io/Luminescence/reference/scale_GammaDose.md)
-  : Calculate the gamma dose deposited within a sample taking
-  layer-to-layer variations in radioactivity into account (according to
-  Aitken, 1985)
+  : Calculate the gamma dose deposited within a sample accounting for
+  layer-to-layer variations in radioactivity
 
 - [`set_RLum()`](https://r-lum.github.io/Luminescence/reference/set_RLum.md)
   : General setter function for RLum-class objects

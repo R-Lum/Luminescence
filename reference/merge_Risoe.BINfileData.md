@@ -8,7 +8,7 @@ objects.
 
 ``` r
 merge_Risoe.BINfileData(
-  objects,
+  object,
   output.file,
   keep.position.number = FALSE,
   position.number.append.gap = 0,
@@ -19,15 +19,15 @@ merge_Risoe.BINfileData(
 
 ## Arguments
 
-- objects:
+- object:
 
   [character](https://rdrr.io/r/base/character.html) or
   [Risoe.BINfileData](https://r-lum.github.io/Luminescence/reference/Risoe.BINfileData-class.md)
   (**required**): Character vector with path and files names with ".bin"
   or ".binx" extension (e.g.
-  `input.objects = c("path/file1.bin", "path/file2.bin")` or a list of
+  `object = c("path/file1.bin", "path/file2.bin")` or a list of
   [Risoe.BINfileData](https://r-lum.github.io/Luminescence/reference/Risoe.BINfileData-class.md)
-  objects (e.g. `input.objects = c(object1, object2)`).
+  objects (e.g. `object = c(object1, object2)`).
 
 - output.file:
 
@@ -105,9 +105,9 @@ Kreutzer, S., 2026. merge_Risoe.BINfileData(): Merge Risoe.BINfileData
 objects or Risoe BIN-files. Function version 0.2.11. In: Kreutzer, S.,
 Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich,
 J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass,
-D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

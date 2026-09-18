@@ -53,7 +53,7 @@ one or more of the following keywords:
 
     <a class="navbar-brand me-2" href="../index.html">Luminescence</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,7 +74,7 @@ one or more of the following keywords:
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Plot a histogram with separate error plot</h1>
-      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.3.0/R/plot_Histogram.R" class="external-link"><code>R/plot_Histogram.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/R-Lum/Luminescence/blob/v1.3.1/R/plot_Histogram.R" class="external-link"><code>R/plot_Histogram.R</code></a></small>
       <div class="d-none name"><code>plot_Histogram.Rd</code></div>
     </div>
 
@@ -106,7 +106,6 @@ one or more of the following keywords:</p><ul><li><p><code>"n"</code> (number of
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_Histogram</span><span class="op">(</span></span>
 <span>  <span class="va">data</span>,</span>
-<span>  na.rm <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  mtext <span class="op">=</span> <span class="st">""</span>,</span>
 <span>  cex.global <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  se <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -127,13 +126,9 @@ one or more of the following keywords:</p><ul><li><p><code>"n"</code> (number of
 <dl><dt id="arg-data">data<a class="anchor" aria-label="anchor" href="#arg-data"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a> or <a href="RLum.Results-class.html">RLum.Results</a> object (<strong>required</strong>):
 for <code>data.frame</code>: two columns: De (<code>data[,1]</code>) and De error (<code>data[,2]</code>).
-If the error column is missing or only contains <code>NA</code> values, then the error
-at each measurement is assumed to be 10^-9.</p></dd>
-
-
-<dt id="arg-na-rm">na.rm<a class="anchor" aria-label="anchor" href="#arg-na-rm"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-excludes <code>NA</code> values from the data set prior to any further operations.</p></dd>
+If the error column is missing or only contains <code>NA</code> values, then <code>se</code> is
+set to <code>FALSE</code>, and the weighted statistics will match the unweighted ones.
+In any other case, rows with <code>NA</code> values will be removed prior to plotting.</p></dd>
 
 
 <dt id="arg-mtext">mtext<a class="anchor" aria-label="anchor" href="#arg-mtext"></a></dt>
@@ -148,7 +143,9 @@ global scaling factor.</p></dd>
 
 <dt id="arg-se">se<a class="anchor" aria-label="anchor" href="#arg-se"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> (<em>with default</em>):
-plots standard error points over the histogram, default is <code>TRUE</code>.</p></dd>
+plots standard error points over the histogram, default is <code>TRUE</code>. It is
+silently reset to <code>FALSE</code> if the error column in <code>data</code> is missing or only
+contains <code>NA</code> values.</p></dd>
 
 
 <dt id="arg-rug">rug<a class="anchor" aria-label="anchor" href="#arg-rug"></a></dt>
@@ -192,22 +189,19 @@ create an interactive histogram plot (requires the 'plotly' package)</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
-<dd><p>further arguments and graphical parameters passed to <a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a> or
-<a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a>. If y-axis labels are provided, these must be specified as a vector
-of length 2 since the plot features two axes
-(e.g. <code>ylab = c("axis label 1", "axis label 2")</code>). Y-axes limits
-(<code>ylim</code>) must be provided as vector of length four, with the first two
+<dd><p>further arguments and graphical parameters to control the plot
+output (see <a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a> and <a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a>). Supported are: <code>main</code>, <code>xlab</code>, <code>ylab</code>,
+<code>xlim</code>, <code>ylim</code>, <code>breaks</code>, <code>pch</code>, <code>pt.cex</code> (point size), and <code>fun</code>. If y-axis labels are
+provided, these must be specified as a vector of length 2 since the plot
+features two axes (e.g. <code>ylab = c("axis label 1", "axis label 2")</code>). Y-axes
+limits (<code>ylim</code>) must be provided as vector of length four, with the first two
 elements specifying the left axes limits and the latter two elements giving
 the right axis limits.</p></dd>
 
 </dl></div>
     <div class="section level2">
-    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-    <p>The input data is not restricted to a special type.</p>
-    </div>
-    <div class="section level2">
     <h2 id="function-version">Function version<a class="anchor" aria-label="anchor" href="#function-version"></a></h2>
-    <p>0.4.5</p>
+    <p>0.4.6</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
@@ -221,7 +215,7 @@ Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Ins
     </div>
     <div class="section level2">
     <h2 id="how-to-cite">How to cite<a class="anchor" aria-label="anchor" href="#how-to-cite"></a></h2>
-    <p>Dietze, M., Kreutzer, S., 2026. plot_Histogram(): Plot a histogram with separate error plot. Function version 0.4.5. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/</p>
+    <p>Dietze, M., Kreutzer, S., 2026. plot_Histogram(): Plot a histogram with separate error plot. Function version 0.4.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/</p>
     </div>
 
     <div class="section level2">

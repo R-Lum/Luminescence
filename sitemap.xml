@@ -53,6 +53,7 @@
 <url><loc>https://r-lum.github.io/Luminescence/reference/apply_CosmicRayRemoval.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/apply_Crosstalk.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/apply_EfficiencyCorrection.html</loc></url>
+<url><loc>https://r-lum.github.io/Luminescence/reference/as.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/bin_RLum.Data.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/calc_AliquotSize.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/calc_AverageDose.html</loc></url>
@@ -69,7 +70,6 @@
 <url><loc>https://r-lum.github.io/Luminescence/reference/calc_Huntley2006.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/calc_IEU.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/calc_Lamothe2003.html</loc></url>
-<url><loc>https://r-lum.github.io/Luminescence/reference/calc_MaxDose.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/calc_MinDose.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/calc_MoransI.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/calc_OSLLxTxDecomposed.html</loc></url>
@@ -118,7 +118,6 @@
 <url><loc>https://r-lum.github.io/Luminescence/reference/melt_RLum.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/merge_RLum.Analysis.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/merge_RLum.Data.Curve.html</loc></url>
-<url><loc>https://r-lum.github.io/Luminescence/reference/merge_RLum.Data.Spectrum.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/merge_RLum.Results.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/merge_RLum.html</loc></url>
 <url><loc>https://r-lum.github.io/Luminescence/reference/merge_Risoe.BINfileData.html</loc></url>

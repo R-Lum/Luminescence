@@ -118,12 +118,12 @@ analyse_FadingMeasurement(
 
 - ...:
 
-  further arguments that can be passed to internally used functions.
-  Supported arguments: `xlab`, `log`, `mtext`, `plot.trend`
-  (enable/disable trend blue line), and `xlim` for the two first curve
-  plots, and `ylim` for the fading curve plot. For further plot
-  customization please use the numerical output of the functions for own
-  plots.
+  further arguments and graphical parameters to control the plot output.
+  Supported are: `xlab`, `log`, `mtext`, `pt.cex` (point size),
+  `plot.trend` (enable/disable the trend blue line), `xlim` (for the two
+  first curve plots), and `ylim` (for the fading curve plot). For
+  further plot customization please use the numerical output of the
+  functions for own plots.
 
 ## Value
 
@@ -222,18 +222,18 @@ times are taken into consideration for the analysis.
 
 ## Function version
 
-0.1.27
+0.1.28
 
 ## How to cite
 
 Kreutzer, S., Burow, C., 2026. analyse_FadingMeasurement(): Analyse
 fading measurements and returns the fading rate per decade (g-value).
-Function version 0.1.27. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
+Function version 0.1.28. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs,
 M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe,
 A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret,
-J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A., 2026.
+J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A., 2026.
 Luminescence: Comprehensive Luminescence Dating Data Analysis. R package
-version 1.3.0. https://r-lum.github.io/Luminescence/
+version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## References
 

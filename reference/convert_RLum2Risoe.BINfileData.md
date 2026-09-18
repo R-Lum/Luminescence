@@ -69,9 +69,9 @@ RLum.Analysis and RLum.Data.Curve objects to RLum2Risoe.BINfileData
 objects. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze,
 M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N.,
 Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J.,
-Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d., Bluszcz, A.,
+Galharret, J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A.,
 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R
-package version 1.3.0. https://r-lum.github.io/Luminescence/
+package version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
@@ -84,7 +84,7 @@ convert_RLum2Risoe.BINfileData(IRSAR.RF.Data)
 #> [Risoe.BINfileData object]
 #> 
 #>  BIN/BINX version:     0
-#>  Object date:          20260722
+#>  Object date:          20260918
 #>  User:                 0
 #>  System ID:            0 (unknown)
 #>  Overall records:      2

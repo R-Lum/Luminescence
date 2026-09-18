@@ -173,8 +173,7 @@ fit_SurfaceExposure(synth_3, age = age, sigmaphi = sigmaphi)
 #>  sigmaphi:    5e-10 
 #> 
 #> To apply the estimated parameters to a sample of unknown age run:
-#> 
-#> fit_SurfaceExposure(data = synth_3, sigmaphi = 5e-10, mu = c(0.901, 0.901, 0.901, 0.901))
+#>     fit_SurfaceExposure(data = synth_3, sigmaphi = 5e-10, mu = c(0.901, 0.901, 0.901, 0.901))
 #> 
 #>  [RLum.Results-class]
 #>   originator: fit_SurfaceExposure()
@@ -225,8 +224,7 @@ fit_SurfaceExposure(synth_4, age = age, sigmaphi = sigmaphi, D0 = D0, Ddot = 1.0
 #>  sigmaphi:    5e-10 
 #> 
 #> To apply the estimated parameters to a sample of unknown age run:
-#> 
-#> fit_SurfaceExposure(data = synth_4, sigmaphi = 5e-10, mu = c(0.899, 0.899, 0.899, 0.899, 0.899))
+#>     fit_SurfaceExposure(data = synth_4, sigmaphi = 5e-10, mu = c(0.899, 0.899, 0.899, 0.899, 0.899))
 #> 
 #>  [RLum.Results-class]
 #>   originator: fit_SurfaceExposure()

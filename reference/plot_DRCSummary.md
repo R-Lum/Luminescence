@@ -67,9 +67,9 @@ plot_DRCSummary(
 
 - ...:
 
-  Further arguments and graphical parameters to be passed. In
-  particular: `main`, `xlab`, `ylab`, `xlim`, `ylim`, `lty`, `lwd`,
-  `pch`, `col.pch`, `col.lty`, `mtext`
+  further arguments and graphical parameters to control the plot output.
+  Supported are: `main`, `xlab`, `ylab`, `xlim`, `ylim`, `lty`, `lwd`,
+  `pch`, `col.pch`, `col.lty`, `mtext`, and `pt.cex` (point size).
 
 ## Value
 
@@ -100,7 +100,7 @@ objects is returned.*
 
 ## Function version
 
-0.2.4
+0.2.5
 
 ## See also
 
@@ -116,12 +116,12 @@ Christoph Burow, University of Cologne (Germany) , RLum Developer Team
 ## How to cite
 
 Kreutzer, S., Burow, C., 2026. plot_DRCSummary(): Create a Dose-Response
-Curve Summary Plot. Function version 0.2.4. In: Kreutzer, S., Burow, C.,
+Curve Summary Plot. Function version 0.2.5. In: Kreutzer, S., Burow, C.,
 Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J.,
 Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D.,
-Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., Boer, A.d.,
+Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A.,
 Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data
-Analysis. R package version 1.3.0. https://r-lum.github.io/Luminescence/
+Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/
 
 ## Examples
 
