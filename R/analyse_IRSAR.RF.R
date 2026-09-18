@@ -42,8 +42,7 @@
 #'
 #' \deqn{D_{e} = \ln(-(\phi(D) - \phi_{0})/(-\lambda\phi)^{1/\beta}+1)/-\lambda}
 #'
-#' The fitting is done using the `port` algorithm of the [nls] function.
-#'
+#' The fitting is done using the `LM` algorithm of the [minpack.lm::nlsLM] function.
 #'
 #' **`method = "SLIDE"`**
 #'
@@ -726,7 +725,9 @@ analyse_IRSAR.RF<- function(
   ## SET PLOT PARAMETERS
   ##=========================================================================
   ##get channel resolution (should be equal for all curves, but if not the mean is taken)
-  resolution.RF <- round(mean((temp.sequence_structure$x.max/temp.sequence_structure$n.channels)),digits=1)
+  resolution.RF <- round(
+    mean((temp.sequence_structure$x.max/temp.sequence_structure$n.channels)),
+    digits = 1)
 
   ## get internal colour definition
   col <- get("col", pos = .LuminescenceEnv)
@@ -757,7 +758,6 @@ analyse_IRSAR.RF<- function(
   ##=============================================================================#
   ## ANALYSIS
   ##=============================================================================#
-
   ##grep first regenerated curve
   RF_reg <- as.data.frame(rbindlist(lapply(object@records[reg.idx],
                                            function(x) as.data.frame(x@data))))
@@ -827,16 +827,13 @@ analyse_IRSAR.RF<- function(
 
   if(method == "FIT"){
     # start nls fitting -------------------------------------------------------
-    ##Monte Carlo approach for fitting
-    fit.MC.results <- data.frame()
-
     ## start parameters
     n.MC <- n.MC %||% 0
     lambda.MC <- seq(0.0001, 0.001, length = n.MC)
     start.MC <- fit.parameters.start
 
     ##start fitting loop for MC runs
-    for (i in seq_len(n.MC)) {
+    fit.MC.results <- lapply(seq_len(n.MC), \(i) {
       start.MC["lambda"] <- lambda.MC[i]
       fit.MC <- try(minpack.lm::nlsLM(
         formula = fit.function,
@@ -848,19 +845,20 @@ analyse_IRSAR.RF<- function(
         lower = lower,
         upper = upper),
       silent = TRUE)
-
-      if (!inherits(fit.MC, "try-error")) {
-        fit.MC.coefs <- coef(fit.MC)
-        for (val in c("phi.0", "delta.phi", "lambda", "beta"))
-          fit.MC.results[i, val] <- fit.MC.coefs[val]
-      }
-    }
-
-    ##FINAL fitting after successful MC
-    fit.MC.results <- stats::na.omit(fit.MC.results)
+      
+      if (!inherits(fit.MC, "try-error")) 
+        return(coef(fit.MC))
+     
+      NULL
+    })
+    
+    ## combine results, a little bit traditionally
+    fit.MC.results <- fit.MC.results[!vapply(fit.MC.results, is.null, logical(1))]
+    fit.MC.results <- do.call(rbind, fit.MC.results)
+    
     if (length(fit.MC.results) != 0) {
       ##choose median as final fit version
-      fit.MC.results <- sapply(fit.MC.results, median)
+      fit.MC.results <- apply(fit.MC.results, MARGIN = 2, FUN = median)
   
       ##try final fitting
       fit <- try(minpack.lm::nlsLM(
@@ -870,27 +868,26 @@ analyse_IRSAR.RF<- function(
         control = minpack.lm::nls.lm.control(
           maxiter = method_control.settings$maxiter,
           factor = method_control.settings$factor
-          
         ),
         start = fit.MC.results,
         lower = lower,
         upper = upper),
       silent = TRUE
       )
-    }else{
+    } else {
       fit <- NA
       class(fit) <- "try-error"
     }
-
+    
     # get parameters ----------------------------------------------------------
     # and with that the final De
     fit.parameters.results <- NA
     if (!inherits(fit,"try-error")) {
-      fit.parameters.results <- coef(fit)
+      fit.parameters.results <- stats::coef(fit)
       residuals <- stats::residuals(fit)
     }
 
-    ##calculate De value
+    ##calculate De value and its upper and lower boundaries
     if (!is.na(fit.parameters.results[1])) {
       RF_nat.vals <- c(RF_nat.mean, RF_nat.error.lower, RF_nat.error.upper)
       
@@ -903,14 +900,15 @@ analyse_IRSAR.RF<- function(
       De <- De.vals[1]
       De.lower <- De.vals[2]
       De.upper <- De.vals[3]
-
+ 
       ##This could be solved with a MC simulation, but for this the code has 
       ##to be adjusted
       ##The question is: Where the parameters are coming from?
-      ##TODO
+      ##TODO ... only relevant if this is further used
       De.error <- NA
     }
   }
+
 
   ##+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   ## METHOD SLIDE - ANALYSIS
