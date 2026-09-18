@@ -138,4 +138,9 @@ plot_Histogram(ExampleData.DeValues,
 \author{
 Michael Dietze, GFZ Potsdam (Germany)\cr
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+, RLum Developer Team} 
+
+\section{How to cite}{
+Dietze, M., Kreutzer, S., 2026. plot_Histogram(): Plot a histogram with separate error plot. Function version 0.4.6. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/
 }
+

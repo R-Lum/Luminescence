@@ -235,7 +235,12 @@ results <- scale_GammaDose(data = ExampleData.ScaleGammaDose,
 
 get_RLum(results)
 
+} 
+
+\section{How to cite}{
+Riedesel, S., Autzen, M., Burow, C., 2026. scale_GammaDose(): Calculate the gamma dose deposited within a sample accounting for layer-to-layer variations in radioactivity. Function version 0.1.4. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Aitken, M.J., 1985. Thermoluminescence Dating. Academic Press, London.
 
@@ -262,5 +267,5 @@ Svenja Riedesel, Aberystwyth University (United Kingdom) \cr
 Martin Autzen, DTU NUTECH Center for Nuclear Technologies (Denmark) \cr
 Christoph Burow, University of Cologne (Germany) \cr
 Based on an excel spreadsheet and accompanying macro written by Ian Bailiff.
-}
+, RLum Developer Team}
 \keyword{datagen}

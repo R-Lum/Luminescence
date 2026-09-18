@@ -77,7 +77,12 @@ x <- as.data.frame(cbind(rnorm(n = 10^5, mean = 0, sd = 1),
 str(calc_Statistics(x))
 }
 
+} 
+
+\section{How to cite}{
+Dietze, M., 2026. calc_Statistics(): Function to calculate statistic measures. Function version 0.1.9. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Dietze, M., Kreutzer, S., Burow, C., Fuchs, M.C., Fischer, M., Schmidt, C., 2016.
 The abanico plot: visualising chronometric data with individual standard errors.
@@ -85,5 +90,5 @@ Quaternary Geochronology 31, 1-7. \doi{10.1016/j.quageo.2015.09.003}
 }
 \author{
 Michael Dietze, GFZ Potsdam (Germany)
-}
+, RLum Developer Team}
 \keyword{datagen}

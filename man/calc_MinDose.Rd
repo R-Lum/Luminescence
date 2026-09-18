@@ -321,7 +321,12 @@ summary(bs$poly.fits$poly.three$fitted.values)
 calc_MaxDose(ExampleData.DeValues$CA1, sigmab = 0.2, par = 3)
 }
 
+} 
+
+\section{How to cite}{
+Burow, C., Colombo, M., 2026. calc_MinDose(): Apply the minimum (maximum) age model to a given De distribution. Function version 0.6.2. In: Kreutzer, S., Burow, C., Dietze, M., Fuchs, M.C., Schmidt, C., Fischer, M., Friedrich, J., Mercier, N., Philippe, A., Riedesel, S., Autzen, M., Mittelstrass, D., Gray, H.J., Galharret, J., Colombo, M., Steinbuch, L., de Boer, A., Bluszcz, A., 2026. Luminescence: Comprehensive Luminescence Dating Data Analysis. R package version 1.3.1. https://r-lum.github.io/Luminescence/
 }
+
 \references{
 Arnold, L.J., Roberts, R.G., Galbraith, R.F. & DeLong, S.B.,
 2009. A revised burial dose estimation procedure for optical dating of young
@@ -379,4 +384,4 @@ Marco Colombo, Institute of Geography, Heidelberg University (Germany) \cr
 Based on a rewritten S script of Rex Galbraith, 2010 \cr
 The bootstrap approach is based on a MATLAB script by Alastair Cunningham,
 who helped with implementation and cross-checking.
-}
+, RLum Developer Team}
