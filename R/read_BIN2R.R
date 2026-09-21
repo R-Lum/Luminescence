@@ -178,6 +178,7 @@ read_BIN2R <- function(
         txtProgressBar = txtProgressBar,
         forced.VersionNumber = forced.VersionNumber[[x]],
         ignore.RECTYPE = ignore.RECTYPE,
+        pattern = pattern,
         verbose = verbose,
         ...
       ), outFile = stdout()) # redirect error messages so they can be silenced

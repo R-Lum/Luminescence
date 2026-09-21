@@ -243,6 +243,7 @@ read_XSYG2R <- function(
         recalculate.TL.curves = recalculate.TL.curves,
         fastForward = fastForward,
         import = import,
+        pattern = pattern,
         verbose = verbose,
         txtProgressBar = txtProgressBar
       )
