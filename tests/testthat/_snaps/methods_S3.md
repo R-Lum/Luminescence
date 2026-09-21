@@ -47,5 +47,5 @@
 # test RLum.Data.Spectrum S3 methods
 
                 Length              Class               Mode 
-               460.007 RLum.Data.Spectrum                 S4 
+                     1 RLum.Data.Spectrum                 S4 
 
