@@ -7,6 +7,7 @@ test_that("test RLum.Analysis S3 methods", {
   expect_silent(plot(analysis))
   expect_silent(hist(analysis))
   expect_type(summary(analysis), "list")
+  expect_snapshot_output(summary(analysis))
   expect_s4_class(subset(analysis), "RLum.Analysis")
   expect_message(subset(analysis, curveType == "error"),
                  "The following fields and values are available")
@@ -39,6 +40,7 @@ test_that("test RLum.Results S3 methods", {
   expect_silent(plot(list(result, result)))
   expect_silent(hist(result))
   expect_s3_class(summary(result), "data.frame")
+  expect_snapshot_output(summary(result))
   expect_equal(length(result), 3)
   expect_length(rep(result, 2), 2)
   expect_equal(names(result), c("dose.rate", "parameters", "call"))
@@ -66,6 +68,7 @@ test_that("test RLum.Data.Curve S3 methods", {
   expect_silent(plot(list(curve, curve)))
   expect_silent(hist(curve))
   expect_s3_class(summary(curve), "table")
+  expect_snapshot_output(summary(curve))
   expect_equal(length(curve), 40)
   expect_equal(dim(curve), c(1000, 2))
   expect_s4_class(bin(curve), "RLum.Data.Curve")
@@ -89,6 +92,7 @@ test_that("test RLum.Data.Curve S3 methods", {
 test_that("test RLum.Data.Image S3 methods", {
   testthat::skip_on_cran()
 
+  set.seed(1)
   data(ExampleData.RLum.Data.Image, envir = environment())
   image <- ExampleData.RLum.Data.Image
   image3 <- set_RLum("RLum.Data.Image",
@@ -101,7 +105,9 @@ test_that("test RLum.Data.Image S3 methods", {
   expect_silent(hist(image))
   expect_silent(hist(image3))
   expect_s3_class(summary(image), "table")
+  expect_snapshot_output(summary(image))
   expect_s3_class(summary(image3), "table")
+  expect_snapshot_output(summary(image3))
   expect_length(rep(image, 2), 2)
   expect_equal(names(image)[1:3],
                c("ControllerVersion", "LogicOutput", "AmpHiCapLowNoise"))
@@ -133,6 +139,8 @@ test_that("test RLum.Data.Spectrum S3 methods", {
   expect_silent(plot(spectrum))
   expect_silent(plot(list(spectrum, spectrum)))
   expect_s4_class(bin(spectrum), "RLum.Data.Spectrum")
+  expect_s3_class(summary(spectrum), "table")
+  expect_snapshot_output(summary(spectrum))
   expect_equal(dim(spectrum), c(1024, 24))
   expect_length(rep(spectrum, 2), 2)
   expect_equal(names(spectrum)[1:3], c("state", "parentID", "startDate"))
