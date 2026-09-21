@@ -223,7 +223,6 @@ read_XSYG2R <- function(
   ##  - xlum should be general, xsyg should take care about subsequent details
 
   .validate_logical_scalar(verbose)
-  .validate_class(pattern, "character")
   file <- .validate_file(file, pattern = pattern, recursive = TRUE,
                          throw.error = FALSE, verbose = verbose)
   if (length(file) == 0)
@@ -401,7 +400,7 @@ read_XSYG2R <- function(
 
       ## the XSYG file might be broken due to a machine error during the measurement
       recordType <- try(XML::xmlAttrs(record)["recordType"], silent = TRUE)
-      
+
       if (any(inherits(recordType, "try-error")))
           return(NULL) # nocov
 

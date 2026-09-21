@@ -39,6 +39,8 @@ test_that("input validation", {
                "'ignore.RECTYPE' should be of class 'logical' or 'numeric'")
   expect_error(read_BIN2R(bin.v3, ignore.RECTYPE = 1:2),
                "'ignore.RECTYPE' should be of class 'logical' or 'numeric' and have length 1")
+  expect_error(read_BIN2R(".", pattern = c("p1", "p2")),
+               "'pattern' should be of class 'character' and have length 1")
 
   ## check for broken files
   zero <- tempfile(pattern = "zero", fileext = ".binx")

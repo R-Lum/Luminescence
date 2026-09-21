@@ -1514,6 +1514,7 @@ SW <- function(expr) {
                            throw.error = TRUE, verbose = TRUE) {
   .validate_class(file, c("character", "list"))
   .validate_not_empty(file)
+  .validate_class(pattern %||% "", "character", length = 1)
 
   ## if it's a list, we only validate its elements and return it as is
   if (inherits(file, "list")) {
@@ -1599,13 +1600,15 @@ SW <- function(expr) {
   }
 
   if (verbose) {
-    .throw_message("Directory detected, looking for ",
-                   if (is.null(pattern)) "any" else .collapse(pattern),
-                   " files ...", error = FALSE)
+    .throw_message("Directory detected, looking for files",
+                   if (!is.null(pattern))
+                     paste(" matching the", .collapse(pattern), "pattern"),
+                   " ...", error = FALSE)
   }
 
-  files <- dir(path, pattern = pattern, recursive = recursive,
-               full.names = TRUE, include.dirs = FALSE)
+  tryCatch(files <- dir(path, pattern = pattern, recursive = recursive,
+                        full.names = TRUE, include.dirs = FALSE),
+           error = function(e) .throw_error(e$message))
   if (length(files) == 0 && verbose) {
     .throw_message("No files matching the given pattern found in directory")
     files <- NULL
