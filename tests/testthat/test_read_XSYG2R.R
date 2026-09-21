@@ -167,4 +167,10 @@ test_that("regression tests", {
   expect_message(expect_null(do.call(read_XSYG2R, list("a test"))),
                  "File '.*a test' does not exist") # windows CI needs the regexp
   })
+
+  ## issue 1753
+  SW({
+  expect_message(read_XSYG2R(test_path("_data/xsyg-tests/", "."), pattern = "_corr_"),
+                 "looking for files matching the '_corr_' pattern")
+  })
 })

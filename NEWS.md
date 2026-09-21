@@ -30,8 +30,14 @@ The following S3 methods (deprecated in v1.3.1) have been removed
   the `dir()` behaviour of silently ignoring all but the first pattern
   (#1751).
 
+- The `pattern` argument is no longer ignored when `file` contains more
+  than one input files or directories (#1753).
+
 ### `read_XSYG2R()`
 
 - The `pattern` argument is now validated to be a single string to avoid
   the `dir()` behaviour of silently ignoring all but the first pattern
   (#1751).
+
+- The `pattern` argument is no longer ignored when `file` contains more
+  than one input files or directories (#1753).
