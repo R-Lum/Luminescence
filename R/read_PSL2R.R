@@ -83,7 +83,6 @@ read_PSL2R <- function(
 
   ## Integrity checks -------------------------------------------------------
   .validate_logical_scalar(verbose)
-  .validate_class(pattern, "character", length = 1)
   file <- unlist(.validate_file(file, ext = "psl", pattern = pattern, verbose = verbose))
   if (length(file) == 0) {
     return(NULL)

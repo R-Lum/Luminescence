@@ -21,6 +21,8 @@ test_that("input validation", {
                  "Error: XML file not readable, nothing imported")
   expect_error(read_XSYG2R(xsyg.file, n_records = "error"),
                "'n_records' should be a single positive integer value or NULL")
+  expect_error(read_XSYG2R(xsyg.file, pattern = c("p1", "p2")),
+               "'pattern' should be of class 'character' and have length 1")
 
   ## must be tested on vector of input filenames
   expect_error(read_XSYG2R(c("A", "B"), fastForward = NA),

@@ -774,14 +774,14 @@ test_that("Test internals", {
                list("file1"))
   expect_message(expect_equal(.validate_file(dir.path),
                               as.list(dir(dir.path, full.names = TRUE))),
-                 "Directory detected, looking for any files")
+                 "Directory detected, looking for files")
   expect_silent(.validate_file(dir.path, verbose = FALSE))
   expect_message(expect_equal(basename(.validate_file(dir.path, pattern = "xsyg")),
                               "XSYG_file.xsyg"),
-                 "Directory detected, looking for 'xsyg' files")
+                 "Directory detected, looking for files matching the 'xsyg' pattern")
   expect_message(expect_message(
       expect_length(.validate_file(dir.path, pattern = "_none_"), 0),
-      "Directory detected, looking for '_none_' files"),
+      "Directory detected, looking for files matching the '_none_' pattern"),
       "No files matching the given pattern found")
 
   url <- "https://raw.githubusercontent.com/R-Lum/rxylib/master"
@@ -812,6 +812,14 @@ test_that("Test internals", {
   expect_message(expect_null(.validate_file(test_path("test_read_BIN2R.R"),
                                             ext = c("e1", "e2", "e3"), throw.error = FALSE)),
                  "File extension 'R' is not supported, only 'e1', 'e2' and 'e3'")
+  expect_error(.validate_file(".", pattern = NA),
+               "'pattern' should be of class 'character' and have length 1")
+  expect_error(.validate_file(".", pattern = c("p1", "p2")),
+               "'pattern' should be of class 'character' and have length 1")
+  expect_error(expect_message(.validate_file(".", pattern = "|][.$"),
+                              "looking for files matching the '|][.$' pattern",
+                              fixed = TRUE),
+               "invalid 'pattern' regular expression")
 
   ## .validate_cores() ------------------------------------------------------
   expect_equal(.validate_cores(NULL),
