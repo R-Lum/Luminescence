@@ -115,9 +115,13 @@ test_that("test RLum.Data.Image S3 methods", {
   expect_equal(is(image), c("RLum.Data.Image", "RLum.Data", "RLum"))
   expect_error(merge(image, image),
                "Merging of 'RLum.Data.Image' objects is currently not supported")
+  expect_error(image + image,
+               "Merging of 'RLum.Data.Image' objects is currently not supported")
   expect_vector(image[1])
   expect_error(image3[1],
                "No viable coercion to matrix, object contains multiple frames")
+  expect_equal(ExampleData.RLum.Data.Image$Date,
+               c(Date = "15Jul2013"))
 })
 
 test_that("test RLum.Data.Spectrum S3 methods", {
@@ -144,6 +148,8 @@ test_that("test RLum.Data.Spectrum S3 methods", {
   expect_visible(spectrum * spectrum)
   expect_visible(spectrum / spectrum)
   expect_vector(spectrum[1])
+  expect_equal(spectrum$detector,
+               c(detector = "Spectrometer"))
 })
 
 test_that("test Risoe.BINfileData S3 methods", {

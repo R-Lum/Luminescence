@@ -42,23 +42,17 @@
 \alias{as.matrix.RLum.Data}
 \alias{merge.RLum}
 \alias{unlist.RLum.Analysis}
-\alias{+.RLum.Data.Curve}
-\alias{+.RLum.Data.Spectrum}
-\alias{-.RLum.Data.Curve}
-\alias{-.RLum.Data.Spectrum}
-\alias{*.RLum.Data.Curve}
-\alias{*.RLum.Data.Spectrum}
-\alias{/.RLum.Data.Curve}
-\alias{/.RLum.Data.Spectrum}
-\alias{[.RLum.Data.Curve}
-\alias{[.RLum.Data.Spectrum}
-\alias{[.RLum.Data.Image}
+\alias{+.RLum.Data}
+\alias{-.RLum.Data}
+\alias{*.RLum.Data}
+\alias{/.RLum.Data}
+\alias{[.RLum.Data}
 \alias{[.RLum.Analysis}
 \alias{[.RLum.Results}
 \alias{[<-.RLum.Data.Curve}
 \alias{[[.RLum.Analysis}
 \alias{[[.RLum.Results}
-\alias{$.RLum.Data.Curve}
+\alias{$.RLum.Data}
 \alias{$.RLum.Analysis}
 \alias{$.RLum.Results}
 \title{Methods for S3-generics implemented for the package 'Luminescence'.}
@@ -143,27 +137,15 @@ bin(x, ...)
 
 \method{unlist}{RLum.Analysis}(x, recursive = TRUE, ...)
 
-\method{+}{RLum.Data.Curve}(x, y)
+\method{+}{RLum.Data}(x, y)
 
-\method{+}{RLum.Data.Spectrum}(x, y)
+\method{-}{RLum.Data}(x, y)
 
-\method{-}{RLum.Data.Curve}(x, y)
+\method{*}{RLum.Data}(x, y)
 
-\method{-}{RLum.Data.Spectrum}(x, y)
+\method{/}{RLum.Data}(x, y)
 
-\method{*}{RLum.Data.Curve}(x, y)
-
-\method{*}{RLum.Data.Spectrum}(x, y)
-
-\method{/}{RLum.Data.Curve}(x, y)
-
-\method{/}{RLum.Data.Spectrum}(x, y)
-
-\method{[}{RLum.Data.Curve}(x, y, z, drop = TRUE)
-
-\method{[}{RLum.Data.Spectrum}(x, y, z, drop = TRUE)
-
-\method{[}{RLum.Data.Image}(x, y, z, drop = TRUE)
+\method{[}{RLum.Data}(x, y, z, drop = TRUE)
 
 \method{[}{RLum.Analysis}(x, i, drop = FALSE)
 
@@ -175,7 +157,7 @@ bin(x, ...)
 
 \method{[[}{RLum.Results}(x, i)
 
-\method{$}{RLum.Data.Curve}(x, i)
+\method{$}{RLum.Data}(x, i)
 
 \method{$}{RLum.Analysis}(x, i)
 

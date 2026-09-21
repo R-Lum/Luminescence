@@ -401,59 +401,35 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
 #' curve1 * curve2
 #'
 #' @export
-`+.RLum.Data.Curve` <- function(x, y) merge_RLum(list(x, y), merge.method = "sum")
-
-#' @rdname methods_RLum
-#' @export
-`+.RLum.Data.Spectrum` <- function(x, y) merge_RLum(list(x, y), merge.method = "sum")
+`+.RLum.Data` <- function(x, y) merge_RLum(list(x, y), merge.method = "sum")
 
 
 ## `-` ----------------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @export
-`-.RLum.Data.Curve` <- function(x, y) merge_RLum(list(x, y), merge.method = "-")
-
-#' @rdname methods_RLum
-#' @export
-`-.RLum.Data.Spectrum` <- function(x, y) merge_RLum(list(x, y), merge.method = "-")
+`-.RLum.Data` <- function(x, y) merge_RLum(list(x, y), merge.method = "-")
 
 
 ## `*` ----------------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @export
-`*.RLum.Data.Curve` <- function(x, y) merge_RLum(list(x, y), merge.method = "*")
-
-#' @rdname methods_RLum
-#' @export
-`*.RLum.Data.Spectrum` <- function(x, y) merge_RLum(list(x, y), merge.method = "*")
+`*.RLum.Data` <- function(x, y) merge_RLum(list(x, y), merge.method = "*")
 
 
 ## `/` ----------------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @export
-`/.RLum.Data.Curve` <- function(x, y) merge_RLum(list(x, y), merge.method = "/")
-
-#' @rdname methods_RLum
-#' @export
-`/.RLum.Data.Spectrum` <- function(x, y) merge_RLum(list(x, y), merge.method = "/")
+`/.RLum.Data` <- function(x, y) merge_RLum(list(x, y), merge.method = "/")
 
 
 ## `[` ----------------------------------------------------------------------
 
 #' @rdname methods_RLum
 #' @export
-`[.RLum.Data.Curve` <- function(x,y,z, drop = TRUE) {as(x, "matrix")[y,z, drop = drop]}
-
-#' @rdname methods_RLum
-#' @export
-`[.RLum.Data.Spectrum` <- function(x,y,z, drop = TRUE) {as(x, "matrix")[y,z, drop = drop]}
-
-#' @rdname methods_RLum
-#' @export
-`[.RLum.Data.Image` <- function(x,y,z, drop = TRUE) {as(x, "matrix")[y,z, drop = drop]}
+`[.RLum.Data` <- function(x, y, z, drop = TRUE) as(x, "matrix")[y, z, drop = drop]
 
 #' @rdname methods_RLum
 #' @export
@@ -501,7 +477,7 @@ unlist.RLum.Analysis <- function(x, recursive = TRUE, ...){
 
 #' @rdname methods_RLum
 #' @export
-`$.RLum.Data.Curve` <- function(x, i) {get_RLum(x, info.object = i)}
+`$.RLum.Data` <- function(x, i) get_RLum(x, info.object = i)
 
 #' @rdname methods_RLum
 #'
