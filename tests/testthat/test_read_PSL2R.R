@@ -31,7 +31,7 @@ test_that("input validation", {
   expect_message(expect_message(
       expect_null(read_PSL2R(system.file("extdata", package = "Luminescence"),
                              pattern = "error")),
-      "Directory detected, looking for 'error' files"),
+      "Directory detected, looking for files matching the 'error' pattern"),
       "No files matching the given pattern found in directory")
 
   ## list of files with a non-existent file
