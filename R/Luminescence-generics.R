@@ -227,6 +227,29 @@ setMethod("remove_RLum", signature = "list",
             tmp[lengths(tmp) > 0]
 })
 
+
+## hist() -------------------------------------------------------------------
+#' @title Simple histograms of RLum-class objects
+#'
+#' @param x [Luminescence::RLum-class] (**required**):
+#' S4 object of class `RLum`.
+#'
+#' @param ... further arguments passed to [graphics::hist] (or to the specific
+#' class methods).
+#'
+#' @section Function version: 0.1.0
+#'
+#' @author
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
+#'
+#' @seealso [Luminescence::plot_Histogram]
+#'
+#' @keywords utilities
+#' @name hist
+NULL
+
+
 ## length_RLum() ------------------------------------------------------------
 #' @title Length retrieval function for RLum-class objects
 #'
@@ -907,6 +930,24 @@ setMethod("structure_RLum", signature = "list",
         }
       })
     })
+
+
+## summary() ----------------------------------------------------------------
+#' @title Summary of RLum-class objects
+#'
+#' @param object [Luminescence::RLum-class] (**required**):
+#' S4 object of class `RLum`.
+#'
+#' @param ... further arguments passed to [base::summary].
+#'
+#' @section Function version: 0.1.0
+#'
+#' @author
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
+#'
+#' @keywords utilities
+#' @name summary
+NULL
 
 
 ## view() -------------------------------------------------------------------

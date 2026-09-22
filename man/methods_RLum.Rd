@@ -9,14 +9,6 @@
 \alias{plot.RLum.Data.Spectrum}
 \alias{plot.RLum.Data.Image}
 \alias{plot.Risoe.BINfileData}
-\alias{hist.RLum.Results}
-\alias{hist.RLum.Data.Image}
-\alias{hist.RLum.Data.Curve}
-\alias{hist.RLum.Analysis}
-\alias{summary.RLum.Results}
-\alias{summary.RLum.Analysis}
-\alias{summary.RLum.Data.Image}
-\alias{summary.RLum.Data.Curve}
 \alias{subset.Risoe.BINfileData}
 \alias{subset.RLum.Analysis}
 \alias{bin}
@@ -26,8 +18,6 @@
 \alias{length.RLum.Analysis}
 \alias{length.RLum.Data.Curve}
 \alias{length.Risoe.BINfileData}
-\alias{dim.RLum.Data.Curve}
-\alias{dim.RLum.Data.Spectrum}
 \alias{rep.RLum}
 \alias{names.RLum.Data.Curve}
 \alias{names.RLum.Data.Spectrum}
@@ -71,22 +61,6 @@
 
 \method{plot}{Risoe.BINfileData}(x, y, ...)
 
-\method{hist}{RLum.Results}(x, ...)
-
-\method{hist}{RLum.Data.Image}(x, ...)
-
-\method{hist}{RLum.Data.Curve}(x, ...)
-
-\method{hist}{RLum.Analysis}(x, ...)
-
-\method{summary}{RLum.Results}(object, ...)
-
-\method{summary}{RLum.Analysis}(object, ...)
-
-\method{summary}{RLum.Data.Image}(object, ...)
-
-\method{summary}{RLum.Data.Curve}(object, ...)
-
 \method{subset}{Risoe.BINfileData}(x, subset, records.rm = TRUE, ...)
 
 \method{subset}{RLum.Analysis}(x, subset = NULL, ...)
@@ -104,10 +78,6 @@ bin(x, ...)
 \method{length}{RLum.Data.Curve}(x, ...)
 
 \method{length}{Risoe.BINfileData}(x, ...)
-
-\method{dim}{RLum.Data.Curve}(x)
-
-\method{dim}{RLum.Data.Spectrum}(x)
 
 \method{rep}{RLum}(x, ...)
 
@@ -171,9 +141,6 @@ input object}
 the row index of the matrix, data.frame}
 
 \item{...}{further arguments that can be passed to the method}
-
-\item{object}{\link[=RLum-class]{RLum} (\strong{required}):
-input object}
 
 \item{subset}{\verb{[subset]} \link{expression} (\strong{required}):
 logical expression indicating elements or rows to keep, this function works

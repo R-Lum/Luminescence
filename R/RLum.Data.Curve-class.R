@@ -354,6 +354,16 @@ setMethod(f = "bin_RLum.Data",
           })
 
 
+## hist() -------------------------------------------------------------------
+#' @rdname hist
+#' @return
+#' - [Luminescence::RLum.Data.Curve-class]: the histogram of the 2nd column
+#' of the data matrix.
+setMethod("hist",
+          "RLum.Data.Curve",
+          function(x, ...) hist(x@data[, 2], ...))
+
+
 ## smooth_RLum() ------------------------------------------------------------
 #' @describeIn smooth_RLum
 #' Smoothing of [Luminescence::RLum.Data.Curve-class] objects using a rolling mean or median.

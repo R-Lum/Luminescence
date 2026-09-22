@@ -698,6 +698,25 @@ setMethod("names_RLum",
           })
 
 
+## hist() -------------------------------------------------------------------
+#' @rdname hist
+#' @return
+#' - [Luminescence::RLum.Analysis-class]: a list of histograms, one for
+#' each record's data.
+setMethod("hist",
+          "RLum.Analysis",
+          function(x, ...) invisible(lapply(x@records, hist, ...)))
+
+
+## summary() ----------------------------------------------------------------
+#' @rdname summary
+#' @return
+#' - [Luminescence::RLum.Analysis-class]: a list with the summary of each record.
+setMethod("summary",
+          "RLum.Analysis",
+          function(object, ...) lapply(object@records, summary, ...))
+
+
 ## add_metadata() -----------------------------------------------------------
 #' @describeIn metadata
 #' Adds metadata to [Luminescence::RLum.Analysis-class] objects.
