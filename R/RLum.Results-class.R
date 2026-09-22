@@ -247,16 +247,14 @@ setMethod("length",
           function(x) length(x@data))
 
 
-## names_RLum() -------------------------------------------------------------
-#' @describeIn names_RLum
-#' Returns the names of the `data` field stored in the object.
-#'
-#' @export
-setMethod("names_RLum",
+## names() ------------------------------------------------------------------
+#' @rdname names
+#' @return
+#' - [Luminescence::RLum.Results-class]: the names of the object's `data` slot.
+setMethod("names",
           "RLum.Results",
-          function(object){
-             names(object@data)
-          })
+          function(x) names(x@data))
+
 
 ## hist() -------------------------------------------------------------------
 #' @rdname hist

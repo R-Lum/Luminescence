@@ -11,7 +11,7 @@
 \alias{length,RLum.Data.Spectrum-method}
 \alias{length,RLum.Results-method}
 \alias{length,Risoe.BINfileData-method}
-\title{Length of RLum-class objects}
+\title{Length of RLum-class and Risoe-class objects}
 \usage{
 \S4method{length}{RLum.Analysis}(x)
 
@@ -26,8 +26,8 @@
 \S4method{length}{Risoe.BINfileData}(x)
 }
 \arguments{
-\item{x}{\link[=RLum-class]{RLum} (\strong{required}):
-S4 object of class \code{RLum}.}
+\item{x}{\link[=RLum-class]{RLum} or \link[=Risoe.BINfileData-class]{Risoe.BINfileData} (\strong{required}):
+S4 object.}
 }
 \value{
 \itemize{
@@ -61,7 +61,7 @@ the object.
 }
 }
 \description{
-Length of RLum-class objects
+Length of RLum-class and Risoe-class objects
 }
 \section{Function version}{
  0.1.0

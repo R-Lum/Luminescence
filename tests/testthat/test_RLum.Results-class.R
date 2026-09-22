@@ -16,7 +16,7 @@ test_that("check class", {
                   "RLum.Results")
 
   ## names()
-  expect_equal(names_RLum(obj),
+  expect_equal(names(obj),
                c("summary", "data", "args", "usedDeValues"))
 })
 

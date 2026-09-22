@@ -16,6 +16,8 @@ The following S3 methods (deprecated in v1.3.1) have been removed
 - `hist.RLum.*` (use `hist()` instead)
 - `length.RLum.*`, `length.Risoe.BINfileData`, `length_RLum` (use
   `length()` instead)
+- `names.RLum.*`, `names.Risoe.BINfileData`, `names_RLum` (use `names()`
+  instead)
 - `summary.RLum.*` (use `summary()` instead)
 
 ## New functions

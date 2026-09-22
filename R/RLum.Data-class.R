@@ -52,6 +52,15 @@ setMethod("hist",
           function(x, ...) hist(x@data, ...))
 
 
+## names() ------------------------------------------------------------------
+#' @rdname names
+#' @return
+#' - [Luminescence::RLum.Data-class]: the names of the object's `info` slot.
+setMethod("names",
+          "RLum.Data",
+          function(x) names(x@info))
+
+
 ## summary() ----------------------------------------------------------------
 #' @rdname summary
 #' @return
