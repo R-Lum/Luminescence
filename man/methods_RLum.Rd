@@ -3,11 +3,7 @@
 \name{methods_RLum}
 \alias{methods_RLum}
 \alias{plot.list}
-\alias{plot.RLum.Results}
-\alias{plot.RLum.Analysis}
-\alias{plot.RLum.Data.Curve}
-\alias{plot.RLum.Data.Spectrum}
-\alias{plot.RLum.Data.Image}
+\alias{plot.RLum}
 \alias{plot.Risoe.BINfileData}
 \alias{subset.Risoe.BINfileData}
 \alias{subset.RLum.Analysis}
@@ -39,15 +35,7 @@
 \usage{
 \method{plot}{list}(x, y, ...)
 
-\method{plot}{RLum.Results}(x, y, ...)
-
-\method{plot}{RLum.Analysis}(x, y, ...)
-
-\method{plot}{RLum.Data.Curve}(x, y, ...)
-
-\method{plot}{RLum.Data.Spectrum}(x, y, ...)
-
-\method{plot}{RLum.Data.Image}(x, y, ...)
+\method{plot}{RLum}(x, y, ...)
 
 \method{plot}{Risoe.BINfileData}(x, y, ...)
 
