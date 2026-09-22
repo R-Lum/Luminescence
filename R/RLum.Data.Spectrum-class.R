@@ -254,6 +254,16 @@ setMethod("get_RLum",
           })
 
 
+## length() -----------------------------------------------------------------
+#' @rdname length
+#' @return
+#' - [Luminescence::RLum.Data.Spectrum-class]: the maximum time/temperature
+#' value of the spectrum.
+setMethod("length",
+          "RLum.Data.Spectrum",
+          function(x) max(as.numeric(colnames(x@data))))
+
+
 ## names_RLum ---------------------------------------------------------------
 #' @describeIn names_RLum
 #' Returns the names of the info elements stored in the object.

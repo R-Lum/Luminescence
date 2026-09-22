@@ -310,7 +310,7 @@ extract_IrradiationTimes <- function(
   ##add position number so far an XSYG file was the input
   POSITION <- NA
   if (!is.na(file.XSYG)) {
-    POSITION <- rep(temp.sequence.position, each = length_RLum(temp.sequence))
+    POSITION <- rep(temp.sequence.position, each = length(temp.sequence))
 
   } else {
     ## check that @records[[1]]@info$position is present

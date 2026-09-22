@@ -200,7 +200,7 @@ plot_RLum.Analysis <- function(
     n.plots <- length(unique(structure_RLum(object)$recordType))
   }
   else
-    n.plots <- max(length_RLum(object), 1)
+    n.plots <- max(length(object), 1)
 
   ## set appropriate values for nrows and ncols if not specified
   if (is.null(nrows)) {

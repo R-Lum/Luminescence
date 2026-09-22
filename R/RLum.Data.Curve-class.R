@@ -284,19 +284,6 @@ setMethod("get_RLum",
   })
 
 
-## length_RLum() ------------------------------------------------------------
-#' @describeIn length_RLum
-#' Returns the length of the curve object, which is the maximum of the value
-#' time/temperature of the curve (corresponding to the stimulation length).
-#'
-#' @export
-setMethod("length_RLum",
-          "RLum.Data.Curve",
-          function(object){
-            max(object@data[,1])
-          })
-
-
 ## names_RLum() -------------------------------------------------------------
 #' @describeIn names_RLum
 #' Returns the names info elements stored in the object.
@@ -362,6 +349,16 @@ setMethod(f = "bin_RLum.Data",
 setMethod("hist",
           "RLum.Data.Curve",
           function(x, ...) hist(x@data[, 2], ...))
+
+
+## length() -----------------------------------------------------------------
+#' @rdname length
+#' @return
+#' - [Luminescence::RLum.Data.Curve-class]: the maximum time/temperature value
+#' of the curve (corresponding to the stimulation length).
+setMethod("length",
+          "RLum.Data.Curve",
+          function(x) max(x@data[, 1]))
 
 
 ## smooth_RLum() ------------------------------------------------------------

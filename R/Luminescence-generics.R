@@ -251,36 +251,20 @@ NULL
 
 
 ## length_RLum() ------------------------------------------------------------
-#' @title Length retrieval function for RLum-class objects
+#' @title Length of RLum-class objects
 #'
-#' @description
-#' The function provides a generalised access point for specific
-#' [Luminescence::RLum-class] objects. Depending on the input object, the corresponding
-#' function will be selected.
-#'
-#' @param object [Luminescence::RLum-class] (**required**):
-#' S4 object of class `RLum`
-#'
-#' @return
-#' An [integer] indicating the length of the object.
+#' @param x [Luminescence::RLum-class] (**required**):
+#' S4 object of class `RLum`.
 #'
 #' @section Function version: 0.1.0
 #'
 #' @author
-#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
 #'
-#' @seealso
-#' [Luminescence::RLum.Data.Curve-class],
-#' [Luminescence::RLum.Data.Image-class],
-#' [Luminescence::RLum.Data.Spectrum-class],
-#' [Luminescence::RLum.Analysis-class],
-#' [Luminescence::RLum.Results-class]
 #' @keywords utilities
-#'
-#' @export
-setGeneric("length_RLum", function(object)
-  standardGeneric("length_RLum")
-)
+#' @name length
+NULL
 
 
 ## melt_RLum() --------------------------------------------------------------

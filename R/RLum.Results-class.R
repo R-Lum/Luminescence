@@ -236,16 +236,16 @@ setMethod(
   }
 )
 
-## length_RLum() ------------------------------------------------------------
-#' @describeIn length_RLum
-#' Returns the number of stored data elements.
-#'
-#' @export
-setMethod("length_RLum",
+
+## length() -----------------------------------------------------------------
+#' @rdname length
+#' @return
+#' - [Luminescence::RLum.Results-class]: the number of data elements stored in
+#' the object.
+setMethod("length",
           "RLum.Results",
-          function(object){
-            length(object@data)
-          })
+          function(x) length(x@data))
+
 
 ## names_RLum() -------------------------------------------------------------
 #' @describeIn names_RLum
