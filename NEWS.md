@@ -18,6 +18,7 @@ The following S3 methods (deprecated in v1.3.1) have been removed
   `length()` instead)
 - `names.RLum.*`, `names.Risoe.BINfileData`, `names_RLum` (use `names()`
   instead)
+- `plot.RLum.*` (use `plot()` instead)
 - `summary.RLum.*` (use `summary()` instead)
 
 ## New functions

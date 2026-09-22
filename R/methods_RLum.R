@@ -103,29 +103,9 @@ plot.list <- function(x, y, ...) {
 }
 
 #' @rdname methods_RLum
-#' @method plot RLum.Results
+#' @method plot RLum
 #' @export
-plot.RLum.Results <- function(x, y, ...) plot_RLum(object = x, ...)
-
-#' @rdname methods_RLum
-#' @method plot RLum.Analysis
-#' @export
-plot.RLum.Analysis <- function(x, y, ...) plot_RLum(object = x, ...)
-
-#' @rdname methods_RLum
-#' @method plot RLum.Data.Curve
-#' @export
-plot.RLum.Data.Curve <- function(x, y, ...) plot_RLum(object = x, ...)
-
-#' @rdname methods_RLum
-#' @method plot RLum.Data.Spectrum
-#' @export
-plot.RLum.Data.Spectrum <- function(x, y, ...) plot_RLum(object = x, ...)
-
-#' @rdname methods_RLum
-#' @method plot RLum.Data.Image
-#' @export
-plot.RLum.Data.Image <- function(x, y, ...) plot_RLum(object = x, ...)
+plot.RLum <- function(x, y, ...) plot_RLum(object = x, ...)
 
 #' @rdname methods_RLum
 #' @method plot Risoe.BINfileData
