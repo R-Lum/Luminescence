@@ -438,6 +438,16 @@ setMethod("length",
           function(x) nrow(x@METADATA))
 
 
+## names() ------------------------------------------------------------------
+#' @rdname names
+#' @return
+#' - [Luminescence::Risoe.BINfileData-class]: the `LTYPE` field of the curves
+#' stored in the object
+setMethod("names",
+          "Risoe.BINfileData",
+          function(x) as.character(x@METADATA$LTYPE))
+
+
 ## add_metadata() -----------------------------------------------------------
 #' @describeIn metadata
 #' Adds metadata to [Luminescence::Risoe.BINfileData-class] objects.

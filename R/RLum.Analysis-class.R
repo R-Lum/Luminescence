@@ -685,16 +685,14 @@ setMethod("length",
           function(x) length(x@records))
 
 
-## names_RLum() -------------------------------------------------------------
-#' @describeIn names_RLum
-#' Returns the names of the [Luminescence::RLum.Data-class] objects stored in the object.
-#'
-#' @export
-setMethod("names_RLum",
+## names() ------------------------------------------------------------------
+#' @rdname names
+#' @return
+#' - [Luminescence::RLum.Analysis-class]: the names of the objects stored in
+#' its records.
+setMethod("names",
           "RLum.Analysis",
-          function(object){
-            vapply(object@records, function(x) x@recordType, character(1))
-          })
+          function(x) vapply(x@records, function(r) r@recordType, character(1)))
 
 
 ## hist() -------------------------------------------------------------------

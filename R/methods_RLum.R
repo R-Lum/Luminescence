@@ -216,33 +216,6 @@ bin.RLum.Data.Spectrum <- function(x, bin_size.row = 1, bin_size.col = 1, ...){
 rep.RLum <- function(x, ...) replicate_RLum(x, ...)
 
 
-## names() ------------------------------------------------------------------
-
-#' @rdname methods_RLum
-#' @export
-names.RLum.Data.Curve <- function(x, ...) names_RLum(x)
-
-#' @rdname methods_RLum
-#' @export
-names.RLum.Data.Spectrum <- function(x, ...) names_RLum(x)
-
-#' @rdname methods_RLum
-#' @export
-names.RLum.Data.Image <- function(x, ...) names_RLum(x)
-
-#' @rdname methods_RLum
-#' @export
-names.RLum.Analysis <- function(x, ...) names_RLum(x)
-
-#' @rdname methods_RLum
-#' @export
-names.RLum.Results <- function(x, ...) names_RLum(x)
-
-#' @rdname methods_RLum
-#' @export
-names.Risoe.BINfileData <- function(x)  as.character(x@METADATA$LTYPE)
-
-
 ## row.names() --------------------------------------------------------------
 
 #' @rdname methods_RLum

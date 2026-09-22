@@ -251,10 +251,10 @@ NULL
 
 
 ## length_RLum() ------------------------------------------------------------
-#' @title Length of RLum-class objects
+#' @title Length of RLum-class and Risoe-class objects
 #'
-#' @param x [Luminescence::RLum-class] (**required**):
-#' S4 object of class `RLum`.
+#' @param x [Luminescence::RLum-class] or [Luminescence::Risoe.BINfileData-class] (**required**):
+#' S4 object.
 #'
 #' @section Function version: 0.1.0
 #'
@@ -326,6 +326,23 @@ setMethod("melt_RLum", signature = "list",
       ## now bind the data.frame
       as.data.frame(data.table::rbindlist(l))
     })
+
+
+## names() ------------------------------------------------------------------
+#' @title Names of RLum-class and Risoe-class objects
+#'
+#' @param x [Luminescence::RLum-class] or [Luminescence::Risoe.BINfileData-class] (**required**):
+#' S4 object.
+#'
+#' @section Function version: 0.1.0
+#'
+#' @author
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
+#'
+#' @keywords utilities
+#' @name names
+NULL
 
 
 ## add_metadata<-() ---------------------------------------------------------
@@ -401,54 +418,6 @@ setGeneric("rename_metadata<-", function(object, ..., value)
 setGeneric("replace_metadata<-", function(object, ..., value)
   standardGeneric("replace_metadata<-")
 )
-
-
-## names_RLum() -------------------------------------------------------------
-#' @title Name retrieval function for RLum-class objects
-#'
-#' @description
-#' The function provides a generalised access point for specific
-#' [Luminescence::RLum-class] objects. Depending on the input object, the corresponding
-#' function will be selected.
-#'
-#' @param object [Luminescence::RLum-class] (**required**):
-#' S4 object of class `RLum`
-#'
-#' @return
-#' A [character] vector.
-#'
-#' @section Function version: 0.1.0
-#'
-#' @author
-#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
-#'
-#' @seealso [Luminescence::RLum.Data.Curve-class], [Luminescence::RLum.Data.Image-class],
-#' [Luminescence::RLum.Data.Spectrum-class], [Luminescence::RLum.Analysis-class],
-#' [Luminescence::RLum.Results-class]
-#'
-#' @keywords utilities
-#'
-#' @export
-setGeneric("names_RLum", function(object)
-  standardGeneric("names_RLum")
-)
-
-#' @describeIn names_RLum
-#' Returns a list of names of the [Luminescence::RLum-class] objects that had been passed to
-#' it.
-#'
-#' @export
-setMethod("names_RLum", signature = "list",
-    function(object) {
-      ## apply method in the objects and return the same
-      lapply(object, function(x) {
-        if (inherits(x, "RLum")) {
-          return(names_RLum(x))
-        } else {
-          return(x)
-        }
-      })
-    })
 
 
 ## replicate_RLum() ---------------------------------------------------------

@@ -284,18 +284,6 @@ setMethod("get_RLum",
   })
 
 
-## names_RLum() -------------------------------------------------------------
-#' @describeIn names_RLum
-#' Returns the names info elements stored in the object.
-#'
-#' @export
-setMethod("names_RLum",
-          "RLum.Data.Curve",
-          function(object){
-            names(object@info)
-          })
-
-
 ## bin_RLum.Data() ----------------------------------------------------------
 #' @describeIn bin_RLum.Data
 #' Allows binning of RLum.Data.Curve data.

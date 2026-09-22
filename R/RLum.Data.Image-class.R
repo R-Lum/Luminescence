@@ -294,16 +294,6 @@ setMethod("length",
           function(x) dim(x@data)[3])
 
 
-# names_RLum() --------------------------------------------------------------------------------
-#' @describeIn names_RLum
-#' Returns the names of the info elements stored in the object.
-#'
-#' @export
-setMethod(
-  "names_RLum",
-  "RLum.Data.Image",
-  function(object) names(object@info))
-
 ## normalise_RLum() --------------------------------------------------------------
 #' @describeIn normalise_RLum
 #' Normalise [Luminescence::RLum.Data.Image-class] objects to value set via

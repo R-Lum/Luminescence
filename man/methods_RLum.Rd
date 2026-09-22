@@ -15,12 +15,6 @@
 \alias{bin.RLum.Data.Curve}
 \alias{bin.RLum.Data.Spectrum}
 \alias{rep.RLum}
-\alias{names.RLum.Data.Curve}
-\alias{names.RLum.Data.Spectrum}
-\alias{names.RLum.Data.Image}
-\alias{names.RLum.Analysis}
-\alias{names.RLum.Results}
-\alias{names.Risoe.BINfileData}
 \alias{row.names.RLum.Data.Spectrum}
 \alias{as.data.frame.RLum.Data}
 \alias{as.data.frame.Risoe.BINfileData}
@@ -68,18 +62,6 @@ bin(x, ...)
 \method{bin}{RLum.Data.Spectrum}(x, bin_size.row = 1, bin_size.col = 1, ...)
 
 \method{rep}{RLum}(x, ...)
-
-\method{names}{RLum.Data.Curve}(x, ...)
-
-\method{names}{RLum.Data.Spectrum}(x, ...)
-
-\method{names}{RLum.Data.Image}(x, ...)
-
-\method{names}{RLum.Analysis}(x, ...)
-
-\method{names}{RLum.Results}(x, ...)
-
-\method{names}{Risoe.BINfileData}(x)
 
 \method{row.names}{RLum.Data.Spectrum}(x, ...)
 

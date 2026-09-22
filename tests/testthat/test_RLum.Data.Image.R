@@ -23,8 +23,9 @@ test_that("check functionality", {
   expect_error(get_RLum(ExampleData.RLum.Data.Image, info.object = "unknown"))
   expect_type(get_RLum(ExampleData.RLum.Data.Image, info.object = "NumFrames"), "integer")
 
-  ##names
-  expect_type(names_RLum(ExampleData.RLum.Data.Image), "character")
+  ## names()
+  expect_type(names(ExampleData.RLum.Data.Image),
+              "character")
 
   ##conversions
   ##from matrix and to matrix

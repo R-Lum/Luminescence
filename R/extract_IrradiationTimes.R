@@ -264,7 +264,7 @@ extract_IrradiationTimes <- function(
 
 # Grep relevant information -------------------------------------------------------------------
   ##Sequence STEP
-  STEP <- names_RLum(temp.sequence)
+  STEP <- names(temp.sequence)
   bin.originators <- c("Risoe.BINfileData2RLum.Analysis", "read_BIN2R")
 
   #START time of each step

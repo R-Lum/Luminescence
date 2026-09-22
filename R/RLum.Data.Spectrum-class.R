@@ -264,16 +264,6 @@ setMethod("length",
           function(x) max(as.numeric(colnames(x@data))))
 
 
-## names_RLum ---------------------------------------------------------------
-#' @describeIn names_RLum
-#' Returns the names of the info elements stored in the object.
-#'
-#' @export
-setMethod("names_RLum",
-          "RLum.Data.Spectrum",
-          function(object){
-            names(object@info)
-          })
 ## bin_RLum() ---------------------------------------------------------------
 #' @describeIn bin_RLum.Data
 #' Allows binning of RLum.Data.Spectrum data. Count values and values on the

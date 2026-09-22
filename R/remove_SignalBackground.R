@@ -107,7 +107,7 @@ remove_SignalBackground <- function(
   ## if nothing is set, we do quick and dirty recordType guess based on the
   ## occurrence
   if(is.null(recordType))
-    recordType <- names_RLum(object)|> table() |> which.max() |> names() |> unique()
+    recordType <- names(object) |> table() |> which.max() |> names() |> unique()
 
   ## get index of relevant curves; these are the only record types of concern
   id_pairs <- suppressWarnings(
