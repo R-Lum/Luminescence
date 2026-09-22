@@ -11,7 +11,10 @@ The following S3 methods (deprecated in v1.3.1) have been removed
 
 - `as.data.frame.RLum.Data.*` (use `as.data.frame()` instead)
 - `as.list.RLum.*` (use `as.list()` instead)
-- `as.matrix.RLum.Data.* (use`as.matrix()\` instead)
+- `as.matrix.RLum.Data.*` (use `as.matrix()` instead)
+- `dim.RLum.Data.*` (use `dim()` instead)
+- `hist.RLum.*` (use `hist()` instead)
+- `summary.RLum.*` (use `summary()` instead)
 
 ## New functions
 

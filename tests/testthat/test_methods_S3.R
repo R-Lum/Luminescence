@@ -5,7 +5,7 @@ test_that("test RLum.Analysis S3 methods", {
   analysis <- IRSAR.RF.Data
 
   expect_silent(plot(analysis))
-  expect_silent(hist(analysis))
+  expect_invisible(expect_silent(hist(analysis)))
   expect_type(summary(analysis), "list")
   expect_snapshot_output(summary(analysis))
   expect_s4_class(subset(analysis), "RLum.Analysis")
@@ -108,6 +108,10 @@ test_that("test RLum.Data.Image S3 methods", {
   expect_snapshot_output(summary(image))
   expect_s3_class(summary(image3), "table")
   expect_snapshot_output(summary(image3))
+  expect_equal(dim(image),
+               c(1340, 101, 1))
+  expect_equal(dim(image3),
+               c(10, 10, 3))
   expect_length(rep(image, 2), 2)
   expect_equal(names(image)[1:3],
                c("ControllerVersion", "LogicOutput", "AmpHiCapLowNoise"))
@@ -138,6 +142,7 @@ test_that("test RLum.Data.Spectrum S3 methods", {
 
   expect_silent(plot(spectrum))
   expect_silent(plot(list(spectrum, spectrum)))
+  expect_silent(hist(spectrum))
   expect_s4_class(bin(spectrum), "RLum.Data.Spectrum")
   expect_s3_class(summary(spectrum), "table")
   expect_snapshot_output(summary(spectrum))

@@ -37,9 +37,6 @@
 #' @param x [Luminescence::RLum-class] or [Luminescence::Risoe.BINfileData-class] (**required**):
 #' input object
 #'
-#' @param object [Luminescence::RLum-class] (**required**):
-#' input object
-#'
 #' @param y [integer] (*optional*):
 #' the row index of the matrix, data.frame
 #'
@@ -136,51 +133,6 @@ plot.RLum.Data.Image <- function(x, y, ...) plot_RLum(object = x, ...)
 plot.Risoe.BINfileData <- function(x, y, ...) plot_Risoe.BINfileData(data = x, ...)
 
 
-## hist() -------------------------------------------------------------------
-
-#' @rdname methods_RLum
-#' @export
-hist.RLum.Results <- function(x, ...) plot_Histogram(data = x, ...)
-
-#' @rdname methods_RLum
-#' @export
-hist.RLum.Data.Image <- function(x, ...) hist(x = get_RLum(x), ...)
-
-#' @rdname methods_RLum
-#' @export
-hist.RLum.Data.Curve <- function(x, ...) hist(as(get_RLum(x),"matrix")[,2])
-
-#' @rdname methods_RLum
-#' @export
-hist.RLum.Analysis <- function(x, ...) lapply(1:length_RLum(x), function(z){
-  hist(as(get_RLum(x, record.id = z, ...),"matrix")[,2])})
-
-
-## summary() ----------------------------------------------------------------
-
-#' @rdname methods_RLum
-#' @method summary RLum.Results
-#' @export
-summary.RLum.Results <- function(object, ...) get_RLum(object = object, ...)
-
-#' @rdname methods_RLum
-#' @method summary RLum.Analysis
-#' @export
-summary.RLum.Analysis <- function(object, ...) lapply(object@records, function(x) summary(x@data))
-
-#' @rdname methods_RLum
-#' @method summary RLum.Data.Image
-#' @export
-summary.RLum.Data.Image <- function(object, ...) summary(object@data)
-
-# summary.RLum.Data.Spectrum <- function(object, ...)
-
-#' @rdname methods_RLum
-#' @method summary RLum.Data.Curve
-#' @export
-summary.RLum.Data.Curve <- function(object, ...) summary(object@data, ...)
-
-
 ## subset() -----------------------------------------------------------------
 
 #' @rdname methods_RLum
@@ -273,17 +225,6 @@ length.RLum.Data.Curve <- function(x, ...) length_RLum(x)
 #' @rdname methods_RLum
 #' @export
 length.Risoe.BINfileData <- function(x, ...) length(x@METADATA$ID)
-
-## dim() --------------------------------------------------------------------
-
-#' @rdname methods_RLum
-#' @export
-dim.RLum.Data.Curve <- function(x) dim(as(x, "matrix"))
-
-#' @rdname methods_RLum
-#' @export
-dim.RLum.Data.Spectrum <- function(x) dim(as(x, "matrix"))
-
 
 ## rep() --------------------------------------------------------------------
 

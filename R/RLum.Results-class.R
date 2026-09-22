@@ -258,6 +258,26 @@ setMethod("names_RLum",
              names(object@data)
           })
 
+## hist() -------------------------------------------------------------------
+#' @rdname hist
+#' @return
+#' - [Luminescence::RLum.Results-class]: the histogram of the data via
+#' [Luminescence::plot_Histogram].
+setMethod("hist",
+          "RLum.Results",
+          function(x, ...) plot_Histogram(data = x, ...))
+
+
+## summary() ----------------------------------------------------------------
+#' @rdname summary
+#' @return
+#' - [Luminescence::RLum.Results-class]: the data stored in the object (via
+#' [Luminescence::get_RLum]).
+setMethod("summary",
+          "RLum.Results",
+          function(object, ...) get_RLum(object = object, ...))
+
+
 ## view() -------------------------------------------------------------------
 #' @describeIn view
 #' View method for [Luminescence::RLum.Results-class] objects.

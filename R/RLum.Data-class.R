@@ -28,6 +28,39 @@ setClass("RLum.Data",
          contains = c("RLum", "VIRTUAL")
 )
 
+## dim() --------------------------------------------------------------------
+#' @title Retrieve the dimension of an object
+#'
+#' @param x [Luminescence::RLum.Data-class] (**required**):
+#' S4 object of class `RLum.Data`.
+#'
+#' @return
+#' The dimension of the object's `data` slot.
+#'
+#' @keywords utilities
+setMethod("dim",
+          "RLum.Data",
+          function(x) dim(x@data))
+
+
+## hist() -------------------------------------------------------------------
+#' @rdname hist
+#' @return
+#' - [Luminescence::RLum.Data-class]: the histogram of the object's `data` slot.
+setMethod("hist",
+          "RLum.Data",
+          function(x, ...) hist(x@data, ...))
+
+
+## summary() ----------------------------------------------------------------
+#' @rdname summary
+#' @return
+#' - [Luminescence::RLum.Data-class]: the summary of the object's `data` slot.
+setMethod("summary",
+          "RLum.Data",
+          function(object, ...) summary(object@data, ...))
+
+
 ## add_metadata() -----------------------------------------------------------
 #' @describeIn metadata
 #' Add metadata entries to [Luminescence::RLum.Data-class] objects.
