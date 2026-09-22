@@ -7,6 +7,7 @@ file.rlumimage <- "RF_rlumimage.Rf"
 rlumimage <- gsub("macro_version", "rlumimage_version",
                   gsub("17-10-2018", "0.0.1", macro))
 writeLines(rlumimage, file.rlumimage)
+on.exit(unlink(file.rlumimage))
 
 test_that("input validation", {
   testthat::skip_on_cran()
