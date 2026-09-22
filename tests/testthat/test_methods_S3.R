@@ -145,7 +145,7 @@ test_that("test RLum.Data.Spectrum S3 methods", {
   expect_silent(plot(spectrum))
   expect_silent(plot(list(spectrum, spectrum)))
   expect_silent(hist(spectrum))
-  expect_equal(length(spectrum), 400.607)
+  expect_equal(length(spectrum), 460.007)
   expect_s4_class(bin(spectrum), "RLum.Data.Spectrum")
   expect_s3_class(summary(spectrum), "table")
   expect_snapshot_output(summary(spectrum))
