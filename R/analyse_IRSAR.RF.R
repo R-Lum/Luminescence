@@ -586,7 +586,7 @@ analyse_IRSAR.RF<- function(
 
   ##set structure values
   temp.sequence_structure$protocol.step <-
-    rep(sequence_structure, length_RLum(object))[1:length_RLum(object)]
+    rep(sequence_structure, length(object))[1:length(object)]
 
   ## check that we both natural and regenerated are still there
   nat.idx <- which(temp.sequence_structure$protocol.step == "NATURAL")

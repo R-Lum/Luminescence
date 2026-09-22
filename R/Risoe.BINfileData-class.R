@@ -428,6 +428,16 @@ setMethod(f = "set_Risoe.BINfileData",
           })
 
 
+## length() -----------------------------------------------------------------
+#' @rdname length
+#' @return
+#' - [Luminescence::Risoe.BINfileData-class]: the number of curves stored in
+#' the object.
+setMethod("length",
+          "Risoe.BINfileData",
+          function(x) nrow(x@METADATA))
+
+
 ## add_metadata() -----------------------------------------------------------
 #' @describeIn metadata
 #' Adds metadata to [Luminescence::Risoe.BINfileData-class] objects.

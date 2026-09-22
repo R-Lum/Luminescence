@@ -284,6 +284,16 @@ setMethod("get_RLum",
           })
 
 
+## length() -----------------------------------------------------------------
+#' @rdname length
+#' @return
+#' - [Luminescence::RLum.Data.Image-class]: the number of frames stored in the
+#' object.
+setMethod("length",
+          "RLum.Data.Image",
+          function(x) dim(x@data)[3])
+
+
 # names_RLum() --------------------------------------------------------------------------------
 #' @describeIn names_RLum
 #' Returns the names of the info elements stored in the object.

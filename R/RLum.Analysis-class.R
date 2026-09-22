@@ -675,16 +675,15 @@ setMethod("structure_RLum",
             )
           })
 
-## length_RLum() ------------------------------------------------------------
-#' @describeIn length_RLum
-#' Returns the number of records stored in the object.
-#'
-#' @export
-setMethod("length_RLum",
+## length() -----------------------------------------------------------------
+#' @rdname length
+#' @return
+#' - [Luminescence::RLum.Analysis-class]: the number of records stored in the
+#' object.
+setMethod("length",
           "RLum.Analysis",
-          function(object){
-            length(object@records)
-          })
+          function(x) length(x@records))
+
 
 ## names_RLum() -------------------------------------------------------------
 #' @describeIn names_RLum

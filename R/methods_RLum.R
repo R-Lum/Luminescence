@@ -208,23 +208,6 @@ bin.RLum.Data.Spectrum <- function(x, bin_size.row = 1, bin_size.col = 1, ...){
   bin_RLum.Data(x, bin_size.row = bin_size.row, bin_size.col = bin_size.col)
 }
 
-## length() -----------------------------------------------------------------
-
-#' @rdname methods_RLum
-#' @export
-length.RLum.Results <- function(x, ...) length_RLum(x)
-
-#' @rdname methods_RLum
-#' @export
-length.RLum.Analysis <- function(x, ...) length_RLum(x)
-
-#' @rdname methods_RLum
-#' @export
-length.RLum.Data.Curve <- function(x, ...) length_RLum(x)
-
-#' @rdname methods_RLum
-#' @export
-length.Risoe.BINfileData <- function(x, ...) length(x@METADATA$ID)
 
 ## rep() --------------------------------------------------------------------
 
