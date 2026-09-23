@@ -266,7 +266,10 @@ test_that("regression tests", {
                "File '.*a test' does not exist") # windows CI needs the regexp
 
   ## issue 1753
-  expect_message(read_BIN2R(paste0(test_path("_data/bin-tests/"), c("", "/BINfile_V3.bin")),
+  SW({
+  expect_message(read_BIN2R(paste0(test_path("_data/"),
+                                   c("bin-tests/", "BINfile_V3.bin")),
                             pattern = "_corr_"),
                  "looking for files matching the '_corr_' pattern")
+  })
 })
