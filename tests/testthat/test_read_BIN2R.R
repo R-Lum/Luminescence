@@ -148,7 +148,7 @@ test_that("test the import of various BIN-file versions", {
   ## directory
   res <- read_BIN2R(test_path("_data"), show_record_number = TRUE)
   expect_type(res, "list")
-  expect_length(res, 11)
+  expect_length(res, 12)
 
   res <- read_BIN2R(test_path("_data"), pattern = "_V[34]")
   expect_type(res, "list")
