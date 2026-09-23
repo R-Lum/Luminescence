@@ -226,14 +226,19 @@ read_BIN2R <- function(
   ##set ID
   temp.ID <- 0
 
+  ## avoid printing the same message multiple times (#1759)
+  msg.shown <- FALSE
+
   ##start for BIN-file check up
   while(length(temp.VERSION <- readBin(con, what="raw", 1, size=1, endian="little"))>0) {
     ## force version number
     if(!is.null(forced.VersionNumber)){
       temp.VERSION <- as.raw(forced.VersionNumber)
-      if (verbose)
+      if (verbose && !msg.shown) {
         .throw_message("'forced.VersionNumber' set to ", temp.VERSION,
                        ", but this version may not match your input file", error = FALSE)
+        msg.shown <- TRUE
+      }
     }
 
     ##stop input if wrong VERSION
