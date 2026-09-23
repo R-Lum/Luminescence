@@ -272,4 +272,9 @@ test_that("regression tests", {
                             pattern = "_corr_"),
                  "looking for files matching the '_corr_' pattern")
   })
+
+  ## issue 1759
+  expect_warning(read_BIN2R(test_path("_data/bin-tests/infinite-loop.binx"),
+                            verbose = FALSE),
+                 "BIN-file appears to be corrupt, import limited to the first 1 records")
 })

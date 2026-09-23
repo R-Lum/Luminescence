@@ -45,6 +45,9 @@ than better and more reliable fitting in the case where `method = "FIT"` was cho
 * The `pattern` argument is no longer ignored when `file` contains more than
 one input files or directories (#1753).
 
+* The function could get trapped in an infinite loop if any records declares
+to have size 0 (#1759).
+
 ### `read_XSYG2R()`
 
 * The `pattern` argument is now validated to be a single string to avoid the
