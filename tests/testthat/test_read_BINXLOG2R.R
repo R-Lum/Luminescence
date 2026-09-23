@@ -1,7 +1,7 @@
 ## set the path for the files
 IRSL <- system.file("extdata/BINX_IRSL_LOG.TXT", package = "Luminescence")
 OSL <- system.file("extdata/BINX_OSL_LOG.TXT", package = "Luminescence")
-IRSL_BROKEN <- system.file("extdata/BINX_IRSL_LOG_BROKEN.TXT", package = "Luminescence")
+IRSL_BROKEN <- test_path("_data/BINX_IRSL_LOG_BROKEN.TXT")
 
 test_that("input validation", {
   testthat::skip_on_cran()
