@@ -512,12 +512,18 @@ read_BIN2R <- function(
     temp.PREVIOUS <- temp[2]
     temp.NPOINTS  <- temp[3]
 
-    ## skip record if not selected in n.records
-    ## the first condition boosts the speed of reading if n.records is not used
-    if (!is.null(n.records) && !(temp.ID + 1) %in% n.records) {
-      temp.ID <- temp.ID + 1
-      seek.connection(con, temp.LENGTH - 3 * int.size - 2, origin = "current")
-      next()
+    if (!is.null(n.records)) {
+      ## avoid going past the last record (#1759)
+      if (temp.ID + 1 > max(n.records)) {
+        break
+      }
+
+      ## skip record if not selected in n.records
+      if (!(temp.ID + 1) %in% n.records) {
+        temp.ID <- temp.ID + 1
+        seek.connection(con, temp.LENGTH - 3 * int.size - 2, origin = "current")
+        next()
+      }
     }
 
     ## these must be set only after the n.records check
