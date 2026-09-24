@@ -1,5 +1,4 @@
-#' @rdname merge_RLum.Data.Curve
-#' @export
+#' @rdname merge_RLum
 merge_RLum.Data.Spectrum <- function(
   object,
   merge.method = c("mean", "median", "sum", "sd", "var", "min", "max",

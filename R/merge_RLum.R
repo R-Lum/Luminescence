@@ -1,77 +1,10 @@
-#' @title General merge function for RLum-class objects
-#'
-#' @description
-#' The function provides a generalised access point for merging specific
-#' [Luminescence::RLum-class] objects. Depending on the input object, the
-#' corresponding merge function will be selected.  Allowed arguments can be
-#' found in the documentation of each merge function.
-#' Empty list elements (`NULL`) are automatically removed from the input list.
-#'
-#' \tabular{lll}{
-#' **object** \tab \tab **corresponding merge function** \cr
-#' [Luminescence::RLum.Data.Curve-class] \tab -> \tab [Luminescence::merge_RLum.Data.Curve] \cr
-#' [Luminescence::RLum.Data.Spectrum-class] \tab -> \tab [Luminescence::merge_RLum.Data.Spectrum] \cr
-#' [Luminescence::RLum.Analysis-class] \tab -> \tab [Luminescence::merge_RLum.Analysis] \cr
-#' [Luminescence::RLum.Results-class] \tab -> \tab [Luminescence::merge_RLum.Results]
-#' }
-#'
-#' @param object [list] of [Luminescence::RLum-class] (**required**):
-#' list of S4 object of class `RLum`.
-#'
-#' @param ... further arguments that one might want to pass to the specific merge function
-#'
-#' @return
-#' Returns an [Luminescence::RLum.Analysis-class] object of class if any of the inputs is
-#' of that class. Otherwise, it returns an object of the same type as the
-#' input.
-#'
-#' @note
-#' So far merging of [Luminescence::RLum.Data.Image-class] objects is not supported.
-#'
-#' @section Function version: 0.1.4
-#'
-#' @author
-#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
-#'
-#' @seealso [Luminescence::RLum.Data.Curve-class],
-#' [Luminescence::RLum.Data.Spectrum-class], [Luminescence::RLum.Analysis-class],
-#' [Luminescence::RLum.Results-class]
-#'
-#' @keywords utilities
-#'
-#' @examples
-#'
-#' ##Example based using data and from the calc_CentralDose() function
-#'
-#' ##load example data
-#' data(ExampleData.DeValues, envir = environment())
-#'
-#' ##apply the central dose model 1st time
-#' temp1 <- calc_CentralDose(ExampleData.DeValues$CA1)
-#'
-#' ##apply the central dose model 2nd time
-#' temp2 <- calc_CentralDose(ExampleData.DeValues$CA1)
-#'
-#' ##merge the results and store them in a new object
-#' temp.merged <- get_RLum(merge_RLum(object = list(temp1, temp2)))
-#'
+#' @rdname merge_RLum
 #' @export
-merge_RLum<- function(
-  object,
-  ...
-) {
+setMethod("merge_RLum", signature = "list", function(object, ...) {
   .set_function_name("merge_RLum")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## deprecated argument
-  if ("objects" %in% ...names()) {
-    object <- list(...)$objects
-    .deprecated(old = "objects", new = "object", since = "1.3.1")
-  }
-
   ## Integrity checks -------------------------------------------------------
-  .validate_class(object, "list")
-
   ##we are friendly and remove all empty list elements, this helps a lot if we place things
   ##we DO NOT provide a warning as this lowers the computation speed in particular cases.
   object <- .rm_NULL_elements(object)
@@ -109,4 +42,4 @@ merge_RLum<- function(
         RLum.Data.Spectrum = merge_RLum.Data.Spectrum(object, ...),
         RLum.Results = merge_RLum.Results(object, ...)
       )
-}
+})

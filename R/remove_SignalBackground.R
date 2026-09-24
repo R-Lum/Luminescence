@@ -167,7 +167,7 @@ remove_SignalBackground <- function(
   ## now we perform the background subtraction element by element using our
   ## merge function, this makes things a lot easier
   object@records[id_signal] <- lapply(seq_along(id_signal), function(x) {
-    merge_RLum.Data.Curve(
+    merge_RLum(
       object = list(object@records[id_signal[x]][[1]],object_bg[id_bg[x]][[1]]),
       merge.method = "-")
   })
