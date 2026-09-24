@@ -1,30 +1,4 @@
-#' @title Merge function for RLum.Results S4-class objects
-#'
-#' @description Function merges objects of class [Luminescence::RLum.Results-class]. The slots in the objects
-#' are combined depending on the object type, e.g., for [data.frame] and [matrix]
-#' rows are appended.
-#'
-#' @details Elements are appended where possible and attributes are preserved if
-#' not of similar name as the default attributes of, e.g., a [data.frame]
-#'
-#' @note The `originator` is taken from the first element and not reset to [Luminescence::merge_RLum]
-#'
-#' @param object [list] (**required**):
-#' a list of [Luminescence::RLum.Results-class] objects
-#'
-#' @param flatten [logical] (*with default*):
-#' whether list elements should be flattened before merging.
-#'
-#' @param ... currently not used.
-#'
-#' @section Function version: 0.3.2
-#'
-#' @keywords utilities internal
-#'
-#' @author
-#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
-#'
-#' @export
+#' @rdname merge_RLum
 merge_RLum.Results <- function(
   object,
   flatten = TRUE,

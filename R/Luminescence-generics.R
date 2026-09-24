@@ -328,6 +328,175 @@ setMethod("melt_RLum", signature = "list",
     })
 
 
+## merge_RLum() --------------------------------------------------------------
+#' @title Merge RLum-class objects
+#'
+#' @description
+#' These functions merge [Luminescence::RLum-class] objects of the same class
+#' without modifying the original objects. Empty list elements (`NULL`) are
+#' automatically removed from the input list. The dispatch is based on the
+#' class of the input objects:
+#'
+#' - [Luminescence::RLum.Analysis-class]: when at least one input is an
+#' `RLum.Analysis` object, a single `RLum.Analysis` object is returned
+#' containing the supplied [Luminescence::RLum.Data-class] objects and
+#' `RLum.Analysis` records, in the order given.
+#' - [Luminescence::RLum.Data.Curve-class] and
+#' [Luminescence::RLum.Data.Spectrum-class]: merging is done element-wise
+#' on the data values using one of several supported methods (see below).
+#' - [Luminescence::RLum.Results-class]: data elements are appended or
+#' combined depending on their type.
+#'
+#' @section Supported merge operations:
+#'
+#' The following values for the `merge.method` argument are supported when
+#' merging [Luminescence::RLum.Data.Curve-class] and
+#' [Luminescence::RLum.Data.Spectrum-class] objects:
+
+#' - `"mean"` (default): the mean over the count/cell values is calculated
+#' using [rowMeans].
+#'
+#' - `"median"`: the median over the count/cell values is calculated using
+#' [matrixStats::rowMedians].
+#'
+#' - `"sum"`: all count/cell values are summed up using [rowSums].
+#'
+#' - `"sd"`: the standard deviation over the count/cell values is calculated
+#' using [matrixStats::rowSds].
+#'
+#' - `"var"`: the variance over the count/cell values is calculated using
+#' [matrixStats::rowVars].
+#'
+#' - `"min"`: the min values from the count/cell values is calculated using
+#' [matrixStats::rowMins].
+#'
+#' - `"max"`: the max values from the count/cell values is calculated using
+#' [matrixStats::rowMaxs].
+#'
+#' - `"append"`: appends count/cell values of all objects to one combined data
+#' object. The channel width is automatically re-calculated, but requires a
+#' constant channel width of the original data.
+#' **Note:** For [Luminescence::RLum.Data.Spectrum-class] objects, this method
+#' is only available when all objects have the same number of columns.
+#'
+#' - `"-"`: the row sums of the last objects are subtracted from the first
+#' object.
+#'
+#' - `"*"`: the row sums of the last objects are multiplied by the first
+#' object.
+#'
+#' - `"/"`: values of the first object are divided by row sums of the last
+#' objects.
+#'
+#' @param object [list] (**required**):
+#' list of [Luminescence::RLum-class] objects to be merged. All elements must
+#' be of the same type, unless at least one [Luminescence::RLum.Analysis-class]
+#' object is present, in which case also [Luminescence::RLum.Data-class] can
+#' be provided.
+#'
+#' @param ... currently not used.
+#'
+#' @param merge.method [character] (*with default*):
+#' method for combining of the objects, e.g. `'mean'` (default), `'median'`,
+#' `'sum'`, see below for further information.
+#' Only used for [Luminescence::RLum.Data.Curve-class] and
+#' [Luminescence::RLum.Data.Spectrum-class] objects.
+#'
+#' @param method.info [numeric] (*optional*):
+#' allows to specify how info elements of the input objects are combined,
+#' e.g. `1` keeps only the info elements from the first object, `2` keeps only
+#' those from the second object, etc. If set to `NULL` (default), all elements
+#' are combined.
+#' Only used for [Luminescence::RLum.Data.Curve-class] and
+#' [Luminescence::RLum.Data.Spectrum-class] objects.
+#'
+#' @param max.temp.diff [numeric] (*with default*):
+#' maximum difference in the time/temperature values between the spectra to
+#' be merged: when differences exceed this threshold value, the merging
+#' occurs but a warning is raised.
+#' Only used for [Luminescence::RLum.Data.Spectrum-class] objects.
+#'
+#' @param flatten [logical] (*with default*):
+#' whether list elements should be flattened before merging.
+#' Only used for [Luminescence::RLum.Results-class] objects.
+#'
+#' @return
+#' Returns an object of the same class as the input elements.
+#'
+#' @note
+#' - For [Luminescence::RLum.Analysis-class] objects, the information for the
+#' `protocol` slot is taken from the first [Luminescence::RLum.Analysis-class]
+#' object in the input list.
+#' - For [Luminescence::RLum.Data.Curve-class] and
+#' [Luminescence::RLum.Data.Spectrum-class] objects, the information from the
+#' `recordType` slot is taken from the first object in the input list. The
+#' `curveType` slot is set to `"merged"`.
+#' - For [Luminescence::RLum.Results-class] objects, the `originator` is taken
+#' from the first element and not reset to `"merge_RLum"`.
+#'
+#' @section S3 generic support:
+#'
+#' Merging of `RLum.Data.Curve` and `RLum.Data.Spectrum` objects can also be
+#' performed via S3-generics: `+`, `-`, `/`, `*`.
+#'
+#' @section Function version: 0.3.0
+#'
+#' @author
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
+#'
+#' @seealso [Luminescence::RLum.Analysis-class],
+#' [Luminescence::RLum.Data.Curve-class],
+#' [Luminescence::RLum.Data.Spectrum-class],
+#' [Luminescence::RLum.Results-class]
+#'
+#' @keywords utilities
+#'
+#' @examples
+#'
+#' ## load example data
+#' data(ExampleData.XSYG, envir = environment())
+#' data(ExampleData.DeValues, envir = environment())
+#' data(ExampleData.RLum.Analysis, envir = environment())
+#'
+#' ## extract the first and third TL curves
+#' TL.curves  <- get_RLum(OSL.SARMeasurement$Sequence.Object,
+#'                        recordType = "TL (UVVIS)")
+#'
+#' ## ---- RLum.Analysis ----
+#' merged <- merge_RLum(list(TL.curves[[1]], IRSAR.RF.Data, IRSAR.RF.Data))
+#'
+#' ## ---- RLum.Data.Curve ----
+#' ## subtract the 1st curve from the 3rd
+#' TL.merged <- merge_RLum(list(TL.curves[[3]], TL.curves[[1]]),
+#'                         merge.method = "-")
+#'
+#' ## ---- RLum.Data.Spectrum ----
+#' ## sum two copies of the same spectrum
+#' spectrum.merged <- merge_RLum(list(TL.Spectrum, TL.Spectrum),
+#'                               merge.method = "sum")
+#'
+#' ## ---- RLum.Results ----
+#' res <- calc_CentralDose(ExampleData.DeValues$CA1)
+#' res.merged <- merge_RLum(list(res, res))
+#'
+#' @name merge_RLum
+#' @export
+setGeneric("merge_RLum", function(object, ...) {
+  .set_function_name("merge_RLum")
+  on.exit(.unset_function_name(), add = TRUE)
+
+  ## deprecated argument
+  if ("objects" %in% ...names()) {
+    object <- list(...)$objects
+    .deprecated(old = "objects", new = "object", since = "1.3.1")
+  }
+
+  .validate_class(object, "list")
+  standardGeneric("merge_RLum")
+})
+
+
 ## names() ------------------------------------------------------------------
 #' @title Names of RLum-class and Risoe-class objects
 #'
