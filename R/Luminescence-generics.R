@@ -352,7 +352,7 @@ setMethod("melt_RLum", signature = "list",
 #' The following values for the `merge.method` argument are supported when
 #' merging [Luminescence::RLum.Data.Curve-class] and
 #' [Luminescence::RLum.Data.Spectrum-class] objects:
-
+#'
 #' - `"mean"` (default): the mean over the count/cell values is calculated
 #' using [rowMeans].
 #'
@@ -394,7 +394,7 @@ setMethod("melt_RLum", signature = "list",
 #' object is present, in which case also [Luminescence::RLum.Data-class] can
 #' be provided.
 #'
-#' @param ... currently not used.
+#' @param ... further arguments passed to the specific class methods.
 #'
 #' @param merge.method [character] (*with default*):
 #' method for combining of the objects, e.g. `'mean'` (default), `'median'`,
@@ -431,6 +431,7 @@ setMethod("melt_RLum", signature = "list",
 #' [Luminescence::RLum.Data.Spectrum-class] objects, the information from the
 #' `recordType` slot is taken from the first object in the input list. The
 #' `curveType` slot is set to `"merged"`.
+#' - For [Luminescence::RLum.Data.Image-class], no merging is supported.
 #' - For [Luminescence::RLum.Results-class] objects, the `originator` is taken
 #' from the first element and not reset to `"merge_RLum"`.
 #'

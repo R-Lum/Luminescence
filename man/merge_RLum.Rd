@@ -43,7 +43,7 @@ be of the same type, unless at least one \link[=RLum.Analysis-class]{RLum.Analys
 object is present, in which case also \link[=RLum.Data-class]{RLum.Data} can
 be provided.}
 
-\item{...}{currently not used.}
+\item{...}{further arguments passed to the specific class methods.}
 
 \item{merge.method}{\link{character} (\emph{with default}):
 method for combining of the objects, e.g. \code{'mean'} (default), \code{'median'},
@@ -98,6 +98,7 @@ object in the input list.
 \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} objects, the information from the
 \code{recordType} slot is taken from the first object in the input list. The
 \code{curveType} slot is set to \code{"merged"}.
+\item For \link[=RLum.Data.Image-class]{RLum.Data.Image}, no merging is supported.
 \item For \link[=RLum.Results-class]{RLum.Results} objects, the \code{originator} is taken
 from the first element and not reset to \code{"merge_RLum"}.
 }
