@@ -1114,8 +1114,7 @@ plot_AbanicoPlot <- function(
 
   ## append information about data in confidence interval
   for(i in 1:length(data)) {
-    data.in.2s <- rep(x = FALSE, times = nrow(data[[i]]))
-    data.in.2s[data[[i]][,8] > -2 & data[[i]][,8] < 2] <- TRUE
+    data.in.2s <- data[[i]][, 8] > -2 & data[[i]][, 8] < 2
     data[[i]] <- cbind(data[[i]], data.in.2s)
   }
 
