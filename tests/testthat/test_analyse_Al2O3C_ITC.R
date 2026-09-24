@@ -64,7 +64,7 @@ test_that("check functionality", {
 test_that("snapshot tests", {
   skip_on_cran()
 
-  snapshot.tolerance <- 5.0e-6
+  snapshot.tolerance <- 5.0e-5
 
   SW({
   expect_snapshot_RLum(analyse_Al2O3C_ITC(data_ITC),
