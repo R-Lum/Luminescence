@@ -95,6 +95,11 @@ test_that("input validation", {
     "Mode 'extrapolation' for fitting method 'DSE' not supported",
     fixed = TRUE)
 
+  ## fit.NumberRegPoints too large
+  expect_warning(fit_DoseResponseCurve(LxTxData, fit.NumberRegPoints = 7,
+                                       verbose = FALSE),
+                 "exceeds the number of regenerated doses, reset to 6")
+
   ## deprecated option
   SW({
   expect_warning(fit_DoseResponseCurve(LxTxData, fit.weights = FALSE),
