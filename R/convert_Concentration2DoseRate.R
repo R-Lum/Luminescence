@@ -163,7 +163,7 @@ convert_Concentration2DoseRate <- function(
     .throw_error("'object' should not contain NA values")
   for (idx in 2:ncol(object)) {
     .validate_class(object[, idx], c("numeric", "integer"),
-                    name = "Each element of 'object' other than the first")
+                    name = "All columns of 'object' other than the first")
   }
   if (!"GrainSize" %in% colnames(object))
     .throw_error("'object' should contain a 'GrainSize' column")

@@ -26,7 +26,7 @@ test_that("input validation", {
 
   df[[8]] <- "error"
   expect_error(convert_Concentration2DoseRate(df),
-               "Each element of 'object' other than the first should be of class")
+               "All columns of 'object' other than the first should be of class")
   df[[8]] <- 9999
   expect_error(convert_Concentration2DoseRate(df),
                "No attenuation data available for the grain size provided")
