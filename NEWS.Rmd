@@ -38,6 +38,12 @@ The following S3 methods (deprecated in v1.3.1) have been removed (#1694):
 along with some code tunings. This should have no user-visible effects other 
 than better and more reliable fitting in the case where `method = "FIT"` was chosen (#1748).
 
+### `fit_DoseResponseCurve()`
+
+* Setting `fit.NumberRegPoints` to a value larger than the number of available
+regeneration points caused the function not to fit. This is now checked, and
+if necessary it is corrected with a warning (#1763).
+
 ### `read_BIN2R()`
 
 * The `pattern` argument is now validated to be a single string to avoid the

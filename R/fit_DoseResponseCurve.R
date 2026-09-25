@@ -536,8 +536,14 @@ fit_DoseResponseCurve <- function(
 
   ##1. INPUT
   #1.0.1 calculate number of reg points if not set
-  if(is.null(fit.NumberRegPoints))
-    fit.NumberRegPoints <- length(object[-1,1])
+  numRegPoints <- nrow(object) - 1
+  if (is.null(fit.NumberRegPoints)) {
+    fit.NumberRegPoints <- numRegPoints
+  } else if (fit.NumberRegPoints > numRegPoints) {
+    .throw_warning("'fit.NumberRegPoints' exceeds the number of regenerated doses, ",
+                   "reset to ", numRegPoints)
+    fit.NumberRegPoints <- numRegPoints
+  }
 
   if(is.null(fit.NumberRegPointsReal)){
     fit.RegPointsReal <- which(!duplicated(object[,1]) | object[,1] != 0)
