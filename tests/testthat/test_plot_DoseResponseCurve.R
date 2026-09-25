@@ -83,6 +83,15 @@ test_that("graphical snapshot tests", {
                    LxTx_X = c(1, 1, 1, 1, 1))
   vdiffr::expect_doppelganger("De.NA",
                               plot_DoseResponseCurve(fit_DoseResponseCurve(df)))
+
+  ## more than one zero in the dose points
+  pt <- c(0, 0, 2, 1, 3)
+  df <- data.frame(DOSE = pt, LxTx = pt, LxTx.Err = c(1.1, 0.9, 1.0, 1.1, 1.2))
+  vdiffr::expect_doppelganger("issue 1762",
+                              plot_DoseResponseCurve(
+                                  fit_DoseResponseCurve(df, mode = "alternate",
+                                                        fit.method = "LIN"),
+                                  plot_extended = FALSE))
   })
 
   ## graphical snapshots that also check numerical correctness
