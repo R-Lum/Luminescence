@@ -896,10 +896,11 @@ test_that("graphical snapshot tests", {
                                   object = object[[2]],
                                   signal_integral = 1:2,
                                   background_integral = 900:1000,
-                                  rejection.criteria = list(recycling.ratio = NA,
-                                                            recuperation_reference = "Rmax",
-                                                            sn.ratio = NA,
-                                                            consider.uncertainties = TRUE),
+                                  rejection.criteria = list(
+                                    recycling.ratio = NA,
+                                    recuperation_reference = "Rmax",
+                                    sn.ratio = NA,
+                                    consider.uncertainties = TRUE),
                                   plot_onePage = TRUE))
 
   vdiffr::expect_doppelganger("multiple recuperation rates",
@@ -921,6 +922,7 @@ test_that("graphical snapshot tests", {
                                   object = object[[2]],
                                   signal_integral = 1:5,
                                   background_integral = 900:1000,
+                                  plot_onePage = FALSE,
                                   plot_singlePanels = 7))
 
   vdiffr::expect_doppelganger("plot_singlePanels = 2",
@@ -929,6 +931,7 @@ test_that("graphical snapshot tests", {
                                   signal_integral = 1:5,
                                   background_integral = 900:1000,
                                   mtext.outer = "mtext.outer",
+                                  plot_onePage = FALSE,
                                   plot_singlePanels = 2))
 
   ## simulate single grain

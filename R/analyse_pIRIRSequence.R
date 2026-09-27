@@ -488,6 +488,7 @@ analyse_pIRIRSequence <- function(
       dose.points = dose.points,
       plot_singlePanels = temp.plot.single,
       cex = cex,
+      plot_onePage = FALSE,
       ...
     ) ##TODO should be replaced with useful explicit arguments
 

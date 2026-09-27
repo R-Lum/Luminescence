@@ -19,7 +19,7 @@ analyse_SAR.CWOSL(
   trim_channels = FALSE,
   mtext.outer = "",
   plot = TRUE,
-  plot_onePage = FALSE,
+  plot_onePage = TRUE,
   plot_singlePanels = FALSE,
   onlyLxTxTable = FALSE,
   method_control = list(),
@@ -284,7 +284,7 @@ function does \strong{not} overwrite values preset in \code{IRR_TIME}.
 }
 }
 \section{Function version}{
- 1.0.1
+ 1.0.2
 }
 
 \examples{
