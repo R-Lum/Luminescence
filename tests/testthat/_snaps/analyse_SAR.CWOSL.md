@@ -2046,7 +2046,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [96.44435175]
+                  "value": [96.44472287]
                 },
                 {
                   "type": "double",
@@ -2056,7 +2056,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [600.2387206]
+                  "value": [600.23904214]
                 },
                 {
                   "type": "logical",
@@ -2136,7 +2136,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1903.18196497]
+                  "value": [1903.18210534]
                 },
                 {
                   "type": "character",
@@ -2151,22 +2151,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1796.54073432]
+                  "value": [1796.54053324]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1998.13240493]
+                  "value": [1998.1325212]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1700.41755363]
+                  "value": [1700.41720124]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [2094.25558562]
+                  "value": [2094.2558532]
                 },
                 {
                   "type": "double",
