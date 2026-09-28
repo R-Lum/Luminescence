@@ -455,11 +455,8 @@ fit_DoseResponseCurve <- function(
   .validate_logical_scalar(verbose)
 
   ## convert input to data.frame
-  switch(
-    class(object)[1],
-    data.frame = object,
-    matrix = object <- as.data.frame(object),
-  )
+  if (inherits(object, "matrix"))
+    object <- as.data.frame(object)
 
   ##2.1 check column numbers; we assume that in this particular case no error value
   ##was provided, e.g., set all errors to 0
