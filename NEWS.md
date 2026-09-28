@@ -31,17 +31,17 @@ The following S3 methods (deprecated in v1.3.1) have been removed
 
 ## Bugfixes and changes
 
-### `analyse_SAR.CWOSL()`
-
-- The argument `plot_onePage` is now preset to `TRUE` as this turned out
-  to be a more meaningful default value than `FLASE`.
-
 ### `analyse_IRSAR.RF()`
 
 - Swap fitting using `nls()` and the `port` algorithm with
   `minpack.lm::nlsLM()` along with some code tunings. This should have
   no user-visible effects other than better and more reliable fitting in
   the case where `method = "FIT"` was chosen (#1748).
+
+### `analyse_SAR.CWOSL()`
+
+- The `plot_onePage` argument now defaults to `TRUE` as this turned out
+  to be a more meaningful default value than `FALSE`.
 
 ### `fit_DoseResponseCurve()`
 
