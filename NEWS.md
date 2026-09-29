@@ -57,6 +57,9 @@ The following S3 methods (deprecated in v1.3.1) have been removed
   that external packages can now fully overload it for their own classes
   (#1769).
 
+- Merging of multiple `RLum.Data.Spectrum` objects was performed
+  incorrectly when `merge.method` was one of `-`, `*` or `/` (#1773).
+
 ### `plot_DoseResponseCurve()`
 
 - The presence of a repeated zero-dose point caused the plot not to

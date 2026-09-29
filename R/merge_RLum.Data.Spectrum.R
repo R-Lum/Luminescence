@@ -84,26 +84,13 @@ function(
                         max = apply(temp.matrix, 2, matrixStats::rowMaxs),
                         min = apply(temp.matrix, 2, matrixStats::rowMins),
                         append = array(temp.matrix, c(num.rows, num.cols * num.objects)),
-                        "-" = {
-                          if (num.objects > 2) {
-                            temp.matrix[, , 1] - rowSums(temp.matrix[, , -1])
-                          } else {
-                            temp.matrix[, , 1] - temp.matrix[, , 2]
-                          }
-                        },
-                        "*" = {
-                          if (num.objects > 2) {
-                            temp.matrix[, , 1] * rowSums(temp.matrix[, , -1])
-                          } else {
-                            temp.matrix[, , 1] * temp.matrix[, , 2]
-                          }
-                        },
+                        "-" = temp.matrix[, , 1] - apply(temp.matrix[, , -1, drop = FALSE],
+                                                         c(1, 2), sum),
+                        "*" = temp.matrix[, , 1] * apply(temp.matrix[, , -1, drop = FALSE],
+                                                         c(1, 2), sum),
                         "/" = {
-                          temp <- if (num.objects > 2) {
-                                    temp.matrix[, , 1] / rowSums(temp.matrix[, , -1])
-                                  } else {
-                                    temp.matrix[, , 1] / temp.matrix[, , 2]
-                                  }
+                          temp <- temp.matrix[, , 1] / apply(temp.matrix[, , -1, drop = FALSE],
+                                                             c(1, 2), sum)
 
                           ## replace infinities with 0 and throw warning
                           idx.inf <- which(is.infinite(temp))

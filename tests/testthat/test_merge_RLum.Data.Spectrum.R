@@ -55,11 +55,46 @@ test_that("input validation", {
 test_that("check functionality", {
   testthat::skip_on_cran()
 
+  expected <- TL.Spectrum@data
+
   ## only one spectrum
-  expect_s4_class(new <- merge_RLum(list(TL.Spectrum)),
+  expect_s4_class(merged <- merge_RLum(list(TL.Spectrum)),
                   "RLum.Data.Spectrum")
-  expect_equal(TL.Spectrum@data,
-               new@data)
+  expect_equal(merged@data,
+               expected)
+
+  ## two spectra
+  objects <- list(TL.Spectrum, TL.Spectrum)
+  merged <- merge_RLum(objects, merge.method = "-")
+  expect_equal(merged@data,
+               matrix(0, nrow(expected), ncol(expected),
+                      dimnames = dimnames(expected)))
+
+  merged <- merge_RLum(objects, merge.method = "*")
+  expect_equal(merged@data,
+               expected^2)
+
+  merged <- merge_RLum(objects, merge.method = "/")
+  expect_equal(merged@data,
+               matrix(1, nrow = nrow(expected), ncol = ncol(expected),
+                      dimnames = dimnames(expected)))
+
+  ## more than two spectra
+  objects <- list(TL.Spectrum, TL.Spectrum, TL.Spectrum)
+
+  expect_s4_class(merged <- merge_RLum(objects, merge.method = "-"),
+                  "RLum.Data.Spectrum")
+  expect_equal(merged@data,
+               -expected)
+
+  merged <- merge_RLum(objects, merge.method = "*")
+  expect_equal(merged@data,
+               2 * expected^2)
+
+  merged <- merge_RLum(objects, merge.method = "/")
+  expect_equal(merged@data,
+               matrix(0.5, nrow = nrow(expected), ncol = ncol(expected),
+                      dimnames = dimnames(expected)))
 })
 
 test_that("snapshot tests", {
@@ -85,25 +120,7 @@ test_that("snapshot tests", {
                                                 merge.method = "min"))
 
   expect_snapshot_RLum(merge_RLum(list(TL.Spectrum, TL.Spectrum),
-                                                merge.method = "-"))
-
-  expect_s4_class(merge_RLum(list(TL.Spectrum, TL.Spectrum, TL.Spectrum),
-                                           merge.method = "-"), "RLum.Data.Spectrum")
-
-  expect_snapshot_RLum(merge_RLum(list(TL.Spectrum, TL.Spectrum),
                                                 merge.method = "append"))
-
-  expect_snapshot_RLum(merge_RLum(list(TL.Spectrum, TL.Spectrum),
-                                                merge.method = "*"))
-
-  expect_s4_class(merge_RLum(list(TL.Spectrum, TL.Spectrum, TL.Spectrum),
-                                                merge.method = "*"), "RLum.Data.Spectrum")
-
-  expect_snapshot_RLum(merge_RLum(list(TL.Spectrum, TL.Spectrum),
-                                                merge.method = "/"))
-
-  expect_s4_class(merge_RLum(list(TL.Spectrum, TL.Spectrum, TL.Spectrum),
-                                           merge.method = "/"), "RLum.Data.Spectrum")
 
   expect_warning(
       expect_snapshot_RLum(merge_RLum(list(TL.Spectrum,
