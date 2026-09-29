@@ -14,7 +14,7 @@ test_that("input validation", {
   expect_error(merge_RLum(list(o1, "test")),
                "All elements of 'object' should be of class 'RLum.Analysis' or")
   expect_error(merge_RLum(list(o1, r1)),
-               "All elements of 'object' should be of class 'RLum.Analysis'")
+               "All elements of 'object' should be of class 'RLum.Analysis' or")
 })
 
 test_that("snapshot tests", {
