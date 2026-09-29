@@ -47,6 +47,11 @@ The following S3 methods (deprecated in v1.3.1) have been removed
   arguments will raise a deprecation warning and will be ignored
   (#1762).
 
+### `merge_RLum()`
+
+- The function no longer crashes when attempting to merge an empty
+  `RLum.Data.Spectrum` object (#1771).
+
 ### `plot_DoseResponseCurve()`
 
 - The presence of a repeated zero-dose point caused the plot not to

@@ -43,7 +43,7 @@ merge_RLum.Data.Spectrum <- function(
   ## perform additional checks
   check.rows <- vapply(object, function(x) nrow(x@data), numeric(1))
   check.cols <- vapply(object, function(x) ncol(x@data), numeric(1))
-  if (length(check.rows) == 0 || length(check.cols) == 0) {
+  if (length(check.rows) == 0 || any(check.cols < 2)) {
     .throw_error("'object' contains no data")
   }
   if (length(unique(check.rows)) > 1 || length(unique(check.cols)) > 1) {
