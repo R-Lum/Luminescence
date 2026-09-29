@@ -106,6 +106,9 @@ test_that("input validation", {
                  "'fit.method = \"EXP\"' was deprecated in v1.3.0, use 'fit.method = \"SSE\"' instead")
   expect_equal(res@data$De$Fit,
                "SSE")
+  expect_warning(fit_DoseResponseCurve(LxTxData, fit.NumberRegPoints = 4,
+                                       fit.NumberRegPointsReal = 5),
+                 "'fit.NumberRegPoints' and 'fit.NumberRegPointsReal' were deprecated in v1.4.0")
   })
 })
 
