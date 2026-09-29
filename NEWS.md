@@ -40,9 +40,12 @@ The following S3 methods (deprecated in v1.3.1) have been removed
 
 ### `fit_DoseResponseCurve()`
 
-- Setting `fit.NumberRegPoints` to a value larger than the number of
-  available regeneration points caused the function not to fit. This is
-  now checked, and if necessary it is corrected with a warning (#1763).
+- The new `fit.IndexRegPoints` replaces both `fit.NumberRegPoints` and
+  `fit.NumberRegPointsReal`. This accepts the indices of the
+  regeneration points to be used in fitting, thus providing a quick way
+  to check for the impact of additional regeneration points. The older
+  arguments will raise a deprecation warning and will be ignored
+  (#1762).
 
 ### `plot_DoseResponseCurve()`
 

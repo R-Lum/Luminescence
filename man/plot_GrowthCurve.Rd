@@ -71,7 +71,7 @@ number of Monte Carlo simulations for error estimation.}
 
 \item{...}{Further arguments to \link{fit_DoseResponseCurve}
 (\code{fit.force_through_origin}, \code{fit_weights}, \code{fit.includingRepeatedRegPoints},
-\code{fit.NumberRegPoints}, \code{fit.NumberRegPointsReal}, \code{fit_bounds}, \code{txtProgressBar})
+\code{fit.IndexRegPoints}, \code{fit_bounds}, \code{txtProgressBar})
 and to \link{plot_DoseResponseCurve} (\code{xlim}, \code{ylim}, \code{main},
 \code{mtext}, \code{xlab}, \code{ylab}, \code{log}, \code{legend} (\code{TRUE/FALSE}), \code{legend.pos},
 \code{reg_points_pch}, \code{density_polygon} (\code{TRUE/FALSE}), \code{density_polygon_col},

@@ -192,16 +192,11 @@
 #' to the number of data points to fit (usually the `LxTx` values). See details.
 #'
 #' @param fit.includingRepeatedRegPoints [logical] (*with default*):
-#' includes repeated points for fitting (`TRUE`/`FALSE`).
+#' includes repeated points for fitting (`TRUE` by default).
 #'
-#' @param fit.NumberRegPoints [integer] (*optional*):
-#' set number of regeneration points manually. By default the number of all (!)
-#' regeneration points is used automatically.
-#'
-#' @param fit.NumberRegPointsReal [integer] (*optional*):
-#' if the number of regeneration points is provided manually, the value of the
-#' real, regeneration points = all points (repeated points) including reg 0,
-#' has to be inserted.
+#' @param fit.IndexRegPoints [integer] (*optional):
+#' indices of the regeneration points to be used in fitting. If `NULL`
+#' (default), all regeneration points are used.
 #'
 #' @param fit.bounds [logical] (*with default*):
 #' set lower fit bounds for all fitting parameters to 0. Limited to use
@@ -280,7 +275,7 @@
 #' `.De.raw` \tab [numeric] \tab equivalent dose reported 'as is', that is, containing infinities and negative values if they could be calculated. Bear in mind that negative values are meaningless and may be arbitrary.\cr
 #' }
 #'
-#' @section Function version: 1.7
+#' @section Function version: 1.8
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -376,8 +371,7 @@ fit_DoseResponseCurve <- function(
   fit.force_through_origin = FALSE,
   fit.weights = c("inverse_var", "inverse_std", "norm_inverse_std"),
   fit.includingRepeatedRegPoints = TRUE,
-  fit.NumberRegPoints = NULL,
-  fit.NumberRegPointsReal = NULL,
+  fit.IndexRegPoints = NULL,
   fit.bounds = TRUE,
   n.MC = 100,
   txtProgressBar = TRUE,
@@ -387,12 +381,18 @@ fit_DoseResponseCurve <- function(
   .set_function_name("fit_DoseResponseCurve")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ## deprecated argument
+  ## deprecated arguments
   if (is.logical(fit.weights)) {
     fit.weights <- if (isTRUE(fit.weights[1])) "inverse_var" else NULL
     .throw_warning("'fit.weight' no longer accepts a logical value, ",
                    "reset automatically to ", fit.weights %||% "NULL")
   }
+  depr.args <- c("fit.NumberRegPoints", "fit.NumberRegPointsReal")
+  depr.idx <- which(depr.args %in% ...names())
+  if (length(depr.idx) > 0) {
+    .deprecated(depr.args[depr.idx], "fit.IndexRegPoints", since = "1.4.0")
+  }
+
 
   ## Self-call --------------------------------------------------------------
   if (inherits(object, "list")) {
@@ -408,8 +408,7 @@ fit_DoseResponseCurve <- function(
           fit.force_through_origin = fit.force_through_origin,
           fit.weights = fit.weights,
           fit.includingRepeatedRegPoints = fit.includingRepeatedRegPoints,
-          fit.NumberRegPoints = fit.NumberRegPoints,
-          fit.NumberRegPointsReal = fit.NumberRegPointsReal,
+          fit.IndexRegPoints = fit.IndexRegPoints,
           fit.bounds = fit.bounds,
           n.MC = n.MC,
           txtProgressBar = txtProgressBar,
@@ -448,8 +447,16 @@ fit_DoseResponseCurve <- function(
   .validate_class(fit.weights, c("character", "numeric"), null.ok = TRUE)
   .validate_logical_scalar(fit.includingRepeatedRegPoints)
   .validate_logical_scalar(fit.bounds)
-  .validate_positive_scalar(fit.NumberRegPoints, int = TRUE, null.ok = TRUE)
-  .validate_positive_scalar(fit.NumberRegPointsReal, int = TRUE, null.ok = TRUE)
+  if (!is.null(fit.IndexRegPoints)) {
+    .validate_class(fit.IndexRegPoints, c("integer", "numeric"), null.ok = TRUE)
+    if (any(fit.IndexRegPoints < 1 | fit.IndexRegPoints > nrow(object)))
+      .throw_error("All elements of 'fit.IndexRegPoints' should be between 1 and ",
+                   nrow(object))
+
+    ## ensure that the natural is included and indices are sorted
+    fit.IndexRegPoints <- sort(unique(c(1, fit.IndexRegPoints)))
+    object <- object[fit.IndexRegPoints, ]
+  }
   .validate_positive_scalar(n.MC, int = TRUE)
   .validate_logical_scalar(txtProgressBar)
   .validate_logical_scalar(verbose)
@@ -532,26 +539,11 @@ fit_DoseResponseCurve <- function(
   }
 
   ##1. INPUT
-  #1.0.1 calculate number of reg points if not set
-  numRegPoints <- nrow(object) - 1
-  if (is.null(fit.NumberRegPoints)) {
-    fit.NumberRegPoints <- numRegPoints
-  } else if (fit.NumberRegPoints > numRegPoints) {
-    .throw_warning("'fit.NumberRegPoints' exceeds the number of regenerated doses, ",
-                   "reset to ", numRegPoints)
-    fit.NumberRegPoints <- numRegPoints
-  }
-
-  if(is.null(fit.NumberRegPointsReal)){
-    fit.RegPointsReal <- which(!duplicated(object[,1]) | object[,1] != 0)
-    fit.NumberRegPointsReal <- length(fit.RegPointsReal)
-  }
-
   ## 1.1 Produce data.frame from input values
 
   ## for interpolation the first point is considered as natural dose
   first.idx <- ifelse(interpolation, 2, 1)
-  last.idx <- fit.NumberRegPoints + 1
+  last.idx <- nrow(object)
 
   xy <- object[first.idx:last.idx, 1:2]
   colnames(xy) <- c("x", "y")
@@ -1935,8 +1927,7 @@ fit_DoseResponseCurve <- function(
           mode = mode,
           fit.force_through_origin = fit.force_through_origin,
           fit.includingRepeatedRegPoints = fit.includingRepeatedRegPoints,
-          fit.NumberRegPoints = fit.NumberRegPoints,
-          fit.NumberRegPointsReal = fit.NumberRegPointsReal,
+          fit.IndexRegPoints = fit.IndexRegPoints,
           fit.weights = fit.weights,
           fit.bounds = fit.bounds,
           n.MC = n.MC

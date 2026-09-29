@@ -129,7 +129,7 @@ plot_DoseResponseCurve <- function(
 
   ## for interpolation the first point is considered as natural dose
   first.idx <- ifelse(mode == "interpolation", 2, 1)
-  last.idx <- fit.args$fit.NumberRegPoints + 1
+  last.idx <- nrow(sample)
   xy <- sample[first.idx:last.idx, 1:2]
   colnames(xy) <- c("x", "y")
   y.Error <- sample[first.idx:last.idx, 3]

@@ -62,11 +62,12 @@ test_that("input validation", {
   expect_error(fit_DoseResponseCurve(LxTxData,
                                      fit.includingRepeatedRegPoints = "error"),
                "'fit.includingRepeatedRegPoints' should be a single logical")
-  expect_error(fit_DoseResponseCurve(LxTxData,
-                                     fit.NumberRegPoints = "error"),
-               "'fit.NumberRegPoints' should be a single positive integer value")
-  expect_error(fit_DoseResponseCurve(LxTxData, fit.NumberRegPointsReal = "error"),
-               "'fit.NumberRegPointsReal' should be a single positive integer value")
+  expect_error(fit_DoseResponseCurve(LxTxData, fit.IndexRegPoints = "error"),
+               "'fit.IndexRegPoints' should be of class 'integer', 'numeric' or")
+  expect_error(fit_DoseResponseCurve(LxTxData, fit.IndexRegPoints = 0:4),
+               "All elements of 'fit.IndexRegPoints' should be between 1 and 7")
+  expect_error(fit_DoseResponseCurve(LxTxData, fit.IndexRegPoints = 4:10),
+               "All elements of 'fit.IndexRegPoints' should be between 1 and 7")
   expect_error(fit_DoseResponseCurve(LxTxData,
                                      fit.bounds = "error"),
                "'fit.bounds' should be a single logical value")
@@ -95,11 +96,6 @@ test_that("input validation", {
     "Mode 'extrapolation' for fitting method 'DSE' not supported",
     fixed = TRUE)
 
-  ## fit.NumberRegPoints too large
-  expect_warning(fit_DoseResponseCurve(LxTxData, fit.NumberRegPoints = 7,
-                                       verbose = FALSE),
-                 "exceeds the number of regenerated doses, reset to 6")
-
   ## deprecated option
   SW({
   expect_warning(fit_DoseResponseCurve(LxTxData, fit.weights = FALSE),
@@ -110,6 +106,9 @@ test_that("input validation", {
                  "'fit.method = \"EXP\"' was deprecated in v1.3.0, use 'fit.method = \"SSE\"' instead")
   expect_equal(res@data$De$Fit,
                "SSE")
+  expect_warning(fit_DoseResponseCurve(LxTxData, fit.NumberRegPoints = 4,
+                                       fit.NumberRegPointsReal = 5),
+                 "'fit.NumberRegPoints' and 'fit.NumberRegPointsReal' were deprecated in v1.4.0")
   })
 })
 
