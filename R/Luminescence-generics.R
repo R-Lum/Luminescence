@@ -394,8 +394,6 @@ setMethod("melt_RLum", signature = "list",
 #' object is present, in which case also [Luminescence::RLum.Data-class] can
 #' be provided.
 #'
-#' @param ... further arguments passed to the specific class methods.
-#'
 #' @param merge.method [character] (*with default*):
 #' method for combining of the objects, e.g. `'mean'` (default), `'median'`,
 #' `'sum'`, see below for further information.
@@ -419,6 +417,10 @@ setMethod("melt_RLum", signature = "list",
 #' @param flatten [logical] (*with default*):
 #' whether list elements should be flattened before merging.
 #' Only used for [Luminescence::RLum.Results-class] objects.
+#'
+#' @param ... currently not used.
+#'
+#' @param .class Used internally for multiple dispatch, and ignored otherwise.
 #'
 #' @return
 #' Returns an object of the same class as the input elements.
@@ -483,14 +485,17 @@ setMethod("melt_RLum", signature = "list",
 #'
 #' @name merge_RLum
 #' @export
-setGeneric("merge_RLum", function(object, ...) {
+setGeneric("merge_RLum", function(object, ..., .class) {
   .set_function_name("merge_RLum")
   on.exit(.unset_function_name(), add = TRUE)
 
   ## deprecated argument
   if ("objects" %in% ...names()) {
-    object <- list(...)$objects
     .deprecated(old = "objects", new = "object", since = "1.3.1")
+    extraArgs <- list(...)
+    object <- extraArgs$objects
+    extraArgs$objects <- NULL
+    return(do.call(merge_RLum, c(list(object = object), extraArgs)))
   }
 
   .validate_class(object, "list")

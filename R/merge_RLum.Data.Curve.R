@@ -1,38 +1,31 @@
 #' @rdname merge_RLum
-merge_RLum.Data.Curve<- function(
+setMethod("merge_RLum", signature(object = "list", .class = "RLum.Data.Curve"),
+function(
   object,
-  merge.method = c("mean", "median", "sum", "sd", "var", "max", "min",
+  merge.method = c("mean", "median", "sum", "sd", "var", "min", "max",
                    "append", "-", "*", "/"),
   method.info = NULL,
-  ...
+  .class
 ) {
   .set_function_name("merge_RLum.Data.Curve")
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-  .validate_class(object, "list")
   .validate_positive_scalar(method.info, int = TRUE, null.ok = TRUE)
   if (!is.null(method.info) && method.info > length(object))
     .throw_error("'method.info' cannot exceed the number of objects being merged (",
                  length(object), ")")
 
-  ##(1) check if object is of class RLum.Data.Curve
-  temp.recordType.test <- sapply(object, function(x) {
-    .validate_class(x, "RLum.Data.Curve",
-                    name = "All elements of 'object'")
-    return(x@recordType)
-  })
-
-  ##(2) Check for similar record types
-  record.types <- unique(temp.recordType.test)
+  ## check for similar record types
+  record.types <- unique(vapply(object, function(x) x@recordType, character(1)))
   if (length(record.types) > 1) {
     .throw_error("Objects cannot be merged, different record types found: ",
                  .collapse(record.types))
   }
 
   merge.method <- .validate_args(merge.method,
-                                 c("mean", "median", "sum", "sd", "var", "max",
-                                   "min", "append", "-", "*", "/"))
+                                 c("mean", "median", "sum", "sd", "var", "min",
+                                   "max", "append", "-", "*", "/"))
 
   ## Merge objects ----------------------------------------------------------
   ##merge data objects
@@ -41,7 +34,7 @@ merge_RLum.Data.Curve<- function(
   ##(1) build new data matrix
   ## first find the shortest object
   check.rows <- vapply(object, function(x) nrow(x@data), numeric(1))
-  if (length(check.rows) < 1 || min(check.rows) < 2) {
+  if (min(check.rows) < 2) {
     .throw_error("'object' contains no data")
   }
   num.rows <- min(check.rows)
@@ -132,4 +125,4 @@ merge_RLum.Data.Curve<- function(
     info = temp.info,
     .pid = unlist(lapply(object, function(x) x@.uid))
   )
-}
+})

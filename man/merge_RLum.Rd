@@ -4,37 +4,37 @@
 %   R/merge_RLum.Data.Spectrum.R, R/merge_RLum.R, R/merge_RLum.Results.R
 \name{merge_RLum}
 \alias{merge_RLum}
-\alias{merge_RLum.Analysis}
-\alias{merge_RLum.Data.Curve}
-\alias{merge_RLum.Data.Spectrum}
-\alias{merge_RLum,list-method}
-\alias{merge_RLum.Results}
+\alias{merge_RLum,list,RLum.Analysis-method}
+\alias{merge_RLum,list,RLum.Data.Curve-method}
+\alias{merge_RLum,list,RLum.Data.Spectrum-method}
+\alias{merge_RLum,list,ANY-method}
+\alias{merge_RLum,list,RLum.Results-method}
 \title{Merge RLum-class objects}
 \usage{
-merge_RLum(object, ...)
+merge_RLum(object, ..., .class)
 
-merge_RLum.Analysis(object, ...)
+\S4method{merge_RLum}{list,RLum.Analysis}(object, .class)
 
-merge_RLum.Data.Curve(
+\S4method{merge_RLum}{list,RLum.Data.Curve}(
   object,
-  merge.method = c("mean", "median", "sum", "sd", "var", "max", "min", "append", "-",
+  merge.method = c("mean", "median", "sum", "sd", "var", "min", "max", "append", "-",
     "*", "/"),
   method.info = NULL,
-  ...
+  .class
 )
 
-merge_RLum.Data.Spectrum(
+\S4method{merge_RLum}{list,RLum.Data.Spectrum}(
   object,
   merge.method = c("mean", "median", "sum", "sd", "var", "min", "max", "append", "-",
     "*", "/"),
   method.info = NULL,
   max.temp.diff = 0.1,
-  ...
+  .class
 )
 
-\S4method{merge_RLum}{list}(object, ...)
+\S4method{merge_RLum}{list,ANY}(object, ..., .class)
 
-merge_RLum.Results(object, flatten = TRUE, ...)
+\S4method{merge_RLum}{list,RLum.Results}(object, flatten = TRUE, .class)
 }
 \arguments{
 \item{object}{\link{list} (\strong{required}):
@@ -43,7 +43,9 @@ be of the same type, unless at least one \link[=RLum.Analysis-class]{RLum.Analys
 object is present, in which case also \link[=RLum.Data-class]{RLum.Data} can
 be provided.}
 
-\item{...}{further arguments passed to the specific class methods.}
+\item{...}{currently not used.}
+
+\item{.class}{Used internally for multiple dispatch, and ignored otherwise.}
 
 \item{merge.method}{\link{character} (\emph{with default}):
 method for combining of the objects, e.g. \code{'mean'} (default), \code{'median'},

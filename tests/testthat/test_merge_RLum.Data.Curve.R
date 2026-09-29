@@ -18,34 +18,32 @@ TL.curve.3_zeros@data[10:12, 2] <- 0
 test_that("input validation", {
   testthat::skip_on_cran()
 
-  expect_error(merge_RLum.Data.Curve("", merge.method = "/"),
+  expect_error(merge_RLum("", merge.method = "/"),
                "'object' should be of class 'list'")
-  expect_error(merge_RLum.Data.Curve(list("")),
-               "All elements of 'object' should be of class 'RLum.Data.Curve'")
-  expect_error(merge_RLum.Data.Curve(list(), merge.method = "/"),
+  expect_warning(expect_null(merge_RLum(list(), merge.method = "/")),
+                 "Nothing was merged as the object list was found to be empty or")
+  expect_error(merge_RLum(list(set_RLum("RLum.Data.Curve"))),
                "'object' contains no data")
-  expect_error(merge_RLum.Data.Curve(list(set_RLum("RLum.Data.Curve"))),
-               "'object' contains no data")
-  expect_error(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
+  expect_error(merge_RLum(list(TL.curve.1, TL.curve.3),
                                      merge.method = "error"),
                "'merge.method' should be one of 'mean', 'median', 'sum', 'sd'")
-  expect_error(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
+  expect_error(merge_RLum(list(TL.curve.1, TL.curve.3),
                                      method.info = "error"),
                "'method.info' should be a single positive integer value or NULL")
-  expect_error(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
+  expect_error(merge_RLum(list(TL.curve.1, TL.curve.3),
                                      method.info = 10),
                "'method.info' cannot exceed the number of objects being merged")
-  expect_error(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3_types)),
+  expect_error(merge_RLum(list(TL.curve.1, TL.curve.3_types)),
                "Objects cannot be merged, different record types found")
 
   ## different curve lengths
-  expect_warning(res <- merge_RLum.Data.Curve(list(TL.curve.1,
+  expect_warning(res <- merge_RLum(list(TL.curve.1,
                                                    TL.curve.3_short)),
                  "The number of channels differs between the curves")
   expect_equal(nrow(res@data), nrow(TL.curve.3_short@data))
 
   ## different resolution
-  expect_warning(expect_warning(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3_resol)),
+  expect_warning(expect_warning(merge_RLum(list(TL.curve.1, TL.curve.3_resol)),
                "The curves do not seem to have the same channel resolution"))
 
 })
@@ -62,7 +60,7 @@ test_that("check functionality", {
   expect_s4_class(TL.curve.1 * TL.curve.3, "RLum.Data.Curve")
 
   ## only one curve
-  expect_s4_class(new <- merge_RLum.Data.Curve(list(TL.curve.1)),
+  expect_s4_class(new <- merge_RLum(list(TL.curve.1)),
                   "RLum.Data.Curve")
   expect_equal(TL.curve.1@data,
                new@data)
@@ -71,47 +69,47 @@ test_that("check functionality", {
 test_that("snapshot tests", {
   testthat::skip_on_cran()
 
-  expect_snapshot_RLum(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
+  expect_snapshot_RLum(merge_RLum(list(TL.curve.1, TL.curve.3),
                                              method.info = 1))
-  expect_snapshot_RLum(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
+  expect_snapshot_RLum(merge_RLum(list(TL.curve.1, TL.curve.3),
                                              merge.method = "sum"))
-  expect_snapshot_RLum(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
+  expect_snapshot_RLum(merge_RLum(list(TL.curve.1, TL.curve.3),
                                              merge.method = "median"))
 
-  expect_snapshot_RLum(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
+  expect_snapshot_RLum(merge_RLum(list(TL.curve.1, TL.curve.3),
                                              merge.method = "sd"))
 
-  expect_snapshot_RLum(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
+  expect_snapshot_RLum(merge_RLum(list(TL.curve.1, TL.curve.3),
                                              merge.method = "var"))
 
-  expect_snapshot_RLum(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
+  expect_snapshot_RLum(merge_RLum(list(TL.curve.1, TL.curve.3),
                                              merge.method = "max"))
 
-  expect_snapshot_RLum(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
+  expect_snapshot_RLum(merge_RLum(list(TL.curve.1, TL.curve.3),
                                              merge.method = "min"))
 
-  expect_snapshot_RLum(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
+  expect_snapshot_RLum(merge_RLum(list(TL.curve.1, TL.curve.3),
                                              merge.method = "-"))
 
-  expect_s4_class(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3, TL.curve.3),
+  expect_s4_class(merge_RLum(list(TL.curve.1, TL.curve.3, TL.curve.3),
                                              merge.method = "-"), "RLum.Data.Curve")
 
-  expect_snapshot_RLum(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
+  expect_snapshot_RLum(merge_RLum(list(TL.curve.1, TL.curve.3),
                                              merge.method = "*"))
 
-  expect_s4_class(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3, TL.curve.3),
+  expect_s4_class(merge_RLum(list(TL.curve.1, TL.curve.3, TL.curve.3),
                                         merge.method = "*"), "RLum.Data.Curve")
 
-  expect_snapshot_RLum(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
+  expect_snapshot_RLum(merge_RLum(list(TL.curve.1, TL.curve.3),
                                              merge.method = "/"))
 
-  expect_s4_class(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3, TL.curve.3),
+  expect_s4_class(merge_RLum(list(TL.curve.1, TL.curve.3, TL.curve.3),
                                         merge.method = "/"), "RLum.Data.Curve")
 
   expect_warning(
-      expect_snapshot_RLum(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3_zeros),
+      expect_snapshot_RLum(merge_RLum(list(TL.curve.1, TL.curve.3_zeros),
                                                  merge.method = "/")),
       "3 'Inf' values replaced by 0 in the matrix")
-  expect_snapshot_RLum(merge_RLum.Data.Curve(list(TL.curve.1, TL.curve.3),
+  expect_snapshot_RLum(merge_RLum(list(TL.curve.1, TL.curve.3),
                                              merge.method = "append"))
 })

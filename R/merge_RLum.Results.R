@@ -1,23 +1,18 @@
 #' @rdname merge_RLum
-merge_RLum.Results <- function(
+setMethod("merge_RLum", signature(object = "list", .class = "RLum.Results"),
+function(
   object,
   flatten = TRUE,
-  ...
+  .class
 ) {
   .set_function_name("merge_RLum.Results")
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-  .validate_class(object, "list")
-  if (length(object) == 0) {
-    .throw_message("'object' contains no data, NULL returned")
-    return(NULL)
-  }
   .validate_logical_scalar(flatten)
 
   ## check if objects in the list are of type RLum.Results
   temp.originator <- vapply(object, function(x) {
-    .validate_class(x, "RLum.Results", name = "All elements of 'object'")
     x@originator
   }, character(1))
 
@@ -87,4 +82,4 @@ merge_RLum.Results <- function(
       info = unlist(lapply(object, function(x) x@info), recursive = FALSE),
       .pid = unlist(lapply(object, function(x) x@.uid))
   )
-}
+})

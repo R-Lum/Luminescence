@@ -1,29 +1,20 @@
 #' @rdname merge_RLum
-merge_RLum.Data.Spectrum <- function(
+setMethod("merge_RLum", signature(object = "list", .class = "RLum.Data.Spectrum"),
+function(
   object,
   merge.method = c("mean", "median", "sum", "sd", "var", "min", "max",
                    "append", "-", "*", "/"),
   method.info = NULL,
   max.temp.diff = 0.1,
-  ...
+  .class
 ) {
   .set_function_name("merge_RLum.Data.Spectrum")
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
 
-  .validate_class(object, "list")
-
-  ## check if object is of a supported RLum.Data class
-  num.objects <- length(object)
-  temp.recordType.test <- sapply(object, function(x) {
-    .validate_class(x, "RLum.Data.Spectrum",
-                    name = "All elements of 'object'")
-    return(x@recordType)
-  })
-
   ## check for similar record types
-  record.types <- unique(temp.recordType.test)
+  record.types <- unique(vapply(object, function(x) x@recordType, character(1)))
   if (length(record.types) > 1) {
     .throw_error("Objects cannot be merged, different record types found: ",
                  .collapse(record.types))
@@ -33,6 +24,7 @@ merge_RLum.Data.Spectrum <- function(
                                  c("mean", "median", "sum", "sd", "var",
                                    "min", "max", "append", "-", "*", "/"))
   .validate_positive_scalar(method.info, int = TRUE, null.ok = TRUE)
+  num.objects <- length(object)
   if (!is.null(method.info) && method.info > num.objects)
     .throw_error("'method.info' cannot exceed the number of objects being merged (",
                  num.objects, ")")
@@ -43,7 +35,7 @@ merge_RLum.Data.Spectrum <- function(
   ## perform additional checks
   check.rows <- vapply(object, function(x) nrow(x@data), numeric(1))
   check.cols <- vapply(object, function(x) ncol(x@data), numeric(1))
-  if (length(check.rows) == 0 || any(check.cols < 2)) {
+  if (any(check.cols < 2)) {
     .throw_error("'object' contains no data")
   }
   if (length(unique(check.rows)) > 1 || length(unique(check.cols)) > 1) {
@@ -147,4 +139,4 @@ merge_RLum.Data.Spectrum <- function(
       x@.uid
     }))
   )
-}
+})
