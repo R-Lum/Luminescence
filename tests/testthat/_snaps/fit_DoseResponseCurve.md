@@ -186,7 +186,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.IndexRegPoints", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -253,14 +253,7 @@
                   "value": [true]
                 },
                 {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
-                },
-                {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
+                  "type": "NULL"
                 },
                 {
                   "type": "double",
@@ -508,7 +501,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.IndexRegPoints", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -575,14 +568,7 @@
                   "value": [true]
                 },
                 {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
-                },
-                {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
+                  "type": "NULL"
                 },
                 {
                   "type": "double",
@@ -830,7 +816,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.IndexRegPoints", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -897,14 +883,7 @@
                   "value": [true]
                 },
                 {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
-                },
-                {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
+                  "type": "NULL"
                 },
                 {
                   "type": "double",
@@ -1152,7 +1131,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.IndexRegPoints", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -1219,14 +1198,7 @@
                   "value": [true]
                 },
                 {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
-                },
-                {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
+                  "type": "NULL"
                 },
                 {
                   "type": "double",
@@ -1474,7 +1446,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.IndexRegPoints", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -1541,14 +1513,7 @@
                   "value": [true]
                 },
                 {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
-                },
-                {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
+                  "type": "NULL"
                 },
                 {
                   "type": "double",
@@ -1796,7 +1761,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.IndexRegPoints", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -1863,14 +1828,7 @@
                   "value": [true]
                 },
                 {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
-                },
-                {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
+                  "type": "NULL"
                 },
                 {
                   "type": "double",
@@ -2118,7 +2076,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.IndexRegPoints", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -2185,14 +2143,7 @@
                   "value": [true]
                 },
                 {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
-                },
-                {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
+                  "type": "NULL"
                 },
                 {
                   "type": "double",
@@ -2440,7 +2391,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.IndexRegPoints", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -2507,14 +2458,7 @@
                   "value": [true]
                 },
                 {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
-                },
-                {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
+                  "type": "NULL"
                 },
                 {
                   "type": "double",
@@ -2762,7 +2706,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.IndexRegPoints", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -2829,14 +2773,7 @@
                   "value": [true]
                 },
                 {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
-                },
-                {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
+                  "type": "NULL"
                 },
                 {
                   "type": "double",
@@ -3084,7 +3021,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.IndexRegPoints", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -3151,14 +3088,7 @@
                   "value": [true]
                 },
                 {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
-                },
-                {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
+                  "type": "NULL"
                 },
                 {
                   "type": "double",
@@ -3406,7 +3336,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.IndexRegPoints", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -3473,14 +3403,7 @@
                   "value": [true]
                 },
                 {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
-                },
-                {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
+                  "type": "NULL"
                 },
                 {
                   "type": "double",
@@ -3728,7 +3651,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.IndexRegPoints", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -3795,14 +3718,7 @@
                   "value": [true]
                 },
                 {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
-                },
-                {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
+                  "type": "NULL"
                 },
                 {
                   "type": "double",
@@ -4050,7 +3966,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.IndexRegPoints", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -4117,14 +4033,7 @@
                   "value": [true]
                 },
                 {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
-                },
-                {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
+                  "type": "NULL"
                 },
                 {
                   "type": "double",
@@ -4372,7 +4281,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.IndexRegPoints", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -4439,14 +4348,7 @@
                   "value": [true]
                 },
                 {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
-                },
-                {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
+                  "type": "NULL"
                 },
                 {
                   "type": "double",
@@ -4694,7 +4596,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.IndexRegPoints", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -4766,14 +4668,7 @@
                   "value": [true]
                 },
                 {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
-                },
-                {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
+                  "type": "NULL"
                 },
                 {
                   "type": "double",
@@ -5021,7 +4916,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.IndexRegPoints", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -5083,14 +4978,7 @@
                   "value": [true]
                 },
                 {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [19]
-                },
-                {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [19]
+                  "type": "NULL"
                 },
                 {
                   "type": "double",
@@ -5338,7 +5226,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.IndexRegPoints", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -5400,14 +5288,7 @@
                   "value": [true]
                 },
                 {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [19]
-                },
-                {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [19]
+                  "type": "NULL"
                 },
                 {
                   "type": "double",
@@ -5655,7 +5536,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.IndexRegPoints", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -5722,14 +5603,7 @@
                   "value": [true]
                 },
                 {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
-                },
-                {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
+                  "type": "NULL"
                 },
                 {
                   "type": "double",
@@ -5977,7 +5851,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.IndexRegPoints", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -6044,14 +5918,7 @@
                   "value": [true]
                 },
                 {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
-                },
-                {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
+                  "type": "NULL"
                 },
                 {
                   "type": "double",
@@ -6299,7 +6166,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.IndexRegPoints", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -6366,14 +6233,7 @@
                   "value": [true]
                 },
                 {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
-                },
-                {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
+                  "type": "NULL"
                 },
                 {
                   "type": "double",
@@ -6621,7 +6481,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.NumberRegPoints", "fit.NumberRegPointsReal", "fit.weights", "fit.bounds", "n.MC"]
+                  "value": ["object", "fit.method", "mode", "fit.force_through_origin", "fit.includingRepeatedRegPoints", "fit.IndexRegPoints", "fit.weights", "fit.bounds", "n.MC"]
                 }
               },
               "value": [
@@ -6688,14 +6548,7 @@
                   "value": [true]
                 },
                 {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
-                },
-                {
-                  "type": "integer",
-                  "attributes": {},
-                  "value": [6]
+                  "type": "NULL"
                 },
                 {
                   "type": "double",

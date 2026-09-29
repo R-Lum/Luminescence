@@ -12,8 +12,7 @@ fit_DoseResponseCurve(
   fit.force_through_origin = FALSE,
   fit.weights = c("inverse_var", "inverse_std", "norm_inverse_std"),
   fit.includingRepeatedRegPoints = TRUE,
-  fit.NumberRegPoints = NULL,
-  fit.NumberRegPointsReal = NULL,
+  fit.IndexRegPoints = NULL,
   fit.bounds = TRUE,
   n.MC = 100,
   txtProgressBar = TRUE,
@@ -63,16 +62,11 @@ weighting approach to be used for the fitting. Options are \code{inverse_var}
 to the number of data points to fit (usually the \code{LxTx} values). See details.}
 
 \item{fit.includingRepeatedRegPoints}{\link{logical} (\emph{with default}):
-includes repeated points for fitting (\code{TRUE}/\code{FALSE}).}
+includes repeated points for fitting (\code{TRUE} by default).}
 
-\item{fit.NumberRegPoints}{\link{integer} (\emph{optional}):
-set number of regeneration points manually. By default the number of all (!)
-regeneration points is used automatically.}
-
-\item{fit.NumberRegPointsReal}{\link{integer} (\emph{optional}):
-if the number of regeneration points is provided manually, the value of the
-real, regeneration points = all points (repeated points) including reg 0,
-has to be inserted.}
+\item{fit.IndexRegPoints}{\link{integer} (*optional):
+indices of the regeneration points to be used in fitting. If \code{NULL}
+(default), all regeneration points are used.}
 
 \item{fit.bounds}{\link{logical} (\emph{with default}):
 set lower fit bounds for all fitting parameters to 0. Limited to use
@@ -304,7 +298,7 @@ especially for the composed functions (\code{SSE+LIN} and \code{DSE}).
 }
 }
 \section{Function version}{
- 1.7
+ 1.8
 }
 
 \examples{

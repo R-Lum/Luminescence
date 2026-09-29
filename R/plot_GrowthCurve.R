@@ -24,7 +24,7 @@
 #'
 #' @param ... Further arguments to [Luminescence::fit_DoseResponseCurve]
 #' (`fit.force_through_origin`, `fit_weights`, `fit.includingRepeatedRegPoints`,
-#' `fit.NumberRegPoints`, `fit.NumberRegPointsReal`, `fit_bounds`, `txtProgressBar`)
+#' `fit.IndexRegPoints`, `fit_bounds`, `txtProgressBar`)
 #' and to [Luminescence::plot_DoseResponseCurve] (`xlim`, `ylim`, `main`,
 #' `mtext`, `xlab`, `ylab`, `log`, `legend` (`TRUE/FALSE`), `legend.pos`,
 #' `reg_points_pch`, `density_polygon` (`TRUE/FALSE`), `density_polygon_col`,

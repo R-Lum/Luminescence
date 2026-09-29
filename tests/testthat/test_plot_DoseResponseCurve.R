@@ -74,6 +74,10 @@ test_that("graphical snapshot tests", {
                                                      col_drc = "green",
                                                      lty_drc = 3,
                                                      cex = 2))
+  vdiffr::expect_doppelganger("fit.IndexRegPoints",
+                              plot_DoseResponseCurve(
+                                  fit_DoseResponseCurve(LxTxData,
+                                                        fit.IndexRegPoints = 2:4)))
   vdiffr::expect_doppelganger("rlum.results",
                               plot_RLum.Results(fit, main = "plot_RLum.Results"))
 
