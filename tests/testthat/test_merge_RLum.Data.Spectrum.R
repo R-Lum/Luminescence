@@ -28,6 +28,11 @@ test_that("input validation", {
   expect_error(merge_RLum.Data.Spectrum(list(TL.Spectrum, TL.Spectrum),
                                         method.info = 10),
                "'method.info' cannot exceed the number of objects being merged")
+  expect_error(merge_RLum(list(set_RLum("RLum.Data.Spectrum"))),
+               "'object' contains no data")
+  expect_error(merge_RLum(list(set_RLum("RLum.Data.Spectrum", data = matrix(1)),
+                               set_RLum("RLum.Data.Spectrum", data = matrix(2)))),
+               "'object' contains no data")
   expect_error(merge_RLum.Data.Spectrum(list(TL.Spectrum, TL.Spectrum_types)),
                "Objects cannot be merged, different record types found")
 

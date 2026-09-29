@@ -51,6 +51,11 @@ to be used in fitting, thus providing a quick way to check for the impact of
 additional regeneration points. The older arguments will raise a deprecation
 warning and will be ignored (#1762).
 
+### `merge_RLum()`
+
+* The function no longer crashes when attempting to merge an empty
+`RLum.Data.Spectrum` object (#1771).
+
 ### `plot_DoseResponseCurve()`
 
 * The presence of a repeated zero-dose point caused the plot not to print the
