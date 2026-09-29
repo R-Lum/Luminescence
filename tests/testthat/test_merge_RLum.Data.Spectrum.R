@@ -65,36 +65,31 @@ test_that("check functionality", {
 
   ## two spectra
   objects <- list(TL.Spectrum, TL.Spectrum)
-  merged <- merge_RLum(objects, merge.method = "-")
-  expect_equal(merged@data,
+  expect_equal(merge_RLum(objects, merge.method = "-")@data,
                matrix(0, nrow(expected), ncol(expected),
                       dimnames = dimnames(expected)))
-
-  merged <- merge_RLum(objects, merge.method = "*")
-  expect_equal(merged@data,
+  expect_equal(merge_RLum(objects, merge.method = "*")@data,
                expected^2)
-
-  merged <- merge_RLum(objects, merge.method = "/")
-  expect_equal(merged@data,
+  expect_equal(merge_RLum(objects, merge.method = "/")@data,
                matrix(1, nrow = nrow(expected), ncol = ncol(expected),
                       dimnames = dimnames(expected)))
 
   ## more than two spectra
   objects <- list(TL.Spectrum, TL.Spectrum, TL.Spectrum)
-
-  expect_s4_class(merged <- merge_RLum(objects, merge.method = "-"),
-                  "RLum.Data.Spectrum")
-  expect_equal(merged@data,
+  expect_equal(merge_RLum(objects, merge.method = "-")@data,
                -expected)
-
-  merged <- merge_RLum(objects, merge.method = "*")
-  expect_equal(merged@data,
+  expect_equal(merge_RLum(objects, merge.method = "*")@data,
                2 * expected^2)
-
-  merged <- merge_RLum(objects, merge.method = "/")
-  expect_equal(merged@data,
+  expect_equal(merge_RLum(objects, merge.method = "/")@data,
                matrix(0.5, nrow = nrow(expected), ncol = ncol(expected),
                       dimnames = dimnames(expected)))
+
+  ## degenerate single-row spectrum
+  data <- matrix(rnorm(4), nrow = 1)
+  spectrum <- set_RLum("RLum.Data.Spectrum",
+                       data = data)
+  expect_equal(merge_RLum(list(spectrum, spectrum))@data,
+               data)
 })
 
 test_that("snapshot tests", {

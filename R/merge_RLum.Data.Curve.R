@@ -59,33 +59,7 @@ function(
   }
 
   ##(2) apply selected method for merging
-  temp.matrix <- switch(merge.method,
-                        sum = rowSums(temp.matrix),
-                        mean = rowMeans(temp.matrix),
-                        median = matrixStats::rowMedians(temp.matrix),
-                        sd = matrixStats::rowSds(temp.matrix),
-                        var = matrixStats::rowVars(temp.matrix),
-                        max = matrixStats::rowMaxs(temp.matrix),
-                        min = matrixStats::rowMins(temp.matrix),
-                        append = sapply(temp.matrix, c),
-                        "-" = {
-                          temp.matrix[, 1] - rowSums(temp.matrix[, -1, drop = FALSE])
-                        },
-                        "*" = {
-                          temp.matrix[, 1] * rowSums(temp.matrix[, -1, drop = FALSE])
-                        },
-                        "/" = {
-                          temp <- temp.matrix[, 1] / rowSums(temp.matrix[, -1, drop = FALSE])
-
-                          ## replace infinities with 0 and throw warning
-                          id.inf <- which(is.infinite(temp))
-                          if (length(id.inf) > 0) {
-                            temp[id.inf]  <- 0
-                            .throw_warning(length(id.inf),
-                                           " Inf values replaced by 0 in the matrix")
-                          }
-                          temp
-                        })
+  temp.matrix <- .merge_data_matrix(temp.matrix, merge.method)
 
   ## add back the first column to RLum.Data.Curve objects
   #If we append the data of the second to the first curve we have to recalculate
@@ -126,3 +100,30 @@ function(
     .pid = unlist(lapply(object, function(x) x@.uid))
   )
 })
+
+## apply the selected merge method to the data matrix
+.merge_data_matrix <- function(data, merge.method) {
+  switch(merge.method,
+         sum = rowSums(data),
+         mean = rowMeans(data),
+         median = matrixStats::rowMedians(data),
+         sd = matrixStats::rowSds(data),
+         var = matrixStats::rowVars(data),
+         max = matrixStats::rowMaxs(data),
+         min = matrixStats::rowMins(data),
+         append = as.vector(data),
+         "-" = data[, 1] - rowSums(data[, -1, drop = FALSE]),
+         "*" = data[, 1] * rowSums(data[, -1, drop = FALSE]),
+         "/" = {
+           temp <- data[, 1] / rowSums(data[, -1, drop = FALSE])
+
+           ## replace infinities with 0 and throw warning
+           idx.inf <- which(is.infinite(temp))
+           if (length(idx.inf) > 0) {
+             temp[idx.inf]  <- 0
+             .throw_warning(length(idx.inf),
+                            " Inf values replaced by 0 in the matrix")
+           }
+           temp
+         })
+}
