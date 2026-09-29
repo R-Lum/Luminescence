@@ -31,9 +31,11 @@
 #' (`TRUE`/`FALSE`).
 #'
 #' @return
-#' A plot (or a series of plots) is produced.
+#' A plot (or a series of plots) is produced. Each fitted dose point is plotted
+#' exactly once according to its type (dose point, dose point 0 or dose point
+#' repeated).
 #'
-#' @section Function version: 1.0.12
+#' @section Function version: 1.0.13
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -47,9 +49,6 @@
 #' Guralnik, B., Li, B., Jain, M., Chen, R., Paris, R.B., Murray, A.S., Li, S.-H., Pagonis, P.,
 #' Herman, F., 2015. Radiation-induced growth and isothermal decay of infrared-stimulated luminescence
 #' from feldspar. Radiation Measurements 81, 224-231.
-#'
-#' Pagonis, V., Kitis, G., Chen, R., 2020. A new analytical equation for the dose response of dosimetric materials,
-#' based on the Lambert W function. Journal of Luminescence 225, 117333. \doi{10.1016/j.jlumin.2020.117333}
 #'
 #' @seealso [Luminescence::fit_DoseResponseCurve]
 #'

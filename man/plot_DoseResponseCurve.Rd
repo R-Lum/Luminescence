@@ -42,14 +42,16 @@ with \code{mode = "extrapolation"}), \code{legend} (\code{TRUE/FALSE}), \code{le
 (\code{TRUE}/\code{FALSE}).}
 }
 \value{
-A plot (or a series of plots) is produced.
+A plot (or a series of plots) is produced. Each fitted dose point is plotted
+exactly once according to its type (dose point, dose point 0 or dose point
+repeated).
 }
 \description{
 A dose-response curve is produced for luminescence measurements using a
 regenerative or additive protocol as implemented in \link{fit_DoseResponseCurve}.
 }
 \section{Function version}{
- 1.0.12
+ 1.0.13
 }
 
 \examples{
@@ -88,9 +90,6 @@ Berger, G.W., Huntley, D.J., 1989. Test data for exponential fits. Ancient TL 7,
 Guralnik, B., Li, B., Jain, M., Chen, R., Paris, R.B., Murray, A.S., Li, S.-H., Pagonis, P.,
 Herman, F., 2015. Radiation-induced growth and isothermal decay of infrared-stimulated luminescence
 from feldspar. Radiation Measurements 81, 224-231.
-
-Pagonis, V., Kitis, G., Chen, R., 2020. A new analytical equation for the dose response of dosimetric materials,
-based on the Lambert W function. Journal of Luminescence 225, 117333. \doi{10.1016/j.jlumin.2020.117333}
 }
 \seealso{
 \link{fit_DoseResponseCurve}
