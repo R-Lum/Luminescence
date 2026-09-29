@@ -17,7 +17,7 @@ merge_RLum(object, ..., .class)
 
 \S4method{merge_RLum}{list,RLum.Data.Curve}(
   object,
-  merge.method = c("mean", "median", "sum", "sd", "var", "max", "min", "append", "-",
+  merge.method = c("mean", "median", "sum", "sd", "var", "min", "max", "append", "-",
     "*", "/"),
   method.info = NULL,
   .class

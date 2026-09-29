@@ -9,16 +9,10 @@ function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-  .validate_class(object, "list")
-  if (length(object) == 0) {
-    .throw_message("'object' contains no data, NULL returned")
-    return(NULL)
-  }
   .validate_logical_scalar(flatten)
 
   ## check if objects in the list are of type RLum.Results
   temp.originator <- vapply(object, function(x) {
-    .validate_class(x, "RLum.Results", name = "All elements of 'object'")
     x@originator
   }, character(1))
 

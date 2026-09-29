@@ -8,15 +8,8 @@ function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-  .validate_class(object, "list")
-  .validate_not_empty(object)
-
-  ##check if object is of class RLum
-  temp.class.test <- sapply(object, function(x) {
-    .validate_class(x, c("RLum.Analysis", "RLum.Data"),
-                    name = "All elements of 'object'")
-    class(x)[1]
-  })
+  lapply(object, .validate_class, classes = c("RLum.Analysis", "RLum.Data"),
+         name = "All elements of 'object'")
 
   ## Merge objects ----------------------------------------------------------
 
