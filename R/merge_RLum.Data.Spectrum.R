@@ -110,7 +110,7 @@ function(
                           if (length(idx.inf) > 0) {
                             temp[idx.inf]  <- 0
                             .throw_warning(length(idx.inf),
-                                           " 'inf' values replaced by 0 in the matrix")
+                                           " Inf values replaced by 0 in the matrix")
                           }
                           temp
                         })

@@ -109,5 +109,5 @@ test_that("snapshot tests", {
       expect_snapshot_RLum(merge_RLum(list(TL.Spectrum,
                                                          TL.Spectrum_zeros),
                                                     merge.method = "/")),
-      "3 'inf' values replaced by 0 in the matrix")
+      "3 Inf values replaced by 0 in the matrix")
 })
