@@ -126,9 +126,9 @@ test_that("test RLum.Data.Image S3 methods", {
                "No viable coercion to matrix, object contains multiple frames")
   expect_equal(is(image), c("RLum.Data.Image", "RLum.Data", "RLum"))
   expect_error(merge(image, image),
-               "Merging of 'RLum.Data.Image' objects is currently not supported")
+               "Merging of 'RLum.Data.Image' objects is not supported")
   expect_error(image + image,
-               "Merging of 'RLum.Data.Image' objects is currently not supported")
+               "Merging of 'RLum.Data.Image' objects is not supported")
   expect_vector(image[1])
   expect_error(image3[1],
                "No viable coercion to matrix, object contains multiple frames")

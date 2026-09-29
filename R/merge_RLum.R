@@ -1,6 +1,6 @@
 #' @rdname merge_RLum
 #' @export
-setMethod("merge_RLum", signature = "list", function(object, ...) {
+setMethod("merge_RLum", signature = "list", function(object, ..., .class) {
   .set_function_name("merge_RLum")
   on.exit(.unset_function_name(), add = TRUE)
 
@@ -18,8 +18,6 @@ setMethod("merge_RLum", signature = "list", function(object, ...) {
 
   ## check if objects are of class RLum
   temp.class.test <- unique(sapply(object, function(x) {
-       .validate_class(x, "RLum",
-                       name = "All elements of 'object'")
         is(x)[1]
       }))
 
@@ -32,14 +30,9 @@ setMethod("merge_RLum", signature = "list", function(object, ...) {
   ## determine the output class
   objects.class <-
         ifelse("RLum.Analysis" %in% temp.class.test, "RLum.Analysis", temp.class.test)
+  if (!startsWith(objects.class, "RLum") || objects.class == "RLum.Data.Image")
+    .throw_error("Merging of '", objects.class, "' objects is not supported")
 
-  ## select which merge function should be used
-  switch(
-        objects.class,
-        RLum.Analysis = merge_RLum.Analysis(object, ...),
-        RLum.Data.Curve = merge_RLum.Data.Curve(object, ...),
-        RLum.Data.Image = .throw_error("Merging of 'RLum.Data.Image' objects is currently not supported"),
-        RLum.Data.Spectrum = merge_RLum.Data.Spectrum(object, ...),
-        RLum.Results = merge_RLum.Results(object, ...)
-      )
+  ## select which merge method should be used based on the determined class
+  merge_RLum(object, ..., .class = new(objects.class))
 })

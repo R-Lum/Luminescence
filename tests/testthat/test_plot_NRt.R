@@ -37,7 +37,7 @@ test_that("input validation", {
                "'smooth' should be one of 'none', 'spline' or 'rmean'")
 
   data(ExampleData.XSYG, envir = environment())
-  obj.mixed <- merge_RLum.Analysis(list(obj, TL.Spectrum))
+  obj.mixed <- merge_RLum(list(obj, TL.Spectrum))
   expect_error(plot_NRt(obj.mixed),
                "The provided 'RLum.Analysis' object must exclusively contain")
   expect_error(plot_NRt(set_RLum("RLum.Analysis",
@@ -48,7 +48,7 @@ test_that("input validation", {
   expect_error(plot_NRt(IRSAR.RF.Data),
                "The size of the regenerated signals (524) doesn't match that",
                fixed = TRUE)
-  expect_error(plot_NRt(merge_RLum.Analysis(list(obj, IRSAR.RF.Data))),
+  expect_error(plot_NRt(merge_RLum(list(obj, IRSAR.RF.Data))),
                "The size of the regenerated signals (1000, 5, 524) doesn't match",
                fixed = TRUE)
 

@@ -52,6 +52,11 @@ The following S3 methods (deprecated in v1.3.1) have been removed
 - The function no longer crashes when attempting to merge an empty
   `RLum.Data.Spectrum` object (#1771).
 
+- The function is now implemented as an S4 generic that allows automatic
+  dispatch according to the type of elements being merged. This means
+  that external packages can now fully overload it for their own classes
+  (#1769).
+
 ### `plot_DoseResponseCurve()`
 
 - The presence of a repeated zero-dose point caused the plot not to

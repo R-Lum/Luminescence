@@ -7,34 +7,28 @@ r1 <- as(object = list(1:10), Class = "RLum.Results")
 test_that("input validation", {
   testthat::skip_on_cran()
 
-  expect_error(merge_RLum.Analysis(),
+  expect_error(merge_RLum(),
                "'object' should be of class 'list'")
-  expect_error(merge_RLum.Analysis(o1),
+  expect_error(merge_RLum(o1),
                "'object' should be of class 'list'")
-  expect_error(merge_RLum.Analysis(list()),
-               "'object' cannot be an empty list")
-  expect_error(merge_RLum.Analysis(list(c1)),
-               "At least one input object in the list has to be of class")
-  expect_error(merge_RLum.Analysis(list(NULL)),
+  expect_error(merge_RLum(list(o1, "test")),
                "All elements of 'object' should be of class 'RLum.Analysis' or")
-  expect_error(merge_RLum.Analysis(list(o1, "test")),
-               "All elements of 'object' should be of class 'RLum.Analysis' or")
-  expect_error(merge_RLum.Analysis(list(o1, r1)),
-               "All elements of 'object' should be of class 'RLum.Analysis' or")
+  expect_error(merge_RLum(list(o1, r1)),
+               "All elements of 'object' should be of class 'RLum.Analysis'")
 })
 
 test_that("snapshot tests", {
   testthat::skip_on_cran()
 
-  expect_snapshot_RLum(merge_RLum.Analysis(list(o1)))
-  expect_snapshot_RLum(merge_RLum.Analysis(list(o1@records[[2]], o1, c1)))
+  expect_snapshot_RLum(merge_RLum(list(o1)))
+  expect_snapshot_RLum(merge_RLum(list(o1@records[[2]], o1, c1)))
 })
 
 test_that("regression tests", {
   testthat::skip_on_cran()
 
   ## issue 1732
-  expect_warning(res <- merge_RLum.Analysis(list(set_RLum("RLum.Analysis"))),
+  expect_warning(res <- merge_RLum(list(set_RLum("RLum.Analysis"))),
                  "This 'RLum.Analysis' object has no records, NULL returned")
   expect_s4_class(res,
                   "RLum.Analysis")

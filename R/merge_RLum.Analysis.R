@@ -1,7 +1,8 @@
 #' @rdname merge_RLum
-merge_RLum.Analysis<- function(
+setMethod("merge_RLum", signature(object = "list", .class = "RLum.Analysis"),
+function(
   object,
-  ...
+  .class
 ) {
   .set_function_name("merge_RLum.Analysis")
   on.exit(.unset_function_name(), add = TRUE)
@@ -16,13 +17,6 @@ merge_RLum.Analysis<- function(
                     name = "All elements of 'object'")
     class(x)[1]
   })
-
-  ##check if at least one object of RLum.Analysis is provided
-  if(!"RLum.Analysis"%in%temp.class.test){
-    .throw_error("At least one input object in the list ",
-                 "has to be of class 'RLum.Analysis'")
-  }
-
 
   ## Merge objects ----------------------------------------------------------
 
@@ -57,4 +51,4 @@ merge_RLum.Analysis<- function(
       x@.uid
     }))
   )
-}
+})

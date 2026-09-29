@@ -1,8 +1,9 @@
 #' @rdname merge_RLum
-merge_RLum.Results <- function(
+setMethod("merge_RLum", signature(object = "list", .class = "RLum.Results"),
+function(
   object,
   flatten = TRUE,
-  ...
+  .class
 ) {
   .set_function_name("merge_RLum.Results")
   on.exit(.unset_function_name(), add = TRUE)
@@ -87,4 +88,4 @@ merge_RLum.Results <- function(
       info = unlist(lapply(object, function(x) x@info), recursive = FALSE),
       .pid = unlist(lapply(object, function(x) x@.uid))
   )
-}
+})

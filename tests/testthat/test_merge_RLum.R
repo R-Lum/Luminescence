@@ -15,18 +15,21 @@ test_that("input validation", {
                "[merge_RLum()] 'object' should be of class 'list'",
                fixed = TRUE)
   expect_error(merge_RLum(list(o1, o2, "test")),
-               "All elements of 'object' should be of class 'RLum'")
+               "All elements of 'object' should be of class 'RLum.Analysis' or")
   expect_error(merge_RLum(list(r1, c1)),
                "Objects cannot be merged, different classes found: 'RLum.Results'")
+  expect_error(merge_RLum(list("error")),
+               "Merging of 'character' objects is not supported")
   expect_error(merge_RLum(list(ExampleData.RLum.Data.Image)),
-               "Merging of 'RLum.Data.Image' objects is currently not supported")
+               "Merging of 'RLum.Data.Image' objects is not supported")
 
   expect_warning(merge_RLum(list(NULL)),
                  "Nothing was merged as the object list was found to be empty")
 
   ## deprecated argument
-  expect_warning(merge_RLum(objects = list(o1, o2)),
+  expect_warning(res <- merge_RLum(objects = list(o1, o2)),
                  "'objects' was deprecated in v1.3.1, use 'object'")
+  expect_s4_class(res, "RLum.Analysis")
 })
 
 test_that("check functionality", {

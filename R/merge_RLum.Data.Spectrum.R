@@ -1,11 +1,12 @@
 #' @rdname merge_RLum
-merge_RLum.Data.Spectrum <- function(
+setMethod("merge_RLum", signature(object = "list", .class = "RLum.Data.Spectrum"),
+function(
   object,
   merge.method = c("mean", "median", "sum", "sd", "var", "min", "max",
                    "append", "-", "*", "/"),
   method.info = NULL,
   max.temp.diff = 0.1,
-  ...
+  .class
 ) {
   .set_function_name("merge_RLum.Data.Spectrum")
   on.exit(.unset_function_name(), add = TRUE)
@@ -147,4 +148,4 @@ merge_RLum.Data.Spectrum <- function(
       x@.uid
     }))
   )
-}
+})

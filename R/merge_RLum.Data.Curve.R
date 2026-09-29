@@ -1,10 +1,11 @@
 #' @rdname merge_RLum
-merge_RLum.Data.Curve<- function(
+setMethod("merge_RLum", signature(object = "list", .class = "RLum.Data.Curve"),
+function(
   object,
   merge.method = c("mean", "median", "sum", "sd", "var", "max", "min",
                    "append", "-", "*", "/"),
   method.info = NULL,
-  ...
+  .class
 ) {
   .set_function_name("merge_RLum.Data.Curve")
   on.exit(.unset_function_name(), add = TRUE)
@@ -132,4 +133,4 @@ merge_RLum.Data.Curve<- function(
     info = temp.info,
     .pid = unlist(lapply(object, function(x) x@.uid))
   )
-}
+})
