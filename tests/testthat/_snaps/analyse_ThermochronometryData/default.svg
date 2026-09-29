@@ -251,28 +251,11 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpNTE4Ljk3fDcwMC4wNHwzOC45N3w1MjcuNTM=)'>
-<circle cx='525.67' cy='509.18' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
 <circle cx='630.77' cy='282.45' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
 <circle cx='651.69' cy='197.70' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
 <circle cx='667.51' cy='154.21' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
 <circle cx='683.33' cy='132.96' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
 <circle cx='692.59' cy='132.46' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='525.67' cy='508.68' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='630.77' cy='283.70' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='683.33' cy='134.46' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='525.67' cy='509.18' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='630.77' cy='282.45' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='651.69' cy='197.70' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='667.51' cy='154.21' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='683.33' cy='132.96' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='692.59' cy='132.46' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='525.67' cy='508.68' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='630.77' cy='283.70' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='683.33' cy='134.46' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='525.67' cy='509.18' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='630.77' cy='282.45' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='651.69' cy='197.70' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='667.51' cy='154.21' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <line x1='525.67' y1='527.53' x2='683.35' y2='527.53' style='stroke-width: 0.75;' />
@@ -359,6 +342,7 @@
 <polygon points='525.67,505.36 528.55,510.35 522.79,510.35 ' style='stroke-width: 0.75; fill: none;' />
 <polygon points='630.77,280.37 633.65,285.36 627.89,285.36 ' style='stroke-width: 0.75; fill: none;' />
 <polygon points='683.33,131.13 686.21,136.12 680.45,136.12 ' style='stroke-width: 0.75; fill: none;' />
+<circle cx='525.67' cy='509.18' r='1.78' style='stroke-width: 0.75; fill: #000000;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 </g>

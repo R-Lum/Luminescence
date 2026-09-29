@@ -31,9 +31,11 @@
 #' (`TRUE`/`FALSE`).
 #'
 #' @return
-#' A plot (or a series of plots) is produced.
+#' A plot (or a series of plots) is produced. Each fitted dose point is plotted
+#' exactly once according to its type (dose point, dose point 0 or dose point
+#' repeated).
 #'
-#' @section Function version: 1.0.12
+#' @section Function version: 1.0.13
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -47,9 +49,6 @@
 #' Guralnik, B., Li, B., Jain, M., Chen, R., Paris, R.B., Murray, A.S., Li, S.-H., Pagonis, P.,
 #' Herman, F., 2015. Radiation-induced growth and isothermal decay of infrared-stimulated luminescence
 #' from feldspar. Radiation Measurements 81, 224-231.
-#'
-#' Pagonis, V., Kitis, G., Chen, R., 2020. A new analytical equation for the dose response of dosimetric materials,
-#' based on the Lambert W function. Journal of Luminescence 225, 117333. \doi{10.1016/j.jlumin.2020.117333}
 #'
 #' @seealso [Luminescence::fit_DoseResponseCurve]
 #'
@@ -140,6 +139,12 @@ plot_DoseResponseCurve <- function(
   De.MonteCarlo <- mean(na.exclude(x.natural))
   De.Error <- sd(na.exclude(x.natural))
 
+  ## find indices of "real" points (not repeated and not zero-dose)
+  idx.real <- which(!(duplicated(xy[, 1]) | xy[, 1] == 0))
+
+  ## reg point 0
+  idx.0 <- which(xy == 0)[1]
+
   ## Graphical arguments ----------------------------------------------------
   ymax <- max(xy$y) + if (max(xy$y) * 0.1 > 1.5) 1.5 else max(xy$y) * 0.2
   ylim <- if (mode == "extrapolation" || fit.args$fit.force_through_origin) {
@@ -229,10 +234,9 @@ plot_DoseResponseCurve <- function(
   on.exit(par(par.default), add = TRUE)
   par(mgp = plot_settings$mgp, tcl = plot_settings$tcl)
 
-  #PLOT		#Plot input values
-  ##Make selection to support manual number of reg points input
+  ## plot real values
   plot_check <- try(plot(
-      xy[1:fit.args$fit.NumberRegPointsReal, ],
+      xy[idx.real, ],
       ylim = plot_settings$ylim,
       xlim = plot_settings$xlim,
       cex = plot_settings$pt.cex,
@@ -300,7 +304,7 @@ plot_DoseResponseCurve <- function(
         cex = plot_settings$pt.cex * 1.1)
     }
 
-    ## repeated Point
+    ## repeated points
     idx.rep <- which(duplicated(xy[, 1]))
     points(
         x = xy[idx.rep, 1],
@@ -375,7 +379,6 @@ plot_DoseResponseCurve <- function(
       }
 
       ## reg Point 0
-      idx.0 <- which(xy == 0)
       points(
         x = xy[idx.0, 1],
         y = xy[idx.0, 2],
@@ -390,6 +393,13 @@ plot_DoseResponseCurve <- function(
         lines(x = c(0,De), y = c(0,0), lty = 2, col = col[2])
     }
 
+    ## reg point 0 plotted as a normal point
+    if (mode != "interpolation") {
+      points(x = xy[idx.0, 1],
+             y = xy[idx.0, 2],
+             pch = plot_settings$reg_points_pch[1],
+             cex = plot_settings$pt.cex)
+    }
 
     ## insert fit and result
     try(mtext(side = 3,

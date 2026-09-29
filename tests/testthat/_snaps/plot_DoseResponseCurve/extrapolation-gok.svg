@@ -25,12 +25,10 @@
   </clipPath>
 </defs>
 <g clip-path='url(#cpMjAyLjU2fDU0MC40OHwzNC41NnwzNDkuNDQ=)'>
-<circle cx='216.28' cy='139.23' r='2.16' style='stroke-width: 0.75; fill: #000000;' />
 <circle cx='270.22' cy='263.90' r='2.16' style='stroke-width: 0.75; fill: #000000;' />
 <circle cx='342.15' cy='196.71' r='2.16' style='stroke-width: 0.75; fill: #000000;' />
 <circle cx='456.04' cy='125.47' r='2.16' style='stroke-width: 0.75; fill: #000000;' />
 <circle cx='521.97' cy='94.13' r='2.16' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='270.22' cy='260.39' r='2.16' style='stroke-width: 0.75; fill: #000000;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <line x1='216.28' y1='349.44' x2='515.98' y2='349.44' style='stroke-width: 0.75;' />
@@ -93,6 +91,7 @@
 <polygon points='216.28,328.83 219.77,334.87 212.78,334.87 ' style='stroke-width: 0.75; fill: none;' />
 <line x1='215.68' y1='349.44' x2='215.68' y2='34.56' style='stroke-width: 0.75; stroke: #FF3000; stroke-dasharray: 4.00,4.00;' />
 <polyline points='216.28,333.68 215.68,333.68 ' style='stroke-width: 0.75; stroke: #FF3000; stroke-dasharray: 4.00,4.00;' />
+<circle cx='216.28' cy='139.23' r='2.16' style='stroke-width: 0.75; fill: #000000;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <text x='318.83' y='30.63' style='font-size: 7.68px; font-family: sans;' textLength='5.55px' lengthAdjust='spacingAndGlyphs'>D</text>
