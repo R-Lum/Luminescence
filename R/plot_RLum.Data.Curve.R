@@ -38,10 +38,6 @@
 #' @param object [Luminescence::RLum.Data.Curve-class] (**required**):
 #' S4 object of class [Luminescence::RLum.Data.Curve-class]
 #'
-#' @param par.local [logical] (*with default*):
-#' use local graphical parameters for plotting, e.g. the plot is shown in one
-#' column and one row. If `par.local = FALSE`, global parameters are inherited.
-#'
 #' @param norm [logical] [character] (*with default*): whether curve
 #' normalisation should occur (`FALSE` by default). Alternatively, the function
 #' offers modes `"max"` (used with `TRUE`), `"last"` and `"huot"`, see details.
@@ -55,6 +51,11 @@
 #' @param interactive [logical] (*with default*): enables/disables interactive
 #' plotting mode using [plotly::plot_ly]
 #'
+#' @param par.local [logical] (*with default*):
+#' whether local graphical parameters should be used for plotting. If `TRUE`
+#' (default), the plot is shown in one column and one row; otherwise, global
+#' parameters set via `par()` are inherited.
+#'
 #' @param ... further arguments and graphical parameters that will be passed
 #' to [graphics::plot.default] and [graphics::par]
 #'
@@ -62,7 +63,7 @@
 #'
 #' @note Not all arguments of [plot] will be passed!
 #'
-#' @section Function version: 0.4.0
+#' @section Function version: 0.4.1
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -87,11 +88,11 @@
 #' @export
 plot_RLum.Data.Curve<- function(
   object,
-  par.local = TRUE,
   norm = FALSE,
   smooth = FALSE,
   auto_scale = FALSE,
   interactive = FALSE,
+  par.local = TRUE,
   ...
 ) {
   .set_function_name("plot_RLum.Data.Curve")

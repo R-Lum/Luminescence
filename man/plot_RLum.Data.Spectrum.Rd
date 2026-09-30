@@ -6,7 +6,6 @@
 \usage{
 plot_RLum.Data.Spectrum(
   object,
-  par.local = TRUE,
   plot.type = c("contour", "persp", "single", "multiple.lines", "image", "transect",
     "interactive"),
   optical.wavelength.colours = TRUE,
@@ -19,6 +18,7 @@ plot_RLum.Data.Spectrum(
   limit_counts = NULL,
   xaxis.energy = FALSE,
   plot = TRUE,
+  par.local = TRUE,
   ...
 )
 }
@@ -28,10 +28,6 @@ S4 object of class \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} or a \co
 values of the spectrum.\cr
 Please note that in case of a matrix row names and col names are set
 automatically if not provided.}
-
-\item{par.local}{\link{logical} (\emph{with default}):
-use local graphical parameters for plotting, e.g. the plot is shown in one
-column and one row. If \code{par.local = FALSE} global parameters are inherited.}
 
 \item{plot.type}{\link{character} (\emph{with default}):
 for a 3D-plot use \code{"persp"} or \code{"interactive"}; for a 2D-plot you can use
@@ -97,6 +93,11 @@ the plot output is disabled, the \link{matrix} used for the plotting and the
 calculated colour values (as attributes) are returned. This way, the
 (binned, transformed etc.) output can be used in other functions and
 packages, such as plotting with the package \code{'plot3D'}.}
+
+\item{par.local}{\link{logical} (\emph{with default}):
+whether local graphical parameters should be used for plotting. If \code{TRUE}
+(default), the plot is shown in one column and one row; otherwise, global
+parameters set via \code{par()} are inherited.}
 
 \item{...}{further arguments and graphical parameters that will be passed
 to the \code{plot} function.}
@@ -204,7 +205,7 @@ wavelength axis. Other allowed values are \code{mean}, \code{mean}, \code{min}, 
 Not all additional arguments (\code{...}) will be passed similarly!
 }
 \section{Function version}{
- 0.6.18
+ 0.6.19
 }
 
 \examples{

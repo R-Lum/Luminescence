@@ -6,21 +6,17 @@
 \usage{
 plot_RLum.Data.Curve(
   object,
-  par.local = TRUE,
   norm = FALSE,
   smooth = FALSE,
   auto_scale = FALSE,
   interactive = FALSE,
+  par.local = TRUE,
   ...
 )
 }
 \arguments{
 \item{object}{\link[=RLum.Data.Curve-class]{RLum.Data.Curve} (\strong{required}):
 S4 object of class \link[=RLum.Data.Curve-class]{RLum.Data.Curve}}
-
-\item{par.local}{\link{logical} (\emph{with default}):
-use local graphical parameters for plotting, e.g. the plot is shown in one
-column and one row. If \code{par.local = FALSE}, global parameters are inherited.}
 
 \item{norm}{\link{logical} \link{character} (\emph{with default}): whether curve
 normalisation should occur (\code{FALSE} by default). Alternatively, the function
@@ -34,6 +30,11 @@ to the extent of the other. If both are set, the auto-scaling is skipped.}
 
 \item{interactive}{\link{logical} (\emph{with default}): enables/disables interactive
 plotting mode using \link[plotly:plot_ly]{plotly::plot_ly}}
+
+\item{par.local}{\link{logical} (\emph{with default}):
+whether local graphical parameters should be used for plotting. If \code{TRUE}
+(default), the plot is shown in one column and one row; otherwise, global
+parameters set via \code{par()} are inherited.}
 
 \item{...}{further arguments and graphical parameters that will be passed
 to \link[graphics:plot.default]{graphics::plot.default} and \link[graphics:par]{graphics::par}}
@@ -82,7 +83,7 @@ of a curve.
 Not all arguments of \link{plot} will be passed!
 }
 \section{Function version}{
- 0.4.0
+ 0.4.1
 }
 
 \examples{

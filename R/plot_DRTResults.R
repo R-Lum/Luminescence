@@ -71,9 +71,9 @@
 #' legend to be plotted.
 #'
 #' @param par.local [logical] (*with default*):
-#' use local graphical parameters for plotting, e.g. the plot is shown in one
-#' column and one row. If `par.local = FALSE`, global parameters are inherited,
-#' i.e. parameters provided via `par()` work.
+#' whether local graphical parameters should be used for plotting. If `TRUE`
+#' (default), the plot is shown in one column and one row; otherwise, global
+#' parameters set via `par()` are inherited.
 #'
 #' @param na.rm [logical] (*with default*):
 #' whether `NA` values should be removed from the input data before plotting.

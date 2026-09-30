@@ -7,8 +7,8 @@
 plot_RLum.Data.Image(
   object,
   frames = NULL,
-  par.local = TRUE,
   plot.type = c("plot.raster", "contour"),
+  par.local = TRUE,
   ...
 )
 }
@@ -19,12 +19,13 @@ object of class \link[=RLum.Data.Image-class]{RLum.Data.Image}}
 \item{frames}{\link{numeric} (\emph{optional}): sets the frames to be set, by default all
 frames are plotted. Can be sequence of numbers, as long as the frame number is valid.}
 
-\item{par.local}{\link{logical} (\emph{with default}): use local graphical
-parameters for plotting, e.g. the plot is shown in one column and one row.
-If \code{par.local = FALSE} global parameters are inherited.}
-
 \item{plot.type}{\link{character} (\emph{with default}): plot types.
 Supported types are \code{plot.raster}, \code{contour}}
+
+\item{par.local}{\link{logical} (\emph{with default}):
+whether local graphical parameters should be used for plotting. If \code{TRUE}
+(default), the plot is shown in one column and one row; otherwise, global
+parameters set via \code{par()} are inherited.}
 
 \item{...}{further arguments and graphical parameters that will be passed
 to the specific plot functions. Standard supported parameters are \code{xlim},
@@ -63,7 +64,7 @@ wanted, please use \code{zlim_image} to maintain a particular value range over a
 series of images.
 }
 \section{Function version}{
- 0.2.2
+ 0.2.3
 }
 
 \examples{

@@ -87,7 +87,7 @@
 #' `box`, `pch`, `type` (`"single"`, `"multiple.lines"`, `"interactive"`),
 #' `col`, `border`, `lwd`, `bty`, `showscale` (`"interactive"`, `"image"`)
 #' `contour`, `contour.col` (`"image"`), `labcex` (`"image"`, `"contour"`),
-#' `n_breaks` (`"image"`), `legend` (`TRUE`/`FALSE`), `legend.text` (`"multiple.lines"`), 
+#' `n_breaks` (`"image"`), `legend` (`TRUE`/`FALSE`), `legend.text` (`"multiple.lines"`),
 #' `legend.pos` (`"image"`), `legend.horiz` (`TRUE`/`FALSE` | `"image"`)
 #'
 #' @param object [Luminescence::RLum.Data.Spectrum-class] or [matrix] (**required**):
@@ -95,10 +95,6 @@
 #' values of the spectrum.\cr
 #' Please note that in case of a matrix row names and col names are set
 #' automatically if not provided.
-#'
-#' @param par.local [logical] (*with default*):
-#' use local graphical parameters for plotting, e.g. the plot is shown in one
-#' column and one row. If `par.local = FALSE` global parameters are inherited.
 #'
 #' @param plot.type [character] (*with default*):
 #' for a 3D-plot use `"persp"` or `"interactive"`; for a 2D-plot you can use
@@ -165,6 +161,11 @@
 #' (binned, transformed etc.) output can be used in other functions and
 #' packages, such as plotting with the package `'plot3D'`.
 #'
+#' @param par.local [logical] (*with default*):
+#' whether local graphical parameters should be used for plotting. If `TRUE`
+#' (default), the plot is shown in one column and one row; otherwise, global
+#' parameters set via `par()` are inherited.
+#'
 #' @param ... further arguments and graphical parameters that will be passed
 #' to the `plot` function.
 #'
@@ -175,7 +176,7 @@
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.6.18
+#' @section Function version: 0.6.19
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -252,7 +253,6 @@
 #' @export
 plot_RLum.Data.Spectrum <- function(
   object,
-  par.local = TRUE,
   plot.type = c("contour", "persp", "single", "multiple.lines",
                 "image", "transect", "interactive"),
   optical.wavelength.colours = TRUE,
@@ -265,6 +265,7 @@ plot_RLum.Data.Spectrum <- function(
   limit_counts = NULL,
   xaxis.energy = FALSE,
   plot = TRUE,
+  par.local = TRUE,
   ...
 ) {
   .set_function_name("plot_RLum.Data.Spectrum")
@@ -667,10 +668,10 @@ plot_RLum.Data.Spectrum <- function(
 
     ## recover the matrix matrixStats returns a vector
     temp.xyz <- matrix(
-      data = temp.xyz, 
-      nrow = 1, 
+      data = temp.xyz,
+      nrow = 1,
       dimnames = list(
-        paste(range(xlim), collapse = ":"), 
+        paste(range(xlim), collapse = ":"),
         names(temp.xyz)))
   }
 
@@ -1114,7 +1115,7 @@ if(plot){
       ## plot lines or plots
       if(add[1]) {
         lines(
-          x = y, 
+          x = y,
           y = temp.xyz,
           col = col,
           type = type,

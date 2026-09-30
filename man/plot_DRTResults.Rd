@@ -81,9 +81,9 @@ optional position coordinates or keyword (e.g. \code{"topright"}) for the
 legend to be plotted.}
 
 \item{par.local}{\link{logical} (\emph{with default}):
-use local graphical parameters for plotting, e.g. the plot is shown in one
-column and one row. If \code{par.local = FALSE}, global parameters are inherited,
-i.e. parameters provided via \code{par()} work.}
+whether local graphical parameters should be used for plotting. If \code{TRUE}
+(default), the plot is shown in one column and one row; otherwise, global
+parameters set via \code{par()} are inherited.}
 
 \item{na.rm}{\link{logical} (\emph{with default}):
 whether \code{NA} values should be removed from the input data before plotting.}
