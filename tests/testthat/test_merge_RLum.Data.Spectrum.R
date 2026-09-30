@@ -56,6 +56,7 @@ test_that("check functionality", {
   testthat::skip_on_cran()
 
   expected <- TL.Spectrum@data
+  zeros <- array(0, dim(expected), dimnames = dimnames(expected))
 
   ## only one spectrum
   expect_s4_class(merged <- merge_RLum(list(TL.Spectrum)),
@@ -66,13 +67,11 @@ test_that("check functionality", {
   ## two spectra
   objects <- list(TL.Spectrum, TL.Spectrum)
   expect_equal(merge_RLum(objects, merge.method = "-")@data,
-               matrix(0, nrow(expected), ncol(expected),
-                      dimnames = dimnames(expected)))
+               zeros)
   expect_equal(merge_RLum(objects, merge.method = "*")@data,
                expected^2)
   expect_equal(merge_RLum(objects, merge.method = "/")@data,
-               matrix(1, nrow = nrow(expected), ncol = ncol(expected),
-                      dimnames = dimnames(expected)))
+               zeros + 1)
 
   ## more than two spectra
   objects <- list(TL.Spectrum, TL.Spectrum, TL.Spectrum)
@@ -81,11 +80,10 @@ test_that("check functionality", {
   expect_equal(merge_RLum(objects, merge.method = "*")@data,
                2 * expected^2)
   expect_equal(merge_RLum(objects, merge.method = "/")@data,
-               matrix(0.5, nrow = nrow(expected), ncol = ncol(expected),
-                      dimnames = dimnames(expected)))
+               zeros + 0.5)
 
   ## single-row spectrum
-  data <- matrix(rnorm(4), nrow = 1)
+  data <- matrix(1:4, nrow = 1)
   spectrum <- set_RLum("RLum.Data.Spectrum",
                        data = data)
   expect_equal(merge_RLum(list(spectrum, spectrum))@data,

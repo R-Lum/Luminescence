@@ -13,7 +13,6 @@ function(
 
   ## Integrity checks -------------------------------------------------------
   merge.method <- .validate_merge_RLum.Data(object, merge.method, method.info)
-  num.objects <- length(object)
   .validate_positive_scalar(max.temp.diff)
 
   ## Merge objects ----------------------------------------------------------
@@ -49,32 +48,25 @@ function(
 
     ## for time/temperature data we allow some small differences: we report
     ## a warning if they are too high, but continue anyway
-    if (!is.null(colnames(x@data))) {
-      if (max(abs(as.numeric(colnames(x@data)) - y.vals)) > max.temp.diff) {
+    if (!is.null(colnames(x@data)) &&
+        max(abs(as.numeric(colnames(x@data)) - y.vals)) > max.temp.diff) {
         .throw_warning("The time/temperatures recorded are too different, ",
                        "proceed with caution")
-      }
     }
-
     x@data
   })
 
   ## apply selected method for merging
   temp.matrix <- .merge_data_matrix(temp.matrix, merge.method)
 
-  ## restore the two-dimensional layout of the spectrum
-  num.rows <- check.rows[1]
-  num.cols <- check.cols[1]
-  if (merge.method == "append") {
-    temp.matrix <- array(temp.matrix, c(num.rows, num.cols * num.objects))
-  } else {
-    temp.matrix <- array(temp.matrix, c(num.rows, num.cols))
-  }
+  ## restore the two-dimensional layout of the spectrum: for 'append', the
+  ## spectra are concatenated side by side, otherwise they are reduced to one
+  num.reps <- if (merge.method == "append") length(object) else 1
+  temp.matrix <- array(temp.matrix, c(check.rows[1], check.cols[1] * num.reps))
 
   ## restore row and column names from the first object
   rownames(temp.matrix) <- rownames(object[[1]]@data)
-  colnames(temp.matrix) <- rep(colnames(object[[1]]@data),
-                               if (merge.method == "append") num.objects else 1)
+  colnames(temp.matrix) <- rep(colnames(object[[1]]@data), num.reps)
 
   ## add the info slot
   temp.info <- if (is.null(method.info)) {
