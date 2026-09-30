@@ -63,13 +63,6 @@ external packages can now fully overload it for their own classes (#1769).
 * Merging of more than two `RLum.Data.Spectrum` objects produced an incorrect
 result when `merge.method` was one of `-`, `*` or `/` (#1773).
 
-### `plot_RLum.Analysis()`
-
-* Using the `sub_title` graphical parameter (accepted via ...) will raise a
-deprecation warning and be ignored; the more standard `sub` parameter should
-be used instead. As a consequence, the `subset` argument must be spelled out
-in full and can no longer be abbreviated to `sub` or anything else (#1776).
-
 ### `plot_DoseResponseCurve()`
 
 * The presence of a repeated zero-dose point caused the plot not to print the
@@ -83,6 +76,13 @@ in the plot: only the first zero-dose point is plotted as a reg 0 point (empty
 circle if `mode == "interpolation"`), repeated points (zero-dose or not) are
 plotted only as a repeated point (triangle), while the rest are considered
 regenerated dose points (#1766).
+
+### `plot_RLum.Analysis()`
+
+* Using the `sub_title` graphical parameter (accepted via ...) will raise a
+deprecation warning and be ignored; the more standard `sub` parameter should
+be used instead. As a consequence, the `subset` argument must be spelled out
+in full and can no longer be abbreviated to `sub` or anything else (#1776).
 
 ### `read_BIN2R()`
 
