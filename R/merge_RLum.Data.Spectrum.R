@@ -12,22 +12,8 @@ function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-
-  ## check for similar record types
-  record.types <- unique(vapply(object, function(x) x@recordType, character(1)))
-  if (length(record.types) > 1) {
-    .throw_error("Objects cannot be merged, different record types found: ",
-                 .collapse(record.types))
-  }
-
-  merge.method <- .validate_args(merge.method,
-                                 c("mean", "median", "sum", "sd", "var",
-                                   "min", "max", "append", "-", "*", "/"))
-  .validate_positive_scalar(method.info, int = TRUE, null.ok = TRUE)
+  merge.method <- .validate_merge_RLum.Data(object, merge.method, method.info)
   num.objects <- length(object)
-  if (!is.null(method.info) && method.info > num.objects)
-    .throw_error("'method.info' cannot exceed the number of objects being merged (",
-                 num.objects, ")")
   .validate_positive_scalar(max.temp.diff)
 
   ## Merge objects ----------------------------------------------------------

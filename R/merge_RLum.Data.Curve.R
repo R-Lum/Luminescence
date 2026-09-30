@@ -11,21 +11,7 @@ function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-  .validate_positive_scalar(method.info, int = TRUE, null.ok = TRUE)
-  if (!is.null(method.info) && method.info > length(object))
-    .throw_error("'method.info' cannot exceed the number of objects being merged (",
-                 length(object), ")")
-
-  ## check for similar record types
-  record.types <- unique(vapply(object, function(x) x@recordType, character(1)))
-  if (length(record.types) > 1) {
-    .throw_error("Objects cannot be merged, different record types found: ",
-                 .collapse(record.types))
-  }
-
-  merge.method <- .validate_args(merge.method,
-                                 c("mean", "median", "sum", "sd", "var", "min",
-                                   "max", "append", "-", "*", "/"))
+  merge.method <- .validate_merge_RLum.Data(object, merge.method, method.info)
 
   ## Merge objects ----------------------------------------------------------
   ##merge data objects
@@ -101,6 +87,28 @@ function(
   )
 })
 
+## validate the inputs shared by merge_RLum.Data.Curve and merge_RLum.Data.Spectrum
+.validate_merge_RLum.Data <- function(object, merge.method, method.info) {
+
+  ## check for similar record types
+  record.types <- unique(vapply(object, function(x) x@recordType, character(1)))
+  if (length(record.types) > 1) {
+    .throw_error("Objects cannot be merged, different record types found: ",
+                 .collapse(record.types))
+  }
+
+  ## validate merge.method and method.info
+  merge.method <- .validate_args(merge.method,
+                                 c("mean", "median", "sum", "sd", "var",
+                                   "min", "max", "append", "-", "*", "/"))
+  .validate_positive_scalar(method.info, int = TRUE, null.ok = TRUE)
+  if (!is.null(method.info) && method.info > length(object))
+    .throw_error("'method.info' cannot exceed the number of objects being merged (",
+                 length(object), ")")
+
+  merge.method
+}
+
 ## apply the selected merge method to the data matrix
 .merge_data_matrix <- function(data, merge.method) {
   switch(merge.method,
@@ -109,8 +117,8 @@ function(
          median = matrixStats::rowMedians(data),
          sd = matrixStats::rowSds(data),
          var = matrixStats::rowVars(data),
-         max = matrixStats::rowMaxs(data),
          min = matrixStats::rowMins(data),
+         max = matrixStats::rowMaxs(data),
          append = as.vector(data),
          "-" = data[, 1] - rowSums(data[, -1, drop = FALSE]),
          "*" = data[, 1] * rowSums(data[, -1, drop = FALSE]),
