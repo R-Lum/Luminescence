@@ -165,11 +165,11 @@ test_that("check functionality", {
                      curve.transformation = "CW2pPMi")
 
   ## deprecated argument
-  expect_warning(plot_RLum.Analysis(temp,
-                                    subset = list(recordType = "TL"),
-                                    combine = TRUE,
-                                    sub_title = "(5 K/s)",
-                                    records_max = 3),
+  expect_warning(plot_RLum(temp,
+                           subset = list(recordType = "TL"),
+                           combine = TRUE,
+                           sub_title = "(5 K/s)",
+                           records_max = 3),
                  "'sub_title' was deprecated in v1.4.0, use 'sub' instead")
 })
 
@@ -239,11 +239,11 @@ test_that("graphical snapshot tests", {
                                   ## more coverage
                                   main = "TL curves combined",
                                   log = "xy",
-                                  col = get("col", pos = .LuminescenceEnv)[1:4],
+                                  col = get("col", pos = .LuminescenceEnv)[1:2],
                                   xlab = "Temperature recorded [log \u00B0C]",
                                   ylab = "log TL [a.u.]",
                                   xlim = c(0, 200), ylim = c(0, 1), lty = c(1, 2),
-                                  legend.col = get("col", pos = .LuminescenceEnv)[1:4],
+                                  legend.col = get("col", pos = .LuminescenceEnv)[1:2],
                                   legend.pos = "outside"
                               ))
   })

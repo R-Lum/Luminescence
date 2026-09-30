@@ -64,8 +64,10 @@ The following S3 methods (deprecated in v1.3.1) have been removed
 ### `plot_RLum.Analysis()`
 
 - Using the `sub_title` graphical parameter (accepted via …) will raise
-  a deprecation warning and will be ignored. The more standard `sub`
-  parameter should be used instead (#1776).
+  a deprecation warning and be ignored; the more standard `sub`
+  parameter should be used instead. As a consequence, the `subset`
+  argument must be spelled out in full and can no longer be abbreviated
+  to `sub` or anything else (#1776).
 
 ### `plot_DoseResponseCurve()`
 
