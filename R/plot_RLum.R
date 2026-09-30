@@ -105,13 +105,7 @@ plot_RLum <- function(
     .validate_class(object[[i]], "RLum")
     plot_fun <- switch(
         class(object[[i]]),
-        ## here we have to prevent the partial matching of 'sub' by 'subset'
-        RLum.Analysis = function(object, ...) {
-          if (!"subset" %in% ...names())
-            plot_RLum.Analysis(object = object, subset = NULL, ...)
-          else
-            plot_RLum.Analysis(object = object, ...)
-        },
+        RLum.Analysis = plot_RLum.Analysis,
         RLum.Data.Curve = plot_RLum.Data.Curve,
         RLum.Data.Spectrum = plot_RLum.Data.Spectrum,
         RLum.Data.Image = plot_RLum.Data.Image,

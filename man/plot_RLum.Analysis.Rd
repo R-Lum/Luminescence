@@ -6,7 +6,6 @@
 \usage{
 plot_RLum.Analysis(
   object,
-  subset = NULL,
   nrows = NULL,
   ncols = NULL,
   abline = NULL,
@@ -14,17 +13,13 @@ plot_RLum.Analysis(
   records_max = NULL,
   curve.transformation = "None",
   plot_singlePanels = FALSE,
-  ...
+  ...,
+  subset = NULL
 )
 }
 \arguments{
 \item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} (\strong{required}):
 S4 object of class \link[=RLum.Analysis-class]{RLum.Analysis}}
-
-\item{subset}{named \link{list} (\emph{optional}):
-subsets elements for plotting. The arguments in the named \link{list} will be
-directly passed to the function \link{get_RLum}
-(e.g., \code{subset = list(curveType = "measured")})}
 
 \item{nrows}{\link{integer} (\emph{optional}):
 number of rows in the plot output. If set to \code{NULL} the function tries to
@@ -63,13 +58,18 @@ global par settings are considered, normally this should end in one plot per pag
 the \code{plot} function.
 
 Supported arguments: \code{main}, \code{mtext}, \code{log}, \code{lwd}, \code{lty} \code{type}, \code{pch}, \code{col},
-\code{norm} (see \link{plot_RLum.Data.Curve}), \code{xlim},\code{ylim}, \code{xlab}, \code{ylab}, ...
+\code{norm} (see \link{plot_RLum.Data.Curve}), \code{sub},
+\code{xlim},\code{ylim}, \code{xlab}, \code{ylab}, ...
 
-and for \code{combine = TRUE} also: \code{sub_title}, \code{legend}, \code{legend.text}, \code{legend.pos}
+and for \code{combine = TRUE} also: \code{legend}, \code{legend.text}, \code{legend.pos}
 (typical plus 'outside'), \code{legend.col}, \code{smooth}.
 
 All arguments can be provided as \code{vector} or \code{list} to gain in full control
 of all plot settings.}
+
+\item{subset}{named \link{list} (\emph{optional}):
+named list of elements to plot, to be passed directly to \link{get_RLum}
+(e.g., \code{subset = list(curveType = "measured")}).}
 }
 \value{
 Returns multiple plots.
@@ -100,7 +100,7 @@ way you might expect them to work. This function was designed to serve as an ove
 plot, if you want to have more control, extract the objects and plot them individually.
 }
 \section{Function version}{
- 0.3.16
+ 0.3.17
 }
 
 \examples{

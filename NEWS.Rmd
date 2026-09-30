@@ -63,6 +63,12 @@ external packages can now fully overload it for their own classes (#1769).
 * Merging of more than two `RLum.Data.Spectrum` objects produced an incorrect
 result when `merge.method` was one of `-`, `*` or `/` (#1773).
 
+### `plot_RLum.Analysis()`
+
+* Using the `sub_title` graphical parameter (accepted via ...) will raise a
+deprecation warning and will be ignored. The more standard `sub` parameter
+should be used instead (#1776).
+
 ### `plot_DoseResponseCurve()`
 
 * The presence of a repeated zero-dose point caused the plot not to print the
