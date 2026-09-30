@@ -47,6 +47,9 @@ function(
   x.vals <- rownames(object[[1]]@data)
   y.vals <- as.numeric(colnames(object[[1]]@data))
   cameraType <- object[[1]]@info$cameraType
+
+  ## collect the data slot from all objects: each spectrum is flattened into
+  ## one column, yielding a (num.rows * num.cols) x num.objects matrix
   temp.matrix <- sapply(object, function(x) {
     ## row names must match exactly
     if (!identical(rownames(x@data), x.vals))
@@ -70,50 +73,17 @@ function(
     x@data
   })
 
-  ## reshape all spectrum data into a 3D array
+  ## apply selected method for merging
+  temp.matrix <- .merge_data_matrix(temp.matrix, merge.method)
+
+  ## restore the two-dimensional layout of the spectrum
   num.rows <- check.rows[1]
   num.cols <- check.cols[1]
-  temp.matrix <- array(temp.matrix, c(num.rows, num.cols, num.objects))
-
-  temp.matrix <- switch(merge.method,
-                        sum = apply(temp.matrix, 2, rowSums),
-                        mean = apply(temp.matrix, 2, rowMeans),
-                        median = apply(temp.matrix, 2, matrixStats::rowMedians),
-                        sd = apply(temp.matrix, 2, matrixStats::rowSds),
-                        var = apply(temp.matrix, 2, matrixStats::rowVars),
-                        max = apply(temp.matrix, 2, matrixStats::rowMaxs),
-                        min = apply(temp.matrix, 2, matrixStats::rowMins),
-                        append = array(temp.matrix, c(num.rows, num.cols * num.objects)),
-                        "-" = {
-                          if (num.objects > 2) {
-                            temp.matrix[, , 1] - rowSums(temp.matrix[, , -1])
-                          } else {
-                            temp.matrix[, , 1] - temp.matrix[, , 2]
-                          }
-                        },
-                        "*" = {
-                          if (num.objects > 2) {
-                            temp.matrix[, , 1] * rowSums(temp.matrix[, , -1])
-                          } else {
-                            temp.matrix[, , 1] * temp.matrix[, , 2]
-                          }
-                        },
-                        "/" = {
-                          temp <- if (num.objects > 2) {
-                                    temp.matrix[, , 1] / rowSums(temp.matrix[, , -1])
-                                  } else {
-                                    temp.matrix[, , 1] / temp.matrix[, , 2]
-                                  }
-
-                          ## replace infinities with 0 and throw warning
-                          idx.inf <- which(is.infinite(temp))
-                          if (length(idx.inf) > 0) {
-                            temp[idx.inf]  <- 0
-                            .throw_warning(length(idx.inf),
-                                           " Inf values replaced by 0 in the matrix")
-                          }
-                          temp
-                        })
+  if (merge.method == "append") {
+    temp.matrix <- array(temp.matrix, c(num.rows, num.cols * num.objects))
+  } else {
+    temp.matrix <- array(temp.matrix, c(num.rows, num.cols))
+  }
 
   ## restore row and column names from the first object
   rownames(temp.matrix) <- rownames(object[[1]]@data)
