@@ -61,6 +61,14 @@ The following S3 methods (deprecated in v1.3.1) have been removed
   incorrect result when `merge.method` was one of `-`, `*` or `/`
   (#1773).
 
+### `plot_RLum.Analysis()`
+
+- Using the `sub_title` graphical parameter (accepted via …) will raise
+  a deprecation warning and be ignored; the more standard `sub`
+  parameter should be used instead. As a consequence, the `subset`
+  argument must be spelled out in full and can no longer be abbreviated
+  to `sub` or anything else (#1776).
+
 ### `plot_DoseResponseCurve()`
 
 - The presence of a repeated zero-dose point caused the plot not to

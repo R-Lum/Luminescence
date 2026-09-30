@@ -23,11 +23,6 @@
 #' @param object [Luminescence::RLum.Analysis-class] (**required**):
 #' S4 object of class [Luminescence::RLum.Analysis-class]
 #'
-#' @param subset named [list] (*optional*):
-#' subsets elements for plotting. The arguments in the named [list] will be
-#' directly passed to the function [Luminescence::get_RLum]
-#' (e.g., `subset = list(curveType = "measured")`)
-#'
 #' @param nrows [integer] (*optional*):
 #' number of rows in the plot output. If set to `NULL` the function tries to
 #' find a reasonable value.
@@ -65,13 +60,18 @@
 #' the `plot` function.
 #'
 #' Supported arguments: `main`, `mtext`, `log`, `lwd`, `lty` `type`, `pch`, `col`,
-#' `norm` (see [Luminescence::plot_RLum.Data.Curve]), `xlim`,`ylim`, `xlab`, `ylab`, ...
+#' `norm` (see [Luminescence::plot_RLum.Data.Curve]), `sub`,
+#' `xlim`,`ylim`, `xlab`, `ylab`, ...
 #'
-#' and for `combine = TRUE` also: `sub_title`, `legend`, `legend.text`, `legend.pos`
+#' and for `combine = TRUE` also: `legend`, `legend.text`, `legend.pos`
 #' (typical plus 'outside'), `legend.col`, `smooth`.
 #'
 #' All arguments can be provided as `vector` or `list` to gain in full control
 #' of all plot settings.
+#'
+#' @param subset named [list] (*optional*):
+#' named list of elements to plot, to be passed directly to [Luminescence::get_RLum]
+#' (e.g., `subset = list(curveType = "measured")`).
 #'
 #' @return Returns multiple plots.
 #'
@@ -80,7 +80,7 @@
 #' way you might expect them to work. This function was designed to serve as an overview
 #' plot, if you want to have more control, extract the objects and plot them individually.
 #'
-#' @section Function version: 0.3.16
+#' @section Function version: 0.3.17
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -120,7 +120,6 @@
 #' @export
 plot_RLum.Analysis <- function(
   object,
-  subset = NULL,
   nrows = NULL,
   ncols = NULL,
   abline = NULL,
@@ -128,7 +127,8 @@ plot_RLum.Analysis <- function(
   records_max = NULL,
   curve.transformation = "None",
   plot_singlePanels = FALSE,
-  ...
+  ...,
+  subset = NULL
 ) {
   .set_function_name("plot_RLum.Analysis")
   on.exit(.unset_function_name(), add = TRUE)
@@ -141,6 +141,8 @@ plot_RLum.Analysis <- function(
   }
   .validate_positive_scalar(records_max, null.ok = TRUE)
 
+  ## 'subset' is deliberately declared after '...', so that it is not matched
+  ## by the 'sub' graphical parameter
   if(!is.null(subset)){
     ##check whether the user set the drop option and remove it, as we cannot work with it
     subset <- subset[!sapply(names(subset), function(x){"drop" %in% x})]
@@ -168,6 +170,11 @@ plot_RLum.Analysis <- function(
   ## Deal with additional arguments -----------------------------------------
   extraArgs <- list(...)
 
+  if ("sub_title" %in% ...names()) {
+    extraArgs$sub_title <- NULL
+    .deprecated("sub_title", "sub", "1.4.0")
+  }
+
   ##create plot settings list
   plot.settings <- list(
     main = NULL,
@@ -183,7 +190,7 @@ plot_RLum.Analysis <- function(
     pch = NULL,
     col = "auto",
     norm = FALSE,
-    sub_title = NULL,
+    sub = NULL,
     cex = 1,
     legend = TRUE,
     legend.text = NULL,
@@ -517,7 +524,7 @@ plot_RLum.Analysis <- function(
         xlab = xlab,
         ylab = ylab,
         log = plot.settings$log[[k]],
-        sub = plot.settings$sub_title[[k]]
+        sub = plot.settings$sub[[k]]
       )
 
       ##plot single curve values
