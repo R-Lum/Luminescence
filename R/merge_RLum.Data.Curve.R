@@ -14,8 +14,6 @@ function(
   merge.method <- .validate_merge_RLum.Data(object, merge.method, method.info)
 
   ## Merge objects ----------------------------------------------------------
-  ##merge data objects
-  ##problem ... how to handle data with different resolution or length?
 
   ##(1) build new data matrix
   ## first find the shortest object
@@ -23,26 +21,24 @@ function(
   if (min(check.rows) < 2) {
     .throw_error("'object' contains no data")
   }
-  num.rows <- min(check.rows)
-
-  ## channel resolution of the first object: we need to round as there may
-  ## otherwise be numerical artefacts that would make the step not unique
-  step <- round(diff(object[[1]]@data[, 1]), 1)[1]
-
-  ## extract the curve values from each object
-  temp.matrix <- sapply(object, function(x) {
-    ## check the resolution (roughly)
-    if (round(diff(x@data[, 1]), 1)[1] != step)
-      .throw_warning("The curves do not seem to have the same channel resolution")
-    ## limit all objects to the shortest one
-    x@data[1:num.rows, 2]
-  })
 
   ## throw the warning only now to avoid printing it in case of error
   if (length(unique(check.rows)) != 1) {
     .throw_warning("The number of channels differs between the curves, the ",
                    "merged curve will have the length of the shortest object")
   }
+  num.rows <- min(check.rows)
+
+  ## check the channel resolution of all objects (roughly)
+  step <- unique(vapply(object, function(x) round(diff(x@data[, 1]), 1)[1], numeric(1)))
+  if (length(step) > 1) {
+    step <- step[1]
+    .throw_warning("The curves do not seem to have the same channel resolution, ",
+                   "the merged curve will have a step of ", step)
+  }
+
+  ## extract the curve values from each object, limited to the shortest one
+  temp.matrix <- sapply(object, function(x) x@data[1:num.rows, 2])
 
   ##(2) apply selected method for merging
   temp.matrix <- .merge_data_matrix(temp.matrix, merge.method)

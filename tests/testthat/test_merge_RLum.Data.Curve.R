@@ -8,8 +8,8 @@ TL.curve.1 <- TL.curves[[1]]
 TL.curve.3 <- TL.curves[[3]]
 TL.curve.3_short <- TL.curves[[3]]
 TL.curve.3_short@data <- TL.curve.3_short@data[1:(nrow(TL.curve.3@data) - 1), ]
-TL.curve.3_resol <- TL.curve.3_short
-TL.curve.3_resol@data <- TL.curve.3_resol@data[-2, ]
+TL.curve.3_resol <- TL.curve.3
+TL.curve.3_resol@data[, 1] <- 2 * TL.curve.3@data[, 1]
 TL.curve.3_types <- TL.curves[[3]]
 TL.curve.3_types@recordType <- "IRSL"
 TL.curve.3_zeros <- TL.curves[[3]]
@@ -35,17 +35,6 @@ test_that("input validation", {
                "'method.info' cannot exceed the number of objects being merged")
   expect_error(merge_RLum(list(TL.curve.1, TL.curve.3_types)),
                "Objects cannot be merged, different record types found")
-
-  ## different curve lengths
-  expect_warning(res <- merge_RLum(list(TL.curve.1,
-                                                   TL.curve.3_short)),
-                 "The number of channels differs between the curves")
-  expect_equal(nrow(res@data), nrow(TL.curve.3_short@data))
-
-  ## different resolution
-  expect_warning(expect_warning(merge_RLum(list(TL.curve.1, TL.curve.3_resol)),
-               "The curves do not seem to have the same channel resolution"))
-
 })
 
 test_that("check functionality", {
@@ -64,6 +53,21 @@ test_that("check functionality", {
                   "RLum.Data.Curve")
   expect_equal(TL.curve.1@data,
                new@data)
+
+  ## different curve lengths
+  expect_warning(res <- merge_RLum(list(TL.curve.1, TL.curve.3_short)),
+                 "The number of channels differs between the curves")
+  expect_equal(nrow(res@data),
+               nrow(TL.curve.3_short@data))
+
+  ## different resolution
+  expect_warning(res <- merge_RLum(list(TL.curve.1, TL.curve.3_resol),
+                                   merge.method = "append"),
+                 "The curves do not seem to have the same channel resolution")
+  expect_equal(res@data[, 1],
+               seq(min(TL.curve.1@data[, 1]),
+                   by = diff(TL.curve.1@data[, 1])[1],
+                   length.out = nrow(TL.curve.1@data) + nrow(TL.curve.3_resol@data)))
 })
 
 test_that("snapshot tests", {
