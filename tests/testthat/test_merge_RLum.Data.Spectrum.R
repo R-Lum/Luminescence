@@ -84,7 +84,7 @@ test_that("check functionality", {
                matrix(0.5, nrow = nrow(expected), ncol = ncol(expected),
                       dimnames = dimnames(expected)))
 
-  ## degenerate single-row spectrum
+  ## single-row spectrum
   data <- matrix(rnorm(4), nrow = 1)
   spectrum <- set_RLum("RLum.Data.Spectrum",
                        data = data)

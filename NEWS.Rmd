@@ -60,8 +60,8 @@ warning and will be ignored (#1762).
 dispatch according to the type of elements being merged. This means that
 external packages can now fully overload it for their own classes (#1769).
 
-* Merging of multiple `RLum.Data.Spectrum` objects was performed incorrectly
-when `merge.method` was one of `-`, `*` or `/` (#1773).
+* Merging of more than two `RLum.Data.Spectrum` objects produced an incorrect
+result when `merge.method` was one of `-`, `*` or `/` (#1773).
 
 ### `plot_DoseResponseCurve()`
 
