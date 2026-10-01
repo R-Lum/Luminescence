@@ -51,6 +51,13 @@ to be used in fitting, thus providing a quick way to check for the impact of
 additional regeneration points. The older arguments will raise a deprecation
 warning and will be ignored (#1762).
 
+### `get_RLum()`
+
+* When applied to a list with a `class` argument matching none of the list
+elements, the `class` filter was silently ignored. The filter is now always
+applied, so such a call returns an empty list instead of the unfiltered
+contents (#1778).
+
 ### `merge_RLum()`
 
 * The function no longer crashes when attempting to merge an empty

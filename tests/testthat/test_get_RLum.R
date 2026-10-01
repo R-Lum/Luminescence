@@ -8,7 +8,7 @@ temp_RLumDataSpectrum <- set_RLum(class = "RLum.Data.Spectrum")
 temp_RLumAnalysis <- set_RLum(class = "RLum.Analysis")
 temp_RLumResults <- set_RLum(class = "RLum.Results")
 
-test_that("check class and length of output", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
   expect_s3_class(get_RLum(temp), class = "data.frame")
@@ -54,6 +54,9 @@ test_that("check get_RLum on a list and NULL", {
   expect_type(get_RLum(a, class = "RLum.Results", drop = FALSE), "list")
   expect_type(get_RLum(a, class = "RLum.Analysis", drop = TRUE), "list")
   expect_type(get_RLum(list(temp_RLumResults, temp_RLumAnalysis)), "list")
+  expect_length(get_RLum(a, class = "RLum.Image"), 0)
+  expect_length(get_RLum(a, class = "RLum.Data.Curve"), 0)
+  expect_length(get_RLum(a, class = "RLum.Data.Curve", null.rm = TRUE), 0)
 
   ## regression test - issue 1120
   extra <- iris[1:3, 1:3]

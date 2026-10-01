@@ -101,10 +101,10 @@ setGeneric("get_RLum", function(object, ...)
 #' [Luminescence::get_RLum]
 #'
 #' @param class [character] (*optional*):
-#' define which class gets selected if applied to a list, e.g., if a list
-#' consists of different type of [Luminescence::RLum-class] objects, this arguments allows
-#' to make a selection. If nothing is provided, all [Luminescence::RLum-class] objects are
-#' treated.
+#' restrict processing to list elements of this class, which is useful for
+#' lists consisting of different types of [Luminescence::RLum-class] objects.
+#' If `NULL` (default), all elements are used; if the class provided matches
+#' none of them, an empty list is returned.
 #'
 #' @param null.rm [logical] (*with default*):
 #' whether empty and `NULL` objects should be removed.
@@ -121,8 +121,7 @@ setMethod("get_RLum", signature = "list",
       ## take care of the class argument
       if (!is.null(class)) {
         sel <- class[1] == vapply(object, function(x) class(x)[1], character(1))
-        if (any(sel))
-          object <- object[sel]
+        object <- object[sel]
       }
 
       ## make remove all non-RLum objects
