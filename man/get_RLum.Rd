@@ -52,10 +52,10 @@ of type \link[=RLum-class]{RLum}}
 \item{...}{further arguments passed to the specific class method.}
 
 \item{class}{\link{character} (\emph{optional}):
-define which class gets selected if applied to a list, e.g., if a list
-consists of different type of \link[=RLum-class]{RLum} objects, this arguments allows
-to make a selection. If nothing is provided, all \link[=RLum-class]{RLum} objects are
-treated.}
+restrict processing to list elements of this class, which is useful for
+lists consisting of different types of \link[=RLum-class]{RLum} objects.
+If \code{NULL} (default), all elements are used; if the class provided matches
+none of them, an empty list is returned.}
 
 \item{null.rm}{\link{logical} (\emph{with default}):
 whether empty and \code{NULL} objects should be removed.}
