@@ -1,5 +1,6 @@
-#' Plot function for an RLum.Results S4 class object
+#' @title Plot function for an `RLum.Results` S4 class object
 #'
+#' @description
 #' The function provides a standardised plot output for data of an `RLum.Results`
 #' S4 class object, redirecting to specialised functions if necessary.
 #'
@@ -7,7 +8,7 @@
 #' recommended (e.g., [pdf]).
 #'
 #' @param object [Luminescence::RLum.Results-class] (**required**):
-#' S4 object of class `RLum.Results`.
+#' S4 object of class [Luminescence::RLum.Results-class].
 #'
 #' @param single [logical] (*with default*):
 #' single plot output (`TRUE/FALSE`) to allow for plotting the results in as
@@ -33,20 +34,17 @@
 #' @keywords aplot
 #'
 #' @examples
-#'
-#' ###load data
+#' ## load example data
 #' data(ExampleData.DeValues, envir = environment())
 #'
-#' # apply the un-logged minimum age model
-#' mam <- calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.2, log = TRUE, plot = FALSE)
-#'
-#' ##plot
+#' ## apply the un-logged minimum age model
+#' mam <- calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.2,
+#'                     log = FALSE, plot = FALSE)
 #' plot_RLum.Results(mam)
 #'
-#' # estimate the number of grains on an aliquot
-#' grains<- calc_AliquotSize(grain.size = c(100,150), sample.diameter = 1, plot = FALSE, MC.iter = 100)
-#'
-#' ##plot
+#' ## estimate the number of grains on an aliquot
+#' grains <- calc_AliquotSize(grain.size = c(100, 150), sample.diameter = 1,
+#'                            plot = FALSE, MC.iter = 100)
 #' plot_RLum.Results(grains)
 #'
 #' @export

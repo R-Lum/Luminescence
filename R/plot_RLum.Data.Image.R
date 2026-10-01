@@ -1,18 +1,16 @@
-#' @title  Plot function for an `RLum.Data.Image` S4 class object
+#' @title Plot function for an `RLum.Data.Image` S4 class object
 #'
-#' @description The function provides very basic plot functionality for image data of an
-#' [Luminescence::RLum.Data.Image-class] object. For more sophisticated plotting it is recommended
-#' to use other very powerful packages for image processing.
+#' @description
+#' The function provides very basic plot functionality for image data of an
+#' [Luminescence::RLum.Data.Image-class] object. For more sophisticated
+#' plotting, it is recommended to use more powerful packages for image processing.
 #'
-#'
-#' **Details on the plot functions**
-#'
-#' Supported plot types:
+#' @section Supported plot types:
 #'
 #' **`plot.type = "plot.raster"`**
 #'
 #' Uses the standard plot function of R [graphics::image]. If wanted, the image
-#' is enhanced, using the argument `stretch`. Possible values are `hist`, `lin`, and
+#' is enhanced using the argument `stretch`. Possible values are `hist`, `lin`, and
 #' `NULL`. The latter does nothing. The argument `useRaster = TRUE` is used by default, but
 #' can be set to `FALSE`.
 #'
@@ -20,14 +18,14 @@
 #'
 #' This uses the function [graphics::contour]
 #'
-#' @param object [Luminescence::RLum.Data.Image-class] (**required**): S4
-#' object of class [Luminescence::RLum.Data.Image-class]
+#' @param object [Luminescence::RLum.Data.Image-class] (**required**):
+#' S4 object of class [Luminescence::RLum.Data.Image-class].
 #'
-#' @param frames [numeric] (*optional*): sets the frames to be set, by default all
-#' frames are plotted. Can be sequence of numbers, as long as the frame number is valid.
+#' @param frames [numeric] (*optional*):
+#' indices of frames to plot. If `NULL` (default) all frames are plotted.
 #'
-#' @param plot.type [character] (*with default*): plot types.
-#' Supported types are `plot.raster`, `contour`
+#' @param plot.type [character] (*with default*):
+#' one of `plot.raster` (default) or `contour`.
 #'
 #' @param par.local [logical] (*with default*):
 #' whether local graphical parameters should be used for plotting. If `TRUE`
@@ -40,13 +38,13 @@
 #' `col`, `cex`, `axes` (`TRUE` or `FALSE`), `zlim_image` (adjust the z-scale
 #' over different images), `stretch`, `digits`, scientific (`TRUE` or `FALSE`).
 #'
-#' @return Returns a plot
+#' @return Returns a plot.
 #'
-#' @note The axes limitations (`xlim`, `zlim`, `zlim`) work directly on the object,
-#' so that regardless of the chosen limits the image parameters can be adjusted for
-#' best visibility. However, in particular for z-scale limitations this is not always
-#' wanted, please use `zlim_image` to maintain a particular value range over a
-#' series of images.
+#' @note The axes limits (`xlim`, `ylim`, `zlim`) work directly on the object,
+#' so that regardless of the chosen limits, the image parameters can be adjusted
+#' for best visibility. However, in particular for z-scale limits, this is not
+#' always desirable; use `zlim_image` to maintain a particular value range over
+#' a series of images.
 #'
 #' @section Function version: 0.2.3
 #'
@@ -59,11 +57,10 @@
 #' @keywords aplot
 #'
 #' @examples
-#'
-#' ##load data
+#' ## load example data
 #' data(ExampleData.RLum.Data.Image, envir = environment())
 #'
-#' ##plot data
+#' ## plot data
 #' plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
 #'
 #' @export

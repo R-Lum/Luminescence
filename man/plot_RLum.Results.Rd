@@ -2,13 +2,13 @@
 % Please edit documentation in R/plot_RLum.Results.R
 \name{plot_RLum.Results}
 \alias{plot_RLum.Results}
-\title{Plot function for an RLum.Results S4 class object}
+\title{Plot function for an \code{RLum.Results} S4 class object}
 \usage{
 plot_RLum.Results(object, single = TRUE, ...)
 }
 \arguments{
 \item{object}{\link[=RLum.Results-class]{RLum.Results} (\strong{required}):
-S4 object of class \code{RLum.Results}.}
+S4 object of class \link[=RLum.Results-class]{RLum.Results}.}
 
 \item{single}{\link{logical} (\emph{with default}):
 single plot output (\code{TRUE/FALSE}) to allow for plotting the results in as
@@ -23,8 +23,7 @@ Returns multiple plots.
 \description{
 The function provides a standardised plot output for data of an \code{RLum.Results}
 S4 class object, redirecting to specialised functions if necessary.
-}
-\details{
+
 The function may produce multiple plots, in which case a file output is
 recommended (e.g., \link{pdf}).
 }
@@ -37,20 +36,17 @@ Only plotting of \code{RLum.Results} objects are supported.
 }
 
 \examples{
-
-###load data
+## load example data
 data(ExampleData.DeValues, envir = environment())
 
-# apply the un-logged minimum age model
-mam <- calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.2, log = TRUE, plot = FALSE)
-
-##plot
+## apply the un-logged minimum age model
+mam <- calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.2,
+                    log = FALSE, plot = FALSE)
 plot_RLum.Results(mam)
 
-# estimate the number of grains on an aliquot
-grains<- calc_AliquotSize(grain.size = c(100,150), sample.diameter = 1, plot = FALSE, MC.iter = 100)
-
-##plot
+## estimate the number of grains on an aliquot
+grains <- calc_AliquotSize(grain.size = c(100, 150), sample.diameter = 1,
+                           plot = FALSE, MC.iter = 100)
 plot_RLum.Results(grains)
 
 }

@@ -1,12 +1,9 @@
-#' @title Plot function for an RLum.Data.Curve S4 class object
+#' @title Plot function for an `RLum.Data.Curve` S4 class object
 #'
 #' @description
 #' The function provides a standardised plot output for curve data of an
-#' [Luminescence::RLum.Data.Curve-class] S4-class object.
-#'
-#' @details
-#' Only single curve data can be plotted with this function. Arguments
-#' according to [plot].
+#' [Luminescence::RLum.Data.Curve-class] S4-class object. Only single curve
+#' data can be plotted with this function.
 #'
 #' @param object [Luminescence::RLum.Data.Curve-class] (**required**):
 #' S4 object of class [Luminescence::RLum.Data.Curve-class].
@@ -16,13 +13,14 @@
 #' the normalisation methods provided by [Luminescence::normalise_RLum].
 #'
 #' @param smooth [logical] (*with default*):
-#' provides automatic curve smoothing based on the internal function `.smoothing`
+#' provides automatic curve smoothing based on the internal function `.smoothing`.
 #'
-#' @param auto_scale [logical] (*with default*): if activated, auto scales `xlim` or `ylim`
-#' to the extent of the other. If both are set, the auto-scaling is skipped.
+#' @param auto_scale [logical] (*with default*):
+#' if activated, auto scales `xlim` or `ylim` to the extent of the other. If
+#' both are set, no auto-scaling occurs.
 #'
-#' @param interactive [logical] (*with default*): enables/disables interactive
-#' plotting mode using [plotly::plot_ly]
+#' @param interactive [logical] (*with default*):
+#' enables/disables interactive plotting mode using [plotly::plot_ly].
 #'
 #' @param par.local [logical] (*with default*):
 #' whether local graphical parameters should be used for plotting. If `TRUE`
@@ -30,7 +28,7 @@
 #' parameters set via `par()` are inherited.
 #'
 #' @param ... further arguments and graphical parameters that will be passed
-#' to [graphics::plot.default] and [graphics::par]
+#' to [graphics::plot.default] and [graphics::par].
 #'
 #' @return Returns a plot.
 #'
@@ -46,16 +44,11 @@
 #' @keywords aplot
 #'
 #' @examples
-#'
-#' ##plot curve data
-#'
-#' #load Example data
+#' ## load example data
 #' data(ExampleData.CW_OSL_Curve, envir = environment())
 #'
-#' #transform data.frame to RLum.Data.Curve object
+#' ## transform data.frame to RLum.Data.Curve object and plot it
 #' temp <- as(ExampleData.CW_OSL_Curve, "RLum.Data.Curve")
-#'
-#' #plot RLum.Data.Curve object
 #' plot_RLum.Data.Curve(temp)
 #'
 #' @export

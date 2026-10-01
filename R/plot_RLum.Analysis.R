@@ -2,12 +2,10 @@
 #'
 #' @description
 #' The function provides a standardised plot output for curve data of an
-#' [Luminescence::RLum.Analysis-class] object.
+#' [Luminescence::RLum.Analysis-class] object. As the function produces
+#' multiple plots, file output is recommended (e.g., [pdf]).
 #'
-#' The function produces a multiple plot output. A file output is recommended
-#' (e.g., [pdf]).
-#'
-#' **curve.transformation**
+#' @section The `curve.transformation` argument:
 #'
 #' This argument allows transforming continuous wave (CW) curves to pseudo
 #' (linear) modulated curves. For the transformation, the functions of the
@@ -15,13 +13,13 @@
 #' the transformation functions. The argument works only for `ltype`
 #' `OSL` and `IRSL`.
 #'
-#' Please note: The curve transformation within this functions works roughly,
+#' **Note:** The curve transformation within this function works roughly,
 #' i.e. every IRSL or OSL curve is transformed, without considering whether it
-#' is measured with the PMT or not! However, for a fast look it might be
+#' is measured with the PMT or not. However, for a fast look it might be
 #' helpful.
 #'
 #' @param object [Luminescence::RLum.Analysis-class] (**required**):
-#' S4 object of class [Luminescence::RLum.Analysis-class]
+#' S4 object of class [Luminescence::RLum.Analysis-class].
 #'
 #' @param nrows [integer] (*optional*):
 #' number of rows in the plot output. If set to `NULL` the function tries to
@@ -32,11 +30,10 @@
 #' find a reasonable value.
 #'
 #' @param abline [list] (*optional*):
-#' allows to add ab-lines to the plot. Argument are provided
-#' in a list and will be forward to the function [abline],
+#' list of straight lines to add to the plot via the [abline] function,
 #' e.g., `list(v = c(10, 100))` adds two vertical lines add 10 and 100 to all
-#' plots. In contrast `list(v = c(10), v = c(100)` adds a vertical at 10 to
-#' the first and a vertical line at 100 to the 2nd plot.
+#' plots; in contrast `list(v = 10, v = 100)` adds a vertical at 10 to
+#' the first plot and a vertical line at 100 to the second.
 #'
 #' @param combine [logical] (*with default*):
 #' allows to combine all [Luminescence::RLum.Data.Curve-class] objects in one single plot.
@@ -54,22 +51,20 @@
 #' transformation is applied.
 #'
 #' @param plot_singlePanels [logical] (*with default*):
-#' global par settings are considered, normally this should end in one plot per page
+#' global par settings are considered, normally this should end in one plot per page.
 #'
 #' @param ... further arguments and graphical parameters will be passed to
 #' the `plot` function.
-#'
-#' Supported arguments: `main`, `mtext`, `log`, `lwd`, `lty` `type`, `pch`, `col`,
-#' `norm` (see [Luminescence::plot_RLum.Data.Curve]), `sub`,
-#' `xlim`,`ylim`, `xlab`, `ylab`, ...
-#'
-#' and for `combine = TRUE` also: `legend`, `legend.text`, `legend.pos`
-#' (typical plus 'outside'), `legend.col`, `smooth`.
+#' Supported arguments: `main`, `mtext`, `log`, `lwd`, `lty` `type`, `pch`,
+#' `col`, `cex`, `norm` (see [Luminescence::plot_RLum.Data.Curve]), `sub`,
+#' `xlim`, `ylim`, `xlab`, `ylab`; for `combine = TRUE` also: `legend`,
+#' `legend.text`, `legend.pos` (typical values plus 'outside'), `legend.col`,
+#' `smooth`.
 #'
 #' All arguments can be provided as `vector` or `list` to gain in full control
 #' of all plot settings.
 #'
-#' @param subset named [list] (*optional*):
+#' @param subset [list] (*optional*):
 #' named list of elements to plot, to be passed directly to [Luminescence::get_RLum]
 #' (e.g., `subset = list(curveType = "measured")`).
 #'
@@ -90,32 +85,21 @@
 #' @keywords aplot
 #'
 #' @examples
+#' ## load example data
+#' data(ExampleData.BINfileData, envir = environment())
 #'
-#'##load data
-#'data(ExampleData.BINfileData, envir = environment())
+#' ## convert values for position 1
+#' temp <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
 #'
-#'##convert values for position 1
-#'temp <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
-#'
-#'##(1) plot (combine) TL curves in one plot
-#'plot_RLum.Analysis(
-#' temp,
-#' subset = list(recordType = "TL"),
-#' combine = TRUE,
-#' norm = TRUE,
-#' abline = list(v = c(110))
-#' )
-#'
-#'##(2) same as example (1) but using
-#'## the argument smooth = TRUE
-#'plot_RLum.Analysis(
-#' temp,
-#' subset = list(recordType = "TL"),
-#' combine = TRUE,
-#' norm = TRUE,
-#' smooth = TRUE,
-#' abline = list(v = c(110))
-#' )
+#' ## combine TL curves in one plot
+#' plot_RLum.Analysis(
+#'   temp,
+#'   subset = list(recordType = "TL"),
+#'   combine = TRUE,
+#'   norm = TRUE,
+#'   smooth = TRUE,
+#'   abline = list(v = 110)
+#'  )
 #'
 #' @export
 plot_RLum.Analysis <- function(

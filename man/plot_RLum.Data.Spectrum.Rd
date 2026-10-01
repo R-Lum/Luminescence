@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_RLum.Data.Spectrum.R
 \name{plot_RLum.Data.Spectrum}
 \alias{plot_RLum.Data.Spectrum}
-\title{Plot function for an RLum.Data.Spectrum S4 class object}
+\title{Plot function for an \code{RLum.Data.Spectrum} S4 class object}
 \usage{
 plot_RLum.Data.Spectrum(
   object,
@@ -23,11 +23,8 @@ plot_RLum.Data.Spectrum(
 )
 }
 \arguments{
-\item{object}{\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} or \link{matrix} (\strong{required}):
-S4 object of class \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} or a \code{matrix} containing count
-values of the spectrum.\cr
-Please note that in case of a matrix row names and col names are set
-automatically if not provided.}
+\item{object}{\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} (\strong{required}):
+S4 object of class \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum}.}
 
 \item{plot.type}{\link{character} (\emph{with default}):
 for a 3D-plot use \code{"persp"} or \code{"interactive"}; for a 2D-plot you can use
@@ -52,7 +49,7 @@ the \emph{arithmetic mean} is calculated and subtracted from the signal.}
 channels used for background subtraction. If the number of channels is
 identical between the signal and background spectra, a channel-wise
 subtraction is performed; otherwise this number is used to select channels
-for calculating the \emph{arithmetic mean}  If a spectrum is provided via
+for calculating the \emph{arithmetic mean}. If a spectrum is provided via
 \code{bg.spectrum}, this argument only works on the background spectrum.
 
 \strong{Note:} Background subtraction is applied prior to channel binning!}
@@ -67,7 +64,7 @@ allow summing-up channel counts (vertical binning) for plotting,
 e.g. \code{bin.cols = 2} two channels are summed up.
 Binning is applied after the background subtraction.}
 
-\item{norm}{\link{logical}, \link{character} (\emph{optional}):
+\item{norm}{\link{logical} or \link{character} (\emph{optional}):
 if logical, whether curve normalisation should occur (\code{FALSE} by default);
 alternatively, one of the values detailed in \link{plot_RLum.Data.Curve}.
 The normalisation is applied after binning.}
@@ -86,7 +83,7 @@ instead of wavelength on the x-axis. Function \link{convert_Wavelength2Energy}
 is used to perform the conversion.
 
 \strong{Note:} Besides being used in setting the axis, with this option the
-the spectrum is recalculated in terms of intensity, see details.}
+spectrum is recalculated in terms of intensity, see details.}
 
 \item{plot}{\link{logical} (\emph{with default}): enable/disable the plot output. If
 the plot output is disabled, the \link{matrix} used for the plotting and the
@@ -113,24 +110,34 @@ The function provides a standardised plot output for spectrum data of an
 provide easy and straightforward spectra plotting, not a fully customised
 access to all plot parameters. If this is wanted, standard R plot
 functionality should be used instead.
+}
+\note{
+Not all additional arguments (\code{...}) will be passed similarly!
+}
+\section{Matrix structure}{
 
-\strong{Matrix structure} \cr (cf. \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum})
+
+See also \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum}:
 \itemize{
 \item \code{rows} (x-values): wavelengths/channels (\code{xlim}, \code{xlab})
 \item \code{columns} (y-values): time/temperature (\code{ylim}, \code{ylab})
 \item \code{cells} (z-values): count values (\code{zlim}, \code{zlab})
 }
 
-\emph{Note: This nomenclature is valid for all plot types of this function!}
+\strong{Note:} This nomenclature is valid for all plot types of this function.
+}
 
-\strong{Nomenclature for value limiting}
+\section{Nomenclature for value limiting}{
+
 \itemize{
 \item \code{xlim}: Limits values along the wavelength axis
 \item \code{ylim}: Limits values along the time/temperature axis
 \item \code{zlim}: Limits values along the count value axis
 }
+}
 
-\strong{Details on the plot functions}
+\section{Details on the plot functions}{
+
 
 Spectrum is visualised as 3D or 2D plot. Both plot types are based on
 internal R plot functions.
@@ -201,74 +208,66 @@ wavelength axis. Other allowed values are \code{mean}, \code{mean}, \code{min}, 
 \code{n_breaks} (\code{"image"}), \code{legend} (\code{TRUE}/\code{FALSE}), \code{legend.text} (\code{"multiple.lines"}),
 \code{legend.pos} (\code{"image"}), \code{legend.horiz} (\code{TRUE}/\code{FALSE} | \code{"image"})
 }
-\note{
-Not all additional arguments (\code{...}) will be passed similarly!
-}
+
 \section{Function version}{
  0.6.19
 }
 
 \examples{
-
-##load example data
+## load example data
 data(ExampleData.XSYG, envir = environment())
 
-##(1)plot simple spectrum (2D) - image
+## (1)plot simple spectrum (2D) - image
 plot_RLum.Data.Spectrum(
  TL.Spectrum,
- plot.type="image",
- xlim = c(310,750),
- ylim = c(0,300),
- bin.rows=10,
+ plot.type = "image",
+ xlim = c(310, 750),
+ ylim = c(0, 300),
+ bin.rows = 10,
  bin.cols = 1)
 
-##(2) plot spectrum (3D)
+## (2) plot spectrum (3D)
 plot_RLum.Data.Spectrum(
   TL.Spectrum,
-  plot.type="persp",
-  xlim = c(310,750),
-  ylim = c(0,100),
-  bin.rows=10,
+  plot.type = "persp",
+  xlim = c(310, 750),
+  ylim = c(0, 100),
+  bin.rows = 10,
   bin.cols = 1)
 
-##(3) plot spectrum on energy axis
-##please note the background subtraction
+## (3) plot spectrum on energy axis
+## please note the background subtraction
 plot_RLum.Data.Spectrum(TL.Spectrum,
-plot.type="persp",
-ylim = c(0,200),
-bin.rows=10,
-bg.channels = 10,
-bin.cols = 1,
-xaxis.energy = TRUE)
+  plot.type = "persp",
+  ylim = c(0, 200),
+  bin.rows = 10,
+  bg.channels = 10,
+  bin.cols = 1,
+  xaxis.energy = TRUE)
 
-##(4) plot multiple lines (2D) - multiple.lines (with ylim)
+## (4) plot multiple lines (2D) - multiple.lines (with ylim)
 plot_RLum.Data.Spectrum(
  TL.Spectrum,
- plot.type="multiple.lines",
- xlim = c(310,750),
- ylim = c(0,100),
- bin.rows=10,
+ plot.type = "multiple.lines",
+ xlim = c(310, 750),
+ ylim = c(0, 100),
+ bin.rows = 10,
  bin.cols = 1)
 
 \dontrun{
- ##(4) interactive plot using the package plotly ("surface")
- plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="interactive",
- xlim = c(310,750), ylim = c(0,300), bin.rows=10,
- bin.cols = 1)
+## (5) interactive plot using the package plotly ("surface")
+plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "interactive",
+  xlim = c(310, 750), ylim = c(0, 300), bin.rows = 10, bin.cols = 1)
 
- ##(5) interactive plot using the package plotly ("contour")
- plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="interactive",
- xlim = c(310,750), ylim = c(0,300), bin.rows=10,
- bin.cols = 1,
- type = "contour",
- showscale = TRUE)
+## (6) interactive plot using the package plotly ("contour")
+plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "interactive",
+  xlim = c(310, 750), ylim = c(0, 300), bin.rows = 10, bin.cols = 1,
+  type = "contour", showscale = TRUE)
 
- ##(6) interactive plot using the package plotly ("heatmap")
- plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="interactive",
- xlim = c(310,750), ylim = c(0,300), bin.rows=10,
- bin.cols = 1,
- type = "heatmap",
- showscale = TRUE)
+## (7) interactive plot using the package plotly ("heatmap")
+plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "interactive",
+  xlim = c(310, 750), ylim = c(0, 300), bin.rows = 10, bin.cols = 1,
+  type = "heatmap", showscale = TRUE)
 }
 
 }

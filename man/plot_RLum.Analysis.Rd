@@ -19,7 +19,7 @@ plot_RLum.Analysis(
 }
 \arguments{
 \item{object}{\link[=RLum.Analysis-class]{RLum.Analysis} (\strong{required}):
-S4 object of class \link[=RLum.Analysis-class]{RLum.Analysis}}
+S4 object of class \link[=RLum.Analysis-class]{RLum.Analysis}.}
 
 \item{nrows}{\link{integer} (\emph{optional}):
 number of rows in the plot output. If set to \code{NULL} the function tries to
@@ -30,11 +30,10 @@ number of columns in the plot output. If set to \code{NULL} the function tries t
 find a reasonable value.}
 
 \item{abline}{\link{list} (\emph{optional}):
-allows to add ab-lines to the plot. Argument are provided
-in a list and will be forward to the function \link{abline},
+list of straight lines to add to the plot via the \link{abline} function,
 e.g., \code{list(v = c(10, 100))} adds two vertical lines add 10 and 100 to all
-plots. In contrast \verb{list(v = c(10), v = c(100)} adds a vertical at 10 to
-the first and a vertical line at 100 to the 2nd plot.}
+plots; in contrast \code{list(v = 10, v = 100)} adds a vertical at 10 to
+the first plot and a vertical line at 100 to the second.}
 
 \item{combine}{\link{logical} (\emph{with default}):
 allows to combine all \link[=RLum.Data.Curve-class]{RLum.Data.Curve} objects in one single plot.}
@@ -52,22 +51,20 @@ transformation functions. Allowed values are: \code{CW2pLM}, \code{CW2pLMi},
 transformation is applied.}
 
 \item{plot_singlePanels}{\link{logical} (\emph{with default}):
-global par settings are considered, normally this should end in one plot per page}
+global par settings are considered, normally this should end in one plot per page.}
 
 \item{...}{further arguments and graphical parameters will be passed to
 the \code{plot} function.
-
-Supported arguments: \code{main}, \code{mtext}, \code{log}, \code{lwd}, \code{lty} \code{type}, \code{pch}, \code{col},
-\code{norm} (see \link{plot_RLum.Data.Curve}), \code{sub},
-\code{xlim},\code{ylim}, \code{xlab}, \code{ylab}, ...
-
-and for \code{combine = TRUE} also: \code{legend}, \code{legend.text}, \code{legend.pos}
-(typical plus 'outside'), \code{legend.col}, \code{smooth}.
+Supported arguments: \code{main}, \code{mtext}, \code{log}, \code{lwd}, \code{lty} \code{type}, \code{pch},
+\code{col}, \code{cex}, \code{norm} (see \link{plot_RLum.Data.Curve}), \code{sub},
+\code{xlim}, \code{ylim}, \code{xlab}, \code{ylab}; for \code{combine = TRUE} also: \code{legend},
+\code{legend.text}, \code{legend.pos} (typical values plus 'outside'), \code{legend.col},
+\code{smooth}.
 
 All arguments can be provided as \code{vector} or \code{list} to gain in full control
 of all plot settings.}
 
-\item{subset}{named \link{list} (\emph{optional}):
+\item{subset}{\link{list} (\emph{optional}):
 named list of elements to plot, to be passed directly to \link{get_RLum}
 (e.g., \code{subset = list(curveType = "measured")}).}
 }
@@ -76,12 +73,16 @@ Returns multiple plots.
 }
 \description{
 The function provides a standardised plot output for curve data of an
-\link[=RLum.Analysis-class]{RLum.Analysis} object.
+\link[=RLum.Analysis-class]{RLum.Analysis} object. As the function produces
+multiple plots, file output is recommended (e.g., \link{pdf}).
+}
+\note{
+Not all arguments available for \link{plot} will be passed and they partly do not behave in the
+way you might expect them to work. This function was designed to serve as an overview
+plot, if you want to have more control, extract the objects and plot them individually.
+}
+\section{The \code{curve.transformation} argument}{
 
-The function produces a multiple plot output. A file output is recommended
-(e.g., \link{pdf}).
-
-\strong{curve.transformation}
 
 This argument allows transforming continuous wave (CW) curves to pseudo
 (linear) modulated curves. For the transformation, the functions of the
@@ -89,47 +90,32 @@ package are used. Currently, it is not possible to pass further arguments to
 the transformation functions. The argument works only for \code{ltype}
 \code{OSL} and \code{IRSL}.
 
-Please note: The curve transformation within this functions works roughly,
+\strong{Note:} The curve transformation within this function works roughly,
 i.e. every IRSL or OSL curve is transformed, without considering whether it
-is measured with the PMT or not! However, for a fast look it might be
+is measured with the PMT or not. However, for a fast look it might be
 helpful.
 }
-\note{
-Not all arguments available for \link{plot} will be passed and they partly do not behave in the
-way you might expect them to work. This function was designed to serve as an overview
-plot, if you want to have more control, extract the objects and plot them individually.
-}
+
 \section{Function version}{
  0.3.17
 }
 
 \examples{
-
-##load data
+## load example data
 data(ExampleData.BINfileData, envir = environment())
 
-##convert values for position 1
-temp <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos=1)
+## convert values for position 1
+temp <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
 
-##(1) plot (combine) TL curves in one plot
+## combine TL curves in one plot
 plot_RLum.Analysis(
-temp,
-subset = list(recordType = "TL"),
-combine = TRUE,
-norm = TRUE,
-abline = list(v = c(110))
-)
-
-##(2) same as example (1) but using
-## the argument smooth = TRUE
-plot_RLum.Analysis(
-temp,
-subset = list(recordType = "TL"),
-combine = TRUE,
-norm = TRUE,
-smooth = TRUE,
-abline = list(v = c(110))
-)
+  temp,
+  subset = list(recordType = "TL"),
+  combine = TRUE,
+  norm = TRUE,
+  smooth = TRUE,
+  abline = list(v = 110)
+ )
 
 }
 \seealso{

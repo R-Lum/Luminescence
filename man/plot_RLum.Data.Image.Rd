@@ -13,14 +13,14 @@ plot_RLum.Data.Image(
 )
 }
 \arguments{
-\item{object}{\link[=RLum.Data.Image-class]{RLum.Data.Image} (\strong{required}): S4
-object of class \link[=RLum.Data.Image-class]{RLum.Data.Image}}
+\item{object}{\link[=RLum.Data.Image-class]{RLum.Data.Image} (\strong{required}):
+S4 object of class \link[=RLum.Data.Image-class]{RLum.Data.Image}.}
 
-\item{frames}{\link{numeric} (\emph{optional}): sets the frames to be set, by default all
-frames are plotted. Can be sequence of numbers, as long as the frame number is valid.}
+\item{frames}{\link{numeric} (\emph{optional}):
+indices of frames to plot. If \code{NULL} (default) all frames are plotted.}
 
-\item{plot.type}{\link{character} (\emph{with default}): plot types.
-Supported types are \code{plot.raster}, \code{contour}}
+\item{plot.type}{\link{character} (\emph{with default}):
+one of \code{plot.raster} (default) or \code{contour}.}
 
 \item{par.local}{\link{logical} (\emph{with default}):
 whether local graphical parameters should be used for plotting. If \code{TRUE}
@@ -34,21 +34,27 @@ to the specific plot functions. Standard supported parameters are \code{xlim},
 over different images), \code{stretch}, \code{digits}, scientific (\code{TRUE} or \code{FALSE}).}
 }
 \value{
-Returns a plot
+Returns a plot.
 }
 \description{
 The function provides very basic plot functionality for image data of an
-\link[=RLum.Data.Image-class]{RLum.Data.Image} object. For more sophisticated plotting it is recommended
-to use other very powerful packages for image processing.
+\link[=RLum.Data.Image-class]{RLum.Data.Image} object. For more sophisticated
+plotting, it is recommended to use more powerful packages for image processing.
+}
+\note{
+The axes limits (\code{xlim}, \code{ylim}, \code{zlim}) work directly on the object,
+so that regardless of the chosen limits, the image parameters can be adjusted
+for best visibility. However, in particular for z-scale limits, this is not
+always desirable; use \code{zlim_image} to maintain a particular value range over
+a series of images.
+}
+\section{Supported plot types}{
 
-\strong{Details on the plot functions}
-
-Supported plot types:
 
 \strong{\code{plot.type = "plot.raster"}}
 
 Uses the standard plot function of R \link[graphics:image]{graphics::image}. If wanted, the image
-is enhanced, using the argument \code{stretch}. Possible values are \code{hist}, \code{lin}, and
+is enhanced using the argument \code{stretch}. Possible values are \code{hist}, \code{lin}, and
 \code{NULL}. The latter does nothing. The argument \code{useRaster = TRUE} is used by default, but
 can be set to \code{FALSE}.
 
@@ -56,23 +62,16 @@ can be set to \code{FALSE}.
 
 This uses the function \link[graphics:contour]{graphics::contour}
 }
-\note{
-The axes limitations (\code{xlim}, \code{zlim}, \code{zlim}) work directly on the object,
-so that regardless of the chosen limits the image parameters can be adjusted for
-best visibility. However, in particular for z-scale limitations this is not always
-wanted, please use \code{zlim_image} to maintain a particular value range over a
-series of images.
-}
+
 \section{Function version}{
  0.2.3
 }
 
 \examples{
-
-##load data
+## load example data
 data(ExampleData.RLum.Data.Image, envir = environment())
 
-##plot data
+## plot data
 plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
 
 }

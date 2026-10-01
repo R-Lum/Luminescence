@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_RLum.Data.Curve.R
 \name{plot_RLum.Data.Curve}
 \alias{plot_RLum.Data.Curve}
-\title{Plot function for an RLum.Data.Curve S4 class object}
+\title{Plot function for an \code{RLum.Data.Curve} S4 class object}
 \usage{
 plot_RLum.Data.Curve(
   object,
@@ -23,13 +23,14 @@ whether curve normalisation should occur (\code{FALSE} by default), or any of
 the normalisation methods provided by \link{normalise_RLum}.}
 
 \item{smooth}{\link{logical} (\emph{with default}):
-provides automatic curve smoothing based on the internal function \code{.smoothing}}
+provides automatic curve smoothing based on the internal function \code{.smoothing}.}
 
-\item{auto_scale}{\link{logical} (\emph{with default}): if activated, auto scales \code{xlim} or \code{ylim}
-to the extent of the other. If both are set, the auto-scaling is skipped.}
+\item{auto_scale}{\link{logical} (\emph{with default}):
+if activated, auto scales \code{xlim} or \code{ylim} to the extent of the other. If
+both are set, no auto-scaling occurs.}
 
-\item{interactive}{\link{logical} (\emph{with default}): enables/disables interactive
-plotting mode using \link[plotly:plot_ly]{plotly::plot_ly}}
+\item{interactive}{\link{logical} (\emph{with default}):
+enables/disables interactive plotting mode using \link[plotly:plot_ly]{plotly::plot_ly}.}
 
 \item{par.local}{\link{logical} (\emph{with default}):
 whether local graphical parameters should be used for plotting. If \code{TRUE}
@@ -37,18 +38,15 @@ whether local graphical parameters should be used for plotting. If \code{TRUE}
 parameters set via \code{par()} are inherited.}
 
 \item{...}{further arguments and graphical parameters that will be passed
-to \link[graphics:plot.default]{graphics::plot.default} and \link[graphics:par]{graphics::par}}
+to \link[graphics:plot.default]{graphics::plot.default} and \link[graphics:par]{graphics::par}.}
 }
 \value{
 Returns a plot.
 }
 \description{
 The function provides a standardised plot output for curve data of an
-\link[=RLum.Data.Curve-class]{RLum.Data.Curve} S4-class object.
-}
-\details{
-Only single curve data can be plotted with this function. Arguments
-according to \link{plot}.
+\link[=RLum.Data.Curve-class]{RLum.Data.Curve} S4-class object. Only single curve
+data can be plotted with this function.
 }
 \note{
 Not all arguments of \link{plot} will be passed!
@@ -58,16 +56,11 @@ Not all arguments of \link{plot} will be passed!
 }
 
 \examples{
-
-##plot curve data
-
-#load Example data
+## load example data
 data(ExampleData.CW_OSL_Curve, envir = environment())
 
-#transform data.frame to RLum.Data.Curve object
+## transform data.frame to RLum.Data.Curve object and plot it
 temp <- as(ExampleData.CW_OSL_Curve, "RLum.Data.Curve")
-
-#plot RLum.Data.Curve object
 plot_RLum.Data.Curve(temp)
 
 }

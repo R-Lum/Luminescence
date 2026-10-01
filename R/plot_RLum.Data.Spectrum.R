@@ -1,4 +1,4 @@
-#' @title Plot function for an RLum.Data.Spectrum S4 class object
+#' @title Plot function for an `RLum.Data.Spectrum` S4 class object
 #'
 #' @description
 #' The function provides a standardised plot output for spectrum data of an
@@ -7,21 +7,23 @@
 #' access to all plot parameters. If this is wanted, standard R plot
 #' functionality should be used instead.
 #'
-#' **Matrix structure** \cr (cf. [Luminescence::RLum.Data.Spectrum-class])
+#' @section Matrix structure:
+#'
+#' See also [Luminescence::RLum.Data.Spectrum-class]:
 #'
 #' - `rows` (x-values): wavelengths/channels (`xlim`, `xlab`)
 #' - `columns` (y-values): time/temperature (`ylim`, `ylab`)
 #' - `cells` (z-values): count values (`zlim`, `zlab`)
 #'
-#' *Note: This nomenclature is valid for all plot types of this function!*
+#' **Note:** This nomenclature is valid for all plot types of this function.
 #'
-#' **Nomenclature for value limiting**
+#' @section Nomenclature for value limiting:
 #'
 #' - `xlim`: Limits values along the wavelength axis
 #' - `ylim`: Limits values along the time/temperature axis
 #' - `zlim`: Limits values along the count value axis
 #'
-#' **Details on the plot functions**
+#' @section Details on the plot functions:
 #'
 #' Spectrum is visualised as 3D or 2D plot. Both plot types are based on
 #' internal R plot functions.
@@ -90,11 +92,8 @@
 #' `n_breaks` (`"image"`), `legend` (`TRUE`/`FALSE`), `legend.text` (`"multiple.lines"`),
 #' `legend.pos` (`"image"`), `legend.horiz` (`TRUE`/`FALSE` | `"image"`)
 #'
-#' @param object [Luminescence::RLum.Data.Spectrum-class] or [matrix] (**required**):
-#' S4 object of class [Luminescence::RLum.Data.Spectrum-class] or a `matrix` containing count
-#' values of the spectrum.\cr
-#' Please note that in case of a matrix row names and col names are set
-#' automatically if not provided.
+#' @param object [Luminescence::RLum.Data.Spectrum-class] (**required**):
+#' S4 object of class [Luminescence::RLum.Data.Spectrum-class].
 #'
 #' @param plot.type [character] (*with default*):
 #' for a 3D-plot use `"persp"` or `"interactive"`; for a 2D-plot you can use
@@ -119,7 +118,7 @@
 #' channels used for background subtraction. If the number of channels is
 #' identical between the signal and background spectra, a channel-wise
 #' subtraction is performed; otherwise this number is used to select channels
-#' for calculating the *arithmetic mean*  If a spectrum is provided via
+#' for calculating the *arithmetic mean*. If a spectrum is provided via
 #' `bg.spectrum`, this argument only works on the background spectrum.
 #'
 #' **Note:** Background subtraction is applied prior to channel binning!
@@ -134,7 +133,7 @@
 #' e.g. `bin.cols = 2` two channels are summed up.
 #' Binning is applied after the background subtraction.
 #'
-#' @param norm [logical], [character] (*optional*):
+#' @param norm [logical] or [character] (*optional*):
 #' if logical, whether curve normalisation should occur (`FALSE` by default);
 #' alternatively, one of the values detailed in [Luminescence::plot_RLum.Data.Curve].
 #' The normalisation is applied after binning.
@@ -153,7 +152,7 @@
 #' is used to perform the conversion.
 #'
 #' **Note:** Besides being used in setting the axis, with this option the
-#' the spectrum is recalculated in terms of intensity, see details.
+#' spectrum is recalculated in terms of intensity, see details.
 #'
 #' @param plot [logical] (*with default*): enable/disable the plot output. If
 #' the plot output is disabled, the [matrix] used for the plotting and the
@@ -188,66 +187,60 @@
 #' @keywords aplot
 #'
 #' @examples
-#'
-#' ##load example data
+#' ## load example data
 #' data(ExampleData.XSYG, envir = environment())
 #'
-#' ##(1)plot simple spectrum (2D) - image
+#' ## (1)plot simple spectrum (2D) - image
 #' plot_RLum.Data.Spectrum(
 #'  TL.Spectrum,
-#'  plot.type="image",
-#'  xlim = c(310,750),
-#'  ylim = c(0,300),
-#'  bin.rows=10,
+#'  plot.type = "image",
+#'  xlim = c(310, 750),
+#'  ylim = c(0, 300),
+#'  bin.rows = 10,
 #'  bin.cols = 1)
 #'
-#' ##(2) plot spectrum (3D)
+#' ## (2) plot spectrum (3D)
 #' plot_RLum.Data.Spectrum(
 #'   TL.Spectrum,
-#'   plot.type="persp",
-#'   xlim = c(310,750),
-#'   ylim = c(0,100),
-#'   bin.rows=10,
+#'   plot.type = "persp",
+#'   xlim = c(310, 750),
+#'   ylim = c(0, 100),
+#'   bin.rows = 10,
 #'   bin.cols = 1)
 #'
-#'##(3) plot spectrum on energy axis
-#'##please note the background subtraction
-#'plot_RLum.Data.Spectrum(TL.Spectrum,
-#' plot.type="persp",
-#' ylim = c(0,200),
-#' bin.rows=10,
-#' bg.channels = 10,
-#' bin.cols = 1,
-#' xaxis.energy = TRUE)
+#' ## (3) plot spectrum on energy axis
+#' ## please note the background subtraction
+#' plot_RLum.Data.Spectrum(TL.Spectrum,
+#'   plot.type = "persp",
+#'   ylim = c(0, 200),
+#'   bin.rows = 10,
+#'   bg.channels = 10,
+#'   bin.cols = 1,
+#'   xaxis.energy = TRUE)
 #'
-#' ##(4) plot multiple lines (2D) - multiple.lines (with ylim)
+#' ## (4) plot multiple lines (2D) - multiple.lines (with ylim)
 #' plot_RLum.Data.Spectrum(
 #'  TL.Spectrum,
-#'  plot.type="multiple.lines",
-#'  xlim = c(310,750),
-#'  ylim = c(0,100),
-#'  bin.rows=10,
+#'  plot.type = "multiple.lines",
+#'  xlim = c(310, 750),
+#'  ylim = c(0, 100),
+#'  bin.rows = 10,
 #'  bin.cols = 1)
 #'
 #' \dontrun{
-#'  ##(4) interactive plot using the package plotly ("surface")
-#'  plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="interactive",
-#'  xlim = c(310,750), ylim = c(0,300), bin.rows=10,
-#'  bin.cols = 1)
+#' ## (5) interactive plot using the package plotly ("surface")
+#' plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "interactive",
+#'   xlim = c(310, 750), ylim = c(0, 300), bin.rows = 10, bin.cols = 1)
 #'
-#'  ##(5) interactive plot using the package plotly ("contour")
-#'  plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="interactive",
-#'  xlim = c(310,750), ylim = c(0,300), bin.rows=10,
-#'  bin.cols = 1,
-#'  type = "contour",
-#'  showscale = TRUE)
+#' ## (6) interactive plot using the package plotly ("contour")
+#' plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "interactive",
+#'   xlim = c(310, 750), ylim = c(0, 300), bin.rows = 10, bin.cols = 1,
+#'   type = "contour", showscale = TRUE)
 #'
-#'  ##(6) interactive plot using the package plotly ("heatmap")
-#'  plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="interactive",
-#'  xlim = c(310,750), ylim = c(0,300), bin.rows=10,
-#'  bin.cols = 1,
-#'  type = "heatmap",
-#'  showscale = TRUE)
+#' ## (7) interactive plot using the package plotly ("heatmap")
+#' plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "interactive",
+#'   xlim = c(310, 750), ylim = c(0, 300), bin.rows = 10, bin.cols = 1,
+#'   type = "heatmap", showscale = TRUE)
 #' }
 #'
 #' @export
