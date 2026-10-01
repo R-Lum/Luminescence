@@ -15,9 +15,9 @@ structure_RLum(object, ...)
 }
 \arguments{
 \item{object}{\link[=RLum-class]{RLum} (\strong{required}):
-S4 object of class \code{RLum}}
+S4 object of class \code{RLum}.}
 
-\item{...}{further arguments passed to the specific class method}
+\item{...}{further arguments passed to the specific class method.}
 
 \item{fullExtent}{\link{logical} (\emph{with default}):
 extends the returned \code{data.frame} to its full extent, i.e. all info elements
@@ -25,17 +25,21 @@ are part of the return as well. The default value is \code{FALSE} as the data
 frame might become rather big.}
 }
 \value{
-Returns a \link{data.frame} with structure of the object.
+A \link{data.frame} with the structure of the object, or a \link{list} of such
+\link{data.frame}s if a \link{list} was provided.
 }
 \description{
-The function provides a generalised access point for specific
-\link[=RLum-class]{RLum} objects. Depending on the input object, the corresponding
-function will be selected.
+The function summarises the structure of \link[=RLum-class]{RLum} objects
+in a \link{data.frame} with one row per record and one column per slot and
+\code{info} element. This is a convenient way of comparing the records of an
+object, or of several objects, without having to inspect each of them
+individually.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{structure_RLum(list)}: Returns a list of data frames containing the structure of each \link[=RLum-class]{RLum}
-object in the input list.
+\item \code{structure_RLum(list)}: Returns a \link{list} containing the structure of each \link[=RLum-class]{RLum}
+object in the input list; elements that are not of class
+\link[=RLum-class]{RLum} are returned unchanged.
 
 \item \code{structure_RLum(RLum.Analysis)}: Returns the structure of an \link[=RLum.Analysis-class]{RLum.Analysis} object.
 

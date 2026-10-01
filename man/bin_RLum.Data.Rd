@@ -15,9 +15,9 @@ bin_RLum.Data(object, ...)
 }
 \arguments{
 \item{object}{\link[=RLum.Data-class]{RLum.Data} (\strong{required}):
-S4 object of class \code{RLum.Data}}
+S4 object of class \code{RLum.Data}.}
 
-\item{...}{further arguments passed to the specific class method}
+\item{...}{further arguments passed to the specific class method.}
 
 \item{bin_size}{\link{integer} (\emph{with default}):
 number of channels used for each bin, e.g. \code{bin_size = 2} means that
@@ -34,12 +34,11 @@ two channels are binned. Note: The function does not check the input, very large
 mean a full row binning (a single sum)}
 }
 \value{
-An object of the same type as the input provided after binning is applied.
+An object of the same class as the input.
 }
 \description{
-The function provides a generalised access point for specific
-\link[=RLum.Data-class]{RLum.Data} objects. Depending on the input object, the corresponding
-function will be selected.
+The function aggregates adjacent channels of \link[=RLum.Data-class]{RLum.Data}
+objects.
 }
 \section{Methods (by class)}{
 \itemize{

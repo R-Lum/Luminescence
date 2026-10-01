@@ -11,17 +11,17 @@ replicate_RLum(object, times = 1)
 }
 \arguments{
 \item{object}{\link[=RLum-class]{RLum} (\strong{required}):
-an \link[=RLum-class]{RLum} object}
+an \link[=RLum-class]{RLum} object.}
 
 \item{times}{\link{integer} (\emph{optional}):
-number for times each element should be repeated.}
+number of times each element should be repeated.}
 }
 \value{
 A \link{list} with the object repeated.
 }
 \description{
-The function replicates \link[=RLum-class]{RLum} objects and returns a list of such
-objects.
+The function replicates \link[=RLum-class]{RLum} objects and returns a list
+of such objects.
 }
 \section{Methods (by class)}{
 \itemize{
@@ -32,6 +32,16 @@ objects.
  0.1.0
 }
 
+\examples{
+
+## load example data
+data(ExampleData.RLum.Analysis, envir = environment())
+
+## replicate a curve three times
+replicated <- replicate_RLum(IRSAR.RF.Data[[1]], times = 3)
+length(replicated)
+
+}
 \seealso{
 \link[=RLum-class]{RLum}
 }

@@ -21,19 +21,20 @@ view(object, ...)
 \S4method{view}{Risoe.BINfileData}(object, ...)
 }
 \arguments{
-\item{object}{(\strong{required}) object to view}
+\item{object}{\link[=RLum-class]{RLum} (\strong{required}):
+the object to view.}
 
-\item{...}{further arguments passed to the specific class method}
+\item{...}{further arguments passed to the specific class method.}
 
 \item{element}{\link{integer} (\emph{with default}):
 index of the element to display.}
 }
 \value{
-\code{NULL} and opens the data viewer.
+The data is shown in the viewer.
 }
 \description{
-Invokes the \link[utils:View]{utils::View} function tailored to objects in the package.
-If started from RStudio, it uses the RStudio viewer.
+The function invokes the \link[utils:View]{utils::View} function tailored to objects in the
+package. If started from RStudio, it uses the RStudio viewer.
 }
 \section{Methods (by class)}{
 \itemize{
@@ -46,6 +47,10 @@ If started from RStudio, it uses the RStudio viewer.
 \item \code{view(Risoe.BINfileData)}: View method for \link[=Risoe.BINfileData-class]{Risoe.BINfileData} objects.
 
 }}
+\section{Function version}{
+ 0.1.0
+}
+
 \seealso{
 \code{\link[utils:View]{utils::View()}}
 }

@@ -18,19 +18,22 @@ melt_RLum(object, ...)
 }
 \arguments{
 \item{object}{\link[=RLum-class]{RLum} (\strong{required}):
-S4 object of class \code{RLum}}
+S4 object of class \code{RLum}.}
 
-\item{...}{further arguments passed to the specific class method}
+\item{...}{further arguments passed to the specific class method.}
 }
 \value{
 A flat \link{data.frame}.
 }
 \description{
-Melt RLum-class objects into a flat data.frame
+The function melts \link[=RLum-class]{RLum} objects into a flat data frame
+with columns \code{X}, \code{Y}, \code{TYPE} and \code{UID}, which is the "long" data format
+expected by other packages such as \code{ggplot2}.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{melt_RLum(list)}: Returns a list of melted \link[=RLum-class]{RLum} objects; non-RLum objects are silently
+\item \code{melt_RLum(list)}: Returns a \link{data.frame} with the melted data of all \link[=RLum-class]{RLum}
+objects in the input list; elements for which melting fails are silently
 removed.
 
 \item \code{melt_RLum(RLum.Analysis)}: Melts \link[=RLum.Analysis-class]{RLum.Analysis} objects into a flat data.frame with columns
@@ -47,7 +50,10 @@ such as \code{ggplot2}.
 }
 
 \examples{
+
+## load example data
 data(ExampleData.XSYG, envir = environment())
+
 melt_RLum(OSL.SARMeasurement[[2]][[1]])
 
 }

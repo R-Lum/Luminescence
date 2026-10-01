@@ -21,7 +21,7 @@ sort_RLum(object, ...)
 \link[=Risoe.BINfileData-class]{Risoe.BINfileData} (\strong{required}):
 S4 object of class \code{RLum.Analysis} or \code{Risoe.BINfileData}.}
 
-\item{...}{further arguments passed to the specific class method}
+\item{...}{further arguments passed to the specific class method.}
 
 \item{slot}{\link{character} (\emph{optional}): slot name to use in sorting.}
 
@@ -39,13 +39,14 @@ the ordering sequence for each sorting element.}
 An object of the same type as the input object provided.
 }
 \description{
-The function provides a generalised access point for specific \link[=RLum-class]{RLum}
-and \link[=Risoe.BINfileData-class]{Risoe.BINfileData} objects. Depending on the input object,
-the corresponding function will be selected.
+The function sorts the records of \link[=RLum.Analysis-class]{RLum.Analysis} objects
+or the curves of \link[=Risoe.BINfileData-class]{Risoe.BINfileData} objects.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{sort_RLum(list)}: Returns a list of sorted \link[=RLum-class]{RLum} objects.
+\item \code{sort_RLum(list)}: Returns a \link{list} with the \link[=RLum.Analysis-class]{RLum.Analysis} elements of the
+input sorted; elements that are not of class
+\link[=RLum.Analysis-class]{RLum.Analysis} are returned unchanged.
 
 \item \code{sort_RLum(RLum.Analysis)}: Sorting of \code{RLum.Data} objects contained in this \code{RLum.Analysis} object.
 At least one of \code{slot} and \code{info_element} must be provided. If both are

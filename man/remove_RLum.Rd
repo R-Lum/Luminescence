@@ -34,7 +34,10 @@ Remove records from an RLum-class object in a convenient way using
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{remove_RLum(list)}: Returns a list of \link[=RLum-class]{RLum} objects where the selected records are stripped
+\item \code{remove_RLum(list)}: Returns a \link{list} of \link[=RLum-class]{RLum} objects where the selected
+records are stripped. Only \link[=RLum.Analysis-class]{RLum.Analysis} elements are
+processed; all other elements are returned unchanged and elements without
+records are removed from the returned list.
 
 \item \code{remove_RLum(RLum.Analysis)}: Method to remove records from an \link[=RLum.Analysis-class]{RLum.Analysis} object.
 
@@ -48,7 +51,7 @@ Remove records from an RLum-class object in a convenient way using
 data(ExampleData.XSYG, envir = environment())
 sar <- OSL.SARMeasurement$Sequence.Object[1:9]
 
-## strop only OSL curves
+## strip only OSL curves
 sar <- remove_RLum(sar, recordType = "OSL")
 sar
 

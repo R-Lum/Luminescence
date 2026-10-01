@@ -11,26 +11,34 @@ set_Risoe.BINfileData(
 )
 }
 \arguments{
-\item{METADATA}{x}
+\item{METADATA}{\link{data.frame} (\emph{with default}):
+metadata information for each curve.}
 
-\item{DATA}{x}
+\item{DATA}{\link{list} (\emph{with default}):
+numeric vectors with the count data, one per row of \code{METADATA}.}
 
-\item{.RESERVED}{x}
+\item{.RESERVED}{\link{list} (\emph{with default}):
+list of undocumented raw values for internal use only.}
 }
 \value{
 A \link[=Risoe.BINfileData-class]{Risoe.BINfileData} object.
 }
 \description{
-The function provides a generalised access point for specific
-\link[=Risoe.BINfileData-class]{Risoe.BINfileData} objects. Depending on the input object, the
-corresponding function will be selected.
-Allowed arguments can be found in the documentations of the corresponding
-\link[=Risoe.BINfileData-class]{Risoe.BINfileData} class.
+Constructs an empty \link[=Risoe.BINfileData-class]{Risoe.BINfileData} object, which can
+then be filled with the supplied metadata and data. Objects of this class are
+normally produced as output of \link{read_BIN2R}; this construction
+method is intended for internal usage only.
 }
 \section{Function version}{
- 0.1
+ 0.1.0
 }
 
+\examples{
+
+## create an empty Risoe.BINfileData object
+set_Risoe.BINfileData()
+
+}
 \seealso{
 \link[=Risoe.BINfileData-class]{Risoe.BINfileData}
 }

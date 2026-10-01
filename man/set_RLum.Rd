@@ -61,8 +61,8 @@ set_RLum(class, originator, .uid = create_UID(), .pid = NA_character_, ...)
 }
 \arguments{
 \item{class}{\link{character} (\strong{required}):
-name of the S4 class to create, must correspond to one of the \link[=RLum-class]{RLum}
-classes.}
+name of the S4 class to create, must correspond to one of the
+\link[=RLum-class]{RLum} classes.}
 
 \item{originator}{\link{character} (\emph{automatic}):
 contains the name of the calling function (the function that produces this object);
@@ -75,7 +75,7 @@ unique ID for this object, by default set using the internal C++ function
 \item{.pid}{\link{character} (\emph{with default}):
 option to provide a parent id for nesting at will.}
 
-\item{...}{further arguments passed to the specific class method}
+\item{...}{further arguments passed to the specific class method.}
 
 \item{protocol}{\link{character} (\emph{optional}):
 sets protocol type for analysis object. Value may be used by subsequent analysis functions.}
@@ -103,9 +103,10 @@ will be subject to copy and paste unless provided.}
 An object of the specified \link[=RLum-class]{RLum} class.
 }
 \description{
-The function provides a generalised access point for specific
-\link[=RLum-class]{RLum} objects. Depending on the given class, the corresponding
-method to create an object from this class will be selected.
+The function creates objects of the given \link[=RLum-class]{RLum} class,
+with all mandatory slots filled with sensible default values. Calling
+\code{set_RLum()} by hand is mainly useful for testing and for prototyping new
+records.
 }
 \section{Functions}{
 \itemize{
@@ -128,7 +129,7 @@ method to create an object from this class will be selected.
 
 ## produce empty objects from each class
 set_RLum(class = "RLum.Data.Curve")
-set_RLum(class = "RLum.Data.Spectrum")
+set_RLum(class = "RLum.Data.Image")
 set_RLum(class = "RLum.Data.Spectrum")
 set_RLum(class = "RLum.Analysis")
 set_RLum(class = "RLum.Results")
@@ -138,7 +139,7 @@ object <- set_RLum(
 class = "RLum.Data.Curve",
 curveType = "arbitrary",
 recordType = "OSL",
-data = matrix(c(1:100,exp(-c(1:100))),ncol = 2))
+data = matrix(c(1:100, exp(-c(1:100))), ncol = 2))
 
 ## plot this curve object
 plot_RLum(object)

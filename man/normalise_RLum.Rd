@@ -25,14 +25,14 @@ normalise_RLum(object, norm = TRUE, ...)
 }
 \arguments{
 \item{object}{\link[=RLum-class]{RLum} (\strong{required}):
-S4 object of class \code{RLum}}
+S4 object of class \code{RLum}.}
 
-\item{norm}{\link{logical} \link{character} (\strong{required}):
+\item{norm}{\link{logical} or \link{character} or \link{numeric} (\emph{with default}):
 if logical, whether curve normalisation should occur; alternatively, one
 of \code{"max"} (used with \code{TRUE}), \code{"min"}, \code{"first"}, \code{"last"}, \code{"huot"},
 \code{"intensity"} or a positive number (e.g., 2.2).}
 
-\item{...}{further arguments passed to the specific class method}
+\item{...}{further arguments passed to the specific class method.}
 
 \item{global}{\link{logical} (*with default): this defines whether the normalisation
 is applied globally (same to all) or locally, in which case each frame has its
@@ -47,43 +47,38 @@ the argument \code{norm}}
 An object of the same type as the input object provided.
 }
 \description{
-The function provides a generalised access point for specific
-\link[=RLum-class]{RLum} objects. Depending on the input object, the corresponding
-function will be selected. The normalisation is performed in the internal
-function \code{.normalise_curve()}.
+The function normalises the count values of \link[=RLum-class]{RLum}
+objects. The normalisation is performed by the internal function
+\code{.normalise_curve()} and is controlled by the \code{norm} argument, see details.
 }
 \details{
 The \code{norm} argument normalises all count values. The following options are
 supported:
-
-\code{norm = TRUE} or \code{norm = "max"}: Curve values are normalised to the highest
-count value in the curve
-
-\code{norm = "min"}: Curve values are normalised to the smallest count value
-in the curve
-
-\code{norm = "first"}: Curve values are normalised to the first count value.
-
-\code{norm = "last"}: Curve values are normalised to the last count value
-(this can be useful in particular for radiofluorescence curves)
-
-\code{norm = "huot"}: Curve values are normalised as suggested by Sébastien Huot
+\itemize{
+\item \code{norm = TRUE} or \code{norm = "max"}: Curve values are normalised to the highest
+count value in the curve.
+\item \code{norm = "min"}: Curve values are normalised to the smallest count value
+in the curve.
+\item \code{norm = "first"}: Curve values are normalised to the first count value.
+\item \code{norm = "last"}: Curve values are normalised to the last count value
+(this can be useful in particular for radiofluorescence curves).
+\item \code{norm = "huot"}: Curve values are normalised as suggested by Sébastien Huot
 via GitHub:
 \deqn{
 y = (observed - median(background)) / (\max(observed) - median(background))
 }
-
 The background of the curve is defined as the last 20\% of the count values
 of a curve.
-
-\code{norm = "intensity"}: Curve values are normalised to the channel length.
-
-\code{norm = 2.2}: Curve values are normalised to a positive number (e.g., 2.2).
+\item \code{norm = "intensity"}: Curve values are normalised to the channel length.
+\item \code{norm = 2.2}: Curve values are normalised to a positive number (e.g., 2.2).
+}
 }
 \section{Functions}{
 \itemize{
-\item \code{normalise_RLum(list)}: Returns a list of \link[=RLum.Data-class]{RLum.Data} objects that had been passed to
-\link{normalise_RLum}
+\item \code{normalise_RLum(list)}: Returns a \link{list} of \link[=RLum-class]{RLum} objects with all supported
+elements normalised; elements that are neither
+\link[=RLum.Analysis-class]{RLum.Analysis} nor \link[=RLum.Data-class]{RLum.Data} are
+returned unchanged.
 
 \item \code{normalise_RLum(RLum.Analysis)}: Normalisation of \code{RLum.Data} records contained in the input object.
 
@@ -114,7 +109,7 @@ curve <-
       data = as.matrix(ExampleData.CW_OSL_Curve)
   )
 
-## plot data without and with smoothing
+## plot data without and with normalisation
 plot_RLum(curve)
 plot_RLum(normalise_RLum(curve))
 

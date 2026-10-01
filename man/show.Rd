@@ -30,7 +30,8 @@
 object of class \code{RLum} or \code{Risoe.BINfileData}.}
 }
 \description{
-Show the structure of RLum-class and Risoe.BINfileData-class objects
+The function shows the structure of \link[=RLum-class]{RLum} and
+\link[=Risoe.BINfileData-class]{Risoe.BINfileData} objects.
 }
 \section{Methods (by class)}{
 \itemize{

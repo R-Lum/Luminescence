@@ -48,34 +48,33 @@ be provided.}
 \item{.class}{Used internally for multiple dispatch, and ignored otherwise.}
 
 \item{merge.method}{\link{character} (\emph{with default}):
-method for combining of the objects, e.g. \code{'mean'} (default), \code{'median'},
-\code{'sum'}, see below for further information.
-Only used for \link[=RLum.Data.Curve-class]{RLum.Data.Curve} and
+method for combining of the objects, e.g. \code{"mean"} (default), \code{"median"},
+\code{"sum"}, see below for further information. Only used for
+\link[=RLum.Data.Curve-class]{RLum.Data.Curve} and
 \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} objects.}
 
 \item{method.info}{\link{numeric} (\emph{optional}):
 allows to specify how info elements of the input objects are combined,
 e.g. \code{1} keeps only the info elements from the first object, \code{2} keeps only
 those from the second object, etc. If set to \code{NULL} (default), all elements
-are combined.
-Only used for \link[=RLum.Data.Curve-class]{RLum.Data.Curve} and
+are combined. Only used for \link[=RLum.Data.Curve-class]{RLum.Data.Curve} and
 \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} objects.}
 
 \item{max.temp.diff}{\link{numeric} (\emph{with default}):
 maximum difference in the time/temperature values between the spectra to
 be merged: when differences exceed this threshold value, the merging
-occurs but a warning is raised.
-Only used for \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} objects.}
+occurs but a warning is raised. Only used for
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} objects.}
 
 \item{flatten}{\link{logical} (\emph{with default}):
-whether list elements should be flattened before merging.
-Only used for \link[=RLum.Results-class]{RLum.Results} objects.}
+whether list elements should be flattened before merging. Only used for
+\link[=RLum.Results-class]{RLum.Results} objects.}
 }
 \value{
 Returns an object of the same class as the input elements.
 }
 \description{
-These functions merge \link[=RLum-class]{RLum} objects of the same class
+The function merges \link[=RLum-class]{RLum} objects of the same class
 without modifying the original objects. Empty list elements (\code{NULL}) are
 automatically removed from the input list. The dispatch is based on the
 class of the input objects:

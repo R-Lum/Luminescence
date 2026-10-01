@@ -25,9 +25,9 @@ smooth_RLum(object, ...)
 }
 \arguments{
 \item{object}{\link[=RLum-class]{RLum} (\strong{required}):
-S4 object of class \code{RLum}}
+S4 object of class \code{RLum}.}
 
-\item{...}{further arguments passed to the specific class method}
+\item{...}{further arguments passed to the specific class method.}
 
 \item{k}{\link{smooth_RLum}; \link{integer} (\emph{with default}):
 window for the rolling mean or median. If \code{NULL}, this set automatically
@@ -56,15 +56,14 @@ over the four neighbouring values.}
 An object of the same type as the input object provided.
 }
 \description{
-The function provides a generalised access point for specific
-\link[=RLum-class]{RLum} objects. Depending on the input object, the corresponding
-function will be selected. The smoothing is performed in the internal
-function \code{.smoothing()}.
+The function smooths the count values of \link[=RLum-class]{RLum} objects.
+The smoothing is performed in the internal function \code{.smoothing()}.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{smooth_RLum(list)}: Returns a list of \link[=RLum-class]{RLum} objects that had been passed to
-\link{smooth_RLum}
+\item \code{smooth_RLum(list)}: Returns a \link{list} of \link[=RLum-class]{RLum} objects with all supported
+elements smoothed; elements that are not of class
+\link[=RLum-class]{RLum} are returned unchanged.
 
 \item \code{smooth_RLum(RLum.Analysis)}: Smoothing of \code{RLum.Data} records contained in the input object.
 
@@ -76,8 +75,8 @@ photomultiplier tube.
 
 }}
 \note{
-Currently only \code{RLum} objects of class \code{RLum.Data.Curve} and \code{RLum.Analysis}
-(with curve data) are supported.
+Currently only \link[=RLum.Data.Curve-class]{RLum.Data.Curve} and
+\link[=RLum.Analysis-class]{RLum.Analysis} objects (with curve data) are supported.
 }
 \section{Function version}{
  0.1.0

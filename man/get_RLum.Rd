@@ -45,9 +45,8 @@ get_RLum(object, ...)
 \S4method{get_RLum}{RLum.Results}(object, data.object, info.object = NULL, drop = TRUE)
 }
 \arguments{
-\item{object}{\link[=RLum-class]{RLum} (\strong{required}):
-S4 object of class \code{RLum} or an object of type \link{list} containing only objects
-of type \link[=RLum-class]{RLum}}
+\item{object}{\link[=RLum-class]{RLum} or \link{list} (\strong{required}):
+S4 object of class \code{RLum} or a list of such objects.}
 
 \item{...}{further arguments passed to the specific class method.}
 
@@ -115,14 +114,15 @@ name or index of the data slot to be returned.}
 An object of the same type as the input object provided.
 }
 \description{
-The function provides a generalised access point for specific
-\link[=RLum-class]{RLum} objects. Depending on the input object, the corresponding
-function will be selected.
+The function extracts the content of \link[=RLum-class]{RLum} objects.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{get_RLum(list)}: Returns a list of \link[=RLum-class]{RLum} objects that had been passed to
-\link{get_RLum}
+\item \code{get_RLum(list)}: Returns a \link{list} with one element per \link[=RLum-class]{RLum} object in the
+input, containing the result of applying \link{get_RLum} to it.
+Elements that are not of class \link[=RLum-class]{RLum} are removed with a
+warning and empty \link[=RLum.Analysis-class]{RLum.Analysis} objects are dropped; set
+\code{null.rm = TRUE} to also drop elements whose result is empty or \code{NULL}.
 
 \item \code{get_RLum(`NULL`)}: Returns \code{NULL}.
 

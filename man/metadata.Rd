@@ -45,7 +45,7 @@ replace_metadata(object, ...) <- value
 \link[=Risoe.BINfileData-class]{Risoe.BINfileData} (\strong{required}):
 object of class \code{RLum.Analysis} or \code{Risoe.BINfileData} to manipulate.}
 
-\item{...}{further arguments passed to the specific class method}
+\item{...}{further arguments passed to the specific class method.}
 
 \item{value}{(\strong{required}):
 value to be assigned to the selected metadata entry. A \code{NULL} value is
@@ -63,8 +63,9 @@ of elements.}
 enable/disable output to the terminal.}
 }
 \description{
-Generic functions for manipulation of metadata in \link[=Risoe.BINfileData-class]{Risoe.BINfileData},
-\link[=RLum.Analysis-class]{RLum.Analysis} and \link[=RLum.Data-class]{RLum.Data} objects.
+Generic functions for manipulation of metadata in
+\link[=Risoe.BINfileData-class]{Risoe.BINfileData}, \link[=RLum.Analysis-class]{RLum.Analysis}
+and \link[=RLum.Data-class]{RLum.Data} objects.
 }
 \section{Functions}{
 \itemize{
@@ -87,6 +88,10 @@ Generic functions for manipulation of metadata in \link[=Risoe.BINfileData-class
 \item \code{replace_metadata(Risoe.BINfileData) <- value}: Replaces or removes metadata of \link[=Risoe.BINfileData-class]{Risoe.BINfileData} objects.
 
 }}
+\section{Function version}{
+ 0.1.0
+}
+
 \examples{
 
 ## load example data
