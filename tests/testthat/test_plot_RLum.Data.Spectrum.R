@@ -390,7 +390,6 @@ test_that("regression tests", {
                  "Data contains non-positive values, set to NA")
 
   ## issue 1780
-  expect_message(plot_RLum.Data.Spectrum(matrix(1:60, nrow = 10),
-                                         plot.type = "image"),
+  expect_message(plot_RLum.Data.Spectrum(matrix(1:60, nrow = 10), plot.type = "image"),
                  "Input has been converted")
 })
