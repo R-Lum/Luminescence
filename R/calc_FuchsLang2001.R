@@ -231,7 +231,7 @@ calc_FuchsLang2001 <- function(
   ##=========##
   ## PLOTTING
   if(plot) {
-    try(plot_RLum.Results(results, ...),
+    try(plot_RLum(results, ...),
         outFile = stdout()) # redirect error messages so they can be silenced
   }#endif::plot
 

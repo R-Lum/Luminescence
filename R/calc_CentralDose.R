@@ -326,7 +326,7 @@ calc_CentralDose <- function(
 
   ## =========## PLOTTING
   if (plot && !anyNA(sig))
-    try(plot_RLum.Results(newRLumResults.calc_CentralDose, ...))
+    try(plot_RLum(newRLumResults.calc_CentralDose, ...))
 
   invisible(newRLumResults.calc_CentralDose)
 }

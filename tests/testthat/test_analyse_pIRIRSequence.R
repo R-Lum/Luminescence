@@ -35,7 +35,7 @@ results <- analyse_pIRIRSequence(
 
 test_that("check plot stuff", {
   ## check plot_RLum.Results
-  expect_silent(plot_RLum.Results(results))
+  expect_silent(plot_RLum(results))
 
   ## it should throw a warning about the plot size
   pdf.out <- tempfile(fileext = ".pdf")

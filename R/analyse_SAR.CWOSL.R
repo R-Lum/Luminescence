@@ -1313,7 +1313,7 @@ analyse_SAR.CWOSL<- function(
         } else {
           if (length(IRSL.idx) > 1)
             .throw_warning("Multiple IRSL curves detected (IRSL test), only the last one shown")
-          plot_RLum.Data.Curve(records[[tail(IRSL.idx, 1)]],
+          plot_RLum(records[[tail(IRSL.idx, 1)]],
                                par.local = FALSE, mgp = c(2, 0.7, 0), tcl = -0.4)
         }
       }
