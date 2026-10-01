@@ -46,7 +46,7 @@ test_that("input validation", {
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, ylim = c(NA_real_, NA_real_)),
                "No data left after applying 'xlim' and 'ylim'")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, zlim = 1.2),
-               "'zlim' should be of class 'numeric' and have length 2")
+               "'zlim' should be of class 'numeric' or 'integer' and have length 2")
   expect_error(plot_RLum.Data.Spectrum(TL.Spectrum, bg.spectrum = bg.spectrum,
                                        ylim = c(0, 100)),
                "No background channels left after applying 'ylim'")
@@ -122,8 +122,8 @@ test_that("check functionality", {
     expect_silent(suppressWarnings(
       plot_RLum.Data.Spectrum(
         TL.Spectrum,
-        smoooth = TRUE, 
-        norm = TRUE, 
+        smoooth = TRUE,
+        norm = TRUE,
         transect_mode = "mean",
         plot.type = "transect",
         xlim = c(310, 750),
@@ -302,7 +302,7 @@ test_that("graphical snapshot tests", {
                                                       bin.cols = 1,
                                                       legend = FALSE,
                                                       xaxis.energy = TRUE))
-  
+
   vdiffr::expect_doppelganger("multiple different legend",
                               plot_RLum.Data.Spectrum(TL.Spectrum,
                                                       plot.type = "multiple.lines",
@@ -313,7 +313,7 @@ test_that("graphical snapshot tests", {
                                                       bin.cols = 1,
                                                       legend.text = "test",
                                                       xaxis.energy = TRUE))
-  
+
   vdiffr::expect_doppelganger("multiple large",
                               plot_RLum.Data.Spectrum(large,
                                                       plot.type = "multiple.lines"))
@@ -327,8 +327,8 @@ test_that("graphical snapshot tests", {
   fig <- function() {
     plot_RLum.Data.Spectrum(
       TL.Spectrum,
-      norm = TRUE, 
-      smooth = TRUE, 
+      norm = TRUE,
+      smooth = TRUE,
       plot.type = "transect",
       xlim = c(500, 750),
       ylim = c(0, 300),
@@ -336,8 +336,8 @@ test_that("graphical snapshot tests", {
     )
     plot_RLum.Data.Spectrum(
       TL.Spectrum,
-      norm = TRUE, 
-      smooth = TRUE, 
+      norm = TRUE,
+      smooth = TRUE,
       add = TRUE,
       transect_mode = "mean",
       plot.type = "transect",
@@ -388,4 +388,9 @@ test_that("regression tests", {
   expect_warning(plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "transect",
                                          log = "z", norm = "huot"),
                  "Data contains non-positive values, set to NA")
+
+  ## issue 1780
+  expect_message(plot_RLum.Data.Spectrum(matrix(1:60, nrow = 10),
+                                         plot.type = "image"),
+                 "Input has been converted")
 })

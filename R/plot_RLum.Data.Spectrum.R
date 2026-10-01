@@ -553,7 +553,7 @@ plot_RLum.Data.Spectrum <- function(
 
   ##check for zlim
   zlim <- extraArgs$zlim %||% range(temp.xyz, na.rm = TRUE)
-  .validate_class(zlim, "numeric", length = 2)
+  .validate_class(zlim, c("numeric", "integer"), length = 2)
 
   # set colour values --------------------------------------------------------
   if (is.null(extraArgs$col) || plot.type %in% c("single", "multiple.lines")) {

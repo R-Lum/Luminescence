@@ -91,6 +91,11 @@ The following S3 methods (deprecated in v1.3.1) have been removed
   argument must be spelled out in full and can no longer be abbreviated
   to `sub` or anything else (#1776).
 
+### `plot_RLum.Data.Spectrum()`
+
+- The function could not plot objects containing only integer counts in
+  the spectrum due to overly-stringent validation (#1780).
+
 ### `read_BIN2R()`
 
 - The `pattern` argument is now validated to be a single string to avoid
