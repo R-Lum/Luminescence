@@ -1,46 +1,19 @@
 #' @title Plot function for an RLum.Data.Curve S4 class object
 #'
-#' @description The function provides a standardised plot output for curve data of an
+#' @description
+#' The function provides a standardised plot output for curve data of an
 #' [Luminescence::RLum.Data.Curve-class] S4-class object.
 #'
-#' @details Only single curve data can be plotted with this function. Arguments
+#' @details
+#' Only single curve data can be plotted with this function. Arguments
 #' according to [plot].
 #'
-#' **Curve normalisation**
-#'
-#' The argument `norm` normalises all count values. To date the following
-#' options are supported:
-#'
-#' `norm = TRUE` or `norm = "max"`: Curve values are normalised to the highest
-#' count value in the curve
-#'
-#' `norm = "min"`: Curve values are normalised to the smallest count value
-#' in the curve
-#'
-#' `norm = "first"`: Curve values are normalised to the very first count value
-#'
-#' `norm = "last"`: Curve values are normalised to the last count value
-#' (this can be useful in particular for radiofluorescence curves)
-#'
-#' `norm = "huot"`: Curve values are normalised as suggested by Sébastien Huot
-#'  via GitHub:
-#' \deqn{
-#' y = (observed - median(background)) / (\max(observed) - median(background))
-#' }
-#'
-#' The background of the curve is defined as the last 20% of the count values
-#' of a curve.
-#'
-#' `norm = "intensity"`: Curve values are normalised to the channel length.
-#'
-#' `norm = 2.2`: Curve values are normalised to a positive number (e.g., 2.2).
-#'
 #' @param object [Luminescence::RLum.Data.Curve-class] (**required**):
-#' S4 object of class [Luminescence::RLum.Data.Curve-class]
+#' S4 object of class [Luminescence::RLum.Data.Curve-class].
 #'
-#' @param norm [logical] [character] (*with default*): whether curve
-#' normalisation should occur (`FALSE` by default). Alternatively, the function
-#' offers modes `"max"` (used with `TRUE`), `"last"` and `"huot"`, see details.
+#' @param norm [logical] [character] (*with default*):
+#' whether curve normalisation should occur (`FALSE` by default), or any of
+#' the normalisation methods provided by [Luminescence::normalise_RLum].
 #'
 #' @param smooth [logical] (*with default*):
 #' provides automatic curve smoothing based on the internal function `.smoothing`

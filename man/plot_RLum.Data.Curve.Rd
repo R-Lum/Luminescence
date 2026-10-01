@@ -16,11 +16,11 @@ plot_RLum.Data.Curve(
 }
 \arguments{
 \item{object}{\link[=RLum.Data.Curve-class]{RLum.Data.Curve} (\strong{required}):
-S4 object of class \link[=RLum.Data.Curve-class]{RLum.Data.Curve}}
+S4 object of class \link[=RLum.Data.Curve-class]{RLum.Data.Curve}.}
 
-\item{norm}{\link{logical} \link{character} (\emph{with default}): whether curve
-normalisation should occur (\code{FALSE} by default). Alternatively, the function
-offers modes \code{"max"} (used with \code{TRUE}), \code{"last"} and \code{"huot"}, see details.}
+\item{norm}{\link{logical} \link{character} (\emph{with default}):
+whether curve normalisation should occur (\code{FALSE} by default), or any of
+the normalisation methods provided by \link{normalise_RLum}.}
 
 \item{smooth}{\link{logical} (\emph{with default}):
 provides automatic curve smoothing based on the internal function \code{.smoothing}}
@@ -49,35 +49,6 @@ The function provides a standardised plot output for curve data of an
 \details{
 Only single curve data can be plotted with this function. Arguments
 according to \link{plot}.
-
-\strong{Curve normalisation}
-
-The argument \code{norm} normalises all count values. To date the following
-options are supported:
-
-\code{norm = TRUE} or \code{norm = "max"}: Curve values are normalised to the highest
-count value in the curve
-
-\code{norm = "min"}: Curve values are normalised to the smallest count value
-in the curve
-
-\code{norm = "first"}: Curve values are normalised to the very first count value
-
-\code{norm = "last"}: Curve values are normalised to the last count value
-(this can be useful in particular for radiofluorescence curves)
-
-\code{norm = "huot"}: Curve values are normalised as suggested by Sébastien Huot
-via GitHub:
-\deqn{
-y = (observed - median(background)) / (\max(observed) - median(background))
-}
-
-The background of the curve is defined as the last 20\% of the count values
-of a curve.
-
-\code{norm = "intensity"}: Curve values are normalised to the channel length.
-
-\code{norm = 2.2}: Curve values are normalised to a positive number (e.g., 2.2).
 }
 \note{
 Not all arguments of \link{plot} will be passed!
