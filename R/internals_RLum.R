@@ -245,7 +245,7 @@
 #' Curve normalisation
 #'
 #' Details on the normalisation methods are specified in
-#' [Luminescence::plot_RLum.Data.Curve].
+#' [Luminescence::plot_RLum,RLum.Data.Curve-method].
 #'
 #' The function assumes that `NA` or other invalid values have already been
 #' removed by the caller function, and that the `norm` option has already

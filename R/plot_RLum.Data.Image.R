@@ -46,7 +46,7 @@
 #' always desirable; use `zlim_image` to maintain a particular value range over
 #' a series of images.
 #'
-#' @section Function version: 0.2.3
+#' @section Function version: 0.3.0
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -61,10 +61,9 @@
 #' data(ExampleData.RLum.Data.Image, envir = environment())
 #'
 #' ## plot data
-#' plot_RLum.Data.Image(ExampleData.RLum.Data.Image)
+#' plot_RLum(ExampleData.RLum.Data.Image)
 #'
-#' @export
-plot_RLum.Data.Image <- function(
+setMethod("plot_RLum", "RLum.Data.Image", function(
   object,
   frames = NULL,
   plot.type = c("plot.raster", "contour"),
@@ -75,7 +74,6 @@ plot_RLum.Data.Image <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-  .validate_class(object, "RLum.Data.Image")
   plot.type <- .validate_args(plot.type, c("plot.raster", "contour"))
 
   ## extract object
@@ -235,4 +233,4 @@ plot_settings <- modifyList(x = list(
     ## add mtext
     mtext(side = 3, plot_settings$mtext)
   }
-}
+})

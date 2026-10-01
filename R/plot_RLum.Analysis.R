@@ -56,8 +56,8 @@
 #' @param ... further arguments and graphical parameters will be passed to
 #' the `plot` function.
 #' Supported arguments: `main`, `mtext`, `log`, `lwd`, `lty` `type`, `pch`,
-#' `col`, `cex`, `norm` (see [Luminescence::plot_RLum.Data.Curve]), `sub`,
-#' `xlim`, `ylim`, `xlab`, `ylab`; for `combine = TRUE` also: `legend`,
+#' `col`, `cex`, `norm` (see [Luminescence::plot_RLum,RLum.Data.Curve-method]),
+#' `sub`, `xlim`, `ylim`, `xlab`, `ylab`; for `combine = TRUE` also: `legend`,
 #' `legend.text`, `legend.pos` (typical values plus 'outside'), `legend.col`,
 #' `smooth`.
 #'
@@ -75,12 +75,12 @@
 #' way you might expect them to work. This function was designed to serve as an overview
 #' plot, if you want to have more control, extract the objects and plot them individually.
 #'
-#' @section Function version: 0.3.17
+#' @section Function version: 0.4.0
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
-#' @seealso [plot], [Luminescence::plot_RLum], [Luminescence::plot_RLum.Data.Curve]
+#' @seealso [plot], [Luminescence::plot_RLum], [Luminescence::plot_RLum,RLum.Data.Curve-method]
 #'
 #' @keywords aplot
 #'
@@ -92,17 +92,16 @@
 #' temp <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 1)
 #'
 #' ## combine TL curves in one plot
-#' plot_RLum.Analysis(
+#' plot_RLum(
 #'   temp,
 #'   subset = list(recordType = "TL"),
 #'   combine = TRUE,
 #'   norm = TRUE,
 #'   smooth = TRUE,
 #'   abline = list(v = 110)
-#'  )
+#' )
 #'
-#' @export
-plot_RLum.Analysis <- function(
+setMethod("plot_RLum", signature = "RLum.Analysis", function(
   object,
   nrows = NULL,
   ncols = NULL,
@@ -118,7 +117,6 @@ plot_RLum.Analysis <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-  .validate_class(object, "RLum.Analysis")
   if (length(object) == 0) {
     .throw_message("Nothing to plot, NULL returned", error = FALSE)
     return(NULL)
@@ -327,8 +325,8 @@ plot_RLum.Analysis <- function(
 
           arguments[duplicated(names(arguments))] <- NULL
 
-        ##call the function plot_RLum.Data.Curve
-        do.call(what = "plot_RLum.Data.Curve", args = arguments)
+        ## call plot_RLum()
+        do.call(what = "plot_RLum", args = arguments)
         rm(arguments)
 
         ##add abline
@@ -344,7 +342,7 @@ plot_RLum.Analysis <- function(
           args <- args[!names(args) %in% c("object", "mtext", "par.local", "main")]
         }
 
-        do.call(what = paste0("plot_", class(temp[[i]])), args = c(list(
+        do.call("plot_RLum", args = c(list(
             object = temp[[i]],
             mtext = plot.settings$mtext[[i]] %||% paste0("#", i),
             par.local = FALSE,
@@ -591,4 +589,4 @@ plot_RLum.Analysis <- function(
       }
     }
   }
-}
+})

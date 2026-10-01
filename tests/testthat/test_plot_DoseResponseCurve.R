@@ -79,7 +79,7 @@ test_that("graphical snapshot tests", {
                                   fit_DoseResponseCurve(LxTxData,
                                                         fit.IndexRegPoints = 2:4)))
   vdiffr::expect_doppelganger("rlum.results",
-                              plot_RLum.Results(fit, main = "plot_RLum.Results"))
+                              plot_RLum(fit, main = "plot_RLum.Results"))
 
   ## De is NA
   df <- data.frame(DOSE = c(0, 5, 10, 20, 30),

@@ -34,12 +34,12 @@
 #'
 #' @note Not all arguments of [plot] will be passed!
 #'
-#' @section Function version: 0.4.1
+#' @section Function version: 0.5.0
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
-#' @seealso [plot], [Luminescence::plot_RLum]
+#' @seealso [plot], [Luminescence::plot_RLum], [Luminescence::normalise_RLum]
 #'
 #' @keywords aplot
 #'
@@ -49,10 +49,9 @@
 #'
 #' ## transform data.frame to RLum.Data.Curve object and plot it
 #' temp <- as(ExampleData.CW_OSL_Curve, "RLum.Data.Curve")
-#' plot_RLum.Data.Curve(temp)
+#' plot_RLum(temp)
 #'
-#' @export
-plot_RLum.Data.Curve<- function(
+setMethod("plot_RLum", signature = "RLum.Data.Curve", function(
   object,
   norm = FALSE,
   smooth = FALSE,
@@ -65,7 +64,6 @@ plot_RLum.Data.Curve<- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks  ------------------------------------------------------
-  .validate_class(object, "RLum.Data.Curve")
 
   ## check for NA values
   if(all(is.na(object@data))){
@@ -241,4 +239,4 @@ plot_RLum.Data.Curve<- function(
     ## plot additional mtext
     mtext(plot_settings$mtext, side = 3, cex = 0.8 * ifelse(par.local, extraArgs$cex, 1))
   }
-}
+})

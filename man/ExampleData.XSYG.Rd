@@ -74,18 +74,18 @@ plot_RLum(OSLcurve)
 ##(2) TL.Spectrum
 TL.Spectrum
 
-##plot simple spectrum (2D)
-plot_RLum.Data.Spectrum(TL.Spectrum,
-                        plot.type="contour",
-                        xlim = c(310,750),
-                        ylim = c(0,300),
-                        bin.rows=10,
-                        bin.cols = 1)
+## plot simple (2D) spectrum
+plot_RLum(TL.Spectrum,
+          plot.type = "contour",
+          xlim = c(310, 750),
+          ylim = c(0, 300),
+          bin.rows = 10,
+          bin.cols = 1)
 
-##plot 3d spectrum (uncomment for usage)
-# plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="persp",
-# xlim = c(310,750), ylim = c(0,300), bin.rows=10,
-# bin.cols = 1)
+## plot 3D spectrum (uncomment for usage)
+# plot_RLum(TL.Spectrum, plot.type = "persp",
+#           xlim = c(310, 750), ylim = c(0, 300),
+#           bin.rows = 10, bin.cols = 1)
 
 }
 \references{
@@ -99,8 +99,7 @@ Climatic Cycle. Boreas, 42, 664--677.
 }
 \seealso{
 \link{read_XSYG2R}, \link[=RLum.Analysis-class]{RLum.Analysis},
-\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum},
-\link{plot_RLum}, \link{plot_RLum.Analysis}, \link{plot_RLum.Data.Spectrum}
+\link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum}, \link{plot_RLum}
 }
 \keyword{datasets}
 \keyword{internal}

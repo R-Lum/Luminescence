@@ -1,21 +1,15 @@
 ## load data
+data(ExampleData.XSYG, envir = environment())
 obj <- set_RLum(class = "RLum.Analysis",
                 records = list(
                     set_RLum("RLum.Data.Curve", data = matrix(1:10, ncol = 2)),
                     set_RLum("RLum.Data.Curve", data = matrix(1:20, ncol = 2))))
 
-test_that("input validation", {
-  testthat::skip_on_cran()
-
-  expect_error(plot_RLum("error"),
-               "[plot_RLum()] 'object' should be of class 'RLum'",
-               fixed = TRUE)
-})
-
 test_that("empty objects", {
   testthat::skip_on_cran()
 
   expect_null(plot_RLum(list()))
+  expect_null(plot_RLum(iris))
   expect_message(plot_RLum(set_RLum("RLum.Analysis")),
                  "Nothing to plot, NULL returned")
   expect_silent(plot_RLum(set_RLum("RLum.Data.Curve")))
@@ -31,6 +25,15 @@ test_that("check functionality", {
   ## create dataset to test
   image <- as(array(rnorm(1000), dim = c(10,10,10)), "RLum.Data.Image")
   expect_silent(plot_RLum(image))
+
+  ## a 'matrix' is converted to an 'RLum.Data.Spectrum'; row and column names
+  ## are set automatically if not provided
+  expect_silent(expect_message(plot_RLum(TL.Spectrum@data),
+                               "Input has been converted to an 'RLum.Data.Spectrum'",
+                               fixed = TRUE))
+  expect_silent(expect_message(plot_RLum(unname(TL.Spectrum@data)),
+                               "Input has been converted to an 'RLum.Data.Spectrum'",
+                               fixed = TRUE))
 
   ## check list with different dispatched arguments
   image_short <- as(array(rnorm(100), dim = c(10, 10, 1)), "RLum.Data.Image")
@@ -51,6 +54,10 @@ test_that("check functionality", {
   ## subset
   expect_silent(plot_RLum(list(obj), main = list("test", "test2"),
                           mtext = "test", subset = NA))
+
+  ## a list is plotted element by element, non-RLum elements are dropped
+  expect_silent(plot_RLum(list(object[[1]]@records[[1]], "a", image)))
+  expect_null(plot_RLum(list("a", "b")))
 })
 
 test_that("graphical snapshot tests", {

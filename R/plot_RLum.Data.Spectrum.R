@@ -135,7 +135,7 @@
 #'
 #' @param norm [logical] or [character] (*optional*):
 #' if logical, whether curve normalisation should occur (`FALSE` by default);
-#' alternatively, one of the values detailed in [Luminescence::plot_RLum.Data.Curve].
+#' alternatively, one of the values detailed in [Luminescence::plot_RLum,RLum.Data.Curve-method].
 #' The normalisation is applied after binning.
 #'
 #' @param rug [logical] (*with default*):
@@ -175,7 +175,7 @@
 #'
 #' @note Not all additional arguments (`...`) will be passed similarly!
 #'
-#' @section Function version: 0.6.19
+#' @section Function version: 0.7.0
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
@@ -191,7 +191,7 @@
 #' data(ExampleData.XSYG, envir = environment())
 #'
 #' ## (1)plot simple spectrum (2D) - image
-#' plot_RLum.Data.Spectrum(
+#' plot_RLum(
 #'  TL.Spectrum,
 #'  plot.type = "image",
 #'  xlim = c(310, 750),
@@ -200,7 +200,7 @@
 #'  bin.cols = 1)
 #'
 #' ## (2) plot spectrum (3D)
-#' plot_RLum.Data.Spectrum(
+#' plot_RLum(
 #'   TL.Spectrum,
 #'   plot.type = "persp",
 #'   xlim = c(310, 750),
@@ -210,7 +210,7 @@
 #'
 #' ## (3) plot spectrum on energy axis
 #' ## please note the background subtraction
-#' plot_RLum.Data.Spectrum(TL.Spectrum,
+#' plot_RLum(TL.Spectrum,
 #'   plot.type = "persp",
 #'   ylim = c(0, 200),
 #'   bin.rows = 10,
@@ -219,7 +219,7 @@
 #'   xaxis.energy = TRUE)
 #'
 #' ## (4) plot multiple lines (2D) - multiple.lines (with ylim)
-#' plot_RLum.Data.Spectrum(
+#' plot_RLum(
 #'  TL.Spectrum,
 #'  plot.type = "multiple.lines",
 #'  xlim = c(310, 750),
@@ -229,22 +229,21 @@
 #'
 #' \dontrun{
 #' ## (5) interactive plot using the package plotly ("surface")
-#' plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "interactive",
+#' plot_RLum(TL.Spectrum, plot.type = "interactive",
 #'   xlim = c(310, 750), ylim = c(0, 300), bin.rows = 10, bin.cols = 1)
 #'
 #' ## (6) interactive plot using the package plotly ("contour")
-#' plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "interactive",
+#' plot_RLum(TL.Spectrum, plot.type = "interactive",
 #'   xlim = c(310, 750), ylim = c(0, 300), bin.rows = 10, bin.cols = 1,
 #'   type = "contour", showscale = TRUE)
 #'
 #' ## (7) interactive plot using the package plotly ("heatmap")
-#' plot_RLum.Data.Spectrum(TL.Spectrum, plot.type = "interactive",
+#' plot_RLum(TL.Spectrum, plot.type = "interactive",
 #'   xlim = c(310, 750), ylim = c(0, 300), bin.rows = 10, bin.cols = 1,
 #'   type = "heatmap", showscale = TRUE)
 #' }
 #'
-#' @export
-plot_RLum.Data.Spectrum <- function(
+setMethod("plot_RLum", signature = "RLum.Data.Spectrum", function(
   object,
   plot.type = c("contour", "persp", "single", "multiple.lines",
                 "image", "transect", "interactive"),
@@ -265,21 +264,6 @@ plot_RLum.Data.Spectrum <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## Integrity checks -------------------------------------------------------
-  .validate_class(object, c("RLum.Data.Spectrum", "matrix"))
-
-  if (inherits(object, "matrix")) {
-    if (is.null(colnames(object))) {
-      colnames(object) <- seq_len(ncol(object))
-    }
-    if (is.null(rownames(object))) {
-      rownames(object) <- seq_len(nrow(object))
-    }
-
-    object <- set_RLum(class = "RLum.Data.Spectrum", data = object)
-    .throw_message("Input has been converted to an 'RLum.Data.Spectrum' ",
-                   "object using set_RLum()", error = FALSE)
-  }
-
   if (length(object@data) < 2) {
     .throw_error("'object' contains no data")
   }
@@ -1145,4 +1129,4 @@ attr(temp.xyz, "pmat") <- pmat
   if (plot)
     return(invisible(temp.xyz))
   return(temp.xyz)
-}
+})

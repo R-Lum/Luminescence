@@ -75,6 +75,6 @@ test_that("check functionality", {
   # ##RLum.Data.Spectrum
   # object <- set_RLum(class = "RLum.Data.Spectrum", data = data[,1,drop = FALSE])
   # par(mfrow = c(1,2))
-  # plot_RLum.Data.Spectrum(object, plot.type = "single", par.local = FALSE)
-  # plot_RLum.Data.Spectrum(convert_Wavelength2Energy(object), plot.type = "single", par.local = FALSE)
+  # plot_RLum(object, plot.type = "single", par.local = FALSE)
+  # plot_RLum(convert_Wavelength2Energy(object), plot.type = "single", par.local = FALSE)
 })

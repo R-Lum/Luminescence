@@ -41,7 +41,7 @@ test_that("check functionality", {
     calib.error = 0.0019,
     predict = 150
   ))
-  expect_silent(plot_RLum.Results(t))
+  expect_silent(plot_RLum(t))
 
   t <- expect_silent(calc_SourceDoseRate(
     measurement.date = "2018-01-02",
@@ -50,7 +50,7 @@ test_that("check functionality", {
     calib.error = 0.0019,
     predict = c(-100, 150)
   ))
-  expect_silent(plot_RLum.Results(t))
+  expect_silent(plot_RLum(t))
 
   ##Gy/min as unit
   expect_silent(calc_SourceDoseRate(
@@ -113,20 +113,20 @@ test_that("graphical snapshot tests", {
                                                   calib.date = "2014-12-19",
                                                   calib.dose.rate = 0.0438,
                                                   calib.error = 0.0019) |>
-                              plot_RLum.Results())
+                              plot_RLum())
   vdiffr::expect_doppelganger("predict",
                               calc_SourceDoseRate(measurement.date = "2018-01-02",
                                                   calib.date = "2014-12-19",
                                                   calib.dose.rate = 0.0438,
                                                   calib.error = 0.0019,
                                                   predict = 10) |>
-                              plot_RLum.Results())
+                              plot_RLum())
   vdiffr::expect_doppelganger("predict interval",
                               calc_SourceDoseRate(measurement.date = "2018-01-02",
                                                   calib.date = "2014-12-19",
                                                   calib.dose.rate = 0.0438,
                                                   calib.error = 0.0019,
                                                   predict = c(-20, 10)) |>
-                              plot_RLum.Results())
+                              plot_RLum())
   })
 })

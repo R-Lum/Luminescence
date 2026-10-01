@@ -9,18 +9,16 @@ osl.bin.gy@info$IRR_UNIT <- 1
 test_that("input validation", {
   testthat::skip_on_cran()
 
-  expect_error(plot_RLum.Data.Curve("error"),
-               "'object' should be of class 'RLum.Data.Curve'")
-  expect_error(plot_RLum.Data.Curve(temp, norm = "error"),
+  expect_error(plot_RLum(temp, norm = "error"),
                "'norm' should be one of 'max', 'min', 'first', 'last', 'huot' or 'intensity'")
-  expect_error(plot_RLum.Data.Curve(temp, norm = -2),
+  expect_error(plot_RLum(temp, norm = -2),
                "'norm' should be a single positive value or one of 'max', 'min'")
 
   temp_NA <- temp
   temp_NA@data[] <- suppressWarnings(NA_real_)
-  expect_warning(expect_null(plot_RLum.Data.Curve(temp_NA)),
+  expect_warning(expect_null(plot_RLum(temp_NA)),
                  "Curve contains only NA-values, nothing plotted")
-  expect_warning(plot_RLum.Data.Curve(set_RLum("RLum.Data.Curve"), norm = TRUE),
+  expect_warning(plot_RLum(set_RLum("RLum.Data.Curve"), norm = TRUE),
                  "Curve normalisation produced Inf/NaN values, values replaced by 0")
 })
 
@@ -28,34 +26,34 @@ test_that("check functionality", {
   testthat::skip_on_cran()
 
   ## run function with various conditions
-  expect_silent(plot_RLum.Data.Curve(temp))
-  expect_silent(plot_RLum.Data.Curve(temp, norm = TRUE))
-  expect_silent(plot_RLum.Data.Curve(temp, norm = "max"))
-  expect_silent(plot_RLum.Data.Curve(temp, norm = "last"))
-  expect_silent(plot_RLum.Data.Curve(temp, norm = "huot"))
-  expect_silent(plot_RLum.Data.Curve(temp, norm = "intensity"))
-  expect_silent(plot_RLum.Data.Curve(temp, main = "title", col = "red"))
-  expect_silent(plot_RLum.Data.Curve(temp, auto_scale = TRUE, xlim = c(10,20)))
-  expect_silent(plot_RLum.Data.Curve(temp, auto_scale = TRUE, ylim = c(1,200)))
-  expect_silent(plot_RLum.Data.Curve(temp, smooth = TRUE))
-  expect_silent(plot_RLum.Data.Curve(temp, par.local = FALSE))
+  expect_silent(plot_RLum(temp))
+  expect_silent(plot_RLum(temp, norm = TRUE))
+  expect_silent(plot_RLum(temp, norm = "max"))
+  expect_silent(plot_RLum(temp, norm = "last"))
+  expect_silent(plot_RLum(temp, norm = "huot"))
+  expect_silent(plot_RLum(temp, norm = "intensity"))
+  expect_silent(plot_RLum(temp, main = "title", col = "red"))
+  expect_silent(plot_RLum(temp, auto_scale = TRUE, xlim = c(10,20)))
+  expect_silent(plot_RLum(temp, auto_scale = TRUE, ylim = c(1,200)))
+  expect_silent(plot_RLum(temp, smooth = TRUE))
+  expect_silent(plot_RLum(temp, par.local = FALSE))
 
   temp@recordType <- "OSL"
   temp@info <- list(interval = 1)
-  expect_silent(plot_RLum.Data.Curve(temp))
+  expect_silent(plot_RLum(temp))
   temp@recordType <- "TL"
   temp@info <- list(curveDescripter = "xlab;ylab", RATE = 2)
-  expect_silent(plot_RLum.Data.Curve(temp))
+  expect_silent(plot_RLum(temp))
 })
 
 test_that("check interactive mode", {
   testthat::skip_on_cran()
 
   ## simple plot
-  expect_silent(plot_RLum.Data.Curve(temp, interactive = TRUE))
+  expect_silent(plot_RLum(temp, interactive = TRUE))
 
   ## with arguments
-  expect_silent(plot_RLum.Data.Curve(
+  expect_silent(plot_RLum(
     object = temp,
     interactive = TRUE,
     lty = 2,
@@ -69,18 +67,18 @@ test_that("graphical snapshot tests", {
 
   SW({
   vdiffr::expect_doppelganger("default",
-                              plot_RLum.Data.Curve(temp))
+                              plot_RLum(temp))
   vdiffr::expect_doppelganger("autoscale-xlim-smooth",
-                              plot_RLum.Data.Curve(temp, auto_scale = TRUE,
+                              plot_RLum(temp, auto_scale = TRUE,
                                                    xlim = c(10, 20),
                                                    smooth = TRUE))
   vdiffr::expect_doppelganger("autoscale-ylim-mtext-cex",
-                              plot_RLum.Data.Curve(temp, auto_scale = TRUE,
+                              plot_RLum(temp, auto_scale = TRUE,
                                                    ylim = c(1, 200),
                                                    mtext = "Test", cex = 2))
   vdiffr::expect_doppelganger("bin",
-                              plot_RLum.Data.Curve(osl.bin))
+                              plot_RLum(osl.bin))
   vdiffr::expect_doppelganger("bin gy",
-                              plot_RLum.Data.Curve(osl.bin.gy))
+                              plot_RLum(osl.bin.gy))
   })
 })

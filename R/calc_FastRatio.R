@@ -398,7 +398,7 @@ calc_FastRatio <- function(object,
 
     ## Plotting -------------------------------------------------------------
     if (plot)
-      try(plot_RLum.Results(fast.ratio, ...))
+      try(plot_RLum(fast.ratio, ...))
 
     # return
     return(fast.ratio)

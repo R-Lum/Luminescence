@@ -58,7 +58,7 @@ object = temp,
 recordType = "TL",
 trim_range = c(10,20))
 
-plot_RLum.Analysis(
+plot_RLum(
 object = c,
 combine = TRUE,
 subset = list(recordType = "TL"))
@@ -70,7 +70,6 @@ temp@records[[2]]@data <- temp@records[[2]]@data[-nrow(temp[[2]]@data),]
 
 c <- trim_RLum.Data(object = temp)
 nrow(c@records[[4]]@data)
-
 
 }
 \seealso{

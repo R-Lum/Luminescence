@@ -659,6 +659,122 @@ setMethod("normalise_RLum", signature = "list",
           })
 
 
+## plot_RLum() --------------------------------------------------------------
+#' @title Plotting of RLum-class objects
+#'
+#' @description
+#' The function plots [Luminescence::RLum-class] objects by selecting the
+#' function that corresponds to the class of the input object; each of these
+#' functions comes with its own set of arguments, which are documented along
+#' with the respective function:
+#'
+#' - For [Luminescence::RLum.Analysis-class] objects:
+#' [Luminescence::plot_RLum,RLum.Analysis-method]
+#' - For [Luminescence::RLum.Data.Curve-class] objects:
+#' [Luminescence::plot_RLum,RLum.Data.Curve-method]
+#' - For [Luminescence::RLum.Data.Spectrum-class] objects:
+#' [Luminescence::plot_RLum,RLum.Data.Spectrum-method]
+#' - For [Luminescence::RLum.Data.Image-class] objects:
+#' [Luminescence::plot_RLum,RLum.Data.Image-method]
+#' - For [Luminescence::RLum.Results-class] objects:
+#' [Luminescence::plot_RLum,RLum.Results-method]
+#'
+#' @param object [Luminescence::RLum-class] (**required**):
+#' object of class [Luminescence::RLum-class] or a list of such objects. If a
+#' list is provided, the function tries to plot every object in the list
+#' according to its `RLum` class, after removing non-RLum objects.
+#'
+#' @param ... further arguments and graphical parameters to pass to the
+#' specific plot functions. The only arguments that are supported directly are
+#' `main` (plot title) and `mtext` (plot subtitle), which can be provided as a
+#' list and the arguments in the list will be dispatched to the plots if
+#' `object` is of type `list` as well.
+#'
+#' @return
+#' Produces a plot depending on the input object.
+#'
+#' @section Function version: 0.7.0
+#'
+#' @author
+#' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
+#'
+#' @keywords dplot
+#'
+#' @examples
+#' ## load example data
+#' data(ExampleData.CW_OSL_Curve, envir = environment())
+#'
+#' ## transform data.frame to RLum.Data.Curve object and plot it
+#' temp <- as(ExampleData.CW_OSL_Curve, "RLum.Data.Curve")
+#' plot_RLum(temp)
+#'
+#' @export
+setGeneric("plot_RLum", function(object, ...) {
+  standardGeneric("plot_RLum")
+})
+
+#' @describeIn plot_RLum
+#' Plot method for a list of [Luminescence::RLum-class] objects: after
+#' flattening sublists and removing non-RLum objects, each object is plotted
+#' according to its class. `main` and `mtext` can be provided as a list to
+#' specify different titles/subtitles for each object.
+#' @export
+setMethod("plot_RLum", "list", function(object, ...) {
+  .set_function_name("plot_RLum")
+  on.exit(.unset_function_name(), add = TRUE)
+
+  ## we might have plenty of sublists before we reach the list containing
+  ## only RLum-objects
+  object <- .rm_nonRLum(.unlist_RLum(object))
+
+  ## return early if there is nothing to plot
+  if (length(object) == 0)
+    return(NULL)
+
+  extraArgs <- list(...)
+
+  ## allow for different plot titles
+  main <- if (is.null(extraArgs$main))
+            NULL
+          else
+            .listify(extraArgs$main, length(object))
+
+  ## allow for different subtitles
+  mtext <- NULL
+  if (!is.null(extraArgs$mtext)) {
+    mtext <- .listify(extraArgs$mtext, length(object))
+  } else if (inherits(object[[1]], "RLum.Analysis")) {
+    mtext <- paste("Record:", 1:length(object))
+  }
+
+  for (i in seq_along(object)) {
+    plot_RLum(object = object[[i]],
+              main = main[[i]],
+              mtext = mtext[[i]],
+              ...)
+  }
+})
+
+#' @describeIn plot_RLum
+#' A `matrix` containing count values of the spectrum. Note that row and column
+#' names are set automatically if not provided.
+setMethod("plot_RLum", "matrix", function(object, ...) {
+  .set_function_name("plot_RLum")
+  on.exit(.unset_function_name(), add = TRUE)
+
+  if (is.null(rownames(object)))
+    rownames(object) <- seq_len(nrow(object))
+  if (is.null(colnames(object)))
+    colnames(object) <- seq_len(ncol(object))
+
+  object <- set_RLum(class = "RLum.Data.Spectrum", data = object)
+  .throw_message("Input has been converted to an 'RLum.Data.Spectrum' ",
+                 "object using set_RLum()", error = FALSE)
+  plot_RLum(object, ...)
+})
+
+
 ## remove_RLum() ------------------------------------------------------------
 #' @title Strips records from RLum-class objects
 #'

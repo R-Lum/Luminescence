@@ -859,8 +859,7 @@ NULL
 #' @section Version: 0.1
 #'
 #' @seealso [Luminescence::read_XSYG2R], [Luminescence::RLum.Analysis-class],
-#' [Luminescence::RLum.Data.Spectrum-class],
-#' [Luminescence::plot_RLum], [Luminescence::plot_RLum.Analysis], [Luminescence::plot_RLum.Data.Spectrum]
+#' [Luminescence::RLum.Data.Spectrum-class], [Luminescence::plot_RLum]
 #'
 #' @references
 #' Unpublished data measured to serve as example data for that
@@ -916,18 +915,18 @@ NULL
 #' ##(2) TL.Spectrum
 #' TL.Spectrum
 #'
-#' ##plot simple spectrum (2D)
-#' plot_RLum.Data.Spectrum(TL.Spectrum,
-#'                         plot.type="contour",
-#'                         xlim = c(310,750),
-#'                         ylim = c(0,300),
-#'                         bin.rows=10,
-#'                         bin.cols = 1)
+#' ## plot simple (2D) spectrum
+#' plot_RLum(TL.Spectrum,
+#'           plot.type = "contour",
+#'           xlim = c(310, 750),
+#'           ylim = c(0, 300),
+#'           bin.rows = 10,
+#'           bin.cols = 1)
 #'
-#' ##plot 3d spectrum (uncomment for usage)
-#' # plot_RLum.Data.Spectrum(TL.Spectrum, plot.type="persp",
-#' # xlim = c(310,750), ylim = c(0,300), bin.rows=10,
-#' # bin.cols = 1)
+#' ## plot 3D spectrum (uncomment for usage)
+#' # plot_RLum(TL.Spectrum, plot.type = "persp",
+#' #           xlim = c(310, 750), ylim = c(0, 300),
+#' #           bin.rows = 10, bin.cols = 1)
 #'
 #' @name ExampleData.XSYG
 #' @aliases OSL.SARMeasurement TL.Spectrum

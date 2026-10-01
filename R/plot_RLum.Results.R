@@ -23,7 +23,7 @@
 #' Not all arguments available for [plot] will be passed!
 #' Only plotting of `RLum.Results` objects are supported.
 #'
-#' @section Function version: 0.2.2
+#' @section Function version: 0.3.0
 #'
 #' @author
 #' Christoph Burow, University of Cologne (Germany) \cr
@@ -40,15 +40,14 @@
 #' ## apply the un-logged minimum age model
 #' mam <- calc_MinDose(data = ExampleData.DeValues$CA1, sigmab = 0.2,
 #'                     log = FALSE, plot = FALSE)
-#' plot_RLum.Results(mam)
+#' plot_RLum(mam)
 #'
 #' ## estimate the number of grains on an aliquot
 #' grains <- calc_AliquotSize(grain.size = c(100, 150), sample.diameter = 1,
 #'                            plot = FALSE, MC.iter = 100)
-#' plot_RLum.Results(grains)
+#' plot_RLum(grains)
 #'
-#' @export
-plot_RLum.Results<- function(
+setMethod("plot_RLum", signature = "RLum.Results", function(
   object,
   single = TRUE,
   ...
@@ -56,11 +55,7 @@ plot_RLum.Results<- function(
   .set_function_name("plot_RLum.Results")
   on.exit(.unset_function_name(), add = TRUE)
 
-  ##============================================================================##
-  ## CONSISTENCY CHECK OF INPUT DATA
-  ##============================================================================##
-
-  .validate_class(object, "RLum.Results")
+  ## Integrity checks -------------------------------------------------------
   if (is.na(object@originator)) {
     .validate_originator(object, c("analyse_SAR.CWOSL",
                                    "analyse_IRSAR.RF",
@@ -703,4 +698,4 @@ plot_RLum.Results<- function(
          labels = expression('L'[1], 'L'[2], 'L'[3['start']], 'L'[3['end']]))
 
   }#EndOf::Case7 - calc_FastRatio()
-}
+})
