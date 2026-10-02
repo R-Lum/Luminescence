@@ -24,8 +24,8 @@
 #'
 #' This document summarises all implemented S3-generics. The name of the function
 #' is given before the first dot, after the dot the name of the object that is
-#' supported by this method is given, e.g. `plot.RLum.Data.Curve` can be called
-#' by `plot(object, ...)`, where `object` is the `RLum.Data.Curve` object.
+#' supported by this method is given, e.g. `plot.RLum()` can be called
+#' by `plot(object, ...)`, where `object` is an `RLum` object.
 #'
 #' The term S3-generics sounds complicated, however, it just means that something
 #' has been implemented in the package to increase the usability for users new
@@ -169,23 +169,6 @@ subset.Risoe.BINfileData <- function(x, subset, records.rm = TRUE, ...) {
 subset.RLum.Analysis <- function(x, subset = NULL, ...) {
   do.call(get_RLum, list(object = x, drop = FALSE, subset = substitute(subset),
                          env = parent.frame(), verbose = list(...)$verbose %||% TRUE))
-}
-
-## bin() --------------------------------------------------------------------
-#' @rdname methods_RLum
-#' @export
-bin <- function(x, ...) {
-  UseMethod("bin")
-}
-
-#' @rdname methods_RLum
-#' @export
-bin.RLum.Data.Curve <- function(x, bin_size = 2, ...) bin_RLum.Data(x, bin_size = bin_size)
-
-#' @rdname methods_RLum
-#' @export
-bin.RLum.Data.Spectrum <- function(x, bin_size.row = 1, bin_size.col = 1, ...){
-  bin_RLum.Data(x, bin_size.row = bin_size.row, bin_size.col = bin_size.col)
 }
 
 

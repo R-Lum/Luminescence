@@ -7,9 +7,6 @@
 \alias{plot.Risoe.BINfileData}
 \alias{subset.Risoe.BINfileData}
 \alias{subset.RLum.Analysis}
-\alias{bin}
-\alias{bin.RLum.Data.Curve}
-\alias{bin.RLum.Data.Spectrum}
 \alias{rep.RLum}
 \alias{row.names.RLum.Data.Spectrum}
 \alias{as.data.frame.RLum.Data}
@@ -42,12 +39,6 @@
 \method{subset}{Risoe.BINfileData}(x, subset, records.rm = TRUE, ...)
 
 \method{subset}{RLum.Analysis}(x, subset = NULL, ...)
-
-bin(x, ...)
-
-\method{bin}{RLum.Data.Curve}(x, bin_size = 2, ...)
-
-\method{bin}{RLum.Data.Spectrum}(x, bin_size.row = 1, bin_size.col = 1, ...)
 
 \method{rep}{RLum}(x, ...)
 
@@ -138,8 +129,8 @@ numeric value which replace the value in the \link[=RLum.Data.Curve-class]{RLum.
 \description{
 This document summarises all implemented S3-generics. The name of the function
 is given before the first dot, after the dot the name of the object that is
-supported by this method is given, e.g. \code{plot.RLum.Data.Curve} can be called
-by \code{plot(object, ...)}, where \code{object} is the \code{RLum.Data.Curve} object.
+supported by this method is given, e.g. \code{plot.RLum()} can be called
+by \code{plot(object, ...)}, where \code{object} is an \code{RLum} object.
 }
 \details{
 The term S3-generics sounds complicated, however, it just means that something

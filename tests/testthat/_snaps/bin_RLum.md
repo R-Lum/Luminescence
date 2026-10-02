@@ -104,3 +104,141 @@
       }
     }
 
+---
+
+    {
+      "type": "S4",
+      "attributes": {
+        "recordType": {
+          "type": "character",
+          "attributes": {},
+          "value": ["Spectrum"]
+        },
+        "curveType": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        "data": {
+          "type": "integer",
+          "attributes": {
+            "dim": {
+              "type": "integer",
+              "attributes": {},
+              "value": [5, 20]
+            },
+            "dimnames": {
+              "type": "list",
+              "attributes": {},
+              "value": [
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["1.5", "3.5", "5.5", "7.5", "9.5"]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"]
+                }
+              ]
+            }
+          },
+          "value": [2, 2, 2, 2, 2, 4, 4, 4, 4, 4, 6, 6, 6, 6, 6, 8, 8, 8, 8, 8, 10, 10, 10, 10, 10, 12, 12, 12, 12, 12, 14, 14, 14, 14, 14, 16, 16, 16, 16, 16, 18, 18, 18, 18, 18, 20, 20, 20, 20, 20, 22, 22, 22, 22, 22, 24, 24, 24, 24, 24, 26, 26, 26, 26, 26, 28, 28, 28, 28, 28, 30, 30, 30, 30, 30, 32, 32, 32, 32, 32, 34, 34, 34, 34, 34, 36, 36, 36, 36, 36, 38, 38, 38, 38, 38, 40, 40, 40, 40, 40]
+        },
+        "info": {
+          "type": "list",
+          "attributes": {},
+          "value": []
+        },
+        "originator": {
+          "type": "character",
+          "attributes": {},
+          "value": ["eval"]
+        },
+        ".uid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        ".pid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        }
+      },
+      "value": {
+        "class": "RLum.Data.Spectrum",
+        "package": "Luminescence"
+      }
+    }
+
+---
+
+    {
+      "type": "S4",
+      "attributes": {
+        "recordType": {
+          "type": "character",
+          "attributes": {},
+          "value": ["Spectrum"]
+        },
+        "curveType": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        "data": {
+          "type": "integer",
+          "attributes": {
+            "dim": {
+              "type": "integer",
+              "attributes": {},
+              "value": [10, 10]
+            },
+            "dimnames": {
+              "type": "list",
+              "attributes": {},
+              "value": [
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+                },
+                {
+                  "type": "character",
+                  "attributes": {},
+                  "value": ["2", "4", "6", "8", "10", "12", "14", "16", "18", "20"]
+                }
+              ]
+            }
+          },
+          "value": [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 19, 19, 19, 19, 19, 19, 19, 19, 19, 19, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 31, 31, 31, 31, 31, 31, 31, 31, 31, 31, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39]
+        },
+        "info": {
+          "type": "list",
+          "attributes": {},
+          "value": []
+        },
+        "originator": {
+          "type": "character",
+          "attributes": {},
+          "value": ["eval"]
+        },
+        ".uid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        ".pid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        }
+      },
+      "value": {
+        "class": "RLum.Data.Spectrum",
+        "package": "Luminescence"
+      }
+    }
+
