@@ -1,7 +1,8 @@
+bin.v3 <- test_path("_data/BINfile_V3.bin")
+
 test_that("input validation", {
   testthat::skip_on_cran()
 
-  bin.v3 <- test_path("_data/BINfile_V3.bin")
 
   expect_error(read_BIN2R(TRUE),
                "'file' should be of class 'character' or 'list'")
@@ -18,8 +19,6 @@ test_that("input validation", {
                "BIN/BINX format version (01) is not supported or file is broken",
                fixed = TRUE)
   SW({
-  expect_warning(read_BIN2R(bin.v3, position = 99),
-                 "At least one position number is not valid")
   expect_message(read_BIN2R(bin.v3, forced.VersionNumber = 3),
                  "'forced.VersionNumber' set to 03, but this version")
   })
@@ -116,11 +115,11 @@ test_that("test the import of various BIN-file versions", {
 
   expect_message(res <- read_BIN2R(bin.v8, txtProgressBar = FALSE,
                                    position = 2),
-                 "Kept records matching 'position': 2")
+                 "Kept records at position 2")
   expect_equal(length(res@.RESERVED), nrow(res@METADATA))
   expect_message(res <- read_BIN2R(bin.v8, txtProgressBar = FALSE,
-                                   position = 1, fastForward = TRUE),
-                 "Kept records matching 'position': 1")
+                                   position = 1:2, fastForward = TRUE),
+                 "Kept records at position 1, 2")
   expect_type(res, "list")
 
     ## test n.records argument
@@ -160,6 +159,19 @@ test_that("test the import of various BIN-file versions", {
                          txtProgressBar = FALSE, n.records = 1,
                          fastForward = TRUE, verbose = FALSE),
               "list")
+
+  ## position
+  SW({
+  expect_warning(expect_message(res <- read_BIN2R(bin.v3, position = c(1, 99)),
+                                "Kept records at position 1"),
+                 "At least one position number is not valid (99)",
+                 fixed = TRUE)
+  expect_length(res, 1)
+  expect_warning(res <- read_BIN2R(bin.v3, position = c(88, 99)),
+                 "At least one position number is not valid (88, 99)",
+                 fixed = TRUE)
+  expect_length(res, 0)
+  })
 
   ## options to Risoe.BINfileData2RLum.Analysis
   expect_warning(read_BIN2R(bin.v8, fastForward = FALSE, protocol = "test"),

@@ -122,6 +122,12 @@ one input files or directories (#1753).
 * The function could get trapped in an infinite loop if any records declares
 to have size 0 (#1759).
 
+* If `position` was specified but not all the provided positions were present
+in the file, then all curves were returned instead of only those with matching
+positions. Now `position` is always respected, even when no positions match,
+in which case an empty object is returned (#1784; thanks to Annette Kadereit
+for reporting).
+
 ### `read_XSYG2R()`
 
 * The `pattern` argument is now validated to be a single string to avoid the

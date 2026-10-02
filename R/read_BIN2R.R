@@ -1049,23 +1049,24 @@ read_BIN2R <- function(
 
   ## check if only the specified positions should be returned
   if(!is.null(position)){
-
-    ##check whether the position is valid at all
-    if (results.METADATA[, all(position %in% POSITION)]) {
-      keep.positions <- results.METADATA[, POSITION %in% position]
-      results.METADATA <- results.METADATA[(keep.positions), ]
-      results.DATA <- results.DATA[keep.positions]
-      results.RESERVED <- results.RESERVED[keep.positions]
-
-      if (verbose) {
-        .throw_message("Kept records matching 'position': ",
-                       .collapse(position, quote = FALSE), error = FALSE)
-      }
-    }else{
-      .throw_warning("At least one position number is not valid, ",
-                     "valid position numbers are: ",
-                     .collapse(results.METADATA[, unique(POSITION)],
+    matches <- results.METADATA[, position %in% POSITION]
+    if (any(!matches)) {
+      .throw_warning("At least one position number is not valid (",
+                     toString(position[!matches]),
+                     "), valid position numbers are: ",
+                     .collapse(results.METADATA[, sort(unique(POSITION))],
                                quote = FALSE))
+    }
+
+    ## subset the data according to the matching positions
+    keep.positions <- results.METADATA[, POSITION %in% position]
+    results.METADATA <- results.METADATA[(keep.positions), ]
+    results.DATA <- results.DATA[keep.positions]
+    results.RESERVED <- results.RESERVED[keep.positions]
+
+    if (verbose && any(matches)) {
+      .throw_message("Kept records at position ",
+                     toString(position[matches]), error = FALSE)
     }
   }
 
