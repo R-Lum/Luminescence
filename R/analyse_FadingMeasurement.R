@@ -902,21 +902,22 @@ analyse_FadingMeasurement <- function(
   # Terminal ------------------------------------------------------------------------------------
   if (verbose){
     cat("\n[analyse_FadingMeasurement()]\n")
-    cat("\n n.MC:\t", n.MC)
-    cat("\n tc:\t", format(tc, digits = 4, scientific = TRUE), "s")
-    cat("\n---------------------------------------------------")
-    cat("\nT_0.5 interpolated:\t", T_0.5$T_0.5_INTERPOLATED)
-    cat("\nT_0.5 predicted:\t", format(T_0.5$T_0.5_PREDICTED, digits = 2, scientific = TRUE))
-    cat("\ng-value:\t\t", round(g_value$FIT, digits = 2),
-        "\u00b1", round(g_value$SD, digits = 2), "(%/decade)")
-    cat("\ng-value (norm. 2 days):\t", round(g_value_2days[1], digits = 2),
-        "\u00b1", round(g_value_2days[2], digits = 2), "(%/decade)")
-    cat("\n---------------------------------------------------")
-    cat("\nrho':\t\t\t", format(rhoPrime$MEAN, digits = 3),
-        "\u00b1", format(rhoPrime$SD, digits = 3))
-    cat("\nlog10(rho'):\t\t", suppressWarnings(round(log10(rhoPrime$MEAN), 2)),
-        "\u00b1", round(rhoPrime$SD / (rhoPrime$MEAN * log(10)), 2))
-    cat("\n---------------------------------------------------\n")
+    .cat_result("n.MC:", n.MC)
+    .cat_result("tc [s]:", format(tc, digits = 4, scientific = TRUE))
+    cat("\n ----------------------------------------------")
+    .cat_result("T_0.5 interpolated:", T_0.5$T_0.5_INTERPOLATED)
+    .cat_result("T_0.5 predicted:", format(T_0.5$T_0.5_PREDICTED, digits = 2, scientific = TRUE))
+    .cat_result("g-value [%/decade]:", g_value$FIT, g_value$SD)
+    .cat_result("g-value (norm. 2 days) [%/decade]:",
+                g_value_2days[1], g_value_2days[2])
+    cat("\n ----------------------------------------------")
+    .cat_result("rho':",
+                paste(format(rhoPrime$MEAN, digits = 3),
+                      "\u00b1", format(rhoPrime$SD, digits = 3)))
+    suppressWarnings(
+    .cat_result("log10(rho'):", log10(rhoPrime$MEAN), rhoPrime$SD / (rhoPrime$MEAN * log(10)))
+    )
+    cat("\n ----------------------------------------------\n")
   }
 
   # Return --------------------------------------------------------------------------------------

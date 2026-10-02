@@ -7,16 +7,16 @@
      >> Fading correction according to Huntley & Lamothe (2001)
      >> g-value re-calculated for the given tc
     
-     .. used g-value:	4.802 ± 0.992 %/decade
-     .. used tc:		8.214e-07 ka
-     .. used kappa:		0.0209 ± 0.0043
+     used g-value [%/decade]:   4.802 ± 0.992
+     used tc [ka]:              8.214e-07
+     used kappa:                0.0209 ± 0.0043
      ----------------------------------------------
-     seed: 			 NA
-     n.MC: 			20
-     observations: 		20
+     seed:                      NA
+     n.MC:                      20
+     observations:              20
      ----------------------------------------------
-     Age (faded):		1 ka ± 0 ka
-     Age (corr.):		1.3854 ka ± 0.1038 ka
+     Age (faded) [ka]:          1 ± 0
+     Age (corr.) [ka]:          1.3854 ± 0.1038
      ---------------------------------------------- 
 
 ---
@@ -170,16 +170,16 @@
      >> Fading correction according to Huntley & Lamothe (2001)
      >> g-value re-calculated for the given tc
     
-     .. used g-value:	5.312 ± 1.012 %/decade
-     .. used tc:		8.214e-05 ka
-     .. used kappa:		0.0231 ± 0.0044
+     used g-value [%/decade]:   5.312 ± 1.012
+     used tc [ka]:              8.214e-05
+     used kappa:                0.0231 ± 0.0044
      ----------------------------------------------
-     seed: 			 NA
-     n.MC: 			20
-     observations: 		20
+     seed:                      NA
+     n.MC:                      20
+     observations:              20
      ----------------------------------------------
-     Age (faded):		10 ka ± 0 ka
-     Age (corr.):		13.402 ka ± 0.8167 ka
+     Age (faded) [ka]:          10 ± 0
+     Age (corr.) [ka]:          13.402 ± 0.8167
      ---------------------------------------------- 
 
 ---
@@ -333,16 +333,16 @@
      >> Fading correction according to Huntley & Lamothe (2001)
      >> g-value re-calculated for the given tc
     
-     .. used g-value:	5.478 ± 0.706 %/decade
-     .. used tc:		1.198e-05 ka
-     .. used kappa:		0.0238 ± 0.0031
+     used g-value [%/decade]:   5.478 ± 0.706
+     used tc [ka]:              1.198e-05
+     used kappa:                0.0238 ± 0.0031
      ----------------------------------------------
-     seed: 			 11
-     n.MC: 			1000
-     observations: 		585
+     seed:                      11
+     n.MC:                      1000
+     observations:              585
      ----------------------------------------------
-     Age (faded):		1 ka ± 6 ka
-     Age (corr.):		1.3382 ka ± 5.4639 ka
+     Age (faded) [ka]:          1 ± 6
+     Age (corr.) [ka]:          1.3382 ± 5.4639
      ---------------------------------------------- 
 
 ---

@@ -253,8 +253,8 @@ analyse_Al2O3C_ITC <- function(
   ##output
   if(verbose){
     cat("\n[analyse_Al2O3C_ITC()]\n")
-    cat("\n Used fit method:\t\t", method_control_settings$fit.method)
-    cat("\n Time correction value:\t", round(GC$De$De, 3), "\u00B1", round(GC$De$De.Error, 3))
+    .cat_result("Used fit method:", method_control_settings$fit.method)
+    .cat_result("Time correction value:", GC$De$De, GC$De$De.Error, 3)
     cat("\n\n")
   }
 

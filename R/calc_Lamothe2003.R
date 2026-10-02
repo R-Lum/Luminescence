@@ -299,18 +299,18 @@ calc_Lamothe2003 <- function(
 
   # Terminal output -----------------------------------------------------------------------------
   if(verbose){
-    cat("\n[calc_Lamothe2003()] \n\n")
-    cat(" Used g_value:\t\t", round(g_value[1],3)," \u00b1 ",round(g_value[2],3),"%/decade \n")
+    cat("\n[calc_Lamothe2003()] \n")
+    .cat_result("Used g_value [%/decade]:", g_value[1], g_value[2], 3)
     if(!is.null(tc)){
-      cat(" tc for g_value:\t", tc.g_value, " s\n")
+      .cat_result("tc for g_value [s]:", tc.g_value)
     }
     cat("\n")
-    cat(" Fading_C:\t\t", round(Fading_C,3), " \u00b1 ", round(sFading_C,3),"\n")
-    cat(" Corrected Ln/Tn:\t", round(data[[2]][1],3), " \u00b1 ", round(data[[3]][1],3),"\n")
-    cat(" Corrected De:\t\t", round(res[["De"]], 2), " \u00b1 ", round(res[["De.Error"]], 2)," Gy \n")
-    cat("--------------------------------------------------------\n")
-    cat(" Corrected Age:\t\t", round(Age,2), " \u00b1 ", round(s_Age,2)," ka \n")
-    cat("--------------------------------------------------------\n")
+    .cat_result("Fading_C:", Fading_C, sFading_C, 3)
+    .cat_result("Corrected Ln/Tn:", data[[2]][1], data[[3]][1], 3)
+    .cat_result("Corrected De [Gy]:", res[["De"]], res[["De.Error"]], 2)
+    cat("\n ----------------------------------------------")
+    .cat_result("Corrected Age [ka]:", Age, s_Age, digits = 2)
+    cat("\n ----------------------------------------------\n")
   }
 
   # Compile output ------------------------------------------------------------------------------

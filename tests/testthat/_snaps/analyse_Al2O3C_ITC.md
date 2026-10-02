@@ -3,8 +3,8 @@
     
     [analyse_Al2O3C_ITC()]
     
-     Used fit method:		 SSE
-     Time correction value:	 2.598 ± 0.033
+     Used fit method:           SSE
+     Time correction value:     2.598 ± 0.033
     
 
 ---
@@ -188,8 +188,8 @@
     
     [analyse_Al2O3C_ITC()]
     
-     Used fit method:		 SSE
-     Time correction value:	 2.508 ± 0.031
+     Used fit method:           SSE
+     Time correction value:     2.508 ± 0.031
     
 
 ---

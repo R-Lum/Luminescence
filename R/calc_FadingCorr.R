@@ -410,46 +410,22 @@ calc_FadingCorr <- function(
       cat("\n >> g-value re-calculated for the given tc")
     }
 
-    cat(paste0(
-      "\n\n .. used g-value:\t",
-      round(g_value[1], digits = 3),
-      " \u00b1 ",
-      round(g_value[2], digits = 3),
-      " %/decade"
-    ))
-    cat(paste0(
-      "\n .. used tc:\t\t",
-      format(tc, digits = 4, scientific = TRUE),
-      " ka"
-    ))
-    cat(paste0(
-      "\n .. used kappa:\t\t",
-      round(kappa[1], digits = 4),
-      " \u00b1 ",
-      round(kappa[2], digits = 4)
-    ))
+    cat("\n")
+    .cat_result("used g-value [%/decade]:",
+                g_value[1], g_value[2], digits = 3)
+    .cat_result("used tc [ka]:",
+                format(tc, digits = 4, scientific = TRUE))
+    .cat_result("used kappa:",
+                kappa[1], kappa[2], digits = 4)
     cat("\n ----------------------------------------------")
-    cat("\n seed: \t\t\t", seed %||% NA)
-    cat(paste0("\n n.MC: \t\t\t", n.MC))
-    cat(paste0(
-      "\n observations: \t\t",
-      format(length(tempMC), digits = 2, scientific = TRUE)
-    ))
+    .cat_result("seed:", seed %||% NA)
+    .cat_result("n.MC:", n.MC)
+    .cat_result("observations:", length(tempMC))
     cat("\n ----------------------------------------------")
-    cat(paste0(
-      "\n Age (faded):\t\t",
-      round(age.faded[1], digits = 4),
-      " ka \u00b1 ",
-      round(age.faded[2], digits = 4),
-      " ka"
-    ))
-    cat(paste0(
-      "\n Age (corr.):\t\t",
-      round(age.corr[1], digits = 4),
-      " ka \u00b1 ",
-      round(age.corr[2], digits = 4),
-      " ka"
-    ))
+    .cat_result("Age (faded) [ka]:",
+                age.faded[1], age.faded[2], digits = 4)
+    .cat_result("Age (corr.) [ka]:",
+                age.corr[1], age.corr[2], digits = 4)
     cat("\n ---------------------------------------------- \n")
   }
 

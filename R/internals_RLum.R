@@ -1872,6 +1872,36 @@ SW <- function(expr) {
   paste(format(rng, nsmall = nsmall, trim = TRUE), collapse = sep)
 }
 
+#' Print a labelled result line to the terminal
+#'
+#' Print a single line of the form "\nlabel  val" or "\nlabel  val ± err",
+#' where the label is padded to a fixed width.
+#'
+#' @param label [character] (**required**):
+#' label to report.
+#'
+#' @param val [numeric], [character] (**required**):
+#' value to report. If `err` is `NULL`, `val` is printed as is, which allows
+#' pre-formatted quantities or strings to be passed.
+#'
+#' @param err [numeric] (*optional*):
+#' error to report. If provided, the line reads "val ± err", with both rounded
+#' to `digits` decimals.
+#'
+#' @param digits [integer] (*with default*):
+#' number of decimal places used to round `val` and `err` (2 by default).
+#' Ignored if `err` is `NULL`.
+#'
+#' @return
+#' The formatted string is printed to the terminal.
+#'
+#' @noRd
+.cat_result <- function(label, val, err = NULL, digits = 2L) {
+  if (!is.null(err))
+    val <- paste(round(val, digits), "\u00b1", round(err, digits))
+  cat(sprintf("\n %-26s", label), val)
+}
+
 #' Compress consecutive values of an integer vector into ranges
 #'
 #' @param vals [integer] (**required**): An integer vector.

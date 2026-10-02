@@ -339,15 +339,14 @@ for(i in 1:nrow(data)){
     if (verbose) {
       cat("\n[calc_gSGC()]")
       cat("\n Corresponding De based on the gSGC\n")
-
-      cat(paste0("\n"," Ln/Tn:\t\t ",LnTn," \u00B1 ", LnTn.error,"\n"))
-      cat(paste0(""," Lr1/Tr1:\t ",Lr1Tr1," \u00B1 ", Lr1Tr1.error,"\n"))
-      cat(paste0(""," Dr1:\t\t ",Dr1,"\n"))
-      cat(paste0(""," f(D):\t\t ",A," * (1 - exp(-D /",D0,")) + c * D + ",Y0,"\n"))
-      cat(paste0(""," n.MC:\t\t ",n.MC,"\n"))
-      cat(paste0(" ------------------------------ \n"))
-      cat(paste0(" De:\t\t",round(De,digits = 2)," \u00B1 ",round(De.error,digits = 2),"\n"))
-      cat(paste0(" ------------------------------ \n"))
+      .cat_result("Ln/Tn:", LnTn, LnTn.error, 3)
+      .cat_result("Lr1/Tr1:", Lr1Tr1, Lr1Tr1.error, 3)
+      .cat_result("Dr1:", Dr1)
+      .cat_result("f(D):", paste0(A, " * (1 - exp(-D / ", D0, "))", " + c * D + ", Y0))
+      .cat_result("n.MC:", n.MC)
+      cat("\n ----------------------------------------------")
+      .cat_result("De:", De, De.error)
+      cat("\n ----------------------------------------------\n")
     }
 
 
