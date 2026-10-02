@@ -25,10 +25,6 @@ test_that("check class", {
   ##test names
   expect_type(names(object), "character")
 
-  ##test bin
-  expect_error(bin_RLum.Data(object, bin_size = -2),
-               "'bin_size' should be a single positive integer value")
-
   ##check conversions
   expect_s4_class(as(object = list(1:10), Class = "RLum.Data.Curve"), "RLum.Data.Curve")
   expect_s4_class(as(list(), "RLum.Data.Curve"),

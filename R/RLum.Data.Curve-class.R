@@ -284,8 +284,8 @@ setMethod("get_RLum",
   })
 
 
-## bin_RLum.Data() ----------------------------------------------------------
-#' @describeIn bin_RLum.Data
+## bin_RLum() ---------------------------------------------------------------
+#' @describeIn bin_RLum
 #' Allows binning of RLum.Data.Curve data.
 #'
 #' @param bin_size [integer] (*with default*):
@@ -293,9 +293,8 @@ setMethod("get_RLum",
 #' two channels are binned.
 #'
 #' @export
-setMethod(f = "bin_RLum.Data",
-          signature = "RLum.Data.Curve",
-          function(object, bin_size = 2) {
+setMethod("bin_RLum", signature = "RLum.Data.Curve",
+          function(object, bin_size = 2, ...) {
             .set_function_name("bin_RLum.Data.Curve")
             on.exit(.unset_function_name(), add = TRUE)
 

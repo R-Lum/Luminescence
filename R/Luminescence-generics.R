@@ -1,51 +1,51 @@
-## bin_RLum.Data() ----------------------------------------------------------
-#' @title Channel binning for RLum.Data-class objects
+## bin_RLum() ---------------------------------------------------------------
+#' @title Channel binning for RLum-class objects
 #'
 #' @description
-#' The function aggregates adjacent channels of [Luminescence::RLum.Data-class]
+#' The function aggregates adjacent channels of [Luminescence::RLum-class]
 #' objects.
 #'
-#' @param object [Luminescence::RLum.Data-class] (**required**):
-#' S4 object of class `RLum.Data`.
+#' @param object [Luminescence::RLum-class] (**required**):
+#' S4 object of class `RLum`.
 #'
-#' @param ... further arguments passed to the specific class method.
+#' @param ... currently not used.
 #'
 #' @return
 #' An object of the same class as the input.
 #'
-#' @section Function version: 0.2.0
+#' @section Function version: 0.3.0
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
-#' @note Currently only `RLum.Data` objects of class [Luminescence::RLum.Data.Curve-class]
+#' @note Currently only objects of class [Luminescence::RLum.Data.Curve-class]
 #' and [Luminescence::RLum.Data.Spectrum-class] are supported.
 #'
 #' @seealso [Luminescence::RLum.Data.Curve-class], [Luminescence::RLum.Data.Spectrum-class]
 #'
 #' @examples
-#'
 #' ## load example data
 #' data(ExampleData.CW_OSL_Curve, envir = environment())
+#' data(ExampleData.XSYG, envir = environment())
 #'
 #' ## create RLum.Data.Curve object from this example
-#' curve <-
-#'   set_RLum(
-#'       class = "RLum.Data.Curve",
-#'       recordType = "OSL",
-#'       data = as.matrix(ExampleData.CW_OSL_Curve)
-#'   )
+#' curve <- set_RLum(class = "RLum.Data.Curve",
+#'                   recordType = "OSL",
+#'                   data = as.matrix(ExampleData.CW_OSL_Curve))
 #'
 #' ## plot data without and with 2 and 4 channel binning
 #' plot_RLum(curve)
-#' plot_RLum(bin_RLum.Data(curve, bin_size = 2))
-#' plot_RLum(bin_RLum.Data(curve, bin_size = 4))
+#' plot_RLum(bin_RLum(curve, bin_size = 2))
+#' plot_RLum(bin_RLum(curve, bin_size = 4))
+#'
+#' ## spectrum binning
+#' plot_RLum(bin_RLum(TL.Spectrum, bin_size.col = 4), ylim = c(300, 450))
 #'
 #' @keywords utilities
 #'
 #' @export
-setGeneric("bin_RLum.Data", function(object, ...)
-  standardGeneric("bin_RLum.Data")
+setGeneric("bin_RLum", function(object, ...)
+  standardGeneric("bin_RLum")
 )
 
 

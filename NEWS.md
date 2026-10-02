@@ -31,6 +31,14 @@ can be accessed via the `plot_RLum()` generic (#1775):
 - `plot_RLum.Data.Spectrum()`
 - `plot_RLum.Results()`
 
+The following functions are no longer exported, but their functionality
+can be accessed via the new `bin_RLum()` generic (#1782):
+
+- `bin()`
+- `bin.RLum.Data.Curve()`
+- `bin.RLum.Data.Spectrum()`
+- `bin_RLum.Data()`
+
 ## New functions
 
 ## Bugfixes and changes

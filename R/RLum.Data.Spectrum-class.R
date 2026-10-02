@@ -265,24 +265,26 @@ setMethod("length",
 
 
 ## bin_RLum() ---------------------------------------------------------------
-#' @describeIn bin_RLum.Data
+#' @describeIn bin_RLum
 #' Allows binning of RLum.Data.Spectrum data. Count values and values on the
 #' x-axis are summed up; for wavelength/energy values, the mean is calculated.
 #'
 #' @param bin_size.col [integer] (*with default*):
 #' number of channels used for each bin, e.g. `bin_size.col = 2` means that
-#' two channels are binned. Note: The function does not check the input, very large values
-#' mean a full column binning (a single sum)
+#' two channels are aggregated (by column).
 #'
 #' @param bin_size.row [integer] (*with default*):
 #' number of channels used for each bin, e.g. `bin_size.row = 2` means that
-#' two channels are binned. Note: The function does not check the input, very large values
-#' mean a full row binning (a single sum)
+#' two channels are aggregated (by row).
+#'
+#' @note
+#' The bin-size values provided in input are not checked against the number of
+#' available channels, and therefore very large values may produce a single
+#' sum.
 #'
 #' @export
-setMethod(f = "bin_RLum.Data",
-          signature = "RLum.Data.Spectrum",
-          function(object, bin_size.col = 1, bin_size.row = 1) {
+setMethod("bin_RLum", signature = "RLum.Data.Spectrum",
+          function(object, bin_size.col = 1, bin_size.row = 1, ...) {
             .set_function_name("bin_RLum.Data.Spectrum")
             on.exit(.unset_function_name(), add = TRUE)
 
