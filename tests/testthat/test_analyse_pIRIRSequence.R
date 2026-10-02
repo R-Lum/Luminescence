@@ -266,5 +266,13 @@ test_that("graphical snapshot tests", {
                                     plot = TRUE,
                                     plot_singlePanels = FALSE,
                                     verbose = FALSE))
+    vdiffr::expect_doppelganger("plot_onePage",
+                                analyse_pIRIRSequence(
+                                    object,
+                                    signal_integral = 1:2,
+                                    background_integral = 900:1000,
+                                    plot_singlePanels = FALSE,
+                                    plot_onePage = FALSE,
+                                    verbose = FALSE))
   })
 })

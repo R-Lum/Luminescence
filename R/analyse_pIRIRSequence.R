@@ -480,17 +480,17 @@ analyse_pIRIRSequence <- function(
 
     ##start analysis
     par(cex = cex)
-    temp.results <- analyse_SAR.CWOSL(
-      temp.curves,
+    args <- modifyList(list(
+      object = temp.curves,
       signal_integral = temp.signal_integral,
       background_integral = temp.background_integral,
       plot = plot,
       dose.points = dose.points,
       plot_singlePanels = temp.plot.single,
       cex = cex,
-      plot_onePage = FALSE,
-      ...
-    ) ##TODO should be replaced with useful explicit arguments
+      plot_onePage = FALSE
+    ), extraArgs)
+    temp.results <- do.call(analyse_SAR.CWOSL, args)
 
       ##check whether NULL was return
       if (is.null(temp.results)) {
