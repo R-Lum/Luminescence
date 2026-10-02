@@ -1049,6 +1049,7 @@ read_BIN2R <- function(
 
   ## check if only the specified positions should be returned
   if(!is.null(position)){
+    position <- sort(unique(position))
     matches <- results.METADATA[, position %in% POSITION]
     if (any(!matches)) {
       .throw_warning("At least one position number is not valid (",

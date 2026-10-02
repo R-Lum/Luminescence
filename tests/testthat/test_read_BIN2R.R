@@ -162,6 +162,9 @@ test_that("test the import of various BIN-file versions", {
 
   ## position
   SW({
+  expect_message(res <- read_BIN2R(bin.v3, position = c(2, 2, 1, 1)),
+                 "Kept records at position 1, 2")
+  expect_length(res, 2)
   expect_warning(expect_message(res <- read_BIN2R(bin.v3, position = c(1, 99)),
                                 "Kept records at position 1"),
                  "At least one position number is not valid (99)",
