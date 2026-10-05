@@ -195,18 +195,18 @@ as.data.frame.RLum.Data <- function(x, row.names = NULL, optional = FALSE, ...) 
 #' @rdname methods_RLum
 #' @export
 as.data.frame.Risoe.BINfileData <- function(x,  row.names = NULL, optional = FALSE, ...) {
+  num.curves <- length(x@DATA)
+  num.channels <- if (num.curves > 0) max(lengths(x@DATA)) else 0L
 
   ## set matrix
-  m <- matrix(NA, ncol = max(lengths(x@DATA)), nrow = length(x@DATA))
+  m <- matrix(NA, nrow = num.curves, ncol = num.channels)
+  for (i in seq_len(num.curves))
+    m[i, seq_along(x@DATA[[i]])] <- x@DATA[[i]]
 
-  ## rename columns
-  colnames(m) <- paste0("C",1:ncol(m))
+  if (num.channels > 0)
+    colnames(m) <- paste0("C", seq_len(num.channels))
 
-  ## fill matrix
-  for(i in 1:length(x@DATA)) m[i,1:length(x@DATA[[i]])] <- x@DATA[[i]]
-
-  ##convert to data.frame and bind
-  cbind(x@METADATA, as.data.frame(m))
+  cbind(x@METADATA, as.data.frame(m, optional = optional))
 }
 
 
