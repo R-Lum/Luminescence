@@ -12,8 +12,6 @@ test_that("input validation", {
 
   expect_error(bin_RLum(curve, bin_size = -2),
                "'bin_size' should be a single positive integer value")
-  expect_error(bin_RLum(set_RLum("RLum.Data.Spectrum")),
-               "'object' contains no data")
   expect_error(bin_RLum(spectrum, bin_size.row = "test"),
                "'bin_size.row' should be a single positive integer value")
   expect_error(bin_RLum(spectrum, bin_size.row = 12, bin_size.col = "test"),
@@ -24,6 +22,7 @@ test_that("check functionality", {
   testthat::skip_on_cran()
 
   expect_silent(bin_RLum(set_RLum("RLum.Data.Curve")))
+  expect_silent(bin_RLum(set_RLum("RLum.Data.Spectrum")))
 })
 
 test_that("snapshot tests", {

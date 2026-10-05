@@ -60,6 +60,12 @@ than better and more reliable fitting in the case where `method = "FIT"` was cho
 * The `plot_onePage` argument now defaults to `TRUE` as this turned out to be
 a more meaningful default value than `FALSE`.
 
+### `bin_RLum()`
+
+* The function no longer throws an error when applied to an empty
+`RLum.Data.Spectrum` object, but returns the object itself. This uniforms the
+behaviour to the one used when handling `RLum.Data.Curve` objects.
+
 ### `fit_DoseResponseCurve()`
 
 * The new `fit.IndexRegPoints` replaces both `fit.NumberRegPoints` and

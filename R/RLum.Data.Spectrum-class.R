@@ -290,7 +290,7 @@ setMethod("bin_RLum", signature = "RLum.Data.Spectrum",
 
             ## Integrity checks ---------------------------------------------
             if (length(object@data) < 2) {
-              .throw_error("'object' contains no data")
+              return(object)
             }
             .validate_positive_scalar(bin_size.row, int = TRUE)
             .validate_positive_scalar(bin_size.col, int = TRUE)
