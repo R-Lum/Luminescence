@@ -2076,7 +2076,7 @@ fit_DoseResponseCurve <- function(
   else if (any(abs(Q) < 1e-06))
     .throw_error("Unsupported zero and non-zero Q in .D2nN()")
   else
-    r <- 1 + (lamW::lambertW0(-Q * exp(-Q-(1-Q*(1-1/exp(1))) * D / D63))) / Q
+    r <- 1 + lamW::lambertW0(-Q * exp(-Q - (1 + Q * expm1(-1)) * D / D63)) / Q
 
   return(r)
 }
