@@ -200,5 +200,7 @@ test_that("test Risoe.BINfileData S3 methods", {
 
   ## issue 1789
   expect_equal(dim(as.data.frame(set_Risoe.BINfileData())),
+               c(0, 80))
+  expect_equal(dim(as.data.frame(set_Risoe.BINfileData(data.frame(ID = numeric(0))))),
                c(0, 1))
 })
