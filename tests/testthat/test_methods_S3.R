@@ -194,4 +194,13 @@ test_that("test Risoe.BINfileData S3 methods", {
   expect_equal(length(risoe), 720)
   expect_equal(names(risoe)[1:40], c(rep("TL", 24), rep("OSL", 16)))
   expect_s3_class(as.data.frame(risoe), "data.frame")
+  expect_equal(dim(as.data.frame(risoe)), c(720, 1044))
+  expect_equal(tail(names(as.data.frame(risoe)), 2), c("C999", "C1000"))
+  expect_equal(dim(as.data.frame(risoe, optional = TRUE)), c(720, 1044))
+
+  ## issue 1789
+  expect_equal(dim(as.data.frame(set_Risoe.BINfileData())),
+               c(0, 80))
+  expect_equal(dim(as.data.frame(set_Risoe.BINfileData(data.frame(ID = numeric(0))))),
+               c(0, 1))
 })

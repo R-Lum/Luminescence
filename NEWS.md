@@ -55,6 +55,11 @@ can be accessed via the new `bin_RLum()` generic (#1782):
 - The `plot_onePage` argument now defaults to `TRUE` as this turned out
   to be a more meaningful default value than `FALSE`.
 
+### `as.data.frame()`
+
+- The function no longer crashes when called on an empty
+  `Risoe.BINfileData` object (#1789).
+
 ### `bin_RLum()`
 
 - The function no longer throws an error when applied to an empty
