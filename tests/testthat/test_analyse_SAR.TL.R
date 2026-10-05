@@ -82,7 +82,8 @@ test_that("snapshot tests", {
         signal_integral = 210:220,
         dose.points = 1:7,
         integral_input = "measurement",
-        sequence.structure = c("SIGNAL", "BACKGROUND")),
+        sequence.structure = c("SIGNAL", "BACKGROUND"),
+        txtProgressBar = FALSE),
     expect_snapshot_output = TRUE
   )
 
@@ -93,7 +94,8 @@ test_that("snapshot tests", {
         signal_integral = 210:220,
         dose.points = 1:7,
         log = "x",
-        sequence.structure = c("SIGNAL", "BACKGROUND")),
+        sequence.structure = c("SIGNAL", "BACKGROUND"),
+        txtProgressBar = FALSE),
     expect_snapshot_output = TRUE),
     "Non-positive values detected, log-scale disabled"
   )
@@ -107,7 +109,8 @@ test_that("snapshot tests", {
   expect_warning(
   expect_snapshot_RLum(
     analyse_SAR.TL(object, signal_integral = 2:3,
-                   sequence.structure = c("SIGNAL", "EXCLUDE")),
+                   sequence.structure = c("SIGNAL", "EXCLUDE"),
+                   txtProgressBar = FALSE),
     expect_snapshot_output = TRUE),
   "Error column invalid, infinite, or contains 0, 'fit.weights' reset to NULL")
   })
