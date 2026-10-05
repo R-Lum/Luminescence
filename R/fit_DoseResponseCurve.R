@@ -1674,7 +1674,7 @@ fit_DoseResponseCurve <- function(
       Dc <- D63 / (0.367 + 0.633 * R)
 
       ## calculate also D80
-      D80 <- D63 * (0.809 + 0.800 * R) / (0.368 + 0.632 * R)
+      D80 <- .compute_D80(D63, R)
 
       #calculate De
       De <- NA
@@ -1808,8 +1808,8 @@ fit_DoseResponseCurve <- function(
       R.UPPER <- R.ERROR[2]
 
       ## calculate D80 the same way
-      D80.LOWER <- D63.LOWER * (0.809 + 0.800 * R.LOWER) / (0.368 + 0.632 * R.LOWER)
-      D80.UPPER <- D63.UPPER * (0.809 + 0.800 * R.UPPER) / (0.368 + 0.632 * R.UPPER)
+      D80.LOWER <- .compute_D80(D63.LOWER, R.LOWER)
+      D80.UPPER <- .compute_D80(D63.UPPER, R.UPPER)
 
       ##remove values
       rm(var.D63)
