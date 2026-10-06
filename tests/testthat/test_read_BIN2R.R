@@ -180,6 +180,23 @@ test_that("test the import of various BIN-file versions", {
   expect_warning(read_BIN2R(bin.v8, fastForward = FALSE, protocol = "test"),
                  "Additional arguments specified: 'protocol'")
 
+  ## options when an empty object is produced
+  expect_warning(expect_s4_class(
+      read_BIN2R(bin.v3, position = 3), "Risoe.BINfileData"),
+      "At least one position number is not valid")
+  expect_warning(expect_message(expect_null(
+      read_BIN2R(bin.v3, position = 3, keep.empty = FALSE)),
+      "Empty object and 'keep.empty = FALSE', NULL returned"),
+      "At least one position number is not valid")
+  expect_warning(expect_message(
+      res <- read_BIN2R(bin.v3, position = 3, fastForward = TRUE),
+      "Empty object returned"),
+      "At least one position number is not valid")
+  expect_type(res, "list")
+  expect_length(res, 1)
+  expect_s4_class(res[[1]], "RLum.Analysis")
+  expect_length(res[[1]], 0)
+
   ## check ignore RECTYPE settings
   expect_message(t <- expect_s4_class(read_BIN2R(bin.v8, verbose = TRUE,
                                                  ignore.RECTYPE = 1),

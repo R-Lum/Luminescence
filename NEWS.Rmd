@@ -151,6 +151,14 @@ positions. Now `position` is always respected, even when no positions match,
 in which case an empty object is returned (#1784; thanks to Annette Kadereit
 for reporting).
 
+* The `keep.empty` and `fastForward` arguments were previously not respected
+when an empty object was produced (for example, when selecting positions not
+present in the BIN file), and an empty `Risoe.BINfileData` object was always
+returned. Now an empty result is handled consistently with a regular import:
+`keep.empty = FALSE` returns `NULL`, and `fastForward = TRUE` returns a list
+with an empty `RLum.Analysis` object (#1792; thanks to Annette Kadereit for
+reporting).
+
 ### `read_XSYG2R()`
 
 * The `pattern` argument is now validated to be a single string to avoid the

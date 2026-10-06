@@ -86,9 +86,9 @@ files to read (used only when \code{file} specifies a path).}
 \item{verbose}{\link{logical} (\emph{with default}):
 enable/disable output to the terminal.}
 
-\item{...}{further arguments that will be passed to the function
-\link{Risoe.BINfileData2RLum.Analysis}. Please note that any matching argument
-automatically sets \code{fastForward = TRUE}}
+\item{...}{further arguments that will be passed to
+\link{Risoe.BINfileData2RLum.Analysis}. \strong{Note:} Any matching
+argument automatically sets \code{fastForward = TRUE}.}
 }
 \value{
 Returns an S4 \link[=Risoe.BINfileData-class]{Risoe.BINfileData} object containing two
@@ -98,8 +98,12 @@ slots:
 \item{DATA}{A \link{list} containing a numeric \link{vector} of the measured data.
 The ID corresponds to the record ID in METADATA.}
 
-If \code{fastForward = TRUE} an \link[=RLum.Analysis-class]{RLum.Analysis} object is
-returned (coerced by \link{Risoe.BINfileData2RLum.Analysis}).
+If \code{fastForward = TRUE} a \link{list} of \link[=RLum.Analysis-class]{RLum.Analysis}
+objects is returned (coerced by \link{Risoe.BINfileData2RLum.Analysis}).
+
+\code{NULL} is returned if no records were imported, or if all records were
+removed during import and \code{keep.empty = FALSE}. Otherwise, if no records
+remain, an empty object of the class described above is returned instead.
 
 Results are returned as a list when multiple files are processed or \code{file}
 is a list.
@@ -120,7 +124,7 @@ The function works for BIN/BINX-format versions 03, 04, 05, 06, 07 and 08. The
 version number depends on the used Sequence Editor.
 }
 \section{Function version}{
- 0.19
+ 0.20
 }
 
 \examples{
