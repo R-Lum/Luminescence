@@ -1804,9 +1804,9 @@ SW <- function(expr) {
 .require_suggested_package <- function(pkg, reason = "This function",
                                        throw.error = TRUE) {
   if (!requireNamespace(pkg, quietly = TRUE)) {
-    msg <- paste("%s requires the '%s' package: to install it, run",
-                 "`install.packages('%s')` in your R console")
-    msg <- sprintf(msg, reason, pkg, pkg)
+    msg <- sprintf(paste("%s requires the '%s' package: to install it,",
+                         "run `install.packages('%s')` in your R console"),
+                   reason, pkg, pkg)
     .error_or_warning(msg, throw.error)
     return(FALSE)
   }
