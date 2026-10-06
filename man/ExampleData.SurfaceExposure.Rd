@@ -52,7 +52,6 @@ interactively.
 }
 }
 \examples{
-
 ## ExampleData.SurfaceExposure$sample_1
 sigmaphi <- 5e-10
 age <- 10000

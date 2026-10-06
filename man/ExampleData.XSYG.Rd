@@ -55,7 +55,7 @@ function \link{read_XSYG2R}.
 }
 
 \examples{
-##show data
+## show data
 data(ExampleData.XSYG, envir = environment())
 
 ## =========================================

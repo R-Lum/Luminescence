@@ -32,8 +32,7 @@ Measurement of Princton Instruments camera imported with the function
 }
 
 \examples{
-
-##load data
+## load data
 data(ExampleData.RLum.Data.Image, envir = environment())
 
 ##plot data

@@ -238,17 +238,17 @@
 #' @references
 #'
 #' Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous fading correction for feldspar
-#' IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786-790. doi:10.1016/j.radmeas.2008.01.021
+#' IRSL dating-tests on samples in field saturation. Radiation Measurements 43, 786-790. \doi{10.1016/j.radmeas.2008.01.021}
 #'
 #' Guralnik, B., Li, B., Jain, M., Chen, R., Paris, R.B., Murray, A.S., Li, S.-H., Pagonis, P.,
 #' Herman, F., 2015. Radiation-induced growth and isothermal decay of infrared-stimulated luminescence
 #' from feldspar. Radiation Measurements 81, 224-231.
 #'
 #' Huntley, D.J., 2006. An explanation of the power-law decay of luminescence.
-#' Journal of Physics: Condensed Matter 18, 1359-1365. doi:10.1088/0953-8984/18/4/020
+#' Journal of Physics: Condensed Matter 18, 1359-1365. \doi{10.1088/0953-8984/18/4/020}
 #'
 #' King, G.E., Herman, F., Lambert, R., Valla, P.G., Guralnik, B., 2016.
-#' Multi-OSL-thermochronometry of feldspar. Quaternary Geochronology 33, 76-87. doi:10.1016/j.quageo.2016.01.004
+#' Multi-OSL-thermochronometry of feldspar. Quaternary Geochronology 33, 76-87. \doi{10.1016/j.quageo.2016.01.004}
 #'
 #' **Further reading**
 #'
@@ -256,7 +256,6 @@
 #' for the fading in million year old basaltic rocks. Geochronometria 38(3), 223-230.
 #'
 #' @examples
-#'
 #' ## Load example data (sample UNIL/NB123, see ?ExampleData.Fading)
 #' data("ExampleData.Fading", envir = environment())
 #'

@@ -15,7 +15,6 @@ Single TR-OSL curve obtained by Schmidt et al. (2019) for quartz sample BT729
 (origin: Trebgast Valley, Germany, quartz, 90-200 µm, unpublished data).
 }
 \examples{
-
 ##(1) curves
 data(ExampleData.TR_OSL, envir = environment())
 plot_RLum(ExampleData.TR_OSL)

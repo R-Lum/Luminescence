@@ -113,18 +113,17 @@ handled using the argument \code{method_control} only, e.g.,
 }
 
 \examples{
-
-##load data
+## load data
 data(ExampleData.Al2O3C, envir = environment())
 
-##run analysis
+## run analysis
 analyse_Al2O3C_ITC(data_ITC)
 
 }
 \references{
 Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018. Environmental Dose Rate
 Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
-Geochronometria 45, 56-67. doi: 10.1515/geochr-2015-0086
+Geochronometria 45, 56-67. \doi{10.1515/geochr-2015-0086}
 }
 \seealso{
 \link{fit_DoseResponseCurve}

@@ -21,7 +21,6 @@ the same number of \link[=RLum.Data.Curve-class]{RLum.Data.Curve} objects repres
 individual OSL, IRSL and dark count measurements of a sample.
 }
 \examples{
-
 data(ExampleData.portableOSL, envir = environment())
 plot_RLum(ExampleData.portableOSL)
 

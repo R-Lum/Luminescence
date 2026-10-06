@@ -27,8 +27,7 @@ Collection two curves from Kreutzer et al. (2018) measured using the RF70 protoc
 }
 
 \examples{
-
-##load data
+## load data
 data(ExampleData.RF70Curves, envir = environment())
 
 ##plot data

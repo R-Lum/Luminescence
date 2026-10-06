@@ -169,7 +169,7 @@
 #'
 #' Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading in K-feldspars and the measurement
 #' and correction for it in optical dating. Canadian Journal of Earth Sciences 38,
-#' 1093-1106. doi: `10.1139/cjes-38-7-1093`
+#' 1093-1106. \doi{10.1139/cjes-38-7-1093}
 #'
 #' Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous
 #' fading correction for feldspar  IRSL dating-tests on samples in field saturation.
@@ -180,7 +180,6 @@
 #' [Luminescence::extract_IrradiationTimes], [Luminescence::calc_FadingCorr]
 #'
 #' @examples
-#'
 #' ## load example data (sample UNIL/NB123, see ?ExampleData.Fading)
 #' data("ExampleData.Fading", envir = environment())
 #'

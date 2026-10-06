@@ -163,7 +163,6 @@ may be useful to better constrain the parameters \code{sigmaphi} or \code{mu} an
 }
 
 \examples{
-
 ## Load example data
 data("ExampleData.SurfaceExposure")
 
@@ -217,7 +216,7 @@ get_RLum(results)
 \references{
 Sohbati, R., Murray, A.S., Chapot, M.S., Jain, M., Pederson, J., 2012a.
 Optically stimulated luminescence (OSL) as a chronometer for surface exposure
-dating. Journal of Geophysical Research 117, B09202. doi:
+dating. Journal of Geophysical Research 117, B09202.
 \doi{10.1029/2012JB009383}
 
 Sohbati, R., Jain, M., Murray, A.S., 2012b. Surface exposure dating of

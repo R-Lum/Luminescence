@@ -54,7 +54,6 @@ the BIN-file format changed.
 }
 
 \examples{
-
 ## show first 5 elements of the METADATA and DATA elements in the terminal
 data(ExampleData.BINfileData, envir = environment())
 CWOSL.SAR.Data@METADATA[1:5,]

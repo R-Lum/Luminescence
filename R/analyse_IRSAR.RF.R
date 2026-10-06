@@ -374,7 +374,7 @@
 #'
 #' Murari, M.K., Kreutzer, S., Fuchs, M., 2018. Further investigations on IR-RF:
 #' Dose recovery and correction. Radiation Measurements 120, 110–119.
-#' doi: 10.1016/j.radmeas.2018.04.017 \doi{10.1016/j.radmeas.2018.04.017}
+#' \doi{10.1016/j.radmeas.2018.04.017}
 #'
 #' Lapp, T., Jain, M., Thomsen, K.J., Murray, A.S., Buylaert, J.P., 2012. New
 #' luminescence measurement facilities in retrospective dosimetry. Radiation
@@ -411,7 +411,6 @@
 #' @keywords datagen
 #'
 #' @examples
-#'
 #' ##load data
 #' data(ExampleData.RLum.Analysis, envir = environment())
 #'

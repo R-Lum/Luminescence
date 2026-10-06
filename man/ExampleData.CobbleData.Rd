@@ -16,7 +16,6 @@ specific information for the cobble to be used in the function.
 }
 
 \examples{
-
 ## Load data
 data("ExampleData.CobbleData", envir = environment())
 

@@ -60,12 +60,11 @@
 #' @references
 #' Li, B., Roberts, R.G., Jacobs, Z., Li, S.-H., 2015. Potential of establishing
 #' a 'global standardised growth curve' (gSGC) for optical dating of quartz from sediments.
-#' Quaternary Geochronology 27, 94-104. doi:10.1016/j.quageo.2015.02.011
+#' Quaternary Geochronology 27, 94-104. \doi{10.1016/j.quageo.2015.02.011}
 #'
 #' @keywords datagen
 #'
 #' @examples
-#'
 #' results <- calc_gSGC(data = data.frame(
 #' LnTn =  2.361, LnTn.error = 0.087,
 #' Lr1Tr1 = 2.744, Lr1Tr1.error = 0.091,

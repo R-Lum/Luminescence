@@ -14,8 +14,7 @@ Arbitrary measurements.
 Arbitrary data to test the function \code{calc_EED_Model}
 }
 \examples{
-
-##load data
+## load data
 data(ExampleData.MortarData, envir = environment())
 
 ##plot data

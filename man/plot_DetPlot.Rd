@@ -143,7 +143,6 @@ of channels.
 }
 
 \examples{
-
 \dontrun{
 ##load data
 ##ExampleData.BINfileData contains two BINfileData objects
@@ -164,7 +163,7 @@ plot_DetPlot(
 \references{
 Bailey, R.M., Singarayer, J.S., Ward, S., Stokes, S., 2003. Identification of partial resetting
 using De as a function of illumination time. Radiation Measurements 37, 511-518.
-doi:10.1016/S1350-4487(03)00063-5
+\doi{10.1016/S1350-4487(03)00063-5}
 }
 \seealso{
 \link{plot}, \link{analyse_SAR.CWOSL}, \link{analyse_pIRIRSequence}

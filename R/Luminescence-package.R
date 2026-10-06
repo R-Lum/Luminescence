@@ -256,7 +256,6 @@ NULL
 #' @keywords datasets
 #'
 #' @examples
-#'
 #' ## Load data
 #' data("ExampleData.ScaleGammaDose", envir = environment())
 #'
@@ -278,7 +277,6 @@ NULL
 #' @keywords datasets
 #'
 #' @examples
-#'
 #' ## Load data
 #' data("ExampleData.CobbleData", envir = environment())
 #'
@@ -394,8 +392,7 @@ NULL
 #' @keywords datasets internal
 #'
 #' @examples
-#'
-#' ##load data
+#' ## load data
 #' data(BaseDataSet.CosmicDoseRate)
 #'
 #' @docType data
@@ -496,7 +493,6 @@ NULL
 #' @keywords datasets internal
 #'
 #' @examples
-#'
 #' ## show first 5 elements of the METADATA and DATA elements in the terminal
 #' data(ExampleData.BINfileData, envir = environment())
 #' CWOSL.SAR.Data@@METADATA[1:5,]
@@ -548,7 +544,6 @@ NULL
 #' @keywords datasets internal
 #'
 #' @examples
-#'
 #' data(ExampleData.CW_OSL_Curve, envir = environment())
 #' plot(ExampleData.CW_OSL_Curve)
 #'
@@ -581,7 +576,6 @@ NULL
 #' @keywords datasets
 #'
 #' @examples
-#'
 #' data(ExampleData.portableOSL, envir = environment())
 #' plot_RLum(ExampleData.portableOSL)
 #'
@@ -612,8 +606,7 @@ NULL
 #' @keywords datasets internal
 #'
 #' @examples
-#'
-#' ##show LM data
+#' ## show LM data
 #' data(ExampleData.FittingLM, envir = environment())
 #' plot(values.curve,log="x")
 #'
@@ -641,7 +634,6 @@ NULL
 #' @keywords datasets internal
 #'
 #' @examples
-#'
 #' ## plot Lx/Tx data vs dose [s]
 #' data(ExampleData.LxTxData, envir = environment())
 #' plot(LxTxData$Dose,LxTxData$LxTx)
@@ -690,8 +682,7 @@ NULL
 #' @keywords datasets internal
 #'
 #' @examples
-#'
-#' ##load data
+#' ## load data
 #' data(ExampleData.MortarData, envir = environment())
 #'
 #' ##plot data
@@ -720,7 +711,7 @@ NULL
 #' Kreutzer, S., Lauer, T., Meszner, S., Krbetschek, M.R., Faust, D., Fuchs,
 #' M., 2014. Chronology of the Quaternary profile Zeuchfeld in Saxony-Anhalt /
 #' Germany - a preliminary luminescence dating study. Zeitschrift fuer
-#' Geomorphologie 58, 5-26. doi: 10.1127/0372-8854/2012/S-00112
+#' Geomorphologie 58, 5-26. \doi{10.1127/0372-8854/2012/S-00112}
 #'
 #' @source **IRSAR.RF.Data**
 #'
@@ -737,8 +728,7 @@ NULL
 #' @keywords datasets internal
 #'
 #' @examples
-#'
-#' ##load data
+#' ## load data
 #' data(ExampleData.RLum.Analysis, envir = environment())
 #'
 #' ##plot data
@@ -782,8 +772,7 @@ NULL
 #' @keywords datasets internal
 #'
 #' @examples
-#'
-#' ##load data
+#' ## load data
 #' data(ExampleData.RF70Curves, envir = environment())
 #'
 #' ##plot data
@@ -822,8 +811,7 @@ NULL
 #' @keywords datasets
 #'
 #' @examples
-#'
-#' ##load data
+#' ## load data
 #' data(ExampleData.RLum.Data.Image, envir = environment())
 #'
 #' ##plot data
@@ -896,7 +884,7 @@ NULL
 #' @keywords datasets internal
 #'
 #' @examples
-#' ##show data
+#' ## show data
 #' data(ExampleData.XSYG, envir = environment())
 #'
 #' ## =========================================
@@ -987,7 +975,6 @@ NULL
 #' @keywords datasets
 #'
 #' @examples
-#'
 #' ##(1) plot values as histogram
 #' data(ExampleData.DeValues, envir = environment())
 #' plot_Histogram(ExampleData.DeValues$BT998, xlab = "De [s]")
@@ -1039,7 +1026,7 @@ NULL
 #'
 #' King, G.E., Herman, F., Lambert, R., Valla, P.G., Guralnik, B., 2016.
 #' Multi-OSL-thermochronometry of feldspar. Quaternary Geochronology 33, 76-87.
-#' doi:10.1016/j.quageo.2016.01.004
+#' \doi{10.1016/j.quageo.2016.01.004}
 #'
 #' **Details**
 #'
@@ -1056,7 +1043,6 @@ NULL
 #' @keywords datasets
 #'
 #' @examples
-#'
 #' ## Load example data
 #' data("ExampleData.Fading", envir = environment())
 #'
@@ -1146,7 +1132,6 @@ NULL
 #' See examples for the code used to create the data sets.
 #'
 #' @examples
-#'
 #' ## ExampleData.SurfaceExposure$sample_1
 #' sigmaphi <- 5e-10
 #' age <- 10000
@@ -1275,7 +1260,6 @@ NULL
 #' @keywords datasets internal
 #'
 #' @examples
-#'
 #' ##(1) curves
 #' data(ExampleData.Al2O3C, envir = environment())
 #' plot_RLum(data_ITC[1:2])
@@ -1304,7 +1288,6 @@ NULL
 #' @keywords datasets
 #'
 #' @examples
-#'
 #' ##(1) curves
 #' data(ExampleData.TR_OSL, envir = environment())
 #' plot_RLum(ExampleData.TR_OSL)

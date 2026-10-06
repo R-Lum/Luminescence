@@ -121,12 +121,11 @@
 #' @references
 #' Bailey, R.M., Singarayer, J.S., Ward, S., Stokes, S., 2003. Identification of partial resetting
 #' using De as a function of illumination time. Radiation Measurements 37, 511-518.
-#' doi:10.1016/S1350-4487(03)00063-5
+#' \doi{10.1016/S1350-4487(03)00063-5}
 #'
 #' @seealso [plot], [Luminescence::analyse_SAR.CWOSL], [Luminescence::analyse_pIRIRSequence]
 #'
 #' @examples
-#'
 #' \dontrun{
 #' ##load data
 #' ##ExampleData.BINfileData contains two BINfileData objects

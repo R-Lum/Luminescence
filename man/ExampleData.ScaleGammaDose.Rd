@@ -17,7 +17,6 @@ soil radioactivity.
 }
 
 \examples{
-
 ## Load data
 data("ExampleData.ScaleGammaDose", envir = environment())
 

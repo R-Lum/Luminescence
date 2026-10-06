@@ -144,7 +144,7 @@
 #' Radiation Measurements 41, 886-891. \doi{10.1016/j.radmeas.2006.05.016}\cr
 #'
 #' Durbin, J., Watson, G.S., 1950. Testing for Serial Correlation in Least Squares Regression: I.
-#' Biometrika 37, 409-21. doi:10.2307/2332391
+#' Biometrika 37, 409-21. \doi{10.2307/2332391}
 #'
 #' **Further reading**
 #'
@@ -155,7 +155,6 @@
 #' Journal of Global Optimization 11, 341–359.
 #'
 #'@examples
-#'
 #'##load example data
 #'data(ExampleData.TR_OSL, envir = environment())
 #'

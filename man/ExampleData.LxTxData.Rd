@@ -19,7 +19,6 @@ Material: \tab Middle grain (38-63 \eqn{\mu}m) quartz measured on a Risoe TL/OSL
 LxTx data from a SAR measurement for the package Luminescence.
 }
 \examples{
-
 ## plot Lx/Tx data vs dose [s]
 data(ExampleData.LxTxData, envir = environment())
 plot(LxTxData$Dose,LxTxData$LxTx)

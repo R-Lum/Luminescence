@@ -45,12 +45,11 @@
 #'
 #' @references
 #' Durcan, J.A., King, G.E., Duller, G.A.T., 2015. DRAC: Dose Rate and Age Calculator for trapped charge dating.
-#' Quaternary Geochronology 28, 54-61. doi:10.1016/j.quageo.2015.03.012
+#' Quaternary Geochronology 28, 54-61. \doi{10.1016/j.quageo.2015.03.012}
 #'
 #' @seealso [as.data.frame], [list]
 #'
 #' @examples
-#'
 #' # create a new DRAC input input
 #' input <- template_DRAC(preset = "DRAC-example_quartz")
 #'

@@ -35,7 +35,6 @@ measurement data of the same sample, which can be used to apply a
 fading correction to.
 }
 \examples{
-
 ## Load example data
 data("ExampleData.Fading", envir = environment())
 
@@ -73,7 +72,7 @@ IR50_Age.corr <- calc_FadingCorr(IR50_Age, g_value = IR50_fading.res)
 \references{
 King, G.E., Herman, F., Lambert, R., Valla, P.G., Guralnik, B., 2016.
 Multi-OSL-thermochronometry of feldspar. Quaternary Geochronology 33, 76-87.
-doi:10.1016/j.quageo.2016.01.004
+\doi{10.1016/j.quageo.2016.01.004}
 
 \strong{Details}
 

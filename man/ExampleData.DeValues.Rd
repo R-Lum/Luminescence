@@ -22,7 +22,6 @@ sample from a fluvial deposit in the rock shelter of Cueva Anton
 (Murcia/Spain).
 }
 \examples{
-
 ##(1) plot values as histogram
 data(ExampleData.DeValues, envir = environment())
 plot_Histogram(ExampleData.DeValues$BT998, xlab = "De [s]")

@@ -288,8 +288,7 @@ function does \strong{not} overwrite values preset in \code{IRR_TIME}.
 }
 
 \examples{
-
-##load data
+## load data
 ##ExampleData.BINfileData contains two BINfileData objects
 ##CWOSL.SAR.Data and TL.SAR.Data
 data(ExampleData.BINfileData, envir = environment())
@@ -349,12 +348,12 @@ improved single-aliquot regenerative-dose protocol. Radiation Measurements
 Thomsen, K.J., Murray, A.S., Jain, M., Boetter-Jensen, L., 2008. Laboratory
 fading rates of various luminescence signals from feldspar-rich sediment
 extracts. Radiation Measurements 43, 1474-1486.
-doi:10.1016/j.radmeas.2008.06.002
+\doi{10.1016/j.radmeas.2008.06.002}
 
 Bluszcz, A., Adamiec, G., Herr, A., 2015. Estimation of equivalent dose and
 its uncertainty in the OSL SAR protocol when count numbers do not follow a
 Poisson distribution. Radiation Measurements 81, 46-54.
-doi:10.1016/j.radmeas.2015.01.004
+\doi{10.1016/j.radmeas.2015.01.004}
 }
 \seealso{
 \link{calc_OSLLxTxRatio}, \link{fit_DoseResponseCurve},

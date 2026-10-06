@@ -341,7 +341,7 @@
 #'
 #' Combès, B., Philippe, A., Lanos, P., Mercier, N., Tribolo, C., Guérin, G., Guibert, P., Lahaye, C., 2015.
 #' A Bayesian central equivalent dose model for optically stimulated luminescence dating.
-#' Quaternary Geochronology 28, 62-70. doi:10.1016/j.quageo.2015.04.001
+#' Quaternary Geochronology 28, 62-70. \doi{10.1016/j.quageo.2015.04.001}
 #'
 #' Mercier, N., Kreutzer, S., Christophe, C., Guérin, G., Guibert, P., Lahaye, C., Lanos, P., Philippe, A.,
 #' Tribolo, C., 2016. Bayesian statistics in luminescence dating: The 'baSAR'-model and its implementation
@@ -353,7 +353,7 @@
 #' Bayesian Data Analysis, Third Edition. CRC Press.
 #'
 #' Murray, A.S., Wintle, A.G., 2000. Luminescence dating of quartz using an improved single-aliquot
-#' regenerative-dose protocol. Radiation Measurements 32, 57-73. doi:10.1016/S1350-4487(99)00253-X
+#' regenerative-dose protocol. Radiation Measurements 32, 57-73. \doi{10.1016/S1350-4487(99)00253-X}
 #'
 #' Plummer, M., 2017. JAGS Version 4.3.0 user manual. `https://sourceforge.net/projects/mcmc-jags/files/Manuals/4.x/jags_user_manual.pdf/download`
 #'
@@ -371,7 +371,6 @@
 #' @keywords datagen
 #'
 #' @examples
-#'
 #' ##(1) load package test data set
 #' data(ExampleData.BINfileData, envir = environment())
 #'

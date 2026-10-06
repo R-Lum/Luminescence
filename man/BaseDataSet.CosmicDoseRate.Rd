@@ -102,8 +102,7 @@ calculation
 }
 
 \examples{
-
-##load data
+## load data
 data(BaseDataSet.CosmicDoseRate)
 
 }

@@ -267,10 +267,9 @@
 #'
 #' Dietze, M., Kreutzer, S., Burow, C., Fuchs, M.C., Fischer, M., Schmidt, C., 2015.
 #' The abanico plot: visualising chronometric data with individual standard errors.
-#' Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003
+#' Quaternary Geochronology. \doi{10.1016/j.quageo.2015.09.003}
 #'
 #' @examples
-#'
 #' ## load example data and recalculate to Gray
 #' data(ExampleData.DeValues, envir = environment())
 #' ExampleData.DeValues <- ExampleData.DeValues$CA1

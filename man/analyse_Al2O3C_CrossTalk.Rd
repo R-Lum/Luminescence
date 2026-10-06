@@ -91,18 +91,17 @@ on a FI lexsyg SMART reader using Al2O3:C chips.
 }
 
 \examples{
-
-##load data
+## load data
 data(ExampleData.Al2O3C, envir = environment())
 
-##run analysis
+## run analysis
 analyse_Al2O3C_CrossTalk(data_CrossTalk)
 
 }
 \references{
 Kreutzer, S., Martin, L., Guérin, G., Tribolo, C., Selva, P., Mercier, N., 2018. Environmental Dose Rate
 Determination Using a Passive Dosimeter: Techniques and Workflow for alpha-Al2O3:C Chips.
-Geochronometria 45, 56-67. doi: 10.1515/geochr-2015-0086
+Geochronometria 45, 56-67. \doi{10.1515/geochr-2015-0086}
 }
 \seealso{
 \link{analyse_Al2O3C_ITC}

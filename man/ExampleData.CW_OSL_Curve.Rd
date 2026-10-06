@@ -36,7 +36,6 @@ Reference: \tab Bos & Wallinga (2012) and Baartman et al. (2011)
 \code{data.frame} containing CW-OSL curve data (time, counts)
 }
 \examples{
-
 data(ExampleData.CW_OSL_Curve, envir = environment())
 plot(ExampleData.CW_OSL_Curve)
 

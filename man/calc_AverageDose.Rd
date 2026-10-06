@@ -99,7 +99,6 @@ This function has beta status!
 }
 
 \examples{
-
 ## load example data
 data(ExampleData.DeValues, envir = environment())
 
@@ -114,7 +113,7 @@ plot_AbanicoPlot(AD, z.0 = AD$summary$de)
 Guérin, G., Christophe, C., Philippe, A., Murray, A.S., Thomsen, K.J., Tribolo, C., Urbanova, P.,
 Jain, M., Guibert, P., Mercier, N., Kreutzer, S., Lahaye, C., 2017. Absorbed dose, equivalent dose,
 measured dose rates, and implications for OSL age estimates: Introducing the Average Dose Model.
-Quaternary Geochronology 1-32. doi:10.1016/j.quageo.2017.04.002
+Quaternary Geochronology 1-32. \doi{10.1016/j.quageo.2017.04.002}
 
 \strong{Further reading}\cr
 

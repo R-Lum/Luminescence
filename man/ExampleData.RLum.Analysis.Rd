@@ -31,8 +31,7 @@ protocol analysis.
 }
 
 \examples{
-
-##load data
+## load data
 data(ExampleData.RLum.Analysis, envir = environment())
 
 ##plot data
@@ -45,7 +44,7 @@ plot_RLum(IRSAR.RF.Data)
 Kreutzer, S., Lauer, T., Meszner, S., Krbetschek, M.R., Faust, D., Fuchs,
 M., 2014. Chronology of the Quaternary profile Zeuchfeld in Saxony-Anhalt /
 Germany - a preliminary luminescence dating study. Zeitschrift fuer
-Geomorphologie 58, 5-26. doi: 10.1127/0372-8854/2012/S-00112
+Geomorphologie 58, 5-26. \doi{10.1127/0372-8854/2012/S-00112}
 }
 \keyword{datasets}
 \keyword{internal}

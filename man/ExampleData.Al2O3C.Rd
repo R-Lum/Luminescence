@@ -30,7 +30,6 @@ the number of aliquots have been reduced to a required minimum to keep the file 
 still being able to run the corresponding functions.
 }
 \examples{
-
 ##(1) curves
 data(ExampleData.Al2O3C, envir = environment())
 plot_RLum(data_ITC[1:2])

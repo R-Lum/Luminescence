@@ -22,8 +22,7 @@ including background measurement. Measurements carried out in the
 luminescence laboratory at the University of Bayreuth.
 }
 \examples{
-
-##show LM data
+## show LM data
 data(ExampleData.FittingLM, envir = environment())
 plot(values.curve,log="x")
 

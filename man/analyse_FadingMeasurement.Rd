@@ -176,7 +176,6 @@ However, \emph{all} pause times are taken into consideration for the analysis.
 }
 
 \examples{
-
 ## load example data (sample UNIL/NB123, see ?ExampleData.Fading)
 data("ExampleData.Fading", envir = environment())
 
@@ -207,7 +206,7 @@ SAR. Radiation Measurements 37, 487-492. \doi{10.1016/S1350-4487(03)00018-0}
 
 Huntley, D.J., Lamothe, M., 2001. Ubiquity of anomalous fading in K-feldspars and the measurement
 and correction for it in optical dating. Canadian Journal of Earth Sciences 38,
-1093-1106. doi: \code{10.1139/cjes-38-7-1093}
+1093-1106. \doi{10.1139/cjes-38-7-1093}
 
 Kars, R.H., Wallinga, J., Cohen, K.M., 2008. A new approach towards anomalous
 fading correction for feldspar  IRSL dating-tests on samples in field saturation.

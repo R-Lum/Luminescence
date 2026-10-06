@@ -302,7 +302,6 @@ documentation of \code{axis}. Specifying tick positions manually overrides a
 }
 
 \examples{
-
 ## load example data and recalculate to Gray
 data(ExampleData.DeValues, envir = environment())
 ExampleData.DeValues <- ExampleData.DeValues$CA1
@@ -485,7 +484,7 @@ Instrumentation. Part D. Nuclear Tracks and Radiation Measurements 17 (3),
 
 Dietze, M., Kreutzer, S., Burow, C., Fuchs, M.C., Fischer, M., Schmidt, C., 2015.
 The abanico plot: visualising chronometric data with individual standard errors.
-Quaternary Geochronology. doi:10.1016/j.quageo.2015.09.003
+Quaternary Geochronology. \doi{10.1016/j.quageo.2015.09.003}
 }
 \seealso{
 \link{plot_RadialPlot}, \link{plot_KDE},
