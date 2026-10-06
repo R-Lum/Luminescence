@@ -50,12 +50,12 @@ test_that("input validation", {
   expect_error(read_BIN2R(zero, verbose = FALSE),
                "BIN/BINX format version \\(..\\) is not supported or file is")
   SW({
-  expect_warning(
+  expect_message(
       expect_message(expect_null(read_BIN2R(zero, verbose = TRUE,
                                             forced.VersionNumber = 8)),
                      "Record #1 skipped due to wrong record length"),
       "0 records read, NULL returned")
-  expect_warning(
+  expect_message(
       expect_message(expect_null(read_BIN2R(zero, verbose = TRUE,
                                             forced.VersionNumber = 3)),
                      "Record #1 skipped due to wrong record length"),
@@ -177,7 +177,7 @@ test_that("test the import of various BIN-file versions", {
   })
 
   ## options to Risoe.BINfileData2RLum.Analysis
-  expect_warning(read_BIN2R(bin.v8, fastForward = FALSE, protocol = "test"),
+  expect_message(read_BIN2R(bin.v8, fastForward = FALSE, protocol = "test"),
                  "Additional arguments specified: 'protocol'")
 
   ## options when an empty object is produced

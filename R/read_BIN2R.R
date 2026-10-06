@@ -292,7 +292,7 @@ read_BIN2R <- function(
   ##set n.length we will need it later
   n.length <- temp.ID
   if (n.length == 0) {
-    .throw_warning("0 records read, NULL returned")
+    .throw_message("0 records read, NULL returned")
     return(NULL)
   }
 
@@ -1192,8 +1192,8 @@ read_BIN2R <- function(
     args <- dots[dots %in% names(formals(Risoe.BINfileData2RLum.Analysis))[-1]]
     if (length(args) > 0) {
       fastForward <- TRUE
-      .throw_warning("Additional arguments specified: ", .collapse(args),
-                     ", setting 'fastForward = TRUE'")
+      .throw_message("Additional arguments specified: ", .collapse(args),
+                     ", setting 'fastForward = TRUE'", error = FALSE)
     }
   }
 
