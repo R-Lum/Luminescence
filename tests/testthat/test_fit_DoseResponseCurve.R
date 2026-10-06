@@ -770,6 +770,15 @@ temp_OTORX_alt <-
                 "De = NaN")
   expect_output(fit_DoseResponseCurve(rbind(df, c(3, 2, 3)), fit.method = "DSE"),
                 "Fit failed for DSE")
+
+  ## main fit works, but all MC iteration fail
+  x.nomcfit <- data.frame(dose = 0:6,
+                          LxTx = c(0.02, 0.5, 0.8, 1.0, 1.1, 1.15, 1.18),
+                          LxTx.error = 1e12)
+  expect_silent(fit <- fit_DoseResponseCurve(x.nomcfit, fit.method = "OTOR",
+                                             n.MC = 2, verbose = FALSE))
+  expect_false(is.na(fit$De$De))
+  expect_true(all(is.na(fit$De.MC)))
 })
 
 test_that("regression tests", {
