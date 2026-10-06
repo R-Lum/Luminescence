@@ -848,10 +848,14 @@ test_that("regression tests", {
   ## Hayes, R.B., Haskell, E.H., Kenner, G.H., 1998. An assessment
   ## of the Levenberg-Marquardt fitting algorithm on saturating exponential
   ## data sets. Ancient TL 16, 57–62. https://doi.org/10.26034/la.atl.1998.294
-  expect_equal(sum(t_QNL84_2_bleached$De[,c(1:2)]), expected = 204, tolerance = 0.01)
-  expect_equal(sum(t_QNL84_2_unbleached$De[,c(1:2)]), expected = 126, tolerance = 0.01)
-  expect_equal(sum(t_STRB87_1_bleached$De[,c(1:2)]), expected = 0.7, tolerance = 0.01)
-  expect_equal(sum(t_STRB87_1_unbleached$De[,c(1:2)]), expected = 0.6, tolerance = 0.01)
+  expect_equal(unlist(t_QNL84_2_bleached$De[, 1:2]),
+               c(De = 195.2, De.Error = 9.1), tolerance = 0.01)
+  expect_equal(unlist(t_QNL84_2_unbleached$De[, 1:2]),
+               c(De = 121.9, De.Error = 4.0), tolerance = 0.01)
+  expect_equal(unlist(t_STRB87_1_bleached$De[, 1:2]),
+               c(De = 0.682, De.Error = 0.015), tolerance = 0.01)
+  expect_equal(unlist(t_STRB87_1_unbleached$De[, 1:2]),
+               c(De = 0.591, De.Error = 0.012), tolerance = 0.01)
 
   ## issue 1541
   expect_output(fit_DoseResponseCurve(df_odd, fit.method = "QDR"),
