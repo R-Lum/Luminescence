@@ -295,10 +295,6 @@ setMethod("bin_RLum", signature = "RLum.Data.Spectrum",
             .validate_positive_scalar(bin_size.row, int = TRUE)
             .validate_positive_scalar(bin_size.col, int = TRUE)
 
-            ##make sure that we do not get in trouble with negative values
-            bin_size.col <- abs(bin_size.col)
-            bin_size.row <- abs(bin_size.row)
-
             ##perform binning
             ##we want to be efficient, so we start
             ##with the larger object
