@@ -79,6 +79,10 @@ to be used in fitting, thus providing a quick way to check for the impact of
 additional regeneration points. The older arguments will raise a deprecation
 warning and will be ignored (#1762).
 
+* The progress bar during the Monte Carlo iteration is now shown for all
+fit methods, while before it only appear for `"QDR"`, `"SSE+LIN"` and `"DSE"`.
+To disable it, set `txtProgressBar = FALSE` (#1791).
+
 ### `get_RLum()`
 
 * When applied to a list with a `class` argument matching none of the list

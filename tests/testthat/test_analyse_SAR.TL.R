@@ -107,7 +107,8 @@ test_that("snapshot tests", {
   expect_warning(
   expect_snapshot_RLum(
     analyse_SAR.TL(object, signal_integral = 2:3,
-                   sequence.structure = c("SIGNAL", "EXCLUDE")),
+                   sequence.structure = c("SIGNAL", "EXCLUDE"),
+                   txtProgressBar = FALSE),
     expect_snapshot_output = TRUE),
   "Error column invalid, infinite, or contains 0, 'fit.weights' reset to NULL")
   })

@@ -76,6 +76,10 @@ can be accessed via the new `bin_RLum()` generic (#1782):
   arguments will raise a deprecation warning and will be ignored
   (#1762).
 
+- The progress bar during the Monte Carlo iteration is now shown for all
+  fit methods, while before it only appear for `"QDR"`, `"SSE+LIN"` and
+  `"DSE"`. To disable it, set `txtProgressBar = FALSE` (#1791).
+
 ### `get_RLum()`
 
 - When applied to a list with a `class` argument matching none of the

@@ -701,6 +701,39 @@ fit_DoseResponseCurve <- function(
       writeLines(paste("[fit_DoseResponseCurve()]", fit_message))
   }
 
+  ## helper to run a generic Monte Carlo fitting loop
+  .run_mc_fits <- function(formula, start, lower, upper = NULL) {
+    pb <- if (txtProgressBar) {
+            cat("\n\t Run Monte Carlo loops for error estimation\n")
+            on.exit(close(pb), add = TRUE)
+            txtProgressBar(min = 0, max = n.MC, char = "=", style = 3)
+          } else NULL
+
+    num.fitted <- 0
+    mc_ok <- list()
+    for (i in seq_len(n.MC)) {
+      try({
+        fit.MC_i <- minpack.lm::nlsLM(
+          formula = formula,
+          data = list(x = xy$x, y = data.MC[, i]),
+          start = start,
+          weights = fit.weights,
+          algorithm = "LM",
+          lower = if (is.function(lower)) lower() else lower,
+          upper = upper,
+          control = minpack.lm::nls.lm.control(maxiter = 500))
+        num.fitted <- num.fitted + 1
+        mc_ok[[num.fitted]] <- c(i = i, stats::coef(fit.MC_i))
+      }, silent = TRUE)
+
+      if (!is.null(pb)) setTxtProgressBar(pb, i)
+    }
+
+    if (num.fitted == 0)
+      return(NULL)
+    as.data.frame(do.call(rbind, mc_ok))
+  }
+
   .compute_D80 <- function(D63, R) {
     D63 * (0.809 + 0.800 * R) / (0.368 + 0.632 * R)
   }
@@ -921,48 +954,22 @@ fit_DoseResponseCurve <- function(
         D01 <- D0
         .report_fit(De, sprintf(" | D01 = %.2f", D01))
 
-        ## SSE MC -----
-        ##Monte Carlo Simulation
-        #	--Fit many curves and calculate a new De +/- De_Error
-        #	--take De_Error
-
-        ## preallocate variable
-        var.D0 <- rep_len(NA_real_, n.MC)
-
-        #start loop
-        for (i in 1:n.MC) {
-          fit.MC <- try(minpack.lm::nlsLM(
+        ## SSE Monte Carlo error estimation
+        mc <- .run_mc_fits(
             formula = y ~ fit_functionSSE_cpp(N, D0, Di, x),
-            data = list(x = xy$x,y = data.MC[,i]),
             start = list(N = N, D0 = D0, Di = Di),
-            weights = fit.weights,
-            trace = FALSE,
-            algorithm = "LM",
             lower = lower,
-            upper = upper,
-            control = minpack.lm::nls.lm.control(maxiter = 500)
-          ), silent = TRUE)
+            upper = upper)
 
-          #get parameters out of it including error handling
-          if (!inherits(fit.MC, "try-error") && !alternate) {
-            #get parameters out
-            parameters <- coef(fit.MC)
-            var.N <- as.numeric(parameters["N"])
-            var.D0[i] <- as.numeric(parameters["D0"])
-            var.Di <- as.numeric(parameters["Di"])
+        if (!is.null(mc)) {
+          D01.ERROR <- sd(mc$D0, na.rm = TRUE)
 
-            #calculate x.natural for error calculation
-            x.natural[i] <- suppressWarnings(
-                -var.Di - var.D0[i] * log(1 - data.MC.De[i] / var.N))
+          if (!alternate) {
+            x.natural[mc$i] <- suppressWarnings(
+                -mc$Di - mc$D0 * log(1 - data.MC.De[mc$i] / mc$N))
           }
+        }
 
-        }#end for loop
-
-        ##write D01.ERROR
-        D01.ERROR <- sd(var.D0, na.rm = TRUE)
-
-        ##remove values
-        rm(var.D0)
       }#endif::try-error fit
     }#endif:fit.method!="LIN"
 
@@ -1138,59 +1145,32 @@ fit_DoseResponseCurve <- function(
         .report_fit(De)
       }
 
-      ##Monte Carlo Simulation for error estimation
-      #	--Fit many curves and calculate a new De +/- De_Error
-      #	--take De_Error
+      ## SSE+LIN Monte Carlo error estimation
+      mc <- .run_mc_fits(
+        formula = y ~ fit_functionSSELIN_cpp(N, D0, Di, g, x),
+        start = list(N = N, D0 = D0, Di = Di, g = g),
+        lower = lower)
 
-      ##set progressbar
-      if(txtProgressBar){
-        cat("\n\t Run Monte Carlo loops for error estimation of the SSE+LIN fit\n")
-        pb <- txtProgressBar(min=0,max=n.MC, char="=", style=3)
-      }
-
-      ## start Monte Carlo loops
-      for(i in  1:n.MC){
-        ##perform MC fitting
-        fit.MC <- try(suppressWarnings(minpack.lm::nlsLM(
-          formula = y ~ fit_functionSSELIN_cpp(N, D0, Di, g, x),
-          data = list(x=xy$x,y=data.MC[,i]),
-          start = list(N = N, D0 = D0, Di = Di, g = g),
-          weights = fit.weights,
-          trace = FALSE,
-          algorithm = "LM",
-          lower = lower,
-          control = minpack.lm::nls.lm.control(maxiter = 500)
-        )), silent = TRUE)
-
-        #get parameters out of it including error handling
-        if (!inherits(fit.MC, "try-error")) {
-          .get_coef(fit.MC, pre = "var.")
-
-          #problem: analytically it is not easy to calculate x,
-          #use uniroot to solve this problem
+      if (!is.null(mc) && !alternate) {
+        ## analytically it is not easy to calculate x, use uniroot to find it
+        for (j in seq_len(nrow(mc))) {
           temp.De.MC <- try(stats::uniroot(
               f = f.unirootSSELIN,
               interval = c(min.val, max(xy$x) * 1.5),
               tol = 0.001,
-              N = var.N,
-              D0 = var.D0,
-              Di = var.Di,
-              g = var.g,
-              LnTn = data.MC.De[i]
+              N = mc$N[j],
+              D0 = mc$D0[j],
+              Di = mc$Di[j],
+              g = mc$g[j],
+              LnTn = data.MC.De[mc$i[j]]
             ),
             silent = TRUE)
 
           if (!inherits(temp.De.MC, "try-error")) {
-            x.natural[i] <- temp.De.MC$root
+            x.natural[mc$i[j]] <- temp.De.MC$root
           }
         }
-        ##update progress bar
-        if(txtProgressBar) setTxtProgressBar(pb, i)
-
-      }#end for loop
-
-      ##close
-      if(txtProgressBar) close(pb)
+      }
 
     }else{
       .report_fit_failure(fit.method, mode)
@@ -1256,7 +1236,7 @@ fit_DoseResponseCurve <- function(
       #get parameters out of it
       .get_coef(fit)
 
-      #problem: analytically it is not easy to calculate x, use uniroot
+      ## analytically it is not easy to calculate x, use uniroot to find it
       De <- NA
       if (interpolation) {
         f.unirootDSE <-
@@ -1290,71 +1270,38 @@ fit_DoseResponseCurve <- function(
       #print D0 and De value values
       .report_fit(De, sprintf(" | D01 = %.2f | D02 = %.2f", D01, D02))
 
-      ##Monte Carlo Simulation for error estimation
-      #	--Fit many curves and calculate a new De +/- De_Error
-      #	--take De_Error from the simulation
-      # --comparison of De from the MC and original fitted De gives a value for quality
-
-      ##progress bar
-      if(txtProgressBar){
-        cat("\n\t Run Monte Carlo loops for error estimation of the DSE fit\n")
-        pb <- txtProgressBar(min=0,max=n.MC, initial=0, char="=", style=3)
-      }
-
-      #set variables
-      var.D01 <- var.D02 <- rep_len(NA_real_, n.MC)
-
-      ## start Monte Carlo loops
-      for (i in 1:n.MC) {
-        #update progress bar
-        if(txtProgressBar) setTxtProgressBar(pb,i)
-
-        ##perform final fitting
-        fit.MC <- try(minpack.lm::nlsLM(
-          formula = y ~ fit_functionDSE_cpp(N1, N2, D01, D02, Di, x),
-          data = list(x=xy$x,y=data.MC[,i]),
-          start = list(N1 = N1, N2 = N2, D01 = D01, D02 = D02, Di = Di),
-          weights = fit.weights,
-          trace = FALSE,
-          algorithm = "LM",
-          lower = lower,
-          control = minpack.lm::nls.lm.control(maxiter = 500)
-        ), silent = TRUE)
-
-        #get parameters out of it including error handling
-        if (!inherits(fit.MC, "try-error")) {
-          parameters <- coef(fit.MC)
-          var.D01[i] <- parameters["D01"]
-          var.D02[i] <- parameters["D02"]
-
-          #problem: analytically it is not easy to calculate x, here an simple approximation is made
-          temp.De.MC <- try(stats::uniroot(
-            f = f.unirootDSE,
-            interval = c(0,max(xy$x) * 1.5),
-            tol = 0.001,
-            N1 = parameters["N1"],
-            N2 = parameters["N2"],
-            D01 = var.D01[i],
-            D02 = var.D02[i],
-            Di = parameters["Di"],
-            LnTn = data.MC.De[i]
-          ), silent = TRUE)
-
-          if (!inherits(temp.De.MC, "try-error"))
-            x.natural[i] <- temp.De.MC$root
-
-        } #end if "try-error" MC simulation
-      } #end for loop
-
-      if (txtProgressBar) close(pb)
+      ## DSE Monte Carlo error estimation
+      mc <- .run_mc_fits(
+        formula = y ~ fit_functionDSE_cpp(N1, N2, D01, D02, Di, x),
+        start = list(N1 = N1, N2 = N2, D01 = D01, D02 = D02, Di = Di),
+        lower = lower)
 
       D01 <- round(D01, digits = 2)
       D02 <- round(D02, digits = 2)
-      D01.ERROR <- sd(var.D01, na.rm = TRUE)
-      D02.ERROR <- sd(var.D02, na.rm = TRUE)
 
-      ##remove values
-      rm(var.D01, var.D02)
+      if (!is.null(mc)) {
+        D01.ERROR <- sd(mc$D01, na.rm = TRUE)
+        D02.ERROR <- sd(mc$D02, na.rm = TRUE)
+
+        if (!alternate) {
+          ## analytically it is not easy to calculate x, use uniroot to find it
+          for (j in seq_len(nrow(mc))) {
+            try({
+              temp.De <- stats::uniroot(
+                f = f.unirootDSE,
+                interval = c(0, max(xy$x) * 1.5),
+                tol = 0.001,
+                N1 = mc$N1[j],
+                N2 = mc$N2[j],
+                D01 = mc$D01[j],
+                D02 = mc$D02[j],
+                Di = mc$Di[j],
+                LnTn = data.MC.De[mc$i[j]])
+              x.natural[mc$i[j]] <- temp.De$root
+            }, silent = TRUE)
+          }
+        }
+      }
 
     }else{
       .report_fit_failure(fit.method, mode)
@@ -1399,51 +1346,23 @@ fit_DoseResponseCurve <- function(
       D01 <- D0
       .report_fit(De, sprintf(" | D01 = %.2f | c = %.2f", D01, c))
 
-      ##Monte Carlo Simulation
-      #	--Fit many curves and calculate a new De +/- De_Error
-      #	--take De_Error
+      ## GOK Monte Carlo error estimation
+      mc <- .run_mc_fits(
+        formula = y ~ fit_functionGOK_cpp(a, D0, c, d, x),
+        start = list(a = a, D0 = D0, c = 1, d = 1),
+        lower = lower,
+        upper = upper)
 
-      ## preallocate variable
-      var.D0 <- rep_len(NA_real_, n.MC)
+      if (!is.null(mc)) {
+        D01.ERROR <- sd(mc$D0, na.rm = TRUE)
 
-      #start loop
-      for (i in 1:n.MC) {
-        ##set data set
-        fit.MC <- try({
-          minpack.lm::nlsLM(
-          formula = y ~ fit_functionGOK_cpp(a, D0, c, d, x),
-          data = list(x = xy$x,y = data.MC[,i]),
-          start = list(a = a, D0 = D0, c = 1, d = 1),
-          weights = fit.weights,
-          trace = FALSE,
-          algorithm = "LM",
-          lower = lower,
-          upper = upper,
-          control = minpack.lm::nls.lm.control(maxiter = 500)
-        )}, silent = TRUE)
-
-        # get parameters out of it including error handling
-        if (!inherits(fit.MC, "try-error") && !alternate) {
-          # get parameters out
-          parameters<-coef(fit.MC)
-          var.a <- as.numeric(parameters["a"]) #Imax
-          var.D0[i] <- as.numeric(parameters["D0"])
-          var.c <- as.numeric(parameters["c"]) #kinetic order modifier
-          var.d <- as.numeric(parameters["d"]) #origin
-
+        if (!alternate) {
           # calculate x.natural for error calculation
           ## note that data.MC.De contains only 0s for extrapolation
-          temp <- (var.a * var.d - data.MC.De[i]) / var.a
-          x.natural[i] <- suppressWarnings(-var.D0[i] * (1 - temp^-var.c) / var.c)
+          temp <- (mc$a * mc$d - data.MC.De[mc$i]) / mc$a
+          x.natural[mc$i] <- suppressWarnings(-mc$D0 * (1 - temp^-mc$c) / mc$c)
         }
-
-      }#end for loop
-
-      ##write D01.ERROR
-      D01.ERROR <- sd(var.D0, na.rm = TRUE)
-
-      ##remove values
-      rm(var.D0)
+      }
     }
   }
 
@@ -1528,86 +1447,61 @@ fit_DoseResponseCurve <- function(
           ## report terminal line
           .report_fit(De, sprintf(" | R = %.2f | D63 = %.2f", R, D63))
 
-          #OTOR MC -----
-          ##Monte Carlo Simulation
-          #	--Fit many curves and calculate a new De +/- De_Error
-          #	--take De_Error
-          #set variables
-          var.Dc <- var.R <- rep_len(NA_real_, n.MC)
+          ## OTOR Monte Carlo error estimation
+          mc <- .run_mc_fits(
+            formula = .toFormula(fit.functionOTOR, env = currn_env),
+            start = list(R = 0, Dc = b, N = 0, Di = 0),
+            lower = if (fit.bounds) function() c(0, 0, 0, Di * runif(1, 0, 2))
+                    else rep(-Inf, 4),
+            upper = upper)
 
-          #start loop
-          for (i in 1:n.MC) {
-            ##set data set
-            fit.MC <- try(minpack.lm::nlsLM(
-              formula = .toFormula(fit.functionOTOR, env = currn_env),
-              data = list(x = xy$x,y = data.MC[,i]),
-              start = list(R = 0, Dc = b, N = 0, Di = 0),
-              weights = fit.weights,
-              trace = FALSE,
-              algorithm = "LM",
-              lower = if (fit.bounds) c(0, 0, 0, Di * runif(1,0,2)) else c(-Inf,-Inf,-Inf, -Inf),
-              upper = upper,
-              control = minpack.lm::nls.lm.control(maxiter = 500)
-            ), silent = TRUE)
+          if (!is.null(mc)) {
+            ## calculate x.natural for error calculation
+            if (!alternate) {
+              for (j in seq_len(nrow(mc))) {
+                i <- mc$i[j]
+                if (interpolation) {
+                  de <- try(suppressWarnings(stats::uniroot(
+                    f = function(x, R, Dc, N, Di, LnTn)
+                      fit.functionOTOR(R, Dc, N, Di, x) - LnTn,
+                    interval = c(0, max(object[[1]]) * 1.2),
+                    R = mc$R[j],
+                    Dc = mc$Dc[j],
+                    N = mc$N[j],
+                    Di = mc$Di[j],
+                    LnTn = data.MC.De[i])$root), silent = TRUE)
 
-            # get parameters out of it including error handling
-            if (!inherits(fit.MC, "try-error")) {
-              # get parameters out
-              parameters <- coef(fit.MC)
-              var.R[i] <- as.numeric(parameters["R"])
-              var.Dc[i] <- as.numeric(parameters["Dc"])
-              var.N <- as.numeric(parameters["N"])
-              var.Di <- as.numeric(parameters["Di"])
+                } else if (extrapolation) {
+                  de <- try(suppressWarnings(stats::uniroot(
+                      f = function(x, R, Dc, N, Di) {
+                        fit.functionOTOR(R, Dc, N, Di, x)},
+                      interval = c(-max(object[[1]]), 0),
+                      R = mc$R[j],
+                      Dc = mc$Dc[j],
+                      N = mc$N[j],
+                      Di = mc$Di[j])$root), silent = TRUE)
 
-              # calculate x.natural for error calculation
-              if (interpolation) {
-                try <- try({
-                  suppressWarnings(stats::uniroot(
-                  f = function(x, R, Dc, N, Di, LnTn) {
-                    fit.functionOTOR(R, Dc, N, Di, x) - LnTn},
-                  interval = c(0, max(object[[1]]) * 1.2),
-                  R = var.R[i],
-                  Dc = var.Dc[i],
-                  N = var.N,
-                  Di = var.Di,
-                  LnTn = data.MC.De[i])$root)
-                }, silent = TRUE)
-
-              } else if (extrapolation) {
-                try <- try(
-                  suppressWarnings(stats::uniroot(
-                    f = function(x, R, Dc, N, Di) {
-                      fit.functionOTOR(R, Dc, N, Di, x)},
-                    interval = c(-max(object[[1]]), 0),
-                    R = var.R[i],
-                    Dc = var.Dc[i],
-                    N = var.N,
-                    Di = var.Di)$root),
-                  silent = TRUE)
-
-                if(inherits(try, "try-error")){
-                  try <- try(suppressWarnings(stats::optimize(
-                    f = function(x, R, Dc, N, Di) {
-                      fit.functionOTOR(R, Dc, N, Di, x)},
-                    interval = c(-max(object[[1]]), 0),
-                    R = var.R[i],
-                    Dc = var.Dc[i],
-                    N = var.N,
-                    Di = var.Di)$minimum),
-                    silent = TRUE)
+                  if(inherits(de, "try-error")){
+                    de <- try(suppressWarnings(stats::optimize(
+                      f = function(x, R, Dc, N, Di) {
+                        fit.functionOTOR(R, Dc, N, Di, x)},
+                      interval = c(-max(object[[1]]), 0),
+                      R = mc$R[j],
+                      Dc = mc$Dc[j],
+                      N = mc$N[j],
+                      Di = mc$Di[j])$minimum), silent = TRUE)
+                  }
                 }
-              }##endif extrapolation
-              if (!inherits(try, c("try-error", "function")))
-                x.natural[i] <- try
+                if (!inherits(de, c("try-error", "function")))
+                  x.natural[i] <- de
+              }
             }
 
-          }#end for loop
-
-          ##write Dc.ERROR
-          Dc.ERROR <- quantile(var.Dc, na.rm = TRUE, probs = c(0.25,0.75))
-          R.ERROR <- quantile(var.R, na.rm = TRUE, probs = c(0.25,0.75))
+          Dc.ERROR <- quantile(mc$Dc, na.rm = TRUE, probs = c(0.25, 0.75))
           Dc.LOWER <- Dc.ERROR[1]
           Dc.UPPER <- Dc.ERROR[2]
+
+          R.ERROR <- quantile(mc$R, na.rm = TRUE, probs = c(0.25, 0.75))
           R.LOWER <- R.ERROR[1]
           R.UPPER <- R.ERROR[2]
 
@@ -1619,10 +1513,7 @@ fit_DoseResponseCurve <- function(
           ## calculate D80 the same way
           D80.LOWER <- .compute_D80(D63.LOWER, R.LOWER)
           D80.UPPER <- .compute_D80(D63.UPPER, R.UPPER)
-
-          ##remove values
-          rm(var.Dc)
-          rm(var.R)
+          }
 
     }#endif::try-error fit
 
@@ -1723,97 +1614,70 @@ fit_DoseResponseCurve <- function(
       ## report terminal line
       .report_fit(De, sprintf(" | R = %.2f | D63 = %.2f", 1 - Q, D63))
 
-      #OTORX MC -----
-      ##Monte Carlo Simulation
-      #	--Fit many curves and calculate a new De +/- De_Error
-      #	--take De_Error
-      #set variables
-      var.D63 <- var.Q <- rep_len(NA_real_, n.MC)
+      ## OTORX Monte Carlo error estimation
+      mc <- .run_mc_fits(
+        formula = .toFormula(fit.functionOTORX, env = currn_env),
+        start = list(Q = 1, D63 = b, c = 1, Di = 1),
+        lower = lower,
+        upper = upper)
 
-      #start loop
-      for (i in 1:n.MC) {
-        ##set data set
-        fit.MC <- try(minpack.lm::nlsLM(
-          formula = .toFormula(fit.functionOTORX, env = currn_env),
-          data = list(x = xy$x,y = data.MC[,i]),
-          start = list(Q = 1, D63 = b, c = 1, Di = 1),
-          weights = fit.weights,
-          trace = FALSE,
-          algorithm = "LM",
-          lower = lower,
-          upper = upper,
-          control = minpack.lm::nls.lm.control(maxiter = 500)
-        ), silent = TRUE)
-
-        # get parameters out of it including error handling
-        if (!inherits(fit.MC, "try-error")) {
-          # get parameters out
-          parameters<-coef(fit.MC)
-          var.Q[i] <- as.numeric(parameters["Q"])
-          var.D63[i] <- as.numeric(parameters["D63"])
-          var.c <- as.numeric(parameters["c"])
-          var.Di <- as.numeric(parameters["Di"])
-
-          # calculate x.natural for error calculation
-          if (interpolation) {
-            try <- try(
-              suppressWarnings(stats::uniroot(
+      if (!is.null(mc)) {
+        ## calculate x.natural for error calculation
+        if (!alternate) {
+          for (j in seq_len(nrow(mc))) {
+            i <- mc$i[j]
+            if (interpolation) {
+              de <- try(suppressWarnings(stats::uniroot(
                 f = function(x, Q, D63, c, Di, LnTn) {
                   fit.functionOTORX(x, Q, D63, c, Di) - LnTn},
                 interval = c(0, max(object[[1]]) * 1.2),
-                Q = var.Q[i],
-                D63 = var.D63[i],
-                c = var.c,
-                Di = var.Di,
+                Q = mc$Q[j],
+                D63 = mc$D63[j],
+                c = mc$c[j],
+                Di = mc$Di[j],
                 LnTn = data.MC.De[i])$root),
               silent = TRUE)
 
-          } else if (extrapolation) {
-            try <- try(
-              suppressWarnings(stats::uniroot(
-                f = function(x, Q, D63, c, Di, LnTn) {
-                  fit.functionOTORX(x, Q, D63, c, Di)},
-                interval = c(-max(object[[1]]), 0),
-                Q = var.Q[i],
-                D63 = var.D63[i],
-                c = var.c,
-                Di = var.Di)$root),
-              silent = TRUE)
-
-            if(inherits(try, "try-error")){
-              try <- try(suppressWarnings(stats::optimize(
+            } else if (extrapolation) {
+              de <- try(suppressWarnings(stats::uniroot(
                 f = function(x, Q, D63, c, Di) {
                   fit.functionOTORX(x, Q, D63, c, Di)},
                 interval = c(-max(object[[1]]), 0),
-                Q = var.Q[i],
-                D63 = var.D63[i],
-                c = var.c,
-                Di = var.Di)$minimum),
+                Q = mc$Q[j],
+                D63 = mc$D63[j],
+                c = mc$c[j],
+                Di = mc$Di[j])$root),
                 silent = TRUE)
+
+              if (inherits(de, "try-error")) {
+                de <- try(suppressWarnings(stats::optimize(
+                  f = function(x, Q, D63, c, Di) {
+                    fit.functionOTORX(x, Q, D63, c, Di)},
+                  interval = c(-max(object[[1]]), 0),
+                  Q = mc$Q[j],
+                  D63 = mc$D63[j],
+                  c = mc$c[j],
+                  Di = mc$Di[j])$minimum),
+                  silent = TRUE)
+              }
             }
-          }##endif extrapolation
-          if (!inherits(try, c("try-error", "function")))
-            x.natural[i] <- try
+            if (!inherits(de, c("try-error", "function")))
+              x.natural[i] <- de
+          }
         }
-      }#end for loop
 
-      ##write Dc.ERROR
-      D63.ERROR <- quantile(var.D63, na.rm = TRUE, probs = c(0.25, 0.75))
-      R.ERROR <- quantile(1-var.Q, na.rm = TRUE, probs = c(0.25, 0.75))
-
-      ##write Dc.ERROR
+      D63.ERROR <- quantile(mc$D63, na.rm = TRUE, probs = c(0.25, 0.75))
       D63.LOWER <- D63.ERROR[1]
       D63.UPPER <- D63.ERROR[2]
+
+      R.ERROR <- quantile(1 - mc$Q, na.rm = TRUE, probs = c(0.25, 0.75))
       R.LOWER <- R.ERROR[1]
       R.UPPER <- R.ERROR[2]
 
       ## calculate D80 the same way
       D80.LOWER <- .compute_D80(D63.LOWER, R.LOWER)
       D80.UPPER <- .compute_D80(D63.UPPER, R.UPPER)
-
-      ##remove values
-      rm(var.D63)
-      rm(var.Q)
+      }
 
     }#endif::try-error fit
   }#End if fit.method selection (for all)
