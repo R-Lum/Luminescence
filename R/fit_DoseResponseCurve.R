@@ -1334,13 +1334,10 @@ fit_DoseResponseCurve <- function(
       .get_coef(fit)
 
       #calculate De
-      De <- NA
-      if (interpolation || extrapolation) {
+      De <- if (interpolation || extrapolation) {
         y <- if (interpolation) object[1, 2] else 0
-        De <-
-        suppressWarnings(
-          -(D0 * (( (a * d - y) / a)^c - 1) * ((a * d - y)/a)^-c ) / c)
-      }
+        -(D0 * (1 - (d - y / a)^-c)) / c
+      } else NA
 
       #print D01 value
       D01 <- D0
@@ -1359,8 +1356,8 @@ fit_DoseResponseCurve <- function(
         if (!alternate) {
           # calculate x.natural for error calculation
           ## note that data.MC.De contains only 0s for extrapolation
-          temp <- (mc$a * mc$d - data.MC.De[mc$i]) / mc$a
-          x.natural[mc$i] <- suppressWarnings(-mc$D0 * (1 - temp^-mc$c) / mc$c)
+          temp <- mc$d - data.MC.De[mc$i] / mc$a
+          x.natural[mc$i] <- -mc$D0 * (1 - temp^-mc$c) / mc$c
         }
       }
     }
