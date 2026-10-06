@@ -703,7 +703,7 @@ fit_DoseResponseCurve <- function(
 
   ## helper to run a generic Monte Carlo fitting loop
   .run_mc_fits <- function(formula, start, lower, upper = NULL) {
-    pb <- if (isTRUE(txtProgressBar)) {
+    pb <- if (txtProgressBar) {
             cat("\n\t Run Monte Carlo loops for error estimation\n")
             on.exit(close(pb), add = TRUE)
             txtProgressBar(min = 0, max = n.MC, char = "=", style = 3)

@@ -82,8 +82,7 @@ test_that("snapshot tests", {
         signal_integral = 210:220,
         dose.points = 1:7,
         integral_input = "measurement",
-        sequence.structure = c("SIGNAL", "BACKGROUND"),
-        txtProgressBar = FALSE),
+        sequence.structure = c("SIGNAL", "BACKGROUND")),
     expect_snapshot_output = TRUE
   )
 
@@ -94,8 +93,7 @@ test_that("snapshot tests", {
         signal_integral = 210:220,
         dose.points = 1:7,
         log = "x",
-        sequence.structure = c("SIGNAL", "BACKGROUND"),
-        txtProgressBar = FALSE),
+        sequence.structure = c("SIGNAL", "BACKGROUND")),
     expect_snapshot_output = TRUE),
     "Non-positive values detected, log-scale disabled"
   )
