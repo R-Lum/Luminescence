@@ -74,9 +74,9 @@
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
 #'
-#' @param ... further arguments that will be passed to the function
-#' [Luminescence::Risoe.BINfileData2RLum.Analysis]. Please note that any matching argument
-#' automatically sets `fastForward = TRUE`
+#' @param ... further arguments that will be passed to
+#' [Luminescence::Risoe.BINfileData2RLum.Analysis]. **Note:** Any matching
+#' argument automatically sets `fastForward = TRUE`.
 #'
 #' @return
 #' Returns an S4 [Luminescence::Risoe.BINfileData-class] object containing two
@@ -86,8 +86,12 @@
 #' \item{DATA}{A [list] containing a numeric [vector] of the measured data.
 #' The ID corresponds to the record ID in METADATA.}
 #'
-#' If `fastForward = TRUE` an [Luminescence::RLum.Analysis-class] object is
-#' returned (coerced by [Luminescence::Risoe.BINfileData2RLum.Analysis]).
+#' If `fastForward = TRUE` a [list] of [Luminescence::RLum.Analysis-class]
+#' objects is returned (coerced by [Luminescence::Risoe.BINfileData2RLum.Analysis]).
+#'
+#' `NULL` is returned if no records were imported, or if all records were
+#' removed during import and `keep.empty = FALSE`. Otherwise, if no records
+#' remain, an empty object of the class described above is returned instead.
 #'
 #' Results are returned as a list when multiple files are processed or `file`
 #' is a list.
@@ -96,7 +100,7 @@
 #' The function works for BIN/BINX-format versions 03, 04, 05, 06, 07 and 08. The
 #' version number depends on the used Sequence Editor.
 #'
-#' @section Function version: 0.19
+#' @section Function version: 0.20
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -206,7 +210,6 @@ read_BIN2R <- function(
   .validate_logical_scalar(show.record.number)
   .validate_logical_scalar(txtProgressBar)
   .validate_class(ignore.RECTYPE, c("logical", "numeric"), length = 1)
-
 
   ## never show the progress bar if not verbose
   if (!verbose) {
@@ -1088,8 +1091,15 @@ read_BIN2R <- function(
 
   ## if nothing is left, return an empty object
   if (nrow(results.METADATA) == 0) {
+    rm.empty <- isFALSE(list(...)$keep.empty)
     if (verbose)
-      .throw_message("Empty object returned", error = FALSE)
+      .throw_message(sprintf("Empty object%s returned",
+                             if (rm.empty) " and 'keep.empty = FALSE', NULL" else ""),
+                     error = FALSE)
+    if (rm.empty)
+      return(NULL)
+    if (fastForward)
+      return(list(set_RLum("RLum.Analysis")))
     return(set_Risoe.BINfileData())
   }
 
