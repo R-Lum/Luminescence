@@ -1,11 +1,13 @@
-#'@title Trim Channels of RLum.Data-class Objects
+#' @title Trim channels of RLum.Data-class objects
 #'
-#'@description Trim off the number of channels of [Luminescence::RLum.Data-class] objects of similar record type
-#' on the time domain. This function is useful in cases where objects have different lengths (short/longer
-#'measurement time) but should be analysed jointly by other functions.
+#' @description
+#' Trim off the number of channels of [Luminescence::RLum.Data-class] objects
+#' of similar record type on the time domain. This function is useful in cases
+#' where objects have different lengths (short/longer measurement time) but
+#' should be analysed jointly by other functions.
 #'
-#'@details
-#'The function has two modes of operation:
+#' @details
+#' The function has two modes of operation:
 #'
 #' 1. Single [Luminescence::RLum.Data-class] objects or a [list] of such objects:
 #' the function is applied separately over each object.
@@ -19,19 +21,21 @@
 #' parameters are applied, the function will shorten all OSL curves to 99
 #' channels, but leave the TL curve untouched.
 #'
-#'@param object [Luminescence::RLum.Data-class] [Luminescence::RLum.Analysis-class] (**required**): input object,
-#'can be a [list] of objects. Please note that in the latter case the function works
-#'only isolated on each element of the [list].
+#' @param object [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data-class] (**required**):
+#' input object, can be a [list] of objects. Please note that in the latter
+#' case the function works only isolated on each element of the [list].
 #'
-#'@param recordType [character] (*optional*): type of the record where the trim
-#'should be applied. If not set, the types are determined automatically and applied
-#'for each record type classes. Can be provided as [list].
+#' @param recordType [character] (*optional*):
+#' type of the record where the trim should be applied. It can be a [list] if
+#' `object` is a list. If not set, the types are determined automatically and
+#' applied for each record type classes.
 #'
-#' @param trim_range [numeric] (*optional*): sets the range of indices to
-#' keep. If only one value is given, this is taken to be the minimum; if two
-#' values are given, then the range is defined between the two values
-#' (inclusive). Any value beyond the second is silently ignored. If nothing
-#' is set (default), then all curves are trimmed to the same maximum length.
+#' @param trim_range [numeric] (*optional*):
+#' range of indices to keep. It can be a [list] if `object` is a list. If only
+#' one value is given, this is taken to be the minimum; if two values are
+#' given, then the range is defined between the two values (inclusive). Any
+#' value beyond the second is silently ignored. If nothing is set (default),
+#' then all curves are trimmed to the same maximum length.
 #'
 #'@returns A trimmed object or [list] of such objects similar to the input objects
 #'

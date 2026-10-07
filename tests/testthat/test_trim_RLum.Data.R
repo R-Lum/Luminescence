@@ -161,3 +161,20 @@ test_that("RLum.Analysis", {
  testthat::expect_length(
    object = t@records[[1]]@data[,1], n = 250)
 })
+
+test_that("list input", {
+  testthat::skip_on_cran()
+
+  curves <- list(temp@records[[1]], temp@records[[2]])
+
+  ## trim_range provided as a vector
+  trimmed <- expect_type(trim_RLum.Data(curves, trim_range = c(20, 50)),
+                   "list")
+  expect_length(trimmed[[1]]@data[, 1], 31)
+  expect_length(trimmed[[2]]@data[, 1], 31)
+
+  ## trim_range provided as a list
+  trimmed <- trim_RLum.Data(curves, trim_range = list(c(10, 20), NULL))
+  expect_length(trimmed[[1]]@data[, 1], 11)
+  expect_length(trimmed[[2]]@data[, 1], 1000)
+})

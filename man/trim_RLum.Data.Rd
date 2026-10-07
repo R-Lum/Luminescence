@@ -2,32 +2,35 @@
 % Please edit documentation in R/trim_RLum.Data.R
 \name{trim_RLum.Data}
 \alias{trim_RLum.Data}
-\title{Trim Channels of RLum.Data-class Objects}
+\title{Trim channels of RLum.Data-class objects}
 \usage{
 trim_RLum.Data(object, recordType = NULL, trim_range = NULL)
 }
 \arguments{
-\item{object}{\link[=RLum.Data-class]{RLum.Data} \link[=RLum.Analysis-class]{RLum.Analysis} (\strong{required}): input object,
-can be a \link{list} of objects. Please note that in the latter case the function works
-only isolated on each element of the \link{list}.}
+\item{object}{\link[=RLum.Analysis-class]{RLum.Analysis}, \link[=RLum.Data-class]{RLum.Data} (\strong{required}):
+input object, can be a \link{list} of objects. Please note that in the latter
+case the function works only isolated on each element of the \link{list}.}
 
-\item{recordType}{\link{character} (\emph{optional}): type of the record where the trim
-should be applied. If not set, the types are determined automatically and applied
-for each record type classes. Can be provided as \link{list}.}
+\item{recordType}{\link{character} (\emph{optional}):
+type of the record where the trim should be applied. It can be a \link{list} if
+\code{object} is a list. If not set, the types are determined automatically and
+applied for each record type classes.}
 
-\item{trim_range}{\link{numeric} (\emph{optional}): sets the range of indices to
-keep. If only one value is given, this is taken to be the minimum; if two
-values are given, then the range is defined between the two values
-(inclusive). Any value beyond the second is silently ignored. If nothing
-is set (default), then all curves are trimmed to the same maximum length.}
+\item{trim_range}{\link{numeric} (\emph{optional}):
+range of indices to keep. It can be a \link{list} if \code{object} is a list. If only
+one value is given, this is taken to be the minimum; if two values are
+given, then the range is defined between the two values (inclusive). Any
+value beyond the second is silently ignored. If nothing is set (default),
+then all curves are trimmed to the same maximum length.}
 }
 \value{
 A trimmed object or \link{list} of such objects similar to the input objects
 }
 \description{
-Trim off the number of channels of \link[=RLum.Data-class]{RLum.Data} objects of similar record type
-on the time domain. This function is useful in cases where objects have different lengths (short/longer
-measurement time) but should be analysed jointly by other functions.
+Trim off the number of channels of \link[=RLum.Data-class]{RLum.Data} objects
+of similar record type on the time domain. This function is useful in cases
+where objects have different lengths (short/longer measurement time) but
+should be analysed jointly by other functions.
 }
 \details{
 The function has two modes of operation:
