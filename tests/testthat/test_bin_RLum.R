@@ -39,3 +39,16 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(bin_RLum(spectrum, bin_size.row = 1, bin_size.col = 2),
                        tolerance = snapshot.tolerance)
 })
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 1798
+  expect_silent(res <- bin_RLum(set_RLum(class = "RLum.Data.Spectrum",
+                                         data = matrix(data = 1:16, ncol = 4)),
+                                bin_size.col = 2))
+  expect_equal(colnames(res@data),
+               as.character(c(2, 4)))
+  expect_equal(rownames(res@data),
+               as.character(1:4))
+})
