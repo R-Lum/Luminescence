@@ -55,6 +55,10 @@ accessed via the new `bin_RLum()` generic (#1782):
 along with some code tunings. This should have no user-visible effects other 
 than better and more reliable fitting in the case where `method = "FIT"` was chosen (#1748).
 
+* The function validates more strictly the `vslide_range` option. As a result,
+assigning more than two values will now produce an error instead of a warning
+(#1794).
+
 ### `analyse_SAR.CWOSL()`
 
 * The `plot_onePage` argument now defaults to `TRUE` as this turned out to be

@@ -98,13 +98,18 @@ test_that("input validation", {
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
                                 method_control = list(vslide_range = FALSE)),
                  "'vslide_range' in 'method_control' should be of class")
-
+  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
+                                method_control = list(vslide_range = integer(0))),
+               "'vslide_range' in 'method_control' should be of class")
+  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
+                                method_control = list(vslide_range = 1:4)),
+               "'vslide_range' in 'method_control' should be of class")
+  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
+                                method_control = list(vslide_range = NA_real_)),
+               "'vslide_range' in 'method_control' cannot contain NA values")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
                                 method_control = list(vslide_range = "error")),
                  "'vslide_range' in 'method_control' should be either 'auto'")
-  expect_warning(analyse_IRSAR.RF(IRSAR.RF.Data, method = "VSLIDE",
-                                  method_control = list(vslide_range = 1:4)),
-                 "'vslide_range' in 'method_control' has more than 2 elements")
   expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, method = "SLIDE",
                                 method_control = list(vslide_range = c(0, 1e7))),
                "[:::src_analyse_IRSAR_SRS()] 'vslide_range' exceeded maximum size (1e+07)",
