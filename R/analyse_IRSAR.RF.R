@@ -624,7 +624,7 @@ analyse_IRSAR.RF<- function(
       .throw_warning("'", name, "' out of bounds, reset to c(",
                      .format_range(lim, sep = ", "), ")")
     }
-    lim
+    sort(lim)
   }
 
   ## 02 - check boundaries
@@ -651,6 +651,10 @@ analyse_IRSAR.RF<- function(
     .throw_error("The range of regenerated channels should be larger than ",
                  "the range of natural channels")
   }
+
+  ## channel index ranges
+  RF_nat.range <- seq.int(RF_nat.lim[1], RF_nat.lim[2])
+  RF_reg.range <- seq.int(RF_reg.lim[1], RF_reg.lim[2])
 
   # Method Control Settings -------------------------------------------------
   ##=========================================================================
@@ -767,8 +771,8 @@ analyse_IRSAR.RF<- function(
       RF_reg[,1] <- RF_reg[,1] - RF_reg[1,1]
     }
 
-  RF_reg.x <- RF_reg[RF_reg.lim[1]:RF_reg.lim[2],1]
-  RF_reg.y <- RF_reg[RF_reg.lim[1]:RF_reg.lim[2],2]
+  RF_reg.x <- RF_reg[RF_reg.range, 1]
+  RF_reg.y <- RF_reg[RF_reg.range, 2]
 
   ##grep values from natural signal
   RF_nat <- as.data.frame(rbindlist(lapply(object@records[nat.idx],
@@ -780,7 +784,7 @@ analyse_IRSAR.RF<- function(
   }
 
   ##limit values to fit range (at least to the minimum)
-  RF_nat.limited<- RF_nat[min(RF_nat.lim):max(RF_nat.lim),]
+  RF_nat.limited <- RF_nat[RF_nat.range, ]
 
   ##calculate some useful parameters
   RF_nat.mean <- mean(RF_nat.limited[,2])
@@ -1208,9 +1212,7 @@ analyse_IRSAR.RF<- function(
   ##(1) check if RF_nat > RF_reg, considering the fit range
   ##TP$curves_ratio
     if ("curves_ratio" %in% names(TP)) {
-      TP$curves_ratio$VALUE <-
-        sum(RF_nat.limited[,2]) / sum(RF_reg[RF_nat.lim[1]:RF_nat.lim[2], 2])
-
+      TP$curves_ratio$VALUE <- sum(RF_nat.limited[, 2]) / sum(RF_reg[RF_nat.range, 2])
       .check_threshold("curves_ratio")
     }
 
@@ -1233,7 +1235,7 @@ analyse_IRSAR.RF<- function(
       ##in terms of intensity, otherwise the ratio cannot be correct
 
       ##the boundary check is necessary to avoid errors
-      len.RF_nat.lim <- length(RF_nat.lim[1]:RF_nat.lim[2])
+      len.RF_nat.lim <- length(RF_nat.range)
       if (IR_RF_reg.corresponding_id + len.RF_nat.lim > length(RF_reg[, 2])) {
         TP$intersection_ratio$VALUE <- Inf
 
@@ -1301,7 +1303,7 @@ analyse_IRSAR.RF<- function(
   if (!is.null(TP$curves_bounds)) {
     if (is.slide.method) {
       ## add one channel on the top to make sure that it works
-      TP$curves_bounds$VALUE <- max(RF_nat.slid[RF_nat.lim,1]) + (RF_nat[2,1] - RF_nat[1,1])
+      TP$curves_bounds$VALUE <- max(RF_nat.slid[RF_nat.range, 1]) + (RF_nat[2, 1] - RF_nat[1, 1])
        .check_threshold("curves_bounds", ">=", floor(max(RF_reg.x)))
     } else {
       TP$curves_bounds$VALUE <- De.upper
@@ -1412,7 +1414,7 @@ analyse_IRSAR.RF<- function(
          labels = format(labels, scientific = plot.settings$yaxis_scientific))
 
     ##(1) plot points that have been not selected
-    points(RF_reg[-(min(RF_reg.lim):max(RF_reg.lim)), 1:2],
+    points(RF_reg[-RF_reg.range, 1:2],
            cex = plot.settings$pt.cex,
            pch = 3,
            col = col[19])
@@ -1554,13 +1556,14 @@ analyse_IRSAR.RF<- function(
 
       ##(1) plot unused points in grey ... unused points are points outside of the set limit
       points(
-        matrix(RF_nat.slid[-(min(RF_nat.lim):max(RF_nat.lim)),1:2], ncol = 2),
+        matrix(RF_nat.slid[-RF_nat.range, 1:2], ncol = 2),
         cex = plot.settings$pt.cex,
         pch = 21, col = col[19]
       )
 
       ##(2) add used points
-      points(RF_nat.slid[min(RF_nat.lim):max(RF_nat.lim), ], pch = 19,
+      points(RF_nat.slid[RF_nat.range, ],
+             pch = 19,
              cex = plot.settings$pt.cex,
              col = plot.settings$col_nat)
 
@@ -1644,9 +1647,8 @@ analyse_IRSAR.RF<- function(
                  cex = plot.settings$pt.cex,
                  pch = 20, col = "grey")
         } else {
-          temp.points.diff <- max(length(min(RF_nat.lim):max(RF_nat.lim)) -
-                                  length(residuals), 0)
-          points(RF_nat.slid[c(min(RF_nat.lim):(max(RF_nat.lim) - temp.points.diff)), 1],
+          points.diff <- max(length(RF_nat.range) - length(residuals), 0)
+          points(RF_nat.slid[RF_nat.range[seq_len(length(RF_nat.range) - points.diff)], 1],
                  residuals,
                  cex = plot.settings$pt.cex,
                  pch = 20, col = rgb(0, 0, 0, 0.4))
