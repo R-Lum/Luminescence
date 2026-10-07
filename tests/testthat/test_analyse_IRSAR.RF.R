@@ -191,6 +191,10 @@ test_that("graphical snapshot tests", {
                                                pt.cex = 1.5,
                                                n.MC = 10,
                                                txtProgressBar = FALSE))
+  vdiffr::expect_doppelganger("show fit",
+                              analyse_IRSAR.RF(IRSAR.RF.Data,
+                                               method_control = list(show_fit = TRUE),
+                                               n.MC = 10))
   })
 })
 

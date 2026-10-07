@@ -1447,15 +1447,11 @@ analyse_IRSAR.RF<- function(
     ##as useful before further analysis will be applied
     if (method_control.settings$show_fit) {
       if (!inherits(fit.lambda, "try-error")) {
-        fit.lambda_coef <- coef(fit.lambda)
-        curve(fit.lambda_coef[[1]]-
-                (fit.lambda_coef[[2]]*
-                   ((1-exp(-fit.lambda_coef[[3]]*x))^fit.lambda_coef[[4]])),
-              add=TRUE,
-              lty = 2,
-              col="red")
-
-        rm(fit.lambda_coef)
+        .draw_fit_curve(coef(fit.lambda),
+                        from = min(RF_reg[, 1]),
+                        to = max(RF_reg[, 1]),
+                        col = "red",
+                        lty = 2)
       }else{
         .throw_warning("No fit possible, no fit shown.")
       }
