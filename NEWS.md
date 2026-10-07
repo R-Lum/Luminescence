@@ -74,6 +74,10 @@ can be accessed via the new `bin_RLum()` generic (#1782):
   uniforms the behaviour to the one used when handling `RLum.Data.Curve`
   objects.
 
+- The function no longer crashes on an `RLum.Data.Spectrum` object with
+  no row or column names, but assigns arbitrary names before proceeding
+  (#1798).
+
 ### `fit_DoseResponseCurve()`
 
 - The new `fit.IndexRegPoints` replaces both `fit.NumberRegPoints` and

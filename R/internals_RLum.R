@@ -784,6 +784,12 @@ fancy_scientific <- function(l) {
   #@ The only check
   .validate_class(m, "matrix")
 
+  ## ensure row/column names are present
+  if (is.null(rownames(m)))
+    rownames(m) <- 1:nrow(m)
+  if (is.null(colnames(m)))
+    colnames(m) <- 1:ncol(m)
+
   ## transpose in column mode
   if(bin_col) m <- t(m)
 

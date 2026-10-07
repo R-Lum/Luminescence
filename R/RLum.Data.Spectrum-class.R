@@ -266,7 +266,7 @@ setMethod("length",
 
 ## bin_RLum() ---------------------------------------------------------------
 #' @describeIn bin_RLum
-#' Allows binning of RLum.Data.Spectrum data. Count values and values on the
+#' Allows binning of `RLum.Data.Spectrum` data. Count values and values on the
 #' x-axis are summed up; for wavelength/energy values, the mean is calculated.
 #'
 #' @param bin_size.col [integer] (*with default*):
@@ -281,6 +281,10 @@ setMethod("length",
 #' The bin-size values provided in input are not checked against the number of
 #' available channels, and therefore very large values may produce a single
 #' sum.
+#'
+#' @note
+#' If no row or column names are present in an `RLum.Data.Spectrum` object,
+#' arbitrary names will be assigned before proceeding.
 #'
 #' @export
 setMethod("bin_RLum", signature = "RLum.Data.Spectrum",

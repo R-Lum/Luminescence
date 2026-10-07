@@ -40,9 +40,9 @@ objects.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{bin_RLum(RLum.Data.Curve)}: Allows binning of RLum.Data.Curve data.
+\item \code{bin_RLum(RLum.Data.Curve)}: Allows binning of \code{RLum.Data.Curve} data.
 
-\item \code{bin_RLum(RLum.Data.Spectrum)}: Allows binning of RLum.Data.Spectrum data. Count values and values on the
+\item \code{bin_RLum(RLum.Data.Spectrum)}: Allows binning of \code{RLum.Data.Spectrum} data. Count values and values on the
 x-axis are summed up; for wavelength/energy values, the mean is calculated.
 
 }}
@@ -53,6 +53,9 @@ and \link[=RLum.Data.Spectrum-class]{RLum.Data.Spectrum} are supported.
 The bin-size values provided in input are not checked against the number of
 available channels, and therefore very large values may produce a single
 sum.
+
+If no row or column names are present in an \code{RLum.Data.Spectrum} object,
+arbitrary names will be assigned before proceeding.
 }
 \section{Function version}{
  0.3.0

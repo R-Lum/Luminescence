@@ -286,7 +286,7 @@ setMethod("get_RLum",
 
 ## bin_RLum() ---------------------------------------------------------------
 #' @describeIn bin_RLum
-#' Allows binning of RLum.Data.Curve data.
+#' Allows binning of `RLum.Data.Curve` data.
 #'
 #' @param bin_size [integer] (*with default*):
 #' number of channels used for each bin, e.g. `bin_size = 2` means that
