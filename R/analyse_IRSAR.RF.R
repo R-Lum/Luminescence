@@ -1369,6 +1369,17 @@ analyse_IRSAR.RF<- function(
       abline(v = RF_reg[max(RF_reg.lim), 1], lty = 2)
     }
 
+    .draw_nat_points <- function(col.unselected = col[19]) {
+      points(RF_nat,
+             cex = plot.settings$pt.cex,
+             pch = 20,
+             col = col.unselected)
+      points(RF_nat.limited,
+             cex = plot.settings$pt.cex,
+             pch = 20,
+             col = plot.settings$col_nat)
+    }
+
     mtext.txt <- extraArgs$mtext %||% substitute(D[e] == De,
                                                  list(De = sprintf("%g [%g ; %g]",
                                                                    De, De.lower, De.upper)))
@@ -1428,14 +1439,7 @@ analyse_IRSAR.RF<- function(
     ##show natural points if no analysis was done
     if (method == "NONE") {
       ##add points
-      points(RF_nat,
-             cex = plot.settings$pt.cex,
-             pch = 20,
-             col = "grey")
-      points(RF_nat.limited,
-             cex = plot.settings$pt.cex,
-             pch = 20,
-             col = plot.settings$col_nat)
+      .draw_nat_points(col.unselected = "grey")
 
       ## subtitle
       if ("mtext" %in% names(extraArgs)) {
@@ -1482,14 +1486,7 @@ analyse_IRSAR.RF<- function(
                       col = "grey")
 
       ##add points
-      points(RF_nat,
-             cex = plot.settings$pt.cex,
-             pch = 20,
-             col = col[19])
-      points(RF_nat.limited,
-             cex = plot.settings$pt.cex,
-             pch = 20,
-             col = plot.settings$col_nat)
+      .draw_nat_points()
 
       .draw_legend()
       .draw_fit_range()
