@@ -377,28 +377,36 @@ analyse_SAR.CWOSL<- function(
 
   ## Self-call --------------------------------------------------------------
   if (inherits(object, "list")) {
-  ##clean object input and expand parameters
-  object <- .rm_nonRLum(object)
-  parm <- .expand_parameters(length(object))
+    ## clean object input and expand parameters
+    object <- .rm_nonRLum(object)
+    rep.length <- length(object)
+    parm_names <- c("signal_integral", "background_integral", "integral_input",
+                    "OSL.component", "rejection.criteria", "dose.points",
+                    "dose.points.test", "dose_rate_source", "trim_channels",
+                    "mtext.outer", "plot", "plot_onePage", "plot_singlePanels",
+                    "onlyLxTxTable")
+    parm <- lapply(mget(parm_names, envir = environment()), .listify,
+                   length = rep.length)
 
-  ##handle main separately
-  if ("main" %in% ...names()) {
-    main <- .listify(list(...)$main, length = length(object))
-  }else{
-    main <- as.list(paste0("ALQ #",1:length(object)))
-  }
+    ## the rejection criteria list is repeated as a whole
+    if (is.list(rejection.criteria) && !is.null(names(rejection.criteria)))
+      parm$rejection.criteria <- rep(list(rejection.criteria), rep.length)
+
+    parm$rejection.criteria <- lapply(parm$rejection.criteria,
+                                      .rm_unnamed_elements)
+
+    ## handle main separately
+    if ("main" %in% ...names()) {
+      main <- .listify(list(...)$main, rep.length)
+    } else {
+      main <- as.list(paste0("ALQ #", seq_along(object)))
+    }
 
     ## deprecated arguments
     if (has_deprecated_args) {
       for (name in c("signal.integral.min", "signal.integral.max",
                      "background.integral.min", "background.integral.max"))
         extraArgs[[name]] <- .listify(extraArgs[[name]], length(object))
-    }
-
-    ## remove unnamed rejection criteria
-    if (!is.null(parm$rejection.criteria)) {
-      parm$rejection.criteria <- lapply(parm$rejection.criteria,
-                                        .rm_unnamed_elements)
     }
 
   results <- .warningCatcher(merge_RLum(lapply(seq_along(object), function(x){

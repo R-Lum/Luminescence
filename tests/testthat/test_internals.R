@@ -7,24 +7,6 @@ test_that("Test internals", {
   .set_function_name("test")
   on.exit(.unset_function_name(), add = TRUE)
 
-  # .expand_parameters() ------------------------------------------------------
-  ##create empty function ... reminder
-  ##this is an internal function, the first object is always discarded, it
-  ##might be a list of RLum.Analysis objects is might be super large
-  f <- function(object, a, b = 1, c = list(), d = NULL) {
-    Luminescence:::.expand_parameters(len = 3)
-  }
-
-  ##test some functions
-  ##missing arguments must be identified
-  expect_error(f(), "Argument 'a' missing, with no default")
-
-  ##check whether the objects are properly recycled
-  expect_type(f(object, a = 1), "list")
-  expect_length(f(object, a = 1, c = list(a = 1, b = 2, c = 3))$c, 3)
-  expect_length(f(object, a = (1), c = list(a = 1, b = 2, c = 3))$c, 3)
-  expect_equal(f(object, a = (1 + 10), c = list(a = 1, b = 2, c = 3))$a[[1]], 11)
-
   # .calc_HPDI() ------------------------------------------------------------
   set.seed(1234)
   test <- expect_type(Luminescence:::.calc_HPDI(rnorm(100), plot = TRUE), "double")
@@ -850,6 +832,14 @@ test_that("Test internals", {
                list(1, 1, 1))
   expect_equal(.listify(letters, length = 5),
                .listify(list(letters), length = 5))
+  expect_equal(.listify(NULL, 3),
+               list(NULL, NULL, NULL))
+  expect_equal(.listify(list(), 3),
+               list(NULL, NULL, NULL))
+  expect_equal(.listify(list("a", "b"), 3),
+               list("a", "b", "a"))
+  expect_equal(.listify(list(A = "one", B = "two"), length = 3),
+               list(A = "one", B = "two", A = "one"))
 
   ## .collapse() ------------------------------------------------------------
   expect_equal(.collapse(1:3),

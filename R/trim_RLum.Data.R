@@ -82,7 +82,9 @@ trim_RLum.Data <- function(
 # Self-call ---------------------------------------------------------------
   if(inherits(object, "list")) {
     ## expand parameters
-    parm <- .expand_parameters(length(object))
+    rep.length <- length(object)
+    parm <- list(recordType = .listify(recordType, rep.length),
+                 trim_range = .listify(trim_range, rep.length))
 
     l <- lapply(seq_along(object), function(x){
       .validate_class(object[[x]], c("RLum.Data", "RLum.Analysis"),
