@@ -210,8 +210,8 @@
 #' set test parameters. Supported parameters are: `curves_ratio`,
 #' `residuals_slope` (only for `method = "SLIDE"` and `"VSLIDE"`),
 #' `curves_bounds`, `dynamic_ratio`, `lambda`, `beta` and `delta.phi`.
-#' All input: [numeric] values, `NA` and `NULL` (see Details for further
-#' information).
+#' All inputs accept [numeric] values, `NA` and `NULL` (see Details for further
+#' information). Unnamed list elements are silently ignored.
 #'
 #' @param n.MC [numeric] (*with default*):
 #' number of Monte Carlo runs for the estimation of the start parameter
@@ -332,7 +332,7 @@
 #' measurements (natural vs. regenerated signal), which is in contrast to the
 #' findings by Buylaert et al. (2012).
 #'
-#' @section Function version: 0.8.1
+#' @section Function version: 0.8.2
 #'
 #' @author Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
@@ -472,7 +472,11 @@ analyse_IRSAR.RF<- function(
     RF_nat.lim <- .listify(RF_nat.lim, rep.length)
     RF_reg.lim <- .listify(RF_reg.lim, rep.length)
     method <- .listify(method, rep.length)
-    test_parameters <- .listify(test_parameters, rep.length)
+    if (is.list(test_parameters) && !is.null(names(test_parameters))) {
+      test_parameters <- rep(list(test_parameters), rep.length)
+    } else {
+      test_parameters <- .listify(.rm_unnamed_elements(test_parameters), rep.length)
+    }
     n.MC <- .listify(n.MC, rep.length)
 
     ##main
@@ -536,6 +540,7 @@ analyse_IRSAR.RF<- function(
   .validate_class(RF_reg.lim, c("numeric", "integer"), null.ok = TRUE, length = 1:2)
   method <- .validate_args(toupper(method), c("FIT", "SLIDE", "VSLIDE", "NONE"))
   .validate_class(method_control, "list", null.ok = TRUE)
+  .validate_class(test_parameters, "list", null.ok = TRUE)
   .validate_positive_scalar(n.MC, int = TRUE, null.ok = TRUE)
 
   is.slide.method <- method %in% c("SLIDE", "VSLIDE")

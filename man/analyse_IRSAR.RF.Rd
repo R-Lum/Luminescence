@@ -57,8 +57,8 @@ parameters to control the behaviour of the chosen method (see details).}
 set test parameters. Supported parameters are: \code{curves_ratio},
 \code{residuals_slope} (only for \code{method = "SLIDE"} and \code{"VSLIDE"}),
 \code{curves_bounds}, \code{dynamic_ratio}, \code{lambda}, \code{beta} and \code{delta.phi}.
-All input: \link{numeric} values, \code{NA} and \code{NULL} (see Details for further
-information).}
+All inputs accept \link{numeric} values, \code{NA} and \code{NULL} (see Details for further
+information). Unnamed list elements are silently ignored.}
 
 \item{n.MC}{\link{numeric} (\emph{with default}):
 number of Monte Carlo runs for the estimation of the start parameter
@@ -356,7 +356,7 @@ measurements (natural vs. regenerated signal), which is in contrast to the
 findings by Buylaert et al. (2012).
 }
 \section{Function version}{
- 0.8.1
+ 0.8.2
 }
 
 \examples{

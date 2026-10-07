@@ -123,6 +123,10 @@ test_that("input validation", {
                                   method_control = list(num_slide_windows = 20)),
                  "should be between 1 and 10, reset to 10")
   })
+
+  ## test parameters
+  expect_error(analyse_IRSAR.RF(IRSAR.RF.Data, test_parameters = 4),
+               "'test_parameters' should be of class 'list'")
 })
 
 test_that("snapshot tests", {
@@ -343,4 +347,12 @@ test_that("regression tests", {
                                                 txtProgressBar = FALSE,
                                                 plot = FALSE),
                                "Using 1 core ...", fixed = TRUE))
+
+  ## issue 1796
+  expect_silent(analyse_IRSAR.RF(list(IRSAR.RF.Data), method = "SLIDE",
+                                 test_parameters = list(residuals_slope = 1),
+                                 plot = FALSE, verbose = FALSE))
+  expect_silent(analyse_IRSAR.RF(list(IRSAR.RF.Data), method = "SLIDE",
+                                 test_parameters = list(4),
+                                 plot = FALSE, verbose = FALSE))
 })
