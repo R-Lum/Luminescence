@@ -54,6 +54,9 @@ can be accessed via the new `bin_RLum()` generic (#1782):
   result, assigning more than two values will now produce an error
   instead of a warning (#1794).
 
+- The `test_parameters` argument no longer causes a crash when `object`
+  is a list (#1796).
+
 ### `analyse_SAR.CWOSL()`
 
 - The `plot_onePage` argument now defaults to `TRUE` as this turned out
