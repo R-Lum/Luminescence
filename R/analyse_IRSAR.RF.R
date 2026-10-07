@@ -58,10 +58,10 @@
 #'
 #' **`method = "VSLIDE"`**
 #'
-#' Same as `"SLIDE"` but searching also vertically for the best match (i.e. in xy-direction.)
-#' See Kreutzer et al. (2017) and Murari et al. (2021). By default, the vertical sliding
-#' range is set automatically, but can be set manually by changing the
-#' `vslide_range` parameter (see `method_control`).
+#' Same as `"SLIDE"` but also searching vertically for the best match (i.e.
+#' in both x and y directions), see Kreutzer et al. (2017) and Murari et al.
+#' (2021). By default, the vertical sliding range is set automatically, but
+#' can be set manually by changing the `vslide_range` parameter (see `method_control`).
 #'
 #' **`method_control`**
 #'
@@ -844,21 +844,21 @@ analyse_IRSAR.RF<- function(
         lower = lower,
         upper = upper),
       silent = TRUE)
-      
-      if (!inherits(fit.MC, "try-error")) 
+
+      if (!inherits(fit.MC, "try-error"))
         return(coef(fit.MC))
-     
+
       NULL
     })
-    
+
     ## combine results, a little bit traditionally
     fit.MC.results <- .rm_NULL_elements(fit.MC.results)
     fit.MC.results <- do.call(rbind, fit.MC.results)
-    
+
     if (length(fit.MC.results) != 0) {
       ##choose median as final fit version
       fit.MC.results <- apply(fit.MC.results, MARGIN = 2, FUN = median)
-      
+
       ##try final fitting
       fit <- try(minpack.lm::nlsLM(
         formula = fit.function,
@@ -877,7 +877,7 @@ analyse_IRSAR.RF<- function(
       fit <- NA
       class(fit) <- "try-error"
     }
-    
+
     # get parameters ----------------------------------------------------------
     # and with that the final De
     fit.parameters.results <- NA
@@ -889,7 +889,7 @@ analyse_IRSAR.RF<- function(
     ##calculate De value and its upper and lower boundaries
     if (!is.na(fit.parameters.results[1])) {
       RF_nat.vals <- c(RF_nat.mean, RF_nat.error.lower, RF_nat.error.upper)
-      
+
       De.vals <- suppressWarnings(round(log(
           -((RF_nat.vals - fit.parameters.results["phi.0"]) /
             -fit.parameters.results["delta.phi"]
@@ -899,8 +899,8 @@ analyse_IRSAR.RF<- function(
       De <- De.vals[1]
       De.lower <- De.vals[2]
       De.upper <- De.vals[3]
- 
-      ##This could be solved with a MC simulation, but for this the code has 
+
+      ##This could be solved with a MC simulation, but for this the code has
       ##to be adjusted
       ##The question is: Where the parameters are coming from?
       ##TODO ... only relevant if this is further used
@@ -956,7 +956,7 @@ analyse_IRSAR.RF<- function(
       ##and it might get trapped in a local minimum
       ##therefore we run the algorithm by expanding the sliding vector
       algorithm_error <- NA
-      if(!is.null(vslide_range) && any(vslide_range != 0)){
+      if (any(vslide_range != 0)) {
 
         ##construct list of vector ranges we want to check for, this should avoid that we
         ##got trapped in a local minimum
@@ -1073,7 +1073,7 @@ analyse_IRSAR.RF<- function(
             t_n.id = t_n.id,
             I_n = I_n,
             algorithm_error = algorithm_error,
-            vslide_range = if(is.null(vslide_range)){NA}else{range(vslide_range)},
+            vslide_range = range(vslide_range),
             num_slide_windows = num_slide_windows,
             squared_residuals = temp.sum.residuals$sliding_vector
           )

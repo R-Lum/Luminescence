@@ -234,10 +234,10 @@ For the mathematical details of the implementation see Frouin et al., 2017
 
 \strong{\code{method = "VSLIDE"}}
 
-Same as \code{"SLIDE"} but searching also vertically for the best match (i.e. in xy-direction.)
-See Kreutzer et al. (2017) and Murari et al. (2021). By default, the vertical sliding
-range is set automatically, but can be set manually by changing the
-\code{vslide_range} parameter (see \code{method_control}).
+Same as \code{"SLIDE"} but also searching vertically for the best match (i.e.
+in both x and y directions), see Kreutzer et al. (2017) and Murari et al.
+(2021). By default, the vertical sliding range is set automatically, but
+can be set manually by changing the \code{vslide_range} parameter (see \code{method_control}).
 
 \strong{\code{method_control}}
 
