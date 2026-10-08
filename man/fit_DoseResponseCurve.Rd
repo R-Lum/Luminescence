@@ -298,7 +298,7 @@ especially for the composed functions (\code{SSE+LIN} and \code{DSE}).
 }
 }
 \section{Function version}{
- 1.8
+ 1.9
 }
 
 \examples{

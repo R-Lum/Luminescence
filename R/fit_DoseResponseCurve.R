@@ -275,7 +275,7 @@
 #' `.De.raw` \tab [numeric] \tab equivalent dose reported 'as is', that is, containing infinities and negative values if they could be calculated. Bear in mind that negative values are meaningless and may be arbitrary.\cr
 #' }
 #'
-#' @section Function version: 1.8
+#' @section Function version: 1.9
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -738,6 +738,32 @@ fit_DoseResponseCurve <- function(
     as.data.frame(do.call(rbind, mc_ok))
   }
 
+  ## solve for De
+  ## when uniroot fails, 'none' returns NA, 'quiet'/'warn' use optimize()
+  .solve_De <- function(f, interval, params, method,
+                        fallback = c("none", "quiet", "warn"), ...) {
+    fallback <- match.arg(fallback)
+    args <- c(list(f = f, interval = interval, tol = 0.001), params, ...)
+    de <- try(suppressWarnings(do.call(stats::uniroot, args)$root),
+              silent = TRUE)
+
+    ## there are cases where the function cannot calculate the root
+    ## due to its shape, here we have to use the minimum
+    if (inherits(de, "try-error") && fallback != "none") {
+      if (fallback == "warn") {
+        .throw_warning(
+          "Standard root estimation using stats::uniroot() failed. ",
+          "Using stats::optimize() instead, which may lead, however, ",
+          "to unexpected and inconclusive results for fit.method = '", method, "'")
+      }
+      args <- c(list(f = f, interval = interval), params)
+      de <- try(suppressWarnings(do.call(stats::optimize, args)$minimum),
+                silent = TRUE)
+    }
+
+    if (inherits(de, "try-error")) NA else de
+  }
+
   .compute_D80 <- function(D63, R) {
     D63 * (0.809 + 0.800 * R) / (0.368 + 0.632 * R)
   }
@@ -1121,25 +1147,14 @@ fit_DoseResponseCurve <- function(
 
       De <- NA
       if (!alternate) {
-        temp.De <- try(stats::uniroot(
+        De <- .solve_De(
           f = f.unirootSSELIN,
           interval = c(min.val, max(xy$x) * 1.5),
-          tol = 0.001,
-          N = N,
-          D0 = D0,
-          Di = Di,
-          g = g,
-          LnTn = LnTn,
-          extendInt = "yes",
-          maxiter = 3000
-        ),
-        silent = TRUE)
-
-        if (!inherits(temp.De, "try-error"))
-          De <- temp.De$root
+          params = list(N = N, D0 = D0, Di = Di, g = g, LnTn = LnTn),
+          method = "SSE+LIN",
+          extendInt = "yes", maxiter = 3000)
 
         .report_fit(De)
-      }
 
       ## SSE+LIN Monte Carlo error estimation
       mc <- .run_mc_fits(
@@ -1147,27 +1162,18 @@ fit_DoseResponseCurve <- function(
         start = list(N = N, D0 = D0, Di = Di, g = g),
         lower = lower)
 
-      if (!is.null(mc) && !alternate) {
-        ## analytically it is not easy to calculate x, use uniroot to find it
-        for (j in seq_len(nrow(mc))) {
-          temp.De.MC <- try(stats::uniroot(
-              f = f.unirootSSELIN,
-              interval = c(min.val, max(xy$x) * 1.5),
-              tol = 0.001,
-              N = mc$N[j],
-              D0 = mc$D0[j],
-              Di = mc$Di[j],
-              g = mc$g[j],
-              LnTn = data.MC.De[mc$i[j]]
-            ),
-            silent = TRUE)
-
-          if (!inherits(temp.De.MC, "try-error")) {
-            x.natural[mc$i[j]] <- temp.De.MC$root
+        if (!is.null(mc) && !alternate) {
+          ## analytically it is not easy to calculate x, use uniroot to find it
+          for (j in seq_len(nrow(mc))) {
+            x.natural[mc$i[j]] <- .solve_De(
+                f = f.unirootSSELIN,
+                interval = c(min.val, max(xy$x) * 1.5),
+                params = list(N = mc$N[j], D0 = mc$D0[j], Di = mc$Di[j],
+                              g = mc$g[j], LnTn = data.MC.De[mc$i[j]]),
+                method = "SSE+LIN")
           }
         }
       }
-
     }else{
       .report_fit_failure(fit.method, mode)
     } #end if "try-error" Fit Method
@@ -1238,27 +1244,14 @@ fit_DoseResponseCurve <- function(
             fit_functionDSE_cpp(N1, N2, D01, D02, Di, x) - LnTn
           }
 
-        temp.De <- try(stats::uniroot(
+        De <- .solve_De(
           f = f.unirootDSE,
           interval = c(0, max(xy$x) * 1.5),
-          tol = 0.001,
-          N1 = N1,
-          N2 = N2,
-          D01 = D01,
-          D02 = D02,
-          Di = Di,
-          LnTn = LnTn,
-          extendInt = "yes",
-          maxiter = 3000
-        ),
-        silent = TRUE)
-
-        if (!inherits(temp.De, "try-error")) {
-          De <- temp.De$root
-        }
-
-        ##remove object
-        rm(temp.De)
+          params = list(N1 = N1, D01 = D01,
+                        N2 = N2, D02 = D02,
+                        Di = Di, LnTn = object[1, 2]),
+          method = "DSE",
+          extendInt = "yes", maxiter = 3000)
       }
 
       #print D0 and De value values
@@ -1280,19 +1273,13 @@ fit_DoseResponseCurve <- function(
         if (!alternate) {
           ## analytically it is not easy to calculate x, use uniroot to find it
           for (j in seq_len(nrow(mc))) {
-            try({
-              temp.De <- stats::uniroot(
-                f = f.unirootDSE,
-                interval = c(0, max(xy$x) * 1.5),
-                tol = 0.001,
-                N1 = mc$N1[j],
-                N2 = mc$N2[j],
-                D01 = mc$D01[j],
-                D02 = mc$D02[j],
-                Di = mc$Di[j],
-                LnTn = data.MC.De[mc$i[j]])
-              x.natural[mc$i[j]] <- temp.De$root
-            }, silent = TRUE)
+            x.natural[mc$i[j]] <- .solve_De(
+              f = f.unirootDSE,
+              interval = c(0, max(xy$x) * 1.5),
+              params = list(N1 = mc$N1[j], D01 = mc$D01[j],
+                            N2 = mc$N2[j], D02 = mc$D02[j],
+                            Di = mc$Di[j], LnTn = data.MC.De[mc$i[j]]),
+              method = "DSE")
           }
         }
       }
@@ -1388,47 +1375,21 @@ fit_DoseResponseCurve <- function(
 
           #calculate De
           De <- NA
-          if (interpolation) {
-             De <- try(suppressWarnings(stats::uniroot(
-               f = function(x, R, Dc, N, Di, LnTn) {
-                 fit.functionOTOR(R, Dc, N, Di, x) - LnTn},
-               interval = c(0, max(object[[1]]) * 1.2),
-               R = R,
-               Dc = Dc,
-               N = N,
-               Di = Di,
-               LnTn = LnTn)$root), silent = TRUE)
+          f.unirootOTOR <- function(x, R, Dc, N, Di, LnTn)
+            fit.functionOTOR(R, Dc, N, Di, x) - LnTn
+          otor.params <- list(R = R, Dc = Dc, N = N, Di = Di)
 
-          } else if (extrapolation) {
-            De <- try(suppressWarnings(stats::uniroot(
-              f = function(x, R, Dc, N, Di) {
-                fit.functionOTOR(R, Dc, N, Di, x)},
-              interval = c(-max(object[[1]]), 0),
-              R = R,
-              Dc = Dc,
-              N = N,
-              Di = Di)$root), silent = TRUE)
-
-            ## there are cases where the function cannot calculate the root
-            ## due to its shape, here we have to use the minimum
-            if(inherits(De, "try-error")){
-              .throw_warning(
-                  "Standard root estimation using stats::uniroot() failed. ",
-                  "Using stats::optimize() instead, which may lead, however, ",
-                  "to unexpected and inconclusive results for fit.method = 'OTOR'")
-
-              De <- try(suppressWarnings(stats::optimize(
-                f = function(x, R, Dc, N, Di) {
-                  fit.functionOTOR(R, Dc, N, Di, x)},
-                interval = c(-max(object[[1]]), 0),
-                R = R,
-                Dc = Dc,
-                N = N,
-                Di = Di)$minimum), silent = TRUE)
-            }
+          if (interpolation || extrapolation) {
+            LnTn <- if (interpolation) object[1, 2] else 0
+            interval <- if (interpolation) c(0, max(object[[1]]) * 1.2)
+                        else c(-max(object[[1]]), 0)
+            De <- .solve_De(
+              f = f.unirootOTOR,
+              interval = interval,
+              params = c(otor.params, list(LnTn = LnTn)),
+              method = "OTOR",
+              fallback = if (extrapolation) "warn" else "none")
           }
-
-          if (inherits(De, "try-error")) De <- NA # nocov
 
           ## return D63 based on formula in the appendix of Mauz et al. (submitted)
           D63 <- (0.367 + 0.633 * R) * Dc
@@ -1450,40 +1411,15 @@ fit_DoseResponseCurve <- function(
             if (!alternate) {
               for (j in seq_len(nrow(mc))) {
                 i <- mc$i[j]
-                if (interpolation) {
-                  de <- try(suppressWarnings(stats::uniroot(
-                    f = function(x, R, Dc, N, Di, LnTn)
-                      fit.functionOTOR(R, Dc, N, Di, x) - LnTn,
-                    interval = c(0, max(object[[1]]) * 1.2),
-                    R = mc$R[j],
-                    Dc = mc$Dc[j],
-                    N = mc$N[j],
-                    Di = mc$Di[j],
-                    LnTn = data.MC.De[i])$root), silent = TRUE)
-
-                } else if (extrapolation) {
-                  de <- try(suppressWarnings(stats::uniroot(
-                      f = function(x, R, Dc, N, Di) {
-                        fit.functionOTOR(R, Dc, N, Di, x)},
-                      interval = c(-max(object[[1]]), 0),
-                      R = mc$R[j],
-                      Dc = mc$Dc[j],
-                      N = mc$N[j],
-                      Di = mc$Di[j])$root), silent = TRUE)
-
-                  if(inherits(de, "try-error")){
-                    de <- try(suppressWarnings(stats::optimize(
-                      f = function(x, R, Dc, N, Di) {
-                        fit.functionOTOR(R, Dc, N, Di, x)},
-                      interval = c(-max(object[[1]]), 0),
-                      R = mc$R[j],
-                      Dc = mc$Dc[j],
-                      N = mc$N[j],
-                      Di = mc$Di[j])$minimum), silent = TRUE)
-                  }
-                }
-                if (!inherits(de, c("try-error", "function")))
-                  x.natural[i] <- de
+                interval <- if (interpolation) c(0, max(object[[1]]) * 1.2)
+                            else c(-max(object[[1]]), 0)
+                x.natural[i] <- .solve_De(
+                  f = f.unirootOTOR,
+                  interval = interval,
+                  params = c(list(R = mc$R[j], Dc = mc$Dc[j], N = mc$N[j], Di = mc$Di[j]),
+                             list(LnTn = data.MC.De[i])),
+                  method = "OTOR",
+                  fallback = if (extrapolation) "quiet" else "none")
               }
             }
 
@@ -1504,7 +1440,6 @@ fit_DoseResponseCurve <- function(
           D80.LOWER <- .compute_D80(D63.LOWER, R.LOWER)
           D80.UPPER <- .compute_D80(D63.UPPER, R.UPPER)
           }
-
     }#endif::try-error fit
 
   }  ## OTORX ---------------------------------------------------------------
@@ -1559,47 +1494,21 @@ fit_DoseResponseCurve <- function(
 
       #calculate De
       De <- NA
-      if (interpolation) {
-        De <- try(suppressWarnings(stats::uniroot(
-          f = function(x, Q, D63, c, Di, LnTn) {
-            fit.functionOTORX(x, Q, D63, c, Di) - LnTn},
-          interval = c(0, max(object[[1]]) * 1.2),
-          Q = Q,
-          D63 = D63,
-          c = c,
-          Di = Di,
-          LnTn = LnTn)$root), silent = TRUE)
+      f.unirootOTORX <- function(x, Q, D63, c, Di, LnTn)
+        fit.functionOTORX(x, Q, D63, c, Di) - LnTn
+      otorx.params <- list(Q = Q, D63 = D63, c = c, Di = Di)
 
-      } else if (extrapolation) {
-        De <- try(suppressWarnings(stats::uniroot(
-          f = function(x, Q, D63, c, Di) {
-            fit.functionOTORX(x, Q, D63, c, Di)},
-          interval = c(-max(object[[1]]), 0),
-          Q = Q,
-          D63 = D63,
-          c = c,
-          Di = Di)$root), silent = TRUE)
-
-        ## there are cases where the function cannot calculate the root
-        ## due to its shape, here we have to use the minimum
-        if(inherits(De, "try-error")){
-          .throw_warning(
-            "Standard root estimation using stats::uniroot() failed. ",
-            "Using stats::optimize() instead, which may lead, however, ",
-            "to unexpected and inconclusive results for fit.method = 'OTORX'")
-
-          De <- try(suppressWarnings(stats::optimize(
-            f = function(x, Q, D63, c, Di) {
-              fit.functionOTORX(x, Q, D63, c, Di)},
-            interval = c(-max(object[[1]]), 0),
-            Q = Q,
-            D63 = D63,
-            c = c,
-            Di = Di)$minimum), silent = TRUE)
-        }
+      if (!alternate) {
+        LnTn <- if (interpolation) object[1, 2] else 0
+        interval <- if (interpolation) c(0, max(object[[1]]) * 1.2)
+                    else c(-max(object[[1]]), 0)
+        De <- .solve_De(
+          f = f.unirootOTORX,
+          interval = interval,
+          params = c(otorx.params, list(LnTn = LnTn)),
+          method = "OTORX",
+          fallback = if (extrapolation) "warn" else "none")
       }
-
-      if (inherits(De, "try-error")) De <- NA # nocov
 
       ## report terminal line
       .report_fit(De, sprintf(" | R = %.2f | D63 = %.2f", 1 - Q, D63))
@@ -1616,43 +1525,15 @@ fit_DoseResponseCurve <- function(
         if (!alternate) {
           for (j in seq_len(nrow(mc))) {
             i <- mc$i[j]
-            if (interpolation) {
-              de <- try(suppressWarnings(stats::uniroot(
-                f = function(x, Q, D63, c, Di, LnTn) {
-                  fit.functionOTORX(x, Q, D63, c, Di) - LnTn},
-                interval = c(0, max(object[[1]]) * 1.2),
-                Q = mc$Q[j],
-                D63 = mc$D63[j],
-                c = mc$c[j],
-                Di = mc$Di[j],
-                LnTn = data.MC.De[i])$root),
-              silent = TRUE)
-
-            } else if (extrapolation) {
-              de <- try(suppressWarnings(stats::uniroot(
-                f = function(x, Q, D63, c, Di) {
-                  fit.functionOTORX(x, Q, D63, c, Di)},
-                interval = c(-max(object[[1]]), 0),
-                Q = mc$Q[j],
-                D63 = mc$D63[j],
-                c = mc$c[j],
-                Di = mc$Di[j])$root),
-                silent = TRUE)
-
-              if (inherits(de, "try-error")) {
-                de <- try(suppressWarnings(stats::optimize(
-                  f = function(x, Q, D63, c, Di) {
-                    fit.functionOTORX(x, Q, D63, c, Di)},
-                  interval = c(-max(object[[1]]), 0),
-                  Q = mc$Q[j],
-                  D63 = mc$D63[j],
-                  c = mc$c[j],
-                  Di = mc$Di[j])$minimum),
-                  silent = TRUE)
-              }
-            }
-            if (!inherits(de, c("try-error", "function")))
-              x.natural[i] <- de
+            interval <- if (interpolation) c(0, max(object[[1]]) * 1.2)
+                        else c(-max(object[[1]]), 0)
+            x.natural[i] <- .solve_De(
+              f = f.unirootOTORX,
+              interval = interval,
+              params = c(list(Q = mc$Q[j], D63 = mc$D63[j], c = mc$c[j], Di = mc$Di[j]),
+                         list(LnTn = data.MC.De[i])),
+              method = "OTORX",
+              fallback = if (extrapolation) "quiet" else "none")
           }
         }
 
