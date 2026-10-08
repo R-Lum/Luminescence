@@ -940,7 +940,7 @@ fit_DoseResponseCurve <- function(
         f <- function(x) .toFormula(fit.functionSSE, env = currn_env)
         fit$m$formula <- f
 
-        #get parameters out of it
+        ## put fitted coefficient in the environment
         .get_coef(fit)
 
         ## calculate D63 and D80 based on approximation in Mauz et al. (submitted)
@@ -1052,7 +1052,7 @@ fit_DoseResponseCurve <- function(
       silent=TRUE)
 
       if (!inherits(fit.SSE, "try-error")) {
-        #get parameters out of it
+        ## put fitted coefficient in the environment
         .get_coef(fit.SSE)
       }
 
@@ -1104,7 +1104,7 @@ fit_DoseResponseCurve <- function(
       f <- function(x) .toFormula(fit.functionSSELIN, env = currn_env)
       fit$m$formula <- f
 
-      #get parameters out of it
+      ## put fitted coefficient in the environment
       .get_coef(fit)
 
       #problem: analytically it is not easy to calculate x,
@@ -1225,7 +1225,9 @@ fit_DoseResponseCurve <- function(
 
     ##insert if for try-error
     if (!inherits(fit, "try-error")) {
-      #get parameters out of it
+      N1 <- N2 <- NULL # silence notes from R CMD check
+
+      ## put fitted coefficient in the environment
       .get_coef(fit)
 
       ## analytically it is not easy to calculate x, use uniroot to find it
@@ -1322,7 +1324,7 @@ fit_DoseResponseCurve <- function(
       .report_fit_failure(fit.method, mode)
 
     }else{
-      #get parameters out of it
+      ## put fitted coefficient in the environment
       .get_coef(fit)
 
       #calculate De
@@ -1381,7 +1383,7 @@ fit_DoseResponseCurve <- function(
       .report_fit_failure(fit.method, mode)
 
     } else {
-          #get parameters out of it
+         ## put fitted coefficient in the environment
          .get_coef(fit)
 
           #calculate De
@@ -1544,7 +1546,7 @@ fit_DoseResponseCurve <- function(
       .report_fit_failure(fit.method, mode)
 
     } else {
-      #get parameters out of it
+      ## put fitted coefficient in the environment
       .get_coef(fit)
 
       ## get also R, this is not part of the fit, approximation
@@ -1793,29 +1795,13 @@ fit_DoseResponseCurve <- function(
   )
 }
 
-# Helper functions in fit_DoseResponseCurve() -------------------------------------
+## Helper functions  --------------------------------------------------------
 
-#'@title Returns coefficient into parent environment
-#'
-#'@description Write fitting coefficients into parent environment
-#'
-#'@param x [stats::nls] (**required**): the fitting output
-#'
-#'@param pre [character] (*with default*): names prefix
-#'
-#'@param sufx [character] (*with default*): names suffix
-#'
-#'@returns New objects into the parent environment
-#'
-#'@noRd
-.get_coef <- function(x, pre = "", sufx = "") {
-  ## get coefficients and set their names
-  tmp <- stats::coef(x)
-  names(tmp) <- paste0(pre, names(tmp), sufx)
-
-  ## assign to parent frame
-  for (name in names(tmp))
-    assign(name, as.vector(tmp[name]), pos = parent.frame())
+## Write the fitted coefficients into the parent environment
+.get_coef <- function(x) {
+  coefs <- stats::coef(x)
+  mapply(assign, names(coefs), as.vector(coefs), MoreArgs = list(pos = parent.frame()))
+  invisible(coefs)
 }
 
 #'@title Replace coefficients in formula
