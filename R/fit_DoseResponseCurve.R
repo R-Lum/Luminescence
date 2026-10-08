@@ -615,6 +615,10 @@ fit_DoseResponseCurve <- function(
   #1.3 set x.natural
   x.natural <- rep_len(NA_real_, n.MC)
 
+  ## target Lx/Tx for the De solution (natural signal for interpolation,
+  ## 0 for extrapolation)
+  LnTn <- if (interpolation) object[1, 2] else 0
+
   ##1.4 set initialise variables
   De <- De.Error <- D01 <- R <- R.LOWER <- R.UPPER <- Dc <- Dc.LOWER <- Dc.UPPER <- NA_real_
   D63 <- D63.LOWER <- D63.UPPER <- D80 <- D80.LOWER <- D80.UPPER <- Di <- N <- TEST_DOSE <- NA_real_
@@ -794,7 +798,6 @@ fit_DoseResponseCurve <- function(
       y ~ I(x) + I(x^2),
       stats::reformulate(".", intercept = !fit.force_through_origin))
 
-    y <- if (interpolation) object[1, 2] else 0
     upper <- max(object[, 1]) * 1.5
 
     .fit_qdr_model <- function(model, data, y) {
@@ -832,7 +835,7 @@ fit_DoseResponseCurve <- function(
       return(list(fit = fit, De = De, success = success))
     }
 
-    res <- .fit_qdr_model(model.qdr, data, y)
+    res <- .fit_qdr_model(model.qdr, data, LnTn)
     fit <- res$fit
     De <- res$De
     if (res$success)
@@ -946,7 +949,6 @@ fit_DoseResponseCurve <- function(
         #calculate De
         De <- NA
         if (interpolation || extrapolation) {
-          LnTn <- if (interpolation) object[1, 2] else 0
           De <- suppressWarnings(-Di - D0 * log(1 - LnTn / N))
         }
 
@@ -988,8 +990,6 @@ fit_DoseResponseCurve <- function(
       else
         De.fs <- function(fit, y) (y - coef(fit)[1]) / coef(fit)[2]
 
-      y <- if (interpolation) object[1, 2] else 0
-
       .fit_lin_model <- function(model, data, y) {
         fit <- stats::lm(model, data = data, weights = fit.weights)
 
@@ -1001,7 +1001,7 @@ fit_DoseResponseCurve <- function(
         return(list(fit = fit, De = unname(De)))
       }
 
-      res <- .fit_lin_model(model.lin, data, y)
+      res <- .fit_lin_model(model.lin, data, LnTn)
       fit.lm <- res$fit
       De <- res$De
       .report_fit(De)
@@ -1016,9 +1016,7 @@ fit_DoseResponseCurve <- function(
 
       #correct for fit.method
       fit.method <- "LIN"
-
-      ##set fit object
-      if(fit.method == "LIN") fit <- fit.lm
+      fit <- fit.lm
 
     } else {
       fit.method <- "SSE"
@@ -1116,10 +1114,8 @@ fit_DoseResponseCurve <- function(
       }
 
       if (interpolation) {
-        LnTn <- object[1, 2]
         min.val <- 0
       } else if (extrapolation) {
-        LnTn <- 0
         min.val <- -1e6
       }
 
@@ -1253,7 +1249,7 @@ fit_DoseResponseCurve <- function(
           D01 = D01,
           D02 = D02,
           Di = Di,
-          LnTn = object[1, 2],
+          LnTn = LnTn,
           extendInt = "yes",
           maxiter = 3000
         ),
@@ -1335,8 +1331,7 @@ fit_DoseResponseCurve <- function(
 
       #calculate De
       De <- if (interpolation || extrapolation) {
-        y <- if (interpolation) object[1, 2] else 0
-        -(D0 * (1 - (d - y / a)^-c)) / c
+        -(D0 * (1 - (d - LnTn / a)^-c)) / c
       } else NA
 
       #print D01 value
@@ -1404,7 +1399,7 @@ fit_DoseResponseCurve <- function(
                Dc = Dc,
                N = N,
                Di = Di,
-               LnTn = object[1, 2])$root), silent = TRUE)
+               LnTn = LnTn)$root), silent = TRUE)
 
           } else if (extrapolation) {
             De <- try(suppressWarnings(stats::uniroot(
@@ -1575,7 +1570,7 @@ fit_DoseResponseCurve <- function(
           D63 = D63,
           c = c,
           Di = Di,
-          LnTn = object[1, 2])$root), silent = TRUE)
+          LnTn = LnTn)$root), silent = TRUE)
 
       } else if (extrapolation) {
         De <- try(suppressWarnings(stats::uniroot(
