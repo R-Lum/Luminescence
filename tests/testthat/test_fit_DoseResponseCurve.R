@@ -762,15 +762,6 @@ temp_OTORX_alt <-
       "Mode 'extrapolation' for fitting method 'DSE' not supported",
       fixed = TRUE)
 
-  set.seed(1)
-  df <- data.frame(DOSE = c(0, 5, 10, 20, 25),
-                   LxTx = c(40, -10, 30, -5, -20),
-                   LxTx_X = c(2, 1, 1, 10, 1))
-  expect_output(fit_DoseResponseCurve(df, fit.method = "SSE"),
-                "De = NaN")
-  expect_output(fit_DoseResponseCurve(rbind(df, c(3, 2, 3)), fit.method = "DSE"),
-                "Fit failed for DSE")
-
   ## main fit works, but all MC iteration fail
   x.nomcfit <- data.frame(dose = 0:6,
                           LxTx = c(0.02, 0.5, 0.8, 1.0, 1.1, 1.15, 1.18),
@@ -910,6 +901,15 @@ test_that("regression tests", {
                                verbose = FALSE, n.MC = 10)
   expect_equal(sum(is.na(fit$De.MC)), 6)
   expect_equal(fit$De$D01.ERROR, 1.369969, tolerance = 5.0e-3)
+
+  ## issue 1800
+  set.seed(1)
+  df <- data.frame(DOSE = c(0, 5, 10, 20, 25, 3),
+                   LxTx = c(40, -10, 30, -5, -20, 2),
+                   LxTx_Error = c(2, 1, 1, 10, 1, 3))
+  expect_output(fit <- fit_DoseResponseCurve(df, fit.method = "DSE"),
+                "Fit failed for DSE")
+  expect_true(all(is.na(fit$De[1:10])))
 })
 
 test_that("test internal functions", {

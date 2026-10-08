@@ -93,6 +93,9 @@ warning and will be ignored (#1762).
 fit methods, while before it only appear for `"QDR"`, `"SSE+LIN"` and `"DSE"`.
 To disable it, set `txtProgressBar = FALSE` (#1791).
 
+* Method `DSE` returned spurious `D01` and `D02` values when the fit failed
+(#1800).
+
 ### `get_RLum()`
 
 * When applied to a list with a `class` argument matching none of the list

@@ -1183,17 +1183,13 @@ fit_DoseResponseCurve <- function(
 
     ## try to create some start parameters from the input values to make the fitting more stable
     for (i in seq_along(a.MC)) {
-      N1 <- a.MC[i]
-      N2 <- N1 / 2
-      D01 <- b.MC[i]
-      D02 <- D01 / 2
-      Di <- c.MC[i]
-
       fit.start <- try({
         minpack.lm::nlsLM(
         formula = y ~ fit_functionDSE_cpp(N1, N2, D01, D02, Di, x),
         data = data,
-        start = list(N1 = N1, N2 = N2, D01 = D01, D02 = D02, Di = Di),
+        start = list(N1 = a.MC[i], N2 = a.MC[i] / 2,
+                     D01 = b.MC[i], D02 = b.MC[i] / 2,
+                     Di = c.MC[i]),
         trace = FALSE,
         algorithm = "LM",
         lower = lower,
