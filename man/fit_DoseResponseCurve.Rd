@@ -154,9 +154,8 @@ extrapolation to calculate the equivalent dose.
 \subsection{Implemented fitting methods}{
 
 For all options (except for the \code{LIN}, \code{QDR} and the \verb{SSE OR LIN}),
-the \link[minpack.lm:nlsLM]{minpack.lm::nlsLM} function with the \code{LM} (Levenberg-Marquardt algorithm)
-algorithm is used. Note: For historical reasons for the Monte Carlo
-simulations partly the function \link{nls} using the \code{port} algorithm.
+the \link[minpack.lm:nlsLM]{minpack.lm::nlsLM} function with the evenberg-Marquardt algorithm is
+used.
 
 The solution is found by transforming the function or using \link[stats:uniroot]{stats::uniroot}.
 
@@ -170,19 +169,19 @@ Fits a linear function to the data using \link{lm}:
 Fits a linear function with a quadratic term to the data using  \link{lm}:
 \deqn{y = a + bx + cx^2}
 
-\strong{Keyword: \code{SSE} (formerly \code{EXP})}
+\strong{Keyword: \code{SSE}} (formerly \code{EXP})
 
-Fits a single saturating exponential function of the form
+Fits a single saturating exponential function of the form:
 \deqn{y = N (1 - \exp(-\frac{x + D_i}{D_0}))}
 
 Parameters \eqn{D_0} and \eqn{D_i} are approximated by a linear fit using \link{lm}.
 
-\strong{Keyword: \verb{SSE OR LIN} (formerly \verb{EXP OR LIN})}
+\strong{Keyword: \verb{SSE OR LIN}} (formerly \verb{EXP OR LIN})
 
 Works for some cases where an \code{SSE} fit fails. If the \code{SSE} fit fails,
 a \code{LIN} fit is done instead, which always works.
 
-\strong{Keyword: \code{SSE+LIN} (formerly \code{EXP+LIN})}
+\strong{Keyword: \code{SSE+LIN}} (formerly \code{EXP+LIN})
 
 Tries to fit an exponential plus linear function of the form:
 
@@ -192,9 +191,9 @@ The \eqn{D_e} is calculated by iteration.
 \strong{Note:} In the context of luminescence dating, this function has no physical meaning.
 Therefore, no \eqn{D_0} value is returned.
 
-\strong{Keyword: \code{DSE} (formerly \code{EXP+EXP})}
+\strong{Keyword: \code{DSE}} (formerly \code{EXP+EXP})
 
-Tries to fit a double exponential function of the form
+Tries to fit a double exponential function of the form:
 
 \deqn{y = N_1 (1 - \exp(-\frac{x + D_i}{D0_1})) + N_2 (1 - \exp(-\frac{x + D_i}{D0_2}))}
 
@@ -203,7 +202,7 @@ Tries to fit a double exponential function of the form
 \strong{Keyword: \code{GOK}}
 
 Tries to fit the general-order kinetics function following Guralnik et al. (2015)
-of the form
+of the form:
 
 \deqn{y = a (d - (1 + \frac{1}{D_0} x c)^{-1 / c})}
 

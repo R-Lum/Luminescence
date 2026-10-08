@@ -10,9 +10,8 @@
 #' ## Implemented fitting methods
 #'
 #' For all options (except for the `LIN`, `QDR` and the `SSE OR LIN`),
-#' the [minpack.lm::nlsLM] function with the `LM` (Levenberg-Marquardt algorithm)
-#' algorithm is used. Note: For historical reasons for the Monte Carlo
-#' simulations partly the function [nls] using the `port` algorithm.
+#' the [minpack.lm::nlsLM] function with the evenberg-Marquardt algorithm is
+#' used.
 #'
 #' The solution is found by transforming the function or using [stats::uniroot].
 #'
@@ -26,19 +25,19 @@
 #' Fits a linear function with a quadratic term to the data using  [lm]:
 #' \deqn{y = a + bx + cx^2}
 #'
-#' **Keyword: `SSE` (formerly `EXP`)**
+#' **Keyword: `SSE`** (formerly `EXP`)
 #'
-#' Fits a single saturating exponential function of the form
+#' Fits a single saturating exponential function of the form:
 #' \deqn{y = N (1 - \exp(-\frac{x + D_i}{D_0}))}
 #'
 #' Parameters \eqn{D_0} and \eqn{D_i} are approximated by a linear fit using [lm].
 #'
-#' **Keyword: `SSE OR LIN` (formerly `EXP OR LIN`)**
+#' **Keyword: `SSE OR LIN`** (formerly `EXP OR LIN`)
 #'
 #' Works for some cases where an `SSE` fit fails. If the `SSE` fit fails,
 #' a `LIN` fit is done instead, which always works.
 #'
-#' **Keyword: `SSE+LIN` (formerly `EXP+LIN`)**
+#' **Keyword: `SSE+LIN`** (formerly `EXP+LIN`)
 #'
 #' Tries to fit an exponential plus linear function of the form:
 #'
@@ -48,9 +47,9 @@
 #' **Note:** In the context of luminescence dating, this function has no physical meaning.
 #' Therefore, no \eqn{D_0} value is returned.
 #'
-#' **Keyword: `DSE` (formerly `EXP+EXP`)**
+#' **Keyword: `DSE`** (formerly `EXP+EXP`)
 #'
-#' Tries to fit a double exponential function of the form
+#' Tries to fit a double exponential function of the form:
 #'
 #' \deqn{y = N_1 (1 - \exp(-\frac{x + D_i}{D0_1})) + N_2 (1 - \exp(-\frac{x + D_i}{D0_2}))}
 #'
@@ -59,7 +58,7 @@
 #' **Keyword: `GOK`**
 #'
 #' Tries to fit the general-order kinetics function following Guralnik et al. (2015)
-#' of the form
+#' of the form:
 #'
 #' \deqn{y = a (d - (1 + \frac{1}{D_0} x c)^{-1 / c})}
 #'
@@ -966,7 +965,7 @@ fit_DoseResponseCurve <- function(
         f <- function(x) .toFormula(fit.functionSSE, env = currn_env)
         fit$m$formula <- f
 
-        ## put fitted coefficient in the environment
+        ## put fitted coefficients in the environment
         .get_coef(fit)
 
         ## calculate D63 and D80 based on approximation in Mauz et al. (submitted)
@@ -1078,7 +1077,7 @@ fit_DoseResponseCurve <- function(
       silent=TRUE)
 
       if (!inherits(fit.SSE, "try-error")) {
-        ## put fitted coefficient in the environment
+        ## put fitted coefficients in the environment
         .get_coef(fit.SSE)
       }
 
@@ -1130,7 +1129,7 @@ fit_DoseResponseCurve <- function(
       f <- function(x) .toFormula(fit.functionSSELIN, env = currn_env)
       fit$m$formula <- f
 
-      ## put fitted coefficient in the environment
+      ## put fitted coefficients in the environment
       .get_coef(fit)
 
       #problem: analytically it is not easy to calculate x,
@@ -1233,7 +1232,7 @@ fit_DoseResponseCurve <- function(
     if (!inherits(fit, "try-error")) {
       N1 <- N2 <- NULL # silence notes from R CMD check
 
-      ## put fitted coefficient in the environment
+      ## put fitted coefficients in the environment
       .get_coef(fit)
 
       ## analytically it is not easy to calculate x, use uniroot to find it
@@ -1311,7 +1310,7 @@ fit_DoseResponseCurve <- function(
       .report_fit_failure(fit.method, mode)
 
     }else{
-      ## put fitted coefficient in the environment
+      ## put fitted coefficients in the environment
       .get_coef(fit)
 
       #calculate De
@@ -1370,7 +1369,7 @@ fit_DoseResponseCurve <- function(
       .report_fit_failure(fit.method, mode)
 
     } else {
-         ## put fitted coefficient in the environment
+         ## put fitted coefficients in the environment
          .get_coef(fit)
 
           #calculate De
@@ -1481,7 +1480,7 @@ fit_DoseResponseCurve <- function(
       .report_fit_failure(fit.method, mode)
 
     } else {
-      ## put fitted coefficient in the environment
+      ## put fitted coefficients in the environment
       .get_coef(fit)
 
       ## get also R, this is not part of the fit, approximation
