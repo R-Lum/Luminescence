@@ -1322,101 +1322,29 @@ fit_DoseResponseCurve <- function(
     }
   }
 
-  ## OTOR ---------------------------------------------------------------
-  else if (fit.method == "OTOR") {
-    Di_lower <- 0.01
-    if (extrapolation)
-      Di_lower <- 50 ##TODO - fragile ... however it is only used by a few
+  ## OTOR and OTORX ---------------------------------------------------------
+  else if (fit.method %in% c("OTOR", "OTORX")) {
+    if (fit.method == "OTOR") {
+      Di_lower <- 0.01
+      if (extrapolation)
+        Di_lower <- 50 ##TODO - fragile ... however it is only used by a few
 
-    ## set bounds
-    lower <- if (fit.bounds) c(0, 0, 0, Di_lower) else rep(-Inf, 4)
-    upper <- if (fit.force_through_origin) c(10, Inf, Inf, 0) else c(10, Inf, Inf, Inf)
+      ## set bounds
+      lower <- if (fit.bounds) c(0, 0, 0, Di_lower) else rep(-Inf, 4)
+      upper <- if (fit.force_through_origin) c(10, Inf, Inf, 0) else c(10, Inf, Inf, Inf)
 
-    fit <- try(minpack.lm::nlsLM(
-          formula = .toFormula(fit.functionOTOR, env = currn_env),
-          data = data,
-          start = list(R = 0, Dc = b, N = b, Di = 0.1),
-          weights = fit.weights,
-          lower = lower,
-          upper = upper,
-          control = control_settings
-        ), silent = TRUE)
+      fit.function <- fit.functionOTOR
+      start <- list(R = 0, Dc = b, N = b, Di = 0.1)
+      mc.start <- list(R = 0, Dc = b, N = 0, Di = 0)
 
-    if (inherits(fit, "try-error")) {
-      .report_fit_failure(fit.method, mode)
+      ## the lower bound for Di is randomised around the fitted value, so that
+      ## the Monte-Carlo fits are not all trapped on the same boundary
+      mc.lower <- if (fit.bounds) function() c(0, 0, 0, Di * runif(1, 0, 2))
+                  else rep(-Inf, 4)
 
-    } else {
-         ## put fitted coefficients in the environment
-         .get_coef(fit)
-
-          ## calculate De
-          De <- NA
-          f.unirootOTOR <- function(x, R, Dc, N, Di, LnTn)
-            fit.functionOTOR(R, Dc, N, Di, x) - LnTn
-          otor.params <- list(R = R, Dc = Dc, N = N, Di = Di)
-
-          if (interpolation || extrapolation) {
-            de.interval <- if (interpolation) c(0, max(object[[1]]) * 1.2)
-                           else c(-max(object[[1]]), 0)
-            De <- .solve_De(
-              f = f.unirootOTOR,
-              interval = de.interval,
-              params = c(otor.params, list(LnTn = LnTn)),
-              method = "OTOR",
-              fallback = if (extrapolation) "warn" else "none")
-          }
-
-          ## return D63 based on formula in the appendix of Mauz et al. (submitted)
-          D63 <- (0.367 + 0.633 * R) * Dc
-          D80 <- .compute_D80(D63, R)
-
-          ## report terminal line
-          .report_fit(De, sprintf(" | R = %.2f | D63 = %.2f", R, D63))
-
-          ## OTOR Monte Carlo error estimation
-          mc <- .run_mc_fits(
-            formula = .toFormula(fit.functionOTOR, env = currn_env),
-            start = list(R = 0, Dc = b, N = 0, Di = 0),
-            lower = if (fit.bounds) function() c(0, 0, 0, Di * runif(1, 0, 2))
-                    else rep(-Inf, 4),
-            upper = upper)
-
-          if (!is.null(mc)) {
-            ## calculate x.natural for error calculation
-            if (!alternate) {
-              for (j in seq_len(nrow(mc))) {
-                i <- mc$i[j]
-                x.natural[i] <- .solve_De(
-                  f = f.unirootOTOR,
-                  interval = de.interval,
-                  params = c(list(R = mc$R[j], Dc = mc$Dc[j], N = mc$N[j], Di = mc$Di[j]),
-                             list(LnTn = data.MC.De[i])),
-                  method = "OTOR",
-                  fallback = if (extrapolation) "quiet" else "none")
-              }
-            }
-
-          Dc.ERROR <- quantile(mc$Dc, na.rm = TRUE, probs = c(0.25, 0.75))
-          Dc.LOWER <- Dc.ERROR[1]
-          Dc.UPPER <- Dc.ERROR[2]
-
-          R.ERROR <- quantile(mc$R, na.rm = TRUE, probs = c(0.25, 0.75))
-          R.LOWER <- R.ERROR[1]
-          R.UPPER <- R.ERROR[2]
-
-          ## calculate the D63 using the approximation in Mauz et al. (submitted)
-          D63.ERROR <- (0.367 + 0.633 * R.ERROR) * Dc.ERROR
-          D63.LOWER <- D63.ERROR[1]
-          D63.UPPER <- D63.ERROR[2]
-
-          ## calculate D80 the same way
-          D80.LOWER <- .compute_D80(D63.LOWER, R.LOWER)
-          D80.UPPER <- .compute_D80(D63.UPPER, R.UPPER)
-          }
-    }#endif::try-error fit
-
-  }  ## OTORX ---------------------------------------------------------------
-  else if (fit.method == "OTORX") {
+      ## extract the R coefficient
+      R.coef <- function(coefs) coefs[["R"]]
+    } else { # OTORX
       ## we need a test dose; the default value is -1 because an NA will cause
       ## additional problems
       TEST_DOSE <- object$Test_Dose[[1]]
@@ -1434,10 +1362,25 @@ fit_DoseResponseCurve <- function(
       if (fit.force_through_origin && interpolation)
         lower[4] <- upper[4] <- 0
 
+      fit.function <- fit.functionOTORX
+      start <- list(Q = 1, D63 = b, c = 1, Di = 1)
+      mc.start <- start
+      mc.lower <- lower
+
+      ## R is not part of the fit but derived from Q, approximation
+      ## based on Mauz et al. (submitted)
+      R.coef <- function(coefs) 1 - coefs[["Q"]]
+    }
+
+    ## solve for De with the parameters passed as one named vector, so that
+    ## the same function serves the fitted and the Monte-Carlo parameters
+    de.f <- function(x, pars, LnTn)
+      do.call(fit.function, c(list(x = x), pars)) - LnTn
+
     fit <- try(minpack.lm::nlsLM(
-      formula = .toFormula(fit.functionOTORX, env = currn_env),
+      formula = .toFormula(fit.function, env = currn_env),
       data = data,
-      start = list(Q = 1, D63 = b, c = 1, Di = 1),
+      start = start,
       weights = fit.weights,
       lower = lower,
       upper = upper,
@@ -1451,61 +1394,69 @@ fit_DoseResponseCurve <- function(
       ## put fitted coefficients in the environment
       .get_coef(fit)
 
-      ## get also R, this is not part of the fit, approximation
-      ## based on Mauz et al. (submitted)
-      R <- 1 - Q
-      Dc <- D63 / (0.367 + 0.633 * R)
-
-      ## calculate also D80
+      ## R, D63 and Dc are linked by the approximation given in Mauz et al. (submitted)
+      if (fit.method == "OTOR") {
+        D63 <- (0.367 + 0.633 * R) * Dc
+      } else {
+        R <- 1 - Q
+        Dc <- D63 / (0.367 + 0.633 * R)
+      }
       D80 <- .compute_D80(D63, R)
 
       ## calculate De
       De <- NA
-      f.unirootOTORX <- function(x, Q, D63, c, Di, LnTn)
-        fit.functionOTORX(x, Q, D63, c, Di) - LnTn
-      otorx.params <- list(Q = Q, D63 = D63, c = c, Di = Di)
-
       if (!alternate) {
         de.interval <- if (interpolation) c(0, max(object[[1]]) * 1.2)
                        else c(-max(object[[1]]), 0)
         De <- .solve_De(
-          f = f.unirootOTORX,
+          f = de.f,
           interval = de.interval,
-          params = c(otorx.params, list(LnTn = LnTn)),
-          method = "OTORX",
+          params = list(pars = coef(fit), LnTn = LnTn),
+          method = fit.method,
           fallback = if (extrapolation) "warn" else "none")
       }
 
       ## report terminal line
-      .report_fit(De, sprintf(" | R = %.2f | D63 = %.2f", 1 - Q, D63))
+      .report_fit(De, sprintf(" | R = %.2f | D63 = %.2f", R, D63))
 
-      ## OTORX Monte Carlo error estimation
+      ## OTOR/OTORX Monte Carlo error estimation
       mc <- .run_mc_fits(
-        formula = .toFormula(fit.functionOTORX, env = currn_env),
-        start = list(Q = 1, D63 = b, c = 1, Di = 1),
-        lower = lower,
+        formula = .toFormula(fit.function, env = currn_env),
+        start = mc.start,
+        lower = mc.lower,
         upper = upper)
 
       if (!is.null(mc)) {
         ## calculate x.natural for error calculation
         if (!alternate) {
-          for (j in seq_len(nrow(mc))) {
-            i <- mc$i[j]
-            x.natural[i] <- .solve_De(
-              f = f.unirootOTORX,
+          mc.params <- setdiff(names(mc), "i")
+          LnTn.MC <- data.MC.De[mc$i]
+
+          x.natural[mc$i] <- vapply(seq_len(nrow(mc)), function(j)
+            as.numeric(.solve_De(
+              f = de.f,
               interval = de.interval,
-              params = c(list(Q = mc$Q[j], D63 = mc$D63[j], c = mc$c[j], Di = mc$Di[j]),
-                         list(LnTn = data.MC.De[i])),
-              method = "OTORX",
-              fallback = if (extrapolation) "quiet" else "none")
-          }
+              params = list(pars = unlist(mc[j, mc.params, drop = FALSE]),
+                            LnTn = LnTn.MC[j]),
+              method = fit.method,
+              fallback = if (extrapolation) "quiet" else "none")),
+            numeric(1))
         }
 
-        R.ERROR <- quantile(1 - mc$Q, na.rm = TRUE, probs = c(0.25, 0.75))
+        R.ERROR <- quantile(R.coef(mc), na.rm = TRUE, probs = c(0.25, 0.75))
         R.LOWER <- R.ERROR[1]
         R.UPPER <- R.ERROR[2]
 
-        D63.ERROR <- quantile(mc$D63, na.rm = TRUE, probs = c(0.25, 0.75))
+        if (fit.method == "OTOR") {
+          Dc.ERROR <- quantile(mc$Dc, na.rm = TRUE, probs = c(0.25, 0.75))
+          Dc.LOWER <- Dc.ERROR[1]
+          Dc.UPPER <- Dc.ERROR[2]
+
+          ## calculate the D63 using the approximation in Mauz et al. (submitted)
+          D63.ERROR <- (0.367 + 0.633 * R.ERROR) * Dc.ERROR
+        } else {
+          D63.ERROR <- quantile(mc$D63, na.rm = TRUE, probs = c(0.25, 0.75))
+        }
         D63.LOWER <- D63.ERROR[1]
         D63.UPPER <- D63.ERROR[2]
 
