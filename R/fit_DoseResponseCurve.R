@@ -10,7 +10,7 @@
 #' ## Implemented fitting methods
 #'
 #' For all options (except for the `LIN`, `QDR` and the `SSE OR LIN`),
-#' the [minpack.lm::nlsLM] function with the evenberg-Marquardt algorithm is
+#' the [minpack.lm::nlsLM] function with the Levenberg-Marquardt algorithm is
 #' used.
 #'
 #' The solution is found by transforming the function or using [stats::uniroot].

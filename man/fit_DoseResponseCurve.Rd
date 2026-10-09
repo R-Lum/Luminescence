@@ -154,7 +154,7 @@ extrapolation to calculate the equivalent dose.
 \subsection{Implemented fitting methods}{
 
 For all options (except for the \code{LIN}, \code{QDR} and the \verb{SSE OR LIN}),
-the \link[minpack.lm:nlsLM]{minpack.lm::nlsLM} function with the evenberg-Marquardt algorithm is
+the \link[minpack.lm:nlsLM]{minpack.lm::nlsLM} function with the Levenberg-Marquardt algorithm is
 used.
 
 The solution is found by transforming the function or using \link[stats:uniroot]{stats::uniroot}.
