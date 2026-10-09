@@ -228,14 +228,6 @@ test_that("test edge cases", {
   object <- set_RLum("RLum.Analysis", records = list(RF_nat, RF_reg))
 
   SW({
-  expect_warning(analyse_IRSAR.RF(
-    IRSAR.RF.Data,
-    method = "FIT",
-    plot = TRUE,
-    RF_reg = c(1, 400),
-    txtProgressBar = FALSE),
-    "Threshold exceeded for: 'curves_bounds', see manual for details")
-
   ## issue 1715
   expect_warning(analyse_IRSAR.RF(object, method = "FIT"),
                  "Threshold exceeded for: 'curves_ratio', see manual for")
@@ -361,8 +353,9 @@ test_that("regression tests", {
                                  plot = FALSE, verbose = FALSE))
 
   ## issue 1802
-  res <- analyse_IRSAR.RF(IRSAR.RF.Data, method = "FIT",
-                          RF_reg = c(1, 400), plot = TRUE)
+  expect_warning(res <- analyse_IRSAR.RF(IRSAR.RF.Data, method = "FIT",
+                                         RF_reg = c(1, 400), plot = TRUE),
+                 "Threshold exceeded for: 'curves_bounds', see manual for")
   expect_equal(res$data$DE.STATUS,
                "FAILED")
 })
