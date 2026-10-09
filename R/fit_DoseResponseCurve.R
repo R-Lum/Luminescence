@@ -442,6 +442,10 @@ fit_DoseResponseCurve <- function(
   }
   if (fit.method == "DSE" && extrapolation)
     .throw_error("Mode 'extrapolation' for fitting method 'DSE' not supported")
+  if (fit.method == "OTORX" &&
+      (is.null(object$Test_Dose) || all(object$Test_Dose == -1))) {
+    .throw_error("Column 'Test_Dose' missing but mandatory for 'OTORX' fitting")
+  }
   .validate_logical_scalar(fit.force_through_origin)
   .validate_class(fit.weights, c("character", "numeric"), null.ok = TRUE)
   .validate_logical_scalar(fit.includingRepeatedRegPoints)
@@ -620,7 +624,7 @@ fit_DoseResponseCurve <- function(
 
   ##1.4 set initialise variables
   De <- De.Error <- D01 <- R <- R.LOWER <- R.UPPER <- Dc <- Dc.LOWER <- Dc.UPPER <- NA_real_
-  D63 <- D63.LOWER <- D63.UPPER <- D80 <- D80.LOWER <- D80.UPPER <- Di <- N <- TEST_DOSE <- NA_real_
+  D63 <- D63.LOWER <- D63.UPPER <- D80 <- D80.LOWER <- D80.UPPER <- Di <- N <- NA_real_
 
   ##1.5 create bindings (we generate this with an internal function klate)
   var.g <- d <- Di <- Q <- NA_real_
@@ -674,6 +678,7 @@ fit_DoseResponseCurve <- function(
                        "SSE OR LIN" = 3,
                        "DSE" = 5,
                        4)
+  control_settings <- minpack.lm::nls.lm.control(maxiter = 500)
 
   ## if the number of data points is smaller than the number of parameters
   ## to fit, the nls() function gets trapped in an infinite loop
@@ -721,10 +726,9 @@ fit_DoseResponseCurve <- function(
           data = list(x = xy$x, y = data.MC[, i]),
           start = start,
           weights = fit.weights,
-          algorithm = "LM",
           lower = if (is.function(lower)) lower() else lower,
           upper = upper,
-          control = minpack.lm::nls.lm.control(maxiter = 500))
+          control = control_settings)
         num.fitted <- num.fitted + 1
         mc_ok[[num.fitted]] <- c(i = i, stats::coef(fit.MC_i))
       }, silent = TRUE)
@@ -901,10 +905,7 @@ fit_DoseResponseCurve <- function(
 
       ## prepare what we can outside the loop
       N.start <- D0.start <- Di.start <- numeric(length(a.MC))
-
       lower_bounds <- c(N = 0, D0 = 1e-6, Di = 0)
-      control_settings <-  minpack.lm::nls.lm.control(
-        maxiter = 500)
 
       ## loop for better attempt
       for (i in seq_along(a.MC)) {
@@ -913,8 +914,6 @@ fit_DoseResponseCurve <- function(
           formula = y ~ fit_functionSSE_cpp(N, D0, Di, x),
           data = data,
           start = list(N = a.MC[i], D0 = b.MC[i], Di = c.MC[i]),
-          trace = FALSE,
-          algorithm = "LM",
           lower = lower_bounds,
           control = control_settings)
         , silent = TRUE))
@@ -943,11 +942,9 @@ fit_DoseResponseCurve <- function(
         data = data,
         start = list(N = N, D0 = D0, Di = 0),
         weights = fit.weights,
-        trace = FALSE,
-        algorithm = "LM",
         lower = lower,
         upper = upper,
-        control = minpack.lm::nls.lm.control(maxiter = 500)
+        control = control_settings
       ), silent = TRUE)
 
       if (inherits(fit, "try-error") && inherits(fit.initial, "try-error")) {
@@ -971,7 +968,7 @@ fit_DoseResponseCurve <- function(
         ## calculate D63 and D80 based on approximation in Mauz et al. (submitted)
         D80 <- 1.609 * D0
 
-        #calculate De
+        ## calculate De
         De <- NA
         if (interpolation || extrapolation) {
           De <- suppressWarnings(-Di - D0 * log(1 - LnTn / N))
@@ -1068,8 +1065,6 @@ fit_DoseResponseCurve <- function(
         formula = y ~ fit_functionSSE_cpp(N, D0, Di, x),
         data = data,
         start = c(N = N, D0 = D0, Di = Di),
-        trace = FALSE,
-        algorithm = "LM",
         lower = c(N = 0, D0 = 10, Di = 0),
         control = minpack.lm::nls.lm.control(
           maxiter=100)
@@ -1086,11 +1081,8 @@ fit_DoseResponseCurve <- function(
           formula = y ~ fit_functionSSELIN_cpp(N, D0, Di, g, x),
           data = data,
           start = c(N = N, D0 = D0, Di = Di, g = g),
-          trace = FALSE,
-          algorithm = "LM",
           lower = lower,
-          control = minpack.lm::nls.lm.control(
-            maxiter = 500) #increase max. iterations
+          control = control_settings
           ))
         }, silent=TRUE)
 
@@ -1116,11 +1108,9 @@ fit_DoseResponseCurve <- function(
       data = data,
       start = list(N = N, D0 = D0, Di = Di, g = g),
       weights = fit.weights,
-      trace = FALSE,
-      algorithm = "LM",
       lower = lower,
       upper = upper,
-      control = minpack.lm::nls.lm.control(maxiter = 500)
+      control = control_settings
     )), silent = TRUE)
 
     #if try error stop calculation
@@ -1138,17 +1128,12 @@ fit_DoseResponseCurve <- function(
         fit_functionSSELIN_cpp(N, D0, Di, g, x) - LnTn
       }
 
-      if (interpolation) {
-        min.val <- 0
-      } else if (extrapolation) {
-        min.val <- -1e6
-      }
-
       De <- NA
       if (!alternate) {
+        de.interval <- c(if (interpolation) 0 else -1e6, max(xy$x) * 1.5)
         De <- .solve_De(
           f = f.unirootSSELIN,
-          interval = c(min.val, max(xy$x) * 1.5),
+          interval = de.interval,
           params = list(N = N, D0 = D0, Di = Di, g = g, LnTn = LnTn),
           method = "SSE+LIN",
           extendInt = "yes", maxiter = 3000)
@@ -1166,7 +1151,7 @@ fit_DoseResponseCurve <- function(
           for (j in seq_len(nrow(mc))) {
             x.natural[mc$i[j]] <- .solve_De(
                 f = f.unirootSSELIN,
-                interval = c(min.val, max(xy$x) * 1.5),
+                interval = de.interval,
                 params = list(N = mc$N[j], D0 = mc$D0[j], Di = mc$Di[j],
                               g = mc$g[j], LnTn = data.MC.De[mc$i[j]]),
                 method = "SSE+LIN")
@@ -1195,10 +1180,8 @@ fit_DoseResponseCurve <- function(
         start = list(N1 = a.MC[i], N2 = a.MC[i] / 2,
                      D01 = b.MC[i], D02 = b.MC[i] / 2,
                      Di = c.MC[i]),
-        trace = FALSE,
-        algorithm = "LM",
         lower = lower,
-        control = minpack.lm::nls.lm.control(maxiter = 500))
+        control = control_settings)
       }, silent = TRUE)
 
       if (!inherits(fit.start, "try-error")) {
@@ -1222,10 +1205,8 @@ fit_DoseResponseCurve <- function(
                    D02 = median(D02.start, na.rm = TRUE),
                    Di = median(Di.start, na.rm = TRUE)),
       weights = fit.weights,
-      trace = FALSE,
-      algorithm = "LM",
       lower = lower,
-      control = minpack.lm::nls.lm.control(maxiter = 500)
+      control = control_settings
     ), silent = TRUE)
 
     ##insert if for try-error
@@ -1243,12 +1224,13 @@ fit_DoseResponseCurve <- function(
             fit_functionDSE_cpp(N1, N2, D01, D02, Di, x) - LnTn
           }
 
+        de.interval <- c(0, max(xy$x) * 1.5)
         De <- .solve_De(
           f = f.unirootDSE,
-          interval = c(0, max(xy$x) * 1.5),
+          interval = de.interval,
           params = list(N1 = N1, D01 = D01,
                         N2 = N2, D02 = D02,
-                        Di = Di, LnTn = object[1, 2]),
+                        Di = Di, LnTn = LnTn),
           method = "DSE",
           extendInt = "yes", maxiter = 3000)
       }
@@ -1274,7 +1256,7 @@ fit_DoseResponseCurve <- function(
           for (j in seq_len(nrow(mc))) {
             x.natural[mc$i[j]] <- .solve_De(
               f = f.unirootDSE,
-              interval = c(0, max(xy$x) * 1.5),
+              interval = de.interval,
               params = list(N1 = mc$N1[j], D01 = mc$D01[j],
                             N2 = mc$N2[j], D02 = mc$D02[j],
                             Di = mc$Di[j], LnTn = data.MC.De[mc$i[j]]),
@@ -1299,11 +1281,9 @@ fit_DoseResponseCurve <- function(
       data = data,
       start = list(a = a, D0 = b, c = 1, d = 1),
       weights = fit.weights,
-      trace = FALSE,
-      algorithm = "LM",
       lower = lower,
       upper = upper,
-      control = minpack.lm::nls.lm.control(maxiter = 500)
+      control = control_settings
     ), silent = TRUE)
 
     if (inherits(fit, "try-error")){
@@ -1313,7 +1293,7 @@ fit_DoseResponseCurve <- function(
       ## put fitted coefficients in the environment
       .get_coef(fit)
 
-      #calculate De
+      ## calculate De
       De <- if (interpolation || extrapolation) {
         -(D0 * (1 - (d - LnTn / a)^-c)) / c
       } else NA
@@ -1357,12 +1337,9 @@ fit_DoseResponseCurve <- function(
           data = data,
           start = list(R = 0, Dc = b, N = b, Di = 0.1),
           weights = fit.weights,
-          trace = FALSE,
-          algorithm = "LM",
           lower = lower,
           upper = upper,
-          control = minpack.lm::nls.lm.control(
-            maxiter = 500)
+          control = control_settings
         ), silent = TRUE)
 
     if (inherits(fit, "try-error")) {
@@ -1372,19 +1349,18 @@ fit_DoseResponseCurve <- function(
          ## put fitted coefficients in the environment
          .get_coef(fit)
 
-          #calculate De
+          ## calculate De
           De <- NA
           f.unirootOTOR <- function(x, R, Dc, N, Di, LnTn)
             fit.functionOTOR(R, Dc, N, Di, x) - LnTn
           otor.params <- list(R = R, Dc = Dc, N = N, Di = Di)
 
           if (interpolation || extrapolation) {
-            LnTn <- if (interpolation) object[1, 2] else 0
-            interval <- if (interpolation) c(0, max(object[[1]]) * 1.2)
-                        else c(-max(object[[1]]), 0)
+            de.interval <- if (interpolation) c(0, max(object[[1]]) * 1.2)
+                           else c(-max(object[[1]]), 0)
             De <- .solve_De(
               f = f.unirootOTOR,
-              interval = interval,
+              interval = de.interval,
               params = c(otor.params, list(LnTn = LnTn)),
               method = "OTOR",
               fallback = if (extrapolation) "warn" else "none")
@@ -1410,11 +1386,9 @@ fit_DoseResponseCurve <- function(
             if (!alternate) {
               for (j in seq_len(nrow(mc))) {
                 i <- mc$i[j]
-                interval <- if (interpolation) c(0, max(object[[1]]) * 1.2)
-                            else c(-max(object[[1]]), 0)
                 x.natural[i] <- .solve_De(
                   f = f.unirootOTOR,
-                  interval = interval,
+                  interval = de.interval,
                   params = c(list(R = mc$R[j], Dc = mc$Dc[j], N = mc$N[j], Di = mc$Di[j]),
                              list(LnTn = data.MC.De[i])),
                   method = "OTOR",
@@ -1443,21 +1417,18 @@ fit_DoseResponseCurve <- function(
 
   }  ## OTORX ---------------------------------------------------------------
   else if (fit.method == "OTORX") {
-    if(is.null(object$Test_Dose) || all(object$Test_Dose == -1))
-      .throw_error("Column 'Test_Dose' missing but mandatory for 'OTORX' fitting!")
-
-    ## we need a test dose; the default value is -1 because an NA will cause
-    ## additional problems
-    TEST_DOSE <- object$Test_Dose[[1]]
+      ## we need a test dose; the default value is -1 because an NA will cause
+      ## additional problems
+      TEST_DOSE <- object$Test_Dose[[1]]
 
       ## here we replace TEST_DOSE by an evaluated value
-      ## in the function body; this makes things ALOT easier below
+      ## in the function body; this makes things a lot easier below
       body(fit.functionOTORX) <- do.call(
         substitute, list(body(fit.functionOTORX), list(TEST_DOSE = TEST_DOSE)))
 
-    ## set boundaries
-    lower <- if (fit.bounds) c(0, 0, 0, 0) else rep(-Inf, 4)
-    upper <- c(Inf, Inf, Inf, Inf)
+      ## set boundaries
+      lower <- if (fit.bounds) c(0, 0, 0, 0) else rep(-Inf, 4)
+      upper <- rep(Inf, 4)
 
       ## correct boundaries for origin forced through zero
       if (fit.force_through_origin && interpolation)
@@ -1468,12 +1439,9 @@ fit_DoseResponseCurve <- function(
       data = data,
       start = list(Q = 1, D63 = b, c = 1, Di = 1),
       weights = fit.weights,
-      trace = FALSE,
-      algorithm = "LM",
       lower = lower,
       upper = upper,
-      control = minpack.lm::nls.lm.control(
-        maxiter = 500)
+      control = control_settings
     ), silent = TRUE)
 
     if (inherits(fit, "try-error")) {
@@ -1491,19 +1459,18 @@ fit_DoseResponseCurve <- function(
       ## calculate also D80
       D80 <- .compute_D80(D63, R)
 
-      #calculate De
+      ## calculate De
       De <- NA
       f.unirootOTORX <- function(x, Q, D63, c, Di, LnTn)
         fit.functionOTORX(x, Q, D63, c, Di) - LnTn
       otorx.params <- list(Q = Q, D63 = D63, c = c, Di = Di)
 
       if (!alternate) {
-        LnTn <- if (interpolation) object[1, 2] else 0
-        interval <- if (interpolation) c(0, max(object[[1]]) * 1.2)
-                    else c(-max(object[[1]]), 0)
+        de.interval <- if (interpolation) c(0, max(object[[1]]) * 1.2)
+                       else c(-max(object[[1]]), 0)
         De <- .solve_De(
           f = f.unirootOTORX,
-          interval = interval,
+          interval = de.interval,
           params = c(otorx.params, list(LnTn = LnTn)),
           method = "OTORX",
           fallback = if (extrapolation) "warn" else "none")
@@ -1524,11 +1491,9 @@ fit_DoseResponseCurve <- function(
         if (!alternate) {
           for (j in seq_len(nrow(mc))) {
             i <- mc$i[j]
-            interval <- if (interpolation) c(0, max(object[[1]]) * 1.2)
-                        else c(-max(object[[1]]), 0)
             x.natural[i] <- .solve_De(
               f = f.unirootOTORX,
-              interval = interval,
+              interval = de.interval,
               params = c(list(Q = mc$Q[j], D63 = mc$D63[j], c = mc$c[j], Di = mc$Di[j]),
                          list(LnTn = data.MC.De[i])),
               method = "OTORX",
@@ -1536,21 +1501,22 @@ fit_DoseResponseCurve <- function(
           }
         }
 
-      D63.ERROR <- quantile(mc$D63, na.rm = TRUE, probs = c(0.25, 0.75))
-      D63.LOWER <- D63.ERROR[1]
-      D63.UPPER <- D63.ERROR[2]
+        R.ERROR <- quantile(1 - mc$Q, na.rm = TRUE, probs = c(0.25, 0.75))
+        R.LOWER <- R.ERROR[1]
+        R.UPPER <- R.ERROR[2]
 
-      R.ERROR <- quantile(1 - mc$Q, na.rm = TRUE, probs = c(0.25, 0.75))
-      R.LOWER <- R.ERROR[1]
-      R.UPPER <- R.ERROR[2]
+        D63.ERROR <- quantile(mc$D63, na.rm = TRUE, probs = c(0.25, 0.75))
+        D63.LOWER <- D63.ERROR[1]
+        D63.UPPER <- D63.ERROR[2]
 
-      ## calculate D80 the same way
-      D80.LOWER <- .compute_D80(D63.LOWER, R.LOWER)
-      D80.UPPER <- .compute_D80(D63.UPPER, R.UPPER)
+        ## calculate D80 the same way
+        D80.LOWER <- .compute_D80(D63.LOWER, R.LOWER)
+        D80.UPPER <- .compute_D80(D63.UPPER, R.UPPER)
       }
-
     }#endif::try-error fit
   }#End if fit.method selection (for all)
+
+  ## Final De.MC ------------------------------------------------------------
 
   ## get De values from Monte Carlo simulation
   De.MC <- De.MC.NA <- x.natural
@@ -1577,7 +1543,7 @@ fit_DoseResponseCurve <- function(
     fit_formula <- .replace_coef(fit)
 
 # Output ------------------------------------------------------------------
-  ##calculate HPDI
+  ## calculate HPDI
   HPDI <- matrix(c(NA,NA,NA,NA), ncol = 4)
   ## here we use the original x.natural because we need the entire
   ## distribution of De values, not a censored one

@@ -248,8 +248,7 @@ test_that("check functionality", {
       verbose = FALSE,
       fit.weights = NULL
     ),
-    "Column 'Test_Dose' missing but mandatory for 'OTORX' fitting!",
-    fixed = TRUE)
+    "Column 'Test_Dose' missing but mandatory for 'OTORX' fitting")
 
   expect_s4_class(
     suppressWarnings(analyse_SAR.CWOSL(
