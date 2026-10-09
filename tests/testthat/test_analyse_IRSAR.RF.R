@@ -359,4 +359,10 @@ test_that("regression tests", {
   expect_silent(analyse_IRSAR.RF(list(IRSAR.RF.Data), method = "SLIDE",
                                  test_parameters = list(4),
                                  plot = FALSE, verbose = FALSE))
+
+  ## issue 1802
+  res <- analyse_IRSAR.RF(IRSAR.RF.Data, method = "FIT",
+                          RF_reg = c(1, 400), plot = TRUE)
+  expect_equal(res$data$DE.STATUS,
+               "FAILED")
 })
