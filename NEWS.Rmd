@@ -62,6 +62,11 @@ assigning more than two values will now produce an error instead of a warning
 * The `test_parameters` argument no longer causes a crash when `object` is a
 list (#1796).
 
+* When the `curves_bounds` threshold was exceeded with `method = "FIT"`,
+`DE.STATUS` was previously set either to "VALUE OUT OF BOUNDS"  or "FAILED"
+depending on whether the plot was generated or not. Now it is consistently set
+to "FAILED" in such cases (#1802).
+
 ### `analyse_SAR.CWOSL()`
 
 * The `plot_onePage` argument now defaults to `TRUE` as this turned out to be
