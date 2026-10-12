@@ -257,7 +257,7 @@ read_BIN2R <- function(
 
         ##set or reset n.records
         n.records <- seq_len(temp.ID)
-        break()
+        break
 
       }else{
         .throw_error("BIN/BINX format version (", temp.VERSION, ") ",
@@ -284,7 +284,7 @@ read_BIN2R <- function(
         .throw_message("Record #", temp.ID + 1,
                        " skipped due to wrong record length", error = FALSE)
       }
-      next()
+      next
     }
     temp.ID <- temp.ID + 1
   }
@@ -525,7 +525,7 @@ read_BIN2R <- function(
       if (!(temp.ID + 1) %in% n.records) {
         temp.ID <- temp.ID + 1
         seek.connection(con, temp.LENGTH - 3 * int.size - 2, origin = "current")
-        next()
+        next
       }
     }
 
@@ -556,7 +556,7 @@ read_BIN2R <- function(
                            " skipped due to 'ignore.RECTYPE = ", ignore.RECTYPE,
                            "'", error = FALSE)
           }
-          next()
+          next
         }
 
         if(temp.RECTYPE != 0 & temp.RECTYPE != 1 & temp.RECTYPE != 128) {
@@ -574,7 +574,7 @@ read_BIN2R <- function(
             .throw_message(msg, ", record skipped", error = FALSE)
           }
           temp.ID <- temp.ID + 1
-          next()
+          next
         }
       }
 
@@ -947,8 +947,7 @@ read_BIN2R <- function(
     }
 
     results.DATA[[id_row]] <- temp.DPOINTS
-    results.RESERVED[[id_row]][[1]] <- temp.RESERVED1
-    results.RESERVED[[id_row]][[2]] <- temp.RESERVED2
+    results.RESERVED[[id_row]] <- list(temp.RESERVED1, temp.RESERVED2)
 
     ## update id row
     id_row <- id_row + 1
@@ -1054,7 +1053,7 @@ read_BIN2R <- function(
   if(!is.null(position)){
     position <- sort(unique(position))
     matches <- results.METADATA[, position %in% POSITION]
-    if (any(!matches)) {
+    if (!all(matches)) {
       .throw_warning("At least one position number is not valid (",
                      toString(position[!matches]),
                      "), valid position numbers are: ",
@@ -1064,7 +1063,7 @@ read_BIN2R <- function(
 
     ## subset the data according to the matching positions
     keep.positions <- results.METADATA[, POSITION %in% position]
-    results.METADATA <- results.METADATA[(keep.positions), ]
+    results.METADATA <- results.METADATA[keep.positions, ]
     results.DATA <- results.DATA[keep.positions]
     results.RESERVED <- results.RESERVED[keep.positions]
 
