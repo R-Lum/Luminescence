@@ -134,9 +134,9 @@ analyse_Al2O3C_CrossTalk <- function(
   if(!is.null(recordType)){
     object <- suppressWarnings(get_RLum(object, recordType = recordType,
                                         drop = FALSE))
-  }
-  if (is.null(object) || all(lengths(object) == 0)) {
-    .throw_error("'object' contains no records with recordType = '", recordType, "'")
+    if (is.null(object) || all(lengths(object) == 0)) {
+      .throw_error("No records with recordType ", .collapse(recordType), " found")
+    }
   }
 
   #set method control
