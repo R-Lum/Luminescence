@@ -400,7 +400,7 @@ fit_EmissionSpectra <- function(
       if(length(id_peaks) == 0){
         if (verbose) cat("\r>> Searching components ... \t\t\t[-]")
         run <- run + 1
-        next()
+        next
       }
 
     ## set start parameters for fitting --------

@@ -160,7 +160,7 @@ calc_AverageDose <- function(
           c(round(c(delta, sigma_d), 4)) == c(round(c(delta.temp, sigma_d.temp), 4))
         )
       ) {
-        break()
+        break
 
       } else{
         ##update input values

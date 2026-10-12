@@ -337,7 +337,7 @@ extract_IrradiationTimes <- function(
     for(i in 1:nrow(temp.results)){
       if(grepl("irradiation", temp.results[["STEP"]][i])) {
         temp_last <- temp.results[["DURATION.STEP"]][i]
-        next()
+        next
       }
 
       IRR_TIME[i] <- temp_last

@@ -501,7 +501,7 @@ fit_OSLLifeTimes <- function(
         }
 
         start_parameters <- start$optim$bestmem
-        break()
+        break
       }
 
       ##update objects
