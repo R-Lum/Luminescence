@@ -319,7 +319,7 @@ plot_FilterCombinations <- function(
 
       ## use hidden option for shiny to make it
       ## work in the filter app
-      if(is.null(list(...)$.shiny_server))
+      if (is.null(list(...)$.shiny))
         print(p)
 
       on.exit(return(p), add = TRUE)
