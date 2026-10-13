@@ -350,7 +350,7 @@ plot_DRTResults <- function(
   ## optionally group data by preheat temperature
   if (!is.null(preheat)) {
     values.preheat <- list()
-    modes <- unique(preheat)
+    modes <- sort(unique(preheat))
     for(mode in modes) {
       for(j in 1:length(values)) {
         values.preheat[[length(values.preheat) + 1]] <-
