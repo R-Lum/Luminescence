@@ -143,6 +143,9 @@ test_that("graphical snapshot tests", {
   vdiffr::expect_doppelganger("issue 1804",
                               plot_DRTResults(df, preheat = c(10, 1, 1, 2, 2),
                                               boxplot = TRUE))
+  vdiffr::expect_doppelganger("issue 1806",
+                              plot_DRTResults(df, preheat = c(1, 1, 2, 2, 2),
+                                              summary = "mean"))
   })
 })
 
