@@ -140,6 +140,9 @@ test_that("graphical snapshot tests", {
                               plot_DRTResults(data.frame(1:5, NA)))
   vdiffr::expect_doppelganger("infinities",
                               plot_DRTResults(data.frame(c(1, Inf, 2, 3), Inf)))
+  vdiffr::expect_doppelganger("issue 1804",
+                              plot_DRTResults(df, preheat = c(10, 1, 1, 2, 2),
+                                              boxplot = TRUE))
   })
 })
 
