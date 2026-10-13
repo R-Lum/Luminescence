@@ -459,10 +459,6 @@ plot_DRTResults <- function(
                code = 3,
                col = if (multicol) col else col[i])
         )
-
-        ## add summary content
-        .add_summary(summary.pos, summary.pos_is_bottom, summary.adj,
-                     label.text, mtext, i, cex, values, col)
       }
     } else {
       ## option for provided preheat data
@@ -485,6 +481,12 @@ plot_DRTResults <- function(
                col = col[i])
         )
       }
+    }
+
+    ## add summary content
+    for (i in 1:length(values)) {
+      .add_summary(summary.pos, summary.pos_is_bottom, summary.adj,
+                   label.text, mtext, i, cex, values, col)
     }
   }
 

@@ -141,6 +141,9 @@ can be accessed via the new `bin_RLum()` generic (#1782):
   `boxplot = TRUE`, the x-axis showed out of order ticks if the preheat
   values were unordered (#1804).
 
+- The `summary` argument was not respected when `preheat` values were
+  provided and `boxplot = FALSE` (#1806).
+
 ### `plot_RLum()`
 
 - The function is now implemented as an S4 generic that allows automatic
