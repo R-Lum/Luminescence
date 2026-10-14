@@ -130,8 +130,6 @@ calc_AverageDose <- function(
 
     ##set start parameters, otherwise the function will try to get them
     ##from the parent environment, which is not wanted ...
-    delta.temp <- 0
-    sigma_d.temp <- 0
 
     sigma_d <- sigma_d.start
     delta <- delta.start
@@ -150,7 +148,7 @@ calc_AverageDose <- function(
       wu <- 1/(sigma_d.temp^2 + su^2)
 
       ##break loop if convergence is reached ... if not update values
-      if(is.infinite(delta.temp) | is.infinite(sigma_d.temp)){
+      if (is.infinite(delta.temp) || is.infinite(sigma_d.temp)) {
         .throw_warning("Inf/NaN values produced by .mle(), NA returned")
         return(c(NA,NA))
 
@@ -161,13 +159,12 @@ calc_AverageDose <- function(
         )
       ) {
         break
-
-      } else{
-        ##update input values
-        delta <- delta.temp
-        sigma_d <- sigma_d.temp
-        j <- j + 1
       }
+
+      ## update input values
+      delta <- delta.temp
+      sigma_d <- sigma_d.temp
+      j <- j + 1
     }
 
     ##if no convergence was reached stop entire function; no stop as this may happen during the
@@ -177,7 +174,7 @@ calc_AverageDose <- function(
                      iteration_limit, " iterations, NA returned")
       return(c(NA,NA))
     }else{
-      return(c(round(c(delta, sigma_d),4)))
+      return(round(c(delta, sigma_d),4))
     }
   }
 
@@ -321,11 +318,10 @@ calc_AverageDose <- function(
   }
 
   # standard errors obtained by bootstrap, we refer to Efron B. and Tibshirani R. (1986)
-  n <- length(yu)
 
   ##calculate dstar
   ##set matrix for I
-  I <- matrix(data = sample(x = 1:n, size = n * Nb_BE, replace = TRUE), ncol = Nb_BE)
+  I <- matrix(data = sample.int(n, size = n * Nb_BE, replace = TRUE), ncol = Nb_BE)
 
   ##iterate over the matrix and produce dstar
   ##(this looks a little bit complicated, but is far more efficient)
