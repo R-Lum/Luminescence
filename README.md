@@ -26,9 +26,8 @@ website](https://replay.geog.uni-heidelberg.de/).
 
 #### i. Requirements
 
-- *Windows (32/64bit)*:
-  [Rtools](https://cran.r-project.org/bin/windows/Rtools/) (provided by
-  CRAN)
+- *Windows*: [Rtools](https://cran.r-project.org/bin/windows/Rtools/)
+  (provided by CRAN)
 - *macOS*: [Xcode](https://developer.apple.com/) (provided by Apple)
 - *Linux*: [gcc](https://gcc.gnu.org) often comes pre-installed in most
   distributions.
