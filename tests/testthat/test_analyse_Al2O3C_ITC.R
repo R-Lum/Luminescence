@@ -39,7 +39,7 @@ test_that("check functionality", {
 
   SW({
   ## fit_DoseResponseCurve() fails to fit
-  expect_warning(expect_null(analyse_Al2O3C_ITC(list(data_ITC),
+  expect_message(expect_null(analyse_Al2O3C_ITC(list(data_ITC),
                                                 dose_points = list(2))),
                  "Nothing was merged as the object list was found to be empty")
   })

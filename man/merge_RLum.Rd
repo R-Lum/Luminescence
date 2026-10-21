@@ -71,7 +71,8 @@ whether list elements should be flattened before merging. Only used for
 \link[=RLum.Results-class]{RLum.Results} objects.}
 }
 \value{
-Returns an object of the same class as the input elements.
+Returns an object of the same class as the input elements. If the \code{object}
+list is empty or contains only one element, then \code{NULL} is returned.
 }
 \description{
 The function merges \link[=RLum-class]{RLum} objects of the same class

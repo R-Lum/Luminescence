@@ -11,8 +11,8 @@ setMethod("merge_RLum", signature = "list", function(object, ..., .class) {
 
   ## if the list is empty we do nothing
   if (length(object) < 1) {
-    .throw_warning("Nothing was merged as the object list was found ",
-                   "to be empty or contains only one object")
+    .throw_message("Nothing was merged as the object list was found ",
+                   "to be empty or contains only one object, NULL returned")
     return(NULL)
   }
 

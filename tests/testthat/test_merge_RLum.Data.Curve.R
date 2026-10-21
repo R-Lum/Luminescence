@@ -20,8 +20,6 @@ test_that("input validation", {
 
   expect_error(merge_RLum("", merge.method = "/"),
                "'object' should be of class 'list'")
-  expect_warning(expect_null(merge_RLum(list(), merge.method = "/")),
-                 "Nothing was merged as the object list was found to be empty or")
   expect_error(merge_RLum(list(set_RLum("RLum.Data.Curve"))),
                "'object' contains no data")
   expect_error(merge_RLum(list(TL.curve.1, TL.curve.3),
@@ -39,6 +37,9 @@ test_that("input validation", {
 
 test_that("check functionality", {
   testthat::skip_on_cran()
+
+  expect_message(expect_null(merge_RLum(list(), merge.method = "/")),
+                 "Nothing was merged as the object list was found to be empty or")
 
   expect_s4_class(TL.curve.1 + TL.curve.3, "RLum.Data.Curve")
   expect_s4_class(TL.curve.1 - TL.curve.3, "RLum.Data.Curve")
