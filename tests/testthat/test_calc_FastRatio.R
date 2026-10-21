@@ -172,4 +172,9 @@ test_that("regression tests", {
   ## issue 932
   expect_warning(expect_null(calc_FastRatio(matrix(rnorm(5), 1, 5))),
                  "Calculated time/channel for L2 is too small")
+
+  ## issue 1808
+  expect_warning(calc_FastRatio(iris, verbose = FALSE),
+                 "L3 contains more counts (4) than L2 (3)",
+                 fixed = TRUE)
 })

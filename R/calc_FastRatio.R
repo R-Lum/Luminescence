@@ -163,8 +163,10 @@ calc_FastRatio <- function(object,
   if (inherits(object, "RLum.Results"))
     object <- get_RLum(object, "data")
 
-  if ((is.data.frame(object) || is.matrix(object)) && ncol(object) < 2) {
-    .throw_error("'object' should have at least two columns")
+  if (is.data.frame(object) || is.matrix(object)) {
+    if (ncol(object) < 2)
+      .throw_error("'object' should have at least two columns")
+    object <- object[, 1:2, drop = FALSE]
   }
 
   if (!inherits(object, "list"))
