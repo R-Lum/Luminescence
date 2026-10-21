@@ -23,9 +23,6 @@ test_that("input validation", {
   expect_error(merge_RLum(list(ExampleData.RLum.Data.Image)),
                "Merging of 'RLum.Data.Image' objects is not supported")
 
-  expect_warning(merge_RLum(list(NULL)),
-                 "Nothing was merged as the object list was found to be empty")
-
   ## deprecated argument
   expect_warning(res <- merge_RLum(objects = list(o1, o2)),
                  "'objects' was deprecated in v1.3.1, use 'object'")
@@ -42,6 +39,8 @@ test_that("check functionality", {
   expect_s4_class(merge_RLum(list(r1,r1)), "RLum.Results")
 
   ## with null objects
+  expect_message(merge_RLum(list(NULL)),
+                 "Nothing was merged as the object list was found to be empty")
   expect_s4_class(merge_RLum(list(o1,o2, NULL)), "RLum.Analysis")
 
   ## single object

@@ -63,7 +63,7 @@ test_that("check functionality", {
     expect_s4_class(
       suppressWarnings(analyse_portableOSL(list(merged), mode = "surface")),
       "RLum.Results")
-    expect_warning(expect_null(analyse_portableOSL(list())),
+    expect_message(expect_null(analyse_portableOSL(list())),
                    "Nothing was merged as the object list was found to be empty")
 
     ## check additional argument sample

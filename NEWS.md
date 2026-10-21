@@ -125,6 +125,11 @@ can be accessed via the new `bin_RLum()` generic (#1782):
   incorrect result when `merge.method` was one of `-`, `*` or `/`
   (#1773).
 
+- The function no longer raises a warning when the list of objects to
+  merge is empty or contains only one element. In such cases, a `NULL`
+  is returned (this is unchanged from before) and a simple message is
+  printed (#1810).
+
 ### `plot_DoseResponseCurve()`
 
 - The presence of a repeated zero-dose point caused the plot not to

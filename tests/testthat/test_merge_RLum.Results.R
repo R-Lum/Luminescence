@@ -10,8 +10,6 @@ test_that("input validation", {
                "'object' should be of class 'list'")
   expect_error(merge_RLum(list(res, "error")),
                "Objects cannot be merged, different classes found: 'RLum.Results'")
-  expect_warning(expect_null(merge_RLum(list())),
-                 "Nothing was merged as the object list was found to be empty or")
   expect_error(merge_RLum(list(res), flatten = NA),
                "'flatten' should be a single logical value")
 
@@ -45,6 +43,10 @@ test_that("check functionality", {
   expect_snapshot_RLum(merge_RLum(lapply(list(roi, roi),
                                                  function(x) extract_ROI(a, x)),
                                           flatten = FALSE))
+
+  ## empty list
+  expect_message(expect_null(merge_RLum(list())),
+                 "Nothing was merged as the object list was found to be empty or")
 
   ## vector elements
   r1 <- set_RLum("RLum.Results", data = list(res = c(1, 2)))

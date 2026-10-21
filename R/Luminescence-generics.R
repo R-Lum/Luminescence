@@ -370,7 +370,8 @@ setMethod("melt_RLum", signature = "list",
 #' @param .class Used internally for multiple dispatch, and ignored otherwise.
 #'
 #' @return
-#' Returns an object of the same class as the input elements.
+#' Returns an object of the same class as the input elements. If the `object`
+#' list is empty or contains only one element, then `NULL` is returned.
 #'
 #' @note
 #' - For [Luminescence::RLum.Analysis-class] objects, the information for the
