@@ -40,10 +40,9 @@ test_that("input validation", {
                  "Nothing was merged as the object list was found to be empty")
   expect_warning(expect_null(fit_OSLLifeTimes(list(empty), spurious_arg = 1:3)),
                  "Nothing was merged as the object list was found to be empty")
-  empty <- set_RLum(class = "RLum.Data.Curve")
-  expect_error(fit_OSLLifeTimes(empty),
+  expect_error(fit_OSLLifeTimes(set_RLum("RLum.Data.Curve")),
                "recordType 'NA' not supported for input object")
-  expect_warning(expect_output(fit_OSLLifeTimes(list(empty)),
+  expect_warning(expect_output(fit_OSLLifeTimes(list(set_RLum("RLum.Data.Curve"))),
                                "recordType 'NA' not supported for input object"),
                  "Nothing was merged as the object list was found to be empty")
 
@@ -94,6 +93,39 @@ test_that("input validation", {
 test_that("check functionality", {
   testthat::skip_on_cran()
 
+  ## RLum.Analysis
+  expect_s4_class(object = fit_OSLLifeTimes(
+    object = temp_analysis,
+    verbose = FALSE,
+    plot = FALSE,
+    method_control = list(DEoptim.itermax = 25),
+    n.components = 1), class = "RLum.Results")
+  expect_s4_class(fit_OSLLifeTimes(
+    object = list(temp_analysis),
+    verbose = FALSE,
+    plot = FALSE,
+    method_control = list(seed = 1, weights = FALSE,
+                          DEoptim.itermax = 25,
+                          nlsLM.upper = FALSE, nlsLM.lower = FALSE),
+    n.components = 1), class = "RLum.Results")
+
+  SW({
+  expect_message(fit_OSLLifeTimes(temp_mat[1:10, ]),
+                 "The fitting was not successful, consider trying again")
+  })
+
+  expect_warning(fit_OSLLifeTimes(
+    object = ExampleData.TR_OSL,
+    plot = FALSE,
+    verbose = FALSE,
+    method_control = list(seed = 100, DEoptim.itermax = 15),
+    n.components = 1),
+    "Fitting failed: singular gradient matrix at initial parameter estimates")
+})
+
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
+
   snapshot.tolerance <- 1.5e-6
 
   ## Test different inputs
@@ -117,22 +149,6 @@ test_that("check functionality", {
     tolerance = snapshot.tolerance)
   })
 
-  ## RLum.Analysis
-  expect_s4_class(object = fit_OSLLifeTimes(
-    object = temp_analysis,
-    verbose = FALSE,
-    plot = FALSE,
-    method_control = list(DEoptim.itermax = 25),
-    n.components = 1), class = "RLum.Results")
-  expect_s4_class(fit_OSLLifeTimes(
-    object = list(temp_analysis),
-    verbose = FALSE,
-    plot = FALSE,
-    method_control = list(seed = 1, weights = FALSE,
-                          DEoptim.itermax = 25,
-                          nlsLM.upper = FALSE, nlsLM.lower = FALSE),
-    n.components = 1), class = "RLum.Results")
-
   ## simple data.frame
   SW({
   expect_snapshot_RLum(fit_OSLLifeTimes(
@@ -145,11 +161,6 @@ test_that("check functionality", {
     n.components = NULL),
     expect_snapshot_output = TRUE,
     tolerance = snapshot.tolerance)
-  })
-
-  SW({
-  expect_message(fit_OSLLifeTimes(temp_mat[1:10, ]),
-                 "The fitting was not successful, consider trying again")
   })
 
   ## more coverage
@@ -165,14 +176,6 @@ test_that("check functionality", {
       verbose = FALSE,
       plot = TRUE),
       tolerance = 1.5e-5)
-
-  expect_warning(fit_OSLLifeTimes(
-    object = ExampleData.TR_OSL,
-    plot = FALSE,
-    verbose = FALSE,
-    method_control = list(seed = 100, DEoptim.itermax = 15),
-    n.components = 1),
-    "Fitting failed: singular gradient matrix at initial parameter estimates")
 })
 
 test_that("graphical snapshot tests", {

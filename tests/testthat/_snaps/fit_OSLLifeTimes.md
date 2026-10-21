@@ -1,4 +1,4 @@
-# check functionality
+# snapshot tests
 
     
     [fit_OSLLifeTime()]
