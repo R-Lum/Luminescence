@@ -244,6 +244,7 @@ read_XSYG2R <- function(
         fastForward = fastForward,
         import = import,
         pattern = pattern,
+        auto_linearity_correction = auto_linearity_correction,
         verbose = verbose,
         txtProgressBar = txtProgressBar
       )
