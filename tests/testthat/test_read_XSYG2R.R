@@ -142,14 +142,15 @@ test_that("test import of XSYG files", {
 
   ## test automated linearity correction
   file <- system.file("extdata/XSYG_file.xsyg", package = "Luminescence")
-  t <- expect_s4_class(
-    read_XSYG2R(
-      file = file,
-      fastForward = TRUE,
-      auto_linearity_correction = TRUE,
-      verbose = FALSE
-    )[[1]],
-    class = "RLum.Analysis")
+  t1 <- read_XSYG2R(file, fastForward = TRUE, verbose = FALSE,
+                    auto_linearity_correction = TRUE)[[1]]
+  t2 <- read_XSYG2R(list(file), fastForward = TRUE, verbose = FALSE,
+                    auto_linearity_correction = TRUE)[[1]]
+  remove.uids <- function(x) { x@.uid <- x@.pid <- NA_character_; x }
+  t1@records <- lapply(t1@records, remove.uids)
+  t2@records <- lapply(t2@records, remove.uids)
+  t1@.uid <- t2@.uid <- NA_character_
+  expect_equal(t1, t2)
 
   ## check broken file
   expect_warning(

@@ -202,3 +202,6 @@ reporting).
 
 * The `pattern` argument is no longer ignored when `file` contains more than
 one input files or directories (#1753).
+
+* The `auto_linearity_correction` was not correctly applied when the input
+was a list of XSYG files (#1812).
