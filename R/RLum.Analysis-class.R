@@ -228,23 +228,20 @@ setMethod(
 
     ##allow self set to reset an RLum.Analysis object
     if(inherits(records, "RLum.Analysis")){
-      #fill slots (this is much faster than the old code!)
-      newRLumAnalysis@protocol <- if(missing(protocol)) records@protocol else protocol
-      newRLumAnalysis@originator <- originator
-      newRLumAnalysis@records <- records@records
-      newRLumAnalysis@info <- if(missing(info)) records@info else c(records@info, info)
-      newRLumAnalysis@.uid <- .uid
-      newRLumAnalysis@.pid <- if(missing(.pid)) records@.uid else .pid
-
-    }else{
-      #fill slots (this is much faster than the old code!)
-      newRLumAnalysis@protocol <- protocol
-      newRLumAnalysis@originator <- originator
-      newRLumAnalysis@records <- records
-      newRLumAnalysis@info <- info
-      newRLumAnalysis@.uid <- .uid
-      newRLumAnalysis@.pid <- .pid
+      records <- records@records
+      info <- c(records@info, info)
+      if (missing(protocol))
+        protocol <- records@protocol
+      if (missing(.pid))
+        .pid <- records@.uid
     }
+
+    newRLumAnalysis@protocol <- protocol
+    newRLumAnalysis@originator <- originator
+    newRLumAnalysis@records <- records
+    newRLumAnalysis@info <- info
+    newRLumAnalysis@.uid <- .uid
+    newRLumAnalysis@.pid <- .pid
 
     return(newRLumAnalysis)
   }
