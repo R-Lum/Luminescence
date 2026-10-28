@@ -42,7 +42,7 @@
 ---
 
        Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-      3.335  65.769 121.754 124.978 184.547 253.134 
+      3.335  65.769 121.857 125.325 184.547 253.134 
 
 # test RLum.Data.Spectrum S3 methods
 

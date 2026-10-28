@@ -12,7 +12,7 @@
 \alias{set_RLum,RLum.Results-method}
 \title{General setter function for RLum-class objects}
 \usage{
-set_RLum(class, originator, .uid = create_UID(), .pid = NA_character_, ...)
+set_RLum(class, originator, .uid, .pid = NA_character_, ...)
 
 \S4method{set_RLum}{RLum.Analysis}(
   class,
@@ -126,7 +126,6 @@ records.
 }
 
 \examples{
-
 ## produce empty objects from each class
 set_RLum(class = "RLum.Data.Curve")
 set_RLum(class = "RLum.Data.Image")

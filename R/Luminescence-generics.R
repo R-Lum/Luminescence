@@ -960,7 +960,6 @@ setGeneric("set_Risoe.BINfileData", function(METADATA = data.frame(),
 #' @keywords utilities
 #'
 #' @examples
-#'
 #' ## produce empty objects from each class
 #' set_RLum(class = "RLum.Data.Curve")
 #' set_RLum(class = "RLum.Data.Image")
@@ -979,7 +978,7 @@ setGeneric("set_Risoe.BINfileData", function(METADATA = data.frame(),
 #' plot_RLum(object)
 #'
 #' @export
-setGeneric("set_RLum", function(class, originator, .uid = create_UID(),
+setGeneric("set_RLum", function(class, originator, .uid,
                                 .pid = NA_character_, ... ) {
   .set_function_name("set_RLum")
   on.exit(.unset_function_name(), add = TRUE)
@@ -1007,6 +1006,10 @@ setGeneric("set_RLum", function(class, originator, .uid = create_UID(),
         originator <- NA_character_
       }
     }
+  }
+
+  if (missing(.uid)) {
+    .uid <- create_UID()
   }
 
   standardGeneric("set_RLum")
