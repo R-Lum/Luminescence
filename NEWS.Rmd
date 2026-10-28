@@ -205,3 +205,9 @@ one input files or directories (#1753).
 
 * The `auto_linearity_correction` was not correctly applied when the input
 was a list of XSYG files (#1812).
+
+### `set_RLum()`
+
+* When the function is used to extend an existing `RLum.Analysis` object, the
+`.pid` slot is now correctly inherited from the source object if not provided
+explicitly (#1814).
