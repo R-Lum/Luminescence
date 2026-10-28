@@ -231,7 +231,7 @@ setMethod(
       info <- c(records@info, info)
       if (missing(protocol))
         protocol <- records@protocol
-      if (missing(.pid))
+      if (isTRUE(is.na(.pid)))
         .pid <- records@.uid
       records <- records@records
     }

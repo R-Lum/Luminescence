@@ -32,6 +32,12 @@ test_that("Check the example and the numerical values", {
 
   ##overwrite object
   expect_s4_class(set_RLum("RLum.Analysis", records = tmp), "RLum.Analysis")
+  src <- tmp
+  src@.uid <- "src.uid"
+  new <- set_RLum("RLum.Analysis", records = src, .uid = "new.uid")
+  expect_s4_class(new, "RLum.Analysis")
+  expect_equal(new@.uid, "new.uid")
+  expect_equal(new@.pid, "src.uid")
 
   ## as()
   expect_type(as(tmp, "list"), "list")
