@@ -228,12 +228,12 @@ setMethod(
 
     ##allow self set to reset an RLum.Analysis object
     if(inherits(records, "RLum.Analysis")){
-      records <- records@records
       info <- c(records@info, info)
       if (missing(protocol))
         protocol <- records@protocol
       if (missing(.pid))
         .pid <- records@.uid
+      records <- records@records
     }
 
     newRLumAnalysis@protocol <- protocol
