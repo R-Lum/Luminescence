@@ -78,10 +78,11 @@ option to provide a parent id for nesting at will.}
 \item{...}{further arguments passed to the specific class method.}
 
 \item{protocol}{\link{character} (\emph{optional}):
-sets protocol type for analysis object. Value may be used by subsequent analysis functions.}
+protocol type for analysis object, which may be used by subsequent analysis
+functions.}
 
 \item{records}{\link{list} (\emph{optional}):
-list of \link[=RLum.Analysis-class]{RLum.Analysis} objects}
+list of \link[=RLum.Data-class]{RLum.Data} objects.}
 
 \item{info}{\link{list} (\emph{optional}):
 a list containing additional info data for the object.}

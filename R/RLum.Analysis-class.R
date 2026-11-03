@@ -202,10 +202,11 @@ setMethod("show",
 #' Construction method for [Luminescence::RLum.Analysis-class] objects.
 #'
 #' @param protocol [character] (*optional*):
-#' sets protocol type for analysis object. Value may be used by subsequent analysis functions.
+#' protocol type for analysis object, which may be used by subsequent analysis
+#' functions.
 #'
 #' @param records [list] (*optional*):
-#' list of [Luminescence::RLum.Analysis-class] objects
+#' list of [Luminescence::RLum.Data-class] objects.
 #'
 #' @param info [list] (*optional*):
 #' a list containing additional info data for the object.
