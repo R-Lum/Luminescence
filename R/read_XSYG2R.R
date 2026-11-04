@@ -1,6 +1,7 @@
 #' @title Import XSYG files into R
 #'
-#' @description Imports XSYG-files produced by a Freiberg Instruments lexsyg reader into R.
+#' @description
+#' Imports XSYG-files produced by a Freiberg Instruments lexsyg reader into R.
 #'
 #' @details
 #' **How does the import function work?**
@@ -89,12 +90,11 @@
 #'
 #' **Advanced file import**
 #'
-#' To allow for a more efficient usage of the function, instead of single path
-#' to a file just a directory can be passed as input. In this particular case
-#' the function tries to extract all XSYG-files found in the directory and import
-#' them all. Using this option internally the function constructs as list of
-#' the XSYG-files found in the directory. Please note no recursive detection
-#' is supported as this may lead to endless loops.
+#' To allow for a more efficient usage of the function, instead of a single
+#' path to a file, just a directory can be passed as input. Using this option,
+#' the function internally constructs a list of the XSYG files found in the
+#' directory (and recursively in the directories below it) and tries to import
+#' them all.
 #'
 #' @param file [character] or [list] (**required**):
 #' name of one or multiple XSYG files (URLs are supported); it can be the path
@@ -116,11 +116,13 @@
 #' [Luminescence::RLum.Analysis-class] objects is returned.
 #'
 #' @param import [logical] (*with default*):
-#' if set to `FALSE`, only the XSYG file structure is shown.
+#' whether to read and import the file content (`TRUE` by default). If set to
+#' `FALSE`, only the XSYG file structure is returned.
 #'
 #' @param pattern [character] (*with default*):
 #' regular expression pattern passed to [list.files] to construct a list of
-#' files to read (used only when a path is provided).
+#' files to read. This is used only when `file` is a path, otherwise it's
+#' ignored.
 #'
 #' @param auto_linearity_correction [logical] (*with default*): enable/disable
 #' automatic count linearity correction. Because the information on the detectors
@@ -134,18 +136,22 @@
 #' enable/disable the progress bar during import. Ignored if `verbose = FALSE`.
 #'
 #' @return
+#' **Using the option `import = TRUE` (default)**
+#'
+#' By default, a list consisting of two elements is returned:
+#' \item{Sequence.Header}{[data.frame] with information on the
+#' sequence.}
+#' \item{Sequence.Object}{[Luminescence::RLum.Analysis-class]
+#' containing the curves.}
+#'
+#' If `fastForward = TRUE`, an [Luminescence::RLum.Analysis-class] object is
+#' returned.
+#'
 #' **Using the option `import = FALSE`**
 #'
 #' A list consisting of two elements is shown:
 #' - [data.frame] with information on file.
 #' - [data.frame] with information on the sequences stored in the XSYG file.
-#'
-#' **Using the option `import = TRUE` (default)**
-#'
-#' A list is provided, the list elements
-#' contain: \item{Sequence.Header}{[data.frame] with information on the
-#' sequence.} \item{Sequence.Object}{[Luminescence::RLum.Analysis-class]
-#' containing the curves.}
 #'
 #' @note
 #' This function is a beta version as the XSYG file format is not yet
@@ -153,7 +159,7 @@
 #' be done using the functions provided with the package `'XML'`.
 #'
 #' **So far, no image data import is provided!** \cr
-#' Corresponding values in the XSXG file are skipped.
+#' Corresponding values in the XSYG file are skipped.
 #'
 #' @section Function version: 0.8.3
 #'
@@ -176,20 +182,11 @@
 #'
 #' @examples
 #'
-#' ##(1) import XSYG file to R (uncomment for usage)
-#'
-#' #FILE <- file.choose()
-#' #temp <- read_XSYG2R(FILE)
-#'
-#' ##(2) additional examples for pure XML import using the package XML
-#' ##    (uncomment for usage)
-#'
-#'   ##import entire XML file
-#'   #FILE <- file.choose()
-#'   #temp <- XML::xmlRoot(XML::xmlTreeParse(FILE))
-#'
-#'   ##search for specific subnodes with curves containing 'OSL'
-#'   #getNodeSet(temp, "//Sample/Sequence/Record[@@recordType = 'OSL']/Curve")
+#' ## (1) import XSYG file to R
+#' \dontrun{
+#' FILE <- file.choose()
+#' temp <- read_XSYG2R(FILE)
+#' }
 #'
 #' ##(2) How to extract single curves ... after import
 #' data(ExampleData.XSYG, envir = environment())

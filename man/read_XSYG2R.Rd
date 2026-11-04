@@ -37,11 +37,13 @@ if \code{TRUE} for a more efficient data processing only a list of
 \link[=RLum.Analysis-class]{RLum.Analysis} objects is returned.}
 
 \item{import}{\link{logical} (\emph{with default}):
-if set to \code{FALSE}, only the XSYG file structure is shown.}
+whether to read and import the file content (\code{TRUE} by default). If set to
+\code{FALSE}, only the XSYG file structure is returned.}
 
 \item{pattern}{\link{character} (\emph{with default}):
 regular expression pattern passed to \link{list.files} to construct a list of
-files to read (used only when a path is provided).}
+files to read. This is used only when \code{file} is a path, otherwise it's
+ignored.}
 
 \item{auto_linearity_correction}{\link{logical} (\emph{with default}): enable/disable
 automatic count linearity correction. Because the information on the detectors
@@ -55,6 +57,17 @@ enable/disable output to the terminal.}
 enable/disable the progress bar during import. Ignored if \code{verbose = FALSE}.}
 }
 \value{
+\strong{Using the option \code{import = TRUE} (default)}
+
+By default, a list consisting of two elements is returned:
+\item{Sequence.Header}{\link{data.frame} with information on the
+sequence.}
+\item{Sequence.Object}{\link[=RLum.Analysis-class]{RLum.Analysis}
+containing the curves.}
+
+If \code{fastForward = TRUE}, an \link[=RLum.Analysis-class]{RLum.Analysis} object is
+returned.
+
 \strong{Using the option \code{import = FALSE}}
 
 A list consisting of two elements is shown:
@@ -62,13 +75,6 @@ A list consisting of two elements is shown:
 \item \link{data.frame} with information on file.
 \item \link{data.frame} with information on the sequences stored in the XSYG file.
 }
-
-\strong{Using the option \code{import = TRUE} (default)}
-
-A list is provided, the list elements
-contain: \item{Sequence.Header}{\link{data.frame} with information on the
-sequence.} \item{Sequence.Object}{\link[=RLum.Analysis-class]{RLum.Analysis}
-containing the curves.}
 }
 \description{
 Imports XSYG-files produced by a Freiberg Instruments lexsyg reader into R.
@@ -160,12 +166,11 @@ if required.
 
 \strong{Advanced file import}
 
-To allow for a more efficient usage of the function, instead of single path
-to a file just a directory can be passed as input. In this particular case
-the function tries to extract all XSYG-files found in the directory and import
-them all. Using this option internally the function constructs as list of
-the XSYG-files found in the directory. Please note no recursive detection
-is supported as this may lead to endless loops.
+To allow for a more efficient usage of the function, instead of a single
+path to a file, just a directory can be passed as input. Using this option,
+the function internally constructs a list of the XSYG files found in the
+directory (and recursively in the directories below it) and tries to import
+them all.
 }
 \note{
 This function is a beta version as the XSYG file format is not yet
@@ -173,7 +178,7 @@ fully specified. Thus, further file operations (merge, export, write) should
 be done using the functions provided with the package \code{'XML'}.
 
 \strong{So far, no image data import is provided!} \cr
-Corresponding values in the XSXG file are skipped.
+Corresponding values in the XSYG file are skipped.
 }
 \section{Function version}{
  0.8.3
@@ -181,20 +186,11 @@ Corresponding values in the XSXG file are skipped.
 
 \examples{
 
-##(1) import XSYG file to R (uncomment for usage)
-
-#FILE <- file.choose()
-#temp <- read_XSYG2R(FILE)
-
-##(2) additional examples for pure XML import using the package XML
-##    (uncomment for usage)
-
-  ##import entire XML file
-  #FILE <- file.choose()
-  #temp <- XML::xmlRoot(XML::xmlTreeParse(FILE))
-
-  ##search for specific subnodes with curves containing 'OSL'
-  #getNodeSet(temp, "//Sample/Sequence/Record[@recordType = 'OSL']/Curve")
+## (1) import XSYG file to R
+\dontrun{
+FILE <- file.choose()
+temp <- read_XSYG2R(FILE)
+}
 
 ##(2) How to extract single curves ... after import
 data(ExampleData.XSYG, envir = environment())
