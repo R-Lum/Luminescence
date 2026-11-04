@@ -263,7 +263,7 @@ read_XSYG2R <- function(
   if (!verbose)
     txtProgressBar <- FALSE
 
-  # (0) config --------------------------------------------------------------
+  # (1) config --------------------------------------------------------------
   #version.supported <- c("1.0")
 
   #additional functions
@@ -312,7 +312,11 @@ read_XSYG2R <- function(
     return(spectrum.matrix)
   }
 
-  # (1) Integrity checks ----------------------------------------------------
+  ## helper to extract the curve values stored in a node
+  .get_curve_data <- function(node) {
+    src_get_XSYG_curve_values(XML::xmlValue(node))
+  }
+
   ##set HUGE for larger nodes
   HUGE <- 524288
 
@@ -335,18 +339,9 @@ read_XSYG2R <- function(
     ##sample information
     temp.sample <- as.data.frame(XML::xmlAttrs(temp), stringsAsFactors = FALSE)
 
-    ##grep sequences files
-
-    ##set data.frame
-    names.sequence.header <- names(XML::xmlAttrs(temp[[1]]))
-    temp.sequence.header <- data.frame(t(1:length(names.sequence.header)),
-                                       stringsAsFactors = FALSE)
-    colnames(temp.sequence.header) <- names.sequence.header
-
-    ##fill information in data.frame
-    for(i in 1:XML::xmlSize(temp)){
-      temp.sequence.header[i,] <- t(XML::xmlAttrs(temp[[i]]))
-    }
+    ## sequence information
+    temp.sequence.header <- as.data.frame(t(sapply(seq_len(XML::xmlSize(temp)),
+                                                   function(x) XML::xmlAttrs(temp[[x]]))))
 
       ##additional option for fastForward == TRUE
       if(fastForward){
@@ -437,6 +432,7 @@ read_XSYG2R <- function(
 
           ##get detector
           temp.sequence.object.detector <- as.character(attrs["detector"])
+        is.spectrometer <- "Spectrometer" %in% temp.sequence.object.detector
 
           ## combine attributes
           attrs_comb <- as.list(c(attrs, attrs_record))
@@ -452,9 +448,8 @@ read_XSYG2R <- function(
             ##TL curve heating values is stored in the 3rd curve of every set
             if (recordType == "TL" && j == 1) {
               #grep values from PMT measurement or spectrometer
-              if(!"Spectrometer" %in% temp.sequence.object.detector){
-                temp.sequence.object.curveValue.PMT <- src_get_XSYG_curve_values(XML::xmlValue(
-                  record[[j]]))
+              if (!is.spectrometer) {
+                temp.sequence.object.curveValue.PMT <- .get_curve_data(record[[j]])
 
                 time.values <- temp.sequence.object.curveValue.PMT[, 1]
               }else{
@@ -471,7 +466,7 @@ read_XSYG2R <- function(
 
               #grep values from heating element
               temp.sequence.object.curveValue.heating.element <-
-                src_get_XSYG_curve_values(XML::xmlValue(record[[3]]))
+                .get_curve_data(record[[3]])
 
               temp.element <- temp.sequence.object.curveValue.heating.element[, 1]
 
@@ -505,7 +500,7 @@ read_XSYG2R <- function(
 
               ##PERFORM RECALCULATION
               ##check which object contains more data
-              if(!"Spectrometer" %in% temp.sequence.object.detector){
+              if (!is.spectrometer) {
                 ##CASE (1)
                 if(nrow(temp.sequence.object.curveValue.PMT) >
                    nrow(temp.sequence.object.curveValue.heating.element)){
@@ -575,7 +570,6 @@ read_XSYG2R <- function(
                     .throw_warning("Temperature values are found to be ",
                                    "duplicated and increased by 1 K.")
                   }
-                  ##CASE (2)  (equal)
                 }else{
                   ##CASE (2)  (equal)
                   temperature.values <-
@@ -598,10 +592,10 @@ read_XSYG2R <- function(
             temp.sequence.object.info[["curveType"]] <- NULL
 
           ## Set RLum.Data-objects ------------------------------------------
-          if (!"Spectrometer" %in% temp.sequence.object.detector) {
+          if (!is.spectrometer) {
             out.class <- "RLum.Data.Curve"
             if (!inherits(curve, "matrix")) {
-              curve <- src_get_XSYG_curve_values(XML::xmlValue(curve))
+              curve <- .get_curve_data(curve)
             }
           } else {
             out.class <- "RLum.Data.Spectrum"
