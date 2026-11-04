@@ -28,7 +28,7 @@ jobs:
         config:
           #- {os: windows-latest, r: 'devel', not_cran: 'true'}
           #- {os: macos-13,   r: 'release', not_cran: 'true'}
-          - {os: ubuntu-latest,   r: 'devel', not_cran: 'true'}
+          - {os: ubuntu-24.04,    r: 'devel', not_cran: 'true'}
     env:
       _R_CHECK_FORCE_SUGGESTS_: true
       RSPM: ${{ matrix.config.rspm }}
