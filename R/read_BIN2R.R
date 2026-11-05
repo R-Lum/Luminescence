@@ -170,7 +170,7 @@ read_BIN2R <- function(
     forced.VersionNumber <- .listify(forced.VersionNumber, rep.length)
 
     temp.return <- lapply(seq_along(file), function(x) {
-      temp <- try(read_BIN2R(
+      tryCatch(read_BIN2R(
         file = file[[x]],
         fastForward = fastForward,
         position = position[[x]],
@@ -185,10 +185,12 @@ read_BIN2R <- function(
         pattern = pattern,
         verbose = verbose,
         ...
-      ), outFile = stdout()) # redirect error messages so they can be silenced
-      if (inherits(temp, "try-error"))
-        return(NULL)
-      temp
+      ),
+      ## report self-call errors as messages so that they can be silenced
+      error = function(e) {
+        message(conditionMessage(e))
+        NULL
+      })
     })
 
     ##return

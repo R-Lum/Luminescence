@@ -309,4 +309,8 @@ test_that("regression tests", {
   expect_warning(read_BIN2R(test_path("_data/bin-tests/infinite-loop.binx"),
                             verbose = FALSE),
                  "BIN-file appears to be corrupt, import limited to the first 1 records")
+
+  ## issue 1816
+  expect_message(read_BIN2R(list(test_path("_data/CLBR.xlsx"))),
+                 "File extension 'xlsx' is not supported, only 'bin' and 'binx'")
 })

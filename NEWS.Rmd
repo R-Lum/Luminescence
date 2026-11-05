@@ -113,6 +113,12 @@ elements, the `class` filter was silently ignored. The filter is now always
 applied, so such a call returns an empty list instead of the unfiltered
 contents (#1778).
 
+### `import_Data()`
+
+* The `verbose` argument was not respected, and all output was suppressed
+independently of its setting. This was a regression introduced in v1.2.0
+(#1816).
+
 ### `merge_RLum()`
 
 * The function no longer crashes when attempting to merge an empty
