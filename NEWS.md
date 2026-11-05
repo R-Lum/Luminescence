@@ -219,6 +219,9 @@ can be accessed via the new `bin_RLum()` generic (#1782):
 - The `auto_linearity_correction` was not correctly applied when the
   input was a list of XSYG files (#1812).
 
+- The function no longer crashes on files containing a completely empty
+  `<Record>` node (#1818).
+
 ### `set_RLum()`
 
 - When the function is used to extend an existing `RLum.Analysis`
