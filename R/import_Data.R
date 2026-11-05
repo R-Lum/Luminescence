@@ -67,10 +67,10 @@ import_Data <- function(
 
   ## just try all functions and all files
   for (i in fun) {
-    SW({
+    suppressMessages(suppressWarnings(
       ## get arguments and remove non-supported arguments
       t <- try(do.call(what = i, args = args), silent = TRUE)
-    })
+    ))
 
       if (!is.null(t) && !inherits(t, "try-error"))
         out <- c(out, t)

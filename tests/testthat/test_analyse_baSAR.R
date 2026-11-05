@@ -8,11 +8,11 @@ empty@METADATA <- empty@METADATA[integer(0), ]
 test_that("input validation", {
   skip_on_cran()
 
-  expect_output(expect_null(analyse_baSAR("error",
+  expect_message(expect_null(analyse_baSAR("error",
                              signal_integral = 1:2, background_integral = 80:100,
                              verbose = FALSE)),
                "File '.*error' does not exist") # windows CI needs the regexp
-  expect_output(expect_null(analyse_baSAR(list("error"),
+  expect_message(expect_null(analyse_baSAR(list("error"),
                              signal_integral = 1:2, background_integral = 80:100,
                              verbose = FALSE)),
                "File '.*error' does not exist") # windows CI needs the regexp

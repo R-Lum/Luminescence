@@ -7,7 +7,7 @@ test_that("input validation", {
                  "Unknown file format, nothing imported")
 })
 
-test_that("Test general import", {
+test_that("test functionality", {
   testthat::skip_on_cran()
 
   ## BINX
@@ -57,12 +57,12 @@ test_that("Test general import", {
     system.file("extdata/HeliosOSL_Example.osl", package = "Luminescence"),
     system.file("extdata/HeliosOSL_Example.osl", package = "Luminescence")
   )
-  expect_type(
+  expect_silent(expect_type(
     object = import_Data(files, verbose = FALSE),
-    type = "list")
-  expect_type(
+    type = "list"))
+  expect_silent(expect_type(
     object = import_Data(as.list(files), verbose = FALSE),
-    type = "list")
+    type = "list"))
 
   ## mix input
   files <- c(
@@ -78,5 +78,13 @@ test_that("Test general import", {
     type = "list")
   })
   expect_equal(length(t), 16)
+})
 
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 1816
+  expect_output(import_Data(system.file("extdata/BINfile_V8.binx",
+                                        package = "Luminescence"), verbose = TRUE),
+                "[read_BIN2R()] Importing", fixed = TRUE)
 })
