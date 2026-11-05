@@ -404,7 +404,7 @@ read_XSYG2R <- function(
 
       ## correct record type in depending on the stimulator
       xml.size <- XML::xmlSize(record)
-      if (recordType == "OSL" &&
+      if (recordType == "OSL" && xml.size > 0 &&
           XML::xmlAttrs(record[[xml.size]])["stimulator"] %in%
               c("ir_LED_850", "ir_LD_850")) {
           recordType  <- "IRSL"
@@ -418,7 +418,7 @@ read_XSYG2R <- function(
       header.name <- as.character(sequence.header["name", ])
 
       ## loop 3rd level
-      lapply(1:xml.size, function(j) {
+      lapply(seq_len(xml.size), function(j) {
         curve <- record[[j]]
         attrs <- XML::xmlAttrs(curve)
 
@@ -426,9 +426,6 @@ read_XSYG2R <- function(
         ## underscore: this should make it easier to identify the curve to
         ## analyze (the first) from the others
         recordType <- paste0(ifelse(j == 1, "", "_"), recordType)
-
-          ##get curveType
-          temp.sequence.object.curveType <- as.character(attrs["curveType"])
 
           ##get detector
           temp.sequence.object.detector <- as.character(attrs["detector"])
@@ -609,7 +606,7 @@ read_XSYG2R <- function(
               originator = "read_XSYG2R",
               recordType = paste0(recordType,
                                   " (", temp.sequence.object.detector,")"),
-              curveType = temp.sequence.object.curveType,
+              curveType = as.character(attrs["curveType"]),
               data = curve,
               info = temp.sequence.object.info)
         })
