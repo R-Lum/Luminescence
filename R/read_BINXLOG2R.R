@@ -86,13 +86,9 @@ read_BINXLOG2R <- function(
   con <- file(file, "rb")
   on.exit(close(con), add = TRUE)
 
-  if (verbose) {
-    cat("\n[read_BINXLOG2R()] Importing ...")
-    cat("\n path: ", dirname(file))
-    cat("\n file: ", .shorten_filename(basename(file[1])))
-    cat("\n size: ", round(file.size(file[1]) / 1000, 2), "kB")
-    cat("\n")
-  }
+  ## start the import
+  .output_import_message(file, verbose,
+                         extra = list(size = sprintf("%.1f kB", file.size(file) / 1000)))
 
   ## reminder
   ## All those suppressed warnings should avoid all kind of errors

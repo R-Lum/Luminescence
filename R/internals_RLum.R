@@ -1841,6 +1841,28 @@ SW <- function(expr) {
   }, character(1)))
 }
 
+#' Report message about file import
+#'
+#' @param file [character] (**required): A file name.
+#' @param verbose [logical] (**required**): Enable/disable output to the terminal.
+#' @param extra [list] (*optional*): Further messages to report.
+#'
+#' @return
+#' A message is produced on the terminal. This assumes that
+#' `.set_function_name()` has been called before entering this function.
+#'
+#' @noRd
+.output_import_message <- function(file, verbose, extra = NULL) {
+  if (!verbose) return()
+  top.idx <- length(.LuminescenceEnv$fn_stack)
+  cat(sprintf("\n[%s()] Importing ...", .LuminescenceEnv$fn_stack[[top.idx]]))
+  cat("\n path: ", dirname(file))
+  cat("\n file: ", .shorten_filename(basename(file)))
+  for (k in names(extra))
+    cat(sprintf("\n %s: %s", k, extra[[k]]))
+  cat("\n")
+}
+
 #' Shorten a filename
 #'
 #' Shorten a filename to the given width by cutting out characters from the

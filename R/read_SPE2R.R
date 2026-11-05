@@ -133,12 +133,8 @@ read_SPE2R <- function(
 
   con <- file(file, "rb")
 
-  if (verbose) {
-    cat("\n[read_SPE2R()] Importing ...")
-    cat("\n path: ", dirname(file))
-    cat("\n file: ", .shorten_filename(basename(file)))
-    cat("\n")
-  }
+  ## start the import
+  .output_import_message(file, verbose)
 
   # read header -------------------------------------------------------------
 

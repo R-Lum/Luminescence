@@ -360,12 +360,8 @@ read_XSYG2R <- function(
   ## ========================================================================
   ## IMPORT XSYG FILE
 
-  if (verbose) {
-      cat("\n[read_XSYG2R()] Importing ...")
-      cat("\n path: ", dirname(file))
-      cat("\n file: ", .shorten_filename(basename(file)))
-      cat("\n")
-    }
+  ## start the import
+  .output_import_message(file, verbose)
 
   ## set n_records
   n_records <- min(XML::xmlSize(temp), n_records)

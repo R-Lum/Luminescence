@@ -95,12 +95,8 @@ read_PSL2R <- function(
   results <- vector("list", length(file))
   for (i in 1:length(file)) {
 
-    if (verbose) {
-      cat("\n[read_PSL2R()] Importing ...")
-      cat("\n path: ", dirname(file[i]))
-      cat("\n file: ", .shorten_filename(basename(file[i])))
-      cat("\n")
-    }
+    ## start the import
+    .output_import_message(file, verbose)
 
     ## Read in file ----
     doc <- readLines(file[i])

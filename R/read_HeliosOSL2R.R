@@ -69,12 +69,8 @@ read_HeliosOSL2R <- function(
 
   ## Import -----------------------------------------------------------------
 
-  if (verbose) {
-    cat("\n[read_HeliosOSL2R()] Importing ...")
-    cat("\n path: ", dirname(file))
-    cat("\n file: ", .shorten_filename(basename(file)))
-    cat("\n")
-  }
+  ## start the import
+  .output_import_message(file, verbose)
 
   ## read entire file
   lines <- readLines(file)

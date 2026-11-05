@@ -75,12 +75,8 @@ read_TIFF2R <- function(
 
   ## Import -----------------------------------------------------------------
 
-  if (verbose) {
-    cat("\n[read_TIFF2R()] Importing ...")
-    cat("\n path: ", dirname(file))
-    cat("\n file: ", .shorten_filename(basename(file)))
-    cat("\n")
-  }
+  ## start the import
+  .output_import_message(file, verbose)
 
   ## import
   temp <- tiff::readTIFF(file, all = TRUE, as.is = TRUE)

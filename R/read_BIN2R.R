@@ -470,13 +470,8 @@ read_BIN2R <- function(
   #open connection
   con <- file(file, "rb")
 
-  if (verbose) {
-    cat("\n[read_BIN2R()] Importing ...")
-    cat("\n path: ", dirname(file))
-    cat("\n file: ", .shorten_filename(basename(file)))
-    cat("\n n_rec:", n.length)
-    cat("\n")
-  }
+  ## start the import
+  .output_import_message(file, verbose, extra = list(n_rec = n.length))
 
   ##set progress bar
   if (txtProgressBar) {

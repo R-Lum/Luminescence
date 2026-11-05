@@ -112,8 +112,10 @@ read_Daybreak2R <- function(
       n.length <- file.size/(190+8*(max.pt+1)) ##190 is is size of the header for each data set
       close(con)
 
-      ##import data
+      ## start the import
+      .output_import_message(file, verbose)
       con <- file(file, "rb")
+
       ##pre-define data.table
       results.DATA <-
         data.table::data.table(
@@ -162,14 +164,6 @@ read_Daybreak2R <- function(
           RUNREMARK = character(length = n.length),
           DATA = list()
         )
-
-      ##TERMINAL FEEDBACK
-      if(verbose){
-        cat("[read_Daybreak2R()] Importing ...")
-        cat("\n path: ", dirname(file[1]))
-        cat("\n file: ", .shorten_filename(basename(file[1])))
-        cat("\n")
-      }
 
       ##PROGRESS BAR
       if (txtProgressBar)
@@ -402,13 +396,8 @@ read_Daybreak2R <- function(
       ##clear memory
       rm(file2read)
 
-    ##TERMINAL FEEDBACK
-    if(verbose){
-      cat("[read_Daybreak2R()] Importing ...")
-      cat("\n path: ", dirname(file[1]))
-      cat("\n file: ", .shorten_filename(basename(file[1])))
-      cat("\n")
-    }
+    ## start the import
+    .output_import_message(file, verbose)
 
     ##PROGRESS BAR
     if(txtProgressBar & verbose)
