@@ -19,8 +19,8 @@ test_that("input validation", {
                  "File '.*/Test' does not exist") # windows CI needs the regexp
   expect_message(expect_null(read_XSYG2R(test_path("_data/xsyg-tests/XSYG_broken.xsyg"), fastForward = TRUE)),
                  "Error: XML file not readable, nothing imported")
-  expect_error(read_XSYG2R(xsyg.file, n_records = "error"),
-               "'n_records' should be a single positive integer value or NULL")
+  expect_error(read_XSYG2R(xsyg.file, n_sequences = "error"),
+               "'n_sequences' should be a single positive integer value or NULL")
   expect_error(read_XSYG2R(xsyg.file, pattern = c("p1", "p2")),
                "'pattern' should be of class 'character' and have length 1")
 
@@ -36,7 +36,7 @@ test_that("input validation", {
   })
 })
 
-test_that("test import of XSYG files", {
+test_that("check functionality", {
   testthat::skip_on_cran()
 
   ## download from github
@@ -67,11 +67,14 @@ test_that("test import of XSYG files", {
   expect_length(results[[1]]@records[[1]]@info, 26)
   expect_output(print(results))
 
-  ## check n_records argument
-  expect_type(read_XSYG2R(xsyg.file, verbose = FALSE, n_records = 1),
-              "list")
-  expect_type(read_XSYG2R(xsyg.file, verbose = FALSE, n_records = 10),
-              "list")
+  ## check n_sequences argument
+  seqs.file <- test_path("_data/xsyg-tests/XSYG_sequences.xsyg")
+  expect_length(read_XSYG2R(seqs.file, n_sequences = 1, fastForward = TRUE,
+                            verbose = FALSE),
+                1)
+  expect_length(read_XSYG2R(seqs.file, n_sequences = 10, fastForward = TRUE,
+                            verbose = FALSE),
+                3) # number of sequences in the file
 
   ## list input
   expect_type(read_XSYG2R(list(xsyg.file), fastForward = TRUE,
@@ -95,7 +98,7 @@ test_that("test import of XSYG files", {
   ## recursive traversal
   expect_length(read_XSYG2R(test_path("_data"),
                             fastForward = TRUE, verbose = FALSE),
-                8)
+                11)
   })
 
   ## more tests for different TL curve calculation cases

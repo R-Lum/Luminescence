@@ -107,9 +107,9 @@
 #' count TL curve. Select `FALSE` to import the raw data delivered by the
 #' lexsyg. Works for TL curves and spectra.
 #'
-#' @param n_records [numeric] (*with default*):
-#' number of records to be imported; by default the function attempts to import
-#' all records.
+#' @param n_sequences [numeric] (*with default*):
+#' number of sequences to be imported; by default the function attempts to
+#' import all sequences.
 #'
 #' @param fastForward [logical] (*with default*):
 #' if `TRUE` for a more efficient data processing only a list of
@@ -161,7 +161,7 @@
 #' **So far, no image data import is provided!** \cr
 #' Corresponding values in the XSYG file are skipped.
 #'
-#' @section Function version: 0.8.3
+#' @section Function version: 0.8.4
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -201,7 +201,7 @@
 read_XSYG2R <- function(
   file,
   recalculate.TL.curves = TRUE,
-  n_records = NULL,
+  n_sequences = NULL,
   fastForward = FALSE,
   import = TRUE,
   pattern = "\\.xsyg",
@@ -224,7 +224,7 @@ read_XSYG2R <- function(
                          throw.error = FALSE, verbose = verbose)
   if (length(file) == 0)
     return(NULL)
-  .validate_positive_scalar(n_records, int = TRUE, null.ok = TRUE)
+  .validate_positive_scalar(n_sequences, int = TRUE, null.ok = TRUE)
   .validate_logical_scalar(fastForward)
   .validate_logical_scalar(import)
 
@@ -363,18 +363,18 @@ read_XSYG2R <- function(
   ## start the import
   .output_import_message(file, verbose)
 
-  ## set n_records
-  n_records <- min(XML::xmlSize(temp), n_records)
-  if (n_records == 0)
+  ## set n_sequences
+  n_sequences <- min(XML::xmlSize(temp), n_sequences)
+  if (n_sequences == 0)
     return(list())
 
   ## initialize the progress bar
   if (txtProgressBar) {
-    pb <- txtProgressBar(min = 0, max = n_records, char = "=", style = 3)
+    pb <- txtProgressBar(min = 0, max = n_sequences, char = "=", style = 3)
   }
 
   ## loop over the entire sequence up to the number of records to be read
-  output <- lapply(seq_len(n_records), function(x) {
+  output <- lapply(seq_len(n_sequences), function(x) {
     sequence <- temp[[x]]
     sequence.header <- as.data.frame(XML::xmlAttrs(sequence),
                                      stringsAsFactors = FALSE)
@@ -649,7 +649,7 @@ read_XSYG2R <- function(
 
   if (verbose) {
     cat(sprintf("\t >> %d of %d sequence(s) loaded successfully\n",
-                n_records - num.removed, n_records))
+                n_sequences - num.removed, n_sequences))
   }
 
   ##get rid of the NULL elements (as stated before ... invalid files)
