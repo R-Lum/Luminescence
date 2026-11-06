@@ -13,8 +13,7 @@ read_XSYG2R(
   pattern = "\\\\.xsyg",
   auto_linearity_correction = FALSE,
   verbose = TRUE,
-  txtProgressBar = TRUE,
-  ...
+  txtProgressBar = TRUE
 )
 }
 \arguments{
@@ -56,8 +55,6 @@ enable/disable output to the terminal.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
 enable/disable the progress bar during import. Ignored if \code{verbose = FALSE}.}
-
-\item{...}{Currently unused.}
 }
 \value{
 \strong{Using the option \code{import = TRUE} (default)}
