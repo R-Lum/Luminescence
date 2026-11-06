@@ -114,6 +114,13 @@ test_that("test import of XSYG files", {
                  "1 incomplete sequence(s) removed",
                  fixed = TRUE)
   expect_equal(t, list())
+  empty.sample <- test_path("_data/xsyg-tests/XSYG_noSequence_2.xsyg")
+  expect_equal(expect_silent(read_XSYG2R(empty.sample, verbose = FALSE)),
+               list())
+  SW({
+  expect_equal(read_XSYG2R(empty.sample, verbose = TRUE, fastForward = TRUE),
+               list())
+  })
 
   ## check case for no record Type
   t <- expect_s4_class(
