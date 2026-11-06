@@ -163,6 +163,9 @@ test_that("test import of XSYG files", {
                                   verbose = FALSE, fastForward = TRUE),
                  "1 incomplete sequence\\(s\\) removed")
   expect_length(t, 0)
+  expect_length(expect_silent(read_XSYG2R(test_path("_data/xsyg-tests/XSYG_broken_4.xsyg"),
+                                          verbose = FALSE)),
+                0)
 })
 
 test_that("regression tests", {
@@ -178,5 +181,12 @@ test_that("regression tests", {
   SW({
   expect_message(read_XSYG2R(test_path("_data/xsyg-tests/", "."), pattern = "_corr_"),
                  "looking for files matching the '_corr_' pattern")
+  })
+
+  ## issue 1821
+  SW({
+  expect_length(read_XSYG2R(test_path("_data/xsyg-tests/XSYG_broken_4.xsyg"),
+                            verbose = TRUE, fastForward = TRUE),
+                0)
   })
 })

@@ -365,6 +365,8 @@ read_XSYG2R <- function(
 
   ## set n_records
   n_records <- min(XML::xmlSize(temp), n_records)
+  if (n_records == 0)
+    return(list())
 
   ## initialize the progress bar
   if (txtProgressBar) {
@@ -372,7 +374,7 @@ read_XSYG2R <- function(
   }
 
   ## loop over the entire sequence up to the number of records to be read
-  output <- lapply(1:n_records, function(x) {
+  output <- lapply(seq_len(n_records), function(x) {
     sequence <- temp[[x]]
     sequence.header <- as.data.frame(XML::xmlAttrs(sequence),
                                      stringsAsFactors = FALSE)
@@ -641,7 +643,7 @@ read_XSYG2R <- function(
     close(pb)
 
   ## show output information
-  num.removed <- length(output[sapply(output, is.null)])
+  num.removed <- sum(vapply(output, is.null, logical(1)))
   if (num.removed > 0)
     .throw_warning(num.removed, " incomplete sequence(s) removed")
 
