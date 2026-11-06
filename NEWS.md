@@ -222,6 +222,10 @@ can be accessed via the new `bin_RLum()` generic (#1782):
 - The function no longer crashes on files containing a completely empty
   `<Record>` node (#1818).
 
+- The `n_records` argument has been renamed to `n_sequences` for
+  clarity, as it operates at the sequence rather than at the record
+  level (#1820).
+
 ### `set_RLum()`
 
 - When the function is used to extend an existing `RLum.Analysis`

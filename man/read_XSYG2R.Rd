@@ -7,13 +7,14 @@
 read_XSYG2R(
   file,
   recalculate.TL.curves = TRUE,
-  n_records = NULL,
+  n_sequences = NULL,
   fastForward = FALSE,
   import = TRUE,
   pattern = "\\\\.xsyg",
   auto_linearity_correction = FALSE,
   verbose = TRUE,
-  txtProgressBar = TRUE
+  txtProgressBar = TRUE,
+  ...
 )
 }
 \arguments{
@@ -28,9 +29,9 @@ if set to \code{TRUE}, TL curves are returned as temperature against count value
 count TL curve. Select \code{FALSE} to import the raw data delivered by the
 lexsyg. Works for TL curves and spectra.}
 
-\item{n_records}{\link{numeric} (\emph{with default}):
-number of records to be imported; by default the function attempts to import
-all records.}
+\item{n_sequences}{\link{numeric} (\emph{with default}):
+number of sequences to be imported; by default the function attempts to
+import all sequences.}
 
 \item{fastForward}{\link{logical} (\emph{with default}):
 if \code{TRUE} for a more efficient data processing only a list of
@@ -55,6 +56,8 @@ enable/disable output to the terminal.}
 
 \item{txtProgressBar}{\link{logical} (\emph{with default}):
 enable/disable the progress bar during import. Ignored if \code{verbose = FALSE}.}
+
+\item{...}{Currently unused.}
 }
 \value{
 \strong{Using the option \code{import = TRUE} (default)}
@@ -181,7 +184,7 @@ be done using the functions provided with the package \code{'XML'}.
 Corresponding values in the XSYG file are skipped.
 }
 \section{Function version}{
- 0.8.3
+ 0.8.4
 }
 
 \examples{
