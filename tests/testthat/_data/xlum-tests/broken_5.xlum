@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xlum xmlns:xlum="http://xlum.r-luminescence.org" lang="en" formatVersion="1.0" flavour="string" author="string" license="CC BY 4.0" doi="">
+  <sample name="NA" mineral="NA" latitude="52.416944" longitude="4.066389" altitude="70" doi="" comment="NA" state="NA" parentID="NA">
+    <sequence position="0" name="NA" fileName="NA" software="NA" readerName="NA" readerSN="NA" readerFW="NA" comment="NA" state="NA" parentID="NA">
+      <record sequenceStepNumber="1" sampleCondition="NA" state="NA" parentID="NA" comment="NA">
+        <curve component="string" startDate="1976-09-05T01:38:44.08" curveType="measured" duration="0" offset="0" xValues="0" yValues="0" tValues="0.174744789678807 1.77298827132002 3.31441988689558 4.5739196329752 6.31113184196751" xLabel="NA" yLabel="NA" tLabel="NA" vLabel="NA" xUnit="NA" yUnit="NA" vUnit="NA" tUnit="NA" state="string" parentID="string" comment="string">1425.94 1437.8 1427.1 1423.15 1426.23333333333</curve>
+      </record>
+    </sequence>
+  </sample>
+</xlum>
