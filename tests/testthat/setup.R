@@ -12,9 +12,11 @@ expect_snapshot_RLum <- function(object, ..., expect_snapshot_output = FALSE) {
       expect_snapshot_RLum(object[[idx]], ...)
     return()
   }
-  object@.uid <- NA_character_
-  object@.pid <- NA_character_
-  object@info[names(object@info) == "call"] <- NULL # may be multiple "call"
+  if (inherits(object, "RLum")) {
+    object@.uid <- NA_character_
+    object@.pid <- NA_character_
+    object@info[names(object@info) == "call"] <- NULL # may be multiple "call"
+  }
   if ("data" %in% slotNames(object)) {
     if ("fit" %in% names(object@data))
       object@data$fit <- NULL

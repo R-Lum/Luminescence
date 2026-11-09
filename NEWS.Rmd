@@ -46,6 +46,10 @@ accessed via the new `bin_RLum()` generic (#1782):
 
 ## New functions
 
+* `read_XLUM2R()` is a new function for importing files in XLUM format. The
+function is currently in alpha state, as it still needs to undergo further
+testing to ensure correctness for all inputs. More functionality regarding
+XLUM is implemented in the `xlum` package, available on CRAN (#1710).
 
 ## Bugfixes and changes
 

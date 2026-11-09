@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xlum xmlns:xlum="http://xlum.r-luminescence.org" lang="en" formatVersion="1.0" flavour="generic" author="Marie Skłodowska-Curie; Max Karl Ernst Ludwig Planck"
+  license="CC BY 4.0" doi="NA">
+ <sample name="LUM-21321" mineral="quartz" latitude="52.4091392" longitude="-4.0702446"
+  altitude="50" doi="valid DOI" comment="NA" state="NA" parentID="NA">
+   <sequence position="1" name="Example"
+     fileName="Testsequence.seq" software="DeviceEditor 2.0" readerName="NA" readerSN="NA"
+     readerFW="NA" comment="NA" state="NA" parentID="NA">
+    <record recordType="TL" comment="NA"
+       sequenceStepNumber="1" sampleCondition="NA" state="NA" parentID="NA">
+       <curve component="thermocouple" startDate="2021-02-14T22:57:12.0Z" curveType="measured" duration="10" offset="0" xValues="0" yValues="0" tValues="1 2 3 4 5 6 7 8 9 10" xLabel="NA" yLabel="NA" tLabel="time" vLabel="temperature" xUnit="" yUnit="" vUnit="K" tUnit="s" detectionWindow="NA" filter="NA" comment="NA" state="NA" parentID="NA">
+         293 303 313 323 333 343 353 363 373 383
+       </curve>
+       <curve component="PMT" startDate="2021-02-14T22:57:12.0Z" curveType="measured" duration="10" offset="0" xValues="0" yValues="0" tValues="1 2 3 4 5 6 7 8 9 10" xLabel="NA" yLabel="NA" tLabel="time" vLabel="luminescence" xUnit="" yUnit="" vUnit="cts" tUnit="s" detectionWindow="375" filter="Hoya U340; Delta BP 365/50EX" comment="NA" state="NA" parentID="NA">
+         100 210 320 450 560 700 800 900 850 650
+       </curve>
+    </record>
+    <record recordType="GSL" comment="standard green OSL step" sequenceStepNumber="2"   sampleCondition="NA" state="NA" parentID="NA">
+     <curve component="PMT" startDate="2021-02-14T22:57:00.0Z" curveType="measured" duration="10" offset="0" xValues="0" yValues="0" tValues="1 2 3 4 5 6 7 8 9 10" xLabel="NA" yLabel="NA" tLabel="time" vLabel="luminescence" xUnit="" yUnit="" vUnit="cts" tUnit="s" detectionWindow="375" filter="Hoya U340; Delta BP 365/50EX" comment="NA" state="NA" parentID="NA">
+       0.9 0.82 0.74 0.67 0.61 0.55 0.50 0.45 0.41 0.37
+     </curve>
+   </record>
+  </sequence>
+ </sample>
+</xlum>

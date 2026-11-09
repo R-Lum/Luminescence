@@ -71,13 +71,14 @@ test_that("test functionality", {
     system.file("extdata/RF_file.rf", package = "Luminescence"),
     system.file("extdata/HeliosOSL_Example.osl", package = "Luminescence"),
     system.file("extdata/TIFFfile.tif", package = "Luminescence"),
+    system.file("extdata/XLUM_file.xlum", package = "Luminescence"),
     system.file("extdata/XSYG_file.xsyg", package = "Luminescence"))
   SW({
   t <- expect_type(
     object = import_Data(files, verbose = FALSE),
     type = "list")
   })
-  expect_equal(length(t), 16)
+  expect_equal(length(t), 17)
 })
 
 test_that("regression tests", {
