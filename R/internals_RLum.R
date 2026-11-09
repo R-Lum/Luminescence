@@ -865,7 +865,7 @@ fancy_scientific <- function(l) {
 #' The American Statistician 50, 120–8. \doi{10.2307/2684423}
 #'
 #' @examples
-#' x <- rnorm(100)
+#' x <- stats::rnorm(100)
 #' .calc_HPDI(x)
 #'
 #' @return [matrix] with HPDI
@@ -873,7 +873,7 @@ fancy_scientific <- function(l) {
 #' @noRd
 .calc_HPDI <- function(object, prob = 0.95, plot = FALSE, ...){
   ##estimate density
-  dens <- density(object, ...)
+  dens <- stats::density(object, ...)
   diff <- diff(dens$x[1:2])
 
   ##calculate probabilities
@@ -1921,7 +1921,7 @@ SW <- function(expr) {
 #'@examples
 #'
 #' x <- stats::rnorm(100)
-#' y_dens <- stats::density(x)
+#' y_dens <- stats::stats::density(x)
 #' .rescale(
 #'  x = y_dens$y,
 #'  range_old = c(min(y_dens$y), max(y_dens$y)),

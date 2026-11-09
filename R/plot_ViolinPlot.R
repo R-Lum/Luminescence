@@ -108,7 +108,7 @@ plot_ViolinPlot <- function(
   .validate_class(data, "numeric", name = "All elements of 'data'")
 
   ## remove NA values
-  data <- na.exclude(data)
+  data <- stats::na.exclude(data)
   if (length(attr(data, "na.action")) > 0) {
     .throw_warning(length(attr(data, "na.action")), " NA values removed")
   }
@@ -125,7 +125,7 @@ plot_ViolinPlot <- function(
   ##density for the violin
   if(length(data)>1){
     density <-
-      density(x = data,
+      stats::density(data,
               bw = list(...)$bw %||% "nrd0")
   }else{
     density <- NULL

@@ -135,7 +135,7 @@ calc_CentralDose <- function(
   if (anyNA(data)) {
     .throw_message(length(which(is.na(data))), " NA values removed from dataset",
                    error = FALSE)
-    data <- na.exclude(data)
+    data <- stats::na.exclude(data)
     if (nrow(data) < 2)
       .throw_error("After NA removal, 'data' was left with fewer than two rows")
 

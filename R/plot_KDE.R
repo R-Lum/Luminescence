@@ -314,7 +314,7 @@ plot_KDE <- function(
 
     ## calculate density
     if(nrow(data[[i]]) >= 2){
-      De.density[[i]] <- density(data[[i]][, 1], kernel = "gaussian", bw = bw)
+      De.density[[i]] <- stats::density(data[[i]][, 1], kernel = "gaussian", bw = bw)
     }else{
       De.density[[i]] <- NA
       .throw_warning("Single point found in dataset ", i, ", no density calculated")

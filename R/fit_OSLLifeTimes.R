@@ -280,7 +280,7 @@ fit_OSLLifeTimes <- function(
 
   ##remove NA values, whatever it is worth for
   if (anyNA(df)) {
-    df <- na.exclude(df)
+    df <- stats::na.exclude(df)
     .throw_warning("NA values detected and removed from dataset")
   }
 

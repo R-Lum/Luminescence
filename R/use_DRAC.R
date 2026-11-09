@@ -134,7 +134,7 @@ use_DRAC <- function(
   ##
  # Settings ------------------------------------------------------------------------------------
   settings <- modifyList(list(
-    name = name %||% paste(sample(c(LETTERS, letters), runif(1, 2, 4)),
+    name = name %||% paste(sample(c(LETTERS, letters), stats::runif(1, 2, 4)),
                            collapse = ""),
     verbose = TRUE,
     url = "https://www.aber.ac.uk/en/dges/research/quaternary/luminescence-research-laboratory/dose-rate-calculator/?show=calculator",
@@ -195,7 +195,7 @@ use_DRAC <- function(
   ## Helper function --------------------------------------------------------
   ## The data are transferred without encryption, so we mask the original
   .masking <- function(mean, sd, n) {
-    temp <- rnorm(n = 30 * n, mean = mean, sd = sd)
+    temp <- stats::rnorm(30 * n, mean = mean, sd = sd)
     t(vapply(seq(1, length(temp), 30), function(x) {
         c(format(mean(temp[x:(x + 29)]), digits = 2),
           format(sd(temp[x:(x + 29)]), digits = 2))

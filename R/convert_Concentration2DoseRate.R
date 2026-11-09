@@ -222,15 +222,15 @@ convert_Concentration2DoseRate <- function(
 
   if (input[1, 1] == "FS") {
     ## feldspar
-    KFit <- approx(GSA$GrainSize, GSA$FS_K, xout = grain.size, method = "linear")
-    ThFit <- approx(GSA$GrainSize, GSA$FS_Th, xout = grain.size, method = "linear")
-    UFit <- approx(GSA$GrainSize, GSA$FS_U, xout = grain.size, method = "linear")
+    KFit <- stats::approx(GSA$GrainSize, GSA$FS_K, xout = grain.size, method = "linear")
+    ThFit <- stats::approx(GSA$GrainSize, GSA$FS_Th, xout = grain.size, method = "linear")
+    UFit <- stats::approx(GSA$GrainSize, GSA$FS_U, xout = grain.size, method = "linear")
 
   } else if (input[1, 1] == "Q")  {
     ## quartz
-    KFit <- approx(GSA$GrainSize, GSA$Q_K, xout = grain.size, method = "linear")
-    ThFit <- approx(GSA$GrainSize, GSA$Q_Th, xout = grain.size, method = "linear")
-    UFit <- approx(GSA$GrainSize, GSA$Q_U, xout = grain.size, method = "linear")
+    KFit <- stats::approx(GSA$GrainSize, GSA$Q_K, xout = grain.size, method = "linear")
+    ThFit <- stats::approx(GSA$GrainSize, GSA$Q_Th, xout = grain.size, method = "linear")
+    UFit <- stats::approx(GSA$GrainSize, GSA$Q_U, xout = grain.size, method = "linear")
   }
 
   InfDR[1, 1] <- InfDR[1, 1] * (1 - KFit$y)   # K

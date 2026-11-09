@@ -196,7 +196,6 @@ importFrom(Rcpp,evalCpp)
 importFrom(grDevices,rgb)
 importFrom(graphics,
   abline,
-  axTicks,
   axis,
   curve,
   hist,
@@ -207,20 +206,14 @@ importFrom(graphics,
   plot,
   points,
   polygon,
-  segments,
   text,
   title
 )
 importFrom(stats,
-  approx,
   coef,
-  density,
   dnorm,
   median,
-  na.exclude,
   quantile,
-  rnorm,
-  runif,
   sd
 )
 useDynLib(Luminescence, .registration = TRUE)

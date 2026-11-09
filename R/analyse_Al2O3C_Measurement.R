@@ -445,14 +445,14 @@ analyse_Al2O3C_Measurement <- function(
 
    ##(1) sample dose point values with irradiation time corrections (random)
    if(!is.null(irradiation_time_correction)){
-    DOSE_MC <- rnorm(1000, mean = temp_df$DOSE[2], sd = temp_df$DOSE_ERROR[2])
+    DOSE_MC <- stats::rnorm(1000, mean = temp_df$DOSE[2], sd = temp_df$DOSE_ERROR[2])
 
    }else{
     DOSE_MC <- temp_df$DOSE[2]
   }
 
    ##(2) random sampling from cross-irradiation
-   CT <- runif(1000, min = cross_talk_correction[2], max = cross_talk_correction[3])
+   CT <- stats::runif(1000, min = cross_talk_correction[2], max = cross_talk_correction[3])
 
    ##(3) signal ratio
    INTEGRAL_RATIO <- temp_df$NET_INTEGRAL[1]/temp_df$NET_INTEGRAL[2]

@@ -322,10 +322,11 @@ analyse_Al2O3C_ITC <- function(
       cex = 0.8)
 
     ##add 2nd x-axis
+    ticks <- graphics::axTicks(side = 1)
     axis(
       side = 1,
-      at = axTicks(side = 1),
-      labels = paste0("(",(axTicks(side = 1) + round(as.numeric(GC$De[1]),2)), ")"),
+      at = ticks,
+      labels = paste0("(", ticks + round(as.numeric(GC$De[1]), 2), ")"),
       line = 1,
       col.axis = "red",
       lwd.ticks = 0,

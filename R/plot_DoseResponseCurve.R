@@ -135,9 +135,9 @@ plot_DoseResponseCurve <- function(
   y.Error <- sample[first.idx:last.idx, 3]
 
   De <- object@data$De$.De.plot
-  x.natural <- na.exclude(object@data$De.MC)
-  De.MonteCarlo <- mean(na.exclude(x.natural))
-  De.Error <- sd(na.exclude(x.natural))
+  x.natural <- stats::na.exclude(object@data$De.MC)
+  De.MonteCarlo <- mean(x.natural)
+  De.Error <- sd(x.natural)
 
   ## find indices of "real" points (not repeated and not zero-dose)
   idx.real <- which(!(duplicated(xy[, 1]) | xy[, 1] == 0))
@@ -281,7 +281,7 @@ plot_DoseResponseCurve <- function(
     }
 
     ## y-error bar
-    segments(xy$x, xy$y - y.Error, xy$x, xy$y + y.Error)
+    graphics::segments(xy$x, xy$y - y.Error, xy$x, xy$y + y.Error)
 
     ## natural value
     if (mode == "interpolation") {
@@ -291,7 +291,7 @@ plot_DoseResponseCurve <- function(
           col = 2,
           cex = plot_settings$pt.cex,
           pch = plot_settings$reg_points_pch[1])
-        segments(sample[1, 1], sample[1, 2] - sample[1, 3],
+        graphics::segments(sample[1, 1], sample[1, 2] - sample[1, 3],
                  sample[1, 1], sample[1, 2] + sample[1, 3], col = col[2])
       }
     } else if (mode == "extrapolation"){
@@ -454,7 +454,7 @@ plot_DoseResponseCurve <- function(
             freq = FALSE,
             border = "white",
             axes = FALSE,
-            sub = paste0("valid fits = ", length(na.exclude(x.natural)),
+            sub = paste0("valid fits = ", length(stats::na.exclude(x.natural)),
                          "/", fit.args$n.MC),
             cex.sub = 0.8,
             cex.lab = 0.8,

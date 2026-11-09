@@ -725,7 +725,7 @@ if(plot){
       m <- (tick_start$y[2] - tick_start$y[1]) / (tick_start$x[2]  - tick_start$x[1])
       m <- atan(m) * 360 / (2 * pi)
 
-      segments(tick_start$x, tick_start$y, tick_end$x, tick_end$y)
+      graphics::segments(tick_start$x, tick_start$y, tick_end$x, tick_end$y)
       text(
         tick_end$x,
         tick_end$y,
@@ -751,7 +751,7 @@ if(plot){
       tick_start <- grDevices::trans3d(min(x_axis), py_axis, min(z_axis), pmat)
       tick_end <- grDevices::trans3d(
         min(x_axis) - max(x_axis) * 0.025, py_axis, min(z_axis), pmat)
-      segments(tick_start$x, tick_start$y, tick_end$x, tick_end$y)
+      graphics::segments(tick_start$x, tick_start$y, tick_end$x, tick_end$y)
 
       ## calculate slope angle for xlab and ticks
       m <- (tick_start$y[2] - tick_start$y[1]) / (tick_start$x[2]  - tick_start$x[1])
@@ -782,7 +782,7 @@ if(plot){
       tick_start <- grDevices::trans3d(min(x_axis), max(y_axis), pz_axis, pmat)
       tick_end <- grDevices::trans3d(
         min(x_axis) - max(x_axis) * 0.015, max(y_axis), pz_axis, pmat)
-      segments(tick_start$x, tick_start$y, tick_end$x, tick_end$y)
+      graphics::segments(tick_start$x, tick_start$y, tick_end$x, tick_end$y)
 
       ## calculate slope angle for xlab and ticks
       m <- (tick_start$y[2] - tick_start$y[1]) / (tick_start$x[2]  - tick_start$x[1])

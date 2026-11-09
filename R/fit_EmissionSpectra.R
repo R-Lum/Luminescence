@@ -561,17 +561,18 @@ fit_EmissionSpectra <- function(
     )
 
     ## add axis normalised
+    ticks <- graphics::axTicks(side = 2)
     axis(side = 2,
-           at = axTicks(side = 2),
-           labels = c(axTicks(2)))
+         at = ticks,
+         labels = ticks)
 
     ## add axis with real count vales
     if(method_control$norm[1]) {
       axis(
         side = 2,
-        axTicks(side = 2)[-1],
+        ticks[-1],
         labels = format(
-          max(m[, 2]) * axTicks(side = 2)[-1],
+          max(m[, 2]) * ticks[-1],
           digit = 1,
           scientific = TRUE
         ),
@@ -636,8 +637,8 @@ fit_EmissionSpectra <- function(
     ##add wavelength axis
     axis(
       side = 1,
-      labels = paste0("(", round(hc / axTicks(side = 3), 0), " nm)"),
-      at = axTicks(side = 3),
+      labels = paste0("(", round(hc / graphics::axTicks(side = 3), 0), " nm)"),
+      at = graphics::axTicks(side = 3),
       cex.axis = 0.7,
       line = 0.8,
       tick = FALSE

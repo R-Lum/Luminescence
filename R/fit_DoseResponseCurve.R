@@ -516,7 +516,7 @@ fit_DoseResponseCurve <- function(
                    " NA values removed")
 
     ## exclude NA
-    object <- na.exclude(object)
+    object <- stats::na.exclude(object)
 
     ## Check if anything is left after removal
     if (nrow(object) == 0) {
@@ -594,7 +594,7 @@ fit_DoseResponseCurve <- function(
   data.MC <- t(matrix(vapply(
       X = first.idx:last.idx,
       FUN = function(x) {
-        sample(rnorm(
+        sample(stats::rnorm(
           n = 10000,
           mean = object[[2]][x],
           sd = abs(object[[3]][x])
@@ -608,7 +608,7 @@ fit_DoseResponseCurve <- function(
   if (interpolation) {
     #1.3 Do the same for the natural signal
     data.MC.De <-
-      sample(rnorm(10000, mean = object[1, 2], sd = abs(object[1, 3])),
+      sample(stats::rnorm(10000, mean = object[1, 2], sd = abs(object[1, 3])),
              n.MC,
              replace = TRUE)
   } else if (extrapolation) {
@@ -807,14 +807,14 @@ fit_DoseResponseCurve <- function(
 
   ## draw 50 start values from a normal distribution
   if (!fit.method %in% c("LIN", "QDR", "GOK")) {
-    a.MC <- suppressWarnings(rnorm(50, mean = a, sd = a / 100))
-    b.MC <- suppressWarnings(rnorm(50, mean = b, sd = b / 100))
+    a.MC <- suppressWarnings(stats::rnorm(50, mean = a, sd = a / 100))
+    b.MC <- suppressWarnings(stats::rnorm(50, mean = b, sd = b / 100))
 
     if(fit.force_through_origin)
       c.MC <- rep(0, 50)
     else
-      c.MC <- suppressWarnings(rnorm(50, mean = c, sd = c / 100))
-    g.MC <- suppressWarnings(rnorm(50, mean = g, sd = g / 1))
+      c.MC <- suppressWarnings(stats::rnorm(50, mean = c, sd = c / 100))
+    g.MC <- suppressWarnings(stats::rnorm(50, mean = g, sd = g / 1))
 
     ##set start vector (to avoid errors within the loop)
     N.start <- D0.start <- Di.start <- g.start <- NA
@@ -1339,7 +1339,7 @@ fit_DoseResponseCurve <- function(
 
       ## the lower bound for Di is randomised around the fitted value, so that
       ## the Monte-Carlo fits are not all trapped on the same boundary
-      mc.lower <- if (fit.bounds) function() c(0, 0, 0, Di * runif(1, 0, 2))
+      mc.lower <- if (fit.bounds) function() c(0, 0, 0, Di * stats::runif(1, 0, 2))
                   else rep(-Inf, 4)
 
       ## extract the R coefficient

@@ -212,7 +212,7 @@ convert_CW2pPMi<- function(
 
   ##combine all values and exclude NA values
   temp.values <- data.frame(x=t, y.t=pPM, x.t=t.transformed, method=temp.method)
-  temp.values <- na.exclude(temp.values)
+  temp.values <- stats::na.exclude(temp.values)
 
   # (7) Return values ---------------------------------------------------------
 

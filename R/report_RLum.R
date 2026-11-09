@@ -169,7 +169,7 @@
 #'
 #' ## Example: Any other object ----
 #' x <- list(x = 1:10,
-#'           y = runif(10, -5, 5),
+#'           y = stats::runif(10, -5, 5),
 #'           z = data.frame(a = LETTERS[1:20], b = dnorm(0:9)),
 #'           NA)
 #'

@@ -41,7 +41,7 @@
 #' sdt <- 0.3
 #' Dr <- stats::rlnorm (n, 0, sdt)
 #' int_OD <-  0.1
-#' tildeDr = Dr * (1 + rnorm(length(Dr), 0, int_OD))
+#' tildeDr = Dr * (1 + stats::rnorm(length(Dr), 0, int_OD))
 #' De <-  c(50 * sample(Dr, 50, replace = TRUE), 10, 12, 200, 250)
 #' k <- length(De)
 #' s <- stats::rnorm(k, 10, 2)
@@ -52,7 +52,7 @@
 #' theta <- fit$parameters$pro
 #' mu <- fit$parameters$mean
 #' sigma <- sqrt(fit$parameters$variance$sigmasq)
-#' Age_range <- c(0, Dr * (1 + rnorm(length(Dr), 0, int_OD[1])))
+#' Age_range <- c(0, Dr * (1 + stats::rnorm(length(Dr), 0, int_OD[1])))
 #' res <- .calc_IndividualAgeModel(theta, mu, sigma, De, s, sig0, Age_range = Age_range)
 #'@noRd
 .calc_IndividualAgeModel <- function(
@@ -545,7 +545,7 @@ combine_De_Dr <- function(
   mclustBIC <- mclust::mclustBIC
 
   ##  Estimation of the rate dose Dr1 by a Gaussian Mixture Model
-  tildeDr <- Dr * (1 + rnorm(length(Dr), 0, int_OD[1]))
+  tildeDr <- Dr * (1 + stats::rnorm(length(Dr), 0, int_OD[1]))
   fit <-
     mclust::Mclust(data = tildeDr,
                    modelNames = "V",
@@ -663,8 +663,8 @@ fit_IAM <- .calc_IndividualAgeModel(
   A2 <- fit_BCAM$A
 
   ## calculate bandwidths
-  h <- density(De)$bw
-  h1 <- density(De1)$bw
+  h <- stats::density(De)$bw
+  h1 <- stats::density(De1)$bw
 
   t <- seq(min(D_e), max(D_e), length.out = min(1000, round(max(D_e) - min(D_e), 0)))
 
@@ -675,9 +675,9 @@ fit_IAM <- .calc_IndividualAgeModel(
   ## De distribution re-sampled without outliers -> De2
   ## De distribution re-sampled initial -> De3
   De2 <-
-    rnorm(length(subsamp), sample(De1, size = length(subsamp), replace = TRUE), h1)
+    stats::rnorm(length(subsamp), sample(De1, size = length(subsamp), replace = TRUE), h1)
   De3 <-
-    rnorm(length(subsamp), sample(De, size = length(subsamp), replace = TRUE), h)
+    stats::rnorm(length(subsamp), sample(De, size = length(subsamp), replace = TRUE), h)
 
   ## calculate ecdf
   cdf_De_no_outlier<- stats::ecdf(De2)(t)
@@ -691,7 +691,7 @@ fit_IAM <- .calc_IndividualAgeModel(
   cdf_ADr_quantiles <- matrixStats::colQuantiles(cdf_ADr, probs = c(0.025, 0.975))
 
   ## further values to ease the interpretation
-  d <- density(fit_BCAM$A)
+  d <- stats::density(fit_BCAM$A)
   HPD <- d$x[which.max(d$y)[1]]
   CI_68 <- .calc_HPDI(fit_BCAM$A, prob = 0.68)
   CI_95 <- .calc_HPDI(fit_BCAM$A, prob = 0.95)

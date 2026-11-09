@@ -785,7 +785,7 @@ calc_MinDose <- function(
     # nocov start
     get_polyfit <- function(pairs, degree, USS = 0.035) {
       x <- pairs[, 1]
-      pairs[, 1] <- suppressWarnings(rnorm(length(x), mean = x, sd = USS * x))
+      pairs[, 1] <- suppressWarnings(stats::rnorm(length(x), mean = x, sd = USS * x))
       pairs_sorted <- pairs[order(pairs[, 1]), ]
       x <- pairs_sorted[, 1]
       y <- pairs_sorted[, 2]
@@ -796,12 +796,12 @@ calc_MinDose <- function(
       y <- y[ypos]
 
       ## fit polynomial to log(y), then exponentiate back
-      fit <- stats::lm(log(y) ~ poly(x, degree, raw = TRUE), na.action = na.exclude)
+      fit <- stats::lm(log(y) ~ poly(x, degree, raw = TRUE), na.action = stats::na.exclude)
       f <- exp(stats::predict(fit, newdata = data.frame(x)))
 
       ## vector of points to interpolate fit
       xi <- seq(min(x, na.rm = TRUE), max(x, na.rm = TRUE), length.out = 100)
-      yi <- approx(x, f, xout = xi)$y
+      yi <- stats::approx(x, f, xout = xi)$y
 
       ind1 <- which(yi > 0)
       yi[!is.finite(yi)] <- 0
@@ -826,7 +826,7 @@ calc_MinDose <- function(
       .throw_message(msg, error = FALSE)
 
     # Draw N+M samples from a normally distributed sigmab
-    sigmab.bs <- rnorm(N + M, sigmab, sigmab.sd)
+    sigmab.bs <- stats::rnorm(N + M, sigmab, sigmab.sd)
 
     ## Draw N+M random indices of size n
     n <- length(data[, 1])
@@ -864,7 +864,7 @@ calc_MinDose <- function(
 
     # Calculate the probability/pseudo-likelihood
     Pmat <- lapply(replicates[(N + 1):(N + M)], function(d) {
-      f <- approx(density(x = d[, 1], kernel = "gaussian", bw = h, na.rm = TRUE),
+      f <- stats::approx(stats::density(x = d[, 1], kernel = "gaussian", bw = h, na.rm = TRUE),
                   xout = d[, 1])
       pStarTheta <- as.vector(f$y / sum(f$y))
       pStarTheta / (1 / n)

@@ -217,7 +217,7 @@ calc_FastRatio <- function(object,
     }
 
     ## remove missing values
-    A <- na.exclude(A[, 1:2])
+    A <- stats::na.exclude(A[, 1:2])
     if (nrow(A) == 0)
       .throw_error("After NA removal, nothing is left from the data set")
 

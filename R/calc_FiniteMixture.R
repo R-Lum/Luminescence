@@ -682,8 +682,8 @@ calc_FiniteMixture <- function(
     } else {
       ## estimate the y-scaling if no weights are used
       dens <- sapply(0:max.dose, .calc.density,
-                     na.exclude(c(comp.n[pos.n, ])),
-                     na.exclude(c(comp.n[pos.n + 1, ])), 1)
+                     stats::na.exclude(c(comp.n[pos.n, ])),
+                     stats::na.exclude(c(comp.n[pos.n + 1, ])), 1)
     }
 
     ## x-axis (density)

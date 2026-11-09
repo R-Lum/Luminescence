@@ -591,7 +591,7 @@ analyse_portableOSL <- function(
         ## add error bars
         if (prof %in% c("BSL", "IRSL", "DARK")) {
           x.err <- m_list[[paste0(prof, "_error")]][, "value"]
-          segments(
+          graphics::segments(
               x0 = x.val - x.err,
               x1 = x.val + x.err,
               y0 = y.val,

@@ -70,7 +70,7 @@ str(calc_Statistics(ExampleData.DeValues$BT998))
 
 \dontrun{
 ## now the same for 10000 normal distributed random numbers with equal errors
-x <- as.data.frame(cbind(rnorm(n = 10^5, mean = 0, sd = 1),
+x <- as.data.frame(cbind(stats::rnorm(10^5, mean = 0, sd = 1),
                          rep(0.001, 10^5)))
 
 ## note the congruent results for weighted and unweighted measures

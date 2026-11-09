@@ -233,9 +233,9 @@ sTeve <- function(n_frames = 10, t_animation = 2, n.tree = 7, type = NULL) {
 
     ## draw christmas trees
     n <- n.tree
-    tree.x <- runif(n, 10, 90)
-    tree.y <- runif(n, 10, 90)
-    tree.size <- runif(n, 0.3, 1.5)
+    tree.x <- stats::runif(n, 10, 90)
+    tree.y <- stats::runif(n, 10, 90)
+    tree.size <- stats::runif(n, 0.3, 1.5)
 
     for(i in 1:n) {
       ## stem
@@ -314,6 +314,6 @@ sTeve <- function(n_frames = 10, t_animation = 2, n.tree = 7, type = NULL) {
     }
 
     ## add snow
-    points(runif(300, 0, 100), runif(300, 0, 100), pch = 8, col = "lightgrey")
+    points(stats::runif(300, 0, 100), stats::runif(300, 0, 100), pch = 8, col = "lightgrey")
   }
 }#end function

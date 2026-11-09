@@ -244,7 +244,7 @@ fit_IsothermalHolding <- function(
 
       } else if (ITL_model == "BTS") {
         ## run fitting with different start parameters for s10
-        ## all.s10 <- rnorm(num_s_values_bts, mean = 9, sd = 1.5)
+        ## all.s10 <- stats::rnorm(num_s_values_bts, mean = 9, sd = 1.5)
         all.s10 <- stats::qnorm(seq(0.01, 0.99, length.out = num_s_values_bts),
                                 mean = 9, sd = 1.5)
         fit <- lapply(1:length(all.s10), function(idx) {
@@ -428,7 +428,7 @@ fit_IsothermalHolding <- function(
           col = plot_settings$col.border)
 
         ## add error bars (if NA nothing is plotted by R default)
-        segments(
+        graphics::segments(
           x0 = df_pts[["TIME"]],
           x1 = df_pts[["TIME"]],
           y0 = df_pts[["LxTx"]] - df_pts[["LxTx_ERROR"]],

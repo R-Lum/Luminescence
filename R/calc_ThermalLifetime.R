@@ -209,7 +209,7 @@ calc_ThermalLifetime <- function(
     ##E
     profiling_matrix[, 1] <-
       if( profiling_settings$E.distribution == "norm"){
-        rnorm(profiling_settings$n, mean = E[1], sd = E[2])
+        stats::rnorm(profiling_settings$n, mean = E[1], sd = E[2])
 
       }else{
         .throw_error("Unknown distribution setting for E profiling")
@@ -218,7 +218,7 @@ calc_ThermalLifetime <- function(
     ##s
     profiling_matrix[, 2] <-
       if (profiling_settings$s.distribution == "norm") {
-        rnorm(profiling_settings$n, mean = s[1], sd = s[2])
+        stats::rnorm(profiling_settings$n, mean = s[1], sd = s[2])
 
       } else{
         .throw_error("Unknown distribution setting for s profiling")
@@ -343,7 +343,7 @@ calc_ThermalLifetime <- function(
     lifetimes_density <-
       lapply(1:(length(id_seq) - 1),
              function(x) {
-               density(lifetimes[id_seq[x]:id_seq[x+1]])
+               stats::density(lifetimes[id_seq[x]:id_seq[x + 1]])
              })
 
     ##get x values

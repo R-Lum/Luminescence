@@ -530,7 +530,7 @@ analyse_FadingMeasurement <- function(
   ##we need to fit the data to get the g_value
 
   ##sample for monte carlo runs
-  MC_all <- suppressWarnings(matrix(rnorm(
+  MC_all <- suppressWarnings(matrix(stats::rnorm(
     n = 2 * n.MC * nrow(LxTx_table),
     mean = LxTx_table[["LxTx_NORM"]],
     sd = abs(LxTx_table[["LxTx_NORM.ERROR"]])
@@ -618,7 +618,7 @@ analyse_FadingMeasurement <- function(
   names(g_value_2days) <- c("G_VALUE_2DAYS", "G_VALUE_2DAYS.ERROR")
 
   # Approximation -------------------------------------------------------------------------------
-  T_0.5.interpolated <- try(approx(x = LxTx_table[["LxTx_NORM"]],
+  T_0.5.interpolated <- try(stats::approx(x = LxTx_table[["LxTx_NORM"]],
                                y = LxTx_table[["TIMESINCEIRR_NORM"]],
                                ties = mean,
                                xout = 0.5), silent = TRUE)
@@ -787,7 +787,7 @@ analyse_FadingMeasurement <- function(
           lab <- sapply(x_axis_lab, function(i) as.expression(bquote(10^.(i))))
           lab2 <- paste0("[", round(x_axis_ticks, 1), "]")
         } else {
-          at <- axTicks(side = 1)
+          at <- graphics::axTicks(side = 1)
           lab <- suppressWarnings(format(10^at * tc,
                                           digits = 1, decimal.mark = "",
                                           scientific = TRUE))
@@ -853,7 +853,7 @@ analyse_FadingMeasurement <- function(
                bg = "grey")
 
         ##error bars
-        segments(
+        graphics::segments(
           x0 = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
           x1 = LxTx_table[["TIMESINCEIRR_NORM.LOG"]],
           y0 = LxTx_table[["LxTx_NORM"]] + LxTx_table[["LxTx_NORM.ERROR"]],
@@ -878,7 +878,7 @@ analyse_FadingMeasurement <- function(
         text(x = 0.5, y = 0.5, labels = "All NA values!")
 
       }else{
-        plot(density(g_value.MC),
+        plot(stats::density(g_value.MC),
              main = "Density: g-values (%/decade)")
         graphics::rug(x = g_value.MC)
         abline(v = c(g_value[["Q_0.16"]], g_value[["Q_0.84"]]),

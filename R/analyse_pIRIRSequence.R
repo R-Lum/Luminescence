@@ -571,7 +571,7 @@ if(plot){
                                    c("Dose", "LxTx", "LxTx.Error")]
 
     points(curve.points[-1, c("Dose", "LxTx")], col = j, pch = j)
-    segments(x0 = curve.points$Dose[-1],
+    graphics::segments(x0 = curve.points$Dose[-1],
              y0 = curve.points$LxTx[-1] - curve.points$LxTx.Error[-1],
              x1 = curve.points$Dose[-1],
              y1 = curve.points$LxTx[-1] + curve.points$LxTx.Error[-1],

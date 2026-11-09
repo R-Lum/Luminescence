@@ -132,8 +132,8 @@ setMethod("plot_RLum", signature = "RLum.Results", function(
 
         if (i %in% c("gamma", "sigma", "mu") && object@data$args$log && object@data$args$log.output) {
           # nocov start  # FIXME(mcol): added in issue 1547 due to R-devel changes
-          axis(1, at = axTicks(1),
-               labels = format(round(log(axTicks(1)), 2), nsmall = 2),
+          axis(1, at = graphics::axTicks(1),
+               labels = format(round(log(graphics::axTicks(1)), 2), nsmall = 2),
                line = 2.5, mgp = c(3, 0.5, 0))
           title(xlab = paste0("log(", i, ")"), line = 4)
           # nocov end
@@ -516,7 +516,7 @@ setMethod("plot_RLum", signature = "RLum.Results", function(
          main = extraArgs$main %||% "Fuchs & Lang (2001)")
 
     ##SEGMENTS
-    segments(data_ordered[,1]-data_ordered[,2],1:length(data_ordered[,1]),
+    graphics::segments(data_ordered[,1]-data_ordered[,2],1:length(data_ordered[,1]),
              data_ordered[,1]+data_ordered[,2],1:length(data_ordered[,1]),
              col="gray")
 
@@ -614,7 +614,7 @@ setMethod("plot_RLum", signature = "RLum.Results", function(
     )
 
     if(!is.null(plot.settings$segments)){
-      segments(
+      graphics::segments(
         x0 = df[,3], y0 = df[,1] + df[,2],
         x1 = df[,3], y1 = df[,1] - df[,2]
       )

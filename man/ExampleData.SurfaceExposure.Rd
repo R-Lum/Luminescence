@@ -62,7 +62,7 @@ fun <- exp(-sigmaphi * age * 365.25*24*3600 * exp(-mu * x))
 set.seed(666)
 synth_1 <- data.frame(depth = x,
                       intensity = jitter(fun, 1, 0.1),
-                      error = runif(length(x), 0.01, 0.2))
+                      error = stats::runif(length(x), 0.01, 0.2))
 
 ## VALIDATE sample_1
 fit_SurfaceExposure(synth_1, mu = mu, sigmaphi = sigmaphi)
@@ -83,7 +83,7 @@ fun <- (sigmaphi * exp(-mu * x) *
 set.seed(666)
 synth_2 <- data.frame(depth = x,
                       intensity = jitter(fun, 1, 0.1),
-                      error = runif(length(x), 0.01, 0.2))
+                      error = stats::runif(length(x), 0.01, 0.2))
 
 ## VALIDATE sample_2
 fit_SurfaceExposure(synth_2, mu = mu, sigmaphi = sigmaphi, Ddot = 2.5, D0 = D0)

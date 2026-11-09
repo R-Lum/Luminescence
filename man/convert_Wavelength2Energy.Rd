@@ -83,9 +83,9 @@ p(convert_Wavelength2Energy(m))
 ##=====================##
 ##(2) Another example using density curves
 ##create dataset
-xy <- density(
- c(rnorm(n = 100, mean = 500, sd = 20),
- rnorm(n = 100, mean = 800, sd = 20)))
+xy <- stats::density(
+ c(stats::rnorm(100, mean = 500, sd = 20),
+   stats::rnorm(100, mean = 800, sd = 20)))
 xy <- data.frame(xy$x, xy$y)
 
 ##plot

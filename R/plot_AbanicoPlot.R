@@ -541,7 +541,7 @@ plot_AbanicoPlot <- function(
     if (n.NA > 0) {
       .throw_message("Data set ", i, ": ", n.NA, " NA value",
                      ifelse(n.NA > 1, "s", ""), " excluded", error = FALSE)
-      data[[i]] <- na.exclude(data[[i]])
+      data[[i]] <- stats::na.exclude(data[[i]])
     }
 
     ## check for zero-error values
@@ -664,7 +664,7 @@ plot_AbanicoPlot <- function(
   bw <- extraArgs$bw %||% "SJ"
   .validate_class(bw, c("numeric", "character"))
   if (length(De.global) > 1) {
-    bw.test <- try(density(x = De.global, bw = bw), silent = TRUE)
+    bw.test <- try(stats::density(x = De.global, bw = bw), silent = TRUE)
     if (inherits(bw.test, "try-error")) {
       bw <- "SJ"
       .throw_warning("Option for 'bw' not valid, reset to 'SJ'")
@@ -1022,7 +1022,7 @@ plot_AbanicoPlot <- function(
     }
 
     ## kdemax
-    De.densities[[i]] <- try(density(x = data[[i]][,1],
+    De.densities[[i]] <- try(stats::density(x = data[[i]][,1],
                               kernel = "gaussian",
                               bw = bw,
                               from = limits.z[1],
@@ -1123,7 +1123,7 @@ plot_AbanicoPlot <- function(
 
   for(i in 1:length(data)) {
     z.vals <- data[[i]][, 3]
-    KDE.i <- tryCatch(density(x = z.vals,
+    KDE.i <- tryCatch(stats::density(x = z.vals,
                      kernel = "gaussian",
                      bw = bw,
                      from = ellipse.values[1],
@@ -1201,7 +1201,7 @@ plot_AbanicoPlot <- function(
           cex = cex * layout$abanico$font.size$ylab / 12)
 
     ## calculate upper x-axis label values
-    label.x.upper <- as.character(round(1 / axTicks(side = rotate.idx)[-1] *
+    label.x.upper <- as.character(round(1 / graphics::axTicks(side = rotate.idx)[-1] *
                                         if (log.z) 100 else 1, 1))
 
     ## optionally, plot 2-sigma-bar
@@ -1375,7 +1375,7 @@ plot_AbanicoPlot <- function(
           line = (shift.lines + add.shift) * layout$abanico$dimension$main / 100)
 
     ## calculate lower x-axis (precision)
-    x.axis.ticks <- axTicks(side = rotate.idx)
+    x.axis.ticks <- graphics::axTicks(side = rotate.idx)
     x.axis.ticks <- x.axis.ticks[c(TRUE, x.axis.ticks <= limits.x[2])]
     x.axis.ticks <- x.axis.ticks[x.axis.ticks <= max.ellipse]
 

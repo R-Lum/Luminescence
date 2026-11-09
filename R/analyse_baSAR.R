@@ -1810,7 +1810,7 @@ analyse_baSAR <- function(
       ## plot Lx/Tx values .. without errors ... this is enough here
       for (i in 2:n.col) {
             ##add error bars
-            segments(
+            graphics::segments(
               x0 = input_object[[8 + i]],
               x1 = input_object[[8 + i]],
               y0 = input_object[[8 + n.col + i]] - input_object[[8 + 2 * n.col + i]],

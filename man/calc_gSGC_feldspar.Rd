@@ -60,10 +60,10 @@ Implementation of the gSGC approach for feldspar MET-pIRIR by Li et al. (2015)
 ##test on a generated random sample
 n_samples <- 10
 data <- data.frame(
-  LnTn = rnorm(n=n_samples, mean=1.0, sd=0.02),
-  LnTn.error = rnorm(n=n_samples, mean=0.05, sd=0.002),
-  Lr1Tr1 = rnorm(n=n_samples, mean=1.0, sd=0.02),
-  Lr1Tr1.error = rnorm(n=n_samples, mean=0.05, sd=0.002),
+  LnTn = stats::rnorm(n_samples, mean = 1.0, sd = 0.02),
+  LnTn.error = stats::rnorm(n_samples, mean = 0.05, sd = 0.002),
+  Lr1Tr1 = stats::rnorm(n_samples, mean = 1.0, sd = 0.02),
+  Lr1Tr1.error = stats::rnorm(n_samples, mean = 0.05, sd = 0.002),
   Dr1 = rep(100,n_samples))
 
 results <- calc_gSGC_feldspar(

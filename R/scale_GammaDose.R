@@ -197,7 +197,7 @@
 #' Based on an excel spreadsheet and accompanying macro written by Ian Bailiff.
 #'
 #' @seealso [Luminescence::ExampleData.ScaleGammaDose],
-#' [Luminescence::BaseDataSet.ConversionFactors], [approx], [barplot]
+#' [Luminescence::BaseDataSet.ConversionFactors], [stats::approx], [barplot]
 #'
 #' @references
 #'
@@ -374,7 +374,7 @@ scale_GammaDose <- function(
   Inf_frac <- as.data.frame(do.call(rbind, Map(function(z, n) {
 
     interpol <- Map(function(x) {
-      approx(z, x, n = 1000, method = "linear")
+      stats::approx(z, x, n = 1000, method = "linear")
     }, frac_dose[, c("K", "Th", "U")])
 
     x1 <- data$thickness[n]
@@ -398,7 +398,7 @@ scale_GammaDose <- function(
         }
 
         for (j in seq) {
-          fit <- approx(z_scale[ ,j], frac_dose[ , x], n = 1000, method = "linear")
+          fit <- stats::approx(z_scale[, j], frac_dose[, x], n = 1000, method = "linear")
           x1_temp <- which.min(abs(fit$y - y1))
           x2_temp <- which.min(abs(fit$y - y2))
 
@@ -618,10 +618,11 @@ scale_GammaDose <- function(
 
     # horizontal error bars
     plot_error <- function(x, se) {
-      segments(x - se, length(x):1, x + se, length(x):1)
+      yvals <- length(x):1
+      graphics::segments(x - se, yvals, x + se, yvals)
       epsilon <- 0.1
-      segments(x - se, length(x):1 - epsilon, x - se, length(x):1 + epsilon)
-      segments(x + se, length(x):1 - epsilon, x + se, length(x):1 + epsilon)
+      graphics::segments(x - se, yvals - epsilon, x - se, yvals + epsilon)
+      graphics::segments(x + se, yvals - epsilon, x + se, yvals + epsilon)
     }
 
     # plot labels
@@ -640,7 +641,7 @@ scale_GammaDose <- function(
            yaxt = "n")
 
       # vertical orientation lines
-      abline(v = axTicks(side = 1), col = "grey", lty = 3, xpd = FALSE)
+      abline(v = graphics::axTicks(side = 1), col = "grey", lty = 3, xpd = FALSE)
 
       # data points
       points(data[[cols[i]]], nrow(data):1, cex = 1.5)

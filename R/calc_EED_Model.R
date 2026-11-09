@@ -162,7 +162,7 @@ calc_EED_Model <- function(
   .EED_Simul_Matrix <- function(M_Simul, expected_dose, sigma_distr,D0, kappa, Iinit, Nsimul) {
 
     ## génére une liste de Nsimul valeurs distribu?es selon une loi log normale de moyenne expected_dose ##
-    M_Simul[,1] <- expected_dose * exp(sigma_distr * rnorm(Nsimul)) *
+    M_Simul[, 1] <- expected_dose * exp(sigma_distr * stats::rnorm(Nsimul)) *
       exp(-0.5 * (sigma_distr ^ 2))
 
     ## génére une liste de Nsimul valeurs de dose r?siduelle selon une distribution expoentielle de l'exposition ##
@@ -730,7 +730,7 @@ if(plot) {
 
    ##add error bars
    ##error bars for corrected De
-   segments(
+   graphics::segments(
      x0 = Dosedata[, 1],
      x1 = Dosedata[, 1],
      y0 = M_Data[, 6] - M_Data[, 7],
@@ -739,7 +739,7 @@ if(plot) {
    )
 
    ##error bars cum mean De
-   segments(
+   graphics::segments(
      x0 = Dosedata[, 1],
      x1 = Dosedata[, 1],
      y0 = M_Data[, 3] - M_Data[, 2],

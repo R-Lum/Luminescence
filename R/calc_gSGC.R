@@ -200,7 +200,7 @@ for(i in 1:nrow(data)){
   colnames(temp.MC.matrix) <- c("LnTn", "Lr1Tr1", "A", "D0", "c", "Y0", "De", "Eta")
 
   ## fill the first 6 columns of the matrix
-  temp.MC.matrix[, 1:6] <- matrix(rnorm(
+  temp.MC.matrix[, 1:6] <- matrix(stats::rnorm(
       n.MC * 6,
       mean = c(LnTn, Lr1Tr1, A, D0, c, Y0),
       sd = c(LnTn.error, Lr1Tr1.error, A.error, D0.error, c.error, Y0.error)
@@ -294,7 +294,7 @@ for(i in 1:nrow(data)){
 
       if(temp$root < 450 & temp$root > 0){
         points(temp$root,Eta*LnTn, col = plot.settings$col, pch = plot.settings$pch)
-        segments(De - De.error,Eta * LnTn,
+        graphics::segments(De - De.error, Eta * LnTn,
                  De + De.error,Eta * LnTn)
 
         hist <-

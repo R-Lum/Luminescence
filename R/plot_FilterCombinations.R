@@ -127,7 +127,7 @@
 #' ## (For legal reasons no real filter data are provided)
 #'
 #' ## Create filter sets
-#' filter1 <- density(rnorm(100, mean = 450, sd = 20))
+#' filter1 <- stats::density(stats::rnorm(100, mean = 450, sd = 20))
 #' filter1 <- matrix(c(filter1$x, filter1$y/max(filter1$y)), ncol = 2)
 #' filter2 <- matrix(c(200:799,rep(c(0,0.8,0),each = 200)), ncol = 2)
 #'
@@ -212,7 +212,7 @@ plot_FilterCombinations <- function(
 
   ##combine everything in a matrix using approx for interpolation
   filter_matrix <- vapply(filters, function(x) {
-    approx(x = x[, 1], y = x[, 2], xout = wavelength_range)$y
+    stats::approx(x = x[, 1], y = x[, 2], xout = wavelength_range)$y
   }, FUN.VALUE = numeric(length(wavelength_range)))
 
   ##calculate transmission window

@@ -244,7 +244,7 @@ calc_AverageDose <- function(
 
   ##exclude NA values
   if (anyNA(data)) {
-    data <- na.exclude(data)
+    data <- stats::na.exclude(data)
     .throw_warning("NA values in 'data' detected, rows with NA values removed")
   }
 
@@ -333,7 +333,7 @@ calc_AverageDose <- function(
     FUN.VALUE = numeric(2)))
 
   ##exclude NA values
-  dstar <- na.exclude(dstar)
+  dstar <- stats::na.exclude(dstar)
 
   ## calculate confidence intervals
   IC_delta <- .CredibleInterval(dstar[,1],0.95)

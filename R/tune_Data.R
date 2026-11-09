@@ -76,11 +76,11 @@ tune_Data <- function(
                     size = n,
                     replace = TRUE)
 
-    x.new <- rnorm(n = n,
+    x.new <- stats::rnorm(n = n,
                    mean = data[i.new, 1],
                    sd = data[i.new, 2])
 
-    e.new <- rnorm(n = n,
+    e.new <- stats::rnorm(n = n,
                    mean = data[i.new, 2],
                    sd = data[i.new, 2] * 0.05)
 

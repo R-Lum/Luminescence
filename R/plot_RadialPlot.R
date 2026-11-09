@@ -381,7 +381,7 @@ plot_RadialPlot <- function(
 
   ## remove NA-values
   for (i in 1:length(data)) {
-      data[[i]] <- na.exclude(data[[i]])
+      data[[i]] <- stats::na.exclude(data[[i]])
       if (nrow(data[[i]]) == 0)
         .throw_error("After NA removal, nothing is left from data set ", i)
   }
@@ -765,7 +765,7 @@ plot_RadialPlot <- function(
     De.stats[i,18] <- statistics$weighted$se.rel
 
     ## kdemax - here a little doubled as it appears below again
-    De.density <- try(density(x = data[[i]][,1],
+    De.density <- try(stats::density(x = data[[i]][, 1],
                               kernel = "gaussian",
                               from = limits.z[1],
                               to = limits.z[2]),
@@ -866,11 +866,8 @@ plot_RadialPlot <- function(
           text = ylab)
 
     ## calculate upper x-axis label values
-    label.x.upper <- if (log.z) {
-      as.character(round(1/axTicks(side = 1)[-1] * 100, 1))
-    } else {
-      as.character(round(1/axTicks(side = 1)[-1], 1))
-    }
+    ticks <- graphics::axTicks(side = 1)[-1]
+    label.x.upper <- as.character(round(1 / ticks * if (log.z) 100 else 1, 1))
 
     ## optionally, plot 2-sigma-bar
     if(bar.col[1] != "none") {
@@ -936,7 +933,7 @@ plot_RadialPlot <- function(
     title(main = main, line = shift.lines, font = 2)
 
     ## plot lower x-axis (precision)
-    x.axis.ticks <- axTicks(side = 1)
+    x.axis.ticks <- graphics::axTicks(side = 1)
     x.axis.ticks <- x.axis.ticks[c(TRUE, x.axis.ticks <= limits.x[2])]
     x.axis.ticks <- x.axis.ticks[x.axis.ticks <= limits.x[2]]
 

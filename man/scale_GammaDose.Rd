@@ -255,7 +255,7 @@ Archaeology and Archaeometry 13, 1-15.
 }
 \seealso{
 \link{ExampleData.ScaleGammaDose},
-\link{BaseDataSet.ConversionFactors}, \link{approx}, \link{barplot}
+\link{BaseDataSet.ConversionFactors}, \link[stats:approx]{stats::approx}, \link{barplot}
 }
 \author{
 Svenja Riedesel, Aberystwyth University (United Kingdom) \cr

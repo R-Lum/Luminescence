@@ -112,9 +112,9 @@
 #' @import utils methods data.table
 #'
 #' @importFrom  Rcpp evalCpp
-#' @importFrom graphics plot abline mtext text lines par lines axTicks axis curve hist legend points polygon segments title
+#' @importFrom graphics plot abline mtext text lines par lines axis curve hist legend points polygon title
 #' @importFrom grDevices rgb
-#' @importFrom stats approx density dnorm median na.exclude quantile rnorm runif sd coef
+#' @importFrom stats dnorm median quantile sd coef
 #'
 #' @useDynLib Luminescence, .registration = TRUE
 #'
@@ -1142,7 +1142,7 @@ NULL
 #' set.seed(666)
 #' synth_1 <- data.frame(depth = x,
 #'                       intensity = jitter(fun, 1, 0.1),
-#'                       error = runif(length(x), 0.01, 0.2))
+#'                       error = stats::runif(length(x), 0.01, 0.2))
 #'
 #' ## VALIDATE sample_1
 #' fit_SurfaceExposure(synth_1, mu = mu, sigmaphi = sigmaphi)
@@ -1163,7 +1163,7 @@ NULL
 #' set.seed(666)
 #' synth_2 <- data.frame(depth = x,
 #'                       intensity = jitter(fun, 1, 0.1),
-#'                       error = runif(length(x), 0.01, 0.2))
+#'                       error = stats::runif(length(x), 0.01, 0.2))
 #'
 #' ## VALIDATE sample_2
 #' fit_SurfaceExposure(synth_2, mu = mu, sigmaphi = sigmaphi, Ddot = 2.5, D0 = D0)

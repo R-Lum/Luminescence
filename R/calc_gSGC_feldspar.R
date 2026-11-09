@@ -53,10 +53,10 @@
 #' ##test on a generated random sample
 #' n_samples <- 10
 #' data <- data.frame(
-#'   LnTn = rnorm(n=n_samples, mean=1.0, sd=0.02),
-#'   LnTn.error = rnorm(n=n_samples, mean=0.05, sd=0.002),
-#'   Lr1Tr1 = rnorm(n=n_samples, mean=1.0, sd=0.02),
-#'   Lr1Tr1.error = rnorm(n=n_samples, mean=0.05, sd=0.002),
+#'   LnTn = stats::rnorm(n_samples, mean = 1.0, sd = 0.02),
+#'   LnTn.error = stats::rnorm(n_samples, mean = 0.05, sd = 0.002),
+#'   Lr1Tr1 = stats::rnorm(n_samples, mean = 1.0, sd = 0.02),
+#'   Lr1Tr1.error = stats::rnorm(n_samples, mean = 0.05, sd = 0.002),
 #'   Dr1 = rep(100,n_samples))
 #'
 #' results <- calc_gSGC_feldspar(
@@ -190,7 +190,7 @@ calc_gSGC_feldspar <- function(
 
         # simulate random values for each parameter
         temp.MC.matrix[, 1:7] <- matrix(
-          rnorm(n.MC * 7,
+          stats::rnorm(n.MC * 7,
             mean = c(LnTn, Lr1Tr1, y1, D1, y2, D2, y0),
             sd = c(LnTn.error, Lr1Tr1.error, y1_err, D1_err, y2_err, D2_err, y0_err)),
           ncol = 7,
@@ -261,7 +261,7 @@ calc_gSGC_feldspar <- function(
       }
 
        par(new = TRUE)
-       hist <- hist(na.exclude(l[[i]]$m.MC[, 8]),
+       hist <- hist(stats::na.exclude(l[[i]]$m.MC[, 8]),
            plot = FALSE
          )
 
@@ -291,7 +291,7 @@ calc_gSGC_feldspar <- function(
     m[i,1] <- l[[i]]$DE
     m[i,2] <- l[[i]]$DE.ERROR
 
-    HPD <- .calc_HPDI(na.exclude(l[[i]]$m.MC[,8]))
+    HPD <- .calc_HPDI(stats::na.exclude(l[[i]]$m.MC[, 8]))
     m[i,3] <- HPD[1,1]
     m[i,4] <- HPD[1,2]
   }

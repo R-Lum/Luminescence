@@ -522,7 +522,7 @@ calc_Huntley2006 <- function(
 
   ## (2) SIMULATED -----------------------------------------------------
   # create MC samples
-  rhop_MC <- rnorm(n = settings$n.MC, mean = rhop[1], sd = rhop[2])
+  rhop_MC <- stats::rnorm(settings$n.MC, mean = rhop[1], sd = rhop[2])
 
   if (fit.method == "SSE") {
     model <- LxTx.measured ~ a * theta(dosetime, rhop_i) *
@@ -738,8 +738,8 @@ calc_Huntley2006 <- function(
   }
 
   # Estimate nN_(steady state) by Monte Carlo Simulation
-  ddot_MC <- rnorm(n = settings$n.MC, mean = ddot, sd = ddot.error)
-  UFD0_MC <- rnorm(n = settings$n.MC, mean = D0.sim.Gy, sd = D0.sim.Gy.error)
+  ddot_MC <- stats::rnorm(settings$n.MC, mean = ddot, sd = ddot.error)
+  UFD0_MC <- stats::rnorm(settings$n.MC, mean = D0.sim.Gy, sd = D0.sim.Gy.error)
 
   ## The original formulation was:
   ##
@@ -909,7 +909,7 @@ calc_Huntley2006 <- function(
     abline(v = 0, h = 0, col = "gray")
 
     # LxTx error bars
-    segments(x0 = dosetimeGrayNonNeg,
+    graphics::segments(x0 = dosetimeGrayNonNeg,
              y0 = LxTx_measured$LxTx + LxTx_measured$LxTx.Error,
              x1 = dosetimeGrayNonNeg,
              y1 = LxTx_measured$LxTx - LxTx_measured$LxTx.Error,
@@ -956,7 +956,7 @@ calc_Huntley2006 <- function(
            pch = c(2, 16))
 
     # Ln error bar
-    segments(x0 = 0, y0 = Ln - Ln.error,
+    graphics::segments(x0 = 0, y0 = Ln - Ln.error,
              x1 = 0, y1 = Ln + Ln.error,
              col = "red")
 
@@ -1014,7 +1014,7 @@ calc_Huntley2006 <- function(
            col = "black")
 
     # LxTx error bars
-    segments(
+    graphics::segments(
       x0 = dosetimeGrayNonNeg,
       y0 = LxTx_unfaded$LxTx + LxTx_unfaded$LxTx.Error,
       x1 = dosetimeGrayNonNeg,
@@ -1036,7 +1036,8 @@ calc_Huntley2006 <- function(
       )
 
       # each of the labels is positioned at 1/10 of the available y-axis space
-      ypos <- seq(range(axTicks(2))[2], range(axTicks(2))[1], length.out = 10)
+      range.ticks <- range(graphics::axTicks(side = 2))
+      ypos <- seq(range.ticks[2], range.ticks[1], length.out = 10)
       for (i in seq_along(labels.text))
         mtext(labels.text[[i]], at = ypos[i],
               side = 4, line = 1, las = 1, padj = 1)

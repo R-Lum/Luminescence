@@ -41,7 +41,7 @@
 #'@examples
 #'##generate random data
 #'set.seed(1234)
-#'object <- rnorm(1000, 100, 10)
+#'object <- stats::rnorm(1000, 100, 10)
 #'plot_OSLAgeSummary(object)
 #'
 #'@export
@@ -98,7 +98,7 @@ plot_OSLAgeSummary <- function(
   }
 
 # Plot output -------------------------------------------------------------
-  density_A <- density(A)
+  density_A <- stats::density(A)
 
   plot_settings <- modifyList(x = list(
     xlim = range(A),

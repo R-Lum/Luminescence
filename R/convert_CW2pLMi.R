@@ -215,7 +215,7 @@ convert_CW2pLMi<- function(
 
   ##combine all values and exclude NA values
   temp.values <- data.frame(x=t,y.t=pLM,x.t=t.transformed, method=temp.method)
-  temp.values <- na.exclude(temp.values)
+  temp.values <- stats::na.exclude(temp.values)
 
   # (5) Return values ---------------------------------------------------------------------------
 
@@ -260,7 +260,7 @@ convert_CW2pLMi<- function(
   }
 
   ## remove NAs
-  object <- na.exclude(object)
+  object <- stats::na.exclude(object)
   if (nrow(object) < 2) {
     .throw_error("'object' should have at least 2 non-missing values")
   }
@@ -274,7 +274,7 @@ convert_CW2pLMi<- function(
 
 .interpolate_values <- function(t, CW_OSL.log, t.transformed, warn = FALSE) {
   ## interpolate values, points beyond the range produce NAs
-  CW_OSL.interpolated <- approx(t, CW_OSL.log, xout = t.transformed, rule = 1)
+  CW_OSL.interpolated <- stats::approx(t, CW_OSL.log, xout = t.transformed, rule = 1)
   if (all(is.na(CW_OSL.interpolated$y))) {
     .throw_error("All points are outside the interpolation range")
   }

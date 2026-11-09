@@ -169,7 +169,7 @@ fit_ThermalQuenching <- function(
 
   if (anyNA(data)) {
     .throw_warning("NA values in 'data' automatically removed")
-    data <- na.exclude(data)
+    data <- stats::na.exclude(data)
     if (nrow(data) == 0)
       .throw_error("After NA removal, nothing is left from the data set")
   }
@@ -252,7 +252,7 @@ fit_ThermalQuenching <- function(
     ##Prepare MC runs for the fitting
     x_MC <- data[[1]]
     y_MC <- matrix(
-      data = data[[2]] + rnorm(n.MC * length(x_MC)) * data[[3]],
+      data = data[[2]] + stats::rnorm(n.MC * length(x_MC)) * data[[3]],
       nrow = length(x_MC),
       ncol = n.MC)
     y_MC[y_MC < 0] <- 0
@@ -350,7 +350,7 @@ fit_ThermalQuenching <- function(
 
     ##add axis with correct temperature
     if(!is.null(plot_settings$xaxt) && plot_settings$xaxt == "n"){
-      at <- pretty(round(axTicks(side = 1) - .const$C2K))
+      at <- pretty(round(graphics::axTicks(side = 1) - .const$C2K))
       axis(side = 1, at = at + .const$C2K, labels = at)
     }
 
@@ -372,7 +372,7 @@ fit_ThermalQuenching <- function(
            pch = plot_settings$pch,
            lwd = 2,
            col = plot_settings$col_points)
-    segments(x0 = data[[1]], x1 = data[[1]],
+    graphics::segments(x0 = data[[1]], x1 = data[[1]],
              y0 = data[[2]] + data[[3]],
              y1 = data[[2]] - data[[3]],
              col = plot_settings$col_points

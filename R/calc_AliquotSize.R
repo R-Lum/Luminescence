@@ -248,7 +248,7 @@ calc_AliquotSize <- function(
       # create a random set of packing densities assuming a normal
       # distribution with the empirically determined standard deviation of
       # 0.18.
-      d.mc<- rnorm(settings$MC.iter, packing.density, 0.18)
+      d.mc <- stats::rnorm(settings$MC.iter, packing.density, 0.18)
 
       # in a PECC the packing density cannot be larger than ~0.87
       d.mc <- pmin(d.mc, 0.87)
@@ -257,7 +257,7 @@ calc_AliquotSize <- function(
       # create a random set of sample diameters assuming a normal
       # distribution with an assumed standard deviation of
       # 0.2. For a more conservative estimate this is divided by 2.
-      sd.mc<- rnorm(settings$MC.iter, sample.diameter, 0.2)
+      sd.mc <- stats::rnorm(settings$MC.iter, sample.diameter, 0.2)
 
       # it is assumed that sample diameters < 0.5 mm either do not
       # occur, or are discarded. Either way, any smaller sample
@@ -272,7 +272,7 @@ calc_AliquotSize <- function(
       # as standard deviation. For a more conservative estimate this
       # is further divided by 2, so half the range is regarded as
       # two sigma.
-      gs.mc<- rnorm(settings$MC.iter, grain.size, diff(gs.range)/4)
+      gs.mc <- stats::rnorm(settings$MC.iter, grain.size, diff(gs.range) / 4)
 
       # draw random samples from the grain size spectrum (gs.mc) and calculate
       # the mean for each sample. This gives an approximation of the variation
@@ -296,8 +296,8 @@ calc_AliquotSize <- function(
                     function(x) calc_n(x[1], x[2], x[3]))
 
       # summarize MC estimates
-      MC.q<- quantile(MC.n, c(0.05,0.95))
-      MC.n.kde<- density(MC.n, n = 10000)
+      MC.q <- stats::quantile(MC.n, c(0.05, 0.95))
+      MC.n.kde <- stats::density(MC.n, n = 10000)
 
       # apply student's t-test
       MC.t.test<- stats::t.test(MC.n)

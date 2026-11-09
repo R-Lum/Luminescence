@@ -57,7 +57,7 @@
 #'plot_ROI(temp)
 #'
 #'## in combination with extract_ROI()
-#'m <- matrix(runif(100,0,255), ncol = 10, nrow = 10)
+#'m <- matrix(stats::runif(100,0,255), ncol = 10, nrow = 10)
 #'roi <- matrix(c(2.,4,2,5,6,7,3,1,1), ncol = 3)
 #'t <- extract_ROI(object = m, roi = roi)
 #'plot_ROI(t, bg_image = m)
@@ -126,7 +126,7 @@ plot_ROI <- function(
 
   ## distance threshold selector
   sel_euc_dist[sel_euc_dist < dist_thre[1]] <- NA
-  sel_euc_dist <- suppressWarnings(as.numeric(rownames(na.exclude(as.matrix(sel_euc_dist)))))
+  sel_euc_dist <- suppressWarnings(as.numeric(rownames(stats::na.exclude(as.matrix(sel_euc_dist)))))
 
   ## add information to matrix
   m <- cbind(m, dist_sel = FALSE)
@@ -188,8 +188,8 @@ plot_ROI <- function(
     if (!is.null(dim.CCD)) {
       axis(
         side = 1,
-        at = axTicks(1),
-        labels = paste(floor(dim.CCD[1] / max(m[,"img_width"]) * axTicks(1)), "\u00b5m"),
+        at = graphics::axTicks(1),
+        labels = paste(floor(dim.CCD[1] / max(m[,"img_width"]) * graphics::axTicks(1)), "\u00b5m"),
         lwd = -1,
         lwd.ticks = -1,
         line = -2.2,
@@ -197,8 +197,8 @@ plot_ROI <- function(
       )
       axis(
         side = 2,
-        at = axTicks(2)[-1],
-        labels = paste(floor(dim.CCD[2] / max(m[,"img_height"]) * axTicks(2)), "\u00b5m")[-1],
+        at = graphics::axTicks(2)[-1],
+        labels = paste(floor(dim.CCD[2] / max(m[,"img_height"]) * graphics::axTicks(2)), "\u00b5m")[-1],
         lwd = -1,
         lwd.ticks = -1,
         line = -2.2,

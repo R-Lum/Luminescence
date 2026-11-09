@@ -135,7 +135,7 @@ plot_DRTResults(
 
 ## create and plot two subsets with randomised values
 x.1 <- ExampleData.DeValues$BT998[7:11,]
-x.2 <- ExampleData.DeValues$BT998[7:11,] * c(runif(5, 0.9, 1.1), 1)
+x.2 <- ExampleData.DeValues$BT998[7:11,] * c(stats::runif(5, 0.9, 1.1), 1)
 
 plot_DRTResults(
   list(x.1, x.2),

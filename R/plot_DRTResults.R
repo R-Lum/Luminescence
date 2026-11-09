@@ -123,7 +123,7 @@
 #'
 #' ## create and plot two subsets with randomised values
 #' x.1 <- ExampleData.DeValues$BT998[7:11,]
-#' x.2 <- ExampleData.DeValues$BT998[7:11,] * c(runif(5, 0.9, 1.1), 1)
+#' x.2 <- ExampleData.DeValues$BT998[7:11,] * c(stats::runif(5, 0.9, 1.1), 1)
 #'
 #' plot_DRTResults(
 #'   list(x.1, x.2),
@@ -275,7 +275,7 @@ plot_DRTResults <- function(
                            !is.na(values[[i]][, 2])]
       }
 
-      values[[i]] <- na.exclude(values[[i]])
+      values[[i]] <- stats::na.exclude(values[[i]])
       if (nrow(values[[i]]) == 0)
         .throw_error("No valid data remains after removing NA values")
     }

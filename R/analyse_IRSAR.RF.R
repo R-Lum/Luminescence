@@ -1518,7 +1518,7 @@ analyse_IRSAR.RF<- function(
         if (!anyNA(De.MC) && length(unique(De.MC)) >= 15) {
 
           ##calculate density De.MC
-          density.De.MC <- density(De.MC)
+          density.De.MC <- stats::density(De.MC)
 
           ##calculate transformation function
           x.1 <- max(density.De.MC$y)

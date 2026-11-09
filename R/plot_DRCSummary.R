@@ -214,7 +214,10 @@ if(inherits(object, "list")){
 
   #exchange x-axis if source dose rate is set
   if(!is.null(source_dose_rate)){
-    axis(side = 1, at = axTicks(side = 1), labels = round(axTicks(side = 1) * source_dose_rate[1],0))
+    ticks <- graphics::axTicks(side = 1)
+    axis(side = 1,
+         at = ticks,
+         labels = round(ticks * source_dose_rate[1]))
   }else{
     axis(side = 1)
   }
@@ -222,7 +225,7 @@ if(inherits(object, "list")){
   for(i in 1:length(sel_curves)){
     ##plot natural
     if(show_natural){
-      segments(x0 = LxTx[[i]]$Dose[1], x1 = LxTx[[i]]$Dose[1],
+      graphics::segments(x0 = LxTx[[i]]$Dose[1], x1 = LxTx[[i]]$Dose[1],
                y0 = LxTx[[i]]$LxTx[1] - LxTx[[i]]$LxTx.Error[1],
                y1 = LxTx[[i]]$LxTx[1] + LxTx[[i]]$LxTx.Error[1],
                col = plot_settings$col.pch[[i]])
@@ -237,7 +240,7 @@ if(inherits(object, "list")){
 
     ##plot dose points
     if(show_dose_points){
-      segments(x0 = LxTx[[i]]$Dose[-1], x1 = LxTx[[i]]$Dose[-1],
+      graphics::segments(x0 = LxTx[[i]]$Dose[-1], x1 = LxTx[[i]]$Dose[-1],
                y0 = LxTx[[i]]$LxTx[-1] - LxTx[[i]]$LxTx.Error[-1],
                y1 = LxTx[[i]]$LxTx[-1] + LxTx[[i]]$LxTx.Error[-1],
                col = plot_settings$col.pch[[i]])

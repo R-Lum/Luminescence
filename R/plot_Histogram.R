@@ -238,9 +238,8 @@ plot_Histogram <- function(
     x <- NULL
 
     ## add normal distribution curve
-    curve(dnorm(x,
-                mean = mean(na.exclude(data[,1])),
-                sd = sd(na.exclude(data[,1]))),
+    curve.no.na <- stats::na.exclude(data[, 1])
+    curve(dnorm(x, mean = mean(curve.no.na), sd = stats::sd(curve.no.na)),
           col = colour[3],
           add = TRUE,
           lwd = 1.2 * cex.global)
@@ -298,7 +297,7 @@ plot_Histogram <- function(
     De.density <- NA
     De.stats[i,6] <- NA
     if(nrow(data) >= 2){
-      De.density <-density(x = data[,1],
+      De.density <- stats::density(x = data[, 1],
                            kernel = "gaussian",
                            from = settings$xlim[1],
                            to = settings$xlim[2])
@@ -406,7 +405,7 @@ plot_Histogram <- function(
 
     # normal curve ----
     if (normal_curve) {
-      density.curve <- density(data$x)
+      density.curve <- stats::density(data$x)
       normal.curve <- data.frame(x = density.curve$x, y = density.curve$y)
       hist <- plotly::add_trace(hist, data = normal.curve, x = ~x, y = ~y,
                                 inherit = FALSE,

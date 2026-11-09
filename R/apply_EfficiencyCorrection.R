@@ -96,7 +96,7 @@ apply_EfficiencyCorrection <- function(
   }
 
   ## remove missing values
-  spectral.efficiency <- na.exclude(spectral.efficiency)
+  spectral.efficiency <- stats::na.exclude(spectral.efficiency)
   if (nrow(spectral.efficiency) == 0)
     .throw_error("No valid data remains in 'spectral.efficiency' after ",
                  "removing NA values")
@@ -114,7 +114,7 @@ apply_EfficiencyCorrection <- function(
   temp.matrix <- as(object, "matrix")
   temp.efficiency.x <- as.numeric(row.names(temp.matrix))
 
-  interpolated  <- approx(
+  interpolated  <- stats::approx(
     x = temp.efficiency[,1],
     y = temp.efficiency[,2],
     xout = temp.efficiency.x,
@@ -132,7 +132,7 @@ apply_EfficiencyCorrection <- function(
   }, FUN.VALUE = numeric(nrow(temp.matrix)))
 
   ##remove NA values
-  temp.matrix <- na.exclude(temp.matrix)
+  temp.matrix <- stats::na.exclude(temp.matrix)
 
   ##correct colnames
   colnames(temp.matrix) <- colnames(get_RLum(object))

@@ -315,8 +315,8 @@ calc_FadingCorr <- function(
     if (!is.null(seed)) set.seed(seed)
 
     ##set-values
-    g_valueMC <- rnorm(n.MC.i,mean = g_value[1],sd = g_value[2])
-    age.fadedMC <- rnorm(n.MC.i,mean = age.faded[1],sd = age.faded[2])
+    g_valueMC <- stats::rnorm(n.MC.i, mean = g_value[1], sd = g_value[2])
+    age.fadedMC <- stats::rnorm(n.MC.i, mean = age.faded[1], sd = age.faded[2])
     kappaMC <- g_valueMC / log(10) / 100
 
     ##calculate for all values

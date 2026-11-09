@@ -274,7 +274,8 @@ read_XSYG2R <- function(
     wavelength <- XML::xmlAttrs(curve.node)["wavelengthTable"]
 
     ##string split (scan is considerably faster by a factor of 2)
-    wavelength <- na.exclude(scan(text = wavelength, what = numeric(), sep = ";", quiet = TRUE))
+    wavelength <- stats::na.exclude(scan(text = wavelength, what = numeric(),
+                                         sep = ";", quiet = TRUE))
 
     ##2nd grep time values
     raw_curve_node <- XML::xmlValue(curve.node)
@@ -499,7 +500,7 @@ read_XSYG2R <- function(
                 ##CASE (1)
                 if(nrow(temp.sequence.object.curveValue.PMT) >
                    nrow(temp.sequence.object.curveValue.heating.element)){
-                  temp.sequence.object.curveValue.heating.element.i <- approx(
+                  temp.sequence.object.curveValue.heating.element.i <- stats::approx(
                     x = temp.sequence.object.curveValue.heating.element[,1],
                     y = temp.sequence.object.curveValue.heating.element[,2],
                     xout = time.values,
@@ -514,7 +515,7 @@ read_XSYG2R <- function(
                   ##CASE (2)
                 }else if((nrow(temp.sequence.object.curveValue.PMT) <
                           nrow(temp.sequence.object.curveValue.heating.element))){
-                  temp.sequence.object.curveValue.PMT.i <- approx(
+                  temp.sequence.object.curveValue.PMT.i <- stats::approx(
                     x = time.values,
                     y = temp.sequence.object.curveValue.PMT[,2],
                     xout = temp.sequence.object.curveValue.heating.element[,1],
@@ -547,7 +548,7 @@ read_XSYG2R <- function(
 
                 if (length(time.values) !=
                     nrow(temp.sequence.object.curveValue.heating.element)) {
-                  temp.sequence.object.curveValue.heating.element.i <- approx(
+                  temp.sequence.object.curveValue.heating.element.i <- stats::approx(
                     x = temp.sequence.object.curveValue.heating.element[,1],
                     y = temp.sequence.object.curveValue.heating.element[,2],
                     xout = time.values,

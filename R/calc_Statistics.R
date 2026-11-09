@@ -63,7 +63,7 @@
 #'
 #' \dontrun{
 #' ## now the same for 10000 normal distributed random numbers with equal errors
-#' x <- as.data.frame(cbind(rnorm(n = 10^5, mean = 0, sd = 1),
+#' x <- as.data.frame(cbind(stats::rnorm(10^5, mean = 0, sd = 1),
 #'                          rep(0.001, 10^5)))
 #'
 #' ## note the congruent results for weighted and unweighted measures
@@ -92,7 +92,7 @@ calc_Statistics <- function(
   ##strip na values
   .validate_logical_scalar(na.rm)
   if(na.rm){
-    data <- na.exclude(data[, 1:min(ncol(data), 2), drop = FALSE])
+    data <- stats::na.exclude(data[, 1:min(ncol(data), 2), drop = FALSE])
     if (nrow(data) == 0) {
       .throw_error("'data' contains only NA values")
     }
@@ -132,7 +132,7 @@ calc_Statistics <- function(
     data.MCM <- cbind(data[, 1])
   } else {
     data.MCM <-
-      matrix(data = rnorm(
+      matrix(data = stats::rnorm(
         n = n.MCM * nrow(data),
         mean = data[, 1],
         sd = data[, 2]

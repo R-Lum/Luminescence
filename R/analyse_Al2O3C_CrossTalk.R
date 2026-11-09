@@ -215,7 +215,7 @@ analyse_Al2O3C_CrossTalk <- function(
   APPARENT_DOSE <- data.table::rbindlist(lapply(signal_table_list, function(x) {
     ##run in MC run
     DOSE <- if (!is.null(irradiation_time_correction)) {
-              rnorm(1000, mean = x$DOSE[2], sd = x$DOSE_ERROR[2])
+              stats::rnorm(1000, mean = x$DOSE[2], sd = x$DOSE_ERROR[2])
             } else {
               x$DOSE[2]
             }

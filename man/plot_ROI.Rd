@@ -68,7 +68,7 @@ temp <- read_RF2R(file)
 plot_ROI(temp)
 
 ## in combination with extract_ROI()
-m <- matrix(runif(100,0,255), ncol = 10, nrow = 10)
+m <- matrix(stats::runif(100,0,255), ncol = 10, nrow = 10)
 roi <- matrix(c(2.,4,2,5,6,7,3,1,1), ncol = 3)
 t <- extract_ROI(object = m, roi = roi)
 plot_ROI(t, bg_image = m)

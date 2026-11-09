@@ -37,7 +37,7 @@
 # Helper functions -------------------------------------------------------
   ## consistently extract numerical data
   .extract_numerics <- function(x) {
-    tmp <- suppressWarnings(as.numeric(na.exclude(as.numeric(x))))
+    tmp <- suppressWarnings(as.numeric(stats::na.exclude(as.numeric(x))))
     if(length(tmp) == 0)
       return(NA)
     tmp

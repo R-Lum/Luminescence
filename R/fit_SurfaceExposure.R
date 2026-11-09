@@ -539,7 +539,8 @@ fit_SurfaceExposure <- function(
 
     # add error bars (if weighted fit)
     if (!is.null(error) && error_bars) {
-      segments(plot_settings$x[ ,1], plot_settings$x[ ,2] - error,
+      graphics::segments(
+               plot_settings$x[, 1], plot_settings$x[, 2] - error,
                plot_settings$x[ ,1], plot_settings$x[ ,2] + error)
 
     }
