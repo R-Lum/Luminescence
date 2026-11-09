@@ -329,7 +329,9 @@ read_XSYG2R <- function(
   ##show error
   if(inherits(temp, "try-error")){
     if(verbose)
-      .throw_message("XML file not readable, nothing imported, NULL returned")
+      .throw_message("XML file cannot be parsed (",
+                     trimws(as.character(conditionCall(attr(temp, "condition"))[[2]])),
+                     "), NULL returned")
     return(NULL)
   }
 

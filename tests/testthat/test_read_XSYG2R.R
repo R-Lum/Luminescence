@@ -18,7 +18,11 @@ test_that("input validation", {
   expect_message(expect_null(read_XSYG2R("/Test", fastForward = TRUE)),
                  "File '.*/Test' does not exist") # windows CI needs the regexp
   expect_message(expect_null(read_XSYG2R(test_path("_data/xsyg-tests/XSYG_broken.xsyg"), fastForward = TRUE)),
-                 "Error: XML file not readable, nothing imported")
+                 "Error: XML file cannot be parsed (StartTag: invalid element name)",
+                 fixed = TRUE)
+  expect_message(read_XSYG2R(test_path("_data/xsyg-tests/XSYG_broken_4.xsyg")),
+                 "Error: XML file cannot be parsed (Attribute recordType redefined)",
+                 fixed = TRUE)
   expect_error(read_XSYG2R(xsyg.file, n_sequences = "error"),
                "'n_sequences' should be a single positive integer value or NULL")
   expect_error(read_XSYG2R(xsyg.file, pattern = c("p1", "p2")),
