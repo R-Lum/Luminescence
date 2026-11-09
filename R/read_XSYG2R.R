@@ -386,6 +386,9 @@ read_XSYG2R <- function(
     if (length(sequence.header) > 0)
         colnames(sequence.header) <- ""
 
+    header.position <- as.integer(as.character(sequence.header["position", ]))
+    header.name <- as.character(sequence.header["name", ])
+
     ###----------------------------------------------------------------------
     ##LOOP
     ##read records >> records are combined to one RLum.Analysis object
@@ -393,11 +396,12 @@ read_XSYG2R <- function(
       ## sequence becomes the record
       record <- sequence[[i]]
 
-      ## the XSYG file might be broken due to a machine error during the measurement
-      recordType <- try(XML::xmlAttrs(record)["recordType"], silent = TRUE)
+      ## get all record attributes
+      attrs_record <- XML::xmlAttrs(record)
+      names(attrs_record) <- gsub("^name$", "recordName", names(attrs_record))
 
-      if (any(inherits(recordType, "try-error")))
-          return(NULL) # nocov
+      ## the XSYG file might be broken due to a machine error during the measurement
+      recordType <- attrs_record["recordType"]
 
       ## create a fallback, the function should not fail
       if (is.null(recordType) || is.na(recordType))
@@ -410,13 +414,6 @@ read_XSYG2R <- function(
               c("ir_LED_850", "ir_LD_850")) {
           recordType  <- "IRSL"
       }
-
-      ## get all record attributes
-      attrs_record <- XML::xmlAttrs(record)
-      names(attrs_record) <- gsub("^name$", "recordName", names(attrs_record))
-
-      header.position <- as.integer(as.character(sequence.header["position", ]))
-      header.name <- as.character(sequence.header["name", ])
 
       ## loop 3rd level
       lapply(seq_len(xml.size), function(j) {
