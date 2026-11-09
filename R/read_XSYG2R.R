@@ -418,6 +418,9 @@ read_XSYG2R <- function(
       ## loop 3rd level
       lapply(seq_len(xml.size), function(j) {
         curve <- record[[j]]
+        if (XML::xmlSize(curve) == 0)
+          return(NULL)
+
         attrs <- XML::xmlAttrs(curve)
 
         ## all curves after the first in a record are marked with a leading

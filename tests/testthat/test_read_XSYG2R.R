@@ -102,7 +102,7 @@ test_that("check functionality", {
   ## recursive traversal
   expect_length(read_XSYG2R(test_path("_data"),
                             fastForward = TRUE, verbose = FALSE),
-                11)
+                10)
   })
 
   ## more tests for different TL curve calculation cases
@@ -167,16 +167,18 @@ test_that("check functionality", {
   expect_equal(t1, t2)
 
   ## check broken files
-  expect_warning(
-      t <- read_XSYG2R(test_path("_data/xsyg-tests/XSYG_broken_2.xsyg"),
-                       txtProgressBar = FALSE, verbose = FALSE, fastForward = TRUE),
-      "1 incomplete sequence\\(s\\) removed")
-  expect_length(t, 1)
-  expect_length(t[[1]]@records, 1)
+  expect_warning(expect_equal(read_XSYG2R(test_path("_data/xsyg-tests/XSYG_broken_2.xsyg"),
+                                          verbose = FALSE, fastForward = TRUE),
+                              list()),
+      "2 incomplete sequence\\(s\\) removed")
   expect_warning(t <- read_XSYG2R(test_path("_data/xsyg-tests/XSYG_broken_3.xsyg"),
                                   verbose = FALSE, fastForward = TRUE),
                  "1 incomplete sequence\\(s\\) removed")
   expect_length(t, 0)
+  expect_warning(expect_equal(read_XSYG2R(test_path("_data/xsyg-tests/XSYG_broken_5.xsyg"),
+                                          verbose = FALSE, fastForward = TRUE),
+                              list()),
+                 "1 incomplete sequence\\(s\\) removed")
 })
 
 test_that("regression tests", {
