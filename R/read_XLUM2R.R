@@ -233,7 +233,7 @@ read_XLUM2R <- function(
 
       sequence.position <- as.integer(sequence.header["position", ])
       sequence.name <- sequence.header["name", ]
-      if (sequence.name == "NA")
+      if (is.na(sequence.name) || sequence.name == "NA")
         sequence.name <- "not_set"
 
       ###--------------------------------------------------------------------

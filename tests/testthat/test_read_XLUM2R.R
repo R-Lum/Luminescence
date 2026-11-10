@@ -120,7 +120,7 @@ test_that("check functionality", {
   ## recursive traversal
   expect_length(read_XLUM2R(test_path("_data"),
                             fastForward = TRUE, verbose = FALSE),
-                10)
+                11)
   })
 
   ## check broken files
@@ -142,6 +142,11 @@ test_that("check functionality", {
   expect_warning(read_XLUM2R(test_path("_data/xlum-tests/broken_6.xlum"),
                              fastForward = TRUE),
                  "Invalid value specification, <curve> node skipped")
+  ## missing name attribute in <sequence>
+  res <- read_XLUM2R(test_path("_data/xlum-tests/broken_7.xlum"),
+                     fastForward = TRUE, verbose = FALSE)
+  expect_equal(res[[1]]@records[[1]]@info$sequenceName,
+               "not_set")
   })
 })
 
