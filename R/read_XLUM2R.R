@@ -206,6 +206,7 @@ read_XLUM2R <- function(
 
   ## initialize the progress bar
   if (txtProgressBar) {
+    progress <- 0
     pb <- txtProgressBar(min = 0, max = n_sequences, char = "=", style = 3)
   }
 
@@ -314,6 +315,12 @@ read_XLUM2R <- function(
 
       n_records_to_read <<- n_records_to_read - length(idx_records)
 
+      ## update the progress bar
+      if (txtProgressBar) {
+        progress <<- progress + 1
+        setTxtProgressBar(pb, progress)
+      }
+
       ## if the XLUM file is broken we get NULL as list element
       if (!is.null(sequence.object)) {
         sequence.object <- set_RLum(
@@ -328,11 +335,6 @@ read_XLUM2R <- function(
 
         ## set parent uid of RLum.Analysis as parent ID of the records
         sequence.object <- .set_pid(sequence.object)
-
-        ## update progress bar
-        if (txtProgressBar) {
-          setTxtProgressBar(pb, x)
-        }
 
         ## merge output and return values
         if (fastForward) {
