@@ -22,38 +22,39 @@ character string naming folder for the output to be written. If nothing
 is provided \code{path} will be set to the working directory.
 \strong{Note:} this argument is ignored when \code{export = FALSE}.}
 
-\item{prefix}{\link{character} (\emph{with default}):
-optional prefix to name the files. This prefix is valid for all written files}
+\item{prefix}{\link{character} (\emph{optional}):
+prefix added to the names of all written files.}
 
 \item{export}{\link{logical} (\emph{with default}):
 enable/disable the file export. If set to \code{FALSE} nothing is written to
 the file connection, but a list comprising objects of type \link{data.frame} and \link{matrix}
 is returned instead.}
 
-\item{compact}{\link{logical} (\emph{with default}): if \code{TRUE} (default) the output
-will be simpler but less comprehensive, that is not all elements in the
-objects will be fully broken down. This is in particular useful for writing
-\link[=RLum.Results-class]{RLum.Results} objects to CSV files, as such objects can be rather complex
-and not all information are needed in a CSV file or can be meaningfully
-translated to CSV format.}
+\item{compact}{\link{logical} (\emph{with default}):
+whether a simplified output should be generated (\code{TRUE} by default), in
+which case not all elements in the objects are fully broken down. This is
+in particular useful when writing \link[=RLum.Results-class]{RLum.Results} objects
+to CSV, as they can be highly complex and not all of their elements can be
+meaningfully represented in CSV format.}
 
 \item{...}{further arguments that will be passed to the function
-\link[utils:write.table]{utils::write.table}. All arguments except the argument \code{file} are supported}
+\link[utils:write.table]{utils::write.table}. All arguments (except \code{file}) are supported.}
 }
 \value{
-The function returns either a CSV-file (or many of them) or for the
-option \code{export == FALSE} a list comprising objects of type \link{data.frame} and \link{matrix}
+By default the function produces one or more CSV files and returns \code{NULL}.
+If \code{export = FALSE}, it returns a list comprising objects of type
+\link{data.frame} and \link{matrix}.
 }
 \description{
-This function exports \link[=RLum-class]{RLum}-objects to CSV-files using the R function
-\link[utils:write.table]{utils::write.table}. All \link[=RLum-class]{RLum}-objects are supported, but the
-export is lossy, i.e. the pure numerical values are exported only. Information
-that cannot be coerced to a \link{data.frame} or a \link{matrix} are discarded as well as
-metadata.
+This function exports \link[=RLum-class]{RLum} objects to CSV-files using
+the R function \link[utils:write.table]{utils::write.table}. All \link[=RLum-class]{RLum} objects
+are supported, but the export is lossy, i.e. the pure numerical values are
+exported only. Information that cannot be coerced to a \link{data.frame} or a
+\link{matrix} are discarded as well as metadata.
 }
 \details{
-However, in combination with the implemented import functions, nearly every
-supported import data format can be exported to CSV-files, this gives a great
+In combination with the implemented import functions, nearly every supported
+import data format can be exported to CSV-files, this gives a great
 deal of freedom in terms of compatibility with other tools.
 
 \strong{Input is a list of objects}
@@ -66,16 +67,14 @@ as \link{list}.
 }
 
 \examples{
-
 ## transform values to a list (and do not write)
 data(ExampleData.BINfileData, envir = environment())
 object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data)[[1]]
 write_RLum2CSV(object, export = FALSE)
 
 \dontrun{
-## write to a temporary file
-temp_file <- tempfile(pattern = "output", fileext = ".csv")
-write_RLum2CSV(object, temp_file)
+## write to a temporary directory
+write_RLum2CSV(object, tempdir())
 
 ## write to the working directory
 write_RLum2CSV(object)
@@ -83,8 +82,8 @@ write_RLum2CSV(object)
 
 }
 \seealso{
-\link[=RLum.Analysis-class]{RLum.Analysis}, \link[=RLum.Data-class]{RLum.Data}, \link[=RLum.Results-class]{RLum.Results},
-\link[utils:write.table]{utils::write.table}
+\link[=RLum.Analysis-class]{RLum.Analysis}, \link[=RLum.Data-class]{RLum.Data},
+\link[=RLum.Results-class]{RLum.Results}, \link[utils:write.table]{utils::write.table}
 }
 \author{
 Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University (United Kingdom)

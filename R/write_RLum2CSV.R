@@ -1,13 +1,15 @@
 #' @title Export RLum-objects to CSV
 #'
-#' @description This function exports [Luminescence::RLum-class]-objects to CSV-files using the R function
-#' [utils::write.table]. All [Luminescence::RLum-class]-objects are supported, but the
-#' export is lossy, i.e. the pure numerical values are exported only. Information
-#' that cannot be coerced to a [data.frame] or a [matrix] are discarded as well as
-#' metadata.
+#' @description
+#' This function exports [Luminescence::RLum-class] objects to CSV-files using
+#' the R function [utils::write.table]. All [Luminescence::RLum-class] objects
+#' are supported, but the export is lossy, i.e. the pure numerical values are
+#' exported only. Information that cannot be coerced to a [data.frame] or a
+#' [matrix] are discarded as well as metadata.
 #'
-#' @details However, in combination with the implemented import functions, nearly every
-#' supported import data format can be exported to CSV-files, this gives a great
+#' @details
+#' In combination with the implemented import functions, nearly every supported
+#' import data format can be exported to CSV-files, this gives a great
 #' deal of freedom in terms of compatibility with other tools.
 #'
 #' **Input is a list of objects**
@@ -23,49 +25,48 @@
 #' is provided `path` will be set to the working directory.
 #' **Note:** this argument is ignored when `export = FALSE`.
 #'
-#' @param prefix [character] (*with default*):
-#' optional prefix to name the files. This prefix is valid for all written files
+#' @param prefix [character] (*optional*):
+#' prefix added to the names of all written files.
 #'
 #' @param export [logical] (*with default*):
 #' enable/disable the file export. If set to `FALSE` nothing is written to
 #' the file connection, but a list comprising objects of type [data.frame] and [matrix]
 #' is returned instead.
 #'
-#' @param compact [logical] (*with default*): if `TRUE` (default) the output
-#' will be simpler but less comprehensive, that is not all elements in the
-#' objects will be fully broken down. This is in particular useful for writing
-#' [Luminescence::RLum.Results-class] objects to CSV files, as such objects can be rather complex
-#' and not all information are needed in a CSV file or can be meaningfully
-#' translated to CSV format.
+#' @param compact [logical] (*with default*):
+#' whether a simplified output should be generated (`TRUE` by default), in
+#' which case not all elements in the objects are fully broken down. This is
+#' in particular useful when writing [Luminescence::RLum.Results-class] objects
+#' to CSV, as they can be highly complex and not all of their elements can be
+#' meaningfully represented in CSV format.
 #'
 #' @param ... further arguments that will be passed to the function
-#' [utils::write.table]. All arguments except the argument `file` are supported
+#' [utils::write.table]. All arguments (except `file`) are supported.
 #'
 #' @return
-#' The function returns either a CSV-file (or many of them) or for the
-#' option `export == FALSE` a list comprising objects of type [data.frame] and [matrix]
+#' By default the function produces one or more CSV files and returns `NULL`.
+#' If `export = FALSE`, it returns a list comprising objects of type
+#' [data.frame] and [matrix].
 #'
 #' @section Function version: 0.2.2
 #'
 #' @author
 #' Sebastian Kreutzer, Geography & Earth Science, Aberystwyth University (United Kingdom)
 #'
-#' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data-class], [Luminescence::RLum.Results-class],
-#' [utils::write.table]
+#' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data-class],
+#' [Luminescence::RLum.Results-class], [utils::write.table]
 #'
 #' @keywords IO
 #'
 #' @examples
-#'
 #' ## transform values to a list (and do not write)
 #' data(ExampleData.BINfileData, envir = environment())
 #' object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data)[[1]]
 #' write_RLum2CSV(object, export = FALSE)
 #'
 #' \dontrun{
-#' ## write to a temporary file
-#' temp_file <- tempfile(pattern = "output", fileext = ".csv")
-#' write_RLum2CSV(object, temp_file)
+#' ## write to a temporary directory
+#' write_RLum2CSV(object, tempdir())
 #'
 #' ## write to the working directory
 #' write_RLum2CSV(object)
