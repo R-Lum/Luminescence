@@ -6,7 +6,6 @@
 \usage{
 read_XLUM2R(
   file,
-  fastForward = FALSE,
   import = TRUE,
   pattern = "\\\\.xlum",
   n_sequences = NULL,
@@ -20,9 +19,6 @@ read_XLUM2R(
 name of one or multiple XLUM files (URLs are supported); it can be the path
 to a directory, in which case the function tries to detect and import all
 XLUM files found recursively from the given directory.}
-
-\item{fastForward}{\link{logical} (\emph{with default}):
-if \code{TRUE} a list of \link[=RLum.Analysis-class]{RLum.Analysis} objects is returned.}
 
 \item{import}{\link{logical} (\emph{with default}):
 whether to read and import the file content (\code{TRUE} by default). If set to
@@ -50,27 +46,9 @@ enable/disable output to the terminal.}
 enable/disable the progress bar during import. Ignored if \code{verbose = FALSE}.}
 }
 \value{
-\strong{Using the option \code{import = TRUE} (default)}
-
-By default, a list consisting of two elements is returned:
-\item{Sequence.Header}{\link{data.frame} with information on the
-sequence.}
-\item{Sequence.Object}{\link[=RLum.Analysis-class]{RLum.Analysis}
-containing the curves.}
-
-If \code{fastForward = TRUE}, an \link[=RLum.Analysis-class]{RLum.Analysis} object is
-returned.
-
-\strong{Using the option \code{import = FALSE}}
-
-A list consisting of two elements is shown:
-\itemize{
-\item \link{data.frame} with information on the samples.
-\item \link{data.frame} with information on the sequences stored in the XLUM file.
-}
-
-If \code{fastForward = TRUE}, the same information is returned as a single
-data frame.
+By default, an \link[=RLum.Analysis-class]{RLum.Analysis} object is returned. If
+\code{import = FALSE}, information on the sample and the sequences stored in the
+XLUM file is returned as a data frame.
 }
 \description{
 Imports XLUM files produced into R.

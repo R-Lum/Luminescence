@@ -8,9 +8,6 @@
 #' to a directory, in which case the function tries to detect and import all
 #' XLUM files found recursively from the given directory.
 #'
-#' @param fastForward [logical] (*with default*):
-#' if `TRUE` a list of [Luminescence::RLum.Analysis-class] objects is returned.
-#'
 #' @param import [logical] (*with default*):
 #' whether to read and import the file content (`TRUE` by default). If set to
 #' `FALSE`, only the XLUM file structure is returned.
@@ -37,25 +34,9 @@
 #' enable/disable the progress bar during import. Ignored if `verbose = FALSE`.
 #'
 #' @return
-#' **Using the option `import = TRUE` (default)**
-#'
-#' By default, a list consisting of two elements is returned:
-#' \item{Sequence.Header}{[data.frame] with information on the
-#' sequence.}
-#' \item{Sequence.Object}{[Luminescence::RLum.Analysis-class]
-#' containing the curves.}
-#'
-#' If `fastForward = TRUE`, an [Luminescence::RLum.Analysis-class] object is
-#' returned.
-#'
-#' **Using the option `import = FALSE`**
-#'
-#' A list consisting of two elements is shown:
-#' - [data.frame] with information on the samples.
-#' - [data.frame] with information on the sequences stored in the XLUM file.
-#'
-#' If `fastForward = TRUE`, the same information is returned as a single
-#' data frame.
+#' By default, an [Luminescence::RLum.Analysis-class] object is returned. If
+#' `import = FALSE`, information on the sample and the sequences stored in the
+#' XLUM file is returned as a data frame.
 #'
 #' @note
 #' This function is in alpha status.
@@ -84,7 +65,6 @@
 #' @export
 read_XLUM2R <- function(
   file,
-  fastForward = FALSE,
   import = TRUE,
   pattern = "\\.xlum",
   n_sequences = NULL,
@@ -102,7 +82,6 @@ read_XLUM2R <- function(
   if (length(file) == 0)
     return(NULL)
 
-  .validate_logical_scalar(fastForward)
   .validate_logical_scalar(import)
   .validate_positive_scalar(n_sequences, int = TRUE, null.ok = TRUE)
   .validate_positive_scalar(n_records, int = TRUE, null.ok = TRUE)
@@ -117,7 +96,6 @@ read_XLUM2R <- function(
     output <- lapply(seq_along(file), function(x) {
       read_XLUM2R(
           file = file[[x]],
-          fastForward = fastForward,
           import = import,
           pattern = pattern,
           n_sequences = n_sequences,
@@ -127,8 +105,6 @@ read_XLUM2R <- function(
       )
     })
 
-    if (!fastForward)
-      return(output)
     if (import)
       return(unlist(output, recursive = FALSE))
 
@@ -172,13 +148,8 @@ read_XLUM2R <- function(
                                             XML::xmlAttrs)))
     info.sequence[info.sequence == "NA"] <- NA
 
-    ## additional option for fastForward == TRUE
-    if (fastForward) {
-      colnames(info.sample) <- paste0("sample::", colnames(info.sample))
-      output <- cbind(info.sequence, info.sample)
-    } else {
-      output <- list(Samples = info.sample, Sequences = info.sequence)
-    }
+    colnames(info.sample) <- paste0("sample::", colnames(info.sample))
+    output <- cbind(info.sequence, info.sample)
 
     return(output)
   }
@@ -337,11 +308,7 @@ read_XLUM2R <- function(
         sequence.object <- .set_pid(sequence.object)
 
         ## merge output and return values
-        if (fastForward) {
-          return(sequence.object)
-        }
-        return(list(Sequence.Header = sequence.header,
-                    Sequence.Object = sequence.object))
+        return(sequence.object)
       }
     }) ## end loop for sequence list
 
