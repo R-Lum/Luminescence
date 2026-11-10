@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xlum xmlns:xlum="http://xlum.r-luminescence.org" lang="en" formatVersion="1.0" flavour="string" author="string" license="CC BY 4.0" doi="">
+  <sample name="NA" mineral="NA" latitude="52.416944" longitude="4.066389" altitude="70" doi="" comment="NA" state="NA" parentID="NA">
+    <sequence position="1" name="s1" fileName="NA" software="NA" readerName="NA" readerSN="NA" readerFW="NA" comment="NA" state="NA" parentID="NA">
+      <record recordType="TL" sequenceStepNumber="1" sampleCondition="NA" state="NA" parentID="NA" comment="NA">
+        <curve component="PMT" startDate="1976-09-05T01:38:44.08" curveType="measured" duration="0" offset="0" xValues="0" yValues="0" tValues="1 2" xLabel="NA" yLabel="NA" tLabel="NA" vLabel="NA" xUnit="NA" yUnit="NA" vUnit="NA" tUnit="NA" state="string" parentID="string" comment="string">10 20</curve>
+      </record>
+      <record recordType="TL" sequenceStepNumber="1" sampleCondition="NA" state="NA" parentID="NA" comment="NA">
+        <curve component="PMT" startDate="1976-09-05T01:38:44.08" curveType="measured" duration="0" offset="0" xValues="0" yValues="0" tValues="1 2" xLabel="NA" yLabel="NA" tLabel="NA" vLabel="NA" xUnit="NA" yUnit="NA" vUnit="NA" tUnit="NA" state="string" parentID="string" comment="string">30 40</curve>
+      </record>
+    </sequence>
+    <sequence position="2" name="s2" fileName="NA" software="NA" readerName="NA" readerSN="NA" readerFW="NA" comment="NA" state="NA" parentID="NA">
+      <record recordType="TL" sequenceStepNumber="1" sampleCondition="NA" state="NA" parentID="NA" comment="NA">
+        <curve component="PMT" startDate="1976-09-05T01:38:44.08" curveType="measured" duration="0" offset="0" xValues="0" yValues="0" tValues="1 2" xLabel="NA" yLabel="NA" tLabel="NA" vLabel="NA" xUnit="NA" yUnit="NA" vUnit="NA" tUnit="NA" state="string" parentID="string" comment="string">50 60</curve>
+      </record>
+      <record recordType="TL" sequenceStepNumber="1" sampleCondition="NA" state="NA" parentID="NA" comment="NA">
+        <curve component="PMT" startDate="1976-09-05T01:38:44.08" curveType="measured" duration="0" offset="0" xValues="0" yValues="0" tValues="1 2" xLabel="NA" yLabel="NA" tLabel="NA" vLabel="NA" xUnit="NA" yUnit="NA" vUnit="NA" tUnit="NA" state="string" parentID="string" comment="string">70 80</curve>
+      </record>
+    </sequence>
+  </sample>
+</xlum>

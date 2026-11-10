@@ -21,12 +21,14 @@
 #' ignored.
 #'
 #' @param n_sequences [numeric] (*with default*):
-#' number of sequences to be imported; by default the function attempts to
-#' import all sequences. It is ignored if `import = FALSE`.
+#' number of sequences to be imported; by default all sequences are imported.
+#' It is ignored if `import = FALSE`.
 #'
 #' @param n_records [numeric] (*with default*):
-#' number of records to be imported; by default the function attempts to
-#' import all records. It is ignored if `import = FALSE`.
+#' number of records to be imported; by default all records are imported. Note
+#' that since a single record can contain multiple curves (the common case for
+#' XSYG files), the `@records` slot in the object returned may hold more
+#' elements than specified in `n_records`. It is ignored if `import = FALSE`.
 #'
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
@@ -187,19 +189,20 @@ read_XLUM2R <- function(
   ## start the import
   .output_import_message(file, verbose)
 
-  ## number of sequences to read
+  ## number of records in each sequence
+  recs <- XML::xpathSApply(tree, "//sequence",
+                           function(s) length(XML::getNodeSet(s, ".//record")))
+  if (length(recs) == 0)
+    return(list())
+
+  ## count how many sequences must be read in order to read n_records
   if (!is.null(n_records)) {
-    ## count how many sequences must be read in order to read n_records
-    seqs <- XML::getNodeSet(tree, "//sequence")
-    recs <- sapply(seqs, function(s) length(XML::getNodeSet(s, "//record")))
     n_records <- min(n_records, sum(recs))
     n_sequences <- which(cumsum(recs) >= n_records)[1]
   } else {
-    n_sequences <- min(length(XML::xpathSApply(tree, "//sequence")), n_sequences)
+    n_records <- sum(recs)
+    n_sequences <- min(length(recs), n_sequences)
   }
-
-  if (n_sequences == 0)
-    return(list())
 
   ## initialize the progress bar
   if (txtProgressBar) {
@@ -213,6 +216,7 @@ read_XLUM2R <- function(
   ## loop over the <sample> nodes
   all.output <- NULL
   n_sequences_to_read <- n_sequences
+  n_records_to_read <- n_records
   for (sample.idx in seq_len(XML::xmlSize(tree))) {
     sample <- tree[[sample.idx]]
 
@@ -233,7 +237,8 @@ read_XLUM2R <- function(
 
       ###--------------------------------------------------------------------
       ## loop over the <record> nodes inside this sequence
-      sequence.object <- unlist(lapply(seq_len(XML::xmlSize(sequence)), function(i) {
+      idx_records <- seq_len(min(XML::xmlSize(sequence), n_records_to_read))
+      sequence.object <- unlist(lapply(idx_records, function(i) {
         record <- sequence[[i]]
 
         ## get all record attributes
@@ -307,12 +312,14 @@ read_XLUM2R <- function(
         })
       }), use.names = FALSE)
 
+      n_records_to_read <<- n_records_to_read - length(idx_records)
+
       ## if the XLUM file is broken we get NULL as list element
       if (!is.null(sequence.object)) {
         sequence.object <- set_RLum(
             class = "RLum.Analysis",
             originator = "read_XLUM2R",
-            records = sequence.object[seq_len(min(n_records, length(sequence.object)))],
+            records = sequence.object,
             protocol = as.character(sequence.header["protocol", 1]),
             info = c(list(file = file),
                      xlum.header,

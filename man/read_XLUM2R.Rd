@@ -34,12 +34,14 @@ files to read. This is used only when \code{file} is a path, otherwise it's
 ignored.}
 
 \item{n_sequences}{\link{numeric} (\emph{with default}):
-number of sequences to be imported; by default the function attempts to
-import all sequences. It is ignored if \code{import = FALSE}.}
+number of sequences to be imported; by default all sequences are imported.
+It is ignored if \code{import = FALSE}.}
 
 \item{n_records}{\link{numeric} (\emph{with default}):
-number of records to be imported; by default the function attempts to
-import all records. It is ignored if \code{import = FALSE}.}
+number of records to be imported; by default all records are imported. Note
+that since a single record can contain multiple curves (the common case for
+XSYG files), the \verb{@records} slot in the object returned may hold more
+elements than specified in \code{n_records}. It is ignored if \code{import = FALSE}.}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enable/disable output to the terminal.}
