@@ -43,7 +43,7 @@
 #'
 #' 1. HE: Heating element
 #' 2. PMT: Photomultiplier tube
-#' 3. Interpolation is done using the function [approx]
+#' 3. Interpolation is done using the function [stats::approx]
 #'
 #' CASE (1): `nrow(matrix(PMT))` > `nrow(matrix(HE))`
 #'
@@ -113,7 +113,8 @@
 #'
 #' @param fastForward [logical] (*with default*):
 #' whether a list of [Luminescence::RLum.Analysis-class] objects is returned
-#' for a more efficient data processing (`TRUE` by default).
+#' for a more efficient data processing (`TRUE` by default). It is ignored if
+#' `import = FALSE`.
 #'
 #' @param import [logical] (*with default*):
 #' whether to read and import the file content (`TRUE` by default). If set to
@@ -161,8 +162,8 @@
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
 #' Marco Colombo, Institute of Geography, Heidelberg University (Germany)
 #'
-#' @seealso `'XML'`, [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data.Curve-class],
-#' [approx], [Luminescence::correct_PMTLinearity]
+#' @seealso [Luminescence::RLum.Analysis-class], [Luminescence::RLum.Data.Curve-class],
+#' [Luminescence::correct_PMTLinearity], [stats::approx]
 #'
 #' @references
 #' Grehl, S., Kreutzer, S., Hoehne, M., 2013. Documentation of the
@@ -175,7 +176,6 @@
 #' @keywords IO
 #'
 #' @examples
-#'
 #' ## (1) import XSYG file to R
 #' \dontrun{
 #' FILE <- file.choose()
@@ -241,12 +241,11 @@ read_XSYG2R <- function(
       )
     })
 
+    if (!import)
+      return(as.data.frame(data.table::rbindlist(temp.return, fill = TRUE)))
     if (!fastForward)
       return(temp.return)
-    if (import)
-      return(unlist(temp.return, recursive = FALSE))
-
-    return(as.data.frame(data.table::rbindlist(temp.return)))
+    return(unlist(temp.return, recursive = FALSE))
   }
 
   ## Integrity checks -------------------------------------------------------
@@ -331,25 +330,18 @@ read_XSYG2R <- function(
 
   # (2) Further file processing ---------------------------------------------
   ##==========================================================================##
-  ##SHOW STRUCTURE
-  if(!import){
-    ##sample information
-    temp.sample <- as.data.frame(XML::xmlAttrs(temp), stringsAsFactors = FALSE)
+  ## only show the file structure
+  if (!import) {
+    ## sample information
+    info.sample <- as.data.frame(t(XML::xmlAttrs(temp)))
+    colnames(info.sample) <- paste0("sample::", colnames(info.sample))
 
     ## sequence information
-    temp.sequence.header <- as.data.frame(t(sapply(seq_len(XML::xmlSize(temp)),
-                                                   function(x) XML::xmlAttrs(temp[[x]]))))
+    info.sequence <- as.data.frame(t(XML::xpathSApply(temp, "//Sequence",
+                                                      XML::xmlAttrs)))
 
-      ##additional option for fastForward == TRUE
-      if(fastForward){
-        ##change column header
-        temp.sample <- t(temp.sample)
-        colnames(temp.sample) <- paste0("sample::", colnames(temp.sample))
-        output <- cbind(temp.sequence.header, temp.sample)
-
-      }else{
-        output <-  list(Sample = temp.sample, Sequences = temp.sequence.header)
-      }
+    ## combine sample and sequence information
+    output <- cbind(info.sequence, info.sample)
 
     return(output)
   }

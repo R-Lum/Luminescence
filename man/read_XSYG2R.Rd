@@ -34,7 +34,8 @@ import all sequences.}
 
 \item{fastForward}{\link{logical} (\emph{with default}):
 whether a list of \link[=RLum.Analysis-class]{RLum.Analysis} objects is returned
-for a more efficient data processing (\code{TRUE} by default).}
+for a more efficient data processing (\code{TRUE} by default). It is ignored if
+\code{import = FALSE}.}
 
 \item{import}{\link{logical} (\emph{with default}):
 whether to read and import the file content (\code{TRUE} by default). If set to
@@ -110,7 +111,7 @@ are considered:
 \enumerate{
 \item HE: Heating element
 \item PMT: Photomultiplier tube
-\item Interpolation is done using the function \link{approx}
+\item Interpolation is done using the function \link[stats:approx]{stats::approx}
 }
 
 CASE (1): \code{nrow(matrix(PMT))} > \code{nrow(matrix(HE))}
@@ -177,7 +178,6 @@ Corresponding values in the XSYG file are skipped.
 }
 
 \examples{
-
 ## (1) import XSYG file to R
 \dontrun{
 FILE <- file.choose()
@@ -203,8 +203,8 @@ XSYG file format. Unpublished Technical Note. Freiberg, Germany
 XML: \url{https://en.wikipedia.org/wiki/XML}
 }
 \seealso{
-\code{'XML'}, \link[=RLum.Analysis-class]{RLum.Analysis}, \link[=RLum.Data.Curve-class]{RLum.Data.Curve},
-\link{approx}, \link{correct_PMTLinearity}
+\link[=RLum.Analysis-class]{RLum.Analysis}, \link[=RLum.Data.Curve-class]{RLum.Data.Curve},
+\link{correct_PMTLinearity}, \link[stats:approx]{stats::approx}
 }
 \author{
 Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr

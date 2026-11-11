@@ -43,12 +43,6 @@ test_that("input validation", {
 test_that("check functionality", {
   testthat::skip_on_cran()
 
-  ## download from github
-  expect_type(read_XSYG2R(github.url, import = FALSE, fastForward = FALSE,
-                          verbose = FALSE),
-              "list")
-
-  ## local file
   expect_type(read_XSYG2R(xsyg.file, verbose = FALSE),
               "list")
   expect_s3_class(read_XSYG2R(xsyg.file, fastForward = TRUE,
@@ -99,6 +93,27 @@ test_that("check functionality", {
                           fastForward = TRUE, import = TRUE,
                           verbose = TRUE),
               "list")
+
+  ## import = FALSE
+  expect_s3_class(res <- read_XSYG2R(github.url, import = FALSE, fastForward = FALSE,
+                              verbose = FALSE),
+                  "data.frame")
+  expect_equal(nrow(res), 1)
+  expect_silent(res <- read_XSYG2R(test_path("_data/xsyg-tests/XSYG_broken_2.xsyg"),
+                                   import = FALSE, verbose = FALSE))
+  expect_equal(nrow(res), 2)
+
+  expect_s3_class(res <- read_XSYG2R(list(xsyg.file, xsyg.file), import = FALSE,
+                                     fastForward = FALSE, verbose = FALSE),
+                  "data.frame")
+  expect_equal(nrow(res), 2)
+
+  ## files with inconsistent columns
+  res <- read_XSYG2R(list(test_path("_data/xsyg-tests/XSYG_sequences.xsyg"),
+                          test_path("_data/xsyg-tests/XSYG_corr_IRSL.xsyg")),
+                     import = FALSE, verbose = FALSE)
+  expect_s3_class(res, "data.frame")
+  expect_identical(nrow(res), 2L)
 
   ## recursive traversal
   expect_length(read_XSYG2R(test_path("_data"),
