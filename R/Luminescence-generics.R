@@ -1272,3 +1272,44 @@ setGeneric("view", function(object, ...)
 .view <- function(x, title) {
   get("View", envir = as.environment("package:utils"))(x, title) # nocov
 }
+
+## write_RLum2XLUM() --------------------------------------------------------
+#' @title Write an object into XLUM format
+#'
+#' @description
+#' The function writes an object into XLUM format. No actual implementation
+#' of this generic exists in `Luminescence`. An implementation for `RLum`
+#' objects and lists is provided by the `xlum` package.
+#'
+#' @param object [Luminescence::RLum-class] or [list] (**required**):
+#' S4 object of class `RLum` or a list of such objects.
+#'
+#' @param file  [character] (**required**):
+#' file name and path of the output file.
+#'
+#' @param ... further arguments passed to the specific class method.
+#'
+#' @return
+#' Nothing, the function is called for its side effects.
+#'
+#' @section Function version: 0.1.0
+#'
+#' @author
+#' Marco Colombo, Institute of Geography, Heidelberg University (Germany)\cr
+#'
+#' @seealso [Luminescence::read_XLUM2R]
+#'
+#' @keywords IO
+#'
+#' @export
+setGeneric("write_RLum2XLUM", function(object, file, ...) {
+  .set_function_name("write_RLum2XLUM")
+  on.exit(.unset_function_name(), add = TRUE)
+
+  obj.class <- class(object)[1]
+  if (inherits(object, c("RLum", "list")) &&
+      is.null(selectMethod("write_RLum2XLUM", obj.class, optional = TRUE))) {
+    .throw_error("A method for ", obj.class, " objects is provided by the 'xlum' package")
+  }
+  standardGeneric("write_RLum2XLUM")
+})
