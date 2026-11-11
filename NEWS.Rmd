@@ -51,6 +51,10 @@ function is currently in alpha state, as it still needs to undergo further
 testing to ensure correctness for all inputs. More functionality regarding
 XLUM is implemented in the `xlum` package, available on CRAN (#1710).
 
+* `write_RLum2XLUM()` is a new generic function. No methods for this generic
+are currently implemented in `Luminescence`, but they will be provided by a
+future release of the `xlum` package (#1828).
+
 ## Bugfixes and changes
 
 ### `analyse_IRSAR.RF()`
