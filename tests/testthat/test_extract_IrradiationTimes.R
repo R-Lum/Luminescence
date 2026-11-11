@@ -58,7 +58,7 @@ test_that("check functionality", {
 
   tmp_XSYG <- test_path("_data/xsyg-tests/XSYG_file_TL_CASE3.xsyg")
   tmp_BINX <- tempfile(fileext = ".binx")
-  write_R2BIN(read_BIN2R(binx, position = 2, verbose = FALSE),
+  write_R2BIN(read_BIN2R(binx, position = 2, fastForward = FALSE, verbose = FALSE),
               tmp_BINX, verbose = FALSE)
   expect_message(extract_IrradiationTimes(tmp_XSYG, file.BINX = tmp_BINX,
                                           txtProgressBar = FALSE),

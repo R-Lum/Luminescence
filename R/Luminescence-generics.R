@@ -883,8 +883,8 @@ setGeneric("replicate_RLum", function(object, times = 1)
 #' @description
 #' Constructs an empty [Luminescence::Risoe.BINfileData-class] object, which can
 #' then be filled with the supplied metadata and data. Objects of this class are
-#' normally produced as output of [Luminescence::read_BIN2R]; this construction
-#' method is intended for internal usage only.
+#' normally produced as output of [Luminescence::read_BIN2R] (with argument
+#' `fastForward = FALSE`); this constructor is intended for internal use only.
 #'
 #' @param METADATA [data.frame] (*with default*):
 #' metadata information for each curve.

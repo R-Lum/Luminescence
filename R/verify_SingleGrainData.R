@@ -113,7 +113,6 @@
 #' @keywords manip datagen
 #'
 #' @examples
-#'
 #' ##01 - basic example I
 #' ##just show how to apply the function
 #' data(ExampleData.XSYG, envir = environment())
@@ -132,7 +131,7 @@
 #'
 #' ##select and import file
 #' file <- file.choose()
-#' object <- read_BIN2R(file)
+#' object <- read_BIN2R(file, fastForward = FALSE)
 #'
 #' ##remove invalid aliquots(!)
 #' object <- verify_SingleGrainData(object, cleanup = TRUE)

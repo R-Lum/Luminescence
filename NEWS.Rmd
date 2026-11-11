@@ -209,6 +209,12 @@ returned. Now an empty result is handled consistently with a regular import:
 with an empty `RLum.Analysis` object (#1792; thanks to Annette Kadereit for
 reporting).
 
+* The default value for the `fastForward` argument has been changed to `TRUE`.
+While technically a breaking change, we expect this not to cause any major
+problems, as in order to run any analysis function, it is expected to have
+converted the data into a list of `RLum.Analysis` objects, which is what the
+`fastForward` argument does (#1829).
+
 ### `read_XSYG2R()`
 
 * The `pattern` argument is now validated to be a single string to avoid the

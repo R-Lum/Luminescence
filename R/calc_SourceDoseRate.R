@@ -16,8 +16,8 @@
 #' and \eqn{\log(2) / T.1/2} equals the decay constant lambda.
 #'
 #' Information on the date of measurements may be taken from the data's
-#' original .BIN file (using e.g., `BINfile <- Luminescence::read_BIN2R()` and the slot
-#' `BINfile@METADATA$DATE`).
+#' original .BIN file (using e.g., `bin <- read_BIN2R(..., fastForward = FALSE)`
+#' and the slot `bin@METADATA$DATE`).
 #'
 #' **Allowed source types and related values**
 #'
@@ -98,7 +98,6 @@
 #' @keywords manip
 #'
 #' @examples
-#'
 #' ##(1) Simple function usage
 #' ##Basic calculation of the dose rate for a specific date
 #' dose.rate <-  calc_SourceDoseRate(

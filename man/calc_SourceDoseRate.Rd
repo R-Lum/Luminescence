@@ -79,8 +79,8 @@ source nuclide (in days), \code{t} is the time since source calibration (in days
 and \eqn{\log(2) / T.1/2} equals the decay constant lambda.
 
 Information on the date of measurements may be taken from the data's
-original .BIN file (using e.g., \code{BINfile <- Luminescence::read_BIN2R()} and the slot
-\code{BINfile@METADATA$DATE}).
+original .BIN file (using e.g., \code{bin <- read_BIN2R(..., fastForward = FALSE)}
+and the slot \code{bin@METADATA$DATE}).
 
 \strong{Allowed source types and related values}
 
@@ -103,7 +103,6 @@ requested, that is: the (multiple) original input will be replaced.
 }
 
 \examples{
-
 ##(1) Simple function usage
 ##Basic calculation of the dose rate for a specific date
 dose.rate <-  calc_SourceDoseRate(

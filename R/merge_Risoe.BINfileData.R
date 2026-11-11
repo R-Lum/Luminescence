@@ -119,7 +119,7 @@ merge_Risoe.BINfileData <- function(
       .validate_file(object[[i]], ext = c("bin", "binx"),
                      scan.dir = FALSE, verbose = verbose)
     }
-    temp <- lapply(object, read_BIN2R, verbose = verbose)
+    temp <- lapply(object, read_BIN2R, fastForward = FALSE, verbose = verbose)
 
   }else{
     for (i in 1:length(object)) {

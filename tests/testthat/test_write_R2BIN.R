@@ -83,7 +83,7 @@ test_that("check functionality", {
   bin.v8 <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
   new.v8 <- paste0(path, "new.binx")
   SW({
-  write_R2BIN(read_BIN2R(bin.v8), file = new.v8)
+  write_R2BIN(read_BIN2R(bin.v8, fastForward = FALSE), file = new.v8)
   })
   expect_length(system(paste("diff", bin.v8, new.v8), intern = TRUE),
                 0) # nothing is printed out if the files don't differ
@@ -115,7 +115,7 @@ test_that("input validation", {
   temp <- new
   temp@METADATA <- temp@METADATA[, 1:79]
   expect_error(write_R2BIN(object = temp, file = "test"),
-               "Your Risoe.BINfileData object is not compatible with the latest")
+               "'object' is not compatible with the latest specification")
 
   temp <- new
   temp@METADATA[1, "SEQUENCE"] <- "1234567890"

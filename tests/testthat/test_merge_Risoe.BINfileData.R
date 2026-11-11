@@ -30,7 +30,7 @@ test_that("check functionality", {
   output.file <- tempfile(fileext = ".binx")
   merge_Risoe.BINfileData(c(binx, binx), output.file, verbose = FALSE)
   expect_true(file.exists(output.file))
-  expect_s4_class(new <- read_BIN2R(output.file, verbose = FALSE),
+  expect_s4_class(new <- read_BIN2R(output.file, fastForward = FALSE, verbose = FALSE),
                   "Risoe.BINfileData")
   expect_length(new, 4)
 

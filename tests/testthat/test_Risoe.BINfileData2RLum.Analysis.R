@@ -56,7 +56,7 @@ test_that("check functionality", {
 
   ## reading an empty object
   empty <- read_BIN2R(test_path("_data/BINfile_V3.bin"), n.records = 999,
-                      verbose = FALSE)
+                      fastForward = FALSE, verbose = FALSE)
   expect_null(Risoe.BINfileData2RLum.Analysis(empty))
   expect_null(Risoe.BINfileData2RLum.Analysis(empty, keep.empty = FALSE))
   expect_warning(expect_null(Risoe.BINfileData2RLum.Analysis(empty, pos = 0)),

@@ -78,7 +78,7 @@
 #' @examples
 #' ##load example dataset
 #' file <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
-#' temp <- read_BIN2R(file)
+#' temp <- read_BIN2R(file, fastForward = FALSE)
 #'
 #' ##create temporary file path
 #' ##(for usage replace by own path)
@@ -115,11 +115,10 @@ write_R2BIN <- function(
 
   ## check if it fulfills the latest definition ...
   if(ncol(object@METADATA) != ncol(set_Risoe.BINfileData()@METADATA)){
-    .throw_error("Your Risoe.BINfileData object is not compatible with the ",
-                 "latest specification of this S4-class object. You are ",
-                 "probably trying to export a Risoe.BINfileData from your ",
-                 "workspace you produced manually or with an old version. ",
-                 "Please re-import the BIN-file using function read_BIN2R().")
+    .throw_error("'object' is not compatible with the latest specification of ",
+                 "the Risoe.BINfileData class. You are probably trying to ",
+                 "export an object produced manually. Please re-import the ",
+                 "BIN-file using read_BIN2R(..., fastForward = FALSE).")
   }
 
   # Check Risoe.BINfileData Struture ----------------------------------------

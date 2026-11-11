@@ -22,14 +22,14 @@ for each curve.}
 values for internal use only.}
 }
 \description{
-S4 class object for luminescence data in R. The object is produced as output
-of the function \link{read_BIN2R}.
+S4 class object for luminescence data in R. The object is produced as
+output of \link{read_BIN2R} (with argument \code{fastForward = FALSE}).
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{set_Risoe.BINfileData(ANY)}: A \link[=Risoe.BINfileData-class]{Risoe.BINfileData} object is normally produced as output of the
-function \link{read_BIN2R}. This construction method is intended for internal
-usage only.
+\item \code{set_Risoe.BINfileData(ANY)}: A \link[=Risoe.BINfileData-class]{Risoe.BINfileData} object is normally produced as
+output of the function \link{read_BIN2R} (with argument
+\code{fastForward = FALSE}). This constructor is intended for internal use only.
 
 }}
 \section{Slots}{

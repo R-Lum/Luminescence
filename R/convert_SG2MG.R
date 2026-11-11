@@ -53,7 +53,7 @@ convert_SG2MG <- function(
   if (!inherits(object, "Risoe.BINfileData")) {
     .validate_length(object, 1)
     file_name <- normalizePath(object, mustWork = FALSE)
-    object <- read_BIN2R(object, ...)
+    object <- read_BIN2R(object, fastForward = FALSE, ...)
   }
 
   ## Transform --------------------------------------------------------------
