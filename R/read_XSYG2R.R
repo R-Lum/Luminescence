@@ -112,8 +112,8 @@
 #' import all sequences.
 #'
 #' @param fastForward [logical] (*with default*):
-#' if `TRUE` for a more efficient data processing only a list of
-#' [Luminescence::RLum.Analysis-class] objects is returned.
+#' whether a list of [Luminescence::RLum.Analysis-class] objects is returned
+#' for a more efficient data processing (`TRUE` by default).
 #'
 #' @param import [logical] (*with default*):
 #' whether to read and import the file content (`TRUE` by default). If set to
@@ -136,22 +136,16 @@
 #' enable/disable the progress bar during import. Ignored if `verbose = FALSE`.
 #'
 #' @return
-#' **Using the option `import = TRUE` (default)**
-#'
-#' By default, a list consisting of two elements is returned:
+#' By default, a list of [Luminescence::RLum.Analysis-class] objects is
+#' returned (one per sequence). However, if `fastForward = FALSE`, each element
+#' is itself a list containing:
 #' \item{Sequence.Header}{[data.frame] with information on the
 #' sequence.}
 #' \item{Sequence.Object}{[Luminescence::RLum.Analysis-class]
 #' containing the curves.}
 #'
-#' If `fastForward = TRUE`, an [Luminescence::RLum.Analysis-class] object is
-#' returned.
-#'
-#' **Using the option `import = FALSE`**
-#'
-#' A list consisting of two elements is shown:
-#' - [data.frame] with information on file.
-#' - [data.frame] with information on the sequences stored in the XSYG file.
+#' When option `import = FALSE` is used, the function returns a data frame
+#' containing information on the file and the sequences stored (one per row).
 #'
 #' @note
 #' This function is a beta version as the XSYG file format is not yet
@@ -161,7 +155,7 @@
 #' **So far, no image data import is provided!** \cr
 #' Corresponding values in the XSYG file are skipped.
 #'
-#' @section Function version: 0.8.4
+#' @section Function version: 0.8.5
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -202,7 +196,7 @@ read_XSYG2R <- function(
   file,
   recalculate.TL.curves = TRUE,
   n_sequences = NULL,
-  fastForward = FALSE,
+  fastForward = TRUE,
   import = TRUE,
   pattern = "\\.xsyg",
   auto_linearity_correction = FALSE,

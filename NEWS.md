@@ -236,6 +236,12 @@ can be accessed via the new `bin_RLum()` generic (#1782):
   clarity, as it operates at the sequence rather than at the record
   level (#1820).
 
+- The default value for the `fastForward` argument has been changed to
+  `TRUE`. While technically a breaking change, we expect this not to
+  cause any major problems, as in order to run any analysis function, it
+  is expected to have converted the data into a list of `RLum.Analysis`
+  objects, which is what the `fastForward` argument does (#1829).
+
 ### `set_RLum()`
 
 - When the function is used to extend an existing `RLum.Analysis`

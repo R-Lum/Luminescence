@@ -44,7 +44,8 @@ test_that("check functionality", {
   testthat::skip_on_cran()
 
   ## download from github
-  expect_type(read_XSYG2R(github.url, import = FALSE, verbose = FALSE),
+  expect_type(read_XSYG2R(github.url, import = FALSE, fastForward = FALSE,
+                          verbose = FALSE),
               "list")
 
   ## local file
