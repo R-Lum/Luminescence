@@ -248,6 +248,10 @@ can be accessed via the new `bin_RLum()` generic (#1782):
   is expected to have converted the data into a list of `RLum.Analysis`
   objects, which is what the `fastForward` argument does (#1829).
 
+- When `import = FALSE`, now the function always returns a data frame
+  with information on the XSYG file and the sequence stored in it,
+  independently of the setting of the `fastForward` argument (#1833).
+
 ### `set_RLum()`
 
 - When the function is used to extend an existing `RLum.Analysis`
