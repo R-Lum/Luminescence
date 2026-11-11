@@ -222,6 +222,7 @@ extract_IrradiationTimes <- function(
                                 verbose = txtProgressBar)
     temp.XSYG <- read_XSYG2R(
       file = file.XSYG,
+      fastForward = FALSE,
       txtProgressBar = txtProgressBar,
       verbose = txtProgressBar)
 

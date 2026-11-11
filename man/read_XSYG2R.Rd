@@ -8,7 +8,7 @@ read_XSYG2R(
   file,
   recalculate.TL.curves = TRUE,
   n_sequences = NULL,
-  fastForward = FALSE,
+  fastForward = TRUE,
   import = TRUE,
   pattern = "\\\\.xsyg",
   auto_linearity_correction = FALSE,
@@ -33,8 +33,8 @@ number of sequences to be imported; by default the function attempts to
 import all sequences.}
 
 \item{fastForward}{\link{logical} (\emph{with default}):
-if \code{TRUE} for a more efficient data processing only a list of
-\link[=RLum.Analysis-class]{RLum.Analysis} objects is returned.}
+whether a list of \link[=RLum.Analysis-class]{RLum.Analysis} objects is returned
+for a more efficient data processing (\code{TRUE} by default).}
 
 \item{import}{\link{logical} (\emph{with default}):
 whether to read and import the file content (\code{TRUE} by default). If set to
@@ -57,24 +57,16 @@ enable/disable output to the terminal.}
 enable/disable the progress bar during import. Ignored if \code{verbose = FALSE}.}
 }
 \value{
-\strong{Using the option \code{import = TRUE} (default)}
-
-By default, a list consisting of two elements is returned:
+By default, a list of \link[=RLum.Analysis-class]{RLum.Analysis} objects is
+returned (one per sequence). However, if \code{fastForward = FALSE}, each element
+is itself a list containing:
 \item{Sequence.Header}{\link{data.frame} with information on the
 sequence.}
 \item{Sequence.Object}{\link[=RLum.Analysis-class]{RLum.Analysis}
 containing the curves.}
 
-If \code{fastForward = TRUE}, an \link[=RLum.Analysis-class]{RLum.Analysis} object is
-returned.
-
-\strong{Using the option \code{import = FALSE}}
-
-A list consisting of two elements is shown:
-\itemize{
-\item \link{data.frame} with information on file.
-\item \link{data.frame} with information on the sequences stored in the XSYG file.
-}
+When option \code{import = FALSE} is used, the function returns a data frame
+containing information on the file and the sequences stored (one per row).
 }
 \description{
 Imports XSYG-files produced by a Freiberg Instruments lexsyg reader into R.
@@ -181,7 +173,7 @@ be done using the functions provided with the package \code{'XML'}.
 Corresponding values in the XSYG file are skipped.
 }
 \section{Function version}{
- 0.8.4
+ 0.8.5
 }
 
 \examples{
