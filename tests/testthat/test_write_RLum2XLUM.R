@@ -1,6 +1,6 @@
 data(ExampleData.RLum.Analysis, envir = environment())
 
-test_that("check functionality", {
+test_that("input validation", {
   testthat::skip_on_cran()
 
   expect_error(write_RLum2XLUM("any", tempfile()),
