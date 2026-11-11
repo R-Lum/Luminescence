@@ -1,6 +1,6 @@
 ## load data
 bin.v8 <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
-risoe <- read_BIN2R(bin.v8, verbose = FALSE)
+risoe <- read_BIN2R(bin.v8, fastForward = FALSE, verbose = FALSE)
 SW({
 analysis <- merge_RLum(Risoe.BINfileData2RLum.Analysis(risoe))
 })

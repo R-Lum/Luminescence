@@ -26,8 +26,8 @@ A \link[=Risoe.BINfileData-class]{Risoe.BINfileData} object.
 \description{
 Constructs an empty \link[=Risoe.BINfileData-class]{Risoe.BINfileData} object, which can
 then be filled with the supplied metadata and data. Objects of this class are
-normally produced as output of \link{read_BIN2R}; this construction
-method is intended for internal usage only.
+normally produced as output of \link{read_BIN2R} (with argument
+\code{fastForward = FALSE}); this constructor is intended for internal use only.
 }
 \section{Function version}{
  0.1.0

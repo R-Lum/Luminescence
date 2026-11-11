@@ -11,7 +11,7 @@ read_BIN2R(
   n.records = NULL,
   zero_data.rm = TRUE,
   duplicated.rm = FALSE,
-  fastForward = FALSE,
+  fastForward = TRUE,
   show.record.number = FALSE,
   txtProgressBar = TRUE,
   forced.VersionNumber = NULL,
@@ -53,10 +53,9 @@ produced BIN/BINX-file. This option compares only predecessor and successor.
 Can be provided as \code{list} if \code{file} is a \code{list}.}
 
 \item{fastForward}{\link{logical} (\emph{with default}):
-if \code{TRUE} for a more efficient data processing only a list of
-\link[=RLum.Analysis-class]{RLum.Analysis}
-objects is returned instead of a \link[=Risoe.BINfileData-class]{Risoe.BINfileData} object.
-Can be provided as \code{list} if \code{file} is a \code{list}.}
+whether a list of \link[=RLum.Analysis-class]{RLum.Analysis} objects is returned
+for a more efficient data processing (\code{TRUE} by default). If \code{FALSE}, a
+\link[=Risoe.BINfileData-class]{Risoe.BINfileData} object is returned.}
 
 \item{show.record.number}{\link{logical} (\emph{with default}):
 shows record number of the imported record, for debugging usage only.
@@ -91,15 +90,15 @@ enable/disable output to the terminal.}
 argument automatically sets \code{fastForward = TRUE}.}
 }
 \value{
-Returns an S4 \link[=Risoe.BINfileData-class]{Risoe.BINfileData} object containing two
-slots:
+If \code{fastForward = TRUE}, a \link{list} of \link[=RLum.Analysis-class]{RLum.Analysis}
+objects is returned (coerced by \link{Risoe.BINfileData2RLum.Analysis}).
+
+If \code{fastForward = FALSE}, a \link[=Risoe.BINfileData-class]{Risoe.BINfileData} object
+containing two slots is returned:
 
 \item{METADATA}{A \link{data.frame} containing all variables stored in the BIN-file.}
 \item{DATA}{A \link{list} containing a numeric \link{vector} of the measured data.
 The ID corresponds to the record ID in METADATA.}
-
-If \code{fastForward = TRUE} a \link{list} of \link[=RLum.Analysis-class]{RLum.Analysis}
-objects is returned (coerced by \link{Risoe.BINfileData2RLum.Analysis}).
 
 \code{NULL} is returned if no records were imported, or if all records were
 removed during import and \code{keep.empty = FALSE}. Otherwise, if no records
@@ -124,11 +123,10 @@ The function works for BIN/BINX-format versions 03, 04, 05, 06, 07 and 08. The
 version number depends on the used Sequence Editor.
 }
 \section{Function version}{
- 0.20
+ 0.21
 }
 
 \examples{
-
 file <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
 temp <- read_BIN2R(file)
 temp

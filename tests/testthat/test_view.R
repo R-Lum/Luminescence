@@ -19,7 +19,7 @@ test_that("check functionality", {
 
   ## Risø.BINfileData
   file <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
-  risoe <- read_BIN2R(file, verbose = FALSE)
+  risoe <- read_BIN2R(file, fastForward = FALSE, verbose = FALSE)
 
   ## RLum.Data.Curve
   curve <- get_RLum(OSL.SARMeasurement$Sequence.Object,

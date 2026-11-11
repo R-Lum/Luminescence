@@ -28,7 +28,7 @@ test_that("test functionality", {
   new <- gsub(".bin", "_SG.bin", tmp)
   SW({
   write_file_test <- write_R2BIN(
-      read_BIN2R(file = test_path("_data/BINfile_V4.bin")),
+      read_BIN2R(test_path("_data/BINfile_V4.bin"), fastForward = FALSE),
       file = tmp)
 
   expect_s4_class(convert_SG2MG(tmp, write_file = TRUE, txtProgressBar = FALSE),

@@ -1004,6 +1004,7 @@ analyse_baSAR <- function(
           duplicated.rm = additional_arguments$duplicated.rm,
           n.records = additional_arguments$n.records,
           pattern = additional_arguments$pattern,
+          fastForward = FALSE,
           verbose = verbose)
         fileBIN.list <- .rm_NULL_elements(fileBIN.list)
         if (length(fileBIN.list) == 0)

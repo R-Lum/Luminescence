@@ -85,7 +85,7 @@ There are furthermore ignored by the function \link{read_BIN2R}.
 \examples{
 ##load example dataset
 file <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
-temp <- read_BIN2R(file)
+temp <- read_BIN2R(file, fastForward = FALSE)
 
 ##create temporary file path
 ##(for usage replace by own path)

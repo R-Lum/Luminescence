@@ -72,7 +72,8 @@ test_that("input validation", {
   expect_error(read_BIN2R(fake, verbose = FALSE),
                "Byte RECTYPE = 99 is not supported in record #1")
   SW({
-  expect_message(res <- read_BIN2R(fake, verbose = TRUE, ignore.RECTYPE = TRUE),
+  expect_message(res <- read_BIN2R(fake, verbose = TRUE, ignore.RECTYPE = TRUE,
+                                   fastForward = FALSE),
                  "Byte RECTYPE = 99 is not supported in record #1")
   })
   expect_length(res, 0)
@@ -86,35 +87,39 @@ test_that("test the import of various BIN-file versions", {
                           "raw/archive/dev_0.9.x/tests/testthat/_data")
 
     ## V3
-    bin <- read_BIN2R(file.path(github.url, "BINfile_V3.bin"),
-                      verbose = FALSE)
+  bin <- read_BIN2R(file.path(github.url, "BINfile_V3.bin"),
+                    fastForward = FALSE, verbose = FALSE)
     ## remove randomness in FNAME due to the use of a temporary file
   bin@METADATA$FNAME <- substr(bin@METADATA$FNAME, 1, 9)
     expect_snapshot_plain(bin)
 
   ## V4
   expect_snapshot_plain(read_BIN2R(test_path("_data/BINfile_V4.bin"),
+                                   fastForward = FALSE,
                                    verbose = FALSE))
 
   ## V5
   expect_snapshot_plain(read_BIN2R(test_path("_data/BINfile_V5.binx"),
+                                   fastForward = FALSE,
                                    verbose = FALSE))
 
   ## V6
   expect_snapshot_plain(read_BIN2R(test_path("_data/BINfile_V6.binx"),
+                                   fastForward = FALSE,
                                    verbose = FALSE))
 
   ## V7
   expect_snapshot_plain(read_BIN2R(test_path("_data/BINfile_V7.binx"),
+                                   fastForward = FALSE,
                                    verbose = FALSE))
 
   SW({
   ## V8 - as part of the package
   bin.v8 <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
-  expect_snapshot_plain(read_BIN2R(bin.v8, verbose = FALSE))
+  expect_snapshot_plain(read_BIN2R(bin.v8, fastForward = FALSE, verbose = FALSE))
 
   expect_message(res <- read_BIN2R(bin.v8, txtProgressBar = FALSE,
-                                   position = 2),
+                                   fastForward = FALSE, position = 2),
                  "Kept records at position 2")
   expect_equal(length(res@.RESERVED), nrow(res@METADATA))
   expect_message(res <- read_BIN2R(bin.v8, txtProgressBar = FALSE,
@@ -126,6 +131,7 @@ test_that("test the import of various BIN-file versions", {
     t_n.records_1 <- expect_s4_class(
       read_BIN2R(
         file = bin.v8,
+        fastForward = FALSE,
         txtProgressBar = FALSE,
         n.records = 1), class = "Risoe.BINfileData")
     expect_length(t_n.records_1, n = 1)
@@ -133,6 +139,7 @@ test_that("test the import of various BIN-file versions", {
     t_n.records_0 <- expect_s4_class(
       read_BIN2R(
         file = bin.v8,
+        fastForward = FALSE,
         txtProgressBar = FALSE,
         n.records = 0), class = "Risoe.BINfileData")
     expect_length(t_n.records_0, n = 0)
@@ -140,18 +147,22 @@ test_that("test the import of various BIN-file versions", {
     t_n.records_1_2 <- expect_s4_class(
       read_BIN2R(
         file = bin.v8,
+        fastForward = FALSE,
         txtProgressBar = FALSE,
         n.records = 1:2), class = "Risoe.BINfileData")
     expect_length(t_n.records_1_2, n = 2)
 
   ## directory
-  res <- read_BIN2R(test_path("_data"), show_record_number = TRUE)
+  res <- read_BIN2R(test_path("_data"), fastForward = FALSE,
+                    show_record_number = TRUE)
   expect_type(res, "list")
   expect_length(res, 12)
 
-  res <- read_BIN2R(test_path("_data"), pattern = "_V[34]")
+  res <- read_BIN2R(test_path("_data"),
+                    pattern = "_V[34]")
   expect_type(res, "list")
-  expect_length(res, 2)
+  expect_length(res, 4)
+  expect_s4_class(res[[1]], "RLum.Analysis")
 
   ## test further options
   ## n.records and fastForward
@@ -170,7 +181,8 @@ test_that("test the import of various BIN-file versions", {
                  "At least one position number is not valid (99)",
                  fixed = TRUE)
   expect_length(res, 1)
-  expect_warning(res <- read_BIN2R(bin.v3, position = c(88, 99)),
+  expect_warning(res <- read_BIN2R(bin.v3, position = c(88, 99),
+                                   fastForward = FALSE),
                  "At least one position number is not valid (88, 99)",
                  fixed = TRUE)
   expect_length(res, 0)
@@ -181,9 +193,8 @@ test_that("test the import of various BIN-file versions", {
                  "Additional arguments specified: 'protocol'")
 
   ## options when an empty object is produced
-  expect_warning(expect_s4_class(
-      read_BIN2R(bin.v3, position = 3), "Risoe.BINfileData"),
-      "At least one position number is not valid")
+  expect_warning(read_BIN2R(bin.v3, position = 3),
+                 "At least one position number is not valid")
   expect_warning(expect_message(expect_null(
       read_BIN2R(bin.v3, position = 3, keep.empty = FALSE)),
       "Empty object and 'keep.empty = FALSE', NULL returned"),
@@ -199,6 +210,7 @@ test_that("test the import of various BIN-file versions", {
 
   ## check ignore RECTYPE settings
   expect_message(t <- expect_s4_class(read_BIN2R(bin.v8, verbose = TRUE,
+                                                 fastForward = FALSE,
                                                  ignore.RECTYPE = 1),
                                       class = "Risoe.BINfileData"),
                  "Record #1 skipped due to 'ignore.RECTYPE = 1'")
@@ -212,7 +224,9 @@ test_that("test the import of various BIN-file versions", {
              position = list(1, 2), n.records = list(1, 2),
              show.raw.values = list(TRUE), zero_data.rm = list(FALSE),
              duplicated.rm = list(TRUE), show.record.number = list(TRUE),
-             forced.VersionNumber = list(8), fastForward = TRUE)
+             forced.VersionNumber = list(8))
+  expect_type(res, "list")
+  expect_s4_class(res[[2]], "RLum.Analysis")
   expect_length(res[[2]], 1)
 
   res <- read_BIN2R(c(bin.v8, bin.v8), verbose = FALSE, n.records = 2,
@@ -232,22 +246,24 @@ test_that("test hand-crafted files", {
 
   ## corrupted
   corrupted.bin <- test_path("_data/bin-tests/corrupted.bin")
-  expect_warning(res <- read_BIN2R(corrupted.bin, verbose = FALSE),
+  expect_warning(res <- read_BIN2R(corrupted.bin, verbose = FALSE,
+                                   fastForward = FALSE),
                  "BIN-file appears to be corrupt, import limited to the first")
   expect_equal(nrow(res@METADATA), 1)
   expect_warning(res <- read_BIN2R(corrupted.bin, verbose = FALSE,
-                                   n.records = 2),
+                                   fastForward = FALSE, n.records = 2),
                  "BIN-file appears to be corrupt, 'n.records' reset to 1")
   expect_equal(nrow(res@METADATA), 1)
 
   ## two versions
   res <- read_BIN2R(test_path("_data/bin-tests/two-versions.binx"),
-                    verbose = FALSE)
+                    fastForward = FALSE, verbose = FALSE)
   expect_equal(nrow(res@METADATA), 4)
 
   ## rectype 128
   rectype.128.bin <- test_path("_data/bin-tests/rectype-128.binx")
-  res <- read_BIN2R(rectype.128.bin, verbose = FALSE)
+  res <- read_BIN2R(rectype.128.bin,
+                    fastForward = FALSE, verbose = FALSE)
   expect_equal(nrow(res@METADATA), 3)
 
   expect_output(res <- read_BIN2R(rectype.128.bin, verbose = FALSE,
@@ -258,12 +274,13 @@ test_that("test hand-crafted files", {
 
   ## duplicate
   duplicate.bin <- test_path("_data/bin-tests/duplicated-records.binx")
-  expect_warning(res <- read_BIN2R(duplicate.bin, verbose = FALSE),
+  expect_warning(res <- read_BIN2R(duplicate.bin,
+                                   fastForward = FALSE, verbose = FALSE),
                  "Duplicated records detected: 2")
   expect_equal(nrow(res@METADATA), 3)
 
   SW({
-  expect_message(res <- read_BIN2R(duplicate.bin,
+  expect_message(res <- read_BIN2R(duplicate.bin, fastForward = FALSE,
                                    duplicated.rm = TRUE, verbose = TRUE),
                  "Duplicated records detected and removed: 2")
   expect_equal(nrow(res@METADATA), 2)
@@ -271,17 +288,18 @@ test_that("test hand-crafted files", {
 
   ## zero-data
   zero.data.bin <- test_path("_data/bin-tests/zero-data-record.binx")
-  expect_warning(res <- read_BIN2R(zero.data.bin, verbose = TRUE),
+  expect_warning(res <- read_BIN2R(zero.data.bin, fastForward = FALSE,
+                                   verbose = TRUE),
                  "Zero-data records detected and removed: 2")
   expect_equal(nrow(res@METADATA), 1)
   expect_equal(length(res@.RESERVED), nrow(res@METADATA))
 
   expect_silent(res <- read_BIN2R(list(zero.data.bin), verbose = FALSE,
-                                  zero_data.rm = FALSE))
+                                  zero_data.rm = FALSE, fastForward = FALSE))
   expect_equal(nrow(res[[1]]@METADATA), 2)
 
   expect_silent(res <- read_BIN2R(zero.data.bin, verbose = FALSE,
-                                  zero_data.rm = FALSE))
+                                  zero_data.rm = FALSE, fastForward = FALSE))
 
   zero.data.all <- test_path("_data/bin-tests/zero-data-all.binx")
   expect_message(expect_warning(read_BIN2R(zero.data.all, txtProgressBar = FALSE),
@@ -306,8 +324,9 @@ test_that("regression tests", {
   })
 
   ## issue 1759
-  expect_warning(read_BIN2R(test_path("_data/bin-tests/infinite-loop.binx"),
-                            verbose = FALSE),
+  expect_warning(expect_output(read_BIN2R(test_path("_data/bin-tests/infinite-loop.binx"),
+                                          verbose = FALSE),
+                               "BIN/BINX-file non-conform. TL curve may be wrong"),
                  "BIN-file appears to be corrupt, import limited to the first 1 records")
 
   ## issue 1816

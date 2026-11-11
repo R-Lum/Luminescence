@@ -231,6 +231,7 @@ extract_IrradiationTimes <- function(
                                   verbose = txtProgressBar)
       temp.BINX <- read_BIN2R(
         file = file.BINX,
+        fastForward = FALSE,
         txtProgressBar = txtProgressBar,
         verbose = txtProgressBar)
     }

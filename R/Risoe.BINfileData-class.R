@@ -1,7 +1,7 @@
 #' Class `"Risoe.BINfileData"`
 #'
-#' S4 class object for luminescence data in R. The object is produced as output
-#' of the function [Luminescence::read_BIN2R].
+#' S4 class object for luminescence data in R. The object is produced as
+#' output of [Luminescence::read_BIN2R] (with argument `fastForward = FALSE`).
 #'
 #' @name Risoe.BINfileData-class
 #'
@@ -393,9 +393,9 @@ setMethod(f = "show",
 
 ## set method for object class ----------------------------------------------
 #' @describeIn Risoe.BINfileData
-#' A [Luminescence::Risoe.BINfileData-class] object is normally produced as output of the
-#' function [Luminescence::read_BIN2R]. This construction method is intended for internal
-#' usage only.
+#' A [Luminescence::Risoe.BINfileData-class] object is normally produced as
+#' output of the function [Luminescence::read_BIN2R] (with argument
+#' `fastForward = FALSE`). This constructor is intended for internal use only.
 #'
 #' @param METADATA Object of class "data.frame" containing the meta information
 #' for each curve.

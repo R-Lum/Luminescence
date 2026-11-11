@@ -41,10 +41,9 @@
 #' Can be provided as `list` if `file` is a `list`.
 #'
 #' @param fastForward [logical] (*with default*):
-#' if `TRUE` for a more efficient data processing only a list of
-#' [Luminescence::RLum.Analysis-class]
-#' objects is returned instead of a [Luminescence::Risoe.BINfileData-class] object.
-#' Can be provided as `list` if `file` is a `list`.
+#' whether a list of [Luminescence::RLum.Analysis-class] objects is returned
+#' for a more efficient data processing (`TRUE` by default). If `FALSE`, a
+#' [Luminescence::Risoe.BINfileData-class] object is returned.
 #'
 #' @param show.record.number [logical] (*with default*):
 #' shows record number of the imported record, for debugging usage only.
@@ -79,15 +78,15 @@
 #' argument automatically sets `fastForward = TRUE`.
 #'
 #' @return
-#' Returns an S4 [Luminescence::Risoe.BINfileData-class] object containing two
-#' slots:
+#' If `fastForward = TRUE`, a [list] of [Luminescence::RLum.Analysis-class]
+#' objects is returned (coerced by [Luminescence::Risoe.BINfileData2RLum.Analysis]).
+#'
+#' If `fastForward = FALSE`, a [Luminescence::Risoe.BINfileData-class] object
+#' containing two slots is returned:
 #'
 #' \item{METADATA}{A [data.frame] containing all variables stored in the BIN-file.}
 #' \item{DATA}{A [list] containing a numeric [vector] of the measured data.
 #' The ID corresponds to the record ID in METADATA.}
-#'
-#' If `fastForward = TRUE` a [list] of [Luminescence::RLum.Analysis-class]
-#' objects is returned (coerced by [Luminescence::Risoe.BINfileData2RLum.Analysis]).
 #'
 #' `NULL` is returned if no records were imported, or if all records were
 #' removed during import and `keep.empty = FALSE`. Otherwise, if no records
@@ -100,7 +99,7 @@
 #' The function works for BIN/BINX-format versions 03, 04, 05, 06, 07 and 08. The
 #' version number depends on the used Sequence Editor.
 #'
-#' @section Function version: 0.20
+#' @section Function version: 0.21
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)\cr
@@ -113,16 +112,13 @@
 #' [base::readBin], [Luminescence::merge_Risoe.BINfileData], [Luminescence::RLum.Analysis-class]
 #' [utils::txtProgressBar], [list.files]
 #'
-#'
 #'@references
 #'DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
 #'[https://www.fysik.dtu.dk]()
 #'
-#'
 #'@keywords IO
 #'
 #'@examples
-#'
 #'file <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
 #'temp <- read_BIN2R(file)
 #'temp
@@ -135,7 +131,7 @@ read_BIN2R <- function(
   n.records = NULL,
   zero_data.rm = TRUE,
   duplicated.rm = FALSE,
-  fastForward = FALSE,
+  fastForward = TRUE,
   show.record.number = FALSE,
   txtProgressBar = TRUE,
   forced.VersionNumber = NULL,
