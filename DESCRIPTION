@@ -81,4 +81,5 @@ Language: en-US
 Roxygen: list(markdown = TRUE)
 Config/testthat/edition: 3
 Config/testthat/parallel: TRUE
+Config/testthat/start-first: calc_Huntley2006, calc_MinDose, fit_DoseResponseCurve, plot_DetPlot, report_RLum, RLum.Analysis-class, zzz
 Config/roxygen2/version: 8.1.1
