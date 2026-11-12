@@ -103,7 +103,7 @@ test_that("check functionality", {
   SW({
   ## recursive traversal
   expect_length(read_XLUM2R(test_path("_data"), verbose = FALSE),
-                11)
+                12)
   })
 
   ## check broken files
@@ -148,4 +148,14 @@ test_that("snapshot tests", {
                                    verbose = FALSE))
   expect_snapshot_RLum(read_XLUM2R(test_path("_data/xlum-tests/risoe_1.xlum"),
                                    verbose = FALSE))
+})
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 1835
+  expect_no_warning(res <- read_XLUM2R(test_path("_data/xlum-tests/curve_3.xlum"),
+                                       verbose = FALSE))
+  expect_equal(res[[1]]@records[[1]]@data[, 2],
+               100)
 })
