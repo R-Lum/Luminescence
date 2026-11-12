@@ -1,6 +1,7 @@
 #' @title Import Risø BIN/BINX-files into R
 #'
-#' @description Import a `*.bin` or a `*.binx` file produced by a Risø DA15 and DA20 TL/OSL
+#' @description
+#' Import a `*.bin` or a `*.binx` file produced by a Risø DA15 and DA20 TL/OSL
 #' reader into R.
 #'
 #' @details
@@ -8,7 +9,7 @@
 #' published in the Appendices of the Analyst manual p. 42.
 #'
 #' For the general BIN/BINX-file structure, the reader is referred to the
-#' Risø website: [https://www.fysik.dtu.dk]()
+#' Risø website: [https://luminescence.dk/]().
 #'
 #' @param file [character] or [list] (**required**):
 #' name of one or multiple BIN/BINX files (URLs are supported); it can be the
@@ -99,6 +100,15 @@
 #' The function works for BIN/BINX-format versions 03, 04, 05, 06, 07 and 08. The
 #' version number depends on the used Sequence Editor.
 #'
+#' @note
+#' TL records in BIN/BINX files produced by a Lexsyg reader may not conform to
+#' the Risø specification, in that they always set the `TOLON`, `TOLOFF` and
+#' `TOLDELAY` fields to 0. When this occurs, the following message is emitted:
+#' "BIN/BINX-file non-conform. TL curve may be wrong". In such cases, results
+#' should be reviewed carefully, as they may be unreliable. Ideally, analyses
+#' should be performed with the corresponding XSYG files, which are unaffected
+#' by this issue.
+#'
 #' @section Function version: 0.21
 #'
 #' @author
@@ -112,16 +122,16 @@
 #' [base::readBin], [Luminescence::merge_Risoe.BINfileData], [Luminescence::RLum.Analysis-class]
 #' [utils::txtProgressBar], [list.files]
 #'
-#'@references
-#'DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
-#'[https://www.fysik.dtu.dk]()
+#' @references
+#' DTU Nutech, 2016. The Sequence Editor, Users Manual, February, 2016.
+#' [https://luminescence.dk/docs/SequenceEditor.pdf]()
 #'
-#'@keywords IO
+#' @keywords IO
 #'
-#'@examples
-#'file <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
-#'temp <- read_BIN2R(file)
-#'temp
+#' @examples
+#' file <- system.file("extdata/BINfile_V8.binx", package = "Luminescence")
+#' temp <- read_BIN2R(file, fastForward = FALSE)
+#' temp
 #'
 #' @export
 read_BIN2R <- function(
