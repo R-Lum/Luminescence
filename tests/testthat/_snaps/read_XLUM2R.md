@@ -1168,7 +1168,7 @@
                 "recordType": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["Image (string)"]
+                  "value": ["camera (string)"]
                 },
                 "curveType": {
                   "type": "character",
@@ -1240,7 +1240,7 @@
                     {
                       "type": "character",
                       "attributes": {},
-                      "value": ["Image"]
+                      "value": ["camera"]
                     },
                     {
                       "type": "character",
@@ -1411,7 +1411,7 @@
                 "recordType": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["Image (string)"]
+                  "value": ["camera (string)"]
                 },
                 "curveType": {
                   "type": "character",
@@ -1483,7 +1483,7 @@
                     {
                       "type": "character",
                       "attributes": {},
-                      "value": ["Image"]
+                      "value": ["camera"]
                     },
                     {
                       "type": "character",

@@ -18,8 +18,6 @@ test_that("input validation", {
   expect_message(expect_null(read_XLUM2R(test_path("_data/xsyg-tests/XSYG_broken.xsyg"))),
                  "Error: XML file cannot be parsed (StartTag: invalid element name)",
                  fixed = TRUE)
-  expect_error(read_XLUM2R(test_path("_data/xsyg-tests/XSYG_noSequence.xsyg")),
-               "<xlum> root node not found in")
   expect_error(read_XLUM2R(xlum.file, n_sequences = "error"),
                "'n_sequences' should be a single positive integer value or NULL")
   expect_error(read_XLUM2R(xlum.file, n_records = 0),
@@ -89,9 +87,6 @@ test_that("check functionality", {
                 2)
   expect_length(unlist(lapply(res, function(x) x@records), recursive = FALSE),
                 3)
-  expect_equal(read_XLUM2R(test_path("_data/xlum-tests/broken_1.xlum"),
-                           n_records = 1, verbose = FALSE),
-               list())
 
   ## list input
   expect_type(read_XLUM2R(list(xlum.file), verbose = FALSE),
@@ -102,32 +97,15 @@ test_that("check functionality", {
 
   SW({
   ## recursive traversal
-  expect_length(read_XLUM2R(test_path("_data"), verbose = FALSE),
+  expect_length(read_XLUM2R(test_path("_data"), verbose = FALSE, verify = FALSE),
                 12)
   })
 
   ## check broken files
   SW({
-  expect_equal(read_XLUM2R(test_path("_data/xlum-tests/broken_1.xlum")),
-               list())
-  expect_equal(read_XLUM2R(test_path("_data/xlum-tests/broken_2.xlum")),
-               list())
-  expect_equal(read_XLUM2R(test_path("_data/xlum-tests/broken_3.xlum")),
-               list())
-  expect_warning(expect_equal(read_XLUM2R(test_path("_data/xlum-tests/broken_4.xlum")),
-                              list()),
-                 "1 incomplete sequence(s) removed", fixed = TRUE)
-  ## no recordType
-  expect_equal(read_XLUM2R(test_path("_data/xlum-tests/broken_5.xlum"))[[1]]@records[[1]]@recordType,
-               "not_set (string)")
   ## all xValues, yValues, tValues set to "0"
   expect_warning(read_XLUM2R(test_path("_data/xlum-tests/broken_6.xlum")),
                  "Invalid value specification, <curve> node skipped")
-  ## missing name attribute in <sequence>
-  res <- read_XLUM2R(test_path("_data/xlum-tests/broken_7.xlum"),
-                     verbose = FALSE)
-  expect_equal(res[[1]]@records[[1]]@info$sequenceName,
-               "not_set")
   })
 })
 
@@ -145,9 +123,27 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(read_XLUM2R(test_path("_data/xlum-tests/image_2.xlum"),
                                    verbose = FALSE))
   expect_snapshot_RLum(read_XLUM2R(test_path("_data/xlum-tests/spectrum_1.xlum"),
+                                   verify = FALSE, # TODO(mcol): https://github.com/R-Lum/xlum_specification/issues/10
                                    verbose = FALSE))
   expect_snapshot_RLum(read_XLUM2R(test_path("_data/xlum-tests/risoe_1.xlum"),
                                    verbose = FALSE))
+})
+
+test_that("schema validation", {
+  expect_error(read_XLUM2R(test_path("_data/xsyg-tests/XSYG_noSequence.xsyg")),
+               "Element 'Sample': The document has no document element")
+  expect_error(read_XLUM2R(test_path("_data/xlum-tests/broken_1.xlum")),
+               "Element 'xlum': The document has no document element")
+  expect_error(read_XLUM2R(test_path("_data/xlum-tests/broken_2.xlum")),
+               "Missing child element(s)", fixed = TRUE)
+  expect_error(read_XLUM2R(test_path("_data/xlum-tests/broken_3.xlum")),
+               "Missing child element(s)", fixed = TRUE)
+  expect_error(read_XLUM2R(test_path("_data/xlum-tests/broken_4.xlum")),
+               "Missing child element(s)", fixed = TRUE)
+  expect_error(read_XLUM2R(test_path("_data/xlum-tests/broken_5.xlum")),
+               "The attribute 'recordType' is required but missing")
+  expect_error(read_XLUM2R(test_path("_data/xlum-tests/broken_7.xlum")),
+               "The attribute 'name' is required but missing")
 })
 
 test_that("regression tests", {

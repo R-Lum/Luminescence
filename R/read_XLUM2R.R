@@ -27,6 +27,10 @@
 #' XSYG files), the `@records` slot in the object returned may hold more
 #' elements than specified in `n_records`. It is ignored if `import = FALSE`.
 #'
+#' @param verify [logical] (*with default*):
+#' whether the file should be validated against the XLUM specification (`TRUE`
+#' by default).
+#'
 #' @param verbose [logical] (*with default*):
 #' enable/disable output to the terminal.
 #'
@@ -69,6 +73,7 @@ read_XLUM2R <- function(
   pattern = "\\.xlum",
   n_sequences = NULL,
   n_records = NULL,
+  verify = TRUE,
   verbose = TRUE,
   txtProgressBar = TRUE
 ) {
@@ -87,6 +92,7 @@ read_XLUM2R <- function(
   .validate_positive_scalar(n_records, int = TRUE, null.ok = TRUE)
   if (!is.null(n_sequences) && !is.null(n_records))
     .throw_error("Only one of 'n_sequences' and 'n_records' can be specified")
+  .validate_logical_scalar(verify)
   .validate_logical_scalar(txtProgressBar)
   check_base64 <- .require_suggested_package("base64enc", throw.error = FALSE,
                                              "Reading base64-encoded XLUM files")
@@ -100,6 +106,7 @@ read_XLUM2R <- function(
           pattern = pattern,
           n_sequences = n_sequences,
           n_records = n_records,
+          verify = verify,
           verbose = verbose,
           txtProgressBar = txtProgressBar
       )
@@ -132,9 +139,9 @@ read_XLUM2R <- function(
     }
     return(NULL)
   }
-  if (XML::xmlName(XML::xmlRoot(tree)) != "xlum") {
-    .throw_error("<xlum> root node not found in '", file, "'")
-  }
+
+  if (verify)
+    .validate_xlum(tree)
 
   ## only show the file structure
   if (!import) {
@@ -350,4 +357,21 @@ read_XLUM2R <- function(
 
   ## convert values
   as.numeric(unlist(lapply(str, strsplit, split = " ", fixed = TRUE)))
+}
+
+.validate_xlum <- function(xml) {
+  ## find the XLUM schema file
+  f_schema <- list.files(system.file("extdata/", package = "Luminescence"),
+                         pattern = "xlum_schema", full.names = TRUE)
+
+  ## validate using the schema
+  schema <- XML::xmlSchemaParse(f_schema)
+  valid <- XML::xmlSchemaValidate(schema, xml)
+
+  ## return results
+  if (valid$status == 0)
+    return(TRUE)
+
+  .throw_error("'file' does not conform to the XLUM specification:\n",
+               paste("-", trimws(sapply(valid$errors, `[[`, "msg")), collapse = "\n"))
 }

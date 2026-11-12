@@ -10,6 +10,7 @@ read_XLUM2R(
   pattern = "\\\\.xlum",
   n_sequences = NULL,
   n_records = NULL,
+  verify = TRUE,
   verbose = TRUE,
   txtProgressBar = TRUE
 )
@@ -38,6 +39,10 @@ number of records to be imported; by default all records are imported. Note
 that since a single record can contain multiple curves (the common case for
 XSYG files), the \verb{@records} slot in the object returned may hold more
 elements than specified in \code{n_records}. It is ignored if \code{import = FALSE}.}
+
+\item{verify}{\link{logical} (\emph{with default}):
+whether the file should be validated against the XLUM specification (\code{TRUE}
+by default).}
 
 \item{verbose}{\link{logical} (\emph{with default}):
 enable/disable output to the terminal.}
