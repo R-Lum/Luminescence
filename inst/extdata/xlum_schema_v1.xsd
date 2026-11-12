@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+<xs:schema
+  xmlns:xlum="http://xlum.r-luminescence.org"
+  attributeFormDefault="unqualified"
+  elementFormDefault="qualified"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="curve">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute type="xs:string" name="component" use="required"/>
+          <xs:attribute type="xs:dateTime" name="startDate" use="required"/>
+          <xs:attribute name="curveType" use="required">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="measured"/>
+                <xs:enumeration value="predefined"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute type="xs:double" name="duration" use="required"/>
+          <xs:attribute type="xs:double" name="offset" use="required"/>
+          <xs:attribute name="xValues" use="required">
+            <xs:simpleType>
+              <xs:list>
+                <xs:simpleType>
+                  <xs:restriction base="xs:unsignedInt">
+                    <xs:minInclusive value="0"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:list>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="yValues" use="required">
+            <xs:simpleType>
+              <xs:list>
+                <xs:simpleType>
+                  <xs:restriction base="xs:unsignedInt">
+                    <xs:minInclusive value="0"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:list>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute name="tValues" use="required">
+            <xs:simpleType>
+              <xs:list>
+                <xs:simpleType>
+                  <xs:restriction base="xs:double">
+                    <xs:minInclusive value="0"/>
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:list>
+            </xs:simpleType>
+          </xs:attribute>
+          <xs:attribute type="xs:string" name="xLabel" use="required"/>
+          <xs:attribute type="xs:string" name="yLabel" use="required"/>
+          <xs:attribute type="xs:string" name="tLabel" use="required"/>
+          <xs:attribute type="xs:string" name="vLabel" use="required"/>
+          <xs:attribute type="xs:string" name="xUnit" use="required"/>
+          <xs:attribute type="xs:string" name="yUnit" use="required"/>
+          <xs:attribute type="xs:string" name="vUnit" use="required"/>
+          <xs:attribute type="xs:string" name="tUnit" use="required"/>
+          <xs:attribute type="xs:string" name="detectionWindow" use="optional"/>
+          <xs:attribute type="xs:string" name="filter" use="optional"/>
+          <xs:attribute type="xs:string" name="comment" use="optional"/>
+          <xs:attribute type="xs:string" name="state" use="required"/>
+          <xs:attribute type="xs:token" name="parentID" use="required"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="record">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="curve" maxOccurs="unbounded" minOccurs="1"/>
+      </xs:sequence>
+      <xs:attribute name="recordType" use="required">
+       <xs:simpleType>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="bleaching"/>
+            <xs:enumeration value="irradiation"/>
+            <xs:enumeration value="atmosphereExchange"/>
+            <xs:enumeration value="heating"/>
+            <xs:enumeration value="spectrometer"/>
+            <xs:enumeration value="camera"/>
+            <xs:enumeration value="TL"/>
+            <xs:enumeration value="ITL"/>
+            <xs:enumeration value="IRSL"/>
+            <xs:enumeration value="TM-OSL"/>
+            <xs:enumeration value="RF"/>
+            <xs:enumeration value="UV-RF"/>
+            <xs:enumeration value="IR-RF"/>
+            <xs:enumeration value="IR-PL"/>
+            <xs:enumeration value="OSL"/>
+            <xs:enumeration value="GSL"/>
+            <xs:enumeration value="VSL"/>
+            <xs:enumeration value="YSL"/>
+            <xs:enumeration value="POSL"/>
+            <xs:enumeration value="PREHEAT_TL"/>
+            <xs:enumeration value="NORM_Irrad"/>
+            <xs:enumeration value="USER"/>
+            <xs:enumeration value="pause"/>
+            <xs:enumeration value="custom"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute type="xs:string" name="comment" use="required"/>
+      <xs:attribute name="sequenceStepNumber">
+        <xs:simpleType>
+          <xs:restriction base="xs:unsignedInt">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="65535"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="sampleCondition">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="NA"/>
+            <xs:enumeration value="Natural"/>
+            <xs:enumeration value="Natural+Dose"/>
+            <xs:enumeration value="Bleach"/>
+            <xs:enumeration value="Bleach+Dose"/>
+            <xs:enumeration value="Nat.(Bleach)"/>
+            <xs:enumeration value="Nat.+Dose(Bleach)"/>
+            <xs:enumeration value="Dose"/>
+            <xs:enumeration value="Background"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute type="xs:string" name="state"/>
+      <xs:attribute type="xs:token" name="parentID"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sequence">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="record" maxOccurs="unbounded" minOccurs="1"/>
+      </xs:sequence>
+      <xs:attribute type="xs:unsignedInt" name="position" use="required"/>
+      <xs:attribute type="xs:string" name="name" use="required"/>
+      <xs:attribute type="xs:string" name="fileName" use="required"/>
+      <xs:attribute type="xs:string" name="software" use="required"/>
+      <xs:attribute type="xs:string" name="readerName" use="required"/>
+      <xs:attribute type="xs:string" name="readerSN" use="required"/>
+      <xs:attribute type="xs:string" name="readerFW" use="required"/>
+      <xs:attribute type="xs:string" name="comment" use="required"/>
+      <xs:attribute type="xs:string" name="state" use="required"/>
+      <xs:attribute type="xs:token" name="parentID" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sample">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="sequence" maxOccurs="unbounded" minOccurs="1"/>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="name" use="required"/>
+      <xs:attribute type="xs:string" name="mineral" use="required"/>
+      <xs:attribute name="latitude" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:double">
+            <xs:minInclusive value="-90"/>
+            <xs:maxInclusive value="90"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="longitude" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:double">
+            <xs:minInclusive value="-180"/>
+            <xs:maxInclusive value="180"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="altitude" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:double">
+            <xs:minInclusive value="-12000"/>
+            <xs:maxInclusive value="12000"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute type="xs:anyURI" name="doi" use="required"/>
+      <xs:attribute type="xs:string" name="comment" use="required"/>
+      <xs:attribute type="xs:string" name="state" use="required"/>
+      <xs:attribute type="xs:token" name="parentID" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="xlum">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="sample" maxOccurs="unbounded" minOccurs="1"/>
+      </xs:sequence>
+      <xs:attribute name="lang" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="en"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="formatVersion" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="0"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute type="xs:string" name="flavour" use="required"/>
+      <xs:attribute type="xs:string" name="author" use="required"/>
+      <xs:attribute name="license" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="CC BY 4.0"/>
+            <xs:enumeration value="Copyright"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute type="xs:anyURI" name="doi"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
