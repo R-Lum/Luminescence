@@ -343,8 +343,8 @@ read_XLUM2R <- function(
 
   ## check for base64 encoding and convert if needed
   if (isTRUE(check_base64)) {
-    ## if it contains white space it is not base64
-    if (!grepl(" ", str, fixed = TRUE))
+    ## base64 text has length multiple of 4 and contains no spaces
+    if (nchar(str) %% 4 == 0 && !grepl(" ", str, fixed = TRUE))
       str <- rawToChar(base64enc::base64decode(str), multiple = FALSE)
   }
 

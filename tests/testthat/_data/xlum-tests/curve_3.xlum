@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xlum xmlns:xlum="http://xlum.r-luminescence.org" lang="en" formatVersion="1.0" flavour="generic" author="Marie Skłodowska-Curie" license="CC BY 4.0" doi="NA">
+ <sample name="LUM" mineral="quartz" latitude="52.4091392" longitude="-4.0702446" altitude="50" doi="valid DOI" comment="NA" state="NA" parentID="NA">
+   <sequence position="1" name="Example" fileName="Test.seq" software="DeviceEditor 2.0" readerName="NA" readerSN="NA" readerFW="NA" comment="NA" state="NA" parentID="NA">
+    <record recordType="TL" comment="NA" sequenceStepNumber="1" sampleCondition="NA" state="NA" parentID="NA">
+       <curve component="PMT" startDate="2021-02-14T22:57:12.0Z" curveType="measured" duration="10" offset="0" xValues="0" yValues="0" tValues="1" xLabel="NA" yLabel="NA" tLabel="time" vLabel="luminescence" xUnit="" yUnit="" vUnit="cts" tUnit="s" detectionWindow="375" filter="Hoya U340" comment="NA" state="NA" parentID="NA">
+         100
+       </curve>
+    </record>
+  </sequence>
+ </sample>
+</xlum>
