@@ -109,7 +109,7 @@
 <polyline points='152.76,428.78 152.76,486.13 ' style='stroke-width: 0.75; stroke: #FF0000; stroke-dasharray: 4.00,4.00;' />
 <line x1='221.45' y1='428.78' x2='152.76' y2='428.78' style='stroke-width: 0.75; stroke: #FF0000;' />
 <polygon points='166.87,425.25 152.76,428.78 166.87,432.31 ' style='stroke-width: 0.75; stroke: #FF0000; fill: #FF0000;' />
-<text x='187.11' y='421.58' text-anchor='middle' style='font-size: 9.60px; fill: #FF0000; font-family: sans;' textLength='53.31px' lengthAdjust='spacingAndGlyphs'>2.47 ± 0.029</text>
+<text x='187.11' y='421.58' text-anchor='middle' style='font-size: 9.60px; fill: #FF0000; font-family: sans;' textLength='47.98px' lengthAdjust='spacingAndGlyphs'>2.47 ± 0.03</text>
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <text x='82.40' y='542.88' text-anchor='middle' style='font-size: 10.80px; fill: #FF0000; font-family: sans;' textLength='31.81px' lengthAdjust='spacingAndGlyphs'>(-2.53)</text>

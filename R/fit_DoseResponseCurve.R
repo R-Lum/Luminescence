@@ -594,23 +594,14 @@ fit_DoseResponseCurve <- function(
   data.MC <- t(matrix(vapply(
       X = first.idx:last.idx,
       FUN = function(x) {
-        sample(stats::rnorm(
-          n = 10000,
-          mean = object[[2]][x],
-          sd = abs(object[[3]][x])
-        ),
-        size = n.MC,
-        replace = TRUE)
+        rnorm(n.MC, mean = object[[2]][x], sd = abs(object[[3]][x]))
       },
       FUN.VALUE = numeric(n.MC)
     ), nrow = n.MC))
 
   if (interpolation) {
     #1.3 Do the same for the natural signal
-    data.MC.De <-
-      sample(stats::rnorm(10000, mean = object[1, 2], sd = abs(object[1, 3])),
-             n.MC,
-             replace = TRUE)
+    data.MC.De <- rnorm(n.MC, mean = object[1, 2], sd = abs(object[1, 3]))
   } else if (extrapolation) {
     data.MC.De <- rep(0, n.MC)
   }

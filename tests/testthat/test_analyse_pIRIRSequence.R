@@ -218,7 +218,7 @@ test_that("check class and length of output", {
     expect_s3_class(results$LnLxTnTx.table, "data.frame")
     expect_s3_class(results$rejection.criteria, "data.frame")
 
-   expect_equal(round(sum(results$data[1:2, 1:4]), 0), 7473)
+   expect_equal(round(sum(results$data[1:2, 1:4]), 0), 7489)
    expect_equal(round(sum(results$rejection.criteria$Value), 0), 4012)
 })
 

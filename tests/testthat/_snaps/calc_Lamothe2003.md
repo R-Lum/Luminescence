@@ -7,9 +7,9 @@
     
      Fading_C:                  0.785 ± 0.055
      Corrected Ln/Tn:           5.513 ± 0.39
-     Corrected De [Gy]:         473.72 ± 75.28
+     Corrected De [Gy]:         473.72 ± 83.88
      ----------------------------------------------
-     Corrected Age [ka]:        282.65 ± 54.21
+     Corrected Age [ka]:        282.65 ± 58.54
      ----------------------------------------------
 
 ---
@@ -100,22 +100,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [473.71718926]
+                  "value": [473.71718964]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [75.28404313]
+                  "value": [83.88320303]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [282.64748763]
+                  "value": [282.64748785]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [54.21428418]
+                  "value": [58.53588355]
                 },
                 {
                   "type": "logical",
@@ -169,9 +169,9 @@
     
      Fading_C:                  0.786 ± 0.055
      Corrected Ln/Tn:           5.51 ± 0.39
-     Corrected De [Gy]:         473.21 ± 75.05
+     Corrected De [Gy]:         473.21 ± 83.59
      ----------------------------------------------
-     Corrected Age [ka]:        282.35 ± 54.08
+     Corrected Age [ka]:        282.35 ± 58.37
      ----------------------------------------------
 
 ---
@@ -262,22 +262,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [473.21116367]
+                  "value": [473.21116404]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [75.04873689]
+                  "value": [83.59008185]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [282.34556305]
+                  "value": [282.34556327]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [54.07982724]
+                  "value": [58.36956353]
                 },
                 {
                   "type": "logical",
