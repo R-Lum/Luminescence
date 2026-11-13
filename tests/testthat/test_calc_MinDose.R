@@ -126,6 +126,9 @@ test_that("check functionality", {
 test_that("snapshot tests", {
   testthat::skip_on_cran()
 
+  ## speed up the coverage runs
+  testthat::skip_on_covr()
+
   snapshot.tolerance <- 6.5e-5 # TODO(mcol): reset to 1.5e-6 for R4.7
 
   expect_snapshot_RLum(temp,
@@ -167,6 +170,9 @@ test_that("snapshot tests", {
 
 test_that("output snapshot tests", {
   testthat::skip_on_cran()
+
+  ## speed up the coverage runs
+  testthat::skip_on_covr()
 
   set.seed(1)
   SW({

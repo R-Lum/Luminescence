@@ -37,6 +37,12 @@ test_that("check functionality", {
   expect_equal(results$mu, NA_real_)
   expect_equal(round(results$Lmax, digits = 2), -19.79)
   expect_equal(round(results$BIC, digits = 2), 58.87)
+
+  expect_s4_class(calc_MaxDose(ExampleData.DeValues$CA1, sigmab = 0.2,
+                               bootstrap = TRUE, bs.M = 20, bs.N = 5, bs.h = 10,
+                               plot = FALSE, verbose = FALSE),
+                  "RLum.Results")
+
 })
 
 test_that("regression tests", {

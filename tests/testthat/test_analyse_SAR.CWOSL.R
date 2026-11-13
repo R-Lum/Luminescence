@@ -82,6 +82,9 @@ test_that("input validation", {
 test_that("snapshot tests", {
   testthat::skip_on_cran()
 
+  ## speed up the coverage runs
+  testthat::skip_on_covr()
+
   snapshot.tolerance <- 1.5e-6
 
   expect_snapshot_RLum(
@@ -728,6 +731,8 @@ test_that("advance tests run", {
       signal_integral = list(1:10, 1:20),
       background_integral = 900:1000,
       fit.method = "LIN",
+      rejection.criteria = list(
+        exceed.max.regpoint = FALSE),
       plot = FALSE,
       verbose = FALSE
     ),

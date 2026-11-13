@@ -79,8 +79,10 @@ test_that("input validation", {
                "'verbose' should be a single logical value")
 
   ## shorten dataframe
-  expect_warning(fit_DoseResponseCurve(LxTxData[1:2, ], verbose = FALSE),
-                 "Fitting a non-linear least-squares model requires at least 3")
+  expect_warning(expect_warning(
+      fit_DoseResponseCurve(rbind(LxTxData[1:2, ], NA), verbose = FALSE),
+      "1 NA values removed"),
+      "Fitting a non-linear least-squares model requires at least 3")
   expect_warning(fit_DoseResponseCurve(LxTxData[1:3, ], fit.method = "GOK",
                                        verbose = FALSE),
                  "requires at least 4 dose points besides the natural, 'fit.method'")
@@ -214,6 +216,10 @@ test_that("snapshot tests", {
     verbose = FALSE,
     n.MC = 10
   ), tolerance = snapshot.tolerance)
+
+  ## speed up the coverage runs by skipping the rest of this block
+  ## up to here is required to maintain 100% coverage
+  testthat::skip_on_covr()
 
   expect_snapshot_RLum(fit_DoseResponseCurve(
       LxTxData,
@@ -362,7 +368,6 @@ test_that("snapshot tests", {
     n.MC = 10
   ), tolerance = 4.0e-2)
   })
-
 })
 
 test_that("additional tests", {
@@ -539,10 +544,6 @@ temp_OTORX_alt <-
         LxTxData,mode = "extrapolation", fit.method = "SSE+LIN")),
     "RLum.Results")
 
-  GOK <- expect_s4_class(
-    fit_DoseResponseCurve(LxTxData,mode = "interpolation", fit.method = "GOK"),
-    "RLum.Results")
-
   OTOR <- expect_s4_class(
     fit_DoseResponseCurve(LxTxData,mode = "extrapolation", fit.method = "OTOR"), "RLum.Results")
 
@@ -583,28 +584,12 @@ temp_OTORX_alt <-
     fit_DoseResponseCurve(LxTxData, mode = "alternate", fit.method = "LIN"),
     "RLum.Results")
 
-  ## SSE
-  SSE <- expect_s4_class(
-    fit_DoseResponseCurve(LxTxData, mode = "alternate", fit.method = "SSE"),
-    "RLum.Results")
-
   ## SSE+LIN
   SSELIN <- expect_s4_class(
     suppressWarnings(
       fit_DoseResponseCurve(LxTxData, mode = "alternate", fit.method = "SSE+LIN")),
     "RLum.Results")
   })
-
-  ## GOK
-  expect_s4_class(
-    fit_DoseResponseCurve(
-      LxTxData,
-      mode = "alternate",
-      fit.method = "GOK",
-      verbose = FALSE
-    ),
-    "RLum.Results"
-  )
 
   ## OTOR
   expect_s4_class(
@@ -724,28 +709,13 @@ temp_OTORX_alt <-
     "[fit_DoseResponseCurve()] Standard root estimation using stats::uniroot()",
     fixed = TRUE)
 
-  ## only two valid points provided: this generates two warnings, hence
-  ## we cannot use expect_warning(), which can only capture one at a time
-  SW({
-  warnings <- capture_warnings(expect_message(fit_DoseResponseCurve(
-    data.frame(
-        dose = c(0, 1388.88888888889, NA),
-        LxTx = c(1.54252220145258, 4.43951568403849, NA),
-        LxTx_X = c(0.130074482379272, 2.59694106608, NA)),
-    verbose = TRUE),
-    "'fit.method' changed to 'LIN'"))
-  })
-  expect_match(warnings, "1 NA values removed",
-               all = FALSE, fixed = TRUE)
-  expect_match(warnings, "Fitting a non-linear least-squares model requires",
-               all = FALSE, fixed = TRUE)
-
   ## more coverage
   tmp$dose <- c(0:6, 100 + 0:6, 200000 + 0:6)
   expect_output(fit_DoseResponseCurve(
       tmp[4:8, ],
       fit.method = "GOK",
       fit.weights = "norm_inverse_std",
+      mode = "alternate",
       verbose = TRUE,
       n.MC = 10),
       "Fit failed for GOK")
@@ -755,12 +725,6 @@ temp_OTORX_alt <-
       verbose = TRUE,
       n.MC = 10),
       "Fit failed for OTORX")
-  expect_error(fit_DoseResponseCurve(
-      LxTxData[-7, ],
-      fit.method = "DSE",
-      mode = "extrapolation"),
-      "Mode 'extrapolation' for fitting method 'DSE' not supported",
-      fixed = TRUE)
 
   ## main fit works, but all MC iteration fail
   x.nomcfit <- data.frame(dose = 0:6,

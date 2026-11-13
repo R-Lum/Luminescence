@@ -75,7 +75,7 @@ test_that("input validation", {
                "'rprime' should be of class 'numeric'")
 
   SW({
-  expect_warning(calc_Huntley2006(data[, 1:2], rhop = rhop, n.MC = 2,
+  expect_warning(calc_Huntley2006(data[, 1:2], rhop = rhop, n.MC = 1,
                                   ddot = ddot, readerDdot = readerDdot,
                                   fit.method = "GOK", plot = FALSE),
                  "'data' has only two columns: we assume that the errors")
@@ -97,6 +97,9 @@ test_that("input validation", {
 
 test_that("snapshot tests", {
   testthat::skip_on_cran()
+
+  ## speed up the coverage runs
+  testthat::skip_on_covr()
 
   os <- tolower(Sys.info()[["sysname"]])
   snapshot.tolerance <- switch(os,
@@ -264,7 +267,7 @@ test_that("further tests", {
   expect_warning(expect_error(
     calc_Huntley2006(
       data = data,
-      rhop = c(4e-5, 5e-7), ddot = c(8, 0.04), readerDdot = c(0.1, 0.006),
+      rhop = c(4e-5, 4e-7), ddot = c(8, 0.04), readerDdot = c(0.1, 0.006),
       n.MC = 2, fit.method = "GOK", plot = FALSE, verbose = FALSE),
     "Could not fit unfaded curve, check suitability of model and parameters"),
     "Ln is >10 % larger than the maximum computed LxTx value")
@@ -285,6 +288,9 @@ test_that("further tests", {
 
 test_that("regression tests", {
   testthat::skip_on_cran()
+
+  ## speed up the coverage runs
+  testthat::skip_on_covr()
 
   ## issue 660
   DRC <- data.frame(
