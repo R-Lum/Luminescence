@@ -215,6 +215,7 @@ test_that("further tests", {
     normalise = FALSE,
     fit.method = "SSE",
     summary = TRUE,
+    cores = 2,
     plot = TRUE,
     n.MC = 100),
     regexp = "\\[calc\\_Huntley2006\\(\\)\\] Ln\\/Tn is smaller than the minimum computed LxTx value.")

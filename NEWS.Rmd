@@ -99,6 +99,13 @@ row or column names, but assigns arbitrary names before proceeding (#1798).
 * The function no longer crashes when a data frame with more than two columns
 is provided as input object and `plot = TRUE` (#1808).
 
+### `calc_Huntley2006()`
+
+* The function used to start a parallel cluster also when only one core was
+used (which is the default), which incurred an unnecessary cost. Now this is
+started only when multiple cores are requested, thus bringing a small speedup
+in the default case (#1841).
+
 ### `fit_DoseResponseCurve()`
 
 * The new `fit.IndexRegPoints` replaces both `fit.NumberRegPoints` and
