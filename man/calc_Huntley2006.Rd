@@ -231,7 +231,7 @@ in \code{rprime = seq(0.01, 3, length.out = 1000)} (the default).
 Uncertainties are reported at \eqn{1\sigma} and are assumed to be normally
 distributed and are estimated using Monte-Carlo re-sampling (\code{n.MC = 10000}
 by default) of \eqn{\rho}' and \eqn{\frac{L_x}{T_x}} during dose response
-curve fitting, and of \eqn{\rho}' #' in the derivation of (\eqn{n/N}) and
+curve fitting, and of \eqn{\rho}' in the derivation of (\eqn{n/N}) and
 (n/N)_SS.
 
 \strong{Age calculated from 2D0 of the simulated natural DRC}

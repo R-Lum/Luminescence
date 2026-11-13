@@ -72,7 +72,7 @@
 #' Uncertainties are reported at \eqn{1\sigma} and are assumed to be normally
 #' distributed and are estimated using Monte-Carlo re-sampling (`n.MC = 10000`
 #' by default) of \eqn{\rho}' and \eqn{\frac{L_x}{T_x}} during dose response
-#' curve fitting, and of \eqn{\rho}' #' in the derivation of (\eqn{n/N}) and
+#' curve fitting, and of \eqn{\rho}' in the derivation of (\eqn{n/N}) and
 #' (n/N)_SS.
 #'
 #' **Age calculated from 2D0 of the simulated natural DRC**
@@ -429,10 +429,8 @@ calc_Huntley2006 <- function(
     extraArgs)
 
   .validate_positive_scalar(settings$n.MC, int = TRUE, name = "'n.MC'")
-  if (settings$n.MC == 1) {
-    settings$n.MC <- max(settings$n.MC, 2)
-    extraArgs$n.MC <- settings$n.MC
-  }
+  if (settings$n.MC == 1)
+    settings$n.MC <- 2
 
   ## Define Constants ----------------------------------------------------------
 
@@ -536,8 +534,7 @@ calc_Huntley2006 <- function(
 
     ## c = 0 if force_through_origin
     upper.bounds <- c(rep(Inf, 2), if (force_through_origin) 0 else Inf)
-  }
-  if (fit.method == "GOK") {
+  } else if (fit.method == "GOK") {
     model <- LxTx.measured ~ a * theta(dosetime, rhop_i) *
       (d - (1 + (1 / D0) * dosetime * c)^(-1 / c))
     start <- list(a = coef(fit_measured)[["a"]],
@@ -808,11 +805,8 @@ calc_Huntley2006 <- function(
         a = coef(fit_simulated)[[var.name.a]],
         D0 = D0.measured / readerDdot,
         c = coef(fit_simulated)[[var.name.c]]),
-        upper = if(force_through_origin) {
-           c(a = Inf, D0 = max(dosetimeGray), c = 0)
-          } else {
-           c(Inf, max(dosetimeGray), Inf)
-          },
+        upper = c(a = Inf, D0 = max(dosetimeGray),
+                  c = if (force_through_origin) 0 else Inf),
         lower = lower.bounds[1:3],
         trace = settings$trace,
       control = list(maxiter = settings$maxiter)), silent = TRUE)
@@ -836,10 +830,8 @@ calc_Huntley2006 <- function(
         D0 = coef(fit_start)[["D0"]],
         c = max(coef(fit_start)[["c"]], 1),
         d = coef(fit_simulated)[["d"]]),
-      upper = if(force_through_origin) {
-        c(a = Inf, D0 = max(dosetimeGray), c = Inf, d = 1)
-       } else {
-        c(Inf, max(dosetimeGray), Inf, Inf)},
+      upper = c(a = Inf, D0 = max(dosetimeGray), c = Inf,
+                d = if (force_through_origin) 1 else Inf),
       lower = lower.bounds[1:4],
       control = list(maxiter = settings$maxiter)), silent = TRUE)
 
@@ -975,7 +967,7 @@ calc_Huntley2006 <- function(
               else
                 c(par()$usr[1], max(c(De.measured, De.sim, 0), na.rm = TRUE)),
           y = c(Ln, Ln),
-          col = "red ", lty = 3)
+          col = "red", lty = 3)
 
     #vertical line of measured DE
     lines(x = c(De.measured, De.measured),
