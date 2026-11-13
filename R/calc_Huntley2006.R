@@ -410,10 +410,12 @@ calc_Huntley2006 <- function(
   .validate_class(ddot, "numeric", length = 2)
   .validate_class(readerDdot, "numeric", length = 2)
 
-  ## set up the parallel cluster
+  ## set up the parallel cluster if required
   cores <- .validate_cores(cores)
-  cl <- parallel::makeCluster(cores)
-  on.exit(parallel::stopCluster(cl), add = TRUE)
+  if (cores > 1) {
+    cl <- parallel::makeCluster(cores)
+    on.exit(parallel::stopCluster(cl), add = TRUE)
+  }
 
   ## Settings ------------------------------------------------------------------
   extraArgs <- list(...)
@@ -547,8 +549,8 @@ calc_Huntley2006 <- function(
     upper.bounds <- c(rep(Inf, 3), if (force_through_origin) 1 else Inf)
   }
 
-  ## do the fitting
-  fitcoef <- do.call(rbind, parallel::parLapply(cl, rhop_MC, function(rhop_i) {
+  ## fitting function to apply to each Monte Carlo sample
+  fit_fun <- function(rhop_i) {
     fit_sim <- try({
       minpack.lm::nlsLM(
        formula = model,
@@ -605,7 +607,14 @@ calc_Huntley2006 <- function(
     }
 
     return(coefs)
-  }))
+  }
+
+  ## do the fitting, in parallel only when requested
+  fits <- if (cores > 1)
+      parallel::parLapply(cl, rhop_MC, fit_fun)
+    else
+      lapply(rhop_MC, fit_fun)
+  fitcoef <- do.call(rbind, fits)
 
   ## check if errors had occurred during model fitting
   if (anyNA(fitcoef)) {
