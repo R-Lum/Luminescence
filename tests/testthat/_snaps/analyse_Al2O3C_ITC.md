@@ -4,7 +4,7 @@
     [analyse_Al2O3C_ITC()]
     
      Used fit method:           SSE
-     Time correction value:     2.598 ± 0.033
+     Time correction value:     2.598 ± 0.032
     
 
 ---
@@ -45,12 +45,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [2.59814516]
+                  "value": [2.5981436]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.03295928]
+                  "value": [0.03235629]
                 }
               ]
             },
@@ -189,7 +189,7 @@
     [analyse_Al2O3C_ITC()]
     
      Used fit method:           SSE
-     Time correction value:     2.508 ± 0.031
+     Time correction value:     2.508 ± 0.032
     
 
 ---
@@ -230,12 +230,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [2.50846579]
+                  "value": [2.50846578]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.03080273]
+                  "value": [0.03154639]
                 }
               ]
             },

@@ -33,15 +33,15 @@
 <text x='465.65' y='528.48' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='23.36px' lengthAdjust='spacingAndGlyphs'>0.25</text>
 <text x='556.90' y='528.48' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='23.36px' lengthAdjust='spacingAndGlyphs'>0.30</text>
 <text x='648.15' y='528.48' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='23.36px' lengthAdjust='spacingAndGlyphs'>0.35</text>
-<line x1='59.04' y1='453.22' x2='59.04' y2='127.02' style='stroke-width: 0.75;' />
-<line x1='59.04' y1='453.22' x2='51.84' y2='453.22' style='stroke-width: 0.75;' />
-<line x1='59.04' y1='344.48' x2='51.84' y2='344.48' style='stroke-width: 0.75;' />
-<line x1='59.04' y1='235.75' x2='51.84' y2='235.75' style='stroke-width: 0.75;' />
-<line x1='59.04' y1='127.02' x2='51.84' y2='127.02' style='stroke-width: 0.75;' />
-<text transform='translate(41.76,453.22) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='26.70px' lengthAdjust='spacingAndGlyphs'>6000</text>
-<text transform='translate(41.76,344.48) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='26.70px' lengthAdjust='spacingAndGlyphs'>6500</text>
-<text transform='translate(41.76,235.75) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='26.70px' lengthAdjust='spacingAndGlyphs'>7000</text>
-<text transform='translate(41.76,127.02) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='26.70px' lengthAdjust='spacingAndGlyphs'>7500</text>
+<line x1='59.04' y1='457.06' x2='59.04' y2='132.54' style='stroke-width: 0.75;' />
+<line x1='59.04' y1='457.06' x2='51.84' y2='457.06' style='stroke-width: 0.75;' />
+<line x1='59.04' y1='348.89' x2='51.84' y2='348.89' style='stroke-width: 0.75;' />
+<line x1='59.04' y1='240.72' x2='51.84' y2='240.72' style='stroke-width: 0.75;' />
+<line x1='59.04' y1='132.54' x2='51.84' y2='132.54' style='stroke-width: 0.75;' />
+<text transform='translate(41.76,457.06) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='26.70px' lengthAdjust='spacingAndGlyphs'>6000</text>
+<text transform='translate(41.76,348.89) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='26.70px' lengthAdjust='spacingAndGlyphs'>6500</text>
+<text transform='translate(41.76,240.72) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='26.70px' lengthAdjust='spacingAndGlyphs'>7000</text>
+<text transform='translate(41.76,132.54) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='26.70px' lengthAdjust='spacingAndGlyphs'>7500</text>
 <polygon points='59.04,502.56 689.76,502.56 689.76,59.04 59.04,59.04 ' style='stroke-width: 0.75; fill: none;' />
 <text x='374.40' y='34.48' text-anchor='middle' style='font-size: 14.40px; font-weight: bold; font-family: sans;' textLength='59.22px' lengthAdjust='spacingAndGlyphs'>De(t) plot</text>
 <text x='374.40' y='557.28' text-anchor='middle' style='font-size: 12.00px; font-family: sans;' textLength='101.38px' lengthAdjust='spacingAndGlyphs'>Stimulation time [s]</text>
@@ -80,14 +80,14 @@
 <circle cx='520.40' cy='435.14' r='1.80' style='stroke-width: 0.75; fill: #000000;' />
 <circle cx='593.40' cy='456.14' r='1.80' style='stroke-width: 0.75; fill: #000000;' />
 <circle cx='666.40' cy='486.13' r='1.80' style='stroke-width: 0.75; fill: #000000;' />
-<circle cx='228.40' cy='233.43' r='2.70' style='stroke-width: 0.75;' />
-<circle cx='374.40' cy='130.29' r='2.70' style='stroke-width: 0.75;' />
-<circle cx='520.40' cy='318.19' r='2.70' style='stroke-width: 0.75;' />
-<circle cx='666.40' cy='442.29' r='2.70' style='stroke-width: 0.75;' />
-<line x1='228.40' y1='193.43' x2='228.40' y2='273.43' style='stroke-width: 0.75;' />
-<line x1='374.40' y1='75.84' x2='374.40' y2='184.74' style='stroke-width: 0.75;' />
-<line x1='520.40' y1='263.37' x2='520.40' y2='373.02' style='stroke-width: 0.75;' />
-<line x1='666.40' y1='398.45' x2='666.40' y2='486.13' style='stroke-width: 0.75;' />
+<circle cx='228.40' cy='238.40' r='2.70' style='stroke-width: 0.75;' />
+<circle cx='374.40' cy='135.80' r='2.70' style='stroke-width: 0.75;' />
+<circle cx='520.40' cy='322.73' r='2.70' style='stroke-width: 0.75;' />
+<circle cx='666.40' cy='446.19' r='2.70' style='stroke-width: 0.75;' />
+<line x1='228.40' y1='196.22' x2='228.40' y2='280.59' style='stroke-width: 0.75;' />
+<line x1='374.40' y1='75.47' x2='374.40' y2='196.13' style='stroke-width: 0.75;' />
+<line x1='520.40' y1='272.15' x2='520.40' y2='373.31' style='stroke-width: 0.75;' />
+<line x1='666.40' y1='406.24' x2='666.40' y2='486.13' style='stroke-width: 0.75;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 </g>

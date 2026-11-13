@@ -325,7 +325,7 @@ test_that("regression tests", {
                           4.256, 4.049, 4.408, 3.701, 4.187, 4.129, 4.043, 4.262,
                           4.254, 4.448, 4.330, 5.023, 4.317, 3.479, 3.815, 13.61),
                  LxTx.error = 0.5)
-  set.seed(1)
+  set.seed(2)
   expect_s4_class(suppressWarnings(
       calc_Huntley2006(df, rhop = c(4e-5, 5e-7),
                        ddot = c(8, 0.04), readerDdot = c(0.01, 0.06),

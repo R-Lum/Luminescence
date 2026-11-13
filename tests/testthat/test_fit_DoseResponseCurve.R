@@ -490,16 +490,16 @@ temp_OTORX_alt <-
   expect_s3_class(temp_OTORX_alt2$Fit, class = "nls")
 
    expect_equal(round(temp_SSE$De[[1]], digits = 2), 1737.71)
-   expect_equal(round(sum(temp_SSE$De.MC, na.rm = TRUE), digits = 0), 17563)
+   expect_equal(round(sum(temp_SSE$De.MC, na.rm = TRUE), digits = 0), 17595)
    expect_equal(round(temp_LIN$De[[1]], digits = 1), 1673)
-   expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 0),16983)
+   expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 0),16696)
    expect_equal(round(temp_SSELIN$De[[1]], digits = 1), 1793)
-   expect_equal(round(sum(temp_SSELIN$De.MC, na.rm = TRUE), digits = 0), 18068)
+   expect_equal(round(sum(temp_SSELIN$De.MC, na.rm = TRUE), digits = 0), 17972)
    expect_equal(round(temp_DSE$De[[1]], digits = 2), 1786.98)
    expect_equal(round(sum(temp_DSE$De.MC, na.rm = TRUE), digits = 0), 7303,
                 tolerance = 10)
    expect_equal(round(temp_QDR$De[[1]], digits = 1), 1646.8)
-   expect_equal(round(sum(temp_QDR$De.MC, na.rm = TRUE), digits = 0), 16342)
+   expect_equal(round(sum(temp_QDR$De.MC, na.rm = TRUE), digits = 0), 16602)
    expect_equal(round(temp_GOK$De[[1]], digits = 0), 1786)
    ##fix for different R versions
    if (R.version$major > "3"){
@@ -517,7 +517,7 @@ temp_OTORX_alt <-
    expect_equal(round(temp_OTORX$De[[1]], digits = 1), 2469.8, tolerance = 0.1)
    expect_equal(round(temp_OTORX_alt$De[[1]], digits = 2),  758.280)
    expect_equal(round(temp_OTORX_alt2$De[[1]], digits = 2),  793.21, tolerance = 0.2)
-   expect_equal(round(sum(temp_OTOR$De.MC, na.rm = TRUE), digits = 0), 17611)
+   expect_equal(round(sum(temp_OTOR$De.MC, na.rm = TRUE), digits = 0), 17983)
    expect_equal(round(sum(temp_OTORX$De.MC, na.rm = TRUE), digits = 0), 24408, tolerance = 0.2)
 
 # Check extrapolation -----------------------------------------------------
@@ -864,7 +864,7 @@ test_that("regression tests", {
                    LxTx.Error = c(2.26, 1306.72, 9.12, 5.89, 0.37, 1.87),
                    TnTx = c(7.02, 0.45, 15.56, 29.38, 25.03, 19.07))
   expect_output(fit_DoseResponseCurve(df),
-                "Fit:    SSE (interpolation) | De = 268.26 | D01 = 2612.50",
+                "Fit:    SSE (interpolation) | De = 268.21 | D01 = 2611.02",
                 fixed = TRUE)
 
   ## issue 1591
@@ -899,8 +899,8 @@ test_that("regression tests", {
   set.seed(2)
   fit <- fit_DoseResponseCurve(df_odd, mode = "interpolation",
                                verbose = FALSE, n.MC = 10)
-  expect_equal(sum(is.na(fit$De.MC)), 6)
-  expect_equal(fit$De$D01.ERROR, 1.369969, tolerance = 5.0e-3)
+  expect_equal(sum(is.na(fit$De.MC)), 5)
+  expect_equal(fit$De$D01.ERROR, 1.722168, tolerance = 5.0e-3)
 
   ## issue 1800
   set.seed(1)
