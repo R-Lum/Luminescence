@@ -134,6 +134,10 @@ plot_DoseResponseCurve <- function(
   colnames(xy) <- c("x", "y")
   y.Error <- sample[first.idx:last.idx, 3]
 
+  ## natural signal and its error
+  natural.LxTx <- sample[1, 2]
+  natural.LxTx.Error <- sample[1, 3]
+
   De <- object@data$De$.De.plot
   x.natural <- stats::na.exclude(object@data$De.MC)
   De.MonteCarlo <- mean(x.natural)
@@ -143,7 +147,7 @@ plot_DoseResponseCurve <- function(
   idx.real <- which(!(duplicated(xy[, 1]) | xy[, 1] == 0))
 
   ## reg point 0
-  idx.0 <- which(xy == 0)[1]
+  idx.0 <- which(xy[, 1] == 0)[1]
 
   ## Graphical arguments ----------------------------------------------------
   ymax <- max(xy$y) + if (max(xy$y) * 0.1 > 1.5) 1.5 else max(xy$y) * 0.2
@@ -293,8 +297,8 @@ plot_DoseResponseCurve <- function(
           col = 2,
           cex = plot_settings$pt.cex,
           pch = plot_settings$reg_points_pch[1])
-        graphics::segments(sample[1, 1], sample[1, 2] - sample[1, 3],
-                 sample[1, 1], sample[1, 2] + sample[1, 3], col = col[2])
+        graphics::segments(sample[1, 1], natural.LxTx - natural.LxTx.Error,
+                           sample[1, 1], natural.LxTx + natural.LxTx.Error, col = col[2])
       }
     } else if (mode == "extrapolation"){
       points(
@@ -319,21 +323,21 @@ plot_DoseResponseCurve <- function(
       xmax <- if (is.na(De)) max(sample[, 1]) * 2 else De
       try(lines(
           c(par.usr[1], xmax),
-          c(sample[1, 2], sample[1, 2]),
+          c(natural.LxTx, natural.LxTx),
           col = col[2],
           lty = 2,
           lwd = 1.25
       ), silent = TRUE)
       try(lines(
           c(De, De),
-          c(par.usr[3], sample[1, 2]),
+          c(par.usr[3], natural.LxTx),
           col = col[2],
           lty = 2,
           lwd = 1.25), silent = TRUE)
       try({
         points(
           x = De,
-          y = sample[1, 2],
+          y = natural.LxTx,
           col = "black",
           pch = 21,
           bg = col[2],
@@ -349,7 +353,7 @@ plot_DoseResponseCurve <- function(
           density_De$y <- .rescale(
             x = density_De$y,
             range_old = c(max(density_De$y), min(density_De$y)),
-            range_new = c(sample[1, 2] / 2, par.usr[3]))
+            range_new = c(natural.LxTx / 2, par.usr[3]))
 
           ## for De
           ## we add two extra points to ensure that the base is not wonky (#847)
@@ -360,16 +364,16 @@ plot_DoseResponseCurve <- function(
 
           ## for LxTx
           tmp_y <- seq(
-            sample[[2]][1] - 5 * sample[[3]][1],
-            sample[[2]][1] + 5 *  sample[[3]][1],
+            natural.LxTx - 5 * natural.LxTx.Error,
+            natural.LxTx + 5 * natural.LxTx.Error,
             length.out = 100)
 
-          tmp_x <- dnorm(tmp_y, mean = sample[1, 2], sd = sample[1, 3])
+          tmp_x <- dnorm(tmp_y, mean = natural.LxTx, sd = natural.LxTx.Error)
 
           tmp_x <-  .rescale(
             x = tmp_x,
             range_old = c(max(tmp_x), min(tmp_x)),
-            range_new = c(sample[[2]][1], par.usr[1]))
+            range_new = c(natural.LxTx, par.usr[1]))
 
           # draw polygon
           polygon(
@@ -410,7 +414,7 @@ plot_DoseResponseCurve <- function(
         silent = TRUE)
 
     ## write error message in plot if De is NaN or NA
-    try(if (is.na(De) & mode != "alternate") {
+    try(if (is.na(De) && mode != "alternate") {
           text(sample[2, 1],
               0,
               "Error: De could not be calculated!",
