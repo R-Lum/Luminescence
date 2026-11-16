@@ -241,6 +241,12 @@ can be accessed via the new `bin_RLum()` generic (#1782):
   is expected to have converted the data into a list of `RLum.Analysis`
   objects, which is what the `fastForward` argument does (#1829).
 
+### `read_SPE2R()`
+
+- The objects produced by the function will now contain `recordType` set
+  to `custom (NA)` instead of `Spectrum` or `Image` to better conform to
+  the values allowed by the XLUM specification (#1837).
+
 ### `read_XSYG2R()`
 
 - The `pattern` argument is now validated to be a single string to avoid

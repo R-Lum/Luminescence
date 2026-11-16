@@ -6,7 +6,7 @@
         "recordType": {
           "type": "character",
           "attributes": {},
-          "value": ["Spectrum (NA)"]
+          "value": ["custom (NA)"]
         },
         "curveType": {
           "type": "character",
