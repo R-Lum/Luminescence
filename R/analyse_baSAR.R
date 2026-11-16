@@ -1609,11 +1609,26 @@ analyse_baSAR <- function(
 
   # Plotting ------------------------------------------------------------------------------------
   if(plot){
+    ## Helper to add the HPD lines
+    .add_HPD_lines <- function(summary, col, legend_pos) {
+      abline(v = summary[, c("CENTRAL_Q_.16", "CENTRAL_Q_.84")],
+             lty = 3, col = col[3], lwd = 1.2)
+      abline(v = summary[, c("CENTRAL_Q_.025", "CENTRAL_Q_.975")],
+             lty = 2, col = col[2])
+      if (!is.null(legend_pos))
+        legend(legend_pos,
+               legend = c("HPD - 68 %", "HPD - 95 %"),
+               bty = "n",
+               lty = c(3, 2),
+               col = c(col[3], col[2]))
+    }
+
     ##get colours from the package Luminescence
     col <- get("col", pos = .LuminescenceEnv)
 
-    dose_xlab <- ifelse(is.null(unlist(source_doserate)), "Dose [s]", "Dose [Gy]")
-    dose_expression <- ifelse(is.null(unlist(source_doserate)),
+    use.seconds <- is.null(unlist(source_doserate))
+    dose_xlab <- if (use.seconds) "Dose [s]" else "Dose [Gy]"
+    dose_expression <- ifelse(use.seconds,
                               expression(paste(D[e], " [s]")),
                               expression(paste(D[e], " [Gy]")))
     dose_cols <- grep("DOSE", colnames(input_object))
@@ -1686,44 +1701,31 @@ analyse_baSAR <- function(
         tick.pos <- which(labels != " ")
         axis(side = 2, at = tick.pos, labels = labels[tick.pos], cex.axis = 0.8)
 
-      ##add HPD with text
-      ##HPD - 68%
-      lines(
-        x = c(
-          results[[1]][, "CENTRAL_Q_.16"], results[[1]][, "CENTRAL_Q_.16"],
-          results[[1]][, "CENTRAL_Q_.84"], results[[1]][, "CENTRAL_Q_.84"]),
-        y = c(par()$usr[3], 16, 16, par()$usr[3]),
-        lty = 3,
-        col = col[3],
-        lwd = 1.5
+      ## add the HPDs with their labels
+      hpd <- list(
+        list(q = c("CENTRAL_Q_.16", "CENTRAL_Q_.84"), y = 16,
+             label = "68 %", colour = col[3]),
+        list(q = c("CENTRAL_Q_.025", "CENTRAL_Q_.975"), y = 17.5,
+             label = "95 %", colour = col[2])
       )
-      text(
-        x = results[[1]][, "CENTRAL"],
-        y = 16,
-        labels = "68 %",
-        pos = 3,
-        col = col[3],
-        cex = 0.9 * par()$cex
-      )
-
-      ##HPD - 98 %%
-      lines(
-        x = c(
-          results[[1]][, "CENTRAL_Q_.025"], results[[1]][, "CENTRAL_Q_.025"],
-          results[[1]][, "CENTRAL_Q_.975"], results[[1]][, "CENTRAL_Q_.975"]),
-        y = c(par()$usr[3], 17.5, 17.5, par()$usr[3]),
-        lty = 3,
-        col = col[2],
-        lwd = 1.5
-      )
-
-      text(
-        x = results[[1]][, "CENTRAL"],
-        y = 17.5,
-        labels = "95 %",
-        pos = 3,
-        col = col[2],
-        cex = 0.9 * par()$cex)
+      for (h in hpd) {
+        lines(
+          x = c(results[[1]][, h$q[1]], results[[1]][, h$q[1]],
+                results[[1]][, h$q[2]], results[[1]][, h$q[2]]),
+          y = c(par()$usr[3], h$y, h$y, par()$usr[3]),
+          lty = 3,
+          col = h$colour,
+          lwd = 1.5
+        )
+        text(
+          x = results[[1]][, "CENTRAL"],
+          y = h$y,
+          labels = h$label,
+          pos = 3,
+          col = h$colour,
+          cex = 0.9 * par()$cex
+        )
+      }
       }
       ##update counter
       i <- i + 15
@@ -1829,24 +1831,8 @@ analyse_baSAR <- function(
             )
       }
 
-          ##add ablines
-          abline(
-            v = results[[1]][, c("CENTRAL_Q_.16", "CENTRAL_Q_.84")],
-            lty = 3,
-            col = col[3],
-            lwd = 1.2
-          )
-          abline(v = results[[1]][, c("CENTRAL_Q_.025", "CENTRAL_Q_.975")], lty = 2, col = col[2])
-
-          ##add legend1
-          legend(
-            legend_pos,
-            bty = "n",
-            horiz = FALSE,
-            lty = c(3, 2),
-            col = c(col[3], col[2]),
-            legend = c("HPD - 68 %", "HPD - 95 %")
-          )
+      ## add HPD lines
+      .add_HPD_lines(results[[1]], col, legend_pos)
 
           ##add legend2
           legend(
@@ -1864,6 +1850,13 @@ analyse_baSAR <- function(
     de_data <- input_object[, c("DE", "DE.SD")]
     n_plotted <- nrow(input_object) - length(which(is.na(de_data)))
 
+    plot_distribution <- FALSE
+    distribution_legend_pos <- if (distribution_plot == "abanico") {
+      "topleft"
+    } else {
+      legend_pos
+    }
+
     if (distribution_plot == "abanico") {
         plot_check <- plot_AbanicoPlot(
           data = de_data,
@@ -1880,17 +1873,7 @@ analyse_baSAR <- function(
           mtext = paste0(n_plotted, "/", nrow(input_object),
                          " plotted (removed are NA values)")
         )
-
-        if (!is.null(plot_check)) {
-          legend(
-            "topleft",
-            legend = c("Central dose", "HPD - 68%", "HPD - 95 %"),
-            lty = c(2, 3, 2),
-            col = c("black", col[3], col[2]),
-            bty = "n",
-            cex = par()$cex * 0.8
-          )
-        }
+        plot_distribution <- !is.null(plot_check)
 
     } else if (distribution_plot == "kde") {
         plot_check <- try(suppressWarnings(plot_KDE(
@@ -1900,25 +1883,22 @@ analyse_baSAR <- function(
                          " (removed are NA values)")
         )), outFile = stdout()) # redirect error messages so they can be silenced
 
-        if (!inherits(plot_check, "try-error")) {
+        plot_distribution <- !inherits(plot_check, "try-error")
+        if (plot_distribution) {
           abline(v = results[[1]]$CENTRAL, lty = 2)
-          abline(
-            v = results[[1]][, c("CENTRAL_Q_.16", "CENTRAL_Q_.84")],
-            lty = 3,
-            col = col[3],
-            lwd = 1.2
-          )
-          abline(v = results[[1]][, c("CENTRAL_Q_.025", "CENTRAL_Q_.975")], lty = 2, col = col[2])
+          .add_HPD_lines(results[[1]], col, NULL)
+        }
+    }
 
+    if (plot_distribution) {
           legend(
-            legend_pos,
+            distribution_legend_pos,
             legend = c("Central dose", "HPD - 68%", "HPD - 95 %"),
             lty = c(2, 3, 2),
             col = c("black", col[3], col[2]),
             bty = "n",
             cex = par()$cex * 0.8
           )
-        }
     }
   }
 
