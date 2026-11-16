@@ -22,7 +22,7 @@ de-constructing the object. For example:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{set_RLum(class = 'RLum.Data.Curve',
          data = Your.RLum.Data.Curve,
-         recordType = 'never seen before')
+         recordType = "custom")
 }\if{html}{\out{</div>}}
 
 would just change the \code{recordType}. Missing arguments  the value is taken

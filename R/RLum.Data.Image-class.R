@@ -9,7 +9,7 @@
 #'
 #' @slot recordType
 #' Object of class [character] containing the type of the curve (e.g.
-#' "OSL image", "TL image").
+#' "OSL", "TL").
 #'
 #' @slot curveType
 #' Object of class [character] containing curve type, allowed values
@@ -28,18 +28,17 @@
 #' @section Objects from the class:
 #' Objects can be created by calls of the form `set_RLum("RLum.Data.Image", ...)`.
 #'
-#' @section Class version: 0.5.1
+#' @section Class version: 0.5.2
 #'
 #' @author
 #' Sebastian Kreutzer, F2.1 Geophysical Parametrisation/Regionalisation, LIAG - Institute for Applied Geophysics (Germany)
 #'
-#' @seealso [Luminescence::RLum-class], [Luminescence::RLum.Data-class], [Luminescence::plot_RLum],
+#' @seealso [Luminescence::RLum.Data-class], [Luminescence::plot_RLum],
 #' [Luminescence::read_SPE2R], [Luminescence::read_TIFF2R]
 #'
 #' @keywords classes
 #'
 #' @examples
-#'
 #' showClass("RLum.Data.Image")
 #'
 #' ##create empty RLum.Data.Image object
@@ -84,7 +83,7 @@ setClass(
 setAs("data.frame", "RLum.Data.Image",
       function(from,to){
         new(to,
-            recordType = "unknown curve type",
+            recordType = "custom (NA)",
             curveType = "NA",
             data = array(unlist(from), dim = c(nrow(from),ncol(from),1)),
             info = list())
@@ -105,7 +104,7 @@ setAs("RLum.Data.Image", "data.frame",
 setAs("matrix", "RLum.Data.Image",
       function(from,to){
         new(to,
-            recordType = "unknown curve type",
+            recordType = "custom (NA)",
             curveType = "NA",
             data = array(from, c(nrow(from), ncol(from), 1)),
             info = list())
@@ -125,7 +124,7 @@ setAs("RLum.Data.Image", "matrix",
 setAs("array", "RLum.Data.Image",
       function(from, to){
         new(to,
-            recordType = "unknown curve type",
+            recordType = "custom (NA)",
             curveType = "NA",
             data = from,
             info = list())
@@ -144,7 +143,7 @@ setAs("list", "RLum.Data.Image",
 
         array_list <- lapply(from, function(x) array(unlist(as.vector(x)), c(nrow(x), ncol(x), 1)))
         new(to,
-            recordType = "unknown curve type",
+            recordType = "custom (NA)",
             curveType = "NA",
             data = array(unlist(array_list),
                          c(nrow(array_list[[1]]), ncol(array_list[[1]]), length(array_list))),
@@ -201,7 +200,7 @@ setMethod(
     originator,
     .uid,
     .pid,
-    recordType = "Image",
+    recordType = NA_character_,
     curveType = NA_character_,
     data = array(),
     info = list()) {

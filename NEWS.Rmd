@@ -270,3 +270,16 @@ the setting of the `fastForward` argument (#1833).
 * When the function is used to extend an existing `RLum.Analysis` object, the
 `.pid` slot is now correctly inherited from the source object if not provided
 explicitly (#1814).
+
+* When the function is used to create `RLum.Data.Curve`, `RLum.Data.Image` or
+`RLum.Data.Spectrum` objects, the `recordType` slot is set to `NA_character_`,
+unless specified otherwise. `RLum.Data` objects converted from matrix or array
+are given `recordType = "custom (NA)"`. This was done so that the first term
+matches one of the valid values for this attribute as specified in the XLUM
+specification (#1837).
+
+## Other changes
+
+* The `recordType` in `ExampleData.RLum.Data.Image` has been updated to be
+`RF (camera)` instead of `Image`. This was done so that converting the object
+into XLUM format doesn't cause unnecessary failures (#1837).

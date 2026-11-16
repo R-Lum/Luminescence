@@ -381,7 +381,7 @@
                 "recordType": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["unknown curve type"]
+                  "value": ["custom (NA)"]
                 },
                 "curveType": {
                   "type": "character",
