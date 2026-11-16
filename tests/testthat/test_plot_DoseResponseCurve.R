@@ -26,6 +26,8 @@ test_that("input validation", {
   expect_error(
       plot_DoseResponseCurve(fit, verbose = "error"),
       "'verbose' should be a single logical value")
+  expect_error(plot_DoseResponseCurve(fit, log = NA),
+               "'log' should be of class 'character' and have length 1")
   expect_message(
       plot_DoseResponseCurve(fit, reg_points_pch = 1),
       "'reg_points_pch' should have length 3")
@@ -127,4 +129,11 @@ test_that("graphical snapshot tests", {
                                                 plot = FALSE) |>
                               plot_DoseResponseCurve())
   })
+})
+
+test_that("regression tests", {
+  testthat::skip_on_cran()
+
+  ## issue 1844
+  expect_silent(plot_DoseResponseCurve(fit, plot_extended = FALSE, log = "xz"))
 })
