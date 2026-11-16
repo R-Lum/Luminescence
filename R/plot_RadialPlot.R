@@ -306,54 +306,55 @@ plot_RadialPlot <- function(
       data <- list(data)
 
   ## Check input data
-  for(i in 1:length(data)) {
-    .validate_class(data[[i]], c("data.frame", "RLum.Results"),
+  for (i in seq_along(data)) {
+    data_i <- data[[i]]
+    .validate_class(data_i, c("data.frame", "RLum.Results"),
                     name = "All elements of 'data'")
 
-    if (inherits(data[[i]], "RLum.Results")) {
-        data[[i]] <- get_RLum(data[[i]], "data")
+    if (inherits(data_i, "RLum.Results")) {
+        data_i <- get_RLum(data_i, "data")
     }
 
-    ## ensure that the dataset it not degenerate
-    .validate_not_empty(data[[i]],
+    ## ensure that the dataset is not degenerate
+    .validate_not_empty(data_i,
                         name = paste0("Input 'data[[", i, "]]'"))
 
-      ## if `data[[i]]` is a single-column data frame, append a second
-      ## column with a small non-zero value
-      if (ncol(data[[i]]) < 2) {
-        data[[i]] <- data.frame(data[[i]], 10^-9)
-        y.ticks <- FALSE
-      } else {
-        if (ncol(data[[i]]) > 2) {
-          ## keep only the first two columns
-          data[[i]] <- data[[i]][, 1:2]
-        }
+    ## if `data_i` is a single-column data frame, append a second
+    ## column with a small non-zero value
+    if (ncol(data_i) < 2) {
+      data_i <- data.frame(data_i, 10^-9)
+      y.ticks <- FALSE
+    } else {
+      if (ncol(data_i) > 2) {
+        ## keep only the first two columns
+        data_i <- data_i[, 1:2]
+      }
 
-        ## if all errors are NA, we set them to 0 so we correct them in the
-        ## next block
-        na.idx <- is.na(data[[i]][, 2])
-        if (any(na.idx)) {
-          data[[i]][na.idx, 2] <- 0
-        }
+      ## errors that are NA are set to 0 so we correct them in the next block
+      na.idx <- is.na(data_i[, 2])
+      if (any(na.idx)) {
+        data_i[na.idx, 2] <- 0
+      }
 
         ## don't let the error be NA or zero: we set it to the smallest between
         ## the smallest non-zero error and 10^-9
-        is.zero <- data[[i]][, 2] == 0
+        is.zero <- data_i[, 2] == 0
         if (any(is.zero)) {
-          min.value <- min(data[[i]][!is.zero, 2], 10^-9)
-          data[[i]][is.zero, 2] <- min.value
+          min.value <- min(data_i[!is.zero, 2], 10^-9)
+          data_i[is.zero, 2] <- min.value
           .throw_warning("Error values cannot be zero or NA, reset to ", min.value)
         }
 
       ## find the Inf values in each of the two columns and remove the
       ## corresponding rows if needed
-      inf.idx <- unlist(lapply(data[[i]], function(x) which(is.infinite(x))))
+      inf.idx <- unlist(lapply(data_i, function(x) which(is.infinite(x))))
       if (length(inf.idx) > 0) {
         inf.row <- sort(unique(inf.idx))
         .throw_warning("Inf values found in data set ", i, ", removed")
-        data[[i]] <- data[[i]][-inf.row, ]
+        data_i <- data_i[-inf.row, ]
       }
     }
+    data[[i]] <- data_i
   }
 
   .validate_class(summary, "character")

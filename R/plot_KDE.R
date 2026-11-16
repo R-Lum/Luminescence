@@ -181,47 +181,49 @@ plot_KDE <- function(
   }
 
   ## check/adjust input data structure
-  for(i in 1:length(data)) {
-    .validate_class(data[[i]], c("RLum.Results", "data.frame", "numeric"),
+  for (i in seq_along(data)) {
+    data_i <- data[[i]]
+    .validate_class(data_i, c("RLum.Results", "data.frame", "numeric"),
                     name = "'data'")
 
     ## extract RLum.Results
-    if (inherits(data[[i]], "RLum.Results")) {
-      data[[i]] <- get_RLum(data[[i]], "data")
+    if (inherits(data_i, "RLum.Results")) {
+      data_i <- get_RLum(data_i, "data")
     }
 
       ## ensure that the dataset it not degenerate
-      if (NROW(data[[i]]) == 0) {
+      if (NROW(data_i) == 0) {
        .throw_error("Input data ", i, " has 0 rows")
       }
 
-      ## if `data[[i]]` is a numeric vector or a single-column data frame,
+      ## if `data__i` is a numeric vector or a single-column data frame,
       ## append a second column with a small non-zero value (10^-9 for
       ## consistency with what `calc_Statistics() does)
-      if (NCOL(data[[i]]) < 2) {
-        data[[i]] <- data.frame(data[[i]], 10^-9)
-        attr(data[[i]], "De.errors.available") <- FALSE
+      if (NCOL(data_i) < 2) {
+        data_i <- data.frame(data_i, 10^-9)
+        attr(data_i, "De.errors.available") <- FALSE
       } else {
         ## keep only the first two columns
-        data[[i]] <- data[[i]][, 1:2]
-        attr(data[[i]], "De.errors.available") <- TRUE
+        data_i <- data_i[, 1:2]
+        attr(data_i, "De.errors.available") <- TRUE
       }
 
     ## find the index Inf values in each of the two columns and remove the
     ## corresponding rows if needed
-    inf.idx <- unlist(lapply(data[[i]], function(x) which(is.infinite(x))))
+    inf.idx <- unlist(lapply(data_i, function(x) which(is.infinite(x))))
     if (length(inf.idx) > 0) {
       inf.row <- sort(unique(inf.idx))
       .throw_warning("Inf values removed in rows: ",
                      .collapse(inf.row, quote = FALSE), " in data.frame ", i)
-      data[[i]] <- data[[i]][-inf.row, ]
+      data_i <- data_i[-inf.row, ]
       rm(inf.idx, inf.row)
 
-      ##check if empty
-      if(nrow(data[[i]]) == 0){
-        data[i] <- NULL
-      }
+    ## check if empty
+    if (nrow(data_i) == 0) {
+      data_i <- NULL
     }
+    }
+    data[[i]] <- data_i
   }
 
   ##check if list is empty
