@@ -494,17 +494,19 @@ plot_AbanicoPlot <- function(
 
   ## Check input data
   for (i in seq_along(data)) {
-    .validate_class(data[[i]], c("data.frame", "RLum.Results"),
+    data_i <- data[[i]]
+    .validate_class(data_i, c("data.frame", "RLum.Results"),
                     name = "All elements of 'data'")
-    if (inherits(data[[i]], "RLum.Results")) {
+
+    if (inherits(data_i, "RLum.Results")) {
       if (line.is.null &&
-          .check_originator(data[[i]], c("calc_AverageDose", "calc_CentralDose",
-                                         "calc_MaxDose", "calc_MinDose",
-                                         "calc_FiniteMixture"))) {
+          .check_originator(data_i, c("calc_AverageDose", "calc_CentralDose",
+                                      "calc_MaxDose", "calc_MinDose",
+                                      "calc_FiniteMixture"))) {
         ## set lines automatically based on originator
-        de <- data[[i]]$summary$de
-        de.pm.err <- sprintf("%.2f \u00b1 %.2f", de, data[[i]]$summary$de_err)
-        lab <- switch(data[[i]]@originator,
+        de <- data_i$summary$de
+        de.pm.err <- sprintf("%.2f \u00b1 %.2f", de, data_i$summary$de_err)
+        lab <- switch(data_i@originator,
                       "calc_AverageDose" = "ADM",
                       "calc_CentralDose" = "CDM",
                       "calc_MaxDose" = "MDM",
@@ -512,46 +514,51 @@ plot_AbanicoPlot <- function(
                       "calc_FiniteMixture" = de.pm.err)
         line <- c(line, de)
         line.label <- c(line.label, lab)
-        if (data[[i]]@originator == "calc_FiniteMixture")
+        if (data_i@originator == "calc_FiniteMixture")
           line.mtext <- c(line.mtext, paste("FMM:", length(de), "components"))
         else
           line.mtext <- c(line.mtext, paste0(lab, ": ", de.pm.err))
       }
-      data[[i]] <- get_RLum(data[[i]], "data")
+      data_i <- get_RLum(data_i, "data")
+    }
+
+    if (ncol(data_i) < 2) {
+      .throw_error("Data set ", i, " has fewer than 2 columns: data ",
+                   "without errors cannot be displayed")
+    }
+
+    if (ncol(data_i) > 2) {
+      ## keep only the first two columns
+      data_i <- data_i[, 1:2]
     }
 
     ## find the Inf values in each of the two columns and remove the
     ## corresponding rows if needed
-    inf.idx <- unlist(lapply(data[[i]], function(x) which(is.infinite(x))))
+    inf.idx <- unlist(lapply(data_i, function(x) which(is.infinite(x))))
     if (length(inf.idx) > 0) {
       inf.row <- sort(unique(inf.idx))
       .throw_warning("Inf values found in data set ", i, ", removed")
-      data[[i]] <- data[[i]][-inf.row, ]
+      data_i <- data_i[-inf.row, ]
     }
 
-      if (ncol(data[[i]]) < 2) {
-        .throw_error("Data set ", i, " has fewer than 2 columns: data ",
-                     "without errors cannot be displayed")
-      }
-
-      data[[i]] <- data[[i]][, 1:2]
-
     ## remove NA-values
-    n.NA <- sum(!stats::complete.cases(data[[i]]))
+    n.NA <- sum(!stats::complete.cases(data_i))
     if (n.NA > 0) {
       .throw_message("Data set ", i, ": ", n.NA, " NA value",
                      ifelse(n.NA > 1, "s", ""), " excluded", error = FALSE)
-      data[[i]] <- stats::na.exclude(data[[i]])
+      data_i <- stats::na.exclude(data_i)
     }
 
-    ## check for zero-error values
-    if (any(data[[i]][, 2] == 0)) {
-      data[[i]] <- data[[i]][data[[i]][, 2] > 0, ]
-      if (nrow(data[[i]]) < 1) {
+    ## check for zeros in the error column
+    if (any(data_i[, 2] == 0)) {
+      data_i <- data_i[data_i[, 2] > 0, ]
+      if (nrow(data_i) < 1) {
         .throw_error("Data set ", i, " contains only values with zero errors")
       }
       .throw_warning("Values with zero errors cannot be displayed and were removed")
     }
+
+    data[[i]] <- data_i
   }
 
   ##AFTER NA removal, we should check the data set carefully again ...
