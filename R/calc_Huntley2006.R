@@ -173,7 +173,7 @@
 #' @param cores [integer], [numeric] (*with default*):
 #' number of cores allocated for parallel processing of the Monte-Carlo runs.
 #' The default value corresponds to single-threaded computation; the
-#' recommended values is `NULL`, which assigns all but two of the available
+#' recommended value is `NULL`, which assigns all but two of the available
 #' logical CPU cores.
 #'
 #' @param summary [logical] (*with default*):
@@ -222,7 +222,7 @@
 #' `args` \tab `list` \tab arguments of the original function call \cr
 #' }
 #'
-#' @section Function version: 0.4.8
+#' @section Function version: 0.4.9
 #'
 #' @author
 #' Georgina E. King, University of Lausanne (Switzerland) \cr
@@ -429,8 +429,7 @@ calc_Huntley2006 <- function(
     extraArgs)
 
   .validate_positive_scalar(settings$n.MC, int = TRUE, name = "'n.MC'")
-  if (settings$n.MC == 1)
-    settings$n.MC <- 2
+  settings$n.MC <- max(settings$n.MC, 2)
 
   ## Define Constants ----------------------------------------------------------
 
@@ -478,8 +477,7 @@ calc_Huntley2006 <- function(
     mode = "interpolation",
     fit.method = fit.method[1],
     fit.bounds = TRUE,
-    fit.force_through_origin = FALSE,
-    verbose = FALSE)
+    fit.force_through_origin = FALSE)
 
   GC.settings <- modifyList(GC.settings, extraArgs)
   GC.settings$object <- data.tmp

@@ -109,7 +109,7 @@ when \code{fit.method = "SSE"}). More details can be found in
 \item{cores}{\link{integer}, \link{numeric} (\emph{with default}):
 number of cores allocated for parallel processing of the Monte-Carlo runs.
 The default value corresponds to single-threaded computation; the
-recommended values is \code{NULL}, which assigns all but two of the available
+recommended value is \code{NULL}, which assigns all but two of the available
 logical CPU cores.}
 
 \item{summary}{\link{logical} (\emph{with default}):
@@ -249,7 +249,7 @@ This function has BETA status, in particular for the GOK implementation. Please 
 your results carefully.
 }
 \section{Function version}{
- 0.4.8
+ 0.4.9
 }
 
 \examples{
