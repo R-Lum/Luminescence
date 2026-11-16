@@ -193,6 +193,8 @@ plot_DoseResponseCurve <- function(
     val = list(...),
     keep.null = TRUE
   )
+  .validate_class(plot_settings$log, "character", length = 1, name = "'log'")
+  plot_settings$log <- gsub("[^xy]", "", plot_settings$log)
 
   if (plot_settings$log != "") {
     if (mode == "extrapolation") {
