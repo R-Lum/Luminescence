@@ -93,7 +93,7 @@ test_that("input validation", {
 
   ## infinite values
   expect_warning(plot_AbanicoPlot(data.frame(c(1:3, Inf), c(Inf, 1:3))),
-                 "Inf values found in data set 1, removed")
+                 "2 Inf values removed from data set")
 })
 
 test_that("Test examples from the example page", {

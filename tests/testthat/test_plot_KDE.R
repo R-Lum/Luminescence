@@ -12,7 +12,7 @@ test_that("input validation", {
   expect_error(plot_KDE(list()),
                "'data' is an empty list")
   expect_error(expect_warning(plot_KDE(data.frame(a = Inf, b = 1)),
-                              "Inf values removed in rows: 1 in data.frame 1"),
+                              "1 Inf value removed from data set"),
                "Your input is empty due to Inf removal")
   expect_error(plot_KDE(df, df),
                "'values.cumulative' should be a single logical value")
@@ -70,10 +70,10 @@ test_that("check functionality", {
   df.inf <- df
   df.inf[9, 1] <- Inf
   expect_warning(plot_KDE(df.inf),
-                 "Inf values removed in rows: 9 in data.frame 1")
+                 "1 Inf value removed from data set")
   df.inf[2, 2] <- Inf
   expect_warning(plot_KDE(df.inf),
-                 "Inf values removed in rows: 2, 9 in data.frame 1")
+                 "2 Inf values removed from data set")
 
   ## missing values
   df.na <- df

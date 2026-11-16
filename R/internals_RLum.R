@@ -488,6 +488,26 @@ fancy_scientific <- function(l) {
   pars
 }
 
+#' Remove rows containing infinite values
+#'
+#' @param data [data.frame] (**required**):
+#' Input data set.
+#'
+#' @return
+#' The data set with rows containing infinite values removed.
+#'
+#' @noRd
+.rm_inf_rows <- function(data) {
+  inf.idx <- unique(unlist(lapply(data, function(x) which(is.infinite(x)))))
+  num.inf <- length(inf.idx)
+  if (num.inf > 0) {
+    .throw_warning(sprintf("%d Inf value%s removed from data set", num.inf,
+                           ifelse(num.inf > 1, "s", "")))
+    data <- data[-inf.idx, , drop = FALSE]
+  }
+  data
+}
+
 #' Convert position keywords into summary placement coordinates
 #'
 #' @param pos [numeric] or [character] (**required**) Position coordinates

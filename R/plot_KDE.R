@@ -208,20 +208,12 @@ plot_KDE <- function(
         attr(data_i, "De.errors.available") <- TRUE
       }
 
-    ## find the index Inf values in each of the two columns and remove the
-    ## corresponding rows if needed
-    inf.idx <- unlist(lapply(data_i, function(x) which(is.infinite(x))))
-    if (length(inf.idx) > 0) {
-      inf.row <- sort(unique(inf.idx))
-      .throw_warning("Inf values removed in rows: ",
-                     .collapse(inf.row, quote = FALSE), " in data.frame ", i)
-      data_i <- data_i[-inf.row, ]
-      rm(inf.idx, inf.row)
+    ## remove rows with infinite values
+    data_i <- .rm_inf_rows(data_i)
 
     ## check if empty
     if (nrow(data_i) == 0) {
       data_i <- NULL
-    }
     }
     data[[i]] <- data_i
   }

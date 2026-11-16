@@ -532,14 +532,8 @@ plot_AbanicoPlot <- function(
       data_i <- data_i[, 1:2]
     }
 
-    ## find the Inf values in each of the two columns and remove the
-    ## corresponding rows if needed
-    inf.idx <- unlist(lapply(data_i, function(x) which(is.infinite(x))))
-    if (length(inf.idx) > 0) {
-      inf.row <- sort(unique(inf.idx))
-      .throw_warning("Inf values found in data set ", i, ", removed")
-      data_i <- data_i[-inf.row, ]
-    }
+    ## remove rows with infinite values
+    data_i <- .rm_inf_rows(data_i)
 
     ## remove NA-values
     n.NA <- sum(!stats::complete.cases(data_i))

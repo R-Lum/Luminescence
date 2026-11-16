@@ -59,6 +59,7 @@ plot_OSLAgeSummary <- function(
   .validate_class(object, c("RLum.Results", "numeric"))
   .validate_positive_scalar(level)
   .validate_positive_scalar(digits, int = TRUE)
+  .validate_logical_scalar(verbose)
 
   if (inherits(object, "RLum.Results")) {
     if (.check_originator(object, c(".calc_BayesianCentralAgeModel",
@@ -73,10 +74,7 @@ plot_OSLAgeSummary <- function(
     object <- get_RLum(object, data.object = data.object)
   }
 
-  if (any(is.infinite(object))) {
-    .throw_warning("Inf values found in 'object', removed")
-    object <- object[!is.infinite(object)]
-  }
+  object <- .rm_inf_rows(data.frame(object))[[1L]]
 
   ## A should be a matrix
   A <- as.matrix(object, ncol = 1)

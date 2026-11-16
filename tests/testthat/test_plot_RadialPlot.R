@@ -25,10 +25,10 @@ test_that("input validation", {
   expect_error(plot_RadialPlot(data.frame(1, 3)),
                "At least two data points are required")
   expect_error(expect_warning(plot_RadialPlot(data.frame(1:3, Inf)),
-                              "Inf values found in data set 1, removed"),
+                              "3 Inf values removed from data set"),
                "After NA removal, nothing is left from data set 1")
   expect_error(expect_warning(plot_RadialPlot(data.frame(1:3, c(Inf, 3, Inf))),
-                              "Inf values found in data set 1, removed"),
+                              "2 Inf values removed from data set"),
                "At least two data points are required")
   expect_error(plot_RadialPlot(df, central.value = -1),
                "'central.value' should be a single positive value or NULL")

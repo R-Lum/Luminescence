@@ -319,6 +319,9 @@ plot_RadialPlot <- function(
     .validate_not_empty(data_i,
                         name = paste0("Input 'data[[", i, "]]'"))
 
+    ## remove rows with infinite values
+    data_i <- .rm_inf_rows(data_i)
+
     ## if `data_i` is a single-column data frame, append a second
     ## column with a small non-zero value
     if (ncol(data_i) < 2) {
@@ -344,15 +347,6 @@ plot_RadialPlot <- function(
           data_i[is.zero, 2] <- min.value
           .throw_warning("Error values cannot be zero or NA, reset to ", min.value)
         }
-
-      ## find the Inf values in each of the two columns and remove the
-      ## corresponding rows if needed
-      inf.idx <- unlist(lapply(data_i, function(x) which(is.infinite(x))))
-      if (length(inf.idx) > 0) {
-        inf.row <- sort(unique(inf.idx))
-        .throw_warning("Inf values found in data set ", i, ", removed")
-        data_i <- data_i[-inf.row, ]
-      }
     }
     data[[i]] <- data_i
   }

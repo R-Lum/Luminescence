@@ -27,7 +27,7 @@ test_that("check functionality", {
   testthat::skip_on_cran()
 
   expect_warning(plot_OSLAgeSummary(c(object, Inf), verbose = FALSE),
-                 "Inf values found in 'object', removed")
+                 "1 Inf value removed from data set")
 
   ##run from S4-class
   object1 <- set_RLum("RLum.Results",
