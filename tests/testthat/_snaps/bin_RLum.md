@@ -112,7 +112,7 @@
         "recordType": {
           "type": "character",
           "attributes": {},
-          "value": ["Spectrum"]
+          "value": [null]
         },
         "curveType": {
           "type": "character",
@@ -181,7 +181,7 @@
         "recordType": {
           "type": "character",
           "attributes": {},
-          "value": ["Spectrum"]
+          "value": [null]
         },
         "curveType": {
           "type": "character",

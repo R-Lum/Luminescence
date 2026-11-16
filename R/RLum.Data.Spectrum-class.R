@@ -94,7 +94,7 @@ setAs("data.frame", "RLum.Data.Spectrum",
       function(from,to){
 
         new(to,
-            recordType = NA_character_,
+            recordType = "custom (NA)",
             curveType = NA_character_,
             data = as.matrix(from),
             info = list())
@@ -110,7 +110,7 @@ setAs("RLum.Data.Spectrum", "data.frame",
 setAs("matrix", "RLum.Data.Spectrum",
       function(from,to){
         new(to,
-            recordType = NA_character_,
+            recordType = "custom (NA)",
             curveType = NA_character_,
             data = from,
             info = list())
@@ -128,7 +128,7 @@ setAs("list", "RLum.Data.Spectrum",
         if (length(from) == 0)
           return(set_RLum("RLum.Data.Spectrum"))
         new(to,
-            recordType = NA_character_,
+            recordType = "custom (NA)",
             curveType = NA_character_,
             data = matrix(unlist(from)),
             info = list())
@@ -182,7 +182,7 @@ setMethod(
     originator,
     .uid,
     .pid,
-    recordType = "Spectrum",
+    recordType = NA_character_,
     curveType = NA_character_,
     data = matrix(),
     info = list()) {

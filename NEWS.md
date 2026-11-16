@@ -282,10 +282,10 @@ can be accessed via the new `bin_RLum()` generic (#1782):
   object, the `.pid` slot is now correctly inherited from the source
   object if not provided explicitly (#1814).
 
-- When the function is used to instantiate an `RLum.Data.Image` object,
-  the `recordType` slot is set to `NA_character_` unless specified
-  otherwise, consistently with what is done for other `RLum` classes.
-  `RLum.Data.Image` objects converted from matrix or array are given
+- When the function is used to create `RLum.Data.Curve`,
+  `RLum.Data.Image` or `RLum.Data.Spectrum` objects, the `recordType`
+  slot is set to `NA_character_`, unless specified otherwise.
+  `RLum.Data` objects converted from matrix or array are given
   `recordType = "custom (NA)"`. This was done so that the first term
   matches one of the valid values for this attribute as specified in the
   XLUM specification (#1837).

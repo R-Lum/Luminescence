@@ -51,7 +51,7 @@ set_RLum(class, originator, .uid, .pid = NA_character_, ...)
   originator,
   .uid,
   .pid,
-  recordType = "Spectrum",
+  recordType = NA_character_,
   curveType = NA_character_,
   data = matrix(),
   info = list()

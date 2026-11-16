@@ -21,7 +21,7 @@
 #' ```
 #' set_RLum(class = 'RLum.Data.Curve',
 #'          data = Your.RLum.Data.Curve,
-#'          recordType = 'never seen before')
+#'          recordType = "custom")
 #' ```
 #' would just change the `recordType`. Missing arguments  the value is taken
 #' from the input object in 'data' (which is already an `RLum.Data.Curve`
@@ -104,7 +104,7 @@ setAs("list", "RLum.Data.Curve",
         if (length(from) == 0)
           return(set_RLum("RLum.Data.Curve"))
         new(to,
-            recordType = "unknown curve type",
+            recordType = "custom (NA)",
             curveType = NA_character_,
             data = matrix(unlist(from), ncol = 2),
             info = list())
@@ -121,7 +121,7 @@ setAs("RLum.Data.Curve", "list",
 setAs("data.frame", "RLum.Data.Curve",
       function(from,to){
               new(to,
-                  recordType = "unknown curve type",
+                  recordType = "custom (NA)",
                   curveType = NA_character_,
                   data = as.matrix(from),
                   info = list())
@@ -139,7 +139,7 @@ setAs("RLum.Data.Curve", "data.frame",
 setAs("matrix", "RLum.Data.Curve",
       function(from,to){
         new(to,
-            recordType = "unknown curve type",
+            recordType = "custom (NA)",
             curveType = NA_character_,
             data = from,
             info = list())
