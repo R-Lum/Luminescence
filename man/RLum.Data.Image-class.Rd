@@ -12,7 +12,7 @@ for example produced by function \link{read_SPE2R}.
 
 \describe{
 \item{\code{recordType}}{Object of class \link{character} containing the type of the curve (e.g.
-"OSL image", "TL image").}
+"OSL", "TL").}
 
 \item{\code{curveType}}{Object of class \link{character} containing curve type, allowed values
 are measured or predefined}
@@ -32,11 +32,10 @@ Objects can be created by calls of the form \code{set_RLum("RLum.Data.Image", ..
 }
 
 \section{Class version}{
- 0.5.1
+ 0.5.2
 }
 
 \examples{
-
 showClass("RLum.Data.Image")
 
 ##create empty RLum.Data.Image object
@@ -44,7 +43,7 @@ set_RLum(class = "RLum.Data.Image")
 
 }
 \seealso{
-\link[=RLum-class]{RLum}, \link[=RLum.Data-class]{RLum.Data}, \link{plot_RLum},
+\link[=RLum.Data-class]{RLum.Data}, \link{plot_RLum},
 \link{read_SPE2R}, \link{read_TIFF2R}
 }
 \author{

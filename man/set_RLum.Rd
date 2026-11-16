@@ -40,7 +40,7 @@ set_RLum(class, originator, .uid, .pid = NA_character_, ...)
   originator,
   .uid,
   .pid,
-  recordType = "Image",
+  recordType = NA_character_,
   curveType = NA_character_,
   data = array(),
   info = list()

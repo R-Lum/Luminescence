@@ -342,11 +342,15 @@ setMethod("plot_RLum", signature = "RLum.Analysis", function(
           args <- args[!names(args) %in% c("object", "mtext", "par.local", "main")]
         }
 
+        main <- plot.settings$main %||% temp[[i]]@recordType
+        if (is.na(main))
+          main <- class(temp[[i]])
+
         do.call("plot_RLum", args = c(list(
             object = temp[[i]],
             mtext = plot.settings$mtext[[i]] %||% paste0("#", i),
             par.local = FALSE,
-            main = plot.settings$main %||% temp[[i]]@recordType
+            main = main
         ), args))
       }
     }#end for loop
