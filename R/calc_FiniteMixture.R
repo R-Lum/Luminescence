@@ -667,42 +667,40 @@ calc_FiniteMixture <- function(
 
     ## NORMAL DISTR. OF EACH COMPONENT
 
-    if (settings$pdf.weight) {
-      dens <- 0
-      for (b in 1:max(n.components)) {
-        comp.mu <- comp.n[pos.n[b], i]
-        comp.sd <- if (settings$pdf.sigma == "se") comp.n[pos.n[b] + 1, i]
-                   else comp.mu * sigmab
-        if (!is.na(comp.mu) && !is.na(comp.sd)) {
-          wi <- comp.n[pos.n[b] + 2, i]
-          dens <- dens + sapply(0:max.dose, .calc.density,
-                                comp.mu, comp.sd, wi)
-        }
-      }
+    ## calculate each component density
+    comp.mu <- comp.n[pos.n, i]
+    comp.sd <- if (settings$pdf.sigma == "se") comp.n[pos.n + 1, i]
+               else comp.mu * sigmab
+    comp.wi <- if (settings$pdf.weight) {
+      comp.n[pos.n + 2, i]
     } else {
-      ## estimate the y-scaling if no weights are used
-      dens <- sapply(0:max.dose, .calc.density,
-                     stats::na.exclude(c(comp.n[pos.n, ])),
-                     stats::na.exclude(c(comp.n[pos.n + 1, ])), 1)
+      rep(1, length(pos.n))
+    }
+    valid <- !is.na(comp.mu) & !is.na(comp.sd)
+
+    dens.list <- vector("list", length(pos.n))
+    for (j in which(valid)) {
+      dens.list[[j]] <- sapply(0:max.dose, .calc.density,
+                               comp.mu[j], comp.sd[j], comp.wi[j])
     }
 
+    dens.sum <- numeric(length(0:max.dose))
+    for (j in which(valid))
+      dens.sum <- dens.sum + dens.list[[j]]
+
     ## x-axis (density)
+    dens <- if (settings$pdf.weight) {
+               dens.sum
+             } else {
+               sapply(0:max.dose, .calc.density,
+                      stats::na.exclude(c(comp.n[pos.n, ])),
+                      stats::na.exclude(c(comp.n[pos.n + 1, ])), 1)
+             }
     x.scale <- extraArgs$pdf.scale %||% max(dens) * 1.1
 
     ## LOOP - iterate over number of components
-    dens.sum <- 0
-    for (j in 1:max(n.components)) {
-      comp.mu <- comp.n[pos.n[j], i]
-      comp.sd <- if (settings$pdf.sigma == "se") comp.n[pos.n[j] + 1, i]
-                 else comp.mu * sigmab
-      if (!is.na(comp.mu) && !is.na(comp.sd)) {
-        ## calculate density values for 0 to maximum dose
-        wi <- if (settings$pdf.weight) comp.n[pos.n[j] + 2, i] else 1
-        dens <- sapply(0:max.dose, .calc.density,
-                       comp.mu, comp.sd, wi)
-
-        ## save density values in list for sum curve of gaussians
-        dens.sum <- dens.sum + dens
+    for (j in which(valid)) {
+      dens <- dens.list[[j]]
 
         ## PLOT Normal Distributions
         par(new = TRUE)
@@ -723,7 +721,6 @@ calc_FiniteMixture <- function(
                 y = c(0, 0, 0:max.dose, max.dose),
                 col = grDevices::adjustcolor(col.n[j], alpha.f = 0.66),
                 yaxt = "n", border = poly.border, xpd = FALSE, lty = 2, lwd = 1.5)
-      }
     }##EndOf::Component loop
 
     ## Add sum of Gaussian curve
