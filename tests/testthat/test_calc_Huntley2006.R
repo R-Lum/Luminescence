@@ -264,6 +264,11 @@ test_that("further tests", {
       rhop = rhop, ddot = ddot, readerDdot = readerDdot,
       n.MC = 2, plot = FALSE, verbose = FALSE, fit.bounds = FALSE),
     "Unable to fit growth curve to measured data$")
+  expect_error(expect_output(
+      calc_Huntley2006(data, rhop = rhop, ddot = ddot, readerDdot = readerDdot,
+                       fit.IndexRegPoints = nrow(data) + 1),
+      "All elements of 'fit.IndexRegPoints' should be between 1 and 34"),
+      "Unable to fit growth curve to measured data, try setting")
   expect_warning(expect_error(
     calc_Huntley2006(
       data = data,

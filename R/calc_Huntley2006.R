@@ -492,9 +492,10 @@ calc_Huntley2006 <- function(
   mode_is_extrapolation <- GC.settings$mode == "extrapolation"
 
   ## call the fitting
-  GC.measured <- try(do.call(fit_DoseResponseCurve, GC.settings))
+  GC.measured <- try(do.call(fit_DoseResponseCurve, GC.settings),
+                     outFile = stdout()) # redirect error messages so they can be silenced
 
-  if (inherits(GC.measured$Fit, "try-error")) {
+  if (inherits(GC.measured, "try-error") || inherits(GC.measured$Fit, "try-error")) {
     .throw_error("Unable to fit growth curve to measured data",
                  ifelse(fit.bounds, ", try setting 'fit.bounds = FALSE'", ""))
   }
