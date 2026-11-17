@@ -106,6 +106,9 @@ used (which is the default), which incurred an unnecessary cost. Now this is
 started only when multiple cores are requested, thus bringing a small speedup
 in the default case (#1841).
 
+* The function no longer crashes when `fit_DoseResponseCurve()` fails with
+an error (#1848).
+
 ### `fit_DoseResponseCurve()`
 
 * The new `fit.IndexRegPoints` replaces both `fit.NumberRegPoints` and
