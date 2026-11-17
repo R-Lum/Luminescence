@@ -91,13 +91,13 @@ test_that("graphical snapshot tests", {
                                   trace = TRUE,
                                   main = "Plot title",
                                   verbose = TRUE))
-  vdiffr::expect_doppelganger("cex pdf.weights",
+  vdiffr::expect_doppelganger("cex pdf.weight",
                               calc_FiniteMixture(
                                   ExampleData.DeValues$CA1,
                                   sigmab = 0.2,
                                   n.components = 2:3,
                                   grain.probability = TRUE,
-                                  pdf.weights = FALSE,
+                                  pdf.weight = FALSE,
                                   pdf.colors = "none",
                                   cex = 2))
   vdiffr::expect_doppelganger("NA values only pdf",
