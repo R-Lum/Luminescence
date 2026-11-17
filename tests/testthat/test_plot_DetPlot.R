@@ -60,36 +60,6 @@ test_that("plot_DetPlot", {
     plot = FALSE),
     "RLum.Results"),
     "Running multicore session using 2 cores")
-
-  expect_s4_class(plot_DetPlot(
-    object = list(x = object, y = object),
-    method = "shift",
-    signal_integral = 1:3,
-    background_integral = 900:1000,
-    analyse_function.control = list(
-      fit.method = "LIN",
-      trim_channels = TRUE
-    ),
-    n.channels = 2,
-    verbose = TRUE,
-    plot = FALSE),
-    "RLum.Results")
-
-  ## serial
-  expect_s4_class(plot_DetPlot(
-    object = list(x = object, y = object),
-    method = "shift",
-    signal_integral = 1:3,
-    background_integral = 900:1000,
-    analyse_function.control = list(
-      fit.method = "LIN",
-      trim_channels = TRUE
-    ),
-    cores = 1,
-    n.channels = 2,
-    verbose = TRUE,
-    plot = FALSE),
-    "RLum.Results")
   })
 
   ## try with NA values
@@ -232,6 +202,7 @@ test_that("graphical snapshot tests", {
                                                fit.method = "LIN",
                                                trim_channels = TRUE
                                            ),
+                                           cores = 1,
                                            n.channels = 3))
   vdiffr::expect_doppelganger("expansion",
                               plot_DetPlot(object,
