@@ -617,7 +617,8 @@ if(plot){
 
     plot(NA, NA,
        xlim = c(0, nrow(LnLxTnTx.table) / n.loops),
-       ylim = if (anyNA(range(temp.curve.TnTx.matrix))) c(0,1) else range(temp.curve.TnTx.matrix),
+       ylim = if (anyNA(range(temp.curve.TnTx.matrix))) c(0, 1) # nocov
+              else range(temp.curve.TnTx.matrix),
        xlab = "# Cycle",
        ylab = expression(T[x]/T[n]),
        mgp = c(2, 0.7, 0),

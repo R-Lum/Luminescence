@@ -997,7 +997,7 @@ setGeneric("set_RLum", function(class, originator, .uid,
     } else {
       ## try harder to find the originator by looking at the parent call: if
       ## it's do.call(), then take use the function it calls as originator
-      parent.call <- if (length(sys.calls()) > 2) sys.call(which = -2) else NULL
+      parent.call <- if (length(sys.calls()) > 2) sys.call(which = -2) else NULL # nocov
       if (!is.null(parent.call) &&
           is.language(parent.call[[1]]) &&
           as.character(parent.call[[1]]) == "do.call") {

@@ -744,6 +744,8 @@ test_that("Test internals", {
                "'integral' contains no elements in 1.8:450.0")
   expect_error(.convert_to_channels(tl, integral <- list(200:210, NA), list.ok = FALSE),
                "'integral' should be of class 'integer' or 'numeric'")
+  expect_error(.convert_to_channels(tl, integral <- list(200:210, NA), na.ok = TRUE),
+               "'integral' should be of class 'integer', 'numeric' or NA")
   expect_error(.convert_to_channels(tl, integral <- list(200:210, NA), list.ok = TRUE),
                "All elements of 'integral' should be of class 'integer' or 'numeric'")
 

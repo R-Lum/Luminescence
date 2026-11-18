@@ -4,6 +4,12 @@ data(ExampleData.portableOSL, envir = environment())
 ## generate test data set for profile
 merged <- merge_RLum(ExampleData.portableOSL)
 
+mod <- merged
+mod@records <- lapply(mod@records, function(x) {
+  x@info$settings$Sample <- substr(x@info$settings$Sample, 1, 4)
+  x
+})
+
 test_that("check functionality", {
     testthat::skip_on_cran()
 
@@ -172,11 +178,6 @@ test_that("input validation", {
                  "'coord' should specify two coordinates per sample")
 
     ## trigger message if sample names don't contain coordinates
-    mod <- merged
-    mod@records <- lapply(mod@records, function(x) {
-      x@info$settings$Sample <- substr(x@info$settings$Sample, 1, 4)
-      x
-    })
     expect_message(
       analyse_portableOSL(
         mod,
@@ -235,6 +236,12 @@ test_that("graphical snapshot tests", {
                                                   contour = TRUE,
                                                   contour_col = "gray50",
                                                   cex = 2))
+  vdiffr::expect_doppelganger("profile index",
+                              analyse_portableOSL(mod, mode = "profile",
+                                                  signal_integral = 1:5,
+                                                  surface_value = "BSL",
+                                                  invert = TRUE,
+                                                  normalise = TRUE))
   })
 })
 

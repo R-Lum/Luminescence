@@ -44,6 +44,9 @@ test_that("check functionality", {
   SW({
   temp@METADATA[, "VERSION"] <- 4
   write_R2BIN(object = temp, file = paste0(path, "BINfile_V4.bin"),
+              version = "03")
+  temp@METADATA[, "VERSION"] <- 4
+  write_R2BIN(object = temp, file = paste0(path, "BINfile_V4.bin"),
               version = "04")
   temp@METADATA[, "VERSION"] <- 5
   write_R2BIN(object = temp, file = paste0(path, "BINfile_V5.binx"),

@@ -34,11 +34,41 @@ test_that("check functionality", {
                   "Risoe.BINfileData")
   expect_length(new, 4)
 
+  ## missing .RESERVED
+
   ## deprecated argument
   expect_warning(merge_Risoe.BINfileData(input.objects = c(o1, o2)),
                  "'input.objects' was deprecated in v1.2.0, use 'object'")
   expect_warning(merge_Risoe.BINfileData(objects = c(o1, o2)),
                  "'objects' was deprecated in v1.3.1, use 'object'")
+})
+
+test_that("objects without a .RESERVED slot", {
+  testthat::skip_on_cran()
+
+  ## emulate an object created by an older version of the class definition
+  legacy.class <- "Risoe.BINfileDataLegacy"
+  methods::setClass(legacy.class,
+                    slots = c(METADATA = "data.frame", DATA = "list"),
+                    where = globalenv())
+  on.exit(invisible(methods::removeClass(legacy.class, where = globalenv())),
+          add = TRUE)
+  suppressWarnings(methods::setIs(
+    legacy.class, "Risoe.BINfileData", where = globalenv(),
+    coerce = function(from) {
+      methods::new("Risoe.BINfileData",
+                   METADATA = from@METADATA,
+                   DATA = from@DATA,
+                   .RESERVED = list())
+    }))
+
+  o1.legacy <- methods::new(legacy.class,
+                            METADATA = o1@METADATA,
+                            DATA = o1@DATA)
+
+  merged <- merge_Risoe.BINfileData(list(o1.legacy, o2), verbose = FALSE)
+  expect_s4_class(merged, "Risoe.BINfileData")
+  expect_identical(merged@.RESERVED, o2@.RESERVED)
 })
 
 test_that("snapshot tests", {

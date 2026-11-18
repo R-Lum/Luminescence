@@ -62,6 +62,22 @@ test_that("plot_DetPlot", {
     "Running multicore session using 2 cores")
   })
 
+  ## self call with one core
+  expect_s4_class(plot_DetPlot(
+    object = list(x = object, y = object),
+    method = "shift",
+    signal_integral = 1:3,
+    background_integral = 900:1000,
+    analyse_function.control = list(
+      fit.method = "LIN",
+      trim_channels = TRUE
+    ),
+    cores = 1,
+    n.channels = 2,
+    verbose = FALSE,
+    plot = FALSE),
+    "RLum.Results")
+
   ## try with NA values
   object@records[[2]][,2] <- 1
   object@records[[4]][,2] <- 1
@@ -221,5 +237,11 @@ test_that("graphical snapshot tests", {
                                                dose_rate_source = 4.07
                                            ),
                                            n.channels = 4))
+  vdiffr::expect_doppelganger("no shine-down curve",
+                              plot_DetPlot(object,
+                                           signal_integral = 1:2,
+                                           background_integral = 800:1000,
+                                           show_ShineDownCurve = FALSE,
+                                           n.channels = 3))
   })
 })

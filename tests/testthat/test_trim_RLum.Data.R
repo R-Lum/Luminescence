@@ -124,6 +124,14 @@ test_that("RLum.Data.Image", {
 
   empty <- set_RLum("RLum.Data.Image")
   expect_equal(empty, trim_RLum.Data(empty))
+
+  ## RLum.Analysis object with RLum.Data.Image record with 10 layers
+  img10 <- ExampleData.RLum.Data.Image
+  dim(img10@data) <- c(134, 101, 10)
+  obj <- set_RLum("RLum.Analysis", records = list(img10))
+  t <- expect_s4_class(trim_RLum.Data(obj, trim_range = 5),
+                       "RLum.Analysis")
+  expect_equal(dim(t@records[[1]]@data)[3], 5)
 })
 
 test_that("RLum.Analysis", {

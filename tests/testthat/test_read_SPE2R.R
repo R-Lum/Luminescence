@@ -41,6 +41,12 @@ test_that("check functionality", {
                       "RLum.Data.Image"),
       "Downloading")
   })
+
+  ## more coverage
+  expect_equal(c(read_SPE2R(test_path("_data/spe-tests/datatype_0.SPE"),
+                            output.object = "matrix",
+                            verbose = FALSE)),
+               c(4, 6))
 })
 
 test_that("snapshot tests", {

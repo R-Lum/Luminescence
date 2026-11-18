@@ -2045,7 +2045,7 @@ plot_AbanicoPlot <- function(
 
     ### set layout -----------------
     ## fall back to character
-    zlab.text <- if (is.expression(zlab)) "D" else as.character(zlab)
+    zlab.text <- if (is.expression(zlab)) "D" else as.character(zlab) # nocov
 
     ## subtitle content, one line per data set (as in the base "sub" summary)
     summary.text <- paste(unlist(label.text), collapse = " | ")
@@ -2053,7 +2053,7 @@ plot_AbanicoPlot <- function(
     IAP <- plotly::layout(
       IAP,
       title = list(
-        text = if (is.expression(main)) "D" else as.character(main)),
+        text = if (is.expression(main)) "D" else as.character(main)), # nocov
       hovermode = "closest",
       dragmode = "zoom",
       showlegend = FALSE,

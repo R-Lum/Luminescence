@@ -192,6 +192,15 @@ test_that("graphical snapshot tests", {
                                                mode = "extrapolation",
                                                plot_all_DRC = FALSE,
                                                n.MC = 50))
+  vdiffr::expect_doppelganger("summary force_through_origin",
+                              calc_Huntley2006(data = data,
+                                               rhop = rhop,
+                                               ddot = ddot,
+                                               readerDdot = readerDdot,
+                                               fit.method = "SSE",
+                                               fit.force_through_origin = TRUE,
+                                               summary = FALSE,
+                                               n.MC = 50))
   })
 })
 
@@ -249,6 +258,8 @@ test_that("further tests", {
       data = data[1:10, ],
       LnTn = data[1:10, c(2, 3)],
       rhop = rhop, ddot = ddot, readerDdot = readerDdot,
+      fit.method = "GOK",
+      fit.force_through_origin = TRUE,
       rprime = c(0.01, 2.2, length.out = 500),
       n.MC = 2, plot = FALSE, verbose = FALSE, maxiter = 50, trace = TRUE))
 

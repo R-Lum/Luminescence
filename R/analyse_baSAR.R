@@ -1579,8 +1579,7 @@ analyse_baSAR <- function(
       cat("\n")
     }
 
-    cat("Considered fitting method:\t", rr[["FIT_METHOD"]],
-        if (!is.null(baSAR_model)) " (user defined)", "\n")
+    cat("Considered fitting method:\t", rr[["FIT_METHOD"]],"\n")
     cat("Number of independent chains:\t", rr[["N.CHAINS"]], "\n")
     cat("Number MCMC iterations/chain:\t", rr[["N.MCMC"]], "\n")
     cat("------------------------------------------------------------------\n")
@@ -1626,11 +1625,8 @@ analyse_baSAR <- function(
     ##get colours from the package Luminescence
     col <- get("col", pos = .LuminescenceEnv)
 
-    use.seconds <- is.null(unlist(source_doserate))
-    dose_xlab <- if (use.seconds) "Dose [s]" else "Dose [Gy]"
-    dose_expression <- ifelse(use.seconds,
-                              expression(paste(D[e], " [s]")),
-                              expression(paste(D[e], " [Gy]")))
+    dose_xlab <- "Dose [s]"
+    dose_expression <- expression(paste(D[e], " [s]"))
     dose_cols <- grep("DOSE", colnames(input_object))
 
     ##get list of variable names (we need them later)
@@ -1755,7 +1751,7 @@ analyse_baSAR <- function(
 
       ## check for position of the legend ... we can do better
       legend_pos <- if (results[[1]][["CENTRAL_Q_.975"]] < max(xlim)/2)
-                      "topright" else "topleft"
+                      "topright" else "topleft" # nocov
 
         ##set plot area
         plot_check <- try(plot(

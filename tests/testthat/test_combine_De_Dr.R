@@ -124,6 +124,7 @@ test_that("check functionality", {
     int_OD = 0.1,
     De.short,
     s.short,
+    verbose = FALSE,
     outlier_analysis_plot = TRUE,
     Age_range = c(0, 100),
     cdf_ADr_quantiles = FALSE)

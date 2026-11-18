@@ -38,12 +38,15 @@ test_that("input validation", {
   expect_warning(calc_ThermalLifetime(E = 1.4, s = 1e05, output_unit = "test"),
                  "'output_unit' unknown, reset to 's'")
   })
-  expect_output(calc_ThermalLifetime(E = 1.4, s = 1e05, verbose = TRUE),
+  expect_output(calc_ThermalLifetime(E = 1.4, s = 1e05, verbose = TRUE,
+                                     output_unit = "s"),
                 "1 lifetimes calculated in total")
   expect_output(calc_ThermalLifetime(E = c(1.4, 0.001), s = c(1e05,1e03),
+                                     output_unit = "d",
                                      profiling = FALSE),
                 "4 lifetimes calculated in total")
   expect_output(calc_ThermalLifetime(E = c(1.4, 0.001), s = c(1e05,1e03),
+                                     output_unit = "min",
                                      plot = TRUE, profiling = TRUE),
                 "1000 lifetimes calculated in total")
 })
@@ -58,7 +61,7 @@ test_that("snapshot tests", {
   expect_snapshot_RLum(calc_ThermalLifetime(E = c(1.66, 1.70),
                                             s = 1e+13,
                                             T = 10:20,
-                                            output_unit = "Ma"),
+                                            output_unit = "a"),
                        expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
 
@@ -67,7 +70,7 @@ test_that("snapshot tests", {
                                             s = c(1e+13, 1e+11),
                                             T = 20,
                                             profiling = TRUE,
-                                            output_unit = "Ma",
+                                            output_unit = "ka",
                                             plot = FALSE),
                        expect_snapshot_output = TRUE,
                        tolerance = snapshot.tolerance)
@@ -85,6 +88,6 @@ test_that("graphical snapshot tests", {
                                             s = c(1e+13, 1e+11),
                                             T = 20,
                                             profiling = TRUE,
-                                            output_unit = "Ma"))
+                                            output_unit = "h"))
   })
 })

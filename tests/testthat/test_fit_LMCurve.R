@@ -142,6 +142,10 @@ test_that("graphical snapshot tests", {
                               fit_LMCurve(values.curve, log = "y",
                                           legend.pos = "topleft",
                                           plot.contribution = FALSE))
+  vdiffr::expect_doppelganger("plot.bg",
+                              fit_LMCurve(values.curve,
+                                          plot.BG = TRUE,
+                                          object.bg = values.curveBG))
   })
 })
 
