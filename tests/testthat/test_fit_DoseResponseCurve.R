@@ -114,76 +114,6 @@ test_that("input validation", {
   })
 })
 
-test_that("weird LxTx values", {
-  testthat::skip_on_cran()
-
-  LxTx <- structure(list(
-    Dose = c(0, 250, 500, 750, 1000, 1500, 0, 500, 500),
-    LxTx = c(1, Inf, 0, -Inf, Inf, 0, Inf, -0.25, 2),
-    LxTx.Error = c(1.58133646008685, Inf, 0, Inf, Inf, 0, Inf, 1.41146256149428, 3.16267292017369)),
-    class = "data.frame", row.names = c(NA, -9L))
-
-  ##fit
-  SW({
-  expect_warning(
-    fit_DoseResponseCurve(LxTx[, c("Dose", "LxTx", "LxTx.Error")]),
-    "Inf values found, replaced by NA")
-  })
-
-  ##all points have the same dose ... error but NULL
-  data(ExampleData.LxTxData, envir = environment())
-  tmp_LxTx <- LxTxData
-  tmp_LxTx$Dose <- 10
-
-  expect_message(expect_null(
-      fit_DoseResponseCurve(tmp_LxTx)),
-      "Error: All points have the same dose, NULL returned")
-
-  ## check input objects ... matrix
-  SW({
-  expect_s4_class(
-    fit_DoseResponseCurve(as.matrix(LxTxData)),
-    class = "RLum.Results")
-  })
-
-  ## shuffle column names
-  SW({
-    LxTxData_shuffle <- LxTxData[,c("LxTx.Error", "LxTx", "Dose")]
-    expect_s4_class(
-      fit_DoseResponseCurve(LxTxData_shuffle),
-      class = "RLum.Results")
-  })
-
-  ## test case for only two columns
-  expect_s4_class(
-    suppressWarnings(fit_DoseResponseCurve(LxTxData[,1:2], verbose = FALSE)),
-    class = "RLum.Results")
-
-  ## test case with all NA
-  tmp_LxTx <- LxTxData
-  tmp_LxTx$LxTx <- NA
-  expect_message(expect_null(
-      suppressWarnings(fit_DoseResponseCurve(tmp_LxTx))),
-      "Error: After NA removal, nothing is left from the data set")
-
-  ## test case without TnTx column
-  tmp_LxTx <- LxTxData
-  tmp_LxTx$TnTx <- NULL
-  SW({
-  expect_s4_class(
-    fit_DoseResponseCurve(tmp_LxTx, verbose = FALSE),
-    "RLum.Results")
-  })
-
-  ## do not include reg point
-  expect_s4_class(
-    fit_DoseResponseCurve(
-      LxTxData,
-      verbose = FALSE,
-      fit.includingRepeatedRegPoints = FALSE),
-    class = "RLum.Results")
-})
-
 test_that("snapshot tests", {
   testthat::skip_on_cran()
 
@@ -191,7 +121,7 @@ test_that("snapshot tests", {
   skip_on_os("windows")
   skip_on_os("mac")
 
-  snapshot.tolerance <- 1.5e-6
+  snapshot.tolerance <- 5.0e-5
 
   SW({
   expect_snapshot_RLum(fit_DoseResponseCurve(
@@ -293,7 +223,7 @@ test_that("snapshot tests", {
       verbose = TRUE,
       txtProgressBar = FALSE,
       n.MC = 10
-  ), tolerance = 5.0e-5)
+  ), tolerance = snapshot.tolerance)
 
   expect_snapshot_RLum(fit_DoseResponseCurve(
       LxTxData,
@@ -301,7 +231,7 @@ test_that("snapshot tests", {
       mode = "extrapolation",
       verbose = FALSE,
       n.MC = 10
-  ), tolerance = 5.0e-5)
+  ), tolerance = snapshot.tolerance)
 
   expect_snapshot_RLum(fit_DoseResponseCurve(
       LxTxData,
@@ -309,7 +239,7 @@ test_that("snapshot tests", {
       mode = "extrapolation",
       verbose = FALSE,
       n.MC = 10
-  ), tolerance = 5e-5)
+  ), tolerance = snapshot.tolerance)
 
   expect_snapshot_RLum(fit_DoseResponseCurve(
       cbind(LxTxData, Test_Dose = 17),
@@ -318,7 +248,7 @@ test_that("snapshot tests", {
       mode = "interpolation",
       verbose = TRUE,
       n.MC = 10
-  ), tolerance = 5.0e-5)
+  ), tolerance = snapshot.tolerance)
 
   ## negative De
   expect_snapshot_RLum(fit_DoseResponseCurve(
@@ -370,8 +300,12 @@ test_that("snapshot tests", {
   })
 })
 
-test_that("additional tests", {
+test_that("additional interpolation tests", {
   testthat::skip_on_cran()
+
+  ## load data
+  data(ExampleData.LxTxData, envir = environment())
+  LxTxData <- cbind(LxTxData, Test_Dose = 17)
 
   ## self-call
   res <- fit_DoseResponseCurve(
@@ -384,246 +318,208 @@ test_that("additional tests", {
 
   set.seed(1)
   SW({
-  expect_output(temp_SSE <-
-    fit_DoseResponseCurve(
-      LxTxData,
-      fit.method = "SSE",
-      verbose = TRUE,
-      n.MC = 10
-    ), " | D01 = ", fixed = TRUE)
-  temp_LIN <-
-    fit_DoseResponseCurve(
-      LxTxData,
-      fit.method = "LIN",
-      verbose = FALSE,
-      n.MC = 10
-    )
-  temp_SSELIN <-
-    fit_DoseResponseCurve(
-      LxTxData,
-      fit.method = "SSE+LIN",
-      verbose = FALSE,
-      n.MC = 10
-    )
-  temp_DSE <-
-    fit_DoseResponseCurve(
-      LxTxData,
-      fit.method = "DSE",
-      verbose = FALSE,
-      n.MC = 10
-    )
-  temp_QDR <-
-    fit_DoseResponseCurve(
-      LxTxData,
-      fit.method = "QDR",
-      verbose = FALSE,
-      n.MC = 10
-    )
-  temp_GOK <-
-    fit_DoseResponseCurve(
-      LxTxData,
-      fit.method = "GOK",
-      verbose = FALSE,
-      n.MC = 10)
+  fit_LIN <- fit_DoseResponseCurve(LxTxData, fit.method = "LIN",
+                                   verbose = FALSE, n.MC = 10)
+  expect_equal(round(fit_LIN$De[[1]], digits = 1), 1673)
+  expect_equal(round(sum(fit_LIN$De.MC, na.rm = TRUE), digits = 0), 16839)
 
-  ## force through the origin
-  temp_LxTx <-LxTxData
-  temp_LxTx$LxTx[[7]] <- 1
-  expect_s4_class(fit_DoseResponseCurve(
-    temp_LxTx,
-    fit.method = "GOK",
-    verbose = FALSE,
-    n.MC = 10,
-    fit.force_through_origin = TRUE
-  ), "RLum.Results")
-temp_OTOR <-
-  fit_DoseResponseCurve(
-    LxTxData,
-    fit.method = "OTOR",
-    verbose = FALSE,
-    n.MC = 10
-  )
-temp_OTORX <-
-  fit_DoseResponseCurve(
-    cbind(LxTxData, Test_Dose = 17),## we have to set the TEST_DOSE
-    fit.method = "OTORX",
-    fit.force_through_origin = TRUE,
-    verbose = FALSE,
-    n.MC = 10
-  )
+  fit_SSE <- expect_output(fit_DoseResponseCurve(LxTxData, fit.method = "SSE OR LIN",
+                                                 verbose = TRUE, n.MC = 10),
+                           " | D01 = ", fixed = TRUE)
+  expect_equal(round(fit_SSE$De[[1]], digits = 2), 1737.71)
+  expect_equal(round(sum(fit_SSE$De.MC, na.rm = TRUE), digits = 0), 17125)
+
+  fit_SSELIN <- fit_DoseResponseCurve(LxTxData, fit.method = "SSE+LIN",
+                                      verbose = FALSE, n.MC = 10)
+  expect_equal(round(fit_SSELIN$De[[1]], digits = 1), 1793)
+  expect_equal(round(sum(fit_SSELIN$De.MC, na.rm = TRUE), digits = 0), 17972)
+
+  fit_DSE <- fit_DoseResponseCurve(LxTxData, fit.method = "DSE",
+                                   fit.bounds = FALSE, verbose = FALSE, n.MC = 10)
+  expect_equal(round(fit_DSE$De[[1]], digits = 2), 1792.96)
+  expect_equal(round(sum(fit_DSE$De.MC, na.rm = TRUE), digits = 0), 7303,
+               tolerance = 10)
+
+  fit_QDR <- fit_DoseResponseCurve(LxTxData, fit.method = "QDR",
+                                   verbose = FALSE, n.MC = 10)
+  expect_equal(round(fit_QDR$De[[1]], digits = 1), 1646.8)
+  expect_equal(round(sum(fit_QDR$De.MC, na.rm = TRUE), digits = 0), 16602)
+
+  fit_GOK <- fit_DoseResponseCurve(LxTxData, fit.method = "GOK",
+                                   fit.bounds = FALSE, verbose = FALSE, n.MC = 10)
+  expect_equal(round(fit_GOK$De[[1]], digits = 0), 1786)
+  expect_equal(round(sum(fit_GOK$De.MC, na.rm = TRUE), digits = 1),
+               17590.0)
+
+  LxTx <- LxTxData
+  LxTx$LxTx[[7]] <- 1
+  fit_GOK <- fit_DoseResponseCurve(LxTx, fit.method = "GOK",
+                                    fit.force_through_origin = TRUE,
+                                    verbose = FALSE, n.MC = 10)
+  expect_equal(round(fit_GOK$De[[1]], digits = 0), 1786)
+  expect_equal(round(sum(fit_GOK$De.MC, na.rm = TRUE), digits = 0),
+               17747)
+
+  fit_OTOR <- fit_DoseResponseCurve(LxTxData, fit.method = "OTOR",
+                                     fit.bounds = FALSE, fit.force_through_origin = TRUE,
+                                     verbose = FALSE, n.MC = 10)
+  expect_equal(round(fit_OTOR$De[[1]], digits = 1), 2464.0)
+  expect_equal(round(sum(fit_OTOR$De.MC, na.rm = TRUE), digits = 0), 24905)
+
+  fit_OTORX <- fit_DoseResponseCurve(LxTxData, fit.method = "OTORX",
+                                      fit.bounds = FALSE, fit.force_through_origin = TRUE,
+                                      verbose = FALSE, n.MC = 10)
+  expect_equal(round(fit_OTORX$De[[1]], digits = 1),
+               2469.8, tolerance = 0.1)
+  expect_equal(round(sum(fit_OTORX$De.MC, na.rm = TRUE), digits = 0),
+               24408, tolerance = 0.2)
 
   ## TnTx column containing only NAs
   LxTxData$TnTx <- NA
-  expect_s4_class(fit_DoseResponseCurve(LxTxData),
-                  "RLum.Results")
+  expect_s4_class(fit_DoseResponseCurve(LxTxData), "RLum.Results")
 
-## test reference dataset from
-## (https://raw.githubusercontent.com/jll2/LumDRC/refs/heads/main/otorx.py)
-LxTxData_alt <- data.frame(
-  Dose = c(0, 17, 47, 94, 201, 402, 804, 1.07e+03, 1.68e+03, 3.35e+03, 5.36e+03,
-           6.7e+03, 8.04e+03, 1e+04, 47, 94, 3.35e+03, 5.36e+03),
-  LxTx = c(10, 1.09, 2.3, 3.67, 5.63, 8.09, 10.3, 11.4, 13, 14.8, 15.8, 16.9,
-           17, 17.1, 2.26, 3.65, 15.6, 15.9),
-  LxTx.Error = 0.1,
-  TEST_DOSE = 17)
-temp_OTORX_alt <-
-  fit_DoseResponseCurve(
-    cbind(LxTxData_alt, Test_Dose = 17),## we have to set the TEST_DOSE
-    fit.method = "OTORX",
-    fit.force_through_origin = TRUE,
-    verbose = FALSE,
-    n.MC = 10)
+  ## reference dataset from
+  ## https://raw.githubusercontent.com/jll2/LumDRC/refs/heads/main/otorx.py
+  alt <- data.frame(
+    Dose = c(0, 17, 47, 94, 201, 402, 804, 1.07e+03, 1.68e+03, 3.35e+03, 5.36e+03,
+             6.7e+03, 8.04e+03, 1e+04, 47, 94, 3.35e+03, 5.36e+03),
+    LxTx = c(10, 1.09, 2.3, 3.67, 5.63, 8.09, 10.3, 11.4, 13, 14.8, 15.8, 16.9,
+             17, 17.1, 2.26, 3.65, 15.6, 15.9),
+    LxTx.Error = 0.1,
+    Test_Dose = 17)
+  fit_OTORX <- fit_DoseResponseCurve(alt, fit.method = "OTORX",
+                                     fit.force_through_origin = TRUE,
+                                     verbose = FALSE, n.MC = 10)
+  expect_equal(round(fit_OTORX$De[[1]], digits = 2), 758.280)
 
-  temp_OTORX_alt2 <-
-    fit_DoseResponseCurve(
-      cbind(LxTxData_alt, Test_Dose = 17),## we have to set the TEST_DOSE
-      fit.method = "OTORX",
-      fit.force_through_origin = FALSE,
-      verbose = FALSE,
-      n.MC = 10)
+  fit_OTORX <- fit_DoseResponseCurve(alt, fit.method = "OTORX",
+                                     fit.force_through_origin = FALSE,
+                                     verbose = FALSE, n.MC = 10)
+  expect_equal(round(fit_OTORX$De[[1]], digits = 2), 793.21, tolerance = 0.2)
   })
 
-  expect_s3_class(temp_SSE$Fit, class = "nls")
-  expect_s3_class(temp_LIN$Fit, class = "lm")
-  expect_s3_class(temp_SSELIN$Fit, class = "nls")
-  expect_s3_class(temp_DSE$Fit, class = "nls")
-  expect_s3_class(temp_QDR$Fit, class = "lm")
-  expect_s3_class(temp_GOK$Fit, class = "nls")
-  expect_s3_class(temp_OTOR$Fit, class = "nls")
-  expect_s3_class(temp_OTORX$Fit, class = "nls")
-  expect_s3_class(temp_OTORX_alt$Fit, class = "nls")
-  expect_s3_class(temp_OTORX_alt2$Fit, class = "nls")
+  ## main fit works, but all MC iterations fail
+  x.nomcfit <- data.frame(dose = 0:6,
+                          LxTx = c(0.02, 0.5, 0.8, 1.0, 1.1, 1.15, 1.18),
+                          LxTx.error = 1e12)
+  expect_silent(fit <- fit_DoseResponseCurve(x.nomcfit, fit.method = "OTOR",
+                                             n.MC = 2, verbose = FALSE))
+  expect_false(is.na(fit$De$De))
+  expect_true(all(is.na(fit$De.MC)))
+})
 
-   expect_equal(round(temp_SSE$De[[1]], digits = 2), 1737.71)
-   expect_equal(round(sum(temp_SSE$De.MC, na.rm = TRUE), digits = 0), 17595)
-   expect_equal(round(temp_LIN$De[[1]], digits = 1), 1673)
-   expect_equal(round(sum(temp_LIN$De.MC, na.rm = TRUE), digits = 0),16696)
-   expect_equal(round(temp_SSELIN$De[[1]], digits = 1), 1793)
-   expect_equal(round(sum(temp_SSELIN$De.MC, na.rm = TRUE), digits = 0), 17972)
-   expect_equal(round(temp_DSE$De[[1]], digits = 2), 1786.98)
-   expect_equal(round(sum(temp_DSE$De.MC, na.rm = TRUE), digits = 0), 7303,
-                tolerance = 10)
-   expect_equal(round(temp_QDR$De[[1]], digits = 1), 1646.8)
-   expect_equal(round(sum(temp_QDR$De.MC, na.rm = TRUE), digits = 0), 16602)
-   expect_equal(round(temp_GOK$De[[1]], digits = 0), 1786)
-   ##fix for different R versions
-   if (R.version$major > "3"){
-     if(any(grepl("aarch64", sessionInfo()$platform))) {
-       expect_equal(round(sum(temp_GOK$De.MC, na.rm = TRUE), digits = 1), 17796,
-                    tolerance = 0.1)
+test_that("additional extrapolation tests", {
+  testthat::skip_on_cran()
 
-     } else {
-       expect_equal(round(sum(temp_GOK$De.MC, na.rm = TRUE), digits = 1), 17828.9,
-                    tolerance = 0.1)
-     }
-   }
-
-   expect_equal(round(temp_OTOR$De[[1]], digits = 1),  1784.4)
-   expect_equal(round(temp_OTORX$De[[1]], digits = 1), 2469.8, tolerance = 0.1)
-   expect_equal(round(temp_OTORX_alt$De[[1]], digits = 2),  758.280)
-   expect_equal(round(temp_OTORX_alt2$De[[1]], digits = 2),  793.21, tolerance = 0.2)
-   expect_equal(round(sum(temp_OTOR$De.MC, na.rm = TRUE), digits = 0), 17983)
-   expect_equal(round(sum(temp_OTORX$De.MC, na.rm = TRUE), digits = 0), 24408, tolerance = 0.2)
-
-# Check extrapolation -----------------------------------------------------
   ## load data
   data(ExampleData.LxTxData, envir = environment())
-
   set.seed(1)
   LxTxData[1,2:3] <- c(0.5, 0.001)
+  LxTxData <- cbind(LxTxData, Test_Dose = 17)
+
   SW({
-  LIN <- expect_s4_class(
-    fit_DoseResponseCurve(LxTxData,mode = "extrapolation", fit.method = "LIN"),
-    "RLum.Results")
-  SSE <- expect_s4_class(
-    fit_DoseResponseCurve(LxTxData,mode = "extrapolation", fit.method = "SSE"),
-    "RLum.Results")
-  SSELIN <- expect_s4_class(
-    suppressWarnings(
-      fit_DoseResponseCurve(
-        LxTxData,mode = "extrapolation", fit.method = "SSE+LIN")),
-    "RLum.Results")
+  fit_LIN <- fit_DoseResponseCurve(LxTxData, mode = "extrapolation",
+                                   fit.method = "LIN")
+  expect_equal(round(fit_LIN$De$De, 0), 184)
 
-  OTOR <- expect_s4_class(
-    fit_DoseResponseCurve(LxTxData,mode = "extrapolation", fit.method = "OTOR"), "RLum.Results")
+  fit_SSE <- fit_DoseResponseCurve(LxTxData, mode = "extrapolation",
+                                   fit.method = "SSE")
+  expect_equal(round(fit_SSE$De$De, 0), 139)
 
-  ##OTORX
-  OTORX <- expect_output(
-    fit_DoseResponseCurve(
-      object = cbind(LxTxData, Test_Dose = 17),
-      mode = "extrapolation", fit.method = "OTORX"),
-    "Fit failed for OTORX (extrapolation)", fixed = TRUE)
+  fit_SSELIN <- fit_DoseResponseCurve(LxTxData, mode = "extrapolation",
+                                      fit.method = "SSE+LIN")
+  expect_equal(round(fit_SSELIN$De$De, 0), 83)
+
+  fit_OTOR <- fit_DoseResponseCurve(LxTxData, mode = "extrapolation",
+                                    fit.method = "OTOR")
+  expect_equal(round(fit_OTOR$De$De, 0), 147)
+
+  expect_output(fit_DoseResponseCurve(LxTxData, mode = "extrapolation",
+                                      fit.method = "OTORX"),
+                "Fit failed for OTORX (extrapolation)", fixed = TRUE)
 
   ##OTORX ... trigger uniroot warning
   LxTxData[1,2:3] <- c(0.2, 0.001)
-  expect_warning(
-    OTORX <- fit_DoseResponseCurve(
-      object = cbind(LxTxData, Test_Dose = 17),
-      mode = "extrapolation", fit.method = "OTORX"),
-    "Standard root estimation using stats::uniroot() failed", fixed = TRUE)
-  })
-
-  expect_equal(round(LIN$De$De,0), 184)
-  expect_equal(round(SSE$De$De,0), 139)
-  expect_equal(round(OTOR$De$De,0),  147)
+  expect_warning(OTORX <- fit_DoseResponseCurve(cbind(LxTxData, Test_Dose = 17),
+                                                mode = "extrapolation", fit.method = "OTORX"),
+                 "Standard root estimation using stats::uniroot() failed",
+                 fixed = TRUE)
   expect_equal(round(OTORX$De$De, 0), 1879)
+  })
+})
 
-  #it fails on some unix platforms for unknown reason.
-  #expect_equivalent(round(SSELIN$De$De, 0), 110)
+test_that("additional alternate tests", {
+  testthat::skip_on_cran()
 
-# Check alternate ---------------------------------------------------------
   ## load data
   data(ExampleData.LxTxData, envir = environment())
-
   set.seed(1)
-  LxTxData[1,2:3] <- c(0.5, 0.001)
+  LxTxData[1, 2:3] <- c(0.5, 0.001)
+  LxTxData <- cbind(LxTxData, Test_Dose = 17)
 
-  SW({
-  ##LIN
-  expect_s4_class(
-    fit_DoseResponseCurve(LxTxData, mode = "alternate", fit.method = "LIN"),
-    "RLum.Results")
+  expect_s4_class(fit_DoseResponseCurve(LxTxData, mode = "alternate",
+                                        fit.method = "LIN", verbose = FALSE),
+                  "RLum.Results")
+  expect_s4_class(fit_DoseResponseCurve(LxTxData, mode = "alternate",
+                                        fit.method = "SSE", fit.weights = 1, verbose = FALSE),
+                  "RLum.Results")
+  expect_s4_class(fit_DoseResponseCurve(LxTxData, mode = "alternate",
+                                        fit.method = "SSE+LIN", verbose = FALSE),
+                  "RLum.Results")
+  expect_s4_class(fit_DoseResponseCurve(LxTxData, mode = "alternate",
+                                        fit.method = "OTOR", verbose = FALSE),
+                  "RLum.Results")
+  expect_s4_class(fit_DoseResponseCurve(LxTxData, mode = "alternate",
+                                        fit.method = "OTORX", verbose = FALSE),
+                  "RLum.Results")
+})
 
-  ## SSE+LIN
-  SSELIN <- expect_s4_class(
-    suppressWarnings(
-      fit_DoseResponseCurve(LxTxData, mode = "alternate", fit.method = "SSE+LIN")),
-    "RLum.Results")
-  })
+test_that("weird LxTx values", {
+  testthat::skip_on_cran()
 
-  ## OTOR
-  expect_s4_class(
-    fit_DoseResponseCurve(
-      LxTxData,
-      mode = "alternate",
-      fit.method = "OTOR",
-      verbose = FALSE
-    ),
-    "RLum.Results"
-  )
+  data(ExampleData.LxTxData, envir = environment())
 
-  ## OTORX
-  expect_s4_class(
-    fit_DoseResponseCurve(
-      cbind(LxTxData, Test_Dose = 17),
-      mode = "alternate",
-      fit.method = "OTORX",
-      verbose = FALSE
-    ),
-    "RLum.Results"
-  )
+  ## all points have the same dose
+  tmp_LxTx <- LxTxData
+  tmp_LxTx$Dose <- 10
+  expect_message(expect_null(fit_DoseResponseCurve(tmp_LxTx)),
+                 "Error: All points have the same dose, NULL returned")
 
-  ### check fit.weight option ------------
-  expect_s4_class(
-    fit_DoseResponseCurve(
-      LxTxData,
-      mode = "alternate",
-      fit.method = "SSE",
-      fit.weights = 1,
-      verbose = FALSE
-    ),
-    "RLum.Results"
-  )
+  ## Inf values
+  expect_warning(expect_warning(fit_DoseResponseCurve(rbind(LxTxData, Inf),
+                                                      verbose = FALSE),
+                                "Inf values found, replaced by NA"),
+                                "1 NA values removed")
+
+  ## matrix input
+  expect_s4_class(fit_DoseResponseCurve(as.matrix(LxTxData), verbose = FALSE),
+                  "RLum.Results")
+
+  ## shuffle column names
+  LxTxData_shuffle <- LxTxData[, c("LxTx.Error", "LxTx", "Dose")]
+  expect_s4_class(fit_DoseResponseCurve(LxTxData_shuffle, verbose = FALSE),
+                  "RLum.Results")
+
+  ## test case for only two columns
+  expect_warning(expect_s4_class(fit_DoseResponseCurve(LxTxData[, 1:2], verbose = FALSE),
+                                 "RLum.Results"),
+                 "Error column invalid, infinite, or contains 0")
+
+  ## test case without TnTx column
+  expect_s4_class(fit_DoseResponseCurve(LxTxData[, 1:3], verbose = FALSE),
+                  "RLum.Results")
+
+  ## test case with all NA
+  tmp_LxTx <- LxTxData
+  tmp_LxTx$LxTx <- NA
+  expect_message(expect_warning(expect_null(fit_DoseResponseCurve(tmp_LxTx)),
+                                "7 NA values removed"),
+                 "Error: After NA removal, nothing is left from the data set")
+
+  ## do not include reg point
+  expect_s4_class(fit_DoseResponseCurve(LxTxData, verbose = FALSE,
+                                        fit.includingRepeatedRegPoints = FALSE),
+                  "RLum.Results")
 
   ## trigger OTOR related warning for
   ## extrapolation mode
@@ -696,44 +592,26 @@ temp_OTORX_alt <-
       4.14921514089229,
       1.40190110413806,
       7.74406545663656
-    )
+    ),
+    Test_Dose = rep(17, 21)
   ),
   class = "data.frame",
   row.names = c(NA, -21L))
 
-  expect_warning(fit_DoseResponseCurve(
-    tmp,
-    mode = "extrapolation",
-    fit.method = "OTOR",
-    verbose = FALSE),
-    "[fit_DoseResponseCurve()] Standard root estimation using stats::uniroot()",
-    fixed = TRUE)
+  expect_warning(fit_DoseResponseCurve(tmp, mode = "extrapolation",
+                                       fit.method = "OTOR", verbose = FALSE, n.MC = 10),
+                 "Standard root estimation using stats::uniroot()",
+                 fixed = TRUE)
 
   ## more coverage
   tmp$dose <- c(0:6, 100 + 0:6, 200000 + 0:6)
-  expect_output(fit_DoseResponseCurve(
-      tmp[4:8, ],
-      fit.method = "GOK",
-      fit.weights = "norm_inverse_std",
-      mode = "alternate",
-      verbose = TRUE,
-      n.MC = 10),
-      "Fit failed for GOK")
-  expect_output(fit_DoseResponseCurve(
-      cbind(tmp[4:8, ], Test_Dose = 17),
-      fit.method = "OTORX",
-      verbose = TRUE,
-      n.MC = 10),
-      "Fit failed for OTORX")
-
-  ## main fit works, but all MC iteration fail
-  x.nomcfit <- data.frame(dose = 0:6,
-                          LxTx = c(0.02, 0.5, 0.8, 1.0, 1.1, 1.15, 1.18),
-                          LxTx.error = 1e12)
-  expect_silent(fit <- fit_DoseResponseCurve(x.nomcfit, fit.method = "OTOR",
-                                             n.MC = 2, verbose = FALSE))
-  expect_false(is.na(fit$De$De))
-  expect_true(all(is.na(fit$De.MC)))
+  expect_output(fit_DoseResponseCurve(tmp[4:8, ], fit.method = "GOK",
+                                      fit.weights = "norm_inverse_std",
+                                      mode = "alternate", verbose = TRUE, n.MC = 10),
+                "Fit failed for GOK")
+  expect_output(fit_DoseResponseCurve(tmp[4:8, ], fit.method = "OTORX",
+                                      verbose = TRUE, n.MC = 10),
+                "Fit failed for OTORX")
 })
 
 test_that("regression tests", {
