@@ -120,6 +120,59 @@
           "value": [null]
         },
         "data": {
+          "type": "double",
+          "attributes": {
+            "dim": {
+              "type": "integer",
+              "attributes": {},
+              "value": [4, 2]
+            }
+          },
+          "value": [1, 3, 5, 7, 3, 7, 11, 7]
+        },
+        "originator": {
+          "type": "character",
+          "attributes": {},
+          "value": ["bin_RLum"]
+        },
+        "info": {
+          "type": "list",
+          "attributes": {},
+          "value": []
+        },
+        ".uid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        ".pid": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        }
+      },
+      "value": {
+        "class": "RLum.Data.Curve",
+        "package": "Luminescence"
+      }
+    }
+
+---
+
+    {
+      "type": "S4",
+      "attributes": {
+        "recordType": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        "curveType": {
+          "type": "character",
+          "attributes": {},
+          "value": [null]
+        },
+        "data": {
           "type": "integer",
           "attributes": {
             "dim": {

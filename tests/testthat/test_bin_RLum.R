@@ -34,6 +34,9 @@ test_that("snapshot tests", {
                        tolerance = snapshot.tolerance)
   expect_snapshot_RLum(bin_RLum(curve, bin_size = 5),
                        tolerance = snapshot.tolerance)
+  expect_snapshot_RLum(bin_RLum(set_RLum("RLum.Data.Curve", data = cbind(1:7, 1:7)),
+                                bin_size = 2),
+                       tolerance = snapshot.tolerance)
   expect_snapshot_RLum(bin_RLum(spectrum, bin_size.row = 2),
                        tolerance = snapshot.tolerance)
   expect_snapshot_RLum(bin_RLum(spectrum, bin_size.row = 1, bin_size.col = 2),
