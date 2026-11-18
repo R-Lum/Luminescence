@@ -48,7 +48,7 @@ jobs:
             install_path = file.path(normalizePath(Sys.getenv("RUNNER_TEMP"), winslash = "/"), "package")
           )
           pr_cov <- round(covr::percent_coverage(cov), 3)
-          if (pr_cov < 99.7) {
+          if (pr_cov < 100) {
             cat("✖ Test coverage decreased to ", pr_cov, "%, ",
                 nrow(covr::zero_coverage(cov)), " lines with no coverage\n")
             print(covr::zero_coverage(cov))

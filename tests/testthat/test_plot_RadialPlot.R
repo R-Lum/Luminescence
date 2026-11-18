@@ -140,6 +140,7 @@ test_that("check functionality", {
                               tck = 1, tcl = 2),
               "list")
 
+  expect_type(plot_RadialPlot(df, log.z = FALSE, rug = TRUE), "list")
   plot_RadialPlot(df, show = FALSE, centrality = c(1, 2, 3))
   plot_RadialPlot(df, show = FALSE, centrality = "median",
                   summary.pos = "topleft", legend.pos = "topright",
