@@ -175,7 +175,7 @@ plotted only as a repeated point (triangle), while the rest are considered
 regenerated dose points (#1766).
 
 * The function better validates the `log` argument, and silently ignores any
-values other that 'x' and 'y' (#1844).
+values other that `"x"` and `"y"` (#1844).
 
 ### `plot_DRTResults()`
 
