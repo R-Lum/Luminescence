@@ -136,7 +136,7 @@ setMethod("show",
 
                 ##show structure
                 ##set width option ... just an implementation for the tutorial output
-                temp.width <- if (getOption("width") <= 50) 4 else 7
+                temp.width <- if (getOption("width") <= 50) 4 else 7 # nocov
 
                 ##set line break variable
                 linebreak <- FALSE

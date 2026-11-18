@@ -358,7 +358,7 @@ analyse_portableOSL <- function(
        xlim = xlim,
        ylim = if (invert) rev(ylim) else ylim,
        zlim = if (mode == "surface") NA else zlim,
-       ylab = if (!anyNA(summary$COORD_Y)) "Depth [m]" else "Index",
+       ylab = if (all(summary$COORD_X == 0)) "Index" else "Depth [m]",
        xlab = "x [m]",
        nx = 200,
        ny = 200,

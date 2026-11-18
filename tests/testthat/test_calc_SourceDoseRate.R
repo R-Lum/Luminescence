@@ -39,6 +39,7 @@ test_that("check functionality", {
     calib.date = "2014-12-19",
     calib.dose.rate = 0.0438,
     calib.error = 0.0019,
+    source.type = "Am-241",
     predict = 150
   ))
   expect_silent(plot_RLum(t))
@@ -48,6 +49,7 @@ test_that("check functionality", {
     calib.date = "2014-12-19",
     calib.dose.rate = 0.0438,
     calib.error = 0.0019,
+    source.type = "Co-60",
     predict = c(-100, 150)
   ))
   expect_silent(plot_RLum(t))
@@ -97,6 +99,7 @@ test_that("snapshot tests", {
                                            calib.date = c("2014-01-01", "2014-12-19"),
                                            calib.dose.rate = 0.0438,
                                            calib.error = 0.0019,
+                                           source.type = "Cs-137",
                                            predict = 5),
                        tolerance = snapshot.tolerance)
 })

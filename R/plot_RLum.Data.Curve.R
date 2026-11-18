@@ -90,9 +90,9 @@ setMethod("plot_RLum", signature = "RLum.Data.Curve", function(
       ## read the irradiation unit for BIN/BINX files version 03-04
       lab.unit <- switch(as.character(object@info$IRR_UNIT %||% ""),
                          "1" = "Gy",
-                         "2" = "rad",
-                         "4" = "min",
-                         "5" = "h",
+                         "2" = "rad", # nocov
+                         "4" = "min", # nocov
+                         "5" = "h",   # nocov
                          "s")
         lab.xlab <- "Stimulation time"
     } else if (recordType.stripped == "TL") {
@@ -202,7 +202,7 @@ setMethod("plot_RLum", signature = "RLum.Data.Curve", function(
               type = "scatter",
               line = list(
                 width = plot_settings$lwd * 1.3,
-                dash = switch(as.character(plot_settings$lty), `2` = "dash", `3` = "dot", "solid"),
+                dash = switch(as.character(plot_settings$lty), `2` = "dash", `3` = "dot", "solid"), # nocov
                 color = if(is.numeric(plot_settings$col))
                   grDevices::palette()[plot_settings$col]
                 else

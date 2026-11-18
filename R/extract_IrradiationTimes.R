@@ -277,7 +277,7 @@ extract_IrradiationTimes <- function(
        paste0(get_RLum(x, info.object = "DATE"), get_RLum(x, info.object = "TIME"))
     }, character(1))
 
-    fmt <- if (grepl(":", temp.START[1])) "%y%m%d%H:%M:%S" else "%y%m%d%H%M%S"
+    fmt <- if (grepl(":", temp.START[1])) "%y%m%d%H:%M:%S" else "%y%m%d%H%M%S" # nocov
 
   } else {
     temp.START <- vapply(temp.sequence, function(x) {

@@ -129,6 +129,12 @@ test_that("check functionality", {
         ylim = c(0, 350),
         zlim = c(0, 1e6),
         ylab = "Counts [1 / summed channels]")))
+    expect_silent(plot_RLum(TL.Spectrum, plot.type = "transect",
+                            transect_mode = "median"))
+    expect_silent(plot_RLum(TL.Spectrum, plot.type = "transect",
+                            transect_mode = "min"))
+    expect_silent(plot_RLum(TL.Spectrum, plot.type = "transect",
+                            transect_mode = "max"))
 
     ## plot: interactive ------------
     expect_silent(

@@ -65,6 +65,11 @@ test_that("check functionality", {
     verbose = TRUE),
     "'n.components' specified only one component, nothing plotted"),
     "The model produced NA values: either the input data are inapplicable")
+
+  expect_silent(calc_FiniteMixture(ExampleData.DeValues$BT998,
+                                   sigmab = 0.2,
+                                   n.components = 2:3,
+                                   verbose = FALSE))
   })
 
   expect_output(calc_FiniteMixture(
@@ -108,6 +113,12 @@ test_that("graphical snapshot tests", {
                                   pdf.colors = "colors",
                                   plot.proportions = FALSE,
                                   plot.criteria = FALSE))
+  vdiffr::expect_doppelganger("pdf.sigma",
+                              calc_FiniteMixture(ExampleData.DeValues$CA1,
+                                  sigmab = 0.2,
+                                  n.components = 2:3,
+                                  pdf.sigma = "se",
+                                  verbose = FALSE))
 
   ## plot with plot_RLum.Results
   res <- calc_FiniteMixture(ExampleData.DeValues$CA1,

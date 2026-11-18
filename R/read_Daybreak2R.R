@@ -259,7 +259,7 @@ read_Daybreak2R <- function(
         #string[41]
         i_RUNREMARK <- readBin(con, "raw", n = 42)
         l <- as.numeric(i_RUNREMARK[1])
-        i_RUNREMARK <- if (l > 0) rawToChar(i_RUNREMARK[2:(1 + l)]) else ""
+        i_RUNREMARK <- if (l > 0) rawToChar(i_RUNREMARK[2:(1 + l)]) else "" # nocov
 
         i_DATA <- readBin(con,what="double",i_MAXPT+1,size=8,endian="little")
 

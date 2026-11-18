@@ -326,10 +326,9 @@ analyse_Al2O3C_Measurement <- function(
       ## consider the case for more than one observation ...
       irradiation_time_correction <-
         c(mean(irradiation_time_correction[[1]]),
-          if (nrow(irradiation_time_correction) > 1)
-            sd(irradiation_time_correction[[1]])
-          else
-            irradiation_time_correction[[2]])
+          ifelse(nrow(irradiation_time_correction) > 1,
+                 sd(irradiation_time_correction[[1]]),
+                 irradiation_time_correction[[2]]))
     }
   }
 

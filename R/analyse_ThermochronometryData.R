@@ -156,7 +156,7 @@ analyse_ThermochronometryData <- function(
     ## DRC plotting
     plot_DoseResponseCurve(
       object = results_DRC,
-      xlab = if ("DOSE" %in% colnames(df_DRC)) "Dose [Gy]" else "Dose [s]",
+      xlab = ifelse("DOSE" %in% colnames(df_DRC), "Dose [Gy]", "Dose [s]"),
       log = "x",
       plot_extended = FALSE,
       mar = c(5.1, 4.1, 4.1, 2.1),

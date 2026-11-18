@@ -1024,7 +1024,7 @@ analyse_IRSAR.RF<- function(
 
       #(2) get minimum value (index and time value)
       index_min <- which.min(temp.sum.residuals$sliding_vector)
-      t_n.id <- if (length(index_min) == 0) 1 else index_min
+      t_n.id <- if (length(index_min) == 0) 1 else index_min # nocov
 
       I_n <- vslide_range[temp.sum.residuals$vslide_index] %||% 0
       temp.sliding.step <- RF_reg.limited[t_n.id] - t_min

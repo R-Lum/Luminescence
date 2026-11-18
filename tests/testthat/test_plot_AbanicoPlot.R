@@ -262,6 +262,15 @@ test_that("more coverage", {
                  fixed = TRUE)
   )
 
+  ## automatic lines
+  obj <- CAM
+  obj@originator = "calc_AverageDose"
+  expect_silent(plot_AbanicoPlot(obj))
+  obj@originator = "calc_MaxDose"
+  expect_silent(plot_AbanicoPlot(obj))
+  obj@originator = "calc_MinDose"
+  expect_silent(plot_AbanicoPlot(obj))
+
   ## negative values
   data.neg <- ExampleData.DeValues
   data.neg[1, 1] <- -1
@@ -280,7 +289,7 @@ test_that("more coverage", {
                                   legend = "legend", legend.pos = "bottomleft",
                                   summary.pos = "bottomleft", log.z = FALSE,
                                   xlab = c("x1", "x2", "x3"), lty = 2,
-                                  dispersion = "2sd",
+                                  dispersion = "2sd", plot.ratio = 0.95,
                                   at = seq(20, 120, nrow(data.na) - 1)),
                  "Data set 1: 1 NA value excluded",
                  fixed = TRUE)
