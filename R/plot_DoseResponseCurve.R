@@ -125,10 +125,13 @@ plot_DoseResponseCurve <- function(
   ## Fitting arguments ------------------------------------------------------
   fit.args <- object$Fit.Args
   mode <- fit.args$mode
+  interpolation <- mode == "interpolation"
+  extrapolation <- mode == "extrapolation"
+  alternate <- mode == "alternate"
   sample <- fit.args$object
 
   ## for interpolation the first point is considered as natural dose
-  first.idx <- ifelse(mode == "interpolation", 2, 1)
+  first.idx <- ifelse(interpolation, 2, 1)
   last.idx <- nrow(sample)
   xy <- sample[first.idx:last.idx, 1:2]
   colnames(xy) <- c("x", "y")
@@ -151,7 +154,7 @@ plot_DoseResponseCurve <- function(
 
   ## Graphical arguments ----------------------------------------------------
   ymax <- max(xy$y) + if (max(xy$y) * 0.1 > 1.5) 1.5 else max(xy$y) * 0.2
-  ylim <- if (mode == "extrapolation" || fit.args$fit.force_through_origin) {
+  ylim <- if (extrapolation || fit.args$fit.force_through_origin) {
             c(0 - max(y.Error), ymax)
           } else {
             c(0, ymax)
@@ -159,18 +162,14 @@ plot_DoseResponseCurve <- function(
 
   xmin <- if (!is.na(De)) min(De * 2, 0) else -min(xy$x) * 2
   xmax <- max(xy$x) + if (max(xy$x) * 0.4 > 50) 50 else max(xy$x) * 0.4
-  xlim <- if (mode == "extrapolation") {
-            c(xmin, xmax)
-          } else {
-            c(0, xmax)
-          }
+  xlim <- c(ifelse(extrapolation, xmin, 0), xmax)
 
   ## set plot settings
   plot_settings <- modifyList(
     x = list(
       main = "Dose-response curve",
       xlab = "Dose [s]",
-      ylab = if (mode == "interpolation") expression(L[x]/T[x]) else "Luminescence [a.u.]",
+      ylab = if (interpolation) expression(L[x]/T[x]) else "Luminescence [a.u.]",
       ylim = ylim,
       xlim = xlim,
       lwd_drc = 1,
@@ -181,14 +180,14 @@ plot_DoseResponseCurve <- function(
       tcl = -0.4,
       cex = 1,
       pt.cex = 1,
-      mtext = if (mode != "alternate")
+      mtext = if (!alternate)
                 substitute(D[e] == De,
                            list(De = sprintf("%.2f \uB1 %.1e  |  fit: %s",
                                              abs(De), De.Error, fit.args$fit.method)))
               else "",
       log = "",
       legend = TRUE,
-      legend.pos = if (mode == "interpolation") "topleft" else "bottomright",
+      legend.pos = if (interpolation) "topleft" else "bottomright",
       reg_points_pch = c(19, 1, 2), # point, point 0, point repeated
       density_polygon = TRUE,
       density_polygon_col = rgb(1,0,0,0.2),
@@ -201,7 +200,7 @@ plot_DoseResponseCurve <- function(
   plot_settings$log <- gsub("[^xy]", "", plot_settings$log)
 
   if (plot_settings$log != "") {
-    if (mode == "extrapolation") {
+    if (extrapolation) {
       .throw_message("Logarithmic transformation not allowed on an object ",
                      "fitted with mode = 'extrapolation', 'log' reset to ''")
       plot_settings$log <- ""
@@ -261,7 +260,7 @@ plot_DoseResponseCurve <- function(
   if (grepl("y", plot_settings$log)) par.usr[3:4] <- 10^par.usr[3:4]
 
   if (!inherits(plot_check, "try-error")) {
-    if (mode == "extrapolation") {
+    if (extrapolation) {
       abline(v = 0, lty = 1, col = "grey")
       abline(h = 0, lty = 1, col = "grey")
     }
@@ -290,7 +289,7 @@ plot_DoseResponseCurve <- function(
     graphics::segments(xy$x, xy$y - y.Error, xy$x, xy$y + y.Error)
 
     ## natural value
-    if (mode == "interpolation") {
+    if (interpolation) {
       if(!plot_settings$density_polygon[1]) {
         points(
           x = sample[1, 1:2],
@@ -300,7 +299,7 @@ plot_DoseResponseCurve <- function(
         graphics::segments(sample[1, 1], natural.LxTx - natural.LxTx.Error,
                            sample[1, 1], natural.LxTx + natural.LxTx.Error, col = col[2])
       }
-    } else if (mode == "extrapolation"){
+    } else if (extrapolation){
       points(
         x = De,
         y = 0,
@@ -319,7 +318,7 @@ plot_DoseResponseCurve <- function(
         pch = plot_settings$reg_points_pch[3])
 
        ## LINES	#Insert Ln/Tn
-    if (mode == "interpolation") {
+    if (interpolation) {
       xmax <- if (is.na(De)) max(sample[, 1]) * 2 else De
       try(lines(
           c(par.usr[1], xmax),
@@ -394,13 +393,13 @@ plot_DoseResponseCurve <- function(
       if(plot_settings$density_rug[1])
         suppressWarnings(graphics::rug(x = x.natural, side = 3))
 
-    } else if (mode == "extrapolation" && !is.na(De)) {
+    } else if (extrapolation && !is.na(De)) {
         abline(v = De, lty = 2, col = col[2])
         lines(x = c(0,De), y = c(0,0), lty = 2, col = col[2])
     }
 
     ## reg point 0 plotted as a normal point
-    if (mode != "interpolation") {
+    if (!interpolation) {
       points(x = xy[idx.0, 1],
              y = xy[idx.0, 2],
              pch = plot_settings$reg_points_pch[1],
@@ -414,7 +413,7 @@ plot_DoseResponseCurve <- function(
         silent = TRUE)
 
     ## write error message in plot if De is NaN or NA
-    try(if (is.na(De) && mode != "alternate") {
+    try(if (is.na(De) && !alternate) {
           text(sample[2, 1],
               0,
               "Error: De could not be calculated!",
@@ -428,7 +427,7 @@ plot_DoseResponseCurve <- function(
     if(plot_settings$legend) {
       legend(
           plot_settings$legend.pos,
-          legend = paste(ifelse(mode == "interpolation", "REG", "Dose"),
+          legend = paste(ifelse(interpolation, "REG", "Dose"),
                          c("point", "point 0", "point repeated")),
           pch = plot_settings$reg_points_pch,
           cex = 0.7,
