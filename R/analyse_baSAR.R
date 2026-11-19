@@ -815,7 +815,7 @@ analyse_baSAR <- function(
   ## check the central_D bounds and set defaults according to Combès et al., 2015
   ## "We set the bounds for the prior on the central dose D, Dmin = 0 Gy and
   ##  Dmax = 1000 Gy, to cover the likely range of possible values for D."
-  set_centralD_bounds <- function(name, default) {
+  .set_centralD_bounds <- function(name, default) {
     val <- method_control[[name]]
     if (is.null(val))
       return(default)
@@ -827,8 +827,8 @@ analyse_baSAR <- function(
     }
     val
   }
-  lower_centralD <- set_centralD_bounds("lower_centralD", 0)
-  upper_centralD <- set_centralD_bounds("upper_centralD", 1000)
+  lower_centralD <- .set_centralD_bounds("lower_centralD", 0)
+  upper_centralD <- .set_centralD_bounds("upper_centralD", 1000)
   if (upper_centralD <= lower_centralD) {
     .throw_error("'upper_centralD' in 'method_control' must be greater than ",
                  "'lower_centralD'")
@@ -920,18 +920,6 @@ analyse_baSAR <- function(
     ##  (3) RLum.Analysis objects
     ##      .. list
     ##      .. S4
-
-    ## subsetting function that doesn't rely on non-standard evaluation
-    .select_rows_Risoe <- function(x, col, value) {
-      ## apply selection
-      sel <- x@METADATA[[col]] == value
-      x@DATA <- x@DATA[sel]
-      x@METADATA <- x@METADATA[sel, ]
-
-      ## reset index
-      x@METADATA[["ID"]] <- seq_len(nrow(x@METADATA))
-      x
-    }
 
     ##In case an RLum.Analysis object is provided we try an ugly conversion only
     if (inherits(object, "list") &&
@@ -1078,20 +1066,6 @@ analyse_baSAR <- function(
     Disc_Grain.list <- replicate(rep.length, list())
     Mono_grain <-  TRUE
 
-    ## helper to create a Disc_Grain.list entry
-    .disc_grain_entry <- function(disc, grain) {
-      list(
-        disc = as.integer(disc),
-        grain = if (Mono_grain) as.integer(grain) else 1L,
-        indices = integer(0),
-        doses = numeric(0),
-        LxTx = numeric(0),
-        LxTx.error = numeric(0),
-        TnTx = numeric(0),
-        De = numeric(0)
-      )
-    }
-
     ## Read CSV file --------------------------------------------------------
     if (is.null(CSV_file)) {
       ## select aliquots giving light only
@@ -1134,7 +1108,7 @@ analyse_baSAR <- function(
 
       ##write information in variables
       Disc_Grain.list[[k]] <- lapply(seq_len(nrow(datalu)), function(d)
-        .disc_grain_entry(datalu[["POSITION"]][d], datalu[["GRAIN"]][d])
+        .disc_grain_entry(datalu[["POSITION"]][d], datalu[["GRAIN"]][d], Mono_grain)
       )
       }
     } else {
@@ -1177,7 +1151,8 @@ analyse_baSAR <- function(
           k <- matches[1]
           nj <- length(Disc_Grain.list[[k]]) + 1
 
-          Disc_Grain.list[[k]][[nj]] <- .disc_grain_entry(datalu[nn, 2], datalu[nn, 3])
+          Disc_Grain.list[[k]][[nj]] <- .disc_grain_entry(datalu[nn, 2], datalu[nn, 3],
+                                                          Mono_grain)
           if (is.na(Disc_Grain.list[[k]][[nj]]$grain) ||
               Disc_Grain.list[[k]][[nj]]$grain == 0) {
             Mono_grain <- FALSE
@@ -1608,20 +1583,6 @@ analyse_baSAR <- function(
 
   # Plotting ------------------------------------------------------------------------------------
   if(plot){
-    ## Helper to add the HPD lines
-    .add_HPD_lines <- function(summary, col, legend_pos) {
-      abline(v = summary[, c("CENTRAL_Q_.16", "CENTRAL_Q_.84")],
-             lty = 3, col = col[3], lwd = 1.2)
-      abline(v = summary[, c("CENTRAL_Q_.025", "CENTRAL_Q_.975")],
-             lty = 2, col = col[2])
-      if (!is.null(legend_pos))
-        legend(legend_pos,
-               legend = c("HPD - 68 %", "HPD - 95 %"),
-               bty = "n",
-               lty = c(3, 2),
-               col = c(col[3], col[2]))
-    }
-
     ##get colours from the package Luminescence
     col <- get("col", pos = .LuminescenceEnv)
 
@@ -1910,4 +1871,42 @@ analyse_baSAR <- function(
       ),
     info = list(call = sys.call())
   )
+}
+
+## Helper to add the HPD lines
+.add_HPD_lines <- function(summary, col, legend_pos) {
+  abline(v = summary[, c("CENTRAL_Q_.16", "CENTRAL_Q_.84")],
+         lty = 3, col = col[3], lwd = 1.2)
+  abline(v = summary[, c("CENTRAL_Q_.025", "CENTRAL_Q_.975")],
+         lty = 2, col = col[2])
+  if (!is.null(legend_pos))
+    legend(legend_pos,
+           legend = c("HPD - 68 %", "HPD - 95 %"),
+           bty = "n",
+           lty = c(3, 2),
+           col = c(col[3], col[2]))
+}
+
+## subsetting function that doesn't rely on non-standard evaluation
+.select_rows_Risoe <- function(x, col, value) {
+  ## apply selection
+  sel <- x@METADATA[[col]] == value
+  x@DATA <- x@DATA[sel]
+  x@METADATA <- x@METADATA[sel, ]
+
+  ## reset index
+  x@METADATA[["ID"]] <- seq_len(nrow(x@METADATA))
+  x
+}
+
+## helper to create a Disc_Grain.list entry
+.disc_grain_entry <- function(disc, grain, is_mono_grain) {
+  list(disc = as.integer(disc),
+       grain = if (is_mono_grain) as.integer(grain) else 1L,
+       indices = integer(0),
+       doses = numeric(0),
+       LxTx = numeric(0),
+       LxTx.error = numeric(0),
+       TnTx = numeric(0),
+       De = numeric(0))
 }
