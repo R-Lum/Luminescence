@@ -366,7 +366,8 @@ calc_Huntley2006 <- function(
     # check number of columns
     if (ncol(data) %% 3 != 0) {
       .throw_error("The number of columns in 'data' must be a multiple of 3.")
-    } else {
+    }
+
       .extract <- function(row_idx) {
         do.call(rbind, lapply(seq(1, ncol(data), 3), function(col)
           stats::setNames(data[row_idx, col:(col + 2)],
@@ -385,7 +386,6 @@ calc_Huntley2006 <- function(
       data <- rbind(LnTn_tmp, .extract(2:nrow(data)))
       data[1, 3] <- LnTn_error_tmp
       data <- data[stats::complete.cases(data), ]
-  }
 
   ## Check 'rhop'
   .validate_class(rhop, c("numeric", "RLum.Results"))
@@ -489,7 +489,9 @@ calc_Huntley2006 <- function(
 
   fit.bounds <- GC.settings$fit.bounds
   force_through_origin <- GC.settings$fit.force_through_origin
-  mode_is_extrapolation <- GC.settings$mode == "extrapolation"
+  extrapolation <- GC.settings$mode == "extrapolation"
+  is_SSE <- fit.method == "SSE"
+  is_GOK <- fit.method == "GOK"
 
   ## call the fitting
   GC.measured <- try(do.call(fit_DoseResponseCurve, GC.settings),
@@ -523,7 +525,7 @@ calc_Huntley2006 <- function(
   # create MC samples
   rhop_MC <- stats::rnorm(settings$n.MC, mean = rhop[1], sd = rhop[2])
 
-  if (fit.method == "SSE") {
+  if (is_SSE) {
     model <- LxTx.measured ~ a * theta(dosetime, rhop_i) *
       (1 - exp(-(dosetime + c) / D0))
     start <- list(a = coef(fit_measured)[["N"]],
@@ -533,7 +535,7 @@ calc_Huntley2006 <- function(
 
     ## c = 0 if force_through_origin
     upper.bounds <- c(rep(Inf, 2), if (force_through_origin) 0 else Inf)
-  } else if (fit.method == "GOK") {
+  } else if (is_GOK) {
     model <- LxTx.measured ~ a * theta(dosetime, rhop_i) *
       (d - (1 + (1 / D0) * dosetime * c)^(-1 / c))
     start <- list(a = coef(fit_measured)[["a"]],
@@ -569,8 +571,7 @@ calc_Huntley2006 <- function(
       ## ALTERNATIVE: sample from a gamma distribution; with only 10, this should
       ## be enough based on tests RLumSK (2025-03-29)
       all.D0 <- stats::rgamma(10, shape = start$D0)
-      fit.D0 <- lapply(1:length(all.D0), function(idx) {
-        D0 <- all.D0[idx]
+      fit.D0 <- lapply(all.D0, function(D0) {
         t <- try(minpack.lm::nlsLM(
                   formula = model,
                   start = start[-2],
@@ -654,7 +655,7 @@ calc_Huntley2006 <- function(
   UFD0 <- mean(fitcoef[ ,"D0"], na.rm = TRUE) * readerDdot
 
   c_val <- mean(fitcoef[, "c"], na.rm = TRUE)
-  if (fit.method[1] == "GOK") {
+  if (is_GOK) {
     ## prevent negative c values, which will cause NaN values
     if (c_val < 0) c_val <- 1
 
@@ -731,7 +732,7 @@ calc_Huntley2006 <- function(
     .throw_warning("Ln is >10 % larger than the maximum computed LxTx value, ",
                    "the De and age should be regarded as infinite estimates")
 
-  if (Ln < min(LxTx.sim) * 0.95 && !mode_is_extrapolation)
+  if (Ln < min(LxTx.sim) * 0.95 && !extrapolation)
     .throw_warning("Ln/Tn is smaller than the minimum computed LxTx value: ",
                    "if, in consequence, your age result is NA, either your ",
                    "input values are unsuitable, or you should consider using ",
@@ -796,8 +797,8 @@ calc_Huntley2006 <- function(
 
   ## run this first model also for GOK as in general it provides more
   ## stable estimates that can be used as starting point for GOK
-  var.name.a <- if (fit.method == "SSE") "N" else "a"
-  var.name.c <- if (fit.method == "SSE") "Di" else "c"
+  var.name.a <- ifelse(is_SSE, "N", "a")
+  var.name.c <- ifelse(is_SSE, "Di", "c")
   fit_unfaded <- try(minpack.lm::nlsLM(
       LxTx.unfaded ~ a * (1 - exp(-(dosetimeGray + c) / D0)),
       start = list(
@@ -812,13 +813,8 @@ calc_Huntley2006 <- function(
 
   ## if this fit has failed, what we do depends on fit.method:
   ## - for SSE, this error is irrecoverable
-  if (inherits(fit_unfaded, "try-error") && fit.method == "SSE") {
-    .throw_error("Could not fit unfaded curve, check suitability of ",
-                 "model and parameters")
-  }
-
   ## - for GOK, we use the simulated fit to set the starting point
-  if (fit.method == "GOK") {
+  if (is_GOK) {
     fit_start <- if (inherits(fit_unfaded, "try-error"))
                    fit_simulated else fit_unfaded
 
@@ -834,9 +830,11 @@ calc_Huntley2006 <- function(
       lower = lower.bounds[1:4],
       control = list(maxiter = settings$maxiter)), silent = TRUE)
 
-    if(inherits(fit_unfaded, "try-error"))
-      .throw_error("Could not fit unfaded curve, check suitability of ",
-                   "model and parameters")
+  }
+
+  if (inherits(fit_unfaded, "try-error")) {
+    .throw_error("Could not fit unfaded curve, check suitability of ",
+                 "model and parameters")
   }
 
   D0.unfaded <- coef(fit_unfaded)[["D0"]]
@@ -844,16 +842,13 @@ calc_Huntley2006 <- function(
 
   ## Create LxTx tables --------------------------------------------------------
   # normalise by A (saturation point of the un-faded curve)
-  if (normalise) {
-    LxTx.measured <- LxTx.measured / A
-    LxTx.measured.error <- LxTx.measured.error / A
-
-    LxTx.sim <- LxTx.sim / A
-    LxTx.unfaded <- LxTx.unfaded / A
-
-    Ln <- Ln / A
-    Ln.error <- Ln.error / A
-  }
+  norm.factor <- if (normalise) A else 1
+  LxTx.measured <- LxTx.measured / norm.factor
+  LxTx.measured.error <- LxTx.measured.error / norm.factor
+  LxTx.sim <- LxTx.sim / norm.factor
+  LxTx.unfaded <- LxTx.unfaded / norm.factor
+  Ln <- Ln / norm.factor
+  Ln.error <- Ln.error / norm.factor
 
   # combine all computed LxTx values
   .make_lx_table <- function(dose, LxTx, LxTx.err) {
@@ -882,12 +877,15 @@ calc_Huntley2006 <- function(
         oma = c(0, 0, 0, if (summary) 12 / plot.settings$cex else 0))
 
     # Find a good estimate of the x-axis limits
-    if (mode_is_extrapolation && !force_through_origin) {
+    if (extrapolation && !force_through_origin) {
       ## subtract a tiny quantity to ensure that the first element is negative
       ## also when both De.measured and De.measured.error are 0 (#1672)
       dosetimeGray <- c(-De.measured - De.measured.error - 1e-300, dosetimeGray)
-      De.measured <- -De.measured
+      De.plot <- -De.measured
+    } else {
+      De.plot <- De.measured
     }
+    De.sim.plot <- if (extrapolation) -De.sim else De.sim
 
     xlim <- range(pretty(c(dosetimeGray, De.sim), n = 15))
     dosetimeGrayNonNeg <- dosetimeGray[dosetimeGray >= 0]
@@ -917,9 +915,7 @@ calc_Huntley2006 <- function(
 
     # re-calculate the measured dose response curve in Gray
     xNew <- seq(par()$usr[1],par()$usr[2], length.out = 200)
-    yNew <- stats::predict(GC.measured@data$Fit, list(x = xNew))
-    if (normalise)
-      yNew <- yNew / A
+    yNew <- stats::predict(GC.measured@data$Fit, list(x = xNew)) / norm.factor
 
     ## add measured curve -------
     lines(xNew, yNew, col  = "black")
@@ -932,11 +928,9 @@ calc_Huntley2006 <- function(
             border = NA)
 
     ## add simulated curve -------
-    xNew <- seq(if (mode_is_extrapolation) par()$usr[1] else 0,
+    xNew <- seq(if (extrapolation) par()$usr[1] else 0,
                 par()$usr[2], length.out = 200)
-    yNew <- stats::predict(GC.simulated@data$Fit, list(x = xNew))
-    if (normalise)
-      yNew <- yNew / A
+    yNew <- stats::predict(GC.simulated@data$Fit, list(x = xNew)) / norm.factor
     points(
       x = xNew,
       y = yNew,
@@ -944,11 +938,11 @@ calc_Huntley2006 <- function(
       lty = 3)
 
     # Ln and DE as points
-    points(x = if (mode_is_extrapolation)
-                 rep(De.measured, 2)
+    points(x = if (extrapolation)
+                 rep(De.plot, 2)
                else
-                 c(0, De.measured),
-           y = if (mode_is_extrapolation)
+                 c(0, De.plot),
+           y = if (extrapolation)
                 c(0,0)
                else
                 c(Ln, Ln),
@@ -961,15 +955,15 @@ calc_Huntley2006 <- function(
              col = "red")
 
     # Ln as a horizontal line
-    lines(x = if (mode_is_extrapolation)
-                c(0, min(c(De.measured, De.sim), na.rm = TRUE))
+    lines(x = if (extrapolation)
+                c(0, min(c(De.plot, De.sim), na.rm = TRUE))
               else
-                c(par()$usr[1], max(c(De.measured, De.sim, 0), na.rm = TRUE)),
+                c(par()$usr[1], max(c(De.plot, De.sim, 0), na.rm = TRUE)),
           y = c(Ln, Ln),
           col = "red", lty = 3)
 
     #vertical line of measured DE
-    lines(x = c(De.measured, De.measured),
+    lines(x = c(De.plot, De.plot),
           y = c(par()$usr[3], Ln),
           col = "red",
           lty = 3)
@@ -987,25 +981,20 @@ calc_Huntley2006 <- function(
 
     # add vertical line of simulated De
     if (!is.na(De.sim)) {
-      lines(x = if (mode_is_extrapolation)
-                  c(-De.sim, -De.sim)
-                else
-                  c(De.sim, De.sim),
+      lines(x = c(De.sim.plot, De.sim.plot),
             y = c(par()$usr[3], Ln),
             col = "red", lty = 3)
 
-      points(x = if (mode_is_extrapolation) -De.sim else De.sim,
-             y = if (mode_is_extrapolation) 0 else Ln,
+      points(x = De.sim.plot,
+             y = if (extrapolation) 0 else Ln,
              col = "red" , pch = 16)
     } else {
-      lines(x = c(De.measured, xlim[2]),
+      lines(x = c(De.plot, xlim[2]),
             y = c(Ln, Ln), col = "black", lty = 3)
     }
 
     # add unfaded DRC --------
-    yNew <- stats::predict(fit_unfaded, list(dosetimeGray = xNew))
-    if (normalise)
-      yNew <- yNew / A
+    yNew <- stats::predict(fit_unfaded, list(dosetimeGray = xNew)) / norm.factor
 
     lines(xNew, yNew, col  = "black", lty = 5)
 
@@ -1090,7 +1079,7 @@ calc_Huntley2006 <- function(
   ## Console output ------------------------------------------------------------
   if (settings$verbose) {
     .cat_gok_c <- function(fit) {
-      if (fit.method[1] == "GOK") {
+      if (is_GOK) {
         c.coef <- summary(fit)$coefficients["c", ]
         .cat_result("c [-]:", c.coef["Estimate"], c.coef["Std. Error"])
       }
