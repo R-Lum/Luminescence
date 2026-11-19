@@ -93,8 +93,7 @@ calc_CobbleDoseRate <- function(
 
   ## deprecated argument
   if ("input" %in% ...names()) {
-    object <- list(...)$input
-    .deprecated(old = "input", new = "object", since = "1.2.0")
+    .deprecated(old = "input", new = "object", since = "1.2.0", throw.error = TRUE)
   }
 
   ## Integrity checks -------------------------------------------------------

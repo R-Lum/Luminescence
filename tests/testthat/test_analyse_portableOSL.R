@@ -114,13 +114,8 @@ test_that("check functionality", {
     ), "RLum.Results")
 
     ## deprecated arguments
-    expect_warning(analyse_portableOSL(merged,
+    expect_error(analyse_portableOSL(merged,
                                        signal.integral = 1:5),
-                   "was deprecated in v1.2.0, use 'signal_integral'")
-    expect_warning(expect_error(analyse_portableOSL(merged,
-                                                    signal.integral = 1:5,
-                                                    integral_input = "measurement"),
-                   "'integral_input' is not supported with old argument names"),
                    "was deprecated in v1.2.0, use 'signal_integral'")
 })
 

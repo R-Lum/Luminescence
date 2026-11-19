@@ -216,25 +216,10 @@ plot_DetPlot <- function(
 
   ## deprecated arguments
   if (any(grepl("[signal|background]\\.integral\\.[min|max]", ...names()))) {
-    extraArgs <- list(...)
     .deprecated(old = c("signal.integral.min", "signal.integral.max",
                         "background.integral.min", "background.integral.max"),
                 new = c("signal_integral", "background_integral"),
-                since = "1.2.0")
-
-    if (integral_input != "channel") {
-      .throw_error("'integral_input' is not supported with old argument names")
-    }
-    signal.integral.min <- extraArgs$signal.integral.min
-    signal.integral.max <- extraArgs$signal.integral.max
-    background.integral.min <- extraArgs$background.integral.min
-    background.integral.max <- extraArgs$background.integral.max
-    .validate_class(signal.integral.min, c("integer", "numeric"))
-    .validate_class(signal.integral.max, c("integer", "numeric"))
-    .validate_class(background.integral.min, c("integer", "numeric"))
-    .validate_class(background.integral.max, c("integer", "numeric"))
-    signal_integral <- signal.integral.min:signal.integral.max
-    background_integral <- background.integral.min:background.integral.max
+                since = "1.2.0", throw.error = TRUE)
   }
 
   if (integral_input == "measurement") {

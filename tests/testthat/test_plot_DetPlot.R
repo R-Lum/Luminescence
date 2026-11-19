@@ -9,9 +9,7 @@ test_that("input validation", {
                "'object' should be of class 'RLum.Analysis'")
   expect_error(plot_DetPlot(set_RLum("RLum.Analysis")),
                "'object' cannot be an empty RLum.Analysis")
-  expect_warning(
   expect_error(plot_DetPlot(object, signal.integral.min = "error"),
-               "'signal.integral.min' should be of class 'integer' or 'numeric'"),
                "were deprecated in v1.2.0, use 'signal_integral'")
 
   expect_error(plot_DetPlot(object,
@@ -161,28 +159,6 @@ test_that("plot_DetPlot", {
   res1@.pid <- res2@.pid <- NA_character_
   res1@data$De.values$UID <- res2@data$De.values$UID <- NULL
   expect_equal(res1, res2)
-
-  ## deprecated argument
-  expect_warning(plot_DetPlot(
-      object,
-      method = "shift",
-      signal.integral.min = 1,
-      signal.integral.max = 3,
-      background.integral.min = 900,
-      background.integral.max = 1000,
-      n.channels = 1),
-      "were deprecated in v1.2.0, use 'signal_integral' and 'background_integral'")
-  expect_warning(expect_error(plot_DetPlot(
-      object,
-      method = "shift",
-      signal.integral.min = 1,
-      signal.integral.max = 3,
-      background.integral.min = 900,
-      background.integral.max = 1000,
-      integral_input = "measurement",
-      n.channels = 1),
-      "'integral_input' is not supported with old argument names"),
-      "were deprecated in v1.2.0, use 'signal_integral' and 'background_integral'")
   })
 
   expect_message(expect_warning(expect_s4_class(plot_DetPlot(

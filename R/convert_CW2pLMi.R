@@ -161,8 +161,7 @@ convert_CW2pLMi<- function(
 
   ## deprecated argument
   if ("values" %in% ...names()) {
-    object <- list(...)$values
-    .deprecated(old = "values", new = "object", since = "1.2.0")
+    .deprecated(old = "values", new = "object", since = "1.2.0", throw.error = TRUE)
   }
 
   ## Integrity checks -------------------------------------------------------

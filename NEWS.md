@@ -306,3 +306,6 @@ can be accessed via the new `bin_RLum()` generic (#1782):
   be `RF (camera)` instead of `Image`. This was done so that converting
   the object into XLUM format doesn’t cause unnecessary failures
   (#1837).
+
+- Using arguments that were deprecated in v1.2.0 will now return a
+  deprecation error instead of a warning (#1854).

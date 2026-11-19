@@ -41,16 +41,14 @@ test_that("check functionality", {
                "All points are outside the interpolation range")
 
   ## deprecated argument
-  expect_warning(convert_CW2pHMi(values = object),
+  expect_error(convert_CW2pHMi(values = object),
                  "'values' was deprecated in v1.2.0, use 'object' instead")
-  expect_warning(convert_CW2pLM(values = object),
+  expect_error(convert_CW2pLM(values = object),
                  "'values' was deprecated in v1.2.0, use 'object' instead")
-  expect_warning(convert_CW2pLMi(values = object),
+  expect_error(convert_CW2pLMi(values = object),
                  "'values' was deprecated in v1.2.0, use 'object' instead")
-  SW({
-  expect_warning(convert_CW2pPMi(values = object),
+  expect_error(convert_CW2pPMi(values = object),
                  "'values' was deprecated in v1.2.0, use 'object' instead")
-  })
 })
 
 test_that("Test RLum.Types", {

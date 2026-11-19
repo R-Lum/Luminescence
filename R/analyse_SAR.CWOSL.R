@@ -360,19 +360,12 @@ analyse_SAR.CWOSL<- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## deprecated arguments
-  extraArgs <- list(...)
-  has_deprecated_args <- any(grepl("[signal|background]\\.integral\\.[min|max]",
-                                   names(extraArgs)))
-  has_deprecated_values <- !is.null(c(extraArgs$signal.integral.min,
-                                      extraArgs$signal.integral.max,
-                                      extraArgs$background.integral.min,
-                                      extraArgs$background.integral.max))
-
-  if (has_deprecated_args && has_deprecated_values &&
-      (!(is.null(signal_integral) || anyNA(signal_integral)) ||
-       !(is.null(background_integral) || anyNA(background_integral)))) {
-    .throw_error("Convert all integral arguments to the new names, ",
-                 "'signal_integral' and 'background_integral'")
+  deprecated.args <- c("signal.integral.min", "signal.integral.max",
+                       "background.integral.min", "background.integral.max")
+  if (any(deprecated.args %in% ...names())) {
+    .deprecated(old = deprecated.args,
+                new = c("signal_integral", "background_integral"),
+                since = "1.2.0", throw.error = TRUE)
   }
 
   ## Self-call --------------------------------------------------------------
@@ -402,13 +395,6 @@ analyse_SAR.CWOSL<- function(
       main <- as.list(paste0("ALQ #", seq_along(object)))
     }
 
-    ## deprecated arguments
-    if (has_deprecated_args) {
-      for (name in c("signal.integral.min", "signal.integral.max",
-                     "background.integral.min", "background.integral.max"))
-        extraArgs[[name]] <- .listify(extraArgs[[name]], length(object))
-    }
-
   results <- .warningCatcher(merge_RLum(lapply(seq_along(object), function(x){
     analyse_SAR.CWOSL(
       object = object[[x]],
@@ -428,12 +414,6 @@ analyse_SAR.CWOSL<- function(
       onlyLxTxTable = parm$onlyLxTxTable[[x]],
       main = main[[x]],
       method_control = method_control,
-
-      ## deprecated arguments
-      signal.integral.min = extraArgs$signal.integral.min[[x]],
-      signal.integral.max = extraArgs$signal.integral.max[[x]],
-      background.integral.min = extraArgs$background.integral.min[[x]],
-      background.integral.max = extraArgs$background.integral.max[[x]],
 
       ## internal information
       .aliquot_number = sprintf("ALQ: #%d | ", x),
@@ -573,33 +553,6 @@ analyse_SAR.CWOSL<- function(
 
   ## Integrals checks -------------------------------------------------------
 
-  ## deprecated arguments
-  if (has_deprecated_args && has_deprecated_values) {
-    .deprecated(old = c("signal.integral.min", "signal.integral.max",
-                        "background.integral.min", "background.integral.max"),
-                new = c("signal_integral", "background_integral"),
-                since = "1.2.0")
-    if (integral_input != "channel") {
-      .throw_error("'integral_input' is not supported with old argument names")
-    }
-    signal.integral.min <- extraArgs$signal.integral.min %||% NA
-    signal.integral.max <- extraArgs$signal.integral.max %||% NA
-    background.integral.min <- extraArgs$background.integral.min %||% NA
-    background.integral.max <- extraArgs$background.integral.max %||% NA
-    signal_integral_Tx <- background_integral_Tx <- NULL
-    if (anyNA(c(signal.integral.min, signal.integral.max,
-                 background.integral.min, background.integral.max))) {
-      signal_integral <- background_integral <- NA
-    } else {
-      signal_integral <- signal.integral.min[1]:signal.integral.max[1]
-      background_integral <- background.integral.min[1]:background.integral.max[1]
-      if (length(signal.integral.min) == 2 && length(signal.integral.max) == 2)
-        signal_integral_Tx <- signal.integral.min[2]:signal.integral.max[2]
-      if (length(background.integral.min) == 2 && length(background.integral.max) == 2)
-        background_integral_Tx <- background.integral.min[2]:background.integral.max[2]
-    }
-  }
-
   if (is.null(signal_integral) || identical(signal_integral, NA) ||
       is.null(background_integral)) {
     signal_integral <- background_integral <- NA
@@ -693,6 +646,8 @@ analyse_SAR.CWOSL<- function(
                   name = "'sn_reference' in 'rejection.criteria'")
 
   ## Deal with extra arguments ----------------------------------------------
+
+  extraArgs <- list(...)
 
   verbose <- .validate_logical_scalar(extraArgs$verbose %||% TRUE, name = "'verbose'")
   main <- extraArgs$main %||% ""

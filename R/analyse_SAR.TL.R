@@ -117,16 +117,14 @@ analyse_SAR.TL <- function(
   if (any(grepl("signal.integral", ...names(), fixed = TRUE))) {
     .deprecated(old = "signal.integral",
                 new = "signal_integral",
-                since = "1.2.0")
-    signal_integral <- list(...)$signal.integral
+                since = "1.2.0", throw.error = TRUE)
   }
   integral_input <- .validate_args(integral_input, c("channel", "temperature",
                                                      "measurement"))
   if (integral_input == "temperature") {
     .deprecated(old = "integral_input = \"temperature\"",
                 new = "integral_input = \"measurement\"",
-                since = "1.2.0")
-    integral_input <- "measurement"
+                since = "1.2.0", throw.error = TRUE)
   }
 
   # Self-call -----------------------------------------------------------------------------------

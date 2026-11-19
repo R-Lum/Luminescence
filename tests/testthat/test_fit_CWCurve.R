@@ -99,11 +99,9 @@ test_that("more coverage", {
                "0 (non-NA) cases", fixed = TRUE)
 
   ## deprecated argument
-  SW({
-  expect_warning(fit_CWCurve(values = ExampleData.CW_OSL_Curve,
+  expect_error(fit_CWCurve(values = ExampleData.CW_OSL_Curve,
                              n.components.max = 2),
                  "'values' was deprecated in v1.2.0, use 'object' instead")
-  })
 })
 
 test_that("regression tests", {

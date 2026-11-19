@@ -113,21 +113,12 @@ test_that("check functionality", {
                                 integral_input = "channel")$LxTx.table)
 
   ## deprecated arguments
-  expect_warning(calc_TLLxTxRatio(
+  expect_error(calc_TLLxTxRatio(
       Lx.data.signal,
       Lx.data.background,
       Tx.data.signal,
       Tx.data.background,
       signal.integral = signal_integral),
-      "was deprecated in v1.2.0, use 'signal_integral'")
-  expect_warning(expect_error(calc_TLLxTxRatio(
-      Lx.data.signal,
-      Lx.data.background,
-      Tx.data.signal,
-      Tx.data.background,
-      signal.integral = signal_integral,
-      integral_input = "measurement"),
-      "'integral_input' is not supported with old argument names"),
       "was deprecated in v1.2.0, use 'signal_integral'")
 })
 

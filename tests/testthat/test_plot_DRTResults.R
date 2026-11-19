@@ -103,7 +103,7 @@ test_that("check functionality", {
   expect_silent(plot_DRTResults(df.na, preheat = c(200, 200, 200, 240, 240)))
 
   ## deprecated argument
-  expect_warning(plot_DRTResults(values = df, preheat = c(200, 200, 200, 240, 240)))
+  expect_error(plot_DRTResults(values = df, preheat = c(200, 200, 200, 240, 240)))
 })
 
 test_that("graphical snapshot tests", {

@@ -206,21 +206,6 @@ test_that("check functionality", {
   expect_warning(
     analyse_SAR.CWOSL(
       object = object[1],
-      signal.integral.min = NA,
-      signal.integral.max = NA,
-      background.integral.min = NA,
-      background.integral.max = NA,
-      fit.method = "SSE",
-      plot = FALSE,
-      verbose = FALSE,
-      fit.weights = NULL
-    ),
-    "[analyse_SAR.CWOSL()] No signal or background integral applied",
-    fixed = TRUE)
-
-  expect_warning(
-    analyse_SAR.CWOSL(
-      object = object[1],
       signal_integral = NA,
       background_integral = 900:1000,
       fit.method = "SSE",
@@ -252,20 +237,6 @@ test_that("check functionality", {
       fit.weights = NULL
     ),
     "Column 'Test_Dose' missing but mandatory for 'OTORX' fitting")
-
-  expect_s4_class(
-    suppressWarnings(analyse_SAR.CWOSL(
-      object = object[1],
-      signal.integral.min = NA,
-      signal.integral.max = NA,
-      background.integral.min = NA,
-      background.integral.max = NA,
-      fit.method = "SSE",
-      plot = FALSE,
-      verbose = FALSE
-    )),
-    class = "RLum.Results"
-  )
 
   SW({
   ##no mix TL and OSL (the only TL will be sorted out automatically)
@@ -1015,44 +986,10 @@ test_that("regression tests", {
 test_that("deprecated arguments", {
   testthat::skip_on_cran()
 
-  SW({
-  expect_warning(analyse_SAR.CWOSL(object[[1]],
+  expect_error(analyse_SAR.CWOSL(object[[1]],
                                    signal.integral.min = 1,
                                    signal.integral.max = 2,
                                    background.integral.min = 900,
                                    background.integral.max = 1000),
                  "were deprecated in v1.2.0, use 'signal_integral'")
-  expect_warning(analyse_SAR.CWOSL(object[[1]],
-                                   signal.integral.min = 1:2,
-                                   signal.integral.max = 2:3,
-                                   background.integral.min = c(800, 900),
-                                   background.integral.max = c(900, 1000)),
-                 "were deprecated in v1.2.0, use 'signal_integral'")
-  expect_warning(analyse_SAR.CWOSL(object[1:2],
-                                   signal.integral.min = list(1, 1),
-                                   signal.integral.max = list(10, 20),
-                                   background.integral.min = list(900, 950),
-                                   background.integral.max = list(1000, 1000)),
-                 "were deprecated in v1.2.0, use 'signal_integral'")
-  expect_warning(analyse_SAR.CWOSL(object[[1]],
-                                   signal.integral.min = 1,
-                                   signal.integral.max = 187,
-                                   background.integral.min = 900,
-                                   background.integral.max = 1000),
-                 "were deprecated in v1.2.0, use 'signal_integral'")
-
-  ## mix of deprecated and newly-named arguments is not supported
-  expect_error(analyse_SAR.CWOSL(object[1:2],
-                                 signal.integral.min = list(1, 1),
-                                 signal.integral.max = list(10, 20),
-                                 background_integral = 900:1000),
-               "Convert all integral arguments to the new names")
-  expect_error(analyse_SAR.CWOSL(object[[1]],
-                                 signal.integral.min = 1,
-                                 signal.integral.max = 2,
-                                 background.integral.min = 900,
-                                 background.integral.max = 1000,
-                                 integral_input = "measurement"),
-               "'integral_input' is not supported with old argument names")
-  })
 })

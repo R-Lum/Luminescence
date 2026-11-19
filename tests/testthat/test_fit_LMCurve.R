@@ -48,9 +48,9 @@ test_that("input validation", {
 
   ## deprecated argument
   SW({
-  expect_warning(fit_LMCurve(values = values.curve, fit.calcError = TRUE),
+  expect_error(fit_LMCurve(values = values.curve, fit.calcError = TRUE),
                  "'values' was deprecated in v1.2.0, use 'object' instead")
-  expect_warning(fit_LMCurve(values.curve, values.bg = values.curveBG),
+  expect_error(fit_LMCurve(values.curve, values.bg = values.curveBG),
                  "'values.bg' was deprecated in v1.2.0, use 'object.bg' instead")
   })
 })

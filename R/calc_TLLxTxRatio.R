@@ -141,11 +141,7 @@ calc_TLLxTxRatio <- function(
   if (any(grepl("signal.integral", ...names(), fixed = TRUE))) {
     .deprecated(old = "signal.integral",
                 new = "signal_integral",
-                since = "1.2.0")
-    if (integral_input != "channel") {
-      .throw_error("'integral_input' is not supported with old argument names")
-    }
-    signal_integral <- list(...)$signal.integral
+                since = "1.2.0", throw.error = TRUE)
   }
 
   if (integral_input == "measurement") {

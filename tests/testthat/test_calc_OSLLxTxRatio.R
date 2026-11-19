@@ -212,20 +212,12 @@ test_that("create warnings", {
   testthat::skip_on_cran()
 
   ## deprecated arguments
-  expect_warning(calc_OSLLxTxRatio(
+  expect_error(calc_OSLLxTxRatio(
       Lx.data,
       Tx.data,
       signal.integral = 1:2,
       background.integral = 85:100,
       digits = 1),
-      "were deprecated in v1.2.0, use 'signal_integral', 'background_integral'")
-  expect_warning(expect_error(calc_OSLLxTxRatio(
-      Lx.data,
-      Tx.data,
-      signal.integral = 1:2,
-      background.integral = 85:100,
-      integral_input = "measurement"),
-      "'integral_input' is not supported with old argument names"),
       "were deprecated in v1.2.0, use 'signal_integral', 'background_integral'")
 
   expect_warning(calc_OSLLxTxRatio(
