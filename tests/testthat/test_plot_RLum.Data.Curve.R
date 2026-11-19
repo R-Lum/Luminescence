@@ -13,13 +13,11 @@ test_that("input validation", {
                "'norm' should be one of 'max', 'min', 'first', 'last', 'huot' or 'intensity'")
   expect_error(plot_RLum(temp, norm = -2),
                "'norm' should be a single positive value or one of 'max', 'min'")
+  expect_null(plot_RLum(set_RLum("RLum.Data.Curve")))
 
   temp_NA <- temp
-  temp_NA@data[] <- suppressWarnings(NA_real_)
-  expect_warning(expect_null(plot_RLum(temp_NA)),
-                 "Curve contains only NA-values, nothing plotted")
-  expect_warning(plot_RLum(set_RLum("RLum.Data.Curve"), norm = TRUE),
-                 "Curve normalisation produced Inf/NaN values, values replaced by 0")
+  temp_NA@data[] <- NA_real_
+  expect_null(plot_RLum(temp_NA))
 })
 
 test_that("check functionality", {

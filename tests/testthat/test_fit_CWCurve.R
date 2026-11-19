@@ -19,7 +19,7 @@ test_that("input validation", {
   expect_error(fit_CWCurve(data.frame(a = 1:10, b = NA)),
                "'object' contains no positive counts")
   expect_error(fit_CWCurve(set_RLum("RLum.Data.Curve")),
-               "'object' contains no positive counts")
+               "'object' cannot be an empty RLum.Data.Curve")
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, fit.method = "error"),
                "'fit.method' should be one of 'port' or 'LM'")
   expect_error(fit_CWCurve(ExampleData.CW_OSL_Curve, n.components.max = 0),

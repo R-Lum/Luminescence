@@ -66,8 +66,7 @@ setMethod("plot_RLum", signature = "RLum.Data.Curve", function(
   ## Integrity checks  ------------------------------------------------------
 
   ## check for NA values
-  if(all(is.na(object@data))){
-    .throw_warning("Curve contains only NA-values, nothing plotted")
+  if (nrow(object@data) == 0 || all(is.na(object@data))) {
     return(NULL)
   }
 

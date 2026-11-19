@@ -20,7 +20,7 @@ function(
   ## perform additional checks
   check.rows <- vapply(object, function(x) nrow(x@data), numeric(1))
   check.cols <- vapply(object, function(x) ncol(x@data), numeric(1))
-  if (any(check.cols < 2)) {
+  if (any(check.rows < 1) || any(check.cols < 2)) {
     .throw_error("'object' contains no data")
   }
   if (length(unique(check.rows)) > 1 || length(unique(check.cols)) > 1) {

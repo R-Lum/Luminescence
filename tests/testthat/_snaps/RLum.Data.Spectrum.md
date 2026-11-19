@@ -4,11 +4,11 @@
      [RLum.Data.Spectrum-class]
     	 recordType: NA
     	 curveType: NA
-    	 .. recorded frames: 1
-    	 .. .. measured values per frame: 1
+    	 .. recorded frames: 0
+    	 .. .. measured values per frame: 0
     	 .. .. range wavelength/pixel: Inf -Inf
     	 .. .. range time/temp.: Inf -Inf
-    	 .. .. range count values: NA NA
+    	 .. .. range count values: Inf -Inf
     	 additional info elements: 0
 
 ---

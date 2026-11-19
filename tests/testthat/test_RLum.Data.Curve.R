@@ -36,6 +36,7 @@ test_that("melt_RLum", {
   testthat::skip_on_cran()
 
   ## test melt simple
+  expect_null(melt_RLum(empty))
   expect_type(melt_RLum(object = object), "list")
 
   ## test melt more complicated

@@ -11,12 +11,14 @@ test_that("input validation", {
   expect_error(fit_LMCurve(iris[, 1, drop = FALSE]),
                "'object' should have 2 columns")
   expect_error(fit_LMCurve(set_RLum("RLum.Data.Curve")),
-               "recordType should be 'RBR' or 'LM-OSL'")
-  expect_error(fit_LMCurve(set_RLum("RLum.Data.Curve", recordType = "OSL")),
+               "'object' cannot be an empty RLum.Data.Curve")
+  expect_error(fit_LMCurve(set_RLum("RLum.Data.Curve", data = as.matrix(values.curve),
+                                    recordType = "OSL")),
                "recordType should be 'RBR' or 'LM-OSL'")
   expect_error(fit_LMCurve(values.curve, object.bg = "error"),
                "'object.bg' should be of class 'data.frame' or 'RLum.Data.Curve'")
-  expect_error(fit_LMCurve(set_RLum("RLum.Data.Curve", recordType = "LM-OSL"),
+  expect_error(fit_LMCurve(set_RLum("RLum.Data.Curve", data = as.matrix(values.curve[1:3, ]),
+                                    recordType = "LM-OSL"),
                            object.bg = values.curveBG),
                "'object' and 'object.bg' have different lengths")
   expect_error(fit_LMCurve(values.curve, object.bg = values.curveBG[, 1, drop = FALSE]),

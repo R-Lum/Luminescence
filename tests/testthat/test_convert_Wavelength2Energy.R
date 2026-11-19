@@ -16,7 +16,7 @@ test_that("input validation", {
   expect_error(convert_Wavelength2Energy(list(iris)),
                "'object' should have only numeric fields")
   expect_error(convert_Wavelength2Energy(set_RLum("RLum.Data.Spectrum")),
-               "'object' contains no data")
+               "'object' cannot be an empty RLum.Data.Spectrum")
 })
 
 test_that("check functionality", {
