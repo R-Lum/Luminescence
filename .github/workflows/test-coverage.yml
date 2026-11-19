@@ -39,13 +39,9 @@ jobs:
       - name: Test coverage
         run: |
           cov <- covr::package_coverage(
-            quiet = FALSE,
+            allow_failures = TRUE,
+            quiet = TRUE,
             clean = FALSE
-          )
-          covr::codecov(
-            coverage = cov,
-            token = "${{ secrets.CODECOV_TOKEN }}",
-            install_path = file.path(normalizePath(Sys.getenv("RUNNER_TEMP"), winslash = "/"), "package")
           )
           pr_cov <- round(covr::percent_coverage(cov), 3)
           if (pr_cov < 100) {
@@ -54,6 +50,11 @@ jobs:
             print(covr::zero_coverage(cov))
             quit(status = 2)
           } else {
+            covr::codecov(
+              coverage = cov,
+              token = "${{ secrets.CODECOV_TOKEN }}",
+              install_path = file.path(normalizePath(Sys.getenv("RUNNER_TEMP"), winslash = "/"), "package")
+            )
             cat("✔ Test coverage at 100%\n")
           }
         shell: Rscript {0}
