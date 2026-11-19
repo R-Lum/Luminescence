@@ -148,17 +148,18 @@ setMethod("show",
           signature(object = "RLum.Data.Spectrum"),
           function(object){
 
+            ## get dimension
+            dim <- dim(object@data)
             x.range <- suppressWarnings(range(as.numeric(rownames(object@data))))
             y.range <- suppressWarnings(range(as.numeric(colnames(object@data))))
-            z.range <- range(object@data)
+            z.range <- suppressWarnings(range(object@data))
 
             ##print information
-
             cat("\n [RLum.Data.Spectrum-class]")
             cat("\n\t recordType:", object@recordType)
             cat("\n\t curveType:",  object@curveType)
-            cat("\n\t .. recorded frames:", length(object@data[1,]))
-            cat("\n\t .. .. measured values per frame:", length(object@data[,1]))
+            cat("\n\t .. recorded frames:", (dim[1] > 0) * dim[2])
+            cat("\n\t .. .. measured values per frame:", dim[1])
             cat("\n\t .. .. range wavelength/pixel:", x.range)
             cat("\n\t .. .. range time/temp.:", y.range)
             cat("\n\t .. .. range count values:", z.range)
@@ -166,63 +167,6 @@ setMethod("show",
             #cat("\n\t\t >> names:", names(object@info))
             cat("\n")
           }
-)
-
-
-## set_RLum() ---------------------------------------------------------------
-#' @describeIn set_RLum
-#' Construction method for [Luminescence::RLum.Data.Spectrum-class] objects.
-#'
-#' @export
-setMethod(
-  "set_RLum",
-  signature = signature("RLum.Data.Spectrum"),
-  definition = function(
-    class,
-    originator,
-    .uid,
-    .pid,
-    recordType = NA_character_,
-    curveType = NA_character_,
-    data = matrix(),
-    info = list()) {
-
-    ##The case where an RLum.Data.Spectrum object can be provided
-    ##with this RLum.Data.Spectrum objects can be provided to be reconstructed
-
-    if (inherits(data, "RLum.Data.Spectrum")) {
-      ##check for missing curveType
-      if (missing(curveType))
-        curveType <- data@curveType
-
-      ##check for missing recordType
-      if (missing(recordType))
-        recordType <- data@recordType
-
-      ##check for missing info
-      if (missing(info))
-        info <- data@info
-
-      originator <- data@originator
-      .uid <- data@.uid
-      .pid <- data@.pid
-      data <- data@data
-    }
-
-    ## set empty class from object
-    newRLumDataSpectrum <- new("RLum.Data.Spectrum")
-
-    ## fill - this is the faster way, filling in new() costs ...
-    newRLumDataSpectrum@originator <- originator
-    newRLumDataSpectrum@recordType <- recordType
-    newRLumDataSpectrum@curveType <- curveType
-    newRLumDataSpectrum@data <- data
-    newRLumDataSpectrum@info <- info
-    newRLumDataSpectrum@.uid <- .uid
-    newRLumDataSpectrum@.pid <- .pid
-
-    return(newRLumDataSpectrum)
-  }
 )
 
 

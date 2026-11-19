@@ -16,8 +16,8 @@ test_that("check functionality", {
 
   ##test objects
   expect_type(get_RLum(temp_RLumDataCurve), "double")
-  expect_type(get_RLum(temp_RLumDataImage), "logical")
-  expect_type(get_RLum(temp_RLumDataSpectrum), "logical")
+  expect_type(get_RLum(temp_RLumDataImage), "double")
+  expect_type(get_RLum(temp_RLumDataSpectrum), "double")
   expect_null(suppressWarnings(get_RLum(temp_RLumAnalysis)))
   expect_null(get_RLum(temp_RLumResults))
 })

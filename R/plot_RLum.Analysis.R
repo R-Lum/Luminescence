@@ -461,7 +461,7 @@ setMethod("plot_RLum", signature = "RLum.Analysis", function(
         plot.settings$ylim[[k]]
       } else {
         range(unlist(lapply(X = temp.data.list, FUN = function(x){
-          range(x[,2])
+          if (nrow(x) == 0) c(0, 0) else range(x[,2])
         })))
       }
       if (grepl("y", plot.settings$log[[k]], ignore.case = TRUE))

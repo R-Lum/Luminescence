@@ -4,11 +4,11 @@
      [RLum.Data.Image-class]
     	 recordType: NA
     	 curveType: NA
-    	 .. recorded frames: 1
-    	 .. .. pixel per frame: NA
-    	 .. .. x dimension [px]: 1
-    	 .. .. y dimension [px]: NA
-    	 .. .. full pixel value range: NA : NA
+    	 .. recorded frames: 0
+    	 .. .. pixel per frame: 0
+    	 .. .. x dimension [px]: 0
+    	 .. .. y dimension [px]: 0
+    	 .. .. full pixel value range:  Inf : -Inf
     	 additional info elements: 0
 
 ---

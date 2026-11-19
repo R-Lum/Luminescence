@@ -164,10 +164,6 @@ convert_Wavelength2Energy <- function(
   .validate_logical_scalar(order)
 
   if(inherits(object, "RLum.Data.Spectrum")){
-    if (length(object@data) < 2) {
-      .throw_error("'object' contains no data")
-    }
-
      ##check whether the object might have this scale already
     ##this only works on RLum.Data.Spectrum objects and is sugar for using RLum-objects
     if(any("curveDescripter" %in% names(object@info))){

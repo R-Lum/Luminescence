@@ -281,6 +281,12 @@ are given `recordType = "custom (NA)"`. This was done so that the first term
 matches one of the valid values for this attribute as specified in the XLUM
 specification (#1837).
 
+* When the function creates an empty object of one of the `RLum.Data` classes,
+the `@data` slot is now a matrix (or an array) with zero rows, instead of
+having a row of zeros (as was the case for `RLum.Data.Curve`) or containing a
+single `NA` value (for `RLum.Data.Image` and `RLum.Data.Spectrum`). This is
+mainly an internal change that shouldn't affect end users (#1853).
+
 ## Other changes
 
 * The `recordType` in `ExampleData.RLum.Data.Image` has been updated to be

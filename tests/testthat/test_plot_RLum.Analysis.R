@@ -73,13 +73,11 @@ test_that("check functionality", {
   testthat::skip_on_cran()
 
   ## trigger warning
-  expect_silent(expect_warning(plot_RLum(
+  expect_silent(plot_RLum(
     set_RLum("RLum.Analysis", records = list(
       c1@records[[1]],
       set_RLum("RLum.Data.Curve", recordType = "OSL")
-      )), norm = TRUE, combine = TRUE),
-    "[normalise_RLum()] Curve normalisation produced Inf/NaN values, values replaced",
-    fixed = TRUE))
+      )), combine = TRUE))
 
   ##Basic plot
   expect_silent(plot_RLum(

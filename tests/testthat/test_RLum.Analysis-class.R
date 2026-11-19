@@ -310,7 +310,7 @@ test_that("structure_RLum", {
                   "data.frame")
   expect_equal(nrow(res), length(empty@records))
   expect_equal(ncol(res), 13)
-  expect_equal(res$n.channels, 1)
+  expect_equal(res$n.channels, 0)
   expect_equal(unlist(res$info), NA)
 
   res2 <- structure_RLum(empty, fullExtent = TRUE)

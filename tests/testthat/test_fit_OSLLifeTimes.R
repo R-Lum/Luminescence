@@ -15,6 +15,8 @@ test_that("input validation", {
                "'object' cannot be an empty RLum.Analysis")
   expect_error(fit_OSLLifeTimes(matrix(NA, 0, 3)),
                "'object' cannot be an empty matrix")
+  expect_error(fit_OSLLifeTimes(set_RLum("RLum.Data.Curve")),
+               "'object' cannot be an empty RLum.Data.Curve")
   expect_error(fit_OSLLifeTimes(matrix()),
                "'object' should have at least two columns")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, tp = numeric()),
@@ -34,8 +36,6 @@ test_that("input validation", {
                "'plot' should be a single logical value")
   expect_error(fit_OSLLifeTimes(ExampleData.TR_OSL, verbose = NA),
                "'verbose' should be a single logical value")
-  expect_error(fit_OSLLifeTimes(set_RLum("RLum.Data.Curve")),
-               "recordType 'NA' not supported for input object")
 
   expect_message(expect_null(fit_OSLLifeTimes(temp_mat[1:3, ])),
                  "For 1 components the dataset must have at least 5 signal points")
@@ -89,7 +89,8 @@ test_that("check functionality", {
                  "Nothing was merged as the object list was found to be empty")
   expect_message(expect_null(fit_OSLLifeTimes(list(empty), spurious_arg = 1:3)),
                  "Nothing was merged as the object list was found to be empty")
-  expect_message(expect_output(fit_OSLLifeTimes(list(set_RLum("RLum.Data.Curve"))),
+  expect_message(expect_output(fit_OSLLifeTimes(list(set_RLum("RLum.Data.Curve",
+                                                              data = as.matrix(iris[, 1:2])))),
                                "recordType 'NA' not supported for input object"),
                  "Nothing was merged as the object list was found to be empty")
 

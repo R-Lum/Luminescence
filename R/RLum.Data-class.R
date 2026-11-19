@@ -61,6 +61,75 @@ setMethod("names",
           function(x) names(x@info))
 
 
+## set_RLum() ---------------------------------------------------------------
+#' @describeIn set_RLum
+#' Construction method for [Luminescence::RLum.Data.Curve-class],
+#' [Luminescence::RLum.Data.Image-class] and
+#' [Luminescence::RLum.Data.Spectrum-class] objects.
+#'
+#' @param recordType [character] (*optional*):
+#' record type (e.g., "OSL").
+#'
+#' @param curveType [character] (*optional*):
+#' curve type (e.g., "predefined" or "measured").
+#'
+#' @param data [matrix] or [array] (*with default*):
+#' raw data to be stored in the object. If `data` is an `RLum.Data` object of
+#' the requested class, the new object is re-constructed from it. All slots
+#' are copied excep `.uid`, `.pid` and `originator`. Any other argument
+#' supllied explicitly overrides the copied value.
+#'
+#' @param info [list] (*optional*):
+#' a list containing additional info data for the object.
+#'
+#' @export
+setMethod("set_RLum", signature = "RLum.Data", function(
+  class,
+  originator,
+  .uid,
+  .pid,
+  recordType = NA_character_,
+  curveType = NA_character_,
+  data = matrix(0, nrow = 0, ncol = 2),
+  info = list()
+) {
+  .set_function_name("set_RLum")
+  on.exit(.unset_function_name(), add = TRUE)
+
+  ## an existing object of the requested class can be used for construction
+  if (inherits(data, class)) {
+    if (missing(curveType))
+      curveType <- data@curveType
+    if (missing(recordType))
+      recordType <- data@recordType
+    if (missing(info))
+      info <- data@info
+
+    originator <- data@originator
+    .uid <- data@.uid
+    .pid <- data@.pid
+    data <- data@data
+  }
+
+  if (is(class, "RLum.Data.Curve") && NCOL(data) != 2) {
+    .throw_error("'data' should be a matrix with 2 columns")
+  }
+
+  ## set empty class from object
+  object <- new(class)
+
+  ## fill - this is the faster way, filling in new() costs ...
+  object@originator <- originator
+  object@recordType <- recordType
+  object@curveType <- curveType
+  object@data <- data
+  object@info <- info
+  object@.uid <- .uid
+  object@.pid <- .pid
+
+  object
+})
+
 ## summary() ----------------------------------------------------------------
 #' @rdname summary
 #' @return

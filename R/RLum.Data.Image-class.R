@@ -170,90 +170,24 @@ setMethod("show",
 
             ## get dimension
             dim <- dim(object@data)
+            p.range <- suppressWarnings(range(object@data))
 
             ##print information
             cat("\n [RLum.Data.Image-class]")
             cat("\n\t recordType:", object@recordType)
             cat("\n\t curveType:",  object@curveType)
-            cat("\n\t .. recorded frames:", max(1,dim[3], na.rm = TRUE))
+            cat("\n\t .. recorded frames:", max(dim[1] > 0, dim[3], na.rm = TRUE))
             cat("\n\t .. .. pixel per frame:", dim[1]*dim[2])
             cat("\n\t .. .. x dimension [px]:", dim[1])
-            cat("\n\t .. .. y dimension [px]:", dim[2])
-            cat("\n\t .. .. full pixel value range:", paste(format(range(object@data), scientific = TRUE, digits = 2), collapse=" : "))
+            cat("\n\t .. .. y dimension [px]:", (dim[1] > 0) * dim[2])
+            cat("\n\t .. .. full pixel value range:",
+                paste(format(p.range, scientific = TRUE, digits = 2), collapse = " : "))
             cat("\n\t additional info elements:", length(object@info))
             #cat("\n\t\t >> names:", names(object@info))
             cat("\n")
           }
 )
 
-
-## set_RLum() ---------------------------------------------------------------
-#' @describeIn set_RLum
-#' Construction method for [Luminescence::RLum.Data.Image-class] objects.
-#'
-#' @export
-setMethod(
-  "set_RLum",
-  signature = signature("RLum.Data.Image"),
-  definition = function(
-    class,
-    originator,
-    .uid,
-    .pid,
-    recordType = NA_character_,
-    curveType = NA_character_,
-    data = array(),
-    info = list()) {
-
-    ##The case where an RLum.Data.Image object can be provided
-    ##with this RLum.Data.Image objects can be provided to be reconstructed
-    if (inherits(data, "RLum.Data.Image")) {
-      ##check for missing curveType
-      if (missing(curveType))
-        curveType <- data@curveType
-
-      ##check for missing recordType
-      if (missing(recordType))
-        recordType <- data@recordType
-
-      ##check for missing data ... not possible as data is the object itself
-
-      ##check for missing info
-      if (missing(info))
-        info <- data@info
-
-      ##check for modified .uid & .pid
-      ## >> this cannot be changed here, since both would be reset, by
-      ## the arguments passed down from set_RLum() ... the generic function
-
-      ##set empty class form object
-      newRLumDataImage <- new("RLum.Data.Image")
-
-      ##fill - this is the faster way, filling in new() costs ...
-      newRLumDataImage@originator <- data@originator
-      newRLumDataImage@recordType <- recordType
-      newRLumDataImage@curveType <- curveType
-      newRLumDataImage@data <- data@data
-      newRLumDataImage@info <- info
-      newRLumDataImage@.uid <- data@.uid
-      newRLumDataImage@.pid <- data@.pid
-
-    } else {
-      ##set empty class from object
-      newRLumDataImage <- new("RLum.Data.Image")
-
-      ##fill - this is the faster way, filling in new() costs ...
-      newRLumDataImage@originator <- originator
-      newRLumDataImage@recordType <- recordType
-      newRLumDataImage@curveType <- curveType
-      newRLumDataImage@data <- data
-      newRLumDataImage@info <- info
-      newRLumDataImage@.uid <- .uid
-      newRLumDataImage@.pid <- .pid
-    }
-    return(newRLumDataImage)
-  }
-)
 
 ## get_RLum() ---------------------------------------------------------------
 #' @describeIn get_RLum

@@ -14,7 +14,7 @@ test_that("input validation", {
                "Path 'non-existing/filename.csv' does not exist")
   expect_error(write_RLum2CSV(set_RLum("RLum.Results"), verbose = FALSE),
                "'object' cannot be an empty RLum.Results")
-  expect_error(write_RLum2CSV(list(set_RLum("RLum.Data.Spectrum")), path = character()),
+  expect_error(write_RLum2CSV(ExampleData.portableOSL[1], path = character()),
                "'path' should be of class 'character' or NULL and have length 1")
 })
 
@@ -29,7 +29,7 @@ test_that("check functionality", {
   expect_message(
       expect_null(write_RLum2CSV(ExampleData.portableOSL[[1]], export = TRUE)),
       "Path automatically set to")
-  expect_type(write_RLum2CSV(list(set_RLum("RLum.Data.Spectrum")),
+  expect_type(write_RLum2CSV(ExampleData.portableOSL[1],
                              path = character(), export = FALSE),
               "list")
   expect_type(write_RLum2CSV(ExampleData.portableOSL, export = FALSE), "list")

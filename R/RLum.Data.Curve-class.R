@@ -175,83 +175,6 @@ setMethod("show",
           }
 )
 
-## set_RLum() ---------------------------------------------------------------
-#' @describeIn set_RLum
-#' Construction method for [Luminescence::RLum.Data.Curve-class] objects.
-#'
-#' @param recordType [character] (*optional*):
-#' record type (e.g., "OSL")
-#'
-#' @param curveType [character] (*optional*):
-#' curve type (e.g., "predefined" or "measured")
-#'
-#' @param data [matrix] or [list] (*with default*):
-#' a matrix containing raw curve data or a list containing the data to be
-#' stored in the object (for [Luminescence::RLum.Results-class] objects) . If `data` itself
-#' is a `RLum.Data.Curve`-object this can be used to re-construct the object,
-#' i.e. modified parameters except `.uid`, `.pid` and `originator`. The rest
-#' will be subject to copy and paste unless provided.
-#'
-#' @param info [list] (*optional*):
-#' a list containing additional info data for the object.
-#'
-#' @export
-setMethod(
-  "set_RLum",
-  signature = signature("RLum.Data.Curve"),
-  definition = function(
-    class,
-    originator,
-    .uid,
-    .pid,
-    recordType = NA_character_,
-    curveType = NA_character_,
-    data = matrix(0, ncol = 2),
-    info = list()) {
-    .set_function_name("set_RLum")
-    on.exit(.unset_function_name(), add = TRUE)
-
-    ##The case where an RLum.Data.Curve object can be provided
-    ##with this RLum.Data.Curve objects can be provided to be reconstructed
-    if (inherits(data, "RLum.Data.Curve")) {
-      ##check for missing curveType
-      if (missing(curveType))
-        curveType <- data@curveType
-
-      ##check for missing recordType
-      if(missing(recordType))
-        recordType <- data@recordType
-
-      ##check for missing info
-      if(missing(info))
-        info <- data@info
-
-      originator <- data@originator
-      .uid <- data@.uid
-      .pid <- data@.pid
-      data <- data@data
-    }
-
-    if (NCOL(data) != 2) {
-      .throw_error("'data' should be a matrix with 2 columns")
-    }
-
-    ## set empty class form object
-    newRLumDataCurve <- new("RLum.Data.Curve")
-
-    ## fill - this is the faster way, filling in new() costs ...
-    newRLumDataCurve@originator <- originator
-    newRLumDataCurve@recordType <- recordType
-    newRLumDataCurve@curveType <- curveType
-    newRLumDataCurve@data <- data
-    newRLumDataCurve@info <- info
-    newRLumDataCurve@.uid <- .uid
-    newRLumDataCurve@.pid <- .pid
-
-    return(newRLumDataCurve)
-  }
-)
-
 ## get_RLum() ---------------------------------------------------------------
 #' @describeIn get_RLum
 #' Accessor method for [Luminescence::RLum.Data.Curve-class] object.
@@ -298,7 +221,11 @@ setMethod("bin_RLum", signature = "RLum.Data.Curve",
             .set_function_name("bin_RLum.Data.Curve")
             on.exit(.unset_function_name(), add = TRUE)
 
+            ## Integrity checks ---------------------------------------------
             .validate_positive_scalar(bin_size, int = TRUE)
+            if (length(object@data) < 2) {
+              return(object)
+            }
 
               ##set stepping vector
               stepping <- seq(1, nrow(object@data), by = bin_size)
@@ -345,7 +272,7 @@ setMethod("hist",
 #' of the curve (corresponding to the stimulation length).
 setMethod("length",
           "RLum.Data.Curve",
-          function(x) max(x@data[, 1]))
+          function(x) max(x@data[, 1], 0))
 
 
 ## smooth_RLum() ------------------------------------------------------------
@@ -416,6 +343,8 @@ setMethod(
   f = "normalise_RLum",
   signature = "RLum.Data.Curve",
   function(object, norm) {
+    if (nrow(object@data) == 0)
+      return(object)
     if (norm == "intensity") {
       ## compute the channel length and assign it to `norm`, so that we can
       ## piggy-back on the code for normalisation by a scalar
@@ -436,6 +365,8 @@ setMethod(
   f = "melt_RLum",
   signature = "RLum.Data.Curve",
   function(object) {
+    if (nrow(object) == 0)
+      return(NULL)
     data.frame(
       X = object@data[,1],
       Y = object@data[,2],

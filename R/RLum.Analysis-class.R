@@ -610,6 +610,8 @@ setMethod("structure_RLum",
 
             ## GET LIMITS
             temp.limits <- t(vapply(object@records, function(x) {
+              if (nrow(x@data) == 0)
+                return(rep(0, 5))
               c(nrow(x@data), range(x@data[, 1]), range(x@data[, 2]))
             }, numeric(5)))
 
@@ -927,7 +929,7 @@ setMethod(
       n_col <- ncol(x@data)
 
       ## NA happens for RLum.Data.Image
-      if(is.na(n_col))
+      if (is.na(n_col) || nrow(x@data) == 0)
         c(rep(NA_real_, 6))
       else
        c(nrow(x@data), n_col, min(x@data[,1]), max(x@data[,1]), min(x@data[,n_col]), max(x@data[,n_col]))
