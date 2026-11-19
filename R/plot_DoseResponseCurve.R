@@ -320,20 +320,19 @@ plot_DoseResponseCurve <- function(
        ## LINES	#Insert Ln/Tn
     if (interpolation) {
       xmax <- if (is.na(De)) max(sample[, 1]) * 2 else De
-      try(lines(
+      try({
+        lines(
           c(par.usr[1], xmax),
           c(natural.LxTx, natural.LxTx),
           col = col[2],
           lty = 2,
-          lwd = 1.25
-      ), silent = TRUE)
-      try(lines(
+          lwd = 1.25)
+        lines(
           c(De, De),
           c(par.usr[3], natural.LxTx),
           col = col[2],
           lty = 2,
-          lwd = 1.25), silent = TRUE)
-      try({
+          lwd = 1.25)
         points(
           x = De,
           y = natural.LxTx,
@@ -341,8 +340,7 @@ plot_DoseResponseCurve <- function(
           pch = 21,
           bg = col[2],
           cex = plot_settings$pt.cex * 1.1)
-        },
-        silent = TRUE)
+      }, silent = TRUE)
       if (plot_settings$density_polygon[1] & length(x.natural) > 1 &&
           !all(is.na(x.natural))) {
           ##calculate density De.MC
