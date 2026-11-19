@@ -541,8 +541,7 @@ read_BIN2R <- function(
 
     ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ## BINX FORMAT SUPPORT
-    if (temp.VERSION == 05 || temp.VERSION == 06 ||
-        temp.VERSION == 07 || temp.VERSION == 08) {
+    if (temp.VERSION >= 05) {
 
       #for temp.VERSION == 08
       #RECTYPE
@@ -562,7 +561,7 @@ read_BIN2R <- function(
           next
         }
 
-        if(temp.RECTYPE != 0 & temp.RECTYPE != 1 & temp.RECTYPE != 128) {
+        if (!temp.RECTYPE %in% c(0, 1, 128)) {
           ##jump to the next record by stepping the record length minus the already read bytes
           seek.connection(con, temp.LENGTH - 15, origin = "current")
           msg <- paste0("Byte RECTYPE = ", temp.RECTYPE,
@@ -729,14 +728,12 @@ read_BIN2R <- function(
         XRF_DEADTIMEF[id_row] <- readBin(con, what="double", 1, size=4, endian="little")
 
         ###Account for differences between V5, V6 and V7
-        if(temp.VERSION == 06){
-          reserved2.len <- 24
-
-        }else if(temp.VERSION == 05){
-          reserved2.len <- 4
-
-        }else{
-
+        reserved2.len <- switch(as.character(temp.VERSION),
+                                "05" = 4,
+                                "06" = 24,
+                                "07" = 15,
+                                "08" = 42)
+        if (temp.VERSION >= 07) {
           ##DETECTOR_ID
           DETECTOR_ID[id_row] <- readBin(con, what="int", 1, size=1, endian="little")
 
@@ -749,10 +746,7 @@ read_BIN2R <- function(
           ENOISEFACTOR[id_row] <- readBin(con, what="double", 1, size=4, endian="little")
 
           ##CHECK FOR VERSION 07
-          if(temp.VERSION == 07){
-            reserved2.len <- 15
-
-          }else {
+          if (temp.VERSION == 08) {
             ##MARKER_POSITION
             ###EXTR_START, EXTR_END
             temp <- readBin(con, what = "double", 8, size = 4, endian = "little")
@@ -764,7 +758,6 @@ read_BIN2R <- function(
             MARKPOS_Y3[id_row] <- temp[6]
             EXTR_START[id_row] <- temp[7]
             EXTR_END[id_row]   <- temp[8]
-            reserved2.len <- 42
           }
         }# end RECTYPE 128
         temp.RESERVED2 <- readBin(con, what = "raw", reserved2.len, size = 1,
@@ -774,7 +767,7 @@ read_BIN2R <- function(
 
     ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     ## BIN FILE FORMAT SUPPORT
-    else if (temp.VERSION == 03 || temp.VERSION == 04) {
+    else if (temp.VERSION %in% as.raw(c(03, 04))) {
 
       ##LTYPE
       LTYPE[id_row]<-readBin(con, what="int", 1, size=1, endian="little")
