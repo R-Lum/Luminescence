@@ -88,38 +88,38 @@ test_that("input validation", {
                              CSV_file = csv.file),
                "'CSV_file' should have at least 3 columns for the name of the")
   data.table::fwrite(data.frame(a = "error", b = 1, c = 2), file = csv.file)
-  expect_warning(expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
+  expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),
                              signal_integral = 1:2,
                              background_integral = 80:100,
                              CSV_file = csv.file),
-                             "The BIN-file names provided via 'CSV_file' do not"),
-               "File 'error' doesn't match, skipped")
+               "File 'error' provided via 'CSV_file' does not match")
   expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),
                              signal_integral = 1:2,
                              background_integral = 80:100,
                              CSV_file = data.frame(a = NA, b = NA)),
                "'CSV_file' should have at least 3 columns for the name of the")
-  expect_warning(expect_error(
-                 analyse_baSAR(CWOSL.sub, verbose = FALSE,
+  expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                                sigmab = list(0.23), sig0 = list(0.02),
                                source_doserate = list(0.04, 0.001),
                                signal_integral = list(1, 2),
                                signal_integral_Tx = 2:4,
                                background_integral = list(80, 100),
                                background_integral_Tx = 80:100,
-                               CSV_file = data.frame(a = "error", b = 1, c = 2)),
-                 "BIN-file names provided via 'CSV_file' do not match the loaded BIN-files",
-                 fixed = TRUE),
-  "File 'error' doesn't match, skipped")
+                               CSV_file = data.frame(
+                                   a = c("ExampleData.BINfileData", "error"),
+                                   b = c(1, 1),
+                                   c = c(1, 1))),
+               "File 'error' provided via 'CSV_file' does not match")
 
-  expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
+  expect_warning(expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                              source_doserate = c(0.04, 0.001),
                              signal_integral = 1:2,
                              background_integral = 80:100,
                              CSV_file = data.frame(a = NA, b = 1, c = 2)),
-               "The BIN-file names provided via 'CSV_file' do not match")
+                             "All provided objects were removed"),
+                 "No data selected from BIN-file 1, BIN-file removed from input")
 
   SW({
   obj <- Risoe.BINfileData2RLum.Analysis(CWOSL.sub)

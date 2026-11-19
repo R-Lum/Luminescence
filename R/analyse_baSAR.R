@@ -1141,13 +1141,14 @@ analyse_baSAR <- function(
       datalu[[2]] <- as.numeric(datalu[[2]])
       datalu[[3]] <- as.numeric(datalu[[3]])
 
-      ## check whether one file fits
-      has.matches <- FALSE
+      ## check whether all files can be matched
       for (nn in seq_len(nrow(datalu))) {
         file.basename <- tools::file_path_sans_ext(basename(datalu[nn, 1]))
         matches <- grep(pattern = file.basename, x = object.file_name)
-        if (length(matches) > 0) {
-          has.matches <- TRUE
+        if (length(matches) == 0) {
+          .throw_error("File '", datalu[nn, 1], "' provided via 'CSV_file' ",
+                       "does not match the loaded BIN-files")
+        }
           k <- matches[1]
           nj <- length(Disc_Grain.list[[k]]) + 1
 
@@ -1157,15 +1158,6 @@ analyse_baSAR <- function(
               Disc_Grain.list[[k]][[nj]]$grain == 0) {
             Mono_grain <- FALSE
           }
-
-        }else{
-          .throw_warning("File '", datalu[nn, 1], "' doesn't match, skipped")
-        }
-      }
-
-      if (!has.matches) {
-        .throw_error("The BIN-file names provided via 'CSV_file' do not match ",
-                     "the loaded BIN-files")
       }
     }
 
