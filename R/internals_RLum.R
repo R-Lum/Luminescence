@@ -1089,13 +1089,16 @@ fancy_scientific <- function(l) {
 #' @param old Old argument names.
 #' @param new New argument names.
 #' @param since Release when the deprecation happened.
+#' @param throw.error [logical] (*with default*): whether an error should be
+#'        thrown instead of a warning (`FALSE` by default)
 #'
 #' @noRd
-.deprecated <- function(old, new, since) {
-  .throw_warning(.collapse(old, last_sep = " and "),
+.deprecated <- function(old, new, since, throw.error = FALSE) {
+  msg <- paste0(.collapse(old, last_sep = " and "),
                  if (length(old) > 1) " were " else " was ", "deprecated",
                  paste0(" in v", since),
                  ", use ", .collapse(new, last_sep = " and "), " instead")
+  .error_or_warning(msg, throw.error = throw.error)
 }
 
 #' @title Silence Output and Warnings during Tests

@@ -334,6 +334,8 @@ test_that("Test internals", {
                  "'old' was deprecated in v1.0, use 'new' instead")
   expect_warning(.deprecated(c("old1", "old2"), c("new1", "new2"), "1.0"),
                  "'old1' and 'old2' were deprecated in v1.0, use 'new1' and 'new2' instead")
+  expect_error(.deprecated("old", "new", "1.0", throw.error = TRUE),
+               "'old' was deprecated in v1.0, use 'new' instead")
 
   ## SW() ------------------------------------------------------------------
   expect_silent(SW(cat("silenced message")))
