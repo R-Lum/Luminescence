@@ -1,8 +1,8 @@
+## load data
+data(ExampleData.XSYG, envir = environment())
+
 test_that("check class", {
   testthat::skip_on_cran()
-
-  ##set empty spectrum object and show it
-  expect_output(show(set_RLum(class = "RLum.Data.Spectrum")))
 
   ##check replacements
   object <- set_RLum(class = "RLum.Data.Spectrum")
@@ -31,4 +31,12 @@ test_that("check class", {
                   "RLum.Data.Spectrum")
   expect_type(as(set_RLum("RLum.Data.Spectrum"), "list"),
               "list")
+})
+
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
+
+  ## show
+  expect_snapshot_output(show(set_RLum("RLum.Data.Spectrum")))
+  expect_snapshot_output(show(TL.Spectrum))
 })

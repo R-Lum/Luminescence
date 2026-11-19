@@ -1,4 +1,27 @@
-# sort_RLum
+# snapshot tests
+
+    
+     [RLum.Analysis-class]
+    	 originator: show()
+    	 protocol: NA
+    	 additional info elements:  0
+    	 number of records: 0
+    	 >> This is an empty object, which cannot be used for further analysis! <<
+
+---
+
+    
+     [RLum.Analysis-class]
+    	 originator: read_XSYG2R()
+    	 protocol: SAR
+    	 additional info elements:  0
+    	 number of records: 9
+    	 .. : RLum.Data.Curve : 9
+    	 .. .. : #1 TL (UVVIS) <> #2 _TL (NA) <> #3 _TL (NA) 
+    	 .. .. : #4 OSL (UVVIS) <> #5 _OSL (NA) <> #6 _OSL (NA) <> #7 _OSL (NA) <> #8 _OSL (NA)
+    	 .. .. : #9 irradiation (NA)
+
+---
 
     {
       "type": "S4",

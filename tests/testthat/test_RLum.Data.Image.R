@@ -11,10 +11,6 @@ test_that("check functionality", {
   ##overwrite only data
   expect_s4_class(set_RLum(class = "RLum.Data.Image", data = set_RLum("RLum.Data.Image")), "RLum.Data.Image")
 
-  ##show-method
-  ##show example data
-  expect_output(show(ExampleData.RLum.Data.Image))
-
   ##get-method
   expect_error(get_RLum(ExampleData.RLum.Data.Image, info.object = 1),
                "'info.object' should be of class 'character'")
@@ -56,4 +52,14 @@ test_that("check functionality", {
                "object contains multiple frames, please convert to array instead")
   expect_error(as(from_array, "data.frame"),
                "No viable coercion to data.frame, object contains multiple frames")
+})
+
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
+
+  ## show
+  expect_snapshot_output(show(set_RLum("RLum.Data.Image")))
+  expect_snapshot_output(show(ExampleData.RLum.Data.Image))
+  expect_snapshot_output(show(set_RLum("RLum.Data.Image",
+                                       data = array(1, dim = c(5, 5, 2)))))
 })

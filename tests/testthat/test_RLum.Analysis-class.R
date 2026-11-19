@@ -212,14 +212,9 @@ test_that("sort_RLum", {
   expect_message(sort_RLum(sar, slot = c("curveType", "recordType")),
                  "Only the first 'slot' field will be used in sorting")
 
-  ## check functionality
-  expect_snapshot_RLum(sort_RLum(sar, slot = "recordType"))
-  expect_snapshot_RLum(sort_RLum(sar, info_element = "curveDescripter"))
-
   ## present a list of those objects
   expect_type(sort_RLum(list(sar, sar), info_element = "X_MIN"), "list")
   expect_type(sort_RLum(list(iris, mtcars), info_element = "X_MIN"), "list")
-  expect_snapshot_RLum(sort_RLum(list(sar, sar), info_element = "X_MIN"))
 
   ## sort after three columns
   expect_s4_class(sort_RLum(sar, info_element = c("XY_LENGTH", "NCOL", "X_MIN")), "RLum.Analysis")
@@ -372,4 +367,17 @@ test_that("remove_RLum", {
   ## invalid indices
   expect_equal(remove_RLum(sar, record.id = 70),
                sar)
+})
+
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
+
+  ## show
+  expect_snapshot_output(show(set_RLum("RLum.Analysis")))
+  expect_snapshot_output(show(sar))
+
+  ## sort_RLum
+  expect_snapshot_RLum(sort_RLum(sar, slot = "recordType"))
+  expect_snapshot_RLum(sort_RLum(sar, info_element = "curveDescripter"))
+  expect_snapshot_RLum(sort_RLum(list(sar, sar), info_element = "X_MIN"))
 })

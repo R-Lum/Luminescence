@@ -1,14 +1,13 @@
 ## load data
 data(ExampleData.XSYG, envir = environment())
-object <- set_RLum(class = "RLum.Data.Curve")
+object <- set_RLum("RLum.Data.Curve", data = as.matrix(iris[1:10, 1:2]))
+empty <- set_RLum("RLum.Data.Curve")
 
 test_that("check class", {
   testthat::skip_on_cran()
 
-  ##set empty curve object and show it
-  expect_output(show(set_RLum(class = "RLum.Data.Curve")))
-
-  expect_error(set_RLum("RLum.Data.Curve", data = matrix(1:5, ncol = 1)))
+  expect_error(set_RLum("RLum.Data.Curve", data = matrix(1:5, ncol = 1)),
+               "'data' should be a matrix with 2 columns")
 
   ##check replacements fo
   expect_s4_class(set_RLum(class = "RLum.Data.Curve", data = object), class = "RLum.Data.Curve")
@@ -31,14 +30,6 @@ test_that("check class", {
                   "RLum.Data.Curve")
   expect_type(as(object = object, Class = "list"), "list")
   expect_s4_class(as(object = matrix(1:10,ncol = 2), Class = "RLum.Data.Curve"), "RLum.Data.Curve")
-
-  ## show
-  expect_output(print(object),
-                "range of y-values: 0 0")
-  object@data[, 2] <- NA
-  expect_output(print(object),
-                "range of y-values: Inf -Inf (contains NA values)",
-                fixed = TRUE)
 })
 
 test_that("melt_RLum", {
@@ -63,4 +54,14 @@ test_that("melt_RLum", {
 
   l <- c(list("non-RLum"), set_RLum("RLum.Results"))
   expect_type(melt_RLum(l), "list")
+})
+
+test_that("snapshot tests", {
+  testthat::skip_on_cran()
+
+  ## show
+  expect_snapshot_output(show(empty))
+  expect_snapshot_output(show(object))
+  object@data[, 2] <- NA
+  expect_snapshot_output(show(object))
 })
