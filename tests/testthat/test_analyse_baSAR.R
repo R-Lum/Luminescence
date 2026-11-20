@@ -321,8 +321,7 @@ test_that("Full check of analyse_baSAR function", {
       "Your lower_centralD and/or upper_centralD values seem not to fit",
       fixed = TRUE))
 
-  expect_warning(
-    analyse_baSAR(
+  analyse_baSAR(
       object = results,
       plot = TRUE,
       verbose = TRUE,
@@ -334,11 +333,7 @@ test_that("Full check of analyse_baSAR function", {
       aliquot_range = 1:3,
       distribution_plot = "abanico",
       method_control = list(n.chains = 2, thin = 25),
-      plot.single = TRUE,
-      output.plot = FALSE,
-      output.plotExtended = FALSE,
-      n.MCMC = 100),
-    "'output.plotExtended' was deprecated in v1.2.0, use 'plot_extended' instead")
+      n.MCMC = 100)
 
   expect_message(
       analyse_baSAR(
@@ -557,13 +552,19 @@ test_that("Full check of analyse_baSAR function", {
                               n.MCMC = 10))
 
   ## deprecated arguments
-  expect_warning(analyse_baSAR(CWOSL.sub, verbose = FALSE,
+  expect_error(analyse_baSAR(CWOSL.sub, verbose = FALSE,
                                source_doserate = c(0.04, 0.001),
                                signal.integral = 1:2,
                                background.integral = 80:100,
                                method_control = list(n.chains = 1, thin = 10),
                                n.MCMC = 60),
                  "deprecated in v1.2.0, use 'signal_integral', 'background_integral'")
+  expect_error(analyse_baSAR(CWOSL.sub, signal_integral = 1:2, background_integral = 1:2,
+                             output.plotExtended = FALSE),
+               "'output.plotExtended' was deprecated in v1.2.0, use 'plot_extended' instead")
+  expect_error(analyse_baSAR(CWOSL.sub, signal_integral = 1:2, background_integral = 1:2,
+                             output.plot = FALSE),
+               "'output.plot' was deprecated in v1.2.0, use 'plot_drc' instead")
   })
 })
 

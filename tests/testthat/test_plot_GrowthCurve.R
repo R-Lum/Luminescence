@@ -75,7 +75,7 @@ test_that("input validation", {
     class = "RLum.Results")
 
   ## deprecated option
-  expect_warning(
+  expect_error(
       plot_GrowthCurve(sample = LxTxData, verbose = FALSE),
       "'sample' was deprecated in v1.2.0, use 'object' instead")
 })

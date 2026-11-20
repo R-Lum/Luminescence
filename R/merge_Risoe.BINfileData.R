@@ -95,8 +95,7 @@ merge_Risoe.BINfileData <- function(
 
   ## deprecated argument
   if ("input.objects" %in% ...names()) {
-    object <- list(...)$input.objects
-    .deprecated(old = "input.objects", new = "object", since = "1.2.0")
+    .deprecated(old = "input.objects", new = "object", since = "1.2.0", throw.error = TRUE)
   }
   if ("objects" %in% ...names()) {
     object <- list(...)$objects

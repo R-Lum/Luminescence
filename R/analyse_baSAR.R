@@ -715,19 +715,12 @@ analyse_baSAR <- function(
   ##////////////////////////////////////////////////////////////////////////////////////////////////
 
   ## deprecated arguments
-  extraArgs <- list(...)
-  if (any(grepl("[signal|background]\\.integral\\.?[.Tx]?", names(extraArgs))) &&
-      !is.null(c(extraArgs$signal.integral, extraArgs$signal.integral.Tx,
-                 extraArgs$background.integral, extraArgs$background.integral.Tx))) {
+  if (any(grepl("[signal|background]\\.integral\\.?[.Tx]?", ...names()))) {
     .deprecated(old = c("signal.integral", "background.integral",
                         "signal.integral.Tx", "background.integral.Tx"),
                 new = c("signal_integral", "background_integral",
                         "signal_integral_Tx", "background_integral_Tx"),
-                since = "1.2.0")
-    signal_integral <- extraArgs$signal.integral
-    background_integral <- extraArgs$background.integral
-    signal_integral_Tx <- extraArgs$signal.integral.Tx
-    background_integral_Tx <- extraArgs$background.integral.Tx
+                since = "1.2.0", throw.error = TRUE)
   }
 
   ## Integrity checks -------------------------------------------------------
@@ -791,11 +784,11 @@ analyse_baSAR <- function(
   ## deprecated arguments
   if ("output.plot" %in% ...names()) {
     additional_arguments$plot_drc <- list(...)$output.plot
-    .deprecated("output.plot", "plot_drc", since = "1.2.0")
+    .deprecated("output.plot", "plot_drc", since = "1.2.0", throw.error = TRUE)
   }
   if ("output.plotExtended" %in% ...names()) {
     additional_arguments$plot_extended <- list(...)$output.plotExtended
-    .deprecated("output.plotExtended", "plot_extended", since = "1.2.0")
+    .deprecated("output.plotExtended", "plot_extended", since = "1.2.0", throw.error = TRUE)
   }
 
   ##set function arguments

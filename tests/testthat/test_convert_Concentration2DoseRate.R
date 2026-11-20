@@ -36,13 +36,9 @@ test_that("input validation", {
   colnames(df)[8] <- "error"
   expect_error(convert_Concentration2DoseRate(df),
                "'object' should contain a 'GrainSize' column")
-})
-
-test_that("deprecated argument", {
-  testthat::skip_on_cran()
 
   ## deprecated argument
-  expect_warning(convert_Concentration2DoseRate(input = df),
+  expect_error(convert_Concentration2DoseRate(input = df),
                  "'input' was deprecated in v1.2.0, use 'object' instead")
 })
 

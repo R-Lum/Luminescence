@@ -106,10 +106,8 @@ plot_GrowthCurve <- function(
   on.exit(.unset_function_name(), add = TRUE)
 
   ## deprecated argument
-  extraArgs <- list(...)
-  if ("sample" %in% names(extraArgs)) {
-    object <- extraArgs$sample
-    .deprecated(old = "sample", new = "object", since = "1.2.0")
+  if ("sample" %in% ...names()) {
+    .deprecated(old = "sample", new = "object", since = "1.2.0", throw.error = TRUE)
   }
 
   ## input validation

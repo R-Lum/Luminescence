@@ -345,22 +345,12 @@ calc_OSLLxTxRatio <- function(
   }
 
   ## deprecated arguments
-  extraArgs <- list(...)
-  if (any(grepl("[signal|background]\\.integral\\.?[.Tx]?", names(extraArgs))) &&
-      !is.null(c(extraArgs$signal.integral, extraArgs$signal.integral.Tx,
-                 extraArgs$background.integral, extraArgs$background.integral.Tx))) {
+  if (any(grepl("[signal|background]\\.integral\\.?[.Tx]?", ...names()))) {
     .deprecated(old = c("signal.integral", "background.integral",
                         "signal.integral.Tx", "background.integral.Tx"),
                 new = c("signal_integral", "background_integral",
                         "signal_integral_Tx", "background_integral_Tx"),
-                since = "1.2.0")
-    if (integral_input != "channel") {
-      .throw_error("'integral_input' is not supported with old argument names")
-    }
-    signal_integral <- extraArgs$signal.integral
-    background_integral <- extraArgs$background.integral
-    signal_integral_Tx <- extraArgs$signal.integral.Tx
-    background_integral_Tx <- extraArgs$background.integral.Tx
+                since = "1.2.0", throw.error = TRUE)
   }
 
   # Alternate mode ----------------------------------------------------------

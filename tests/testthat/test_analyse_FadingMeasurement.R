@@ -107,21 +107,12 @@ test_that("check functionality", {
     n.MC = 10), class = "RLum.Results")
 
   ## deprecated arguments
-  expect_warning(analyse_FadingMeasurement(
+  expect_error(analyse_FadingMeasurement(
       object,
       signal.integral = 1:2,
       background.integral = 10:40,
       verbose = FALSE,
       n.MC = 10),
-      "deprecated in v1.2.0, use 'signal_integral' and 'background_integral'")
-  expect_warning(expect_error(analyse_FadingMeasurement(
-      object,
-      signal.integral = 1:2,
-      background.integral = 10:40,
-      integral_input = "measurement",
-      verbose = FALSE,
-      n.MC = 10),
-      "'integral_input' is not supported with old argument names"),
       "deprecated in v1.2.0, use 'signal_integral' and 'background_integral'")
 })
 

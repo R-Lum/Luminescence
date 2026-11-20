@@ -122,18 +122,10 @@ test_that("check plot stuff", {
   expect_equal(res1, res2)
 
   ## deprecated arguments
-  suppressWarnings( # Argument 'plot' reset to 'FALSE'
-  expect_warning(analyse_pIRIRSequence(object,
+  expect_error(analyse_pIRIRSequence(object,
                                        signal.integral = 1:2,
                                        background.integral = 900:1000,
                                        verbose = FALSE),
-                 "were deprecated in v1.2.0, use 'signal_integral' and")
-  )
-  expect_warning(expect_error(analyse_pIRIRSequence(object,
-                                                    signal.integral = 1:2,
-                                                    background.integral = 90:100,
-                                                    integral_input = "measurement"),
-                              "'integral_input' is not supported with old argument names"),
                  "were deprecated in v1.2.0, use 'signal_integral' and")
 })
 

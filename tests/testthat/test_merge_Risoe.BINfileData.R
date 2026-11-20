@@ -37,7 +37,7 @@ test_that("check functionality", {
   ## missing .RESERVED
 
   ## deprecated argument
-  expect_warning(merge_Risoe.BINfileData(input.objects = c(o1, o2)),
+  expect_error(merge_Risoe.BINfileData(input.objects = c(o1, o2)),
                  "'input.objects' was deprecated in v1.2.0, use 'object'")
   expect_warning(merge_Risoe.BINfileData(objects = c(o1, o2)),
                  "'objects' was deprecated in v1.3.1, use 'object'")

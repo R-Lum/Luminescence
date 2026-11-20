@@ -32,8 +32,7 @@ test_that("input validation", {
   expect_error(analyse_SAR.TL(object, signal_integral = 1:2,
                               sequence.structure = c("SIGNAL", "BACKGROUND"),
                               integral_input = "error"),
-               "[analyse_SAR.TL()] 'integral_input' should be one of ",
-               fixed = TRUE)
+               "'integral_input' should be one of 'channel', 'temperature' or")
 
   SW({
   expect_warning(analyse_SAR.TL(object, signal_integral = c(0, 1.5),
@@ -60,11 +59,11 @@ test_that("input validation", {
       "'fit.method' should be one of 'LIN', 'QDR', 'SSE', 'SSE OR LIN'"))
 
   ## deprecated argument
-  expect_warning(analyse_SAR.TL(object, signal.integral = 2:3,
+  expect_error(analyse_SAR.TL(object, signal.integral = 2:3,
                                 sequence.structure = c("SIGNAL", "BACKGROUND"),
                                 verbose = FALSE),
                  "was deprecated in v1.2.0, use 'signal_integral'")
-  expect_warning(analyse_SAR.TL(object,
+  expect_error(analyse_SAR.TL(object,
                                 signal_integral = 210:220,
                                 integral_input = "temperature",
                                 sequence.structure = c("SIGNAL", "BACKGROUND"),

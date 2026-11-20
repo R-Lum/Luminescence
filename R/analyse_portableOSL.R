@@ -188,11 +188,7 @@ analyse_portableOSL <- function(
   if (any(grepl("signal.integral", ...names(), fixed = TRUE))) {
     .deprecated(old = "signal.integral",
                 new = "signal_integral",
-               since = "1.2.0")
-    if (integral_input != "channel") {
-      .throw_error("'integral_input' is not supported with old argument names")
-    }
-    signal_integral <- list(...)$signal.integral
+                since = "1.2.0", throw.error = TRUE)
   }
 
   ## set the maximum signal_integral allowed: as this must be valid across all

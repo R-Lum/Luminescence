@@ -49,7 +49,7 @@ test_that("more coverage", {
                   "RLum.Results")
 
   ## deprecated argument
-  expect_warning(calc_CobbleDoseRate(input = df),
+  expect_error(calc_CobbleDoseRate(input = df),
                  "'input' was deprecated in v1.2.0, use 'object' instead")
 })
 

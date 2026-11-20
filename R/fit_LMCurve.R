@@ -274,12 +274,10 @@ fit_LMCurve<- function(
 
   ## deprecated arguments
   if ("values" %in% ...names()) {
-    object <- list(...)$values
-    .deprecated(old = "values", new = "object", since = "1.2.0")
+    .deprecated(old = "values", new = "object", since = "1.2.0", throw.error = TRUE)
   }
   if ("values.bg" %in% ...names()) {
-    object.bg <- list(...)$values.bg
-    .deprecated(old = "values.bg", new = "object.bg", since = "1.2.0")
+    .deprecated(old = "values.bg", new = "object.bg", since = "1.2.0", throw.error = TRUE)
   }
 
   ## Integrity checks -------------------------------------------------------

@@ -189,12 +189,7 @@ analyse_pIRIRSequence <- function(
   if (any(grepl("[signal|background]\\.integral", ...names()))) {
     .deprecated(old = c("signal.integral", "background.integral"),
                 new = c("signal_integral", "background_integral"),
-                since = "1.2.0")
-    if (integral_input != "channel") {
-      .throw_error("'integral_input' is not supported with old argument names")
-    }
-    signal_integral <- list(...)$signal.integral
-    background_integral <- list(...)$background.integral
+                since = "1.2.0", throw.error = TRUE)
   }
 
   ## Self-call --------------------------------------------------------------
