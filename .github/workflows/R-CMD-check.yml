@@ -45,6 +45,24 @@ jobs:
           curl --progress-bar -s -o 'C:\JAGS-4.3.1.exe' -L 'https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Windows/JAGS-4.3.1.exe'
           C:\JAGS-4.3.1.exe /S
 
+      - name: Install JAGS 5
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential gfortran liblapack-dev libopenblas-dev
+
+          wget -O /tmp/JAGS-5.0.2.tar.gz \
+            https://downloads.sourceforge.net/project/mcmc-jags/JAGS/5.x/Source/JAGS-5.0.2.tar.gz
+          tar -xzf /tmp/JAGS-5.0.2.tar.gz -C /tmp
+
+          cd /tmp/JAGS-5.0.2
+          ./configure
+          make -j2
+          sudo make install
+          sudo ldconfig
+
+          PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/usr/local/lib64/pkgconfig pkg-config --modversion jags
+
       - uses: actions/checkout@v7
 
       - uses: r-lib/actions/setup-pandoc@v2
