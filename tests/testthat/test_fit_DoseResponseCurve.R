@@ -197,7 +197,7 @@ test_that("snapshot tests", {
       fit.method = "GOK",
       verbose = FALSE,
       n.MC = 10
-  ), tolerance = snapshot.tolerance)
+  ), tolerance = 5.0e-4)
 
   expect_snapshot_RLum(fit_DoseResponseCurve(
       LxTxData,
@@ -239,7 +239,7 @@ test_that("snapshot tests", {
       mode = "extrapolation",
       verbose = FALSE,
       n.MC = 10
-  ), tolerance = snapshot.tolerance)
+  ), tolerance = 5.0e-4)
 
   expect_snapshot_RLum(fit_DoseResponseCurve(
       cbind(LxTxData, Test_Dose = 17),

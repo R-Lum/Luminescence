@@ -505,9 +505,9 @@ fit_CWCurve<- function(
 
       ##combine values and change rows names
       fit.results <- cbind(I0, I0.error,
-                           lambda = round(lambda, 5),
-                           lambda.error = round(lambda.error, 5),
-                           cs = signif(cs, 5), cs.rel)
+                           lambda = round(lambda, 4),
+                           lambda.error = round(lambda.error, 4),
+                           cs = signif(cs, 4), cs.rel)
       row.names(fit.results) <- paste0("c", 1:(length(parameters) / 2))
 
       ##print parameters
