@@ -611,7 +611,9 @@ if(verbose){
   if (!inherits(fit, 'try-error')) {
     cat("(2) Fitting results (sorted by ascending tau)\n")
     cat("-------------------------------------------------------------------------\n")
-    print(summary_matrix)
+    summary_matrix_rounded <- cbind(round(summary_matrix[, 1:2], 3),
+                                    signif(summary_matrix[, 3:4], 4))
+    print(summary_matrix_rounded)
     cat("-------------------------------------------------------------------------\n")
 
   }else{
