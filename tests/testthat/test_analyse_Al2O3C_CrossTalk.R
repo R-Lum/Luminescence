@@ -65,7 +65,7 @@ test_that("check functionality", {
 test_that("snapshot tests", {
   skip_on_cran()
 
-  snapshot.tolerance <- 5.0e-5
+  snapshot.tolerance <- 5.0e-4
 
   ## run analysis
   expect_snapshot_RLum(

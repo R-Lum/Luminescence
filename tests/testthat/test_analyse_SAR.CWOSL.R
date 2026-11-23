@@ -164,7 +164,7 @@ test_that("snapshot tests", {
         OSL.component = 1,
         plot = FALSE,
         verbose = FALSE
-    ), tolerance = snapshot.tolerance
+    ), tolerance = 5.0e-5
   )
 })
 
