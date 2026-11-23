@@ -4776,12 +4776,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [1.71845083]
+                  "value": [1.52808733]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [2.29969783]
+                  "value": [1.87757162]
                 },
                 {
                   "type": "logical",
@@ -4841,7 +4841,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [2.76498739]
+                  "value": [2.45869251]
                 },
                 {
                   "type": "double",
@@ -4856,7 +4856,7 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-1.10350764]
+                  "value": [-0.99786525]
                 },
                 {
                   "type": "double",
@@ -4876,22 +4876,22 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-10.90983113]
+                  "value": [-11.10686879]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.56204461]
+                  "value": [-0.43150649]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-16.43332686]
+                  "value": [-16.10743324]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [3.59693237]
+                  "value": [2.7711022]
                 },
                 {
                   "type": "logical",
@@ -4901,14 +4901,14 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [-4.20564749]
+                  "value": [-3.79803663]
                 }
               ]
             },
             {
               "type": "double",
               "attributes": {},
-              "value": ["NA", 0, 0, 0, "NA", 0, 0, 0, "NA", "NA"]
+              "value": ["NA", 0, 0, 0, "NA", 0, 0, "NA", "NA", "NA"]
             },
             {
               "type": "list",
@@ -5017,7 +5017,7 @@
             {
               "type": "character",
               "attributes": {},
-              "value": ["Fit:    SSE (interpolation) | De = 4.21 | D01 = 1.72"]
+              "value": ["Fit:    SSE (interpolation) | De = 3.80 | D01 = 1.53"]
             }
           ]
         },

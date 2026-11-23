@@ -68,7 +68,7 @@ Suggests:
     pander (>= 0.6.6),
     plotly (>= 4.12.1),
     R.rsp (>= 0.46.0),
-    rjags (>= 4-17),
+    rjags (>= 5-5),
     rmarkdown (>= 2.31),
     rstudioapi (>= 0.19.0),
     spelling (>= 2.3.2),
