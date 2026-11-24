@@ -752,9 +752,9 @@
     
      ------------  Simulated  ---------------------
      DE [Gy]:                   0 ± 0
-     D0 [Gy]:                   520.56 ± 3.87
+     D0 [Gy]:                   520.6 ± 3.87
      Age [ka]:                  0 ± NaN
-     Age @2D0 [ka]:             148.73 ± 7.52
+     Age @2D0 [ka]:             148.74 ± 7.52
      ----------------------------------------------
     
 
@@ -1487,10 +1487,10 @@
      D0 [Gy]:                   622.93 ± 14
     
      ------------  Simulated  ---------------------
-     DE [Gy]:                   278.82 ± 33.17
-     D0 [Gy]:                   520.56 ± 3.86
-     Age [ka]:                  39.83 ± 5.14
-     Age @2D0 [ka]:             148.73 ± 7.52
+     DE [Gy]:                   278.81 ± 35.33
+     D0 [Gy]:                   520.6 ± 3.86
+     Age [ka]:                  39.83 ± 5.43
+     Age @2D0 [ka]:             148.74 ± 7.52
      ----------------------------------------------
     
 
@@ -1542,17 +1542,17 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.37456145]
+                  "value": [0.3745608]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.08558901]
+                  "value": [0.08559313]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [122.35115362]
+                  "value": [122.35115368]
                 },
                 {
                   "type": "double",
@@ -1562,17 +1562,17 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [485.81345364]
+                  "value": [485.81345451]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [14.34225129]
+                  "value": [14.34225113]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [17.47873623]
+                  "value": [17.47873624]
                 },
                 {
                   "type": "double",
@@ -1582,52 +1582,52 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [278.81759142]
+                  "value": [278.81465785]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [33.17383324]
+                  "value": [35.32867657]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [520.56243595]
+                  "value": [520.6028862]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [3.86382612]
+                  "value": [3.86294713]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [39.83108449]
+                  "value": [39.83066541]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [5.14062793]
+                  "value": [5.42572257]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [148.73212456]
+                  "value": [148.74368177]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [7.51857977]
+                  "value": [7.51911454]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [622.93200814]
+                  "value": [622.93200813]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [14.00234668]
+                  "value": [14.00236584]
                 }
               ]
             },
