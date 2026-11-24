@@ -61,6 +61,13 @@ jobs:
             quiet = TRUE,
             clean = FALSE
           )
+          if (nzchar("${{ secrets.CODECOV_TOKEN }}")) {
+            covr::codecov(
+              coverage = cov,
+              token = "${{ secrets.CODECOV_TOKEN }}",
+              install_path = file.path(normalizePath(Sys.getenv("RUNNER_TEMP"), winslash = "/"), "package")
+            )
+          }
           pr_cov <- round(covr::percent_coverage(cov), 3)
           if (pr_cov < 100) {
             cat("✖ Test coverage decreased to ", pr_cov, "%, ",
@@ -68,11 +75,6 @@ jobs:
             print(covr::zero_coverage(cov))
             quit(status = 2)
           } else {
-            covr::codecov(
-              coverage = cov,
-              token = "${{ secrets.CODECOV_TOKEN }}",
-              install_path = file.path(normalizePath(Sys.getenv("RUNNER_TEMP"), winslash = "/"), "package")
-            )
             cat("✔ Test coverage at 100%\n")
           }
         shell: Rscript {0}

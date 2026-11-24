@@ -504,7 +504,8 @@ fit_CWCurve<- function(
       writeLines(paste0("y ~ ", as.character(fit.formula(n.components))[3], "\n"))
 
       ##combine values and change rows names
-      fit.results <- cbind(I0, I0.error,
+      fit.results <- cbind(I0 = round(I0, 2),
+                           I0.error = round(I0, 2),
                            lambda = round(lambda, 4),
                            lambda.error = round(lambda.error, 4),
                            cs = signif(cs, 4), cs.rel)

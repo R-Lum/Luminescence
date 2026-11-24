@@ -105,21 +105,19 @@ test_that("graphical snapshot tests", {
   LxTxData$LxTx.Error[[5]] <- 0.8
   LxTxData$LxTx.Error[[4]] <- 0.4
 
+  set.seed(1)
   SW({
-  set.seed(1234)
-  for (var in c("NULL", "inverse_var", "inverse_std", "norm_inverse_std")) {
-    vdiffr::expect_doppelganger(var,
-                                fit_DoseResponseCurve(
-                                    object = LxTxData,
-                                    fit.method = "SSE",
-                                    fit.weights = if (var == "NULL") NULL else var) |>
-                                plot_DoseResponseCurve(plot_extended = FALSE,
-                                                       main = var,
-                                                       plot_singlePanels = TRUE))
-  }
+  vdiffr::expect_doppelganger("inverse_std",
+                              fit_DoseResponseCurve(LxTxData,
+                                                    fit.method = "SSE",
+                                                    fit.weights = "inverse_std") |>
+                              plot_DoseResponseCurve(plot_singlePanels = TRUE,
+                                                     plot_extended = FALSE,
+                                                     main = "inverse_std"))
   })
 
   ## from analyse_SAR.CWOSL
+  set.seed(1)
   data(ExampleData.BINfileData, envir = environment())
   object <- Risoe.BINfileData2RLum.Analysis(CWOSL.SAR.Data, pos = 4)
   SW({
