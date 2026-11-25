@@ -45,12 +45,12 @@
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [2.5981436]
+                  "value": [2.59814435]
                 },
                 {
                   "type": "double",
                   "attributes": {},
-                  "value": [0.03235629]
+                  "value": [0.03236238]
                 }
               ]
             },
