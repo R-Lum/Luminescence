@@ -19,7 +19,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
+                  "value": ["De", "De.Error", "D01", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -47,11 +47,6 @@
                   "type": "double",
                   "attributes": {},
                   "value": [104.82975414]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [97565.88682602]
                 },
                 {
                   "type": "logical",
@@ -320,7 +315,7 @@
                 "names": {
                   "type": "character",
                   "attributes": {},
-                  "value": ["De", "De.Error", "D01", "D01.ERROR", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
+                  "value": ["De", "De.Error", "D01", "D02", "D02.ERROR", "R", "R.LOWER", "R.UPPER", "Dc", "Dc.LOWER", "Dc.UPPER", "D63", "D63.LOWER", "D63.UPPER", "D80", "D80.LOWER", "D80.UPPER", "n_N", "De.MC", "Fit", "Mode", "HPDI68_L", "HPDI68_U", "HPDI95_L", "HPDI95_U", ".De.plot", ".De.raw", "RC.Status", "signal.range", "background.range", "signal.range.Tx", "background.range.Tx", "ALQ", "POS", "GRAIN"]
                 },
                 "row.names": {
                   "type": "integer",
@@ -348,11 +343,6 @@
                   "type": "double",
                   "attributes": {},
                   "value": [104.82750381]
-                },
-                {
-                  "type": "double",
-                  "attributes": {},
-                  "value": [221907.45509771]
                 },
                 {
                   "type": "logical",
