@@ -56,6 +56,8 @@ expect_snapshot_RLum <- function(object, ..., expect_snapshot_output = FALSE) {
     if ("data_uncor" %in% names(object@data)) { # analyse_SAR.NCF()
       object@data$data_uncor$UID <- NULL
       object@data$LnLxTnTx.table_uncor$UID <- NULL
+      object@data$data$D01.ERROR <- NULL
+      object@data$data_uncor$D01.ERROR <- NULL
     }
     if ("fading_results" %in% names(object@data)) { # analyse_FadingMeasurement()
       object@data$fading_results$UID <- NULL
