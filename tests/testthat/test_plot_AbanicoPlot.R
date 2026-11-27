@@ -61,6 +61,12 @@ test_that("input validation", {
                "'legend.pos' cannot contain missing values")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, stats = NA),
                "'stats' should be of class 'character' or NULL and have length")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, bar.col = matrix()),
+               "'bar.col' should be of class 'character', 'numeric'")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, polygon.col = array(0, 0)),
+               "'polygon.col' should be of class 'character', 'numeric'")
+  expect_error(plot_AbanicoPlot(ExampleData.DeValues, grid.col = iris),
+               "'grid.col' should be of class 'character', 'numeric'")
   expect_error(plot_AbanicoPlot(ExampleData.DeValues, frame = NULL),
                "'frame' should be one of '0', '1', '2' or '3'")
 
@@ -210,7 +216,7 @@ test_that("Test examples from the example page", {
                    z.0 = "median",
                    col = c("steelblue4", "orange4"),
                    bar.col = c("steelblue3", "orange3"),
-                   polygon.col = c("steelblue1", "orange1"),
+                   polygon.col = NA,
                    pch = c(2, 6),
                    angle = c(30, 50),
                    summary = c("n", "in.2s", "median")))

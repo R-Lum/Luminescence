@@ -98,15 +98,15 @@
 #' are plotted outside the z-axis or when the z-axis gets too elliptic.
 #'
 #' @param bar.col [character] or [numeric] (*with default*):
-#' colour of the bar showing the 2-sigma range around the central
-#' value. To disable the bar, use `"none"`. Default is `"grey80"`.
+#' colour of the bar showing the 2-sigma range around the central value
+#' (`"grey80"` by default). To disable the bar, set it to `NA`.
 #'
 #' @param y.ticks [logical]:
 #' Option to hide y-axis labels. Useful for data with small scatter.
 #'
 #' @param grid.col [character] or [numeric] (*with default*):
-#' colour of the grid lines (originating at `[0,0]` and stretching to
-#' the z-scale). To disable grid lines, use `"none"`. Default is `"grey70"`.
+#' colour of the grid lines originating at `[0,0]` and stretching to the
+#' z-scale (`"grey70"` by default). To disable grid lines, set it to `NA`.
 #'
 #' @param line [numeric]:
 #' numeric values of the additional lines to be added.
@@ -125,7 +125,7 @@
 #'
 #' @return Returns a plot object.
 #'
-#' @section Function version: 0.5.12
+#' @section Function version: 0.5.13
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -214,8 +214,8 @@
 #' ## now without 2-sigma bar, y-axis, grid lines and central value line
 #' plot_RadialPlot(
 #'   data = ExampleData.DeValues,
-#'   bar.col = "none",
-#'   grid.col = "none",
+#'   bar.col = NA,
+#'   grid.col = NA,
 #'   y.ticks = FALSE,
 #'   lwd = 0)
 #'
@@ -360,6 +360,10 @@ plot_RadialPlot <- function(
   .validate_positive_scalar(plot.ratio, null.ok = TRUE)
   .validate_logical_scalar(y.ticks)
   .validate_class(line, c("numeric", "integer"), null.ok = TRUE)
+  .validate_class(bar.col, c("character", "numeric", "integer", "logical"),
+                  length = unique(c(1, length(data))), null.ok = TRUE)
+  .validate_class(grid.col, c("character", "numeric", "integer", "logical"),
+                  length = unique(c(1, length(data))), null.ok = TRUE)
 
   if (is.null(bar.col)) {
     bar.col <- rep("grey80", length(data))
@@ -682,7 +686,7 @@ plot_RadialPlot <- function(
                             min(abs(ellipse.y - polygon_y_min))]
 
   if ((max(polygons[, 3]) >= z_2s_upper || max(polygons[, 3]) >= z_2s_lower) &&
-      bar.col[1] != "none") {
+      !is.na(bar.col[1])) {
     .throw_warning("z-scale touches 2s-polygon, decrease plot ratio")
   }
 
@@ -865,7 +869,7 @@ plot_RadialPlot <- function(
     label.x.upper <- as.character(round(1 / ticks * if (log.z) 100 else 1, 1))
 
     ## optionally, plot 2-sigma-bar
-    if(bar.col[1] != "none") {
+    if (!is.na(bar.col[1])) {
       for(i in 1:length(data)) {
         polygon(x = polygons[i,1:4],
                 y = polygons[i,5:8],
@@ -876,7 +880,7 @@ plot_RadialPlot <- function(
     }
 
     ## optionally, add grid lines
-    if(grid.col[1] != "none") {
+    if (!is.na(grid.col[1])) {
       for(i in 1:length(tick.x1.major)) {
         lines(x = c(limits.x[1], tick.x1.major[i]),
               y = c(0, tick.y1.major[i]),

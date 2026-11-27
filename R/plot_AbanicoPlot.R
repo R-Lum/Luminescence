@@ -202,12 +202,18 @@
 #' To omit the bar set `"bar = FALSE"`.
 #'
 #' @param bar.col [character] or [numeric] (*with default*):
-#' colour of the dispersion bar. Default is `"grey60"`.
+#' colour of the dispersion bar (`"grey60"` by default).
 #'
 #' @param polygon.col [character] or [numeric] (*with default*):
-#' colour of the polygon showing the data scatter. Sometimes this
-#' polygon may be omitted for clarity. To disable it use `FALSE` or
-#' `polygon = FALSE`. Default is `"grey80"`.
+#' colour of the polygon showing the data scatter (`"grey80"` by default).
+#' Sometimes this polygon may be omitted for clarity, which can be achieved
+#' by setting it to `NA`.
+#'
+#' @param grid.col [character] or [numeric] (*with default*):
+#' colour of the grid lines (originating at `[0,0]` and stretching to the
+#' z-scale) (`"grey80"` by default). A vector of length 2 can be used to
+#' specify different colours for the major and minor grid lines. To disable
+#' grid lines, set it to `NA`.
 #'
 #' @param line [numeric] or [Luminescence::RLum.Results-class]:
 #' numeric values of the additional lines to be added. This can be set to `NA`
@@ -221,10 +227,6 @@
 #'
 #' @param line.label [character]:
 #' labels for the additional lines.
-#'
-#' @param grid.col [character] or [numeric] (*with default*):
-#' colour of the grid lines (originating at `[0,0]` and stretching to
-#' the z-scale). To disable grid lines use `FALSE`. Default is `"grey"`.
 #'
 #' @param frame [numeric] (*with default*):
 #' the plot frame type, one of the following:
@@ -248,7 +250,7 @@
 #' @return
 #' Returns a plot object and, optionally, a list with plot calculus data.
 #'
-#' @section Function version: 0.1.25
+#' @section Function version: 0.1.26
 #'
 #' @author
 #' Michael Dietze, GFZ Potsdam (Germany)\cr
@@ -350,7 +352,7 @@
 #' ## now without 2-sigma bar, polygon, grid lines and central value line
 #' plot_AbanicoPlot(data = ExampleData.DeValues,
 #'                  bar.col = FALSE,
-#'                  polygon.col = FALSE,
+#'                  polygon.col = NA,
 #'                  grid.col = FALSE,
 #'                  y.axis = FALSE,
 #'                  lwd = 0)
@@ -469,11 +471,11 @@ plot_AbanicoPlot <- function(
   bar = NULL,
   bar.col = NULL,
   polygon.col = NULL,
+  grid.col = NULL,
   line = NULL,
   line.col = NULL,
   line.lty = NULL,
   line.label = NULL,
-  grid.col = NULL,
   frame = 1,
   interactive = FALSE,
   ...
@@ -593,6 +595,12 @@ plot_AbanicoPlot <- function(
   .validate_logical_scalar(y.axis)
   .validate_logical_scalar(error.bars)
   .validate_logical_scalar(interactive)
+  .validate_class(bar.col, c("character", "numeric", "integer", "logical"),
+                  length = unique(c(1, length(data))), null.ok = TRUE)
+  .validate_class(polygon.col, c("character", "numeric", "integer", "logical"),
+                  length = unique(c(1, length(data))), null.ok = TRUE)
+  .validate_class(grid.col, c("character", "numeric", "integer", "logical"),
+                  length = c(1, 2), null.ok = TRUE)
 
   if (is.numeric(z.0)) {
     .validate_positive_scalar(z.0)
@@ -1234,7 +1242,7 @@ plot_AbanicoPlot <- function(
             lty = 0)
 
     ## optionally, plot dispersion polygon
-    if (polygon.fill[1] != "none") {
+    if (!is.na(polygon.fill[1])) {
       for (i in 1:length(data)) {
         polygon.rot(x = polygons.x,
                     y = polygons.y[i, ],
@@ -1257,9 +1265,9 @@ plot_AbanicoPlot <- function(
               lwd = 1)
       }
     }
-    if (grid.minor != "none")
+    if (!is.na(grid.minor))
       .add.grid(tick.values.minor, grid.minor)
-    if (grid.major != "none")
+    if (!is.na(grid.major))
       .add.grid(tick.values.major, grid.major)
 
     ## optionally, plot lines for each bar

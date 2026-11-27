@@ -342,7 +342,7 @@ get_Layout <- function(
             kde.line   = 1,
             kde.fill   = NA,
             grid.major = "grey80",
-            grid.minor = "none",
+            grid.minor = NA,
             border     = 1,
             background = NA),
 
@@ -537,7 +537,7 @@ get_Layout <- function(
             kde.line   = 1,
             kde.fill   = NA,
             grid.major = "grey80",
-            grid.minor = "none",
+            grid.minor = NA,
             border     = 1,
             background = NA),
 

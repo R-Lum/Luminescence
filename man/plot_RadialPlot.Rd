@@ -89,15 +89,15 @@ the z-axis curvature. The parameter should be decreased when data points
 are plotted outside the z-axis or when the z-axis gets too elliptic.}
 
 \item{bar.col}{\link{character} or \link{numeric} (\emph{with default}):
-colour of the bar showing the 2-sigma range around the central
-value. To disable the bar, use \code{"none"}. Default is \code{"grey80"}.}
+colour of the bar showing the 2-sigma range around the central value
+(\code{"grey80"} by default). To disable the bar, set it to \code{NA}.}
 
 \item{y.ticks}{\link{logical}:
 Option to hide y-axis labels. Useful for data with small scatter.}
 
 \item{grid.col}{\link{character} or \link{numeric} (\emph{with default}):
-colour of the grid lines (originating at \verb{[0,0]} and stretching to
-the z-scale). To disable grid lines, use \code{"none"}. Default is \code{"grey70"}.}
+colour of the grid lines originating at \verb{[0,0]} and stretching to the
+z-scale (\code{"grey70"} by default). To disable grid lines, set it to \code{NA}.}
 
 \item{line}{\link{numeric}:
 numeric values of the additional lines to be added.}
@@ -160,7 +160,7 @@ one or more of the following keywords:
 }
 }
 \section{Function version}{
- 0.5.12
+ 0.5.13
 }
 
 \examples{
@@ -217,8 +217,8 @@ plot_RadialPlot(
 ## now without 2-sigma bar, y-axis, grid lines and central value line
 plot_RadialPlot(
   data = ExampleData.DeValues,
-  bar.col = "none",
-  grid.col = "none",
+  bar.col = NA,
+  grid.col = NA,
   y.ticks = FALSE,
   lwd = 0)
 
