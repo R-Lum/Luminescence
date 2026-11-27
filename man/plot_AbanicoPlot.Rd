@@ -28,11 +28,11 @@ plot_AbanicoPlot(
   bar = NULL,
   bar.col = NULL,
   polygon.col = NULL,
+  grid.col = NULL,
   line = NULL,
   line.col = NULL,
   line.lty = NULL,
   line.label = NULL,
-  grid.col = NULL,
   frame = 1,
   interactive = FALSE,
   ...
@@ -159,12 +159,18 @@ centred at the defined values. By default a bar is drawn according to \code{"z.0
 To omit the bar set \code{"bar = FALSE"}.}
 
 \item{bar.col}{\link{character} or \link{numeric} (\emph{with default}):
-colour of the dispersion bar. Default is \code{"grey60"}.}
+colour of the dispersion bar (\code{"grey60"} by default).}
 
 \item{polygon.col}{\link{character} or \link{numeric} (\emph{with default}):
-colour of the polygon showing the data scatter. Sometimes this
-polygon may be omitted for clarity. To disable it use \code{FALSE} or
-\code{polygon = FALSE}. Default is \code{"grey80"}.}
+colour of the polygon showing the data scatter (\code{"grey80"} by default).
+Sometimes this polygon may be omitted for clarity, which can be achieved
+by setting it to \code{NA}.}
+
+\item{grid.col}{\link{character} or \link{numeric} (\emph{with default}):
+colour of the grid lines (originating at \verb{[0,0]} and stretching to the
+z-scale) (\code{"grey80"} by default). A vector of length 2 can be used to
+specify different colours for the major and minor grid lines. To disable
+grid lines, set it to \code{NA}.}
 
 \item{line}{\link{numeric} or \link[=RLum.Results-class]{RLum.Results}:
 numeric values of the additional lines to be added. This can be set to \code{NA}
@@ -178,10 +184,6 @@ line type of additional lines.}
 
 \item{line.label}{\link{character}:
 labels for the additional lines.}
-
-\item{grid.col}{\link{character} or \link{numeric} (\emph{with default}):
-colour of the grid lines (originating at \verb{[0,0]} and stretching to
-the z-scale). To disable grid lines use \code{FALSE}. Default is \code{"grey"}.}
 
 \item{frame}{\link{numeric} (\emph{with default}):
 the plot frame type, one of the following:
@@ -298,7 +300,7 @@ documentation of \code{axis}. Specifying tick positions manually overrides a
 }
 }
 \section{Function version}{
- 0.1.25
+ 0.1.26
 }
 
 \examples{
@@ -381,7 +383,7 @@ plot_AbanicoPlot(data = ExampleData.DeValues,
 ## now without 2-sigma bar, polygon, grid lines and central value line
 plot_AbanicoPlot(data = ExampleData.DeValues,
                  bar.col = FALSE,
-                 polygon.col = FALSE,
+                 polygon.col = NA,
                  grid.col = FALSE,
                  y.axis = FALSE,
                  lwd = 0)

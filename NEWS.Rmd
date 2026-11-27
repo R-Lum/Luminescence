@@ -160,6 +160,12 @@ result when `merge.method` was one of `-`, `*` or `/` (#1773).
 empty or contains only one element. In such cases, a `NULL` is returned (this
 is unchanged from before) and a simple message is printed (#1810).
 
+### `plot_AbanicoPlot()`
+
+* Improve validation of the `polygon.col` and `grid.col` arguments to avoid
+crashes. Note that setting them to `"none"` is no longer supported, and they
+should instead be set to `NA` to disable those plot elements (#1859).
+
 ### `plot_DoseResponseCurve()`
 
 * The presence of a repeated zero-dose point caused the plot not to print the
@@ -185,6 +191,12 @@ the x-axis showed out of order ticks if the preheat values were unordered
 
 * The `summary` argument was not respected when `preheat` values were provided
 and `boxplot = FALSE` (#1806).
+
+### `plot_RadialPlot()`
+
+* Improve validation of the `bar.col` and `grid.col` arguments to avoid
+crashes. Note that setting them to `"none"` is no longer supported, and they
+should instead be set to `NA` to disable those plot elements (#1859).
 
 ### `plot_RLum()`
 

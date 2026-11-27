@@ -60,6 +60,10 @@ test_that("input validation", {
                "'zlim' should be of class 'numeric' and have length 2")
   expect_error(plot_RadialPlot(list(df, df), lty = 1),
                "'lty' should have length 2")
+  expect_error(plot_RadialPlot(ExampleData.DeValues, bar.col = array(0, 0)),
+               "'bar.col' should be of class 'character', 'numeric'")
+  expect_error(plot_RadialPlot(ExampleData.DeValues, grid.col = iris),
+               "'grid.col' should be of class 'character', 'numeric'")
 
   expect_warning(plot_RadialPlot(df, xlim = c(-1, 100), show = FALSE),
                  "Lower x-axis limit not set to zero, corrected")
@@ -170,7 +174,7 @@ test_that("check functionality", {
       "z-scale touches 2s-polygon, decrease plot ratio"
     )
   expect_silent(plot_RadialPlot(df, central.value = 1, log.z = FALSE,
-                                bar.col = "none"))
+                                bar.col = NA))
 
   expect_warning(plot_RadialPlot(data.frame(c(12, 2, 7), c(0, 2, 3))),
                  "Error values cannot be zero or NA, reset to 1e-09")
